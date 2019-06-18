@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="libs/mina.jar"/>
+	<classpathentry kind="lib" path="libs/mysql-connector-java-5.1.23-bin.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-nop.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j.jar"/>
+	<classpathentry kind="lib" path="libs/xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="libs/xstream-1.4.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

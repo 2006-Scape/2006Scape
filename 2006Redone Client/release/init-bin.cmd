@@ -1,0 +1,1 @@
+java -cp binary; zd

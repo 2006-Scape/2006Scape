@@ -1,0 +1,5 @@
+You must have the file server running if you would like this to work.
+
+Credits: Mr Extremez (also known as I'm A Boss/Andrew) for server/client work
+Dondxon for website work
+Anyone else who helped along the way :)
