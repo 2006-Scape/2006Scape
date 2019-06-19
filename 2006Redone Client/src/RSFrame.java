@@ -2,8 +2,7 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.awt.Frame;
-import java.awt.Graphics;
+import java.awt.*;
 
 @SuppressWarnings("serial")
 final class RSFrame extends Frame {
@@ -11,7 +10,8 @@ final class RSFrame extends Frame {
 	public RSFrame(RSApplet RSApplet_, int i, int j) {
 		rsApplet = RSApplet_;
 		setTitle(ClientSettings.SERVER_NAME);
-		setResizable(false);
+		setResizable(true);
+		setMinimumSize(new Dimension(i + 8, j + 28));
 		setVisible(true);
 		toFront();
 		setSize(i + 8, j + 28);
