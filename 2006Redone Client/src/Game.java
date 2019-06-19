@@ -1153,7 +1153,12 @@ public class Game extends RSApplet {
 
 										}
 										if (class9_1.usableItemInterface) {
-											menuActionName[menuActionRow] = "Use @lre@" + itemDef.name;
+										    if (shiftDown)
+											{
+												menuActionName[menuActionRow] = "Drop @lre@" + itemDef.name;
+											} else {
+												menuActionName[menuActionRow] = "Use @lre@" + itemDef.name;
+											}
 											menuActionID[menuActionRow] = 447;
 											menuActionCmd1[menuActionRow] = itemDef.id;
 											menuActionCmd2[menuActionRow] = k2;
@@ -4193,6 +4198,12 @@ public class Game extends RSApplet {
 			}
 		}
 		if (l == 447) {
+		    if (shiftDown)
+			{
+				doAction(2); //Drop?
+				needDrawTabArea = true;
+				return;
+			}
 			itemSelected = 1;
 			anInt1283 = j;
 			anInt1284 = k;
@@ -9000,6 +9011,7 @@ public class Game extends RSApplet {
 		if (menuActionRow < 2 && itemSelected == 0 && spellSelected == 0) {
 			return;
 		}
+
 		String s;
 		if (itemSelected == 1 && menuActionRow < 2) {
 			s = "Use " + selectedItemName + " with...";
@@ -12118,5 +12130,12 @@ public class Game extends RSApplet {
 			i += i;
 		}
 
+	}
+
+	void mouseWheelDragged(int i, int j) {
+		if (!mouseWheelDown)
+			return;
+		this.anInt1186 += i * 3;
+		this.anInt1187 += (j << 1);
 	}
 }

@@ -1,5 +1,5 @@
 package redone.net.packets.impl;
- 
+
 import redone.Connection;
 import redone.Constants;
 import redone.game.items.ItemAssistant;
@@ -10,15 +10,15 @@ import redone.net.packets.PacketType;
 import redone.util.GameLogger;
 import redone.util.Misc;
 import redone.world.clip.Region;
- 
+
 public class Commands implements PacketType {
- 
+
         @Override
         public void processPacket(Client player, int packetType, int packetSize) {
                 String playerCommand = player.getInStream().readString();
                 if ((playerCommand.startsWith("ban") || playerCommand.startsWith("ip") || playerCommand.startsWith("mute") || playerCommand.startsWith("un")) && player.playerRights > 0 && player.playerRights < 4) {
-        			GameLogger.writeLog(player.playerName, "commands", player.playerName + " used command: " + playerCommand + "");
-        		}
+                        GameLogger.writeLog(player.playerName, "commands", player.playerName + " used command: " + playerCommand + "");
+                }
                 if (player.playerRights >= 0) {
                         playerCommands(player, playerCommand);
                 }
@@ -35,7 +35,7 @@ public class Commands implements PacketType {
                         developerCommands(player, playerCommand);
                 }
         }
-       
+
         public static void playerCommands(Client player, String playerCommand) {
                 if (playerCommand.equalsIgnoreCase("players")) {
                         if (PlayerHandler.getPlayerCount() > 1) {
@@ -44,35 +44,43 @@ public class Commands implements PacketType {
                                 player.getActionSender().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
                         }
                 }
-               
+
                 if (playerCommand.contains("clip") && player.playerRights < 2) {
                         return;
                 }
- 
+
+                switch (playerCommand)
+                {
+                        case "close_interface":
+                                player.getPlayerAssistant().closeAllWindows();
+                                break;
+                }
+
         }
-       
+
+
         public static void donatorCommands(Client player, String playerCommand) {
-               
+
         }
-       
+
         public static void moderatorCommands(Client player, String playerCommand) {
-        	if (playerCommand.startsWith("yell")) {
-        		for (int j = 0; j < PlayerHandler.players.length; j++) {
-        			if (PlayerHandler.players[j] != null) {
-        				Client c2 = (Client)PlayerHandler.players[j];
-						if (player.playerRights == 1) {
-							c2.getActionSender().sendMessage("@blu@[Moderator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
-						} else if (player.playerRights == 2) {
-							c2.getActionSender().sendMessage("@gre@[Administator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
-						} else if (player.playerRights == 3) {
-							c2.getActionSender().sendMessage("@red@[Owner]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
-						}
-					}
-				}
-			}
-              
+                if (playerCommand.startsWith("yell")) {
+                        for (int j = 0; j < PlayerHandler.players.length; j++) {
+                                if (PlayerHandler.players[j] != null) {
+                                        Client c2 = (Client)PlayerHandler.players[j];
+                                        if (player.playerRights == 1) {
+                                                c2.getActionSender().sendMessage("@blu@[Moderator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                        } else if (player.playerRights == 2) {
+                                                c2.getActionSender().sendMessage("@gre@[Administator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                        } else if (player.playerRights == 3) {
+                                                c2.getActionSender().sendMessage("@red@[Owner]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                        }
+                                }
+                        }
+                }
+
                 if (playerCommand.startsWith("mute")) {
-                        try {  
+                        try {
                                 String playerToBan = playerCommand.substring(5);
                                 Connection.addNameToMuteList(playerToBan);
                                 for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
@@ -86,11 +94,11 @@ public class Commands implements PacketType {
                                 }
                         } catch(Exception e) {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
-                        }                      
+                        }
                 }
- 
+
                 if (playerCommand.startsWith("ipmute")) {
-                        try {  
+                        try {
                                 String playerToBan = playerCommand.substring(7);
                                 for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
                                         if(PlayerHandler.players[i] != null) {
@@ -105,11 +113,11 @@ public class Commands implements PacketType {
                                 }
                         } catch(Exception e) {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
-                        }                      
+                        }
                 }
- 
+
                 if (playerCommand.startsWith("unipmute")) {
-                        try {  
+                        try {
                                 String playerToBan = playerCommand.substring(9);
                                 for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
                                         if(PlayerHandler.players[i] != null) {
@@ -122,25 +130,25 @@ public class Commands implements PacketType {
                                 }
                         } catch(Exception e) {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
-                        }                      
+                        }
                 }
- 
+
                 if (playerCommand.startsWith("unmute")) {
-                        try {  
+                        try {
                                 String playerToBan = playerCommand.substring(7);
                                 Connection.unMuteUser(playerToBan);
                         } catch(Exception e) {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
-                        }                      
+                        }
                 }
         }
-       
+
         public static void adminCommands(Client player, String playerCommand) {
-        	
-        		if (playerCommand.equalsIgnoreCase("clearbank")) {
-        			player.getItemAssistant().clearBank();
-        		}
-               
+
+                if (playerCommand.equalsIgnoreCase("clearbank")) {
+                        player.getItemAssistant().clearBank();
+                }
+
                 if (playerCommand.startsWith("ipban")) { // use as ::ipban name
                         try {
                                 String playerToBan = playerCommand.substring(6);
@@ -158,9 +166,9 @@ public class Commands implements PacketType {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
                         }
                 }
- 
+
                 if (playerCommand.startsWith("ban") && playerCommand.charAt(3) == ' ') { // use as ::ban name
-                        try {  
+                        try {
                                 String playerToBan = playerCommand.substring(4);
                                 Connection.addNameToBanList(playerToBan);
                                 Connection.addNameToFile(playerToBan);
@@ -175,9 +183,9 @@ public class Commands implements PacketType {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
                         }
                 }
- 
+
                 if (playerCommand.startsWith("unban")) {
-                        try {  
+                        try {
                                 String playerToBan = playerCommand.substring(6);
                                 Connection.removeNameFromBanList(playerToBan);
                                 player.getActionSender().sendMessage(playerToBan + " has been unbanned.");
@@ -185,71 +193,71 @@ public class Commands implements PacketType {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
                         }
                 }
-               
+
                 if (playerCommand.equalsIgnoreCase("empty")) {
                         player.getPlayerAssistant().handleEmpty();
                 }
-               
+
                 if (playerCommand.startsWith("dialogue")) {
                         int npcType = 1552;
                         int id = Integer.parseInt(playerCommand.split(" ")[1]);
                         player.getDialogueHandler().sendDialogues(id, npcType);
                 }
- 
+
                 if (playerCommand.startsWith("interface")) {
                         String[] args = playerCommand.split(" ");
                         player.getPlayerAssistant().showInterface(Integer.parseInt(args[1]));
                 }
- 
+
                 if (playerCommand.startsWith("gfx")) {
-                	   String[] args = playerCommand.split(" ");
-                	   player.gfx0(Integer.parseInt(args[1]));
-                	  }
- 
+                        String[] args = playerCommand.split(" ");
+                        player.gfx0(Integer.parseInt(args[1]));
+                }
+
                 if (playerCommand.startsWith("anim")) {
                         String[] args = playerCommand.split(" ");
                         player.startAnimation(Integer.parseInt(args[1]));
                         player.getPlayerAssistant().requestUpdates();
                 }
-               
+
                 if (playerCommand.equalsIgnoreCase("mypos")) {
                         player.getActionSender().sendMessage("X: " + player.absX);
                         player.getActionSender().sendMessage("Y: " + player.absY);
                         player.getActionSender().sendMessage("H: " + player.heightLevel);
                 }
- 
+
                 if (playerCommand.startsWith("bank")) {
                         player.getPlayerAssistant().openUpBank();
                 }
- 
+
 
                 if (playerCommand.startsWith("xteletome")) {
-                    try {
-                        String teleTo = playerCommand.substring(10);
-                        for (int i = 0; i < PlayerHandler.players.length; i++) {
-                            if (PlayerHandler.players[i] != null) {
-                                if (PlayerHandler.players[i].playerName.equalsIgnoreCase(teleTo)) {
-                                    Client p = (Client) PlayerHandler.players[i];
-                                        player.getActionSender().sendMessage(p.playerName + " has been teleported to you.");
-                                        p.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel);
-                                	}
+                        try {
+                                String teleTo = playerCommand.substring(10);
+                                for (int i = 0; i < PlayerHandler.players.length; i++) {
+                                        if (PlayerHandler.players[i] != null) {
+                                                if (PlayerHandler.players[i].playerName.equalsIgnoreCase(teleTo)) {
+                                                        Client p = (Client) PlayerHandler.players[i];
+                                                        player.getActionSender().sendMessage(p.playerName + " has been teleported to you.");
+                                                        p.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel);
+                                                }
+                                        }
                                 }
-                            }
-                    } catch (Exception e) {
-                        player.getActionSender().sendMessage("Player is not online.");
-                    }
-                }
-        
-            if (playerCommand.startsWith("xteleto")) {
-                String name = playerCommand.substring(8);
-                for (int i = 0; i < PlayerHandler.players.length; i++) {
-                    if (PlayerHandler.players[i] != null) {
-                        if (PlayerHandler.players[i].playerName.equalsIgnoreCase(name)) {
-                            player.getPlayerAssistant().movePlayer(PlayerHandler.players[i].getX(), PlayerHandler.players[i].getY(), PlayerHandler.players[i].heightLevel);
+                        } catch (Exception e) {
+                                player.getActionSender().sendMessage("Player is not online.");
                         }
-                    }
                 }
-            }
+
+                if (playerCommand.startsWith("xteleto")) {
+                        String name = playerCommand.substring(8);
+                        for (int i = 0; i < PlayerHandler.players.length; i++) {
+                                if (PlayerHandler.players[i] != null) {
+                                        if (PlayerHandler.players[i].playerName.equalsIgnoreCase(name)) {
+                                                player.getPlayerAssistant().movePlayer(PlayerHandler.players[i].getX(), PlayerHandler.players[i].getY(), PlayerHandler.players[i].heightLevel);
+                                        }
+                                }
+                        }
+                }
                 if (playerCommand.startsWith("tele")) {
                         String[] arg = playerCommand.split(" ");
                         if (arg.length > 3) {
@@ -258,29 +266,29 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().movePlayer(Integer.parseInt(arg[1]), Integer.parseInt(arg[2]), player.heightLevel);
                         }
                 }
-               
+
                 if (playerCommand.equalsIgnoreCase("up")) {
                         player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel + 1);
                         player.getActionSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 }
- 
+
                 if (playerCommand.equalsIgnoreCase("down2")) {
                         player.getPlayerAssistant().movePlayer(player.absX, player.absY + 6400, player.heightLevel);
                 }
- 
+
                 if (playerCommand.equalsIgnoreCase("down")) {
                         player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel - 1);
                         player.getActionSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 }
- 
+
                 if (playerCommand.equalsIgnoreCase("up2")) {
                         player.getPlayerAssistant().movePlayer(player.absX, player.absY - 6400, player.heightLevel);
                 }
-               
+
                 if (playerCommand.equals("spec")) {
                         player.specAmount = 100.0;
                 }
-               
+
                 if (playerCommand.startsWith("setlevel")) {
                         try {
                                 String[] args = playerCommand.split(" ");
@@ -296,10 +304,10 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().refreshSkill(skill);
                                 player.getPlayerAssistant().levelUp(skill);
                         } catch (Exception e) {
-                               
+
                         }
                 }
-               
+
                 if (playerCommand.equalsIgnoreCase("spellbook")) {
                         if (player.inWild()) {
                                 return;
@@ -317,7 +325,7 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().resetAutocast();
                         }
                 }
- 
+
                 if (playerCommand.startsWith("item")) {
                         try {
                                 String[] args = playerCommand.split(" ");
@@ -327,8 +335,8 @@ public class Commands implements PacketType {
                                         if (newItemID <= 10000 && newItemID >= 0) {
                                                 player.getItemAssistant().addItem(newItemID, newItemAmount);
                                                 if (player.isBusy()) {
-                        							player.getPlayerAssistant().closeAllWindows();
-                        						}
+                                                        player.getPlayerAssistant().closeAllWindows();
+                                                }
                                                 player.getActionSender().sendMessage("You spawn (" + newItemAmount + ") "+ ItemAssistant.getItemName(newItemID) + ".");
                                         } else {
                                                 player.getActionSender().sendMessage("No such item.");
@@ -339,7 +347,7 @@ public class Commands implements PacketType {
                         } catch (Exception e) {
                         }
                 }
- 
+
                 if (playerCommand.equalsIgnoreCase("master")) {
                         for (int i = 0; i < 25; i++) {
                                 player.playerLevel[i] = 99;
@@ -348,14 +356,14 @@ public class Commands implements PacketType {
                         }
                         player.getPlayerAssistant().requestUpdates();
                 }
- 
-               
+
+
         }
- 
+
         public static void developerCommands(Client player, String playerCommand) {
-               
+
                 if (playerCommand.startsWith("giveadmin")) {
-                        try {  
+                        try {
                                 String playerToAdmin = playerCommand.substring(10);
                                 for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
                                         if(PlayerHandler.players[i] != null) {
@@ -370,11 +378,11 @@ public class Commands implements PacketType {
                                 }
                         } catch(Exception e) {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
-                        }                      
+                        }
                 }
-               
+
                 if (playerCommand.startsWith("demote")) {
-                        try {  
+                        try {
                                 String playerToAdmin = playerCommand.substring(7);
                                 for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
                                         if(PlayerHandler.players[i] != null) {
@@ -389,11 +397,11 @@ public class Commands implements PacketType {
                                 }
                         } catch(Exception e) {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
-                        }                      
+                        }
                 }
-               
+
                 if (playerCommand.startsWith("givemod")) {
-                        try {  
+                        try {
                                 String playerToMod = playerCommand.substring(8);
                                 for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
                                         if(PlayerHandler.players[i] != null) {
@@ -408,25 +416,25 @@ public class Commands implements PacketType {
                                 }
                         } catch(Exception e) {
                                 player.getActionSender().sendMessage("Player Must Be Offline.");
-                        }                      
+                        }
                 }
-               
+
                 if (playerCommand.startsWith("object")) {
                         String[] args = playerCommand.split(" ");
                         player.getActionSender().object(Integer.parseInt(args[1]), player.absX, player.absY, player.heightLevel, 0, 10);
                         Region.addObject(Integer.parseInt(args[1]), player.absX, player.absY, player.heightLevel, 10, 0, false);
                 }
-                
+
                 if (playerCommand.startsWith("object2")) {
-                    String[] args = playerCommand.split(" ");
-                    player.getActionSender().object(Integer.parseInt(args[1]), player.absX, player.absY, player.heightLevel, 0, 0);
-                    Region.addObject(Integer.parseInt(args[1]), player.absX, player.absY, player.heightLevel, 0, 0, false);
-            }
- 
+                        String[] args = playerCommand.split(" ");
+                        player.getActionSender().object(Integer.parseInt(args[1]), player.absX, player.absY, player.heightLevel, 0, 0);
+                        Region.addObject(Integer.parseInt(args[1]), player.absX, player.absY, player.heightLevel, 0, 0, false);
+                }
+
                 if (playerCommand.startsWith("npc")) {
                         try {
                                 int newNPC = Integer.parseInt(playerCommand.substring(4)), maxHit = NpcHandler.getNpcListCombat(newNPC) / 10,
-                                attack = NpcHandler.getNpcListCombat(newNPC), defence = NpcHandler.getNpcListCombat(newNPC);
+                                        attack = NpcHandler.getNpcListCombat(newNPC), defence = NpcHandler.getNpcListCombat(newNPC);
                                 boolean attackPlayer = NpcHandler.getNpcListCombat(newNPC) > 0;
                                 if (newNPC > 0) {
                                         NpcHandler.spawnNpc(player, newNPC, player.absX, player.absY, player.heightLevel, 0, NpcHandler.getNpcListHP(newNPC), maxHit, attack, defence, attackPlayer, false);
@@ -436,10 +444,10 @@ public class Commands implements PacketType {
                                         player.getActionSender().sendMessage("Npc " + newNPC + " does not exist.");
                                 }
                         } catch (Exception e) {
- 
+
                         }
                 }
-               
+
                 if (playerCommand.equalsIgnoreCase("cantAttack")) {
                         if (player.npcCanAttack == true) {
                                 player.getActionSender().sendMessage("Npcs can no longer attack you.");
@@ -449,47 +457,47 @@ public class Commands implements PacketType {
                                 player.npcCanAttack = true;
                         }
                 }
-                
+
                 if (playerCommand.startsWith("sound")) {
-                	 String[] args = playerCommand.split(" ");
-                	 player.getActionSender().sendSound(Integer.parseInt(args[1]), 100, 0);
+                        String[] args = playerCommand.split(" ");
+                        player.getActionSender().sendSound(Integer.parseInt(args[1]), 100, 0);
                 }
-                
-            	if (playerCommand.startsWith("tutprog")) {
-        			String[] args = playerCommand.split(" ");
-        			int id = Integer.parseInt(args[1]);
-        			player.tutorialProgress = id;
-        		}
-            	
-            	if (playerCommand.startsWith("song")) {
-        			String[] args = playerCommand.split(" ");
-        			int id = Integer.parseInt(args[1]);
-        			player.getActionSender().sendSong(id);
-        		}
-            	
-        		if (playerCommand.equalsIgnoreCase("run")) {
-        			player.getActionSender().sendMessage("You have refilled your run-energy!");
-        			player.playerEnergy = 100;
-        		}
 
-        		if (playerCommand.equalsIgnoreCase("runes")) {
-        			final int amount = 10000;
-        			final int[][] RUNES = { { 554, amount }, { 555, amount },
-        					{ 556, amount }, { 557, amount }, { 558, amount },
-        					{ 559, amount }, { 560, amount }, { 561, amount },
-        					{ 562, amount }, { 563, amount }, { 564, amount },
-        					{ 565, amount }, { 566, amount }, { 1963, 1 }, };
-        			for (int[] element : RUNES) {
-        				int item = element[0];
-        				int amountToRecieve = element[1];
-        				player.getItemAssistant().addItem(item, amountToRecieve);
-        			}
-        		}
+                if (playerCommand.startsWith("tutprog")) {
+                        String[] args = playerCommand.split(" ");
+                        int id = Integer.parseInt(args[1]);
+                        player.tutorialProgress = id;
+                }
 
-        		if (playerCommand.startsWith("sidebars")) {
-        			player.getPlayerAssistant().sendSidebars();
-        		}
- 
+                if (playerCommand.startsWith("song")) {
+                        String[] args = playerCommand.split(" ");
+                        int id = Integer.parseInt(args[1]);
+                        player.getActionSender().sendSong(id);
+                }
+
+                if (playerCommand.equalsIgnoreCase("run")) {
+                        player.getActionSender().sendMessage("You have refilled your run-energy!");
+                        player.playerEnergy = 100;
+                }
+
+                if (playerCommand.equalsIgnoreCase("runes")) {
+                        final int amount = 10000;
+                        final int[][] RUNES = { { 554, amount }, { 555, amount },
+                                { 556, amount }, { 557, amount }, { 558, amount },
+                                { 559, amount }, { 560, amount }, { 561, amount },
+                                { 562, amount }, { 563, amount }, { 564, amount },
+                                { 565, amount }, { 566, amount }, { 1963, 1 }, };
+                        for (int[] element : RUNES) {
+                                int item = element[0];
+                                int amountToRecieve = element[1];
+                                player.getItemAssistant().addItem(item, amountToRecieve);
+                        }
+                }
+
+                if (playerCommand.startsWith("sidebars")) {
+                        player.getPlayerAssistant().sendSidebars();
+                }
+
                 if (playerCommand.startsWith("update")) {
                         try {
                                 String[] args = playerCommand.split(" ");
@@ -505,8 +513,8 @@ public class Commands implements PacketType {
                         } catch (Exception e) {
                         }
                 }
-               
+
         }
- 
-               
+
+
 }

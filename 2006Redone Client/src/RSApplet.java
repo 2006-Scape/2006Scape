@@ -2,12 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import javax.swing.*;
 import java.applet.Applet;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -20,6 +17,12 @@ import java.awt.event.WindowListener;
 
 @SuppressWarnings("serial")
 public class RSApplet extends Applet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+
+	public static boolean ctrlDown = false;
+	public static boolean shiftDown = false;
+	private int mouseWheelX = 0;
+	private int mouseWheelY = 0;
+	public static boolean removeShiftDropOnMenuOpen;
 
 	final void createClientFrame(int i, int j) {
 		myWidth = j;
@@ -203,6 +206,8 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		raiseWelcomeScreen();
 	}
 
+	public boolean mouseWheelDown;
+
 	@Override
 	public final void mousePressed(MouseEvent mouseevent) {
 		int i = mouseevent.getX();
@@ -215,6 +220,13 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		clickX = i;
 		clickY = j;
 		clickTime = System.currentTimeMillis();
+		if (mouseevent.getButton() == 2) {
+			mouseWheelDown = true;
+			mouseWheelX = mouseevent.getX();
+			mouseWheelY = mouseevent.getY();
+			return;
+		}
+
 		if (mouseevent.isMetaDown()) {
 			clickMode1 = 2;
 			clickMode2 = 2;
@@ -222,12 +234,14 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 			clickMode1 = 1;
 			clickMode2 = 1;
 		}
+
 	}
 
 	@Override
 	public final void mouseReleased(MouseEvent mouseevent) {
 		idleTime = 0;
 		clickMode2 = 0;
+		mouseWheelDown = false;
 	}
 
 	@Override
@@ -245,17 +259,28 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		mouseY = -1;
 	}
 
-	@Override
-	public final void mouseDragged(MouseEvent mouseevent) {
-		int i = mouseevent.getX();
-		int j = mouseevent.getY();
-		if (gameFrame != null) {
-			i -= 4;
-			j -= 22;
+	public final void mouseDragged(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		if(gameFrame != null) {
+			Insets insets = gameFrame.getInsets();
+			x -= insets.left;//4
+			y -= insets.top;//22
+		}
+		if (mouseWheelDown) {
+			y = mouseWheelX - e.getX();
+			int k = mouseWheelY - e.getY();
+			mouseWheelDragged(y, -k);
+			mouseWheelX = e.getX();
+			mouseWheelY = e.getY();
+			return;
 		}
 		idleTime = 0;
-		mouseX = i;
-		mouseY = j;
+		mouseX = x;
+		mouseY = y;
+	}
+	void mouseWheelDragged(int param1, int param2) {
+
 	}
 
 	@Override
@@ -276,6 +301,18 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
+		switch (keyevent.getKeyCode())
+		{
+			case KeyEvent.VK_ESCAPE:
+				//call ::close_interface
+				break;
+			case KeyEvent.VK_SHIFT:
+				shiftDown = true;
+				break;
+			case KeyEvent.VK_CONTROL:
+				ctrlDown = true;
+				break;
+		}
 		if (j < 30) {
 			j = 0;
 		}
@@ -335,6 +372,15 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		char c = keyevent.getKeyChar();
+		switch (keyevent.getKeyCode())
+		{
+			case KeyEvent.VK_SHIFT:
+				shiftDown = false;
+				break;
+			case KeyEvent.VK_CONTROL:
+				ctrlDown = false;
+				break;
+		}
 		if (c < '\036') {
 			c = '\0';
 		}
