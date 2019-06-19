@@ -16,7 +16,7 @@ public class Constants {
 			printobjectId = false, EXPERIMENTS = false;
 	public static int[] SIDEBARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151,
 			18128, 5065, 5715, 2449, 904, 147, 962 };
-	public static boolean TUTORIAL_ISLAND = true, HOLIDAYS = true,
+	public static boolean TUTORIAL_ISLAND = false, HOLIDAYS = true,
 			MEMBERS_ONLY = false, sendServerPackets = false, HALLOWEEN = false;
 	
 	public final static int HAT = 0, CAPE = 1, AMULET = 2, WEAPON = 3,

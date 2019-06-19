@@ -18,7 +18,7 @@ public class ClientSettings {
 	/**
 	 * The Servers Ip
 	 */
-	public final static String SERVER_IP = "127.0.0.1";//162.218.48.13
+	public final static String SERVER_IP = "127.0.0.1";
 	/**
 	 * The Npc Bits for the Server
 	 */

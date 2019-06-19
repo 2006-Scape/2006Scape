@@ -39,8 +39,8 @@ public class NpcHandler {
 		for (int i = 0; i < maxListedNPCs; i++) {
 			NpcList[i] = null;
 		}
-		loadNPCList("./data/CFG/npc.cfg");
-		loadAutoSpawn("./data/CFG/spawn-config.cfg");
+		loadNPCList("./data/cfg/npc.cfg");
+		loadAutoSpawn("./data/cfg/spawn-config.cfg");
 	}
 	
 	public static boolean isUndead(int index) {
