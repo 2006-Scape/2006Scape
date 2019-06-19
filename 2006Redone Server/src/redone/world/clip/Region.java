@@ -394,7 +394,7 @@ public class Region {
 
 	public static void load() {
 		try {
-			File f = new File("./Data/world/map_index");
+			File f = new File("./data/world/map_index");
 			byte[] buffer = new byte[(int) f.length()];
 			DataInputStream dis = new DataInputStream(new FileInputStream(f));
 			dis.readFully(buffer);
@@ -416,9 +416,9 @@ public class Region {
 				regions[i] = new Region(regionIds[i], isMembers[i]);
 			}
 			for (int i = 0; i < size; i++) {
-				byte[] file1 = getBuffer(new File("./Data/world/map/"
+				byte[] file1 = getBuffer(new File("./data/world/map/"
 						+ mapObjectsFileIds[i] + ".gz"));
-				byte[] file2 = getBuffer(new File("./Data/world/map/"
+				byte[] file2 = getBuffer(new File("./data/world/map/"
 						+ mapGroundFileIds[i] + ".gz"));
 				if (file1 == null || file2 == null) {
 					continue;

@@ -59,7 +59,7 @@ public final class ObjectDef {
 
 	public static byte[] getBuffer(String s) {
 		try {
-			java.io.File f = new java.io.File("./Data/world/object/" + s);
+			java.io.File f = new java.io.File("./data/world/object/" + s);
 			if (!f.exists()) {
 				return null;
 			}

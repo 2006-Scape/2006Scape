@@ -28,8 +28,8 @@ public class ObjectHandler {
 	public static List<Objects> removedObjects = new ArrayList<Objects>();
 
 	public ObjectHandler() {
-		loadGlobalObjects("./Data/cfg/global-objects.cfg");
-		// Ladders.loadGlobalLadders("./Data/Ladders/AdvancedLadders.cfg");
+		loadGlobalObjects("./data/cfg/global-objects.cfg");
+		// Ladders.loadGlobalLadders("./data/Ladders/AdvancedLadders.cfg");
 	}
 	
 	 public Objects getObjectByPosition(int x, int y) {

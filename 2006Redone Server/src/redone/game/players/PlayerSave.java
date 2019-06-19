@@ -27,7 +27,7 @@ public class PlayerSave {
 
 		try {
 			characterfile = new BufferedReader(new FileReader(
-					"./Data/characters/" + playerName + ".txt"));
+					"./data/characters/" + playerName + ".txt"));
 			File1 = true;
 		} catch (FileNotFoundException fileex1) {
 		}
@@ -373,7 +373,7 @@ public class PlayerSave {
 		BufferedWriter characterfile = null;
 		try {
 			characterfile = new BufferedWriter(new FileWriter(
-					"./Data/characters/" + player.playerName + ".txt"));
+					"./data/characters/" + player.playerName + ".txt"));
 
 			/* ACCOUNT */
 			characterfile.write("[ACCOUNT]", 0, 9);

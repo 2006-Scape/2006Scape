@@ -59,37 +59,37 @@ public class GameLogger {
 	public static void writeLog(String player, String logType, String data) {
 		File log = null;
 		if (logType.equalsIgnoreCase("alchemy")) {
-			log = new File("./Data/logs/alchlogs/" + player + ".txt");
+			log = new File("./data/logs/alchlogs/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("shopselling")) {
-			log = new File("./Data/logs/shopselling/" + player + ".txt");
+			log = new File("./data/logs/shopselling/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("shopbuying")) {
-			log = new File("./Data/logs/shopbuying/" + player + ".txt");
+			log = new File("./data/logs/shopbuying/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("dropitem")) {
-			log = new File("./Data/logs/dropitem/" + player + ".txt");
+			log = new File("./data/logs/dropitem/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("clickitem")) {
-			log = new File("./Data/logs/clickitem/" + player + ".txt");
+			log = new File("./data/logs/clickitem/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pickupitem")) {
-			log = new File("./Data/logs/pickupitem/" + player + ".txt");
+			log = new File("./data/logs/pickupitem/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("commands")) {
-			log = new File("./Data/logs/commands/" + player + ".txt");
+			log = new File("./data/logs/commands/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pmsent")) {
-			log = new File("./Data/logs/privatemessages/pmsent/" + player + ".txt");
+			log = new File("./data/logs/privatemessages/pmsent/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pmrecieved")) {
-			log = new File("./Data/logs/privatemessages/pmrecieved/" + player + ".txt");
+			log = new File("./data/logs/privatemessages/pmrecieved/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("tradesgave")) {
-			log = new File("./Data/logs/trades/gave/" + player + ".txt");
+			log = new File("./data/logs/trades/gave/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("tradesrecieved")) {
-			log = new File("./Data/logs/trades/recieved/" + player + ".txt");
+			log = new File("./data/logs/trades/recieved/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pkingkilled")) {
-			log = new File("./Data/logs/pking/killed/" + player + ".txt");
+			log = new File("./data/logs/pking/killed/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pkingkiller")) {
-			log = new File("./Data/logs/pking/killer/" + player + ".txt");
+			log = new File("./data/logs/pking/killer/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("duelingkilled")) {
-			log = new File("./Data/logs/dueling/killed/" + player + ".txt");
+			log = new File("./data/logs/dueling/killed/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("duelingkiller")) {
-			log = new File("./Data/logs/dueling/killer/" + player + ".txt");
+			log = new File("./data/logs/dueling/killer/" + player + ".txt");
 		} else {
-			log = new File("./Data/logs/" + player + ".txt");
+			log = new File("./data/logs/" + player + ".txt");
 		}
 
 		if (!log.exists()) {

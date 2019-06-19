@@ -44,7 +44,7 @@ public class ItemDefinitions {
 	 */
 	public static void read() {
 		try {
-			DataInputStream in = new DataInputStream(new FileInputStream("./Data/data/itemdef.gsu"));
+			DataInputStream in = new DataInputStream(new FileInputStream("./data/data/itemdef.gsu"));
 			total = in.readShort();
 			if(definitions == null)
 				definitions = new ItemDefinitions[total];

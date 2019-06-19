@@ -369,7 +369,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 		boolean EndOfFile = false;
 		BufferedReader characterfile = null;
 		try {
-			characterfile = new BufferedReader(new FileReader("./Data/cfg/"
+			characterfile = new BufferedReader(new FileReader("./data/cfg/"
 					+ FileName));
 		} catch (FileNotFoundException fileex) {
 			Misc.println(FileName + ": file not found.");

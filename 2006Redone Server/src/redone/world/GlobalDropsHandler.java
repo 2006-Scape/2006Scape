@@ -38,7 +38,7 @@ public class GlobalDropsHandler {
 		BufferedReader Checker;
 		try {
 			Checker = new BufferedReader(new FileReader(
-					"./Data/cfg/globaldrops.txt"));
+					"./data/cfg/globaldrops.txt"));
 			while ((Data = Checker.readLine()) != null) {
 				if (Data.startsWith("#")) {
 					continue;

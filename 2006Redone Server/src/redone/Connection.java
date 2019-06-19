@@ -70,12 +70,12 @@ public class Connection {
 
 	public static void unMuteUser(String name) {
 		mutedNames.remove(name);
-		deleteFromFile("./Data/bans/UsersMuted.txt", name);
+		deleteFromFile("./data/bans/UsersMuted.txt", name);
 	}
 
 	public static void unIPMuteUser(String name) {
 		mutedIps.remove(name);
-		deleteFromFile("./Data/bans/IpsMuted.txt", name);
+		deleteFromFile("./data/bans/IpsMuted.txt", name);
 	}
 
 	/**
@@ -124,12 +124,12 @@ public class Connection {
 	 **/
 	public static void removeNameFromBanList(String name) {
 		bannedNames.remove(name.toLowerCase());
-		deleteFromFile("./Data/bans/UsersBanned.txt", name);
+		deleteFromFile("./data/bans/UsersBanned.txt", name);
 	}
 
 	public static void removeNameFromMuteList(String name) {
 		bannedNames.remove(name.toLowerCase());
-		deleteFromFile("./Data/bans/UsersMuted.txt", name);
+		deleteFromFile("./data/bans/UsersMuted.txt", name);
 	}
 
 	public static void deleteFromFile(String file, String name) {
@@ -175,7 +175,7 @@ public class Connection {
 	public static void banUsers() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(
-					"./Data/bans/UsersBanned.txt"));
+					"./data/bans/UsersBanned.txt"));
 			String data = null;
 			try {
 				while ((data = in.readLine()) != null) {
@@ -192,7 +192,7 @@ public class Connection {
 	public static void muteUsers() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(
-					"./Data/bans/UsersMuted.txt"));
+					"./data/bans/UsersMuted.txt"));
 			String data = null;
 			try {
 				while ((data = in.readLine()) != null) {
@@ -212,7 +212,7 @@ public class Connection {
 	public static void banIps() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(
-					"./Data/bans/IpsBanned.txt"));
+					"./data/bans/IpsBanned.txt"));
 			String data = null;
 			try {
 				while ((data = in.readLine()) != null) {
@@ -229,7 +229,7 @@ public class Connection {
 	public static void muteIps() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(
-					"./Data/bans/IpsMuted.txt"));
+					"./data/bans/IpsMuted.txt"));
 			String data = null;
 			try {
 				while ((data = in.readLine()) != null) {
@@ -250,7 +250,7 @@ public class Connection {
 	public static void addNameToFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"./Data/bans/UsersBanned.txt", true));
+					"./data/bans/UsersBanned.txt", true));
 			try {
 				out.newLine();
 				out.write(Name);
@@ -265,7 +265,7 @@ public class Connection {
 	public static void addUserToFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"./Data/bans/UsersMuted.txt", true));
+					"./data/bans/UsersMuted.txt", true));
 			try {
 				out.newLine();
 				out.write(Name);
@@ -283,7 +283,7 @@ public class Connection {
 	public static void addIpToFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"./Data/bans/IpsBanned.txt", true));
+					"./data/bans/IpsBanned.txt", true));
 			try {
 				out.newLine();
 				out.write(Name);
@@ -298,7 +298,7 @@ public class Connection {
 	public static void addIpToMuteFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"./Data/bans/IpsMuted.txt", true));
+					"./data/bans/IpsMuted.txt", true));
 			try {
 				out.newLine();
 				out.write(Name);
