@@ -3,9 +3,9 @@ character-username = irdb
 character-password = pwjojo
 
 [CHARACTER]
-character-height = 0
-character-posx = 3237
-character-posy = 3217
+character-height = 2
+character-posx = 3209
+character-posy = 3220
 character-rights = 0
 hasStarter = false
 bankPin1 = 0
@@ -37,7 +37,7 @@ village = false
 lastThieve = 0
 homeTele = 0
 strongHold = false
-character-energy = 55
+character-energy = 100
 crystal-bow-shots = 0
 splitChat = false
 canSpeak = true
@@ -55,9 +55,9 @@ blackMarks = 0
 tutorial-progress = 36
 skull-timer = 0
 recoilHits = 0
-lastX = 3235
-lastY = 3219
-lastH = 0
+lastX = 3209
+lastY = 3220
+lastH = 2
 removedTask0 = -1
 removedTask1 = -1
 removedTask2 = -1
@@ -70,7 +70,7 @@ membership = false
 questPoints = 0
 bananas = 0
 magic-book = 0
-special-amount = 2.5
+special-amount = 10.0
 musicOn = false
 needsNewTask = false
 luthas = false
@@ -176,16 +176,15 @@ character-item = 6	2310	1
 character-item = 7	1266	1
 character-item = 8	1206	1
 character-item = 9	1278	1
-character-item = 10	1172	1
 character-item = 12	883	25
 character-item = 13	557	25
-character-item = 15	556	6
 character-item = 16	558	4
 character-item = 17	560	2
 
 [BANK]
 
 [FRIENDS]
+character-friend = 0	211559
 
 [IGNORES]
 

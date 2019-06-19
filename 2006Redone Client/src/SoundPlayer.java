@@ -88,28 +88,18 @@ public class SoundPlayer implements Runnable {
 	 */
 	public float getDecibels(int level) {
 		switch (level) {
-			case 1:
-				return (float) -80.0;
-			case 2:
-				return (float) -70.0;
-			case 3:
-				return (float) -60.0;
-			case 4:
-				return (float) -50.0;
-			case 5:
-				return (float) -40.0;
-			case 6:
-				return (float) -30.0;
-			case 7:
-				return (float) -20.0;
-			case 8:
-				return (float) -10.0;
-			case 9:
-				return (float) -0.0;
-			case 10:
-				return (float) 6.0;
+			case 0: // 4 in player options
+				return (float) -1.0f;
+			case 1: // 3
+				return (float) -5.0f;
+			case 2: // 2
+				return (float) -10.0f;
+			case 3: // 1
+				return (float) -15.0f;
+			case 4: // off
+				return (float) -100.0f;
 			default:
-				return (float) 0.0;
+				return (float) 0.0f;
 		}
 	}
 }

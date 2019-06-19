@@ -170,9 +170,6 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 					}
 				}
 			}
-			if (player.isDead == false) {
-				return;
-			}
 			if (!redone.game.items.Item.itemStackable[itemId] && itemAmount > 0) {
 				for (int j = 0; j < itemAmount; j++) {
 					player.getActionSender().createGroundItem(itemId, itemX, itemY, 1);

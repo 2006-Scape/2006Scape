@@ -2,6 +2,7 @@ package redone.net;
 
 import java.text.DecimalFormat;
 
+import redone.Server;
 import redone.game.items.GroundItem;
 import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
@@ -9,10 +10,8 @@ import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
 import redone.util.GameLogger;
 import redone.util.Misc;
-import redone.world.ItemHandler;
 import redone.world.clip.Region;
 
-import static redone.Server.itemHandler;
 import static redone.world.ItemHandler.HIDE_TICKS;
 
 public class ActionSender {
@@ -588,19 +587,27 @@ public class ActionSender {
 	}
 
 	public void createGroundItem(Client player, int itemId, int itemX, int itemY, int itemAmount, int playerId) {
+		System.out.println("Here");
 		if (itemId > 0) {
 			if (itemId >= 2412 && itemId <= 2414) {
 				player.getActionSender().sendMessage("The cape vanishes as it touches the ground.");
 				return;
 			}
-
+			if (itemId > 4705 && itemId < 4760) {
+				for (int[] brokenBarrow : Server.itemHandler.brokenBarrows) {
+					if (brokenBarrow[0] == itemId) {
+						itemId = brokenBarrow[1];
+						break;
+					}
+				}
+			}
 			if (!redone.game.items.Item.itemStackable[itemId] && itemAmount > 0) {
 				for (int j = 0; j < itemAmount; j++) {
 					player.getActionSender().createGroundItem(itemId, itemX, itemY, 1);
 					GroundItem item = new GroundItem(itemId, itemX, itemY, player.getH(), 1, player.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
-					itemHandler.addItem(item);
+					Server.itemHandler.addItem(item);
 					String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-					if (!player.isDead && itemId != 526) {
+					if (player.isDead == false && itemId != 526) {
 						if (player.getPlayerAssistant().isPlayer()) {
 							GameLogger.writeLog(player.playerName, "dropitem", player.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + player.absX + " absY: " + player.absY + "");
 						}
@@ -609,9 +616,9 @@ public class ActionSender {
 			} else {
 				player.getActionSender().createGroundItem(itemId, itemX, itemY, itemAmount);
 				GroundItem item = new GroundItem(itemId, itemX, itemY, player.getH(), itemAmount, player.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
-				itemHandler.addItem(item);
+				Server.itemHandler.addItem(item);
 				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-				if (!player.isDead && itemId != 526) {
+				if (player.isDead == false && itemId != 526) {
 					if (player.getPlayerAssistant().isPlayer()) {
 						GameLogger.writeLog(player.playerName, "dropitem", player.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + player.absX + " absY: " + player.absY + "");
 					}
@@ -621,6 +628,8 @@ public class ActionSender {
 	}
 
 	public ActionSender createGroundItem(int itemID, int itemX, int itemY, int itemAmount) {
+		System.out.println("Wtf fucks sake");
+		createGroundItem(this.player, itemID, itemX, itemY, itemAmount, this.player.getId());
 		player.getOutStream().createFrame(85);
 		player.getOutStream().writeByteC(itemY - 8 * player.mapRegionY);
 		player.getOutStream().writeByteC(itemX - 8 * player.mapRegionX);
