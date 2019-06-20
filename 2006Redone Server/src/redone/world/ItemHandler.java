@@ -53,7 +53,7 @@ public class ItemHandler {
 	/**
 	 * Item amount
 	 **/
-	
+
 public int itemAmount(String name, int itemId, int itemX, int itemY) {
 		for(GroundItem i : items) {
 			if (i.hideTicks >= 1 && i.getName().equalsIgnoreCase(name)) {
