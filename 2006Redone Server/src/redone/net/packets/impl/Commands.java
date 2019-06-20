@@ -54,6 +54,29 @@ public class Commands implements PacketType {
                         case "close_interface":
                                 player.getPlayerAssistant().closeAllWindows();
                                 break;
+                        case "commands":
+                                player.getActionSender().sendMessage("::players, ::highscores");
+                                break;
+                        case "highscores":
+                            String[] highscores = new String[]{
+                                    "@dre@Highscores",
+                                    "",
+                                    "Top 5 Highest total level:",
+                                    "1", "2", "3", "4", "5",
+                                    "",
+                                    "Top 5 Highest coins stack:",
+                                    "1", "2", "3", "4", "5"
+                            };
+                                player.getPlayerAssistant().sendFrame126("@dre@Highscores", 8144);
+                                player.getPlayerAssistant().sendFrame126("", 8145);
+                                player.getPlayerAssistant().sendFrame126("Top 5 Highest total level:", 8145);
+                                player.getPlayerAssistant().sendFrame126("1", 8145);
+                                player.getPlayerAssistant().sendFrame126("1", 8145);
+                                player.getPlayerAssistant().sendFrame126("1", 8145);
+                                player.getPlayerAssistant().sendFrame126("1", 8145);
+                                player.getPlayerAssistant().sendFrame126("1", 8145);
+                                break;
+
                 }
 
         }

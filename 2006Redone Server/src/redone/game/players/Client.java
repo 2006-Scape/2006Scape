@@ -651,10 +651,8 @@ public class Client extends Player {
 				getPlayerAssistant().sendSidebars();
 				getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
 				getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
-				getActionSender().sendMessage("@red@Warning@bla@: If you find a bug, report it to owner in skype.");
-				if (!hasBankpin) {
-					getActionSender().sendMessage("You do not have a bank pin it is highly recommended you get one.");
-				}
+				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
+				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
 			}
 			for (int i = 0; i < 25; i++) {
 				getActionSender().setSkillLevel(i, playerLevel[i], playerXP[i]);

@@ -4,8 +4,8 @@ public class Constants {
 
 	public final static boolean SERVER_DEBUG = false;
 
-	public final static String SERVER_NAME = "2006Redone", SERVER_VERSION = "Server Stage v " + Constants.TEST_VERSION + ".";
-	public final static double TEST_VERSION = 1.13;
+	public final static String SERVER_NAME = "2006rebotted", SERVER_VERSION = "Server Stage v " + Constants.TEST_VERSION + ".";
+	public final static double TEST_VERSION = 2.00;
 	public static int BANK_SIZE = 352;
 	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE, CLIENT_VERSION = 999999,
 			WORLD = 1, IPS_ALLOWED = 3, CONNECTION_DELAY = 100,

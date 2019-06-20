@@ -4,8 +4,8 @@ character-password = pwjojo
 
 [CHARACTER]
 character-height = 2
-character-posx = 3210
-character-posy = 3218
+character-posx = 3209
+character-posy = 3215
 character-rights = 0
 hasStarter = false
 bankPin1 = 0
@@ -55,8 +55,8 @@ blackMarks = 0
 tutorial-progress = 36
 skull-timer = 0
 recoilHits = 0
-lastX = 3210
-lastY = 3218
+lastX = 3209
+lastY = 3215
 lastH = 2
 removedTask0 = -1
 removedTask1 = -1
@@ -175,7 +175,6 @@ character-item = 5	1932	1
 character-item = 6	2310	1
 character-item = 7	1266	1
 character-item = 8	1206	1
-character-item = 9	1278	1
 character-item = 12	883	25
 character-item = 16	558	4
 character-item = 17	560	2
@@ -183,7 +182,6 @@ character-item = 17	560	2
 [BANK]
 
 [FRIENDS]
-character-friend = 0	211559
 
 [IGNORES]
 

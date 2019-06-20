@@ -1231,7 +1231,6 @@ public class Game extends RSApplet {
 				}
 			}
 		}
-
 	}
 
 	public void method30(int j, int k, int l, int i1, int j1) {
@@ -12087,7 +12086,7 @@ public class Game extends RSApplet {
 	public int anInt1289;
 	public static int tiara;
 	public static int anInt1290;
-	public boolean showInfo;
+	public boolean showInfo = true;
 	public static int anInt1401 = 256;
 	public static int[] anIntArray385 = new int[] { 12800, 12800, 12800, 12800, 12800, 12800,
 	12800, 12800, 12800, 12800, 12800, 12800,
