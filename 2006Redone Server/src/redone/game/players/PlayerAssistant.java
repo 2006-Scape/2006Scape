@@ -2455,9 +2455,9 @@ public class PlayerAssistant {
 		}
 	}
 
-	public void levelUp(int skill) {
-		SkillHandler.resetSkills(player);
-		int totalLevel = getLevelForXP(player.playerXP[0])
+	public int getTotalLevel()
+	{
+		return getLevelForXP(player.playerXP[0])
 				+ getLevelForXP(player.playerXP[1])
 				+ getLevelForXP(player.playerXP[2])
 				+ getLevelForXP(player.playerXP[3])
@@ -2478,8 +2478,11 @@ public class PlayerAssistant {
 				+ getLevelForXP(player.playerXP[18])
 				+ getLevelForXP(player.playerXP[19])
 				+ getLevelForXP(player.playerXP[20]);
+	}
 
-		sendFrame126("Total Lvl: " + totalLevel, 3984);
+	public void levelUp(int skill) {
+		SkillHandler.resetSkills(player);
+		sendFrame126("Total Lvl: " + getTotalLevel(), 3984);
 		switch (skill) {
 		case 0:
 			sendFrame126("Congratulations, you just advanced an attack level!",
@@ -3328,4 +3331,7 @@ public class PlayerAssistant {
 		}
 	}
 
+	public int totalGold() {
+		return player.getItemAssistant().getBankQuantitiy(996) + player.getItemAssistant().getItemAmount(995);
+	}
 }

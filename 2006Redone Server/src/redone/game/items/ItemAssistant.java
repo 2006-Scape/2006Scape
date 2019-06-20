@@ -2337,6 +2337,17 @@ public class ItemAssistant {
 		return freeS;
 	}
 
+	public int getBankQuantitiy(int itemID)
+	{
+		for (int i = 0; i < c.bankItems.length; i++) {
+			if (c.bankItems[i] == itemID)
+			{
+				return c.bankItemsN[i];
+			}
+		}
+		return 0;
+	}
+
 	public void fromBank(int itemID, int fromSlot, int amount) {
 		if (amount > 0) {
 			if (c.bankItems[fromSlot] > 0) {

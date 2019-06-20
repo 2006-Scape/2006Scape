@@ -5,6 +5,7 @@ import redone.Constants;
 import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
+import redone.game.players.HighscoresHandler;
 import redone.game.players.PlayerHandler;
 import redone.net.packets.PacketType;
 import redone.util.GameLogger;
@@ -52,30 +53,36 @@ public class Commands implements PacketType {
                 switch (playerCommand)
                 {
                         case "close_interface":
-                                player.getPlayerAssistant().closeAllWindows();
-                                break;
+                            player.getPlayerAssistant().closeAllWindows();
+                            break;
                         case "commands":
-                                player.getActionSender().sendMessage("::players, ::highscores");
-                                break;
+                            player.getActionSender().sendMessage("::players, ::highscores");
+                            break;
                         case "highscores":
+                            HighscoresHandler hs = new HighscoresHandler();
                             String[] highscores = new String[]{
                                     "@dre@Highscores",
                                     "",
-                                    "Top 5 Highest total level:",
-                                    "1", "2", "3", "4", "5",
+                                    "Top 5 Total Level:",
+                                    hs.getRank(0, "level"), hs.getRank(1, "level"), hs.getRank(2, "level"), hs.getRank(3, "level"), hs.getRank(4, "level"),
                                     "",
-                                    "Top 5 Highest coins stack:",
-                                    "1", "2", "3", "4", "5"
+                                    "Top 5 Wealthiest Players:",
+                                    hs.getRank(0, "gold"), hs.getRank(1, "gold"), hs.getRank(2, "gold"), hs.getRank(3, "gold"), hs.getRank(4, "gold"),
+                                    "",
+                                    "Top 5 Highest Total Damage:",
+                                    hs.getRank(0, "damage"), hs.getRank(1, "damage"), hs.getRank(2, "damage"), hs.getRank(3, "damage"), hs.getRank(4, "damage"),
                             };
-                                player.getPlayerAssistant().sendFrame126("@dre@Highscores", 8144);
-                                player.getPlayerAssistant().sendFrame126("", 8145);
-                                player.getPlayerAssistant().sendFrame126("Top 5 Highest total level:", 8145);
-                                player.getPlayerAssistant().sendFrame126("1", 8145);
-                                player.getPlayerAssistant().sendFrame126("1", 8145);
-                                player.getPlayerAssistant().sendFrame126("1", 8145);
-                                player.getPlayerAssistant().sendFrame126("1", 8145);
-                                player.getPlayerAssistant().sendFrame126("1", 8145);
-                                break;
+
+                                for (int i = 8144; i < 8195; i++) {
+                                        player.getPlayerAssistant().sendFrame126("", i);
+                                }
+
+                                for (int i = 8144; i < 8144 + highscores.length; i++) {
+                                    player.getPlayerAssistant().sendFrame126(highscores[i - 8144], i+3);
+                            }
+                            player.getPlayerAssistant().showInterface(8134);
+
+                            break;
 
                 }
 

@@ -14,8 +14,12 @@ public class PlayerSave {
 	/**
 	 * Loading
 	 **/
-	public static int loadGame(Client player, String playerName,
-			String playerPass) {
+	public static int loadGame(Client player, String playerName, String playerPass) {
+		return loadPlayerInfo(player, playerName, playerPass, true);
+	}
+
+	public static int loadPlayerInfo(Client player, String playerName, String playerPass, boolean doRealLogin)
+	{
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -55,287 +59,399 @@ public class PlayerSave {
 				token2 = token2.trim();
 				token3 = token2.split("\t");
 				switch (ReadMode) {
-				case 1:
-					if (token.equals("character-password")) {
-						if (playerPass.equalsIgnoreCase(token2)) {
-							playerPass = token2;
-						} else {
-							return 3;
+					case 1:
+					    if (!doRealLogin)
+							break;
+						if (token.equals("character-password")) {
+							if (playerPass.equalsIgnoreCase(token2)) {
+								playerPass = token2;
+							} else {
+								return 3;
+							}
 						}
-					}
-					break;
-				case 2:
-					if (token.equals("character-height")) {
-						player.heightLevel = Integer.parseInt(token2);
-					} else if (token.equals("character-posx")) {
-						player.teleportToX = Integer.parseInt(token2) <= 0 ? player.lastX : Integer.parseInt(token2);
-					} else if (token.equals("character-posy")) {
-						player.teleportToY = Integer.parseInt(token2) <= 0 ? player.lastY : Integer.parseInt(token2);
-					} else if (token.equals("character-rights")) {
-						player.playerRights = Integer.parseInt(token2);
-					} else if (token.equals("blackMarks")) {
-						player.blackMarks = Integer.parseInt(token2);
-					} else if (token.equals("lostCannon")) {
-						player.lostCannon = Boolean.parseBoolean(token2);
-					} else if (token.equals("myBalls")) {
-						player.getCannon().myBalls = Integer.parseInt(token2);
-					} else if (token.equals("cannonX")) {
-						player.cannonX = Integer.parseInt(token2);
-					} else if (token.equals("cannonY")) {
-						player.cannonY = Integer.parseInt(token2);
-					} else if (token.equals("removedTask0")) {
-						player.removedTasks[0] = Integer.parseInt(token2);
-					} else if (token.equals("removedTask1")) {
-						player.removedTasks[1] = Integer.parseInt(token2);
-					} else if (token.equals("removedTask2")) {
-						player.removedTasks[2] = Integer.parseInt(token2);
-					} else if (token.equals("removedTask3")) {
-						player.removedTasks[3] = Integer.parseInt(token2);
-					} else if (token.equals("SlayerMaster")) {
-						player.SlayerMaster = Integer.parseInt(token2);
-					} else if (token.equals("slayerTask")) {
-						player.slayerTask = Integer.parseInt(token2);
-					} else if (token.equals("slayerPoints")) {
-						player.slayerPoints = Integer.parseInt(token2);
-					} else if (token.equals("taskAmount")) {
-						player.taskAmount = Integer.parseInt(token2);
-					} else if (token.equals("cw-games")) {
-						player.cwGames = Integer.parseInt(token2);
-					} else if (token.equals("crystal-bow-shots")) {
-						player.crystalBowArrowCount = Integer.parseInt(token2);
-					} else if (token.equals("randomActions")) {
-						player.randomActions = Integer.parseInt(token2);
-					} else if (token.equals("skull-timer")) {
-						player.skullTimer = Integer.parseInt(token2);
-					} else if (token.equals("recoilHits")) {
-						player.recoilHits = Integer.parseInt(token2);
-					} else if (token.equals("brightness")) {
-						player.brightness = Integer.parseInt(token2);
-					} else if (token.equals("spiritTree")) {
-						player.spiritTree = Boolean.parseBoolean(token2);
-					} else if (token.equals("npcCanAttack")) {
-						player.npcCanAttack = Boolean.parseBoolean(token2);
-					} else if (token.equals("rope")) {
-						player.rope = Boolean.parseBoolean(token2);
-					} else if (token.equals("rope2")) {
-						player.rope2 = Boolean.parseBoolean(token2);
-					} else if (token.equals("recievedMask")) {
-						player.recievedMask = Boolean.parseBoolean(token2);
-					} else if (token.equals("recievedReward")) {
-						player.recievedReward = Boolean.parseBoolean(token2);
-					} else if (token.equals("splitChat")) {
-						player.splitChat = Boolean.parseBoolean(token2);
-					} else if (token.equals("hasPaid")) {
-						player.hasPaid = Boolean.parseBoolean(token2);
-					} else if (token.equals("poison")) {
-						player.poison = Boolean.parseBoolean(token2);
-					} else if (token.equals("closeTutorialInterface")) {
-						player.closeTutorialInterface = Boolean
-								.parseBoolean(token2);
-					} else if (token.equals("canWalkTutorial")) {
-						player.canWalkTutorial = Boolean.parseBoolean(token2);
-					} else if (token.equals("needsNewTask")) {
-						player.needsNewTask = Boolean.parseBoolean(token2);
-					} else if (token.equals("isBotting")) {
-						player.isBotting = Boolean.parseBoolean(token2);
-					} else if (token.equals("musicOn")) {
-						player.musicOn = Boolean.parseBoolean(token2);
-					} else if (token.equals("barrowsNpcs")) {
-						player.barrowsNpcs[Integer.parseInt(token3[0])][1] = Integer.parseInt(token3[1]);
-					} else if (token.equals("summonId")) {
-						player.summonId = Integer.parseInt(token2);
-					} else if (token.equals("has-npc")) {
-						player.hasNpc = Boolean.parseBoolean(token2);
-					} else if (token.equals("barrowsKillCount")) {
-						player.barrowsKillCount = Integer.parseInt(token2);
-					} else if (token.equals("luthas")) {
-						player.luthas = Boolean.parseBoolean(token2);
-					} else if (token.equals("village")) {
-						player.village = Boolean.parseBoolean(token2);
-					} else if (token.equals("lastThieve")) {
-						player.lastThieve = Long.parseLong(token2);
-					} else if (token.equals("homeTele")) {
-						player.homeTele = Long.parseLong(token2);
-					} else if (token.equals("tutorial-progress")) {
-						player.tutorialProgress = Integer.parseInt(token2);
-					} else if (token.equals("strongHold")) {
-						player.strongHold = Boolean.parseBoolean(token2);
-					} else if (token.equals("filter")) {
-						player.filter = Boolean.parseBoolean(token2);
-					} else if (token.equals("ratdied2")) {
-						player.ratdied2 = Boolean.parseBoolean(token2);
-					} else if (token.equals("questStages")) {
-						player.questStages = Integer.parseInt(token2);
-					} else if (token.equals("cookAss")) {
-						player.cookAss = Integer.parseInt(token2);
-					} else if (token.equals("bananas")) {
-						player.bananas = Integer.parseInt(token2);
-					} else if (token.equals("sheepShear")) {
-						player.sheepShear = Integer.parseInt(token2);
-					} else if (token.equals("runeMist")) {
-						player.runeMist = Integer.parseInt(token2);
-					} else if (token.equals("dragonSlayerQuestStage")) {
-						player.dragonSlayerQuestStage = Integer.parseInt(token2);
-					} else if (token.equals("doricQuest")) {
-						player.doricQuest = Integer.parseInt(token2);
-					} else if (token.equals("pirateTreasure")) {
-						player.pirateTreasure = Integer.parseInt(token2);
-					} else if (token.equals("romeo-juliet")) {
-						player.romeojuliet = Integer.parseInt(token2);
-					} else if (token.equals("vampSlayer")) {
-						player.vampSlayer = Integer.parseInt(token2);
-					} else if (token.equals("gertCat")) {
-						player.gertCat = Integer.parseInt(token2);
-					} else if (token.equals("witchspot")) {
-						player.witchspot = Integer.parseInt(token2);
-					} else if (token.equals("restGhost")) {
-						player.restGhost = Integer.parseInt(token2);
-					} else if (token.equals("impsC")) {
-						player.impsC = Integer.parseInt(token2);
-					} else if (token.equals("knightS")) {
-						player.knightS = Integer.parseInt(token2);
-					} else if (token.equals("lastX")) {
-						player.lastX = Integer.parseInt(token2);
-					} else if (token.equals("lastY")) {
-						player.lastY = Integer.parseInt(token2);
-					} else if (token.equals("lastH")) {
-						player.lastH = Integer.parseInt(token2);
-					} else if (token.equals("hasStarter")) {
-						player.hasStarter = Boolean.parseBoolean(token2);
-					} else if (token.equals("thankedForDonation")) {
-						player.thankedForDonation = Integer.parseInt(token2);
-					} else if (token.equals("membership")) {
-						player.membership = Boolean.parseBoolean(token2);
-					} else if (token.equals("canSpeak")) {
-						player.canSpeak = Boolean.parseBoolean(token2);
-					} else if (token.equals("questPoints")) {
-						player.questPoints = Integer.parseInt(token2);
-					} else if (token.equals("magic-book")) {
-						player.playerMagicBook = Integer.parseInt(token2);
-					} else if (token.equals("special-amount")) {
-						player.specAmount = Double.parseDouble(token2);
-					} else if (token.equals("selected-coffin")) {
-						player.randomCoffin = Integer.parseInt(token2);
-					} else if (token.equals("isRunning")) {
-						player.isRunning2 = Boolean.parseBoolean(token2);
-					} else if (token.equals("character-energy")) {
-						player.playerEnergy = Integer.parseInt(token2);
-					} else if (token.equals("teleblock-length")) {
-						player.teleBlockDelay = System.currentTimeMillis();
-						player.teleBlockLength = Integer.parseInt(token2);
-					} else if (token.equals("lastYell")) {
-						player.lastYell = Long.parseLong(token2);
-					} else if (token.equals("pc-points")) {
-						player.pcPoints = Integer.parseInt(token2);
-					} else if (token.equals("magePoints")) {
-						player.magePoints = Integer.parseInt(token2);
-					} else if (token.equals("autoRet")) {
-						player.autoRet = Integer.parseInt(token2);
-					} else if (token.equals("flagged")) {
-						player.accountFlagged = Boolean.parseBoolean(token2);
-					} else if (token.equals("lastLoginDate")) {
-						player.lastLoginDate = Integer.parseInt(token2);
-					} else if (token.equals("hasBankpin")) {
-						player.hasBankpin = Boolean.parseBoolean(token2);
-					} else if (token.equals("setPin")) {
-						player.setPin = Boolean.parseBoolean(token2);
-					} else if (token.equals("pinRegisteredDeleteDay")) {
-						player.pinDeleteDateRequested = Integer.parseInt(token2);
-					} else if (token.equals("requestPinDelete")) {
-						player.requestPinDelete = Boolean.parseBoolean(token2);
-					} else if (token.equals("bankPin1")) {
-						player.bankPin1 = Integer.parseInt(token2);
-					} else if (token.equals("bankPin2")) {
-						player.bankPin2 = Integer.parseInt(token2);
-					} else if (token.equals("bankPin3")) {
-						player.bankPin3 = Integer.parseInt(token2);
-					} else if (token.equals("bankPin4")) {
-						player.bankPin4 = Integer.parseInt(token2);
-					} else if (token.equals("wave")) {
-						player.waveId = Integer.parseInt(token2);
-					} else if (token.equals("ptjob")) {
-						player.ptjob = Integer.parseInt(token2);
-					} else if (token.equals("creationAddress")) {
-						player.creationAddress = token2;
-					} else if (token.equals("music")) {
-						for (int j = 0; j < token3.length; j++) {
-							player.getPlayList().unlocked[j] = Boolean.parseBoolean(token3[j]);
+						break;
+					case 2:
+						switch (token) {
+							case "character-height":
+								player.heightLevel = Integer.parseInt(token2);
+								break;
+							case "character-posx":
+								player.teleportToX = Integer.parseInt(token2) <= 0 ? player.lastX : Integer.parseInt(token2);
+								break;
+							case "character-posy":
+								player.teleportToY = Integer.parseInt(token2) <= 0 ? player.lastY : Integer.parseInt(token2);
+								break;
+							case "character-rights":
+								player.playerRights = Integer.parseInt(token2);
+								break;
+							case "blackMarks":
+								player.blackMarks = Integer.parseInt(token2);
+								break;
+							case "lostCannon":
+								player.lostCannon = Boolean.parseBoolean(token2);
+								break;
+							case "myBalls":
+								player.getCannon().myBalls = Integer.parseInt(token2);
+								break;
+							case "cannonX":
+								player.cannonX = Integer.parseInt(token2);
+								break;
+							case "cannonY":
+								player.cannonY = Integer.parseInt(token2);
+								break;
+							case "removedTask0":
+								player.removedTasks[0] = Integer.parseInt(token2);
+								break;
+							case "removedTask1":
+								player.removedTasks[1] = Integer.parseInt(token2);
+								break;
+							case "removedTask2":
+								player.removedTasks[2] = Integer.parseInt(token2);
+								break;
+							case "removedTask3":
+								player.removedTasks[3] = Integer.parseInt(token2);
+								break;
+							case "SlayerMaster":
+								player.SlayerMaster = Integer.parseInt(token2);
+								break;
+							case "slayerTask":
+								player.slayerTask = Integer.parseInt(token2);
+								break;
+							case "slayerPoints":
+								player.slayerPoints = Integer.parseInt(token2);
+								break;
+							case "taskAmount":
+								player.taskAmount = Integer.parseInt(token2);
+								break;
+							case "cw-games":
+								player.cwGames = Integer.parseInt(token2);
+								break;
+							case "crystal-bow-shots":
+								player.crystalBowArrowCount = Integer.parseInt(token2);
+								break;
+							case "randomActions":
+								player.randomActions = Integer.parseInt(token2);
+								break;
+							case "skull-timer":
+								player.skullTimer = Integer.parseInt(token2);
+								break;
+							case "recoilHits":
+								player.recoilHits = Integer.parseInt(token2);
+								break;
+							case "brightness":
+								player.brightness = Integer.parseInt(token2);
+								break;
+							case "spiritTree":
+								player.spiritTree = Boolean.parseBoolean(token2);
+								break;
+							case "npcCanAttack":
+								player.npcCanAttack = Boolean.parseBoolean(token2);
+								break;
+							case "rope":
+								player.rope = Boolean.parseBoolean(token2);
+								break;
+							case "rope2":
+								player.rope2 = Boolean.parseBoolean(token2);
+								break;
+							case "recievedMask":
+								player.recievedMask = Boolean.parseBoolean(token2);
+								break;
+							case "recievedReward":
+								player.recievedReward = Boolean.parseBoolean(token2);
+								break;
+							case "splitChat":
+								player.splitChat = Boolean.parseBoolean(token2);
+								break;
+							case "hasPaid":
+								player.hasPaid = Boolean.parseBoolean(token2);
+								break;
+							case "poison":
+								player.poison = Boolean.parseBoolean(token2);
+								break;
+							case "closeTutorialInterface":
+								player.closeTutorialInterface = Boolean
+										.parseBoolean(token2);
+								break;
+							case "canWalkTutorial":
+								player.canWalkTutorial = Boolean.parseBoolean(token2);
+								break;
+							case "needsNewTask":
+								player.needsNewTask = Boolean.parseBoolean(token2);
+								break;
+							case "isBotting":
+								player.isBotting = Boolean.parseBoolean(token2);
+								break;
+							case "musicOn":
+								player.musicOn = Boolean.parseBoolean(token2);
+								break;
+							case "barrowsNpcs":
+								player.barrowsNpcs[Integer.parseInt(token3[0])][1] = Integer.parseInt(token3[1]);
+								break;
+							case "summonId":
+								player.summonId = Integer.parseInt(token2);
+								break;
+							case "has-npc":
+								player.hasNpc = Boolean.parseBoolean(token2);
+								break;
+							case "barrowsKillCount":
+								player.barrowsKillCount = Integer.parseInt(token2);
+								break;
+							case "luthas":
+								player.luthas = Boolean.parseBoolean(token2);
+								break;
+							case "village":
+								player.village = Boolean.parseBoolean(token2);
+								break;
+							case "lastThieve":
+								player.lastThieve = Long.parseLong(token2);
+								break;
+							case "homeTele":
+								player.homeTele = Long.parseLong(token2);
+								break;
+							case "tutorial-progress":
+								player.tutorialProgress = Integer.parseInt(token2);
+								break;
+							case "strongHold":
+								player.strongHold = Boolean.parseBoolean(token2);
+								break;
+							case "filter":
+								player.filter = Boolean.parseBoolean(token2);
+								break;
+							case "ratdied2":
+								player.ratdied2 = Boolean.parseBoolean(token2);
+								break;
+							case "questStages":
+								player.questStages = Integer.parseInt(token2);
+								break;
+							case "cookAss":
+								player.cookAss = Integer.parseInt(token2);
+								break;
+							case "bananas":
+								player.bananas = Integer.parseInt(token2);
+								break;
+							case "sheepShear":
+								player.sheepShear = Integer.parseInt(token2);
+								break;
+							case "runeMist":
+								player.runeMist = Integer.parseInt(token2);
+								break;
+							case "dragonSlayerQuestStage":
+								player.dragonSlayerQuestStage = Integer.parseInt(token2);
+								break;
+							case "doricQuest":
+								player.doricQuest = Integer.parseInt(token2);
+								break;
+							case "pirateTreasure":
+								player.pirateTreasure = Integer.parseInt(token2);
+								break;
+							case "romeo-juliet":
+								player.romeojuliet = Integer.parseInt(token2);
+								break;
+							case "vampSlayer":
+								player.vampSlayer = Integer.parseInt(token2);
+								break;
+							case "gertCat":
+								player.gertCat = Integer.parseInt(token2);
+								break;
+							case "witchspot":
+								player.witchspot = Integer.parseInt(token2);
+								break;
+							case "restGhost":
+								player.restGhost = Integer.parseInt(token2);
+								break;
+							case "impsC":
+								player.impsC = Integer.parseInt(token2);
+								break;
+							case "knightS":
+								player.knightS = Integer.parseInt(token2);
+								break;
+							case "lastX":
+								player.lastX = Integer.parseInt(token2);
+								break;
+							case "lastY":
+								player.lastY = Integer.parseInt(token2);
+								break;
+							case "lastH":
+								player.lastH = Integer.parseInt(token2);
+								break;
+							case "hasStarter":
+								player.hasStarter = Boolean.parseBoolean(token2);
+								break;
+							case "thankedForDonation":
+								player.thankedForDonation = Integer.parseInt(token2);
+								break;
+							case "membership":
+								player.membership = Boolean.parseBoolean(token2);
+								break;
+							case "canSpeak":
+								player.canSpeak = Boolean.parseBoolean(token2);
+								break;
+							case "questPoints":
+								player.questPoints = Integer.parseInt(token2);
+								break;
+							case "magic-book":
+								player.playerMagicBook = Integer.parseInt(token2);
+								break;
+							case "special-amount":
+								player.specAmount = Double.parseDouble(token2);
+								break;
+							case "selected-coffin":
+								player.randomCoffin = Integer.parseInt(token2);
+								break;
+							case "isRunning":
+								player.isRunning2 = Boolean.parseBoolean(token2);
+								break;
+							case "character-energy":
+								player.playerEnergy = Integer.parseInt(token2);
+								break;
+							case "teleblock-length":
+								player.teleBlockDelay = System.currentTimeMillis();
+								player.teleBlockLength = Integer.parseInt(token2);
+								break;
+							case "lastYell":
+								player.lastYell = Long.parseLong(token2);
+								break;
+							case "pc-points":
+								player.pcPoints = Integer.parseInt(token2);
+								break;
+							case "magePoints":
+								player.magePoints = Integer.parseInt(token2);
+								break;
+							case "autoRet":
+								player.autoRet = Integer.parseInt(token2);
+								break;
+							case "flagged":
+								player.accountFlagged = Boolean.parseBoolean(token2);
+								break;
+							case "lastLoginDate":
+								player.lastLoginDate = Integer.parseInt(token2);
+								break;
+							case "hasBankpin":
+								player.hasBankpin = Boolean.parseBoolean(token2);
+								break;
+							case "setPin":
+								player.setPin = Boolean.parseBoolean(token2);
+								break;
+							case "pinRegisteredDeleteDay":
+								player.pinDeleteDateRequested = Integer.parseInt(token2);
+								break;
+							case "requestPinDelete":
+								player.requestPinDelete = Boolean.parseBoolean(token2);
+								break;
+							case "bankPin1":
+								player.bankPin1 = Integer.parseInt(token2);
+								break;
+							case "bankPin2":
+								player.bankPin2 = Integer.parseInt(token2);
+								break;
+							case "bankPin3":
+								player.bankPin3 = Integer.parseInt(token2);
+								break;
+							case "bankPin4":
+								player.bankPin4 = Integer.parseInt(token2);
+								break;
+							case "wave":
+								player.waveId = Integer.parseInt(token2);
+								break;
+							case "ptjob":
+								player.ptjob = Integer.parseInt(token2);
+								break;
+							case "creationAddress":
+								player.creationAddress = token2;
+								break;
+							case "music":
+								for (int j = 0; j < token3.length; j++) {
+									player.getPlayList().unlocked[j] = Boolean.parseBoolean(token3[j]);
+								}
+								break;
+							case "void":
+								for (int j = 0; j < token3.length; j++) {
+									player.voidStatus[j] = Integer.parseInt(token3[j]);
+								}
+								break;
+							case "gwkc":
+								player.killCount = Integer.parseInt(token2);
+								break;
+							case "fightMode":
+								player.fightMode = Integer.parseInt(token2);
+								break;
 						}
-					} else if (token.equals("void")) {
-						for (int j = 0; j < token3.length; j++) {
-							player.voidStatus[j] = Integer.parseInt(token3[j]);
+						break;
+					case 3:
+						if (token.equals("character-equip")) {
+							player.playerEquipment[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
+							player.playerEquipmentN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
 						}
-					} else if (token.equals("gwkc")) {
-						player.killCount = Integer.parseInt(token2);
-					} else if (token.equals("fightMode")) {
-						player.fightMode = Integer.parseInt(token2);
-					}
-					break;
-				case 3:
-					if (token.equals("character-equip")) {
-						player.playerEquipment[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
-						player.playerEquipmentN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
-					}
-					break;
-				case 4:
-					if (token.equals("character-look")) {
-						player.playerAppearance[Integer.parseInt(token3[0])] = Integer	.parseInt(token3[1]);
-					}
-					break;
-				case 5:
-					if (token.equals("character-skill")) {
-						player.playerLevel[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
-						player.playerXP[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
-					}
-					break;
-				case 6:
-					if (token.equals("character-item")) {
-						player.playerItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
-						player.playerItemsN[Integer.parseInt(token3[0])] = Integer	.parseInt(token3[2]);
-					}
-					break;
-				case 7:
-					if (token.equals("character-bank")) {
-						player.bankItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
-						player.bankItemsN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
-					}
-					break;
-				case 8:
-					if (token.equals("character-friend")) {
-						player.friends[Integer.parseInt(token3[0])] = Long.parseLong(token3[1]);
-					}
-					break;
-				case 9:
-					 if (token.equals("character-ignore")) {
+						break;
+					case 4:
+						if (token.equals("character-look")) {
+							player.playerAppearance[Integer.parseInt(token3[0])] = Integer	.parseInt(token3[1]);
+						}
+						break;
+					case 5:
+						if (token.equals("character-skill")) {
+							player.playerLevel[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
+							player.playerXP[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
+						}
+						break;
+					case 6:
+						if (token.equals("character-item")) {
+							player.playerItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
+							player.playerItemsN[Integer.parseInt(token3[0])] = Integer	.parseInt(token3[2]);
+						}
+						break;
+					case 7:
+						if (token.equals("character-bank")) {
+							player.bankItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
+							player.bankItemsN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
+						}
+						break;
+					case 8:
+						if (token.equals("character-friend")) {
+							player.friends[Integer.parseInt(token3[0])] = Long.parseLong(token3[1]);
+						}
+						break;
+					case 9:
+						if (token.equals("character-ignore")) {
 							player.ignores[Integer.parseInt(token3[0])] = Long.parseLong(token3[1]);
-					 }
-					break;
+						}
+						break;
 				}
 			} else {
-				if (line.equals("[ACCOUNT]")) {
-					ReadMode = 1;
-				} else if (line.equals("[CHARACTER]")) {
-					ReadMode = 2;
-				} else if (line.equals("[EQUIPMENT]")) {
-					ReadMode = 3;
-				} else if (line.equals("[LOOK]")) {
-					ReadMode = 4;
-				} else if (line.equals("[SKILLS]")) {
-					ReadMode = 5;
-				} else if (line.equals("[ITEMS]")) {
-					ReadMode = 6;
-				} else if (line.equals("[BANK]")) {
-					ReadMode = 7;
-				} else if (line.equals("[FRIENDS]")) {
-					ReadMode = 8;
-				} else if (line.equals("[IGNORES]")) {
-					ReadMode = 9;
-				} else if (line.equals("[EOF]")) {
-					try {
-						characterfile.close();
-					} catch (IOException ioexception) {
-					}
-					return 1;
+				switch (line) {
+					case "[ACCOUNT]":
+						ReadMode = 1;
+						break;
+					case "[CHARACTER]":
+						ReadMode = 2;
+						break;
+					case "[EQUIPMENT]":
+						ReadMode = 3;
+						break;
+					case "[LOOK]":
+						ReadMode = 4;
+						break;
+					case "[SKILLS]":
+						ReadMode = 5;
+						break;
+					case "[ITEMS]":
+						ReadMode = 6;
+						break;
+					case "[BANK]":
+						ReadMode = 7;
+						break;
+					case "[FRIENDS]":
+						ReadMode = 8;
+						break;
+					case "[IGNORES]":
+						ReadMode = 9;
+						break;
+					case "[EOF]":
+						try {
+							characterfile.close();
+						} catch (IOException ignored) {
+						}
+						return 1;
 				}
 			}
 			try {
@@ -346,9 +462,12 @@ public class PlayerSave {
 		}
 		try {
 			characterfile.close();
-		} catch (IOException ioexception) {
+		} catch (IOException ignored) {
 		}
-		return 13;
+		if (doRealLogin)
+			return 13;
+		else
+			return 14;
 	}
 
 	/**
