@@ -4,6 +4,11 @@ import java.net.UnknownHostException;
 public final class Main {
 
 	public static void main(String[] args) {
+		if (args.length > 1)
+		{
+			System.out.println("Running local");
+			ClientSettings.SERVER_IP = "127.0.0.1";
+		}
 		try {
 			Game game = new Game();
 			Game.nodeID = 10;

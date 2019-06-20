@@ -3048,12 +3048,12 @@ public class Game extends RSApplet {
 		}
 
 		method73();
-		super.idleTime++;
-		if (super.idleTime > 12000) {
+		super.idleTime++; //Idle timer nope!
+		/*if (super.idleTime > 12000) {
 			anInt1011 = 250;
 			super.idleTime -= 500;
 			stream.createFrame(202);
-		}
+		}*/
 		anInt988++;
 		if (anInt988 > 500) {
 			anInt988 = 0;
