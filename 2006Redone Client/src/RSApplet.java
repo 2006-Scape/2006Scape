@@ -297,15 +297,12 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	}
 
 	@Override
-	public final void keyPressed(KeyEvent keyevent) {
+	public void keyPressed(KeyEvent keyevent) {
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
 		int j = keyevent.getKeyChar();
 		switch (keyevent.getKeyCode())
 		{
-			case KeyEvent.VK_ESCAPE:
-				//call ::close_interface
-				break;
 			case KeyEvent.VK_SHIFT:
 				shiftDown = true;
 				break;

@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -12137,5 +12138,77 @@ public class Game extends RSApplet {
 			return;
 		this.anInt1186 += i * 3;
 		this.anInt1187 += (j << 1);
+	}
+
+	public final void keyPressed(KeyEvent keyevent)
+	{
+		super.keyPressed(keyevent);
+		switch (keyevent.getKeyCode())
+		{
+			case KeyEvent.VK_ESCAPE:
+				closeOpenInterfaces();
+				break;
+			case KeyEvent.VK_F1:
+				needDrawTabArea = true;
+				tabID = 3;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F2:
+				needDrawTabArea = true;
+				tabID = 4;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F3:
+				needDrawTabArea = true;
+				tabID = 5;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F4:
+				needDrawTabArea = true;
+				tabID = 6;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F5:
+				needDrawTabArea = true;
+				tabID = 0;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F6:
+				needDrawTabArea = true;
+				tabID = 1;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F7:
+				needDrawTabArea = true;
+				tabID = 2;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F8:
+				needDrawTabArea = true;
+				tabID = 8;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F9:
+				needDrawTabArea = true;
+				tabID = 11;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F10:
+				needDrawTabArea = true;
+				tabID = 12;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F11:
+				needDrawTabArea = true;
+				tabID = 13;
+				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_F12:
+				needDrawTabArea = true;
+				tabID = 10;
+				tabAreaAltered = true;
+				break;
+
+		}
 	}
 }
