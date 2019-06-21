@@ -2,6 +2,7 @@ package redone.net.packets.impl;
 
 import redone.Connection;
 import redone.Constants;
+import redone.game.content.combat.magic.MagicTeleports;
 import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
@@ -11,6 +12,9 @@ import redone.net.packets.PacketType;
 import redone.util.GameLogger;
 import redone.util.Misc;
 import redone.world.clip.Region;
+
+import static redone.game.content.combat.magic.MagicTeleports.LUMBRIDGE_X;
+import static redone.game.content.combat.magic.MagicTeleports.LUMBRIDGE_Y;
 
 public class Commands implements PacketType {
 
@@ -56,8 +60,17 @@ public class Commands implements PacketType {
                             player.getPlayerAssistant().closeAllWindows();
                             break;
                         case "commands":
-                            player.getActionSender().sendMessage("::players, ::highscores");
+                            player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck");
                             break;
+                        case "loc":
+                                player.getActionSender().sendMessage(player.absX + "," + player.absY);
+                                break;
+                        case "stuck":
+                                player.getPlayerAssistant().startTeleport(LUMBRIDGE_X, LUMBRIDGE_Y, 0, "modern");
+                                player.playerStun = true;
+                                player.gfx100(80);
+                                player.startAnimation(404);
+                                break;
                         case "highscores":
                             HighscoresHandler hs = new HighscoresHandler();
                             String[] highscores = new String[]{
