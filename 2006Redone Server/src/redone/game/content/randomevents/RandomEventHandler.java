@@ -61,17 +61,20 @@ public class RandomEventHandler {
 	}
 
 	public static void addRandom(Client player) {
-		if (player.randomActions >= CALL_RANDOM) {
-			callRandom(player);
-			if (player.playerIsBusy() && !player.hasSandwhichLady) {
-				player.getPlayerAssistant().closeAllWindows();
+		if (player.randomToggle)
+		{
+			if (player.randomActions >= CALL_RANDOM) {
+				callRandom(player);
+				if (player.playerIsBusy() && !player.hasSandwhichLady) {
+					player.getPlayerAssistant().closeAllWindows();
+				}
+			} else {
+				int nextRandom = CALL_RANDOM - player.randomActions;
+				if (player.playerRights == 3) {
+					player.getActionSender().sendMessage("Next random will be in " + nextRandom + " more random actions.");
+				}
+				player.randomActions += 1;
 			}
-		} else {
-			int nextRandom = CALL_RANDOM - player.randomActions;
-			if (player.playerRights == 3) {
-				player.getActionSender().sendMessage("Next random will be in " + nextRandom + " more random actions.");
-			}
-			player.randomActions += 1;
 		}
 	}
 }

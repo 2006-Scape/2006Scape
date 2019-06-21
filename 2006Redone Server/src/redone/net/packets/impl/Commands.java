@@ -2,7 +2,6 @@ package redone.net.packets.impl;
 
 import redone.Connection;
 import redone.Constants;
-import redone.game.content.combat.magic.MagicTeleports;
 import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
@@ -60,16 +59,21 @@ public class Commands implements PacketType {
                             player.getPlayerAssistant().closeAllWindows();
                             break;
                         case "commands":
-                            player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck");
+                            player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle");
                             break;
                         case "loc":
                                 player.getActionSender().sendMessage(player.absX + "," + player.absY);
                                 break;
                         case "stuck":
                                 player.getPlayerAssistant().startTeleport(LUMBRIDGE_X, LUMBRIDGE_Y, 0, "modern");
-                                player.playerStun = true;
+                                player.getActionSender().sendMessage("How did you manage that one..");
                                 player.gfx100(80);
                                 player.startAnimation(404);
+                                break;
+                        case "randomtoggle":
+                                player.randomToggle = !player.randomToggle;
+                                String message = player.randomToggle ? "You will now receive random events." : "You will no longer receieve random events.";
+                                player.getActionSender().sendMessage(message);
                                 break;
                         case "highscores":
                             HighscoresHandler hs = new HighscoresHandler();

@@ -220,6 +220,9 @@ public class PlayerSave {
 							case "ratdied2":
 								player.ratdied2 = Boolean.parseBoolean(token2);
 								break;
+							case "randomToggle":
+								player.randomToggle = Boolean.parseBoolean(token2);
+								break;
 							case "questStages":
 								player.questStages = Integer.parseInt(token2);
 								break;
@@ -834,6 +837,10 @@ public class PlayerSave {
 			characterfile.write("RatDied2 = ", 0, 11);
 			characterfile.write(Boolean.toString(player.ratdied2), 0, Boolean
 					.toString(player.ratdied2).length());
+			characterfile.newLine();
+			characterfile.write("randomToggle = ", 0, 15);
+			characterfile.write(Boolean.toString(player.randomToggle), 0, Boolean
+					.toString(player.randomToggle).length());
 			characterfile.newLine();
 			characterfile.write("teleblock-length = ", 0, 19);
 			characterfile.write(Integer.toString(tbTime), 0,
