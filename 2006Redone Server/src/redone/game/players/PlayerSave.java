@@ -132,6 +132,9 @@ public class PlayerSave {
 							case "randomActions":
 								player.randomActions = Integer.parseInt(token2);
 								break;
+							case "debugMode":
+								player.debugMode = Boolean.parseBoolean(token2);
+								break;
 							case "skull-timer":
 								player.skullTimer = Integer.parseInt(token2);
 								break;
@@ -837,6 +840,10 @@ public class PlayerSave {
 			characterfile.write("RatDied2 = ", 0, 11);
 			characterfile.write(Boolean.toString(player.ratdied2), 0, Boolean
 					.toString(player.ratdied2).length());
+			characterfile.newLine();
+			characterfile.write("debugMode = ", 0, 12);
+			characterfile.write(Boolean.toString(player.debugMode), 0, Boolean
+					.toString(player.debugMode).length());
 			characterfile.newLine();
 			characterfile.write("randomToggle = ", 0, 15);
 			characterfile.write(Boolean.toString(player.randomToggle), 0, Boolean

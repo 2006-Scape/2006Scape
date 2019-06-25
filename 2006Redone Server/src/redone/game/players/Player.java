@@ -42,7 +42,7 @@ public abstract class Player {
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
 			boneDelay, botAttempts, leverDelay = 0, farmTime, searchObjectDelay = 0;
 
-    private Npc specialTarget = null;
+	private Npc specialTarget = null;
 	public void setSpecialTarget(Npc target) {
 			this.specialTarget = target;
 		}
@@ -81,7 +81,7 @@ public abstract class Player {
 			treeSpiritSpawned = false, chickenSpawned = false, clickedTree = false, filter = true,
 			stopPlayer = false, npcCanAttack = true, gliderOpen = false, hasSandwhichLady = false,
 			isHarvesting, openDuel = false,  killedJad = false, canHealersRespawn = true, playerIsBusy = false, miningRock,
-			randomToggle = false;
+			randomToggle = false, debugMode = false;
 
 	public int thankedForDonation, saveDelay, playerKilled, gertCat, restGhost,
 			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest,

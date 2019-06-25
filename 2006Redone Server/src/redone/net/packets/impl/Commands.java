@@ -53,13 +53,14 @@ public class Commands implements PacketType {
                         return;
                 }
 
+                String message = null;
                 switch (playerCommand)
                 {
                         case "close_interface":
                             player.getPlayerAssistant().closeAllWindows();
                             break;
                         case "commands":
-                            player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle");
+                            player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug");
                             break;
                         case "loc":
                                 player.getActionSender().sendMessage(player.absX + "," + player.absY);
@@ -72,7 +73,13 @@ public class Commands implements PacketType {
                                 break;
                         case "randomtoggle":
                                 player.randomToggle = !player.randomToggle;
-                                String message = player.randomToggle ? "You will now receive random events." : "You will no longer receieve random events.";
+                                message = player.randomToggle ? "You will now receive random events." : "You will no longer receieve random events.";
+                                player.getActionSender().sendMessage(message);
+                                break;
+                        case "debug":
+                        case "debugmode":
+                                player.debugMode = !player.debugMode;
+                                message = player.debugMode ? "You will now receieve additional debug information when doing things" : "You will no longer receive additional info when doing things";
                                 player.getActionSender().sendMessage(message);
                                 break;
                         case "highscores":

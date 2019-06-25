@@ -154,9 +154,9 @@ public class Constants {
 	public final static boolean SINGLE_AND_MULTI_ZONES = true;
 	public final static boolean COMBAT_LEVEL_DIFFERENCE = true;
 	public final static boolean itemRequirements = true;
-	public final static int MELEE_EXP_RATE = 4; // damage * exp rate
-	public final static int RANGE_EXP_RATE = 4;
-	public final static int MAGIC_EXP_RATE = 4;
+	public final static int MELEE_EXP_RATE = 1; // damage * exp rate
+	public final static int RANGE_EXP_RATE = 1;
+	public final static int MAGIC_EXP_RATE = 1;
 	public final static int CASTLE_WARS_X = 2439;
 	public final static int CASTLE_WARS_Y = 3087;
 	public static double SERVER_EXP_BONUS = 5;

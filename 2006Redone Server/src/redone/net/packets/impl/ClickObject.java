@@ -35,11 +35,12 @@ public class ClickObject implements PacketType {
 			player.objectY = player.getInStream().readUnsignedWordA();
 			player.objectDistance = 1;
 			player.turnPlayerTo(player.objectX, player.objectY);
-			if (player.playerRights == 3) {
+			if (player.playerRights == 3 || player.debugMode) {
 				player.getActionSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 1, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 			if(player.goodDistance(player.getX(), player.getY(), player.objectX, player.objectY, 1)) {
 				if (Doors.getSingleton().handleDoor(player.objectId, player.objectX, player.objectY, player.heightLevel)) {
+					System.out.println("Door debug?");
 				}
 			}
 			
