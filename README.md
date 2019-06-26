@@ -1,24 +1,32 @@
-# 2006rebotted
-A 2006 Runescape Emulation Server - with bots!
+# 2006rebotted - an open source, bottable remake server. Pull requests welcome!
 
-Project thread (RuneServer): https://www.rune-server.ee/runescape-development/rs2-server/projects/686444-2006rebotted-remake-server-will-allow-supply-creatable-bots.html
+## Getting started
 
-# Contributing
+### Client (non-bottable download): https://github.com/dginovker/2006rebotted/releases/
+### Parabot client (recommended): https://www.parabot.org/community/
+### Rune-Server project thread: [Project thread](https://www.rune-server.ee/runescape-development/rs2-server/projects/686444-2006rebotted-remake-server-will-allow-supply-creatable-bots.html)
 
-You can contribute anything you want. Content, bug fixes, even custom code. Simply clone the repository, and let me know if you need help. The original 2006redone release thread might come in handy for starting out: https://www.rune-server.ee/runescape-development/rs2-server/downloads/655403-2006redone-release-highly-accurate-runescape-2006-remake.html
+## Contributing
 
-Folder layout:
+### Server source layout
 
-2006Redone file_server must be running so the client can connect and get the cache
+- `2006Redone Server` contains all the server code; mark `src` as the Sources directory
+- `2006Redone Client` contains all the client code; likewise mark `src`
+  - If more than 2 arguments are passed in (can be anything), the client runs locally
+- `2006Redone file_server` contains the file server code that is *required* to be running before a client can connect to a server. It must be running locally before a client can connect. `src` is the Sources directory
 
-2006Redone Server contains the server code
+- `2006Redone_Client` and `2006Redone_Server` contain the compiled class code/outputs.
 
-2006Redone Client contains the client code
+### ScriptFactory source
 
-Note that while any sensible changes are welcome, refactoring the Client is unlikely to be merged, simply because it breaks the botting hooks.
+ScriptFactory's source code can be found in my Parabot scripting repository [here](https://github.com/dginovker/Parabot)
 
-Bot client available through Parabot.org: https://www.parabot.org/community/
+### Writing your own custom bot:
 
-## Contributing Support
+ScriptFactory is a script available on the [Parabot BDN](http://bdn.parabot.org/scripts/) that can help you create your own scripts. To use it, first register to Parabot, navigate to the BDN, and find ScriptFactory.
+
+ScriptFactory example scripts: https://www.parabot.org/community/topic/18021-script-factory-13-create-your-own-scripts/
+
+## Contributing Support (Server, Client, anything.)
 
 Create an issue, message me on [Reddit](https://www.reddit.com/user/OsrsNeedsF2P/), [Rune-Server](https://www.rune-server.ee/members/before/), or Discord (Red Bracket#8151) to get in touch :)
