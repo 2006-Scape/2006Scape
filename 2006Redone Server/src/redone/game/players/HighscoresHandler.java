@@ -2,7 +2,6 @@ package redone.game.players;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 import static redone.game.players.PlayerSave.loadPlayerInfo;
@@ -31,8 +30,8 @@ public class HighscoresHandler {
                 players.sort(new totalGoldComparator());
                 return players.get(i).playerName + ": " + players.get(i).getPlayerAssistant().totalGold() + "gp";
             default:
-                players.sort(new totalDmgComparator());
-                return players.get(i).playerName + ": " + players.get(i).totalDamageDealt;
+                players.sort(new globalDmgComparator());
+                return players.get(i).playerName + ": " + players.get(i).globalDamageDealt;
         }
     }
 
@@ -50,10 +49,10 @@ public class HighscoresHandler {
         }
     }
 
-    private class totalDmgComparator implements Comparator<Client> {
+    private class globalDmgComparator implements Comparator<Client> {
         @Override
         public int compare(Client client, Client t1) {
-            return - client.totalDamageDealt + t1.totalDamageDealt;
+            return - client.globalDamageDealt + t1.globalDamageDealt;
         }
     }
 

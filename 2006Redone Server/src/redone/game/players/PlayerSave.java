@@ -39,6 +39,11 @@ public class PlayerSave {
 		if (File1) {
 			// new File ("./characters/"+playerName+".txt");
 		} else {
+			if (playerName.equals(""))
+			{
+				//it's the .gitignore :P
+				return 0;
+			}
 			Misc.println(playerName + ": character file not found.");
 			player.newPlayer = false;
 			return 0;
@@ -134,6 +139,9 @@ public class PlayerSave {
 								break;
 							case "debugMode":
 								player.debugMode = Boolean.parseBoolean(token2);
+								break;
+							case "global-damage":
+								player.globalDamageDealt = Integer.parseInt(token2);
 								break;
 							case "skull-timer":
 								player.skullTimer = Integer.parseInt(token2);
@@ -621,6 +629,10 @@ public class PlayerSave {
 			characterfile.write("isBotting = ", 0, 12);
 			characterfile.write(Boolean.toString(player.isBotting), 0,
 					Boolean.toString(player.isBotting).length());
+			characterfile.newLine();
+			characterfile.write("global-damage = ", 0, 16);
+			characterfile.write(Integer.toString(player.globalDamageDealt), 0, Integer
+					.toString(player.globalDamageDealt).length());
 			characterfile.newLine();
 			characterfile.write("brightness = ", 0, 13);
 			characterfile.write(Integer.toString(player.brightness), 0, Integer

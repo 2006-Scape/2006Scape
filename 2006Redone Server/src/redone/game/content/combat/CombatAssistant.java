@@ -133,6 +133,11 @@ public class CombatAssistant {
 				if (NpcHandler.npcs[i].HP - damage <= 0 && damage2 > 0) {
 					damage2 = 0;
 				}
+				c.globalDamageDealt += damage;
+				if (damage2 > 0)
+				{
+					c.globalDamageDealt += damage2;
+				}
 				if (c.fightMode == 3) {//range shared
 					c.getPlayerAssistant().addSkillXP(damage * Constants.RANGE_EXP_RATE / 3, 4);
 					c.getPlayerAssistant().addSkillXP(damage / 3, 1);
@@ -219,6 +224,7 @@ public class CombatAssistant {
 				}
 				//magic
 				c.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[c.oldSpellId][7] + damage * Constants.MAGIC_EXP_RATE, 6);
+				c.totalDamageDealt += damage;
 				if (MagicData.MAGIC_SPELLS[c.oldSpellId][0] != 1161 && MagicData.MAGIC_SPELLS[c.oldSpellId][0] != 1153 && MagicData.MAGIC_SPELLS[c.oldSpellId][0] != 1157 && MagicData.MAGIC_SPELLS[c.oldSpellId][0] != 1542 && MagicData.MAGIC_SPELLS[c.oldSpellId][0] != 1543 && MagicData.MAGIC_SPELLS[c.oldSpellId][0] != 1562) {
 					c.getPlayerAssistant().addSkillXP(damage * Constants.MAGIC_EXP_RATE / 3, 3);
 				}
@@ -315,13 +321,14 @@ public class CombatAssistant {
 				damage = 0;
 			}
 		}
-			if (NpcHandler.npcs[i].HP - damage > 0) {
-						if (NpcHandler.npcs[i].npcType == FightCaves.TZTOK_JAD && NpcHandler.npcs[i].spawnedBy == c.getId() && ((NpcHandler.npcs[i].HP > (FightCaves.getHp(FightCaves.TZTOK_JAD)/2)) &&
-							(NpcHandler.npcs[i].HP-damage < (FightCaves.getHp(FightCaves.TZTOK_JAD)/2)))) {
-							if (c.canHealersRespawn)
-							FightCaves.spawnHealers(c, i, 4-c.spawnedHealers);
-						}
-					}
+		c.globalDamageDealt += damage;
+		if (NpcHandler.npcs[i].HP - damage > 0) {
+			if (NpcHandler.npcs[i].npcType == FightCaves.TZTOK_JAD && NpcHandler.npcs[i].spawnedBy == c.getId() && ((NpcHandler.npcs[i].HP > (FightCaves.getHp(FightCaves.TZTOK_JAD)/2)) &&
+					(NpcHandler.npcs[i].HP-damage < (FightCaves.getHp(FightCaves.TZTOK_JAD)/2)))) {
+				if (c.canHealersRespawn)
+					FightCaves.spawnHealers(c, i, 4-c.spawnedHealers);
+			}
+		}
 		boolean guthansEffect = false;
 		if (c.getPlayerAssistant().fullGuthans()) {
 			if (Misc.random(3) == 1) {

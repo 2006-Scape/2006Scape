@@ -2,11 +2,10 @@ package redone.net.packets.impl;
 
 import redone.Connection;
 import redone.Constants;
+import redone.Server;
 import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
-import redone.game.players.Client;
-import redone.game.players.HighscoresHandler;
-import redone.game.players.PlayerHandler;
+import redone.game.players.*;
 import redone.net.packets.PacketType;
 import redone.util.GameLogger;
 import redone.util.Misc;
@@ -53,6 +52,15 @@ public class Commands implements PacketType {
                         return;
                 }
 
+                if (playerCommand.startsWith("gfx100"))
+                {
+                        player.gfx100(Integer.parseInt(playerCommand.split(" ")[1]));
+                }
+                if (playerCommand.startsWith("gfx0"))
+                {
+                        player.gfx0(Integer.parseInt(playerCommand.split(" ")[1]));
+                }
+
                 String message = null;
                 switch (playerCommand)
                 {
@@ -83,30 +91,39 @@ public class Commands implements PacketType {
                                 player.getActionSender().sendMessage(message);
                                 break;
                         case "highscores":
-                            HighscoresHandler hs = new HighscoresHandler();
-                            String[] highscores = new String[]{
-                                    "@dre@Highscores",
-                                    "",
-                                    "Top 5 Total Level:",
-                                    hs.getRank(0, "level"), hs.getRank(1, "level"), hs.getRank(2, "level"), hs.getRank(3, "level"), hs.getRank(4, "level"),
-                                    "",
-                                    "Top 5 Wealthiest Players:",
-                                    hs.getRank(0, "gold"), hs.getRank(1, "gold"), hs.getRank(2, "gold"), hs.getRank(3, "gold"), hs.getRank(4, "gold"),
-                                    "",
-                                    "Top 5 Highest Total Damage:",
-                                    hs.getRank(0, "damage"), hs.getRank(1, "damage"), hs.getRank(2, "damage"), hs.getRank(3, "damage"), hs.getRank(4, "damage"),
-                            };
+                                for (Player p : PlayerHandler.players) {
+                                        if (p == null) {
+                                                continue;
+                                        }
+                                        PlayerSave.saveGame((Client) p);
+                                        System.out.println("Saved game for " + p.playerName
+                                                + ".");
+                                        Server.lastMassSave = System.currentTimeMillis();
+                                }
+                                HighscoresHandler hs = new HighscoresHandler();
+                                String[] highscores = new String[]{
+                                        "@dre@Highscores",
+                                        "",
+                                        "Top 5 Total Level:",
+                                        hs.getRank(0, "level"), hs.getRank(1, "level"), hs.getRank(2, "level"), hs.getRank(3, "level"), hs.getRank(4, "level"),
+                                        "",
+                                        "Top 5 Wealthiest Players:",
+                                        hs.getRank(0, "gold"), hs.getRank(1, "gold"), hs.getRank(2, "gold"), hs.getRank(3, "gold"), hs.getRank(4, "gold"),
+                                        "",
+                                        "Top 5 Highest Total Damage:",
+                                        hs.getRank(0, "damage"), hs.getRank(1, "damage"), hs.getRank(2, "damage"), hs.getRank(3, "damage"), hs.getRank(4, "damage"),
+                                };
 
-                                for (int i = 8144; i < 8195; i++) {
+                                for (int i = 8144; i < 8245; i++) {
                                         player.getPlayerAssistant().sendFrame126("", i);
                                 }
 
                                 for (int i = 8144; i < 8144 + highscores.length; i++) {
-                                    player.getPlayerAssistant().sendFrame126(highscores[i - 8144], i+3);
-                            }
-                            player.getPlayerAssistant().showInterface(8134);
+                                        player.getPlayerAssistant().sendFrame126(highscores[i - 8144], i+3);
+                                }
+                                player.getPlayerAssistant().showInterface(8134);
 
-                            break;
+                                break;
 
                 }
 
