@@ -653,6 +653,8 @@ public class Client extends Player {
 				getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
 				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
+				getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
+				getActionSender().sendMessage("Release date will be July 18th! Join our Discord: discord.gg/4zrA2Wy");
 			}
 			for (int i = 0; i < 25; i++) {
 				getActionSender().setSkillLevel(i, playerLevel[i], playerXP[i]);
