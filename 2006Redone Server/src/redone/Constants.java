@@ -159,7 +159,7 @@ public class Constants {
 	public final static int MAGIC_EXP_RATE = 1;
 	public final static int CASTLE_WARS_X = 2439;
 	public final static int CASTLE_WARS_Y = 3087;
-	public static double SERVER_EXP_BONUS = 5;
+	public static double SERVER_EXP_BONUS = 1;
 	public final static int INCREASE_SPECIAL_AMOUNT = 17500;
 	public final static boolean PRAYER_POINTS_REQUIRED = true;
 	public final static boolean PRAYER_LEVEL_REQUIRED = true;

@@ -5790,7 +5790,7 @@ public class Game extends RSApplet {
 			}
 			if (k == 4) {
 				loginMessage1 = "Your account has been disabled.";
-				loginMessage2 = "Please check your message-center for details.";
+				loginMessage2 = "Or you entered an invalid character for user/pass";
 				return;
 			}
 			if (k == 5) {
@@ -5932,7 +5932,7 @@ public class Game extends RSApplet {
 					}
 				} else {
 					loginMessage1 = "No response from server";
-					loginMessage2 = "Please try using a different world.";
+					loginMessage2 = "Please try closing and opening your client again.";
 					return;
 				}
 			} else {
