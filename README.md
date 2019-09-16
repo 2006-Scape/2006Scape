@@ -1,5 +1,7 @@
 # 2006rebotted - an open source, bottable remake server. Pull requests welcome!
 
+## Discord Link: https://discord.gg/4zrA2Wy
+
 ## Getting started
 
 ### Client (non-bottable download): https://github.com/dginovker/2006rebotted/releases/
