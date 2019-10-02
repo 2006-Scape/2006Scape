@@ -19,6 +19,8 @@
 
 - `2006Redone_Client` and `2006Redone_Server` contain the compiled class code/outputs.
 
+To run the server, import the whole repository in IntelliJ. Make sure to add the dependencies in `2006Redone Server/libs", or it won't compile. 
+
 ### ScriptFactory source
 
 ScriptFactory's source code can be found in my Parabot scripting repository [here](https://github.com/dginovker/Parabot)
