@@ -2,13 +2,20 @@
 
 ## Discord Link: https://discord.gg/4zrA2Wy
 
-## Getting started
+## How to Play
 
 ### Client (non-bottable download): https://github.com/dginovker/2006rebotted/releases/
 ### Parabot client (recommended): https://www.parabot.org/community/
 ### Rune-Server project thread: [Project thread](https://www.rune-server.ee/runescape-development/rs2-server/projects/686444-2006rebotted-remake-server-will-allow-supply-creatable-bots.html)
 
-## Contributing
+# How to Develop for 2006rebotted
+
+### Requirements
+
+- IntelliJ Java IDE
+- Java 8
+
+Setting up the source can be a pain. I'm going to make a video of how to do that. Make sure you join discord for support. TBA.
 
 ### Server source layout
 
