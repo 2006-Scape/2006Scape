@@ -40,6 +40,14 @@ public class Commands implements PacketType {
         }
 
         public static void playerCommands(Client player, String playerCommand) {
+                if (playerCommand.equalsIgnoreCase("bank")) {
+                        player.getPlayerAssistant().openUpBank();
+                }
+
+                if (playerCommand.equalsIgnoreCase("coords") || playerCommand.equalsIgnoreCase("coord") || playerCommand.equalsIgnoreCase("pos")){
+                        player.getActionSender().sendMessage("Your coords are [" + player.absX + "," + player.absY + "]");
+                }
+
                 if (playerCommand.equalsIgnoreCase("players")) {
                         if (PlayerHandler.getPlayerCount() > 1) {
                                 player.getActionSender().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online.");

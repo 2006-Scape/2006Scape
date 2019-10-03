@@ -1431,6 +1431,15 @@ public class PlayerAssistant {
 			player.getPlayerAssistant().closeAllWindows();
 			return;
 		}
+
+		if (!player.inBankArea())
+		{
+			player.getActionSender().sendMessage("You can't open a bank unless you're in a bank area!");
+			player.getActionSender().sendMessage("If this is a bug, please report it! Your coords are [" + player.absX + "," + player.absY + "]");
+			player.getPlayerAssistant().closeAllWindows();
+			return;
+		}
+
 		if (player.absX == 2813 && player.absY == 3443) {
 			return;
 		}

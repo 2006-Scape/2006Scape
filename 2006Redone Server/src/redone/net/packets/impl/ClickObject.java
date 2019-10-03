@@ -40,7 +40,7 @@ public class ClickObject implements PacketType {
 			}
 			//if(player.goodDistance(player.getX(), player.getY(), player.objectX, player.objectY, 1)) {
 				if (Doors.getSingleton().handleDoor(player.objectId, player.objectX, player.objectY, player.heightLevel)) {
-					System.out.println("Door debug?");
+					//System.out.println("Door debug?");
 				}
 			//}
 			

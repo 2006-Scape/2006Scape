@@ -321,33 +321,33 @@ public abstract class Player {
 	}
 
 	public boolean inCwSafe() {
-		return (Area(2423, 2431, 3072, 3080) || Area(2368, 2376, 3127, 3135))
+		return (isInAreaxxyy(2423, 2431, 3072, 3080) || isInAreaxxyy(2368, 2376, 3127, 3135))
 				&& heightLevel == 1;
 	}
 
 	public boolean inZammyWait() {
-		return Area(2409, 2431, 9511, 9535);
+		return isInAreaxxyy(2409, 2431, 9511, 9535);
 	}
 
 	public boolean inSaraWait() {
-		return Area(2368, 2392, 9479, 9498);
+		return isInAreaxxyy(2368, 2392, 9479, 9498);
 	}
 
 	public boolean inCwGame() {
-		return Area(2368, 2431, 9479, 9535) || Area(2368, 2431, 3072, 3135)
+		return isInAreaxxyy(2368, 2431, 9479, 9535) || isInAreaxxyy(2368, 2431, 3072, 3135)
 				&& !inSaraWait() && !inZammyWait();
 	}
 
 	public boolean inCwUnderground() {
-		return Area(2368, 2431, 9479, 9535) && !inSaraWait() && !inZammyWait();
+		return isInAreaxxyy(2368, 2431, 9479, 9535) && !inSaraWait() && !inZammyWait();
 	}
 
 	public boolean inZammyBase() {
-		return Area(2368, 2384, 3118, 3135);
+		return isInAreaxxyy(2368, 2384, 3118, 3135);
 	}
 
 	public boolean inSaraBase() {
-		return Area(2414, 2431, 3072, 3088);
+		return isInAreaxxyy(2414, 2431, 3072, 3088);
 	}
 
 	public void gameInterface(int id) {
@@ -584,6 +584,36 @@ public abstract class Player {
 		return false;
 	}
 
+	public boolean inBankArea() {
+        return isInArea(3205,3226,3214,3211) || //Lumbridge Bank
+				isInArea(3264,3175,3264,3136) || //Al Kharid Bank
+				isInArea(3492,3215,3456,3200) || //Burgh d rott
+				isInArea(3377,3275,3386,3266) || //Clan Wars
+				isInArea(3087,3248,3098,3239) || //Draynor
+				isInArea(3248,3426,3258,3414) || //Varrock East
+				isInArea(3178,3449,3136,3392) || //Varrock West
+				isInArea(3088,3501,3100,3486) || //Edgeville
+				isInArea(3944, 3328,3008,3328) || //Falador East
+				isInArea(2940,3375,2951,3365) || //Falador West
+				isInArea(2839,3547,2844,3540) || //Warriors guild
+				isInArea(2804,3447,2815,3438) || //Catherby
+				isInArea(2718,3500,2733,3485) || //Seer's village
+				isInArea(2610,3338,2622,3326) || //North ardy
+				isInArea(2645,3288,2660,3281) || //South ardy
+				isInArea(2658,3165,2670,3158) || //Khazard
+				isInArea(2607,3098,2618,3087) || //Yanille
+				isInArea(2436, 3089, 2432, 3072) || //Castle Wars
+				isInArea(2348,3168,2358,3159) || //Lleyta
+				isInArea(2324,3694,2334,3685) || //Piscatoris
+				isInArea(2527,3581,2539,3563) || //Barbarian Assault
+				isInArea(2425,3435,2453,3411) || //Tree Gnome Stronghold
+				isInArea(2843,2958,2816,2944) || //Shilo Village
+				isInArea(3113,3131,3131,3118) || //Tutorial Island
+				isInArea(3422,2895,3433,2885) || //Nardah
+				isInArea(3685,3473,3694,3461) || //Phasmatys
+				false;
+	}
+
 	public boolean inDesert() {
 		return absX >= 3137 && absX <= 3321 && absY >= 2880 && absY <= 3115;
 	}
@@ -633,25 +663,29 @@ public abstract class Player {
 	}
 
 	public boolean inBank() { // Area(top left X, bottom right X, bottom right Y, top left Y)
-		   return Area(3090, 3099, 3487, 3500) || Area(3089, 3090, 3492, 3498) || Area(3249, 3258, 3413, 3428) || Area(3180, 3191, 3432, 3448) || Area(2945, 2948, 3365, 3374) || 
-			   Area(2943, 2948, 3367, 3374) || Area(2945, 2950, 3365, 3370) || Area(3009, 3018, 3352, 3359) || Area(3017, 3022, 3353, 3357);
+		   return isInAreaxxyy(3090, 3099, 3487, 3500) || isInAreaxxyy(3089, 3090, 3492, 3498) || isInAreaxxyy(3249, 3258, 3413, 3428) || isInAreaxxyy(3180, 3191, 3432, 3448) || isInAreaxxyy(2945, 2948, 3365, 3374) ||
+			   isInAreaxxyy(2943, 2948, 3367, 3374) || isInAreaxxyy(2945, 2950, 3365, 3370) || isInAreaxxyy(3009, 3018, 3352, 3359) || isInAreaxxyy(3017, 3022, 3353, 3357);
 	}
 	
 	public boolean inLumbBuilding() {
-		return Area(3205, 3216, 3209, 3228) || Area(3229, 3233, 3206, 3208) || Area(3228, 3233, 3201, 3205) || Area(3230, 3237, 3195, 3198) || Area(3238, 3229, 3209, 3211) ||
-			   Area(3240, 3247, 3204, 3215) || Area(3247, 3252, 3190, 3195) || Area(3227, 3230, 3212, 3216) || Area(3227, 3230, 3221, 3225) || Area(3229, 3232, 3236, 3241) ||
-			   Area(3209, 3213, 3243, 3250) || Area(3222, 3229, 3252, 3257) || Area(3184, 3192, 3270, 3275) || Area(3222, 3224, 3292, 3294) || Area(3225, 3230, 3287, 3228) ||
-			   Area(3243, 3248, 3244, 3248) || Area(3202, 3205, 3167, 3170) || Area(3231, 3238, 3151, 3155) || Area(3233, 3234, 3156, 3156) || Area(3163, 3170, 3305, 3308) ||
-			   Area(3165, 3168, 3303, 3310);
+		return isInAreaxxyy(3205, 3216, 3209, 3228) || isInAreaxxyy(3229, 3233, 3206, 3208) || isInAreaxxyy(3228, 3233, 3201, 3205) || isInAreaxxyy(3230, 3237, 3195, 3198) || isInAreaxxyy(3238, 3229, 3209, 3211) ||
+			   isInAreaxxyy(3240, 3247, 3204, 3215) || isInAreaxxyy(3247, 3252, 3190, 3195) || isInAreaxxyy(3227, 3230, 3212, 3216) || isInAreaxxyy(3227, 3230, 3221, 3225) || isInAreaxxyy(3229, 3232, 3236, 3241) ||
+			   isInAreaxxyy(3209, 3213, 3243, 3250) || isInAreaxxyy(3222, 3229, 3252, 3257) || isInAreaxxyy(3184, 3192, 3270, 3275) || isInAreaxxyy(3222, 3224, 3292, 3294) || isInAreaxxyy(3225, 3230, 3287, 3228) ||
+			   isInAreaxxyy(3243, 3248, 3244, 3248) || isInAreaxxyy(3202, 3205, 3167, 3170) || isInAreaxxyy(3231, 3238, 3151, 3155) || isInAreaxxyy(3233, 3234, 3156, 3156) || isInAreaxxyy(3163, 3170, 3305, 3308) ||
+			   isInAreaxxyy(3165, 3168, 3303, 3310);
 	}
 
      	public boolean inDraynorBuilding() {
-			return Area(3097, 3102, 3277, 3281) || Area(3088, 3092, 3273, 3276) || Area(3096, 3102, 3266, 3270) || Area(3089, 3095, 3265, 3268) || Area(3083, 3088, 3256, 3261) ||
-				   Area(3087, 3094, 3251, 3255) || Area(3121, 3130, 3240, 3246) || Area(3102, 3112, 3162, 3165) || Area(3107, 3111, 3166, 3166) || Area(3103, 3115, 3157, 3161) ||
-				   Area(3105, 3114, 3156, 3156) || Area(3105, 3113, 3155, 3155) || Area(3106, 3112, 3154, 3154) || Area(3092, 3097, 3240, 3246);
+			return isInAreaxxyy(3097, 3102, 3277, 3281) || isInAreaxxyy(3088, 3092, 3273, 3276) || isInAreaxxyy(3096, 3102, 3266, 3270) || isInAreaxxyy(3089, 3095, 3265, 3268) || isInAreaxxyy(3083, 3088, 3256, 3261) ||
+				   isInAreaxxyy(3087, 3094, 3251, 3255) || isInAreaxxyy(3121, 3130, 3240, 3246) || isInAreaxxyy(3102, 3112, 3162, 3165) || isInAreaxxyy(3107, 3111, 3166, 3166) || isInAreaxxyy(3103, 3115, 3157, 3161) ||
+				   isInAreaxxyy(3105, 3114, 3156, 3156) || isInAreaxxyy(3105, 3113, 3155, 3155) || isInAreaxxyy(3106, 3112, 3154, 3154) || isInAreaxxyy(3092, 3097, 3240, 3246);
 	}
 
-	public boolean Area(final int x1, final int x2, final int y1, final int y2) {
+	public boolean isInArea(final int x1, final int y1, final int x2, final int y2) {
+		return (absX >= x1 && absX <= x2 || absX <= x1 && absX >= x2) && (absY >= y1 && absY <= y2 || absY <= y1 && absY >= y2);
+	}
+
+	public boolean isInAreaxxyy(final int x1, final int x2, final int y1, final int y2) {
 		return absX >= x1 && absX <= x2 && absY >= y1 && absY <= y2;
 	}
 
@@ -1945,4 +1979,5 @@ public abstract class Player {
 		}
 		updateRequired = true;
 	}
+
 }
