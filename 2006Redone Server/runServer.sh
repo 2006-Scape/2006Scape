@@ -1,1 +1,3 @@
-rm -rf redone/ ; cp -r ../2006Redone_Server/redone . ; java -cp ".:./libs/*" redone.Server
+rm -rf redone/
+cp -r ../CompiledServer/production/2006rebotted/redone .
+java -cp ".:./libs/*" redone.Server

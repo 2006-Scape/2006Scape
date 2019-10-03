@@ -1,1 +1,3 @@
-rm -rf org/ ; cp -r ../2006Redone_Server/production/2006rebotted/org ; java -cp ".:./assets/*" org.apollo.jagcached.FileServer
+rm -rf org/ 
+cp -r ../CompiledServer/production/2006rebotted/org .
+java -cp ".:./libs/*" org.apollo.jagcached.FileServer
