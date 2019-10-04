@@ -2429,7 +2429,7 @@ public class PlayerAssistant {
 			player.getDialogueHandler().sendDialogues(2995, -1);
 			player.tutorialProgress = 0;
 			player.isRunning2 = false;
-			player.autoRet = 0;
+			player.autoRet = 1;
 			//resetStats();
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
@@ -2447,7 +2447,7 @@ public class PlayerAssistant {
 							+ Constants.TEST_VERSION + "@bla@.");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
-			player.autoRet = 0;
+			player.autoRet = 1;
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
 			if (!player.hasBankpin) {
