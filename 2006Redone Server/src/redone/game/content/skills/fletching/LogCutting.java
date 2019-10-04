@@ -41,11 +41,12 @@ public class LogCutting {
 		c.playerIsFletching = true;
 		c.startAnimation(1248);
 		c.getActionSender().sendSound(CUT_SOUND, 100, 0);
+
 		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (c.getItemAssistant().playerHasItem(KNIFE)) {
+				if (c.getItemAssistant().playerHasItem(LogCuttingInterface.log) && c.getItemAssistant().playerHasItem(KNIFE)) {
 					c.getItemAssistant().deleteItem2(LogCuttingInterface.log, 1);
 					if (product == 52) {
 						c.getItemAssistant().addItem(product, 15);
