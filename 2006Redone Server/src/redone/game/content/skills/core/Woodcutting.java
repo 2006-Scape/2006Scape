@@ -70,7 +70,11 @@ public class Woodcutting {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (player.isWoodcutting) {
-					player.startAnimation(Axe_Settings[a][3]);
+					try {
+						player.startAnimation(Axe_Settings[a][3]);
+					} catch (ArrayIndexOutOfBoundsException exception) {
+						System.out.println("LOL this happend again: " + exception);
+					}
 					player.getActionSender().sendSound(SoundList.TREE_CUTTING, 100, 0);
 				} else {
 					container.stop();
