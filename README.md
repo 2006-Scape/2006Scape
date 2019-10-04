@@ -10,12 +10,28 @@
 
 # How to Develop for 2006rebotted
 
-### Requirements
-
-- IntelliJ Java IDE
-- Java 8
-
-Setting up the source can be a pain. I'm going to make a video of how to do that. Make sure you join discord for support. TBA.
+Step 1: Register a GitHub account
+Step 2 (Windows users): Install Git Bash
+Step 3: Install IntelliJ
+Step 4: Install Java 8 from https://adoptopenjdk.net
+Step 4: [Fork this repository](https://i.imgur.com/PoMTxZj.png)
+Step 5: Open Git Bash and type `git clone <YOUR_FORK_URL>` ([Example](https://i.imgur.com/Hs1upNf.png)) 
+Step 6: In Git Bash, type `cd 2006rebotted` ([Image](https://i.imgur.com/ePs3U2C.png))
+Step 7: In Git Bash, type `git remote add upstream https://github.com/dginovker/2006rebotted` ([Image](https://i.imgur.com/4qYP9ve.png))
+Step 8: In Git Bash, type `git checkout -b my-development` ([Image](https://i.imgur.com/4yHUsjc.png))
+Step 9: Open IntelliJ and click "Open" on the Right-Hand panel ([Image](https://i.imgur.com/ApABBlm.png))
+Step 10: Find where you "Cloned" the code to in Git Bash. If you can't find it, type `pwd` in Git Bash to help ([Image](https://i.imgur.com/YvVFtmW.png))
+Step 11: Click this button if your code structure is not visible: https://i.imgur.com/bxXvoKv.png
+Step 12: Click File -> Project Structure
+Step 13: Set Project SDK to 1.8, Project Language Level to 8, & Project Compiler Output to any valid folder [Image](https://i.imgur.com/9PJDk0Q.png)
+Step 14: Click "Modules" and make sure it looks like what I have highlighted. If it doesn't, join the Discord and I'll help you create one. ([Image](https://i.imgur.com/NBAnk0A.png))
+Step 15: Click "Dependencies", then click the "Add" arrow and select "JARs or directories"([Image](https://i.imgur.com/tGI9QNI.png))
+Step 16: Navigate to your 2006rebotted folder, open `2006Redone file_server` > `libs`. Holding "Shift" on your keyboard, select all the .jar files in the `libs` folder there, and hit OK. ([Image](https://i.imgur.com/Yv3SX1q.png))
+Step 17: Hit OK in the project structure screen after all your JARs are imported: ([Image](https://i.imgur.com/Yv3SX1q.png))
+Step 18: Navigate to the FileServer class and hit Run. It will fail since we need to start it in the right directory: [Image](https://i.imgur.com/LFkr39U.png)
+Step 19: To fix the directory issue, click File Server and hit Edit Configurations at the top: [Image](https://i.imgur.com/lJdBPCs.png)
+Step 20: Under Working Directory, add `2006Redone file_server` to the path (on Windows, you may need a \\ for paths instead of a /. Not sure): [Image](https://i.imgur.com/ANkbgBl.png)
+Step 21: Repeat for Server & Client. Note for Client, to play locally, you also have to append any 2 arguments to the Arguments section to run it locally (it's a quick hack for now).
 
 ### Server source layout
 
@@ -25,19 +41,3 @@ Setting up the source can be a pain. I'm going to make a video of how to do that
 - `2006Redone file_server` contains the file server code that is *required* to be running before a client can connect to a server. It must be running locally before a client can connect. `src` is the Sources directory
 
 - `2006Redone_Client` and `2006Redone_Server` contain the compiled class code/outputs.
-
-To run the server, import the whole repository in IntelliJ. Make sure to add the dependencies in `2006Redone Server/libs", or it won't compile. 
-
-### ScriptFactory source
-
-ScriptFactory's source code can be found in my Parabot scripting repository [here](https://github.com/dginovker/Parabot)
-
-### Writing your own custom bot:
-
-ScriptFactory is a script available on the [Parabot BDN](http://bdn.parabot.org/scripts/) that can help you create your own scripts. To use it, first register to Parabot, navigate to the BDN, and find ScriptFactory.
-
-ScriptFactory example scripts: https://www.parabot.org/community/topic/18021-script-factory-13-create-your-own-scripts/
-
-## Contributing Support (Server, Client, anything.)
-
-Create an issue, message me on [Reddit](https://www.reddit.com/user/OsrsNeedsF2P/), [Rune-Server](https://www.rune-server.ee/members/before/), or Discord (Red Bracket#8151) to get in touch :)
