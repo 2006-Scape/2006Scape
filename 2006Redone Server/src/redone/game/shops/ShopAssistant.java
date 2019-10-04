@@ -106,13 +106,13 @@ public class ShopAssistant {
 		}
 	}
 
-	public double getItemShopValue(int ItemID, int Type, int fromSlot) {
+	public double getItemShopValue(int ItemID, int Type, boolean isSelling) {
 		double ShopValue = 1;
 		double TotPrice = 0;
+		double sellingRatio = isSelling ? 0.85 : 1;
 		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
 			if (ItemDefinitions.getDef()[i] != null) {
-				ShopValue = (int) ItemDefinitions.getDef()[ItemID].highAlch/3 *5;
-				//ShopValue = (int) ItemDefinitions.getDef()[ItemID].shopValue;
+				ShopValue = ItemDefinitions.getDef()[ItemID].highAlch/3.0 *5.0 * sellingRatio;
 			}
 		}
 
@@ -140,7 +140,7 @@ public class ShopAssistant {
 	 **/
 
 	public void buyFromShopPrice(int removeId, int removeSlot) {
-		int ShopValue = (int) Math.floor(getItemShopValue(removeId, 0, removeSlot));
+		int ShopValue = (int) Math.floor(getItemShopValue(removeId, 0, false));
 		int SpecialValue = getTokkulValue(removeId);
 		String ShopAdd = "";
 		if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
@@ -307,7 +307,7 @@ public class ShopAssistant {
 		if (IsIn == false) {
 			player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
-			int ShopValue = (int) Math.floor(getItemShopValue(removeId, 1, removeSlot) *.85);
+			int ShopValue = (int) Math.floor(getItemShopValue(removeId, 1, true));
 			String ShopAdd = "";
 			if (ShopValue >= 1000 && ShopValue < 1000000) {
 				ShopAdd = " (" + (ShopValue / 1000) + "K)";
@@ -369,7 +369,7 @@ public class ShopAssistant {
 			int TotPrice2 = 0;
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 			for (int i = amount; i > 0; i--) {
-				TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 1, fromSlot) *.85);
+				TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 1, true));
 				if (player.getItemAssistant().freeSlots() > 0 || player.getItemAssistant().playerHasItem(995)) {
 					if (ItemDefinitions.getDef()[itemID].isNoteable == false) {
 						player.getItemAssistant().deleteItem(itemID, player.getItemAssistant().getItemSlot(itemID), 1);
@@ -453,7 +453,7 @@ public class ShopAssistant {
 			int castleSlot = 0;
 			for (int i = amount; i > 0; i--) {
 				if (player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139 && player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP) {
-					TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 0, fromSlot));
+					TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 0, false));
 				} else if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
 					TotPrice2 = getTokkulValue(itemID);	
 				} else if (player.myShopId == RANGE_SHOP) {
@@ -493,7 +493,7 @@ public class ShopAssistant {
 				}
 
 				if (TotPrice2 <= 1) {
-					TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 0, fromSlot));
+					TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 0, false));
 					TotPrice2 *= 1.66;
 				}
 				
