@@ -1,11 +1,6 @@
 package redone.game.players;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import redone.util.Misc;
 
@@ -18,8 +13,7 @@ public class PlayerSave {
 		return loadPlayerInfo(player, playerName, playerPass, true);
 	}
 
-	public static int loadPlayerInfo(Client player, String playerName, String playerPass, boolean doRealLogin)
-	{
+	public static int loadPlayerInfo(Client player, String playerName, String playerPass, boolean doRealLogin)	{
 		String line = "";
 		String token = "";
 		String token2 = "";
@@ -30,8 +24,7 @@ public class PlayerSave {
 		boolean File1 = false;
 
 		try {
-			characterfile = new BufferedReader(new FileReader(
-					"./data/characters/" + playerName + ".txt"));
+			characterfile = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/characters/" + player.playerName + ".txt"));
 			File1 = true;
 		} catch (FileNotFoundException fileex1) {
 		}
@@ -505,8 +498,9 @@ public class PlayerSave {
 
 		BufferedWriter characterfile = null;
 		try {
-			characterfile = new BufferedWriter(new FileWriter(
-					"./data/characters/" + player.playerName + ".txt"));
+			String filePath = System.getProperty("user.dir") + "/data/accounts/" + player.playerName + ".txt";
+			new File(filePath).getParentFile().mkdir();
+			characterfile = new BufferedWriter(new FileWriter(filePath));
 
 			/* ACCOUNT */
 			characterfile.write("[ACCOUNT]", 0, 9);
