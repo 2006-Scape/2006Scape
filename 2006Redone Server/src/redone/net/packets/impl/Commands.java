@@ -70,6 +70,16 @@ public class Commands implements PacketType {
                 }
 
                 String message = null;
+                System.out.println(player.playerName + " is running " + playerCommand);
+
+                if (playerCommand.contains("tele")) {
+                        if (player.connectedFrom.equals("127.0.0.1"))
+                        {
+                                player.getPlayerAssistant().startTeleport(Integer.parseInt(playerCommand.split(" ")[1]), Integer.parseInt(playerCommand.split(" ")[2]), 0, "modern");
+                        } else {
+                                player.getActionSender().sendMessage("Can't tele with ip " + player.connectedFrom);
+                        }
+                }
                 switch (playerCommand)
                 {
                         case "close_interface":
