@@ -265,13 +265,10 @@ public class Woodcutting {
 					if (player.isWoodcutting) {
 						birdNests(player);
 					}
-					if (player.isWoodcutting && player.tutorialProgress >= 36 && player.treeSpiritSpawned == false && Misc.random(300) == 10) {
-						AntiBotting.botCheckInterface(player);
-					}
 					if (player.isWoodcutting && player.tutorialProgress >= 36 && player.treeSpiritSpawned == false) {
 						RandomEventHandler.addRandom(player);
 					}
-					if (player.isWoodcutting && Misc.random(350) == 69 && player.tutorialProgress >= 36) {
+					if (player.isWoodcutting && Misc.random(350) == 69 && player.tutorialProgress >= 36 && player.randomToggle) {
 						TreeSpirit.spawnTreeSpirit(player);
 					}
 					if (player.playerIsFletching || player.isFiremaking) {
