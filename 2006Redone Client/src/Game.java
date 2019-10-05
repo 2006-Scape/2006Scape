@@ -6536,7 +6536,7 @@ public class Game extends RSApplet {
 			}
 			catch(IOException _ex)
 			{
-				s = "connection problem";
+				s = "Connection problem -- Make sure FileServer is running!!";
 				expectedCRCs[8] = 0;
 			}
 			catch(Exception _ex)

@@ -3,6 +3,18 @@ import java.net.UnknownHostException;
 
 public final class Main {
 
+	/*
+
+	DEAR DEVELOPER!
+
+	If you want to run the client locally, the easiest way to do that is run the class "Client.java" instead!
+
+	If you REALLY want to use this class, add two random program arguments.
+	But seriously, Client.java is just a copy-paste of this class and does it locally. Use that instead!
+
+
+	 */
+
 	public static void main(String[] args) {
 		if (args.length > 1)
 		{

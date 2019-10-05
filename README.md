@@ -46,13 +46,20 @@ Step 16: Navigate to your 2006rebotted folder, open `2006Redone file_server` > `
 
 Step 17: Hit OK in the project structure screen after all your JARs are imported: ([Image](https://i.imgur.com/Yv3SX1q.png))
 
-Step 18: Navigate to the FileServer class and hit Run. It will fail since we need to start it in the right directory: [Image](https://i.imgur.com/LFkr39U.png)
+Step 18: Navigate to the FileServer class (`2006Redone file_server/src/org/apollo/jagcached/FileServer.java`), Right Click -> Run. It will fail since we need to start it in the right directory: [Image](https://i.imgur.com/LFkr39U.png)
 
-Step 19: To fix the directory issue, click File Server and hit Edit Configurations at the top: [Image](https://i.imgur.com/lJdBPCs.png)
+Step 19: To fix the directory issue, click FileServer and hit Edit Configurations at the top: [Image](https://i.imgur.com/lJdBPCs.png)
 
 Step 20: Under Working Directory, add `2006Redone file_server` to the path (on Windows, you may need a \\ for paths instead of a /. Not sure): [Image](https://i.imgur.com/ANkbgBl.png)
 
-Step 21: Repeat for Server & Client. Note for Client, to play locally, you also have to append any 2 arguments to the Arguments section to run it locally (it's a quick hack for now).
+Step 21: Navigate to the Server class (`2006Redone Server/src/redone/Server.java`), Right Click -> Run. It will fail since we need to start it in the right directory
+
+Step 22: To fix the directory issue, click Server and hit Edit Configurations at the top
+
+Step 23: Under Working Directory, add `2006Redone Server` to the path ([Image]("/home/dr_cookie/Projects/2006rebotted/2006Redone Client/src/Client.java"))
+
+Step 24: Navigate to the Client class (`2006Redone Client/src/Client.java`), Right Click -> Run.
+
 
 ### Server source layout
 
