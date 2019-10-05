@@ -498,7 +498,7 @@ public class PlayerSave {
 
 		BufferedWriter characterfile = null;
 		try {
-			String filePath = System.getProperty("user.dir") + "/data/accounts/" + player.playerName + ".txt";
+			String filePath = System.getProperty("user.dir") + "/data/characters/" + player.playerName + ".txt";
 			new File(filePath).getParentFile().mkdir();
 			characterfile = new BufferedWriter(new FileWriter(filePath));
 
