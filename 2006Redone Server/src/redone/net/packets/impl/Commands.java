@@ -148,7 +148,6 @@ public class Commands implements PacketType {
 
         }
 
-
         public static void donatorCommands(Client player, String playerCommand) {
 
         }
@@ -159,11 +158,11 @@ public class Commands implements PacketType {
                                 if (PlayerHandler.players[j] != null) {
                                         Client c2 = (Client)PlayerHandler.players[j];
                                         if (player.playerRights == 1) {
-                                                c2.getActionSender().sendMessage("@blu@[Moderator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                                c2.getActionSender().sendMessage("@blu@[Moderator] @bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
                                         } else if (player.playerRights == 2) {
-                                                c2.getActionSender().sendMessage("@gre@[Administator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                                c2.getActionSender().sendMessage("@gre@[Administator] @bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
                                         } else if (player.playerRights == 3) {
-                                                c2.getActionSender().sendMessage("@red@[Owner]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                                c2.getActionSender().sendMessage("@red@[Developer] @bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
                                         }
                                 }
                         }
