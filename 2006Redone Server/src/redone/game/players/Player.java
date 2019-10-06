@@ -591,7 +591,7 @@ public abstract class Player {
 				isInArea(3492,3215,3456,3200) || //Burgh d rott
 				isInArea(3377,3275,3386,3266) || //Clan Wars
 				isInArea(3087,3248,3098,3239) || //Draynor
-				isInArea(3022,3352,3008,3359) || //Varrock East
+				isInArea(3248,3423,3260,3414) || //Varrock East
 				isInArea(3183,3446,3193,3432) || //Varrock West
 				isInArea(3088,3501,3100,3486) || //Edgeville
 				isInArea(3944,3328,3008,3328) || //Falador East
