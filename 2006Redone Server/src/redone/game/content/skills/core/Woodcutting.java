@@ -246,6 +246,11 @@ public class Woodcutting {
 
 				@Override
 				public void execute(CycleEventContainer container) {
+					if (a <= -1)
+					{
+						container.stop();
+						return;
+					}
 					if (!player.isWoodcutting) {
 						container.stop();
 						return;
