@@ -98,6 +98,7 @@ public class Commands implements PacketType {
                                 player.startAnimation(404);
                                 break;
                         case "randomtoggle":
+                        case "togglerandom":
                                 player.randomToggle = !player.randomToggle;
                                 message = player.randomToggle ? "You will now receive random events." : "You will no longer receieve random events.";
                                 player.getActionSender().sendMessage(message);
