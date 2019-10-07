@@ -41,6 +41,8 @@ public class Mining {
 		{2099, 40, 65, 78, 444}, //Gold
 		{3042, 1, 18, 3, 436}, //Copper
 		{3043, 1, 18, 3, 438}, //Tin
+		{2109, 1, 18, 3, 434}, //Clay
+		{2108, 1, 18, 3, 434}, //Clay
 	};
 	
 	public int getRandomAdd() {
