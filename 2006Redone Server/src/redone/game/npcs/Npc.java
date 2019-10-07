@@ -85,7 +85,7 @@ public class Npc {
 
 			@Override
 			public void stop() {
-				NpcHandler.npcs[currentId].isTransformed = false;
+				NpcHandler.npcs[npcId].isTransformed = false;
 			}
 		}, transformTime);
 		return true;
