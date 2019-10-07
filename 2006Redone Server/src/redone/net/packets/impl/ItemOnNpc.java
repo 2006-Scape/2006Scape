@@ -28,7 +28,14 @@ public class ItemOnNpc implements PacketType {
 		player.faceNpc(i);
 		switch(npcId) {
 		case 43:
-			NpcHandler.npcs[i].requestTransformTime(player, 1735, 893, 43, 42, 50);
+			if (NpcHandler.npcs[i].requestTransformTime(player, 1735, 893, 43, 42, 50, i))
+			{
+				player.getItemAssistant().addItem(1737, 1);
+			}
+			else
+			{
+				player.getActionSender().sendMessage("You need to wait for this sheep's wool to regrow!");
+			}
 		break;
 		}
 		if (player.getItemAssistant().playerHasItem(995, 1) && npcId == 736) {
