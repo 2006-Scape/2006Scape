@@ -188,6 +188,9 @@ public class ObjectsActions {
 		case 3043:
 			player.getMining().startMining(player, 19, player.objectX, player.objectY, player.clickObjectType);
 			break;
+		case 2491:
+			player.getMining().startMining(player, 22, player.objectX, player.objectY, player.clickObjectType);
+			break;
 		
 		case 6702:
 		case 6703:
