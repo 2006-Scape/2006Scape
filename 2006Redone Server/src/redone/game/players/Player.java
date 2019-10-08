@@ -587,6 +587,7 @@ public abstract class Player {
 	public boolean inBankArea() {
         return isInArea(3205,3226,3214,3211) || //Lumbridge Bank
 				isInArea(3266,3171,3272,3162) || //Al Kharid Bank
+				isInArea(2436,5186,2453,5174) || //Tzhaar area
                 isInArea(2842,2957,2860,2950) || //Shilo Bank
 				isInArea(3492,3215,3456,3200) || //Burgh d rott
 				isInArea(3377,3275,3386,3266) || //Clan Wars
