@@ -8,6 +8,7 @@ import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
+import redone.discord.JavaCord;
 import redone.event.CycleEventHandler;
 import redone.event.TaskScheduler;
 import redone.game.content.minigames.FightCaves;
@@ -110,6 +111,12 @@ public class Server {
 		 * Starting Up Server
 		 */
 		System.out.println("Launching " + Constants.SERVER_NAME + "...");
+
+		/**
+		 * Start Discord Bot
+		 */
+
+		JavaCord.init();
 
 		/**
 		 * Accepting Connections
