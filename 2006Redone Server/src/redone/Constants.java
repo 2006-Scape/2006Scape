@@ -8,7 +8,7 @@ public class Constants {
 	public final static double TEST_VERSION = 2.00;
 	public static int BANK_SIZE = 352;
 	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE, CLIENT_VERSION = 999999,
-			WORLD = 1, IPS_ALLOWED = 3, CONNECTION_DELAY = 100,
+			WORLD = 1, IPS_ALLOWED = 250, CONNECTION_DELAY = 100,
 			MESSAGE_DELAY = 6000, MAX_PLAYERS = 100, REQ_AMOUNT = 150;
 	public final static boolean SOUND = true, MEMBERS_AREAS = true,
 			GUILDS = true, MEMBERSHIP = true, WORLD_LIST_FIX = false,

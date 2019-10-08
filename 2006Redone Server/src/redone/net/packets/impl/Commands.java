@@ -70,6 +70,16 @@ public class Commands implements PacketType {
                 }
 
                 String message = null;
+                System.out.println(player.playerName + " is running " + playerCommand);
+
+                if (playerCommand.contains("tele")) {
+                        if (player.connectedFrom.equals("127.0.0.1"))
+                        {
+                                player.getPlayerAssistant().startTeleport(Integer.parseInt(playerCommand.split(" ")[1]), Integer.parseInt(playerCommand.split(" ")[2]), 0, "modern");
+                        } else {
+                                player.getActionSender().sendMessage("Can't tele with ip " + player.connectedFrom);
+                        }
+                }
                 switch (playerCommand)
                 {
                         case "close_interface":
@@ -88,6 +98,7 @@ public class Commands implements PacketType {
                                 player.startAnimation(404);
                                 break;
                         case "randomtoggle":
+                        case "togglerandom":
                                 player.randomToggle = !player.randomToggle;
                                 message = player.randomToggle ? "You will now receive random events." : "You will no longer receieve random events.";
                                 player.getActionSender().sendMessage(message);
@@ -137,7 +148,6 @@ public class Commands implements PacketType {
 
         }
 
-
         public static void donatorCommands(Client player, String playerCommand) {
 
         }
@@ -148,11 +158,11 @@ public class Commands implements PacketType {
                                 if (PlayerHandler.players[j] != null) {
                                         Client c2 = (Client)PlayerHandler.players[j];
                                         if (player.playerRights == 1) {
-                                                c2.getActionSender().sendMessage("@blu@[Moderator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                                c2.getActionSender().sendMessage("@blu@[Moderator] @bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
                                         } else if (player.playerRights == 2) {
-                                                c2.getActionSender().sendMessage("@gre@[Administator]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                                c2.getActionSender().sendMessage("@gre@[Administator] @bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
                                         } else if (player.playerRights == 3) {
-                                                c2.getActionSender().sendMessage("@red@[Owner]@bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
+                                                c2.getActionSender().sendMessage("@red@[Developer] @bla@"+ Misc.optimizeText(player.playerName) +": " + Misc.optimizeText(playerCommand.substring(5)) +"");
                                         }
                                 }
                         }

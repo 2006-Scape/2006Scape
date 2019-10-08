@@ -1,5 +1,6 @@
 package redone;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
@@ -91,6 +92,20 @@ public class Server {
 			System.out.println("@@@@ DEBUG MODE IS ENABLED @@@@");
 		}
 
+		if (!new File("data").exists())
+		{
+		    System.out.println("************************************");
+			System.out.println("************************************");
+			System.out.println("************************************");
+			System.out.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
+			System.out.println("In IntelliJ, fix it by clicking \"Server\" > Edit Configurations at the top of your screen");
+			System.out.println("Then changing the \"Working Directory\" to be in \"2006rebotted/2006Redone Server\", instead of just \"2006rebotted\"");
+			System.out.println("************************************");
+			System.out.println("************************************");
+			System.out.println("************************************");
+			System.exit(1);
+		}
+
 		/**
 		 * Starting Up Server
 		 */
@@ -128,7 +143,7 @@ public class Server {
 		/**
 		 * Server Successfully Loaded
 		 */
-		System.out.println("Server listening on port 85.214.117.88: "
+		System.out.println("Server listening on port "
 				+ serverlistenerPort);
 
 		/**

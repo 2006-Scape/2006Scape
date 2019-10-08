@@ -64,19 +64,16 @@ public class Npc {
     	updateRequired = true;
 	}
 	
-	public void requestTransformTime(Client player, int itemId, int animation, final int currentId, final int newId, int transformTime) {
+	public boolean requestTransformTime(Client player, int itemId, int animation, final int currentId, final int newId, int transformTime, int npcId) {
 		if (!player.getItemAssistant().playerHasItem(itemId)) {
 			player.getActionSender().sendMessage("You need " + ItemAssistant.getItemName(itemId).toLowerCase() + " to do that.");
-			return;
+			return false;
 		}
-		if (NpcHandler.npcs[currentId].isTransformed == true) {
-			player.getActionSender().sendMessage("This npc is already transformed.");
-			return;
-		}
-		if (animation > 0) {
+		if (NpcHandler.npcs[npcId].isTransformed == true)
+			return false;
+		if (animation > 0)
 			player.startAnimation(animation);
-		}
-		NpcHandler.npcs[currentId].isTransformed = true;
+		NpcHandler.npcs[npcId].isTransformed = true;
 		requestTransform(newId);
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
@@ -88,9 +85,10 @@ public class Npc {
 
 			@Override
 			public void stop() {
-				NpcHandler.npcs[currentId].isTransformed = false;
+				NpcHandler.npcs[npcId].isTransformed = false;
 			}
 		}, transformTime);
+		return true;
 	}
 	
 	public void appendTransformUpdate(Stream str) {

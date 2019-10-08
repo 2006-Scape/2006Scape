@@ -50,7 +50,6 @@ public class DoubleDoors {
 		
 		if (doorClicked == null) {
 			Server.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
-			System.out.println("Removed null door for poor lad");
 			return true;
 		}
 		if (doorClicked.doorId > 12000) {

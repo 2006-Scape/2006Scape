@@ -41,6 +41,10 @@ public class Mining {
 		{2099, 40, 65, 78, 444}, //Gold
 		{3042, 1, 18, 3, 436}, //Copper
 		{3043, 1, 18, 3, 438}, //Tin
+		{2109, 1, 18, 3, 434}, //Clay
+		{2108, 1, 18, 3, 434}, //Clay
+		{2491, 1, 2, 0, 1436}, // Rune Essence
+		{2491, 30, 1, 0, 7936}, // Pure Rune Essence
 	};
 	
 	public int getRandomAdd() {
@@ -165,7 +169,18 @@ public class Mining {
 					player.getActionSender().sendMessage("You have ran out of inventory slots.");
 					container.stop();
 				}
-				mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber][0]);
+				if (objectNumber != 22)
+					mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber][0]);
+				if (objectNumber == 22)
+					if (miningLevel >= 30)
+					{
+						mineRock(Rock_Settings[objectNumber + 1][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber + 1][0]);
+					}
+				else
+					{
+						mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber][0]);
+					}
+
 				player.isMining = false;
 				container.stop();
 			}
@@ -201,8 +216,12 @@ public class Mining {
 	}
 
 	public void mineRock(int respawnTime, int x, int y, int type, int i) {
-		new Object(452, x, y, 0, type, 10, i, respawnTime);
-		Region.addObject(452, x, y, 0, 10, type, false);
+		if (i != 2491)
+		{
+			new Object(452, x, y, 0, type, 10, i, respawnTime);
+			Region.addObject(452, x, y, 0, 10, type, false);
+		}
+
 		for (int t = 0; t < PlayerHandler.players.length; t++) {
 			if (PlayerHandler.players[t] != null) {
 				if (PlayerHandler.players[t].rockX == x && PlayerHandler.players[t].rockY == y) {
