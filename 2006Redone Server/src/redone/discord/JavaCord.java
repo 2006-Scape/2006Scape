@@ -23,7 +23,7 @@ public class JavaCord {
 
     public static void init() throws IOException {
         loadSettings();
-        if (!token.equals("")) {
+        if (token != null && !token.equals("")) { //If the token was loaded by loadSettings:
             new DiscordApiBuilder().setToken(token).login().thenAccept(api -> {
                 JavaCord.api = api;
                 //System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());

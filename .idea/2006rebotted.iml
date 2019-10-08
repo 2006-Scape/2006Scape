@@ -171,5 +171,15 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/2006Redone Server/libs" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/2006Redone Server/libs" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
