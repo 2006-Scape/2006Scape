@@ -288,7 +288,7 @@ public class Fishing extends SkillHandler {
 																			"")
 															+ ".");
 								}
-								if (c.playerSkillProp[10][1] > 0) {
+								if (c.playerSkillProp[10][1] > 0 && !c.randomToggle) {
 									randomEvents(c);
 								}
 								if (c.isBotting == true) {
