@@ -43,8 +43,8 @@ public class Mining {
 		{3043, 1, 18, 3, 438}, //Tin
 		{2109, 1, 18, 3, 434}, //Clay
 		{2108, 1, 18, 3, 434}, //Clay
-		{2491, 1, 2, 0, 1436}, // Rune Essence
-		{2491, 30, 1, 0, 7936}, // Pure Rune Essence
+		{2491, 1, 5, 0, 1436}, // Rune Essence
+		{2491, 30, 5, 0, 7936}, // Pure Rune Essence
 	};
 	
 	public int getRandomAdd() {
