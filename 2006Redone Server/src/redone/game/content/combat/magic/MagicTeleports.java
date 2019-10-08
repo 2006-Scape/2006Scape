@@ -7,21 +7,22 @@ import redone.util.Misc;
 
 public class MagicTeleports {
 
-	public static final int AIR_RUNE = 556, FIRE_RUNE = 554, WATER_RUNE = 555,
-			EARTH_RUNE = 557, LAW_RUNE = 563, BLOOD_RUNE = 565,
+	public static final int AIR_RUNE = 556, FIRE_RUNE = 554,
+			WATER_RUNE = 555, EARTH_RUNE = 557,
+			LAW_RUNE = 563, BLOOD_RUNE = 565,
 			SOUL_RUNE = 566, BANANA = 1963;
 
 	public static void handleLoginText(Client player) {
-		player.getPlayerAssistant().sendFrame126("Varrock Teleport", 1300);
-		player.getPlayerAssistant().sendFrame126("Lumbridge Teleport", 1325);
-		player.getPlayerAssistant().sendFrame126("Falador Teleport", 1350);
-		player.getPlayerAssistant().sendFrame126("Camelot Teleport", 1382);
-		player.getPlayerAssistant().sendFrame126("Ardougne Teleport", 1415);
-		player.getPlayerAssistant().sendFrame126("Paddewwa Teleport", 13037);
-		player.getPlayerAssistant().sendFrame126("Senntisten Teleport", 13047);
-		player.getPlayerAssistant().sendFrame126("Kharyrll Teleport", 13055);
-		player.getPlayerAssistant().sendFrame126("Lassar Teleport", 13063);
-		player.getPlayerAssistant().sendFrame126("Dareeyak Teleport", 13071);
+		player.getPlayerAssistant().sendFrame126("Level 25: Varrock Teleport", 1300);
+		player.getPlayerAssistant().sendFrame126("Level 31: Lumbridge Teleport", 1325);
+		player.getPlayerAssistant().sendFrame126("Level 37: Falador Teleport", 1350);
+		player.getPlayerAssistant().sendFrame126("Level 45: Camelot Teleport", 1382);
+		player.getPlayerAssistant().sendFrame126("Level 51: Ardougne Teleport", 1415);
+		player.getPlayerAssistant().sendFrame126("Level 54: Paddewwa Teleport", 13037);
+		player.getPlayerAssistant().sendFrame126("Level 60: Senntisten Teleport", 13047);
+		player.getPlayerAssistant().sendFrame126("Level 66: Kharyrll Teleport", 13055);
+		player.getPlayerAssistant().sendFrame126("Level 72: Lassar Teleport", 13063);
+		player.getPlayerAssistant().sendFrame126("Level 78: Dareeyak Teleport", 13071);
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class MagicTeleports {
 		return false;
 	}
 
-		public static void paddewwaTeleport(Client player) {
+	public static void paddewwaTeleport(Client player) {
 				if (System.currentTimeMillis() - player.lastCast < 5000) {
 					return;
 				}
@@ -196,7 +197,7 @@ public class MagicTeleports {
 			player.getPlayerAssistant().addSkillXP(82, player.playerMagic);
 		}
 
-			public static void dareeyakTeleport(Client player) {
+	public static void dareeyakTeleport(Client player) {
 				if (System.currentTimeMillis() - player.lastCast < 5000) {
 					return;
 				}
@@ -278,7 +279,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(100, player.playerMagic);
 	}
 
-		public static void ghorrockTeleport(Client player) {
+	public static void ghorrockTeleport(Client player) {
 			if (System.currentTimeMillis() - player.lastCast < 5000) {
 				return;
 			}
@@ -305,7 +306,7 @@ public class MagicTeleports {
 			player.getPlayerAssistant().addSkillXP(106, player.playerMagic);
 		}
 
-			public static void varrockTeleport(Client player) {
+	public static void varrockTeleport(Client player) {
 				if (System.currentTimeMillis() - player.lastCast < 5000) {
 					return;
 				}
@@ -334,7 +335,7 @@ public class MagicTeleports {
 				player.getPlayerAssistant().addSkillXP(35, player.playerMagic);
 			}
 
-			public static void lumbridgeTeleport(Client player) {
+	public static void lumbridgeTeleport(Client player) {
 				if (System.currentTimeMillis() - player.lastCast < 5000) {
 					return;
 				}
@@ -363,7 +364,7 @@ public class MagicTeleports {
 				player.getPlayerAssistant().addSkillXP(35, player.playerMagic);
 			}
 
-			public static void faladorTeleport(Client player) {
+	public static void faladorTeleport(Client player) {
 				if (System.currentTimeMillis() - player.lastCast < 5000) {
 					return;
 				}
@@ -392,7 +393,7 @@ public class MagicTeleports {
 				player.getPlayerAssistant().addSkillXP(48, player.playerMagic);
 			}
 
-		public static void camelotTeleport(Client player) {
+	public static void camelotTeleport(Client player) {
 			if (System.currentTimeMillis() - player.lastCast < 5000) {
 				return;
 			}
@@ -419,7 +420,7 @@ public class MagicTeleports {
 			player.getPlayerAssistant().addSkillXP(55.5, player.playerMagic);
 		}
 
-		public static void ardougneTeleport(Client player) {
+	public static void ardougneTeleport(Client player) {
 			if (System.currentTimeMillis() - player.lastCast < 5000) {
 				return;
 			}
@@ -446,7 +447,7 @@ public class MagicTeleports {
 			player.getPlayerAssistant().addSkillXP(61, player.playerMagic);
 		}
 
-		public static void watchTowerTeleport(Client player) {
+	public static void watchTowerTeleport(Client player) {
 			if (System.currentTimeMillis() - player.lastCast < 5000) {
 				return;
 			}
@@ -473,7 +474,7 @@ public class MagicTeleports {
 			player.getPlayerAssistant().addSkillXP(68, player.playerMagic);
 		}
 
-		public static void trollhiemTeleport(Client player) {
+	public static void trollhiemTeleport(Client player) {
 			if (System.currentTimeMillis() - player.lastCast < 5000) {
 				return;
 			}
@@ -500,7 +501,7 @@ public class MagicTeleports {
 			player.getPlayerAssistant().addSkillXP(68, player.playerMagic);
 		}
 
-			public static void apeAtollTeleport(Client player) {
+	public static void apeAtollTeleport(Client player) {
 				if (System.currentTimeMillis() - player.lastCast < 5000) {
 					return;
 				}

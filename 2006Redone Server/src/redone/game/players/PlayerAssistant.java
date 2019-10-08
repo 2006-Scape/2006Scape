@@ -1432,7 +1432,7 @@ public class PlayerAssistant {
 			return;
 		}
 
-		if (!player.inBankArea())
+		if (!player.inBankArea() && player.playerRights < 3)
 		{
 			player.getActionSender().sendMessage("You can't open a bank unless you're in a bank area!");
 			player.getActionSender().sendMessage("If this is a bug, please report it! Your coords are [" + player.absX + "," + player.absY + "]");

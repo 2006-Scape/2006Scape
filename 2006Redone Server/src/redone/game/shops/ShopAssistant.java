@@ -113,6 +113,7 @@ public class ShopAssistant {
 		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
 			if (ItemDefinitions.getDef()[i] != null) {
 				ShopValue = ItemDefinitions.getDef()[ItemID].highAlch/3.0 *5.0 * sellingRatio;
+				ShopValue = ShopValue <= 0 ? 1 : ShopValue; //Don't let the value be 0
 			}
 		}
 

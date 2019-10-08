@@ -18,7 +18,7 @@ import redone.util.Misc;
 public class Climbing {
 
 	private static final int CLIMB_UP = 828, CLIMB_DOWN = CLIMB_UP;
-	
+
 	public static void handleClimbing(final Client client) {
 		if (System.currentTimeMillis() - client.climbDelay < 1200) {
 			return;
@@ -40,7 +40,7 @@ public class Climbing {
 			}
 		}, 1);
 	}
-	
+
 	public static void processClimbing(Client client) {
 		switch (client.objectId) {
 		case 9584:
@@ -48,16 +48,16 @@ public class Climbing {
 				client.getPlayerAssistant().movePlayer(2933, 3282, 0);
 			}
 			break;
-			
+
 		case 272:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 1);
 			break;
-			
-				
+
+
 			case 273:
 				client.getPlayerAssistant().movePlayer(client.absX, client.absY, 0);
 			break;
-			
+
 			case 245:
 			if (client.objectY == 3224) {
 				client.getPlayerAssistant().movePlayer(client.absX, client.absY+2, 2);
@@ -297,6 +297,7 @@ public class Climbing {
 			break;
 
 		case 6434:
+		case 5167:
 			UseOther.useDown(client, client.objectId);
 			break;
 		case 1767:
@@ -321,15 +322,7 @@ public class Climbing {
 			client.getActionSender().sendMessage("You climb down.");
 
 			break;
-		case 5167:
-			if (Constants.EXPERIMENTS) {
-				UseOther.useDown(client, client.objectId);
-			} else {
-				client.getActionSender().sendMessage(
-						"Experiments are currently disabled.");
-			}
-			break;
-		case 2147:
+			case 2147:
 			client.getPlayerAssistant().movePlayer(3104, 9576, 0);
 			client.startAnimation(827);
 			client.getActionSender().sendMessage("You climb down.");
@@ -545,7 +538,7 @@ public class Climbing {
 				client.getPlayerAssistant().movePlayer(3230, 3394, 1);
 			}
 			break;
-			
+
 		case 5096:
 			client.getPlayerAssistant().movePlayer(2649, 9591, 0);
 		break;
@@ -667,7 +660,7 @@ public class Climbing {
 		if (System.currentTimeMillis() - client.climbDelay < 1200) {
 			return;
 		}
-		
+
 		switch (client.heightLevel) {
 		case -1:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 0);
@@ -754,7 +747,7 @@ public class Climbing {
 		client.getDialogueHandler().sendOption2("Climb Up.", "Climb Down.");
 		client.dialogueAction = 147;
 	}
-	
+
 	private static void close(Client client, int actionButtonId) {
 		if (actionButtonId == 9157) {
 			client.getActionSender().sendMessage("You climb up.");
@@ -766,7 +759,7 @@ public class Climbing {
 		client.getPlayerAssistant().closeAllWindows();
 		client.nextChat = 0;
 	}
-	
+
 	public static void handleLadderButtons(Client client, int actionButtonId) {
 		if (client.dialogueAction != 147) {
 			return;
@@ -791,5 +784,5 @@ public class Climbing {
 			}
 			break;
 		}
-	}	
+	}
 }

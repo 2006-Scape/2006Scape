@@ -21,6 +21,9 @@ public class HighscoresHandler {
     }
 
     public String getRank(int i, String sortBy) {
+        if (players.size() <= i)
+            return "Nobody";
+
         switch (sortBy)
         {
             case "level":

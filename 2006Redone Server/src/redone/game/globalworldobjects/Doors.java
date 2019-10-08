@@ -20,7 +20,7 @@ public class Doors {
 	
 	public static Doors getSingleton() {
 		if (singleton == null) {
-			singleton = new Doors("./data/doors.txt");
+			singleton = new Doors(System.getProperty("user.dir") + "/data/doors.txt");
 		}
 		return singleton;
 	}

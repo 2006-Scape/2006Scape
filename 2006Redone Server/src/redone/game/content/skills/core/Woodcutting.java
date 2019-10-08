@@ -69,14 +69,22 @@ public class Woodcutting {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (player.isWoodcutting) {
-					try {
-						player.startAnimation(Axe_Settings[a][3]);
-					} catch (ArrayIndexOutOfBoundsException exception) {
-						System.out.println("LOL this happend again: " + exception);
+				if (player.isWoodcutting)
+				{
+					if ((a >= 0) && (a < Axe_Settings.length))
+					{
+						try
+						{
+							player.startAnimation(Axe_Settings[a][3]);
+						} catch (ArrayIndexOutOfBoundsException exception)
+						{
+							System.out.println("LOL this happend again: " + exception);
+						}
+						player.getActionSender().sendSound(SoundList.TREE_CUTTING, 100, 0);
 					}
-					player.getActionSender().sendSound(SoundList.TREE_CUTTING, 100, 0);
-				} else {
+				}
+				else
+				{
 					container.stop();
 				}
 			}
@@ -238,6 +246,11 @@ public class Woodcutting {
 
 				@Override
 				public void execute(CycleEventContainer container) {
+					if (a <= -1)
+					{
+						container.stop();
+						return;
+					}
 					if (!player.isWoodcutting) {
 						container.stop();
 						return;
@@ -265,13 +278,10 @@ public class Woodcutting {
 					if (player.isWoodcutting) {
 						birdNests(player);
 					}
-					if (player.isWoodcutting && player.tutorialProgress >= 36 && player.treeSpiritSpawned == false && Misc.random(300) == 10) {
-						AntiBotting.botCheckInterface(player);
-					}
 					if (player.isWoodcutting && player.tutorialProgress >= 36 && player.treeSpiritSpawned == false) {
 						RandomEventHandler.addRandom(player);
 					}
-					if (player.isWoodcutting && Misc.random(350) == 69 && player.tutorialProgress >= 36) {
+					if (player.isWoodcutting && Misc.random(350) == 69 && player.tutorialProgress >= 36 && player.randomToggle) {
 						TreeSpirit.spawnTreeSpirit(player);
 					}
 					if (player.playerIsFletching || player.isFiremaking) {

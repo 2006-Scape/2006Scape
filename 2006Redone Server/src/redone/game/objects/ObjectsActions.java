@@ -169,6 +169,13 @@ public class ObjectsActions {
 		case 2101:
 			player.getMining().startMining(player, 15, player.objectX, player.objectY, player.clickObjectType);
 			break;
+		case 2109:
+		case 2108:
+			if (objectType == 2109)
+				player.getMining().startMining(player, 20, player.objectX, player.objectY, player.clickObjectType);
+			if (objectType == 2108)
+				player.getMining().startMining(player, 21, player.objectX, player.objectY, player.clickObjectType);
+			break;
 		case 2098:
 			player.getMining().startMining(player, 16, player.objectX, player.objectY, player.clickObjectType);
 			break;
@@ -181,6 +188,9 @@ public class ObjectsActions {
 		case 3043:
 			player.getMining().startMining(player, 19, player.objectX, player.objectY, player.clickObjectType);
 			break;
+		case 2491:
+			player.getMining().startMining(player, 22, player.objectX, player.objectY, player.clickObjectType);
+			break;
 		
 		case 6702:
 		case 6703:
@@ -190,7 +200,7 @@ public class ObjectsActions {
 		case 6707:
 			player.getBarrows().useStairs();
 			break;
-			
+
 		case 10284:
 			player.getBarrows().useChest();
 		break;
@@ -2604,6 +2614,18 @@ public class ObjectsActions {
 			} else {
 				player.getPlayerAssistant().walkTo(0, -1);
 			}
+			break;
+		case  2873:
+			if (player.getItemAssistant().hasFreeSlots(1))
+				player.getItemAssistant().addItem(2412, 1);
+			break;
+			case  2874:
+			if (player.getItemAssistant().hasFreeSlots(1))
+				player.getItemAssistant().addItem(2414, 1);
+			break;
+		case  2875:
+			if (player.getItemAssistant().hasFreeSlots(1))
+				player.getItemAssistant().addItem(2413, 1);
 			break;
 
 		}

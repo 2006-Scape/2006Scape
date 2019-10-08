@@ -48,7 +48,7 @@ public class ShopHandler {
 		switch(itemId) {
 		
 			default:
-			return 86400000;
+			return 5000;
 		}
 
 	}
