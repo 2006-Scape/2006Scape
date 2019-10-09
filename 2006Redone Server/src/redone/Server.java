@@ -8,7 +8,9 @@ import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
-import redone.discord.JavaCord;
+import redone.integrations.PlayersOnlineWebsite;
+import redone.integrations.SettingsLoader;
+import redone.integrations.discord.JavaCord;
 import redone.event.CycleEventHandler;
 import redone.event.TaskScheduler;
 import redone.game.content.minigames.FightCaves;
@@ -52,24 +54,24 @@ public class Server {
 	public static int[] cannonsY = new int [50];
 	public static String[] cannonsO = new String [50];
 	public static boolean sleeping;
-	public static final int cycleRate;
+	private static final int cycleRate;
 	public static boolean UpdateServer = false;
 	public static long lastMassSave = System.currentTimeMillis();
 	private static IoAcceptor acceptor;
 	private static ConnectionHandler connectionHandler;
 	private static ConnectionThrottleFilter throttleFilter;
-	public static boolean shutdownServer = false;
+	private static boolean shutdownServer = false;
 	public static int garbageCollectDelay = 40;
 	public static boolean shutdownClientHandler;
-	public static int serverlistenerPort;
+	private static int serverlistenerPort;
 	public static ItemHandler itemHandler = new ItemHandler();
 	public static PlayerHandler playerHandler = new PlayerHandler();
 	public static NpcHandler npcHandler = new NpcHandler();
-	public static ShopHandler shopHandler = new ShopHandler();
+	private static ShopHandler shopHandler = new ShopHandler();
 	public static ObjectHandler objectHandler = new ObjectHandler();
 	public static ObjectManager objectManager = new ObjectManager();
 	public static FightCaves fightCaves = new FightCaves();
-	public static PestControl pestControl = new PestControl();
+	private static PestControl pestControl = new PestControl();
 	public static Trawler trawler = new Trawler();
 	private static final TaskScheduler scheduler = new TaskScheduler();
 	public static ClanChatHandler clanChat = new ClanChatHandler();
@@ -82,7 +84,7 @@ public class Server {
 	 * Port and Cycle rate.
 	 */
 	static {
-		serverlistenerPort = 43594;
+		serverlistenerPort = 43595;
 		cycleRate = 600;
 		shutdownServer = false;
 	}
@@ -113,9 +115,9 @@ public class Server {
 		System.out.println("Launching " + Constants.SERVER_NAME + "...");
 
 		/**
-		 * Start Discord Bot
-		 */
-
+		 * Start Integration Services
+         **/
+        SettingsLoader.loadSettings();
 		JavaCord.init();
 
 		/**
@@ -168,6 +170,7 @@ public class Server {
 				FightPits.process();
 				pestControl.process();
 				CycleEventHandler.getSingleton().process();
+				PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 				if (System.currentTimeMillis() - lastMassSave > 300000) {
 					for (Player p : PlayerHandler.players) {
 						if (p == null) {
