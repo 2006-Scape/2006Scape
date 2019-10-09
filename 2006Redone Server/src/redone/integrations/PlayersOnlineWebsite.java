@@ -8,6 +8,7 @@ import java.net.URL;
 public class PlayersOnlineWebsite {
 
     static String password;
+    private static boolean hasntwared = true;
 
     private static void setWebsitePlayersOnline(int amount) throws IOException {
         URL url;
@@ -30,7 +31,8 @@ public class PlayersOnlineWebsite {
             } else {
                 count--;
             }
-        } else {
+        } else if (hasntwared) {
+            hasntwared = false;
             System.out.println("No Players Online On Website Password Set So Task Stopped");
         }
     }

@@ -9,6 +9,7 @@ import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
 import redone.integrations.PlayersOnlineWebsite;
+import redone.integrations.RegisteredAccsWebsite;
 import redone.integrations.SettingsLoader;
 import redone.integrations.discord.JavaCord;
 import redone.event.CycleEventHandler;
@@ -171,6 +172,7 @@ public class Server {
 				pestControl.process();
 				CycleEventHandler.getSingleton().process();
 				PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
+				RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
 				if (System.currentTimeMillis() - lastMassSave > 300000) {
 					for (Player p : PlayerHandler.players) {
 						if (p == null) {
