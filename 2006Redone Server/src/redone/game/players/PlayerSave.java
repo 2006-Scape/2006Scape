@@ -1,6 +1,10 @@
 package redone.game.players;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 import redone.util.Misc;
 
@@ -61,10 +65,19 @@ public class PlayerSave {
 					    if (!doRealLogin)
 							break;
 						if (token.equals("character-password")) {
+						    System.out.println("file password: " + token.toLowerCase());
+						    System.out.println("given password: " + playerPass);
 							if (playerPass.equalsIgnoreCase(token2)) {
-								playerPass = token2;
+								// Hash their password and store it!
+								playerPass = passwordHash(token2);
+								System.out.println("Matched plaintext");
+							} else if (passwordHash(playerPass).equalsIgnoreCase(token2)) {
+								System.out.println("Matched hashed password");
+								playerPass = token2; //Valid password
 							} else {
-								return 3;
+							    System.out.println("hash doesn't match: " + passwordHash(playerPass).toLowerCase());
+							    System.out.println("currently is: " + passwordHash(token2).toLowerCase());
+	 							return 3; //Invalid password
 							}
 						}
 						break;
@@ -477,6 +490,24 @@ public class PlayerSave {
 			return 14;
 	}
 
+	private static String passwordHash(String token2) {
+	    String hashed = "HAS HAS FAILED!";
+		try {
+			MessageDigest digest = MessageDigest.getInstance("MD5");
+			byte[] hash = digest.digest(token2.getBytes(StandardCharsets.UTF_8));
+
+			hashed = Base64.getEncoder().encodeToString(hash);
+
+			digest = MessageDigest.getInstance("SHA-256");
+			hash = digest.digest(hashed.getBytes(StandardCharsets.UTF_8));
+
+			hashed = Base64.getEncoder().encodeToString(hash);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return hashed;
+	}
+
 	/**
 	 * Saving
 	 **/
@@ -510,6 +541,10 @@ public class PlayerSave {
 					player.playerName.length());
 			characterfile.newLine();
 			if (player.playerRights == 0) {
+				if (player.playerPass.length() < 40)
+				{
+					player.playerPass = passwordHash(player.playerPass);
+				}
 				characterfile.write("character-password = ", 0, 21);
 				characterfile.write(player.playerPass, 0,
 						player.playerPass.length());
