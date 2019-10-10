@@ -571,8 +571,12 @@ public class Client extends Player {
 
 		if(!ersSecret.equals("")) {
 			boolean debugMessage = false;
+			System.out.println("Updating highscores!");
 			com.everythingrs.hiscores.Hiscores.update(ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
+		} else {
+			System.out.println("Can't update highscores!");
 		}
+
 		Misc.println("[DEREGISTERED]: " + playerName + "");
 		HostList.getHostList().remove(session);
 		CycleEventHandler.getSingleton().stopEvents(this);
