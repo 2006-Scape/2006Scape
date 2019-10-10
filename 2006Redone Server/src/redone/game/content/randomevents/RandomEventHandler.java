@@ -61,7 +61,7 @@ public class RandomEventHandler {
 	}
 
 	public static void addRandom(Client player) {
-		if (player.randomToggle)
+		if (player.randomEventsEnabled)
 		{
 			if (player.randomActions >= CALL_RANDOM) {
 				callRandom(player);

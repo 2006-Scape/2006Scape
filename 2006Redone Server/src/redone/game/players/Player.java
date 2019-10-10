@@ -81,7 +81,7 @@ public abstract class Player {
 			treeSpiritSpawned = false, chickenSpawned = false, clickedTree = false, filter = true,
 			stopPlayer = false, npcCanAttack = true, gliderOpen = false, hasSandwhichLady = false,
 			isHarvesting, openDuel = false,  killedJad = false, canHealersRespawn = true, playerIsBusy = false, miningRock,
-			randomToggle = false, debugMode = false;
+			randomEventsEnabled = false, debugMode = false;
 
 	public int thankedForDonation, saveDelay, playerKilled, gertCat, restGhost,
 			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest,
