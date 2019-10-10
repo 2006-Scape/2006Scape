@@ -65,14 +65,10 @@ public class PlayerSave {
 					    if (!doRealLogin)
 							break;
 						if (token.equals("character-password")) {
-						    System.out.println("file password: " + token.toLowerCase());
-						    System.out.println("given password: " + playerPass);
 							if (playerPass.equalsIgnoreCase(token2)) {
 								// Hash their password and store it!
 								playerPass = passwordHash(token2);
-								System.out.println("Matched plaintext");
 							} else if (passwordHash(playerPass).equalsIgnoreCase(token2)) {
-								System.out.println("Matched hashed password");
 								playerPass = token2; //Valid password
 							} else {
 							    System.out.println("hash doesn't match: " + passwordHash(playerPass).toLowerCase());

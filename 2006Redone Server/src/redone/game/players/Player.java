@@ -585,7 +585,7 @@ public abstract class Player {
 	}
 
 	public boolean inBankArea() {
-        return isInArea(3205,3226,3214,3211) || //Lumbridge Bank
+        return isInArea(3205,3226,3214,3211) && heightLevel == 2|| //Lumbridge Bank
 				isInArea(3266,3171,3272,3162) || //Al Kharid Bank
 				isInArea(2436,5186,2453,5174) || //Tzhaar area
                 isInArea(2842,2957,2860,2950) || //Shilo Bank
@@ -595,8 +595,8 @@ public abstract class Player {
 				isInArea(3248,3423,3260,3414) || //Varrock East
 				isInArea(3183,3446,3193,3432) || //Varrock West
 				isInArea(3088,3501,3100,3486) || //Edgeville
-				isInArea(3944,3328,3008,3328) || //Falador East
-				isInArea(2940,3375,2951,3365) || //Falador West
+				isInArea(3009,3358,3020,3352) || //Falador East
+				isInArea(2942,3374,2950,3365) || //Falador West
 				isInArea(2839,3547,2844,3540) || //Warriors guild
 				isInArea(2804,3447,2815,3438) || //Catherby
 				isInArea(2718,3500,2733,3485) || //Seer's village
@@ -604,11 +604,12 @@ public abstract class Player {
 				isInArea(2645,3288,2660,3281) || //South ardy
 				isInArea(2658,3165,2670,3158) || //Khazard
 				isInArea(2607,3098,2618,3087) || //Yanille
-				isInArea(2436,3089,2432,3072) || //Castle Wars
+				isInArea(2442,3084,2444,3081) || //Castle Wars
 				isInArea(2348,3168,2358,3159) || //Lleyta
 				isInArea(2324,3694,2334,3685) || //Piscatoris
 				isInArea(2527,3581,2539,3563) || //Barbarian Assault
 				isInArea(2448,3420,2442,3430) || //Tree Gnome Stronghold
+                isInArea(2453,3491,2440,3478) && heightLevel == 1 || //Grand Tree Area
 				isInArea(2843,2958,2816,2944) || //Shilo Village
 				isInArea(3113,3131,3131,3118) || //Tutorial Island
 				isInArea(3422,2895,3433,2885) || //Nardah
