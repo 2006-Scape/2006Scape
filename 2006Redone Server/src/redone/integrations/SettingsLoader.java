@@ -1,6 +1,7 @@
 package redone.integrations;
 
 import org.json.JSONObject;
+import redone.Server;
 import redone.game.players.Client;
 import redone.integrations.discord.JavaCord;
 
@@ -38,6 +39,7 @@ public class SettingsLoader {
             PlayersOnlineWebsite.password = obj.getString("websitepass");
             RegisteredAccsWebsite.password = obj.getString("websitepass");
             Client.ersSecret = obj.getString("erssecret");
+            Server.ersSecret = obj.getString("erssecret");
 
         }
     }
