@@ -33,7 +33,7 @@ public class PlayersOnlineWebsite {
             }
         } else if (hasntwared) {
             hasntwared = false;
-            System.out.println("No Players Online On Website Password Set So Task Stopped");
+            System.out.println("No Website Password Set So Website Integration Tasks Stopped");
         }
     }
 }

@@ -51,6 +51,7 @@ import redone.world.clip.Region;
 public class Server {
 
 
+	public static String ersSecret;
 	public static int[] cannonsX = new int [50];
 	public static int[] cannonsY = new int [50];
 	public static String[] cannonsO = new String [50];
@@ -155,6 +156,23 @@ public class Server {
 		 */
 		System.out.println("Server listening on port "
 				+ serverlistenerPort);
+
+		if(!ersSecret.equals("")) {
+			com.everythingrs.service.Service.scheduledService.scheduleAtFixedRate(new Runnable() {
+				@Override
+				public void run() {
+					com.everythingrs.heatmaps.Heatmap.getMap().clear();
+					for (Player player : PlayerHandler.players) {
+						if (player != null) {
+							com.everythingrs.heatmaps.Heatmap.getMap().put(player.playerName,
+									new com.everythingrs.heatmaps.Heatmap(player.playerName, player.absX, player.absY,
+											player.heightLevel));
+						}
+					}
+					com.everythingrs.heatmaps.Heatmap.update(ersSecret);
+				}
+			}, 0, 10, java.util.concurrent.TimeUnit.SECONDS);
+		}
 
 		/**
 		 * Main Server Tick

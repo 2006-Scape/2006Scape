@@ -87,6 +87,8 @@ import redone.world.ObjectManager;
 
 public class Client extends Player {
 
+	public static String ersSecret;
+
 	public byte buffer[] = null;
 	public Stream inStream = null, outStream = null;
 	private IoSession session;
@@ -154,7 +156,6 @@ public class Client extends Player {
 		return dwarfCannon;
 	}
 
-	
 	public ChallengePlayer getChallengePlayer() {
 		return challengePlayer;
 	}
@@ -566,6 +567,11 @@ public class Client extends Player {
 		}
 		if (clanId >= 0) {
 			Server.clanChat.leaveClan(playerId, clanId);
+		}
+
+		if(!ersSecret.equals("")) {
+			boolean debugMessage = false;
+			com.everythingrs.hiscores.Hiscores.update(ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
 		}
 		Misc.println("[DEREGISTERED]: " + playerName + "");
 		HostList.getHostList().remove(session);
