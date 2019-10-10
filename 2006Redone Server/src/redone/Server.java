@@ -85,7 +85,7 @@ public class Server {
 	 * Port and Cycle rate.
 	 */
 	static {
-		serverlistenerPort = 43595;
+		serverlistenerPort = 43594;
 		cycleRate = 600;
 		shutdownServer = false;
 	}
