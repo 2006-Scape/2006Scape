@@ -55,7 +55,7 @@ public class Prayer {
 	}
 
 	private static void handleBones(final Client c, int i, int slot) {
-		if(!c.randomToggle) {
+		if(c.randomEventsEnabled) {
 			if (Misc.random(300) == 4 && c.shadeSpawned == false) {
 				Zombie.spawnZombie(c);
 			} else if (Misc.random(300) == 2 && c.zombieSpawned == false) {

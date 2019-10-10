@@ -99,8 +99,8 @@ public class Commands implements PacketType {
                                 break;
                         case "randomtoggle":
                         case "togglerandom":
-                                player.randomToggle = !player.randomToggle;
-                                message = player.randomToggle ? "You will now receive random events." : "You will no longer receieve random events.";
+                                player.randomEventsEnabled = !player.randomEventsEnabled;
+                                message = player.randomEventsEnabled ? "You will now receive random events." : "You will no longer receieve random events.";
                                 player.getActionSender().sendMessage(message);
                                 break;
                         case "debug":

@@ -13,7 +13,6 @@ import redone.game.objects.Object;
 import redone.game.players.Client;
 import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
-import redone.game.players.antimacro.AntiBotting;
 import redone.util.Misc;
 
 /**
@@ -281,7 +280,7 @@ public class Woodcutting {
 					if (player.isWoodcutting && player.tutorialProgress >= 36 && player.treeSpiritSpawned == false) {
 						RandomEventHandler.addRandom(player);
 					}
-					if (player.isWoodcutting && Misc.random(350) == 69 && player.tutorialProgress >= 36 && player.randomToggle) {
+					if (player.isWoodcutting && Misc.random(350) == 69 && player.tutorialProgress >= 36 && player.randomEventsEnabled) {
 						TreeSpirit.spawnTreeSpirit(player);
 					}
 					if (player.playerIsFletching || player.isFiremaking) {
