@@ -1,6 +1,7 @@
 package redone.integrations;
 
 import org.json.JSONObject;
+import redone.game.players.Client;
 import redone.integrations.discord.JavaCord;
 
 import java.io.*;
@@ -11,7 +12,8 @@ public class SettingsLoader {
         JSONObject main = new JSONObject();
         main
                 .put("bot-token", "")
-                .put("powpass", "");
+                .put("websitepass", "")
+                .put("erssecret", "");
         try {
             BufferedWriter br = new BufferedWriter(new FileWriter("data/secrets.json"));
             br.write(main.toString());
@@ -25,7 +27,7 @@ public class SettingsLoader {
         if (!new File("data/secrets.json").exists()) {
             initialize();
             System.out.println("Please open \"data/secrets.json\" file and enter your discord token bot there!");
-            System.out.println("Please open \"data/secrets.json\" file and enter your Players Online On Website Password there!");
+            System.out.println("Please open \"data/secrets.json\" file and enter your Website Password there!");
 
         } else {
             BufferedReader br = new BufferedReader(new FileReader("data/secrets.json"));
@@ -33,7 +35,9 @@ public class SettingsLoader {
             JSONObject obj = new JSONObject(out);
 
             JavaCord.token = obj.getString("bot-token");
-            PlayersOnlineWebsite.password = obj.getString("powpass");
+            PlayersOnlineWebsite.password = obj.getString("websitepass");
+            RegisteredAccsWebsite.password = obj.getString("websitepass");
+            Client.ersSecret = obj.getString("erssecret");
 
         }
     }

@@ -16,13 +16,13 @@ public class RegisteredAccsWebsite {
         url.openStream().close();
     }
 
-    private static int count = 50;
+    private static int count = 25;
     public static void addUpdateRegisteredUsersTask() {
         if (password != null && !password.equals("")) {
             if (count == 0) {
                 try {
                     setAccountsRegistered(new File("data/characters/").list().length);
-                    count = 50;
+                    count = 150;
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -32,7 +32,6 @@ public class RegisteredAccsWebsite {
             }
         } else if (hasntwarned) {
             hasntwarned = false;
-            System.out.println("You need to provide the powpass secret to use this!");
         }
     }
 }
