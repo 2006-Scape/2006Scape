@@ -87,11 +87,9 @@ import redone.world.ObjectManager;
 
 public class Client extends Player {
 
-	public static String ersSecret;
-
 	public byte buffer[] = null;
 	public Stream inStream = null, outStream = null;
-	private IoSession session;
+    private IoSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
 	private final Trading trading = new Trading(this);
@@ -569,12 +567,12 @@ public class Client extends Player {
 			Server.clanChat.leaveClan(playerId, clanId);
 		}
 
-		if(!ersSecret.equals("")) {
+		if(!Server.ersSecret.equals("")) {
 			boolean debugMessage = false;
-			System.out.println("Updating highscores!");
-			com.everythingrs.hiscores.Hiscores.update(ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
+			System.out.println("Updating highscores for " + this.playerName + "!");
+			com.everythingrs.hiscores.Hiscores.update(Server.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
 		} else {
-			System.out.println("Can't update highscores!");
+			System.out.println("EverythingRS API Disabled, highscores not saved!");
 		}
 
 		Misc.println("[DEREGISTERED]: " + playerName + "");

@@ -305,6 +305,9 @@ public class PlayerSave {
 							case "questPoints":
 								player.questPoints = Integer.parseInt(token2);
 								break;
+							case "votePoints":
+								player.votePoints = Integer.parseInt(token2);
+								break;
 							case "magic-book":
 								player.playerMagicBook = Integer.parseInt(token2);
 								break;
@@ -785,6 +788,10 @@ public class PlayerSave {
 			characterfile.write("questPoints = ", 0, 14);
 			characterfile.write(Integer.toString(player.questPoints), 0,
 					Integer.toString(player.questPoints).length());
+			characterfile.newLine();
+			characterfile.write("votePoints = ", 0, 13);
+			characterfile.write(Integer.toString(player.votePoints), 0,
+					Integer.toString(player.votePoints).length());
 			characterfile.newLine();
 			characterfile.write("bananas = ", 0, 10);
 			characterfile.write(Integer.toString(player.bananas), 0, Integer
