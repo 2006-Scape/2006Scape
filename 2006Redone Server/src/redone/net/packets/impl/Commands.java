@@ -44,6 +44,36 @@ public class Commands implements PacketType {
                         player.getPlayerAssistant().openUpBank();
                 }
 
+                if (playerCommand.startsWith("claimvote")) {
+                        if(!Server.ersSecret.equals("")) {
+                                final String playerName = player.playerName;
+
+                                com.everythingrs.vote.Vote.service.execute(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                                try {
+                                                        int currentPoints = player.votePoints;
+                                                        com.everythingrs.vote.Vote[] reward = com.everythingrs.vote.Vote.reward(Server.ersSecret, playerName, "1", "all");
+                                                        if (reward[0].message != null) {
+                                                                player.getActionSender().sendMessage(reward[0].message);
+                                                                return;
+                                                        }
+                                                        player.votePoints = (currentPoints + reward[0].give_amount);
+                                                        //player.getActionSender().sendMessage("Thank you for voting! You now have " + reward[0].vote_points + " vote points.");
+                                                        player.getActionSender().sendMessage(
+                                                                "Thank you for voting! You now have " + player.votePoints + " vote points.");
+                                                } catch (Exception e) {
+                                                        player.getActionSender().sendMessage("Api Services are currently offline. Please check back shortly");
+                                                        e.printStackTrace();
+                                                }
+                                        }
+
+                                });
+                        } else {
+                                player.getActionSender().sendMessage("Voting Is Not Enabled");
+                        }
+                }
+
                 if (playerCommand.equalsIgnoreCase("coords") || playerCommand.equalsIgnoreCase("coord") || playerCommand.equalsIgnoreCase("pos")){
                         player.getActionSender().sendMessage("Your coords are [" + player.absX + "," + player.absY + "]");
                 }
