@@ -227,12 +227,11 @@ public class ItemDefinitions {
 	 * Returns the weight of an item.
 	 */
 	public static double getWeight(int id) {
-		try {
+		if (id >= 0 && id < definitions.length)
 			return definitions[id].weight;
-		} catch (NullPointerException noId) {
-			System.out.println("WARNING: id " + id + " doesn't have a definition!");
-			return 0;
-		}
+
+		System.out.println("WARNING: id " + id + " doesn't have a definition!");
+		return 0.0;
 	}
 
 	/**
