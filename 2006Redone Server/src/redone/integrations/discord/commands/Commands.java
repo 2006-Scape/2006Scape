@@ -9,7 +9,9 @@ public class Commands implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::commands")) {
-            event.getChannel().sendMessage("::forum/::forums"
+            event.getChannel().sendMessage("```fix`
+                    + System.lineSeparator() +
+                    "::forum/::forums"
                     + System.lineSeparator() +
                     "::hiscores/::highscores"
                     + System.lineSeparator() +
@@ -19,7 +21,9 @@ public class Commands implements MessageCreateListener {
                     + System.lineSeparator() +
                     "::vote"
                     + System.lineSeparator() +
-                    "::website/::site");
+                    "::website/::site"
+                    + System.lineSeparator() +
+                    "```");
         }
     }
 }
