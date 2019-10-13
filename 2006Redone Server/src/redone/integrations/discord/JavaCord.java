@@ -6,6 +6,7 @@ import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.util.logging.ExceptionLogger;
 import redone.game.players.PlayerHandler;
+import redone.integrations.discord.commands.*;
 
 import java.io.IOException;
 
@@ -17,29 +18,23 @@ import static redone.integrations.SettingsLoader.loadSettings;
 
 public class JavaCord {
 
-    private static String serverName = "2006-ReBotted";
+    public static String serverName = "2006-ReBotted";
     public static String token;
     private static DiscordApi api = null;
 
     public static void init() throws IOException {
-        loadSettings();
         if (token != null && !token.equals("")) { //If the token was loaded by loadSettings:
             new DiscordApiBuilder().setToken(token).login().thenAccept(api -> {
                 JavaCord.api = api;
                 //System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
+                api.addListener(new Commands());
+                api.addListener(new Forum());
+                api.addListener(new Hiscores());
+                api.addListener(new Online());
+                api.addListener(new Players());
+                api.addListener(new Vote());
+                api.addListener(new Website());
                 api.addMessageCreateListener(event -> {
-
-                    if (event.getMessageContent().equalsIgnoreCase("::players")) {
-                        if (PlayerHandler.getPlayerCount() > 1) {
-                            event.getChannel().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online.");
-                        } else {
-                            event.getChannel().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
-                        }
-                    }
-
-                    if (event.getMessageContent().equalsIgnoreCase("::online")) {
-                        event.getChannel().sendMessage(":tada: " + serverName + " is Online! :tada:");
-                    }
 
                     if (event.getMessageContent().startsWith("::movehome")) {
                         if (event.getMessageAuthor().isServerAdmin()) {
