@@ -42,7 +42,8 @@ public abstract class Player {
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
 			boneDelay, botAttempts, leverDelay = 0, farmTime, searchObjectDelay = 0;
 
-    private Npc specialTarget = null;
+
+	private Npc specialTarget = null;
 	public void setSpecialTarget(Npc target) {
 			this.specialTarget = target;
 		}
@@ -84,7 +85,7 @@ public abstract class Player {
 			randomEventsEnabled = false, debugMode = false;
 
 	public int votePoints, thankedForDonation, saveDelay, playerKilled, gertCat, restGhost,
-			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest,
+			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest, blackKnight,
 			dragonSlayerQuestStage, sheepShear, impsC, randomActions, pkPoints,
 			totalPlayerDamageDealt, killedBy, lastChatId = 1, privateChat,
 			friendSlot = 0, dialogueId, randomCoffin, newLocation, specEffect,

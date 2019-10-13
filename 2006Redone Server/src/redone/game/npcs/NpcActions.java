@@ -624,6 +624,19 @@ public class NpcActions {
 			}
 			break;
 
+		case 608:
+			if (c.blackKnight == 0) {
+				c.getDialogueHandler().sendDialogues(3902, npcType);
+			} else if (c.blackKnight == 1) {
+				c.getDialogueHandler().sendDialogues(3510, npcType);
+			}else if (c.blackKnight == 2) {
+				c.getDialogueHandler().sendDialogues(3502, npcType);
+			}else if (c.blackKnight == 3) {
+				c.getActionSender().sendMessage(
+						"He has nothing to say to you.");
+			}
+			break;
+
 		case 758:
 			if (c.sheepShear == 0) {
 				c.getDialogueHandler().sendDialogues(164, npcType);
