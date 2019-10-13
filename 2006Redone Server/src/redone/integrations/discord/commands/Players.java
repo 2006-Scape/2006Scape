@@ -10,7 +10,7 @@ public class Players implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::players")) {
-            if (PlayerHandler.getPlayerCount() > 1) {
+            if (PlayerHandler.getPlayerCount() != 1) {
                 event.getChannel().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online.");
             } else {
                 event.getChannel().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
