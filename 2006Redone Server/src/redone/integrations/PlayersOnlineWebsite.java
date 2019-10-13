@@ -14,7 +14,6 @@ public class PlayersOnlineWebsite {
         URL url;
         url = new URL("https://2006rebotted.tk/playersonline.php?pass=" + password + "&amount=" + amount);
         url.openStream().close();
-        System.out.println("Test!");
     }
 
     private static int count = 50;
