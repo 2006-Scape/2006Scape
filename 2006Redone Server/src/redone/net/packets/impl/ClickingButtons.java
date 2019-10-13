@@ -1750,6 +1750,9 @@ public class ClickingButtons implements PacketType {
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(52, player.npcType);
 			}
+			if (player.dialogueAction == 1000) {
+				player.getDialogueHandler().sendDialogues(3524,player.npcType);
+			}
 			if (player.dialogueAction == 69) {
 				player.getDialogueHandler().sendDialogues(1005, player.npcType);
 			}
@@ -1821,6 +1824,9 @@ public class ClickingButtons implements PacketType {
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(64, player.npcType);
 			}
+			if (player.dialogueAction == 1000) {
+				player.getDialogueHandler().sendDialogues(3523, player.npcType);
+			}
 			if (player.dialogueAction == 69) {
 				player.getDialogueHandler().sendDialogues(500002, player.npcType);
 			}
@@ -1891,6 +1897,9 @@ public class ClickingButtons implements PacketType {
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(65, player.npcType);
 			}
+			if (player.dialogueAction == 1000) {
+				player.getDialogueHandler().sendDialogues(3523,player.npcType);
+			}
 			if (player.dialogueAction == 700) {
 				player.getDialogueHandler().sendDialogues(30, player.npcType);
 			}
@@ -1943,6 +1952,9 @@ public class ClickingButtons implements PacketType {
 			Teles.necklaces(player);
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(63, player.npcType);
+			}
+			if (player.dialogueAction == 1000) {
+				player.getDialogueHandler().sendDialogues(3523, player.npcType);
 			}
 			if (player.dialogueAction == 700) {
 				player.getDialogueHandler().sendDialogues(31, player.npcType);

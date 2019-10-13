@@ -972,7 +972,7 @@ public class NPCDrops extends NPCDropsHandler {
 			{ 213, 1, RARE }, { 215, 1, RARE }, { 217, 1, RARE },
 			{ 2485, 1, RARE } };
 
-	public static final int[][] blackknight = { { 526, 1, ALWAYS },
+	public static final int[][] blackknight = { { 526, 1, ALWAYS }, { 291, 1, ALWAYS },
 			{ i("iron sword"), 1, COMMON }, { i("iron full helm"), 1, COMMON },
 			{ i("steel mace"), 1, COMMON }, { i("black full helm"), 1, RARE },
 			{ i("mithril arrow"), 3, UNCOMMON },

@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/2006Redone file_server/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/2006Redone Client/src" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
@@ -181,5 +181,7 @@
         <jarDirectory url="file://$MODULE_DIR$/2006Redone Server/libs" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="libs" level="project" />
+    <orderEntry type="library" name="commons-lang3-3.1" level="project" />
   </component>
 </module>

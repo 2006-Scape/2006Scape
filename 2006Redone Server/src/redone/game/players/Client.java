@@ -37,17 +37,7 @@ import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.content.music.PlayList;
 import redone.game.content.music.sound.SoundList;
 import redone.game.content.quests.QuestAssistant;
-import redone.game.content.quests.impl.CooksAssistant;
-import redone.game.content.quests.impl.DoricsQuest;
-import redone.game.content.quests.impl.GertrudesCat;
-import redone.game.content.quests.impl.ImpCatcher;
-import redone.game.content.quests.impl.PiratesTreasure;
-import redone.game.content.quests.impl.RestlessGhost;
-import redone.game.content.quests.impl.RomeoJuliet;
-import redone.game.content.quests.impl.RuneMysteries;
-import redone.game.content.quests.impl.SheepShearer;
-import redone.game.content.quests.impl.VampyreSlayer;
-import redone.game.content.quests.impl.WitchsPotion;
+import redone.game.content.quests.impl.*;
 import redone.game.content.skills.SkillInterfaces;
 import redone.game.content.skills.agility.Agility;
 import redone.game.content.skills.agility.ApeAtollAgility;
@@ -119,6 +109,7 @@ public class Client extends Player {
 	private final BankPin bankPin = new BankPin(this);
 	private final Slayer slayer = new Slayer(this);
 	private final ImpCatcher impCatcher = new ImpCatcher(this);
+	private final BlackKnightsFortress blackKnightF = new BlackKnightsFortress(this);
 	private final CooksAssistant cooksAssistant = new CooksAssistant(this);
 	private final RomeoJuliet romeoJuliet = new RomeoJuliet(this);
 	private final DoricsQuest doricsQuest = new DoricsQuest(this);
@@ -148,8 +139,9 @@ public class Client extends Player {
 	private Mining mining = new Mining();
 	private ChallengePlayer challengePlayer = new ChallengePlayer();
 	private DwarfCannon dwarfCannon = new DwarfCannon(this);
-	
-	
+
+
+
 	public DwarfCannon getCannon() {
 		return dwarfCannon;
 	}
@@ -284,6 +276,10 @@ public class Client extends Player {
 
 	public ImpCatcher getImpCatcher() {
 		return impCatcher;
+	}
+
+	public BlackKnightsFortress getBlackKnightsFortress() {
+		return 	blackKnightF;
 	}
 
 	public PiratesTreasure getPiratesTreasure() {

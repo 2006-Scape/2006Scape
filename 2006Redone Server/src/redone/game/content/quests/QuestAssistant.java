@@ -100,6 +100,13 @@ public class QuestAssistant {
 		} else if (client.cookAss > 0 && client.cookAss < 3) {
 			client.getPlayerAssistant().sendFrame126("@yel@Cook's Assistant", 7333);
 		}
+		if (client.blackKnight == 0) {
+			client.getPlayerAssistant().sendFrame126("Black Knights' Fortress", 7344);
+		} else if (client.blackKnight == 3) {
+			client.getPlayerAssistant().sendFrame126("@gre@Black Knights' Fortress", 7344);
+		} else {
+			client.getPlayerAssistant().sendFrame126("@yel@Black Knights' Fortress", 7344);
+		}
 	}
 
 	public enum Quests {
@@ -235,6 +242,7 @@ public class QuestAssistant {
 
 	public static void questButtons(Client client, int buttonId) {
 		switch (buttonId) {
+
 		case 28165:
 			client.getCooksAssistant().showInformation();
 			break;
@@ -271,6 +279,10 @@ public class QuestAssistant {
 		case 28192:
 			client.getGertrudesCat().showInformation();
 			break;
+		case 28164:
+			client.getBlackKnightsFortress().showInformation();
+			break;
+
 		default:
 			if (Quests.forButton(buttonId) != null) {
 				client.getActionSender().sendMessage("The quest " + Quests.forButton(buttonId).getName() + " is currently disabled.");
