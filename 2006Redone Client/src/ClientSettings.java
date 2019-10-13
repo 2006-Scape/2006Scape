@@ -17,9 +17,13 @@ public class ClientSettings {
 	public final static String SERVER_WEBSITE = "www.2006redone.org";
 	/**
 	 * The Servers Ip
+	 *
+	 * You dont have to change this, the client will automatically connect to the server
+	 * on localhost
+	 *
 	 */
-	public static String SERVER_IP = "127.0.0.1";
-	//public final static String SERVER_IP = "35.226.247.68";
+	public static String SERVER_IP = "35.226.247.68";
+	//public final static String SERVER_IP = "127.0.0.1;
 	/**
 	 * The Npc Bits for the Server
 	 */

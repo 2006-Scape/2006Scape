@@ -6553,7 +6553,9 @@ public class DialogueHandler {
 				player.nextChat = 3507;
 				break;
 			case 3507:
-				sendNpcChat1("Good, I need you to kill 30 Black Knights", player.talkingNpc, "Sir Amik Varze");
+				sendNpcChat2("Good, I need you to kill 30 Black Knights",
+						"and collect their notes."
+						, player.talkingNpc, "Sir Amik Varze");
 				player.nextChat = 3508;
 				break;
 			case 3508:
