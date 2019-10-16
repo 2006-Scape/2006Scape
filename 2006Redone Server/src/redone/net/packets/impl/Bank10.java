@@ -28,14 +28,15 @@ public class Bank10 implements PacketType {
 			player.getPlayerAssistant().useOperate(removeId);
 			break;
 		case 3900:
-			player.getShopAssistant().buyItem(removeId, removeSlot, 5);
+			player.getShopAssistant().buyItem(removeId, removeSlot, 10);
 			break;
 
 		case 3823:
 			if(!player.getItemAssistant().playerHasItem(removeId)) {
 				return;
 			}
-			player.getShopAssistant().sellItem(removeId, removeSlot, 5);
+			player.getShopAssistant().sellItem(removeId, removeSlot, 10);
+			player.getItemAssistant().resetItems(3823);
 			break;
 
 		case 7423:
