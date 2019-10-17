@@ -28,7 +28,6 @@ public class BankAll implements PacketType {
 			}
 			player.getShopAssistant().sellItem(removeId,
 					removeSlot, player.playerItemsN[removeSlot] );
-			player.getItemAssistant().resetItems(3823);
 			break;
 
 		case 7423:
