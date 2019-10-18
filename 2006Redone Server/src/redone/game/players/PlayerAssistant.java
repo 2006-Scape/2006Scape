@@ -101,8 +101,16 @@ public class PlayerAssistant {
 		showInterface(15244);
 		sendFrame126("Welcome to " + Constants.SERVER_NAME + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
+
+		if (player.playerLevel[15] < 3) {
+
+			player.playerLevel[15] = 3;
+			player.playerXP[15] = 175;
+			player.getPlayerAssistant().refreshSkill(15);
+		}
 	        if (player.lastLoginDate <= 0) {
 	            sendFrame126("This is your first time logging in!", 15258);
+	            player.getPlayerAssistant().addSkillXP(175, 15);
 	        } else if (player.lastLoginDate == 1) {
 	           sendFrame126("You last login @red@yesterday@bla@", 15258);
 	        } else {

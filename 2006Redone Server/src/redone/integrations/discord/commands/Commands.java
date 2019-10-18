@@ -9,7 +9,7 @@ public class Commands implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::commands")) {
-            event.getChannel().sendMessage("```fix`
+            event.getChannel().sendMessage("```fix`"
                     + System.lineSeparator() +
                     "::forum/::forums"
                     + System.lineSeparator() +
