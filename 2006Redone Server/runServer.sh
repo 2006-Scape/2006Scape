@@ -1,3 +1,5 @@
+echo NOTE: This program is meant to be run by the live server admin only!
+echo You probably don\'t want to run this, even if you\'re developing locally!
 rm -rf redone/
 cp -r ../CompiledServer/production/2006rebotted/redone .
-java -cp ".:./libs/*" redone.Server
+java -Xmx15G -cp ".:./libs/*" redone.Server
