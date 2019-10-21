@@ -110,7 +110,6 @@ public class PlayerAssistant {
 		}
 	        if (player.lastLoginDate <= 0) {
 	            sendFrame126("This is your first time logging in!", 15258);
-	            player.getPlayerAssistant().addSkillXP(175, 15);
 	        } else if (player.lastLoginDate == 1) {
 	           sendFrame126("You last login @red@yesterday@bla@", 15258);
 	        } else {
