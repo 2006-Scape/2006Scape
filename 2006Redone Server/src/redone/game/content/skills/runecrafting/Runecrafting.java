@@ -183,7 +183,26 @@ public class Runecrafting {
 		if (ad != null) {
 			int amount = c.getItemAssistant().getItemCount(7936);
 			int amount2 = c.getItemAssistant().getItemCount(1436);
-			if (amount > 0) {
+			if (amount2 > 0 && amount > 0) {
+				c.getItemAssistant().deleteItem(7936,
+						c.getItemAssistant().getItemCount(7936));
+				c.getItemAssistant().addItem(
+						ad.rewardedRune,
+						amount
+								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
+										: getMultiplier(ad) - 1));
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount,
+						c.playerRunecrafting);
+				c.getItemAssistant().deleteItem(1436,
+						c.getItemAssistant().getItemCount(1436));
+				c.getItemAssistant().addItem(
+						ad.rewardedRune,
+						amount2
+								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
+										: getMultiplier(ad) - 1));
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount2,
+						c.playerRunecrafting);
+			} else if (amount > 0) {
 				c.getItemAssistant().deleteItem(7936,
 						c.getItemAssistant().getItemCount(7936));
 				c.getItemAssistant().addItem(
@@ -194,25 +213,6 @@ public class Runecrafting {
 				c.getPlayerAssistant().addSkillXP(ad.xp * amount,
 						c.playerRunecrafting);
 			} else if (amount2 > 0) {
-				c.getItemAssistant().deleteItem(1436,
-						c.getItemAssistant().getItemCount(1436));
-				c.getItemAssistant().addItem(
-						ad.rewardedRune,
-						amount2
-								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
-										: getMultiplier(ad) - 1));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount2,
-						c.playerRunecrafting);
-			} else if (amount2 > 0 && amount > 0) {
-				c.getItemAssistant().deleteItem(7936,
-						c.getItemAssistant().getItemCount(7936));
-				c.getItemAssistant().addItem(
-						ad.rewardedRune,
-						amount
-								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
-										: getMultiplier(ad) - 1));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount,
-						c.playerRunecrafting);
 				c.getItemAssistant().deleteItem(1436,
 						c.getItemAssistant().getItemCount(1436));
 				c.getItemAssistant().addItem(
