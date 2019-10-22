@@ -20,11 +20,10 @@ public class LogCuttingInterface {
 	}
 
 	public static void Interface(Client c, int item) {
-		if (c.playerIsFletching == true && item > 1510 && item < 1522) {
-			c.getActionSender().sendMessage("You are already fletching!");
-			c.getPlayerAssistant().closeAllWindows();
+		if (c.playerIsFletching == true && (item > 1510 && item < 1522)) {
+			LogCutting.resetFletching(c);
 			return;
-		} else if (item < 1510 && item > 1521) {
+		} else if (c.playerIsFletching == true && (item < 1510 || item > 1521)) {
 			c.playerIsFletching = false;
 			c.getActionSender().sendMessage("Nothing interesting happens.");
 		}
