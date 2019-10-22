@@ -11,6 +11,7 @@ import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 import redone.integrations.PlayersOnlineWebsite;
 import redone.integrations.RegisteredAccsWebsite;
 import redone.integrations.SettingsLoader;
+import redone.integrations.discord.DiscordActivity;
 import redone.integrations.discord.JavaCord;
 import redone.event.CycleEventHandler;
 import redone.event.TaskScheduler;
@@ -191,6 +192,7 @@ public class Server {
 				CycleEventHandler.getSingleton().process();
 				PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 				RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
+				DiscordActivity.updateActivity();
 				if (System.currentTimeMillis() - lastMassSave > 300000) {
 					for (Player p : PlayerHandler.players) {
 						if (p == null) {

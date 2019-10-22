@@ -5,7 +5,9 @@ import redone.game.items.Item;
 import redone.game.items.ItemAssistant;
 import redone.game.items.ItemDefinitions;
 import redone.game.players.Client;
+import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
+import redone.net.ActionSender;
 import redone.util.GameLogger;
 
 
@@ -21,7 +23,7 @@ public class ShopAssistant {
 	public ShopAssistant(Client client) {
 		player = client;
 	}
-	
+
 	public static final int RANGE_SHOP = 111, PEST_SHOP = 175, CASTLE_SHOP = 112;
 
 	public boolean shopSellsItem(int itemID) {
@@ -170,7 +172,7 @@ public class ShopAssistant {
 				ItemAssistant.getItemName(removeId) + ": currently costs "
 						+ ShopValue + " coins" + ShopAdd);
 	}
-	
+
 	public int getCastleItemValue(int id) {
 		switch (id) {
 		/*Red Items*/
@@ -212,14 +214,14 @@ public class ShopAssistant {
 		}
 		return 0;
 	}
-	
-	
+
+
 	public int getPestItemValue(int id) {
 		switch (id) {
 		}
 		return 0;
 	}
-	
+
 	public int getRGItemValue(int id) {
 		switch (id) {
 		case 47:
@@ -237,7 +239,7 @@ public class ShopAssistant {
 		}
 		return 0;
 	}
-	
+
 
 	public int getTokkulValue(int id) {
 		switch (id) {
@@ -283,7 +285,7 @@ public class ShopAssistant {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Sell item to shop (Shop Price)
 	 **/
@@ -367,29 +369,27 @@ public class ShopAssistant {
 			}
 			// double ShopValue;
 			// double TotPrice;
-			int TotPrice2 = 0;
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-			for (int i = amount; i > 0; i--) {
-				TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 1, true));
-				if (player.getItemAssistant().freeSlots() > 0 || player.getItemAssistant().playerHasItem(995)) {
-					if (ItemDefinitions.getDef()[itemID].isNoteable == false) {
-						player.getItemAssistant().deleteItem(itemID, player.getItemAssistant().getItemSlot(itemID), 1);
-					} else {
-						player.getItemAssistant().deleteItem(itemID, fromSlot, 1);
-					}
-					player.getItemAssistant().addItem(995, TotPrice2);
-					addShopItem(itemID, 1);
-					if (player.getPlayerAssistant().isPlayer()) {
-						GameLogger.writeLog(player.playerName, "shopselling", player.playerName + " sold " + itemName + " to store id: " + player.myShopId + " for" + GameLogger.formatCurrency(TotPrice2) + " coins");
-					}
+			int TotPrice2 = (int) Math.floor(getItemShopValue(itemID, amount, true) * amount); //Something about total price of item?
+			if (player.getItemAssistant().freeSlots() > 0 || player.getItemAssistant().playerHasItem(995)) { //Checks to see if player has room for coins.
+				if (!ItemDefinitions.getDef()[itemID].isNoteable) { //Check to see if its notable.
+					player.getItemAssistant().deleteItem(itemID, player.getItemAssistant().getItemSlot(itemID), amount); //don't really understand if the item isn't notable why it still needs to find the slot.
 				} else {
-					player.getActionSender().sendMessage("You don't have enough space in your inventory.");
-					break;
+					player.getItemAssistant().deleteItem(itemID, fromSlot, amount);
 				}
+				player.getItemAssistant().addItem(995, TotPrice2); //Add the coins to your inventory.
+				addShopItem(itemID, amount); //Add item to the shop.
+				if (player.getPlayerAssistant().isPlayer()) { //Logger
+					GameLogger.writeLog(player.playerName, "shopselling", player.playerName + " sold " + itemName + " to store id: " + player.myShopId + " for" + GameLogger.formatCurrency(TotPrice2) + " coins");
+					player.getActionSender().sendMessage("You sold " + amount + " " +itemName + " for " + TotPrice2 + " gp." );
+				}
+			} else {
+				player.getActionSender().sendMessage("You don't have enough space in your inventory.");
 			}
 			player.getItemAssistant().resetItems(3823);
 			resetShop(player.myShopId);
 			updatePlayerShop();
+			player.getActionSender().sendMessage("You sold " + amount + " " +itemName + " for " + TotPrice2 + " gp." );
 			return true;
 		}
 		return true;
