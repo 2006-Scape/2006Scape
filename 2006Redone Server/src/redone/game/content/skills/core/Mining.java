@@ -169,20 +169,10 @@ public class Mining {
 					player.getActionSender().sendMessage("You have ran out of inventory slots.");
 					container.stop();
 				}
-				if (objectNumber != 22)
-					mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber][0]);
-				if (objectNumber == 22)
-					if (miningLevel >= 30)
-					{
-						mineRock(Rock_Settings[objectNumber + 1][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber + 1][0]);
-					}
-				else
-					{
-						mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber][0]);
-					}
-
-				player.isMining = false;
+				mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber][0]);
 				container.stop();
+				if (objectNumber == 22 || objectNumber == 23)
+					startMining(player, objectNumber, objectX, objectY, type);
 			}
 			@Override
 			public void stop() {
