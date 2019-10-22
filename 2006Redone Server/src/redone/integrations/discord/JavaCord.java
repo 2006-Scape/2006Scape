@@ -20,7 +20,7 @@ public class JavaCord {
 
     public static String serverName = "2006-ReBotted";
     public static String token;
-    public static DiscordApi api = null;
+    private static DiscordApi api = null;
 
     public static void init() throws IOException {
         if (token != null && !token.equals("")) { //If the token was loaded by loadSettings:
@@ -29,9 +29,7 @@ public class JavaCord {
                 //System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
                 api.addListener(new Commands());
                 api.addListener(new Forum());
-                api.addListener(new HeatMap());
                 api.addListener(new Hiscores());
-                api.addListener(new Issues());
                 api.addListener(new Online());
                 api.addListener(new Players());
                 api.addListener(new Vote());

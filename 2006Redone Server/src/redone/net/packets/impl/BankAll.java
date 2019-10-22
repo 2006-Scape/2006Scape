@@ -4,7 +4,6 @@ import redone.game.content.random.PartyRoom;
 import redone.game.items.GameItem;
 import redone.game.items.Item;
 import redone.game.players.Client;
-import redone.game.players.Player;
 import redone.net.packets.PacketType;
 
 /**
@@ -26,8 +25,7 @@ public class BankAll implements PacketType {
 			if(!player.getItemAssistant().playerHasItem(removeId)) {
 				return;
 			}
-			player.getShopAssistant().sellItem(removeId,
-					removeSlot, player.playerItemsN[removeSlot] );
+			player.getShopAssistant().sellItem(removeId, removeSlot, 10);
 			break;
 
 		case 7423:

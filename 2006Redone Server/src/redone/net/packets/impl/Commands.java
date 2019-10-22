@@ -86,13 +86,6 @@ public class Commands implements PacketType {
                         }
                 }
 
-                if (playerCommand.equalsIgnoreCase("wealth")) {
-
-                        int totalWealth = player.getPlayerAssistant().totalGold();
-                        player.getActionSender().sendMessage("You currently have " + totalWealth + "gp.");
-
-                }
-
                 if (playerCommand.contains("clip") && player.playerRights < 2) {
                         return;
                 }

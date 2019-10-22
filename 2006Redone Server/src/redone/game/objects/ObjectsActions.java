@@ -189,10 +189,7 @@ public class ObjectsActions {
 			player.getMining().startMining(player, 19, player.objectX, player.objectY, player.clickObjectType);
 			break;
 		case 2491:
-			if (player.playerLevel[player.playerMining] < 30)
-				player.getMining().startMining(player, 22, player.objectX, player.objectY, player.clickObjectType);
-			else
-				player.getMining().startMining(player, 23, player.objectX, player.objectY, player.clickObjectType);
+			player.getMining().startMining(player, 22, player.objectX, player.objectY, player.clickObjectType);
 			break;
 		
 		case 6702:

@@ -20,8 +20,8 @@ public class BankX2 implements PacketType {
         }
 		switch (player.xInterfaceId) {
 		case 5064:
-			/*if(!player.getItemAssistant().playerHasItem(player.playerItems[player.xRemoveSlot], Xamount))
-                return;*/
+			if(!player.getItemAssistant().playerHasItem(player.playerItems[player.xRemoveSlot], Xamount))
+                return;
 			if (player.inPartyRoom) {
 				PartyRoom.depositItem(player, player.xRemoveId, player.getItemAssistant().itemAmount(player.playerItems[player.xRemoveSlot]));
 				break;
@@ -34,8 +34,8 @@ public class BankX2 implements PacketType {
 			break;
 
 		case 5382:
-			/*if(!player.getItemAssistant().playerHasItem(player.playerItems[player.xRemoveSlot], Xamount))
-                return;*/
+			if(!player.getItemAssistant().playerHasItem(player.playerItems[player.xRemoveSlot], Xamount))
+                return;
 			player.getItemAssistant().fromBank(player.bankItems[player.xRemoveSlot], player.xRemoveSlot, Xamount);
 			break;
 
