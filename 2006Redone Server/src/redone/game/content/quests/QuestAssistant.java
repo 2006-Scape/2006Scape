@@ -106,11 +106,11 @@ public class QuestAssistant {
 			client.getPlayerAssistant().sendFrame126("@yel@Cook's Assistant", 7333);
 		}
 		if (client.blackKnight == 0) {
-			client.getPlayerAssistant().sendFrame126("Black Knights' Fortress", 7344);
+			client.getPlayerAssistant().sendFrame126("Black Knights' Fortress", 7332);
 		} else if (client.blackKnight == 3) {
-			client.getPlayerAssistant().sendFrame126("@gre@Black Knights' Fortress", 7344);
+			client.getPlayerAssistant().sendFrame126("@gre@Black Knights' Fortress", 7332);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Black Knights' Fortress", 7344);
+			client.getPlayerAssistant().sendFrame126("@yel@Black Knights' Fortress", 7332);
 		}
 	}
 
