@@ -50,50 +50,6 @@ public class MagicTeleports {
 	public static final int GHORROCK_X = 2977, GHORROCK_Y = 3873;
 
 	public static final boolean MAGIC_LEVEL_REQUIRED = true, RUNES_REQUIRED = true;
-	
-	public static boolean hasRuneStaff(Client player, int rune) {
-		if (rune == 556) {//Air
-			if (player.playerEquipment[player.playerWeapon] == 1381//Staff of air
-				|| player.playerEquipment[player.playerWeapon] == 1397//Air battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 1405) {//Mystic air staff
-				return true;
-			}
-		}
-		if (rune == 555) {//Water
-			if (player.playerEquipment[player.playerWeapon] == 1383//Staff of water
-				|| player.playerEquipment[player.playerWeapon] == 1395//Water battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 6562//Mud battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 6563//Mystic mud staff
-				|| player.playerEquipment[player.playerWeapon] == 11736//Steam battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 11738//Mystic steam staff
-				|| player.playerEquipment[player.playerWeapon] == 1403) {//Mystic water staff
-				return true;
-			}
-		}
-		if (rune == 557) {//Earth
-			if (player.playerEquipment[player.playerWeapon] == 1385//Staff of earth
-				|| player.playerEquipment[player.playerWeapon] == 1399//Earth battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 3053//Lava battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 3054//Mystic lava staff
-				|| player.playerEquipment[player.playerWeapon] == 6562//Mud battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 6563//Mystic mud staff
-				|| player.playerEquipment[player.playerWeapon] == 1407) {//Mystic earth staff
-				return true;
-			}
-		}
-		if (rune == 554) {//Fire
-			if (player.playerEquipment[player.playerWeapon] == 1387//Staff of fire
-				|| player.playerEquipment[player.playerWeapon] == 1393//Fire battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 3053//Lava battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 3054//Mystic lava staff
-				|| player.playerEquipment[player.playerWeapon] == 11736//Steam battlestaff
-				|| player.playerEquipment[player.playerWeapon] == 11738//Mystic steam staff
-				|| player.playerEquipment[player.playerWeapon] == 1401) {//Mystic fire staff
-				return true;
-			}
-		}
-		return false;
-	}
 
 	public static void paddewwaTeleport(Client player) {
 				if (System.currentTimeMillis() - player.lastCast < 5000) {
@@ -101,7 +57,7 @@ public class MagicTeleports {
 				}
 				RandomEventHandler.addRandom(player);
 				if (RUNES_REQUIRED) {
-					if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(FIRE_RUNE, 1) && hasRuneStaff(player, FIRE_RUNE) == false || !player.getItemAssistant().playerHasItem(FIRE_RUNE, 1) && hasRuneStaff(player, AIR_RUNE) == false) {
+					if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 1}, {AIR_RUNE, 1}})) {
 						player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 						return;
 					}
@@ -112,12 +68,7 @@ public class MagicTeleports {
 						return;
 					}
 				}
-				player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
-				if (hasRuneStaff(player, FIRE_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(FIRE_RUNE, 1);
-				} else if (hasRuneStaff(player, AIR_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(AIR_RUNE, 1);
-				}
+				CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 1}, {AIR_RUNE, 1}});
 				player.getPlayerAssistant().startTeleport(PADDEWWA_X + Misc.random(2), PADDEWWA_Y - Misc.random(2), 0, "ancient");
 				player.lastCast = System.currentTimeMillis();
 				player.getPlayerAssistant().addSkillXP(64, player.playerMagic);
@@ -129,7 +80,7 @@ public class MagicTeleports {
 		}
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
-			if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(SOUL_RUNE, 1)) {
+			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {SOUL_RUNE, 1}})) {
 				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
@@ -140,8 +91,7 @@ public class MagicTeleports {
 				return;
 			}
 		}
-		player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
-		player.getItemAssistant().deleteItem2(SOUL_RUNE, 1);
+		CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {SOUL_RUNE, 1}});
 		player.getPlayerAssistant().startTeleport(SENNTISTEN_X + Misc.random(1), SENNTISTEN_Y - Misc.random(1), 0, "ancient");
 		player.lastCast = System.currentTimeMillis();
 		player.getPlayerAssistant().addSkillXP(70, player.playerMagic);
@@ -153,7 +103,7 @@ public class MagicTeleports {
 		}
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
-			if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(BLOOD_RUNE, 1)) {
+			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {BLOOD_RUNE, 1}})) {
 				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
@@ -164,8 +114,7 @@ public class MagicTeleports {
 				return;
 			}
 		}
-		player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
-		player.getItemAssistant().deleteItem2(BLOOD_RUNE, 1);
+		CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {BLOOD_RUNE, 1}});
 		player.getPlayerAssistant().startTeleport(KHARYRLL_X, KHARYRLL_Y, 0, "ancient");
 		player.lastCast = System.currentTimeMillis();
 		player.getPlayerAssistant().addSkillXP(76, player.playerMagic);
@@ -177,7 +126,7 @@ public class MagicTeleports {
 			}
 			RandomEventHandler.addRandom(player);
 			if (RUNES_REQUIRED) {
-				if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(WATER_RUNE, 4) && hasRuneStaff(player, WATER_RUNE) == false) {
+				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 4}})) {
 					player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 					return;
 				}
@@ -188,10 +137,7 @@ public class MagicTeleports {
 					return;
 				}
 			}
-			player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
-			if (hasRuneStaff(player, WATER_RUNE) == false) {
-				player.getItemAssistant().deleteItem2(WATER_RUNE, 4);
-			}
+			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 4}});
 			player.getPlayerAssistant().startTeleport(LASSAR_X + Misc.random(2), LASSAR_Y - Misc.random(2), 0, "ancient");
 			player.lastCast = System.currentTimeMillis();
 			player.getPlayerAssistant().addSkillXP(82, player.playerMagic);
@@ -203,7 +149,7 @@ public class MagicTeleports {
 				}
 				RandomEventHandler.addRandom(player);
 				if (RUNES_REQUIRED) {
-					if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(FIRE_RUNE, 3) && hasRuneStaff(player, FIRE_RUNE) == false || !player.getItemAssistant().playerHasItem(AIR_RUNE, 2) && hasRuneStaff(player, AIR_RUNE) == false) {
+					if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 3}, {AIR_RUNE, 2}})) {
 						player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 						return;
 					}
@@ -214,13 +160,7 @@ public class MagicTeleports {
 						return;
 					}
 				}
-				player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
-				if (hasRuneStaff(player, FIRE_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(FIRE_RUNE, 3);
-				}
-				if (hasRuneStaff(player, AIR_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(AIR_RUNE, 2);
-				}
+				CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 3}, {AIR_RUNE, 2}});
 				player.getPlayerAssistant().startTeleport(
 						DAREEYAK_X + Misc.random(1),
 						DAREEYAK_Y - Misc.random(1), 0, "ancient");
@@ -234,8 +174,7 @@ public class MagicTeleports {
 		}
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
-			if (!player.getItemAssistant().playerHasItem(SOUL_RUNE, 2)
-					|| !player.getItemAssistant().playerHasItem(LAW_RUNE, 2)) {
+			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {SOUL_RUNE, 2}})) {
 				player.getActionSender()
 						.sendMessage(
 								"You don't have the required runes to cast this spell.");
@@ -248,8 +187,7 @@ public class MagicTeleports {
 				return;
 			}
 		}
-		player.getItemAssistant().deleteItem2(SOUL_RUNE, 2);
-		player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
+		CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {SOUL_RUNE, 2}});
 		player.getPlayerAssistant().startTeleport(CARRALLANGAR_X + Misc.random(2), CARRALLANGAR_Y - Misc.random(2), 0, "ancient");
 		player.lastCast = System.currentTimeMillis();
 		player.getPlayerAssistant().addSkillXP(94, player.playerMagic);
@@ -261,7 +199,7 @@ public class MagicTeleports {
 		}
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
-			if (!player.getItemAssistant().playerHasItem(BLOOD_RUNE, 2) || !player.getItemAssistant().playerHasItem(LAW_RUNE, 2)) {
+			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {BLOOD_RUNE, 2}})) {
 				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
@@ -272,8 +210,7 @@ public class MagicTeleports {
 				return;
 			}
 		}
-		player.getItemAssistant().deleteItem2(BLOOD_RUNE, 2);
-		player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
+		CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {BLOOD_RUNE, 2}});
 		player.getPlayerAssistant().startTeleport(ANNAKARL_X + Misc.random(1), ANNAKARL_Y - Misc.random(1), 0, "ancient");
 		player.lastCast = System.currentTimeMillis();
 		player.getPlayerAssistant().addSkillXP(100, player.playerMagic);
@@ -285,7 +222,7 @@ public class MagicTeleports {
 			}
 			RandomEventHandler.addRandom(player);
 			if (RUNES_REQUIRED) {
-				if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(WATER_RUNE, 8) && hasRuneStaff(player, WATER_RUNE) == false) {
+				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 8}})) {
 					player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 					return;
 				}
@@ -296,10 +233,7 @@ public class MagicTeleports {
 					return;
 				}
 			}
-			player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
-			if (hasRuneStaff(player, WATER_RUNE) == false) {
-				player.getItemAssistant().deleteItem2(WATER_RUNE, 8);
-			}
+			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 8}});
 			player.getPlayerAssistant().startTeleport(GHORROCK_X + Misc.random(3),
 					GHORROCK_Y - Misc.random(3), 0, "ancient");
 			player.lastCast = System.currentTimeMillis();
@@ -312,7 +246,7 @@ public class MagicTeleports {
 				}
 				RandomEventHandler.addRandom(player);
 				if (RUNES_REQUIRED) {
-					if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 1) || !player.getItemAssistant().playerHasItem(FIRE_RUNE, 1) && hasRuneStaff(player, FIRE_RUNE) == false || !player.getItemAssistant().playerHasItem(AIR_RUNE, 3) && hasRuneStaff(player, AIR_RUNE) == false) {
+					if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {FIRE_RUNE, 1}, {AIR_RUNE, 3}})) {
 						player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 						return;
 					}
@@ -323,13 +257,7 @@ public class MagicTeleports {
 						return;
 					}
 				}
-				player.getItemAssistant().deleteItem2(LAW_RUNE, 1);
-				if (hasRuneStaff(player, FIRE_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(FIRE_RUNE, 1);
-				}
-				if (hasRuneStaff(player, AIR_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(AIR_RUNE, 3);
-				}
+				CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 1}, {FIRE_RUNE, 1}, {AIR_RUNE, 3}});
 				player.getPlayerAssistant().startTeleport(VARROCK_X + Misc.random(2), VARROCK_Y - Misc.random(2), 0, "modern");
 				player.lastCast = System.currentTimeMillis();
 				player.getPlayerAssistant().addSkillXP(35, player.playerMagic);
@@ -341,7 +269,7 @@ public class MagicTeleports {
 				}
 				RandomEventHandler.addRandom(player);
 				if (RUNES_REQUIRED) {
-					if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 1) || !player.getItemAssistant().playerHasItem(EARTH_RUNE, 1) && hasRuneStaff(player, EARTH_RUNE) == false || !player.getItemAssistant().playerHasItem(AIR_RUNE, 3) && hasRuneStaff(player, AIR_RUNE) == false) {
+					if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {EARTH_RUNE, 1}, {AIR_RUNE, 3}})) {
 						player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 						return;
 					}
@@ -352,13 +280,7 @@ public class MagicTeleports {
 						return;
 					}
 				}
-				player.getItemAssistant().deleteItem2(LAW_RUNE, 1);
-				if (hasRuneStaff(player, EARTH_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(EARTH_RUNE, 1);
-				}
-				if (hasRuneStaff(player, AIR_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(AIR_RUNE, 3);
-				}
+				CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 1}, {EARTH_RUNE, 1}, {AIR_RUNE, 3}});
 				player.getPlayerAssistant().startTeleport(LUMBRIDGE_X, LUMBRIDGE_Y, 0, "modern");
 				player.lastCast = System.currentTimeMillis();
 				player.getPlayerAssistant().addSkillXP(35, player.playerMagic);
@@ -370,7 +292,7 @@ public class MagicTeleports {
 				}
 				RandomEventHandler.addRandom(player);
 				if (RUNES_REQUIRED) {
-					if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 1) || !player.getItemAssistant().playerHasItem(WATER_RUNE, 1) && hasRuneStaff(player, WATER_RUNE) == false || !player.getItemAssistant().playerHasItem(AIR_RUNE, 3) && hasRuneStaff(player, AIR_RUNE) == false) {
+					if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {WATER_RUNE, 1}, {AIR_RUNE, 3}})) {
 						player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 						return;
 					}
@@ -381,13 +303,7 @@ public class MagicTeleports {
 						return;
 					}
 				}
-				player.getItemAssistant().deleteItem2(LAW_RUNE, 1);
-				if (hasRuneStaff(player, WATER_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(WATER_RUNE, 1);
-				}
-				if (hasRuneStaff(player, AIR_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(AIR_RUNE, 3);
-				}
+				CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 1}, {WATER_RUNE, 1}, {AIR_RUNE, 3}});
 				player.getPlayerAssistant().startTeleport(FALADOR_X + Misc.random(4), FALADOR_Y - Misc.random(4), 0, "modern");
 				player.lastCast = System.currentTimeMillis();
 				player.getPlayerAssistant().addSkillXP(48, player.playerMagic);
@@ -399,7 +315,7 @@ public class MagicTeleports {
 			}
 			RandomEventHandler.addRandom(player);
 			if (RUNES_REQUIRED) {
-				if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 1) || !player.getItemAssistant().playerHasItem(AIR_RUNE, 5) && hasRuneStaff(player, AIR_RUNE) == false) {
+				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {AIR_RUNE, 5}})) {
 					player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 					return;
 				}
@@ -410,10 +326,7 @@ public class MagicTeleports {
 					return;
 				}
 			}
-			player.getItemAssistant().deleteItem2(LAW_RUNE, 1);
-			if (hasRuneStaff(player, AIR_RUNE) == false) {
-				player.getItemAssistant().deleteItem2(AIR_RUNE, 5);
-			}
+			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 1}, {AIR_RUNE, 5}});
 			// 2757, 3479
 			player.getPlayerAssistant().startTeleport(CAMELOT_X + Misc.random(1), CAMELOT_Y - Misc.random(1), 0, "modern");
 			player.lastCast = System.currentTimeMillis();
@@ -426,7 +339,7 @@ public class MagicTeleports {
 			}
 			RandomEventHandler.addRandom(player);
 			if (RUNES_REQUIRED) {
-				if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(WATER_RUNE, 2) && hasRuneStaff(player, WATER_RUNE) == false) {
+				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {WATER_RUNE, 2}})) {
 					player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 					return;
 				}
@@ -437,10 +350,7 @@ public class MagicTeleports {
 					return;
 				}
 			}
-			player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
-			if (hasRuneStaff(player, WATER_RUNE) == false) {
-				player.getItemAssistant().deleteItem2(WATER_RUNE, 2);
-			}
+			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 1}, {WATER_RUNE, 2}});
 			player.getPlayerAssistant().startTeleport(ARDOUGNE_X + Misc.random(4),
 					ARDOUGNE_Y - Misc.random(4), 0, "modern");
 			player.lastCast = System.currentTimeMillis();
@@ -453,7 +363,7 @@ public class MagicTeleports {
 			}
 			RandomEventHandler.addRandom(player);
 			if (RUNES_REQUIRED) {
-				if (!player.getItemAssistant().playerHasItem(EARTH_RUNE, 2) && hasRuneStaff(player, EARTH_RUNE) == false || !player.getItemAssistant().playerHasItem(LAW_RUNE, 2)) {
+				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {EARTH_RUNE, 2}})) {
 					player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 					return;
 				}
@@ -465,10 +375,7 @@ public class MagicTeleports {
 					return;
 				}
 			}
-			if (hasRuneStaff(player, EARTH_RUNE) == false) {
-				player.getItemAssistant().deleteItem2(EARTH_RUNE, 2);
-			}
-			player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
+			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {EARTH_RUNE, 2}});
 			player.getPlayerAssistant().startTeleport(WATCHTOWER_X, WATCHTOWER_Y, 1, "modern");
 			player.lastCast = System.currentTimeMillis();
 			player.getPlayerAssistant().addSkillXP(68, player.playerMagic);
@@ -480,7 +387,7 @@ public class MagicTeleports {
 			}
 			RandomEventHandler.addRandom(player);
 			if (RUNES_REQUIRED) {
-				if (!player.getItemAssistant().playerHasItem(FIRE_RUNE, 2) && hasRuneStaff(player, FIRE_RUNE) == false || !player.getItemAssistant().playerHasItem(LAW_RUNE, 2)) {
+				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 2}})) {
 					player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 					return;
 				}
@@ -491,10 +398,7 @@ public class MagicTeleports {
 					return;
 				}
 			}
-			if (hasRuneStaff(player, FIRE_RUNE) == false) {
-				player.getItemAssistant().deleteItem2(FIRE_RUNE, 2);
-			}
-			player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
+			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 2}});
 			player.getPlayerAssistant().startTeleport(2892 + Misc.random(2),
 					3679 - Misc.random(2), 0, "modern");
 			player.lastCast = System.currentTimeMillis();
@@ -507,7 +411,7 @@ public class MagicTeleports {
 				}
 				RandomEventHandler.addRandom(player);
 				if (RUNES_REQUIRED) {
-					if (!player.getItemAssistant().playerHasItem(LAW_RUNE, 2) || !player.getItemAssistant().playerHasItem(FIRE_RUNE, 2) && hasRuneStaff(player, FIRE_RUNE) == false || !player.getItemAssistant().playerHasItem(WATER_RUNE, 2) && hasRuneStaff(player, WATER_RUNE) == false || !player.getItemAssistant().playerHasItem(BANANA, 1)) {
+					if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 2}, {WATER_RUNE, 2}}) || !player.getItemAssistant().playerHasItem(BANANA, 1)) {
 						player.getActionSender().sendMessage("You don't have the required items to cast this spell.");
 						return;
 					}
@@ -522,12 +426,7 @@ public class MagicTeleports {
 						return;
 					}
 				}
-				if (hasRuneStaff(player, FIRE_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(FIRE_RUNE, 2);
-				} else if (hasRuneStaff(player, WATER_RUNE) == false) {
-					player.getItemAssistant().deleteItem2(WATER_RUNE, 2);
-				}
-				player.getItemAssistant().deleteItem2(LAW_RUNE, 2);
+				CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 2}, {WATER_RUNE, 2}});
 				player.getItemAssistant().deleteItem2(BANANA, 1);
 				player.getPlayerAssistant().startTeleport(2798 + Misc.random(1), 2798 - Misc.random(1), 1, "modern");
 				player.lastCast = System.currentTimeMillis();
