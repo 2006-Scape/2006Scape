@@ -339,7 +339,7 @@ public class MagicTeleports {
 			}
 			RandomEventHandler.addRandom(player);
 			if (RUNES_REQUIRED) {
-				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {WATER_RUNE, 2}})) {
+				if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 2}})) {
 					player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
 					return;
 				}
@@ -350,7 +350,7 @@ public class MagicTeleports {
 					return;
 				}
 			}
-			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 1}, {WATER_RUNE, 2}});
+			CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 2}});
 			player.getPlayerAssistant().startTeleport(ARDOUGNE_X + Misc.random(4),
 					ARDOUGNE_Y - Misc.random(4), 0, "modern");
 			player.lastCast = System.currentTimeMillis();
