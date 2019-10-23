@@ -506,7 +506,7 @@ public class ShopAssistant {
 				// TzHaar Shops
 				if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
 					if (player.playerItemsN[tokkulSlot] >= TotPrice2) {
-						if (player.getItemAssistant().freeSlots() > 0) {
+						if (player.getItemAssistant().freeSlots() > 0 || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable)) {
 							player.getItemAssistant().deleteItem(6529, tokkulSlot, TotPrice2);
 							player.getItemAssistant().addItem(itemID, 1);
 							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= 1;
@@ -528,7 +528,7 @@ public class ShopAssistant {
 					}
 				} else if (player.myShopId == RANGE_SHOP) {
 					if (player.playerItemsN[rangeSlot] >= TotPrice2) {
-						if (player.getItemAssistant().freeSlots() > 0) {
+						if (player.getItemAssistant().freeSlots() > 0 || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable)) {
 							player.getItemAssistant().deleteItem(1464, rangeSlot, TotPrice2);
 							player.getItemAssistant().addItem(itemID, 1);
 							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= 1;
@@ -549,7 +549,7 @@ public class ShopAssistant {
 					}
 				} else if (player.myShopId == CASTLE_SHOP) {
 					if (player.playerItemsN[castleSlot] >= TotPrice2) {
-						if (player.getItemAssistant().freeSlots() > 0) {
+						if (player.getItemAssistant().freeSlots() > 0 || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable)) {
 							player.getItemAssistant().deleteItem(4067, castleSlot, TotPrice2);
 							player.getItemAssistant().addItem(itemID, 1);
 							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= 1;
@@ -566,7 +566,7 @@ public class ShopAssistant {
 					}
 				} else {
 					if (player.playerItemsN[Slot] >= TotPrice2) {
-						if (player.getItemAssistant().freeSlots() > 0) {
+						if (player.getItemAssistant().freeSlots() > 0 || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable)) {
 							player.getItemAssistant().deleteItem(995,
 									player.getItemAssistant().getItemSlot(995),
 									TotPrice2);
