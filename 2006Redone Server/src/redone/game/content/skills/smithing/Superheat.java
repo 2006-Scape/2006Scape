@@ -1,5 +1,7 @@
 package redone.game.content.skills.smithing;
 
+import redone.game.content.combat.magic.CastRequirements;
+import redone.game.content.combat.magic.MagicRequirements;
 import redone.game.content.music.sound.SoundList;
 import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
@@ -33,7 +35,7 @@ public class Superheat {
 						return false;
 					}
 				}
-				if (!c.getItemAssistant().playerHasItem(554, 4) || !c.getItemAssistant().playerHasItem(561, 1)) {
+				if (!CastRequirements.hasRunes(c, new int[][]{{554, 4}, {561, 1}})) {
 					c.getActionSender().sendMessage("You don't have the correct runes to cast this spell.");
 					return false;
 				}
@@ -57,8 +59,7 @@ public class Superheat {
 				}
 				c.getItemAssistant().deleteItem(itemID, 1);
 				c.getItemAssistant().deleteItem(smelt[2], smelt[3]);
-				c.getItemAssistant().deleteItem2(554, 4);
-				c.getItemAssistant().deleteItem2(561, 1);
+				CastRequirements.deleteRunes(c, new int[][]{{554, 4}, {561, 1}});
 				c.getItemAssistant().addItem(smelt[4], 1);
 				c.getPlayerAssistant().addSkillXP(53, c.playerMagic);
 				c.startAnimation(722);
