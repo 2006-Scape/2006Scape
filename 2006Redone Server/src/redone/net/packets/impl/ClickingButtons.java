@@ -1484,7 +1484,7 @@ public class ClickingButtons implements PacketType {
 			} else if (player.dialogueAction == 184) {
 				player.getDialogueHandler().sendDialogues(624, player.npcType);
 				return;
-			} else if (player.dialogueAction == 186) {
+			} else if (player.dialogueAction == 3204) {
 				player.getItemAssistant().deleteItem2(1929, 1);
 				player.getItemAssistant().deleteItem2(1933, 1);
 				player.getItemAssistant().addItem(1953, 1);
@@ -1492,7 +1492,7 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().addItem(1931, 1);
 				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
 				player.nextChat = 0;
-			} else if (player.dialogueAction == 187) {
+			} else if (player.dialogueAction == 3205) {
 				player.getItemAssistant().deleteItem2(1933, 1);
 				player.getItemAssistant().deleteItem2(1937, 1);
 				player.getItemAssistant().addItem(1953, 1);
@@ -1686,7 +1686,7 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendPlayerChat1("No, I've got lots of mining work to do.");
 				player.nextChat = 0;
 				return;
-			} else if (player.dialogueAction == 186) {
+			} else if (player.dialogueAction == 3204) {
 				player.getItemAssistant().deleteItem2(1929, 1);
 				player.getItemAssistant().deleteItem2(1933, 1);
 				player.getItemAssistant().addItem(2307, 1);
@@ -1694,7 +1694,7 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().addItem(1931, 1);
 				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
 				player.nextChat = 0;
-			} else if (player.dialogueAction == 187) {
+			} else if (player.dialogueAction == 3205) {
 				player.getItemAssistant().deleteItem2(1933, 1);
 				player.getItemAssistant().deleteItem2(1937, 1);
 				player.getItemAssistant().addItem(1953, 1);
