@@ -293,7 +293,7 @@ public class ObjectsActions {
 		
 		case 2271:
 			player.getActionSender().object(2272, 2984, 3336, 1, 10);
-			Region.addObject(2272, 2984, 336, 0, 10, 1, false);
+			Region.addObject(2272, 2984, 3336, 2, 10, 1, false);
 			player.getActionSender().sendMessage("You open the cupboard.");
 		break;
 		
