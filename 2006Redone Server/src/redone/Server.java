@@ -158,7 +158,7 @@ public class Server {
 		System.out.println("Server listening on port "
 				+ serverlistenerPort);
 
-		if(!ersSecret.equals("")) {
+		if(ersSecret != null && !ersSecret.equals("")) {
 			com.everythingrs.service.Service.scheduledService.scheduleAtFixedRate(new Runnable() {
 				@Override
 				public void run() {
