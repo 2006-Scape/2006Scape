@@ -211,6 +211,7 @@ public class Item {
 			while ((c = dataIn.read()) != -1) {
 				if (c == 0) {
 					itemStackable[counter] = false;
+					itemStackable[291] = true;
 				} else {
 					itemStackable[counter] = true;
 				}
