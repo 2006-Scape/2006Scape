@@ -144,12 +144,11 @@ public class QuestRewards {
 		client.cookAss = 3;
 	}
 	public static void blackKnightReward(Client client) {
-		QuestReward(client, "Black Knights' Fortress", "6 Quest Point", "5000 Coins", "10k Attack XP", "", "", "", 326);
+		QuestReward(client, "Black Knights' Fortress", "3 Quest Point", "2500 Coins", "", "", "", "", 0);
 		QUEST_NAME = "Black Knights' Fortress";
-		client.getItemAssistant().addItem(995, 5000);
-		client.getPlayerAssistant().addNormalExperienceRate(10000, client.playerAttack);
-		client.questPoints++;
-		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7333);
+		client.getItemAssistant().addItem(995, 2500);
+		client.questPoints += 3;
+		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7332);
 		client.blackKnight = 3;
 	}
 }
