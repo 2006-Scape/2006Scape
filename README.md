@@ -74,7 +74,7 @@ Step 24: Navigate to the Client class (`2006Redone Client/src/Client.java`), Rig
     "client-class": "Game",
     "locations":{
         "provider": "pathToYourJar/Provider-1.21.5.jar",
-        "server": "pathToYourJar/localhost_2006client.jar",
+        "server": "pathToYourJar/localhost_2006rebotted.jar",
         "hooks": "http://bdn.parabot.org/data/hooks/carmeuses/2006rebotted_hooks.xml"
     }
 }
