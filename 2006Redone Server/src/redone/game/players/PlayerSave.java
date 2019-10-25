@@ -825,7 +825,7 @@ public class PlayerSave {
 			characterfile.write(Integer.toString(player.runeMist), 0, Integer
 					.toString(player.runeMist).length());
 			characterfile.newLine();
-			characterfile.write("blackKnight = ", 0, 10);
+			characterfile.write("blackKnight = ", 0, 14);
 			characterfile.write(Integer.toString(player.blackKnight), 0, Integer
 					.toString(player.blackKnight).length());
 			characterfile.newLine();
