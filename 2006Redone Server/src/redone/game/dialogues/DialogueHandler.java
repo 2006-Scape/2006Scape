@@ -6592,9 +6592,7 @@ public class DialogueHandler {
 			case 3513:
 				sendNpcChat1("One last thing" + player.playerName + ", here is your reward.",
 						player.talkingNpc, "Sir Amik Varze");
-				player.blackKnight = 3;
-				player.getItemAssistant().addItem(995, 5000);
-				player.getPlayerAssistant().addSkillXP(10000, 0);
+				QuestRewards.blackKnightReward(player);
 				player.nextChat = 0;
 				break;
 
