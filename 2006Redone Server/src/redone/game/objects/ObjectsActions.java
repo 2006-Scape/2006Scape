@@ -170,11 +170,10 @@ public class ObjectsActions {
 			player.getMining().startMining(player, 15, player.objectX, player.objectY, player.clickObjectType);
 			break;
 		case 2109:
+			player.getMining().startMining(player, 20, player.objectX, player.objectY, player.clickObjectType);
+			break;
 		case 2108:
-			if (objectType == 2109)
-				player.getMining().startMining(player, 20, player.objectX, player.objectY, player.clickObjectType);
-			if (objectType == 2108)
-				player.getMining().startMining(player, 21, player.objectX, player.objectY, player.clickObjectType);
+			player.getMining().startMining(player, 21, player.objectX, player.objectY, player.clickObjectType);
 			break;
 		case 2098:
 			player.getMining().startMining(player, 16, player.objectX, player.objectY, player.clickObjectType);
@@ -194,7 +193,11 @@ public class ObjectsActions {
 			else
 				player.getMining().startMining(player, 23, player.objectX, player.objectY, player.clickObjectType);
 			break;
-		
+		case 10574:
+		case 10583:
+		case 2110:
+			player.getMining().startMining(player, 24, player.objectX, player.objectY, player.clickObjectType);
+			break;
 		case 6702:
 		case 6703:
 		case 6704:

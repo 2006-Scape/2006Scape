@@ -45,6 +45,7 @@ public class Mining {
 		{2108, 1, 18, 3, 434}, //Clay
 		{2491, 1, 5, 0, 1436}, // Rune Essence
 		{2491, 30, 5, 0, 7936}, // Pure Rune Essence
+		{2110, 10, 20, 3, 668}, // Blurite Ore
 	};
 	
 	public int getRandomAdd() {
