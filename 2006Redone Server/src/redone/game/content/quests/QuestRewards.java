@@ -39,7 +39,7 @@ public class QuestRewards {
 	}
 
 	public static void gertFinish(Client client) {
-		QuestReward(client, "Gertrude's Cat", "1 Quest Point", "1,525 Cooking XP", "A kitten!", "Ability to raise cats", "A choclate cake", "A bowl of stew", 1897);
+		QuestReward(client, "Gertrude's Cat", "1 Quest Point", "1,525 Cooking XP", "A kitten!", "Ability to raise cats", "A chocolate cake", "A bowl of stew", 1897);
 		QUEST_NAME = "Gertrude's Cat";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7360);
 		client.getItemAssistant().addItem(1897, 1);

@@ -2950,8 +2950,8 @@ public class DialogueHandler {
 			case 575:
 				if (player.getItemAssistant().playerHasItem(431, 1)) {
 					sendStatement("Frank happily takes the rum... and hands you a key");
-					player.getItemAssistant().addOrDropItem(432, 1);
 					player.getItemAssistant().deleteItem2(431, 1);
+					player.getItemAssistant().addOrDropItem(432, 1);
 					player.nextChat = 576;
 				} else {
 					sendPlayerChat1("I still need to get some rum.");
