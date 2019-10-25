@@ -121,11 +121,11 @@ public class ObjectHandler {
 		for (Objects o : globalObjects) {
 			if (c != null) {
 				if (c.heightLevel == 0 && o.objectTicks == 0 && c.distanceToPoint(o.getObjectX(), o.getObjectY()) <= 60) {
-					if (Woodcutting.playerTrees(c, o.getObjectId()) || Mining.rockExists(c, o.getObjectId())) {
+					if (Woodcutting.playerTrees(c, o.getObjectId()) || Mining.rockExists(o.getObjectId())) {
 						c.getActionSender().object(o.getObjectId(), o.getObjectX(), o.getObjectY(), 0, o.getObjectFace(), o.getObjectType());
 					}
 				}
-				if (c.heightLevel == o.getObjectHeight() && !Woodcutting.playerTrees(c, o.getObjectId()) && !Mining.rockExists(c, o.getObjectId()) && o.objectTicks == 0 && c.distanceToPoint(o.getObjectX(), o.getObjectY()) <= 60) {
+				if (c.heightLevel == o.getObjectHeight() && !Woodcutting.playerTrees(c, o.getObjectId()) && !Mining.rockExists(o.getObjectId()) && o.objectTicks == 0 && c.distanceToPoint(o.getObjectX(), o.getObjectY()) <= 60) {
 					c.getActionSender().object(o.getObjectId(), o.getObjectX(), o.getObjectY(), c.heightLevel, o.getObjectFace(), o.getObjectType());
 				}
 			}
