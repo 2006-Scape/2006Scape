@@ -1133,10 +1133,10 @@ public class Game extends RSApplet {
 												if (itemDef.actions != null && itemDef.actions[l3] != null) {
 													menuActionName[menuActionRow] = itemDef.actions[l3] + " @lre@" + itemDef.name;
 													if (l3 == 3) {
-														menuActionID[menuActionRow] = 493;
+															menuActionID[menuActionRow] = 493;
 													}
 													if (l3 == 4) {
-														menuActionID[menuActionRow] = 847;
+															menuActionID[menuActionRow] = 847;
 													}
 													menuActionCmd1[menuActionRow] = itemDef.id;
 													menuActionCmd2[menuActionRow] = k2;
@@ -1169,20 +1169,30 @@ public class Game extends RSApplet {
 										if (class9_1.isInventoryInterface && itemDef.actions != null) {
 											for (int i4 = 2; i4 >= 0; i4--) {
 												if (itemDef.actions[i4] != null) {
-													menuActionName[menuActionRow] = itemDef.actions[i4] + " @lre@" + itemDef.name;
-													if (i4 == 0) {
-														menuActionID[menuActionRow] = 74;
+													if (shiftDown)
+													{
+														menuActionName[menuActionRow] = "Drop @lre@" + itemDef.name;
+														menuActionCmd1[menuActionRow] = itemDef.id;
+														menuActionCmd2[menuActionRow] = k2;
+														menuActionCmd3[menuActionRow] = class9_1.id;
 													}
-													if (i4 == 1) {
-														menuActionID[menuActionRow] = 454;
+													else
+													{
+														menuActionName[menuActionRow] = itemDef.actions[i4] + " @lre@" + itemDef.name; //Seems like it's Wear + SPACE + ItemName.
+														if (i4 == 0) {
+															menuActionID[menuActionRow] = 74;
+														}
+														if (i4 == 1) {
+															menuActionID[menuActionRow] = 454;
+														}
+														if (i4 == 2) {
+															menuActionID[menuActionRow] = 539;
+														}
+														menuActionCmd1[menuActionRow] = itemDef.id;
+														menuActionCmd2[menuActionRow] = k2;
+														menuActionCmd3[menuActionRow] = class9_1.id;
+														menuActionRow++;
 													}
-													if (i4 == 2) {
-														menuActionID[menuActionRow] = 539;
-													}
-													menuActionCmd1[menuActionRow] = itemDef.id;
-													menuActionCmd2[menuActionRow] = k2;
-													menuActionCmd3[menuActionRow] = class9_1.id;
-													menuActionRow++;
 												}
 											}
 
@@ -1212,7 +1222,6 @@ public class Game extends RSApplet {
 													menuActionRow++;
 												}
 											}
-
 										}
 										menuActionName[menuActionRow] = "Examine @lre@" + itemDef.name + (showInfo ? " @gre@(@whi@" + (class9_1.inv[k2] - 1) + "@gre@)" : "");
 										menuActionID[menuActionRow] = 1125;
@@ -4200,7 +4209,7 @@ public class Game extends RSApplet {
 		if (l == 447) {
 		    if (shiftDown)
 			{
-				doAction(2); //Drop?
+				doAction(2); //1=Examine, 2=Drop, 3=wear?, 4= does some really wack shit in the inventory
 				needDrawTabArea = true;
 				return;
 			}
@@ -4213,6 +4222,7 @@ public class Game extends RSApplet {
 			needDrawTabArea = true;
 			return;
 		}
+
 		if (l == 1226) {
 			int j1 = i1 >> 14 & 0x7fff;
 			ObjectDef class46 = ObjectDef.forID(j1);
