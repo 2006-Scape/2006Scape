@@ -19,43 +19,92 @@ public class Mining {
 		{1275, 41, 6, 624}, //Rune
 
 	};
+
+	public static enum rockData {
+		ESSENCE(new int[] { 2491 }, 1, 5, 2, 0, new int[] { 1436, 7936 }),
+		CLAY(new int[] { 2108, 2109, 11189, 11190, 11191, 9713, 9711, 14905, 14904 }, 1, 5, 1, 2, new int[] { 434 }),
+		COPPER(new int[] { 3042, 2091, 2090, 9708, 9709, 9710, 11960, 14906, 14907 }, 1, 18, 1, 4, new int[] { 436 }),
+		TIN(new int[] { 2094, 2095, 3043, 9716, 9714, 11958, 11957, 11959, 11933, 11934, 11935, 14903, 14902 }, 1, 18, 1, 4, new int[] { 438 }),
+		BLURITE(new int[] { 10574, 10583, 2110 }, 10, 20, 1, 42, new int[] { 668 }),
+		IRON(new int[] { 2093, 2092, 9717, 9718, 9719, 11962, 11956, 11954, 14856, 14857, 14858, 14914, 14913 }, 15, 35, 2, 9, new int[] { 440 }),
+		SILVER(new int[] { 2101, 11186, 11187, 11188, 2100 }, 20, 40, 3, 100, new int[] { 442 }),
+		COAL(new int[] { 2096, 2097, 11963, 11964, 14850, 14851, 14852, 11930, 11931 }, 30, 50, 4, 50, new int[] { 453 }),
+		GOLD(new int[] { 2099, 2098, 11183, 11184, 11185, 9720, 9722 }, 40,	65, 6, 100, new int[] { 444 }),
+		MITHRIL(new int[] { 2103, 2102, 14853, 14854, 14855 }, 55, 80, 8, 200, new int[] { 447 }),
+		ADAMANT(new int[] { 2104, 2105, 14862, 14863, 14864 }, 70, 95, 10, 400, new int[] { 449 }),
+		RUNE(new int[] { 14859, 14860, 2106, 2107 }, 85, 125, 20, 1200, new int[] { 451 }),
+		GRANITE(new int[] { 10947 }, 45, 75, 10, 8, new int[] { 6979, 6981, 6983 }),
+		SANDSTONE(new int[] { 10946 }, 35, 60, 5, 8, new int[] { 6971, 6973, 6975, 6977 }),
+		GEM(new int[] {2111}, 40, 65, 6, 175, new int[] {});
+
+		private final int levelReq, mineTimer, respawnTimer, xp;
+		private final int[] oreIds;
+		private final int[] objectId;
+
+		private rockData(final int[] objectId, final int levelReq, final int xp, final int mineTimer, final int respawnTimer, final int... oreIds) {
+			this.objectId = objectId;
+			this.levelReq = levelReq;
+			this.xp = xp;
+			this.mineTimer = mineTimer;
+			this.respawnTimer = respawnTimer;
+			this.oreIds = oreIds;
+		}
+
+		public int getObject(final int object) {
+			for (int element : objectId) {
+				if (object == element) {
+					return element;
+				}
+			}
+			return -1;
+		}
+
+		public static rockData getRock(final int object) {
+			for (final rockData rock : rockData.values()) {
+				if (object == rock.getObject(object)) {
+					return rock;
+				}
+			}
+			return null;
+		}
+
+		public int getRequiredLevel() {
+			return levelReq;
+		}
+
+		public int getXp() {
+			return xp;
+		}
+
+		public int getTimer() {
+			return mineTimer;
+		}
+
+		public int getRespawnTimer() {
+			return respawnTimer;
+		}
+
+		public int[] getOreIds() {
+			return oreIds;
+		}
+
+		public int getOre(int playerLevel){
+			if (this == this.ESSENCE)
+				return playerLevel < 30 ? oreIds[0] : oreIds[1];
+
+			// return a random ore from the possibilities
+			return oreIds[(int) Math.floor(Math.random() * oreIds.length)];
+		}
+	}
 	
-	public final int[][] Rock_Settings = {
-		{2091, 1, 18, 3, 436}, //Copper
-		{2095, 1, 18, 3, 438}, //Tin
-		{2093, 15, 35, 7, 440}, //Iron
-		{2097, 30, 50, 38, 453}, //Coal
-		{2103, 55, 80, 155, 447}, //Mithril
-		{2105, 70, 95, 315, 449}, //Addy
-		{2107, 85, 125, 970, 451}, //Rune
-		{2090, 1, 18, 3, 436}, //Copper
-		{2094, 1, 18, 3, 438}, //Tin
-		{2092, 15, 35, 7, 440}, //Iron
-		{2096, 30, 50, 38, 453}, //Coal
-		{2102, 55, 80, 155, 447}, //Mithril
-		{2104, 70, 95, 315, 449}, //Addy
-		{2106, 85, 125, 970, 451}, //Rune
-		{2100, 20, 40, 78, 442}, //Silver
-		{2101, 20, 40, 78, 442}, //Silver
-		{2098, 40, 65, 78, 444}, //Gold
-		{2099, 40, 65, 78, 444}, //Gold
-		{3042, 1, 18, 3, 436}, //Copper
-		{3043, 1, 18, 3, 438}, //Tin
-		{2109, 1, 18, 3, 434}, //Clay
-		{2108, 1, 18, 3, 434}, //Clay
-		{2491, 1, 5, 0, 1436}, // Rune Essence
-		{2491, 30, 5, 0, 7936}, // Pure Rune Essence
-		{2110, 10, 20, 3, 668}, // Blurite Ore
-	};
-	
-	int a = -1;
+	int pickaxe = -1;
 	
 	public void repeatAnimation(final Client c) {
 		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (c.isMining) {
-					c.startAnimation(Pick_Settings[a][3]);
+					c.startAnimation(Pick_Settings[pickaxe][3]);
 				} else {
 					container.stop();
 				}
@@ -69,26 +118,27 @@ public class Mining {
 		}, 3);
 	}
 	
-	public void startMining(final Client player, final int objectNumber, final int objectX, final int objectY, final int type) {
-		if (player.isMining)
-			return;
-		if (player.miningRock)
-			return;
+	public void startMining(final Client player, final int objectID, final int objectX, final int objectY, final int type) {
+		if (player.isMining || player.miningRock) return;
+
 		int miningLevel = player.playerLevel[player.playerMining];
-		a = -1;
+		rockData rock = rockData.getRock(objectID);
+		pickaxe = -1;
 		player.turnPlayerTo(objectX, objectY);
-		if (Rock_Settings[objectNumber][1] > miningLevel) {
-			player.getActionSender().sendMessage("You need a Mining level of " + Rock_Settings[objectNumber][1] + " to mine this rock.");
+		// check if the player has required level for this rock
+		if (rock.getRequiredLevel() > miningLevel) {
+			player.getActionSender().sendMessage("You need a Mining level of " + rock.getRequiredLevel() + " to mine this rock.");
 			return;
 		}
+		// check id the player has a pickaxe they can use on them
 		for (int i = 0; i < Pick_Settings.length; i++) {
 			if (player.getItemAssistant().playerHasItem(Pick_Settings[i][0]) || player.playerEquipment[player.playerWeapon] == Pick_Settings[i][0]) {
 				if (Pick_Settings[i][1] <= miningLevel) {
-					a = i;
+					pickaxe = i;
 				}
 			}
 		}
-		if (a == -1) {
+		if (pickaxe == -1) {
 			player.getActionSender().sendMessage("You need a pickaxe to mine this rock.");
 			return;
 		}
@@ -96,12 +146,15 @@ public class Mining {
 			player.getActionSender().sendMessage("You do not have enough inventory slots to do that.");
 			return;
 		}
-		player.startAnimation(Pick_Settings[a][3]);
+
+		player.startAnimation(Pick_Settings[pickaxe][3]);
 		player.isMining = true;
 		repeatAnimation(player);
 		player.rockX = objectX;
 		player.rockY = objectY;
 		player.miningRock = true;
+
+		// Tutorial only stuff
 		if (player.tutorialProgress == 17 || player.tutorialProgress == 18) {
 			player.getActionSender().chatbox(6180);
 			player.getDialogueHandler().chatboxText(player, "", "Your character is now attempting to mine the rock.", "This should only take a few seconds.", "", "Please wait");
@@ -109,21 +162,23 @@ public class Mining {
 		} else {
 			player.getActionSender().sendMessage("You swing your pick at the rock.");
 		}
+
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
+				int oreID = rock.getOre(miningLevel);
 				if (!player.isMining) {
 					container.stop();
 					player.startAnimation(65535);
 					return;
 				}
 				if (player.isMining) {
-					player.getItemAssistant().addItem(Rock_Settings[objectNumber][4], 1);
-					player.getPlayerAssistant().addSkillXP(Rock_Settings[objectNumber][2], player.playerMining);
-					player.getActionSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(Rock_Settings[objectNumber][4]).toLowerCase() + ".");
+					player.getItemAssistant().addItem(oreID, 1);
+					player.getPlayerAssistant().addSkillXP(rock.getXp(), player.playerMining);
+					player.getActionSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(oreID).toLowerCase() + ".");
 				}
 				if (player.tutorialProgress == 17) {
-					if (objectNumber == 18) {
+					if (rock != rockData.TIN) {
 						player.getDialogueHandler().sendStatement("You should mine tin first.");
 						resetMining(player);
 						return;
@@ -134,7 +189,7 @@ public class Mining {
 						player.tutorialProgress = 18;
 					}
 				} else if (player.tutorialProgress == 18) {
-					if (objectNumber == 19) {
+					if (rock != rockData.COPPER) {
 						player.getDialogueHandler().sendStatement("You have already mined this type of ore, now try the other.");
 						resetMining(player);
 						return;
@@ -148,10 +203,10 @@ public class Mining {
 					player.getActionSender().sendMessage("You have ran out of inventory slots.");
 					container.stop();
 				}
-				mineRock(Rock_Settings[objectNumber][3], objectX, objectY, type, Rock_Settings[objectNumber][0]);
+				mineRock(rock.getRespawnTimer(), objectX, objectY, type, objectID);
 				container.stop();
-				if (objectNumber == 22 || objectNumber == 23)
-					startMining(player, objectNumber, objectX, objectY, type);
+				if (rock == rockData.ESSENCE)
+					startMining(player, objectID, objectX, objectY, type);
 			}
 			@Override
 			public void stop() {
@@ -163,7 +218,7 @@ public class Mining {
 				player.miningRock = false;
 				return;
 			}
-		}, getTimer(objectNumber, a, miningLevel));
+		}, getTimer(rock, pickaxe, miningLevel));
 	}
 	
 	public static void resetMining(Client c) {
@@ -175,8 +230,8 @@ public class Mining {
 		c.miningRock = false;
 	}
 
-	public int getTimer(int b, int c, int level) {
-		double timer = (int)((Rock_Settings[b][1]  * 2) + 20 + Misc.random(20))-((Pick_Settings[c][2] * (Pick_Settings[c][2] * 0.75)) + level);
+	public int getTimer(rockData rock, int pick, int level) {
+		double timer = (int)((rock.getRequiredLevel() * 2) + 20 + Misc.random(20))-((Pick_Settings[pick][2] * (Pick_Settings[pick][2] * 0.75)) + level);
 		if (timer < 2.0) {
 			return 2;
 		} else {
@@ -295,74 +350,13 @@ public class Mining {
 		}, 2);
 	}
 
-	public static enum rockData {
-		ESSENCE(new int[] { 2491 }, 1, 5, 3, 1, new int[] { 1436 }), 
-		CLAY(new int[] { 2108, 2109, 11189, 11190, 11191, 9713, 9711, 14905, 14904 }, 1, 5, 1, 5, new int[] { 434 }), 
-		COPPER(new int[] { 3042, 2091, 2090, 9708, 9709, 9710, 11960, 14906, 14907 }, 1, 18, 1, 8, new int[] { 436 }), 
-		TIN(new int[] { 2094, 2095, 3043, 9716, 9714, 11958, 11957, 11959, 11933, 11934, 11935, 14903, 14902 }, 1, 18, 1, 8, new int[] { 438 }), 
-		BLURITE(new int[] { 10574, 10583, 2110 }, 10, 20, 1, 8, new int[] { 668 }), 
-		IRON(new int[] { 2093, 2092, 9717, 9718, 9719, 11962, 11956, 11954, 14856, 14857, 14858, 14914, 14913 }, 15, 35, 2, 5, new int[] { 440 }), 
-		SILVER(new int[] { 2101, 11186, 11187, 11188, 2100 }, 20, 40, 3, 20, new int[] { 442 }), 
-		COAL(new int[] { 2096, 2097, 11963, 11964, 14850, 14851, 14852, 11930, 11931 }, 30, 50, 4, 25, new int[] { 453 }), 
-		GOLD(new int[] { 2099, 2098, 11183, 11184, 11185, 9720, 9722 }, 40,	65, 6, 33, new int[] { 444 }), 
-		MITHRIL(new int[] { 2103, 2102, 14853, 14854, 14855 }, 55, 80, 8, 50, new int[] { 447 }), 
-		ADAMANT(new int[] { 2104, 2105, 14862, 14863, 14864 }, 70, 95, 10, 83, new int[] { 449 }),
-		RUNE(new int[] { 14859, 14860, 2106, 2107 }, 85, 125, 20, 166, new int[] { 451 }), 
-		GRANITE(new int[] { 10947 }, 45, 75, 10, 10, new int[] { 6979, 6981, 6983 }), 
-		SANDSTONE(new int[] { 10946 }, 35, 60, 5, 5, new int[] { 6971, 6973, 6975, 6977 }), 
-		GEM(new int[] {2111}, 40, 65, 6, 120, new int[] {1});
-
-		private final int levelReq, mineTimer, respawnTimer, xp;
-		private final int[] oreIds;
-		private final int[] objectId;
-
-		private rockData(final int[] objectId, final int levelReq, final int xp, final int mineTimer, final int respawnTimer, final int... oreIds) {
-			this.objectId = objectId;
-			this.levelReq = levelReq;
-			this.xp = xp;
-			this.mineTimer = mineTimer;
-			this.respawnTimer = respawnTimer;
-			this.oreIds = oreIds;
-		}
-
-		public int getObject(final int object) {
-			for (int element : objectId) {
-				if (object == element) {
-					return element;
-				}
-			}
-			return -1;
-		}
-
-		public int getLevel() {
-			return levelReq;
-		}
-
-		public int getXp() {
-			return xp;
-		}
-
-		public int getTimer() {
-			return mineTimer;
-		}
-
-		public int getResapwn() {
-			return respawnTimer;
-		}
-
-		public int[] getOreIds() {
-			return oreIds;
-		}
-	}
-	
-	public static boolean rockExists(Client c, int rockExist) {
-		boolean rockExists = false;
-		for (final rockData a : rockData.values()) {
-			if (rockExist == a.getObject(rockExist)) {
-				rockExists = true;
+	public static boolean rockExists(int rockID) {
+		for (final rockData rock : rockData.values()) {
+			if (rockID == rock.getObject(rockID)) {
+				return true;
 			}
 		}
-		return rockExists;
+		return false;
 	}
 
 }

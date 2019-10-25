@@ -62,7 +62,7 @@ public class ClickObject implements PacketType {
 				player.resetWalkingQueue();
 				break;
 			}
-			if (Mining.rockExists(player, player.objectId)) {
+			if (Mining.rockExists(player.objectId)) {
 				player.objectDistance = 5;
 			}
 			if (Woodcutting.playerTrees(player, player.objectId)) {
