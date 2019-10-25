@@ -115,8 +115,8 @@ public class Guilds {
 	public static boolean checkRequirments(Client c, int objectId) {
 		switch (objectId) {
 		case 1805: // Champions Guild
-			if (c.questPoints < QuestAssistant.MAXIMUM_QUESTPOINTS) {
-				c.getDialogueHandler().sendStatement("You need " + QuestAssistant.MAXIMUM_QUESTPOINTS + " quest points to enter this guild!");
+			if (c.questPoints < 19) {
+				c.getDialogueHandler().sendStatement("You need 19 quest points to enter this guild!");
 				c.nextChat = 0;
 				return false;
 			}

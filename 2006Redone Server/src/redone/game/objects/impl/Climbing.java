@@ -134,13 +134,12 @@ public class Climbing {
 			} else if (client.absY == 3445) {
 				client.getPlayerAssistant().movePlayer(3260, 3449, 1);
 			} else if (client.absY == 3358
-					&& client.questPoints >= QuestAssistant.MAXIMUM_QUESTPOINTS) {
+					&& client.questPoints >= 19) {
 				client.getPlayerAssistant().movePlayer(client.absX, 3354, 1);
 			} else if (client.absY == 3358
-					&& client.questPoints < QuestAssistant.MAXIMUM_QUESTPOINTS) {
+					&& client.questPoints < 19) {
 				client.getActionSender().sendMessage(
-						"You need " + QuestAssistant.MAXIMUM_QUESTPOINTS
-								+ " quest points to use these stairs.");
+						"You need 19 quest points to use these stairs.");
 			} else if (client.absX == 3180) {
 				client.getPlayerAssistant().movePlayer(3176, client.absY, 1);
 			} else if (client.absX == 3159) {
@@ -160,13 +159,12 @@ public class Climbing {
 			if (client.absX == 3102) {
 				client.getPlayerAssistant().movePlayer(3098, 3266, 0);
 			} else if (client.absY == 3354
-					&& client.questPoints >= QuestAssistant.MAXIMUM_QUESTPOINTS) {
+					&& client.questPoints >= 19) {
 				client.getPlayerAssistant().movePlayer(client.absX, 3358, 0);
 			} else if (client.absY == 3358
-					&& client.questPoints < QuestAssistant.MAXIMUM_QUESTPOINTS) {
+					&& client.questPoints < 19) {
 				client.getActionSender().sendMessage(
-						"You need " + QuestAssistant.MAXIMUM_QUESTPOINTS
-								+ " quest points to use these stairs");
+						"You need 19 quest points to use these stairs");
 			} else if (client.absY == 3449) {
 				client.getPlayerAssistant().movePlayer(3259, 3445, 0);
 			} else if (client.absX == 3155) {
