@@ -72,5 +72,4 @@ public class VampyreSlayer {
 		for (String line : lines) client.getPlayerAssistant().sendFrame126(line, lineNumber++);
 		client.getPlayerAssistant().showInterface(8134);
 	}
-
 }
