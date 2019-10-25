@@ -416,8 +416,8 @@ public class MagicTeleports {
 						return;
 					}
 				}
-				if (player.questPoints < QuestAssistant.MAXIMUM_QUESTPOINTS) {
-					player.getActionSender().sendMessage("You need " + QuestAssistant.MAXIMUM_QUESTPOINTS + " quest points to teleport here.");
+				if (player.questPoints < 19) {
+					player.getActionSender().sendMessage("You need " + 19 + " quest points to teleport here.");
 					return;
 				}
 				if (MAGIC_LEVEL_REQUIRED) {
