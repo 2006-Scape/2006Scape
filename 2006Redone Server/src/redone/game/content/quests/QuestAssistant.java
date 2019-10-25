@@ -10,7 +10,7 @@ import redone.game.players.Client;
 
 public class QuestAssistant {
 
-	public static final int MAXIMUM_QUESTPOINTS = 19;
+	public static final int MAXIMUM_QUESTPOINTS = 22;
 
 	public static void sendStages(Client client) {
 		client.getPlayerAssistant().sendFrame126("QP: " + client.questPoints + " ", 3985);
