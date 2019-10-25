@@ -48,24 +48,10 @@ public class Mining {
 		{2110, 10, 20, 3, 668}, // Blurite Ore
 	};
 	
-	public int getRandomAdd() {
+	public int getRandomAdd(int i) {
 		int random = 0;
-		for (int i = 0; i < Rock_Settings.length; i++) {
-			if (Rock_Settings[i][3] == 3) {
-				random = Misc.random(3);
-			} else if (Rock_Settings[i][3] == 7) {
-				random = Misc.random(7);
-			} else if (Rock_Settings[i][3] == 38) {
-				random = Misc.random(38);
-			} else if (Rock_Settings[i][3] == 78) {
-				random = Misc.random(78);
-			} else if (Rock_Settings[i][3] == 155) {
-				random = Misc.random(155);
-			} else if (Rock_Settings[i][3] == 315) {
-				random = Misc.random(315);
-			} else if (Rock_Settings[i][3] == 970) {
-				random = Misc.random(970);
-			}
+		if (Rock_Settings[i][3] != 0) {
+			random = Misc.random(Rock_Settings[i][3]);
 		}
 		return random;
 	}
@@ -170,7 +156,7 @@ public class Mining {
 					player.getActionSender().sendMessage("You have ran out of inventory slots.");
 					container.stop();
 				}
-				mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(), objectX, objectY, type, Rock_Settings[objectNumber][0]);
+				mineRock(Rock_Settings[objectNumber][3] + getRandomAdd(objectNumber), objectX, objectY, type, Rock_Settings[objectNumber][0]);
 				container.stop();
 				if (objectNumber == 22 || objectNumber == 23)
 					startMining(player, objectNumber, objectX, objectY, type);
