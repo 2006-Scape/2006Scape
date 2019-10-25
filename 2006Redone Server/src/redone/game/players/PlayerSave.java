@@ -693,8 +693,8 @@ public class PlayerSave {
 					.toString(player.strongHold).length());
 			characterfile.newLine();
 			characterfile.write("character-energy = ", 0, 19);
-			characterfile.write(Integer.toString(player.playerEnergy), 0,
-					Integer.toString(player.playerEnergy).length());
+			characterfile.write(Integer.toString((int) Math.ceil(player.playerEnergy)), 0,
+					Integer.toString((int) Math.ceil(player.playerEnergy)).length());
 			characterfile.newLine();
 			characterfile.write("crystal-bow-shots = ", 0, 20);
 			characterfile.write(Integer.toString(player.crystalBowArrowCount),

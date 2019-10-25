@@ -930,9 +930,8 @@ public class Client extends Player {
 
 	@Override
 	public void process() {
-
-		if (playerEnergy < 100&& System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
-			playerEnergy += 1;
+		if (playerEnergy < 100 && System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
+			playerEnergy = Math.min(playerEnergy + 1, 100);
 			lastIncrease = System.currentTimeMillis();
 		}
 		if (playerEnergy <= 0 && isRunning2) {

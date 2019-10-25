@@ -431,7 +431,7 @@ public class PlayerAssistant {
 
 	public void writeEnergy() {
 		if (player.playerEnergy > 0) {
-			sendFrame126(player.playerEnergy + "%", 149);
+			sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 		} else {
 			sendFrame126("0%", 149);
 		}
@@ -2056,7 +2056,7 @@ public class PlayerAssistant {
 		frame1();
 		resetTb();
 		player.playerEnergy = 100;
-		player.getPlayerAssistant().sendFrame126(player.playerEnergy + "%", 149);
+		player.getPlayerAssistant().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 		player.isSkulled = false;
 		player.attackedPlayers.clear();
 		player.headIconPk = -1;
