@@ -257,6 +257,9 @@ public class PlayerSave {
 							case "doricQuest":
 								player.doricQuest = Integer.parseInt(token2);
 								break;
+							case "blackKnight":
+								player.blackKnight = Integer.parseInt(token2);
+								break;
 							case "pirateTreasure":
 								player.pirateTreasure = Integer.parseInt(token2);
 								break;
