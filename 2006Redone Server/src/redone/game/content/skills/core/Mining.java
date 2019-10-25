@@ -17,8 +17,38 @@ public class Mining {
 		{1271, 31, 5, 629}, //Addy
 		{1273, 21, 4, 628}, //Mithril
 		{1275, 41, 6, 624}, //Rune
-
 	};
+
+	public static enum gems {
+		OPAL(1625, 60),
+		JADE(1627, 30),
+		RED_TOPAZ(1629, 15),
+		SAPHIRE(1623, 9),
+		EMERALD(1621, 5),
+		RUBY(1619, 5),
+		DIAMOND(1617, 4);
+
+		public final int itemID;
+		public final int chance;
+
+		gems(int itemID, int chance){
+			this.itemID = itemID;
+			this.chance = chance;
+		}
+
+
+		public static int getRandom(){
+			final int maxChance = 128;
+			int random = (int) Math.floor(Math.random() * maxChance);
+			int index = 0;
+			for (gems gem: gems.values()){
+				index += gem.chance;
+				if (index >= random)
+					return gem.itemID;
+			}
+			return gems.OPAL.itemID;
+		}
+	}
 
 	public static enum rockData {
 		ESSENCE(new int[] { 2491 }, 1, 5, 2, 0, new int[] { 1436, 7936 }),
@@ -91,6 +121,8 @@ public class Mining {
 		public int getOre(int playerLevel){
 			if (this == this.ESSENCE)
 				return playerLevel < 30 ? oreIds[0] : oreIds[1];
+			if (this == this.GEM)
+				return gems.getRandom();
 
 			// return a random ore from the possibilities
 			return oreIds[(int) Math.floor(Math.random() * oreIds.length)];
