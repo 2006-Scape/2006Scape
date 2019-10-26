@@ -633,8 +633,7 @@ public class Client extends Player {
 				AntiBotting.botCheckInterface(this);
 			}
 			if (questPoints > QuestAssistant.MAXIMUM_QUESTPOINTS || playerRights > 2) {
-				questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for
-																	// abusers
+				questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for abusers
 			}
 			if (playerHitpoints < 0) {
 				isDead = true;
