@@ -627,7 +627,7 @@ public class NpcActions {
 			break;
 
 		case 608:
-			if (c.blackKnight == 0) {
+			if (c.blackKnight == 0 && c.questPoints >= 12) {
 				c.getDialogueHandler().sendDialogues(3902, npcType);
 			} else if (c.blackKnight == 1) {
 				c.getDialogueHandler().sendDialogues(3510, npcType);
