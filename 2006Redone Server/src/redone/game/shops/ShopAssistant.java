@@ -130,7 +130,7 @@ public class ShopAssistant {
 		} else if (Type == 1) {
 			TotPrice *= 1;
 		}
-		return TotPrice;
+		return (int) Math.round(TotPrice);
 	}
 
 	public int getItemShopValue(int itemId) {
