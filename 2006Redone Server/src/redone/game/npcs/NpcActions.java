@@ -418,6 +418,8 @@ public class NpcActions {
 
 		case 756:// harlow
 			if (c.vampSlayer == 1) {
+				c.getDialogueHandler().sendDialogues(498, npcType);
+			} else if (c.vampSlayer == 2) {
 				c.getDialogueHandler().sendDialogues(510, npcType);
 			} else if (c.vampSlayer == 3) {
 				c.getDialogueHandler().sendDialogues(531, npcType);
