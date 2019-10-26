@@ -190,7 +190,10 @@ public final class ItemDef {
 
 		cacheIndex = (cacheIndex + 1) % 10;
 		ItemDef itemDef = cache[cacheIndex];
-		stream.currentOffset = streamIndices[i];
+		if (i >= streamIndices.length)
+			stream.currentOffset = streamIndices[717];
+		else
+			stream.currentOffset = streamIndices[i];
 		itemDef.id = i;
 		itemDef.setDefaults();
 		itemDef.readValues(stream);

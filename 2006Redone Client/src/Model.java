@@ -113,12 +113,16 @@ public final class Model extends Animable {
 		if (aClass21Array1661 == null) {
 			return null;
 		}
-		Class21 class21 = aClass21Array1661[j];
-		if (class21 == null) {
-			aOnDemandFetcherParent_1662.method548(j);
+		try {
+			Class21 class21 = aClass21Array1661[j];
+			if (class21 == null) {
+				aOnDemandFetcherParent_1662.method548(j);
+				return null;
+			} else {
+				return new Model(j);
+			}
+		}catch(Exception O_o){
 			return null;
-		} else {
-			return new Model(j);
 		}
 	}
 
