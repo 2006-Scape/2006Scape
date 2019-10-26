@@ -2422,10 +2422,13 @@ public class ClickingButtons implements PacketType {
 
 			}
 			Client ot = (Client) PlayerHandler.players[player.tradeWith];
-			if (ot == null) {
+			if (ot == null || !ot.inTrade) {
 				player.getTrading().declineTrade();
 				player.getActionSender().sendMessage(
 						"Trade declined as the other player has disconnected.");
+				ot.getTrading().declineTrade();
+				ot.getActionSender().sendMessage(
+						"Trade declined as you disconnected.");
 				break;
 			}
 			player.getPlayerAssistant().sendFrame126(
@@ -2516,6 +2519,11 @@ public class ClickingButtons implements PacketType {
 					ot1.acceptedTrade = true;
 					player.getTrading().giveItems();
 					ot1.getTrading().giveItems();
+					//here
+					player.getActionSender().sendMessage(
+							"@red@Trade completed.");
+					ot1.getActionSender().sendMessage(
+							"@red@Trade completed.");
 					break;
 				}
 				ot1.getPlayerAssistant().sendFrame126(
