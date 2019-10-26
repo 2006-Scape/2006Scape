@@ -1163,6 +1163,7 @@ public abstract class Player {
 					str.writeBits(1, 0);
 				}
 				if (playerEnergy > 0 && playerRights < 2) {
+					// calculations from https://oldschool.runescape.wiki/w/Energy
 					playerEnergy -= 0.64;
 					if (weight > 0.0)
 						playerEnergy -= Math.min(weight, 64) / 100;
