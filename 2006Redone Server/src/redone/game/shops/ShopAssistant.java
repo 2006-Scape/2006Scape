@@ -1,6 +1,7 @@
 package redone.game.shops;
 
 import redone.Constants;
+import redone.game.content.IronMan;
 import redone.game.items.Item;
 import redone.game.items.ItemAssistant;
 import redone.game.items.ItemDefinitions;
@@ -425,6 +426,11 @@ public class ShopAssistant {
 	private static final int FISHING_ITEMS[] = {383, 371, 377, 359, 321, 341, 353, 345, 327, 317};
 
 	public boolean buyItem(int itemID, int fromSlot, int amount) {
+		if (IronMan.getMode(player) >= IronMan.IRONMAN_MODE
+				&& ShopHandler.ShopSModifier[player.myShopId] == 1) {
+			player.getActionSender().sendMessage("You cannot buy from shops players can sell to as a " + IronMan.getModeName(player) + ".");
+			return false;
+		}
 		if (amount > 0) {
 			if (amount > ShopHandler.ShopItemsN[player.myShopId][fromSlot]) {
 				amount = ShopHandler.ShopItemsN[player.myShopId][fromSlot];

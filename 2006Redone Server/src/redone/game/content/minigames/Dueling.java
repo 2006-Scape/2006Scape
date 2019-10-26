@@ -4,6 +4,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import redone.Constants;
 import redone.Server;
+import redone.game.content.IronMan;
 import redone.game.content.combat.prayer.PrayerDrain;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.items.GameItem;
@@ -29,6 +30,7 @@ public class Dueling {
 
 	public void requestDuel(int id) {
 		try {
+			Client o = (Client) PlayerHandler.players[id];
 			if (id == player.playerId) {
 				return;
 			}
@@ -39,6 +41,16 @@ public class Dueling {
 				player.getActionSender().sendMessage("You can not stake currently.");
 				return;
 			}
+			if (IronMan.getMode(player) >= IronMan.IRONMAN_MODE) {
+				player.getActionSender().sendMessage("You cannot duel as a " + IronMan.getModeName(player) + ".");
+				resetDuel();
+				return;
+			}
+			if (IronMan.getMode(o) >= IronMan.IRONMAN_MODE) {
+				player.getActionSender().sendMessage(o.playerName + " is a " + IronMan.getModeName(o) + " and cannot duel.");
+				resetDuel();
+				return;
+			}
 			if (!player.inDuelArena()) {
 				player.getActionSender().sendMessage("You must be in the duel arena to do that.");
 				return;
@@ -46,7 +58,6 @@ public class Dueling {
 			resetDuel();
 			resetDuelItems();
 			player.duelingWith = id;
-			Client o = (Client) PlayerHandler.players[id];
 			if (o == null) {
 				return;
 			}

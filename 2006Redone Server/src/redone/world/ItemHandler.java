@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import redone.Constants;
+import redone.game.content.IronMan;
 import redone.game.items.GroundItem;
 import redone.game.items.ItemAssistant;
 import redone.game.items.ItemList;
@@ -228,6 +229,11 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 		for (GroundItem i : items) {
 			if (i.getItemId() == itemId && i.getItemX() == itemX
 					&& i.getItemY() == itemY) {
+				if (IronMan.getMode(c) >= IronMan.IRONMAN_MODE
+						&& !i.getName().equalsIgnoreCase(c.playerName)) {
+					c.getActionSender().sendMessage("You can only pick up your own drops and items as a " + IronMan.getModeName(c) + ".");
+					return;
+				}
 				if (i.hideTicks > 0
 						&& i.getName().equalsIgnoreCase(c.playerName)) {
 					if (add) {

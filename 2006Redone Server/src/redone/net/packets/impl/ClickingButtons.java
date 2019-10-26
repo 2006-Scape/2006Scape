@@ -2,6 +2,7 @@ package redone.net.packets.impl;
 
 import redone.Constants;
 import redone.Server;
+import redone.game.content.IronMan;
 import redone.game.content.combat.Specials;
 import redone.game.content.combat.magic.CastOnOther;
 import redone.game.content.combat.magic.MagicData;
@@ -1508,11 +1509,19 @@ public class ClickingButtons implements PacketType {
 				Teles.necklaces(player);
 				return;
 			}
+			if(player.dialogueAction == 3520) {
+				player.getDialogueHandler().sendDialogues(3116, player.npcType);
+				return;
+			}
 			player.dialogueAction = 0;
 			player.getPlayerAssistant().removeAllWindows();
 			break;
 
 		case 9158:
+			if(player.dialogueAction == 3520) {
+				player.getDialogueHandler().sendDialogues(3514, player.npcType);
+				return;
+			}
 			if (player.dialogueAction == 8) {
 				player.getPlayerAssistant().fixAllBarrows();
 			} else if (player.dialogueAction == 29) {
@@ -1711,6 +1720,10 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 9178:
+			if (player.dialogueAction == 3515) {
+				IronMan.setMode(player, 0);
+				player.getDialogueHandler().sendDialogues(3516, player.npcType);
+			}
 			if (player.dialogueAction == 2) {
 				player.getPlayerAssistant().startTeleport(3428, 3538, 0, "modern");
 			}
@@ -1784,6 +1797,10 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 9179:
+			if (player.dialogueAction == 3515) {
+				IronMan.setMode(player, IronMan.IRONMAN_MODE);
+				player.getDialogueHandler().sendDialogues(3517, player.npcType);
+			}
 			if (player.dialogueAction == 2) {
 				player.getPlayerAssistant().startTeleport(2884, 3395, 0,
 						"modern");
@@ -1854,6 +1871,10 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 9180:
+			if (player.dialogueAction == 3515) {
+				IronMan.setMode(player, IronMan.HC_IRONMAN_MODE);
+				player.getDialogueHandler().sendDialogues(3518, player.npcType);
+			}
 			if (player.dialogueAction == 2) {
 				player.getPlayerAssistant().startTeleport(2471, 10137, 0,
 						"modern");
@@ -1927,6 +1948,10 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 9181:
+			if (player.dialogueAction == 3515) {
+				IronMan.setMode(player, IronMan.ULTIMATE_IRONMAN);
+				player.getDialogueHandler().sendDialogues(3519, player.npcType);
+			}
 			if (player.dialogueAction == 2) {
 				player.getPlayerAssistant().startTeleport(2669, 3714, 0, "modern");
 			}

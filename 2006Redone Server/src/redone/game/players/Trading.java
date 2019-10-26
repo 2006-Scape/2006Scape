@@ -6,6 +6,7 @@ import redone.Constants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
+import redone.game.content.IronMan;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.items.GameItem;
 import redone.game.items.Item;
@@ -38,6 +39,14 @@ public class Trading {
 			if (player.isBotting) {
 				player.getActionSender().sendMessage("You can't trade items, until you confirm you aren't botting.");
 				player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
+				return;
+			}
+			if (IronMan.getMode(player) >= IronMan.IRONMAN_MODE) {
+				player.getActionSender().sendMessage("You cannot trade as a " + IronMan.getModeName(player) + ".");
+				return;
+			}
+			if (IronMan.getMode(o) >= IronMan.IRONMAN_MODE) {
+				player.getActionSender().sendMessage(o.playerName + " is a " + IronMan.getModeName(o) + " they stand alone.");
 				return;
 			}
 			/*if (c.connectedFrom.equals(o.connectedFrom)) {

@@ -2,6 +2,7 @@ package redone.game.items;
 
 import redone.Constants;
 import redone.Server;
+import redone.game.content.IronMan;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.items.impl.Weight;
 import redone.game.npcs.NpcHandler;
@@ -2066,6 +2067,10 @@ public class ItemAssistant {
 			c.getPlayerAssistant().closeAllWindows();
 			c.getActionSender().sendMessage("You can't bank while viewing someones bank!");
 			c.otherBank = false;
+			return false;
+		}
+		if (IronMan.getMode(c) == IronMan.ULTIMATE_IRONMAN) {
+			c.getActionSender().sendMessage("You cannot bank as a " + IronMan.getModeName(c) + ".");
 			return false;
 		}
 		if (c.playerItemsN[fromSlot] <= 0) {

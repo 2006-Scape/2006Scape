@@ -8,6 +8,7 @@ import redone.Server;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
+import redone.game.content.IronMan;
 import redone.game.content.combat.magic.MagicData;
 import redone.game.content.combat.prayer.PrayerDrain;
 import redone.game.content.combat.range.RangeData;
@@ -1432,6 +1433,10 @@ public class PlayerAssistant {
 			player.isBanking = false;
 			return;
 		}
+		if (IronMan.getMode(player) == IronMan.ULTIMATE_IRONMAN) {
+			player.getActionSender().sendMessage("You cannot bank as an " + IronMan.getModeName(player) + ".");
+			return;
+		}
 		if (player.inWild()) {
 			player.getActionSender().sendMessage(
 					"You can't open up a bank in the wilderness!");
@@ -1920,6 +1925,17 @@ public class PlayerAssistant {
 			player.playerSkilling[10] = false;
 		} else if(player.clickedTree == true) {
 				player.clickedTree = false;
+		}
+		if (IronMan.getMode(player) == IronMan.HC_IRONMAN_MODE) {
+			IronMan.setMode(player, IronMan.IRONMAN_MODE);
+			PlayerSave.saveGame(player);
+			player.getActionSender().sendMessage("You have fallen as a Hardcore IronMan, your Hardcore status has been revoked.");
+		}
+		if(IronMan.getMode(player) == IronMan.ULTIMATE_IRONMAN) {
+			player.getItemAssistant().dropAllItems();
+			player.getItemAssistant().deleteAllItems();
+			PlayerSave.saveGame(player);
+			player.getActionSender().sendMessage("You have fallen as a Ultimate IronMan, all your items have been dropped.");
 		}
 		resetDamageDone();
 		player.specAmount = 10;
