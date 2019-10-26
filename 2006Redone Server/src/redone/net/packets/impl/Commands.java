@@ -297,10 +297,6 @@ public class Commands implements PacketType {
                         case "clearbank":
                                 player.getItemAssistant().clearBank();
                                 break;
-                        case "clicktotele":
-                                player.clickToTele = !player.clickToTele;
-                                player.getActionSender().sendMessage("Click to teleport: " + (player.clickToTele ? "Enabled" : "Disabled"));
-                                break;
                         case "ipban":
                                 try {
                                         if (arguments.length == 0) {
@@ -525,6 +521,10 @@ public class Commands implements PacketType {
 
         public static void developerCommands(Client player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
+                        case "clicktotele":
+                                player.clickToTele = !player.clickToTele;
+                                player.getActionSender().sendMessage("Click to teleport: " + (player.clickToTele ? "Enabled" : "Disabled"));
+                                break;
                         case "giveadmin":
                                 try {
                                         if (arguments.length == 0) {
