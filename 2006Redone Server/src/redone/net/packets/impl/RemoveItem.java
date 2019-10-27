@@ -23,6 +23,9 @@ public class RemoveItem implements PacketType {
 		if (!RareProtection.removeItem(c, removeId)) {
 			return;
 		}
+
+		c.endCurrentTask();
+
 		switch (interfaceId) {
 
 		case 4233:

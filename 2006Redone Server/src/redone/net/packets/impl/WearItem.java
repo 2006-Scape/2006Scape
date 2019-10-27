@@ -29,6 +29,9 @@ public class WearItem implements PacketType {
 		if (player.playerIndex > 0 || player.npcIndex > 0) {
 			player.getCombatAssistant().resetPlayerAttack();
 		}
+
+		player.endCurrentTask();
+
 		if (player.wearId >= 5509 && player.wearId <= 5515) {
 			int pouch = -1;
 			int a = player.wearId;

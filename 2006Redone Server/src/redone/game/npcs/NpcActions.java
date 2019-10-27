@@ -61,6 +61,15 @@ public class NpcActions {
 		if (c.knightS == 1) {
 			c.getDialogueHandler().sendDialogues(626, 647);
 		}
+        else if (c.shieldArrav == 0) {
+            c.getDialogueHandler().sendDialogues(690, 647);
+        }
+        else if (c.shieldArrav == 1) {
+            c.getDialogueHandler().sendDialogues(694, 647);
+        }
+        else if (c.shieldArrav == 2) {
+            c.getDialogueHandler().sendDialogues(697, 647);
+        }
 		break;
 		case 604://thurgo
 		if (c.knightS == 2) {
@@ -99,8 +108,35 @@ public class NpcActions {
 			}
 			break;
 
+		case 547: //Baraek
+			if (c.shieldArrav == 3) {
+				c.getDialogueHandler().sendDialogues(701, npcType);
+			}
+			break;
+
 		case 599:
 			c.getDialogueHandler().sendDialogues(1369, npcType);
+			break;
+
+		case 644: //Straven
+			if (c.shieldArrav <= 4) {
+				c.getDialogueHandler().sendDialogues(711, npcType);
+			}
+			else if (c.shieldArrav == 5) {
+				c.getDialogueHandler().sendDialogues(730, npcType);
+			}
+			else if (c.shieldArrav > 5) {
+				c.getDialogueHandler().sendDialogues(741, npcType);
+			}
+			break;
+
+		case 646: //Curator Haig Halen
+			c.getDialogueHandler().sendDialogues(745, npcType);
+			break;
+
+		case 648: //King Roald
+			if (c.shieldArrav == 7 && c.getItemAssistant().playerHasItem(769))
+				c.getDialogueHandler().sendDialogues(756, npcType);
 			break;
 
 		case 663:
@@ -418,6 +454,8 @@ public class NpcActions {
 
 		case 756:// harlow
 			if (c.vampSlayer == 1) {
+				c.getDialogueHandler().sendDialogues(498, npcType);
+			} else if (c.vampSlayer == 2) {
 				c.getDialogueHandler().sendDialogues(510, npcType);
 			} else if (c.vampSlayer == 3) {
 				c.getDialogueHandler().sendDialogues(531, npcType);
@@ -625,7 +663,7 @@ public class NpcActions {
 			break;
 
 		case 608:
-			if (c.blackKnight == 0) {
+			if (c.blackKnight == 0 && c.questPoints >= 12) {
 				c.getDialogueHandler().sendDialogues(3902, npcType);
 			} else if (c.blackKnight == 1) {
 				c.getDialogueHandler().sendDialogues(3510, npcType);

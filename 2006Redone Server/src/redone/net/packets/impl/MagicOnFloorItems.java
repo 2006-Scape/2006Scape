@@ -26,6 +26,7 @@ public class MagicOnFloorItems implements PacketType {
 			return;
 		}
 		c.usingMagic = true;
+		c.endCurrentTask();
 		if (!c.getCombatAssistant().checkMagicReqs(51)) {
 			c.stopMovement();
 			return;

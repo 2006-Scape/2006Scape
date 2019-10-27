@@ -28,7 +28,21 @@ public class Region {
 	public static boolean blockedShot(int x, int y, int z) {
 		return (getClipping(x, y, z) & 0x20000) == 0;
 	}
-	 
+
+	public static Objects getObject(int id, int x, int y, int z) {
+		Region r = getRegion(x, y);
+		if (r == null)
+			return null;
+		for (Objects o : r.realObjects) {
+			if (o.objectId == id) {
+				if (o.objectX == x && o.objectY == y && o.objectHeight == z) {
+					return o;
+				}
+			}
+		}
+		return null;
+	}
+
 	public static boolean objectExists(int id, int x, int y, int z) {
 	    Region r = getRegion(x, y);
 	    if (r == null)

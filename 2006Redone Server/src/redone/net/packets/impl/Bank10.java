@@ -15,7 +15,7 @@ public class Bank10 implements PacketType {
 		int interfaceId = player.getInStream().readUnsignedWordBigEndian();
 		int removeId = player.getInStream().readUnsignedWordA();
 		int removeSlot = player.getInStream().readUnsignedWordA();
-
+		player.endCurrentTask();
 		switch (interfaceId) {
 
 		case 4233:

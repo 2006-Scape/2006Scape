@@ -18,6 +18,7 @@ public class ItemClick2OnGroundItem implements PacketType {
 			c.getActionSender().sendMessage("You can't do that there!");
 			return;
 		}
+		c.endCurrentTask();
 		for (LogData l : LogData.values()) {
 			if (itemId == l.getLogId()) {
 				Firemaking.attemptFire(c, 590, itemId, itemX, itemY, true);

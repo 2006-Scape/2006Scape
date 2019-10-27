@@ -139,8 +139,7 @@ public class Client extends Player {
 	private Mining mining = new Mining();
 	private ChallengePlayer challengePlayer = new ChallengePlayer();
 	private DwarfCannon dwarfCannon = new DwarfCannon(this);
-
-
+	private CycleEventContainer currentTask;
 
 	public DwarfCannon getCannon() {
 		return dwarfCannon;
@@ -322,14 +321,6 @@ public class Client extends Player {
 		return witchsPotion;
 	}
 
-	public void setCurrentTask(Future<?> task) {
-		currentTask = task;
-	}
-
-	public Future<?> getCurrentTask() {
-		return currentTask;
-	}
-
 	public synchronized Stream getInStream() {
 		return inStream;
 	}
@@ -397,7 +388,19 @@ public class Client extends Player {
 	public Food getFood() {
 		return food;
 	}
-	
+
+	public void startCurrentTask(int ticksBetweenExecution, CycleEvent event) {
+		endCurrentTask();
+		currentTask = CycleEventHandler.getSingleton().addEvent(this, event, ticksBetweenExecution);
+	}
+
+	public void endCurrentTask() {
+		if (currentTask != null && currentTask.isRunning()) {
+			currentTask.stop();
+			currentTask = null;
+		}
+	}
+
 	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
 	
 	public class TinterfaceText {
@@ -427,7 +430,6 @@ public class Client extends Player {
 	public int lowMemoryVersion = 0;
 	public int timeOutCounter = 0;
 	public int returnCode = 2;
-	private Future<?> currentTask;
 
 	public Client(IoSession s, int _playerId) {
 		super(_playerId);

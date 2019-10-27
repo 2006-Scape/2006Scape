@@ -15,6 +15,7 @@ public class ItemOnNpc implements PacketType {
 		final int slot = player.getInStream().readSignedWordBigEndian();
 		final int npcId = NpcHandler.npcs[i].npcType;
 		SkillHandler.resetItemOnNpc(player);
+		player.endCurrentTask();
 		if (player.playerRights == 3) {
 			player.getActionSender().sendMessage("Item id: " + itemId + " slot: " + slot + " i: " + i);
 		}

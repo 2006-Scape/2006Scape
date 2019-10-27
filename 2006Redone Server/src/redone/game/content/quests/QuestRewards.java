@@ -39,7 +39,7 @@ public class QuestRewards {
 	}
 
 	public static void gertFinish(Client client) {
-		QuestReward(client, "Gertrude's Cat", "1 Quest Point", "1,525 Cooking XP", "A kitten!", "Ability to raise cats", "A choclate cake", "A bowl of stew", 1897);
+		QuestReward(client, "Gertrude's Cat", "1 Quest Point", "1,525 Cooking XP", "A kitten!", "Ability to raise cats", "A chocolate cake", "A bowl of stew", 1897);
 		QUEST_NAME = "Gertrude's Cat";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7360);
 		client.getItemAssistant().addItem(1897, 1);
@@ -95,7 +95,7 @@ public class QuestRewards {
 	}
 
 	public static void runeFinish(Client client) {
-		QuestReward(client, "Rune Mysteries", "1 Quest Points", "Air Talisman", "", "", "", "", 1438);
+		QuestReward(client, "Rune Mysteries", "1 Quest Point", "Air Talisman", "", "", "", "", 1438);
 		QUEST_NAME = "Rune Mysteries";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7335);
 		client.getItemAssistant().addItem(1438, 1);
@@ -142,12 +142,22 @@ public class QuestRewards {
 		client.questPoints++;
 		client.cookAss = 3;
 	}
+
 	public static void blackKnightReward(Client client) {
-		QuestReward(client, "Black Knights' Fortress", "3 Quest Point", "2500 Coins", "", "", "", "", 0);
+		QuestReward(client, "Black Knights' Fortress", "3 Quest Points", "2,500 Coins", "", "", "", "", 0);
 		QUEST_NAME = "Black Knights' Fortress";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7332);
 		client.getItemAssistant().addItem(995, 2500);
 		client.questPoints += 3;
 		client.blackKnight = 3;
+	}
+
+	public static void shieldArravReward(Client client) {
+		QuestReward(client, "Shield of Arrav", "1 Quest Point", "1,200 Coins", "", "", "", "", 767);
+		QUEST_NAME = "Shield of Arrav";
+		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7345);
+		client.getItemAssistant().addItem(995, 1200);
+		client.questPoints++;
+		client.shieldArrav = 8;
 	}
 }

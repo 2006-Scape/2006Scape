@@ -28,5 +28,6 @@ public class MoveItems implements PacketType {
 			return;
 		}
 		c.getItemAssistant().moveItems(from, to, interfaceId, insertMode);
+		c.endCurrentTask();
 	}
 }
