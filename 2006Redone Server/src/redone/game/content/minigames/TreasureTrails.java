@@ -26,57 +26,57 @@ public class TreasureTrails {
 			switch (chanceReward) {
 			case 0:
 				displayReward(c,
-						lowLevelReward[Misc.random(16)], 1,
-						lowLevelReward[Misc.random(16)], 1,
-						lowLevelStacks[Misc.random(3)], 1 + Misc.random(150)
+						Misc.randomArrayItem(lowLevelReward), 1,
+						Misc.randomArrayItem(lowLevelReward), 1,
+						Misc.randomArrayItem(lowLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 1:
 				displayReward(c,
-						lowLevelReward[Misc.random(16)], 1,
-						lowLevelStacks[Misc.random(3)], 1 + Misc.random(150)
+						Misc.randomArrayItem(lowLevelReward), 1,
+						Misc.randomArrayItem(lowLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c, lowLevelReward[Misc.random(16)], 1);
+				displayReward(c, Misc.randomArrayItem(lowLevelReward), 1);
 				break;
 			}
 		} else if (clueLevel == 1) {
 			switch (chanceReward) {
 			case 0:
 				displayReward(c,
-						mediumLevelReward[Misc.random(13)], 1,
-						mediumLevelReward[Misc.random(13)], 1,
-						mediumLevelStacks[Misc.random(4)], 1 + Misc.random(200)
+						Misc.randomArrayItem(mediumLevelReward), 1,
+						Misc.randomArrayItem(mediumLevelReward), 1,
+						Misc.randomArrayItem(mediumLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 1:
 				displayReward(c,
-						mediumLevelReward[Misc.random(13)], 1,
-						mediumLevelStacks[Misc.random(4)], 1 + Misc.random(200)
+						Misc.randomArrayItem(mediumLevelReward), 1,
+						Misc.randomArrayItem(mediumLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c, mediumLevelReward[Misc.random(13)], 1);
+				displayReward(c, Misc.randomArrayItem(mediumLevelReward), 1);
 				break;
 			}
 		} else if (clueLevel == 2) {
 			switch (chanceReward) {
 			case 0:
 				displayReward(c,
-						highLevelReward[Misc.random(52)], 1,
-						highLevelReward[Misc.random(52)], 1,
-						highLevelStacks[Misc.random(5)], 1 + Misc.random(350)
+						Misc.randomArrayItem(highLevelReward), 1,
+						Misc.randomArrayItem(highLevelReward), 1,
+						Misc.randomArrayItem(highLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 1:
 				displayReward(c,
-						highLevelReward[Misc.random(52)], 1,
-						highLevelStacks[Misc.random(5)], 1 + Misc.random(350)
+						Misc.randomArrayItem(highLevelReward), 1,
+						Misc.randomArrayItem(highLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c, highLevelReward[Misc.random(52)];
+				displayReward(c, Misc.randomArrayItem(highLevelReward), 1);
 				break;
 			}
 		}
