@@ -1042,17 +1042,25 @@ public class NpcHandler {
 				&& y > npc.makeY - Constants.NPC_FOLLOW_DISTANCE) {
 			if (npc.heightLevel == player.heightLevel) {
 				if (player != null && npc != null) {
-					if (playerY < y) {
-						npc.moveX = GetMove(x, playerX);
+					if (playerX > x && playerY < y) {
+						npc.moveX = GetMove(x,playerX);//Diagonal bottom right
+					} else if (playerX < x && playerY < y) {
+						npc.moveY = GetMove(y,playerY); //Diagonal bottom left
+					} else if (playerX < x && playerY > y) {
+						npc.moveX = GetMove(x,playerX);// Diagonal top left
+					} else if (playerX > x && playerY > y) {
+						npc.moveY = GetMove(y,playerY);// Diagonal top right
+					} else if (playerY < y) {
+						npc.moveX = GetMove(x, playerX); //Move South to player
 						npc.moveY = GetMove(y, playerY);
 					} else if (playerY > y) {
-						npc.moveX = GetMove(x, playerX);
+						npc.moveX = GetMove(x, playerX); //Move North to player
 						npc.moveY = GetMove(y, playerY);
 					} else if (playerX < x) {
-						npc.moveX = GetMove(x, playerX);
+						npc.moveX = GetMove(x, playerX); //Move West to player
 						npc.moveY = GetMove(y, playerY);
 					} else if (playerX > x) {
-						npc.moveX = GetMove(x, playerX);
+						npc.moveX = GetMove(x, playerX); //Move East to player
 						npc.moveY = GetMove(y, playerY);
 					}
 					npc.facePlayer(playerId);
@@ -1198,12 +1206,16 @@ public class NpcHandler {
 			}
 		}
 	}
-
 	public static boolean goodDistance(int objectX, int objectY, int playerX,
 			int playerY, int distance) {
 		return objectX - playerX <= distance && objectX - playerX >= -distance
 				&& objectY - playerY <= distance
-				&& objectY - playerY >= -distance;
+				&& objectY - playerY >= -distance
+				&& !((objectX - playerX == distance && objectY - playerY == -distance) //Detect diagonal positioning
+				|| (objectX - playerX == -distance && objectY - playerY == -distance)
+				|| (objectX - playerX == -distance && objectY - playerY == distance)
+				|| (objectX - playerX == distance && objectY - playerY == distance))
+				;
 	}
 
 	public static int getMaxHit(int i) {
