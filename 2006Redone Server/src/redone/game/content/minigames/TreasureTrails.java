@@ -110,9 +110,9 @@ public class TreasureTrails {
 		}
 		c.outStream.endFrameVarSizeWord();
 		c.flushOutStream();
-		c.getItemAssistant().addItem(item, amount);
-		c.getItemAssistant().addItem(item2, amount2);
-		c.getItemAssistant().addItem(item3, amount3);
+		c.getItemAssistant().addOrDropItem(item, amount);
+		c.getItemAssistant().addOrDropItem(item2, amount2);
+		c.getItemAssistant().addOrDropItem(item3, amount3);
 		c.getPlayerAssistant().showInterface(6960);
 	}
 
