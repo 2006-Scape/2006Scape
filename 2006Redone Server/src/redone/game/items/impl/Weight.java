@@ -52,6 +52,7 @@ public class Weight extends ItemDefinitions {
 	public static void updateWeight(Client c) {
 		if (c != null) {
 			c.getActionSender().writeWeight((int) c.weight);
+			// Inventory items
 			for (int playerItem : c.playerItems) {
 				if (playerItem > -1) {// inventory
 					for (ItemList i1 : Server.itemHandler.ItemList) {
@@ -62,7 +63,8 @@ public class Weight extends ItemDefinitions {
 						}
 					}
 				}
-			} // equipment
+			}
+			// Equiped items
 			for (int element : c.playerEquipment) {
 				if (element > -1) {// equipment
 					for (ItemList i1 : Server.itemHandler.ItemList) {

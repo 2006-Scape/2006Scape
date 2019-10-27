@@ -84,15 +84,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/2006Redone file_server/assets/netty-3.6.6.Final.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/2006Redone file_server/libs/netty-3.6.6.Final.jar!/" />
         </CLASSES>
         <JAVADOC />

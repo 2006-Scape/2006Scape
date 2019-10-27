@@ -17,6 +17,7 @@ public class BankAll implements PacketType {
 		int removeSlot = player.getInStream().readUnsignedWordA();
 		int interfaceId = player.getInStream().readUnsignedWord();
 		int removeId = player.getInStream().readUnsignedWordA();
+		player.endCurrentTask();
 		switch (interfaceId) {
 		case 3900:
 			player.getShopAssistant().buyItem(removeId, removeSlot, 10);

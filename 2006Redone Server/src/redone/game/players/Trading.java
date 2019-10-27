@@ -1,7 +1,9 @@
 package redone.game.players;
 
+import java.time.temporal.ValueRange;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.w3c.dom.ranges.Range;
 import redone.Constants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
@@ -47,11 +49,15 @@ public class Trading {
 			if (!CastleWars.deleteCastleWarsItems(player, id)) {
 				return;
 			}
-			if (!player.inTrade && o.tradeRequested && o.tradeWith == player.playerId && player.playerIsBusy() == false && o.playerIsBusy() == false) {
-				player.getTrading().openTrade();
-				o.getTrading().openTrade();
-			} else if (!player.inTrade && player.playerIsBusy() == false && o.playerIsBusy() == false) {
-
+			if (!player.inTrade && o.tradeRequested && o.tradeWith == player.playerId && player.playerIsBusy() == false && o.playerIsBusy() == false) { //start trading process
+				if (!isCloseTo(o)) {
+					player.getActionSender().sendMessage("Player is not close enough. Retry when you are closer...");
+				} else {
+					player.getTrading().openTrade();
+					o.getTrading().openTrade();
+				}
+			} else if (!player.inTrade && player.playerIsBusy() == false && o.playerIsBusy() == false) { //send trade request
+				//Problem = sends the request then walk to player. Solution= change processing order. Fix= Send message when trying to open the trade interface if the other player isn't closer than 3 tiles.
 				player.tradeRequested = true;
 				player.getActionSender().sendMessage("Sending trade request...");
 				o.getActionSender()
@@ -63,7 +69,15 @@ public class Trading {
 			Misc.println("Error requesting trade.");
 		}
 	}
-
+	public boolean isCloseTo(Client tradedPlayer) {
+		ValueRange PlayerCoordRangeX = ValueRange.of(tradedPlayer.currentX - 3, tradedPlayer.currentX + 3);
+		ValueRange PlayerCoordRangeY = ValueRange.of(tradedPlayer.currentY - 3, tradedPlayer.currentY + 3);
+		if (PlayerCoordRangeX.isValidIntValue(player.currentX) && PlayerCoordRangeY.isValidIntValue(player.currentY)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	public void openTrade() {
 		Client o = (Client) PlayerHandler.players[player.tradeWith];
 
@@ -294,11 +308,10 @@ public class Trading {
 				return false;
 			}
 		}
-		if (!player.inTrade) {
+		if (!player.inTrade || !o.inTrade) {
 			declineTrade();
 			return false;
 		}
-
 		if (Item.itemStackable[itemID] || Item.itemIsNote[itemID]) {
 			boolean inTrade = false;
 			for (GameItem item : offeredItems) {

@@ -19,7 +19,9 @@ public class ItemClick2 implements PacketType {
 		if (!c.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
-		
+
+		c.endCurrentTask();
+
 		if (HandleEmpty.canEmpty(c, itemId)) {
 			HandleEmpty.handleEmptyItem(c, itemId, HandleEmpty.filledToEmpty(c, itemId));
 			return;

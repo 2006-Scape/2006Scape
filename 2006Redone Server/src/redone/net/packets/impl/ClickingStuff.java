@@ -20,8 +20,9 @@ public class ClickingStuff implements PacketType {
 		if(player.isShopping)
 	        player.isShopping = false;
 		if (player.inTrade) {
-			if (!player.acceptedTrade) {
-				Client opponent = (Client) PlayerHandler.players[player.tradeWith];
+			Client opponent = (Client) PlayerHandler.players[player.tradeWith];
+			if (!player.acceptedTrade || !opponent.inTrade || opponent == null) {
+				opponent = (Client) PlayerHandler.players[player.tradeWith];
 				opponent.tradeAccepted = false;
 				player.tradeAccepted = false;
 				opponent.tradeStatus = 0;
@@ -32,8 +33,9 @@ public class ClickingStuff implements PacketType {
 				opponent.getActionSender().sendMessage("@red@Other player has declined the trade.");
 				Misc.println("trade reset");
 				player.getTrading().declineTrade();
+				opponent.getTrading().declineTrade();
+				}
 			}
-		}
 
 		if(player.openDuel && player.duelStatus >= 1 && player.duelStatus <= 4) {
 		Client o = (Client) PlayerHandler.players[player.duelingWith];

@@ -14,6 +14,7 @@ public class MagicOnItems implements PacketType {
 		int itemId = player.getInStream().readSignedWordA();
 		player.getInStream().readSignedWord();
 		int spellId = player.getInStream().readSignedWordA();
+		player.endCurrentTask();
 		if(!player.getItemAssistant().playerHasItem(itemId, 1, slot)) {
 			return;
 		}

@@ -431,38 +431,16 @@ public class PlayerAssistant {
 
 	public void writeEnergy() {
 		if (player.playerEnergy > 0) {
-			sendFrame126(player.playerEnergy + "%", 149);
+			sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 		} else {
 			sendFrame126("0%", 149);
 		}
 	}
 
 	public int raiseTimer() {
-		if (player.playerLevel[16] >= 2 && player.playerLevel[16] < 10) {
-			return 6500;
-		}
-		if (player.playerLevel[16] >= 10 && player.playerLevel[16] < 25) {
-			return 6000;
-		}
-		if (player.playerLevel[16] >= 25 && player.playerLevel[16] < 40) {
-			return 5500;
-		}
-		if (player.playerLevel[16] >= 40 && player.playerLevel[16] < 55) {
-			return 5000;
-		}
-		if (player.playerLevel[16] >= 55 && player.playerLevel[16] < 70) {
-			return 4500;
-		}
-		if (player.playerLevel[16] >= 70 && player.playerLevel[16] < 85) {
-			return 4000;
-		}
-		if (player.playerLevel[16] >= 85 && player.playerLevel[16] < 99) {
-			return 3500;
-		}
-		if (player.playerLevel[16] == 99) {
-			return 3000;
-		}
-		return 7000;
+		// calculations from https://oldschool.runescape.wiki/w/Energy
+		double seconds  = 60 / (8 + Math.floor(player.playerLevel[player.playerAgility] / 6));
+		return (int) Math.floor(seconds * 1000);
 	}
 
 	public void handleTiara() {
@@ -2056,7 +2034,7 @@ public class PlayerAssistant {
 		frame1();
 		resetTb();
 		player.playerEnergy = 100;
-		player.getPlayerAssistant().sendFrame126(player.playerEnergy + "%", 149);
+		player.getPlayerAssistant().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 		player.isSkulled = false;
 		player.attackedPlayers.clear();
 		player.headIconPk = -1;

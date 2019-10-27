@@ -15,6 +15,7 @@ public class ItemOnItem implements PacketType {
 		if (!player.getItemAssistant().playerHasItem(useWith, 1, usedWithSlot)|| !player.getItemAssistant().playerHasItem(itemUsed, 1, itemUsedSlot)) {
 			return;
 		}
+		player.endCurrentTask();
 		UseItem.ItemonItem(player, itemUsed, useWith);
 	}
 

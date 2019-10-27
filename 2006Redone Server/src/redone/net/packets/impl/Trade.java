@@ -14,6 +14,7 @@ public class Trade implements PacketType {
 	public void processPacket(Client c, int packetType, int packetSize) {
 		int tradeId = c.getInStream().readSignedWordBigEndian();
 		c.getPlayerAssistant().resetFollow();
+		c.endCurrentTask();
 		if (c.disconnected) {
 			c.tradeStatus = 0;
 		}
