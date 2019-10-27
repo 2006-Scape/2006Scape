@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import redone.Server;
 import redone.game.objects.Objects;
-
+import redone.game.players.Player;
 
 
 public class Doors {
@@ -53,17 +53,21 @@ public class Doors {
 		}
 		return null;
 	}
-	
-	public boolean handleDoor(int id, int x, int y, int z) {
+
+	public boolean handleDoor(int id, int x, int y, int z, Player player) {
 
 		Doors d = getDoor(id, x, y, z);
-		
+
 		if (d == null) {
 			if (DoubleDoors.getSingleton().handleDoor(id, x, y, z)) {
 				return true;
 			}
 			return false;
 		}
+
+		//todo: improvment: if player manage to get to door then open the door.
+		if(player.distanceToPoint(x, y) > 1) return  false;
+
 		int xAdjustment = 0, yAdjustment = 0;
 		if (d.type == 0) {
 			if (d.open == 0) {
