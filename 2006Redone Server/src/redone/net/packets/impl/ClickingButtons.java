@@ -1096,6 +1096,9 @@ public class ClickingButtons implements PacketType {
 			case 185:
 				player.getDialogueHandler().sendDialogues(629, player.npcType);
 				return;
+			case 186: // Shield of Arrav
+				player.getDialogueHandler().sendDialogues(629, player.npcType);
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPlayerAssistant().removeAllWindows();
@@ -1169,6 +1172,9 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(3130, 945);
 				return;
 			case 185:
+				player.getDialogueHandler().sendDialogues(628, player.npcType);
+				return;
+			case 186: // Shield of Arrav
 				player.getDialogueHandler().sendDialogues(628, player.npcType);
 				return;
 			}
@@ -1248,6 +1254,9 @@ public class ClickingButtons implements PacketType {
 				return;
 			case 185:
 				player.getDialogueHandler().sendDialogues(630, player.npcType);
+				return;
+			case 186: // Shield of Arrav
+				player.getDialogueHandler().sendDialogues(691, player.npcType);
 				return;
 			}
 			player.dialogueAction = 0;
@@ -2422,10 +2431,13 @@ public class ClickingButtons implements PacketType {
 
 			}
 			Client ot = (Client) PlayerHandler.players[player.tradeWith];
-			if (ot == null) {
+			if (ot == null || !ot.inTrade) {
 				player.getTrading().declineTrade();
 				player.getActionSender().sendMessage(
 						"Trade declined as the other player has disconnected.");
+				ot.getTrading().declineTrade();
+				ot.getActionSender().sendMessage(
+						"Trade declined as you disconnected.");
 				break;
 			}
 			player.getPlayerAssistant().sendFrame126(
@@ -2516,6 +2528,11 @@ public class ClickingButtons implements PacketType {
 					ot1.acceptedTrade = true;
 					player.getTrading().giveItems();
 					ot1.getTrading().giveItems();
+					//here
+					player.getActionSender().sendMessage(
+							"@red@Trade completed.");
+					ot1.getActionSender().sendMessage(
+							"@red@Trade completed.");
 					break;
 				}
 				ot1.getPlayerAssistant().sendFrame126(

@@ -297,7 +297,7 @@ public class Potions {
 		if (c.playerEnergy > 100) {
 			c.playerEnergy = 100;
 		}
-		c.getPlayerAssistant().sendFrame126(c.playerEnergy + "%", 149);
+		c.getPlayerAssistant().sendFrame126((int) Math.ceil(c.playerEnergy) + "%", 149);
 	}
 
 	public void drinkAntiPoison(int itemId, int replaceItem, int slot,

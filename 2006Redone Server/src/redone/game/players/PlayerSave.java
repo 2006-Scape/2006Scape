@@ -260,6 +260,9 @@ public class PlayerSave {
 							case "blackKnight":
 								player.blackKnight = Integer.parseInt(token2);
 								break;
+							case "shieldArrav":
+								player.shieldArrav = Integer.parseInt(token2);
+								break;
 							case "pirateTreasure":
 								player.pirateTreasure = Integer.parseInt(token2);
 								break;
@@ -693,8 +696,8 @@ public class PlayerSave {
 					.toString(player.strongHold).length());
 			characterfile.newLine();
 			characterfile.write("character-energy = ", 0, 19);
-			characterfile.write(Integer.toString(player.playerEnergy), 0,
-					Integer.toString(player.playerEnergy).length());
+			characterfile.write(Integer.toString((int) Math.ceil(player.playerEnergy)), 0,
+					Integer.toString((int) Math.ceil(player.playerEnergy)).length());
 			characterfile.newLine();
 			characterfile.write("crystal-bow-shots = ", 0, 20);
 			characterfile.write(Integer.toString(player.crystalBowArrowCount),
@@ -831,6 +834,10 @@ public class PlayerSave {
 			characterfile.write("blackKnight = ", 0, 14);
 			characterfile.write(Integer.toString(player.blackKnight), 0, Integer
 					.toString(player.blackKnight).length());
+			characterfile.newLine();
+			characterfile.write("shieldArrav = ", 0, 14);
+			characterfile.write(Integer.toString(player.shieldArrav), 0, Integer
+					.toString(player.shieldArrav).length());
 			characterfile.newLine();
 			characterfile.write("cookAss = ", 0, 10);
 			characterfile.write(Integer.toString(player.cookAss), 0, Integer

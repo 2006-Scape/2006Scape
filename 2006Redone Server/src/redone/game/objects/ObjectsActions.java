@@ -2108,16 +2108,22 @@ public class ObjectsActions {
 			player.getPlayerAssistant().openUpBank();
 			break;
 
-		case 2604:
-			if (player.objectX == 3235 && player.objectY == 9761) {
-				return;
-			} else {
-				player.getPlayerAssistant().openUpBank();
+		case 2403:// should be 2418 but not working
+			if (player.shieldArrav >= 6 && player.getItemAssistant().playerHasItem(759)) {
+				Server.objectHandler.createAnObject(player, 2604, objectX, objectY, 0);
+				Region.addObject(2604, objectX, objectY, 0, 0, 0, false);
+			}
+			else {
+				player.getActionSender().sendMessage("It's locked, maybe I can get the key from somewhere.");
 			}
 			break;
 
-		case 2403:// should be 2418 but not working
-			Server.objectHandler.createAnObject(player, 2604, objectX, objectY, -1);
+		case 2604:
+			if (player.objectX == 3235 && player.objectY == 9761 && player.shieldArrav >= 6) {
+				player.getDialogueHandler().sendDialogues(742, -1);
+			} else {
+				player.getPlayerAssistant().openUpBank();
+			}
 			break;
 
 		case 3193:
@@ -2608,6 +2614,14 @@ public class ObjectsActions {
 				player.getActionSender().sendMessage("You have already finished this quest.");
 			}
 			break;
+
+		case 2402:
+			if (player.shieldArrav == 1)
+				player.getDialogueHandler().sendDialogues(696, -1);
+			else
+				player.getActionSender().sendMessage("The bookcase is empty.");
+			break;
+
 		case 2550:
 			ThieveOther.pickLock(player, 1, 3.5, 2674, 3306, 1, false);
 		break;
