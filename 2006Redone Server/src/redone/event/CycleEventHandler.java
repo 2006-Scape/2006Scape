@@ -48,8 +48,10 @@ public class CycleEventHandler {
 	 * @param event
 	 * @param cycles
 	 */
-	public void addEvent(int id, Object owner, CycleEvent event, int cycles) {
-		events.add(new CycleEventContainer(id, owner, event, cycles));
+	public CycleEventContainer addEvent(int id, Object owner, CycleEvent event, int cycles) {
+		CycleEventContainer container = new CycleEventContainer(id, owner, event, cycles);
+		events.add(container);
+		return container;
 	}
 
 	/**
@@ -59,8 +61,10 @@ public class CycleEventHandler {
 	 * @param event
 	 * @param cycles
 	 */
-	public void addEvent(Object owner, CycleEvent event, int cycles) {
-		events.add(new CycleEventContainer(-1, owner, event, cycles));
+	public CycleEventContainer addEvent(Object owner, CycleEvent event, int cycles) {
+		CycleEventContainer container = new CycleEventContainer(-1, owner, event, cycles);
+		events.add(container);
+		return container;
 	}
 
 	/**

@@ -23,6 +23,7 @@ public class ClickItem implements PacketType {
 
 	@Override
 	public void processPacket(Client player, int packetType, int packetSize) {
+		player.endCurrentTask();
 		player.getInStream().readSignedWordBigEndianA();
 		int itemSlot = player.getInStream().readUnsignedWordA();
 		int itemId = player.getInStream().readUnsignedWordBigEndian();

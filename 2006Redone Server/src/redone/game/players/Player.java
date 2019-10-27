@@ -401,7 +401,7 @@ public abstract class Player {
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer;
 	public boolean magicFailed, oldMagicFailed;
 	public int bowSpecShot, clickNpcType, clickObjectType, objectId, objectX,
-			objectY, objectXOffset, objectYOffset, objectDistance;
+			objectY;
 	public int pItemX, pItemY, pItemId;
 	public boolean isMoving, walkingToItem;
 	public boolean isShopping, updateShop;

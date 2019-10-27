@@ -14,6 +14,7 @@ public class BankX1 implements PacketType {
 
 	@Override
 	public void processPacket(Client c, int packetType, int packetSize) {
+		c.endCurrentTask();
 		if (packetType == 135) {
 			c.xRemoveSlot = c.getInStream().readSignedWordBigEndian();
 			c.xInterfaceId = c.getInStream().readUnsignedWordA();

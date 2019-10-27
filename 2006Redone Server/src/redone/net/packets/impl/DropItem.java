@@ -66,6 +66,9 @@ public class DropItem implements PacketType {
 					"You can't drop items on tutorial island!");
 			return;
 		}
+
+		player.endCurrentTask();
+
 		switch (itemId) {
 		case 1560:
 			if (!player.hasNpc) {
