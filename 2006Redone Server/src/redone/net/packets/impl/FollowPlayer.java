@@ -31,5 +31,6 @@ public class FollowPlayer implements PacketType {
 		c.usingRangeWeapon = false;
 		c.followDistance = 1;
 		c.followId = followPlayer;
+		c.endCurrentTask();
 	}
 }

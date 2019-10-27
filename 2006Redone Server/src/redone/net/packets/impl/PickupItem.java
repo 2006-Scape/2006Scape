@@ -32,6 +32,7 @@ public class PickupItem implements PacketType {
 			return;
 		}
 		player.getCombatAssistant().resetPlayerAttack();
+		player.endCurrentTask();
 		if (player.stopPlayerPacket) {
 			return;
 		}
