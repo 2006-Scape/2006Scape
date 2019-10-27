@@ -108,11 +108,11 @@ public class NpcActions {
 			}
 			break;
 
-        case 547:
-            if (c.shieldArrav == 3) {
-                c.getDialogueHandler().sendDialogues(701, npcType);
-            }
-            break;
+		case 547: //Baraek
+			if (c.shieldArrav == 3) {
+				c.getDialogueHandler().sendDialogues(701, npcType);
+			}
+			break;
 
 		case 599:
 			c.getDialogueHandler().sendDialogues(1369, npcType);
