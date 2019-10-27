@@ -112,11 +112,13 @@ public abstract class Player {
 			teleGrabItem, teleGrabX, teleGrabY, duelCount, underAttackBy,
 			underAttackBy2, wildLevel, teleTimer, respawnTimer, saveTimer = 0,
 			teleBlockLength, poisonDelay, slayerPoints, blackMarks,
-			playerEnergy = 100, SlayerMaster, teleOtherTimer = 0,
+			SlayerMaster, teleOtherTimer = 0,
 			teleOtherSlot = -1, tutorialProgress, Cookstage1 = 1,
 			woodcuttingTree, smeltAmount, knightS, otherDirection,
 			brightness = 3, recoilHits, droppedItem = -1,
 					spawnedHealers, cannonX = 0, cannonY = 0;
+
+	public double playerEnergy = 100;
 
 	public Pets getSummon() {
 		return pets;
@@ -1161,15 +1163,14 @@ public abstract class Player {
 					str.writeBits(1, 0);
 				}
 				if (playerEnergy > 0 && playerRights < 2) {
-					if (weight > 0.0) {
-						playerEnergy -= 1 + Misc.random(1);
-					} else {
-						playerEnergy -= 1;
-					}
+					// calculations from https://oldschool.runescape.wiki/w/Energy
+					playerEnergy -= 0.64;
+					if (weight > 0.0)
+						playerEnergy -= Math.min(weight, 64) / 100;
 				} else if (playerRights >= 2) {
 					playerEnergy = 100;
 					isRunning2 = true;
-				} else if (playerEnergy < 1) {
+				} else if (playerEnergy <= 0) {
 					playerEnergy = 0;
 					isRunning2 = false;
 				}
