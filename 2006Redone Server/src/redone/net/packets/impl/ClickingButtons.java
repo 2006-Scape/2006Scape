@@ -1096,6 +1096,9 @@ public class ClickingButtons implements PacketType {
 			case 185:
 				player.getDialogueHandler().sendDialogues(629, player.npcType);
 				return;
+			case 186: // Shield of Arrav
+				player.getDialogueHandler().sendDialogues(629, player.npcType);
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPlayerAssistant().removeAllWindows();
@@ -1169,6 +1172,9 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(3130, 945);
 				return;
 			case 185:
+				player.getDialogueHandler().sendDialogues(628, player.npcType);
+				return;
+			case 186: // Shield of Arrav
 				player.getDialogueHandler().sendDialogues(628, player.npcType);
 				return;
 			}
@@ -1248,6 +1254,9 @@ public class ClickingButtons implements PacketType {
 				return;
 			case 185:
 				player.getDialogueHandler().sendDialogues(630, player.npcType);
+				return;
+			case 186: // Shield of Arrav
+				player.getDialogueHandler().sendDialogues(691, player.npcType);
 				return;
 			}
 			player.dialogueAction = 0;
