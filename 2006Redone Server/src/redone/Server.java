@@ -134,11 +134,9 @@ public class Server {
 		sac.setReuseAddress(true);
 		sac.setBacklog(100);
 
-		throttleFilter = new ConnectionThrottleFilter(
-				Constants.CONNECTION_DELAY);
+		throttleFilter = new ConnectionThrottleFilter(Constants.CONNECTION_DELAY);
 		sac.getFilterChain().addFirst("throttleFilter", throttleFilter);
-		acceptor.bind(new InetSocketAddress(serverlistenerPort),
-				connectionHandler, sac);
+		acceptor.bind(new InetSocketAddress(serverlistenerPort), connectionHandler, sac);
 
 		/**
 		 * Initialise Handlers
@@ -155,25 +153,7 @@ public class Server {
 		/**
 		 * Server Successfully Loaded
 		 */
-		System.out.println("Server listening on port "
-				+ serverlistenerPort);
-
-		if(!ersSecret.equals("")) {
-			com.everythingrs.service.Service.scheduledService.scheduleAtFixedRate(new Runnable() {
-				@Override
-				public void run() {
-					com.everythingrs.heatmaps.Heatmap.getMap().clear();
-					for (Player player : PlayerHandler.players) {
-						if (player != null) {
-							com.everythingrs.heatmaps.Heatmap.getMap().put(player.playerName,
-									new com.everythingrs.heatmaps.Heatmap(player.playerName, player.absX, player.absY,
-											player.heightLevel));
-						}
-					}
-					com.everythingrs.heatmaps.Heatmap.update(ersSecret);
-				}
-			}, 0, 10, java.util.concurrent.TimeUnit.SECONDS);
-		}
+		System.out.println("Server listening on port " + serverlistenerPort);
 
 		/**
 		 * Main Server Tick

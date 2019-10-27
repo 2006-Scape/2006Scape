@@ -90,12 +90,12 @@ public class NpcActions {
 
 		case 537:
 		case 536:
-			if (c.questPoints >= QuestAssistant.MAXIMUM_QUESTPOINTS) {
+			int requiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
+			if (c.questPoints >= requiredQP) {
 				c.getDialogueHandler().sendDialogues(1373, npcType);
 			} else {
 				c.getActionSender().sendMessage(
-						"You need " + QuestAssistant.MAXIMUM_QUESTPOINTS
-								+ " quest points to open this shop.");
+						"You need " + requiredQP + " quest points to open this shop.");
 			}
 			break;
 
@@ -1005,11 +1005,12 @@ public class NpcActions {
 
 		case 537:
 		case 536:
-			if (c.questPoints >= QuestAssistant.MAXIMUM_QUESTPOINTS) {
+			int requiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
+			if (c.questPoints >= requiredQP) {
 				c.getShopAssistant().openShop(npcType);
 			} else {
 				c.getActionSender().sendMessage(
-						"You need 19 quest points to open this shop.");
+						"You need " + requiredQP + " quest points to open this shop.");
 			}
 			break;
 

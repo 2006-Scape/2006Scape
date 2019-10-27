@@ -117,84 +117,13 @@ public class ObjectsActions {
 		SingleGates.useSingleGate(player, objectType);
 		DoubleGates.useDoubleGate(player, objectType);
 		PassDoor.processDoor(player, objectType);
+		// if its a rock we can mine, mine it
+		if (Mining.rockExists(objectType))
+			player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
 		switch (objectType) {
 		case 6:
 			player.getCannon().clickCannon(objectX, objectY);
 			break;
-		case 2091:
-			player.getMining().startMining(player, 0, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2095:
-			player.getMining().startMining(player, 1, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2093:
-			player.getMining().startMining(player, 2, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2097:
-			player.getMining().startMining(player, 3, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2103:
-			player.getMining().startMining(player, 4, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2105:
-			player.getMining().startMining(player, 5, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2107:
-			player.getMining().startMining(player, 6, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2090:
-			player.getMining().startMining(player, 7, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2094:
-			player.getMining().startMining(player, 8, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2092:
-			player.getMining().startMining(player, 9, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2096:
-			player.getMining().startMining(player, 10, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2102:
-			player.getMining().startMining(player, 11, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2104:
-			player.getMining().startMining(player, 12, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2106:
-			player.getMining().startMining(player, 13, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2100:
-			player.getMining().startMining(player, 14, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2101:
-			player.getMining().startMining(player, 15, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2109:
-		case 2108:
-			if (objectType == 2109)
-				player.getMining().startMining(player, 20, player.objectX, player.objectY, player.clickObjectType);
-			if (objectType == 2108)
-				player.getMining().startMining(player, 21, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2098:
-			player.getMining().startMining(player, 16, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2099:
-			player.getMining().startMining(player, 17, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 3042:
-			player.getMining().startMining(player, 18, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 3043:
-			player.getMining().startMining(player, 19, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		case 2491:
-			if (player.playerLevel[player.playerMining] < 30)
-				player.getMining().startMining(player, 22, player.objectX, player.objectY, player.clickObjectType);
-			else
-				player.getMining().startMining(player, 23, player.objectX, player.objectY, player.clickObjectType);
-			break;
-		
 		case 6702:
 		case 6703:
 		case 6704:
@@ -293,7 +222,7 @@ public class ObjectsActions {
 		
 		case 2271:
 			player.getActionSender().object(2272, 2984, 3336, 1, 10);
-			Region.addObject(2272, 2984, 336, 0, 10, 1, false);
+			Region.addObject(2272, 2984, 3336, 2, 10, 1, false);
 			player.getActionSender().sendMessage("You open the cupboard.");
 		break;
 		

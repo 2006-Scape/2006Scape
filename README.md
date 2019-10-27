@@ -61,6 +61,32 @@ Step 23: Under Working Directory, add `2006Redone Server` to the path ([Image]("
 Step 24: Navigate to the Client class (`2006Redone Client/src/Client.java`), Right Click -> Run.
 
 
+# Using Parabot with your local server:
+- **1:** Download the latest `localhost_2006rebotted.jar` from [here](https://github.com/dginovker/2006rebotted/releases)
+- **2:** Download the latest `Provider-version.jar` file from [here](http://v3.bdn.parabot.org/api/bot/download/default-provider?nightly=false)
+- **3:** Create a file called `localhost.json` in `{user}\Documents\Parabot\servers`
+- **4:** Put the following in the file
+```json
+{
+    "name": "localhost",
+    "author": "RedSparr0w",
+    "version": 1.0,
+    "client-class": "Game",
+    "locations":{
+        "provider": "pathToYourJar/Provider-1.21.5.jar",
+        "server": "pathToYourJar/localhost_2006rebotted.jar",
+        "hooks": "http://bdn.parabot.org/data/hooks/carmeuses/2006rebotted_hooks.xml"
+    }
+}
+```
+_(you will need to put the path to the jar files yourself)_
+- 5: Run the parabot client with the following args:
+```fix
+java -jar Client-2.8.1.jar -login username password -loadlocal -v -clearcache
+```
+- **6:** ???
+- **7:** PROFIT
+
 ### Server source layout
 
 - `2006Redone Server` contains all the server code; mark `src` as the Sources directory
