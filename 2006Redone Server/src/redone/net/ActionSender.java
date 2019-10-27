@@ -244,21 +244,9 @@ public class ActionSender {
 	public ActionSender frame174(int sound, int vol, int delay) {
 		player.outStream.createFrame(174);
 		player.outStream.writeWord(sound);
-		player.outStream.writeByte(vol);
+		player.outStream.writeByte(0);
 		player.outStream.writeWord(delay);
-		player.updateRequired = true;
-		player.appearanceUpdateRequired = true;
-		return this;
-	}
-
-	public ActionSender frame174(int id, int type, int delay, int volume) {
-		if (player.outStream != null && player != null && id != -1) {
-			player.outStream.createFrame(174);
-			player.outStream.writeWord(id);
-			player.outStream.writeWord(delay);
-			player.outStream.writeWord(volume);
-			player.flushOutStream();
-		}
+		player.outStream.writeByte(vol);
 		return this;
 	}
 
@@ -567,8 +555,6 @@ public class ActionSender {
 
 	public ActionSender sendSound(int id, int volume, int delay) {
 		frame174(id, volume, delay);
-		player.updateRequired = true;
-		player.appearanceUpdateRequired = true;
 		return this;
 	}
 

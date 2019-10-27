@@ -11407,6 +11407,7 @@ public class Game extends RSApplet {
 
 			Signlink.reporterror(s2);
 			resetLogout();
+			exception.printStackTrace();
 		}
 		return true;
 	}

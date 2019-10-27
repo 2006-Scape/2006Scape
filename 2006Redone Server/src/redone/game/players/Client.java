@@ -1063,11 +1063,11 @@ public class Client extends Player {
 					teleTimer = 0;
 					getPlayerAssistant().changeLocation();
 				}
-				if (teleTimer == 5) {
+				if (teleTimer == 4) {
 					teleTimer--;
 					getPlayerAssistant().processTeleport();
 				}
-				if (teleTimer == 9 && teleGfx > 0) {
+				if (teleTimer == 7 && teleGfx > 0) {
 					teleTimer--;
 					gfx100(teleGfx);
 				}

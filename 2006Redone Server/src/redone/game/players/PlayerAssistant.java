@@ -774,9 +774,6 @@ public class PlayerAssistant {
 					"You are teleblocked and can't teleport.");
 			return;
 		}
-		if (Constants.SOUND) {
-			player.getActionSender().sendSound(SoundList.TELEPORT, 100, 0);
-		}
 		if (SkillHandler.isSkilling(player)) {
 			player.getActionSender().sendMessage(
 					"You can't teleport while skilling!");
@@ -800,9 +797,12 @@ public class PlayerAssistant {
 			player.teleHeight = height;
 			// client.resetShaking();
 			player.isTeleporting = true;
+			if (Constants.SOUND) {
+				player.getActionSender().sendSound(SoundList.TELEPORT, 100, 700);
+			}
 			if (teleportType.equalsIgnoreCase("modern")) {
-				player.startAnimation(714);
-				player.teleTimer = 11;
+				player.startAnimation(714, 10);
+				player.teleTimer = 10;
 				player.teleGfx = 308;
 				player.teleEndAnimation = 715;
 			}

@@ -30,7 +30,7 @@ public abstract class Player {
 			{2035, 0}
 	};
 
-	public long lastCast = 0, homeTele, lastDesert, eventTimer, lastRunRecovery,
+	public long homeTele, lastDesert, eventTimer, lastRunRecovery,
 			lastButton, lastFire, lastLight, muteTime, waitTime, miscTimer,
 			ladderTimer, webSlashDelay, climbDelay, lastReport = 0,
 			lastPlayerMove, lastPoison, lastPoisonSip, poisonImmune, lastSpear,
