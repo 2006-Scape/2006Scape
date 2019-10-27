@@ -147,7 +147,7 @@ public class Walking implements PacketType {
 	        }
 	        if((player.duelStatus >= 1 && player.duelStatus <= 4) || player.duelStatus == 6) {
 	            if(player.duelStatus == 6) {
-	                player.getDueling().claimStakedItems();        
+	                player.getDueling().claimStakedItems();
 	            }
 	            return;
 	        }
@@ -165,17 +165,25 @@ public class Walking implements PacketType {
 		}
 
 		player.getNewWalkCmdX()[0] = player.getNewWalkCmdY()[0] = 0;
+		int firstStepX, firstStepY;
 
-		int firstStepX = player.getInStream().readSignedWordBigEndianA()
-				- player.getMapRegionX() * 8;
+		if (player.clickToTele)
+			firstStepX = player.getInStream().readSignedWordBigEndianA();
+		else
+			firstStepX = player.getInStream().readSignedWordBigEndianA()-player.getMapRegionX()*8;
 		for (int i = 1; i < player.newWalkCmdSteps; i++) {
 			player.getNewWalkCmdX()[i] = player.getInStream().readSignedByte();
 			player.getNewWalkCmdY()[i] = player.getInStream().readSignedByte();
 		}
 
-		int firstStepY = player.getInStream().readSignedWordBigEndian() - player.getMapRegionY() * 8;
+		if (player.clickToTele)
+			firstStepY = player.getInStream().readSignedWordBigEndian();
+		else
+			firstStepY = player.getInStream().readSignedWordBigEndian()-player.getMapRegionY()*8;
 		player.setNewWalkCmdIsRunning(player.getInStream().readSignedByteC() == 1 && player.playerEnergy > 0);
 		for (int i1 = 0; i1 < player.newWalkCmdSteps; i1++) {
+			if (player.clickToTele)
+				player.getPlayerAssistant().movePlayer(player.getNewWalkCmdX()[i1] + firstStepX, player.getNewWalkCmdY()[i1] + firstStepY, player.heightLevel);
 			player.getNewWalkCmdX()[i1] += firstStepX;
 			player.getNewWalkCmdY()[i1] += firstStepY;
 		}

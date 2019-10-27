@@ -82,10 +82,10 @@ public abstract class Player {
 			treeSpiritSpawned = false, chickenSpawned = false, clickedTree = false, filter = true,
 			stopPlayer = false, npcCanAttack = true, gliderOpen = false, hasSandwhichLady = false,
 			isHarvesting, openDuel = false,  killedJad = false, canHealersRespawn = true, playerIsBusy = false, miningRock,
-			randomEventsEnabled = false, debugMode = false;
+			randomEventsEnabled = false, debugMode = false, clickToTele = false;
 
 	public int votePoints, thankedForDonation, saveDelay, playerKilled, gertCat, restGhost,
-			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest, blackKnight,
+			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest, blackKnight, shieldArrav,
 			dragonSlayerQuestStage, sheepShear, impsC, randomActions, pkPoints,
 			totalPlayerDamageDealt, killedBy, lastChatId = 1, privateChat,
 			friendSlot = 0, dialogueId, randomCoffin, newLocation, specEffect,

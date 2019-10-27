@@ -2950,8 +2950,8 @@ public class DialogueHandler {
 			case 575:
 				if (player.getItemAssistant().playerHasItem(431, 1)) {
 					sendStatement("Frank happily takes the rum... and hands you a key");
-					player.getItemAssistant().addOrDropItem(432, 1);
 					player.getItemAssistant().deleteItem2(431, 1);
+					player.getItemAssistant().addOrDropItem(432, 1);
 					player.nextChat = 576;
 				} else {
 					sendPlayerChat1("I still need to get some rum.");
@@ -3206,7 +3206,7 @@ public class DialogueHandler {
 			// reldo starts here
 			case 626:
 				sendNpcChat1("Hello stranger.", player.talkingNpc, "Reldo");
-				player.nextChat = 630;
+				player.nextChat = 627;
 				break;
 			case 627:
 				sendOption3("Do you have anything to trade?", "What do you do?", "What do you know about the Imcando Dwarves?");
@@ -3417,24 +3417,17 @@ public class DialogueHandler {
 				}
 				break;
 			case 671:
-				if (player.knightS == 7) {
+				if (player.knightS == 7 || player.knightS == 8) {
 					sendStatement2("You give the blurite ore and two bars to Thurgo. Thurgo starts", "to make the sword. Thurgo hands you a sword.");
 					player.getItemAssistant().deleteItem2(2351, 1);
 					player.getItemAssistant().deleteItem2(2351, 1);
 					player.getItemAssistant().deleteItem2(668, 1);
+					player.getItemAssistant().addItem(667, 1);
 					player.knightS = 8;
-					player.getItemAssistant().addItem(667, 1);
-					player.nextChat = 672;
-				} else if (player.knightS == 8) {
-					sendStatement2("You give the blurite ore and two bars to Thurgo. Thurgo starts", "to make the sword. Thurgo hands you a sword.");
-					player.getItemAssistant().deleteItem2(2351, 1);
-					player.getItemAssistant().deleteItem2(2351, 1);
-					player.getItemAssistant().deleteItem2(668, 1);
-					player.getItemAssistant().addItem(667, 1);
 					player.nextChat = 672;
 				} else {
 					sendNpcChat1("You are not on this part of the quest right now.", player.talkingNpc, "Thurgo");
-					player.nextChat = 0;/*DIALOGUE ACTION*/
+					player.nextChat = 0;
 				}
 				break;
 			case 672:
@@ -3514,6 +3507,380 @@ public class DialogueHandler {
 			case 685:
 				QuestRewards.knightsReward(player);
 				break;
+
+			//Shield of Arrav Quest line:
+			//Reldo
+			case 690:
+				sendOption3("Do you have anything to trade?", "What do you do?", "I'm in search of a quest.");
+				player.dialogueAction = 186;/*DIALOGUE ACTION*/
+				break;
+			case 691:
+				sendNpcChat1("Hmmm. I don't... believe there are any here...", player.talkingNpc, "Reldo");
+				player.nextChat = 692;
+				break;
+			case 692:
+				sendNpcChat1("Let me think actually...", player.talkingNpc, "Reldo");
+				player.nextChat = 693;
+				break;
+			case 693:
+				sendNpcChat2("Ah yes. I know. If you look in a book called 'The Shield", "of Arrav', you'll find a quest in there.", player.talkingNpc, "Reldo");
+				player.nextChat = 694;
+				break;
+			case 694:
+				sendNpcChat2("I'm not sure where the book is mind you... but I'm", "sure it's around here somewhere.", player.talkingNpc, "Reldo");
+				player.nextChat = 695;
+				break;
+			case 695:
+				sendPlayerChat1("Thank you.");
+				player.shieldArrav = 1;
+				player.nextChat = 0;
+				break;
+			//bookcase
+			case 696:
+				sendPlayerChat2("Aha! 'The Shield of Arrav'! Exactly what I was looking", "for");
+				player.getItemAssistant().addOrDropItem(757, 1);
+				player.shieldArrav = 2;
+				player.nextChat = 0;
+				break;
+			//reldo
+			case 697:
+				sendPlayerChat2("Ok. I've read the book. Do you know where I can find", "the Phoenix Gang?");
+				player.nextChat = 698;
+				break;
+			case 698:
+				sendNpcChat2("No, I don't. I think I know someone who might", "however.", player.talkingNpc, "Reldo");
+				player.nextChat = 699;
+				break;
+			case 699:
+				sendNpcChat3("If i were you I would talk to Baraek, the fur trader in", "the market place. I've heard he has connections with the", "Phoenix Gang.", player.talkingNpc, "Reldo");
+				player.shieldArrav = 3;
+				player.nextChat = 700;
+				break;
+			case 700:
+				sendPlayerChat1("Thanks, I'll try that!");
+				player.nextChat = 0;
+				break;
+			//Baraek
+			case 701:
+				sendPlayerChat1("Can you tell me where I can find the Phoenix Gang?");
+				player.nextChat = 702;
+				break;
+			case 702:
+				sendNpcChat2("Sh sh sh, not so loud! You don't want to get me in", "trouble!", player.talkingNpc, "Baraek");
+				player.nextChat = 703;
+				break;
+			case 703:
+				sendPlayerChat1("So DO you know where they are?");
+				player.nextChat = 704;
+				break;
+			case 704:
+				sendNpcChat1("I may do.", player.talkingNpc, "Baraek");
+				player.nextChat = 705;
+				break;
+			case 705:
+				sendNpcChat2("But I don't want to get into trouble for revealing their", "hideout.", player.talkingNpc, "Baraek");
+				player.nextChat = 706;
+				break;
+			case 706:
+				sendNpcChat2("Of course, if I was, say 20 gold coins richer I may", "happen to be more inclined to take that sort of risk...", player.talkingNpc, "Baraek");
+				player.nextChat = 707;
+				break;
+			case 707:
+				if (player.getItemAssistant().playerHasItem(995, 20)) {
+					sendPlayerChat1("Okay. Have 20 gold coins.");
+					player.nextChat = 708;
+				} else {
+					sendPlayerChat1("I'm a little short on gold coins right now..");
+					player.nextChat = 0;
+				}
+				break;
+			case 708:
+				sendNpcChat4("Ok, to get to the gang hideout, enter Varrock through",
+						"the south gate. Then, if you take the first turn east,",
+						"somewhere along there is an alleyway to the south. The",
+						"door at the end of there is the entrance to the Phoenix",
+						player.talkingNpc, "Baraek");
+				player.shieldArrav = 4;
+				player.nextChat = 709;
+				break;
+			case 709:
+				sendNpcChat3("Gang. They're operating there under the name of",
+						"VTAM Corporation. Be careful. The Pheonixes ain't",
+						"the types to be messed about.",
+						player.talkingNpc, "Baraek");
+				player.nextChat = 710;
+				break;
+			case 710:
+				sendPlayerChat1("Thanks!");
+				player.nextChat = 0;
+				break;
+			//Straven
+			case 711:
+				sendPlayerChat1("What's through that door?");
+				player.nextChat = 712;
+				break;
+			case 712:
+				sendNpcChat2("Hey! You can't go in there. Only authorised personnel",
+						"of the VTAM Corporation are allowed beyond this point.",
+						player.talkingNpc, "Straven");
+				if (player.shieldArrav < 4)
+					player.nextChat = 0;
+				else if (player.shieldArrav == 4)
+					player.nextChat = 713;
+				break;
+			case 713:
+				sendPlayerChat1("I know who you are!");
+				player.nextChat = 714;
+				break;
+			case 714:
+				sendNpcChat1("Really.", player.talkingNpc, "Straven");
+				player.nextChat = 715;
+				break;
+			case 715:
+				sendNpcChat1("Well?", player.talkingNpc, "Straven");
+				player.nextChat = 716;
+				break;
+			case 716:
+				sendNpcChat1("Who are we then?", player.talkingNpc, "Straven");
+				player.nextChat = 717;
+				break;
+			case 717:
+				sendPlayerChat2("This is the headquarters of the Phoenix Gang, the most", "powerful crime syndicate this city has ever seen!");
+				player.nextChat = 718;
+				break;
+			case 718:
+				sendNpcChat2("No, this is a legitimate business run by legitimate", "businessmen.", player.talkingNpc, "Straven");
+				player.nextChat = 719;
+				break;
+			case 719:
+				sendNpcChat2("Supposing we were this crime gang however, what would", "you want with us?", player.talkingNpc, "Straven");
+				player.nextChat = 720;
+				break;
+			case 720:
+				sendPlayerChat1("I'd like to offer you my services.");
+				player.nextChat = 721;
+				break;
+			case 721:
+				sendNpcChat1("You mean you'd like to join the Phoenix Gang?", player.talkingNpc, "Straven");
+				player.nextChat = 722;
+				break;
+			case 722:
+				sendNpcChat2("Well, obviously I can't speak for them, but the Phoenix", "Gang doesn't let people join just like that.", player.talkingNpc, "Straven");
+				player.nextChat = 723;
+				break;
+			case 723:
+				sendNpcChat1("You can't be too careful, you understand.", player.talkingNpc, "Straven");
+				player.nextChat = 724;
+				break;
+			case 724:
+				sendNpcChat2("Generally someone has to prove their loyalty before", "they can join.", player.talkingNpc, "Straven");
+				player.nextChat = 725;
+				break;
+			case 725:
+				sendPlayerChat1("How would I go about doing that?");
+				player.nextChat = 726;
+				break;
+			case 726:
+				sendNpcChat1("Obviously, I would have no idea about that.", player.talkingNpc, "Straven");
+				player.nextChat = 727;
+				break;
+			case 727:
+				sendNpcChat4("Although having said that, a rival gang of ours, er,",
+						"theirs, called the Black Arm Gang is supposedly meeting",
+						"a contact from Port Sarim today in the Blue Moon",
+						"Inn.",
+						player.talkingNpc, "Straven");
+				player.nextChat = 728;
+				break;
+			case 728:
+				sendNpcChat4("OBVIOUSLY I know NOTHING about the dealings",
+						"of the Phoenix Gang, but I bet if SOMEBODY were",
+						"to kill him and bring back his intelligence report, they",
+						"would be considered loyal enough to join.",
+						player.talkingNpc, "Straven");
+				player.nextChat = 729;
+				break;
+			case 729:
+				sendPlayerChat1("Ok, I'll get right on it.");
+				player.shieldArrav = 5;
+				player.nextChat = 0;
+				break;
+			case 730:
+				sendNpcChat1("How's your little mission going?", player.talkingNpc, "Straven");
+				if (player.getItemAssistant().playerHasItem(761, 1))
+					player.nextChat = 733;
+				else
+					player.nextChat = 731;
+				break;
+			case 731:
+				sendPlayerChat1("I haven't managed to find the report yet...");
+				player.nextChat = 732;
+				break;
+			case 732:
+				sendNpcChat3("You need to kill Jonny the Beard, who should be in",
+						"the Blue Moon Inn ...I would guess.",
+						"Not being a member of the Phoenix Gang and all.",
+						player.talkingNpc, "Straven");
+				player.nextChat = 0;
+				break;
+			case 733:
+				sendPlayerChat1("I have the intelligence report!");
+				player.nextChat = 734;
+				break;
+			case 734:
+				sendNpcChat1("Let's see it then.", player.talkingNpc, "Straven");
+				player.nextChat = 735;
+				break;
+			case 735:
+				sendStatement("You hand over the report. The man reads the report.");
+				player.getItemAssistant().deleteItem(761, 1);
+				player.nextChat = 736;
+				break;
+			case 736:
+				sendNpcChat1("Yes. Yes, this is very good.", player.talkingNpc, "Straven");
+				player.nextChat = 737;
+				break;
+			case 737:
+				sendNpcChat2("Ok! You can join the Phoenix Gang! I am Straven, one", "of the gang leaders.", player.talkingNpc, "Straven");
+				player.nextChat = 738;
+				break;
+			case 738:
+				sendPlayerChat1("Nice to meet you.");
+				player.nextChat = 739;
+				break;
+			case 739:
+				sendNpcChat1("Take this key.", player.talkingNpc, "Straven");
+				player.nextChat = 740;
+				break;
+			case 740:
+				sendItemChat1(player, "", "Straven hands you a key", 759, 150);
+				player.getItemAssistant().addOrDropItem(759, 1);
+				player.shieldArrav = 6;
+				player.nextChat = 0;
+				break;
+			case 741:
+				sendNpcChat1("Greetings, fellow gang member.", player.talkingNpc, "Straven");
+				player.nextChat = 0;
+				break;
+			//Phoenix gang weapons chest
+			case 742:
+				sendStatement("You search the chest.");
+				if (player.getItemAssistant().playerHasItem(763) || player.shieldArrav < 6)
+					player.nextChat = 743;
+				else
+					player.nextChat = 744;
+				break;
+			case 743:
+				sendStatement("It's empty.");
+				break;
+			case 744:
+				sendItemChat1(player, "", "You find half of a shield, which you take.", 763, 150);
+				player.getItemAssistant().addOrDropItem(763, 1);
+				player.nextChat = 0;
+				break;
+			//Curator Haig Halen
+			case 745:
+				sendNpcChat1("Welcome to the museum of Varrock.", player.talkingNpc, "Curator Haig Halen");
+				if (player.shieldArrav == 6 && (player.getItemAssistant().playerHasItem(763) || player.getItemAssistant().playerHasItem(765)))
+					player.nextChat = 746;
+				else
+					player.nextChat = 0;
+				break;
+			case 746:
+				sendPlayerChat2("I have half the shield of Arrav here. Can I get a", "reward?");
+				player.nextChat = 747;
+				break;
+			case 747:
+				sendNpcChat3("The Shield of Arrav! Goodness, the Museum has been",
+						"searching for that for years! The late King Roald II",
+						"offered a reward for it years ago!",
+						player.talkingNpc, "Curator Haig Halen");
+				player.nextChat = 748;
+				break;
+			case 748:
+				sendPlayerChat1("Well, I'm here to claim it.");
+				player.nextChat = 749;
+				break;
+			case 749:
+				sendNpcChat1("Let me have a look at it first.", player.talkingNpc, "Curator Haig Halen");
+				player.nextChat = 750;
+				break;
+			case 750:
+				if (player.getItemAssistant().playerHasItem(763))
+					sendItemChat1(player, "", "The curator peers at the shield", 763, 150);
+				else if (player.getItemAssistant().playerHasItem(765))
+					sendItemChat1(player, "", "The curator peers at the shield", 765, 150);
+				player.nextChat = 751;
+				break;
+			case 751:
+				sendNpcChat1("This is incredible!", player.talkingNpc, "Curator Haig Halen");
+				player.nextChat = 752;
+				break;
+			case 752:
+				sendNpcChat1("That shield has been missing for over twenty-fice years!", player.talkingNpc, "Curator Haig Halen");
+				player.nextChat = 753;
+				break;
+			case 753:
+				sendNpcChat3("Leave the shield here with me and I'll write you out a",
+						"certificate saying that you have returned the shield, so",
+						"that you can claim your reward from the King.",
+						player.talkingNpc, "Curator Haig Halen");
+				player.nextChat = 754;
+				break;
+			case 754:
+				if (player.getItemAssistant().playerHasItem(763)) {
+					sendItemChat1(player, "", "You hand over the shield half.", 763, 150);
+					player.getItemAssistant().deleteItem(763, 1);
+				} else if (player.getItemAssistant().playerHasItem(765)) {
+					sendItemChat1(player, "", "You hand over the shield half.", 765, 150);
+					player.getItemAssistant().deleteItem(765, 1);
+				}
+				player.nextChat = 755;
+				break;
+			case 755:
+				sendItemChat1(player, "", "The curator writes out a certificate.", 769, 150);
+				player.getItemAssistant().addOrDropItem(769, 1);
+				player.shieldArrav = 7;
+				player.nextChat = 0;
+				break;
+			//King Roald
+			case 756:
+				sendPlayerChat1("Greetings, your majesty.");
+				player.nextChat = 757;
+				break;
+			case 757:
+				sendPlayerChat2("Your majesty, I have come to claim the reward for the", "return of the Shield of Arrav.");
+				player.nextChat = 758;
+				break;
+			case 758:
+				sendItemChat1(player, "", "You show the certificate to the king.", 769, 150);
+				player.nextChat = 759;
+				break;
+			case 759:
+				sendNpcChat2("My goodness! This claim is for the reward offered by",
+						"my father many years ago!",
+						player.talkingNpc, "King Roald");
+				player.nextChat = 760;
+				break;
+			case 760:
+				sendNpcChat2("I never thought I would live to see the day when",
+						"someone came forward to claim this reward",
+						player.talkingNpc, "King Roald");
+				player.nextChat = 761;
+				break;
+			case 761:
+				sendItemChat1(player, "", "You hand over the certificate, The king gives you 1,200gp.", 995, 150);
+				player.nextChat = 762;
+				break;
+			case 762:
+				player.getItemAssistant().deleteItem(769, 1);
+				QuestRewards.shieldArravReward(player);
+				player.nextChat = 0;
+				break;
+
+
+
+
 
 			case 908:
 				sendPlayerChat1("Hello there " + NpcHandler.getNpcListName(player.talkingNpc) + "!");

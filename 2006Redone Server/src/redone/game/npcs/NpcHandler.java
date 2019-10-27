@@ -927,6 +927,11 @@ public class NpcHandler {
 							Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 						}
 						break;
+					case 645:
+						if (c.shieldArrav == 5) {
+							Server.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						}
+						break;
 					}
 				}
 			}
