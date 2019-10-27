@@ -5,20 +5,123 @@ import redone.util.Misc;
 
 public class TreasureTrails {
 
-	public static int lowLevelReward[] = { 1077, 1125, 1165, 1195, 1297, 1367,
-			853, 7390, 7392, 7394, 7396, 7386, 7388, 1099, 1135, 1065, 851 };
-	public static int mediumLevelReward[] = { 1073, 1123, 1161, 1199, 1301,
-			1371, 857, 2577, 2579, 2487, 2493, 2499, 2631, 855 };
-	public static int highLevelReward[] = { 1079, 1093, 1113, 1127, 1147, 1163,
-			1185, 1201, 1275, 1303, 1319, 1333, 1359, 1373, 2491, 2497, 2503,
-			861, 859, 2581, 2651, 1079, 1093, 1113, 1127, 1147, 1163, 1185,
-			1201, 1275, 1303, 1319, 1333, 1359, 1373, 2491, 2497, 2503, 861,
-			859, 2581, 2651, };
+	public static int lowLevelReward[] = {
+			1077,
+			1125,
+			1165,
+			1195,
+			1297,
+			1367,
+			853,
+			7390,
+			7392,
+			7394,
+			7396,
+			7386,
+			7388,
+			1099,
+			1135,
+			1065,
+			851,
+	};
+	public static int mediumLevelReward[] = {
+			1073,
+			1123,
+			1161,
+			1199,
+			1301,
+			1371,
+			857,
+			2577,
+			2579,
+			2487,
+			2493,
+			2499,
+			2631,
+			855,
+	};
+	public static int highLevelReward[] = {
+			1079,
+			1093,
+			1113,
+			1127,
+			1147,
+			1163,
+			1185,
+			1201,
+			1275,
+			1303,
+			1319,
+			1333,
+			1359,
+			1373,
+			2491,
+			2497,
+			2503,
+			861,
+			859,
+			2581,
+			2651,
+			1079,
+			1093,
+			1113,
+			1127,
+			1147,
+			1163,
+			1185,
+			1201,
+			1275,
+			1303,
+			1319,
+			1333,
+			1359,
+			1373,
+			2491,
+			2497,
+			2503,
+			861,
+			859,
+			2581,
+			2651,
+	};
 
-	public static int lowLevelStacks[] = { 995, 380, 561, 886, };
-	public static int mediumLevelStacks[] = { 995, 374, 561, 563, 890, };
-	public static int highLevelStacks[] = { 995, 386, 561, 563, 560, 892 };
-	public static int allStacks[] = { 995, 380, 561, 886, 374, 561, 563, 890, 386, 561, 563, 560, 892 };
+	public static int lowLevelStacks[] = {
+			995,
+			380,
+			561,
+			886,
+	};
+	public static int mediumLevelStacks[] = {
+			995,
+			374,
+			561,
+			563,
+			890,
+	};
+	public static int highLevelStacks[] = {
+			995,
+			386,
+			561,
+			563,
+			560,
+			892,
+	};
+	public static int allStacks[] = {
+			995,
+			380,
+			561,
+			886,
+			374,
+			561,
+			563,
+			890,
+			386,
+			561,
+			563,
+			560,
+			892,
+	};
+
 
 	public static void addClueReward(Client c, int clueLevel) {
 		int chanceReward = Misc.random(2);
