@@ -14,24 +14,9 @@ public class Misc {
 		return (int) (java.lang.Math.random() * (range + 1));
 	}
 
+	// return a random number from 0 → range - 1
 	public static int randomMinusOne(int range) {
-		int number = (int) (Math.random() * range);
-		return number < 0 ? 0 : number;
-	}
-
-	public static int random(int range1, int range2) { // 0 till range (range
-														// INCLUDED)
-		int keepGoing = 1;
-		int compare1 = 0;
-		while (keepGoing == 1) {
-			compare1 = random(range2);
-			if (compare1 >= range1) {
-				keepGoing = 0;
-			} else {
-				keepGoing = 1;
-			}
-		}
-		return compare1;
+		return (int) Math.random() * range;
 	}
 
 	public static boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
@@ -152,8 +137,19 @@ public class Misc {
 		return (int) (java.lang.Math.random() * range + 1);
 	}
 
+	// return a random number from 0 → range (including range)
 	public static int random(int range) {
-		return (int) (java.lang.Math.random() * (range + 1));
+		return (int) (java.lang.Math.random() * (++range));
+	}
+
+	// return a random number between & including the min/max values
+	public static int random(int min, int max) {
+		++max;
+		return (int) Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	public static int randomArrayItem(int[] arr) {
+		return arr[(int) Math.floor(Math.random() * arr.length)];
 	}
 
 	public static long playerNameToInt64(String s) {
