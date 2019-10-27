@@ -244,7 +244,6 @@ public class ActionSender {
 	public ActionSender frame174(int sound, int vol, int delay) {
 		player.outStream.createFrame(174);
 		player.outStream.writeWord(sound);
-		player.outStream.writeByte(0);
 		player.outStream.writeWord(delay);
 		player.outStream.writeByte(vol);
 		return this;

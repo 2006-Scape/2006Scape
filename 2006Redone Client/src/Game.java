@@ -10632,7 +10632,7 @@ public class Game extends RSApplet {
 			}
 			if (pktType == 174) {
 				int id = inStream.readUnsignedWord();
-				int type = inStream.readUnsignedByte();
+				int type = /*inStream.readUnsignedByte()*/1;
 				int delay = inStream.readUnsignedWord();
 				int volume = inStream.readUnsignedByte();
 				sound[currentSound] = id;
