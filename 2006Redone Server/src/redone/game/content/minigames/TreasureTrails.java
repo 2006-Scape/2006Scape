@@ -26,7 +26,6 @@ public class TreasureTrails {
 			6623, // White full helm
 			6629, // White gloves
 			6633, // White kiteshield
-			6603, // White magic staff
 			6617, // White platebody
 			6625, // White platelegs
 			6627, // White plateskirt
@@ -55,9 +54,6 @@ public class TreasureTrails {
 			1639, // Emerald ring
 			1641, // Ruby ring
 			1637, // Sapphire ring
-			1688, // Emerald amulet
-			1687, // Sapphire amulet
-			1689, // Ruby amulet
 			// Misc
 			2524, // Black toy horsey
 			2520, // Brown toy horsey
@@ -128,7 +124,6 @@ public class TreasureTrails {
 			7370, // Green d'hide body (g)
 			7378, // Green d'hide chaps (g)
 			// Jewelery
-			6564, // Onyx ring
 			2568, // Ring of forging
 			2570, // Ring of life
 			2550, // Ring of recoil
@@ -237,18 +232,15 @@ public class TreasureTrails {
 			// Jewelery
 			1631, // Uncut dragonstone
 			1615, // Dragonstone
-			1691, // Dragonstone ammy
 			1702, // Dragonstone amulet
 			1645, // Dragonstone ring
 			2572, // Ring of wealth
 			2552, // Ring of dueling(8)
-			5095, // Explorer's ring
 			6733, // Archers ring
 			6737, // Berserker ring
 			6040, // Amulet of nature
 			1497, // Amulet of othanian
 			1731, // Amulet of power
-			6566, // Onyx amulet
 			6585, // Amulet of fury
 			// Misc
 			7927, // Easter ring
