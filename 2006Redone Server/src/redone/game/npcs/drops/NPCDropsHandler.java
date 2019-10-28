@@ -15,7 +15,9 @@ public class NPCDropsHandler {
 			ALWAYS = 0,
 			COINSRATE = 3, CHICKEN_RATE = 75 / 100,
 			COMMON = 2 + r(48),
-			UNCOMMON = 51 + r(49), RARE = 101 + r(411), VERY_RARE = 513;
+			UNCOMMON = 51 + r(49),
+			RARE = 101 + r(411),
+			VERY_RARE = 513;
 
 	/**
 	 * Handles the npc drops for the npc names.
