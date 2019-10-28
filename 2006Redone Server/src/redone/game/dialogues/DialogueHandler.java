@@ -6100,23 +6100,6 @@ public class DialogueHandler {
 
 			case 3115:
 				player.tutorialProgress = 36;
-				PlayerAssistant.removeHintIcon(player);
-				player.getItemAssistant().deleteAllItems();
-				player.getItemAssistant().clearBank();
-				player.getPlayerAssistant().sendSidebars();
-				player.getPlayerAssistant().walkableInterface(-1);
-				player.getActionSender().chatbox(-1);
-				player.getItemAssistant()
-						.sendWeapon(
-								player.playerEquipment[player.playerWeapon],
-								ItemAssistant
-										.getItemName(player.playerEquipment[player.playerWeapon]));
-				player.getPlayerAssistant().addStarter();
-				player.getPlayerAssistant().movePlayer(3233, 3229, 0);
-				player.getActionSender().sendMessage(
-						"Welcome to @blu@" + Constants.SERVER_NAME
-								+ "@bla@ - currently in Server Stage v@blu@"
-								+ Constants.TEST_VERSION + "@bla@.");
 				sendStatement4(
 						"Welcome to Lumbridge! To get more help, simply click on the",
 						"Lumbridge Guide or one of the Tutors - these can be found by",

@@ -2420,16 +2420,18 @@ public class PlayerAssistant {
 			LightSources.saveBrightness(player);
 		} else if (player.tutorialProgress == 0 && !Constants.TUTORIAL_ISLAND) {
 			player.getPlayerAssistant().sendSidebars();
-			player.getItemAssistant();
-			player.getItemAssistant()
-					.sendWeapon(
-							player.playerEquipment[player.playerWeapon],
-							ItemAssistant
-									.getItemName(player.playerEquipment[player.playerWeapon]));
-			player.getActionSender().sendMessage(
-					"Welcome to @blu@" + Constants.SERVER_NAME
-							+ "@bla@ - currently in Server Stage v@blu@"
-							+ Constants.TEST_VERSION + "@bla@.");
+			PlayerAssistant.removeHintIcon(player);
+			player.getPlayerAssistant().walkableInterface(-1);
+			player.getActionSender().chatbox(-1);
+			player.getItemAssistant().deleteAllItems();
+			player.getItemAssistant().clearBank();
+			player.getPlayerAssistant().addStarter();
+			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
+			player.getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
+			player.getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
+			player.getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
+			player.getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
+			player.getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
 			player.autoRet = 1;
@@ -2438,7 +2440,7 @@ public class PlayerAssistant {
 			if (!player.hasBankpin) {
 				player.getActionSender()
 						.sendMessage(
-								"You do not, have a bank pin it is highly recommened you get one.");
+								"You do not, have a bank pin it is highly recommened you set one.");
 			}
 		}
 	}
