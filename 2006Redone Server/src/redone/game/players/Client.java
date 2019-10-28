@@ -648,19 +648,23 @@ public class Client extends Player {
 				playerLevel[playerFarming] = 1;
 				getPlayerAssistant().refreshSkill(playerFarming);
 			}
-			getPlayerAssistant().firstTimeTutorial();
 			if (tutorialProgress > 0 && tutorialProgress < 36 && Constants.TUTORIAL_ISLAND) {
 				getActionSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
 			}
 			if (tutorialProgress > 35) {
 				getPlayerAssistant().sendSidebars();
-				getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
+				Weight.updateWeight(this);
 				getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
 				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
 				getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
-				getActionSender().sendMessage("Welcome to the 2006rebotted beta! Join our Discord: discord.gg/4zrA2Wy");
+				getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+				if (!hasBankpin) {
+					getActionSender().sendMessage("You do not, have a bank pin it is highly recommened you set one.");
+				}
 			}
+			getPlayerAssistant().firstTimeTutorial();
+			getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
 			for (int i = 0; i < 25; i++) {
 				getActionSender().setSkillLevel(i, playerLevel[i], playerXP[i]);
 				getPlayerAssistant().refreshSkill(i);
@@ -691,7 +695,6 @@ public class Client extends Player {
 				getPlayerAssistant().sendConfig(504, 0);
 				getPlayerAssistant().sendConfig(173, 0);
 			}
-			Weight.updateWeight(this);
 
 			getPlayList().fixAllColors();
 			getPlayerAction().setAction(false);
