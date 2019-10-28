@@ -308,17 +308,22 @@ public class TreasureTrails {
 				displayReward(c,
 						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelReward), 1,
+						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 1:
 				displayReward(c,
 						Misc.randomArrayItem(lowLevelReward), 1,
+						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c, Misc.randomArrayItem(lowLevelReward), 1);
+				displayReward(c,
+						Misc.randomArrayItem(lowLevelReward), 1,
+						Misc.randomArrayItem(lowLevelStacks), Misc.random(50, 150)
+				);
 				break;
 			}
 		} else if (clueLevel == 1) {
@@ -327,17 +332,22 @@ public class TreasureTrails {
 				displayReward(c,
 						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelReward), 1,
+						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 1:
 				displayReward(c,
 						Misc.randomArrayItem(mediumLevelReward), 1,
+						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c, Misc.randomArrayItem(mediumLevelReward), 1);
+				displayReward(c,
+						Misc.randomArrayItem(mediumLevelReward), 1,
+						Misc.randomArrayItem(mediumLevelStacks), Misc.random(50, 150)
+				);
 				break;
 			}
 		} else if (clueLevel == 2) {
@@ -346,17 +356,22 @@ public class TreasureTrails {
 				displayReward(c,
 						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelReward), 1,
+						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 1:
 				displayReward(c,
 						Misc.randomArrayItem(highLevelReward), 1,
+						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c, Misc.randomArrayItem(highLevelReward), 1);
+				displayReward(c,
+						Misc.randomArrayItem(highLevelReward), 1,
+						Misc.randomArrayItem(highLevelStacks), Misc.random(50, 150)
+				);
 				break;
 			}
 		}
@@ -370,8 +385,12 @@ public class TreasureTrails {
 	}
 
 	public static void displayReward(Client c, int item, int amount, int item2, int amount2, int item3, int amount3) {
-		int[] items = { item, item2, item3 };
-		int[] amounts = { amount, amount2, amount3 };
+		displayReward(c, item, amount, item2, amount2, item3, amount3, -1, 1);
+	}
+
+	public static void displayReward(Client c, int item, int amount, int item2, int amount2, int item3, int amount3, int item4, int amount4) {
+		int[] items = { item, item2, item3, item4 };
+		int[] amounts = { amount, amount2, amount3, amount4 };
 		c.outStream.createFrameVarSizeWord(53);
 		c.outStream.writeWord(6963);
 		c.outStream.writeWord(items.length);
@@ -390,9 +409,9 @@ public class TreasureTrails {
 		}
 		c.outStream.endFrameVarSizeWord();
 		c.flushOutStream();
-		c.getItemAssistant().addOrDropItem(item, amount);
-		c.getItemAssistant().addOrDropItem(item2, amount2);
-		c.getItemAssistant().addOrDropItem(item3, amount3);
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] > 0) c.getItemAssistant().addOrDropItem(items[i], amounts[i]);
+		}
 		c.getPlayerAssistant().showInterface(6960);
 	}
 
