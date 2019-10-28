@@ -23,6 +23,8 @@ public class ItemOnGroundItem implements PacketType {
 			return;
 		}
 
+		player.endCurrentTask();
+
 		switch (itemUsed) {
 		case 590:
 		case 7331:

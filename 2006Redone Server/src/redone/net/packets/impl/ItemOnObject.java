@@ -26,6 +26,7 @@ public class ItemOnObject implements PacketType {
 		player.turnPlayerTo(objectX, objectY);
 		player.objectX = objectX;
 		player.objectY = objectY;
+		player.endCurrentTask();
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}

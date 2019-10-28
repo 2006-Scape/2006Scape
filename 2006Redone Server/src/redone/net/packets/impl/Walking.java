@@ -16,6 +16,7 @@ public class Walking implements PacketType {
 	@Override
 	public void processPacket(Client player, int packetType, int packetSize) {
 		player.getDueling().checkDuelWalk();
+
 		if (player.canChangeAppearance) { //|| c.performingAction) {
 			return;
 		}
@@ -155,6 +156,9 @@ public class Walking implements PacketType {
 		if (player.respawnTimer > 3) {
 			return;
 		}
+
+		player.endCurrentTask();
+
 		if (packetType == 248) {
 			packetSize -= 14;
 		}

@@ -1,5 +1,7 @@
 package redone.game.objects;
 
+import redone.world.clip.ObjectDef;
+
 public class Objects {
 
 	public long delay, oDelay;
@@ -34,6 +36,33 @@ public class Objects {
 		objectFace = face;
 		objectType = type;
 		objectTicks = ticks;
+	}
+
+	public int[] getObjectSize() {
+		ObjectDef def = ObjectDef.getObjectDef(objectId);
+		if (def == null)
+			return new int[] {1, 1};
+		int xLength;
+		int yLength;
+		if (objectFace != 1 && objectFace != 3) {
+			xLength = def.xLength();
+			yLength = def.yLength();
+		} else {
+			xLength = def.yLength();
+			yLength = def.xLength();
+		}
+
+		return new int[] {xLength, yLength};
+	}
+
+	@Override
+	public String toString() {
+		return "Objects{" +
+				"objectId=" + objectId +
+				", objectX=" + objectX +
+				", objectY=" + objectY +
+				", objectHeight=" + objectHeight +
+				'}';
 	}
 
 	public int getObjectHeight() {

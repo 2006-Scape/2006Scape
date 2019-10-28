@@ -889,7 +889,8 @@ public class NpcHandler {
 	// [j][1] = amount
 	// [j][0] = drop
 
-	public void dropItems(int i) {// ring of wealth to add
+	public void dropItems(int i) {
+		// TODO: add ring of wealth
 		int npc = 0;
 		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
@@ -900,33 +901,51 @@ public class NpcHandler {
 							}
 					}
 					switch (npcs[i].npcType) {
-					case 2459:
-						FreakyForester.killedPheasant(c, 0);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 2460:
-						FreakyForester.killedPheasant(c, 1);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 2461:
-						FreakyForester.killedPheasant(c, 2);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 2462:
-						FreakyForester.killedPheasant(c, 3);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 92:
-						if (c.restGhost == 3) {
-							Server.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							c.restGhost = 4;
-						}
-						break;
-					case 47:
-						if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
-							Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						}
-						break;
+						case 2459:
+							FreakyForester.killedPheasant(c, 0);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 2460:
+							FreakyForester.killedPheasant(c, 1);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 2461:
+							FreakyForester.killedPheasant(c, 2);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 2462:
+							FreakyForester.killedPheasant(c, 3);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 92:
+							if (c.restGhost == 3) {
+								Server.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+								c.restGhost = 4;
+							}
+							break;
+						case 47:
+							if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
+								Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							}
+							break;
+						case 645:
+							if (c.shieldArrav == 5) {
+								Server.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							}
+							break;
+					}
+					if (Misc.random(1, 256) == 1) {
+						int level = npcs[i].combatLevel;
+						if (level >= 2 && level <= 24) // easy
+							Server.itemHandler.createGroundItem(c, 2677, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level <= 40) // easy → medium
+							Server.itemHandler.createGroundItem(c, 2677 + Misc.random(0, 1), npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level <= 80) // medium
+							Server.itemHandler.createGroundItem(c, 2678, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level <= 150) // medium → hard
+							Server.itemHandler.createGroundItem(c, 2678 + Misc.random(0, 1), npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else // hard
+							Server.itemHandler.createGroundItem(c, 2678 + Misc.random(0, 1), npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					}
 				}
 			}
@@ -1042,17 +1061,25 @@ public class NpcHandler {
 				&& y > npc.makeY - Constants.NPC_FOLLOW_DISTANCE) {
 			if (npc.heightLevel == player.heightLevel) {
 				if (player != null && npc != null) {
-					if (playerY < y) {
-						npc.moveX = GetMove(x, playerX);
+					if (playerX > x && playerY < y) {
+						npc.moveX = GetMove(x,playerX);//Diagonal bottom right
+					} else if (playerX < x && playerY < y) {
+						npc.moveY = GetMove(y,playerY); //Diagonal bottom left
+					} else if (playerX < x && playerY > y) {
+						npc.moveX = GetMove(x,playerX);// Diagonal top left
+					} else if (playerX > x && playerY > y) {
+						npc.moveY = GetMove(y,playerY);// Diagonal top right
+					} else if (playerY < y) {
+						npc.moveX = GetMove(x, playerX); //Move South to player
 						npc.moveY = GetMove(y, playerY);
 					} else if (playerY > y) {
-						npc.moveX = GetMove(x, playerX);
+						npc.moveX = GetMove(x, playerX); //Move North to player
 						npc.moveY = GetMove(y, playerY);
 					} else if (playerX < x) {
-						npc.moveX = GetMove(x, playerX);
+						npc.moveX = GetMove(x, playerX); //Move West to player
 						npc.moveY = GetMove(y, playerY);
 					} else if (playerX > x) {
-						npc.moveX = GetMove(x, playerX);
+						npc.moveX = GetMove(x, playerX); //Move East to player
 						npc.moveY = GetMove(y, playerY);
 					}
 					npc.facePlayer(playerId);
@@ -1198,12 +1225,16 @@ public class NpcHandler {
 			}
 		}
 	}
-
 	public static boolean goodDistance(int objectX, int objectY, int playerX,
 			int playerY, int distance) {
 		return objectX - playerX <= distance && objectX - playerX >= -distance
 				&& objectY - playerY <= distance
-				&& objectY - playerY >= -distance;
+				&& objectY - playerY >= -distance
+				&& !((objectX - playerX == distance && objectY - playerY == -distance) //Detect diagonal positioning
+				|| (objectX - playerX == -distance && objectY - playerY == -distance)
+				|| (objectX - playerX == -distance && objectY - playerY == distance)
+				|| (objectX - playerX == distance && objectY - playerY == distance))
+				;
 	}
 
 	public static int getMaxHit(int i) {

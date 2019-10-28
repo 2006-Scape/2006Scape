@@ -139,8 +139,7 @@ public class Client extends Player {
 	private Mining mining = new Mining();
 	private ChallengePlayer challengePlayer = new ChallengePlayer();
 	private DwarfCannon dwarfCannon = new DwarfCannon(this);
-
-
+	private CycleEventContainer currentTask;
 
 	public DwarfCannon getCannon() {
 		return dwarfCannon;
@@ -322,14 +321,6 @@ public class Client extends Player {
 		return witchsPotion;
 	}
 
-	public void setCurrentTask(Future<?> task) {
-		currentTask = task;
-	}
-
-	public Future<?> getCurrentTask() {
-		return currentTask;
-	}
-
 	public synchronized Stream getInStream() {
 		return inStream;
 	}
@@ -397,7 +388,19 @@ public class Client extends Player {
 	public Food getFood() {
 		return food;
 	}
-	
+
+	public void startCurrentTask(int ticksBetweenExecution, CycleEvent event) {
+		endCurrentTask();
+		currentTask = CycleEventHandler.getSingleton().addEvent(this, event, ticksBetweenExecution);
+	}
+
+	public void endCurrentTask() {
+		if (currentTask != null && currentTask.isRunning()) {
+			currentTask.stop();
+			currentTask = null;
+		}
+	}
+
 	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
 	
 	public class TinterfaceText {
@@ -427,7 +430,6 @@ public class Client extends Player {
 	public int lowMemoryVersion = 0;
 	public int timeOutCounter = 0;
 	public int returnCode = 2;
-	private Future<?> currentTask;
 
 	public Client(IoSession s, int _playerId) {
 		super(_playerId);
@@ -646,19 +648,23 @@ public class Client extends Player {
 				playerLevel[playerFarming] = 1;
 				getPlayerAssistant().refreshSkill(playerFarming);
 			}
-			getPlayerAssistant().firstTimeTutorial();
 			if (tutorialProgress > 0 && tutorialProgress < 36 && Constants.TUTORIAL_ISLAND) {
 				getActionSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
 			}
 			if (tutorialProgress > 35) {
 				getPlayerAssistant().sendSidebars();
-				getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
+				Weight.updateWeight(this);
 				getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
 				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
 				getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
-				getActionSender().sendMessage("Welcome to the 2006rebotted beta! Join our Discord: discord.gg/4zrA2Wy");
+				getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+				if (!hasBankpin) {
+					getActionSender().sendMessage("You do not, have a bank pin it is highly recommened you set one.");
+				}
 			}
+			getPlayerAssistant().firstTimeTutorial();
+			getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
 			for (int i = 0; i < 25; i++) {
 				getActionSender().setSkillLevel(i, playerLevel[i], playerXP[i]);
 				getPlayerAssistant().refreshSkill(i);
@@ -689,7 +695,6 @@ public class Client extends Player {
 				getPlayerAssistant().sendConfig(504, 0);
 				getPlayerAssistant().sendConfig(173, 0);
 			}
-			Weight.updateWeight(this);
 
 			getPlayList().fixAllColors();
 			getPlayerAction().setAction(false);

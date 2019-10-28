@@ -18,6 +18,7 @@ public class AttackPlayer implements PacketType {
 
 	@Override
 	public void processPacket(Client c, int packetType, int packetSize) {
+		c.endCurrentTask();
 		c.playerIndex = 0;
 		c.npcIndex = 0;
 		switch (packetType) {

@@ -1,6 +1,7 @@
 package redone.game.content.quests;
 
 import redone.game.content.quests.impl.KnightsSword;
+import redone.game.content.quests.impl.ShieldArrav;
 import redone.game.players.Client;
 
 /**
@@ -10,7 +11,7 @@ import redone.game.players.Client;
 
 public class QuestAssistant {
 
-	public static final int MAXIMUM_QUESTPOINTS = 22;
+	public static final int MAXIMUM_QUESTPOINTS = 23;
 
 	public static void sendStages(Client client) {
 		client.getPlayerAssistant().sendFrame126("QP: " + client.questPoints + " ", 3985);
@@ -112,6 +113,13 @@ public class QuestAssistant {
 		} else {
 			client.getPlayerAssistant().sendFrame126("@yel@Black Knights' Fortress", 7332);
 		}
+		if (client.shieldArrav == 0) {
+			client.getPlayerAssistant().sendFrame126("Shield of Arrav", 7345);
+		} else if (client.shieldArrav == 8) {
+			client.getPlayerAssistant().sendFrame126("@gre@Shield of Arrav", 7345);
+		} else {
+			client.getPlayerAssistant().sendFrame126("@yel@Shield of Arrav", 7345);
+		}
 	}
 
 	public enum Quests {
@@ -130,7 +138,7 @@ public class QuestAssistant {
 		ROMEO_JULIET(28175, 7343, "Romeo Juliet", false), 
 		RUNE_MYSTERIES(28167, 7335, "Rune Mysteries", true), 
 		SHEEP_SHEARER(28176, 7344, "Sheep Shearer", true), 
-		SHIELD_OF_ARRAV(28177, 7345, "Shield of Arrav", false), 
+		SHIELD_OF_ARRAV(28177, 7345, "Shield of Arrav", true),
 		VAMPYRE_SLAYER(28179, 7347, "Vampyre Slayer", true), 
 		WITCHS_POTION(28180, 7348, "Witchs Potion", true), 
 		BETWEEN_A_ROCK(49228, 12772, "Between A Rock", false), 
@@ -283,6 +291,9 @@ public class QuestAssistant {
 			break;
 		case 28176:
 			client.getSheepShearer().showInformation();
+			break;
+		case 28177:
+			ShieldArrav.showInformation(client);
 			break;
 		case 28178:
 			KnightsSword.showInformation(client);
