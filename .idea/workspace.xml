@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="2006rebotted:jar" />
-      <artifact name="local_host2006rebotted:jar" />
+      <artifact name="localhost_2006rebotted:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e34c4650-a3c9-498e-b05e-c1cbb72d0ad7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/2006rebotted_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/local_host2006rebotted_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2006Redone Client/METAs/Local Client Meta/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CompiledServer/artifacts/2006rebotted_jar/2006rebotted.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CompiledServer/artifacts/local_host2006rebotted_jar/2006rebotted.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Client/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Client/METAs/Client Meta/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/artifacts/localhost_2006rebotted_jar/2006rebotted.jar" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/artifacts/localhost_2006rebotted_jar/2006rebotted.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
