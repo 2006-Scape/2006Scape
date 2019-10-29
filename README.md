@@ -40,11 +40,11 @@ Step 13: Set Project SDK to 1.8, Project Language Level to 8, & Project Compiler
 
 Step 14: Hit OK in the project structure screen 
 
-Step 15: Start the FileServer [Image]()
+Step 15: Start the FileServer [Image](https://i.imgur.com/moNKg9u.png)
 
-Step 16: Start the Server [Image]()
+Step 16: Start the Server [Image](https://i.imgur.com/uUw522i.png)
 
-Step 17: Start the Client [Image]()
+Step 17: Start the Client [Image](https://i.imgur.com/dHTiU0I.png)
 
 
 # Using Parabot with your local server:

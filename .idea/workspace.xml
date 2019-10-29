@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e34c4650-a3c9-498e-b05e-c1cbb72d0ad7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/2006rebotted.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/2006rebotted.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/players/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/players/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/integrations/discord/DiscordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/integrations/discord/DiscordActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="e34c4650-a3c9-498e-b05e-c1cbb72d0ad7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +30,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.FileServer">
+  <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="2006rebotted" />
