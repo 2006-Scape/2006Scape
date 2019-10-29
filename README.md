@@ -38,27 +38,13 @@ Step 12: Click File -> Project Structure
 
 Step 13: Set Project SDK to 1.8, Project Language Level to 8, & Project Compiler Output to any valid folder [Image](https://i.imgur.com/9PJDk0Q.png)
 
-Step 14: Click "Modules" and make sure it looks like what I have highlighted. If it doesn't, join the Discord and I'll help you create one. ([Image](https://i.imgur.com/NBAnk0A.png))
+Step 14: Hit OK in the project structure screen 
 
-Step 15: Click "Dependencies", then click the "Add" arrow and select "JARs or directories"([Image](https://i.imgur.com/tGI9QNI.png))
+Step 15: Start the FileServer [Image]()
 
-Step 16: Navigate to your 2006rebotted folder, open `2006Redone file_server` > `libs`. Holding "Shift" on your keyboard, select all the .jar files in the `libs` folder there, and hit OK. ([Image](https://i.imgur.com/Yv3SX1q.png))
+Step 16: Start the Server [Image]()
 
-Step 17: Hit OK in the project structure screen after all your JARs are imported: ([Image](https://i.imgur.com/Yv3SX1q.png))
-
-Step 18: Navigate to the FileServer class (`2006Redone file_server/src/org/apollo/jagcached/FileServer.java`), Right Click -> Run. It will fail since we need to start it in the right directory: [Image](https://i.imgur.com/LFkr39U.png)
-
-Step 19: To fix the directory issue, click FileServer and hit Edit Configurations at the top: [Image](https://i.imgur.com/lJdBPCs.png)
-
-Step 20: Under Working Directory, add `2006Redone file_server` to the path (on Windows, you may need a \\ for paths instead of a /. Not sure): [Image](https://i.imgur.com/ANkbgBl.png)
-
-Step 21: Navigate to the Server class (`2006Redone Server/src/redone/Server.java`), Right Click -> Run. It will fail since we need to start it in the right directory
-
-Step 22: To fix the directory issue, click Server and hit Edit Configurations at the top
-
-Step 23: Under Working Directory, add `2006Redone Server` to the path ([Image]("/home/dr_cookie/Projects/2006rebotted/2006Redone Client/src/Client.java"))
-
-Step 24: Navigate to the Client class (`2006Redone Client/src/Client.java`), Right Click -> Run.
+Step 17: Start the Client [Image]()
 
 
 # Using Parabot with your local server:

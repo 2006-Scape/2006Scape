@@ -657,11 +657,10 @@ public class Client extends Player {
 				getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
 				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
-				getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
 				getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
-				if (!hasBankpin) {
-					getActionSender().sendMessage("You do not, have a bank pin it is highly recommened you set one.");
-				}
+				/*if (!hasBankpin) { //Kind of annoying. Maybe add Random % 10 or something.
+					getActionSender().sendMessage("You do not have a bank pin it is highly recommended you set one.");
+				}*/
 			}
 			getPlayerAssistant().firstTimeTutorial();
 			getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
