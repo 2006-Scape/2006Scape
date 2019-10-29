@@ -6,9 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e34c4650-a3c9-498e-b05e-c1cbb72d0ad7" name="Default Changelist" comment="">
+    <list default="true" id="9c1d485e-b413-4c80-b742-7c5a88c1c73c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/artifacts/localhost_2006rebotted_jar/2006rebotted.jar" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/artifacts/localhost_2006rebotted_jar/2006rebotted.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/npcs/NpcHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/npcs/NpcHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/net/packets/impl/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/net/packets/impl/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/world/ObjectHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/world/ObjectHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/world/ObjectHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/world/ObjectHandler.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +28,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/2006Redone Client/METAs/Client Meta" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -39,7 +44,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="2006rebotted" />
@@ -82,8 +87,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FileServer" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.FileServer" />
         <item itemvalue="Application.Client" />
       </list>
     </recent_temporary>
@@ -106,7 +111,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

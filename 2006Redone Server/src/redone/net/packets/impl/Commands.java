@@ -627,7 +627,7 @@ public class Commands implements PacketType {
                                         }
                                 } catch (Exception ಠ_ಠ) {}
                                 break;
-                        case "cantAttack":
+                        case "cantattack":
                                 player.npcCanAttack = !player.npcCanAttack;
                                 player.getActionSender().sendMessage("Npcs " + (player.npcCanAttack ? "can" : "can no longer") + " attack you.");
                                 break;
