@@ -1,5 +1,6 @@
 package redone.game.objects.impl;
 
+import redone.game.content.skills.core.Woodcutting;
 import redone.game.players.Client;
 
 /**
@@ -8,6 +9,11 @@ import redone.game.players.Client;
 public class BrimhavenVines {
 
 	public static void handleBrimhavenVines(Client c, int objectType) {
+		if (!Woodcutting.hasAxe(c)) {
+			c.getActionSender().sendMessage("You will need an axe to chop through these!");
+			return;
+		}
+		c.getActionSender().sendMessage("You chop your way through the vines.");
 		switch (objectType) {
 		case 12987:
 		case 12986:

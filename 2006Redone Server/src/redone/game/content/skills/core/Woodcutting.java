@@ -175,7 +175,7 @@ public class Woodcutting {
 		}
 	}
 	
-	public boolean hasAxe(Client player) {
+	public static boolean hasAxe(Client player) {
 		for (int i = 0; i < Axe_Settings.length; i++) {
 			if (player.getItemAssistant().playerHasItem(Axe_Settings[i][0]) || player.playerEquipment[player.playerWeapon] == Axe_Settings[i][0]) {
 				return true;
