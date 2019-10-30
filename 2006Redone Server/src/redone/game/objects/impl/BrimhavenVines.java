@@ -31,21 +31,23 @@ public class BrimhavenVines {
 		}
 	}
 
-	public static void moveThroughVinesX(Client c, int originX, int x1, int y1,
-			int x2, int y2) {
+	public static void moveThroughVinesX(Client c, int originX, int x1, int y1, int x2, int y2) {
+		int x = c.getX();
+		int y = c.getY();
 		if (c.absX <= originX) {
-			c.getPlayerAssistant().walkTo(x1, y1);
+			c.getPlayerAssistant().movePlayer(x + x1, y + y1, 0);
 		} else {
-			c.getPlayerAssistant().walkTo(x2, y2);
+			c.getPlayerAssistant().movePlayer(x + x2, y + y2, 0);
 		}
 	}
 
-	public static void moveThroughVinesY(Client c, int originY, int x1, int y1,
-			int x2, int y2) {
+	public static void moveThroughVinesY(Client c, int originY, int x1, int y1, int x2, int y2) {
+		int x = c.getX();
+		int y = c.getY();
 		if (c.absY <= originY) {
-			c.getPlayerAssistant().walkTo(x1, y1);
+			c.getPlayerAssistant().movePlayer(x + x1, y + y1, 0);
 		} else {
-			c.getPlayerAssistant().walkTo(x2, y2);
+			c.getPlayerAssistant().movePlayer(x + x2, y + y2, 0);
 		}
 	}
 
