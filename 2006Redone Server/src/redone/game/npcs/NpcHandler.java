@@ -935,7 +935,7 @@ public class NpcHandler {
 							break;
 					}
 					if (Misc.random(1, 256) == 1) {
-						int level = npcs[i].combatLevel;
+						int level = getNpcListCombat(npcs[i].npcType);
 						if (level >= 2 && level <= 24) // easy
 							Server.itemHandler.createGroundItem(c, 2677, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 						else if (level <= 40) // easy → medium
@@ -944,8 +944,8 @@ public class NpcHandler {
 							Server.itemHandler.createGroundItem(c, 2678, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 						else if (level <= 150) // medium → hard
 							Server.itemHandler.createGroundItem(c, 2678 + Misc.random(0, 1), npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						else // hard
-							Server.itemHandler.createGroundItem(c, 2678 + Misc.random(0, 1), npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level > 150)// hard
+							Server.itemHandler.createGroundItem(c, 2679, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					}
 				}
 			}
@@ -1387,16 +1387,10 @@ public class NpcHandler {
 				token = token.trim();
 				token2 = line.substring(spot + 1);
 				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
+				token2_2 = token2.replaceAll("\t+", "\t");
 				token3 = token2_2.split("\t");
 				if (token.equals("npc")) {
-					newNPCList(Integer.parseInt(token3[0]), token3[1],
-							Integer.parseInt(token3[2]),
-							Integer.parseInt(token3[3]));
+					newNPCList(Integer.parseInt(token3[0]), token3[1], Integer.parseInt(token3[2]), Integer.parseInt(token3[3]));
 				}
 			} else {
 				if (line.equals("[ENDOFNPCLIST]")) {
