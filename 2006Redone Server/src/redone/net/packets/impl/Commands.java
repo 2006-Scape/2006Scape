@@ -522,6 +522,7 @@ public class Commands implements PacketType {
         public static void developerCommands(Client player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
                         case "clicktotele":
+                        case "ctt": // alias
                                 player.clickToTele = !player.clickToTele;
                                 player.getActionSender().sendMessage("Click to teleport: " + (player.clickToTele ? "Enabled" : "Disabled"));
                                 break;
@@ -627,7 +628,7 @@ public class Commands implements PacketType {
                                         }
                                 } catch (Exception ಠ_ಠ) {}
                                 break;
-                        case "cantAttack":
+                        case "cantattack":
                                 player.npcCanAttack = !player.npcCanAttack;
                                 player.getActionSender().sendMessage("Npcs " + (player.npcCanAttack ? "can" : "can no longer") + " attack you.");
                                 break;
