@@ -42,8 +42,7 @@ public abstract class Player {
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
 			boneDelay, botAttempts, leverDelay = 0, farmTime, searchObjectDelay = 0;
 
-
-	private Npc specialTarget = null;
+    private Npc specialTarget = null;
 	public void setSpecialTarget(Npc target) {
 			this.specialTarget = target;
 		}
@@ -116,7 +115,7 @@ public abstract class Player {
 			teleOtherSlot = -1, tutorialProgress, Cookstage1 = 1,
 			woodcuttingTree, smeltAmount, knightS, otherDirection,
 			brightness = 3, recoilHits, droppedItem = -1,
-					spawnedHealers, cannonX = 0, cannonY = 0;
+			spawnedHealers, cannonX = 0, cannonY = 0, ironMan = 0;
 
 	public double playerEnergy = 100;
 

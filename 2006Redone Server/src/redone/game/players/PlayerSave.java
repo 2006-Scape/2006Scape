@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+import redone.game.content.IronMan;
 import redone.util.Misc;
 
 public class PlayerSave {
@@ -91,6 +92,9 @@ public class PlayerSave {
 							case "character-rights":
 								player.playerRights = Integer.parseInt(token2);
 								break;
+							case "ironman":
+								player.ironMan = Integer.parseInt(token2);
+							break;
 							case "blackMarks":
 								player.blackMarks = Integer.parseInt(token2);
 								break;
@@ -574,6 +578,8 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("character-rights = ", 0, 19);
 			characterfile.write(Integer.toString(player.playerRights), 0,Integer.toString(player.playerRights).length());
+			characterfile.newLine();
+			characterfile.write("ironman = " + IronMan.getMode(player));
 			characterfile.newLine();
 			characterfile.write("hasStarter = ", 0, 13);
 			characterfile.write(Boolean.toString(player.hasStarter), 0, Boolean

@@ -6105,7 +6105,7 @@ public class DialogueHandler {
 						"Lumbridge Guide or one of the Tutors - these can be found by",
 						"looking for the question mark icon on your mini-map. If you find",
 						"you are lost at any time, look for a signpost.");
-				player.nextChat = 3116;
+				player.nextChat = 3514;
 				player.canWalkTutorial = true;
 				break;
 
@@ -6945,10 +6945,39 @@ public class DialogueHandler {
 				QuestRewards.blackKnightReward(player);
 				player.nextChat = 0;
 				break;
-
+			case 3514:
+				sendStatement("Please Choose Your GameMode");
+				player.nextChat = 3515;
+				player.dialogueAction = 3515;
+				break;
+			case 3515:
+				sendOption4("Regular", "IronMan", "Hardcore IronMan", "Ultimate IronMan");
+				break;
+			case 3516:
+				sendStatement3("You have Chosen Regular Mode.", "Are you sure this is the game mode you want?", "You won't be able to change this later on!");
+				player.nextChat = 3520;
+				player.dialogueAction = 3520;
+				break;
+			case 3517:
+				sendStatement3("You have Chosen IronMan Mode.", "Are you sure this is the game mode you want?", "You won't be able to change this later on!");
+				player.nextChat = 3520;
+				player.dialogueAction = 3520;
+				break;
+			case 3518:
+				sendStatement3("You have Chosen Hardcore IronMan Mode.", "Are you sure this is the game mode you want?", "You won't be able to change this later on!");
+				player.nextChat = 3520;
+				player.dialogueAction = 3520;
+				break;
+			case 3519:
+				sendStatement3("You have Chosen Ultimate IronMan Mode.", "Are you sure this is the game mode you want?", "You won't be able to change this later on!");
+				player.nextChat = 3520;
+				player.dialogueAction = 3520;
+				break;
+			case 3520:
+				sendOption2("Yes", "No, Go back.");
+				break;
 		}
-
-	}
+}
 
 	public void chatboxText(Client c, String text, String text1, String text2,
 			String text3, String title) {
@@ -7073,7 +7102,7 @@ public class DialogueHandler {
 	public void sendStatement3(String s, String s1, String s2) {
 		player.getPlayerAssistant().sendFrame126(s, 364);
 		player.getPlayerAssistant().sendFrame126(s1, 365);
-		player.getPlayerAssistant().sendFrame126(s1, 366);
+		player.getPlayerAssistant().sendFrame126(s2, 366);
 		player.getPlayerAssistant().sendFrame126("Click here to continue", 367);
 		player.getPlayerAssistant().sendChatInterface(363);
 	}
