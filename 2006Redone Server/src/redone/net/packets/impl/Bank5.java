@@ -24,7 +24,7 @@ public class Bank5 implements PacketType {
 			JewelryMaking.mouldItem(player, removeId, 5);
 			break;
 		case 3900:
-			player.getShopAssistant().buyItem(removeId, removeSlot, 1);
+			player.getShopAssistant().buyItem(removeId, removeSlot, 1); //this says 1 in BANKx5 but it's banking 5 for real... strange shit.
 			break;
 
 		case 3823:
