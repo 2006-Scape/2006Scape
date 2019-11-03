@@ -81,6 +81,7 @@ public class ChangeAppearance implements PacketType {
 			client.playerAppearance[11] = colors[3]; // feet colour
 			client.playerAppearance[12] = colors[4]; // skin colour
 
+			client.endCurrentTask();
 			client.getPlayerAssistant().removeAllWindows();
 			client.getPlayerAssistant().requestUpdates();
 			client.canChangeAppearance = false;

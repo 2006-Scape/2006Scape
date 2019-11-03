@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="localhost_2006rebotted:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9c1d485e-b413-4c80-b742-7c5a88c1c73c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/npcs/NpcHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/npcs/NpcHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/net/packets/impl/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/net/packets/impl/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/world/ObjectHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/world/ObjectHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/world/ObjectHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/world/ObjectHandler.class" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1Sr1PyvKre5eWJ6XgOrqWrHM5hp" />
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/2006Redone Client/METAs/Client Meta" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.FileServer">
+    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Client" />
+      <module name="2006rebotted" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.apollo.jagcached.FileServer" />
+      <module name="2006rebotted" />
+      <option name="WORKING_DIRECTORY" value="2006Redone file_server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.apollo.jagcached.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="redone.Server" />
+      <module name="2006rebotted" />
+      <option name="WORKING_DIRECTORY" value="2006Redone Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="redone.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.FileServer" />
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.Client" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.FileServer" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Client" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e34c4650-a3c9-498e-b05e-c1cbb72d0ad7" name="Default Changelist" comment="" />
+      <created>1572306880139</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572306880139</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

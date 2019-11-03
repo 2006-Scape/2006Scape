@@ -695,8 +695,4 @@ public class Agility {
 			changeObjectTimer = 10;
 		}
 	}
-
-	public static double getAgilityRunRestore(Client c) {
-		return 2260 - c.playerLevel[Constants.AGILITY] * 10;
-	}
 }

@@ -431,38 +431,16 @@ public class PlayerAssistant {
 
 	public void writeEnergy() {
 		if (player.playerEnergy > 0) {
-			sendFrame126(player.playerEnergy + "%", 149);
+			sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 		} else {
 			sendFrame126("0%", 149);
 		}
 	}
 
 	public int raiseTimer() {
-		if (player.playerLevel[16] >= 2 && player.playerLevel[16] < 10) {
-			return 6500;
-		}
-		if (player.playerLevel[16] >= 10 && player.playerLevel[16] < 25) {
-			return 6000;
-		}
-		if (player.playerLevel[16] >= 25 && player.playerLevel[16] < 40) {
-			return 5500;
-		}
-		if (player.playerLevel[16] >= 40 && player.playerLevel[16] < 55) {
-			return 5000;
-		}
-		if (player.playerLevel[16] >= 55 && player.playerLevel[16] < 70) {
-			return 4500;
-		}
-		if (player.playerLevel[16] >= 70 && player.playerLevel[16] < 85) {
-			return 4000;
-		}
-		if (player.playerLevel[16] >= 85 && player.playerLevel[16] < 99) {
-			return 3500;
-		}
-		if (player.playerLevel[16] == 99) {
-			return 3000;
-		}
-		return 7000;
+		// calculations from https://oldschool.runescape.wiki/w/Energy
+		double seconds  = 60 / (8 + Math.floor(player.playerLevel[player.playerAgility] / 6));
+		return (int) Math.floor(seconds * 1000);
 	}
 
 	public void handleTiara() {
@@ -2056,7 +2034,7 @@ public class PlayerAssistant {
 		frame1();
 		resetTb();
 		player.playerEnergy = 100;
-		player.getPlayerAssistant().sendFrame126(player.playerEnergy + "%", 149);
+		player.getPlayerAssistant().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 		player.isSkulled = false;
 		player.attackedPlayers.clear();
 		player.headIconPk = -1;
@@ -2442,16 +2420,18 @@ public class PlayerAssistant {
 			LightSources.saveBrightness(player);
 		} else if (player.tutorialProgress == 0 && !Constants.TUTORIAL_ISLAND) {
 			player.getPlayerAssistant().sendSidebars();
-			player.getItemAssistant();
-			player.getItemAssistant()
-					.sendWeapon(
-							player.playerEquipment[player.playerWeapon],
-							ItemAssistant
-									.getItemName(player.playerEquipment[player.playerWeapon]));
-			player.getActionSender().sendMessage(
-					"Welcome to @blu@" + Constants.SERVER_NAME
-							+ "@bla@ - currently in Server Stage v@blu@"
-							+ Constants.TEST_VERSION + "@bla@.");
+			PlayerAssistant.removeHintIcon(player);
+			player.getPlayerAssistant().walkableInterface(-1);
+			player.getActionSender().chatbox(-1);
+			player.getItemAssistant().deleteAllItems();
+			player.getItemAssistant().clearBank();
+			player.getPlayerAssistant().addStarter();
+			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
+			player.getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
+			player.getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
+			player.getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
+			player.getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
+			player.getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
 			player.autoRet = 1;
@@ -2460,7 +2440,7 @@ public class PlayerAssistant {
 			if (!player.hasBankpin) {
 				player.getActionSender()
 						.sendMessage(
-								"You do not, have a bank pin it is highly recommened you get one.");
+								"You do not, have a bank pin it is highly recommened you set one.");
 			}
 		}
 	}

@@ -129,7 +129,7 @@ public class ShopAssistant {
 		} else if (Type == 1) {
 			TotPrice *= 1;
 		}
-		return TotPrice;
+		return (int) Math.round(TotPrice);
 	}
 
 	public int getItemShopValue(int itemId) {
@@ -310,6 +310,7 @@ public class ShopAssistant {
 			player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
 			int ShopValue = (int) Math.floor(getItemShopValue(removeId, 1, true));
+			int tokkulValue = (int) Math.floor(getTokkulValue(removeId) *.85);
 			String ShopAdd = "";
 			if (ShopValue >= 1000 && ShopValue < 1000000) {
 				ShopAdd = " (" + (ShopValue / 1000) + "K)";
@@ -318,6 +319,8 @@ public class ShopAssistant {
 			}
 			if (player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP && player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139) {
 				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
+			} else if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
+				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + tokkulValue + " tokkul.");
 			} else if (player.myShopId == RANGE_SHOP) {
 				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getRGItemValue(removeId) + " archery tickets." + ShopAdd);
 			} else if (player.myShopId == PEST_SHOP) {
@@ -367,12 +370,13 @@ public class ShopAssistant {
 				amount = player.getItemAssistant().getItemAmount(itemID);
 			}
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-			int TotPrice2 = (int) Math.floor(getItemShopValue(itemID, amount, true) * amount); //Something about total price of item?								CHECK THIS FOR WRONG SHOP VALUE WHEN SELLING MORE THAN 1
-			if (player.getItemAssistant().getItemAmount(995) >= 2147483647) {
-				player.getActionSender().sendMessage("You can't accept more coins.");
-				return false;
+			int TotPrice2 = 0;
+			if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
+				TotPrice2 = (int) (getTokkulValue(itemID) * .85);
+			} else {
+				 TotPrice2 = (int) Math.floor(getItemShopValue(itemID, amount, true) * amount); //Something about total price of item?
 			}
-			if (player.getItemAssistant().freeSlots() > 0 || player.getItemAssistant().playerHasItem(995)) { //Checks to see if player has room for coins.
+			if (player.getItemAssistant().freeSlots() > 0 || player.getItemAssistant().playerHasItem(995) || player.getItemAssistant().playerHasItem(6529)) { //Checks to see if player has room for coins.
 				if (!ItemDefinitions.getDef()[itemID].isNoteable) { //Check to see if its notable.
 					player.getItemAssistant().deleteItem2(itemID, amount);
 				} else {
@@ -382,7 +386,11 @@ public class ShopAssistant {
 						itemID = itemID - 1; //Replace the noted item by it's un-noted version.
 					}
 				}
-				player.getItemAssistant().addItem(995, TotPrice2); //Add the coins to your inventory.
+				if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
+					player.getItemAssistant().addItem(6529, TotPrice2); //Add the tokkul to your inventory.
+				} else {	
+					player.getItemAssistant().addItem(995, TotPrice2); //Add the coins to your inventory.
+				}
 				addShopItem(itemID, amount); //Add item to the shop.
 				if (player.getPlayerAssistant().isPlayer()) { //Logger
 					GameLogger.writeLog(player.playerName, "shopselling", player.playerName + " sold " + itemName + " to store id: " + player.myShopId + " for" + GameLogger.formatCurrency(TotPrice2) + " coins");

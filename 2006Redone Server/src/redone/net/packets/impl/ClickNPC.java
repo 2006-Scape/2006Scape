@@ -29,6 +29,7 @@ public class ClickNPC implements PacketType {
 		client.getPlayerAssistant().resetFollow();
 		client.getCombatAssistant().resetPlayerAttack();
 		client.getPlayerAssistant().requestUpdates();
+		client.endCurrentTask();
 		switch (packetType) {
 
 		/**

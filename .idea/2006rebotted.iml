@@ -7,7 +7,7 @@
       <sourceFolder url="file://$MODULE_DIR$/2006Redone file_server/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/2006Redone Client/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library>
@@ -76,15 +76,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/2006Redone Server/libs/xstream-1.4.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/2006Redone file_server/assets/netty-3.6.6.Final.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

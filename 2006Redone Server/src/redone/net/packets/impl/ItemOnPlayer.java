@@ -16,6 +16,7 @@ public class ItemOnPlayer implements PacketType {
 	public void processPacket(Client c, int packetType, int packetSize) {
 		int playerId = c.inStream.readUnsignedWord();
 		int itemId = c.playerItems[c.inStream.readSignedWordBigEndian()] - 1;
+		c.endCurrentTask();
 		switch (itemId) {
 
 		case 962:

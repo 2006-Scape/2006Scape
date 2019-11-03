@@ -29,6 +29,9 @@ public class ItemClick3 implements PacketType {
 		if (player.duelStatus > 0 && player.duelStatus < 5 || player.tradeStatus == 1) {
 			return;
 		}
+
+		player.endCurrentTask();
+
 		switch (itemId) {
 
 		case 2552:

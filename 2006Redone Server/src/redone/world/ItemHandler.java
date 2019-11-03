@@ -305,9 +305,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 
 	public ItemList ItemList[] = new ItemList[Constants.ITEM_LIMIT];
 
-	public void newItemList(int ItemId, String ItemName,
-			String ItemDescription, double ShopValue, double LowAlch,
-			double HighAlch, int Bonuses[]) {
+	public void newItemList(int ItemId, String ItemName, String ItemDescription, double ShopValue, double LowAlch, double HighAlch, int Bonuses[]) {
 		// first, search for a free slot
 		int slot = -1;
 		for (int i = 0; i < 11740; i++) {
@@ -386,11 +384,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 				token = token.trim();
 				token2 = line.substring(spot + 1);
 				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
+				token2_2 = token2.replaceAll("\t+", "\t");
 				token3 = token2_2.split("\t");
 				if (token.equals("item")) {
 					int[] Bonuses = new int[12];
@@ -412,8 +406,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 				if (line.equals("[ENDOFITEMLIST]")) {
 					try {
 						characterfile.close();
-					} catch (IOException ioexception) {
-					}
+					} catch (IOException ಠ_ಠ) {}
 					//return true;
 				}
 			}

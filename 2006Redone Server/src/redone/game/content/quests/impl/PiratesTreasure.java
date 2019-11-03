@@ -93,7 +93,7 @@ public class PiratesTreasure {
 					"@str@I went to falador and killed the gardener", 8150);
 			client.getPlayerAssistant().sendFrame126("@str@I found the casket ",
 					8181);
-			client.getPlayerAssistant().sendFrame126("@red@     QUEST COMPLETE",
+			client.getPlayerAssistant().sendFrame126("@red@QUEST COMPLETE",
 					8152);
 			client.getPlayerAssistant().sendFrame126(
 					"As a reward, I gained a casket.", 8153);

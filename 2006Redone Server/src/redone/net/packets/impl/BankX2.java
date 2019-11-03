@@ -11,6 +11,7 @@ public class BankX2 implements PacketType {
 
 	@Override
 	public void processPacket(Client player, int packetType, int packetSize) {
+		player.endCurrentTask();
 		int Xamount = player.getInStream().readDWord();
 		if (Xamount < 0) {
             Xamount = player.getItemAssistant().getItemAmount(player.xRemoveId);

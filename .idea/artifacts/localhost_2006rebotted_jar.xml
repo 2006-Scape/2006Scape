@@ -1,0 +1,42 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="localhost_2006rebotted:jar">
+    <output-path>$PROJECT_DIR$/CompiledServer/artifacts/localhost_2006rebotted_jar</output-path>
+    <root id="archive" name="localhost_2006rebotted.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/2006Redone Client/METAs/Local Client Meta/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="2006rebotted" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/slf4j-nop.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/commons-lang3-3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/javac++.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/netty-3.6.6.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/mina.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/mysql-connector-java-5.1.23-bin.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/slf4j-nop.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/slf4j.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/xpp3-1.1.4c.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone file_server/libs/xstream-1.4.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="libs" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/commons-lang3-3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/javac++.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/mysql-connector-java-5.1.23-bin.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/xstream-1.4.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/xpp3-1.1.4c.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/mina.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/slf4j.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/okio-1.13.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/okhttp-3.9.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/json-20190722.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/everythingrs-api.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/log4j-api-2.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/netty-3.6.6.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/jackson-core-2.9.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/javacord-api-3.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/javacord-core-3.0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/jackson-databind-2.9.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/nv-websocket-client-2.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/jackson-annotations-2.9.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/2006Redone Server/libs/logging-interceptor-3.9.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
