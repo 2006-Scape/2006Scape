@@ -252,7 +252,10 @@ public class Trading {
 		if (o == null) {
 			return false;
 		}
-		if (!(player.playerItems[fromSlot] == itemID + 1 && player.playerItemsN[fromSlot] >= amount)) {
+		player.getActionSender().sendMessage("amount: " + amount);
+		player.getActionSender().sendMessage("player.playerItems[fromSlot]: " + player.playerItems[fromSlot]);
+		player.getActionSender().sendMessage("itemID + 1: " + itemID + 1);
+		if (!(player.playerItems[fromSlot] == itemID + 1 )){//&& player.playerItemsN[fromSlot] >= amount)) { I removed this check to permit trading max amount of item in inventory even when amount is higher than quantity in inventory.
 			player.getActionSender().sendMessage("You don't have that amount!");
 			return false;
 		}

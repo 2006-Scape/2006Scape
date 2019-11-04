@@ -22,7 +22,7 @@ public abstract class Player {
 	public ArrayList<String> killedPlayers = new ArrayList<String>();
 	public ArrayList<Integer> attackedPlayers = new ArrayList<Integer>();
 	public ArrayList<String> lastKilledPlayers = new ArrayList<String>();
-	
+
 	public int CraftInt, Dcolor, FletchInt,  clanId = -1;
 	
 	public int[][] barrowCrypt = {
@@ -970,32 +970,9 @@ public abstract class Player {
 		wQueueWritePtr = next;
 		// }
 	}
-
-	public boolean goodDistance(int objectX, int objectY, int playerX,
-			int playerY, int distance) {
-		for (int i = 0; i <= distance; i++) {
-			for (int j = 0; j <= distance; j++) {
-				if (objectId == 2282 || objectId == 10883 || objectId == 2322
-						|| objectId == 4493 || objectId == 12164
-						|| objectId == 1721 || objectId == 1722
-						|| objectId == 4304 && playerX == 2619
-						&& playerY == 3667) {
-					return true;
-				}
-				if (objectX + i == playerX
-						&& (objectY + j == playerY || objectY - j == playerY || objectY == playerY)) {
-					return true;
-				} else if (objectX - i == playerX
-						&& (objectY + j == playerY || objectY - j == playerY || objectY == playerY)) {
-					return true;
-				} else if (objectX == playerX
-						&& (objectY + j == playerY || objectY - j == playerY || objectY == playerY)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
+	return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
+}
 
 	public int getNextWalkingDirection() {
 		if (wQueueReadPtr == wQueueWritePtr) {

@@ -20,15 +20,21 @@ public class BankAll implements PacketType {
 		player.endCurrentTask();
 		switch (interfaceId) {
 		case 3900:
-			player.getShopAssistant().buyItem(removeId, removeSlot, 10);
+			player.outStream.createFrame(27);
+			player.xRemoveSlot = removeSlot;
+			player.xRemoveId = removeId;
+			player.xInterfaceId = interfaceId;
 			break;
 
 		case 3823:
 			if(!player.getItemAssistant().playerHasItem(removeId)) {
 				return;
 			}
-			player.getShopAssistant().sellItem(removeId,
-					removeSlot, player.playerItemsN[removeSlot] );
+
+			player.outStream.createFrame(27);
+			player.xRemoveSlot = removeSlot;
+			player.xRemoveId = removeId;
+			player.xInterfaceId = interfaceId;
 			break;
 
 		case 7423:
