@@ -111,6 +111,14 @@ public final class RSInterface {
 						rsInterface.actions[l3] = null;
 					}
 				}
+				if(rsInterface.parentID == 3822) {
+					rsInterface.actions[2] = "Sell 10";
+					rsInterface.actions[3] = "Sell X";
+				}
+				if(rsInterface.id == 3900) {
+					rsInterface.actions[2] = "Buy 10";
+					rsInterface.actions[3] = "Buy X";
+				}
 			}
 			if (rsInterface.type == 3) {
 				rsInterface.aBoolean227 = stream.readUnsignedByte() == 1;
