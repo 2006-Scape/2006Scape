@@ -22,8 +22,8 @@ public class ClientSettings {
 	 * on localhost
 	 *
 	 */
-	public static String SERVER_IP = "35.226.247.68";
-	//public final static String SERVER_IP = "127.0.0.1;
+	//public static String SERVER_IP = "35.226.247.68"; //NOW SET IN Main,java
+	public static String SERVER_IP = "127.0.0.1";
 	/**
 	 * The Npc Bits for the Server
 	 */
