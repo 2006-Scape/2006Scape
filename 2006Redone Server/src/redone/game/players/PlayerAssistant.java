@@ -430,10 +430,14 @@ public class PlayerAssistant {
 	}
 
 	public void writeEnergy() {
-		if (player.playerEnergy > 0) {
-			sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
-		} else {
-			sendFrame126("0%", 149);
+		if (player.playerEnergy >= 100) {
+			sendFrame126("100%", 149);
+		} else { 
+			if (player.playerEnergy > 0 && player.playerEnergy < 100) {
+				sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
+			} else if (player.playerEnergy <= 0) {
+				sendFrame126("0%", 149);
+			}	
 		}
 	}
 
