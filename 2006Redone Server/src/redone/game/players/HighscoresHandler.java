@@ -20,12 +20,12 @@ public class HighscoresHandler {
         }
     }
 
-    public String getRank(int i, String sortBy) {
-        if (players.size() <= i)
+    public String getRank(Client player, int i, String sortBy) {
+        if (players.size() <= i || player.playerRights >= 2) {
             return "Nobody";
+    	}
 
-        switch (sortBy)
-        {
+        switch (sortBy) {
             case "level":
                 players.sort(new totalLevelComparator());
                 return players.get(i).playerName + ": " + players.get(i).getPlayerAssistant().getTotalLevel();
