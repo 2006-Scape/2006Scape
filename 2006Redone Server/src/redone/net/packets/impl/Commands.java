@@ -166,13 +166,13 @@ public class Commands implements PacketType {
                                         "@dre@Highscores",
                                         "",
                                         "Top 5 Total Level:",
-                                        hs.getRank(0, "level"), hs.getRank(1, "level"), hs.getRank(2, "level"), hs.getRank(3, "level"), hs.getRank(4, "level"),
+                                        hs.getRank(player, 0, "level"), hs.getRank(player,1, "level"), hs.getRank(player,2, "level"), hs.getRank(player,3, "level"), hs.getRank(player,4, "level"),
                                         "",
                                         "Top 5 Wealthiest Players:",
-                                        hs.getRank(0, "gold"), hs.getRank(1, "gold"), hs.getRank(2, "gold"), hs.getRank(3, "gold"), hs.getRank(4, "gold"),
+                                        hs.getRank(player,0, "gold"), hs.getRank(player,1, "gold"), hs.getRank(player,2, "gold"), hs.getRank(player,3, "gold"), hs.getRank(player, 4, "gold"),
                                         "",
                                         "Top 5 Highest Total Damage:",
-                                        hs.getRank(0, "damage"), hs.getRank(1, "damage"), hs.getRank(2, "damage"), hs.getRank(3, "damage"), hs.getRank(4, "damage"),
+                                        hs.getRank(player,0, "damage"), hs.getRank(player,1, "damage"), hs.getRank(player,2, "damage"), hs.getRank(player, 3, "damage"), hs.getRank(player, 4, "damage"),
                                 };
 
                                 for (int i = 8144; i < 8245; i++) {
@@ -470,7 +470,7 @@ public class Commands implements PacketType {
                                         player.playerLevel[skill] = player.getPlayerAssistant().getLevelForXP(player.playerXP[skill]);
                                         player.getPlayerAssistant().refreshSkill(skill);
                                         player.getPlayerAssistant().levelUp(skill);
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
                         case "spellbook":
                                 if (player.inWild()) {
@@ -506,7 +506,7 @@ public class Commands implements PacketType {
                                         } else {
                                                 player.getActionSender().sendMessage("No such item.");
                                         }
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
                         case "master":
                                 for (int i = 0; i < 25; i++) {
@@ -625,7 +625,7 @@ public class Commands implements PacketType {
                                         } else {
                                                 player.getActionSender().sendMessage("Npc " + newNPC + " does not exist.");
                                         }
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
                         case "cantAttack":
                                 player.npcCanAttack = !player.npcCanAttack;
@@ -684,7 +684,7 @@ public class Commands implements PacketType {
                                         PlayerHandler.updateAnnounced = false;
                                         PlayerHandler.updateRunning = true;
                                         PlayerHandler.updateStartTime = System.currentTimeMillis();
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
                 }
         }
