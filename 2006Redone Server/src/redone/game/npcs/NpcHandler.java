@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import redone.Constants;
 import redone.Server;
 import redone.game.content.combat.npcs.NpcAggressive;
@@ -418,20 +417,16 @@ public class NpcHandler {
 				 * Attacking player
 				 **/
 				
-				if (NpcAggressive.isAggressive(i) && !npcs[i].underAttack && !npcs[i].isDead && !switchesAttackers(i)) {
-					Client client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
-					if (client != null && getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel || npcs[i].npcType == 1265 || npcs[i].npcType == 1267 || npcs[i].npcType == 96 || npcs[i].npcType == 97 || npcs[i].npcType == 141) {
+				Client client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
+				if (client != null) {
+					boolean aggressive = NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel;
+					if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && !switchesAttackers(i)) {
 						npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
-					}
-				} else if (NpcAggressive.isAggressive(i) && !npcs[i].underAttack && !npcs[i].isDead && switchesAttackers(i)) {
-					Client c = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
-					if (c != null && getNpcListCombat(npcs[i].npcType) * 2 > c.combatLevel) {
+					} else if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && switchesAttackers(i)) {
 						npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
 					}
 				}
-				/*
-				 * Attacking player
-				 */
+
 
 				if (System.currentTimeMillis() - npcs[i].lastDamageTaken > 5000) {
 					npcs[i].underAttackBy = 0;

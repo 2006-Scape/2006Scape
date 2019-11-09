@@ -16,6 +16,7 @@ public final class Main {
 	 */
 
 	public static void main(String[] args) {
+		ClientSettings.SERVER_IP = "35.226.247.68";
 		if (args.length > 1)
 		{
 			System.out.println("Running local");
