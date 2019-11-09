@@ -565,7 +565,7 @@ public class Client extends Player {
 			Server.clanChat.leaveClan(playerId, clanId);
 		}
 
-		if(!Server.ersSecret.equals("")) {
+		if(Server.ersSecret  != null && !Server.ersSecret.equals("") && this.playerRights < 2) {
 			boolean debugMessage = false;
 			System.out.println("Updating highscores for " + this.playerName + "!");
 			com.everythingrs.hiscores.Hiscores.update(Server.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
