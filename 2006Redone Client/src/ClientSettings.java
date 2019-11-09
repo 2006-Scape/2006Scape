@@ -10,11 +10,11 @@ public class ClientSettings {
 	/**
 	 * The Servers Name
 	 */
-	public final static String SERVER_NAME = "2006Redone";
+	public final static String SERVER_NAME = "2006rebotted";
 	/**
 	 * The Servers Website
 	 */
-	public final static String SERVER_WEBSITE = "www.2006redone.org";
+	public final static String SERVER_WEBSITE = "www.2006rebotted.tk";
 	/**
 	 * The Servers Ip
 	 *
