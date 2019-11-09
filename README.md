@@ -57,7 +57,7 @@ Step 17: Start the Client [Image](https://i.imgur.com/dHTiU0I.png)
     "name": "localhost",
     "author": "RedSparr0w",
     "version": 1.0,
-    "client-class": "Client",
+    "client-class": "LocalGame",
     "locations":{
         "provider": "pathToYourJar/Provider-1.21.5.jar",
         "server": "pathToYourJar/localhost_2006rebotted.jar",
