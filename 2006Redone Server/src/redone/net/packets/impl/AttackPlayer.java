@@ -181,7 +181,6 @@ public class AttackPlayer implements PacketType {
 		 * Attack player with magic
 		 **/
 		case MAGE_PLAYER:
-			c.getActionSender().sendMessage("maging");
 			if (!c.mageAllowed) {
 				c.mageAllowed = true;
 				break;
@@ -304,17 +303,6 @@ public class AttackPlayer implements PacketType {
 					c.usingMagic = false;
 					c.stopMovement();
 					c.getCombatAssistant().resetPlayerAttack();
-				}
-
-				if (c.usingMagic) {
-					if (c.goodDistance(c.getX(), c.getY(), PlayerHandler.players[c.playerIndex].getX(), PlayerHandler.players[c.playerIndex].getY(), 7))
-					{
-						c.stopMovement();
-					}
-					if (c.getCombatAssistant().checkReqs()) {
-						c.followId = c.playerIndex;
-						c.mageFollow = true;
-					}
 				}
 			}
 			break;
