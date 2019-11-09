@@ -394,6 +394,7 @@ public class ShopAssistant {
 				addShopItem(itemID, amount); //Add item to the shop.
 				if (player.getPlayerAssistant().isPlayer()) { //Logger
 					GameLogger.writeLog(player.playerName, "shopselling", player.playerName + " sold " + itemName + " to store id: " + player.myShopId + " for" + GameLogger.formatCurrency(TotPrice2) + " coins");
+					//Remove this later. I added it to push this class because a fuck happened with my last commit.
 				}
 			} else {
 				player.getActionSender().sendMessage("You don't have enough space in your inventory.");
