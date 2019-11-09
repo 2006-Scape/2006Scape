@@ -7,13 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c1d485e-b413-4c80-b742-7c5a88c1c73c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/npcs/NpcHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/npcs/NpcHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/net/packets/impl/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/net/packets/impl/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/world/ObjectHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/world/ObjectHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/world/ObjectHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/world/ObjectHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/data/logs/shopbuying/bot.txt" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/data/logs/shopbuying/bot.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/content/combat/CombatAssistant.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/content/combat/CombatAssistant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/content/combat/CombatAssistant.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/content/combat/CombatAssistant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/shops/ShopAssistant.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/shops/ShopAssistant.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +21,60 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/2006Redone Server/src/redone/game/shops/ShopAssistant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="618">
+              <caret line="396" column="115" selection-start-line="396" selection-start-column="115" selection-end-line="396" selection-end-column="115" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/2006Redone Server/src/redone/game/content/combat/CombatAssistant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="2066" column="71" selection-start-line="2066" selection-start-column="71" selection-end-line="2066" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/2006Redone Server/src/redone/game/players/Trading.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="404">
+              <caret line="74" column="108" lean-forward="true" selection-start-line="74" selection-start-column="108" selection-end-line="74" selection-end-column="108" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/2006Redone Server/src/redone/util/Misc.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>math.sq</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/2006Redone Server/src/redone/game/content/combat/CombatAssistant.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectId" id="1Sr1PyvKre5eWJ6XgOrqWrHM5hp" />
   <component name="PropertiesComponent">
@@ -44,7 +96,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.FileServer">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="2006rebotted" />
@@ -87,8 +139,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FileServer" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.FileServer" />
         <item itemvalue="Application.Client" />
       </list>
     </recent_temporary>
@@ -106,17 +158,85 @@
     </task>
     <servers />
   </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.032822758" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="2" />
+      <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+    </layout>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
             <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/2006Redone Server/src/redone/game/players/Trading.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="74" column="108" lean-forward="true" selection-start-line="74" selection-start-column="108" selection-end-line="74" selection-end-column="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2006Redone Server/src/redone/game/content/combat/CombatAssistant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="2066" column="71" selection-start-line="2066" selection-start-column="71" selection-end-line="2066" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

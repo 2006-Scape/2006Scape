@@ -2057,20 +2057,20 @@ public class CombatAssistant {
 				return false;
 			}
 		}
-		if (CastOnOther.castOnOtherSpells(c)) {
+		if (CastOnOther.castOnOtherSpells(c.castingSpellId)) {
 			return true;
 		}
 		if (!PlayerHandler.players[c.playerIndex].inWild()
 				&& !PlayerHandler.players[c.playerIndex].inCwGame()
-				&& !CastOnOther.castOnOtherSpells(c)) {
+				&& !CastOnOther.castOnOtherSpells(c.castingSpellId)) {
 			c.getActionSender().sendMessage(
-					"That player is not in the wilderness.");
+					"That player is not in the wilderness." + c.castingSpellId);
 			c.stopMovement();
 			resetPlayerAttack();
 			return false;
 		}
 		if (!c.inWild() && !PlayerHandler.players[c.playerIndex].inCwGame()
-				&& !CastOnOther.castOnOtherSpells(c)) {
+				&& !CastOnOther.castOnOtherSpells(c.castingSpellId)) {
 			c.getActionSender().sendMessage(
 					"You are not in the wilderness.");
 			c.stopMovement();

@@ -70,9 +70,9 @@ public class Trading {
 		}
 	}
 	public boolean isCloseTo(Client tradedPlayer) {
-		ValueRange PlayerCoordRangeX = ValueRange.of(tradedPlayer.currentX - 3, tradedPlayer.currentX + 3);
-		ValueRange PlayerCoordRangeY = ValueRange.of(tradedPlayer.currentY - 3, tradedPlayer.currentY + 3);
-		if (PlayerCoordRangeX.isValidIntValue(player.currentX) && PlayerCoordRangeY.isValidIntValue(player.currentY)) {
+		ValueRange PlayerCoordRangeX = ValueRange.of(tradedPlayer.absX - 3, tradedPlayer.absX + 3);
+		ValueRange PlayerCoordRangeY = ValueRange.of(tradedPlayer.absY - 3, tradedPlayer.absY + 3);
+		if (PlayerCoordRangeX.isValidIntValue(player.absX) && PlayerCoordRangeY.isValidIntValue(player.absY)) {
 			return true;
 		} else {
 			return false;
@@ -252,9 +252,6 @@ public class Trading {
 		if (o == null) {
 			return false;
 		}
-		player.getActionSender().sendMessage("amount: " + amount);
-		player.getActionSender().sendMessage("player.playerItems[fromSlot]: " + player.playerItems[fromSlot]);
-		player.getActionSender().sendMessage("itemID + 1: " + itemID + 1);
 		if (!(player.playerItems[fromSlot] == itemID + 1 )){//&& player.playerItemsN[fromSlot] >= amount)) { I removed this check to permit trading max amount of item in inventory even when amount is higher than quantity in inventory.
 			player.getActionSender().sendMessage("You don't have that amount!");
 			return false;
