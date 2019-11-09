@@ -242,6 +242,11 @@ public class AttackPlayer implements PacketType {
 				break;
 			}
 
+			if (teleother) {
+				c.stopMovement();
+				c.getCombatAssistant().resetPlayerAttack();
+			}
+
 			for (int i = 0; i < MagicData.MAGIC_SPELLS.length; i++) {
 				if (castingSpellId == MagicData.MAGIC_SPELLS[i][0]) {
 					c.spellId = i;
