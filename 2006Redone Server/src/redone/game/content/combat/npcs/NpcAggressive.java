@@ -16,18 +16,9 @@ public class NpcAggressive {
 				110, 1611, 83, 941, 49, 117, 111, 125, 1154, 107, 1342, 1338, 447, 448, 449, 917
 		};
 		for (int element : data) {
-			if (NpcHandler.npcs[i].npcType == element) {
+			if ((NpcHandler.npcs[i].npcType == element || PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || FightCaves.isFightCaveNpc(i)) && NpcHandler.npcs[i].MaxHP > 0) {
 				return true;
 			}
-		}
-		if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType)) {
-			return true;
-		}
-		if (NpcHandler.npcs[i].inWild() && NpcHandler.npcs[i].MaxHP > 0) {
-			return true;
-		}
-		if (FightCaves.isFightCaveNpc(i)) {
-			return true;
 		}
 		return false;
 	}
