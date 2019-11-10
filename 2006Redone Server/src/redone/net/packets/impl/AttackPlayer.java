@@ -214,8 +214,6 @@ public class AttackPlayer implements PacketType {
 			}
 
 			if (teleother) {
-				c.stopMovement();
-				c.getCombatAssistant().resetPlayerAttack();
 				if (c.inTrade) {
 					c.getTrading().declineTrade(true);
 				}
