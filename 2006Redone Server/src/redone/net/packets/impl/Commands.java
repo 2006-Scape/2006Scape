@@ -196,6 +196,28 @@ public class Commands implements PacketType {
 
         public static void moderatorCommands(Client player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
+                        case "kick":
+                                try {
+                                        if (arguments.length == 0) {
+                                                player.getActionSender().sendMessage("You must specify a player name: ::kick playername");
+                                                return;
+                                        }
+                                        String playerToKick = String.join(" ", arguments);
+                                        for(Player player2 : PlayerHandler.players) {
+                                                if(player2 != null) {
+                                                        if(player2.playerName.equalsIgnoreCase(playerToKick)) {
+                                                                Client c2 = (Client)player2;
+                                                                player.getActionSender().sendMessage("You have kicked " + playerToKick + ".");
+                                                                c2.disconnected = true;
+                                                                c2.logout(true);
+                                                                break;
+                                                        }
+                                                }
+                                        }
+                                } catch(Exception e) {
+                                        player.getActionSender().sendMessage("Player Must Be Online.");
+                                }
+                                break;
                         case "yell":
                                 for (int j = 0; j < PlayerHandler.players.length; j++) {
                                         if (PlayerHandler.players[j] != null) {
@@ -539,7 +561,7 @@ public class Commands implements PacketType {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
                                                                 player.getActionSender().sendMessage("You have given " + playerToAdmin + " admin.");
                                                                 c2.playerRights = 2;
-                                                                c2.logout();
+                                                                c2.logout(true);
                                                                 break;
                                                         }
                                                 }
@@ -561,7 +583,7 @@ public class Commands implements PacketType {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
                                                                 player.getActionSender().sendMessage("You have demoted " + playerToAdmin + ".");
                                                                 c2.playerRights = 0;
-                                                                c2.logout();
+                                                                c2.logout(true);
                                                                 break;
                                                         }
                                                 }
@@ -583,7 +605,7 @@ public class Commands implements PacketType {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
                                                                 player.getActionSender().sendMessage("You have given " + playerToMod + " mod.");
                                                                 c2.playerRights = 1;
-                                                                c2.logout();
+                                                                c2.logout(true);
                                                                 break;
                                                         }
                                                 }

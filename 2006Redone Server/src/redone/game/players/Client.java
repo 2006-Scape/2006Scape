@@ -759,8 +759,12 @@ public class Client extends Player {
 			flushOutStream();
 		}
 	}
-	
+
 	public void logout() {
+		logout(false);
+	}
+
+	public void logout(boolean forceLogout) {
 		synchronized (this) {
 			if(Server.trawler.players.contains(this)) {
 				Server.trawler.players.remove(this);
@@ -795,7 +799,7 @@ public class Client extends Player {
 				PestControl.leaveWaitingBoat(this);
 				getPlayerAssistant().movePlayer(2657, 2639, 0);
 			}
-			if(underAttackBy > 0 || underAttackBy2 > 0) {
+			if(!forceLogout && (underAttackBy > 0 || underAttackBy2 > 0)) {
 				getActionSender().sendMessage("You can't logout during combat!");
 				return;
 			}
@@ -807,7 +811,7 @@ public class Client extends Player {
 			if (hasNpc == true) {
 				getSummon().pickUpClean(this, summonId);
 			}
-			if (System.currentTimeMillis() - logoutDelay > 2500) {
+			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
 				outStream.createFrame(109);
 				properLogout = true;
 			} else {
