@@ -278,7 +278,7 @@ public final class Signlink implements Runnable {
 	public static Synthesizer synthesizer = null;
 
 	public static String findcachedir() {
-		String path = System.getProperty("user.home") + "/.2006redone_file_system/";
+		String path = System.getProperty("user.home") + "/.2006rebotted_file_system/";
 		File file = new File(path);
 		if (!file.exists()) {
 			if (!file.mkdirs()) {
@@ -289,7 +289,7 @@ public final class Signlink implements Runnable {
 	}
 
 	public static String secondDir() {
-		File file = new File("C:/.2006redone_file_system/");
+		File file = new File("C:/.2006rebotted_file_system/");
 		if (!file.exists()) {
 			file.mkdirs();
 		}
