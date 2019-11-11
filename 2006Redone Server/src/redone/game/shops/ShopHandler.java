@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.util.Misc;
 
@@ -16,7 +17,7 @@ public class ShopHandler {
 
 	public static int MaxShops = 200;
 	public static int MaxShopItems = 200;
-	public static int MaxShowDelay = 10;
+	public static int MaxShowDelay = 2;
 	public static int MaxSpecShowDelay = 60;
 	public static int TotalShops = 0;
 	public static int[][] ShopItems = new int[MaxShops][MaxShopItems];
@@ -48,7 +49,7 @@ public class ShopHandler {
 		switch(itemId) {
 		
 			default:
-			return 5000;
+			return 1000;
 		}
 
 	}
