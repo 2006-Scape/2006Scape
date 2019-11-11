@@ -279,6 +279,10 @@ public final class ObjectDef {
 		return aBoolean767;
 	}
 
+	public boolean isUnshootable() {
+		return aBoolean757;
+	}
+
 	public boolean aBoolean736;
 	public String name;
 	public int anInt744;

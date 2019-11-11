@@ -63,7 +63,9 @@ public class ObjectManager {
 		}, ticks);
 	}
 	
-	public static void doubleGateTicks(final Client player, final int objectId, final int objectX, final int objectY, final int x1, final int y1, final int x2, final int y2, final int objectH, final int face, int ticks) {
+	public static void doubleGateTicks(final Client player, final int objectId, final int objectX, final int objectY,
+									   final int x1, final int y1, final int x2, final int y2,
+									   final int objectH, final int face, int ticks) {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {

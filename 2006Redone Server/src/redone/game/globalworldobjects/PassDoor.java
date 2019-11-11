@@ -20,13 +20,17 @@ public class PassDoor {
 			client.getActionSender().sendMessage("You must wait longer to pass this door.");
 			return false;
 		}
-		client.getActionSender().object(objectType, client.objectX, client.objectY, height, face1, type);
+
+		final int objX = client.objectX;
+		final int objY = client.objectY;
+
+		client.getActionSender().object(objectType, objX, objY, height, face1, type);
 		client.getPlayerAssistant().walkTo(x, y);
 		client.stopPlayer = true;
 		CycleEventHandler.getSingleton().addEvent(client, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				client.getActionSender().object(objectType, client.objectX, client.objectY, height, face2, type);
+				client.getActionSender().object(objectType, objX, objY, height, face2, type);
 				container.stop();
 			}
 
@@ -96,6 +100,7 @@ public class PassDoor {
 				if (Position.checkPosition(client, 3108, 3162, 0)) {
 					passThroughDoor(client, objectType, 2, 1, 9, -1, -1, 0);
 				} else if (Position.checkPosition(client, 3107, 3163, 0)) {
+					// wizz tower
 					passThroughDoor(client, objectType, 2, 1, 9, -1, -1, 0);
 				} else {
 					if (client.heightLevel == 0) {

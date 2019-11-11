@@ -24,10 +24,6 @@ public class Region {
 	    }
 	    return null;
 	}
-	
-	public static boolean blockedShot(int x, int y, int z) {
-		return (getClipping(x, y, z) & 0x20000) == 0;
-	}
 
 	public static Objects getObject(int id, int x, int y, int z) {
 		Region r = getRegion(x, y);
@@ -65,7 +61,121 @@ public class Region {
 		}
 		clips[height][x - regionAbsX][y - regionAbsY] |= shift;
 	}
-	
+
+	private void addProjectileClip(int x, int y, int height, int shift) {
+		int regionAbsX = (id >> 8) * 64;
+		int regionAbsY = (id & 0xff) * 64;
+		if (projectileClips[height] == null) {
+			projectileClips[height] = new int[64][64];
+		}
+		projectileClips[height][x - regionAbsX][y - regionAbsY] |= shift;
+	}
+
+	public static boolean canMove(int x, int y, int z, int direction) {
+		if (direction == 6) {
+			if ((Region.getClipping(x, y - 1, z) & 0x1280102) == 0) {
+				return true;
+			}
+		} else if (direction == 3) {
+			if ((Region.getClipping(x - 1, y, z) & 0x1280108) == 0) {
+				return true;
+			}
+		} else if (direction == 1) {
+			if ((Region.getClipping(x, y + 1, z) & 0x1280120) == 0) {
+				return true;
+			}
+		} else if (direction == 4) {
+			if ((Region.getClipping(x + 1, y, z) & 0x1280180) == 0) {
+				return true;
+			}
+		} else if (direction == 5) {
+			if ((Region.getClipping(x - 1, y - 1, z) & 0x128010e) == 0
+					&& (Region.getClipping(x - 1, y, z) & 0x1280108) == 0
+					&& (Region.getClipping(x, y - 1, z) & 0x1280102) == 0) {
+				return true;
+			}
+		} else if (direction == 0) {
+			if ((Region.getClipping(x - 1, y + 1, z) & 0x1280138) == 0
+					&& (Region.getClipping(x - 1, y, z) & 0x1280108) == 0
+					&& (Region.getClipping(x, y + 1, z) & 0x1280120) == 0) {
+				return true;
+			}
+		} else if (direction == 7) {
+			if ((Region.getClipping(x + 1, y - 1, z) & 0x1280183) == 0
+					&& (Region.getClipping(x + 1, y, z) & 0x1280180) == 0
+					&& (Region.getClipping(x, y - 1, z) & 0x1280102) == 0) {
+				return true;
+			}
+		} else if (direction == 2) {
+			if ((Region.getClipping(x + 1, y + 1, z) & 0x12801e0) == 0
+					&& (Region.getClipping(x + 1, y, z) & 0x1280180) == 0
+					&& (Region.getClipping(x, y + 1, z) & 0x1280120) == 0) {
+				return true;
+			}
+		} else if (direction == -1) {
+			throw new IllegalArgumentException("Invalid direction: " + direction);
+		}
+
+		return false;
+	}
+
+	public static boolean canShoot(int x, int y, int z, int direction) {
+		if (direction == 0) {
+			return !projectileBlockedNorthWest(x, y, z) && !projectileBlockedNorth(x, y, z)
+					&& !projectileBlockedWest(x, y, z);
+		} else if (direction == 1) {
+			return !projectileBlockedNorth(x, y, z);
+		} else if (direction == 2) {
+			return !projectileBlockedNorthEast(x, y, z) && !projectileBlockedNorth(x, y, z)
+					&& !projectileBlockedEast(x, y, z);
+		} else if (direction == 3) {
+			return !projectileBlockedWest(x, y, z);
+		} else if (direction == 4) {
+			return !projectileBlockedEast(x, y, z);
+		} else if (direction == 5) {
+			return !projectileBlockedSouthWest(x, y, z) && !projectileBlockedSouth(x, y, z)
+					&& !projectileBlockedWest(x, y, z);
+		} else if (direction == 6) {
+			return !projectileBlockedSouth(x, y, z);
+		} else if (direction == 7) {
+			return !projectileBlockedSouthEast(x, y, z) && !projectileBlockedSouth(x, y, z)
+					&& !projectileBlockedEast(x, y, z);
+		}
+		return false;
+	}
+
+	public static boolean projectileBlockedNorth(int x, int y, int z) {
+		return (getProjectileClipping(x, y + 1, z) & 0x1280120) != 0;
+	}
+
+	public static boolean projectileBlockedEast(int x, int y, int z) {
+		return (getProjectileClipping(x + 1, y, z) & 0x1280180) != 0;
+	}
+
+	public static boolean projectileBlockedSouth(int x, int y, int z) {
+		return (getProjectileClipping(x, y - 1, z) & 0x1280102) != 0;
+	}
+
+	public static boolean projectileBlockedWest(int x, int y, int z) {
+		return (getProjectileClipping(x - 1, y, z) & 0x1280108) != 0;
+	}
+
+	public static boolean projectileBlockedNorthEast(int x, int y, int z) {
+		return (getProjectileClipping(x + 1, y + 1, z) & 0x12801e0) != 0;
+	}
+
+	public static boolean projectileBlockedNorthWest(int x, int y, int z) {
+		return (getProjectileClipping(x - 1, y + 1, z) & 0x1280138) != 0;
+	}
+
+	public static boolean projectileBlockedSouthEast(int x, int y, int z) {
+		return (getProjectileClipping(x + 1, y - 1, z) & 0x1280183) != 0;
+	}
+
+	public static boolean projectileBlockedSouthWest(int x, int y, int z) {
+		return (getProjectileClipping(x - 1, y - 1, z) & 0x128010e) != 0;
+	}
+
 	public static boolean canMove(int startX, int startY, int endX, int endY, int height, int xLength, int yLength) {
 		int diffX = endX - startX;
 		int diffY = endY - startY;
@@ -149,6 +259,15 @@ public class Region {
 		return clips[height][x - regionAbsX][y - regionAbsY];
 	}
 
+	private int getProjectileClip(int x, int y, int height) {
+		int regionAbsX = (id >> 8) * 64;
+		int regionAbsY = (id & 0xff) * 64;
+		if (projectileClips[height] == null) {
+			return 0;
+		}
+		return projectileClips[height][x - regionAbsX][y - regionAbsY];
+	}
+
 	private static void addClipping(int x, int y, int height, int shift) {
 		int regionX = x >> 3;
 		int regionY = y >> 3;
@@ -161,9 +280,23 @@ public class Region {
 		}
 	}
 
+	private static void addProjectileClipping(int x, int y, int height, int shift) {
+		int regionX = x >> 3;
+		int regionY = y >> 3;
+		int regionId = (regionX / 8 << 8) + regionY / 8;
+		for (Region r : regions) {
+			if (r.id() == regionId) {
+				r.addProjectileClip(x, y, height, shift);
+				break;
+			}
+		}
+	}
+
+
 	private static Region[] regions;
 	private final int id;
 	private final int[][][] clips = new int[4][][];
+	private final int[][][] projectileClips = new int[4][][];
 	private boolean members = false;
 
 	public Region(int id, boolean members) {
@@ -298,6 +431,107 @@ public class Region {
 		}
 	}
 
+	private static void addProjectileClippingForVariableObject(int x, int y, int height,
+													 int type, int direction, boolean flag) {
+		if (type == 0) {
+			if (direction == 0) {
+				addProjectileClipping(x, y, height, 128);
+				addProjectileClipping(x - 1, y, height, 8);
+			} else if (direction == 1) {
+				addProjectileClipping(x, y, height, 2);
+				addProjectileClipping(x, y + 1, height, 32);
+			} else if (direction == 2) {
+				addProjectileClipping(x, y, height, 8);
+				addProjectileClipping(x + 1, y, height, 128);
+			} else if (direction == 3) {
+				addProjectileClipping(x, y, height, 32);
+				addProjectileClipping(x, y - 1, height, 2);
+			}
+		} else if (type == 1 || type == 3) {
+			if (direction == 0) {
+				addProjectileClipping(x, y, height, 1);
+				addProjectileClipping(x - 1, y, height, 16);
+			} else if (direction == 1) {
+				addProjectileClipping(x, y, height, 4);
+				addProjectileClipping(x + 1, y + 1, height, 64);
+			} else if (direction == 2) {
+				addProjectileClipping(x, y, height, 16);
+				addProjectileClipping(x + 1, y - 1, height, 1);
+			} else if (direction == 3) {
+				addProjectileClipping(x, y, height, 64);
+				addProjectileClipping(x - 1, y - 1, height, 4);
+			}
+		} else if (type == 2) {
+			if (direction == 0) {
+				addProjectileClipping(x, y, height, 130);
+				addProjectileClipping(x - 1, y, height, 8);
+				addProjectileClipping(x, y + 1, height, 32);
+			} else if (direction == 1) {
+				addProjectileClipping(x, y, height, 10);
+				addProjectileClipping(x, y + 1, height, 32);
+				addProjectileClipping(x + 1, y, height, 128);
+			} else if (direction == 2) {
+				addProjectileClipping(x, y, height, 40);
+				addProjectileClipping(x + 1, y, height, 128);
+				addProjectileClipping(x, y - 1, height, 2);
+			} else if (direction == 3) {
+				addProjectileClipping(x, y, height, 160);
+				addProjectileClipping(x, y - 1, height, 2);
+				addProjectileClipping(x - 1, y, height, 8);
+			}
+		}
+		if (flag) {
+			if (type == 0) {
+				if (direction == 0) {
+					addProjectileClipping(x, y, height, 65536);
+					addProjectileClipping(x - 1, y, height, 4096);
+				} else if (direction == 1) {
+					addProjectileClipping(x, y, height, 1024);
+					addProjectileClipping(x, y + 1, height, 16384);
+				} else if (direction == 2) {
+					addProjectileClipping(x, y, height, 4096);
+					addProjectileClipping(x + 1, y, height, 65536);
+				} else if (direction == 3) {
+					addProjectileClipping(x, y, height, 16384);
+					addProjectileClipping(x, y - 1, height, 1024);
+				}
+			}
+			if (type == 1 || type == 3) {
+				if (direction == 0) {
+					addProjectileClipping(x, y, height, 512);
+					addProjectileClipping(x - 1, y + 1, height, 8192);
+				} else if (direction == 1) {
+					addProjectileClipping(x, y, height, 2048);
+					addProjectileClipping(x + 1, y + 1, height, 32768);
+				} else if (direction == 2) {
+					addProjectileClipping(x, y, height, 8192);
+					addProjectileClipping(x + 1, y + 1, height, 512);
+				} else if (direction == 3) {
+					addProjectileClipping(x, y, height, 32768);
+					addProjectileClipping(x - 1, y - 1, height, 2048);
+				}
+			} else if (type == 2) {
+				if (direction == 0) {
+					addProjectileClipping(x, y, height, 66560);
+					addProjectileClipping(x - 1, y, height, 4096);
+					addProjectileClipping(x, y + 1, height, 16384);
+				} else if (direction == 1) {
+					addProjectileClipping(x, y, height, 5120);
+					addProjectileClipping(x, y + 1, height, 16384);
+					addProjectileClipping(x + 1, y, height, 65536);
+				} else if (direction == 2) {
+					addProjectileClipping(x, y, height, 20480);
+					addProjectileClipping(x + 1, y, height, 65536);
+					addProjectileClipping(x, y - 1, height, 1024);
+				} else if (direction == 3) {
+					addProjectileClipping(x, y, height, 81920);
+					addProjectileClipping(x, y - 1, height, 1024);
+					addProjectileClipping(x - 1, y, height, 4096);
+				}
+			}
+		}
+	}
+
 	private static void addClippingForSolidObject(int x, int y, int height,
 			int xLength, int yLength, boolean flag) {
 		int clipping = 256;
@@ -307,6 +541,19 @@ public class Region {
 		for (int i = x; i < x + xLength; i++) {
 			for (int i2 = y; i2 < y + yLength; i2++) {
 				addClipping(i, i2, height, clipping);
+			}
+		}
+	}
+
+	private static void addProjectileClippingForSolidObject(int x, int y, int height,
+												  int xLength, int yLength, boolean flag) {
+		int clipping = 256;
+		if (flag) {
+			clipping += 0x20000;
+		}
+		for (int i = x; i < x + xLength; i++) {
+			for (int i2 = y; i2 < y + yLength; i2++) {
+				addProjectileClipping(i, i2, height, clipping);
 			}
 		}
 	}
@@ -327,16 +574,26 @@ public class Region {
 			if (ObjectDef.getObjectDef(objectId).hasActions()
 					&& ObjectDef.getObjectDef(objectId).aBoolean767()) {
 				addClipping(x, y, height, 0x200000);
+				if (ObjectDef.getObjectDef(objectId).isUnshootable()) {
+					addProjectileClipping(x, y, height, 0x200000);
+				}
 			}
 		} else if (type >= 9) {
 			if (ObjectDef.getObjectDef(objectId).aBoolean767()) {
 				addClippingForSolidObject(x, y, height, xLength, yLength,
 						ObjectDef.getObjectDef(objectId).solid());
+				if (ObjectDef.getObjectDef(objectId).isUnshootable()) {
+					addProjectileClippingForSolidObject(x, y, height, xLength, yLength,
+							ObjectDef.getObjectDef(objectId).solid());
+				}
 			}
 		} else if (type >= 0 && type <= 3) {
 			if (ObjectDef.getObjectDef(objectId).aBoolean767()) {
 				addClippingForVariableObject(x, y, height, type, direction,
 						ObjectDef.getObjectDef(objectId).solid());
+				if (ObjectDef.getObjectDef(objectId).isUnshootable()) {
+					addProjectileClippingForVariableObject(x, y, height, type, direction, ObjectDef.getObjectDef(objectId).solid());
+				}
 			}
 		}
 		Region r = getRegion(x, y);
@@ -358,6 +615,21 @@ public class Region {
 		for (Region r : regions) {
 			if (r.id() == regionId) {
 				return r.getClip(x, y, height);
+			}
+		}
+		return 0;
+	}
+
+	public static int getProjectileClipping(int x, int y, int height) {
+		if (height > 3) {
+			height = 0;
+		}
+		int regionX = x >> 3;
+		int regionY = y >> 3;
+		int regionId = (regionX / 8 << 8) + regionY / 8;
+		for (Region r : regions) {
+			if (r.id() == regionId) {
+				return r.getProjectileClip(x, y, height);
 			}
 		}
 		return 0;
