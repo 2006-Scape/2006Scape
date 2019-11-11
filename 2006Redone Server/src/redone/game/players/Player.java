@@ -888,11 +888,11 @@ public abstract class Player {
 
 	public byte playerInListBitmap[] = new byte[Constants.MAX_PLAYERS + 7 >> 3];
 
-	public static final int maxNPCListSize = NpcHandler.maxNPCs;
+	public static final int maxNPCListSize = NpcHandler.MAX_NPCS;
 	public Npc npcList[] = new Npc[maxNPCListSize];
 	public int npcListSize = 0;
 
-	public byte npcInListBitmap[] = new byte[NpcHandler.maxNPCs + 7 >> 3];
+	public byte npcInListBitmap[] = new byte[NpcHandler.MAX_NPCS + 7 >> 3];
 
 	public boolean withinDistance(Player otherPlr) {
 		if (heightLevel != otherPlr.heightLevel) {

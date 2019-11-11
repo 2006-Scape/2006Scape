@@ -217,7 +217,7 @@ public class Stalls {
 	}
 
 	private static void failGuards(final Client c) {
-		for (int i = 1; i < NpcHandler.maxNPCs; i ++) {
+		for (int i = 1; i < NpcHandler.MAX_NPCS; i ++) {
 			if (NpcHandler.npcs[i] != null) {
 				if (NpcHandler.npcs[i].npcType == 32
 						|| NpcHandler.npcs[i].npcType == 1317
