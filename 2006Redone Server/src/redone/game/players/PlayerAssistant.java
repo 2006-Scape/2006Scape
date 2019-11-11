@@ -2444,7 +2444,7 @@ public class PlayerAssistant {
 			if (!player.hasBankpin) {
 				player.getActionSender()
 						.sendMessage(
-								"You do not, have a bank pin it is highly recommened you set one.");
+								"You do not, have a bank pin it is highly recommended you set one.");
 			}
 		}
 	}

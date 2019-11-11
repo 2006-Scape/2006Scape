@@ -413,20 +413,13 @@ public class NpcHandler {
 					continue;
 				}
 
-				/**
-				 * Attacking player
-				 **/
-				
 				Client client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
 				if (client != null) {
-					boolean aggressive = NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel;
-					if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && !switchesAttackers(i)) {
-						npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
-					} else if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && switchesAttackers(i)) {
+					boolean aggressive = (NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel);
+					if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && npcs[i].MaxHP > 0) {
 						npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
 					}
 				}
-
 
 				if (System.currentTimeMillis() - npcs[i].lastDamageTaken > 5000) {
 					npcs[i].underAttackBy = 0;
