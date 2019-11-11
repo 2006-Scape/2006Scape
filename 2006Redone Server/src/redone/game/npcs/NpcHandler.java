@@ -26,13 +26,13 @@ import redone.world.clip.Region;
 
 public class NpcHandler {
 
-	public static int maxNPCs = 5000;
-	public static int maxListedNPCs = 5000;
-	public static Npc npcs[] = new Npc[maxNPCs];
+	public static int MAX_NPCS = 4000;
+	public static int maxListedNPCs = 4000;
+	public static Npc npcs[] = new Npc[MAX_NPCS];
 	public static NpcList NpcList[] = new NpcList[maxListedNPCs];
 
 	public NpcHandler() {
-		for (int i = 0; i < maxNPCs; i++) {
+		for (int i = 0; i < MAX_NPCS; i++) {
 			npcs[i] = null;
 		}
 		for (int i = 0; i < maxListedNPCs; i++) {
@@ -40,6 +40,11 @@ public class NpcHandler {
 		}
 		loadNPCList("./data/cfg/npc.cfg");
 		loadAutoSpawn("./data/cfg/spawn-config.cfg");
+		try {
+			NPCDefinition.init();
+		} catch (Exception e) {
+			System.out.println("npc def error");
+		}
 	}
 	
 	public static boolean isUndead(int index) {
@@ -54,7 +59,7 @@ public class NpcHandler {
 			int WalkingType, int HP, int maxHit, int attack, int defence,
 			boolean attackPlayer, boolean headIcon, boolean summonFollow) {
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -149,7 +154,7 @@ public class NpcHandler {
 			int defence, boolean attackPlayer, boolean headIcon) {
 		// first, search for a free slot
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -196,7 +201,7 @@ public class NpcHandler {
 	public void spawnNpc2(int npcType, int x, int y, int heightLevel, int WalkingType, int HP, int maxHit, int attack, int defence) {
 		// first, search for a free slot
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -249,7 +254,7 @@ public class NpcHandler {
 			int WalkingType, int HP, int maxHit, int attack, int defence) {
 		// first, search for a free slot
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -332,7 +337,7 @@ public class NpcHandler {
 			i.clearUpdateFlags();
 		}
 
-		for (int i = 0; i < maxNPCs; i++) {
+		for (int i = 0; i < MAX_NPCS; i++) {
 			if (npcs[i] != null) {
 
 				Client slaveOwner = (Client) PlayerHandler.players[npcs[i].summonedBy];
@@ -415,7 +420,7 @@ public class NpcHandler {
 
 				Client client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
 				if (client != null) {
-					boolean aggressive = (NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel);
+					boolean aggressive = (NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel && getNpcListAggressive(i));
 					if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && npcs[i].MaxHP > 0) {
 						npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
 					}
@@ -1403,8 +1408,12 @@ public class NpcHandler {
 	}
 
 	public static boolean checkSpawn(Client player, int i) {
-		return npcs[i] != null && npcs[i].spawnedBy != -1
-				&& npcs[i].npcType == i;
+		return npcs[i] != null && npcs[i].spawnedBy != -1 && npcs[i].npcType == i;
 	}
+	
+	public boolean getNpcListAggressive(int npcId) {
+		return NPCDefinition.forId(npcId).isAggressive();
+	}
+
 
 }
