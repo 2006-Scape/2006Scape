@@ -1,3 +1,8 @@
+/**
+ * NOTICE: IF YOU CHANGE ANYTHING IN GAME.JAVA, PLEASE COPY-PASTE THE WHOLE CLASS OVER TO LOCALGAME.JAVA
+ * THIS IS TO ALLOW LOCAL PARABOT TO CONTINUE TO WORK
+ */
+
 import java.applet.AppletContext;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,8 +25,13 @@ import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * NOTICE: IF YOU CHANGE ANYTHING IN GAME.JAVA, PLEASE COPY-PASTE THE WHOLE CLASS OVER TO LOCALGAME.JAVA
+ * THIS IS TO ALLOW LOCAL PARABOT TO CONTINUE TO WORK
+ */
 @SuppressWarnings("serial")
 public class Game extends RSApplet {
+	private boolean graphicsEnabled = true;
 
 	public static String intToKOrMilLongName(int i) {
 		String s = String.valueOf(i);
@@ -4761,6 +4771,9 @@ public class Game extends RSApplet {
 					inputTaken = true;
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
+					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx")) {
+						graphicsEnabled = !graphicsEnabled;
+					}
 					if (myPrivilege == 2) {
 						if (inputString.equals("::clientdrop")) {
 							dropClient();
@@ -11478,20 +11491,25 @@ public class Game extends RSApplet {
 		Model.anInt1685 = super.mouseX - 4;
 		Model.anInt1686 = super.mouseY - 4;
 		DrawingArea.setAllPixelsToZero();
-		// xxx disables graphics if(graphicsEnabled){
-		worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
-		worldController.clearObj5Cache();
-		updateEntities();
-		drawHeadIcon();
+		if(graphicsEnabled){
+			worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
+			worldController.clearObj5Cache();
+			updateEntities();
+			drawHeadIcon();
+		}
+		// Allow tabs to work
 		method37(k2);
+		// Allow stuff inside the tabs to work
 		draw3dScreen();
+		// Show overlays on main screen
 		aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
-		xCameraPos = l;
-		zCameraPos = i1;
-		yCameraPos = j1;
-		yCameraCurve = k1;
-		xCameraCurve = l1;
-		// }
+		if(graphicsEnabled) {
+			xCameraPos = l;
+			zCameraPos = i1;
+			yCameraPos = j1;
+			yCameraCurve = k1;
+			xCameraCurve = l1;
+		}
 	}
 
 	public void closeOpenInterfaces() {

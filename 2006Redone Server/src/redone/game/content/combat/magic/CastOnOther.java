@@ -8,10 +8,10 @@ import redone.game.players.PlayerHandler;
 
 public class CastOnOther extends CastRequirements {
 
-	public static boolean castOnOtherSpells(Client c) {
+	public static boolean castOnOtherSpells(int castingSpellId) {
 		int[] spells = { 12435, 12455, 12425, 30298, 30290, 30282, };
 		for (int spell : spells) {
-			if (c.castingSpellId == spell) {
+			if (castingSpellId == spell) {
 				return true;
 			}
 		}
@@ -44,9 +44,9 @@ public class CastOnOther extends CastRequirements {
 		if (castOn != null) {
 			if (castOn.distanceToPoint(c.absX, c.absY) <= 15) {
 				if (c.heightLevel == castOn.heightLevel) {
-					c.getPlayerAssistant().sendFrame126(location[type], 12560);
-					c.getPlayerAssistant().sendFrame126(c.playerName, 12558);
-					c.getPlayerAssistant().showInterface(12468);
+					castOn.getPlayerAssistant().sendFrame126(location[type], 12560);
+					castOn.getPlayerAssistant().sendFrame126(c.playerName, 12558);
+					castOn.getPlayerAssistant().showInterface(12468);
 					castOn.teleotherType = type;
 				}
 			}
@@ -57,7 +57,7 @@ public class CastOnOther extends CastRequirements {
 			boolean decline) {
 		c.getPlayerAssistant().removeAllWindows();
 		final int[][] coords = { { 3222, 3218 }, // LUMBRIDGE
-				{ 2964, 3378 }, // FALADOR
+				{ 2967, 3378 }, // FALADOR
 				{ 2757, 3477 }, // CAMELOT
 		};
 		if (!decline) {

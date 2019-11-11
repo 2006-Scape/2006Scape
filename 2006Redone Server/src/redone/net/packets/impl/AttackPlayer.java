@@ -195,9 +195,10 @@ public class AttackPlayer implements PacketType {
 
 			c.playerIndex = c.getInStream().readSignedWordA();
 			int castingSpellId = c.getInStream().readSignedWordBigEndian();
+			c.castingSpellId = castingSpellId;
 			c.usingMagic = false;
 
-			boolean teleother = CastOnOther.castOnOtherSpells(c);
+			boolean teleother = CastOnOther.castOnOtherSpells(castingSpellId);
 
 			if (PlayerHandler.players[c.playerIndex] == null) {
 				break;
@@ -209,11 +210,26 @@ public class AttackPlayer implements PacketType {
 
 			if (c.playerRights == 3) {
 				c.getActionSender().sendMessage(
-						"Casting Spell id: " + c.castingSpellId + ".");
+						"Casting Spell id: " + castingSpellId + ".");
 			}
+
+			if (teleother) {
+				if (c.inTrade) {
+					c.getTrading().declineTrade(true);
+				}
+				if (c.inWild()
+						&& c.wildLevel > Constants.NO_TELEPORT_WILD_LEVEL) {
+					c.getActionSender().sendMessage(
+							"You can't teleport above level "
+									+ Constants.NO_TELEPORT_WILD_LEVEL
+									+ " in the wilderness.");
+					break;
+				}
+			}
+
 			switch (c.castingSpellId) {
 			case 12425:
-				CastOnOther.teleOtherDistance(c, 1, c.playerIndex);
+				CastOnOther.teleOtherDistance(c, 0, c.playerIndex);
 				break;
 			case 12435:
 				CastOnOther.teleOtherDistance(c, 1, c.playerIndex);
@@ -222,12 +238,10 @@ public class AttackPlayer implements PacketType {
 				CastOnOther.teleOtherDistance(c, 2, c.playerIndex);
 				break;
 			}
+
 			if (teleother) {
 				c.stopMovement();
 				c.getCombatAssistant().resetPlayerAttack();
-				if (c.inTrade) {
-					c.getTrading().declineTrade(true);
-				}
 			}
 
 			for (int i = 0; i < MagicData.MAGIC_SPELLS.length; i++) {
@@ -288,21 +302,8 @@ public class AttackPlayer implements PacketType {
 					c.stopMovement();
 					c.getCombatAssistant().resetPlayerAttack();
 				}
-
-				if (c.usingMagic) {
-					if (c.goodDistance(c.getX(), c.getY(),
-							PlayerHandler.players[c.playerIndex].getX(),
-							PlayerHandler.players[c.playerIndex].getY(), 7)) {
-						c.stopMovement();
-					}
-					if (c.getCombatAssistant().checkReqs()) {
-						c.followId = c.playerIndex;
-						c.mageFollow = true;
-					}
-				}
 			}
 			break;
-
 		}
 
 	}

@@ -984,9 +984,6 @@ public class CombatAssistant {
 				resetPlayerAttack();
 				return;
 			}
-			// c.getPacketDispatcher().sendMessage("Made it here0.");
-			c.followId = i;
-			c.followId2 = 0;
 			if (c.attackTimer <= 0) {
 				c.usingBow = false;
 				c.specEffect = 0;
@@ -1005,8 +1002,6 @@ public class CombatAssistant {
 					c.attackTimer = 0;
 					return;
 				}
-
-				// c.getPacketDispatcher().sendMessage("Made it here1.");
 				if (!c.usingMagic) {
 					for (int bowId : RangeData.BOWS) {
 						if (c.playerEquipment[c.playerWeapon] == bowId) {
@@ -1029,7 +1024,6 @@ public class CombatAssistant {
 					c.spellId = c.autocastId;
 					c.usingMagic = true;
 				}
-				// c.getPacketDispatcher().sendMessage("Made it here2.");
 				if (c.spellId > 0) {
 					c.usingMagic = true;
 				}
@@ -1049,7 +1043,7 @@ public class CombatAssistant {
 						return;
 					}
 				}
-				// c.getPacketDispatcher().sendMessage("Made it here3.");
+
 				if (c.duelRule[2] && (c.usingBow || c.usingRangeWeapon)) {
 					c.getActionSender().sendMessage(
 							"Range has been disabled in this duel!");
@@ -1233,8 +1227,6 @@ public class CombatAssistant {
 								CombatSounds.getMagicSound(c, c.spellId), 100,
 								0);
 					}
-					c.mageFollow = true;
-					c.followId = c.playerIndex;
 				}
 
 				c.attackTimer = getAttackDelay();
@@ -2103,20 +2095,20 @@ public class CombatAssistant {
 				return false;
 			}
 		}
-		if (CastOnOther.castOnOtherSpells(c)) {
+		if (CastOnOther.castOnOtherSpells(c.castingSpellId)) {
 			return true;
 		}
 		if (!PlayerHandler.players[c.playerIndex].inWild()
 				&& !PlayerHandler.players[c.playerIndex].inCwGame()
-				&& !CastOnOther.castOnOtherSpells(c)) {
+				&& !CastOnOther.castOnOtherSpells(c.castingSpellId)) {
 			c.getActionSender().sendMessage(
-					"That player is not in the wilderness.");
+					"That player is not in the wilderness." + c.castingSpellId);
 			c.stopMovement();
 			resetPlayerAttack();
 			return false;
 		}
 		if (!c.inWild() && !PlayerHandler.players[c.playerIndex].inCwGame()
-				&& !CastOnOther.castOnOtherSpells(c)) {
+				&& !CastOnOther.castOnOtherSpells(c.castingSpellId)) {
 			c.getActionSender().sendMessage(
 					"You are not in the wilderness.");
 			c.stopMovement();

@@ -166,13 +166,13 @@ public class Commands implements PacketType {
                                         "@dre@Highscores",
                                         "",
                                         "Top 5 Total Level:",
-                                        hs.getRank(0, "level"), hs.getRank(1, "level"), hs.getRank(2, "level"), hs.getRank(3, "level"), hs.getRank(4, "level"),
+                                        hs.getRank(player, 0, "level"), hs.getRank(player,1, "level"), hs.getRank(player,2, "level"), hs.getRank(player,3, "level"), hs.getRank(player,4, "level"),
                                         "",
                                         "Top 5 Wealthiest Players:",
-                                        hs.getRank(0, "gold"), hs.getRank(1, "gold"), hs.getRank(2, "gold"), hs.getRank(3, "gold"), hs.getRank(4, "gold"),
+                                        hs.getRank(player,0, "gold"), hs.getRank(player,1, "gold"), hs.getRank(player,2, "gold"), hs.getRank(player,3, "gold"), hs.getRank(player, 4, "gold"),
                                         "",
                                         "Top 5 Highest Total Damage:",
-                                        hs.getRank(0, "damage"), hs.getRank(1, "damage"), hs.getRank(2, "damage"), hs.getRank(3, "damage"), hs.getRank(4, "damage"),
+                                        hs.getRank(player,0, "damage"), hs.getRank(player,1, "damage"), hs.getRank(player,2, "damage"), hs.getRank(player, 3, "damage"), hs.getRank(player, 4, "damage"),
                                 };
 
                                 for (int i = 8144; i < 8245; i++) {
@@ -196,6 +196,28 @@ public class Commands implements PacketType {
 
         public static void moderatorCommands(Client player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
+                        case "kick":
+                                try {
+                                        if (arguments.length == 0) {
+                                                player.getActionSender().sendMessage("You must specify a player name: ::kick playername");
+                                                return;
+                                        }
+                                        String playerToKick = String.join(" ", arguments);
+                                        for(Player player2 : PlayerHandler.players) {
+                                                if(player2 != null) {
+                                                        if(player2.playerName.equalsIgnoreCase(playerToKick)) {
+                                                                Client c2 = (Client)player2;
+                                                                player.getActionSender().sendMessage("You have kicked " + playerToKick + ".");
+                                                                c2.disconnected = true;
+                                                                c2.logout(true);
+                                                                break;
+                                                        }
+                                                }
+                                        }
+                                } catch(Exception e) {
+                                        player.getActionSender().sendMessage("Player Must Be Online.");
+                                }
+                                break;
                         case "yell":
                                 for (int j = 0; j < PlayerHandler.players.length; j++) {
                                         if (PlayerHandler.players[j] != null) {
@@ -470,7 +492,7 @@ public class Commands implements PacketType {
                                         player.playerLevel[skill] = player.getPlayerAssistant().getLevelForXP(player.playerXP[skill]);
                                         player.getPlayerAssistant().refreshSkill(skill);
                                         player.getPlayerAssistant().levelUp(skill);
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
                         case "spellbook":
                                 if (player.inWild()) {
@@ -506,7 +528,7 @@ public class Commands implements PacketType {
                                         } else {
                                                 player.getActionSender().sendMessage("No such item.");
                                         }
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
                         case "master":
                                 for (int i = 0; i < 25; i++) {
@@ -522,6 +544,7 @@ public class Commands implements PacketType {
         public static void developerCommands(Client player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
                         case "clicktotele":
+                        case "ctt": // alias
                                 player.clickToTele = !player.clickToTele;
                                 player.getActionSender().sendMessage("Click to teleport: " + (player.clickToTele ? "Enabled" : "Disabled"));
                                 break;
@@ -538,7 +561,7 @@ public class Commands implements PacketType {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
                                                                 player.getActionSender().sendMessage("You have given " + playerToAdmin + " admin.");
                                                                 c2.playerRights = 2;
-                                                                c2.logout();
+                                                                c2.logout(true);
                                                                 break;
                                                         }
                                                 }
@@ -560,7 +583,7 @@ public class Commands implements PacketType {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
                                                                 player.getActionSender().sendMessage("You have demoted " + playerToAdmin + ".");
                                                                 c2.playerRights = 0;
-                                                                c2.logout();
+                                                                c2.logout(true);
                                                                 break;
                                                         }
                                                 }
@@ -582,7 +605,7 @@ public class Commands implements PacketType {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
                                                                 player.getActionSender().sendMessage("You have given " + playerToMod + " mod.");
                                                                 c2.playerRights = 1;
-                                                                c2.logout();
+                                                                c2.logout(true);
                                                                 break;
                                                         }
                                                 }
@@ -625,9 +648,9 @@ public class Commands implements PacketType {
                                         } else {
                                                 player.getActionSender().sendMessage("Npc " + newNPC + " does not exist.");
                                         }
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
-                        case "cantAttack":
+                        case "cantattack":
                                 player.npcCanAttack = !player.npcCanAttack;
                                 player.getActionSender().sendMessage("Npcs " + (player.npcCanAttack ? "can" : "can no longer") + " attack you.");
                                 break;
@@ -684,7 +707,7 @@ public class Commands implements PacketType {
                                         PlayerHandler.updateAnnounced = false;
                                         PlayerHandler.updateRunning = true;
                                         PlayerHandler.updateStartTime = System.currentTimeMillis();
-                                } catch (Exception ಠ_ಠ) {}
+                                } catch (Exception e) {}
                                 break;
                 }
         }

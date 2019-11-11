@@ -571,7 +571,7 @@ public class Client extends Player {
 			Server.clanChat.leaveClan(playerId, clanId);
 		}
 
-		if(!Server.ersSecret.equals("")) {
+		if(Server.ersSecret  != null && !Server.ersSecret.equals("") && this.playerRights < 2) {
 			boolean debugMessage = false;
 			System.out.println("Updating highscores for " + this.playerName + "!");
 			com.everythingrs.hiscores.Hiscores.update(Server.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
@@ -654,19 +654,22 @@ public class Client extends Player {
 				playerLevel[playerFarming] = 1;
 				getPlayerAssistant().refreshSkill(playerFarming);
 			}
-			getPlayerAssistant().firstTimeTutorial();
 			if (tutorialProgress > 0 && tutorialProgress < 36 && Constants.TUTORIAL_ISLAND) {
 				getActionSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
 			}
 			if (tutorialProgress > 35) {
 				getPlayerAssistant().sendSidebars();
-				getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
+				Weight.updateWeight(this);
 				getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
 				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
-				getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
-				getActionSender().sendMessage("Welcome to the 2006rebotted beta! Join our Discord: discord.gg/4zrA2Wy");
+				getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+				/*if (!hasBankpin) { //Kind of annoying. Maybe add Random % 10 or something.
+					getActionSender().sendMessage("You do not have a bank pin it is highly recommended you set one.");
+				}*/
 			}
+			getPlayerAssistant().firstTimeTutorial();
+			getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
 			for (int i = 0; i < 25; i++) {
 				getActionSender().setSkillLevel(i, playerLevel[i], playerXP[i]);
 				getPlayerAssistant().refreshSkill(i);
@@ -697,7 +700,6 @@ public class Client extends Player {
 				getPlayerAssistant().sendConfig(504, 0);
 				getPlayerAssistant().sendConfig(173, 0);
 			}
-			Weight.updateWeight(this);
 
 			getPlayList().fixAllColors();
 			getPlayerAction().setAction(false);
@@ -763,8 +765,12 @@ public class Client extends Player {
 			flushOutStream();
 		}
 	}
-	
+
 	public void logout() {
+		logout(false);
+	}
+
+	public void logout(boolean forceLogout) {
 		synchronized (this) {
 			if(Server.trawler.players.contains(this)) {
 				Server.trawler.players.remove(this);
@@ -799,7 +805,7 @@ public class Client extends Player {
 				PestControl.leaveWaitingBoat(this);
 				getPlayerAssistant().movePlayer(2657, 2639, 0);
 			}
-			if(underAttackBy > 0 || underAttackBy2 > 0) {
+			if(!forceLogout && (underAttackBy > 0 || underAttackBy2 > 0)) {
 				getActionSender().sendMessage("You can't logout during combat!");
 				return;
 			}
@@ -811,7 +817,7 @@ public class Client extends Player {
 			if (hasNpc == true) {
 				getSummon().pickUpClean(this, summonId);
 			}
-			if (System.currentTimeMillis() - logoutDelay > 2500) {
+			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
 				outStream.createFrame(109);
 				properLogout = true;
 			} else {
@@ -938,7 +944,7 @@ public class Client extends Player {
 	@Override
 	public void process() {
 
-		if (playerEnergy < 100&& System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
+		if (playerEnergy < 100 && System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
 			playerEnergy += 1;
 			lastIncrease = System.currentTimeMillis();
 		}

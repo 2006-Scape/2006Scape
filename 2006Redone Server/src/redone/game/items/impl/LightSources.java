@@ -76,7 +76,7 @@ public class LightSources {
 				return true;
 			}
 		}
-		c.getActionSender().sendMessage("It's recommened that you get a light source to continue.");
+		c.getActionSender().sendMessage("It's recommended that you get a light source to continue.");
 		brightness1(c);
 		return false;
 	}

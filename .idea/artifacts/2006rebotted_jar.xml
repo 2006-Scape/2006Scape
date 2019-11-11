@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="2006rebotted:jar">
+    <output-path>$PROJECT_DIR$/CompiledServer/artifacts/2006rebotted_jar</output-path>
+    <root id="archive" name="2006rebotted.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/2006Redone Client/METAs/Client Meta/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="2006rebotted" />
+    </root>
+  </artifact>
+</component>

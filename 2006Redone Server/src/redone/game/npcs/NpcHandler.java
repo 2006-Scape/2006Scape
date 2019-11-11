@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import redone.Constants;
 import redone.Server;
 import redone.game.content.combat.npcs.NpcAggressive;
@@ -27,13 +26,13 @@ import redone.world.clip.Region;
 
 public class NpcHandler {
 
-	public static int maxNPCs = 5000;
-	public static int maxListedNPCs = 5000;
-	public static Npc npcs[] = new Npc[maxNPCs];
+	public static int MAX_NPCS = 4000;
+	public static int maxListedNPCs = 4000;
+	public static Npc npcs[] = new Npc[MAX_NPCS];
 	public static NpcList NpcList[] = new NpcList[maxListedNPCs];
 
 	public NpcHandler() {
-		for (int i = 0; i < maxNPCs; i++) {
+		for (int i = 0; i < MAX_NPCS; i++) {
 			npcs[i] = null;
 		}
 		for (int i = 0; i < maxListedNPCs; i++) {
@@ -41,6 +40,11 @@ public class NpcHandler {
 		}
 		loadNPCList("./data/cfg/npc.cfg");
 		loadAutoSpawn("./data/cfg/spawn-config.cfg");
+		try {
+			NPCDefinition.init();
+		} catch (Exception e) {
+			System.out.println("npc def error");
+		}
 	}
 	
 	public static boolean isUndead(int index) {
@@ -55,7 +59,7 @@ public class NpcHandler {
 			int WalkingType, int HP, int maxHit, int attack, int defence,
 			boolean attackPlayer, boolean headIcon, boolean summonFollow) {
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -150,7 +154,7 @@ public class NpcHandler {
 			int defence, boolean attackPlayer, boolean headIcon) {
 		// first, search for a free slot
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -197,7 +201,7 @@ public class NpcHandler {
 	public void spawnNpc2(int npcType, int x, int y, int heightLevel, int WalkingType, int HP, int maxHit, int attack, int defence) {
 		// first, search for a free slot
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -250,7 +254,7 @@ public class NpcHandler {
 			int WalkingType, int HP, int maxHit, int attack, int defence) {
 		// first, search for a free slot
 		int slot = -1;
-		for (int i = 1; i < maxNPCs; i++) {
+		for (int i = 1; i < MAX_NPCS; i++) {
 			if (npcs[i] == null) {
 				slot = i;
 				break;
@@ -333,7 +337,7 @@ public class NpcHandler {
 			i.clearUpdateFlags();
 		}
 
-		for (int i = 0; i < maxNPCs; i++) {
+		for (int i = 0; i < MAX_NPCS; i++) {
 			if (npcs[i] != null) {
 
 				Client slaveOwner = (Client) PlayerHandler.players[npcs[i].summonedBy];
@@ -414,24 +418,13 @@ public class NpcHandler {
 					continue;
 				}
 
-				/**
-				 * Attacking player
-				 **/
-				
-				if (NpcAggressive.isAggressive(i) && !npcs[i].underAttack && !npcs[i].isDead && !switchesAttackers(i)) {
-					Client client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
-					if (client != null && getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel || npcs[i].npcType == 1265 || npcs[i].npcType == 1267 || npcs[i].npcType == 96 || npcs[i].npcType == 97 || npcs[i].npcType == 141) {
-						npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
-					}
-				} else if (NpcAggressive.isAggressive(i) && !npcs[i].underAttack && !npcs[i].isDead && switchesAttackers(i)) {
-					Client c = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
-					if (c != null && getNpcListCombat(npcs[i].npcType) * 2 > c.combatLevel) {
+				Client client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
+				if (client != null) {
+					boolean aggressive = (NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel && getNpcListAggressive(i));
+					if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && npcs[i].MaxHP > 0) {
 						npcs[i].killerId = NpcData.getCloseRandomPlayer(i);
 					}
 				}
-				/*
-				 * Attacking player
-				 */
 
 				if (System.currentTimeMillis() - npcs[i].lastDamageTaken > 5000) {
 					npcs[i].underAttackBy = 0;
@@ -889,7 +882,8 @@ public class NpcHandler {
 	// [j][1] = amount
 	// [j][0] = drop
 
-	public void dropItems(int i) {// ring of wealth to add
+	public void dropItems(int i) {
+		// TODO: add ring of wealth
 		int npc = 0;
 		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
@@ -900,38 +894,51 @@ public class NpcHandler {
 							}
 					}
 					switch (npcs[i].npcType) {
-					case 2459:
-						FreakyForester.killedPheasant(c, 0);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 2460:
-						FreakyForester.killedPheasant(c, 1);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 2461:
-						FreakyForester.killedPheasant(c, 2);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 2462:
-						FreakyForester.killedPheasant(c, 3);
-						Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						break;
-					case 92:
-						if (c.restGhost == 3) {
-							Server.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							c.restGhost = 4;
-						}
-						break;
-					case 47:
-						if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
-							Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						}
-						break;
-					case 645:
-						if (c.shieldArrav == 5) {
-							Server.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-						}
-						break;
+						case 2459:
+							FreakyForester.killedPheasant(c, 0);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 2460:
+							FreakyForester.killedPheasant(c, 1);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 2461:
+							FreakyForester.killedPheasant(c, 2);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 2462:
+							FreakyForester.killedPheasant(c, 3);
+							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							break;
+						case 92:
+							if (c.restGhost == 3) {
+								Server.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+								c.restGhost = 4;
+							}
+							break;
+						case 47:
+							if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
+								Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							}
+							break;
+						case 645:
+							if (c.shieldArrav == 5) {
+								Server.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+							}
+							break;
+					}
+					if (Misc.random(1, 256) == 1) {
+						int level = getNpcListCombat(npcs[i].npcType);
+						if (level >= 2 && level <= 24) // easy
+							Server.itemHandler.createGroundItem(c, 2677, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level <= 40) // easy → medium
+							Server.itemHandler.createGroundItem(c, 2677 + Misc.random(0, 1), npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level <= 80) // medium
+							Server.itemHandler.createGroundItem(c, 2678, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level <= 150) // medium → hard
+							Server.itemHandler.createGroundItem(c, 2678 + Misc.random(0, 1), npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						else if (level > 150)// hard
+							Server.itemHandler.createGroundItem(c, 2679, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					}
 				}
 			}
@@ -1373,16 +1380,10 @@ public class NpcHandler {
 				token = token.trim();
 				token2 = line.substring(spot + 1);
 				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
+				token2_2 = token2.replaceAll("\t+", "\t");
 				token3 = token2_2.split("\t");
 				if (token.equals("npc")) {
-					newNPCList(Integer.parseInt(token3[0]), token3[1],
-							Integer.parseInt(token3[2]),
-							Integer.parseInt(token3[3]));
+					newNPCList(Integer.parseInt(token3[0]), token3[1], Integer.parseInt(token3[2]), Integer.parseInt(token3[3]));
 				}
 			} else {
 				if (line.equals("[ENDOFNPCLIST]")) {
@@ -1407,8 +1408,12 @@ public class NpcHandler {
 	}
 
 	public static boolean checkSpawn(Client player, int i) {
-		return npcs[i] != null && npcs[i].spawnedBy != -1
-				&& npcs[i].npcType == i;
+		return npcs[i] != null && npcs[i].spawnedBy != -1 && npcs[i].npcType == i;
 	}
+	
+	public boolean getNpcListAggressive(int npcId) {
+		return NPCDefinition.forId(npcId).isAggressive();
+	}
+
 
 }

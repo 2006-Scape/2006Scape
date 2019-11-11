@@ -1,5 +1,6 @@
 package redone.game.objects.impl;
 
+import redone.game.content.skills.core.Woodcutting;
 import redone.game.players.Client;
 
 /**
@@ -8,6 +9,11 @@ import redone.game.players.Client;
 public class BrimhavenVines {
 
 	public static void handleBrimhavenVines(Client c, int objectType) {
+		if (!Woodcutting.hasAxe(c)) {
+			c.getActionSender().sendMessage("You will need an axe to chop through these!");
+			return;
+		}
+		c.getActionSender().sendMessage("You chop your way through the vines.");
 		switch (objectType) {
 		case 12987:
 		case 12986:
@@ -31,21 +37,23 @@ public class BrimhavenVines {
 		}
 	}
 
-	public static void moveThroughVinesX(Client c, int originX, int x1, int y1,
-			int x2, int y2) {
+	public static void moveThroughVinesX(Client c, int originX, int x1, int y1, int x2, int y2) {
+		int x = c.getX();
+		int y = c.getY();
 		if (c.absX <= originX) {
-			c.getPlayerAssistant().walkTo(x1, y1);
+			c.getPlayerAssistant().movePlayer(x + x1, y + y1, 0);
 		} else {
-			c.getPlayerAssistant().walkTo(x2, y2);
+			c.getPlayerAssistant().movePlayer(x + x2, y + y2, 0);
 		}
 	}
 
-	public static void moveThroughVinesY(Client c, int originY, int x1, int y1,
-			int x2, int y2) {
+	public static void moveThroughVinesY(Client c, int originY, int x1, int y1, int x2, int y2) {
+		int x = c.getX();
+		int y = c.getY();
 		if (c.absY <= originY) {
-			c.getPlayerAssistant().walkTo(x1, y1);
+			c.getPlayerAssistant().movePlayer(x + x1, y + y1, 0);
 		} else {
-			c.getPlayerAssistant().walkTo(x2, y2);
+			c.getPlayerAssistant().movePlayer(x + x2, y + y2, 0);
 		}
 	}
 
