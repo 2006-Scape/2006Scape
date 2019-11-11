@@ -412,7 +412,7 @@ public class DwarfCannon {
 		
 		
 		private Npc targetNpc() {
-			for (int i = 0; i < NpcHandler.maxNPCs; i++) {
+			for (int i = 0; i < NpcHandler.MAX_NPCS; i++) {
             if (NpcHandler.npcs[i] == null) {
                 continue;
             }

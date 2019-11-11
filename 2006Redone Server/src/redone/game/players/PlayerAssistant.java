@@ -3094,7 +3094,7 @@ public class PlayerAssistant {
 	}
 
 	public int getNpcId(int id) {
-		for (int i = 0; i < NpcHandler.maxNPCs; i++) {
+		for (int i = 0; i < NpcHandler.MAX_NPCS; i++) {
 			if (NpcHandler.npcs[i] != null) {
 				if (NpcHandler.npcs[i].npcId == id) {
 					return i;
