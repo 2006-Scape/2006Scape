@@ -96,8 +96,26 @@ public class Woodcutting {
 	}
 
 	public static void handleCanoe(final Client player, final int objectId) {
+		Boolean gotAxe = false;
 		if (player.playerLevel[player.playerWoodcutting] < 12) {
 			player.getActionSender().sendMessage("You need a woodcutting level of at least 12 to use the canoe station.");
+			return;
+		}
+
+		for (int axes[] : Axe_Settings) {
+			int type = axes[0];
+			if ( player.getItemAssistant().playerHasItem(type) || player.playerEquipment[player.playerWeapon] == type)
+			{
+				gotAxe = true;
+			}
+		}
+		if (gotAxe)
+		{
+			player.getActionSender().sendMessage("You swing your axe at the station.");
+		}
+		else
+		{
+			player.getActionSender().sendMessage("You need an axe to cut the station.");
 			return;
 		}
 		for (int axes[] : Axe_Settings) {
@@ -107,7 +125,6 @@ public class Woodcutting {
 			if (player.playerLevel[player.playerWoodcutting] >= level && player.getItemAssistant().playerHasItem(type) || player.playerLevel[player.playerWoodcutting] >= level && player.playerEquipment[player.playerWeapon] == type) {
 				player.turnPlayerTo(player.objectX, player.objectY);
 				player.startAnimation(anim);
-				player.getActionSender().sendMessage("You swing your axe at the station.");
 				CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
