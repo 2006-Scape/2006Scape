@@ -26,6 +26,7 @@ import redone.game.content.combat.magic.MagicTeleports;
 import redone.game.content.combat.prayer.PrayerData;
 import redone.game.content.combat.prayer.PrayerDrain;
 import redone.game.content.combat.range.DwarfCannon;
+import redone.game.content.combat.range.RangeData;
 import redone.game.content.consumables.Food;
 import redone.game.content.consumables.Potions;
 import redone.game.content.guilds.impl.RangersGuild;
@@ -62,6 +63,7 @@ import redone.game.items.impl.PotionMixing;
 import redone.game.items.impl.Teles;
 import redone.game.items.impl.Weight;
 import redone.game.npcs.NpcActions;
+import redone.game.npcs.NpcHandler;
 import redone.game.objects.ObjectsActions;
 import redone.game.players.antimacro.AntiBotting;
 import redone.game.shops.ShopAssistant;
@@ -392,6 +394,10 @@ public class Client extends Player {
 	public void startCurrentTask(int ticksBetweenExecution, CycleEvent event) {
 		endCurrentTask();
 		currentTask = CycleEventHandler.getSingleton().addEvent(this, event, ticksBetweenExecution);
+	}
+
+	public CycleEventContainer getCurrentTask() {
+		return currentTask;
 	}
 
 	public void endCurrentTask() {
@@ -1084,6 +1090,9 @@ public class Client extends Player {
 				getCombatAssistant().playerDelayedHit(oldPlayerIndex);
 			}
 		}
+
+		combatAssistant.attackingNpcTick();
+		combatAssistant.attackingPlayerTick();
 
 		if (attackTimer > 0) {
 			attackTimer--;

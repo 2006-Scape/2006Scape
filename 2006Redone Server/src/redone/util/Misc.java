@@ -34,6 +34,10 @@ public class Misc {
 		return compare1;
 	}
 
+	public static double distance(int x1, int y1, int x2, int y2 ) {
+		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+	}
+
 	public static boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
 		return objectX - playerX <= distance && objectX - playerX >= -distance && objectY - playerY <= distance && objectY - playerY >= -distance;
 	}
@@ -259,6 +263,20 @@ public class Misc {
 			'&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"',
 			'[', ']' };
 
+	public static int[] delta(int x1, int y1, int x2, int y2) {
+		return new int[] {x2 - x1, y2 - y1};
+	}
+
+	public static int directionFromDelta(int x, int y) {
+		for (int a = 0; a < directionDeltaX.length; a++) {
+			if (directionDeltaX[a] == x && directionDeltaY[a] == y) {
+				return xlateDirectionToClient[a];
+			}
+		}
+
+		throw new IllegalArgumentException(String.format("Cannot find direction %d %d", x, y));
+	}
+
 	public static int direction(int srcX, int srcY, int x, int y) {
 		double dx = (double) x - srcX, dy = (double) y - srcY;
 		double angle = Math.atan(dy / dx);
@@ -277,10 +295,8 @@ public class Misc {
 		 */
 	}
 
-	public static byte directionDeltaX[] = new byte[] { 0, 1, 1, 1, 0, -1, -1,
-			-1 };
-	public static byte directionDeltaY[] = new byte[] { 1, 1, 0, -1, -1, -1, 0,
-			1 };
+	public static byte directionDeltaX[] = new byte[] { 0, 1, 1, 1, 0, -1, -1, -1 };
+	public static byte directionDeltaY[] = new byte[] { 1, 1, 0, -1, -1, -1, 0,	1 };
 	public static byte xlateDirectionToClient[] = new byte[] { 1, 2, 4, 7, 6,
 			5, 3, 0 };
 

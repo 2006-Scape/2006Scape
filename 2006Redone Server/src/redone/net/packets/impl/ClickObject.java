@@ -43,7 +43,7 @@ public class ClickObject implements PacketType {
 
 		int[] size = object.getObjectSize();
 
-		player.startCurrentTask(1, new CycleEvent() {
+		CycleEvent objectWalkToEvent = new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (objectX != player.objectX || objectY != player.objectY || objectId != player.objectId) {
@@ -66,7 +66,10 @@ public class ClickObject implements PacketType {
 
 			@Override
 			public void stop() {}
-		});
+		};
+
+		player.startCurrentTask(1, objectWalkToEvent);
+		objectWalkToEvent.execute(player.getCurrentTask()); // cheap hax for instant event execution, since we don't support it
 	}
 
 	@Override

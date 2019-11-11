@@ -9761,8 +9761,10 @@ public class Game extends RSApplet {
 			int j13 = stream.readUnsignedByte();
 			int k15 = anInt1268 + (j13 >> 4 & 7);
 			int l16 = anInt1269 + (j13 & 7);
-			if (k15 >= 0 && l16 >= 0 && k15 < 104 && l16 < 104)
+
+			if (k15 >= 0 && l16 >= 0 && k15 < 104 && l16 < 104) {
 				method130(-1, -1, j8, i11, l16, k5, plane, k15, 0);
+			}
 			return;
 		}
 		if (j == 151) {
@@ -9774,6 +9776,7 @@ public class Game extends RSApplet {
 			int i15 = k12 >> 2;
 			int k16 = k12 & 3;
 			int l17 = anIntArray1177[i15];
+			//System.out.println("id: " + j10 + " x:" + (this.baseX + anInt1268) + " y:" + (this.baseY + anInt1269));
 			if (l4 >= 0 && k7 >= 0 && l4 < 104 && k7 < 104)
 				method130(-1, j10, k16, l17, k7, i15, plane, l4, 0);
 			return;
