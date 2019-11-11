@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import redone.Server;
@@ -139,19 +140,17 @@ public class ObjectHandler {
 		for (Player p : PlayerHandler.players) {
 			if (p != null) {
 				Client person = (Client) p;
-				if (person != null) {
-					if (person.heightLevel == o.getObjectHeight()
-							&& o.objectTicks == 0) {
-						if (person.distanceToPoint(o.getObjectX(),
-								o.getObjectY()) <= 60) {
-							removeAllObjects(o);
-							globalObjects.add(o);
-							person.getActionSender().object(
-									o.getObjectId(), o.getObjectX(),
-									o.getObjectY(), o.getObjectFace(),
-									o.getObjectType());
-							//Region.addObject(o.getObjectId(), o.getObjectX(), o.getObjectY(), o.getObjectHeight(), o.getObjectType(), o.getObjectFace(), true);
-						}
+				if (person.heightLevel == o.getObjectHeight()
+						&& o.objectTicks == 0) {
+					if (person.distanceToPoint(o.getObjectX(),
+							o.getObjectY()) <= 60) {
+						removeAllObjects(o);
+						globalObjects.add(o);
+						person.getActionSender().object(
+								o.getObjectId(), o.getObjectX(),
+								o.getObjectY(), o.getObjectFace(),
+								o.getObjectType());
+						//Region.addObject(o.getObjectId(), o.getObjectX(), o.getObjectY(), o.getObjectHeight(), o.getObjectType(), o.getObjectFace(), true);
 					}
 				}
 			}
@@ -159,13 +158,10 @@ public class ObjectHandler {
 	}
 
 	public void removeAllObjects(Objects o) {
-		for (Objects s : globalObjects) {
-			if (o.getObjectX() == o.objectX && o.getObjectY() == o.objectY
-					&& s.getObjectHeight() == o.getObjectHeight()) {
-				globalObjects.remove(s);
-				break;
-			}
-		}
+		//Using Iterator for concurrency
+		globalObjects.removeIf(s -> s.getObjectX() == o.getObjectX() &&
+				s.getObjectY() == o.getObjectY() &&
+				s.getObjectHeight() == o.getObjectHeight());
 	}
 
 	public void process() {

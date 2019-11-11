@@ -65,11 +65,6 @@ public class ObjectsActions {
 			player.getActionSender().sendMessage("This object does not exist. Please report this to a staff member.");
 		    return;
 		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't click any objects until you confirm you are not botting.");
-			player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
-		}
 		if (Webs.webs(player, objectType)) {
 			Webs.slashWeb(player, objectType, objectX, objectY);
 			return;
