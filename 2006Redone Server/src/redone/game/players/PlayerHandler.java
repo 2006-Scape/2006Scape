@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 
 import redone.Constants;
 import redone.Server;
+import redone.event.CycleEventHandler;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.npcs.Npc;
 import redone.game.npcs.NpcHandler;
@@ -158,18 +159,20 @@ public class PlayerHandler {
 					continue;
 				}
 
-				players[i].preProcessing();
+
 				while (players[i].processQueuedPackets()) {
 					;
 				}
+
 				players[i].process();
 				players[i].postProcessing();
 				players[i].getNextPlayerMovement();
-
+				players[i].preProcessing();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+
 
 		for (int i = 0; i < PlayerHandler.players.length; i++) {
 			if (players[i] == null || !players[i].isActive) {

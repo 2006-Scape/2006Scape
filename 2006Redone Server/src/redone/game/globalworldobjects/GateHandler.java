@@ -36,6 +36,7 @@ public class GateHandler {
 	
 	private static void openDoubleGate(Client player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int face1, int face2) {
 		if (isGate(objectId) && isGate(objectId2) && gateAmount == 0) {
+			// open gate from default map object
 			spawnGate(-1, x3, y3, player.heightLevel, 0);
 			spawnGate(-1, x4, y4, player.heightLevel, 0);
 			spawnGate(objectId, x1, y1, player.heightLevel, face1);
@@ -47,6 +48,7 @@ public class GateHandler {
 			ObjectManager.doubleGateTicks(player, objectId, x3, y3, x1, y1, x2, y2, player.heightLevel, face2, gateTicks);
 			ObjectManager.doubleGateTicks(player, objectId2, x4, y4, x1, y1, x2, y2, player.heightLevel, face2, gateTicks);
 		} else if (isGate(objectId) && isGate(objectId2) && gateAmount == 2) {
+			// close gate back to default
 			ObjectManager.doubleGateTicks(player, objectId, x3, y3, x1, y1, x2, y2, player.heightLevel, face2, 0);
 			ObjectManager.doubleGateTicks(player, objectId2, x4, y4, x1, y1, x2, y2, player.heightLevel, face2, 0);
 		}

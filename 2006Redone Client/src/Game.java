@@ -31,6 +31,7 @@ import java.util.Date;
  */
 @SuppressWarnings("serial")
 public class Game extends RSApplet {
+	private boolean graphicsEnabled = true;
 
 	public static String intToKOrMilLongName(int i) {
 		String s = String.valueOf(i);
@@ -4770,6 +4771,9 @@ public class Game extends RSApplet {
 					inputTaken = true;
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
+					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx")) {
+						graphicsEnabled = !graphicsEnabled;
+					}
 					if (myPrivilege == 2) {
 						if (inputString.equals("::clientdrop")) {
 							dropClient();
@@ -9770,8 +9774,10 @@ public class Game extends RSApplet {
 			int j13 = stream.readUnsignedByte();
 			int k15 = anInt1268 + (j13 >> 4 & 7);
 			int l16 = anInt1269 + (j13 & 7);
-			if (k15 >= 0 && l16 >= 0 && k15 < 104 && l16 < 104)
+
+			if (k15 >= 0 && l16 >= 0 && k15 < 104 && l16 < 104) {
 				method130(-1, -1, j8, i11, l16, k5, plane, k15, 0);
+			}
 			return;
 		}
 		if (j == 151) {
@@ -9783,6 +9789,7 @@ public class Game extends RSApplet {
 			int i15 = k12 >> 2;
 			int k16 = k12 & 3;
 			int l17 = anIntArray1177[i15];
+			//System.out.println("id: " + j10 + " x:" + (this.baseX + anInt1268) + " y:" + (this.baseY + anInt1269));
 			if (l4 >= 0 && k7 >= 0 && l4 < 104 && k7 < 104)
 				method130(-1, j10, k16, l17, k7, i15, plane, l4, 0);
 			return;
@@ -10641,7 +10648,7 @@ public class Game extends RSApplet {
 			}
 			if (pktType == 174) {
 				int id = inStream.readUnsignedWord();
-				int type = inStream.readUnsignedByte();
+				int type = /*inStream.readUnsignedByte()*/1;
 				int delay = inStream.readUnsignedWord();
 				int volume = inStream.readUnsignedByte();
 				sound[currentSound] = id;
@@ -11416,6 +11423,7 @@ public class Game extends RSApplet {
 
 			Signlink.reporterror(s2);
 			resetLogout();
+			exception.printStackTrace();
 		}
 		return true;
 	}
@@ -11483,20 +11491,25 @@ public class Game extends RSApplet {
 		Model.anInt1685 = super.mouseX - 4;
 		Model.anInt1686 = super.mouseY - 4;
 		DrawingArea.setAllPixelsToZero();
-		// xxx disables graphics if(graphicsEnabled){
-		worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
-		worldController.clearObj5Cache();
-		updateEntities();
-		drawHeadIcon();
+		if(graphicsEnabled){
+			worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
+			worldController.clearObj5Cache();
+			updateEntities();
+			drawHeadIcon();
+		}
+		// Allow tabs to work
 		method37(k2);
+		// Allow stuff inside the tabs to work
 		draw3dScreen();
+		// Show overlays on main screen
 		aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
-		xCameraPos = l;
-		zCameraPos = i1;
-		yCameraPos = j1;
-		yCameraCurve = k1;
-		xCameraCurve = l1;
-		// }
+		if(graphicsEnabled) {
+			xCameraPos = l;
+			zCameraPos = i1;
+			yCameraPos = j1;
+			yCameraCurve = k1;
+			xCameraCurve = l1;
+		}
 	}
 
 	public void closeOpenInterfaces() {

@@ -21,6 +21,7 @@ import redone.game.content.music.sound.CombatSounds;
 import redone.game.content.music.sound.SoundList;
 import redone.game.content.skills.slayer.SlayerRequirements;
 import redone.game.items.ItemAssistant;
+import redone.game.npcs.Npc;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
 import redone.game.players.Player;
@@ -430,21 +431,91 @@ public class CombatAssistant {
 		}
 	}
 
+	public void attackingNpcTick() {
+		int i = c.npcIndex;
+		if (i > 0 && NpcHandler.npcs[i] != null) {
+			if (NpcHandler.npcs[i].isDead) {
+				c.npcIndex = 0;
+				c.followId2 = 0;
+				c.faceNpc(0);
+				return;
+			}
+
+			boolean projectile = c.usingBow || c.usingMagic || c.usingRangeWeapon;
+			if (projectile && !PathFinder.isProjectilePathClear(c.absX, c.absY, c.heightLevel, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY)) {
+				return;
+			}
+
+			if (!c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(c) && !c.usingRangeWeapon && !c.usingBow && !c.usingMagic
+					|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && c.usingRangeWeapon&& !c.usingBow && !c.usingMagic
+					|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1)&& !c.usingRangeWeapon && !RangeData.usingHally(c) && !c.usingBow && !c.usingMagic
+					|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (c.usingBow || c.usingMagic)) {
+				return;
+			} else {
+				c.stopMovement();
+			}
+		}
+	}
+
+	public void attackingPlayerTick() {
+		int i = c.playerIndex;
+		if (i > 0 && PlayerHandler.players[i] != null) {
+			if (PlayerHandler.players[i].isDead) {
+				c.playerIndex = 0;
+				c.followId = 0;
+				c.faceNpc(0);
+				return;
+			}
+
+			boolean projectile = c.usingBow || c.usingMagic || c.usingRangeWeapon;
+			if (projectile && !PathFinder.isProjectilePathClear(c.absX, c.absY, c.heightLevel, PlayerHandler.players[i].absX, PlayerHandler.players[i].absY)) {
+				return;
+			}
+
+			if (!c.goodDistance(c.getX(), c.getY(),
+					PlayerHandler.players[i].getX(),
+					PlayerHandler.players[i].getY(), 4)
+					&& c.usingRangeWeapon
+					&& !c.usingBow
+					&& !c.usingMagic
+					|| !c.goodDistance(c.getX(), c.getY(),
+					PlayerHandler.players[i].getX(),
+					PlayerHandler.players[i].getY(), 2)
+					&& !c.usingRangeWeapon
+					&& RangeData.usingHally(c)
+					&& !c.usingBow
+					&& !c.usingMagic
+					|| !c.goodDistance(c.getX(), c.getY(),
+					PlayerHandler.players[i].getX(),
+					PlayerHandler.players[i].getY(),
+					getRequiredDistance())
+					&& !c.usingRangeWeapon
+					&& !RangeData.usingHally(c)
+					&& !c.usingBow
+					&& !c.usingMagic
+					|| !c.goodDistance(c.getX(), c.getY(),
+					PlayerHandler.players[i].getX(),
+					PlayerHandler.players[i].getY(), 10)
+					&& (c.usingBow || c.usingMagic)) {
+				return;
+			} else {
+				c.stopMovement();
+			}
+		}
+	}
+
 	public void attackNpc(int i) {
 		// int equippedWeapon = c.playerEquipment[c.playerWeapon];
 		// final int npcId = NPCHandler.npcs[i].npcType;
 		if (NpcHandler.npcs[i] != null) {
+            Npc npc = NpcHandler.npcs[i];
 			if (NpcHandler.npcs[i].isDead || NpcHandler.npcs[i].MaxHP <= 0) {
 				c.usingMagic = false;
 				c.faceUpdate(0);
 				c.npcIndex = 0;
 				return;
 			}
-			if (c.absY == 3228 && NpcHandler.npcs[i].absY == 3227) {
-				resetPlayerAttack();
-				return;
-			}
-			if (c.absY == 3224 && NpcHandler.npcs[i].absY == 3225) {
+			/*if (c.absY == 3224 && NpcHandler.npcs[i].absY == 3225) {
 				resetPlayerAttack();
 				return;
 			}
@@ -459,7 +530,7 @@ public class CombatAssistant {
 			if (c.absX == 3252 && c.absY > 3254 && c.absY < 3272 || c.absY == 3254 && c.absX > 3252 && c.absX < 3265) {
 				resetPlayerAttack();
 				return;
-			}
+			}*/
 			if (c.usingMagic && MagicData.MAGIC_SPELLS[c.spellId][0] == 1171) {
 				if (!NpcHandler.isUndead(i)) {
 					c.getActionSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades.");
@@ -546,12 +617,13 @@ public class CombatAssistant {
 				c.getActionSender().sendMessage("This monster was not spawned for you.");
 				return;
 			}
+
 			c.followId2 = i;
 			c.followId = 0;
 			if (c.attackTimer <= 0) {
-				boolean usingBow = false;
+				c.usingBow = false;
+				c.usingRangeWeapon = false;
 				boolean usingArrows = false;
-				boolean usingOtherRangeWeapons = false;
 				boolean usingCross = c.playerEquipment[c.playerWeapon] == 9185;
 				c.bonusAttack = 0;
 				c.rangeItemUsed = 0;
@@ -563,13 +635,13 @@ public class CombatAssistant {
 				if (c.spellId > 0) {
 					c.usingMagic = true;
 				}
-				c.attackTimer = getAttackDelay();
+
 				c.specAccuracy = 1.0;
 				c.specDamage = 1.0;
 				if (!c.usingMagic) {
 					for (int bowId : RangeData.BOWS) {
 						if (c.playerEquipment[c.playerWeapon] == bowId) {
-							usingBow = true;
+							c.usingBow = true;
 							for (int arrowId : RangeData.ARROWS) {
 								if (c.playerEquipment[c.playerArrows] == arrowId) {
 									usingArrows = true;
@@ -580,44 +652,41 @@ public class CombatAssistant {
 
 					for (int otherRangeId : RangeData.OTHER_RANGE_WEAPONS) {
 						if (c.playerEquipment[c.playerWeapon] == otherRangeId) {
-							usingOtherRangeWeapons = true;
+							c.usingRangeWeapon = true;
 						}
 					}
 				}
-				if (armaNpc(i) && !usingCross && !usingBow && !c.usingMagic
-						&& !RangeData.usingCrystalBow(c) && !usingOtherRangeWeapons) {
+				if (armaNpc(i) && !usingCross && !c.usingBow && !c.usingMagic
+						&& !RangeData.usingCrystalBow(c) && !c.usingRangeWeapon) {
 					resetPlayerAttack();
 					return;
 				}
-				if (usingOtherRangeWeapons || usingBow
+				if (c.usingRangeWeapon || c.usingBow
 						&& Constants.combatSounds
 						&& NpcHandler.npcs[i].npcType < 3177
 						&& NpcHandler.npcs[i].npcType > 3180) {
 					c.getActionSender().sendSound(SoundList.SHOOT_ARROW,
 							100, 0);
 				}
-				if (!c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(c) && !usingOtherRangeWeapons && !usingBow && !c.usingMagic || !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4)
-						&& usingOtherRangeWeapons
-						&& !usingBow
-						&& !c.usingMagic
-						|| !c.goodDistance(c.getX(), c.getY(),
-								NpcHandler.npcs[i].getX(),
-								NpcHandler.npcs[i].getY(), 1)
-						&& !usingOtherRangeWeapons
-						&& !RangeData.usingHally(c)
-						&& !usingBow
-						&& !c.usingMagic
-						|| !c.goodDistance(c.getX(), c.getY(),
-								NpcHandler.npcs[i].getX(),
-								NpcHandler.npcs[i].getY(), 8)
-						&& (usingBow || c.usingMagic)) {
-					c.attackTimer = 2;
+
+				boolean projectile = c.usingBow || c.usingMagic || c.usingRangeWeapon;
+
+				if (projectile && !PathFinder.isProjectilePathClear(c.absX, c.absY, c.heightLevel, npc.absX, npc.absY)) {
 					return;
+				}
+
+				if (!c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(c) && !c.usingRangeWeapon && !c.usingBow && !c.usingMagic
+						|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && c.usingRangeWeapon && !c.usingBow && !c.usingMagic
+						|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1)&& !c.usingRangeWeapon && !RangeData.usingHally(c) && !c.usingBow && !c.usingMagic
+						|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (c.usingBow || c.usingMagic)) {
+					return;
+				} else {
+					c.stopMovement();
 				}
 
 				if (!usingCross
 						&& !usingArrows
-						&& usingBow
+						&& c.usingBow
 						&& (c.playerEquipment[c.playerWeapon] < 4212 || c.playerEquipment[c.playerWeapon] > 4223)) {
 					c.getActionSender().sendMessage(
 							"There is no ammo left in your quiver.");
@@ -626,7 +695,7 @@ public class CombatAssistant {
 					return;
 				}
 				if (RangeData.correctBowAndArrows(c) < c.playerEquipment[c.playerArrows]
-						&& Constants.CORRECT_ARROWS && usingBow
+						&& Constants.CORRECT_ARROWS && c.usingBow
 						&& !RangeData.usingCrystalBow(c)
 						&& c.playerEquipment[c.playerWeapon] != 9185) {
 					c.getItemAssistant();
@@ -653,30 +722,14 @@ public class CombatAssistant {
 					return;
 				}
 
-				if (usingBow
+				if (c.usingBow
 						|| c.usingMagic
-						|| usingOtherRangeWeapons
+						|| c.usingRangeWeapon
 						|| c.goodDistance(c.getX(), c.getY(),
 								NpcHandler.npcs[i].getX(),
 								NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(c)) {
 					c.stopMovement();
 				}
-				
-
-				/**
-				 * Npc projectiles
-				 */
-				if (PlayerAssistant.pathBlocked(c, NpcHandler.npcs[i])) {
-						if((c.usingBow || c.usingMagic || usingOtherRangeWeapons || c.autocasting)) {
-							PathFinder.getPathFinder().findRoute(c, NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), true, 8, 8);
-						if(!c.usingBow && !c.usingMagic && !usingOtherRangeWeapons && !c.autocasting) {
-							PathFinder.getPathFinder().findRoute(c,NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), true, 1, 1);
-							c.attackTimer = 0;
-							return;
-						}
-					}
-				}
-
 
 				if (!checkMagicReqs(c.spellId)) {
 					c.stopMovement();
@@ -685,6 +738,7 @@ public class CombatAssistant {
 				}
 
 				c.faceUpdate(i);
+				c.attackTimer = getAttackDelay();
 				NpcHandler.npcs[i].underAttackBy = c.playerId;
 				NpcHandler.npcs[i].lastDamageTaken = System.currentTimeMillis();
 				if (c.usingSpecial && !c.usingMagic) {
@@ -729,7 +783,7 @@ public class CombatAssistant {
 				}
 				c.lastWeaponUsed = c.playerEquipment[c.playerWeapon];
 				c.lastArrowUsed = c.playerEquipment[c.playerArrows];
-				if (!usingBow && !c.usingMagic && !usingOtherRangeWeapons) { // melee
+				if (!c.usingBow && !c.usingMagic && !c.usingRangeWeapon) { // melee
 																				// hit
 																				// delay
 					c.hitDelay = getHitDelay();
@@ -737,7 +791,7 @@ public class CombatAssistant {
 					c.oldNpcIndex = i;
 				}
 
-				if (usingBow && !usingOtherRangeWeapons && !c.usingMagic
+				if (c.usingBow && !c.usingRangeWeapon && !c.usingMagic
 						|| usingCross) { // range hit delay
 					if (usingCross) {
 						c.usingBow = true;
@@ -763,7 +817,7 @@ public class CombatAssistant {
 					fireProjectileNpc();
 				}
 
-				if (usingOtherRangeWeapons && !c.usingMagic && !usingBow) { // knives,
+				if (c.usingRangeWeapon && !c.usingMagic && !c.usingBow) { // knives,
 																			// darts,
 																			// etc
 																			// hit
@@ -813,7 +867,7 @@ public class CombatAssistant {
 					}
 				}
 
-				if (usingBow && Constants.CRYSTAL_BOW_DEGRADES) { // crystal
+				if (c.usingBow && Constants.CRYSTAL_BOW_DEGRADES) { // crystal
 																	// bow
 																	// degrading
 					if (c.playerEquipment[c.playerWeapon] == 4212) { // new
@@ -871,13 +925,13 @@ public class CombatAssistant {
 		int equippedWeapon = c.playerEquipment[c.playerWeapon];
 
 		if (PlayerHandler.players[i] != null) {
-			
-			   if (c.usingMagic && MagicData.MAGIC_SPELLS[c.spellId][0] == 1171) {
-					c.getActionSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades, not humans.");
-					resetPlayerAttack();
-					c.stopMovement();
-					return;
-				}
+
+			if (c.usingMagic && MagicData.MAGIC_SPELLS[c.spellId][0] == 1171) {
+				c.getActionSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades, not humans.");
+				resetPlayerAttack();
+				c.stopMovement();
+				return;
+			}
 
 			if (CastleWars.isInCw(PlayerHandler.players[i])
 					&& CastleWars.isInCw(c)) {
@@ -935,9 +989,7 @@ public class CombatAssistant {
 				c.specEffect = 0;
 				c.usingRangeWeapon = false;
 				c.rangeItemUsed = 0;
-				boolean usingBow = false;
 				boolean usingArrows = false;
-				boolean usingOtherRangeWeapons = false;
 				boolean usingCross = c.playerEquipment[c.playerWeapon] == 9185;
 				c.projectileStage = 0;
 				if (c.absX == PlayerHandler.players[i].absX
@@ -953,7 +1005,7 @@ public class CombatAssistant {
 				if (!c.usingMagic) {
 					for (int bowId : RangeData.BOWS) {
 						if (c.playerEquipment[c.playerWeapon] == bowId) {
-							usingBow = true;
+							c.usingBow = true;
 							for (int arrowId : RangeData.ARROWS) {
 								if (c.playerEquipment[c.playerArrows] == arrowId) {
 									usingArrows = true;
@@ -964,7 +1016,7 @@ public class CombatAssistant {
 
 					for (int otherRangeId : RangeData.OTHER_RANGE_WEAPONS) {
 						if (c.playerEquipment[c.playerWeapon] == otherRangeId) {
-							usingOtherRangeWeapons = true;
+							c.usingRangeWeapon = true;
 						}
 					}
 				}
@@ -975,7 +1027,7 @@ public class CombatAssistant {
 				if (c.spellId > 0) {
 					c.usingMagic = true;
 				}
-				c.attackTimer = getAttackDelay();
+
 
 				if (c.duelRule[9]) {
 					boolean canUseWeapon = false;
@@ -991,12 +1043,13 @@ public class CombatAssistant {
 						return;
 					}
 				}
-				if (c.duelRule[2] && (usingBow || usingOtherRangeWeapons)) {
+
+				if (c.duelRule[2] && (c.usingBow || c.usingRangeWeapon)) {
 					c.getActionSender().sendMessage(
 							"Range has been disabled in this duel!");
 					return;
 				}
-				if (c.duelRule[3] && !usingBow && !usingOtherRangeWeapons
+				if (c.duelRule[3] && !c.usingBow && !c.usingRangeWeapon
 						&& !c.usingMagic) {
 					c.getActionSender().sendMessage(
 							"Melee has been disabled in this duel!");
@@ -1010,34 +1063,40 @@ public class CombatAssistant {
 					return;
 				}
 
+				boolean projectile = c.usingBow || c.usingMagic || c.usingRangeWeapon;
+
+				if (projectile && !PathFinder.isProjectilePathClear(c.absX, c.absY, c.heightLevel, PlayerHandler.players[i].absX, PlayerHandler.players[i].absY)) {
+					return;
+				}
+
 				if (!c.goodDistance(c.getX(), c.getY(),
 						PlayerHandler.players[i].getX(),
 						PlayerHandler.players[i].getY(), 4)
-						&& usingOtherRangeWeapons
-						&& !usingBow
+						&& c.usingRangeWeapon
+						&& !c.usingBow
 						&& !c.usingMagic
 						|| !c.goodDistance(c.getX(), c.getY(),
-								PlayerHandler.players[i].getX(),
-								PlayerHandler.players[i].getY(), 2)
-						&& !usingOtherRangeWeapons
+						PlayerHandler.players[i].getX(),
+						PlayerHandler.players[i].getY(), 2)
+						&& !c.usingRangeWeapon
 						&& RangeData.usingHally(c)
-						&& !usingBow
+						&& !c.usingBow
 						&& !c.usingMagic
 						|| !c.goodDistance(c.getX(), c.getY(),
-								PlayerHandler.players[i].getX(),
-								PlayerHandler.players[i].getY(),
-								getRequiredDistance())
-						&& !usingOtherRangeWeapons
+						PlayerHandler.players[i].getX(),
+						PlayerHandler.players[i].getY(),
+						getRequiredDistance())
+						&& !c.usingRangeWeapon
 						&& !RangeData.usingHally(c)
-						&& !usingBow
+						&& !c.usingBow
 						&& !c.usingMagic
 						|| !c.goodDistance(c.getX(), c.getY(),
-								PlayerHandler.players[i].getX(),
-								PlayerHandler.players[i].getY(), 10)
-						&& (usingBow || c.usingMagic)) {
+						PlayerHandler.players[i].getX(),
+						PlayerHandler.players[i].getY(), 10)
+						&& (c.usingBow || c.usingMagic)) {
 					// c.getPacketDispatcher().sendMessage("Setting attack timer to 1");
-					c.attackTimer = 1;
-					if (!usingBow && !c.usingMagic && !usingOtherRangeWeapons
+					//c.attackTimer = 1;
+					if (!c.usingBow && !c.usingMagic && !c.usingRangeWeapon
 							&& c.freezeTimer > 0) {
 						resetPlayerAttack();
 					}
@@ -1046,7 +1105,7 @@ public class CombatAssistant {
 
 				if (!usingCross
 						&& !usingArrows
-						&& usingBow
+						&& c.usingBow
 						&& (c.playerEquipment[c.playerWeapon] < 4212 || c.playerEquipment[c.playerWeapon] > 4223)
 						&& !c.usingMagic) {
 					c.getActionSender().sendMessage(
@@ -1056,7 +1115,7 @@ public class CombatAssistant {
 					return;
 				}
 				if (RangeData.correctBowAndArrows(c) < c.playerEquipment[c.playerArrows]
-						&& Constants.CORRECT_ARROWS && usingBow
+						&& Constants.CORRECT_ARROWS && c.usingBow
 						&& !RangeData.usingCrystalBow(c)
 						&& c.playerEquipment[c.playerWeapon] != 9185
 						&& !c.usingMagic) {
@@ -1065,12 +1124,12 @@ public class CombatAssistant {
 					c.getActionSender().sendMessage(
 							"You can't use "
 									+ ItemAssistant.getItemName(
-											c.playerEquipment[c.playerArrows])
-											.toLowerCase()
+									c.playerEquipment[c.playerArrows])
+									.toLowerCase()
 									+ "s with a "
 									+ ItemAssistant.getItemName(
-											c.playerEquipment[c.playerWeapon])
-											.toLowerCase() + ".");
+									c.playerEquipment[c.playerWeapon])
+									.toLowerCase() + ".");
 					c.stopMovement();
 					resetPlayerAttack();
 					return;
@@ -1084,23 +1143,9 @@ public class CombatAssistant {
 					return;
 				}
 
-				if (usingBow || c.usingMagic || usingOtherRangeWeapons
+				if (c.usingBow || c.usingMagic || c.usingRangeWeapon
 						|| RangeData.usingHally(c)) {
 					c.stopMovement();
-				}
-
-				/**
-				 * Player projectiles
-				 */
-					if(PlayerAssistant.pathBlocked(c, o)) {
-						if((c.usingBow || c.usingMagic || usingOtherRangeWeapons || c.autocasting)) {
-							PathFinder.getPathFinder().findRoute(c, o.absX, o.absY, true, 8, 8);
-						if(!c.usingBow && !c.usingMagic && !usingOtherRangeWeapons && !c.autocasting) {
-							PathFinder.getPathFinder().findRoute(c, o.absX, o.absY, true, 1, 1);
-							c.attackTimer = 0;
-							return;
-						}
-					}
 				}
 
 				if (!checkMagicReqs(c.spellId)) {
@@ -1116,7 +1161,7 @@ public class CombatAssistant {
 						&& FightPits.getState(c) == null) {
 					if (!c.attackedPlayers.contains(c.playerIndex)
 							&& !PlayerHandler.players[c.playerIndex].attackedPlayers
-									.contains(c.playerId)) {
+							.contains(c.playerId)) {
 						c.attackedPlayers.add(c.playerIndex);
 						c.isSkulled = true;
 						c.skullTimer = Constants.SKULL_TIMER;
@@ -1183,24 +1228,26 @@ public class CombatAssistant {
 								0);
 					}
 				}
+
+				c.attackTimer = getAttackDelay();
 				PlayerHandler.players[i].underAttackBy = c.playerId;
 				PlayerHandler.players[i].logoutDelay = System.currentTimeMillis();
 				PlayerHandler.players[i].singleCombatDelay = System.currentTimeMillis();
 				PlayerHandler.players[i].killerId = c.playerId;
 				c.lastArrowUsed = 0;
 				c.rangeItemUsed = 0;
-				if (!usingBow && !c.usingMagic && !usingOtherRangeWeapons) { // melee
-																				// hit
-																				// delay;
+				if (!c.usingBow && !c.usingMagic && !c.usingRangeWeapon) { // melee
+					// hit
+					// delay;
 					c.followId = PlayerHandler.players[c.playerIndex].playerId;
-					c.getPlayerAssistant().followPlayer();
+					//c.getPlayerAssistant().followPlayer();
 					c.hitDelay = getHitDelay();
 					c.delayedDamage = Misc.random(meleeMaxHit());
 					c.projectileStage = 0;
 					c.oldPlayerIndex = i;
 				}
 
-				if (usingBow && !usingOtherRangeWeapons && !c.usingMagic
+				if (c.usingBow && !c.usingRangeWeapon && !c.usingMagic
 						|| usingCross) { // range hit delay
 					if (c.playerEquipment[c.playerWeapon] >= 4212
 							&& c.playerEquipment[c.playerWeapon] <= 4223) {
@@ -1219,7 +1266,7 @@ public class CombatAssistant {
 
 					c.usingBow = true;
 					c.followId = PlayerHandler.players[c.playerIndex].playerId;
-					c.getPlayerAssistant().followPlayer();
+					//c.getPlayerAssistant().followPlayer();
 					c.lastWeaponUsed = c.playerEquipment[c.playerWeapon];
 					c.lastArrowUsed = c.playerEquipment[c.playerArrows];
 					c.gfx100(RangeData.getRangeStartGFX(c));
@@ -1229,12 +1276,12 @@ public class CombatAssistant {
 					fireProjectilePlayer();
 				}
 
-				if (usingOtherRangeWeapons) { // knives, darts, etc hit delay
+				if (c.usingRangeWeapon) { // knives, darts, etc hit delay
 					c.rangeItemUsed = c.playerEquipment[c.playerWeapon];
 					c.getItemAssistant().deleteEquipment();
 					c.usingRangeWeapon = true;
 					c.followId = PlayerHandler.players[c.playerIndex].playerId;
-					c.getPlayerAssistant().followPlayer();
+					//c.getPlayerAssistant().followPlayer();
 					c.gfx100(RangeData.getRangeStartGFX(c));
 					if (c.fightMode == 2) {
 						c.attackTimer--;
@@ -1307,42 +1354,42 @@ public class CombatAssistant {
 					}
 				}
 
-				if (usingBow && Constants.CRYSTAL_BOW_DEGRADES) { // crystal
-																	// bow
-																	// degrading
+				if (c.usingBow && Constants.CRYSTAL_BOW_DEGRADES) { // crystal
+					// bow
+					// degrading
 					if (c.playerEquipment[c.playerWeapon] == 4212) { // new
-																		// crystal
-																		// bow
-																		// becomes
-																		// full
-																		// bow
-																		// on
-																		// the
-																		// first
-																		// shot
+						// crystal
+						// bow
+						// becomes
+						// full
+						// bow
+						// on
+						// the
+						// first
+						// shot
 						c.getItemAssistant().wearItem(4214, 1, 3);
 					}
 					if (c.crystalBowArrowCount >= 250) {
 						switch (c.playerEquipment[c.playerWeapon]) {
 
-						case 4223: // 1/10 bow
-							c.getItemAssistant().wearItem(-1, 1, 3);
-							c.getActionSender().sendMessage(
-									"Your crystal bow has fully degraded.");
-							if (!c.getItemAssistant().addItem(4207, 1)) {
-								Server.itemHandler.createGroundItem(c, 4207,
-										c.getX(), c.getY(), 1, c.getId());
-							}
-							c.crystalBowArrowCount = 0;
-							break;
+							case 4223: // 1/10 bow
+								c.getItemAssistant().wearItem(-1, 1, 3);
+								c.getActionSender().sendMessage(
+										"Your crystal bow has fully degraded.");
+								if (!c.getItemAssistant().addItem(4207, 1)) {
+									Server.itemHandler.createGroundItem(c, 4207,
+											c.getX(), c.getY(), 1, c.getId());
+								}
+								c.crystalBowArrowCount = 0;
+								break;
 
-						default:
-							c.getItemAssistant().wearItem(
-									++c.playerEquipment[c.playerWeapon], 1, 3);
-							c.getActionSender().sendMessage(
-									"Your crystal bow degrades.");
-							c.crystalBowArrowCount = 0;
-							break;
+							default:
+								c.getItemAssistant().wearItem(
+										++c.playerEquipment[c.playerWeapon], 1, 3);
+								c.getActionSender().sendMessage(
+										"Your crystal bow degrades.");
+								c.crystalBowArrowCount = 0;
+								break;
 						}
 					}
 				}

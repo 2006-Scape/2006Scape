@@ -555,7 +555,7 @@ public class PlayerAssistant {
 			}
 		}
 		for (int i = 0; i < path.length; i++) {
-			if (!Region.getClipping(path[i][0], path[i][1], path[i][2], path[i][3], path[i][4]) && !Region.blockedShot(path[i][0], path[i][1], path[i][2])) {
+			if (!Region.getClipping(path[i][0], path[i][1], path[i][2], path[i][3], path[i][4])/* && !Region.blockedShot(path[i][0], path[i][1], path[i][2])*/) {
 				return true;
 			}
 		}
@@ -641,11 +641,11 @@ public class PlayerAssistant {
 				return false;
 			}
 		}
-		for (int i = 0; i < path.length; i++) {
+		/*for (int i = 0; i < path.length; i++) {
 			if (!Region.blockedShot(path[i][0], path[i][1], path[i][2])) {
 				return true;
 			}
-		}
+		}*/
 		return false;
 	}
 
@@ -756,9 +756,6 @@ public class PlayerAssistant {
 					"You are teleblocked and can't teleport.");
 			return;
 		}
-		if (Constants.SOUND) {
-			player.getActionSender().sendSound(SoundList.TELEPORT, 100, 0);
-		}
 		if (SkillHandler.isSkilling(player)) {
 			player.getActionSender().sendMessage(
 					"You can't teleport while skilling!");
@@ -782,9 +779,12 @@ public class PlayerAssistant {
 			player.teleHeight = height;
 			// client.resetShaking();
 			player.isTeleporting = true;
+			if (Constants.SOUND) {
+				player.getActionSender().sendSound(SoundList.TELEPORT, 100, 700);
+			}
 			if (teleportType.equalsIgnoreCase("modern")) {
-				player.startAnimation(714);
-				player.teleTimer = 11;
+				player.startAnimation(714, 10);
+				player.teleTimer = 10;
 				player.teleGfx = 308;
 				player.teleEndAnimation = 715;
 			}
@@ -2081,6 +2081,42 @@ public class PlayerAssistant {
 		player.newLocation = 0;
 	}
 
+	public int[] getFollowLocation(int x, int y) {
+		int[] nonDiags = {0, 2, 4, 6};
+		int[][] nodes = {
+				{ x + Misc.directionDeltaX[nonDiags[0]], y + Misc.directionDeltaY[nonDiags[0]] },
+				{ x + Misc.directionDeltaX[nonDiags[1]], y + Misc.directionDeltaY[nonDiags[1]] },
+				{ x + Misc.directionDeltaX[nonDiags[2]], y + Misc.directionDeltaY[nonDiags[2]] },
+				{ x + Misc.directionDeltaX[nonDiags[3]], y + Misc.directionDeltaY[nonDiags[3]] }
+		};
+
+		int bestX = 0;
+		int bestY = 0;
+		double bestDist = 99999;
+
+		boolean projectile = player.usingMagic || player.usingBow || player.usingRangeWeapon;
+
+		for (int i = 0; i < nodes.length; i++) {
+			double dist = Misc.distance(player.absX, player.absY, nodes[i][0], nodes[i][1]);
+			if (dist < bestDist) {
+				if (PathFinder.getPathFinder().accessible(player.absX, player.absY, player.heightLevel, nodes[i][0], nodes[i][1])) {
+					if (!projectile || PathFinder.isProjectilePathClear(nodes[i][0], nodes[i][1], player.heightLevel, x, y)) {
+						bestDist = dist;
+						bestX = nodes[i][0];
+						bestY = nodes[i][1];
+					}
+				}
+			}
+		}
+
+		if (bestX == 0 && bestY == 0) {
+			bestX = x;
+			bestY = y;
+		}
+
+		return new int[] {bestX, bestY};
+	}
+
 	public void followPlayer() {
 		if (PlayerHandler.players[player.followId] == null
 				|| PlayerHandler.players[player.followId].isDead) {
@@ -2097,7 +2133,7 @@ public class PlayerAssistant {
 		int otherX = PlayerHandler.players[player.followId].getX();
 		int otherY = PlayerHandler.players[player.followId].getY();
 
-		boolean sameSpot = player.absX == otherX && player.absY == otherY;
+		/*boolean sameSpot = player.absX == otherX && player.absY == otherY;
 		if (sameSpot)
 			stepAway();
 
@@ -2115,7 +2151,7 @@ public class PlayerAssistant {
 				|| player.autocasting || player.spellId > 0)
 				&& mageDistance;
 		boolean playerRanging = player.usingRangeWeapon && rangeWeaponDistance;
-		boolean playerBowOrCross = player.usingBow && bowDistance;
+		boolean playerBowOrCross = player.usingBow && bowDistance;*/
 
 		if (!player.goodDistance(otherX, otherY, player.getX(), player.getY(),
 				25)) {
@@ -2123,8 +2159,12 @@ public class PlayerAssistant {
 			resetFollow();
 			return;
 		}
+
+		int[] follow = getFollowLocation(otherX, otherY);
 		player.faceUpdate(player.followId + 32768);
-		if (!sameSpot) {
+		PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
+
+		/*if (!sameSpot) {
 			if (player.playerIndex > 0 && !player.usingSpecial
 					&& player.inWild()) {
 				if (player.usingSpecial && (playerRanging || playerBowOrCross)) {
@@ -2194,30 +2234,28 @@ public class PlayerAssistant {
 				playerWalk(otherX - 1, otherY + 1);
 			}
 		}
-		player.faceUpdate(player.followId + 32768);
+		player.faceUpdate(player.followId + 32768);*/
 	}
 
 	public void followNpc() {
-		if (NpcHandler.npcs[player.followId] == null
-				|| NpcHandler.npcs[player.followId].isDead) {
-			resetFollow();
-			return;
-		}
 		Npc npc = NpcHandler.npcs[player.followId2];
-		if (npc.isDead) {
+		if (npc == null || npc.isDead) {
 			return;
 		}
 
-		int otherX = NpcHandler.npcs[player.followId2].getX();
-		int otherY = NpcHandler.npcs[player.followId2].getY();
-		if (!player.goodDistance(otherX, otherY, player.getX(), player.getY(),
-				25)) {
+		int x = NpcHandler.npcs[player.followId2].getX();
+		int y = NpcHandler.npcs[player.followId2].getY();
+		if (!player.goodDistance(x, y, player.getX(), player.getY(),25)) {
 			player.followId2 = 0;
 			resetFollow();
 			return;
 		}
-		player.faceUpdate(player.followId2 + 32768);
-		if (otherX == player.absX && otherY == player.absY) {
+
+		int[] follow = getFollowLocation(x, y);
+		player.faceUpdate(player.followId2);
+        PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
+
+		/*if (otherX == player.absX && otherY == player.absY) {
 			int r = Misc.random(3);
 			switch (r) {
 			case 0:
@@ -2251,8 +2289,7 @@ public class PlayerAssistant {
 			} else if (otherX > player.getX() && otherY < player.getY()) {
 				playerWalk(otherX - 1, otherY + 1);
 			}
-		}
-		player.faceUpdate(player.followId2 + 32768);
+		}*/
 	}
 
 	public int getRunningMove(int i, int j) {
@@ -2444,7 +2481,7 @@ public class PlayerAssistant {
 			if (!player.hasBankpin) {
 				player.getActionSender()
 						.sendMessage(
-								"You do not, have a bank pin it is highly recommened you set one.");
+								"You do not, have a bank pin it is highly recommended you set one.");
 			}
 		}
 	}
@@ -3094,7 +3131,7 @@ public class PlayerAssistant {
 	}
 
 	public int getNpcId(int id) {
-		for (int i = 0; i < NpcHandler.maxNPCs; i++) {
+		for (int i = 0; i < NpcHandler.MAX_NPCS; i++) {
 			if (NpcHandler.npcs[i] != null) {
 				if (NpcHandler.npcs[i].npcId == id) {
 					return i;

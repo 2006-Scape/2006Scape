@@ -30,7 +30,7 @@ public abstract class Player {
 			{2035, 0}
 	};
 
-	public long lastCast = 0, homeTele, lastDesert, eventTimer, lastRunRecovery,
+	public long homeTele, lastDesert, eventTimer, lastRunRecovery,
 			lastButton, lastFire, lastLight, muteTime, waitTime, miscTimer,
 			ladderTimer, webSlashDelay, climbDelay, lastReport = 0,
 			lastPlayerMove, lastPoison, lastPoisonSip, poisonImmune, lastSpear,
@@ -888,11 +888,11 @@ public abstract class Player {
 
 	public byte playerInListBitmap[] = new byte[Constants.MAX_PLAYERS + 7 >> 3];
 
-	public static final int maxNPCListSize = NpcHandler.maxNPCs;
+	public static final int maxNPCListSize = NpcHandler.MAX_NPCS;
 	public Npc npcList[] = new Npc[maxNPCListSize];
 	public int npcListSize = 0;
 
-	public byte npcInListBitmap[] = new byte[NpcHandler.maxNPCs + 7 >> 3];
+	public byte npcInListBitmap[] = new byte[NpcHandler.MAX_NPCS + 7 >> 3];
 
 	public boolean withinDistance(Player otherPlr) {
 		if (heightLevel != otherPlr.heightLevel) {

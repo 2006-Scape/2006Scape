@@ -48,7 +48,7 @@ Step 17: Start the Client [Image](https://i.imgur.com/dHTiU0I.png)
 
 
 # Using Parabot with your local server:
-- **1:** Download the latest `localhost_2006rebotted.jar` from [here](https://github.com/dginovker/2006rebotted/releases)
+- **1:** Download the latest `localhost_2006rebotted.jar` from [here](https://github.com/dginovker/2006rebotted/releases) (or, if testing server changes, compile it yourself like [this](https://i.imgur.com/uDrF0gl.png))
 - **2:** Download the latest `Provider-version.jar` file from [here](http://v3.bdn.parabot.org/api/bot/download/default-provider?nightly=false)
 - **3:** Create a file called `localhost.json` in `{user}\Documents\Parabot\servers`
 - **4:** Put the following in the file
