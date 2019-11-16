@@ -23,6 +23,6 @@ import java.util.Date;
 public class LocalGame extends Game {
     public LocalGame() {
         super();
-        server = ClientSettings.SERVER_IP;
+        server = "127.0.0.1";
     }
 }
