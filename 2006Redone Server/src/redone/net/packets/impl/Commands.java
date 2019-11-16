@@ -130,7 +130,7 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().closeAllWindows();
                                 break;
                         case "commands":
-                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug");
+                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx");
                                 break;
                         case "loc":
                                 player.getActionSender().sendMessage(player.absX + "," + player.absY);
