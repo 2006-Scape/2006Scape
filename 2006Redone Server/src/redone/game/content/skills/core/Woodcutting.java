@@ -202,6 +202,7 @@ public class Woodcutting {
 	}
 
 	public static void startWoodcutting(final Client player, final int j, final int x, final int y, final int type) {
+		CycleEventHandler.getSingleton().stopEvents(player, "WoodcuttingEvent".hashCode());
 		if (player.isWoodcutting || player.isFletching || player.isFiremaking || player.playerIsFletching) {
 			return;
 		}
@@ -236,7 +237,7 @@ public class Woodcutting {
 			return;
 		}
 		if (Misc.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 3)) {
-			if (player.isWoodcutting == true) {
+			if (player.isWoodcutting) {
 				player.getActionSender().sendMessage("You are already woodcutting!");
 				return;
 			}
@@ -258,7 +259,7 @@ public class Woodcutting {
 			} else {
 				player.getActionSender().sendMessage("You swing your axe at the tree.");
 			}
-			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+			CycleEventHandler.getSingleton().addEvent("WoodcuttingEvent".hashCode(), player, new CycleEvent() {
 
 				@Override
 				public void execute(CycleEventContainer container) {

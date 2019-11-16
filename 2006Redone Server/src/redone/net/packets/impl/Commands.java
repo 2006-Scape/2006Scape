@@ -130,7 +130,7 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().closeAllWindows();
                                 break;
                         case "commands":
-                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug");
+                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx");
                                 break;
                         case "loc":
                                 player.getActionSender().sendMessage(player.absX + "," + player.absY);
@@ -455,6 +455,14 @@ public class Commands implements PacketType {
                                         }
                                 }
                                 player.getActionSender().sendMessage("Could not find " + teleTo + " they must be online!");
+                                break;
+                        case "tp":
+                        case "teleport":
+                        case "to":
+                                if (arguments.length <= 2)
+                                        player.getPlayerAssistant().movePlayer(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), 0);
+                                else
+                                        player.getPlayerAssistant().movePlayer(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]));
                                 break;
                         case "up":
                                 player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel + 1);
