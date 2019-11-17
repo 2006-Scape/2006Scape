@@ -62,7 +62,7 @@ public class Trading {
 				player.getActionSender().sendMessage("Sending trade request...");
 				o.getActionSender()
 						.sendMessage(player.playerName + ":tradereq:");
-			} else if (player.playerIsBusy() == false && o.playerIsBusy() == true) {
+			} else if (player.playerIsBusy() == true || o.playerIsBusy() == true) {
 				player.getActionSender().sendMessage("Other player is busy at the moment.");
 			}
 		} catch (Exception e) {
