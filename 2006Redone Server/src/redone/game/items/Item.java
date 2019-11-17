@@ -85,7 +85,7 @@ public class Item {
 			891, 892, 893, 942, 2532, 2533, 2534, 2535, 2536, 2537, 2538, 2539,
 			2540, 2541, 2866, 4160, 4172, 4173, 4174, 4175, 4740, 5616, 5617,
 			5618, 5619, 5620, 5621, 5622, 5623, 5624, 5625, 5626, 5627, 6061,
-			6062 };
+			6062};
 	public static int rings[] = { 8082, 773, 1635, 1637, 1639, 1641, 1643,
 			1645, 2550, 2552, 2554, 2556, 2558, 2560, 2562, 2564, 2566, 2568,
 			2570, 2572, 4202, 4657, 6465, 6737, 6731, 6735, 6583, 6733 };
@@ -99,9 +99,8 @@ public class Item {
 			1121, 1123, 1125, 1127, 1129, 1131, 1133, 2583, 2591, 2599, 2607,
 			2615, 2623, 2653, 2669, 3481, 4712, 4720, 4728, 4749, 4892, 4893,
 			4894, 4895, 4916, 4917, 4918, 4919, 4964, 4965, 4966, 4967, 6107,
-			6133, 6322, 6322, 6129, 75, 6916, 6916, 4111, 6654, 6654, 75, 7399,
-			7390, 7374, 5575, 2503, 6341, 6351, 3387, 5030, 5032, 5034, 5030,
-			5032, 5034, 7392, 546, 581 };
+			6133, 6322, 6322, 6129, 75, 6916, 6916, 4111, 6654, 6654, 75, 7399, 7374, 5575, 2503, 6341, 6351, 3387, 5030, 5032, 5034, 5030,
+			5032, 5034,7390 , 7392, 546, 581 };
 	public static int legs[] = { 7609, 2522, 7378, 7380, 7382, 7368, 7366,
 			7388, 646, 648, 650, 652, 654, 428, 1097, 1095, 7593, 8032, 8028,
 			6625, 8020, 8015, 7384, 7969, 7966, 7962, 6141, 538, 1033, 5555,
@@ -127,17 +126,16 @@ public class Item {
 			4990, 0x2f9a0eb, 6186, 6184, 6180, 3058, 4509, 4504, 4069, 4728,
 			4736, 4712, 6107, 2661, 3140, 1115, 1117, 1119, 1121, 1123, 1125,
 			1127, 2583, 2591, 2599, 2607, 2615, 6322, 2623, 2653, 2669, 3481,
-			4720, 4728, 4749, 2661, 6129, 6916, 4091, 6654, 6133, 75, 7399,
-			7390, 5575, 6341, 6351, 3387, 5024, 5030, 5032, 5034, 7392, 6786, 6788 };
+			4720, 4728, 4749, 2661, 6129, 6916, 4091, 6654, 6133, 75, 7399, 5575, 6341, 6351, 7390, 7392, 3387, 5024, 5030, 5032, 5034, 7392, 6786, 6788 };
 
 	/* Fullbody is an item that covers your arms. */
-	private static String[] fullbody = { 
-			"top", "shirt", "platebody",
+	private static String[] fullbody = {
+			"top", "shirt", "platebody", "Wizard robe (g)", "Wizard robe (t)",
 			"Ahrims robetop", "Karils leathertop", "brassard", "Robe top",
 			"robetop", "platebody (t)", "platebody (g)", "chestplate", "torso",
 			"hauberk", "Dragon chainbody", "gown", "Shade robe", "Wizard robe",
 			"Druid's robe", "Black robe", "Fremennik robe", "Robe of elidinis",
-			"tunic", "blouse"
+			"tunic", "blouse", "Wizard robe(g)", "Wizard robe(t)"
 	};
 	/* Fullhat covers your head but not your beard. */
 	private static String[] fullhat = { "med helm", "coif", "Dharok's helm",
@@ -145,12 +143,14 @@ public class Item {
 			"Armadyl helmet", "Berserker helm", "Archer helm", "Farseer helm",
 			"Warrior helm", "Void" };
 	/* Fullmask covers your entire head. */
-	private static String[] fullmask = { "full helm", "mask", "Verac's helm",
+	private static String[] fullmask = { "full helm(t)", "full helm(g)", "full helm", "mask", "Verac's helm",
 			"Guthan's helm", "Karil's coif", "mask", "Torag's helm", "Void",
 			"sallet", "Facemask" };
 
 	public static boolean isFullBody(int itemId) {
 		String weapon = getItemName(itemId);
+		System.out.println("ItemName: " + weapon);
+		System.out.println("ItemID: " + itemId);
 		if (weapon == null) {
 			return false;
 		}
@@ -192,6 +192,9 @@ public class Item {
 		for (ItemList element : Server.itemHandler.ItemList) {
 			if (element != null) {
 				if (element.itemId == id) {
+					System.out.println("itemName: " + element.itemName);
+					System.out.println("id: " + id);
+					System.out.println("itemID: " + element.itemId);
 					return element.itemName;
 				}
 			}
