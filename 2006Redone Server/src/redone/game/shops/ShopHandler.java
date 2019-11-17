@@ -133,11 +133,7 @@ public class ShopHandler {
 				token = token.trim();
 				token2 = line.substring(spot + 1);
 				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
+				token2_2 = token2.replaceAll("\t+", "\t");
 				token3 = token2_2.split("\t");
 				if (token.equals("shop")) {
 					int ShopID = Integer.parseInt(token3[0]);

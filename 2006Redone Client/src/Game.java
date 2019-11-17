@@ -4771,7 +4771,7 @@ public class Game extends RSApplet {
 					inputTaken = true;
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
-					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx")) {
+					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
 						graphicsEnabled = !graphicsEnabled;
 					}
 					if (myPrivilege == 2) {
