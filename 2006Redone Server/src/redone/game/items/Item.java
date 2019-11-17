@@ -146,7 +146,7 @@ public class Item {
 			"Warrior helm", "Void" };
 	/* Fullmask covers your entire head. */
 	private static String[] fullmask = { "full helm", "mask", "Verac's helm",
-			"Guthan's helm", "Karil's coif", "mask", "Torag's helm", "Void",
+			"Guthan's helm", "helmet", "Karil's coif", "mask", "Torag's helm", "Void",
 			"sallet", "Facemask" };
 
 	public static boolean isFullBody(int itemId) {
