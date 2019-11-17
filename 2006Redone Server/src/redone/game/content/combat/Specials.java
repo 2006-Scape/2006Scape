@@ -23,7 +23,7 @@ public class Specials {
 		// ItemName(ItemId, SpecDamage, SpecAccuracy, SpecAmount, Anim, GFX0,
 		// GFX100, DoubleHit, SsSpec, SpecEffect)
 
-		ABYSSAL_WHIP(4151, 1, 1, 5, 1658, 341, -1, false, false, 0), 
+		ABYSSAL_WHIP(4151, 1, 1.25, 5, 1658, 341, -1, false, false, 0),
 		DRAGON_DAGGER(1215, .95, 1.15, 2.5, 1062, -1, 252, true, false, 0),
 		DRAGON_DAGGER_P(1231, .85, 1.15, 2.5, 1062, -1, 252, true, false, 0), 
 		DRAGON_DAGGER_PP(5698, .85, 1.15, 2.5, 1062, -1, 252, true, false, 0), 
@@ -359,7 +359,7 @@ public class Specials {
 				player.playerLevel[2] = player.getLevelForXP(player.playerXP[2]) + player.getLevelForXP(player.playerXP[2]) * 15 / 100;
 				player.getPlayerAssistant().refreshSkill(2);
 				player.getItemAssistant().updateSpecialBar();
-		} else {
+			} else {
 				player.getActionSender().sendMessage("You don't have the required special energy to use this attack.");
 			}
 		}
