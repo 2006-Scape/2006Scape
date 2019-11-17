@@ -181,7 +181,6 @@ public class Runecrafting {
 		if (ad != null) {
 			int amount = c.getItemAssistant().getItemCount(7936);
 			int amount2 = c.getItemAssistant().getItemCount(1436);
-			System.out.println(amount + ", " + amount2);
 			if (amount2 > 0 && amount > 0) {
 				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemCount(7936));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
