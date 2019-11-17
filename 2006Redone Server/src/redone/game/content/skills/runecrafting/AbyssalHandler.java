@@ -6,10 +6,10 @@ public class AbyssalHandler {
 
 	public static void handleAbyssalTeleport(Client c, int objectId) {
 		switch (objectId) {
-		case 7147:// added squeeze through gap
+		case 7147: // squeeze through gap
 			c.getPlayerAssistant().movePlayer(3030, 4842, 0);
 			break;
-		case 7133:// added nature
+		case 7133: // nature
 			c.getPlayerAssistant().startTeleport(2395, 4841, 0, "modern");
 			break;
 		case 7132: // cosmic
@@ -30,23 +30,21 @@ public class AbyssalHandler {
 		case 7139: // air
 			c.getPlayerAssistant().startTeleport(2844, 4837, 0, "modern");
 			break;
-		case 7138: // soul
-			c.getActionSender().sendMessage("This altar is disabled atm.");
-			break;
-		case 7141: // blood
-			c.getActionSender().sendMessage("This altar is disabled atm.");
-			break;
 		case 7137: // water
 			c.getPlayerAssistant().startTeleport(2722, 4833, 0, "modern");
 			break;
 		case 7136: // death
 			c.getPlayerAssistant().startTeleport(2205, 4834, 0, "modern");
 			break;
-		case 7135:
+		case 7135: // law
 			c.getPlayerAssistant().startTeleport(2464, 4830, 0, "modern");
 			break;
 		case 7134: // chaos
 			c.getPlayerAssistant().startTeleport(2274, 4842, 0, "modern");
+			break;
+		case 7138: // soul
+		case 7141: // blood
+			c.getActionSender().sendMessage("This altar is currently disabled.");
 			break;
 		}
 	}

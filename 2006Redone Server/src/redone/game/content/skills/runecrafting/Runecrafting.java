@@ -170,9 +170,7 @@ public class Runecrafting {
 				c.getActionSender().sendSound(SoundList.RUNECRAFTING, 100,
 						0);
 			} else {
-				c.getActionSender().sendMessage(
-						"You need a runecrafting level of at least "
-								+ ad.levelReq + " to make runes here.");
+				c.getActionSender().sendMessage("You need a runecrafting level of at least " + ad.levelReq + " to make runes here.");
 			}
 		}
 		return false;
@@ -183,48 +181,24 @@ public class Runecrafting {
 		if (ad != null) {
 			int amount = c.getItemAssistant().getItemCount(7936);
 			int amount2 = c.getItemAssistant().getItemCount(1436);
+			System.out.println(amount + ", " + amount2);
 			if (amount2 > 0 && amount > 0) {
-				c.getItemAssistant().deleteItem(7936,
-						c.getItemAssistant().getItemCount(7936));
-				c.getItemAssistant().addItem(
-						ad.rewardedRune,
-						amount
-								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
-										: getMultiplier(ad) - 1));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount,
-						c.playerRunecrafting);
-				c.getItemAssistant().deleteItem(1436,
-						c.getItemAssistant().getItemCount(1436));
-				c.getItemAssistant().addItem(
-						ad.rewardedRune,
-						amount2
-								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
-										: getMultiplier(ad) - 1));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount2,
-						c.playerRunecrafting);
+				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemCount(7936));
+				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount, c.playerRunecrafting);
+				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemCount(1436));
+				c.getItemAssistant().addItem(ad.rewardedRune, amount2 * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, c.playerRunecrafting);
 			} else if (amount > 0) {
-				c.getItemAssistant().deleteItem(7936,
-						c.getItemAssistant().getItemCount(7936));
-				c.getItemAssistant().addItem(
-						ad.rewardedRune,
-						amount
-								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
-										: getMultiplier(ad) - 1));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount,
-						c.playerRunecrafting);
+				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemCount(7936));
+				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount, c.playerRunecrafting);
 			} else if (amount2 > 0) {
-				c.getItemAssistant().deleteItem(1436,
-						c.getItemAssistant().getItemCount(1436));
-				c.getItemAssistant().addItem(
-						ad.rewardedRune,
-						amount2
-								* (getMultiplier(ad) == 1 ? getMultiplier(ad)
-										: getMultiplier(ad) - 1));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount2,
-						c.playerRunecrafting);
+				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemCount(1436));
+				c.getItemAssistant().addItem(ad.rewardedRune, amount2 * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, c.playerRunecrafting);
 			} else {
-				c.getActionSender().sendMessage(
-						"You don't have any essence left.");
+				c.getActionSender().sendMessage("You don't have any essence left.");
 			}
 		}
 	}
