@@ -372,9 +372,9 @@ public class ShopAssistant {
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 			int TotPrice2 = 0;
 			if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
-				TotPrice2 = (int) (getTokkulValue(itemID) * .85);
+				TotPrice2 = (int) Math.floor(getTokkulValue(itemID) * .85) * amount;
 			} else {
-				 TotPrice2 = (int) Math.floor(getItemShopValue(itemID, amount, true) * amount); //Something about total price of item?
+				TotPrice2 = (int) Math.floor(getItemShopValue(itemID, amount, true) * amount); //Something about total price of item?
 			}
 			if (player.getItemAssistant().freeSlots() > 0 || player.getItemAssistant().playerHasItem(995) || player.getItemAssistant().playerHasItem(6529)) { //Checks to see if player has room for coins.
 				if (!ItemDefinitions.getDef()[itemID].isNoteable) { //Check to see if its notable.
