@@ -149,8 +149,6 @@ public class Item {
 
 	public static boolean isFullBody(int itemId) {
 		String weapon = getItemName(itemId);
-		System.out.println("ItemName: " + weapon);
-		System.out.println("ItemID: " + itemId);
 		if (weapon == null) {
 			return false;
 		}
@@ -192,9 +190,6 @@ public class Item {
 		for (ItemList element : Server.itemHandler.ItemList) {
 			if (element != null) {
 				if (element.itemId == id) {
-					System.out.println("itemName: " + element.itemName);
-					System.out.println("id: " + id);
-					System.out.println("itemID: " + element.itemId);
 					return element.itemName;
 				}
 			}
