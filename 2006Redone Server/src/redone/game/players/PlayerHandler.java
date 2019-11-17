@@ -1,7 +1,6 @@
 package redone.game.players;
 
 import java.net.InetSocketAddress;
-
 import redone.Constants;
 import redone.Server;
 import redone.event.CycleEventHandler;
@@ -10,6 +9,7 @@ import redone.game.npcs.Npc;
 import redone.game.npcs.NpcHandler;
 import redone.util.Misc;
 import redone.util.Stream;
+import redone.world.GlobalDropsHandler;
 
 public class PlayerHandler {
 
@@ -365,6 +365,11 @@ public class PlayerHandler {
 		}
 
 		str.endFrameVarSizeWord();
+		
+		if (plr.refresh) {
+			GlobalDropsHandler.reset((Client)plr);
+			plr.refresh = false;
+		}
 	}
 
 	private void removePlayer(Player plr) {

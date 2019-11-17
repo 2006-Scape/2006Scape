@@ -22,7 +22,7 @@ public class Chat implements PacketType {
 		if (AntiSpam.blockedWords(player, word, true) && !Connection.isMuted(player)) {
 			player.setChatTextUpdateRequired(true);
 		}
-		System.out.println(word);
+		//System.out.println(word);
 		if (Connection.isMuted(player)) {
 			player.getActionSender().sendMessage("You are muted and can't speak.");
 			player.setChatTextUpdateRequired(false);

@@ -3,8 +3,9 @@ package redone.world;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -23,12 +24,14 @@ public class GlobalDropsHandler {
 	/**
 	 * time in seconds it takes for the item to respawn
 	 */
-	private static final int TIME_TO_RESPAWN = 30;
+	private static final int TIME_TO_RESPAWN = 20;
 
 	/**
 	 * holds all the objects
 	 */
 	private static List<GlobalDrop> globalDrops = new ArrayList<GlobalDrop>();
+	
+	private static Set<GlobalDrop> spawnedDrops = new HashSet<>();
 
 	/**
 	 * loads the items
@@ -37,16 +40,17 @@ public class GlobalDropsHandler {
 		String Data;
 		BufferedReader Checker;
 		try {
-			Checker = new BufferedReader(new FileReader(
-					"./data/cfg/globaldrops.txt"));
+			Checker = new BufferedReader(new FileReader("./data/cfg/globaldrops.txt"));
 			while ((Data = Checker.readLine()) != null) {
 				if (Data.startsWith("#")) {
 					continue;
 				}
 				String[] args = Data.split(":");
-				globalDrops.add(new GlobalDrop(Integer.parseInt(args[0]),
-						Integer.parseInt(args[1]), Integer.parseInt(args[2]),
-						Integer.parseInt(args[3])));
+				if(args.length == 5) {
+					globalDrops.add(new GlobalDrop(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4])));
+				} else {
+					globalDrops.add(new GlobalDrop(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
+				}
 			}
 			Checker.close();
 		} catch (Exception e) {
@@ -54,29 +58,53 @@ public class GlobalDropsHandler {
 		}
 		Misc.println("Loaded " + globalDrops.size() + " global drops.");
 
-	for (Player player : PlayerHandler.players) {
-		final Client client = (Client) player;
-		if (client != null) {
-		   CycleEventHandler.getSingleton().addEvent(client, new CycleEvent() {
-	            @Override
-	            public void execute(CycleEventContainer container) {
-				for (GlobalDrop drop : globalDrops) {
-					if (drop.isTaken()) {
-						if (System.currentTimeMillis() - drop.getTakenAt() >= TIME_TO_RESPAWN * 1000) {
-							drop.setTaken(false);
-								if (client.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-									client.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), 0);
+		for (Player player : PlayerHandler.players) {
+			Client player2 = (Client) player;
+			if(player2 != null) {
+				CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer container) {
+						for (GlobalDrop drop : globalDrops) {
+							if (drop.isTaken() && drop.isSpawned()) {
+								if (System.currentTimeMillis() - drop.getTakenAt() >= TIME_TO_RESPAWN * 1000) {
+									drop.setTaken(false);
+									if (player2.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+										player2.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+										spawnedDrops.add(drop);
+									}
+
 								}
 							}
 						}
 					}
-				}
-	            @Override
-				public void stop() {
-					// TODO Auto-generated method stub
-				}
+					@Override
+					public void stop() {
+
+					}
 				}, 1);
 			}
+		}
+	}
+	
+	public static void read() {
+		String Data;
+		BufferedReader Checker;
+		try {
+			Checker = new BufferedReader(new FileReader("./data/cfg/globaldrops.txt"));
+			while ((Data = Checker.readLine()) != null) {
+				if (Data.startsWith("#")) {
+					continue;
+				}
+				String[] args = Data.split(":");
+				if(args.length == 5) {
+					globalDrops.add(new GlobalDrop(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4])));
+				} else {
+					globalDrops.add(new GlobalDrop(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3])));
+				}
+			}
+			Checker.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -99,12 +127,21 @@ public class GlobalDropsHandler {
 		}
 		return null;
 	}
+	
+	public static boolean itemExists(int a, int b, int c, boolean yes) {
+		for (GlobalDrop drop : spawnedDrops) {
+			if (drop.getId() == a && drop.getX() == b && drop.getY() == c) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Pick up an item at the given location
 	 * 
-	 * @param client
-	 *            the client
+	 * @param Player
+	 *            the Player
 	 * @param a
 	 *            item id
 	 * @param b
@@ -112,7 +149,7 @@ public class GlobalDropsHandler {
 	 * @param c
 	 *            cord y
 	 */
-	public static void pickup(Client client, int a, int b, int c) {
+	public static void pickup(Client Player, int a, int b, int c) {
 		GlobalDrop drop = itemExists(a, b, c);
 		if (drop == null) {
 			return;
@@ -120,19 +157,15 @@ public class GlobalDropsHandler {
 		if (drop.isTaken()) {
 			return;
 		}
-		drop.setTakenAt(System.currentTimeMillis());
-		drop.setTaken(true);
-		if (client.getItemAssistant().freeSlots() > 0) {
-			client.getItemAssistant().addItem(drop.getId(), drop.getAmount());
-		}
-		// TODO use the region manager for this...
-		for (Player player : PlayerHandler.players) {
-			Client cl = (Client) player;
-			if (cl != null) {
-				if (cl.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-					// cl.getItems().removeGroundItem(drop.getId(), drop.getX(),
-					// drop.getY(), drop.getAmount());
+		if (Player.getItemAssistant().freeSlots() > 0) {
+			Player.getItemAssistant().addItem(drop.getId(), drop.getAmount());
+			drop.setTakenAt(System.currentTimeMillis());
+			drop.setTaken(true);
+			for (Player player : PlayerHandler.players) {
+				Client cl = (Client) player;
+				if (cl != null) {
 					cl.getActionSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
+					spawnedDrops.remove(drop);
 				}
 			}
 		}
@@ -141,15 +174,33 @@ public class GlobalDropsHandler {
 	/**
 	 * Loads all the items when a player changes region
 	 * 
-	 * @param client
-	 *            the client
+	 * @param Player
+	 *            the Player
 	 */
-	public static void load(Client client) {
+	public static void load(Client player) {
 		for (GlobalDrop drop : globalDrops) {
-			if (!drop.isTaken()) {
-				if (client.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-					client.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), 0);
-				}
+			if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+				player.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+				spawnedDrops.add(drop);
+				drop.setSpawned(true);
+			}
+		}
+	}
+	
+	public static void reset(Client player) {
+		for(GlobalDrop drop : globalDrops) {
+			if(player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+				player.getActionSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
+			}
+		}
+		spawnedDrops.clear();
+		globalDrops.clear();
+		read();
+		for (GlobalDrop drop : globalDrops) {
+			if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+				player.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+				spawnedDrops.add(drop);
+				drop.setSpawned(true);
 			}
 		}
 	}
@@ -164,11 +215,13 @@ public class GlobalDropsHandler {
 		/**
 		 * cord x
 		 */
-		int x;
+		int itemX;
 		/**
 		 * cord y
 		 */
-		int y;
+		int itemY;
+		
+		private int height;
 		/**
 		 * item id
 		 */
@@ -181,6 +234,9 @@ public class GlobalDropsHandler {
 		 * has the item been taken
 		 */
 		boolean taken = false;
+		
+		private boolean spawned = false;
+
 		/**
 		 * Time it was taken at
 		 */
@@ -189,20 +245,29 @@ public class GlobalDropsHandler {
 		/**
 		 * Sets the drop arguments
 		 * 
-		 * @param a
+		 * @param pickAxe
 		 *            item id
 		 * @param b
 		 *            item amount
-		 * @param c
+		 * @param player
 		 *            cord x
 		 * @param d
 		 *            cord y
 		 */
-		public GlobalDrop(int a, int b, int c, int d) {
-			id = a;
-			amount = b;
-			x = c;
-			y = d;
+		
+		public GlobalDrop(int id, int amount, int itemX, int itemY) {
+			this.id = id;
+			this.amount = amount;
+			this.itemX = itemX;
+			this.itemY = itemY;
+		}
+		
+		public GlobalDrop(int id, int amount, int itemX, int itemY, int height) {
+			this.id = id;
+			this.amount = amount;
+			this.itemX = itemX;
+			this.itemY = itemY;
+			this.height = height;
 		}
 
 		/**
@@ -211,7 +276,7 @@ public class GlobalDropsHandler {
 		 * @return return the statement
 		 */
 		public int getX() {
-			return x;
+			return itemX;
 		}
 
 		/**
@@ -220,7 +285,7 @@ public class GlobalDropsHandler {
 		 * @return return the statement
 		 */
 		public int getY() {
-			return y;
+			return itemY;
 		}
 
 		/**
@@ -277,6 +342,22 @@ public class GlobalDropsHandler {
 		 */
 		public long getTakenAt() {
 			return takenAt;
+		}
+
+		public boolean isSpawned() {
+			return spawned;
+		}
+
+		public void setSpawned(boolean spawned) {
+			this.spawned = spawned;
+		}
+
+		public int getHeight() {
+			return height;
+		}
+
+		public void setHeight(int height) {
+			this.height = height;
 		}
 
 	}

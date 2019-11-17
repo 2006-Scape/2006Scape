@@ -17,7 +17,7 @@ public abstract class Player {
 
 	public String currentTime, date, creationAddress = "", slayerMaster;
 	
-	public boolean lostCannon = false;
+	public boolean lostCannon = false, refresh = false;
 
 	public ArrayList<String> killedPlayers = new ArrayList<String>();
 	public ArrayList<Integer> attackedPlayers = new ArrayList<Integer>();
