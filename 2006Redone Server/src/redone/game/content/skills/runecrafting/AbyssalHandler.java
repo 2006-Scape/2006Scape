@@ -6,7 +6,7 @@ public class AbyssalHandler {
 
 	public static void handleAbyssalTeleport(Client c, int objectId) {
 		switch (objectId) {
-		case 7147:// added
+		case 7147:// added squeeze through gap
 			c.getPlayerAssistant().movePlayer(3030, 4842, 0);
 			break;
 		case 7133:// added nature
@@ -48,13 +48,7 @@ public class AbyssalHandler {
 		case 7134: // chaos
 			c.getPlayerAssistant().startTeleport(2274, 4842, 0, "modern");
 			break;
-		default:
-			c.getActionSender().sendMessage(
-					"If you see this message, please PM an Administrator.");
-			break;
 		}
-		c.getActionSender().sendMessage(
-				"As you click the object, you teleport to a mystical place...");
 	}
 
 }
