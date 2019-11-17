@@ -1630,6 +1630,8 @@ public class ItemAssistant {
 			case 6402:
 			case 6788:
 			case 6184:
+			case 7390:
+			case 7392:
 			case 6186:
 				targetSlot = 4;
 				break;

@@ -20,6 +20,7 @@ import redone.game.content.skills.core.Woodcutting;
 import redone.game.content.skills.crafting.Spinning;
 import redone.game.content.skills.farming.Farming;
 import redone.game.content.skills.fletching.LogCutting;
+import redone.game.content.skills.runecrafting.AbyssalHandler;
 import redone.game.content.skills.runecrafting.RuneCraftingActions;
 import redone.game.content.skills.smithing.Smelting;
 import redone.game.content.skills.thieving.Stalls;
@@ -112,6 +113,7 @@ public class ObjectsActions {
 		SingleGates.useSingleGate(player, objectType);
 		DoubleGates.useDoubleGate(player, objectType);
 		PassDoor.processDoor(player, objectType);
+		AbyssalHandler.handleAbyssalTeleport(player, objectType);
 		// if its a rock we can mine, mine it
 		if (Mining.rockExists(objectType))
 			player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
@@ -1695,14 +1697,6 @@ public class ObjectsActions {
 
 		case 6481:
 				player.getPlayerAssistant().movePlayer(3233, 9317, 0);
-			break;
-
-		case 2258:
-			if (player.playerLevel[20] >= 35) {
-				player.getPlayerAssistant().spellTeleport(3027, 4852, 0);
-			} else {
-				player.getActionSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
-			}
 			break;
 
 		/**

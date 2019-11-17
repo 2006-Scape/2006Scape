@@ -1207,6 +1207,15 @@ public class NpcActions {
 			String type = c.playerMagicBook == 0 ? "modern" : "ancient";
 			c.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
 			break;
+
+		case 2258:
+			if (c.playerLevel[20] < 35) {
+				c.getActionSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
+				return;
+			}
+			c.getPlayerAssistant().spellTeleport(3027, 4852, 0);
+			break;
+
 		default:
 			if (c.playerRights == 3) {
 				Misc.println("Third Click NPC : " + npcType);
