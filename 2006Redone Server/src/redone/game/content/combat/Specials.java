@@ -24,14 +24,14 @@ public class Specials {
 		// GFX100, DoubleHit, SsSpec, SpecEffect)
 
 		ABYSSAL_WHIP(4151, 1, 1.25, 5, 1658, 341, -1, false, false, 0),
-		DRAGON_DAGGER(1215, .95, 1.15, 2.5, 1062, -1, 252, true, false, 0),
-		DRAGON_DAGGER_P(1231, .85, 1.15, 2.5, 1062, -1, 252, true, false, 0), 
-		DRAGON_DAGGER_PP(5698, .85, 1.15, 2.5, 1062, -1, 252, true, false, 0), 
-		DRAGON_DAGGER_PPP(5680, .85, 1.15, 2.5, 1062, -1, 252, true, false, 0), 
-		DRAGON_LONG(1305, 1.20, 1.10, 2.5, 1058, -1, 248, false, false, 0), 
-		DRAGON_MACE(1434, 1.55, .85, 2.5, 1060, -1, 251, false, false, 0), 
-		DRAGON_SCIMITAR(4587, 1, 1, 5.5, 1872, -1, 347, false, false, 1), 
-		DRAGON_HALBERD(3204, 1.25, .85, 3.3, 1203, -1, 282, true, false, 0),
+		DRAGON_DAGGER(1215, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
+		DRAGON_DAGGER_P(1231, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
+		DRAGON_DAGGER_PP(5698, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
+		DRAGON_DAGGER_PPP(5680, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
+		DRAGON_LONG(1305, 1.20, 1.10, 2.5, 1058, -1, 248, false, false, 0),
+		DRAGON_MACE(1434, 1.55, 1.25, 2.5, 1060, -1, 251, false, false, 0),
+		DRAGON_SCIMITAR(4587, 1, 1.25, 5.5, 1872, -1, 347, false, false, 1),
+		DRAGON_HALBERD(3204, 1.25, .85, 3, 1203, -1, 282, true, false, 0),
 		GRANITE_MAUL(4153, 1.10, .85, 5, 1667, -1, 337, false, false, 0),
 		MAGIC_SHORTBOW(861, 1.05, .95, 5.5, 1074, -1, -1, true, false, 0), 
 		MAGIC_LONGBOW(859, 1.20, 1.05, 5.5, 426, -1, -1, false, false, 0);
