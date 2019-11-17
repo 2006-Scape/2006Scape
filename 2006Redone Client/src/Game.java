@@ -12171,7 +12171,7 @@ public class Game extends RSApplet {
 		this.anInt1187 += (j << 1);
 	}
 
-	public final void keyPressed(KeyEvent keyevent)
+	public void keyPressed(KeyEvent keyevent)
 	{
 		super.keyPressed(keyevent);
 		switch (keyevent.getKeyCode())

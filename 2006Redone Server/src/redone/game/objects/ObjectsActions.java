@@ -62,8 +62,8 @@ public class ObjectsActions {
 		player.faceUpdate(0);
 		player.clickObjectType = 0;
 		player.turnPlayerTo(objectX, objectY);
-		if (!Region.objectExists(objectType, objectX, objectY, player.heightLevel)) {
-			player.getActionSender().sendMessage("This object does not exist. Please report this to a staff member.");
+		if (!Region.objectExists(objectType, objectX, objectY, player.heightLevel) && player.playerRights > 1) {
+			player.getActionSender().sendMessage("[DEBUG] This object does not exist.");
 		    return;
 		}
 		if (Webs.webs(player, objectType)) {
@@ -2562,14 +2562,9 @@ public class ObjectsActions {
 		player.faceUpdate(0);
 		player.clickObjectType = 0;
 		player.turnPlayerTo(obX, obY);
-		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
-			player.getActionSender().sendMessage("This object does not exist. Please report this to a staff member.");
+		if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
+			player.getActionSender().sendMessage("[DEBUG] This object does not exist.");
 		    return;
-		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't click any objects until you confirm you are not botting.");
-			player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
 		}
 		LogCutting.resetFletching(player);
 		switch (objectType) {
@@ -2828,14 +2823,9 @@ public class ObjectsActions {
 		if (player.playerRights == 3) {
 			player.getActionSender().sendMessage("Object type: " + objectType);
 		}
-		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
-			player.getActionSender().sendMessage("This object does not exist. Please report this to a staff member.");
+		if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
+			player.getActionSender().sendMessage("[DEBUG] This object does not exist.");
 		    return;
-		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't click any objects until you confirm you are not botting.");
-			player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
 		}
 		if (Stalls.isObject(objectType)) {
 			Stalls.attemptStall(player, objectType, obX, obY);
@@ -2879,14 +2869,9 @@ public class ObjectsActions {
 		if (player.playerRights == 3) {
 			player.getActionSender().sendMessage("Object type: " + objectType);
 		}
-		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
-			player.getActionSender().sendMessage("This object does not exist. Please report this to a staff member.");
+		if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
+			player.getActionSender().sendMessage("[DEBUG] This object does not exist.");
 		    return;
-		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't click any objects until you confirm you are not botting.");
-			player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
 		}
 		Farming.openGuide(player, player.objectId);
 		switch (objectType) {

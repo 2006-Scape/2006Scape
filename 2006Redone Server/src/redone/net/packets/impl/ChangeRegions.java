@@ -22,7 +22,7 @@ public class ChangeRegions implements PacketType {
 		Doors.getSingleton().load();
 		Server.itemHandler.reloadItems(c);
 		Server.objectManager.loadObjects(c);
-		GlobalDropsHandler.load(c);
+		GlobalDropsHandler.reset(c);
 		c.getPlayerAssistant().removeObjects();// testing
 		c.saveFile = true;
 		if (c.skullTimer > 0) {

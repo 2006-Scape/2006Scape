@@ -406,7 +406,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 				if (line.equals("[ENDOFITEMLIST]")) {
 					try {
 						characterfile.close();
-					} catch (IOException ಠ_ಠ) {}
+					} catch (IOException e) {}
 					//return true;
 				}
 			}

@@ -284,7 +284,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	}
 
 	@Override
-	public final void mouseMoved(MouseEvent mouseevent) {
+	public void mouseMoved(MouseEvent mouseevent) {
 		int i = mouseevent.getX();
 		int j = mouseevent.getY();
 		if (gameFrame != null) {
