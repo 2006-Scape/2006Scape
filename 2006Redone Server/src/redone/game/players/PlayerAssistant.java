@@ -776,6 +776,10 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
+			player.refresh = false;
+			if(player.heightLevel != height) {
+				player.refresh = true;
+			}
 			player.teleHeight = height;
 			// client.resetShaking();
 			player.isTeleporting = true;
@@ -949,9 +953,13 @@ public class PlayerAssistant {
 	}
 
 	public void movePlayer(int x, int y, int h) {
+		player.refresh = false;
 		player.resetWalkingQueue();
 		player.teleportToX = x;
 		player.teleportToY = y;
+		if(player.heightLevel != h) {
+			player.refresh = true;
+		}
 		player.heightLevel = h;
 		player.getPlayerAssistant().requestUpdates();
 	}

@@ -231,6 +231,14 @@ public class NpcCombat {
 								NpcHandler.npcs[i].projectileId, 43, 31,
 								-c.getId() - 1, 65);
 					}
+					int random = Misc.random(10);
+					if (NpcHandler.npcs[i].npcType == 222 && (NpcHandler.npcs[i].killerId > 0 && NpcHandler.npcs[i].underAttack) && !NpcHandler.npcs[i].isDead && (NpcHandler.npcs[i].HP < NpcHandler.npcs[i].MaxHP + 1)) {
+						if (random < 3) {
+							NpcHandler.npcs[i].HP += 2;
+							//NpcHandler.npcs[i].startAnimation(84); 
+							NpcHandler.npcs[i].updateRequired = true;
+						}
+					}
 					c.underAttackBy2 = i;
 					c.singleCombatDelay2 = System.currentTimeMillis();
 					NpcHandler.npcs[i].oldIndex = c.playerId;

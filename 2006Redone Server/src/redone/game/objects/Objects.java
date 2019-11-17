@@ -42,6 +42,9 @@ public class Objects {
 		ObjectDef def = ObjectDef.getObjectDef(objectId);
 		if (def == null)
 			return new int[] {1, 1};
+		if (objectId == 2781) {
+			return new int[] {3, 3};
+		}
 		int xLength;
 		int yLength;
 		if (objectFace != 1 && objectFace != 3) {
