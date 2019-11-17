@@ -13,7 +13,8 @@ public class NPCDropsHandler {
 
 	public static int // found on http://runescape.wikia.com/wiki/Drop_rate
 			ALWAYS = 0,
-			COINSRATE = 3, CHICKEN_RATE = 75 / 100,
+			COINSRATE = 3,
+			CHICKEN_RATE = 75 / 100,
 			COMMON = 2 + r(48),
 			UNCOMMON = 51 + r(49),
 			RARE = 101 + r(411),

@@ -1525,7 +1525,7 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	 **/
 
 	protected void appendHitUpdate(Stream str) {
-		str.writeByte(getHitDiff()); // What the perseon got 'hit' for
+		str.writeByte(getHitDiff()); // What the person got 'hit' for
 		if (poisonMask == 1) {
 			str.writeByteA(2);
 		} else if (getHitDiff() > 0) {
