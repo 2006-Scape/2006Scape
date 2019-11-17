@@ -14,11 +14,10 @@ public class NPCDropsHandler {
 	public static int // found on http://runescape.wikia.com/wiki/Drop_rate
 			ALWAYS = 0,
 			COINSRATE = 3,
-			CHICKEN_RATE = 75 / 100,
-			COMMON = 2 + r(48),
-			UNCOMMON = 51 + r(49),
-			RARE = 101 + r(411),
-			VERY_RARE = 513;
+			COMMON = 32,
+			UNCOMMON = 64,
+			RARE = 256,
+			VERY_RARE = 512;
 
 	/**
 	 * Handles the npc drops for the npc names.
@@ -26,7 +25,7 @@ public class NPCDropsHandler {
 	 * @param NPCId
 	 * @return
 	 */
-	public static final int[][] NPC_DROPS(String npc, int NPCId) {
+	public static final ItemDrop[] NPC_DROPS(String npc, int NPCId) {
 		if (npc.equals("man") || npc.equals("woman") || npc.equals("drunken_man")) {
 			return NPCDrops.man;
 		} else if (npc.equals("skeletal_wyvern")) {
