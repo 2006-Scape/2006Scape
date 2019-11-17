@@ -142,9 +142,9 @@ public class Item {
 			"hood", "Initiate helm", "Coif", "Helm of neitiznot",
 			"Armadyl helmet", "Berserker helm", "Archer helm", "Farseer helm",
 			"Warrior helm", "Void" };
-	/* Fullmask covers your entire head. */
+	/* Fullmask covers your entire head. */  
 	private static String[] fullmask = { "full helm(t)", "full helm(g)", "full helm", "mask", "Verac's helm",
-			"Guthan's helm", "Karil's coif", "mask", "Torag's helm", "Void",
+			"Guthan's helm", "Karil's coif", "mask", "Torag's helm", "Void", "helmet",
 			"sallet", "Facemask" };
 
 	public static boolean isFullBody(int itemId) {

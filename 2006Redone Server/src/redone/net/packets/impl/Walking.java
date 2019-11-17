@@ -53,6 +53,7 @@ public class Walking implements PacketType {
 		}
 		if (player.inTrade) {
 			player.inTrade = false;
+			player.getTrading().declineTrade(true);
 		}
 		if (player.tutorialProgress > 35 && !player.isSmithing) {
 			player.getPlayerAssistant().closeAllWindows();
