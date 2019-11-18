@@ -4221,6 +4221,7 @@ public class DialogueHandler {
 				sendNpcChat1("Hummph.", player.talkingNpc, "Saniboch");
 				player.nextChat = 0;
 				break;
+			// Slayer masters
 			case 1226:
 				sendNpcChat2("You already have a slayer task",
 						"please finish it talk to me again.", player.talkingNpc,
@@ -4247,6 +4248,8 @@ public class DialogueHandler {
 						"I would like to cancel or remove my task.");
 				player.dialogueAction = 142;
 				break;
+			case 1230:
+				sendNpcChat1("Increase your combat level then come back for a task.", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
 			case 1231:
 				sendOption2("I want to cancel my current task.",
 						"I want to remove my task for ever.");
@@ -4267,14 +4270,11 @@ public class DialogueHandler {
 				break;
 			case 1235:
 				if (player.getSlayer().hasTask()) {
-					sendNpcChat1("Your Slayer Task is located at "
-									+ player.getSlayer().getLocation(player.slayerTask)
-									+ ".", player.talkingNpc,
-							NpcHandler.getNpcListName(player.talkingNpc));
+					sendNpcChat1("Your Slayer Task is located at " + player.getSlayer().getLocation(player.slayerTask) + ".", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
 					player.nextChat = 0;
 				} else {
 					sendNpcChat2("You don't have a slayer task",
-							"if you wish to get one talk to a slayer mask.",
+							"if you wish to get one talk to a slayer master.",
 							player.talkingNpc,
 							NpcHandler.getNpcListName(player.talkingNpc));
 					player.nextChat = 0;
@@ -4285,9 +4285,9 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1237:
-				sendNpcChat2("You have been assigned " + player.taskAmount + " "
-								+ player.getSlayer().getTaskName(player.slayerTask) + ",",
-						"Good luck " + player.playerName + ".", player.talkingNpc,
+				sendNpcChat2("You have been assigned " + player.taskAmount + " " + player.getSlayer().getTaskName(player.slayerTask) + ",",
+						"Good luck " + player.playerName + ".",
+						player.talkingNpc,
 						NpcHandler.getNpcListName(player.talkingNpc));
 				player.nextChat = 0;
 				break;
