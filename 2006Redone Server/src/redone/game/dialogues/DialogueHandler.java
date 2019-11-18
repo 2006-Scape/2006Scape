@@ -6,6 +6,7 @@ import redone.game.content.quests.QuestRewards;
 import redone.game.content.randomevents.FreakyForester;
 import redone.game.content.randomevents.RandomEventHandler;
 import redone.game.content.skills.SkillHandler;
+import redone.game.content.skills.slayer.Slayer;
 import redone.game.content.traveling.Sailing;
 import redone.game.globalworldobjects.PassDoor;
 import redone.game.items.ItemAssistant;
@@ -4221,6 +4222,7 @@ public class DialogueHandler {
 				sendNpcChat1("Hummph.", player.talkingNpc, "Saniboch");
 				player.nextChat = 0;
 				break;
+			// Slayer masters
 			case 1226:
 				sendNpcChat2("You already have a slayer task",
 						"please finish it talk to me again.", player.talkingNpc,
@@ -4235,10 +4237,13 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1228:
-				sendNpcChat1("'Ello and what are you after then?",
-						player.talkingNpc,
-						NpcHandler.getNpcListName(player.talkingNpc));
-				player.nextChat = 1229;
+				if (!Slayer.getMasterRequirment(player, player.talkingNpc)) {
+					sendNpcChat1("Increase your combat level then come back.", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
+					player.nextChat = 0;
+				} else {
+					sendNpcChat1("'Ello and what are you after then?", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
+					player.nextChat = 1229;
+				}
 				break;
 			case 1229:
 				sendOption4("I need another assignement.",
@@ -4267,14 +4272,11 @@ public class DialogueHandler {
 				break;
 			case 1235:
 				if (player.getSlayer().hasTask()) {
-					sendNpcChat1("Your Slayer Task is located at "
-									+ player.getSlayer().getLocation(player.slayerTask)
-									+ ".", player.talkingNpc,
-							NpcHandler.getNpcListName(player.talkingNpc));
+					sendNpcChat1("Your Slayer Task is located at " + player.getSlayer().getLocation(player.slayerTask) + ".", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
 					player.nextChat = 0;
 				} else {
 					sendNpcChat2("You don't have a slayer task",
-							"if you wish to get one talk to a slayer mask.",
+							"if you wish to get one talk to a slayer master.",
 							player.talkingNpc,
 							NpcHandler.getNpcListName(player.talkingNpc));
 					player.nextChat = 0;
@@ -4285,9 +4287,9 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1237:
-				sendNpcChat2("You have been assigned " + player.taskAmount + " "
-								+ player.getSlayer().getTaskName(player.slayerTask) + ",",
-						"Good luck " + player.playerName + ".", player.talkingNpc,
+				sendNpcChat2("You have been assigned " + player.taskAmount + " " + player.getSlayer().getTaskName(player.slayerTask) + ",",
+						"Good luck " + player.playerName + ".",
+						player.talkingNpc,
 						NpcHandler.getNpcListName(player.talkingNpc));
 				player.nextChat = 0;
 				break;
