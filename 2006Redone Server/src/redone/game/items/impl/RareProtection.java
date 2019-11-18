@@ -15,47 +15,51 @@ public class RareProtection {
 	private static final int[] EATABLE_RARES = { 1959, 1961, 1989 };
 
 	public static boolean equipItem(Client c) {// check when wearing, removing
+		/* Allow rares
 		for (int element : RARE_ITEMS) {
 			if (!RARES && c.wearId == element && c.playerRights < 3) {
-				c.getActionSender().sendMessage(
-						"You shouldn't have that item!");
+				c.getActionSender().sendMessage("You shouldn't have that item!");
 				int amountToDelete = c.getItemAssistant().getItemCount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}
 		}
+		*/
 		return true;
 	}
 
 	public static boolean removeItem(Client c, int itemId) {// check when
 															// wearing, removing
+		/* Allow rares
 		for (int element : RARE_ITEMS) {
 			if (!RARES && itemId == element && c.playerRights < 3) {
-				c.getActionSender().sendMessage(
-						"You shouldn't have that item!");
+				c.getActionSender().sendMessage("You shouldn't have that item!");
 				c.getItemAssistant().deleteEquipment(element, 0);
 				return false;
 			}
 		}
+		*/
 		return true;
 	}
 
 	public static boolean hasDupedItem(Client c) {// check on login
+		/* Allow rares
 		for (int element : RARE_ITEMS) {
 			if (!RARES && c.getItemAssistant().playerHasItem(element)
 					&& c.playerRights < 3) {
-				c.getActionSender().sendMessage(
-						"You can't have these items!");
+				c.getActionSender().sendMessage("You can't have these items!");
 				int amountToDelete = c.getItemAssistant().getItemCount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}
 		}
+		*/
 		return true;
 	}
 
 	public static boolean eatDupedItem(Client c, int itemId) {// check when
 																// eating
+		/* Allow rares
 		for (int element : EATABLE_RARES) {
 			if (!RARES && itemId == element && c.playerRights < 3) {
 				c.getActionSender().sendMessage("You can't eat that item!");
@@ -64,6 +68,7 @@ public class RareProtection {
 				return false;
 			}
 		}
+		*/
 		return true;
 	}
 
@@ -72,16 +77,17 @@ public class RareProtection {
 																// trading,
 																// staking,
 																// dropping
+		/* Allow rares
 		for (int element : RARE_ITEMS) {
 			if (!RARES && c.getItemAssistant().playerHasItem(element)
 					&& c.playerRights < 3) {
-				c.getActionSender().sendMessage(
-						"You shouldnt have that item!");
+				c.getActionSender().sendMessage("You shouldnt have that item!");
 				int amountToDelete = c.getItemAssistant().getItemCount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}
 		}
+		*/
 		return true;
 	}
 }

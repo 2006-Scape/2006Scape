@@ -15,6 +15,8 @@ import redone.game.content.music.sound.CombatSounds;
 import redone.game.content.randomevents.FreakyForester;
 import redone.game.content.randomevents.RandomEventHandler;
 import redone.game.content.randomevents.RiverTroll;
+import redone.game.npcs.drops.ItemDrop;
+import redone.game.npcs.drops.NPCDrops;
 import redone.game.npcs.drops.NPCDropsHandler;
 import redone.game.players.Client;
 import redone.game.players.Player;
@@ -884,71 +886,86 @@ public class NpcHandler {
 
 	public void dropItems(int i) {
 		// TODO: add ring of wealth
-		int npc = 0;
+		int item_index = 0;
 		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
-			for (npc = 0; npc < NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase(), npcs[i].npcType).length; npc++) {
-				if (Misc.random(NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase(), npcs[i].npcType)[npc][2]) == 0 && npcs[i].npcType != 2627 && npcs[i].npcType != 2638 && npcs[i].npcType != 2630 && npcs[i].npcType != 2631 && npcs[i].npcType != 2641 && npcs[i].npcType != 2643 && npcs[i].npcType != 2645 && npcs[i].npcType != 1532 && npcs[i].npcType != 153 && !PestControl.npcIsPCMonster(npcs[i].npcType)) {
-					Server.itemHandler.createGroundItem(c, NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase(), npcs[i].npcType)[npc][0], npcs[i].absX, npcs[i].absY, NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase(), npcs[i].npcType)[npc][1], c.playerId);
-					
-							}
-					}
-					switch (npcs[i].npcType) {
-						case 2459:
-							FreakyForester.killedPheasant(c, 0);
-							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							break;
-						case 2460:
-							FreakyForester.killedPheasant(c, 1);
-							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							break;
-						case 2461:
-							FreakyForester.killedPheasant(c, 2);
-							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							break;
-						case 2462:
-							FreakyForester.killedPheasant(c, 3);
-							Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							break;
-						case 92:
-							if (c.restGhost == 3) {
-								Server.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-								c.restGhost = 4;
-							}
-							break;
-						case 47:
-							if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
-								Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							}
-							break;
-						case 645:
-							if (c.shieldArrav == 5) {
-								Server.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-							}
-							break;
-					}
-					int level = getNpcListCombat(npcs[i].npcType);
-					// higher level monsters have a better drop rate (max of 1/128)
-					int chance = Math.max(128, 512 - (level * 2));
-					if (Misc.random(1, chance) == 1) {
-						int scroll = -1;
-						if (level <= 1) // none
-							scroll = -1;
-						else if (level <= 24) // easy
-							scroll = 2677;
-						else if (level <= 40) // easy → medium
-							scroll = 2677 + Misc.random(0, 1);
-						else if (level <= 80) // medium
-							scroll = 2678;
-						else if (level <= 150) // medium → hard
-							scroll = 2678 + Misc.random(0, 1);
-						else if (level > 150)// hard
-							scroll = 2679;
-						if (scroll >= 0)
-							Server.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
-					}
+			// These npcs shouldn't have drops
+			if (npcs[i].npcType == 2627 // Tz-Kih
+				|| npcs[i].npcType == 2630 // Tz-Kek
+				|| npcs[i].npcType == 2631 // Tok-Xil
+				|| npcs[i].npcType == 2638 // Neite
+				|| npcs[i].npcType == 2641 // Dragonkin
+				|| npcs[i].npcType == 2643 // R4ng3rNo0b889
+				|| npcs[i].npcType == 2645 // Love Cats
+				|| npcs[i].npcType == 1532 // Barricade
+				|| npcs[i].npcType == 153 // Butterfly
+				|| PestControl.npcIsPCMonster(npcs[i].npcType)
+				|| FightCaves.isFightCaveNpc(npcs[i].npcType)) {
+				// These npcs shouldn't have drops
+				return;
+			}
+			for (ItemDrop possible_drop : NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase(), npcs[i].npcType)) {
+				if (Misc.random(possible_drop.getChance()) == 0) {
+					int amt = possible_drop.getAmount();
+					Server.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY, amt, c.playerId);
 				}
 			}
+			switch (npcs[i].npcType) {
+				case 2459:
+					FreakyForester.killedPheasant(c, 0);
+					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					break;
+				case 2460:
+					FreakyForester.killedPheasant(c, 1);
+					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					break;
+				case 2461:
+					FreakyForester.killedPheasant(c, 2);
+					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					break;
+				case 2462:
+					FreakyForester.killedPheasant(c, 3);
+					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					break;
+				case 92:
+					if (c.restGhost == 3) {
+						Server.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						c.restGhost = 4;
+					}
+					break;
+				case 47:
+					if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
+						Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					}
+					break;
+				case 645:
+					if (c.shieldArrav == 5) {
+						Server.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					}
+					break;
+			}
+			int level = getNpcListCombat(npcs[i].npcType);
+			// higher level monsters have a better drop rate (max of 1/128)
+			int chance = Math.max(128, 512 - (level * 2));
+			if (Misc.random(1, chance) == 1) {
+				int scroll = -1;
+				if (level <= 1) // none
+					scroll = -1;
+				else if (level <= 24) // easy
+					scroll = 2677;
+				else if (level <= 40) // easy → medium
+					scroll = 2677 + Misc.random(0, 1);
+				else if (level <= 80) // medium
+					scroll = 2678;
+				else if (level <= 150) // medium → hard
+					scroll = 2678 + Misc.random(0, 1);
+				else if (level > 150)// hard
+					scroll = 2679;
+				if (scroll >= 0)
+					Server.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+			}
+		}
+	}
 	/**
 	 * Slayer Experience
 	 **/
