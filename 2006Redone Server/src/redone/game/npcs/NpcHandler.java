@@ -900,7 +900,7 @@ public class NpcHandler {
 				|| npcs[i].npcType == 1532 // Barricade
 				|| npcs[i].npcType == 153 // Butterfly
 				|| PestControl.npcIsPCMonster(npcs[i].npcType)
-				|| FightCaves.isFightCaveNpc(npcs[i].npcType)) {
+				|| FightCaves.isFightCaveNpc(i)) {
 				// These npcs shouldn't have drops
 				return;
 			}
