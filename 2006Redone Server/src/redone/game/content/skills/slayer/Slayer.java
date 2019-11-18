@@ -34,18 +34,19 @@ public class Slayer {
 	}
 
 	public enum SlayerMasters {
-		TURAEL(70, 1, "Taverly", "Turael"), MAZCHNA(1596, 20, "Canifis",
-				"Mazchna"), VANNAKA(1597, 40, "Edgeville", "Vannaka"), CHAELDAR(
-				1598, 70, "Zanaris", "Chaeldar"), DURADEL(1599, 100,
-				"Shilo Village", "Duradel");
+		TURAEL(70, 1, VERY_EASY_TASK,"Taverly", "Turael"),
+		MAZCHNA(1596, 20, EASY_TASK, "Canifis", "Mazchna"),
+		VANNAKA(1597, 40, MEDIUM_TASK, "Edgeville", "Vannaka"),
+		CHAELDAR(1598, 70, HARD_TASK, "Zanaris", "Chaeldar"),
+		DURADEL(1599, 100, VERY_HARD_TASK, "Shilo Village", "Duradel");
 
-		private int masterId, combatReq;
+		private int masterId, combatReq, diffuculty;
 		private String masterLocation, masterName;
 
-		private SlayerMasters(int masterId, int combatReq,
-				String masterLocation, String masterName) {
+		private SlayerMasters(int masterId, int combatReq, int diffuculty, String masterLocation, String masterName) {
 			this.masterId = masterId;
 			this.combatReq = combatReq;
+			this.diffuculty = diffuculty;
 			this.masterLocation = masterLocation;
 			this.masterName = masterName;
 		}
@@ -66,13 +67,17 @@ public class Slayer {
 			return masterName;
 		}
 
+		public int getDifficulty() {
+			return diffuculty;
+		}
+
 	}
 
 	//dark beast, red dragon, skeleton
 	public enum Task {
 		ABERRANT_SPECTRE(1604, 60, 90, 3, "Slayer Tower"), 
 		ABYSSAL_DEMON(1615, 85, 150, 4, "Slayer Tower"), 
-		BANSHEE(1612, 15, 22, 0 + r(2), "Slayer Tower"), 
+		BANSHEE(1612, 15, 22, 0 + r(1), "Slayer Tower"),
 		BASILISK(1616, 40, 75, 2, "Fremennik Slayer Dungeon"), 
 		BAT(412, 1, 8, 1, "Road to Paterdomus"), 
 		BLACK_DEMON(84, 1, 157, 3, "Taverly Dungeon"), 
@@ -113,7 +118,7 @@ public class Slayer {
 		ROCKSLUG(1622, 20, 27, 1, "Fremennik Slayer Dungeon"),
 		SKELETON(90, 1, 30, 0 + r(2), "Edgeville Dungeon or Taverly Dungeon"),
 		KARAMAJA_SKELETON(91, 1, 30, 0 + r(2), "Karamaja"),
-		WILDERNESS_SKELETON(92, 1, 30, 0 + r(2), "Wilderness"), 
+		WILDERNESS_SKELETON(92, 1, 30, 0 + r(2), "Wilderness"),
 		STEEL_DRAGON(1592, 1, 221, 4, "Brimhaven Dungeon"),
 		BEAR(105, 1, 27, 0, "Goblin Village"),
 		GREEN_GOBLIN(298, 1, 6, 0, "Goblin Village"),
@@ -129,7 +134,7 @@ public class Slayer {
 			this.exp = exp;
 			this.levelReq = levelReq;
 			this.location = location;
-			diff = difficulty;
+			this.diff = difficulty;
 		}
 
 		public int getNpcId() {
@@ -205,13 +210,11 @@ public class Slayer {
 		}
 	}
 	
-	public boolean getMasterRequirment(int id) {
+	public static boolean getMasterRequirment(Client c, int id) {
 		for (SlayerMasters slayermasters : SlayerMasters.values()) {
 			if (c.combatLevel < slayermasters.getCombatRequirement()
 					&& slayermasters.getId() == id) {
-				c.getActionSender().sendMessage(
-						"You need " + slayermasters.getCombatRequirement()
-								+ " combat to use this slayer master.");
+				c.getActionSender().sendMessage("You need " + slayermasters.getCombatRequirement() + " combat to use this slayer master.");
 				return false;
 			}
 		}
@@ -316,8 +319,7 @@ public class Slayer {
 
 	public void generateTask() {
 		if (hasTask() && !c.needsNewTask) {
-			c.getDialogueHandler().sendDialogues(1226, c.npcType);// already have
-																// task
+			c.getDialogueHandler().sendDialogues(1226, c.npcType);// already have task
 			return;
 		}
 		if (hasTask() && c.needsNewTask) {// assigning new task
@@ -338,7 +340,7 @@ public class Slayer {
 				 */
 			}
 		}
-		int taskLevel = getSlayerDifficulty();
+		int taskLevel = getSlayerDifficulty(c);
 		// System.out.println("EASY :" + easyTask + "\nMEDIUM: " + mediumTask+
 		// "\nHARD: " + hardTask + "");
 		for (Task slayerTask : Task.values()) {
@@ -399,18 +401,11 @@ public class Slayer {
 		return EASY_AMOUNT;
 	}
 
-	public int getSlayerDifficulty() {
-			if (c.combatLevel > 0 && c.combatLevel < 20) {
-				return VERY_EASY_TASK;
-			} else if (c.combatLevel >= 20 && c.combatLevel < 40) {
-				return EASY_TASK;
-			} else if (c.combatLevel >= 40 && c.combatLevel < 70) {
-				return MEDIUM_TASK;
-			} else if (c.combatLevel >= 70 && c.combatLevel < 100) {
-				return HARD_TASK;
-			} else if (c.combatLevel >= 100) {
-				return VERY_HARD_TASK;
-			}
+	public int getSlayerDifficulty(Client c) {
+		for(SlayerMasters master : SlayerMasters.values()){
+			if (master.getId() == c.SlayerMaster)
+				return master.getDifficulty();
+		}
 		return EASY_TASK;
 	}
 

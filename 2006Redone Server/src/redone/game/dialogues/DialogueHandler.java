@@ -6,6 +6,7 @@ import redone.game.content.quests.QuestRewards;
 import redone.game.content.randomevents.FreakyForester;
 import redone.game.content.randomevents.RandomEventHandler;
 import redone.game.content.skills.SkillHandler;
+import redone.game.content.skills.slayer.Slayer;
 import redone.game.content.traveling.Sailing;
 import redone.game.globalworldobjects.PassDoor;
 import redone.game.items.ItemAssistant;
@@ -4236,10 +4237,13 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1228:
-				sendNpcChat1("'Ello and what are you after then?",
-						player.talkingNpc,
-						NpcHandler.getNpcListName(player.talkingNpc));
-				player.nextChat = 1229;
+				if (!Slayer.getMasterRequirment(player, player.talkingNpc)) {
+					sendNpcChat1("Increase your combat level then come back.", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
+					player.nextChat = 0;
+				} else {
+					sendNpcChat1("'Ello and what are you after then?", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
+					player.nextChat = 1229;
+				}
 				break;
 			case 1229:
 				sendOption4("I need another assignement.",
@@ -4248,8 +4252,6 @@ public class DialogueHandler {
 						"I would like to cancel or remove my task.");
 				player.dialogueAction = 142;
 				break;
-			case 1230:
-				sendNpcChat1("Increase your combat level then come back for a task.", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
 			case 1231:
 				sendOption2("I want to cancel my current task.",
 						"I want to remove my task for ever.");
