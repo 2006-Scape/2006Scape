@@ -103,7 +103,7 @@ public class NPCDropsHandler {
 			return NPCDrops.pyrefiend;
 		} else if (npc.equals("aberrant_spectre")
 				|| npc.equals("aberrant_specter")
-				|| npc.equals("Aberant_specter")) {
+				|| npc.equals("aberant_specter")) {
 			return NPCDrops.abberantspectre;
 		} else if (npc.equals("earth_warrior")) {
 			return NPCDrops.earthwarrior;
