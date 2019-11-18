@@ -89,12 +89,9 @@ public class SandwhichLady {
 			if (itemType == 5) {
 				player.getPlayerAssistant().closeAllWindows();
 				player.getItemAssistant().addItem(6965, 1);
-				player.getActionSender()
-						.sendMessage(
-								"Congratulations, you have completed the random event!");
+				player.getActionSender().sendMessage("Congratulations, you have completed the random event!");
 			} else {
-				player.getActionSender().sendMessage(
-						"You have chosen the wrong item!");
+				player.getActionSender().sendMessage("You have chosen the wrong item!");
 				RandomEventHandler.failEvent(player);
 			}
 			player.hasSandwhichLady = false;
@@ -104,9 +101,7 @@ public class SandwhichLady {
 			if (itemType == 6) {
 				player.getPlayerAssistant().closeAllWindows();
 				player.getItemAssistant().addItem(2309, 1);
-				player.getActionSender()
-						.sendMessage(
-								"Congratulations, you have completed the random event!");
+				player.getActionSender().sendMessage("Congratulations, you have completed the random event!");
 			} else {
 				player.getActionSender().sendMessage("You have chosen the wrong item!");
 				RandomEventHandler.failEvent(player);
