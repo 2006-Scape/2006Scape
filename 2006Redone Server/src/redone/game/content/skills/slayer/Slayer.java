@@ -8,10 +8,17 @@ import redone.util.Misc;
 
 public class Slayer {
 
-	public static final int VERY_EASY_TASK = 0, EASY_TASK = 1, MEDIUM_TASK = 2,
-			HARD_TASK = 3, VERY_HARD_TASK = 4, VERY_EASY_AMOUNT = 15 + r(25),
-			EASY_AMOUNT = 25 + r(25), MEDIUM_AMOUNT = 50 + r(25),
-			HARD_AMOUNT = 100 + r(50), VERY_HARD_AMOUNT = 130 + r(70),
+	public static final int
+			VERY_EASY_TASK = 0,
+			EASY_TASK = 1,
+			MEDIUM_TASK = 2,
+			HARD_TASK = 3,
+			VERY_HARD_TASK = 4,
+			VERY_EASY_AMOUNT = 15 + r(25),
+			EASY_AMOUNT = 25 + r(25),
+			MEDIUM_AMOUNT = 50 + r(25),
+			HARD_AMOUNT = 100 + r(50),
+			VERY_HARD_AMOUNT = 130 + r(70),
 			DRAGON_AMOUNT = 10 + r(40);
 
 	public static ArrayList<Integer> veryEasyTask = new ArrayList<Integer>();
@@ -74,7 +81,7 @@ public class Slayer {
 		BLUE_DRAGON(55, 1, 107, 3, "Taverly Dungeon"), 
 		BRONZE_DRAGON(1590, 1, 125, 3, "Brimhaven Dungeon"), 
 		CAVE_CRAWLER(1600, 10, 22, 1, "Fremennik Slayer Dungeon"),
-		COCKATRICE(1620, 25, 37, 2, "Fremennik Slayer Dungeon"), 
+		COCKATRICE(1620, 25, 37, 2, "Fremennik Slayer Dungeon"),
 		CRAWLING_HAND(1648, 5, 16 + r(3), 1 + r(1), "Slayer Tower"), 
 		DAGANNOTH_74(1338, 1, 70 + r(50), 3, "Lighthouse Basement"), 
 		DAGANNOTH_92(1342, 1, 70 + r(50), 3, "Lighthouse Basement"), 
@@ -103,12 +110,12 @@ public class Slayer {
 		NECHRYAELS(1613, 80, 1, 3, "Slayer Tower"), 
 		PYREFIEND(1633, 30, 1, 1, "Fremennik Slayer Dungeon"), 
 		RED_DRAGON(53, 1, 120, 3, "Brimhaven Dungeon"), 
-		ROCKSLUG(1622, 20, 27, 1, "Fremennik Slayer Dungeon"), 
-		SKELETON(90, 1, 30, 0 + r(2), "Edgeville Dungeon or Taverly Dungeon"), 
+		ROCKSLUG(1622, 20, 27, 1, "Fremennik Slayer Dungeon"),
+		SKELETON(90, 1, 30, 0 + r(2), "Edgeville Dungeon or Taverly Dungeon"),
 		KARAMAJA_SKELETON(91, 1, 30, 0 + r(2), "Karamaja"),
 		WILDERNESS_SKELETON(92, 1, 30, 0 + r(2), "Wilderness"), 
-		STEEL_DRAGON(1592, 1, 221, 4, "Brimhaven Dungeon"), 
-		GRIZZLY_BEAR(105, 1, 27, 0, "Goblin Village"), 
+		STEEL_DRAGON(1592, 1, 221, 4, "Brimhaven Dungeon"),
+		BEAR(105, 1, 27, 0, "Goblin Village"),
 		GREEN_GOBLIN(298, 1, 6, 0, "Goblin Village"),
 		RED_GOBLIN(299, 1, 6, 0, "Goblin Village"),
 		SCORPION(107, 1, 17, 0, "Goblin Village"), 
