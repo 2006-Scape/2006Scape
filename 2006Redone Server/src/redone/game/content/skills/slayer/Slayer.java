@@ -104,7 +104,7 @@ public class Slayer {
 		ICE_WARRIOR(125, 1, 59, 2, "Asgarnian Ice Caves or the Wilderness"), 
 		SKELETAL_WYVERN(3068, 72, 210, 4, "Asgarnian Ice Caves"), 
 		INFERNAL_MAGE(1643, 45, 60, 2, "Slayer Tower"), 
-		IRON_DRAGON(1591, 1, (int) 173.2, 4, "Brimhaven Dungeon"), 
+		IRON_DRAGON(1591, 1, 174, 4, "Brimhaven Dungeon"),
 		JELLY(1637, 52, 75, 2, "Fremennik Slayer Dungeon"), 
 		KALPHITE_WORKER(1156, 1, 40, 1 + r(1), "Kalphite Lair"), 
 		KALPHITE_SOLDIER(1154, 1, 90, 3, "Kalphite Lair"), 
