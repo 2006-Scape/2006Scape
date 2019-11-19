@@ -66,27 +66,34 @@ public class ShopAssistant {
 
 	public void resetShop(int ShopID) {
 		synchronized (player) {
-			int TotalItems = 0;
-			for (int i = 0; i < ShopHandler.MaxShopItems; i++) {	//adds items in store when items are sold until max value.
-				if (ShopHandler.ShopItems[ShopID][i] > 0) {
-					TotalItems++;
+			player.TotalShopItems = 0;
+			for (int i = 0; i < ShopHandler.MaxShopItems; i++)
+			{	//adds items in store when items are sold until max value.
+				if (ShopHandler.ShopItems[ShopID][i] > 0)
+				{
+					player.TotalShopItems++;
 				}
 			}
-			if (TotalItems > ShopHandler.MaxShopItems) {
-				TotalItems = ShopHandler.MaxShopItems;  //sets the stack of item sold to max value if the resulting amount is higher than max value.
+			if (player.TotalShopItems > 40){
+				player.TotalShopItems = 40; //sets the number of stack of item sold to max possible value if the resulting amount is higher than max value.
+				//Items sold when shops are full will dissapears. Much more code would be needed if we want to restrict selling while still permitting selling items already in shops and such.
 			}
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(3900);
-			player.getOutStream().writeWord(TotalItems);
+			player.getOutStream().writeWord(player.TotalShopItems);
 			int TotalCount = 0;
-			for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
+			for (int i = 0; i < ShopHandler.ShopItems.length; i++)
+			{
 				if (ShopHandler.ShopItems[ShopID][i] > 0
-						|| i <= ShopHandler.ShopItemsStandard[ShopID]) {
+						|| i <= ShopHandler.ShopItemsStandard[ShopID])
+				{
 					if (ShopHandler.ShopItemsN[ShopID][i] > 254) {
 						player.getOutStream().writeByte(255);
 						player.getOutStream().writeDWord_v2(
 								ShopHandler.ShopItemsN[ShopID][i]);
-					} else {
+					}
+					else
+						{
 						player.getOutStream().writeByte(
 								ShopHandler.ShopItemsN[ShopID][i]);
 					}
@@ -98,7 +105,7 @@ public class ShopAssistant {
 							ShopHandler.ShopItems[ShopID][i]);
 					TotalCount++;
 				}
-				if (TotalCount > TotalItems) {
+				if (TotalCount > player.TotalShopItems) {
 					break;
 				}
 			}
@@ -328,11 +335,11 @@ public class ShopAssistant {
 			} else if (player.myShopId == CASTLE_SHOP) {
 				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getCastleItemValue(removeId) + " castle war tickets." + ShopAdd);
 			}
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
 		}
 	}
 
 	public boolean sellItem(int itemID, int fromSlot, int amount) {
+
 		player.getItemAssistant();
 		for (int i : Constants.ITEM_SELLABLE) {
 			if (i == itemID) {
@@ -347,6 +354,10 @@ public class ShopAssistant {
 		}
 		if(!player.isShopping) {
 	        return false;
+		}
+		if (player.TotalShopItems >= 39)
+		{
+			player.getActionSender().sendMessage("If you sell more individuals items in this shop, they won't be displayed.");
 		}
 
 		if (amount > 0 && itemID == (player.playerItems[fromSlot] - 1)) {
