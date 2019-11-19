@@ -391,6 +391,8 @@ public class Client extends Player {
 		return food;
 	}
 
+	public int TotalShopItems;
+
 	public void startCurrentTask(int ticksBetweenExecution, CycleEvent event) {
 		endCurrentTask();
 		currentTask = CycleEventHandler.getSingleton().addEvent(this, event, ticksBetweenExecution);
