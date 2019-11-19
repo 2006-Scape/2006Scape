@@ -357,7 +357,7 @@ public class Slayer {
 							}
 						}
 						c.slayerTask = task;
-						c.taskAmount = getTaskAmount(taskLevel);
+						c.taskAmount = getTaskAmount(task);
 					} else {
 						int task = getRandomTask(getDifficulty(taskLevel - 1));
 						for (int removedTask : c.removedTasks) {
@@ -368,7 +368,7 @@ public class Slayer {
 							}
 						}
 						c.slayerTask = task;
-						c.taskAmount = getTaskAmount(getDifficulty(c.slayerTask) - 1);
+						c.taskAmount = getTaskAmount(task);
 						c.needsNewTask = false;
 					}
 					c.getDialogueHandler().sendDialogues(1237, c.npcType);// assign task
@@ -379,8 +379,16 @@ public class Slayer {
 		}
 	}
 
-	public int getTaskAmount(int diff) {
-		switch (diff) {
+	public int getTaskAmount(int task_id) {
+		Task task = null;
+		for (Task _task : Task.values())
+			if (_task.getNpcId() == task_id)
+				task = _task;
+
+		if (task == null) return VERY_EASY_AMOUNT;
+		if (task.name().toLowerCase().contains("dragon"))
+			return DRAGON_AMOUNT;
+		switch (task.getDifficulty()) {
 		case 0:
 			return VERY_EASY_AMOUNT;
 		case 1:
