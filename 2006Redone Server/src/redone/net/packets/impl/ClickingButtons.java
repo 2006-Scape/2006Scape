@@ -1794,24 +1794,21 @@ public class ClickingButtons implements PacketType {
 
 		case 9179:
 			if (player.dialogueAction == 2) {
-				player.getPlayerAssistant().startTeleport(2884, 3395, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(2884, 3395, 0, "modern");
 			}
 			if (player.dialogueAction == 122 && player.objectId == 12163 || player.objectId == 12165 || player.objectId == 12166) {//champ
 				player.getPlayerAssistant().startTeleport(3203, 3343, 0, "modern");
 			} else if (player.objectId == 12164) {
 				if (player.dialogueAction == 122) {
-				player.getActionSender().sendMessage("You can't take the canoe to the Champion Guild because you're already there!");
-				player.getPlayerAssistant().handleCanoe();
+					player.getActionSender().sendMessage("You can't take the canoe to the Champion Guild because you're already there!");
+					player.getPlayerAssistant().handleCanoe();
 				}
 			}
 			if (player.dialogueAction == 4) {
-				player.getPlayerAssistant().startTeleport(2444, 5170, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(2444, 5170, 0, "modern");
 			}
 			if (player.dialogueAction == 3) {
-				player.getPlayerAssistant().startTeleport(3243, 3513, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(3243, 3513, 0, "modern");
 			}
 			if (player.dialogueAction == 31) {
 				player.getDialogueHandler().sendDialogues(502, player.npcType);
@@ -1826,8 +1823,7 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(376, player.npcType);
 			}
 			if (player.dialogueAction == 51) {
-				player.getPlayerAssistant().gloryTeleport(3293, 3174, 0,
-						"modern");
+				player.getPlayerAssistant().gloryTeleport(3293, 3174, 0, "modern");
 			}
 			Teles.necklaces(player);
 			if (player.dialogueAction == 52) {
@@ -1864,8 +1860,7 @@ public class ClickingButtons implements PacketType {
 
 		case 9180:
 			if (player.dialogueAction == 2) {
-				player.getPlayerAssistant().startTeleport(2471, 10137, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(2471, 10137, 0, "modern");
 			}
 			if (player.dialogueAction == 69) {
 				player.getDialogueHandler().sendDialogues(500003, player.npcType);
@@ -1879,12 +1874,10 @@ public class ClickingButtons implements PacketType {
 				}
 			}
 			if (player.dialogueAction == 3) {
-				player.getPlayerAssistant().startTeleport(3363, 3676, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(3363, 3676, 0, "modern");
 			}
 			if (player.dialogueAction == 4) {
-				player.getPlayerAssistant().startTeleport(2659, 2676, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(2659, 2676, 0, "modern");
 			}
 			if (player.dialogueAction == 31) {
 				player.getDialogueHandler().sendDialogues(501, player.npcType);
@@ -1899,8 +1892,7 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(377, player.npcType);
 			}
 			if (player.dialogueAction == 51) {
-				player.getPlayerAssistant().gloryTeleport(2911, 3152, 0,
-						"modern");
+				player.getPlayerAssistant().gloryTeleport(2911, 3152, 0, "modern");
 			}
 			Teles.necklaces(player);
 			if (player.dialogueAction == 52) {

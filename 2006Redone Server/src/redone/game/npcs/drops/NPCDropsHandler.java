@@ -74,8 +74,7 @@ public class NPCDropsHandler {
 			return NPCDrops.firegiant;
 		} else if (npc.equals("basilisk")) {
 			return NPCDrops.basilisk;
-		} else if (npc.equals("baby_blue_dragon")
-				|| npc.equals("baby_red_dragon") || npc.equals("baby_dragon")) {
+		} else if (npc.equals("baby_blue_dragon") || npc.equals("baby_red_dragon") || npc.equals("baby_dragon")) {
 			return NPCDrops.babybluedragon;
 		} else if (npc.equals("red_dragon")) {
 			return NPCDrops.reddragon;
