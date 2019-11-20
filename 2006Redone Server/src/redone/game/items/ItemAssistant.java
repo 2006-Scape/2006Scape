@@ -1403,59 +1403,47 @@ public class ItemAssistant {
 			targetSlot = Item.targetSlots[wearID];
 
 			if (c.duelRule[11] && targetSlot == 0) {
-				c.getActionSender().sendMessage(
-						"Wearing hats has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing hats has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[12] && targetSlot == 1) {
-				c.getActionSender().sendMessage(
-						"Wearing capes has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing capes has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[13] && targetSlot == 2) {
-				c.getActionSender().sendMessage(
-						"Wearing amulets has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing amulets has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[14] && targetSlot == 3) {
-				c.getActionSender().sendMessage(
-						"Wielding weapons has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wielding weapons has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[15] && targetSlot == 4) {
-				c.getActionSender().sendMessage(
-						"Wearing bodies has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing bodies has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[16] && targetSlot == 5 || c.duelRule[16]
-					&& is2handed(getItemName(wearID).toLowerCase(), wearID)) {
-				c.getActionSender().sendMessage(
-						"Wearing shield has been disabled in this duel!");
+			if (c.duelRule[16] && targetSlot == 5 || c.duelRule[16] && is2handed(getItemName(wearID).toLowerCase(), wearID)) {
+				c.getActionSender().sendMessage("Wearing shield has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[17] && targetSlot == 7) {
-				c.getActionSender().sendMessage(
-						"Wearing legs has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing legs has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[18] && targetSlot == 9) {
-				c.getActionSender().sendMessage(
-						"Wearing gloves has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing gloves has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[19] && targetSlot == 10) {
-				c.getActionSender().sendMessage(
-						"Wearing boots has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing boots has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[20] && targetSlot == 12) {
-				c.getActionSender().sendMessage(
-						"Wearing rings has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing rings has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[21] && targetSlot == 13) {
-				c.getActionSender().sendMessage(
-						"Wearing arrows has been disabled in this duel!");
+				c.getActionSender().sendMessage("Wearing arrows has been disabled in this duel!");
 				return false;
 			}
 
@@ -1718,7 +1706,8 @@ public class ItemAssistant {
 					c.playerItems[slot] = 0;
 					c.playerItemsN[slot] = 0;
 					if (toRemove > 0 && toRemoveN > 0) {
-						addItem(toRemove, toRemoveN);
+						c.playerItems[slot] = toRemove;
+						c.playerItemsN[slot] = toRemoveN;
 					}
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
