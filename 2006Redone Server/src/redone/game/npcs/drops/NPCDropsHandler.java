@@ -134,7 +134,7 @@ public class NPCDropsHandler {
 		} else if (npc.equals("kalphite_worker")) {
 			return NPCDrops.kalphiteworker;
 		} else if (npc.equals("kalphite_soldier")) {
-			return NPCDrops.kalphitesolider;
+			return NPCDrops.kalphitesoldier;
 		} else if (npc.equals("kalphite_guardian")) {
 			return NPCDrops.kalphiteguardian;
 		} else if (npc.equals("bat") || npc.equals("giant_bat")) {
