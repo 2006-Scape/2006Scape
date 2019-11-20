@@ -18,7 +18,8 @@ import redone.util.Misc;
 
 public class Prayer {
 
-	private static int[][] data = { { 526, 5 }, // NPC BONES
+	private static int[][] data = {
+			{ 526, 5 }, // NPC BONES
 			{ 528, 5 }, // BURNT BONES
 			{ 530, 5 }, // BAT BONES
 			{ 2859, 5 }, // WOLF BONES
