@@ -13,13 +13,14 @@ public class Slayer {
 			EASY_TASK = 1,
 			MEDIUM_TASK = 2,
 			HARD_TASK = 3,
-			VERY_HARD_TASK = 4,
-			VERY_EASY_AMOUNT = 15 + r(25),
-			EASY_AMOUNT = 25 + r(25),
-			MEDIUM_AMOUNT = 50 + r(25),
-			HARD_AMOUNT = 100 + r(50),
-			VERY_HARD_AMOUNT = 130 + r(70),
-			DRAGON_AMOUNT = 10 + r(40);
+			VERY_HARD_TASK = 4;
+	public static final int[]
+			VERY_EASY_AMOUNT = new int[]{15, 40},
+			EASY_AMOUNT =  new int[]{25, 50},
+			MEDIUM_AMOUNT =  new int[]{50, 75},
+			HARD_AMOUNT =  new int[]{100, 150},
+			VERY_HARD_AMOUNT =  new int[]{130, 200},
+			DRAGON_AMOUNT = new int[]{20, 60};
 
 	public static ArrayList<Integer> veryEasyTask = new ArrayList<Integer>();
 	public static ArrayList<Integer> easyTask = new ArrayList<Integer>();
@@ -385,22 +386,36 @@ public class Slayer {
 			if (_task.getNpcId() == task_id)
 				task = _task;
 
-		if (task == null) return VERY_EASY_AMOUNT;
-		if (task.name().toLowerCase().contains("dragon"))
-			return DRAGON_AMOUNT;
-		switch (task.getDifficulty()) {
-		case 0:
-			return VERY_EASY_AMOUNT;
-		case 1:
-			return EASY_AMOUNT;
-		case 2:
-			return MEDIUM_AMOUNT;
-		case 3:
-			return HARD_AMOUNT;
-		case 4:
-			return VERY_HARD_AMOUNT;
+		int[] amounts = VERY_EASY_AMOUNT;
+		if (task == null){
+			amounts = VERY_EASY_AMOUNT;
 		}
-		return EASY_AMOUNT;
+		else if (task.name().toLowerCase().contains("_dragon")) {
+			amounts = DRAGON_AMOUNT;
+		}
+		else {
+			switch (task.getDifficulty()) {
+				case 0:
+					amounts = VERY_EASY_AMOUNT;
+					break;
+				case 1:
+					amounts = EASY_AMOUNT;
+					break;
+				case 2:
+					amounts = MEDIUM_AMOUNT;
+					break;
+				case 3:
+					amounts = HARD_AMOUNT;
+					break;
+				case 4:
+					amounts = VERY_HARD_AMOUNT;
+					break;
+				default:
+					amounts = VERY_EASY_AMOUNT;
+					break;
+			}
+		}
+		return Misc.random(amounts[0], amounts[1]);
 	}
 
 	public int getSlayerDifficulty(Client c) {
