@@ -18,11 +18,11 @@ public class ClientSettings {
 	/**
 	 * The Servers Ip
 	 *
-	 * You dont have to change this, the client will automatically connect to the server
-	 * on localhost
+	 * You don't have to change this, the client will automatically connect to the server
+	 * on localhost (Assuming you're running Client and LocalGame respectively)
 	 *
 	 */
-	public static String SERVER_IP = "35.226.247.68";
+	public static String SERVER_IP = "2006rebotted.hopto.org";
 	/**
 	 * The Npc Bits for the Server
 	 */
