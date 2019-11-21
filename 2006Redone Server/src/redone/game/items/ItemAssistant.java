@@ -9,6 +9,10 @@ import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.util.Misc;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class ItemAssistant {
 
 	private final Client c;
@@ -1360,21 +1364,19 @@ public class ItemAssistant {
 	 **/
 
 	public boolean wearItem(int wearID, int slot) {
+		// Check the player has the item the want to wear
 		if (!playerHasItem(wearID, 1, slot)) {
-			// add a method here for logging cheaters(If you want)
 			return false;
 		}
 		if (c.tutorialProgress < 22) {
-			c.getActionSender().sendMessage(
-					"You'll be told how to equip items later.");
+			c.getActionSender().sendMessage("You'll be told how to equip items later.");
 			return false;
 		}
 
 		if (c.tutorialProgress == 22) {
 			c.getActionSender().chatbox(6180);
 			c.getDialogueHandler()
-					.chatboxText(
-							c,
+					.chatboxText(c,
 							"Clothes, armour, weapons and many other items are equipped",
 							"like this. You can unequip items by clicking on the item in the",
 							"worn inventory. You can close this window by clicking on the",
@@ -1396,7 +1398,7 @@ public class ItemAssistant {
 			c.getActionSender().flashSideBarIcon(0);
 			// c.getPacketDispatcher().tutorialIslandInterface(50, 11);
 		}
-		int targetSlot = 0;
+		int targetSlot = Constants.HAT;
 		boolean canWearItem = true;
 		if (c.playerItems[slot] == wearID + 1) {
 			getRequirements(getItemName(wearID).toLowerCase(), wearID);
@@ -1448,80 +1450,61 @@ public class ItemAssistant {
 			}
 
 			if (Constants.itemRequirements) {
-				if (targetSlot == 10 || targetSlot == 7 || targetSlot == 5
-						|| targetSlot == 4 || targetSlot == 0
-						|| targetSlot == 9 || targetSlot == 10) {
+				// Check if slot is armor
+				if (targetSlot == Constants.FEET
+						|| targetSlot == Constants.LEGS
+						|| targetSlot == Constants.SHIELD
+						|| targetSlot == Constants.CHEST
+						|| targetSlot == Constants.HAT
+						|| targetSlot == Constants.HANDS) {
 					if (c.defenceLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[1]) < c.defenceLevelReq) {
-							c.getActionSender().sendMessage(
-									"You need a defence level of "
-											+ c.defenceLevelReq
-											+ " to wear this item.");
+							c.getActionSender().sendMessage("You need a defence level of " + c.defenceLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (c.rangeLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[4]) < c.rangeLevelReq) {
-							c.getActionSender().sendMessage(
-									"You need a range level of "
-											+ c.rangeLevelReq
-											+ " to wear this item.");
+							c.getActionSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (c.magicLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[6]) < c.magicLevelReq) {
-							c.getActionSender().sendMessage(
-									"You need a magic level of "
-											+ c.magicLevelReq
-											+ " to wear this item.");
+							c.getActionSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 				}
 				if (c.slayerLevelReq > 0) {
 					if (c.getPlayerAssistant().getLevelForXP(c.playerXP[18]) < c.slayerLevelReq) {
-						c.getActionSender().sendMessage(
-								"You need a slayer level of "
-										+ c.slayerLevelReq
-										+ " to wear this item.");
+						c.getActionSender().sendMessage("You need a slayer level of " + c.slayerLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
 				if (c.agilityLevelReq > 0) {
 					if (c.getPlayerAssistant().getLevelForXP(c.playerXP[16]) < c.agilityLevelReq) {
-						c.getActionSender().sendMessage(
-								"You need a agility level of "
-										+ c.agilityLevelReq
-										+ " to wear this item.");
+						c.getActionSender().sendMessage("You need a agility level of " + c.agilityLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
-				if (targetSlot == 3) {
+				// Weapon
+				if (targetSlot == Constants.WEAPON) {
 					if (c.attackLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[0]) < c.attackLevelReq) {
-							c.getActionSender().sendMessage(
-									"You need an attack level of "
-											+ c.attackLevelReq
-											+ " to wield this weapon.");
+							c.getActionSender().sendMessage("You need an attack level of " + c.attackLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (c.rangeLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[4]) < c.rangeLevelReq) {
-							c.getActionSender().sendMessage(
-									"You need a range level of "
-											+ c.rangeLevelReq
-											+ " to wield this weapon.");
+							c.getActionSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (c.magicLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[6]) < c.magicLevelReq) {
-							c.getActionSender().sendMessage(
-									"You need a magic level of "
-											+ c.magicLevelReq
-											+ " to wield this weapon.");
+							c.getActionSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
@@ -1529,125 +1512,134 @@ public class ItemAssistant {
 			}
 
 			switch (wearID) {
-			case 6181:
-			case 428:// legs
-			case 538:
-			case 6343:
-			case 6353:
-			case 6363:
-			case 6396:
-			case 6373:
-			case 6404:
-			case 5044:
-			case 5046:
-			case 5050:
-			case 5052:
-			case 5040:
-			case 5038:
-			case 6752:
-			case 5048:
-			case 5036:
-			case 5042:
-			case 4300:
-			case 1835:
-			case 7116:
-			case 7126:
-			case 7132:
-			case 7138:
-			case 548:
-			case 6185:
-				targetSlot = 7;
-				break;
-			case 4166:// hats
-			case 1167:
-			case 5525:
-			case 4168:
-			case 1025:
-			case 7112:
-			case 7124:
-			case 7130:
-			case 7136:
-			case 4611:
-			case 5527:
-			case 5529:
-			case 5531:
-			case 5533:
-			case 5535:
-			case 5537:
-			case 5539:
-			case 5541:
-			case 5543:
-			case 5545:
-			case 5547:
-				targetSlot = 0;
-				break;
-			case 4304:// cape
-			case 3759:
-			case 3761:
-			case 3763:
-			case 3765:
-			case 3777:
-			case 3779:
-			case 3781:
-			case 3783:
-			case 3785:
-			case 3787:
-			case 3789:
-			case 4514:
-			case 4516:
-				targetSlot = 1;
-				break;
-			case 7051:
-			case 7053:// shields
-				targetSlot = 5;
-				break;
-			case 577:
-			case 426:// bodies
-			case 540:
-			case 430:
-			case 6786:
-			case 581:
-			case 5024:
-			case 5030:
-			case 1757:
-			case 5034:
-			case 5032:
-			case 3793:
-			case 1005:
-			case 546:
-			case 6402:
-			case 6788:
-			case 6184:
-			case 7390:
-			case 7392:
-			case 6186:
-				targetSlot = 4;
-				break;
-			case 3853:
-			case 3855:
-			case 3857:
-			case 3859:
-			case 3861:
-			case 3863:
-			case 1718:
-			case 3865:
-			case 4306:
-			case 3867:// necklace/amulet
-			case 1702:
-				targetSlot = 2;
-				break;
-			case 776:// gloves
-				targetSlot = 9;
-				break;
-			case 1215:
-			case 1231:
-			case 5680:
-			case 5698:
-			case 1305:
-				if (c.spiritTree == false && c.playerRights != 3) {
-					c.getActionSender().sendMessage("You need to beat the tree spirit to wear this.");
-					return false;
-				}
+				// Legs
+				case 6181:
+				case 428:
+				case 538:
+				case 6343:
+				case 6353:
+				case 6363:
+				case 6396:
+				case 6373:
+				case 6404:
+				case 5044:
+				case 5046:
+				case 5050:
+				case 5052:
+				case 5040:
+				case 5038:
+				case 6752:
+				case 5048:
+				case 5036:
+				case 5042:
+				case 4300:
+				case 1835:
+				case 7116:
+				case 7126:
+				case 7132:
+				case 7138:
+				case 548:
+				case 6185:
+					targetSlot = Constants.LEGS;
+					break;
+				// Hats
+				case 4166:
+				case 1167:
+				case 5525:
+				case 4168:
+				case 1025:
+				case 7112:
+				case 7124:
+				case 7130:
+				case 7136:
+				case 4611:
+				case 5527:
+				case 5529:
+				case 5531:
+				case 5533:
+				case 5535:
+				case 5537:
+				case 5539:
+				case 5541:
+				case 5543:
+				case 5545:
+				case 5547:
+					targetSlot = Constants.HAT;
+					break;
+				// Cape
+				case 4304:
+				case 3759:
+				case 3761:
+				case 3763:
+				case 3765:
+				case 3777:
+				case 3779:
+				case 3781:
+				case 3783:
+				case 3785:
+				case 3787:
+				case 3789:
+				case 4514:
+				case 4516:
+					targetSlot = Constants.CAPE;
+					break;
+				// Shield
+				case 7051:
+				case 7053:
+					targetSlot = Constants.SHIELD;
+					break;
+				// Chest
+				case 577:
+				case 426:
+				case 540:
+				case 430:
+				case 6786:
+				case 581:
+				case 5024:
+				case 5030:
+				case 1757:
+				case 5034:
+				case 5032:
+				case 3793:
+				case 1005:
+				case 546:
+				case 6402:
+				case 6788:
+				case 6184:
+				case 7390:
+				case 7392:
+				case 6186:
+					targetSlot = Constants.CHEST;
+					break;
+				// Amulet
+				case 3853:
+				case 3855:
+				case 3857:
+				case 3859:
+				case 3861:
+				case 3863:
+				case 1718:
+				case 3865:
+				case 4306:
+				case 3867:
+				case 1702:
+					targetSlot = Constants.AMULET;
+					break;
+				// Hands
+				case 776:
+					targetSlot = Constants.HANDS;
+					break;
+				// Dragon daggers/sword
+				case 1215:
+				case 1231:
+				case 5680:
+				case 5698:
+				case 1305:
+					if (c.spiritTree == false && c.playerRights != 3) {
+						c.getActionSender().sendMessage("You need to beat the tree spirit to wear this.");
+						return false;
+					}
+					break;
 			}
 			if (!canWearItem) {
 				return false;
@@ -1658,7 +1650,7 @@ public class ItemAssistant {
 				return false;
 			}
 
-			if (targetSlot == c.playerWeapon) {
+			if (targetSlot == Constants.WEAPON) {
 				c.autocasting = false;
 				c.autocastId = 0;
 				c.getPlayerAssistant().sendConfig(108, 0);
@@ -1703,12 +1695,8 @@ public class ItemAssistant {
 					// c.playerEquipment[targetSlot] = toEquip - 1;
 					// c.playerEquipmentN[targetSlot] = toEquipN;
 
-					c.playerItems[slot] = 0;
-					c.playerItemsN[slot] = 0;
-					if (toRemove > 0 && toRemoveN > 0) {
-						c.playerItems[slot] = toRemove;
-						c.playerItemsN[slot] = toRemoveN;
-					}
+					c.playerItems[slot] = toRemove + 1;
+					c.playerItemsN[slot] = toRemoveN;
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
 				} else if (targetSlot == 5) {
