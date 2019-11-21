@@ -13,13 +13,14 @@ public class Slayer {
 			EASY_TASK = 1,
 			MEDIUM_TASK = 2,
 			HARD_TASK = 3,
-			VERY_HARD_TASK = 4,
-			VERY_EASY_AMOUNT = 15 + r(25),
-			EASY_AMOUNT = 25 + r(25),
-			MEDIUM_AMOUNT = 50 + r(25),
-			HARD_AMOUNT = 100 + r(50),
-			VERY_HARD_AMOUNT = 130 + r(70),
-			DRAGON_AMOUNT = 10 + r(40);
+			VERY_HARD_TASK = 4;
+	public static final int[]
+			VERY_EASY_AMOUNT = new int[]{15, 40},
+			EASY_AMOUNT =  new int[]{25, 50},
+			MEDIUM_AMOUNT =  new int[]{50, 75},
+			HARD_AMOUNT =  new int[]{100, 150},
+			VERY_HARD_AMOUNT =  new int[]{130, 200},
+			DRAGON_AMOUNT = new int[]{20, 60};
 
 	public static ArrayList<Integer> veryEasyTask = new ArrayList<Integer>();
 	public static ArrayList<Integer> easyTask = new ArrayList<Integer>();
@@ -75,61 +76,61 @@ public class Slayer {
 
 	//dark beast, red dragon, skeleton
 	public enum Task {
-		ABERRANT_SPECTRE(1604, 60, 90, 3, "Slayer Tower"), 
-		ABYSSAL_DEMON(1615, 85, 150, 4, "Slayer Tower"), 
-		BANSHEE(1612, 15, 22, 0 + r(1), "Slayer Tower"),
-		BASILISK(1616, 40, 75, 2, "Fremennik Slayer Dungeon"), 
-		BAT(412, 1, 8, 1, "Road to Paterdomus"), 
-		BLACK_DEMON(84, 1, 157, 3, "Taverly Dungeon"), 
-		BLACK_DRAGON(54, 1, 258, 4, "Taverly Dungeon"), 
-		BLOODVELD(1618, 50, 120, 3 + r(1), "Slayer Tower"), 
-		BLUE_DRAGON(55, 1, 107, 3, "Taverly Dungeon"), 
-		BRONZE_DRAGON(1590, 1, 125, 3, "Brimhaven Dungeon"), 
-		CAVE_CRAWLER(1600, 10, 22, 1, "Fremennik Slayer Dungeon"),
-		COCKATRICE(1620, 25, 37, 2, "Fremennik Slayer Dungeon"),
-		CRAWLING_HAND(1648, 5, 16 + r(3), 1 + r(1), "Slayer Tower"), 
-		DAGANNOTH_74(1338, 1, 70 + r(50), 3, "Lighthouse Basement"), 
-		DAGANNOTH_92(1342, 1, 80 + r(50), 3, "Lighthouse Basement"),
-		DARK_BEAST(2783, 90, 180, 4, "Slayer Tower"),
-		DUST_DEVIL(1624, 65, 105, 2, "Slayer Tower"), 
-		EARTH_WARRIOR(124, 1, 54, 2, "Edgeville Dungeon"), 
-		FIRE_GIANT(110, 1, 111, 3, "Brimhaven Dungeon"), 
-		GARGOYLE(1611, 75, 105, 3, "Slayer Tower"), 
-		GHOST(103, 1, 25, 1 + r(1), "Taverly Dungeon"), 
-		GREATER_DEMON(83, 1, 87, 3, "Brimhaven Dungeon"), 
-		GREEN_DRAGON(941, 1, 75, 2, "The Wilderness"), 
-		HELLHOUND(49, 1, 116, 3 + r(1),"Taverly Dungeon"), 
-		HILL_GIANT(117, 1, 35, 2, "Edgeville Dungeon"), 
-		ICE_GIANT(111, 1, 70, 2, "Asgarnian Ice Caves or White Wolf Mountain"), 
-		ICE_WARRIOR(125, 1, 59, 2, "Asgarnian Ice Caves or the Wilderness"), 
-		SKELETAL_WYVERN(3068, 72, 210, 4, "Asgarnian Ice Caves"), 
-		INFERNAL_MAGE(1643, 45, 60, 2, "Slayer Tower"), 
-		IRON_DRAGON(1591, 1, 174, 4, "Brimhaven Dungeon"),
-		JELLY(1637, 52, 75, 2, "Fremennik Slayer Dungeon"), 
-		KALPHITE_WORKER(1156, 1, 40, 1 + r(1), "Kalphite Lair"), 
-		KALPHITE_SOLDIER(1154, 1, 90, 3, "Kalphite Lair"), 
-		KALPHITE_GUARDIAN(1157, 1, 170, 4, "Kalphite Lair"), 
-		KURASK(1608, 70, 97, 3, "Fremennik Slayer Dungeon"), 
-		LESSER_DEMON(82, 1, 79, 3, "Karamja Dungeon"), 
-		MOSS_GIANT(112, 1, 60, 2, "Brimhaven Dungeon"), 
-		NECHRYAELS(1613, 80, 1, 3, "Slayer Tower"), 
-		PYREFIEND(1633, 30, 1, 1, "Fremennik Slayer Dungeon"), 
-		RED_DRAGON(53, 1, 120, 3, "Brimhaven Dungeon"), 
-		ROCKSLUG(1622, 20, 27, 1, "Fremennik Slayer Dungeon"),
-		SKELETON(90, 1, 30, 0 + r(2), "Edgeville Dungeon or Taverly Dungeon"),
-		KARAMAJA_SKELETON(91, 1, 30, 0 + r(2), "Karamaja"),
-		WILDERNESS_SKELETON(92, 1, 30, 0 + r(2), "Wilderness"),
-		STEEL_DRAGON(1592, 1, 221, 4, "Brimhaven Dungeon"),
-		BEAR(105, 1, 27, 0, "Goblin Village"),
-		GREEN_GOBLIN(298, 1, 6, 0, "Goblin Village"),
-		RED_GOBLIN(299, 1, 6, 0, "Goblin Village"),
-		SCORPION(107, 1, 17, 0, "Goblin Village"), 
-		TUROTH(1632, 55, 77, 3, "Fremennik Slayer Dungeon");
+		ABERRANT_SPECTRE(1604, 60, 90, HARD_TASK, "Slayer Tower"),
+		ABYSSAL_DEMON(1615, 85, 150, VERY_HARD_TASK, "Slayer Tower"),
+		BANSHEE(1612, 15, 22, VERY_EASY_TASK + r(1), "Slayer Tower"),
+		BASILISK(1616, 40, 75, MEDIUM_TASK, "Fremennik Slayer Dungeon"),
+		BAT(412, 1, 8, EASY_TASK, "Road to Paterdomus"),
+		BLACK_DEMON(84, 1, 157, HARD_TASK, "Taverly Dungeon"),
+		BLACK_DRAGON(54, 1, 258, VERY_HARD_TASK, "Taverly Dungeon"),
+		BLOODVELD(1618, 50, 120, HARD_TASK + r(1), "Slayer Tower"),
+		BLUE_DRAGON(55, 1, 107, HARD_TASK, "Taverly Dungeon"),
+		BRONZE_DRAGON(1590, 1, 125, HARD_TASK, "Brimhaven Dungeon"),
+		CAVE_CRAWLER(1600, 10, 22, EASY_TASK, "Fremennik Slayer Dungeon"),
+		COCKATRICE(1620, 25, 37, MEDIUM_TASK, "Fremennik Slayer Dungeon"),
+		CRAWLING_HAND(1648, 5, 16 + r(3), EASY_TASK + r(1), "Slayer Tower"),
+		DAGANNOTH_74(1338, 1, 70 + r(50), HARD_TASK, "Lighthouse Basement"),
+		DAGANNOTH_92(1342, 1, 80 + r(50), HARD_TASK, "Lighthouse Basement"),
+		DARK_BEAST(2783, 90, 180, VERY_HARD_TASK, "Slayer Tower"),
+		DUST_DEVIL(1624, 65, 105, MEDIUM_TASK, "Slayer Tower"),
+		EARTH_WARRIOR(124, 1, 54, MEDIUM_TASK, "Edgeville Dungeon"),
+		FIRE_GIANT(110, 1, 111, HARD_TASK, "Brimhaven Dungeon"),
+		GARGOYLE(1611, 75, 105, HARD_TASK, "Slayer Tower"),
+		GHOST(103, 1, 25, EASY_TASK + r(1), "Taverly Dungeon"),
+		GREATER_DEMON(83, 1, 87, HARD_TASK, "Brimhaven Dungeon"),
+		GREEN_DRAGON(941, 1, 75, MEDIUM_TASK, "The Wilderness"),
+		HELLHOUND(49, 1, 116, HARD_TASK + r(1),"Taverly Dungeon"),
+		HILL_GIANT(117, 1, 35, MEDIUM_TASK, "Edgeville Dungeon"),
+		ICE_GIANT(111, 1, 70, MEDIUM_TASK, "Asgarnian Ice Caves or White Wolf Mountain"),
+		ICE_WARRIOR(125, 1, 59, MEDIUM_TASK, "Asgarnian Ice Caves or the Wilderness"),
+		SKELETAL_WYVERN(3068, 72, 210, VERY_HARD_TASK, "Asgarnian Ice Caves"),
+		INFERNAL_MAGE(1643, 45, 60, MEDIUM_TASK, "Slayer Tower"),
+		IRON_DRAGON(1591, 1, 174, VERY_HARD_TASK, "Brimhaven Dungeon"),
+		JELLY(1637, 52, 75, MEDIUM_TASK, "Fremennik Slayer Dungeon"),
+		KALPHITE_WORKER(1156, 1, 40, EASY_TASK + r(1), "Kalphite Lair"),
+		KALPHITE_SOLDIER(1154, 1, 90, HARD_TASK, "Kalphite Lair"),
+		KALPHITE_GUARDIAN(1157, 1, 170, VERY_HARD_TASK, "Kalphite Lair"),
+		KURASK(1608, 70, 97, HARD_TASK, "Fremennik Slayer Dungeon"),
+		LESSER_DEMON(82, 1, 79, HARD_TASK, "Karamja Dungeon"),
+		MOSS_GIANT(112, 1, 60, MEDIUM_TASK, "Brimhaven Dungeon"),
+		NECHRYAELS(1613, 80, 1, HARD_TASK, "Slayer Tower"),
+		PYREFIEND(1633, 30, 1, EASY_TASK, "Fremennik Slayer Dungeon"),
+		RED_DRAGON(53, 1, 120, HARD_TASK, "Brimhaven Dungeon"),
+		ROCKSLUG(1622, 20, 27, EASY_TASK, "Fremennik Slayer Dungeon"),
+		SKELETON(90, 1, 30, VERY_EASY_TASK + r(2), "Edgeville Dungeon or Taverly Dungeon"),
+		KARAMAJA_SKELETON(91, 1, 30, VERY_EASY_TASK + r(2), "Karamaja"),
+		WILDERNESS_SKELETON(92, 1, 30, VERY_EASY_TASK + r(2), "Wilderness"),
+		STEEL_DRAGON(1592, 1, 221, VERY_HARD_TASK, "Brimhaven Dungeon"),
+		BEAR(105, 1, 27, VERY_EASY_TASK, "Goblin Village"),
+		GREEN_GOBLIN(298, 1, 6, VERY_EASY_TASK, "Goblin Village"),
+		RED_GOBLIN(299, 1, 6, VERY_EASY_TASK, "Goblin Village"),
+		SCORPION(107, 1, 17, VERY_EASY_TASK, "Goblin Village"),
+		TUROTH(1632, 55, 77, HARD_TASK, "Fremennik Slayer Dungeon");
 
 		private int npcId, levelReq, diff, exp;
 		private String location;
 
-		private Task(int npcId, int levelReq, int exp, int difficulty, String location) {
+		Task(int npcId, int levelReq, int exp, int difficulty, String location) {
 			this.npcId = npcId;
 			this.exp = exp;
 			this.levelReq = levelReq;
@@ -357,7 +358,7 @@ public class Slayer {
 							}
 						}
 						c.slayerTask = task;
-						c.taskAmount = getTaskAmount(taskLevel);
+						c.taskAmount = getTaskAmount(task);
 					} else {
 						int task = getRandomTask(getDifficulty(taskLevel - 1));
 						for (int removedTask : c.removedTasks) {
@@ -368,7 +369,7 @@ public class Slayer {
 							}
 						}
 						c.slayerTask = task;
-						c.taskAmount = getTaskAmount(getDifficulty(c.slayerTask) - 1);
+						c.taskAmount = getTaskAmount(task);
 						c.needsNewTask = false;
 					}
 					c.getDialogueHandler().sendDialogues(1237, c.npcType);// assign task
@@ -379,20 +380,42 @@ public class Slayer {
 		}
 	}
 
-	public int getTaskAmount(int diff) {
-		switch (diff) {
-		case 0:
-			return VERY_EASY_AMOUNT;
-		case 1:
-			return EASY_AMOUNT;
-		case 2:
-			return MEDIUM_AMOUNT;
-		case 3:
-			return HARD_AMOUNT;
-		case 4:
-			return VERY_HARD_AMOUNT;
+	public int getTaskAmount(int task_id) {
+		Task task = null;
+		for (Task _task : Task.values())
+			if (_task.getNpcId() == task_id)
+				task = _task;
+
+		int[] amounts = VERY_EASY_AMOUNT;
+		if (task == null){
+			amounts = VERY_EASY_AMOUNT;
 		}
-		return EASY_AMOUNT;
+		else if (task.name().toLowerCase().contains("_dragon")) {
+			amounts = DRAGON_AMOUNT;
+		}
+		else {
+			switch (task.getDifficulty()) {
+				case 0:
+					amounts = VERY_EASY_AMOUNT;
+					break;
+				case 1:
+					amounts = EASY_AMOUNT;
+					break;
+				case 2:
+					amounts = MEDIUM_AMOUNT;
+					break;
+				case 3:
+					amounts = HARD_AMOUNT;
+					break;
+				case 4:
+					amounts = VERY_HARD_AMOUNT;
+					break;
+				default:
+					amounts = VERY_EASY_AMOUNT;
+					break;
+			}
+		}
+		return Misc.random(amounts[0], amounts[1]);
 	}
 
 	public int getSlayerDifficulty(Client c) {

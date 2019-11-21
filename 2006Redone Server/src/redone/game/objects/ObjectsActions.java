@@ -2226,9 +2226,7 @@ public class ObjectsActions {
 			} else {
 				player.getActionSender().setSidebarInterface(6, 1151); // modern
 				player.playerMagicBook = 0;
-				player.getActionSender().sendMessage(
-						"You feel a drain on your memory.");
-				player.autocastId = -1;
+				player.getActionSender().sendMessage("You feel a drain on your memory.");
 				player.getPlayerAssistant().resetAutocast();
 			}
 			break;
