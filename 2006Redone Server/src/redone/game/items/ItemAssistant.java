@@ -1592,19 +1592,19 @@ public class ItemAssistant {
 								c.playerItemsN[slot] = toRemoveN;
 								c.playerEquipment[targetSlot] = toEquip - 1;
 								c.playerEquipmentN[targetSlot] = toEquipN;
-								removeItem(c.playerEquipment[c.playerShield], c.playerShield);
+								removeItem(c.playerEquipment[Constants.SHIELD], Constants.SHIELD);
 							} else {
 								c.getActionSender().sendMessage("You do not have enough inventory space to do this.");
 								return false;
 							}
 						} else if (wearingShield && !wearingWeapon) {
-							c.playerItems[slot] = c.playerEquipment[c.playerShield] + 1;
-							c.playerItemsN[slot] = c.playerEquipmentN[c.playerShield];
+							c.playerItems[slot] = c.playerEquipment[Constants.SHIELD] + 1;
+							c.playerItemsN[slot] = c.playerEquipmentN[Constants.SHIELD];
 							c.playerEquipment[targetSlot] = toEquip - 1;
 							c.playerEquipmentN[targetSlot] = toEquipN;
-							c.playerEquipment[c.playerShield] = -1;
-							c.playerEquipmentN[c.playerShield] = 0;
-							updateSlot(c.playerShield);
+							c.playerEquipment[Constants.SHIELD] = -1;
+							c.playerEquipmentN[Constants.SHIELD] = 0;
+							updateSlot(Constants.SHIELD);
 						} else {
 							c.playerItems[slot] = toRemove + 1;
 							c.playerItemsN[slot] = toRemoveN;
