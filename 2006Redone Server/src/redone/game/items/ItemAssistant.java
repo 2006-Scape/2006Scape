@@ -1576,6 +1576,12 @@ public class ItemAssistant {
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
 				} else if (targetSlot == Constants.WEAPON) {
+					if (CastleWars.SARA_BANNER == toRemove || CastleWars.ZAMMY_BANNER == toRemove) { // alk
+						// update
+						CastleWars.dropFlag(c, toRemove);
+						toRemove = -1;
+						toRemoveN = 0;
+					}
 					boolean is2h = is2handed(getItemName(wearID).toLowerCase(), wearID);
 					boolean wearingShield = c.playerEquipment[Constants.SHIELD] > 0;
 					boolean wearingWeapon = c.playerEquipment[Constants.WEAPON] > 0;
