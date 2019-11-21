@@ -1398,6 +1398,12 @@ public class ItemAssistant {
 			c.getActionSender().flashSideBarIcon(0);
 			// c.getPacketDispatcher().tutorialIslandInterface(50, 11);
 		}
+
+		int wearAmount = c.playerItemsN[slot];
+		if (wearAmount < 1) {
+			return false;
+		}
+
 		int targetSlot = Constants.HAT;
 		boolean canWearItem = true;
 		if (c.playerItems[slot] == wearID + 1) {
@@ -1529,9 +1535,11 @@ public class ItemAssistant {
 				return false;
 			}
 
-			int wearAmount = c.playerItemsN[slot];
-			if (wearAmount < 1) {
-				return false;
+			if (CastleWars.isInCw(c) || CastleWars.isInCwWait(c)) {
+				if (targetSlot == Constants.CAPE || targetSlot == Constants.HAT) {
+					c.getActionSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
+					return false;
+				}
 			}
 
 			if (targetSlot == Constants.WEAPON) {
@@ -1539,20 +1547,6 @@ public class ItemAssistant {
 				c.autocastId = 0;
 				c.getPlayerAssistant().sendConfig(108, 0);
 			}
-
-			if (CastleWars.isInCw(c) || CastleWars.isInCwWait(c)) {
-				if (targetSlot == 1 || targetSlot == 0) {
-					c.getActionSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
-					return false;
-				}
-			}
-
-			/*
-			 * if (slot >= 0 && wearID >= 0) { int toEquip =
-			 * c.playerItems[slot]; int toEquipN = c.playerItemsN[slot]; int
-			 * toRemove = c.playerEquipment[targetSlot]; int toRemoveN =
-			 * c.playerEquipmentN[targetSlot];
-			 */
 
 			if (slot >= 0 && wearID >= 0) {
 				int toEquip = c.playerItems[slot];
@@ -1562,48 +1556,29 @@ public class ItemAssistant {
 				if (toEquip == toRemove + 1 && Item.itemStackable[toRemove]) {
 					deleteItem(toRemove, getItemSlot(toRemove), toEquipN);
 					c.playerEquipmentN[targetSlot] += toEquipN;
-					/*
-					 * Castle wars
-					 */
-
-					if (CastleWars.SARA_BANNER == toRemove
-							|| CastleWars.ZAMMY_BANNER == toRemove) { // alk
-																		// update
-						CastleWars.dropFlag(c, toRemove);
-						toRemove = -1;
-						toRemoveN = 0;
-					}
-				} else if (targetSlot != 5 && targetSlot != 3) {
-					// c.playerItems[slot] = 0;
-					// c.playerItemsN[slot] = 0;
-					// c.playerEquipment[targetSlot] = toEquip - 1;
-					// c.playerEquipmentN[targetSlot] = toEquipN;
-
+				} else if (targetSlot != Constants.SHIELD && targetSlot != Constants.WEAPON) {
 					c.playerItems[slot] = toRemove + 1;
 					c.playerItemsN[slot] = toRemoveN;
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
-				} else if (targetSlot == 5) {
-					boolean wearing2h = is2handed(
-							getItemName(c.playerEquipment[c.playerWeapon])
-									.toLowerCase(),
-							c.playerEquipment[c.playerWeapon]);
+				} else if (targetSlot == Constants.SHIELD) {
+					boolean wearing2h = is2handed(getItemName(c.playerEquipment[Constants.WEAPON]).toLowerCase(), c.playerEquipment[Constants.WEAPON]);
 					if (wearing2h) {
+						// remove the weapon, add to inventory
 						toRemove = c.playerEquipment[c.playerWeapon];
 						toRemoveN = c.playerEquipmentN[c.playerWeapon];
 						c.playerEquipment[c.playerWeapon] = -1;
 						c.playerEquipmentN[c.playerWeapon] = 0;
-						updateSlot(c.playerWeapon);
+						updateSlot(Constants.WEAPON);
 					}
 					c.playerItems[slot] = toRemove + 1;
 					c.playerItemsN[slot] = toRemoveN;
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
-				} else if (targetSlot == 3) {
-					boolean is2h = is2handed(getItemName(wearID).toLowerCase(),
-							wearID);
-					boolean wearingShield = c.playerEquipment[c.playerShield] > 0;
-					boolean wearingWeapon = c.playerEquipment[c.playerWeapon] > 0;
+				} else if (targetSlot == Constants.WEAPON) {
+					boolean is2h = is2handed(getItemName(wearID).toLowerCase(), wearID);
+					boolean wearingShield = c.playerEquipment[Constants.SHIELD] > 0;
+					boolean wearingWeapon = c.playerEquipment[Constants.WEAPON] > 0;
 					if (is2h) {
 						if (wearingShield && wearingWeapon) {
 							if (freeSlots() > 0) {
@@ -1611,12 +1586,9 @@ public class ItemAssistant {
 								c.playerItemsN[slot] = toRemoveN;
 								c.playerEquipment[targetSlot] = toEquip - 1;
 								c.playerEquipmentN[targetSlot] = toEquipN;
-								removeItem(c.playerEquipment[c.playerShield],
-										c.playerShield);
+								removeItem(c.playerEquipment[c.playerShield], c.playerShield);
 							} else {
-								c.getActionSender()
-										.sendMessage(
-												"You do not have enough inventory space to do this.");
+								c.getActionSender().sendMessage("You do not have enough inventory space to do this.");
 								return false;
 							}
 						} else if (wearingShield && !wearingWeapon) {
@@ -1634,26 +1606,15 @@ public class ItemAssistant {
 							c.playerEquipmentN[targetSlot] = toEquipN;
 						}
 					} else {
-						// c.playerItems[slot] = toRemove + 1;
-						// c.playerItemsN[slot] = toRemoveN;
-						// c.playerEquipment[targetSlot] = toEquip - 1;
-						// c.playerEquipmentN[targetSlot] = toEquipN;
-
-						c.playerItems[slot] = 0;
-						c.playerItemsN[slot] = 0;
-
-						// c.playerItems[slot] = toRemove + 1;
-						// c.playerItemsN[slot] = toRemoveN;
-						if (toRemove > 0 && toRemoveN > 0) {
-							addItem(toRemove, toRemoveN);
-						}
+						c.playerItems[slot] = toRemove + 1;
+						c.playerItemsN[slot] = toRemoveN;
 						c.playerEquipment[targetSlot] = toEquip - 1;
 						c.playerEquipmentN[targetSlot] = toEquipN;
 					}
 				}
 			}
 			resetItems(3214);
-			if (targetSlot == 3) {
+			if (targetSlot == Constants.WEAPON) {
 				c.usingSpecial = false;
 				addSpecialBar(wearID);
 			}
@@ -1673,8 +1634,7 @@ public class ItemAssistant {
 				c.getOutStream().endFrameVarSizeWord();
 				c.flushOutStream();
 			}
-			sendWeapon(c.playerEquipment[c.playerWeapon],
-					getItemName(c.playerEquipment[c.playerWeapon]));
+			sendWeapon(c.playerEquipment[c.playerWeapon], getItemName(c.playerEquipment[c.playerWeapon]));
 			resetBonus();
 			getBonus();
 			writeBonus();
