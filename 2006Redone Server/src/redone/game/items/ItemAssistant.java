@@ -1195,12 +1195,12 @@ public class ItemAssistant {
 			return true;
 		}
 		switch (itemId) {
-		case 6724: // seercull
-		case 11730:
-		case 4153:
-		case 6528:
-		case 14484:
-			return true;
+			case 6724: // seercull
+			case 11730:
+			case 4153:
+			case 6528:
+			case 14484:
+				return true;
 		}
 		return false;
 	}
@@ -1512,123 +1512,6 @@ public class ItemAssistant {
 			}
 
 			switch (wearID) {
-				// Legs
-				case 6181:
-				case 428:
-				case 538:
-				case 6343:
-				case 6353:
-				case 6363:
-				case 6396:
-				case 6373:
-				case 6404:
-				case 5044:
-				case 5046:
-				case 5050:
-				case 5052:
-				case 5040:
-				case 5038:
-				case 6752:
-				case 5048:
-				case 5036:
-				case 5042:
-				case 4300:
-				case 1835:
-				case 7116:
-				case 7126:
-				case 7132:
-				case 7138:
-				case 548:
-				case 6185:
-					targetSlot = Constants.LEGS;
-					break;
-				// Hats
-				case 4166:
-				case 1167:
-				case 5525:
-				case 4168:
-				case 1025:
-				case 7112:
-				case 7124:
-				case 7130:
-				case 7136:
-				case 4611:
-				case 5527:
-				case 5529:
-				case 5531:
-				case 5533:
-				case 5535:
-				case 5537:
-				case 5539:
-				case 5541:
-				case 5543:
-				case 5545:
-				case 5547:
-					targetSlot = Constants.HAT;
-					break;
-				// Cape
-				case 4304:
-				case 3759:
-				case 3761:
-				case 3763:
-				case 3765:
-				case 3777:
-				case 3779:
-				case 3781:
-				case 3783:
-				case 3785:
-				case 3787:
-				case 3789:
-				case 4514:
-				case 4516:
-					targetSlot = Constants.CAPE;
-					break;
-				// Shield
-				case 7051:
-				case 7053:
-					targetSlot = Constants.SHIELD;
-					break;
-				// Chest
-				case 577:
-				case 426:
-				case 540:
-				case 430:
-				case 6786:
-				case 581:
-				case 5024:
-				case 5030:
-				case 1757:
-				case 5034:
-				case 5032:
-				case 3793:
-				case 1005:
-				case 546:
-				case 6402:
-				case 6788:
-				case 6184:
-				case 7390:
-				case 7392:
-				case 6186:
-					targetSlot = Constants.CHEST;
-					break;
-				// Amulet
-				case 3853:
-				case 3855:
-				case 3857:
-				case 3859:
-				case 3861:
-				case 3863:
-				case 1718:
-				case 3865:
-				case 4306:
-				case 3867:
-				case 1702:
-					targetSlot = Constants.AMULET;
-					break;
-				// Hands
-				case 776:
-					targetSlot = Constants.HANDS;
-					break;
 				// Dragon daggers/sword
 				case 1215:
 				case 1231:
@@ -1636,12 +1519,13 @@ public class ItemAssistant {
 				case 5698:
 				case 1305:
 					if (c.spiritTree == false && c.playerRights != 3) {
-						c.getActionSender().sendMessage("You need to beat the tree spirit to wear this.");
-						return false;
+						c.getActionSender().sendMessage("You need to beat the tree spirit to wield this weapon.");
+						canWearItem = false;
 					}
-					break;
 			}
+
 			if (!canWearItem) {
+				// return false here so we can send multiple messages of requirements
 				return false;
 			}
 
