@@ -177,6 +177,7 @@ public class ShopHandler {
 		int id = getEmptyShop();
 		player.myShopId = id;
 		ShopSModifier[id] = 0;
+		ShopBModifier[id] = 0;
 		ShopName[id] = player.properName + "'s Store";
 		for (int i = 0; i < MaxShopItems; i++){
 			ShopItems[id][i] = player.bankItems[i];
@@ -228,5 +229,9 @@ public class ShopHandler {
 			}
 		}
 		refreshShop(shop_id);
+	}
+
+	public static boolean playerOwnsStore(int shop_id, Client player){
+		return ShopSModifier[shop_id] == 0 && ShopBModifier[shop_id] == 0 && ShopName[shop_id].equalsIgnoreCase(player.properName + "'s Store");
 	}
 }

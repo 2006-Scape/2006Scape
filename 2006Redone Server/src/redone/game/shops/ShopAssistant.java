@@ -298,7 +298,7 @@ public class ShopAssistant {
 				break;
 			// Player owned store
 			case 0:
-				IsIn = ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store");
+				IsIn = ShopHandler.playerOwnsStore(player.myShopId, player);
 				break;
 		}
 
@@ -313,7 +313,7 @@ public class ShopAssistant {
 			} else if (ShopValue >= 1000000) {
 				ShopAdd = " (" + (ShopValue / 1000000) + " million)";
 			}
-			if (ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store")) {
+			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": set your sell price.");
 			} else if (player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP && player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139) {
 				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
@@ -369,7 +369,7 @@ public class ShopAssistant {
 					break;
 				// Player owned store - only "buys" from the player whos store it is
 				case 0:
-					canSellToStore = ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store");
+					canSellToStore = ShopHandler.playerOwnsStore(player.myShopId, player);
 					break;
 			}
 			if (canSellToStore == false) {
@@ -378,7 +378,7 @@ public class ShopAssistant {
 				return false;
 			}
 			// player owned store, setting item price
-			if (ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store")) {
+			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				// No items in stock, we are adding 1 and setting the price
 				if (ShopHandler.getStock(player.myShopId, itemID) <= 0){
 					player.getItemAssistant().deleteItem(itemID, 1);
@@ -417,7 +417,7 @@ public class ShopAssistant {
 				itemID = itemID - 1; //Replace the noted item by it's un-noted version.
 			}
 
-			if (ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store")) {
+			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				// Add items to players store
 				player.getActionSender().sendMessage("You sent " + amount + " " + itemName + " to your store.");
 				BotHandler.addTobank(player.myShopId, itemID, amount);
@@ -502,10 +502,14 @@ public class ShopAssistant {
 					return false;
 				}		
 			}
-			int value = 0;	// Item Value
-			int currency = 995; // currency this shop uses
+			int value = 0;
+			int currency = 995;
 			// player owned shop
-			if (ShopHandler.ShopBModifier[player.myShopId] == 0) {
+			boolean playerOwnsShop = ShopHandler.playerOwnsStore(player.myShopId, player);
+			if (playerOwnsShop) {
+				value = 0;
+				currency = -1;
+			} else if (ShopHandler.ShopBModifier[player.myShopId] == 0) {
 				value = BotHandler.getItemPrice(player.myShopId, itemID);
 				currency = 995; // gp
 			} else if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
@@ -545,17 +549,22 @@ public class ShopAssistant {
 					return false;
 				}
 			}
-			player.getItemAssistant().deleteItem2(currency, totalValue);
+
+			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+			if (!playerOwnsShop) {
+				player.getItemAssistant().deleteItem2(currency, totalValue);
+				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + "." );
+			} else {
+				player.getActionSender().sendMessage("You withdrew " + amount + " " + itemName + " from your store." );
+			}
 			player.getItemAssistant().addItem(itemID, amount);
 			ShopHandler.buyItem(shopID, itemID, amount);
 			if (ShopHandler.ShopBModifier[shopID] == 0){
 				BotHandler.removeFrombank(shopID, itemID, amount);
 			}
-			player.getActionSender().sendMessage("You bought " + amount + " " + ItemAssistant.getItemName(itemID).toLowerCase() + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + "." );
 
-			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 			if (player.getPlayerAssistant().isPlayer()) {
-				GameLogger.writeLog(player.playerName, "shopbuying", player.playerName + " bought " + amount + " " + ItemAssistant.getItemName(itemID).toLowerCase() + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + " from store " + shopID + ".");
+				GameLogger.writeLog(player.playerName, "shopbuying", player.playerName + " bought " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + " from store " + shopID + ".");
 			}
 			player.getItemAssistant().resetItems(3823);
 			resetShop(player.myShopId);
