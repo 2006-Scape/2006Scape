@@ -67,7 +67,8 @@ public class Bot {
         if (items.size() <= 0) return;
         int item_id = Misc.randomArrayListItem(items);
         String item_name = ItemAssistant.getItemName(item_id);
-        int value = Math.max(1, BotHandler.getItemPrice(botClient.myShopId, item_id));
+        int value = BotHandler.getItemPrice(botClient.myShopId, item_id);
+        if (value <= 0) return;
         botClient.forcedChat("Selling " + item_name + " " + formatSellPrice(value) + " ea");
         /*
         Real chat - Disabled for now, can't get it to function correctly

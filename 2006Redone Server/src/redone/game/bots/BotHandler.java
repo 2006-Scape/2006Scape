@@ -107,13 +107,13 @@ public class BotHandler
     public static int getItemPrice(int shop_id, int item_id){
         item_id++;
         Client shop = getPlayerShop(shop_id);
-        if (shop == null) return 1;
+        if (shop == null) return 0;
         for (int slot = 0; slot < ShopHandler.MaxShopItems; slot++) {
             if (shop.bankItems[slot] == item_id) {
                 return Math.max(1, shop.bankItemsV[slot]);
             }
         }
-        return 1;
+        return 0;
     }
 
     public static void setPrice(int shop_id, int item_id, int amount){

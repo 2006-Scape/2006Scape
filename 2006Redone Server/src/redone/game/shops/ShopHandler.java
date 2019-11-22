@@ -197,14 +197,14 @@ public class ShopHandler {
 	public static void refreshShop(int shop_id){
 		// We don't want to remove items that should be kept in stock
 		for (int j = ShopItemsStandard[shop_id]; j < MaxShopItems; j++) {
-			if (ShopItems[shop_id][j] > 0 && ShopItemsN[shop_id][j] <= 0) {
+			if (ShopItemsN[shop_id][j] <= 0) {
 				ResetItem(shop_id, j);
-				if (ShopItems[shop_id][j + 1] > 0) {
-					ShopItems[shop_id][j] = ShopItems[shop_id][j + 1];
-					ShopItemsN[shop_id][j] = ShopItemsN[shop_id][j + 1];
-					ShopItemsSN[shop_id][j] = ShopItemsSN[shop_id][j + 1];
-					ShopItemsDelay[shop_id][j] = ShopItemsDelay[shop_id][j + 1];
-					ResetItem(shop_id, j + 1);
+				int next = j + 1;
+				if (next < MaxShopItems && ShopItemsN[shop_id][next] > 0) {
+					ShopItems[shop_id][j] = ShopItems[shop_id][next];
+					ShopItemsN[shop_id][j] = ShopItemsN[shop_id][next];
+					ShopItemsDelay[shop_id][j] = ShopItemsDelay[shop_id][next];
+					ResetItem(shop_id, next);
 				}
 			}
 		}

@@ -8,33 +8,12 @@
   <component name="ChangeListManager">
     <list default="true" id="9c1d485e-b413-4c80-b742-7c5a88c1c73c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/BotConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/BotConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/BotHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/BotHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/shops/ShopAssistant.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/shops/ShopAssistant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/items/ItemAssistant.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/items/ItemAssistant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/shops/ShopHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/shops/ShopHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/items/ItemAssistant.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/items/ItemAssistant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/npcs/Npc.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/npcs/Npc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerAssistant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/PlayerHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/players/Trading.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/shops/ShopAssistant.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/shops/ShopAssistant.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/shops/ShopHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/game/shops/ShopHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/ActionSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/ActionSender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/ConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/ConnectionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/Commands.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/IdleLogout.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/net/packets/impl/IdleLogout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/Server.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,11 +23,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1294" />
-    <option name="height" value="1407" />
   </component>
   <component name="ProjectId" id="1Sr1PyvKre5eWJ6XgOrqWrHM5hp" />
   <component name="PropertiesComponent">
@@ -114,8 +88,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Server" />
-        <item itemvalue="Application.FileServer" />
         <item itemvalue="Application.Client" />
+        <item itemvalue="Application.FileServer" />
       </list>
     </recent_temporary>
   </component>
@@ -124,7 +98,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e34c4650-a3c9-498e-b05e-c1cbb72d0ad7" name="Default Changelist" comment="" />
+      <changelist id="9c1d485e-b413-4c80-b742-7c5a88c1c73c" name="Default Changelist" comment="" />
       <created>1572306880139</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

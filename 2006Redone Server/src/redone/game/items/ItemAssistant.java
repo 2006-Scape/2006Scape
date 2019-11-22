@@ -1804,9 +1804,11 @@ public class ItemAssistant {
 						for (int j = k; j <= highestSlot; j++) {
 							c.bankItems[j - spots] = c.bankItems[j];
 							c.bankItemsN[j - spots] = c.bankItemsN[j];
+							c.bankItemsV[j - spots] = c.bankItemsV[j];
 							stop = true;
 							c.bankItems[j] = 0;
 							c.bankItemsN[j] = 0;
+							c.bankItemsV[j] = 0;
 						}
 					}
 				}
