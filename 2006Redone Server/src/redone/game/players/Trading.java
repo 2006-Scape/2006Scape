@@ -36,19 +36,28 @@ public class Trading {
 			if (id == player.playerId) {
 				return;
 			}
+
+			// player owned shop
+			if (o.isBot && o.myShopId >= 0){
+				if (isCloseTo(o)) {
+					player.getShopAssistant().openShop(o.myShopId);
+				} else {
+					player.getActionSender().sendMessage("Player is not close enough. Retry when you are closer...");
+				}
+				return;
+			}
+
 			player.tradeWith = id;
 			if (player.isBotting) {
 				player.getActionSender().sendMessage("You can't trade items, until you confirm you aren't botting.");
 				player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
 				return;
 			}
-			/*if (c.connectedFrom.equals(o.connectedFrom)) {
-				c.getActionSender().sendMessage("You cannot trade your own IP.");
-				return;
-			}*/
+
 			if (!CastleWars.deleteCastleWarsItems(player, id)) {
 				return;
 			}
+
 			if (!player.inTrade && o.tradeRequested && o.tradeWith == player.playerId && player.playerIsBusy() == false && o.playerIsBusy() == false) { //start trading process
 				if (!isCloseTo(o)) {
 					player.getActionSender().sendMessage("Player is not close enough. Retry when you are closer...");
