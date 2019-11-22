@@ -103,26 +103,22 @@ public class ShopAssistant {
 		double ShopValue = 1;
 		double TotPrice = 0;
 		double sellingRatio = isSelling ? 0.85 : 1;
-		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
-			if (ItemDefinitions.getDef()[i] != null) {
-				ShopValue = ItemDefinitions.getDef()[ItemID].highAlch/3.0 *5.0 * sellingRatio;
-			}
+		if (ItemDefinitions.getDef()[ItemID] != null) {
+			ShopValue = ItemDefinitions.getDef()[ItemID].highAlch / 3.0 * 5.0 * sellingRatio;
 		}
 
 		TotPrice = ShopValue;
 
-		// General store
+		// General store pays less for items
 		if (isSelling && ShopHandler.ShopBModifier[player.myShopId] == 1) {
 			TotPrice *= 0.90;
-		} else if (Type == 1) {
-			TotPrice *= 1;
 		}
 		// Minimum value of 1
 		return (int) Math.max(1, Math.floor(TotPrice));
 	}
 
 	public int getItemShopValue(int itemId) {
-		return (int) ItemDefinitions.getDef()[itemId].highAlch/3 *5;
+		return getItemShopValue(itemId, 0, false);
 	}
 
 
@@ -533,7 +529,9 @@ public class ShopAssistant {
 			player.getItemAssistant().deleteItem2(currency, totalValue);
 			player.getItemAssistant().addItem(itemID, amount);
 			ShopHandler.buyItem(shopID, itemID, amount);
-			ShopHandler.refreshShop(shopID);
+			if (ShopHandler.ShopBModifier[shopID] == 0){
+				BotHandler.removeFrombank(shopID, itemID, amount);
+			}
 			player.getActionSender().sendMessage("You bought " + amount + " " + ItemAssistant.getItemName(itemID).toLowerCase() + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + "." );
 
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();

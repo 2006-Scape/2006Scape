@@ -66,8 +66,8 @@ public class Bot {
         }
         int item_id = Misc.randomArrayListItem(items);
         String item_name = ItemAssistant.getItemName(item_id);
-        int value = botClient.getShopAssistant().getItemShopValue(item_id);
-        botClient.forcedChat("Selling " + item_name + " " + GameLogger.formatCurrency(value) + "ea");
+        int value = Math.max(1, botClient.getShopAssistant().getItemShopValue(item_id, 0, false));
+        botClient.forcedChat("Selling " + item_name + " " + formatSellPrice(value) + " ea");
         /*
         Real chat - Disabled for now, can't get it to function correctly
 
@@ -79,5 +79,17 @@ public class Bot {
         botClient.inStream.readBytes_reverseA(botClient.getChatText(), botClient.getChatTextSize(), 0);
         botClient.setChatTextUpdateRequired(true);
         */
+    }
+
+    private String formatSellPrice(int price) {
+        if (price > 1e9) {
+            return (Math.floor(price / 1e8) / 10) + "B";
+        } else if (price > 1e6) {
+            return (Math.floor(price / 1e8) / 10) + "M";
+        } else if (price > 1e3) {
+            return (Math.floor(price / 100) / 10) + "K";
+        } else {
+            return "" + price;
+        }
     }
 }

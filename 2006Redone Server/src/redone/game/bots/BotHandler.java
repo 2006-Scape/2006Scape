@@ -66,12 +66,24 @@ public class BotHandler
         return null;
     }
 
-    public static void addTobank(int shop, int item, int itemN){
+    public static void addTobank(int shop_id, int item_id, int amount){
         for(Bot bot : botList) {
             if(bot != null && bot.getBotClient() != null) {
                 Client botClient = bot.getBotClient();
-                if(botClient.myShopId == shop) {
-                    botClient.getItemAssistant().addItemToBank(item, itemN);
+                if(botClient.myShopId == shop_id) {
+                    botClient.getItemAssistant().addItemToBank(item_id, amount);
+                    return;
+                }
+            }
+        }
+    }
+
+    public static void removeFrombank(int shop_id, int item_id, int amount){
+        for(Bot bot : botList) {
+            if(bot != null && bot.getBotClient() != null) {
+                Client botClient = bot.getBotClient();
+                if(botClient.myShopId == shop_id) {
+                    botClient.getItemAssistant().removeitemFromBank(item_id, amount);
                     return;
                 }
             }

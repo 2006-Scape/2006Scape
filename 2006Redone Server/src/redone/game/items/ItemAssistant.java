@@ -227,11 +227,28 @@ public class ItemAssistant {
 	}
 
 	public void addItemToBank(int itemId, int amount) {
+		itemId++;
 		for (int i = 0; i < Constants.BANK_SIZE; i++) {
-			if (c.bankItems[i] <= 0 || c.bankItems[i] == itemId + 1 && c.bankItemsN[i] + amount < Integer.MAX_VALUE) {
-				c.bankItems[i] = itemId + 1;
+			if (c.bankItems[i] <= 0 || c.bankItems[i] == itemId && c.bankItemsN[i] + amount < Integer.MAX_VALUE) {
+				c.bankItems[i] = itemId;
 				c.bankItemsN[i] += amount;
 				resetBank();
+				return;
+			}
+		}
+	}
+
+	public void removeitemFromBank(int itemId, int amount) {
+		itemId++;
+		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+			if (c.bankItems[i] == itemId) {
+				c.bankItemsN[i] -= amount;
+				if (c.bankItemsN[i] <= 0) {
+					c.bankItems[i] = 0;
+					c.bankItemsN[i] = 0;
+				}
+				resetBank();
+				rearrangeBank();
 				return;
 			}
 		}
