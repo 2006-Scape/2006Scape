@@ -27,8 +27,7 @@ public class Bot {
         // TODO: randomize the bot passwords
         botClient.playerPass = "bot_password";
 
-        char first = username.charAt(0);
-        botClient.properName = Character.toUpperCase(first) + username.substring(1, username.length());
+        botClient.properName = Character.toUpperCase(username.charAt(1)) + username.substring(2);
 
         botClient.saveFile = true;
         botClient.saveCharacter = true;
