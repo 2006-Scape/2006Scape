@@ -96,6 +96,9 @@ public class Commands implements PacketType {
                         case "shop":
                                 BotHandler.playerShop(player);
                                 break;
+                        case "wshop":
+                                BotHandler.takeCoins(player);
+                                break;
                         case "wealth":
                                 int totalWealth = player.getPlayerAssistant().totalGold();
                                 player.getActionSender().sendMessage("You currently have " + totalWealth + "gp.");
@@ -134,7 +137,7 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().closeAllWindows();
                                 break;
                         case "commands":
-                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx");
+                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx, ::shop, ::wshop");
                                 break;
                         case "loc":
                                 player.getActionSender().sendMessage(player.absX + "," + player.absY);

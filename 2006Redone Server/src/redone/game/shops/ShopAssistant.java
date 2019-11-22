@@ -554,6 +554,9 @@ public class ShopAssistant {
 			if (!playerOwnsShop) {
 				player.getItemAssistant().deleteItem2(currency, totalValue);
 				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + "." );
+				// If it is a player owned shop, we need to give them the coins
+				if (ShopHandler.ShopSModifier[player.myShopId] == 0)
+					BotHandler.addCoins(shopID, totalValue);
 			} else {
 				player.getActionSender().sendMessage("You withdrew " + amount + " " + itemName + " from your store." );
 			}

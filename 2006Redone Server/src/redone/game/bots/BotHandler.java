@@ -14,6 +14,7 @@ public class BotHandler
 {
     static final List<Bot> botList = new ArrayList<>(BotConstants.MAX_BOTS);
     static final Random random = new SecureRandom();
+    static final int currency = 995;
 
     public static Bot connectBot(String username, int x, int y, int z) {
         Bot bot;
@@ -28,24 +29,33 @@ public class BotHandler
     }
 
     public static void playerShop(Client player){
-        Bot playerShop = getPlayerShop(player);
+        Client playerShop = getPlayerShop(player);
 
         if (playerShop == null) {
             String shopName = getShopName(player);
-            playerShop = connectBot(shopName, player.getX(), player.getY(), player.getH());
-            ShopHandler.createPlayerShop(playerShop.getBotClient());
+            Bot bot = connectBot(shopName, player.getX(), player.getY(), player.getH());
+            playerShop = bot.getBotClient();
+            ShopHandler.createPlayerShop(playerShop);
         }
 
-        Client client = playerShop.getBotClient();
+        Client client = playerShop;
         client.getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
-        client.getItemAssistant().removeAllItems();
-        // Set bot to same level as player
+
+
         int i = 0;
+        // Remove all items except money
+        for (int item_id : client.playerItems) {
+            if (item_id > 0 && item_id != currency + 1){
+                client.playerItems[i] = 0;
+                client.playerItemsN[i] = 0;
+            }
+            i++;
+        }
+        // Set bot to same level as player
+        i = 0;
         for (int level : player.playerLevel) {
-            client.playerXP[i] = player.getPlayerAssistant().getXPForLevel(level) + 5;
             client.playerLevel[i] = level;
             client.getPlayerAssistant().refreshSkill(i);
-            client.getPlayerAssistant().levelUp(i);
             i++;
         }
         // Take the appearance of the player
@@ -67,13 +77,13 @@ public class BotHandler
         return "♥" + player.playerName;
     }
 
-    private static Bot getPlayerShop(Client player){
+    private static Client getPlayerShop(Client player){
         String shopName = getShopName(player);
         for(Bot bot : botList) {
             if(bot != null && bot.getBotClient() != null) {
                 Client botClient = bot.getBotClient();
                 if(botClient.playerName.equalsIgnoreCase(shopName)) {
-                    return bot;
+                    return botClient;
                 }
             }
         }
@@ -90,6 +100,28 @@ public class BotHandler
             }
         }
         return null;
+    }
+
+    public static void addCoins(int shop_id, int amount){
+        Client shop = getPlayerShop(shop_id);
+        if (shop == null) return;
+        shop.getItemAssistant().addItem(currency, amount);
+    }
+
+    public static void takeCoins(Client player){
+        if (!player.getItemAssistant().playerHasItem(currency) || player.getItemAssistant().freeSlots() <= 0) {
+            player.getActionSender().sendMessage("You don't have enough space in your inventory.");
+            return;
+        }
+        Client shop = getPlayerShop(player);
+        if (shop == null) return;
+        if (!shop.getItemAssistant().playerHasItem(currency)) {
+            player.getActionSender().sendMessage("There are no coins to collect.");
+            return;
+        }
+        int totalCoins = shop.getItemAssistant().getItemAmount(currency);
+        player.getItemAssistant().addItem(currency, totalCoins);
+        shop.getItemAssistant().deleteItem(currency, totalCoins);
     }
 
     public static void addTobank(int shop_id, int item_id, int amount){
