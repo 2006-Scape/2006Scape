@@ -3,6 +3,8 @@ package redone.game.players;
 import java.util.ArrayList;
 
 import redone.Constants;
+import redone.Server;
+import redone.game.content.combat.prayer.PrayerDrain;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.items.Item;
 import redone.game.items.ItemAssistant;
@@ -1935,10 +1937,14 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 		logoutDelay = System.currentTimeMillis();
 		singleCombatDelay = System.currentTimeMillis();
 	}
+	
 
 	public void dealDamage(int damage) {
 		if (teleTimer <= 0) {
 			playerLevel[3] -= damage;
+			int difference = playerLevel[3] - damage;
+			if (difference <= getLevelForXP(playerXP[3]) / 10 && difference > 0)
+				appendRedemption();
 		} else {
 			if (hitUpdateRequired) {
 				hitUpdateRequired = false;
@@ -1947,8 +1953,25 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 				hitUpdateRequired2 = false;
 			}
 		}
-
 	}
+	
+	public void appendRedemption() {
+		Client c = (Client) PlayerHandler.players[playerId];
+		if (c.getPrayer().prayerActive[22]) {
+			int added = c.playerLevel[3] += (int)(c.getLevelForXP(c.playerXP[5]) * .25);
+			if (added > c.getLevelForXP(c.playerXP[3])) {
+				c.playerLevel[3] = c.getLevelForXP(c.playerXP[3]);
+			} else {
+				c.playerLevel[3] += (int)(getLevelForXP(c.playerXP[5]) * .25);
+			}
+			c.playerLevel[5] = 0;
+			c.getPlayerAssistant().refreshSkill(3);
+			c.getPlayerAssistant().refreshSkill(5);
+			c.gfx0(436);
+			PrayerDrain.resetPrayers(c);
+		}
+	}
+
 
 	public int[] damageTaken = new int[PlayerHandler.players.length];
 
