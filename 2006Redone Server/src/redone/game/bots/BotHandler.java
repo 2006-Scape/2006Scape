@@ -40,6 +40,14 @@ public class BotHandler
 
         playerShop.getBotClient().getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
         playerShop.getBotClient().getItemAssistant().removeAllItems();
+        int i = 0;
+        for (int level : player.playerLevel) {
+            playerShop.getBotClient().playerXP[i] = player.getPlayerAssistant().getXPForLevel(level) + 5;
+            playerShop.getBotClient().playerLevel[i] = level;
+            playerShop.getBotClient().getPlayerAssistant().refreshSkill(i);
+            playerShop.getBotClient().getPlayerAssistant().levelUp(i);
+            i++;
+        }
     }
 
     private static String getShopName(Client player){
