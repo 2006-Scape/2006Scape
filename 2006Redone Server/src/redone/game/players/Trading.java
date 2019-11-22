@@ -257,7 +257,7 @@ public class Trading {
 			return false;
 		}
 		
-		if (amount >= 1000000000) {
+		if (amount >= Integer.MAX_VALUE) {
 			player.getActionSender().sendMessage("You can't possibly have that much of that item!");
 			player.getItemAssistant().deleteItem(itemID, fromSlot, amount);
 			return false;
@@ -270,14 +270,6 @@ public class Trading {
 				return false;
 			}
 		}
-		if (!RareProtection.doOtherDupe(player, itemID)) {
-			return false;
-		}
-		// /if (!((c.playerItems[fromSlot] == itemID + 1) &&
-		// (c.playerItemsN[fromSlot] >= amount))) {
-		// c.getPacketDispatcher().sendMessage("You don't have that amount!");
-		// return false;
-		// }
 		player.tradeConfirmed = false;
 		o.tradeConfirmed = false;
 		if (!Item.itemStackable[itemID] && !Item.itemIsNote[itemID]) {

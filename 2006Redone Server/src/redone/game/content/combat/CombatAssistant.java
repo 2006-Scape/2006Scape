@@ -572,11 +572,6 @@ public class CombatAssistant {
 				resetPlayerAttack();
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 134 || NpcHandler.npcs[i].npcType == 1267 || NpcHandler.npcs[i].npcType == 1265) {
-				if (Misc.random(350) == 0) {
-					AntiBotting.botCheckInterface(c);
-				}
-			}
 			if (NpcHandler.npcs[i].npcType == 757 && c.vampSlayer > 2) {
 				if (!c.getItemAssistant().playerHasItem(1549, 1) || !c.getItemAssistant().playerHasItem(2347, 1)) {
 					c.getActionSender().sendMessage("You need a stake and hammer to attack count draynor.");
@@ -598,9 +593,6 @@ public class CombatAssistant {
 				c.getActionSender().sendMessage("You can't attack a swarm!");
 				resetPlayerAttack();
 				return;
-			}
-			if (!c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1)) {
-				
 			}
 			if (NpcHandler.npcs[i].underAttackBy > 0 && NpcHandler.npcs[i].underAttackBy != c.playerId && !NpcHandler.npcs[i].inMulti()) {
 				c.npcIndex = 0;
@@ -677,7 +669,7 @@ public class CombatAssistant {
 
 				if (!c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(c) && !c.usingRangeWeapon && !c.usingBow && !c.usingMagic
 						|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && c.usingRangeWeapon && !c.usingBow && !c.usingMagic
-						|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1)&& !c.usingRangeWeapon && !RangeData.usingHally(c) && !c.usingBow && !c.usingMagic
+						|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1) && !c.usingRangeWeapon && !RangeData.usingHally(c) && !c.usingBow && !c.usingMagic
 						|| !c.goodDistance(c.getX(), c.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (c.usingBow || c.usingMagic)) {
 					return;
 				} else {
