@@ -1,6 +1,7 @@
 package redone.util;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 public class Misc {
 
@@ -154,6 +155,11 @@ public class Misc {
 
 	public static int randomArrayItem(int[] arr) {
 		return arr[(int) Math.floor(Math.random() * arr.length)];
+	}
+
+	public static int randomArrayListItem(ArrayList<Integer> arr) {
+		int index = (int) Math.floor(Math.random() * arr.size());
+		return arr.get(index);
 	}
 
 	public static long playerNameToInt64(String s) {

@@ -66,4 +66,16 @@ public class BotHandler
         return null;
     }
 
+    public static void addTobank(int shop, int item, int itemN){
+        for(Bot bot : botList) {
+            if(bot != null && bot.getBotClient() != null) {
+                Client botClient = bot.getBotClient();
+                if(botClient.myShopId == shop) {
+                    botClient.getItemAssistant().addItemToBank(item, itemN);
+                    return;
+                }
+            }
+        }
+    }
+
 }

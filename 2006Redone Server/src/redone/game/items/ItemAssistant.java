@@ -2426,17 +2426,23 @@ public class ItemAssistant {
 	}
 
 	public void deleteItem(int id, int amount) {
-		if (id <= 0) {
+		if (id <= 0 || amount <= 0) {
 			return;
 		}
-		for (int j = 0; j < c.playerItems.length; j++) {
+		id++;
+		for (int slot = 0; slot < c.playerItems.length; slot++) {
 			if (amount <= 0) {
 				break;
 			}
-			if (c.playerItems[j] == id + 1) {
-				c.playerItems[j] = 0;
-				c.playerItemsN[j] = 0;
-				amount--;
+			if (c.playerItems[slot] == id) {
+				if (c.playerItemsN[slot] > amount) {
+					c.playerItemsN[slot] -= amount;
+					break;
+				} else {
+					amount -= c.playerItemsN[slot];
+					c.playerItems[slot] = 0;
+					c.playerItemsN[slot] = 0;
+				}
 			}
 		}
 		resetItems(3214);
@@ -2462,9 +2468,6 @@ public class ItemAssistant {
 	public void deleteItem2(int id, int amount) {
 		int am = amount;
 		for (int i = 0; i < c.playerItems.length; i++) {
-			if (am == 0) {
-				break;
-			}
 			if (c.playerItems[i] == id + 1) {
 				if (c.playerItemsN[i] > amount) {
 					c.playerItemsN[i] -= amount;
@@ -2472,7 +2475,6 @@ public class ItemAssistant {
 				} else {
 					c.playerItems[i] = 0;
 					c.playerItemsN[i] = 0;
-					am--;
 				}
 			}
 		}

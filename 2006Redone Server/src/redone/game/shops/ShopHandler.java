@@ -48,7 +48,6 @@ public class ShopHandler {
 	
 	public static int restockTimeItem(int itemId) {
 		switch(itemId) {
-		
 			default:
 			return 1000;
 		}
@@ -100,7 +99,7 @@ public class ShopHandler {
 		}
 	}
 
-	private void ResetItem(int ShopID, int ArrayID) {
+	private static void ResetItem(int ShopID, int ArrayID) {
 		ShopItems[ShopID][ArrayID] = 0;
 		ShopItemsN[ShopID][ArrayID] = 0;
 		ShopItemsDelay[ShopID][ArrayID] = 0;
@@ -179,6 +178,12 @@ public class ShopHandler {
 		player.myShopId = id;
 		ShopSModifier[id] = 0;
 		ShopName[id] = player.properName + "'s Store";
+		for (int i = 0; i < MaxShopItems; i++){
+			ShopItems[id][i] = player.bankItems[i];
+			ShopItemsN[id][i] = player.bankItemsN[i];
+			ShopItemsSN[id][i] = 0;
+			ShopItemsDelay[id][i] = 0;
+		}
 		TotalShops++;
 	}
 
@@ -187,5 +192,43 @@ public class ShopHandler {
 			if (ShopName[i] == "") return i;
 		}
 		return -1;
+	}
+
+	public static void refreshShop(int shop_id){
+		// We don't want to remove items that should be kept in stock
+		for (int j = ShopItemsStandard[shop_id]; j < MaxShopItems; j++) {
+			if (ShopItems[shop_id][j] > 0 && ShopItemsN[shop_id][j] <= 0) {
+				ResetItem(shop_id, j);
+				if (ShopItems[shop_id][j + 1] > 0) {
+					ShopItems[shop_id][j] = ShopItems[shop_id][j + 1];
+					ShopItemsN[shop_id][j] = ShopItemsN[shop_id][j + 1];
+					ShopItemsSN[shop_id][j] = ShopItemsSN[shop_id][j + 1];
+					ShopItemsDelay[shop_id][j] = ShopItemsDelay[shop_id][j + 1];
+					ResetItem(shop_id, j + 1);
+				}
+			}
+		}
+	}
+
+	public static int getStock(int shop_id, int item_id){
+		item_id++;
+		for (int j = 0; j < MaxShopItems; j++) {
+			if (ShopItems[shop_id][j] > 0)
+				System.out.println("item " + item_id + " = " + ShopItemsN[shop_id][j]);
+			if (ShopItems[shop_id][j] == item_id) {
+				return ShopItemsN[shop_id][j];
+			}
+		}
+		return -1;
+	}
+
+	public static void buyItem(int shop_id, int item_id, int amount){
+		item_id++;
+		for (int j = 0; j < MaxShopItems; j++) {
+			if (ShopItems[shop_id][j] == item_id) {
+				ShopItemsN[shop_id][j] -= amount;
+			}
+		}
+		refreshShop(shop_id);
 	}
 }

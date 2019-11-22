@@ -1,11 +1,15 @@
 package redone.game.bots;
 
 import redone.Server;
+import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
 import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
+import redone.util.GameLogger;
+import redone.util.Misc;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,7 +59,15 @@ public class Bot {
     }
 
     public void sendTradeChat() {
-        botClient.forcedChat("Selling Rune Platebody 210k ea");
+        ArrayList<Integer> items = new ArrayList<Integer>();
+        for (int slot = 0; slot < 40; slot++){
+            if(botClient.bankItems[slot] > 0)
+                items.add(botClient.bankItems[slot] - 1);
+        }
+        int item_id = Misc.randomArrayListItem(items);
+        String item_name = ItemAssistant.getItemName(item_id);
+        int value = botClient.getShopAssistant().getItemShopValue(item_id);
+        botClient.forcedChat("Selling " + item_name + " " + GameLogger.formatCurrency(value) + "ea");
         /*
         Real chat - Disabled for now, can't get it to function correctly
 
