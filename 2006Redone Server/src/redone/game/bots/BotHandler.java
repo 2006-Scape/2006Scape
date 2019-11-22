@@ -36,8 +36,10 @@ public class BotHandler
             playerShop = connectBot(shopName, player.getX(), player.getY(), player.getH());
         }
 
-        if (playerShop != null)
-            playerShop.getBotClient().getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
+        if (playerShop == null) return;
+
+        playerShop.getBotClient().getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
+        playerShop.getBotClient().getItemAssistant().removeAllItems();
     }
 
     private static String getShopName(Client player){
