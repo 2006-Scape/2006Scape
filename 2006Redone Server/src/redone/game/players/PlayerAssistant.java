@@ -275,35 +275,40 @@ public class PlayerAssistant {
 	public int backupInvItems[] = new int[28];
 	public int backupInvItemsN[] = new int[28];
 
-	    public void otherInv(Client c, Client o) {
-	        if (o == c || o == null || c == null)
-	            return;
-	        for (int i = 0; i < o.playerItems.length; i++) {
-	            backupInvItems[i] = c.playerItems[i];
-	            c.playerItemsN[i] = c.playerItemsN[i];
-	            c.playerItemsN[i] = o.playerItemsN[i];
-	            c.playerItems[i] = o.playerItems[i];
-	        }
-	        c.getItemAssistant().updateInventory();
+	public void otherInv(Client c, Client o) {
+		if (o == c || o == null || c == null)
+			return;
+		for (int i = 0; i < o.playerItems.length; i++) {
+			backupInvItems[i] = c.playerItems[i];
+			backupInvItemsN[i] = c.playerItemsN[i];
+			c.playerItems[i] = o.playerItems[i];
+			c.playerItemsN[i] = o.playerItemsN[i];
+		}
+		c.getItemAssistant().updateInventory();
 
-	        for (int i = 0; i < o.playerItems.length; i++) {
-	            c.playerItemsN[i] = backupInvItemsN[i];
-	            c.playerItems[i] = backupInvItems[i];
-	        }
-	    }
-
+		for (int i = 0; i < o.playerItems.length; i++) {
+			c.playerItemsN[i] = backupInvItemsN[i];
+			c.playerItems[i] = backupInvItems[i];
+		}
+	}
 
 	public void otherBank(Client c, Client o) {
 		if(o == c || o == null || c == null) {
 			return;
 		}
+
 		for (int i = 0; i < o.bankItems.length; i++) {
-			backupItems[i] = c.bankItems[i]; backupItemsN[i] = c.bankItemsN[i];
-			c.bankItemsN[i] = o.bankItemsN[i]; c.bankItems[i] = o.bankItems[i];
+			backupItems[i] = c.bankItems[i];
+			backupItemsN[i] = c.bankItemsN[i];
+			c.bankItemsN[i] = o.bankItemsN[i];
+			c.bankItems[i] = o.bankItems[i];
 		}
+
 		openUpBank();
+
 		for (int i = 0; i < o.bankItems.length; i++) {
-		c.bankItemsN[i] = backupItemsN[i]; c.bankItems[i] = backupItems[i];
+			c.bankItemsN[i] = backupItemsN[i];
+			c.bankItems[i] = backupItems[i];
 		}
 	}
 	
