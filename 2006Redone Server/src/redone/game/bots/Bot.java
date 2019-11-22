@@ -6,14 +6,19 @@ import redone.game.players.Client;
 import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
 
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static redone.game.players.PlayerSave.loadPlayerInfo;
 
 public class Bot {
 
     private Client botClient;
+    static Timer timer = new Timer();
 
     public Bot(String username) {
-        botClient = new Client(null, -1);
+        botClient = new Client(null);
         botClient.playerName = username;
 
         botClient.playerName = username;
@@ -31,9 +36,26 @@ public class Bot {
         System.out.println(botClient.getPlayerAssistant().getTotalLevel());
         Server.playerHandler.newPlayerClient(botClient);
         loadPlayerInfo(botClient, username, "bot_password", false);
+        new TradeChat().run();
     }
 
     public Client getBotClient() {
         return botClient;
+    }
+
+    class TradeChat extends TimerTask {
+        @Override
+        public void run() {
+            sendTradeChat();
+            int delay = (15 + new Random().nextInt(25)) * 1000;
+            timer.schedule(new TradeChat(), delay);
+        }
+
+    }
+
+    public void sendTradeChat() {
+        botClient.setChatTextColor(9);
+        botClient.setChatTextEffects(2);
+        botClient.forcedChat("<col=#FF0033>Selling Rune Platebody 210k ea - " + botClient.playerName + "</col>");
     }
 }

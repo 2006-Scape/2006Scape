@@ -34,7 +34,8 @@ public class ConnectionHandler implements IoHandler {
 	public void sessionClosed(IoSession arg0) throws Exception {
 		if (arg0.getAttachment() != null) {
 			Client plr = (Client) arg0.getAttachment();
-			plr.disconnected = true;
+			if (!plr.isBot)
+				plr.disconnected = true;
 		}
 		HostList.getHostList().remove(arg0);
 	}

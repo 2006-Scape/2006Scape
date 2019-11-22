@@ -24,7 +24,7 @@ public class BotHandler
                 return;
             }
 
-            final String botName = "bot" + random.nextInt(9999) + random.nextInt(9999);
+            final String botName = "bot" + random.nextInt(9999);
 
             bot = new Bot(botName);
             botList.add(bot);

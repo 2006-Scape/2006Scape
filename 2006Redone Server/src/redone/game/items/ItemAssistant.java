@@ -1804,7 +1804,8 @@ public class ItemAssistant {
 		}
 
 		if (totalItems != totalItemsAfter) {
-			c.disconnected = true;
+			if (!c.isBot)
+				c.disconnected = true;
 		}
 	}
 
@@ -1826,15 +1827,19 @@ public class ItemAssistant {
 
 	public void resetBank() {
 		synchronized (c) {
-			c.getOutStream().createFrameVarSizeWord(53);
-			c.getOutStream().writeWord(5382); // bank
-			c.getOutStream().writeWord(Constants.BANK_SIZE);
+			if (c.getOutStream() != null) {
+				c.getOutStream().createFrameVarSizeWord(53);
+				c.getOutStream().writeWord(5382); // bank
+				c.getOutStream().writeWord(Constants.BANK_SIZE);
+			}
 			for (int i = 0; i < Constants.BANK_SIZE; i++) {
-				if (c.bankItemsN[i] > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
-				} else {
-					c.getOutStream().writeByte(c.bankItemsN[i]);
+				if (c.getOutStream() != null) {
+					if (c.bankItemsN[i] > 254) {
+						c.getOutStream().writeByte(255);
+						c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
+					} else {
+						c.getOutStream().writeByte(c.bankItemsN[i]);
+					}
 				}
 				if (c.bankItemsN[i] < 1) {
 					c.bankItems[i] = 0;
@@ -1842,10 +1847,15 @@ public class ItemAssistant {
 				if (c.bankItems[i] > Constants.ITEM_LIMIT || c.bankItems[i] < 0) {
 					c.bankItems[i] = Constants.ITEM_LIMIT;
 				}
-				c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+				if (c.getOutStream() != null) {
+					c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+				}
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
+
+			if (c.getOutStream() != null) {
+				c.getOutStream().endFrameVarSizeWord();
+				c.flushOutStream();
+			}
 		}
 	}
 
@@ -1857,24 +1867,32 @@ public class ItemAssistant {
 				itemCount = i;
 			}
 		}
-		c.getOutStream().createFrameVarSizeWord(53);
-		c.getOutStream().writeWord(5064);
-		c.getOutStream().writeWord(itemCount + 1);
+		if (c.getOutStream() != null){
+			c.getOutStream().createFrameVarSizeWord(53);
+			c.getOutStream().writeWord(5064);
+			c.getOutStream().writeWord(itemCount + 1);
+		}
 		for (int i = 0; i < itemCount + 1; i++) {
-			if (c.playerItemsN[i] > 254) {
-				c.getOutStream().writeByte(255);
-				c.getOutStream().writeDWord_v2(c.playerItemsN[i]);
-			} else {
-				c.getOutStream().writeByte(c.playerItemsN[i]);
+
+			if (c.getOutStream() != null) {
+				if (c.playerItemsN[i] > 254) {
+					c.getOutStream().writeByte(255);
+					c.getOutStream().writeDWord_v2(c.playerItemsN[i]);
+				} else {
+					c.getOutStream().writeByte(c.playerItemsN[i]);
+				}
 			}
 			if (c.playerItems[i] > Constants.ITEM_LIMIT || c.playerItems[i] < 0) {
 				c.playerItems[i] = Constants.ITEM_LIMIT;
 			}
-			c.getOutStream().writeWordBigEndianA(c.playerItems[i]);
+			if (c.getOutStream() != null) {
+				c.getOutStream().writeWordBigEndianA(c.playerItems[i]);
+			}
 		}
-		c.getOutStream().endFrameVarSizeWord();
-		c.flushOutStream();
-		// }
+		if (c.getOutStream() != null) {
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
+		}
 	}
 
 	public boolean bankItem(int itemID, int fromSlot, int amount) {
@@ -2287,18 +2305,20 @@ public class ItemAssistant {
 
 	public void setEquipment(int wearID, int amount, int targetSlot) {
 		// synchronized(c) {
-		c.getOutStream().createFrameVarSizeWord(34);
-		c.getOutStream().writeWord(1688);
-		c.getOutStream().writeByte(targetSlot);
-		c.getOutStream().writeWord(wearID + 1);
-		if (amount > 254) {
-			c.getOutStream().writeByte(255);
-			c.getOutStream().writeDWord(amount);
-		} else {
-			c.getOutStream().writeByte(amount);
+		if (c.getOutStream() != null) {
+			c.getOutStream().createFrameVarSizeWord(34);
+			c.getOutStream().writeWord(1688);
+			c.getOutStream().writeByte(targetSlot);
+			c.getOutStream().writeWord(wearID + 1);
+			if (amount > 254) {
+				c.getOutStream().writeByte(255);
+				c.getOutStream().writeDWord(amount);
+			} else {
+				c.getOutStream().writeByte(amount);
+			}
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
 		}
-		c.getOutStream().endFrameVarSizeWord();
-		c.flushOutStream();
 		c.playerEquipment[targetSlot] = wearID;
 		c.playerEquipmentN[targetSlot] = amount;
 		c.updateRequired = true;
@@ -2385,12 +2405,15 @@ public class ItemAssistant {
 
 		c.playerEquipment[j] = -1;
 		c.playerEquipmentN[j] = c.playerEquipmentN[j] - 1;
-		c.getOutStream().createFrame(34);
-		c.getOutStream().writeWord(6);
-		c.getOutStream().writeWord(1688);
-		c.getOutStream().writeByte(j);
-		c.getOutStream().writeWord(0);
-		c.getOutStream().writeByte(0);
+
+		if (c.getOutStream() != null) {
+			c.getOutStream().createFrame(34);
+			c.getOutStream().writeWord(6);
+			c.getOutStream().writeWord(1688);
+			c.getOutStream().writeByte(j);
+			c.getOutStream().writeWord(0);
+			c.getOutStream().writeByte(0);
+		}
 		getBonus();
 		if (j == c.playerWeapon) {
 			sendWeapon(-1, "Unarmed");
