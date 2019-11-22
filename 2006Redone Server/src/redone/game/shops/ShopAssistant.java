@@ -26,7 +26,7 @@ public class ShopAssistant {
 	public static final int RANGE_SHOP = 111, PEST_SHOP = 175, CASTLE_SHOP = 112;
 
 	public boolean shopSellsItem(int itemID) {
-		for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
+		for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++) {
 			if (itemID == ShopHandler.ShopItems[player.myShopId][i] - 1) {
 				return true;
 			}
@@ -82,7 +82,7 @@ public class ShopAssistant {
 			player.getOutStream().writeWord(3900);
 			player.getOutStream().writeWord(player.TotalShopItems);
 			int TotalCount = 0;
-			for (int i = 0; i < ShopHandler.ShopItems.length; i++)
+			for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++)
 			{
 				if (ShopHandler.ShopItems[ShopID][i] > 0
 						|| i <= ShopHandler.ShopItemsStandard[ShopID])
@@ -449,14 +449,14 @@ public class ShopAssistant {
 		if (Item.itemIsNote[itemID]) {
 			itemID = player.getItemAssistant().getUnnotedItem(itemID);
 		}
-		for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
+		for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++) {
 			if (ShopHandler.ShopItems[player.myShopId][i] - 1 == itemID) {
 				ShopHandler.ShopItemsN[player.myShopId][i] += amount;
 				Added = true;
 			}
 		}
 		if (Added == false) {
-			for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
+			for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++) {
 				if (ShopHandler.ShopItems[player.myShopId][i] == 0) {
 					ShopHandler.ShopItems[player.myShopId][i] = itemID + 1;
 					ShopHandler.ShopItemsN[player.myShopId][i] = amount;

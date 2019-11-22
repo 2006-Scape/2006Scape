@@ -2,10 +2,8 @@ package redone.game.bots;
 
 import redone.Constants;
 import redone.game.players.Client;
-import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
 import redone.game.shops.ShopHandler;
-import redone.util.Misc;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;

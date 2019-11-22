@@ -179,8 +179,6 @@ public class ShopHandler {
 		player.myShopId = id;
 		ShopSModifier[id] = 0;
 		ShopName[id] = player.properName + "'s Store";
-		ShopItems[id][0] = 2;
-		ShopItemsN[id][0] = 1;
 		TotalShops++;
 	}
 

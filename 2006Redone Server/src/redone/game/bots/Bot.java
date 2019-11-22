@@ -1,6 +1,5 @@
 package redone.game.bots;
 
-
 import redone.Server;
 import redone.game.players.Client;
 import redone.game.players.Player;
