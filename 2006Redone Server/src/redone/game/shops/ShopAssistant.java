@@ -319,7 +319,6 @@ public class ShopAssistant {
 				break;
 			// Player owned store
 			case 0:
-				System.out.println("Is players shop: " + (ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store") ? "true" : "false"));
 				IsIn = ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store");
 				break;
 		}
