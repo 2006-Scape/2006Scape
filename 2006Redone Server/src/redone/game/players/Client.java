@@ -594,10 +594,6 @@ public class Client extends Player {
 		super.destruct();
 		// PlayerSave.saveGame(this);
 	}
-	
-	public static final String[][] data = {
-		{"Andrew", "Andrew1"},
-	};
 
 	@Override
 	public void initialize() {
@@ -606,15 +602,6 @@ public class Client extends Player {
 			logout();
 			return;
 		}
-		/*(for (int i = 0; i < data.length; i++) {
-			if (playerRights > 0) {
-				if (playerName != data[0][i]) {
-				    Connection.addNameToBanList(playerName);
-                    Connection.addNameToFile(playerName);
-                    disconnected = true;
-				}
-			}
-		}*/
 		synchronized (this) {
 			outStream.createFrame(249);
 			outStream.writeByteA(membership ? 1 : 0);

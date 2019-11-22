@@ -3,6 +3,7 @@ package redone.net.packets.impl;
 import redone.Connection;
 import redone.Constants;
 import redone.Server;
+import redone.game.bots.BotHandler;
 import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.*;
@@ -91,6 +92,12 @@ public class Commands implements PacketType {
                                 } else {
                                         player.getActionSender().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
                                 }
+                                break;
+                        case "bots":
+                                if (arguments.length == 0)
+                                        player.getActionSender().sendMessage("Must have 1 argument: ::bots 5");
+                                else
+                                        BotHandler.connectBots(Integer.parseInt(arguments[0]));
                                 break;
                         case "wealth":
                                 int totalWealth = player.getPlayerAssistant().totalGold();
