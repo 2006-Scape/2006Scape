@@ -177,7 +177,7 @@ public class Constants {
 		"shade", "skeleton", "skeleton brute", "skeleton thug", "skeleton warload", "summoned zombie",
 		"skorge", "tortured soul", "undead chicken", "undead cow", "undead one", "undead troll", "zombie", "zombie rat", "zogre"
 	};
-	public final static int TIMEOUT = 20;
+	public final static int TIMEOUT = 60;
 	public final static int CYCLE_TIME = 600;
 	public final static int BUFFER_SIZE = 10000;
 

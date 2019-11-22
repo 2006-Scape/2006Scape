@@ -1111,7 +1111,8 @@ public class Client extends Player {
 		}
 
 		if (timeOutCounter > Constants.TIMEOUT) {
-			disconnected = true;
+			if (!isBot)
+				logout(true);
 		}
 
 		timeOutCounter++;
