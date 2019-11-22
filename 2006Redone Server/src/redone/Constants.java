@@ -17,7 +17,8 @@ public class Constants {
 	public static int[] SIDEBARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151,
 			18128, 5065, 5715, 2449, 904, 147, 962 };
 	public static boolean TUTORIAL_ISLAND = false, HOLIDAYS = true,
-			MEMBERS_ONLY = false, sendServerPackets = false, HALLOWEEN = false;
+			MEMBERS_ONLY = false, sendServerPackets = false, HALLOWEEN = false,
+			CLUES_ENABLED = false;
 	
 	public final static int HAT = 0, CAPE = 1, AMULET = 2, WEAPON = 3,
 			CHEST = 4, SHIELD = 5, LEGS = 7, HANDS = 9, FEET = 10, RING = 12,

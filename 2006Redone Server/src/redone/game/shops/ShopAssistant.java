@@ -368,6 +368,7 @@ public class ShopAssistant {
 		}
 		if (player.TotalShopItems >= 39) {
 			player.getActionSender().sendMessage("If you sell more individuals items in this shop, they won't be displayed.");
+			return false;
 		}
 
 		if (amount > 0 && itemID == (player.playerItems[fromSlot] - 1)) {
