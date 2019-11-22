@@ -213,8 +213,6 @@ public class ShopHandler {
 	public static int getStock(int shop_id, int item_id){
 		item_id++;
 		for (int j = 0; j < MaxShopItems; j++) {
-			if (ShopItems[shop_id][j] > 0)
-				System.out.println("item " + item_id + " = " + ShopItemsN[shop_id][j]);
 			if (ShopItems[shop_id][j] == item_id) {
 				return ShopItemsN[shop_id][j];
 			}

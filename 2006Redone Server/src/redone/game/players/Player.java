@@ -732,6 +732,8 @@ public abstract class Player {
 	public int playerItemsN[] = new int[28];
 	public int bankItems[] = new int[Constants.BANK_SIZE];
 	public int bankItemsN[] = new int[Constants.BANK_SIZE];
+	// used for player owned shops
+	public int bankItemsV[] = new int[Constants.BANK_SIZE];
 	public boolean bankNotes = false;
 	public boolean shouldSave = false;
 

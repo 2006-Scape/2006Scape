@@ -40,8 +40,7 @@ public class BankX2 implements PacketType {
 				if (player.storing) {
 					return;
 				}
-				player.getItemAssistant().bankItem(player.playerItems[player.xRemoveSlot],
-						player.xRemoveSlot, Xamount);
+				player.getItemAssistant().bankItem(player.playerItems[player.xRemoveSlot], player.xRemoveSlot, Xamount);
 				player.getItemAssistant().resetItems(7423);
 				break;
 
@@ -64,7 +63,7 @@ public class BankX2 implements PacketType {
 				break;
 
 			case 3900:
-					player.getShopAssistant().buyItem(player.xRemoveId, player.xRemoveSlot, Xamount);
+				player.getShopAssistant().buyItem(player.xRemoveId, player.xRemoveSlot, Xamount);
 				break;
 
 			case 3823:

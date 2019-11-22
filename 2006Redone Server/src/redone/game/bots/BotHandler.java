@@ -36,15 +36,23 @@ public class BotHandler
             ShopHandler.createPlayerShop(playerShop.getBotClient());
         }
 
-
-        playerShop.getBotClient().getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
-        playerShop.getBotClient().getItemAssistant().removeAllItems();
+        Client client = playerShop.getBotClient();
+        client.getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
+        client.getItemAssistant().removeAllItems();
+        // Set bot to same level as player
         int i = 0;
         for (int level : player.playerLevel) {
-            playerShop.getBotClient().playerXP[i] = player.getPlayerAssistant().getXPForLevel(level) + 5;
-            playerShop.getBotClient().playerLevel[i] = level;
-            playerShop.getBotClient().getPlayerAssistant().refreshSkill(i);
-            playerShop.getBotClient().getPlayerAssistant().levelUp(i);
+            client.playerXP[i] = player.getPlayerAssistant().getXPForLevel(level) + 5;
+            client.playerLevel[i] = level;
+            client.getPlayerAssistant().refreshSkill(i);
+            client.getPlayerAssistant().levelUp(i);
+            i++;
+        }
+        // Dress the bot the same as the player
+        i = 0;
+        for (int item_id : player.playerEquipment) {
+            client.playerEquipment[i] = item_id;
+            client.playerEquipmentN[i] = 1;
             i++;
         }
     }
@@ -66,26 +74,49 @@ public class BotHandler
         return null;
     }
 
-    public static void addTobank(int shop_id, int item_id, int amount){
+    private static Client getPlayerShop(int shop_id){
         for(Bot bot : botList) {
             if(bot != null && bot.getBotClient() != null) {
                 Client botClient = bot.getBotClient();
                 if(botClient.myShopId == shop_id) {
-                    botClient.getItemAssistant().addItemToBank(item_id, amount);
-                    return;
+                    return botClient;
                 }
             }
         }
+        return null;
+    }
+
+    public static void addTobank(int shop_id, int item_id, int amount){
+        Client shop = getPlayerShop(shop_id);
+        if (shop == null) return;
+        shop.getItemAssistant().addItemToBank(item_id, amount);
     }
 
     public static void removeFrombank(int shop_id, int item_id, int amount){
-        for(Bot bot : botList) {
-            if(bot != null && bot.getBotClient() != null) {
-                Client botClient = bot.getBotClient();
-                if(botClient.myShopId == shop_id) {
-                    botClient.getItemAssistant().removeitemFromBank(item_id, amount);
-                    return;
-                }
+        Client shop = getPlayerShop(shop_id);
+        if (shop == null) return;
+        shop.getItemAssistant().removeitemFromBank(item_id, amount);
+    }
+
+    public static int getItemPrice(int shop_id, int item_id){
+        item_id++;
+        Client shop = getPlayerShop(shop_id);
+        if (shop == null) return 1;
+        for (int slot = 0; slot < ShopHandler.MaxShopItems; slot++) {
+            if (shop.bankItems[slot] == item_id) {
+                return Math.max(1, shop.bankItemsV[slot]);
+            }
+        }
+        return 1;
+    }
+
+    public static void setPrice(int shop_id, int item_id, int amount){
+        item_id++;
+        Client shop = getPlayerShop(shop_id);
+        if (shop == null) return;
+        for (int slot = 0; slot < ShopHandler.MaxShopItems; slot++) {
+            if (shop.bankItems[slot] == item_id) {
+                shop.bankItemsV[slot] = amount;
             }
         }
     }

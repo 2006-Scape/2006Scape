@@ -19,6 +19,7 @@ public class BankAll implements PacketType {
 		int removeId = player.getInStream().readUnsignedWordA();
 		player.endCurrentTask();
 		switch (interfaceId) {
+		// buy x
 		case 3900:
 			player.outStream.createFrame(27);
 			player.xRemoveSlot = removeSlot;
@@ -26,11 +27,11 @@ public class BankAll implements PacketType {
 			player.xInterfaceId = interfaceId;
 			break;
 
+		// sell x
 		case 3823:
 			if(!player.getItemAssistant().playerHasItem(removeId)) {
 				return;
 			}
-
 			player.outStream.createFrame(27);
 			player.xRemoveSlot = removeSlot;
 			player.xRemoveId = removeId;

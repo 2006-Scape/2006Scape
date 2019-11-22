@@ -126,25 +126,28 @@ public class ShopAssistant {
 	 * buy item from shop (Shop Price)
 	 **/
 
-	public void buyFromShopPrice(int removeId, int removeSlot) {
-		int ShopValue = (int) Math.floor(getItemShopValue(removeId, 0, false));
-		int SpecialValue = getTokkulValue(removeId);
+	public void buyFromShopPrice(int itemID) {
+		int ShopValue = (int) Math.floor(getItemShopValue(itemID, 0, false));
+		int SpecialValue = getTokkulValue(itemID);
 		String ShopAdd = "";
+		// player owned shop
+		if (ShopHandler.ShopBModifier[player.myShopId] == 0) {
+			ShopValue = BotHandler.getItemPrice(player.myShopId, itemID);
+		}
 		if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-			player.getActionSender().sendMessage(
-					ItemAssistant.getItemName(removeId) + ": currently costs " + SpecialValue + " tokkul.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + SpecialValue + " tokkul.");
 			return;
 		}
 		if (player.myShopId == PEST_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId)+": currently costs " + getPestItemValue(removeId) + " pest control points.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getPestItemValue(itemID) + " pest control points.");
 			return;
 		}
 		if (player.myShopId == CASTLE_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId)+": currently costs " + getCastleItemValue(removeId) + " castle wars tickets.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getCastleItemValue(itemID) + " castle wars tickets.");
 			return;
 		}
 		if (player.myShopId == RANGE_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId)+": currently costs " + getRGItemValue(removeId) + " archery tickets.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getRGItemValue(itemID) + " archery tickets.");
 			return;
 		}
 		if (ShopValue >= 1000 && ShopValue < 1000000) {
@@ -152,9 +155,7 @@ public class ShopAssistant {
 		} else if (ShopValue >= 1000000) {
 			ShopAdd = " (" + ShopValue / 1000000 + " million)";
 		}
-		player.getActionSender().sendMessage(
-				ItemAssistant.getItemName(removeId) + ": currently costs "
-						+ ShopValue + " coins" + ShopAdd);
+		player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + ShopValue + " coins" + ShopAdd);
 	}
 
 	public int getCastleItemValue(int id) {
@@ -376,6 +377,20 @@ public class ShopAssistant {
 				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(itemID).toLowerCase() + " to this store.");
 				return false;
 			}
+			// player owned store, setting item price
+			if (ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store")) {
+				// No items in stock, we are adding 1 and setting the price
+				if (ShopHandler.getStock(player.myShopId, itemID) <= 0){
+					player.getItemAssistant().deleteItem(itemID, 1);
+					BotHandler.addTobank(player.myShopId, itemID, 1);
+					BotHandler.setPrice(player.myShopId, itemID, amount);
+					addShopItem(itemID, 1);
+					player.getItemAssistant().resetItems(3823);
+					resetShop(player.myShopId);
+					updatePlayerShop();
+					return true;
+				}
+			}
 			if (amount > inventoryAmount) {
 				amount = inventoryAmount;
 			}
@@ -489,7 +504,11 @@ public class ShopAssistant {
 			}
 			int value = 0;	// Item Value
 			int currency = 995; // currency this shop uses
-			if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
+			// player owned shop
+			if (ShopHandler.ShopBModifier[player.myShopId] == 0) {
+				value = BotHandler.getItemPrice(player.myShopId, itemID);
+				currency = 995; // gp
+			} else if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
 				value = getTokkulValue(itemID);
 				currency = 6529; // Tokkul
 			} else if (player.myShopId == RANGE_SHOP) {

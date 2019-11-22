@@ -22,9 +22,7 @@ public class BankX1 implements PacketType {
 		}
 		else {
 			if (c.xInterfaceId == 7423) {
-				c.getItemAssistant().bankItem(c.xRemoveId, c.xRemoveSlot,
-						Xamount);// Depo
-									// 1
+				c.getItemAssistant().bankItem(c.xRemoveId, c.xRemoveSlot, Xamount);// Depo 1
 				c.getItemAssistant().resetItems(7423);
 			}
 		}

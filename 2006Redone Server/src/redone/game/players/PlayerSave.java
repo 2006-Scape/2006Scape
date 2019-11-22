@@ -59,7 +59,7 @@ public class PlayerSave {
 				token = token.trim();
 				token2 = line.substring(spot + 1);
 				token2 = token2.trim();
-				token3 = token2.split("\t");
+				token3 = token2.split("\t+");
 				switch (ReadMode) {
 					case 1:
 					    if (!doRealLogin)
@@ -422,13 +422,14 @@ public class PlayerSave {
 					case 6:
 						if (token.equals("character-item")) {
 							player.playerItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
-							player.playerItemsN[Integer.parseInt(token3[0])] = Integer	.parseInt(token3[2]);
+							player.playerItemsN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
 						}
 						break;
 					case 7:
 						if (token.equals("character-bank")) {
 							player.bankItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
 							player.bankItemsN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
+							player.bankItemsV[Integer.parseInt(token3[0])] = token3.length > 3 ? Integer.parseInt(token3[3]) : 1;
 						}
 						break;
 					case 8:
@@ -1048,15 +1049,13 @@ public class PlayerSave {
 			characterfile.newLine();
 			for (int i = 0; i < player.bankItems.length; i++) {
 				if (player.bankItems[i] > 0) {
-					characterfile.write("character-bank = ", 0, 17);
-					characterfile.write(Integer.toString(i), 0, Integer
-							.toString(i).length());
-					characterfile.write("	", 0, 1);
-					characterfile.write(Integer.toString(player.bankItems[i]),
-							0, Integer.toString(player.bankItems[i]).length());
-					characterfile.write("	", 0, 1);
-					characterfile.write(Integer.toString(player.bankItemsN[i]),
-							0, Integer.toString(player.bankItemsN[i]).length());
+					String lineItem = "character-bank = " + i;
+					lineItem += "\t" + player.bankItems[i];
+					lineItem += "\t" + player.bankItemsN[i];
+					// this is for player owned stores
+					if (player.isBot)
+						lineItem += "\t" + player.bankItemsV[i];
+					characterfile.write(lineItem);
 					characterfile.newLine();
 				}
 			}
