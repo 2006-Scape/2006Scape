@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import redone.game.bots.Bot;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.util.Misc;
@@ -171,5 +172,22 @@ public class ShopHandler {
 		} catch (IOException ioexception) {
 		}
 		return false;
+	}
+
+	public static void createPlayerShop(Client player){
+		int id = getEmptyShop();
+		player.myShopId = id;
+		ShopSModifier[id] = 0;
+		ShopName[id] = player.properName + "'s Store";
+		ShopItems[id][0] = 2;
+		ShopItemsN[id][0] = 1;
+		TotalShops++;
+	}
+
+	private static int getEmptyShop(){
+		for (int i = 0; i < MaxShops; i++) {
+			if (ShopName[i] == "") return i;
+		}
+		return -1;
 	}
 }
