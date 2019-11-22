@@ -4,6 +4,7 @@ import redone.Constants;
 import redone.game.players.Client;
 import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
+import redone.game.shops.ShopHandler;
 import redone.util.Misc;
 
 import java.security.SecureRandom;
@@ -34,9 +35,9 @@ public class BotHandler
         if (playerShop == null) {
             String shopName = getShopName(player);
             playerShop = connectBot(shopName, player.getX(), player.getY(), player.getH());
+            ShopHandler.createPlayerShop(playerShop.getBotClient());
         }
 
-        if (playerShop == null) return;
 
         playerShop.getBotClient().getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
         playerShop.getBotClient().getItemAssistant().removeAllItems();
