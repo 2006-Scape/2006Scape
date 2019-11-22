@@ -48,6 +48,12 @@ public class BotHandler
             client.getPlayerAssistant().levelUp(i);
             i++;
         }
+        // Take the appearance of the player
+        i = 0;
+        for (int id : player.playerAppearance) {
+            client.playerAppearance[i] = id;
+            i++;
+        }
         // Dress the bot the same as the player
         i = 0;
         for (int item_id : player.playerEquipment) {
