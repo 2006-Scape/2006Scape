@@ -93,11 +93,8 @@ public class Commands implements PacketType {
                                         player.getActionSender().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
                                 }
                                 break;
-                        case "bots":
-                                if (arguments.length == 0)
-                                        player.getActionSender().sendMessage("Must have 1 argument: ::bots 5");
-                                else
-                                        BotHandler.connectBots(Integer.parseInt(arguments[0]));
+                        case "shop":
+                                BotHandler.playerShop(player);
                                 break;
                         case "wealth":
                                 int totalWealth = player.getPlayerAssistant().totalGold();

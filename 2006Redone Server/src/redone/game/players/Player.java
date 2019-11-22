@@ -116,7 +116,8 @@ public abstract class Player {
 			teleOtherSlot = -1, tutorialProgress, Cookstage1 = 1,
 			woodcuttingTree, smeltAmount, knightS, otherDirection,
 			brightness = 3, recoilHits, droppedItem = -1,
-					spawnedHealers, cannonX = 0, cannonY = 0;
+			spawnedHealers, cannonX = 0, cannonY = 0,
+			playerShopId;
 
 	public double playerEnergy = 100;
 
@@ -1438,6 +1439,7 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	private int chatTextEffects = 0;
 
 	protected void appendPlayerChatText(Stream str) {
+		if (str == null) return;
 		str.writeWordBigEndian(((getChatTextColor() & 0xFF) << 8) + (getChatTextEffects() & 0xFF));
 		str.writeByte(playerRights);
 		str.writeByteC(getChatTextSize());
@@ -1454,7 +1456,8 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	public String forcedText = "null";
 
 	public void appendForcedChat(Stream str) {
-		str.writeString(forcedText);
+		if (str != null)
+			str.writeString(forcedText);
 	}
 
 	/**
