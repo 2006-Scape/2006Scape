@@ -16,8 +16,8 @@ import redone.util.Misc;
 
 public class ShopHandler {
 
-	public static int MaxShops = 200;
-	public static int MaxShopItems = 200;
+	public static int MaxShops = 400;
+	public static int MaxShopItems = 40;
 	public static int MaxShowDelay = 2;
 	public static int MaxSpecShowDelay = 60;
 	public static int TotalShops = 0;
