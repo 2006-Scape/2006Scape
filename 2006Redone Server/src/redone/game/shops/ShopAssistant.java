@@ -303,16 +303,27 @@ public class ShopAssistant {
 			}
 		}
 		boolean IsIn = false;
-		if (ShopHandler.ShopSModifier[player.myShopId] > 1) {
-			for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
-				if (removeId == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
-					IsIn = true;
-					break;
+		switch (ShopHandler.ShopSModifier[player.myShopId]) {
+			// Only buys what is in stock
+			case 2:
+				for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
+					if (removeId == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
+						IsIn = true;
+						break;
+					}
 				}
-			}
-		} else {
-			IsIn = true;
+				break;
+			// General store
+			case 1:
+				IsIn = true;
+				break;
+			// Player owned store
+			case 0:
+				System.out.println("Is players shop: " + (ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store") ? "true" : "false"));
+				IsIn = ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store");
+				break;
 		}
+
 		if (IsIn == false) {
 			player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
@@ -355,25 +366,36 @@ public class ShopAssistant {
 		if(!player.isShopping) {
 	        return false;
 		}
-		if (player.TotalShopItems >= 39)
-		{
+		if (player.TotalShopItems >= 39) {
 			player.getActionSender().sendMessage("If you sell more individuals items in this shop, they won't be displayed.");
 		}
 
 		if (amount > 0 && itemID == (player.playerItems[fromSlot] - 1)) {
-			if (ShopHandler.ShopSModifier[player.myShopId] > 1) {
-				boolean IsIn = false;
-				for (int i = 0; i <= ShopHandler.ShopItemsStandard[player.myShopId]; i++) {
-					if (itemID == (ShopHandler.ShopItems[player.myShopId][i] - 1)) {
-						IsIn = true;
-						break;
+			boolean IsIn = false;
+			switch (ShopHandler.ShopSModifier[player.myShopId]) {
+				// Only buys what is in stock
+				case 2:
+					for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
+						if (itemID == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
+							IsIn = true;
+							break;
+						}
 					}
-				}
-				if (IsIn == false) {
-					player.getItemAssistant();
-					player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(itemID).toLowerCase() + " to this store.");
-					return false;
-				}
+					break;
+				// General store
+				case 1:
+					IsIn = true;
+					break;
+				// Player owned store
+				case 0:
+					System.out.println("Is players shop: " + (ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store") ? "true" : "false"));
+					IsIn = ShopHandler.ShopName[player.myShopId].equalsIgnoreCase(player.properName + "'s Store");
+					break;
+			}
+			if (IsIn == false) {
+				player.getItemAssistant();
+				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(itemID).toLowerCase() + " to this store.");
+				return false;
 			}
 			if (amount > player.playerItemsN[fromSlot] && (ItemDefinitions.getDef()[player.playerItems[fromSlot] - 1].isNoteable == true || ItemDefinitions.getDef()[player.playerItems[fromSlot] - 1].isStackable == true)) {
 				amount = player.playerItemsN[fromSlot];
@@ -405,7 +427,6 @@ public class ShopAssistant {
 				addShopItem(itemID, amount); //Add item to the shop.
 				if (player.getPlayerAssistant().isPlayer()) { //Logger
 					GameLogger.writeLog(player.playerName, "shopselling", player.playerName + " sold " + itemName + " to store id: " + player.myShopId + " for" + GameLogger.formatCurrency(TotPrice2) + " coins");
-					//Remove this later. I added it to push this class because a fuck happened with my last commit.
 				}
 			} else {
 				player.getActionSender().sendMessage("You don't have enough space in your inventory.");
