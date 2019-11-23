@@ -102,11 +102,18 @@ public class BotHandler
         return null;
     }
 
-    public static void closeShop(Client player){
+    public static void closeShop(Client player) {
         Client shop = getPlayerShop(player);
         if (shop == null) return;
         shop.disconnected = true;
         shop.logout(true);
+        for (int index = 0; index < botList.size(); index++){
+            if (botList.get(index).getBotClient().properName.equalsIgnoreCase(player.properName)) {
+                botList.remove(index);
+                return;
+            }
+            index++;
+        }
     }
 
     public static void addCoins(int shop_id, int amount){
