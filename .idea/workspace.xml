@@ -8,12 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9c1d485e-b413-4c80-b742-7c5a88c1c73c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/BotHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/bots/BotHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/items/ItemAssistant.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/items/ItemAssistant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/redone/game/shops/ShopHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/redone/game/shops/ShopHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/redone/Server.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
