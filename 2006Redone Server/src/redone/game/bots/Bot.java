@@ -65,7 +65,7 @@ public class Bot {
         }
         if (items.size() <= 0) return;
         int item_id = Misc.randomArrayListItem(items);
-        String item_name = ItemAssistant.getItemName(item_id);
+        String item_name = ItemAssistant.getItemName(item_id).toLowerCase();
         int value = BotHandler.getItemPrice(botClient.myShopId, item_id);
         if (value <= 0) return;
         botClient.forcedChat("Selling " + item_name + " " + formatSellPrice(value) + " ea");
