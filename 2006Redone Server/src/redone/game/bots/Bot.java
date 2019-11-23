@@ -96,7 +96,7 @@ public class Bot {
         } else if (price >= 1e3) {
             return df.format(Math.floor(price / 100) / 10) + "K";
         } else {
-            return "" + price;
+            return price + "gp";
         }
     }
 }
