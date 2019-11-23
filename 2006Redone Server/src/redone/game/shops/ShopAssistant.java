@@ -528,10 +528,11 @@ public class ShopAssistant {
 				currency = 995; //gp
 			}
 			int currencySlot = player.getItemAssistant().getItemSlot(currency);
+			String currencyName = ItemAssistant.getItemName(currency).toLowerCase();
 
 			// player has none of the required currency
 			if (currencySlot == -1) {
-				player.getActionSender().sendMessage("You don't have enough " + ItemAssistant.getItemName(currency).toLowerCase() + " to buy that.");
+				player.getActionSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
 				return false;
 			}
 
@@ -544,7 +545,7 @@ public class ShopAssistant {
 				// buy as many as we can afford
 				totalValue = value * amount;
 				if (currencyAmount < totalValue || amount <= 0) {
-					player.getActionSender().sendMessage("You don't have enough " + ItemAssistant.getItemName(currency).toLowerCase() + " to buy that.");
+					player.getActionSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
 					return false;
 				}
 			}
@@ -552,7 +553,7 @@ public class ShopAssistant {
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 			if (!playerOwnsShop) {
 				player.getItemAssistant().deleteItem2(currency, totalValue);
-				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + "." );
+				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );
 				// If it is a player owned shop, we need to give them the coins
 				if (ShopHandler.ShopSModifier[player.myShopId] == 0)
 					BotHandler.addCoins(shopID, totalValue);
@@ -566,7 +567,7 @@ public class ShopAssistant {
 			}
 
 			if (player.getPlayerAssistant().isPlayer()) {
-				GameLogger.writeLog(player.playerName, "shopbuying", player.playerName + " bought " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + " from store " + shopID + ".");
+				GameLogger.writeLog(player.playerName, "shopbuying", player.playerName + " bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + " from store " + shopID + ".");
 			}
 			player.getItemAssistant().resetItems(3823);
 			resetShop(player.myShopId);
