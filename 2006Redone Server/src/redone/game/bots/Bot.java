@@ -72,11 +72,16 @@ public class Bot {
         /*
         Real chat - Disabled for now, can't get it to function correctly
 
+        // Add some color and effects
         botClient.setChatTextColor(9);
         botClient.setChatTextEffects(2);
-        String message = "Selling Rune Platebody 210k ea - " + botClient.playerName;
+        
+        String message = "Selling " + item_name + " " + formatSellPrice(value) + " ea - " + botClient.playerName;
+        // Need to figure out how to calculate this
         botClient.setChatTextSize((byte) 29);
+        // This is wrong too
         botClient.setChatText(message.getBytes(StandardCharsets.UTF_8));
+        // Not a clue what this does
         botClient.inStream.readBytes_reverseA(botClient.getChatText(), botClient.getChatTextSize(), 0);
         botClient.setChatTextUpdateRequired(true);
         */
