@@ -102,6 +102,13 @@ public class BotHandler
         return null;
     }
 
+    public static void closeShop(Client player){
+        Client shop = getPlayerShop(player);
+        if (shop == null) return;
+        shop.disconnected = true;
+        shop.logout(true);
+    }
+
     public static void addCoins(int shop_id, int amount){
         Client shop = getPlayerShop(shop_id);
         if (shop == null) return;

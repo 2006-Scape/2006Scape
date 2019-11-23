@@ -820,7 +820,8 @@ public class Client extends Player {
 				getSummon().pickUpClean(this, summonId);
 			}
 			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
-				outStream.createFrame(109);
+				if (!isBot)
+					outStream.createFrame(109);
 				properLogout = true;
 			} else {
 				getActionSender().sendMessage("You must wait a few seconds from being out of combat to logout.");
