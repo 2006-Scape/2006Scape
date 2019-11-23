@@ -139,7 +139,7 @@ public class BotHandler
     }
 
     public static void takeCoins(Client player){
-        if (!player.getItemAssistant().playerHasItem(currency) || player.getItemAssistant().freeSlots() <= 0) {
+        if (!player.getItemAssistant().playerHasItem(currency) && player.getItemAssistant().freeSlots() <= 0) {
             player.getActionSender().sendMessage("You don't have enough space in your inventory.");
             return;
         }

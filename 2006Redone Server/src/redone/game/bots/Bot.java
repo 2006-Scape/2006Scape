@@ -75,7 +75,7 @@ public class Bot {
         // Add some color and effects
         botClient.setChatTextColor(9);
         botClient.setChatTextEffects(2);
-        
+
         String message = "Selling " + item_name + " " + formatSellPrice(value) + " ea - " + botClient.playerName;
         // Need to figure out how to calculate this
         botClient.setChatTextSize((byte) 29);
