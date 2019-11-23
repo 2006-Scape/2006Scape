@@ -74,8 +74,7 @@ public class NPCDropsHandler {
 			return NPCDrops.firegiant;
 		} else if (npc.equals("basilisk")) {
 			return NPCDrops.basilisk;
-		} else if (npc.equals("baby_blue_dragon")
-				|| npc.equals("baby_red_dragon") || npc.equals("baby_dragon")) {
+		} else if (npc.equals("baby_blue_dragon") || npc.equals("baby_red_dragon") || npc.equals("baby_dragon")) {
 			return NPCDrops.babybluedragon;
 		} else if (npc.equals("red_dragon")) {
 			return NPCDrops.reddragon;
@@ -103,7 +102,7 @@ public class NPCDropsHandler {
 			return NPCDrops.pyrefiend;
 		} else if (npc.equals("aberrant_spectre")
 				|| npc.equals("aberrant_specter")
-				|| npc.equals("Aberant_specter")) {
+				|| npc.equals("aberant_specter")) {
 			return NPCDrops.abberantspectre;
 		} else if (npc.equals("earth_warrior")) {
 			return NPCDrops.earthwarrior;
@@ -134,7 +133,7 @@ public class NPCDropsHandler {
 		} else if (npc.equals("kalphite_worker")) {
 			return NPCDrops.kalphiteworker;
 		} else if (npc.equals("kalphite_soldier")) {
-			return NPCDrops.kalphitesolider;
+			return NPCDrops.kalphitesoldier;
 		} else if (npc.equals("kalphite_guardian")) {
 			return NPCDrops.kalphiteguardian;
 		} else if (npc.equals("bat") || npc.equals("giant_bat")) {

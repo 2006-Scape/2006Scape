@@ -1888,7 +1888,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( 217, 1, RARE ),
 	};
 
-	public static final ItemDrop[] kalphitesolider = {
+	public static final ItemDrop[] kalphitesoldier = {
 			new ItemDrop( i("steel full helm"), 1, COMMON ),
 			new ItemDrop( i("steel scimitar"), 1, COMMON ),
 			new ItemDrop( i("steel axe"), 1, COMMON ),
@@ -2249,7 +2249,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("mind rune"), 12, COMMON ),
 			new ItemDrop( i("nature rune"), 3, UNCOMMON ),
 			new ItemDrop( 995, new int[]{2, 485}, COMMON ),
-			new ItemDrop( i("vail of water"), 1, COMMON ),
+			new ItemDrop( i("vial of water"), 1, COMMON ),
 			new ItemDrop( 540, 1, COMMON ),
 			new ItemDrop( 538, 1, COMMON ),
 			new ItemDrop( i("bronze longsword"), 1, UNCOMMON ),

@@ -1913,8 +1913,7 @@ public class PlayerAssistant {
 		}
 		resetDamageDone();
 		player.specAmount = 10;
-		player.getItemAssistant().addSpecialBar(
-				player.playerEquipment[player.playerWeapon]);
+		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 		player.lastVeng = 0;
 		player.vengOn = false;
 		resetFollowers();

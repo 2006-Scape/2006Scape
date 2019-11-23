@@ -8,11 +8,19 @@ import redone.util.Misc;
 
 public class Slayer {
 
-	public static final int VERY_EASY_TASK = 0, EASY_TASK = 1, MEDIUM_TASK = 2,
-			HARD_TASK = 3, VERY_HARD_TASK = 4, VERY_EASY_AMOUNT = 15 + r(25),
-			EASY_AMOUNT = 25 + r(25), MEDIUM_AMOUNT = 50 + r(25),
-			HARD_AMOUNT = 100 + r(50), VERY_HARD_AMOUNT = 130 + r(70),
-			DRAGON_AMOUNT = 10 + r(40);
+	public static final int
+			VERY_EASY_TASK = 0,
+			EASY_TASK = 1,
+			MEDIUM_TASK = 2,
+			HARD_TASK = 3,
+			VERY_HARD_TASK = 4;
+	public static final int[]
+			VERY_EASY_AMOUNT = new int[]{15, 40},
+			EASY_AMOUNT =  new int[]{25, 50},
+			MEDIUM_AMOUNT =  new int[]{50, 75},
+			HARD_AMOUNT =  new int[]{100, 150},
+			VERY_HARD_AMOUNT =  new int[]{130, 200},
+			DRAGON_AMOUNT = new int[]{20, 60};
 
 	public static ArrayList<Integer> veryEasyTask = new ArrayList<Integer>();
 	public static ArrayList<Integer> easyTask = new ArrayList<Integer>();
@@ -27,18 +35,19 @@ public class Slayer {
 	}
 
 	public enum SlayerMasters {
-		TURAEL(70, 1, "Taverly", "Turael"), MAZCHNA(1596, 20, "Canifis",
-				"Mazchna"), VANNAKA(1597, 40, "Edgeville", "Vannaka"), CHAELDAR(
-				1598, 70, "Zanaris", "Chaeldar"), DURADEL(1599, 100,
-				"Shilo Village", "Duradel");
+		TURAEL(70, 1, VERY_EASY_TASK,"Taverly", "Turael"),
+		MAZCHNA(1596, 20, EASY_TASK, "Canifis", "Mazchna"),
+		VANNAKA(1597, 40, MEDIUM_TASK, "Edgeville", "Vannaka"),
+		CHAELDAR(1598, 70, HARD_TASK, "Zanaris", "Chaeldar"),
+		DURADEL(1599, 100, VERY_HARD_TASK, "Shilo Village", "Duradel");
 
-		private int masterId, combatReq;
+		private int masterId, combatReq, diffuculty;
 		private String masterLocation, masterName;
 
-		private SlayerMasters(int masterId, int combatReq,
-				String masterLocation, String masterName) {
+		private SlayerMasters(int masterId, int combatReq, int diffuculty, String masterLocation, String masterName) {
 			this.masterId = masterId;
 			this.combatReq = combatReq;
+			this.diffuculty = diffuculty;
 			this.masterLocation = masterLocation;
 			this.masterName = masterName;
 		}
@@ -59,70 +68,74 @@ public class Slayer {
 			return masterName;
 		}
 
+		public int getDifficulty() {
+			return diffuculty;
+		}
+
 	}
 
 	//dark beast, red dragon, skeleton
 	public enum Task {
-		ABERRANT_SPECTRE(1604, 60, 90, 3, "Slayer Tower"), 
-		ABYSSAL_DEMON(1615, 85, 150, 4, "Slayer Tower"), 
-		BANSHEE(1612, 15, 22, 0 + r(2), "Slayer Tower"), 
-		BASILISK(1616, 40, 75, 2, "Fremennik Slayer Dungeon"), 
-		BAT(412, 1, 8, 1, "Road to Paterdomus"), 
-		BLACK_DEMON(84, 1, 157, 3, "Taverly Dungeon"), 
-		BLACK_DRAGON(54, 1, 258, 4, "Taverly Dungeon"), 
-		BLOODVELD(1618, 50, 120, 3 + r(1), "Slayer Tower"), 
-		BLUE_DRAGON(55, 1, 107, 3, "Taverly Dungeon"), 
-		BRONZE_DRAGON(1590, 1, 125, 3, "Brimhaven Dungeon"), 
-		CAVE_CRAWLER(1600, 10, 22, 1, "Fremennik Slayer Dungeon"),
-		COCKATRICE(1620, 25, 37, 2, "Fremennik Slayer Dungeon"), 
-		CRAWLING_HAND(1648, 5, 16 + r(3), 1 + r(1), "Slayer Tower"), 
-		DAGANNOTH_74(1338, 1, 70 + r(50), 3, "Lighthouse Basement"), 
-		DAGANNOTH_92(1342, 1, 70 + r(50), 3, "Lighthouse Basement"), 
-		DARK_BEAST(2783, 90, 180, 4, "Slayer Tower"),
-		DUST_DEVIL(1624, 65, 105, 2, "Slayer Tower"), 
-		EARTH_WARRIOR(124, 1, 54, 2, "Edgeville Dungeon"), 
-		FIRE_GIANT(110, 1, 111, 3, "Brimhaven Dungeon"), 
-		GARGOYLE(1611, 75, 105, 3, "Slayer Tower"), 
-		GHOST(103, 1, 25, 1 + r(1), "Taverly Dungeon"), 
-		GREATER_DEMON(83, 1, 87, 3, "Brimhaven Dungeon"), 
-		GREEN_DRAGON(941, 1, 75, 2, "The Wilderness"), 
-		HELLHOUND(49, 1, 116, 3 + r(1),"Taverly Dungeon"), 
-		HILL_GIANT(117, 1, 35, 2, "Edgeville Dungeon"), 
-		ICE_GIANT(111, 1, 70, 2, "Asgarnian Ice Caves or White Wolf Mountain"), 
-		ICE_WARRIOR(125, 1, 59, 2, "Asgarnian Ice Caves or the Wilderness"), 
-		SKELETAL_WYVERN(3068, 72, 210, 4, "Asgarnian Ice Caves"), 
-		INFERNAL_MAGE(1643, 45, 60, 2, "Slayer Tower"), 
-		IRON_DRAGON(1591, 1, (int) 173.2, 4, "Brimhaven Dungeon"), 
-		JELLY(1637, 52, 75, 2, "Fremennik Slayer Dungeon"), 
-		KALPHITE_WORKER(1156, 1, 40, 1 + r(1), "Kalphite Lair"), 
-		KALPHITE_SOLDIER(1154, 1, 90, 3, "Kalphite Lair"), 
-		KALPHITE_GUARDIAN(1157, 1, 170, 4, "Kalphite Lair"), 
-		KURASK(1608, 70, 97, 3, "Fremennik Slayer Dungeon"), 
-		LESSER_DEMON(82, 1, 79, 3, "Karamja Dungeon"), 
-		MOSS_GIANT(112, 1, 60, 2, "Brimhaven Dungeon"), 
-		NECHRYAELS(1613, 80, 1, 3, "Slayer Tower"), 
-		PYREFIEND(1633, 30, 1, 1, "Fremennik Slayer Dungeon"), 
-		RED_DRAGON(53, 1, 120, 3, "Brimhaven Dungeon"), 
-		ROCKSLUG(1622, 20, 27, 1, "Fremennik Slayer Dungeon"), 
-		SKELETON(90, 1, 30, 0 + r(2), "Edgeville Dungeon or Taverly Dungeon"), 
-		KARAMAJA_SKELETON(91, 1, 30, 0 + r(2), "Karamaja"),
-		WILDERNESS_SKELETON(92, 1, 30, 0 + r(2), "Wilderness"), 
-		STEEL_DRAGON(1592, 1, 221, 4, "Brimhaven Dungeon"), 
-		GRIZZLY_BEAR(105, 1, 27, 0, "Goblin Village"), 
-		GREEN_GOBLIN(298, 1, 6, 0, "Goblin Village"),
-		RED_GOBLIN(299, 1, 6, 0, "Goblin Village"),
-		SCORPION(107, 1, 17, 0, "Goblin Village"), 
-		TUROTH(1632, 55, 77, 3, "Fremennik Slayer Dungeon");
+		ABERRANT_SPECTRE(1604, 60, 90, HARD_TASK, "Slayer Tower"),
+		ABYSSAL_DEMON(1615, 85, 150, VERY_HARD_TASK, "Slayer Tower"),
+		BANSHEE(1612, 15, 22, VERY_EASY_TASK + r(1), "Slayer Tower"),
+		BASILISK(1616, 40, 75, MEDIUM_TASK, "Fremennik Slayer Dungeon"),
+		BAT(412, 1, 8, EASY_TASK, "Road to Paterdomus"),
+		BLACK_DEMON(84, 1, 157, HARD_TASK, "Taverly Dungeon"),
+		BLACK_DRAGON(54, 1, 258, VERY_HARD_TASK, "Taverly Dungeon"),
+		BLOODVELD(1618, 50, 120, HARD_TASK + r(1), "Slayer Tower"),
+		BLUE_DRAGON(55, 1, 107, HARD_TASK, "Taverly Dungeon"),
+		BRONZE_DRAGON(1590, 1, 125, HARD_TASK, "Brimhaven Dungeon"),
+		CAVE_CRAWLER(1600, 10, 22, EASY_TASK, "Fremennik Slayer Dungeon"),
+		COCKATRICE(1620, 25, 37, MEDIUM_TASK, "Fremennik Slayer Dungeon"),
+		CRAWLING_HAND(1648, 5, 16 + r(3), EASY_TASK + r(1), "Slayer Tower"),
+		DAGANNOTH_74(1338, 1, 70 + r(50), HARD_TASK, "Lighthouse Basement"),
+		DAGANNOTH_92(1342, 1, 80 + r(50), HARD_TASK, "Lighthouse Basement"),
+		DARK_BEAST(2783, 90, 180, VERY_HARD_TASK, "Slayer Tower"),
+		DUST_DEVIL(1624, 65, 105, MEDIUM_TASK, "Slayer Tower"),
+		EARTH_WARRIOR(124, 1, 54, MEDIUM_TASK, "Edgeville Dungeon"),
+		FIRE_GIANT(110, 1, 111, HARD_TASK, "Brimhaven Dungeon"),
+		GARGOYLE(1611, 75, 105, HARD_TASK, "Slayer Tower"),
+		GHOST(103, 1, 25, EASY_TASK + r(1), "Taverly Dungeon"),
+		GREATER_DEMON(83, 1, 87, HARD_TASK, "Brimhaven Dungeon"),
+		GREEN_DRAGON(941, 1, 75, MEDIUM_TASK, "The Wilderness"),
+		HELLHOUND(49, 1, 116, HARD_TASK + r(1),"Taverly Dungeon"),
+		HILL_GIANT(117, 1, 35, MEDIUM_TASK, "Edgeville Dungeon"),
+		ICE_GIANT(111, 1, 70, MEDIUM_TASK, "Asgarnian Ice Caves or White Wolf Mountain"),
+		ICE_WARRIOR(125, 1, 59, MEDIUM_TASK, "Asgarnian Ice Caves or the Wilderness"),
+		SKELETAL_WYVERN(3068, 72, 210, VERY_HARD_TASK, "Asgarnian Ice Caves"),
+		INFERNAL_MAGE(1643, 45, 60, MEDIUM_TASK, "Slayer Tower"),
+		IRON_DRAGON(1591, 1, 174, VERY_HARD_TASK, "Brimhaven Dungeon"),
+		JELLY(1637, 52, 75, MEDIUM_TASK, "Fremennik Slayer Dungeon"),
+		KALPHITE_WORKER(1156, 1, 40, EASY_TASK + r(1), "Kalphite Lair"),
+		KALPHITE_SOLDIER(1154, 1, 90, HARD_TASK, "Kalphite Lair"),
+		KALPHITE_GUARDIAN(1157, 1, 170, VERY_HARD_TASK, "Kalphite Lair"),
+		KURASK(1608, 70, 97, HARD_TASK, "Fremennik Slayer Dungeon"),
+		LESSER_DEMON(82, 1, 79, HARD_TASK, "Karamja Dungeon"),
+		MOSS_GIANT(112, 1, 60, MEDIUM_TASK, "Brimhaven Dungeon"),
+		NECHRYAELS(1613, 80, 1, HARD_TASK, "Slayer Tower"),
+		PYREFIEND(1633, 30, 1, EASY_TASK, "Fremennik Slayer Dungeon"),
+		RED_DRAGON(53, 1, 120, HARD_TASK, "Brimhaven Dungeon"),
+		ROCKSLUG(1622, 20, 27, EASY_TASK, "Fremennik Slayer Dungeon"),
+		SKELETON(90, 1, 30, VERY_EASY_TASK + r(2), "Edgeville Dungeon or Taverly Dungeon"),
+		KARAMAJA_SKELETON(91, 1, 30, VERY_EASY_TASK + r(2), "Karamaja"),
+		WILDERNESS_SKELETON(92, 1, 30, VERY_EASY_TASK + r(2), "Wilderness"),
+		STEEL_DRAGON(1592, 1, 221, VERY_HARD_TASK, "Brimhaven Dungeon"),
+		BEAR(105, 1, 27, VERY_EASY_TASK, "Goblin Village"),
+		GREEN_GOBLIN(298, 1, 6, VERY_EASY_TASK, "Goblin Village"),
+		RED_GOBLIN(299, 1, 6, VERY_EASY_TASK, "Goblin Village"),
+		SCORPION(107, 1, 17, VERY_EASY_TASK, "Goblin Village"),
+		TUROTH(1632, 55, 77, HARD_TASK, "Fremennik Slayer Dungeon");
 
 		private int npcId, levelReq, diff, exp;
 		private String location;
 
-		private Task(int npcId, int levelReq, int exp, int difficulty, String location) {
+		Task(int npcId, int levelReq, int exp, int difficulty, String location) {
 			this.npcId = npcId;
 			this.exp = exp;
 			this.levelReq = levelReq;
 			this.location = location;
-			diff = difficulty;
+			this.diff = difficulty;
 		}
 
 		public int getNpcId() {
@@ -198,13 +211,11 @@ public class Slayer {
 		}
 	}
 	
-	public boolean getMasterRequirment(int id) {
+	public static boolean getMasterRequirment(Client c, int id) {
 		for (SlayerMasters slayermasters : SlayerMasters.values()) {
 			if (c.combatLevel < slayermasters.getCombatRequirement()
 					&& slayermasters.getId() == id) {
-				c.getActionSender().sendMessage(
-						"You need " + slayermasters.getCombatRequirement()
-								+ " combat to use this slayer master.");
+				c.getActionSender().sendMessage("You need " + slayermasters.getCombatRequirement() + " combat to use this slayer master.");
 				return false;
 			}
 		}
@@ -309,8 +320,7 @@ public class Slayer {
 
 	public void generateTask() {
 		if (hasTask() && !c.needsNewTask) {
-			c.getDialogueHandler().sendDialogues(1226, c.npcType);// already have
-																// task
+			c.getDialogueHandler().sendDialogues(1226, c.npcType);// already have task
 			return;
 		}
 		if (hasTask() && c.needsNewTask) {// assigning new task
@@ -331,7 +341,7 @@ public class Slayer {
 				 */
 			}
 		}
-		int taskLevel = getSlayerDifficulty();
+		int taskLevel = getSlayerDifficulty(c);
 		// System.out.println("EASY :" + easyTask + "\nMEDIUM: " + mediumTask+
 		// "\nHARD: " + hardTask + "");
 		for (Task slayerTask : Task.values()) {
@@ -342,68 +352,77 @@ public class Slayer {
 						int task = getRandomTask(taskLevel);
 						for (int removedTask : c.removedTasks) {
 							if (task == removedTask) {
-								c.getActionSender().sendMessage(
-										"Unavailable task: " + task);
+								c.getActionSender().sendMessage("Unavailable task: " + task);
 								generateTask();
 								return;
 							}
 						}
 						c.slayerTask = task;
-						c.taskAmount = getTaskAmount(taskLevel);
+						c.taskAmount = getTaskAmount(task);
 					} else {
 						int task = getRandomTask(getDifficulty(taskLevel - 1));
 						for (int removedTask : c.removedTasks) {
 							if (task == removedTask) {
-								c.getActionSender().sendMessage(
-										"Unavailable task: " + task);
+								c.getActionSender().sendMessage("Unavailable task: " + task);
 								generateTask();
 								return;
 							}
 						}
 						c.slayerTask = task;
-						c.taskAmount = getTaskAmount(getDifficulty(c.slayerTask) - 1);
+						c.taskAmount = getTaskAmount(task);
 						c.needsNewTask = false;
 					}
-					c.getDialogueHandler().sendDialogues(1237, c.npcType);// assign
-																		// task
-					c.getActionSender().sendMessage(
-							"You have been assigned " + c.taskAmount + " "
-									+ getTaskName(c.slayerTask)
-									+ ", good luck " + c.playerName + ".");
+					c.getDialogueHandler().sendDialogues(1237, c.npcType);// assign task
+					c.getActionSender().sendMessage("You have been assigned " + c.taskAmount + " " + getTaskName(c.slayerTask) + ", good luck " + c.playerName + ".");
 					return;
 				}
 			}
 		}
 	}
 
-	public int getTaskAmount(int diff) {
-		switch (diff) {
-		case 0:
-			return VERY_EASY_AMOUNT;
-		case 1:
-			return EASY_AMOUNT;
-		case 2:
-			return MEDIUM_AMOUNT;
-		case 3:
-			return HARD_AMOUNT;
-		case 4:
-			return VERY_HARD_AMOUNT;
+	public int getTaskAmount(int task_id) {
+		Task task = null;
+		for (Task _task : Task.values())
+			if (_task.getNpcId() == task_id)
+				task = _task;
+
+		int[] amounts = VERY_EASY_AMOUNT;
+		if (task == null){
+			amounts = VERY_EASY_AMOUNT;
 		}
-		return EASY_AMOUNT;
+		else if (task.name().toLowerCase().contains("_dragon")) {
+			amounts = DRAGON_AMOUNT;
+		}
+		else {
+			switch (task.getDifficulty()) {
+				case 0:
+					amounts = VERY_EASY_AMOUNT;
+					break;
+				case 1:
+					amounts = EASY_AMOUNT;
+					break;
+				case 2:
+					amounts = MEDIUM_AMOUNT;
+					break;
+				case 3:
+					amounts = HARD_AMOUNT;
+					break;
+				case 4:
+					amounts = VERY_HARD_AMOUNT;
+					break;
+				default:
+					amounts = VERY_EASY_AMOUNT;
+					break;
+			}
+		}
+		return Misc.random(amounts[0], amounts[1]);
 	}
 
-	public int getSlayerDifficulty() {
-			if (c.combatLevel > 0 && c.combatLevel < 20) {
-				return VERY_EASY_TASK;
-			} else if (c.combatLevel >= 20 && c.combatLevel < 40) {
-				return EASY_TASK;
-			} else if (c.combatLevel >= 40 && c.combatLevel < 70) {
-				return MEDIUM_TASK;
-			} else if (c.combatLevel >= 70 && c.combatLevel < 100) {
-				return HARD_TASK;
-			} else if (c.combatLevel >= 100) {
-				return VERY_HARD_TASK;
-			}
+	public int getSlayerDifficulty(Client c) {
+		for(SlayerMasters master : SlayerMasters.values()){
+			if (master.getId() == c.SlayerMaster)
+				return master.getDifficulty();
+		}
 		return EASY_TASK;
 	}
 
@@ -424,16 +443,13 @@ public class Slayer {
 
 	public void handleInterface(String shop) {
 		if (shop.equalsIgnoreCase("buy")) {
-			c.getPlayerAssistant().sendFrame126(
-					"Slayer Points: " + c.slayerPoints, 41011);
+			c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41011);
 			c.getPlayerAssistant().showInterface(41000);
 		} else if (shop.equalsIgnoreCase("learn")) {
-			c.getPlayerAssistant().sendFrame126(
-					"Slayer Points: " + c.slayerPoints, 41511);
+			c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41511);
 			c.getPlayerAssistant().showInterface(41500);
 		} else if (shop.equalsIgnoreCase("assignment")) {
-			c.getPlayerAssistant().sendFrame126(
-					"Slayer Points: " + c.slayerPoints, 42011);
+			c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 42011);
 			updateCurrentlyRemoved();
 			c.getPlayerAssistant().showInterface(42000);
 		}
@@ -441,24 +457,18 @@ public class Slayer {
 
 	public void cancelTask() {
 		if (!hasTask()) {
-			c.getActionSender().sendMessage(
-					"You must have a task to cancel first.");
+			c.getActionSender().sendMessage("You must have a task to cancel first.");
 			return;
 		}
 		if (c.slayerPoints < 30) {
-			c.getActionSender()
-					.sendMessage(
-							"This requires atleast 30 slayer points, which you don't have.");
-			c.getDialogueHandler()
-					.sendNpcChat1(
-							"This requires atleast 30 slayer points, which you don't have.",
-							c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
+			c.getActionSender().sendMessage("This requires atleast 30 slayer points, which you don't have.");
+			c.getDialogueHandler().sendNpcChat1("This requires atleast 30 slayer points, which you don't have.",
+					c.npcType,
+					NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
-		c.getActionSender().sendMessage(
-				"You have cancelled your current task of " + c.taskAmount + " "
-						+ getTaskName(c.slayerTask) + ".");
+		c.getActionSender().sendMessage("You have cancelled your current task of " + c.taskAmount + " " + getTaskName(c.slayerTask) + ".");
 		c.slayerTask = -1;
 		c.taskAmount = 0;
 		c.slayerPoints -= 30;
@@ -467,18 +477,14 @@ public class Slayer {
 	public void removeTask() {
 		int counter = 0;
 		if (!hasTask()) {
-			c.getActionSender().sendMessage(
-					"You must have a task to remove first.");
+			c.getActionSender().sendMessage("You must have a task to remove first.");
 			return;
 		}
 		if (c.slayerPoints < 100) {
-			c.getActionSender()
-					.sendMessage(
-							"This requires atleast 100 slayer points, which you don't have.");
-			c.getDialogueHandler()
-					.sendNpcChat1(
-							"This requires atleast 100 slayer points, which you don't have.",
-							c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
+			c.getActionSender().sendMessage("This requires atleast 100 slayer points, which you don't have.");
+			c.getDialogueHandler().sendNpcChat1("This requires atleast 100 slayer points, which you don't have.",
+					c.npcType,
+					NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
@@ -487,8 +493,7 @@ public class Slayer {
 				counter++;
 			}
 			if (counter == 4) {
-				c.getActionSender().sendMessage(
-						"You don't have any open slots left to remove tasks.");
+				c.getActionSender().sendMessage("You don't have any open slots left to remove tasks.");
 				return;
 			}
 			if (c.removedTasks[i] == -1) {
@@ -496,9 +501,7 @@ public class Slayer {
 				c.slayerPoints -= 100;
 				c.slayerTask = -1;
 				c.taskAmount = 0;
-				c.getActionSender()
-						.sendMessage(
-								"Your current slayer task has been removed, you can't obtain this task again.");
+				c.getActionSender().sendMessage("Your current slayer task has been removed, you can't obtain this task again.");
 				updateCurrentlyRemoved();
 				return;
 			}
@@ -506,12 +509,9 @@ public class Slayer {
 	}
 
 	public void updatePoints() {
-		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints,
-				41011);
-		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints,
-				41511);
-		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints,
-				42011);
+		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41011);
+		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41511);
+		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 42011);
 	}
 
 	public void updateCurrentlyRemoved() {
@@ -531,17 +531,13 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 50) {
-			c.getActionSender()
-					.sendMessage(
-							"You need at least 50 slayer points to gain 32,500 Experience.");
+			c.getActionSender().sendMessage( "You need at least 50 slayer points to gain 32,500 Experience.");
 			return;
 		}
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 50;
-		c.getPlayerAssistant().addSkillXP(16250, 18);
-		c.getActionSender()
-				.sendMessage(
-						"You spend 50 slayer points and gain 16,250 experience in slayer.");
+		c.getPlayerAssistant().addSkillXP(32500, 18);
+		c.getActionSender().sendMessage("You spend 50 slayer points and gain 32,500 experience in slayer.");
 		updatePoints();
 	}
 
@@ -550,23 +546,19 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 35) {
-			c.getActionSender().sendMessage(
-					"You need at least 35 slayer points to buy Slayer darts.");
+			c.getActionSender().sendMessage("You need at least 35 slayer points to buy Slayer darts.");
 			return;
 		}
 		if (c.getItemAssistant().freeSlots() < 2
 				&& !c.getItemAssistant().playerHasItem(560)
 				&& !c.getItemAssistant().playerHasItem(558)) {
-			c.getActionSender().sendMessage(
-					"You need at least 2 free lots to purchase this.");
+			c.getActionSender().sendMessage("You need at least 2 free lots to purchase this.");
 			return;
 		}
 
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 35;
-		c.getActionSender()
-				.sendMessage(
-						"You spend 35 slayer points and aquire 250 casts of Slayer darts.");
+		c.getActionSender().sendMessage("You spend 35 slayer points and aquire 250 casts of Slayer darts.");
 		c.getItemAssistant().addItem(558, 1000);
 		c.getItemAssistant().addItem(560, 250);
 		updatePoints();
@@ -577,20 +569,17 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 25) {
-			c.getActionSender().sendMessage(
-					"You need at least 25 slayer points to buy Broad arrows.");
+			c.getActionSender().sendMessage("You need at least 25 slayer points to buy Broad arrows.");
 			return;
 		}
 		if (c.getItemAssistant().freeSlots() < 1
 				&& !c.getItemAssistant().playerHasItem(4160)) {
-			c.getActionSender().sendMessage(
-					"You need at least 1 free lot to purchase this.");
+			c.getActionSender().sendMessage("You need at least 1 free lot to purchase this.");
 			return;
 		}
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 25;
-		c.getActionSender().sendMessage(
-				"You spend 35 slayer points and aquire 250 Broad arrows.");
+		c.getActionSender().sendMessage("You spend 35 slayer points and aquire 250 Broad arrows.");
 		c.getItemAssistant().addItem(4160, 250);
 		updatePoints();
 	}
@@ -600,16 +589,12 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 25) {
-			c.getActionSender()
-					.sendMessage(
-							"You need at least 25 slayer points to buy Slayer's respite.");
+			c.getActionSender().sendMessage("You need at least 25 slayer points to buy Slayer's respite.");
 			return;
 		}
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 25;
-		c.getActionSender()
-				.sendMessage(
-						"You spend 25 slayer points and aquire a useful Slayer's respite.");
+		c.getActionSender().sendMessage("You spend 25 slayer points and aquire a useful Slayer's respite.");
 		c.getItemAssistant().addItem(5841, 1);
 		updatePoints();
 	}

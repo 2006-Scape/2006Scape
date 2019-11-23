@@ -1,5 +1,6 @@
 package redone.net.packets.impl;
 
+import redone.Constants;
 import redone.Server;
 import redone.game.content.consumables.Beverages;
 import redone.game.content.consumables.Kebabs;
@@ -143,18 +144,26 @@ public class ClickItem implements PacketType {
 			break;
 			
 		case 2677:
-			player.getItemAssistant().deleteItem(itemId, 1);
-			TreasureTrails.addClueReward(player, 0);
+			if (Constants.CLUES_ENABLED)
+			{
+				player.getItemAssistant().deleteItem(itemId, 1);
+				TreasureTrails.addClueReward(player, 0);
+			}
 			break;
 
 		case 2678:
-			player.getItemAssistant().deleteItem(itemId, 1);
-			TreasureTrails.addClueReward(player, 1);
+			if (Constants.CLUES_ENABLED) {
+				player.getItemAssistant().deleteItem(itemId, 1);
+				TreasureTrails.addClueReward(player, 1);
+			}
 			break;
 
 		case 2679:
-			player.getItemAssistant().deleteItem(itemId, 1);
-			TreasureTrails.addClueReward(player, 2);
+			if (Constants.CLUES_ENABLED)
+			{
+				player.getItemAssistant().deleteItem(itemId, 1);
+				TreasureTrails.addClueReward(player, 2);
+			}
 			break;
 
 		case 299:

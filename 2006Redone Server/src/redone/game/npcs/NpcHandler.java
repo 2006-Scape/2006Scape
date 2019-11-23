@@ -900,7 +900,7 @@ public class NpcHandler {
 				|| npcs[i].npcType == 1532 // Barricade
 				|| npcs[i].npcType == 153 // Butterfly
 				|| PestControl.npcIsPCMonster(npcs[i].npcType)
-				|| FightCaves.isFightCaveNpc(npcs[i].npcType)) {
+				|| FightCaves.isFightCaveNpc(i)) {
 				// These npcs shouldn't have drops
 				return;
 			}
@@ -961,7 +961,7 @@ public class NpcHandler {
 					scroll = 2678 + Misc.random(0, 1);
 				else if (level > 150)// hard
 					scroll = 2679;
-				if (scroll >= 0)
+				if (scroll >= 0 && Constants.CLUES_ENABLED)
 					Server.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 			}
 		}
