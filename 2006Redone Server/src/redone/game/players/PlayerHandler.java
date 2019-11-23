@@ -60,7 +60,8 @@ public class PlayerHandler {
 		for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
 			if (players[i] != null) {
 				playersCurrentlyOn[i] = players[i].playerName;
-				playerCount++;
+				if (!players[i].isBot)
+					playerCount++;
 			} else {
 				playersCurrentlyOn[i] = "";
 			}
