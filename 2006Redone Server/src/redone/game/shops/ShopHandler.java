@@ -74,6 +74,7 @@ public class ShopHandler {
 							ShopItemsDelay[i][j] = 0;
 							DidUpdate = true;
 						}
+						refreshShop(i);
 					}
 					ShopItemsDelay[i][j]++;
 				}

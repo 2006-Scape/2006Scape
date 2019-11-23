@@ -88,7 +88,7 @@ public class Bot {
         if (price > 1e9) {
             return (Math.floor(price / 1e8) / 10) + "B";
         } else if (price > 1e6) {
-            return (Math.floor(price / 1e8) / 10) + "M";
+            return (Math.floor(price / 1e5) / 10) + "M";
         } else if (price > 1e3) {
             return (Math.floor(price / 100) / 10) + "K";
         } else {
