@@ -9,10 +9,8 @@ import redone.util.GameLogger;
 import redone.util.Misc;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.text.DecimalFormat;
+import java.util.*;
 
 import static redone.game.players.PlayerSave.loadPlayerInfo;
 
@@ -85,12 +83,13 @@ public class Bot {
     }
 
     private String formatSellPrice(int price) {
-        if (price > 1e9) {
-            return (Math.floor(price / 1e8) / 10) + "B";
-        } else if (price > 1e6) {
-            return (Math.floor(price / 1e5) / 10) + "M";
-        } else if (price > 1e3) {
-            return (Math.floor(price / 100) / 10) + "K";
+        DecimalFormat df = new DecimalFormat("#.##");
+        if (price >= 1e9) {
+            return df.format(Math.floor(price / 1e8) / 10) + "B";
+        } else if (price >= 1e6) {
+            return df.format(Math.floor(price / 1e5) / 10) + "M";
+        } else if (price >= 1e3) {
+            return df.format(Math.floor(price / 100) / 10) + "K";
         } else {
             return "" + price;
         }
