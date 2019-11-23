@@ -36,6 +36,7 @@ public class Bot {
         botClient.saveCharacter = true;
         botClient.isActive = true;
         botClient.disconnected = false;
+        botClient.npcCanAttack = false;
         Server.playerHandler.newPlayerClient(botClient);
 
         botClient.getPlayerAssistant().movePlayer(x, y, z);
