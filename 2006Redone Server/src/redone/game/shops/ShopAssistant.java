@@ -472,7 +472,6 @@ public class ShopAssistant {
 		boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable;
 		int freeSlots = player.getItemAssistant().freeSlots();
 		int storeQty = ShopHandler.getStock(shopID, itemID);
-		System.out.println("Item " + itemID + " stock = " + storeQty);
 		if (amount > 0) {
 			if (storeQty <= 0) {
 				// none in stock, or not sold here

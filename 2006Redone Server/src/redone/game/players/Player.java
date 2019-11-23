@@ -621,6 +621,26 @@ public abstract class Player {
 				isInArea(3422,2895,3433,2885) || //Nardah
 				isInArea(3685,3473,3694,3461) || //Phasmatys
                 isInArea(2530,4725,2550,4705) || //Phasmatys
+				isInArea(2834, 10215, 2841, 10204) || // Keldagrim
+				isInArea(2379, 4453, 2386, 4462) || // Zanaris
+				false;
+	}
+
+	public boolean inPlayerShopArea() {
+		return isInArea(2938, 3389, 3059, 3329) || // Falador
+				isInArea(3172, 3449, 3270, 3384) || // Varrock
+				isInArea(3200, 3256, 3237, 3201) || // Lumbridge
+				isInArea(2716, 3498, 2735, 3480) ||
+				isInArea(3075, 3513, 3106, 3466) ||
+				isInArea(3074, 3262, 3102, 3239) ||
+				isInArea(2435, 3101, 2459, 3080) ||
+				isInArea(2618, 3075, 2598, 3108) ||
+				isInArea(2678, 3267, 2601, 3341) ||
+				isInArea(3265, 3157, 3324, 3215) ||
+				isInArea(3386, 3264, 3348, 3286) ||
+				isInArea(2797, 3454, 2838, 3430) ||
+				isInArea(2546, 3157, 2512, 3176) ||
+				isInArea(2451, 3408, 2425, 3437) ||
 				false;
 	}
 

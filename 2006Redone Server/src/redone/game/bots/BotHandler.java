@@ -30,6 +30,12 @@ public class BotHandler
     }
 
     public static void playerShop(Client player){
+        // Must be in the correct zones
+        if (!player.inPlayerShopArea() && !player.inBankArea()) {
+            player.getActionSender().sendMessage("You need to be in a bank zone or trade area for this.");
+            return;
+        }
+
         Client playerShop = getPlayerShop(player);
 
         if (playerShop == null) {
@@ -182,5 +188,4 @@ public class BotHandler
             }
         }
     }
-
 }
