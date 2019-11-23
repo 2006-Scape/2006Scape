@@ -90,11 +90,11 @@ public class Bot {
     private String formatSellPrice(int price) {
         DecimalFormat df = new DecimalFormat("#.##");
         if (price >= 1e9) {
-            return df.format(Math.floor(price / 1e8) / 10) + "B";
+            return df.format(Math.floor(price / 1e8) / 10) + "b";
         } else if (price >= 1e6) {
-            return df.format(Math.floor(price / 1e5) / 10) + "M";
+            return df.format(Math.floor(price / 1e5) / 10) + "m";
         } else if (price >= 1e3) {
-            return df.format(Math.floor(price / 100) / 10) + "K";
+            return df.format(Math.floor(price / 100) / 10) + "k";
         } else {
             return price + "gp";
         }
