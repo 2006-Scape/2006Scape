@@ -57,6 +57,7 @@ public class ShopHandler {
 	public void process() {
 		boolean DidUpdate = false;
 		for (int i = 1; i <= TotalShops; i++) {
+			if (ShopBModifier[i] == 0 || ShopSModifier[i] == 0) continue;
 			for (int j = 0; j < MaxShopItems; j++) {
 				if (ShopItems[i][j] > 0) {
 					if (ShopItemsDelay[i][j] >= MaxShowDelay) {
