@@ -540,10 +540,10 @@ public class ShopAssistant {
 
 			int totalValue = value * amount;
 			if (currencyAmount < totalValue) {
-				amount = (int) Math.floor(player.playerItemsN[currencySlot] / amount);
+				amount = (int) Math.floor(player.playerItemsN[currencySlot] / value);
 				// buy as many as we can afford
 				totalValue = value * amount;
-				if (currencyAmount < totalValue) {
+				if (currencyAmount < totalValue || amount <= 0) {
 					player.getActionSender().sendMessage("You don't have enough " + ItemAssistant.getItemName(currency).toLowerCase() + " to buy that.");
 					return false;
 				}
