@@ -14,7 +14,7 @@ import redone.world.GlobalDropsHandler;
 public class PlayerHandler {
 
 	public static Player players[] = new Player[Constants.MAX_PLAYERS];
-	public static int playerCount = 0;
+	public static int playerCount = 0, playerBotCount = 0;
 	public static String playersCurrentlyOn[] = new String[Constants.MAX_PLAYERS];
 	public static boolean updateAnnounced;
 	public static boolean updateRunning;
@@ -55,13 +55,21 @@ public class PlayerHandler {
 		return playerCount;
 	}
 
+	public static int getPlayerBotCount() {
+		return playerBotCount;
+	}
+
 	public void updatePlayerNames() {
+		playerBotCount = 0;
 		playerCount = 0;
 		for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
 			if (players[i] != null) {
 				playersCurrentlyOn[i] = players[i].playerName;
-				if (!players[i].isBot)
+				if (players[i].isBot)
+					playerBotCount++;
+				else
 					playerCount++;
+
 			} else {
 				playersCurrentlyOn[i] = "";
 			}
