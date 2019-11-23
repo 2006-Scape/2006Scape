@@ -69,7 +69,6 @@ public class PlayerHandler {
 					playerBotCount++;
 				else
 					playerCount++;
-
 			} else {
 				playersCurrentlyOn[i] = "";
 			}

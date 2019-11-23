@@ -5,6 +5,7 @@ import redone.Constants;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.game.shops.ShopHandler;
+import redone.util.Misc;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -49,6 +50,8 @@ public class BotHandler
         client.getPlayerAssistant().movePlayer(player.getX(), player.getY(), player.getH());
 
 
+        client.faceUpdate(player.face);
+        client.turnPlayerTo(player.getX() + Misc.random(-1, 1), player.getY() + Misc.random(-1, 1));
         int i = 0;
         // Remove all items except money
         for (int item_id : client.playerItems) {
