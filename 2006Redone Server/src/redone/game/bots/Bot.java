@@ -3,12 +3,8 @@ package redone.game.bots;
 import redone.Server;
 import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
-import redone.game.players.Player;
-import redone.game.players.PlayerHandler;
-import redone.util.GameLogger;
 import redone.util.Misc;
 
-import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -68,23 +64,20 @@ public class Bot {
         String item_name = ItemAssistant.getItemName(item_id).toLowerCase();
         int value = BotHandler.getItemPrice(botClient.myShopId, item_id);
         if (value <= 0) return;
-        botClient.forcedChat("Selling " + item_name + " " + formatSellPrice(value) + " ea");
-        /*
-        Real chat - Disabled for now, can't get it to function correctly
 
-        // Add some color and effects
-        botClient.setChatTextColor(9);
-        botClient.setChatTextEffects(2);
+        String _message = "Selling " + item_name + " " + formatSellPrice(value) + " ea - " + botClient.playerName;
 
-        String message = "Selling " + item_name + " " + formatSellPrice(value) + " ea - " + botClient.playerName;
-        // Need to figure out how to calculate this
-        botClient.setChatTextSize((byte) 29);
-        // This is wrong too
-        botClient.setChatText(message.getBytes(StandardCharsets.UTF_8));
-        // Not a clue what this does
-        botClient.inStream.readBytes_reverseA(botClient.getChatText(), botClient.getChatTextSize(), 0);
+        // Disable the force chat for now, maybe use that instead, maybe not
+        //botClient.forcedChat("Selling " + item_name + " " + formatSellPrice(value) + " ea");
+
+        // Normal chat from here down:
+        botClient.setChatTextColor(Misc.random(11));
+        botClient.setChatTextEffects(Misc.random(5));
+        Misc.textPack(botClient.inStream, _message);
+        botClient.setChatTextSize((byte) botClient.inStream.currentOffset);
+        botClient.setChatText(botClient.inStream.buffer);
+        botClient.inStream.currentOffset = 0;
         botClient.setChatTextUpdateRequired(true);
-        */
     }
 
     private String formatSellPrice(int price) {
