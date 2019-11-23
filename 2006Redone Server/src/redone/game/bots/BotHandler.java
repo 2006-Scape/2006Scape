@@ -1,5 +1,6 @@
 package redone.game.bots;
 
+import io.netty.util.Timeout;
 import redone.Constants;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
@@ -105,15 +106,24 @@ public class BotHandler
     public static void closeShop(Client player) {
         Client shop = getPlayerShop(player);
         if (shop == null) return;
-        shop.disconnected = true;
-        shop.logout(true);
-        for (int index = 0; index < botList.size(); index++){
-            if (botList.get(index).getBotClient().properName.equalsIgnoreCase(player.properName)) {
-                botList.remove(index);
-                return;
+        shop.getPlayerAssistant().movePlayer(0,0,0);
+        new Thread(() -> {
+            try {
+                Thread.sleep(500);
+                shop.disconnected = true;
+                shop.logout(true);
+                for (int index = 0; index < botList.size(); index++){
+                    if (botList.get(index).getBotClient().properName.equalsIgnoreCase(player.properName)) {
+                        botList.remove(index);
+                        return;
+                    }
+                    index++;
+                }
             }
-            index++;
-        }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
     }
 
     public static void addCoins(int shop_id, int amount){
