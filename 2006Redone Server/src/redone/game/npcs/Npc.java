@@ -97,24 +97,27 @@ public class Npc {
 	
 
 	public void updateNPCMovement(Stream str) {
-		if (direction == -1) {
 
-			if (updateRequired) {
+		if (str != null) {
+			if (direction == -1) {
+
+				if (updateRequired) {
+
+					str.writeBits(1, 1);
+					str.writeBits(2, 0);
+				} else {
+					str.writeBits(1, 0);
+				}
+			} else {
 
 				str.writeBits(1, 1);
-				str.writeBits(2, 0);
-			} else {
-				str.writeBits(1, 0);
-			}
-		} else {
-
-			str.writeBits(1, 1);
-			str.writeBits(2, 1);
-			str.writeBits(3, Misc.xlateDirectionToClient[direction]);
-			if (updateRequired) {
-				str.writeBits(1, 1);
-			} else {
-				str.writeBits(1, 0);
+				str.writeBits(2, 1);
+				str.writeBits(3, Misc.xlateDirectionToClient[direction]);
+				if (updateRequired) {
+					str.writeBits(1, 1);
+				} else {
+					str.writeBits(1, 0);
+				}
 			}
 		}
 	}

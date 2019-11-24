@@ -439,6 +439,16 @@ public class Client extends Player {
 	public int timeOutCounter = 0;
 	public int returnCode = 2;
 
+	// used for bots
+	public Client(IoSession s) {
+		super(-1);
+		isBot = true;
+		session = null;
+		inStream = new Stream(new byte[Constants.BUFFER_SIZE]);
+		inStream.currentOffset = 0;
+		buffer = new byte[Constants.BUFFER_SIZE];
+	}
+
 	public Client(IoSession s, int _playerId) {
 		super(_playerId);
 		session = s;
@@ -478,7 +488,7 @@ public class Client extends Player {
 	}
 
 	public void flushOutStream() {
-		if (disconnected || outStream.currentOffset == 0) {
+		if (disconnected || outStream == null || outStream.currentOffset == 0) {
 			return;
 		}
 		synchronized (this) {
@@ -492,12 +502,14 @@ public class Client extends Player {
 	}
 
 	public void sendClan(String name, String message, String clan, int rights) {
-		outStream.createFrameVarSizeWord(217);
-		outStream.writeString(name);
-		outStream.writeString(message);
-		outStream.writeString(clan);
-		outStream.writeWord(rights);
-		outStream.endFrameVarSize();
+		if (outStream != null) {
+			outStream.createFrameVarSizeWord(217);
+			outStream.writeString(name);
+			outStream.writeString(message);
+			outStream.writeString(clan);
+			outStream.writeWord(rights);
+			outStream.endFrameVarSize();
+		}
 	}
 
 	public static final int PACKET_SIZES[] = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
@@ -594,10 +606,6 @@ public class Client extends Player {
 		super.destruct();
 		// PlayerSave.saveGame(this);
 	}
-	
-	public static final String[][] data = {
-		{"Andrew", "Andrew1"},
-	};
 
 	@Override
 	public void initialize() {
@@ -606,27 +614,19 @@ public class Client extends Player {
 			logout();
 			return;
 		}
-		/*(for (int i = 0; i < data.length; i++) {
-			if (playerRights > 0) {
-				if (playerName != data[0][i]) {
-				    Connection.addNameToBanList(playerName);
-                    Connection.addNameToFile(playerName);
-                    disconnected = true;
-				}
-			}
-		}*/
 		synchronized (this) {
-			outStream.createFrame(249);
-			outStream.writeByteA(membership ? 1 : 0);
-			outStream.writeWordBigEndianA(playerId);
-			for (int j = 0; j < PlayerHandler.players.length; j++) {
-				if (j == playerId) {
-					continue;
-				}
-				if (PlayerHandler.players[j] != null) {
-					if (PlayerHandler.players[j].playerName
-							.equalsIgnoreCase(playerName)) {
-						disconnected = true;
+			if (getOutStream() != null) {
+				outStream.createFrame(249);
+				outStream.writeByteA(membership ? 1 : 0);
+				outStream.writeWordBigEndianA(playerId);
+				for (int j = 0; j < PlayerHandler.players.length; j++) {
+					if (j == playerId) {
+						continue;
+					}
+					if (PlayerHandler.players[j] != null) {
+						if (PlayerHandler.players[j].playerName.equalsIgnoreCase(playerName)) {
+							disconnected = true;
+						}
 					}
 				}
 			}
@@ -820,7 +820,8 @@ public class Client extends Player {
 				getSummon().pickUpClean(this, summonId);
 			}
 			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
-				outStream.createFrame(109);
+				if (!isBot)
+					outStream.createFrame(109);
 				properLogout = true;
 			} else {
 				getActionSender().sendMessage("You must wait a few seconds from being out of combat to logout.");
@@ -1124,7 +1125,8 @@ public class Client extends Player {
 		}
 
 		if (timeOutCounter > Constants.TIMEOUT) {
-			disconnected = true;
+			if (!isBot)
+				logout(true);
 		}
 
 		timeOutCounter++;
@@ -1254,10 +1256,12 @@ public class Client extends Player {
 						System.out.println("Playing sound " + c.playerName
 								+ ", Id: " + SOUNDID + ", Vol: "
 								+ c.soundVolume);
-						c.getOutStream().createFrame(174);
-						c.getOutStream().writeWord(SOUNDID);
-						c.getOutStream().writeByte(c.soundVolume);
-						c.getOutStream().writeWord( /* delay */0);
+						if (c.getOutStream() != null) {
+							c.getOutStream().createFrame(174);
+							c.getOutStream().writeWord(SOUNDID);
+							c.getOutStream().writeByte(c.soundVolume);
+							c.getOutStream().writeWord( /* delay */0);
+						}
 					}
 				}
 			}

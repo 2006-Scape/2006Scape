@@ -3,6 +3,7 @@ package redone.net.packets.impl;
 import redone.Connection;
 import redone.Constants;
 import redone.Server;
+import redone.game.bots.BotHandler;
 import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.*;
@@ -93,6 +94,17 @@ public class Commands implements PacketType {
                                         player.getActionSender().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
                                 }
                                 break;
+                        case "shop":
+                                BotHandler.playerShop(player);
+                                break;
+                        case "withdrawshop":
+                        case "wshop":
+                                BotHandler.takeCoins(player);
+                                break;
+                        case "closeshop":
+                        case "cshop":
+                                BotHandler.closeShop(player);
+                                break;
                         case "wealth":
                                 int totalWealth = player.getPlayerAssistant().totalGold();
                                 player.getActionSender().sendMessage("You currently have " + totalWealth + "gp.");
@@ -131,7 +143,7 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().closeAllWindows();
                                 break;
                         case "commands":
-                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx");
+                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx, ::shop, ::withdrawshop, ::closeshop");
                                 break;
                         case "loc":
                                 player.getActionSender().sendMessage(player.absX + "," + player.absY);
@@ -158,30 +170,43 @@ public class Commands implements PacketType {
                                                 continue;
                                         }
                                         PlayerSave.saveGame((Client) p);
-                                        System.out.println("Saved game for " + p.playerName
-                                                + ".");
+                                        System.out.println("Saved game for " + p.playerName + ".");
                                         Server.lastMassSave = System.currentTimeMillis();
                                 }
                                 HighscoresHandler hs = new HighscoresHandler();
                                 String[] highscores = new String[]{
-                                        "@dre@Highscores",
-                                        "",
                                         "Top 5 Total Level:",
-                                        hs.getRank(player, 0, "level"), hs.getRank(player,1, "level"), hs.getRank(player,2, "level"), hs.getRank(player,3, "level"), hs.getRank(player,4, "level"),
+                                        hs.getRank(player, 0, "level"),
+                                        hs.getRank(player, 1, "level"),
+                                        hs.getRank(player, 2, "level"),
+                                        hs.getRank(player, 3, "level"),
+                                        hs.getRank(player, 4, "level"),
                                         "",
                                         "Top 5 Wealthiest Players:",
-                                        hs.getRank(player,0, "gold"), hs.getRank(player,1, "gold"), hs.getRank(player,2, "gold"), hs.getRank(player,3, "gold"), hs.getRank(player, 4, "gold"),
+                                        hs.getRank(player, 0, "gold"),
+                                        hs.getRank(player, 1, "gold"),
+                                        hs.getRank(player, 2, "gold"),
+                                        hs.getRank(player, 3, "gold"),
+                                        hs.getRank(player, 4, "gold"),
                                         "",
                                         "Top 5 Highest Total Damage:",
-                                        hs.getRank(player,0, "damage"), hs.getRank(player,1, "damage"), hs.getRank(player,2, "damage"), hs.getRank(player, 3, "damage"), hs.getRank(player, 4, "damage"),
+                                        hs.getRank(player, 0, "damage"),
+                                        hs.getRank(player, 1, "damage"),
+                                        hs.getRank(player, 2, "damage"),
+                                        hs.getRank(player, 3, "damage"),
+                                        hs.getRank(player, 4, "damage"),
                                 };
 
-                                for (int i = 8144; i < 8245; i++) {
-                                        player.getPlayerAssistant().sendFrame126("", i);
-                                }
 
-                                for (int i = 8144; i < 8144 + highscores.length; i++) {
-                                        player.getPlayerAssistant().sendFrame126(highscores[i - 8144], i+3);
+                                // Clear all lines
+                                for (int i = 8144; i < 8195; i++) player.getPlayerAssistant().sendFrame126("", i);
+
+                                player.getPlayerAssistant().sendFrame126("@dre@Highscores", 8144);
+
+                                int lineNumber = 8147;
+                                for (String line : highscores){
+                                        System.out.println(line + " - " + lineNumber);
+                                        player.getPlayerAssistant().sendFrame126(line, lineNumber++);
                                 }
                                 player.getPlayerAssistant().showInterface(8134);
 

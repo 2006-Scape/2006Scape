@@ -18,6 +18,7 @@ public class ActionSender {
 
 
 	public ActionSender sendClan(String name, String message, String clan, int rights) {
+		if (player.getOutStream() == null) return this;
 		player.outStream.createFrameVarSizeWord(217);
 		player.outStream.writeString(name);
 		player.outStream.writeString(message);
@@ -28,6 +29,7 @@ public class ActionSender {
 	}
 	
 	public ActionSender createPlayersObjectAnim(int X, int Y, int animationID, int tileObjectType, int orientation) {
+		if (player.getOutStream() == null) return this;
 		try{
 			player.getOutStream().createFrame(85);
 			player.getOutStream().writeByteC(Y - (player.mapRegionY * 8));
@@ -58,6 +60,7 @@ public class ActionSender {
 	
 	public ActionSender shakeScreen(int verticleAmount, int verticleSpeed,
 			int horizontalAmount, int horizontalSpeed) {
+		if (player.getOutStream() == null) return this;
 		player.getOutStream().createFrame(35); // Creates frame 35.
 		player.getOutStream().writeByte(verticleAmount);
 		player.getOutStream().writeByte(verticleSpeed);
@@ -101,8 +104,10 @@ public class ActionSender {
 	public ActionSender flashSideBarIcon(int i1) {
 		// Makes the sidebar Icons flash
 		// Usage: i1 = 0 through -12 inorder to work
-		player.outStream.createFrame(24);
-		player.outStream.writeByteA(i1);
+		if (player.getOutStream() != null) {
+			player.outStream.createFrame(24);
+			player.outStream.writeByteA(i1);
+		}
 		player.updateRequired = true;
 		player.appearanceUpdateRequired = true;
 		return this;
@@ -210,6 +215,7 @@ public class ActionSender {
 	}
 
 	public ActionSender object(int objectId, int objectX, int objectY, int objectH, int face, int objectType) {
+		if (player.getOutStream() == null) return this;
 		if (player.heightLevel != objectH) {
 			return this;
 		}
@@ -234,6 +240,7 @@ public class ActionSender {
 	}
 
 	public ActionSender tempSong(int songID, int songID2) {
+		if (player.getOutStream() == null) return this;
 		player.outStream.createFrame(121);
 		player.outStream.writeWordBigEndian(songID);
 		player.outStream.writeWordBigEndian(songID2);
@@ -242,6 +249,7 @@ public class ActionSender {
 	}
 
 	public ActionSender frame174(int sound, int vol, int delay) {
+		if (player.getOutStream() == null) return this;
 		player.outStream.createFrame(174);
 		player.outStream.writeWord(sound);
 		player.outStream.writeWord(delay);
@@ -250,6 +258,7 @@ public class ActionSender {
 	}
 
 	public ActionSender writeWeight(int weight) {
+		if (player.getOutStream() == null) return this;
 		player.outStream.createFrame(240);
 		DecimalFormat twoDForm = new DecimalFormat("#.##");
 		player.outStream.writeWord(Integer.valueOf(twoDForm.format(weight)));
@@ -257,10 +266,8 @@ public class ActionSender {
 	}
 
 	public ActionSender sendConfig(int id, int state) {
-		if (player.getOutStream() != null && player != null) {
-			if (state < 128) {
-
-			}
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			if (state < Byte.MIN_VALUE || state > Byte.MAX_VALUE) {
 				player.getOutStream().createFrame(87);
 				player.getOutStream().writeWordBigEndian_dup(id);
@@ -277,15 +284,18 @@ public class ActionSender {
 	}
 
 	public ActionSender multiWay(int i1) {
-		player.outStream.createFrame(61);
-		player.outStream.writeByte(i1);
+		if (player.getOutStream() != null) {
+			player.outStream.createFrame(61);
+			player.outStream.writeByte(i1);
+		}
 		player.updateRequired = true;
 		player.setAppearanceUpdateRequired(true);
 		return this;
 	}
 
 	public ActionSender sendColor(int id, int color) {
-		if (player.getOutStream() != null && player != null) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.outStream.createFrame(122);
 			player.outStream.writeWordBigEndianA(id);
 			player.outStream.writeWordBigEndianA(color);
@@ -293,17 +303,16 @@ public class ActionSender {
 		return this;
 	}
 
-	public ActionSender sendCrashFrame() { // used for crashing cheat
-												// clients
-		if (player.getOutStream() != null && player != null) {
+	public ActionSender sendCrashFrame() {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.getOutStream().createFrame(123);
 			player.flushOutStream();
 		}
 		return this;
 	}
 
-	public ActionSender createStillGfx(int id, int x, int y, int height,
-			int time) {
+	public ActionSender createStillGfx(int id, int x, int y, int height, int time) {
 		for (Player p : PlayerHandler.players) {
 			if (p != null) {
 				Client person = (Client) p;
@@ -320,9 +329,9 @@ public class ActionSender {
 		return this;
 	}
 
-	public ActionSender object(int objectId, int objectX, int objectY,
-			int objectType) {
-		if (player.getOutStream() != null && player != null) {
+	public ActionSender object(int objectId, int objectX, int objectY, int objectType) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.getOutStream().createFrame(85);
 			player.getOutStream().writeByteC(
 					objectY - player.getMapRegionY() * 8);
@@ -343,7 +352,8 @@ public class ActionSender {
 	}
 
 	public ActionSender itemOnInterface(int interfaceChild, int zoom, int itemId) {
-		if (player.getOutStream() != null && player != null) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.getOutStream().createFrame(246);
 			player.getOutStream().writeWordBigEndian(interfaceChild);
 			player.getOutStream().writeWord(zoom);
@@ -354,6 +364,7 @@ public class ActionSender {
 	}
 
 	public ActionSender setConfig(int id, int state) {
+		if (player.getOutStream() == null) return this;
 		player.outStream.createFrame(36);
 		player.outStream.writeWordBigEndian(id);
 		player.outStream.writeByte(state);
@@ -361,7 +372,8 @@ public class ActionSender {
 	}
 
 	public ActionSender sendLink(String s) {
-		if (player.getOutStream() != null && player != null) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.getOutStream().createFrameVarSizeWord(187);
 			player.getOutStream().writeString(s);
 		}
@@ -369,7 +381,8 @@ public class ActionSender {
 	}
 
 	public ActionSender setSkillLevel(int skillNum, int currentLevel, int XP) {
-		if (player.getOutStream() != null && player != null) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.getOutStream().createFrame(134);
 			player.getOutStream().writeByte(skillNum);
 			player.getOutStream().writeDWord_v1(XP);
@@ -388,6 +401,8 @@ public class ActionSender {
 	 * @Param l - Keep this set as 0
 	 */
 	public ActionSender drawHeadicon(int i, int j, int k, int l) {
+		if (player.getOutStream() == null) return this;
+
 		// synchronized(c) {
 		player.outStream.createFrame(254);
 		player.outStream.writeByte(i);
@@ -407,6 +422,7 @@ public class ActionSender {
 	// object
 
 	public ActionSender createArrow(int x, int y, int height, int pos) {
+		if (player.getOutStream() == null) return this;
 		if (player != null) {
 			player.getOutStream().createFrame(254); // The packet ID
 			player.getOutStream().writeByte(pos); // Position on Square(2 =
@@ -424,6 +440,7 @@ public class ActionSender {
 	// npc
 
 	public ActionSender createArrow(int type, int id) {
+		if (player.getOutStream() == null) return this;
 		if (player != null) {
 			player.getOutStream().createFrame(254); // The packet ID
 			player.getOutStream().writeByte(type); // 1=NPC, 10=Player
@@ -462,11 +479,12 @@ public class ActionSender {
 	}
 	
 	public ActionSender createObjectSpawn(int objectId, int objectX, int objectY, int height, int face, int objectType) {
+		if (player.getOutStream() == null) return this;
 		if (player.heightLevel != height) {
 			return this;
 		}
 		if (player.distanceToPoint(objectX, objectY) < 60) {
-			if (player.getOutStream() != null && player != null) {
+			if (player != null) {
 				player.getOutStream().createFrame(85);
 				player.getOutStream().writeByteC(objectY - player.getMapRegionY() * 8);
 				player.getOutStream().writeByteC(objectX - player.getMapRegionX() * 8);
@@ -491,8 +509,8 @@ public class ActionSender {
 	public String optionType = "null";
 
 	public ActionSender showOption(int i, int l, String s, int a) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			if (!optionType.equalsIgnoreCase(s)) {
 				optionType = s;
 				player.getOutStream().createFrameVarSize(104);
@@ -511,7 +529,8 @@ public class ActionSender {
 	 */
 
 	public ActionSender sendSong(int id) {
-		if (player.getOutStream() != null && player != null && id != -1) {
+		if (player.getOutStream() == null) return this;
+		if (player != null && id != -1) {
 			player.getOutStream().createFrame(74);
 			player.getOutStream().writeWordBigEndian(id);
 		}
@@ -523,7 +542,8 @@ public class ActionSender {
 	 */
 
 	public ActionSender sendQuickSong(int id, int songDelay) {
-		if (player.getOutStream() != null && player != null) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.getOutStream().createFrame(121);
 			player.getOutStream().writeWordBigEndian(id);
 			player.getOutStream().writeWordBigEndian(songDelay);
@@ -537,7 +557,8 @@ public class ActionSender {
 	 */
 
 	public ActionSender sendSound(int id, int type, int delay, int volume) {
-		if (player.getOutStream() != null && player != null && id != -1) {
+		if (player.getOutStream() == null) return this;
+		if (player != null && id != -1) {
 			player.getOutStream().createFrame(174);
 			player.getOutStream().writeWord(id);
 			player.getOutStream().writeByte(type);
@@ -558,7 +579,8 @@ public class ActionSender {
 	}
 
 	public ActionSender sendClearScreen() {
-		if (player.getOutStream() != null && player != null) {
+		if (player.getOutStream() == null) return this;
+		if (player != null) {
 			player.getOutStream().createFrame(219);
 			player.flushOutStream();
 		}
@@ -566,6 +588,7 @@ public class ActionSender {
 	}
 
 	public ActionSender createGroundItem(int itemID, int itemX, int itemY, int itemAmount) {
+		if (player.getOutStream() == null) return this;
 		player.getOutStream().createFrame(85);
 		player.getOutStream().writeByteC(itemY - 8 * player.mapRegionY);
 		player.getOutStream().writeByteC(itemX - 8 * player.mapRegionX);
@@ -578,6 +601,7 @@ public class ActionSender {
 	}
 	
 	public ActionSender createGroundItem(int itemID, int itemX, int itemY, int itemAmount, int height) {
+		if (player.getOutStream() == null) return this;
 		if (player.heightLevel != height) {
 			return this;
 		}
@@ -598,6 +622,7 @@ public class ActionSender {
 	 **/
 
 	public ActionSender removeGroundItem(int itemID, int itemX, int itemY, int Amount) {
+		if (player.getOutStream() == null) return this;
 		if (player == null) {
 			return this;
 		}

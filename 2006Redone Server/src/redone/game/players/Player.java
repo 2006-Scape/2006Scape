@@ -19,7 +19,7 @@ public abstract class Player {
 
 	public String currentTime, date, creationAddress = "", slayerMaster;
 	
-	public boolean lostCannon = false, refresh = false;
+	public boolean lostCannon = false, refresh = false, isBot = false;
 
 	public ArrayList<String> killedPlayers = new ArrayList<String>();
 	public ArrayList<Integer> attackedPlayers = new ArrayList<Integer>();
@@ -118,7 +118,8 @@ public abstract class Player {
 			teleOtherSlot = -1, tutorialProgress, Cookstage1 = 1,
 			woodcuttingTree, smeltAmount, knightS, otherDirection,
 			brightness = 3, recoilHits, droppedItem = -1,
-					spawnedHealers, cannonX = 0, cannonY = 0;
+			spawnedHealers, cannonX = 0, cannonY = 0,
+			playerShopId;
 
 	public double playerEnergy = 100;
 
@@ -620,6 +621,26 @@ public abstract class Player {
 				isInArea(3422,2895,3433,2885) || //Nardah
 				isInArea(3685,3473,3694,3461) || //Phasmatys
                 isInArea(2530,4725,2550,4705) || //Phasmatys
+				isInArea(2834, 10215, 2841, 10204) || // Keldagrim
+				isInArea(2379, 4453, 2386, 4462) || // Zanaris
+				false;
+	}
+
+	public boolean inPlayerShopArea() {
+		return isInArea(2938, 3389, 3059, 3329) || // Falador
+				isInArea(3172, 3449, 3270, 3384) || // Varrock
+				isInArea(3200, 3256, 3237, 3201) || // Lumbridge
+				isInArea(2716, 3498, 2735, 3480) ||
+				isInArea(3075, 3513, 3106, 3466) ||
+				isInArea(3074, 3262, 3102, 3239) ||
+				isInArea(2435, 3101, 2459, 3080) ||
+				isInArea(2618, 3075, 2598, 3108) ||
+				isInArea(2678, 3267, 2601, 3341) ||
+				isInArea(3265, 3157, 3324, 3215) ||
+				isInArea(3386, 3264, 3348, 3286) ||
+				isInArea(2797, 3454, 2838, 3430) ||
+				isInArea(2546, 3157, 2512, 3176) ||
+				isInArea(2451, 3408, 2425, 3437) ||
 				false;
 	}
 
@@ -731,6 +752,8 @@ public abstract class Player {
 	public int playerItemsN[] = new int[28];
 	public int bankItems[] = new int[Constants.BANK_SIZE];
 	public int bankItemsN[] = new int[Constants.BANK_SIZE];
+	// used for player owned shops
+	public int bankItemsV[] = new int[Constants.BANK_SIZE];
 	public boolean bankNotes = false;
 	public boolean shouldSave = false;
 
@@ -1081,65 +1104,75 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	}
 
 	public void updateThisPlayerMovement(Stream str) {
-		if (mapRegionDidChange) {
-			str.createFrame(73);
-			str.writeWordA(mapRegionX + 6);
-			str.writeWord(mapRegionY + 6);
-		}
 
-		if (didTeleport) {
-			str.createFrameVarSizeWord(81);
-			str.initBitAccess();
-			str.writeBits(1, 1);
-			str.writeBits(2, 3);
-			str.writeBits(2, heightLevel);
-			str.writeBits(1, 1);
-			str.writeBits(1, updateRequired ? 1 : 0);
-			str.writeBits(7, currentY);
-			str.writeBits(7, currentX);
-			return;
-		}
+		if (str != null) {
+			if (mapRegionDidChange) {
+				str.createFrame(73);
+				str.writeWordA(mapRegionX + 6);
+				str.writeWord(mapRegionY + 6);
+			}
 
+			if (didTeleport) {
+				str.createFrameVarSizeWord(81);
+				str.initBitAccess();
+				str.writeBits(1, 1);
+				str.writeBits(2, 3);
+				str.writeBits(2, heightLevel);
+				str.writeBits(1, 1);
+				str.writeBits(1, updateRequired ? 1 : 0);
+				str.writeBits(7, currentY);
+				str.writeBits(7, currentX);
+				return;
+			}
+		}
 		if (dir1 == -1) {
 			// don't have to update the character position, because we're
 			// just standing
-			str.createFrameVarSizeWord(81);
-			str.initBitAccess();
-			isMoving = false;
-			if (updateRequired) {
-				// tell client there's an update block appended at the end
-				str.writeBits(1, 1);
-				str.writeBits(2, 0);
-			} else {
-				str.writeBits(1, 0);
+			if (str != null){
+					str.createFrameVarSizeWord(81);
+				str.initBitAccess();
+				isMoving = false;
+				if (updateRequired) {
+					// tell client there's an update block appended at the end
+					str.writeBits(1, 1);
+					str.writeBits(2, 0);
+				} else {
+					str.writeBits(1, 0);
+				}
 			}
 			if (DirectionCount < 50) {
 				DirectionCount++;
 			}
 		} else {
 			DirectionCount = 0;
-			str.createFrameVarSizeWord(81);
-			str.initBitAccess();
-			str.writeBits(1, 1);
+			if (str != null) {
+				str.createFrameVarSizeWord(81);
+				str.initBitAccess();
+				str.writeBits(1, 1);
+			}
 
 			if (dir2 == -1) {
 				isMoving = true;
-				str.writeBits(2, 1);
-				str.writeBits(3, Misc.xlateDirectionToClient[dir1]);
-				if (updateRequired) {
-					str.writeBits(1, 1);
-				} else {
-					str.writeBits(1, 0);
+				if (str != null) {
+					str.writeBits(2, 1);
+					str.writeBits(3, Misc.xlateDirectionToClient[dir1]);
+					if (updateRequired) {
+						str.writeBits(1, 1);
+					} else {
+						str.writeBits(1, 0);
+					}
 				}
 			} else {
 				isMoving = true;
-				str.writeBits(2, 2);
-				str.writeBits(3, Misc.xlateDirectionToClient[dir1]);
-				str.writeBits(3, Misc.xlateDirectionToClient[dir2]);
-				if (updateRequired) {
-					str.writeBits(1, 1);
-				} else {
-					str.writeBits(1, 0);
+				if (str != null) {
+					str.writeBits(2, 2);
+					str.writeBits(3, Misc.xlateDirectionToClient[dir1]);
+					str.writeBits(3, Misc.xlateDirectionToClient[dir2]);
+					if (updateRequired) {
+						str.writeBits(1, 1);
+					} else {
+						str.writeBits(1, 0);
+					}
 				}
 				if (playerEnergy > 0 && playerRights < 2) {
 					// calculations from https://oldschool.runescape.wiki/w/Energy
@@ -1158,9 +1191,11 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	}
 
 	public void updatePlayerMovement(Stream str) {
+		if (str == null)
+			return;
+
 		if (dir1 == -1) {
 			if (updateRequired || isChatTextUpdateRequired()) {
-
 				str.writeBits(1, 1);
 				str.writeBits(2, 0);
 			} else {
@@ -1171,16 +1206,14 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 			str.writeBits(1, 1);
 			str.writeBits(2, 1);
 			str.writeBits(3, Misc.xlateDirectionToClient[dir1]);
-			str.writeBits(1, updateRequired || isChatTextUpdateRequired() ? 1
-					: 0);
+			str.writeBits(1, updateRequired || isChatTextUpdateRequired() ? 1 : 0);
 		} else {
 
 			str.writeBits(1, 1);
 			str.writeBits(2, 2);
 			str.writeBits(3, Misc.xlateDirectionToClient[dir1]);
 			str.writeBits(3, Misc.xlateDirectionToClient[dir2]);
-			str.writeBits(1, updateRequired || isChatTextUpdateRequired() ? 1
-					: 0);
+			str.writeBits(1, updateRequired || isChatTextUpdateRequired() ? 1 : 0);
 		}
 	}
 
@@ -1191,35 +1224,50 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 		npcInListBitmap[id >> 3] |= 1 << (id & 7);
 		npcList[npcListSize++] = npc;
 
-		str.writeBits(14, id);
+		if (str != null) {
+			str.writeBits(14, id);
+		}
 
 		int z = npc.absY - absY;
 		if (z < 0) {
 			z += 32;
 		}
-		str.writeBits(5, z);
+
+		if (str != null) {
+			str.writeBits(5, z);
+		}
+
 		z = npc.absX - absX;
 		if (z < 0) {
 			z += 32;
 		}
-		str.writeBits(5, z);
 
-		str.writeBits(1, 0);
-		str.writeBits(12, npc.npcType);
+		if (str != null) {
+			str.writeBits(5, z);
+
+			str.writeBits(1, 0);
+			str.writeBits(12, npc.npcType);
+		}
 
 		boolean savedUpdateRequired = npc.updateRequired;
 		npc.updateRequired = true;
 		npc.appendNPCUpdateBlock(updateBlock);
 		npc.updateRequired = savedUpdateRequired;
-		str.writeBits(1, 1);
+
+		if (str != null) {
+			str.writeBits(1, 1);
+		}
 	}
 
 	public void addNewPlayer(Player plr, Stream str, Stream updateBlock) {
 		int id = plr.playerId;
 		playerInListBitmap[id >> 3] |= 1 << (id & 7);
 		playerList[playerListSize++] = plr;
-		str.writeBits(11, id);
-		str.writeBits(1, 1);
+
+		if (str != null) {
+			str.writeBits(11, id);
+			str.writeBits(1, 1);
+		}
 		boolean savedFlag = plr.isAppearanceUpdateRequired();
 		boolean savedUpdateRequired = plr.updateRequired;
 		plr.setAppearanceUpdateRequired(true);
@@ -1227,17 +1275,26 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 		plr.appendPlayerUpdateBlock(updateBlock);
 		plr.setAppearanceUpdateRequired(savedFlag);
 		plr.updateRequired = savedUpdateRequired;
-		str.writeBits(1, 1);
+		if (str != null) {
+			str.writeBits(1, 1);
+		}
 		int z = plr.absY - absY;
 		if (z < 0) {
 			z += 32;
 		}
-		str.writeBits(5, z);
+
+		if (str != null) {
+			str.writeBits(5, z);
+		}
+
 		z = plr.absX - absX;
 		if (z < 0) {
 			z += 32;
 		}
-		str.writeBits(5, z);
+
+		if (str != null) {
+			str.writeBits(5, z);
+		}
 	}
 
 	public int headIcon = -1, bountyIcon = 0;
@@ -1406,6 +1463,7 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	private int chatTextEffects = 0;
 
 	protected void appendPlayerChatText(Stream str) {
+		if (str == null) return;
 		str.writeWordBigEndian(((getChatTextColor() & 0xFF) << 8) + (getChatTextEffects() & 0xFF));
 		str.writeByte(playerRights);
 		str.writeByteC(getChatTextSize());
@@ -1422,7 +1480,8 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	public String forcedText = "null";
 
 	public void appendForcedChat(Stream str) {
-		str.writeString(forcedText);
+		if (str != null)
+			str.writeString(forcedText);
 	}
 
 	/**
@@ -1922,8 +1981,7 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 				continue;
 			}
 			if (PlayerHandler.players[j] != null) {
-				if (PlayerHandler.players[j].playerName
-						.equalsIgnoreCase(playerName)) {
+				if (PlayerHandler.players[j].playerName.equalsIgnoreCase(playerName)) {
 					disconnected = true;
 					return true;
 				}

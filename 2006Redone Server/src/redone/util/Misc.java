@@ -1,6 +1,7 @@
 package redone.util;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 public class Misc {
 
@@ -156,6 +157,11 @@ public class Misc {
 		return arr[(int) Math.floor(Math.random() * arr.length)];
 	}
 
+	public static int randomArrayListItem(ArrayList<Integer> arr) {
+		int index = (int) Math.floor(Math.random() * arr.size());
+		return arr.get(index);
+	}
+
 	public static long playerNameToInt64(String s) {
 		long l = 0L;
 		for (int i = 0; i < s.length(); i++) {
@@ -212,14 +218,14 @@ public class Misc {
 		return new String(buf, 0, buf.length);
 	}
 
-	public static void textPack(byte packedData[], java.lang.String text) {
+	public static void textPack(Stream inStream, String text) {
 		if (text.length() > 80) {
 			text = text.substring(0, 80);
 		}
 		text = text.toLowerCase();
 
 		int carryOverNibble = -1;
-		int ofs = 0;
+		inStream.currentOffset = 0;
 		for (int idx = 0; idx < text.length(); idx++) {
 			char c = text.charAt(idx);
 			int tableIdx = 0;
@@ -236,19 +242,19 @@ public class Misc {
 				if (tableIdx < 13) {
 					carryOverNibble = tableIdx;
 				} else {
-					packedData[ofs++] = (byte) tableIdx;
+					inStream.buffer[inStream.currentOffset++] = (byte) tableIdx;
 				}
 			} else if (tableIdx < 13) {
-				packedData[ofs++] = (byte) ((carryOverNibble << 4) + tableIdx);
+				inStream.buffer[inStream.currentOffset++] = (byte) ((carryOverNibble << 4) + tableIdx);
 				carryOverNibble = -1;
 			} else {
-				packedData[ofs++] = (byte) ((carryOverNibble << 4) + (tableIdx >> 4));
+				inStream.buffer[inStream.currentOffset++] = (byte) ((carryOverNibble << 4) + (tableIdx >> 4));
 				carryOverNibble = tableIdx & 0xf;
 			}
 		}
 
 		if (carryOverNibble != -1) {
-			packedData[ofs++] = (byte) (carryOverNibble << 4);
+			inStream.buffer[inStream.currentOffset++] = (byte) (carryOverNibble << 4);
 		}
 	}
 

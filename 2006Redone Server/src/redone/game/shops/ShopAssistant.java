@@ -1,11 +1,11 @@
 package redone.game.shops;
 
 import redone.Constants;
+import redone.game.bots.BotHandler;
 import redone.game.items.Item;
 import redone.game.items.ItemAssistant;
 import redone.game.items.ItemDefinitions;
 import redone.game.players.Client;
-import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
 import redone.util.GameLogger;
 
@@ -24,15 +24,6 @@ public class ShopAssistant {
 	}
 
 	public static final int RANGE_SHOP = 111, PEST_SHOP = 175, CASTLE_SHOP = 112;
-
-	public boolean shopSellsItem(int itemID) {
-		for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
-			if (itemID == ShopHandler.ShopItems[player.myShopId][i] - 1) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	/**
 	 * Shops
@@ -67,35 +58,27 @@ public class ShopAssistant {
 	public void resetShop(int ShopID) {
 		synchronized (player) {
 			player.TotalShopItems = 0;
-			for (int i = 0; i < ShopHandler.MaxShopItems; i++)
-			{	//adds items in store when items are sold until max value.
-				if (ShopHandler.ShopItems[ShopID][i] > 0)
-				{
+			for (int i = 0; i < ShopHandler.MaxShopItems; i++) {	//adds items in store when items are sold until max value.
+				if (ShopHandler.ShopItems[ShopID][i] > 0) {
 					player.TotalShopItems++;
 				}
-			}
-			if (player.TotalShopItems > 40){
-				player.TotalShopItems = 40; //sets the number of stack of item sold to max possible value if the resulting amount is higher than max value.
-				//Items sold when shops are full will dissapears. Much more code would be needed if we want to restrict selling while still permitting selling items already in shops and such.
 			}
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(3900);
 			player.getOutStream().writeWord(player.TotalShopItems);
 			int TotalCount = 0;
-			for (int i = 0; i < ShopHandler.ShopItems.length; i++)
+			for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++)
 			{
 				if (ShopHandler.ShopItems[ShopID][i] > 0
 						|| i <= ShopHandler.ShopItemsStandard[ShopID])
 				{
 					if (ShopHandler.ShopItemsN[ShopID][i] > 254) {
 						player.getOutStream().writeByte(255);
-						player.getOutStream().writeDWord_v2(
-								ShopHandler.ShopItemsN[ShopID][i]);
+						player.getOutStream().writeDWord_v2(ShopHandler.ShopItemsN[ShopID][i]);
 					}
 					else
 						{
-						player.getOutStream().writeByte(
-								ShopHandler.ShopItemsN[ShopID][i]);
+						player.getOutStream().writeByte(ShopHandler.ShopItemsN[ShopID][i]);
 					}
 					if (ShopHandler.ShopItems[ShopID][i] > Constants.ITEM_LIMIT
 							|| ShopHandler.ShopItems[ShopID][i] < 0) {
@@ -114,33 +97,26 @@ public class ShopAssistant {
 		}
 	}
 
-	public double getItemShopValue(int ItemID, int Type, boolean isSelling) {
+	public int getItemShopValue(int ItemID, int Type, boolean isSelling) {
 		double ShopValue = 1;
 		double TotPrice = 0;
 		double sellingRatio = isSelling ? 0.85 : 1;
-		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
-			if (ItemDefinitions.getDef()[i] != null) {
-				ShopValue = ItemDefinitions.getDef()[ItemID].highAlch/3.0 *5.0 * sellingRatio;
-				ShopValue = ShopValue <= 0 ? 1 : ShopValue; //Don't let the value be 0
-			}
+		if (ItemDefinitions.getDef()[ItemID] != null) {
+			ShopValue = ItemDefinitions.getDef()[ItemID].highAlch / 3.0 * 5.0 * sellingRatio;
 		}
 
 		TotPrice = ShopValue;
 
-		if (ShopHandler.ShopBModifier[player.myShopId] == 1) {
-			TotPrice *= 1;
-			TotPrice *= 1;
-			if (Type == 1) {
-				TotPrice *= 1;
-			}
-		} else if (Type == 1) {
-			TotPrice *= 1;
+		// General store pays less for items
+		if (isSelling && ShopHandler.ShopBModifier[player.myShopId] == 1) {
+			TotPrice *= 0.90;
 		}
-		return (int) Math.round(TotPrice);
+		// Minimum value of 1
+		return (int) Math.max(1, Math.floor(TotPrice));
 	}
 
 	public int getItemShopValue(int itemId) {
-		return (int) ItemDefinitions.getDef()[itemId].highAlch/3 *5;
+		return getItemShopValue(itemId, 0, false);
 	}
 
 
@@ -148,25 +124,28 @@ public class ShopAssistant {
 	 * buy item from shop (Shop Price)
 	 **/
 
-	public void buyFromShopPrice(int removeId, int removeSlot) {
-		int ShopValue = (int) Math.floor(getItemShopValue(removeId, 0, false));
-		int SpecialValue = getTokkulValue(removeId);
+	public void buyFromShopPrice(int itemID) {
+		int ShopValue = (int) Math.floor(getItemShopValue(itemID, 0, false));
+		int SpecialValue = getTokkulValue(itemID);
 		String ShopAdd = "";
+		// player owned shop
+		if (ShopHandler.ShopBModifier[player.myShopId] == 0) {
+			ShopValue = BotHandler.getItemPrice(player.myShopId, itemID);
+		}
 		if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-			player.getActionSender().sendMessage(
-					ItemAssistant.getItemName(removeId) + ": currently costs " + SpecialValue + " tokkul.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + SpecialValue + " tokkul.");
 			return;
 		}
 		if (player.myShopId == PEST_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId)+": currently costs " + getPestItemValue(removeId) + " pest control points.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getPestItemValue(itemID) + " pest control points.");
 			return;
 		}
 		if (player.myShopId == CASTLE_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId)+": currently costs " + getCastleItemValue(removeId) + " castle wars tickets.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getCastleItemValue(itemID) + " castle wars tickets.");
 			return;
 		}
 		if (player.myShopId == RANGE_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId)+": currently costs " + getRGItemValue(removeId) + " archery tickets.");
+			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getRGItemValue(itemID) + " archery tickets.");
 			return;
 		}
 		if (ShopValue >= 1000 && ShopValue < 1000000) {
@@ -174,9 +153,7 @@ public class ShopAssistant {
 		} else if (ShopValue >= 1000000) {
 			ShopAdd = " (" + ShopValue / 1000000 + " million)";
 		}
-		player.getActionSender().sendMessage(
-				ItemAssistant.getItemName(removeId) + ": currently costs "
-						+ ShopValue + " coins" + ShopAdd);
+		player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + ShopValue + " coins" + ShopAdd);
 	}
 
 	public int getCastleItemValue(int id) {
@@ -296,55 +273,71 @@ public class ShopAssistant {
 	 * Sell item to shop (Shop Price)
 	 **/
 	public void sellToShopPrice(int removeId, int removeSlot) {
+		int unNotedItemID = getUnNoted(removeId);
+		String itemName = ItemAssistant.getItemName(unNotedItemID);
 		for (int i : Constants.ITEM_SELLABLE) {
-			if (i == removeId) {
+			if (unNotedItemID == i) {
 				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + ".");
 				return;
 			}
 		}
 		boolean IsIn = false;
-		if (ShopHandler.ShopSModifier[player.myShopId] > 1) {
-			for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
-				if (removeId == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
-					IsIn = true;
-					break;
+		switch (ShopHandler.ShopSModifier[player.myShopId]) {
+			// Only buys what is in stock
+			case 2:
+				for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
+					if (unNotedItemID == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
+						IsIn = true;
+						break;
+					}
 				}
-			}
-		} else {
-			IsIn = true;
+				break;
+			// General store
+			case 1:
+				IsIn = true;
+				break;
+			// Player owns this store
+			case 0:
+				IsIn = ShopHandler.playerOwnsStore(player.myShopId, player);
+				break;
 		}
+
 		if (IsIn == false) {
 			player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
-			int ShopValue = (int) Math.floor(getItemShopValue(removeId, 1, true));
-			int tokkulValue = (int) Math.floor(getTokkulValue(removeId) *.85);
+			int ShopValue = (int) Math.floor(getItemShopValue(unNotedItemID, 1, true));
+			int tokkulValue = (int) Math.floor(getTokkulValue(unNotedItemID) *.85);
 			String ShopAdd = "";
 			if (ShopValue >= 1000 && ShopValue < 1000000) {
 				ShopAdd = " (" + (ShopValue / 1000) + "K)";
 			} else if (ShopValue >= 1000000) {
 				ShopAdd = " (" + (ShopValue / 1000000) + " million)";
 			}
-			if (player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP && player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
+			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
+				if (ShopHandler.getStock(player.myShopId, unNotedItemID) > 0)
+					player.getActionSender().sendMessage(itemName + ": you are selling this item for " + BotHandler.getItemPrice(player.myShopId, unNotedItemID) + " coins.");
+				else
+					player.getActionSender().sendMessage(itemName + ": you haven't set your sell price.");
+			} else if (player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP && player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139) {
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
 			} else if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + tokkulValue + " tokkul.");
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + tokkulValue + " tokkul.");
 			} else if (player.myShopId == RANGE_SHOP) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getRGItemValue(removeId) + " archery tickets." + ShopAdd);
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getRGItemValue(unNotedItemID) + " archery tickets." + ShopAdd);
 			} else if (player.myShopId == PEST_SHOP) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getPestItemValue(removeId) + " pest control points." + ShopAdd);
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getPestItemValue(unNotedItemID) + " pest control points." + ShopAdd);
 			} else if (player.myShopId == CASTLE_SHOP) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getCastleItemValue(removeId) + " castle war tickets." + ShopAdd);
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getCastleItemValue(unNotedItemID) + " castle war tickets." + ShopAdd);
 			}
 		}
 	}
 
 	public boolean sellItem(int itemID, int fromSlot, int amount) {
-
-		player.getItemAssistant();
+		int unNotedItemID = getUnNoted(itemID);
+		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 		for (int i : Constants.ITEM_SELLABLE) {
-			if (i == itemID) {
-				player.getItemAssistant();
-				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(itemID).toLowerCase() + ".");
+			if (i == unNotedItemID) {
+				player.getActionSender().sendMessage("You can't sell " + itemName + ".");
 				return false;
 			}
 		}
@@ -355,65 +348,92 @@ public class ShopAssistant {
 		if(!player.isShopping) {
 	        return false;
 		}
-		if (player.TotalShopItems >= 39) {
-			player.getActionSender().sendMessage("If you sell more individuals items in this shop, they won't be displayed.");
+		// We can only store 40 items per shop
+		if (player.TotalShopItems >= 40) {
+			player.getActionSender().sendMessage("This shop is out of space!");
 			return false;
 		}
+		// Check we have the item in our inventory
+		int inventoryAmount = player.getItemAssistant().getItemAmount(itemID);
+		if (amount > 0 && inventoryAmount > 0) {
+			boolean canSellToStore = false;
+			// Type of store
+			switch (ShopHandler.ShopSModifier[player.myShopId]) {
+				// Only buys what they sell
+				case 2:
+					for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
+						if (unNotedItemID == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
+							canSellToStore = true;
+							break;
+						}
+					}
+					break;
+				// General store - buys anything
+				case 1:
+					canSellToStore = true;
+					break;
+				// Player owned store - only "buys" from the player whos store it is
+				case 0:
+					canSellToStore = ShopHandler.playerOwnsStore(player.myShopId, player);
+					break;
+			}
+			if (canSellToStore == false) {
+				player.getItemAssistant();
+				player.getActionSender().sendMessage("You can't sell " + itemName + " to this store.");
+				return false;
+			}
+			// player owned store, setting item price
+			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
+				// No items in stock, we are adding 1 and setting the price
+				if (ShopHandler.getStock(player.myShopId, unNotedItemID) <= 0){
+					player.getItemAssistant().deleteItem(itemID, 1);
+					BotHandler.addTobank(player.myShopId, unNotedItemID, 1);
+					BotHandler.setPrice(player.myShopId, unNotedItemID, amount);
+					addShopItem(unNotedItemID, 1);
+					player.getItemAssistant().resetItems(3823);
+					resetShop(player.myShopId);
+					updatePlayerShop();
+					return true;
+				}
+			}
+			if (amount > inventoryAmount) {
+				amount = inventoryAmount;
+			}
 
-		if (amount > 0 && itemID == (player.playerItems[fromSlot] - 1)) {
-			if (ShopHandler.ShopSModifier[player.myShopId] > 1) {
-				boolean IsIn = false;
-				for (int i = 0; i <= ShopHandler.ShopItemsStandard[player.myShopId]; i++) {
-					if (itemID == (ShopHandler.ShopItems[player.myShopId][i] - 1)) {
-						IsIn = true;
-						break;
-					}
-				}
-				if (IsIn == false) {
-					player.getItemAssistant();
-					player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(itemID).toLowerCase() + " to this store.");
-					return false;
-				}
-			}
-			if (amount > player.playerItemsN[fromSlot] && (ItemDefinitions.getDef()[player.playerItems[fromSlot] - 1].isNoteable == true || ItemDefinitions.getDef()[player.playerItems[fromSlot] - 1].isStackable == true)) {
-				amount = player.playerItemsN[fromSlot];
-			} else if (amount > player.getItemAssistant().getItemAmount(itemID) && ItemDefinitions.getDef()[player.playerItems[fromSlot] - 1].isNoteable == false && ItemDefinitions.getDef()[player.playerItems[fromSlot] - 1].isStackable == false) {
-				amount = player.getItemAssistant().getItemAmount(itemID);
-			}
-			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-			int TotPrice2 = 0;
+			int value = 1;
+			int currency = 995;
 			if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
-				TotPrice2 = (int) Math.floor(getTokkulValue(itemID) * .85) * amount;
+				value = (int) Math.floor(getTokkulValue(unNotedItemID) * .85);
+				currency = 6529;
 			} else {
-				TotPrice2 = (int) Math.floor(getItemShopValue(itemID, amount, true) * amount); //Something about total price of item?
+				value = (int) Math.floor(getItemShopValue(unNotedItemID, amount, true));
+				currency = 995;
 			}
-			if (player.getItemAssistant().freeSlots() > 0 || player.getItemAssistant().playerHasItem(995) || player.getItemAssistant().playerHasItem(6529)) { //Checks to see if player has room for coins.
-				if (!ItemDefinitions.getDef()[itemID].isNoteable) { //Check to see if its notable.
-					player.getItemAssistant().deleteItem2(itemID, amount);
-				} else {
-					player.getItemAssistant().deleteItem2(itemID, amount);
-					String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID - 1).toLowerCase();
-					if (itemName.contains(ItemNameUnNotedItem)) {
-						itemID = itemID - 1; //Replace the noted item by it's un-noted version.
-					}
-				}
-				if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-					player.getItemAssistant().addItem(6529, TotPrice2); //Add the tokkul to your inventory.
-				} else {	
-					player.getItemAssistant().addItem(995, TotPrice2); //Add the coins to your inventory.
-				}
-				addShopItem(itemID, amount); //Add item to the shop.
-				if (player.getPlayerAssistant().isPlayer()) { //Logger
-					GameLogger.writeLog(player.playerName, "shopselling", player.playerName + " sold " + itemName + " to store id: " + player.myShopId + " for" + GameLogger.formatCurrency(TotPrice2) + " coins");
-					//Remove this later. I added it to push this class because a fuck happened with my last commit.
-				}
-			} else {
+
+			boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable;
+
+			if (!player.getItemAssistant().playerHasItem(currency) && isStackable && amount < inventoryAmount && player.getItemAssistant().freeSlots() <= 0) {
 				player.getActionSender().sendMessage("You don't have enough space in your inventory.");
 			}
+
+			player.getItemAssistant().deleteItem(itemID, amount);
+
+			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
+				// Add items to players store
+				player.getActionSender().sendMessage("You sent " + amount + " " + itemName + " to your store.");
+				BotHandler.addTobank(player.myShopId, unNotedItemID, amount);
+			} else {
+				// Add currency to players inventory
+				int totalValue = value * amount;
+				player.getItemAssistant().addItem(currency, totalValue);
+				player.getActionSender().sendMessage("You sold " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + ".");
+			}
+
+			// Add item to the shop
+			addShopItem(unNotedItemID, amount);
 			player.getItemAssistant().resetItems(3823);
 			resetShop(player.myShopId);
 			updatePlayerShop();
-			player.getActionSender().sendMessage("You sold " + amount + " " +itemName + " for " + TotPrice2 + " coins." );
 			return true;
 		}
 		return true;
@@ -427,14 +447,14 @@ public class ShopAssistant {
 		if (Item.itemIsNote[itemID]) {
 			itemID = player.getItemAssistant().getUnnotedItem(itemID);
 		}
-		for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
+		for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++) {
 			if (ShopHandler.ShopItems[player.myShopId][i] - 1 == itemID) {
 				ShopHandler.ShopItemsN[player.myShopId][i] += amount;
 				Added = true;
 			}
 		}
 		if (Added == false) {
-			for (int i = 0; i < ShopHandler.ShopItems.length; i++) {
+			for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++) {
 				if (ShopHandler.ShopItems[player.myShopId][i] == 0) {
 					ShopHandler.ShopItems[player.myShopId][i] = itemID + 1;
 					ShopHandler.ShopItemsN[player.myShopId][i] = amount;
@@ -445,59 +465,57 @@ public class ShopAssistant {
 		}
 		return true;
 	}
-	
+
+	private static int getUnNoted(int itemID){
+		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID - 1).toLowerCase();
+		if (itemName.contains(ItemNameUnNotedItem)) {
+			itemID--; //Replace the noted item by it's un-noted version.
+		}
+		return itemID;
+	}
+
+	private static int getNoted(int itemID){
+		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID + 1).toLowerCase();
+		if (itemName.contains(ItemNameUnNotedItem)) {
+			itemID++; //Replace the item by it's noted version.
+		}
+		return itemID;
+	}
+
 	private static final int FISHING_ITEMS[] = {383, 371, 377, 359, 321, 341, 353, 345, 327, 317};
 
 	public boolean buyItem(int itemID, int fromSlot, int amount) {
-		int iValue = 0;
-		int boughtQty = 0;
-		boolean boughtItem = false;
+		int shopID = player.myShopId;
+		int notedItemID = getNoted(itemID);
+		boolean isPlayerShop = ShopHandler.ShopBModifier[player.myShopId] == 0;
+		// Items are stackable if from a player owned shop and notable
+		boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable || (isPlayerShop && getNoted(itemID) != itemID);
+		int freeSlots = player.getItemAssistant().freeSlots();
+		int storeQty = ShopHandler.getStock(shopID, itemID);
 		if (amount > 0) {
-			//S4
-			if (ShopHandler.ShopItemsN[player.myShopId][fromSlot] == 0) {
+			if (storeQty <= 0) {
+				// none in stock, or not sold here
 				player.getActionSender().sendMessage("You can't buy that right now!");
 				return false;
 			}
-			if (amount > ShopHandler.ShopItemsN[player.myShopId][fromSlot] && ShopHandler.ShopItemsN[player.myShopId][fromSlot] > 0) {
-				amount = ShopHandler.ShopItemsN[player.myShopId][fromSlot];
+			if (amount > storeQty) {
+				// buy all that the store has
+				amount = storeQty;
 			}
-
-			if (amount % 23 == 0) {
-				amount = amount / 23;
-				iValue = 23; }
-			else if (amount % 19 == 0) {
-				amount = amount / 19;
-				iValue = 19;
-			} else if (amount % 17 == 0) {
-				amount = amount / 17;
-				iValue = 17;
-			} else if (amount % 13 == 0) {
-				amount = amount / 13;
-				iValue = 13;
-			} else if (amount % 11 == 0) {
-				amount = amount / 11;
-				iValue = 11;
-			} else if (amount % 7 == 0) {
-				amount = amount / 7;
-				iValue = 7;
-			} else if (amount % 5 == 0) {
-				amount = amount / 5;
-				iValue = 5;
+			if (freeSlots <= 0){
+				if (!isStackable || isStackable && !player.getItemAssistant().playerHasItem(isPlayerShop ? notedItemID : itemID)) {
+					player.getActionSender().sendMessage("You don't have enough space in your inventory.");
+					return false;
+				}
 			}
-			else if (amount % 3 == 0) {
-				amount = amount / 3;
-				iValue = 3;
-			} else if (amount % 2 == 0) {
-				amount = amount / 2;
-				iValue = 2;
-			} else{
-				iValue = 1;
+			if (!isStackable && amount > freeSlots) {
+				// player will fill their inventory
+				amount = freeSlots;
 			}
 			if(!player.isShopping) {
 		        return false;
-			}
-			if (ShopHandler.ShopItems[player.myShopId][fromSlot] - 1 != itemID || ShopHandler.ShopItems[player.myShopId][fromSlot] < 0) {
-				return false;
 			}
 			for (int i = 0; i < FISHING_ITEMS.length; i++) {
 				if (player.myShopId == 32 && itemID == FISHING_ITEMS[i]) {
@@ -505,210 +523,74 @@ public class ShopAssistant {
 					return false;
 				}		
 			}
-			if (!shopSellsItem(itemID)) {
+			int value = 0;
+			int currency = 995;
+			// player owned shop
+			boolean showIsOwnedByThisPlayer = ShopHandler.playerOwnsStore(player.myShopId, player);
+			if (showIsOwnedByThisPlayer) { // PLayers own shop, no cost
+				value = 0;
+				currency = -1;
+			} else if (isPlayerShop) { // Shop owned by another player
+				value = BotHandler.getItemPrice(player.myShopId, itemID);
+				currency = 995; // gp
+			} else if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
+				value = getTokkulValue(itemID);
+				currency = 6529; // Tokkul
+			} else if (player.myShopId == RANGE_SHOP) {
+				value = getRGItemValue(itemID);
+				currency = 1464; // Archery tickets
+			} else if (player.myShopId == PEST_SHOP) {
+				value = getPestItemValue(itemID);
+				currency = 995; // gp
+			} else if (player.myShopId == CASTLE_SHOP) {
+				value = getCastleItemValue(itemID);
+				currency = 4067; // castle wars tickets
+			} else {
+				value = getItemShopValue(itemID, 0, false);
+				currency = 995; //gp
+			}
+			int currencySlot = player.getItemAssistant().getItemSlot(currency);
+			String currencyName = ItemAssistant.getItemName(currency).toLowerCase();
+
+			// player has none of the required currency
+			if (currencySlot == -1) {
+				player.getActionSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
 				return false;
 			}
-			int TotPrice2 = 0;	//ShopPrice
-			int RemainingToBuy; //Remaining of item to buy to fill the order. It's the remaining that can't fit in the loop. It has to be processed by itself after the loop.
-			int Slot = 0; //gp (995)
-			int tokkulSlot = 0;
-			int rangeSlot = 0;
-			int castleSlot = 0;
-			for (int i = amount; iValue > 0; iValue--) {
-				if (player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139 && player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP) {
-					TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 0, false));
-				} else if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
-					TotPrice2 = getTokkulValue(itemID);	
-				} else if (player.myShopId == RANGE_SHOP) {
-					TotPrice2 = getRGItemValue(itemID);
-				} else if (player.myShopId == PEST_SHOP) {
-					TotPrice2 = getPestItemValue(itemID);
-				} else if (player.myShopId == CASTLE_SHOP) {
-					TotPrice2 = getCastleItemValue(itemID);
-				}
-				Slot = player.getItemAssistant().getItemSlot(995);
-				tokkulSlot = player.getItemAssistant().getItemSlot(6529);
-				rangeSlot = player.getItemAssistant().getItemSlot(1464);
-				castleSlot = player.getItemAssistant().getItemSlot(4067);
-				if (Slot == -1) {
-					if (player.myShopId != 138 && player.myShopId != 139 && player.myShopId != 58 && player.myShopId != RANGE_SHOP && player.myShopId != CASTLE_SHOP && player.myShopId != PEST_SHOP) {
-						player.getActionSender().sendMessage("You don't have enough coins.");
-						break;
-					}
-				}
-				if (rangeSlot == -1) {
-					if (player.myShopId == RANGE_SHOP) {
-						player.getActionSender().sendMessage("You don't have enough archery tickets to buy that.");
-						break;
-					}
-				}
-				if (castleSlot == -1) {
-					if (player.myShopId == CASTLE_SHOP) {
-						player.getActionSender().sendMessage("You don't have enough castle wars tickets to buy that.");
-						break;
-					}
-				}
-				if (tokkulSlot == -1) {
-					if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
-						player.getActionSender().sendMessage("You don't have enough tokkul to buy that.");
-						break;
-					}
-				}
 
-				if (TotPrice2 <= 1) {
-					TotPrice2 = (int) Math.floor(getItemShopValue(itemID, 0, false));
-					TotPrice2 *= 1.66;
-				}
-				
-				String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-				if (player.getPlayerAssistant().isPlayer()) {
-					GameLogger.writeLog(player.playerName, "shopbuying", player.playerName + " bought " + itemName + " from store id: " + player.myShopId + " for" + GameLogger.formatCurrency(TotPrice2) + " coins");
-				}
+			// amount of currency the player has
+			int currencyAmount = player.playerItemsN[currencySlot];
 
-				// TzHaar Shops
-				if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-					if (player.playerItemsN[tokkulSlot] >= TotPrice2) {
-						if (player.getItemAssistant().freeSlots() > 0 || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable)) {
-							player.getItemAssistant().deleteItem(6529, tokkulSlot, TotPrice2);
-							player.getItemAssistant().addItem(itemID, 1);
-							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= 1;
-							ShopHandler.ShopItemsDelay[player.myShopId][fromSlot] = 0;
-							ShopHandler.ShopItemsRestock[player.myShopId][fromSlot] = System.currentTimeMillis();
-							if (fromSlot + 1 > ShopHandler.ShopItemsStandard[player.myShopId]) {
-								ShopHandler.ShopItems[player.myShopId][fromSlot] = 0;
-							}
-						} else {
-							player.getActionSender()
-									.sendMessage(
-											"You don't have enough space in your inventory.");
-							break;
-						}
-					} else {
-						player.getActionSender().sendMessage(
-								"You don't have enough tokkul.");
-						break;
-					}
-				} else if (player.myShopId == RANGE_SHOP) {
-					if (player.playerItemsN[rangeSlot] >= TotPrice2) {
-						if (player.getItemAssistant().freeSlots() > 0 || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable)) {
-							player.getItemAssistant().deleteItem(1464, rangeSlot, TotPrice2);
-							player.getItemAssistant().addItem(itemID, 1);
-							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= 1;
-							ShopHandler.ShopItemsDelay[player.myShopId][fromSlot] = 0;
-							if (fromSlot + 1 > ShopHandler.ShopItemsStandard[player.myShopId]) {
-								ShopHandler.ShopItems[player.myShopId][fromSlot] = 0;
-							}
-						} else {
-							player.getActionSender()
-									.sendMessage(
-											"You don't have enough space in your inventory.");
-							break;
-						}
-					} else {
-						player.getActionSender().sendMessage(
-								"You don't have enough archery tickets.");
-						break;
-					}
-				} else if (player.myShopId == CASTLE_SHOP) {
-					if (player.playerItemsN[castleSlot] >= TotPrice2) {
-						if (player.getItemAssistant().freeSlots() > 0 || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable)) {
-							player.getItemAssistant().deleteItem(4067, castleSlot, TotPrice2);
-							player.getItemAssistant().addItem(itemID, 1);
-							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= 1;
-							ShopHandler.ShopItemsDelay[player.myShopId][fromSlot] = 0;
-							if (fromSlot + 1 > ShopHandler.ShopItemsStandard[player.myShopId]) {
-								ShopHandler.ShopItems[player.myShopId][fromSlot] = 0;
-							}
-						} else {
-							player.getActionSender()
-									.sendMessage(
-											"You don't have enough space in your inventory.");
-							break;
-						}
-					}
-				} else {
-					if (player.playerItemsN[Slot] >= TotPrice2 * amount) {
-						if (player.getItemAssistant().freeSlots() >= amount || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable) || player.getItemAssistant().freeSlots() >= 1 && ItemDefinitions.getDef()[itemID].isStackable) {
-							player.getItemAssistant().deleteItem(995,
-									player.getItemAssistant().getItemSlot(995),
-									TotPrice2 * amount);
-							player.getItemAssistant().addItem(itemID, amount);			//All of these actions are performed in a loop. We are in the loop right now.
-							boughtQty+=amount;
-							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= amount; //Delete X item from shop at the slot the item is.
-							ShopHandler.ShopItemsDelay[player.myShopId][fromSlot] = 0; //Shit ass delay
-							if (fromSlot + 1 > ShopHandler.ShopItemsStandard[player.myShopId]) {
-								ShopHandler.ShopItems[player.myShopId][fromSlot] = itemID + 1;
-							}
-						} else {
-							if (player.getItemAssistant().freeSlots() == 0) {
-								player.getActionSender().sendMessage(
-												"You don't have enough space in your inventory.");
-							} else {
-								//Buys the remaining item to fill the inventory slots.
-								RemainingToBuy = player.getItemAssistant().freeSlots();
-								amount = RemainingToBuy;
-								player.getItemAssistant().deleteItem(995,
-										player.getItemAssistant().getItemSlot(995),
-										TotPrice2 * amount);
-								player.getItemAssistant().addItem(itemID, amount);
-								boughtQty+=amount;
-								ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= amount;
-								ShopHandler.ShopItemsDelay[player.myShopId][fromSlot] = 0;
-								if (fromSlot + 1 > ShopHandler.ShopItemsStandard[player.myShopId]) {
-									ShopHandler.ShopItems[player.myShopId][fromSlot] = itemID + 1;
-								}
-							}
-							break;
-						}
-						boughtItem = true;
-					} else {
-						if (player.playerItemsN[Slot] / TotPrice2 > 0) {
-							amount = (int)Math.floor(player.playerItemsN[Slot] / TotPrice2);
-						} else {
-							player.getActionSender().sendMessage("You don't have enough coins.");
-							player.getItemAssistant().resetItems(3823);
-							resetShop(player.myShopId);
-							updatePlayerShop();
-							return false;
-						}
-						if (player.getItemAssistant().freeSlots() >= amount || (player.getItemAssistant().playerHasItem(itemID) && ItemDefinitions.getDef()[itemID].isStackable) || player.getItemAssistant().freeSlots() >= 1 && ItemDefinitions.getDef()[itemID].isStackable) {
-							player.getItemAssistant().deleteItem(995,
-									player.getItemAssistant().getItemSlot(995),
-									TotPrice2 * amount);
-							player.getItemAssistant().addItem(itemID, amount);			//All of these actions are performed in a loop. We are in the loop right now.
-							boughtQty+=amount;
-							ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= amount; //Delete X item from shop at the slot the item is.
-							ShopHandler.ShopItemsDelay[player.myShopId][fromSlot] = 0; //Shit ass delay
-							if (fromSlot + 1 > ShopHandler.ShopItemsStandard[player.myShopId]) {
-								ShopHandler.ShopItems[player.myShopId][fromSlot] = itemID + 1;
-							}
-						} else {
-							if (player.getItemAssistant().freeSlots() == 0) {
-								player.getActionSender().sendMessage(
-										"You don't have enough space in your inventory.");
-							} else {
-								//Buys the remaining item to fill the inventory slots.
-								RemainingToBuy = player.getItemAssistant().freeSlots();
-								amount = RemainingToBuy;
-								player.getItemAssistant().deleteItem(995,
-										player.getItemAssistant().getItemSlot(995),
-										TotPrice2 * amount);
-								player.getItemAssistant().addItem(itemID, amount);
-								boughtQty+=amount;
-								ShopHandler.ShopItemsN[player.myShopId][fromSlot] -= amount;
-								ShopHandler.ShopItemsDelay[player.myShopId][fromSlot] = 0;
-								if (fromSlot + 1 > ShopHandler.ShopItemsStandard[player.myShopId]) {
-									ShopHandler.ShopItems[player.myShopId][fromSlot] = itemID + 1;
-								}
-							}
-							break;
-						}
-						boughtItem = true;
-					}
+			int totalValue = value * amount;
+			if (currencyAmount < totalValue) {
+				amount = (int) Math.floor(player.playerItemsN[currencySlot] / value);
+				// buy as many as we can afford
+				totalValue = value * amount;
+				if (currencyAmount < totalValue || amount <= 0) {
+					player.getActionSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
+					return false;
 				}
 			}
-			if (boughtItem) {
-				player.getActionSender().sendMessage("You bought " + boughtQty + " " + ItemAssistant.getItemName(itemID).toLowerCase() + " for " + TotPrice2 * boughtQty + " coins." );
+
+			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+			if (!showIsOwnedByThisPlayer) {
+				player.getItemAssistant().deleteItem2(currency, totalValue);
+				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );
+				// If it is a player owned shop, we need to give them the coins
+				if (ShopHandler.ShopSModifier[player.myShopId] == 0)
+					BotHandler.addCoins(shopID, totalValue);
+			} else {
+				player.getActionSender().sendMessage("You withdrew " + amount + " " + itemName + " from your store." );
+			}
+			// If it is a player owned store, give the player the noted item
+			player.getItemAssistant().addItem(isPlayerShop ? notedItemID : itemID, amount);
+			ShopHandler.buyItem(shopID, itemID, amount);
+			if (ShopHandler.ShopBModifier[shopID] == 0){
+				BotHandler.removeFrombank(shopID, itemID, amount);
+			}
+
+			if (player.getPlayerAssistant().isPlayer()) {
+				GameLogger.writeLog(player.playerName, "shopbuying", player.playerName + " bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + " from store " + shopID + ".");
 			}
 			player.getItemAssistant().resetItems(3823);
 			resetShop(player.myShopId);

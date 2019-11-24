@@ -161,7 +161,6 @@ public class Stream {
 		for (int k = j + i - 1; k >= j; k--) {
 			buffer[currentOffset++] = abyte0[k];
 		}
-
 	}
 
 	public void readBytes_reverseA(byte abyte0[], int i, int j) {
