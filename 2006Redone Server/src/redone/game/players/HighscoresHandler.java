@@ -18,7 +18,6 @@ public class HighscoresHandler {
             loadPlayerInfo(player, child.getName().split("\\.")[0], "", false);
             if (player.playerRights >= 2 || // admin or dev
                 player.isBot || player.playerName.startsWith("♥")) { // ignore bots
-                System.out.println("Skipping player " + player.playerName);
                 continue;
             }
             players.add(player);
