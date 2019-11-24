@@ -146,8 +146,9 @@ public class ObjectManager {
 		for (Player player : PlayerHandler.players) {
 			if (player != null) {
 				Client c = (Client) player;
-				c.getActionSender().object(o.newId, o.objectX, o.objectY,
-						o.face, o.type);
+				if (loadForPlayer(o, c)) {
+					c.getActionSender().object(o.newId, o.objectX, o.objectY, o.face, o.type);
+				}
 			}
 		}
 	}
@@ -157,8 +158,7 @@ public class ObjectManager {
 			if (player != null) {
 				Client c = (Client) player;
 				if (c.distanceToPoint(o.objectX, o.objectY) <= 60) {
-					c.getActionSender().object(o.objectId, o.objectX,
-							o.objectY, o.face, o.type);
+					c.getActionSender().object(o.objectId, o.objectX, o.objectY, o.face, o.type);
 				}
 			}
 		}

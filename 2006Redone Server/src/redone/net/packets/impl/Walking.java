@@ -170,21 +170,33 @@ public class Walking implements PacketType {
 		}
 
 		player.getNewWalkCmdX()[0] = player.getNewWalkCmdY()[0] = 0;
-		int firstStepX, firstStepY;
 
-		if (player.clickToTele)
+		int firstStepX, firstStepY;
+		int realX = 0;
+		int realY = 0;
+
+		if (player.clickToTele) {
 			firstStepX = player.getInStream().readSignedWordBigEndianA();
-		else
-			firstStepX = player.getInStream().readSignedWordBigEndianA()-player.getMapRegionX()*8;
+		} else {
+			realX = player.getInStream().readSignedWordBigEndianA();
+			firstStepX = realX - player.getMapRegionX() * 8;
+		}
 		for (int i = 1; i < player.newWalkCmdSteps; i++) {
 			player.getNewWalkCmdX()[i] = player.getInStream().readSignedByte();
 			player.getNewWalkCmdY()[i] = player.getInStream().readSignedByte();
 		}
 
-		if (player.clickToTele)
+		if (player.clickToTele) {
 			firstStepY = player.getInStream().readSignedWordBigEndian();
-		else
-			firstStepY = player.getInStream().readSignedWordBigEndian()-player.getMapRegionY()*8;
+		} else {
+			realY = player.getInStream().readSignedWordBigEndian();
+			firstStepY = realY - player.getMapRegionY() * 8;
+		}
+
+		if (player.distanceToPoint(realX, realY) > 30) {
+			return;
+		}
+
 		player.setNewWalkCmdIsRunning(player.getInStream().readSignedByteC() == 1 && player.playerEnergy > 0);
 		for (int i1 = 0; i1 < player.newWalkCmdSteps; i1++) {
 			if (player.clickToTele)
