@@ -26,6 +26,10 @@ public class ClickObject implements PacketType {
 			THIRD_CLICK = 70, FOURTH_CLICK = 234;
 
 	public void onObjectReached(Client player, Consumer<Client> consumer) {
+		if (System.currentTimeMillis() - player.clickDelay < 300)
+			return;
+		player.clickDelay = System.currentTimeMillis();
+
 		final int objectX = player.objectX;
 		final int objectY = player.objectY;
 		final int objectId = player.objectId;

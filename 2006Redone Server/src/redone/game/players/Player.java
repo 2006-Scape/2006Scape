@@ -42,7 +42,7 @@ public abstract class Player {
 			godSpellDelay, singleCombatDelay, singleCombatDelay2, reduceStat,
 			restoreStatsDelay, logoutDelay, buryDelay, foodDelay, potDelay,
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
-			boneDelay, botAttempts, leverDelay = 0, farmTime, searchObjectDelay = 0;
+			boneDelay, botAttempts, leverDelay = 0, farmTime, searchObjectDelay = 0, clickDelay = 0;
 
 
 	private Npc specialTarget = null;
