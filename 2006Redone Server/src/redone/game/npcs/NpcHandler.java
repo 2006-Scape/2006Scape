@@ -585,7 +585,8 @@ public class NpcHandler {
 							&& npcs[i].needRespawn == false) {
 						npcs[i].updateRequired = true;
 						npcs[i].facePlayer(0);
-						npcs[i].killedBy = NpcData.getNpcKillerId(i);
+						if (npcs[i].killedBy <= 0)
+							npcs[i].killedBy = NpcData.getNpcKillerId(i);
 						npcs[i].animNumber = NpcEmotes.getDeadEmote(i); // dead
 																		// emote
 						Client c = (Client) PlayerHandler.players[npcs[i].killedBy];

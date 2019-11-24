@@ -1,5 +1,6 @@
 package redone.game.content.combat.range;
 
+import redone.Constants;
 import redone.Server;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
@@ -356,7 +357,7 @@ public class DwarfCannon {
 		}
 		
 		public boolean noSetUpArea() {
-			return (player.absX >= 2024 && player.absX <= 2047 && player.absY >= 2047 && player.absY <= 4542) || player.inBank() || player.inFightCaves() || (player.absX >= 3161 && player.absX <= 3168 && player.absY >= 3486 && player.absY <= 3493);
+			return player.inBank() || player.inFightCaves();
 		}
 		
 		private int getHit() {
@@ -379,17 +380,6 @@ public class DwarfCannon {
 				if (damage > target.HP) {
 					damage = target.HP;
 				}
-				if (player.inMulti() && target.inMulti()) {
-					cannonProjectile(target);
-					target.hitDiff2 = damage;
-					target.HP -= damage;
-					target.killerId = player.playerId;
-					target.facePlayer(player.playerId);
-					target.hitUpdateRequired2 = true;
-					target.updateRequired = true;
-					myBalls -= 1;
-					player.getPlayerAssistant().addSkillXP(damage * expRate, player.playerRanged);
-				}
 				if (!player.inMulti()) {
 					if (target.underAttackBy > 0 && target.underAttackBy != player.playerId) {
 						return;
@@ -397,16 +387,18 @@ public class DwarfCannon {
 					if (player.underAttackBy2 > 0 && player.underAttackBy2 != target.npcId) {
 						return;
 					}
-					cannonProjectile(target);
-					target.hitDiff2 = damage;
-					target.HP -= damage;
-					target.killerId = player.playerId;
-					target.facePlayer(player.playerId);
-					target.hitUpdateRequired2 = true;
-					target.updateRequired = true;
-					myBalls -= 1;
-					player.getPlayerAssistant().addSkillXP(damage * expRate, player.playerRanged);
 				}
+				cannonProjectile(target);
+				target.hitDiff2 = damage;
+				target.HP -= damage;
+				player.globalDamageDealt += damage;
+				target.killerId = player.playerId;
+				target.killedBy = player.playerId;
+				target.facePlayer(player.playerId);
+				target.hitUpdateRequired2 = true;
+				target.updateRequired = true;
+				myBalls -= 1;
+				player.getPlayerAssistant().addSkillXP(damage * Constants.RANGE_EXP_RATE, player.playerRanged);
 			}
 		}
 		
