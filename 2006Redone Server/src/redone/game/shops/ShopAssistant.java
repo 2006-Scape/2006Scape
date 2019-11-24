@@ -1,13 +1,11 @@
 package redone.game.shops;
 
 import redone.Constants;
-import redone.game.bots.Bot;
 import redone.game.bots.BotHandler;
 import redone.game.items.Item;
 import redone.game.items.ItemAssistant;
 import redone.game.items.ItemDefinitions;
 import redone.game.players.Client;
-import redone.game.players.Player;
 import redone.game.players.PlayerHandler;
 import redone.util.GameLogger;
 
@@ -412,10 +410,10 @@ public class ShopAssistant {
 			}
 
 			player.getItemAssistant().deleteItem(itemID, amount);
-			String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID - 1).toLowerCase();
-			if (itemName.contains(ItemNameUnNotedItem)) {
-				itemID = itemID - 1; //Replace the noted item by it's un-noted version.
-			}
+
+			// Only un note items if it's not a player owned store
+			if (!ShopHandler.playerOwnsStore(player.myShopId, player))
+				itemID = getUnNoted(itemID);
 
 			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				// Add items to players store
@@ -464,7 +462,25 @@ public class ShopAssistant {
 		}
 		return true;
 	}
-	
+
+	private static int getUnNoted(int itemID){
+		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID - 1).toLowerCase();
+		if (itemName.contains(ItemNameUnNotedItem)) {
+			itemID--; //Replace the noted item by it's un-noted version.
+		}
+		return itemID;
+	}
+
+	private static int getNoted(int itemID){
+		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID + 1).toLowerCase();
+		if (itemName.contains(ItemNameUnNotedItem)) {
+			itemID++; //Replace the item by it's noted version.
+		}
+		return itemID;
+	}
+
 	private static final int FISHING_ITEMS[] = {383, 371, 377, 359, 321, 341, 353, 345, 327, 317};
 
 	public boolean buyItem(int itemID, int fromSlot, int amount) {
