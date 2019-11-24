@@ -40,7 +40,6 @@ public class GameLogger {
 			s = s.substring(0, k).replace(",", ".") + "," + s.substring(k);
 		}
 		if (s.length() > 8) {
-
 			s = s.substring(0, s.length() - 8).replace(",", ".") + " million (" + s + ")";
 		} else if (s.length() > 4) {
 			s = s.substring(0, s.length() - 4) + "K (" + s + ")";

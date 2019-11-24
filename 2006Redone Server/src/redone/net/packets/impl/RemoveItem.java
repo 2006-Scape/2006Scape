@@ -60,7 +60,7 @@ public class RemoveItem implements PacketType {
 			break;
 
 		case 3900:
-			c.getShopAssistant().buyFromShopPrice(removeId, removeSlot);
+			c.getShopAssistant().buyFromShopPrice(removeId);
 			break;
 
 		case 3823:

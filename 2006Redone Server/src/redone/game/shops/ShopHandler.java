@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import redone.game.bots.Bot;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.util.Misc;
@@ -15,8 +16,8 @@ import redone.util.Misc;
 
 public class ShopHandler {
 
-	public static int MaxShops = 200;
-	public static int MaxShopItems = 200;
+	public static int MaxShops = 400;
+	public static int MaxShopItems = 40;
 	public static int MaxShowDelay = 2;
 	public static int MaxSpecShowDelay = 60;
 	public static int TotalShops = 0;
@@ -47,7 +48,6 @@ public class ShopHandler {
 	
 	public static int restockTimeItem(int itemId) {
 		switch(itemId) {
-		
 			default:
 			return 1000;
 		}
@@ -57,6 +57,7 @@ public class ShopHandler {
 	public void process() {
 		boolean DidUpdate = false;
 		for (int i = 1; i <= TotalShops; i++) {
+			if (ShopBModifier[i] == 0 || ShopSModifier[i] == 0) continue;
 			for (int j = 0; j < MaxShopItems; j++) {
 				if (ShopItems[i][j] > 0) {
 					if (ShopItemsDelay[i][j] >= MaxShowDelay) {
@@ -73,6 +74,7 @@ public class ShopHandler {
 							ShopItemsDelay[i][j] = 0;
 							DidUpdate = true;
 						}
+						refreshShop(i);
 					}
 					ShopItemsDelay[i][j]++;
 				}
@@ -99,7 +101,7 @@ public class ShopHandler {
 		}
 	}
 
-	private void ResetItem(int ShopID, int ArrayID) {
+	private static void ResetItem(int ShopID, int ArrayID) {
 		ShopItems[ShopID][ArrayID] = 0;
 		ShopItemsN[ShopID][ArrayID] = 0;
 		ShopItemsDelay[ShopID][ArrayID] = 0;
@@ -171,5 +173,67 @@ public class ShopHandler {
 		} catch (IOException ioexception) {
 		}
 		return false;
+	}
+
+	public static void createPlayerShop(Client player){
+		int id = getEmptyShop();
+		player.myShopId = id;
+		ShopSModifier[id] = 0;
+		ShopBModifier[id] = 0;
+		ShopName[id] = player.properName + "'s Store";
+		for (int i = 0; i < MaxShopItems; i++){
+			ShopItems[id][i] = player.bankItems[i];
+			ShopItemsN[id][i] = player.bankItemsN[i];
+			ShopItemsSN[id][i] = 0;
+			ShopItemsDelay[id][i] = 0;
+		}
+		TotalShops++;
+	}
+
+	private static int getEmptyShop(){
+		for (int i = 0; i < MaxShops; i++) {
+			if (ShopName[i] == "") return i;
+		}
+		return -1;
+	}
+
+	public static void refreshShop(int shop_id){
+		// We don't want to remove items that should be kept in stock
+		for (int j = ShopItemsStandard[shop_id]; j < MaxShopItems; j++) {
+			if (ShopItemsN[shop_id][j] <= 0) {
+				ResetItem(shop_id, j);
+				int next = j + 1;
+				if (next < MaxShopItems && ShopItemsN[shop_id][next] > 0) {
+					ShopItems[shop_id][j] = ShopItems[shop_id][next];
+					ShopItemsN[shop_id][j] = ShopItemsN[shop_id][next];
+					ShopItemsDelay[shop_id][j] = ShopItemsDelay[shop_id][next];
+					ResetItem(shop_id, next);
+				}
+			}
+		}
+	}
+
+	public static int getStock(int shop_id, int item_id){
+		item_id++;
+		for (int j = 0; j < MaxShopItems; j++) {
+			if (ShopItems[shop_id][j] == item_id) {
+				return ShopItemsN[shop_id][j];
+			}
+		}
+		return -1;
+	}
+
+	public static void buyItem(int shop_id, int item_id, int amount){
+		item_id++;
+		for (int j = 0; j < MaxShopItems; j++) {
+			if (ShopItems[shop_id][j] == item_id) {
+				ShopItemsN[shop_id][j] -= amount;
+			}
+		}
+		refreshShop(shop_id);
+	}
+
+	public static boolean playerOwnsStore(int shop_id, Client player){
+		return ShopSModifier[shop_id] == 0 && ShopBModifier[shop_id] == 0 && ShopName[shop_id].equalsIgnoreCase(player.properName + "'s Store");
 	}
 }

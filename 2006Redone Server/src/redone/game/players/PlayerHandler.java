@@ -14,7 +14,7 @@ import redone.world.GlobalDropsHandler;
 public class PlayerHandler {
 
 	public static Player players[] = new Player[Constants.MAX_PLAYERS];
-	public static int playerCount = 0;
+	public static int playerCount = 0, playerBotCount = 0;
 	public static String playersCurrentlyOn[] = new String[Constants.MAX_PLAYERS];
 	public static boolean updateAnnounced;
 	public static boolean updateRunning;
@@ -43,8 +43,7 @@ public class PlayerHandler {
 		client1.playerId = slot;
 		players[slot] = client1;
 		players[slot].isActive = true;
-		players[slot].connectedFrom = ((InetSocketAddress) client1.getSession()
-				.getRemoteAddress()).getAddress().getHostAddress();
+		players[slot].connectedFrom = client1.isBot ? "127.0.0.1" : ((InetSocketAddress) client1.getSession().getRemoteAddress()).getAddress().getHostAddress();
 		if (Constants.SERVER_DEBUG) {
 			Misc.println("Player Slot " + slot + " slot 0 " + players[0]
 					+ " Player Hit " + players[slot]);
@@ -56,12 +55,20 @@ public class PlayerHandler {
 		return playerCount;
 	}
 
+	public static int getPlayerBotCount() {
+		return playerBotCount;
+	}
+
 	public void updatePlayerNames() {
+		playerBotCount = 0;
 		playerCount = 0;
 		for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
 			if (players[i] != null) {
 				playersCurrentlyOn[i] = players[i].playerName;
-				playerCount++;
+				if (players[i].isBot)
+					playerBotCount++;
+				else
+					playerCount++;
 			} else {
 				playersCurrentlyOn[i] = "";
 			}
@@ -265,24 +272,26 @@ public class PlayerHandler {
 	public void updateNPC(Player plr, Stream str) {
 		// synchronized(plr) {
 		updateBlock.currentOffset = 0;
+		if (str != null) {
+			str.createFrameVarSizeWord(65);
+			str.initBitAccess();
 
-		str.createFrameVarSizeWord(65);
-		str.initBitAccess();
-
-		str.writeBits(8, plr.npcListSize);
+			str.writeBits(8, plr.npcListSize);
+		}
 		int size = plr.npcListSize;
 		plr.npcListSize = 0;
 		for (int i = 0; i < size; i++) {
-			if (plr.RebuildNPCList == false
-					&& plr.withinDistance(plr.npcList[i]) == true) {
+			if (plr.RebuildNPCList == false && plr.withinDistance(plr.npcList[i]) == true) {
 				plr.npcList[i].updateNPCMovement(str);
 				plr.npcList[i].appendNPCUpdateBlock(updateBlock);
 				plr.npcList[plr.npcListSize++] = plr.npcList[i];
 			} else {
 				int id = plr.npcList[i].npcId;
 				plr.npcInListBitmap[id >> 3] &= ~(1 << (id & 7));
-				str.writeBits(1, 1);
-				str.writeBits(2, 3);
+				if (str != null) {
+					str.writeBits(1, 1);
+					str.writeBits(2, 3);
+				}
 			}
 		}
 		for (Npc i : NpcHandler.npcs) {
@@ -299,32 +308,36 @@ public class PlayerHandler {
 
 		plr.RebuildNPCList = false;
 
-		if (updateBlock.currentOffset > 0) {
-			str.writeBits(14, 16383);
-			str.finishBitAccess();
-			str.writeBytes(updateBlock.buffer, updateBlock.currentOffset, 0);
-		} else {
-			str.finishBitAccess();
+		if (str != null) {
+			if (updateBlock.currentOffset > 0) {
+				str.writeBits(14, 16383);
+				str.finishBitAccess();
+				str.writeBytes(updateBlock.buffer, updateBlock.currentOffset, 0);
+			} else {
+				str.finishBitAccess();
+			}
+			str.endFrameVarSizeWord();
 		}
-		str.endFrameVarSizeWord();
 	}
 
 	private final Stream updateBlock = new Stream(
 			new byte[Constants.BUFFER_SIZE]);
 
-	public void updatePlayer(Player plr, Stream str) {
+	public void updatePlayer(Player plr, Stream outStr) {
 		// synchronized(plr) {
 		updateBlock.currentOffset = 0;
-		if (updateRunning && !updateAnnounced) {
-			str.createFrame(114);
-			str.writeWordBigEndian(updateSeconds * 50 / 30);
+		if (updateRunning && !updateAnnounced && outStr != null) {
+			outStr.createFrame(114);
+			outStr.writeWordBigEndian(updateSeconds * 50 / 30);
 		}
-		plr.updateThisPlayerMovement(str);
+		plr.updateThisPlayerMovement(outStr);
 		boolean saveChatTextUpdate = plr.isChatTextUpdateRequired();
 		plr.setChatTextUpdateRequired(false);
 		plr.appendPlayerUpdateBlock(updateBlock);
 		plr.setChatTextUpdateRequired(saveChatTextUpdate);
-		str.writeBits(8, plr.playerListSize);
+		if (outStr != null) {
+			outStr.writeBits(8, plr.playerListSize);
+		}
 		int size = plr.playerListSize;
 		if (size > 255) {
 			size = 255;
@@ -333,14 +346,17 @@ public class PlayerHandler {
 		for (int i = 0; i < size; i++) {
 			if (!plr.didTeleport && !plr.playerList[i].didTeleport
 					&& plr.withinDistance(plr.playerList[i])) {
-				plr.playerList[i].updatePlayerMovement(str);
+				plr.playerList[i].updatePlayerMovement(outStr);
 				plr.playerList[i].appendPlayerUpdateBlock(updateBlock);
 				plr.playerList[plr.playerListSize++] = plr.playerList[i];
 			} else {
 				int id = plr.playerList[i].playerId;
 				plr.playerInListBitmap[id >> 3] &= ~(1 << (id & 7));
-				str.writeBits(1, 1);
-				str.writeBits(2, 3);
+
+				if (outStr != null) {
+					outStr.writeBits(1, 1);
+					outStr.writeBits(2, 3);
+				}
 			}
 		}
 		for (int i = 0; i < PlayerHandler.players.length; i++) {
@@ -354,17 +370,19 @@ public class PlayerHandler {
 			if (!plr.withinDistance(players[i])) {
 				continue;
 			}
-			plr.addNewPlayer(players[i], str, updateBlock);
+			plr.addNewPlayer(players[i], outStr, updateBlock);
 		}
-		if (updateBlock.currentOffset > 0) {
-			str.writeBits(11, 2047);
-			str.finishBitAccess();
-			str.writeBytes(updateBlock.buffer, updateBlock.currentOffset, 0);
-		} else {
-			str.finishBitAccess();
-		}
+		if (outStr != null) {
+			if (updateBlock.currentOffset > 0) {
+				outStr.writeBits(11, 2047);
+				outStr.finishBitAccess();
+				outStr.writeBytes(updateBlock.buffer, updateBlock.currentOffset, 0);
+			} else {
+				outStr.finishBitAccess();
+			}
 
-		str.endFrameVarSizeWord();
+			outStr.endFrameVarSizeWord();
+		}
 		
 		if (plr.refresh) {
 			GlobalDropsHandler.reset((Client)plr);

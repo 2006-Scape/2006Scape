@@ -227,11 +227,28 @@ public class ItemAssistant {
 	}
 
 	public void addItemToBank(int itemId, int amount) {
+		itemId++;
 		for (int i = 0; i < Constants.BANK_SIZE; i++) {
-			if (c.bankItems[i] <= 0 || c.bankItems[i] == itemId + 1 && c.bankItemsN[i] + amount < Integer.MAX_VALUE) {
-				c.bankItems[i] = itemId + 1;
+			if (c.bankItems[i] <= 0 || c.bankItems[i] == itemId && c.bankItemsN[i] + amount < Integer.MAX_VALUE) {
+				c.bankItems[i] = itemId;
 				c.bankItemsN[i] += amount;
 				resetBank();
+				return;
+			}
+		}
+	}
+
+	public void removeitemFromBank(int itemId, int amount) {
+		itemId++;
+		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+			if (c.bankItems[i] == itemId) {
+				c.bankItemsN[i] -= amount;
+				if (c.bankItemsN[i] <= 0) {
+					c.bankItems[i] = 0;
+					c.bankItemsN[i] = 0;
+				}
+				resetBank();
+				rearrangeBank();
 				return;
 			}
 		}
@@ -1787,9 +1804,11 @@ public class ItemAssistant {
 						for (int j = k; j <= highestSlot; j++) {
 							c.bankItems[j - spots] = c.bankItems[j];
 							c.bankItemsN[j - spots] = c.bankItemsN[j];
+							c.bankItemsV[j - spots] = c.bankItemsV[j];
 							stop = true;
 							c.bankItems[j] = 0;
 							c.bankItemsN[j] = 0;
+							c.bankItemsV[j] = 0;
 						}
 					}
 				}
@@ -1804,7 +1823,8 @@ public class ItemAssistant {
 		}
 
 		if (totalItems != totalItemsAfter) {
-			c.disconnected = true;
+			if (!c.isBot)
+				c.disconnected = true;
 		}
 	}
 
@@ -1826,15 +1846,19 @@ public class ItemAssistant {
 
 	public void resetBank() {
 		synchronized (c) {
-			c.getOutStream().createFrameVarSizeWord(53);
-			c.getOutStream().writeWord(5382); // bank
-			c.getOutStream().writeWord(Constants.BANK_SIZE);
+			if (c.getOutStream() != null) {
+				c.getOutStream().createFrameVarSizeWord(53);
+				c.getOutStream().writeWord(5382); // bank
+				c.getOutStream().writeWord(Constants.BANK_SIZE);
+			}
 			for (int i = 0; i < Constants.BANK_SIZE; i++) {
-				if (c.bankItemsN[i] > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
-				} else {
-					c.getOutStream().writeByte(c.bankItemsN[i]);
+				if (c.getOutStream() != null) {
+					if (c.bankItemsN[i] > 254) {
+						c.getOutStream().writeByte(255);
+						c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
+					} else {
+						c.getOutStream().writeByte(c.bankItemsN[i]);
+					}
 				}
 				if (c.bankItemsN[i] < 1) {
 					c.bankItems[i] = 0;
@@ -1842,10 +1866,15 @@ public class ItemAssistant {
 				if (c.bankItems[i] > Constants.ITEM_LIMIT || c.bankItems[i] < 0) {
 					c.bankItems[i] = Constants.ITEM_LIMIT;
 				}
-				c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+				if (c.getOutStream() != null) {
+					c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+				}
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
+
+			if (c.getOutStream() != null) {
+				c.getOutStream().endFrameVarSizeWord();
+				c.flushOutStream();
+			}
 		}
 	}
 
@@ -1857,24 +1886,32 @@ public class ItemAssistant {
 				itemCount = i;
 			}
 		}
-		c.getOutStream().createFrameVarSizeWord(53);
-		c.getOutStream().writeWord(5064);
-		c.getOutStream().writeWord(itemCount + 1);
+		if (c.getOutStream() != null){
+			c.getOutStream().createFrameVarSizeWord(53);
+			c.getOutStream().writeWord(5064);
+			c.getOutStream().writeWord(itemCount + 1);
+		}
 		for (int i = 0; i < itemCount + 1; i++) {
-			if (c.playerItemsN[i] > 254) {
-				c.getOutStream().writeByte(255);
-				c.getOutStream().writeDWord_v2(c.playerItemsN[i]);
-			} else {
-				c.getOutStream().writeByte(c.playerItemsN[i]);
+
+			if (c.getOutStream() != null) {
+				if (c.playerItemsN[i] > 254) {
+					c.getOutStream().writeByte(255);
+					c.getOutStream().writeDWord_v2(c.playerItemsN[i]);
+				} else {
+					c.getOutStream().writeByte(c.playerItemsN[i]);
+				}
 			}
 			if (c.playerItems[i] > Constants.ITEM_LIMIT || c.playerItems[i] < 0) {
 				c.playerItems[i] = Constants.ITEM_LIMIT;
 			}
-			c.getOutStream().writeWordBigEndianA(c.playerItems[i]);
+			if (c.getOutStream() != null) {
+				c.getOutStream().writeWordBigEndianA(c.playerItems[i]);
+			}
 		}
-		c.getOutStream().endFrameVarSizeWord();
-		c.flushOutStream();
-		// }
+		if (c.getOutStream() != null) {
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
+		}
 	}
 
 	public boolean bankItem(int itemID, int fromSlot, int amount) {
@@ -2287,18 +2324,20 @@ public class ItemAssistant {
 
 	public void setEquipment(int wearID, int amount, int targetSlot) {
 		// synchronized(c) {
-		c.getOutStream().createFrameVarSizeWord(34);
-		c.getOutStream().writeWord(1688);
-		c.getOutStream().writeByte(targetSlot);
-		c.getOutStream().writeWord(wearID + 1);
-		if (amount > 254) {
-			c.getOutStream().writeByte(255);
-			c.getOutStream().writeDWord(amount);
-		} else {
-			c.getOutStream().writeByte(amount);
+		if (c.getOutStream() != null) {
+			c.getOutStream().createFrameVarSizeWord(34);
+			c.getOutStream().writeWord(1688);
+			c.getOutStream().writeByte(targetSlot);
+			c.getOutStream().writeWord(wearID + 1);
+			if (amount > 254) {
+				c.getOutStream().writeByte(255);
+				c.getOutStream().writeDWord(amount);
+			} else {
+				c.getOutStream().writeByte(amount);
+			}
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
 		}
-		c.getOutStream().endFrameVarSizeWord();
-		c.flushOutStream();
 		c.playerEquipment[targetSlot] = wearID;
 		c.playerEquipmentN[targetSlot] = amount;
 		c.updateRequired = true;
@@ -2385,12 +2424,15 @@ public class ItemAssistant {
 
 		c.playerEquipment[j] = -1;
 		c.playerEquipmentN[j] = c.playerEquipmentN[j] - 1;
-		c.getOutStream().createFrame(34);
-		c.getOutStream().writeWord(6);
-		c.getOutStream().writeWord(1688);
-		c.getOutStream().writeByte(j);
-		c.getOutStream().writeWord(0);
-		c.getOutStream().writeByte(0);
+
+		if (c.getOutStream() != null) {
+			c.getOutStream().createFrame(34);
+			c.getOutStream().writeWord(6);
+			c.getOutStream().writeWord(1688);
+			c.getOutStream().writeByte(j);
+			c.getOutStream().writeWord(0);
+			c.getOutStream().writeByte(0);
+		}
 		getBonus();
 		if (j == c.playerWeapon) {
 			sendWeapon(-1, "Unarmed");
@@ -2403,17 +2445,23 @@ public class ItemAssistant {
 	}
 
 	public void deleteItem(int id, int amount) {
-		if (id <= 0) {
+		if (id <= 0 || amount <= 0) {
 			return;
 		}
-		for (int j = 0; j < c.playerItems.length; j++) {
+		id++;
+		for (int slot = 0; slot < c.playerItems.length; slot++) {
 			if (amount <= 0) {
 				break;
 			}
-			if (c.playerItems[j] == id + 1) {
-				c.playerItems[j] = 0;
-				c.playerItemsN[j] = 0;
-				amount--;
+			if (c.playerItems[slot] == id) {
+				if (c.playerItemsN[slot] > amount) {
+					c.playerItemsN[slot] -= amount;
+					break;
+				} else {
+					amount -= c.playerItemsN[slot];
+					c.playerItems[slot] = 0;
+					c.playerItemsN[slot] = 0;
+				}
 			}
 		}
 		resetItems(3214);
@@ -2439,9 +2487,6 @@ public class ItemAssistant {
 	public void deleteItem2(int id, int amount) {
 		int am = amount;
 		for (int i = 0; i < c.playerItems.length; i++) {
-			if (am == 0) {
-				break;
-			}
 			if (c.playerItems[i] == id + 1) {
 				if (c.playerItemsN[i] > amount) {
 					c.playerItemsN[i] -= amount;
@@ -2449,7 +2494,6 @@ public class ItemAssistant {
 				} else {
 					c.playerItems[i] = 0;
 					c.playerItemsN[i] = 0;
-					am--;
 				}
 			}
 		}
