@@ -651,7 +651,7 @@ public class PlayerSave {
 			for (boolean element : player.getPlayList().unlocked) {
 				music += element + "\t";
 			}
-			characterfile.write("music = " + music);
+			characterfile.write("music = " + music.trim());
 			characterfile.newLine();
 			characterfile.write("randomActions = " + player.randomActions);
 			characterfile.newLine();
@@ -773,7 +773,7 @@ public class PlayerSave {
 			for (int voidS : player.voidStatus){
 				voidStatus += voidS + "\t";
 			}
-			characterfile.write("void = " + voidStatus);
+			characterfile.write("void = " + voidStatus.trim());
 			characterfile.newLine();
 			characterfile.newLine();
 
