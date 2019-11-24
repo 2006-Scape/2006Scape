@@ -328,9 +328,11 @@ public class ShopAssistant {
 	}
 
 	public boolean sellItem(int itemID, int fromSlot, int amount) {
+		int unNotedItemID = getUnNoted(itemID);
+		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 		for (int i : Constants.ITEM_SELLABLE) {
-			if (i == itemID) {
-				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(itemID).toLowerCase() + ".");
+			if (i == unNotedItemID) {
+				player.getActionSender().sendMessage("You can't sell " + itemName + ".");
 				return false;
 			}
 		}
@@ -355,7 +357,7 @@ public class ShopAssistant {
 				// Only buys what they sell
 				case 2:
 					for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
-						if (itemID == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
+						if (unNotedItemID == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
 							canSellToStore = true;
 							break;
 						}
@@ -372,17 +374,17 @@ public class ShopAssistant {
 			}
 			if (canSellToStore == false) {
 				player.getItemAssistant();
-				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(itemID).toLowerCase() + " to this store.");
+				player.getActionSender().sendMessage("You can't sell " + itemName + " to this store.");
 				return false;
 			}
 			// player owned store, setting item price
 			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				// No items in stock, we are adding 1 and setting the price
-				if (ShopHandler.getStock(player.myShopId, itemID) <= 0){
+				if (ShopHandler.getStock(player.myShopId, unNotedItemID) <= 0){
 					player.getItemAssistant().deleteItem(itemID, 1);
-					BotHandler.addTobank(player.myShopId, itemID, 1);
-					BotHandler.setPrice(player.myShopId, itemID, amount);
-					addShopItem(itemID, 1);
+					BotHandler.addTobank(player.myShopId, unNotedItemID, 1);
+					BotHandler.setPrice(player.myShopId, unNotedItemID, amount);
+					addShopItem(unNotedItemID, 1);
 					player.getItemAssistant().resetItems(3823);
 					resetShop(player.myShopId);
 					updatePlayerShop();
@@ -392,14 +394,14 @@ public class ShopAssistant {
 			if (amount > inventoryAmount) {
 				amount = inventoryAmount;
 			}
-			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+
 			int value = 1;
 			int currency = 995;
 			if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
-				value = (int) Math.floor(getTokkulValue(itemID) * .85);
+				value = (int) Math.floor(getTokkulValue(unNotedItemID) * .85);
 				currency = 6529;
 			} else {
-				value = (int) Math.floor(getItemShopValue(itemID, amount, true));
+				value = (int) Math.floor(getItemShopValue(unNotedItemID, amount, true));
 				currency = 995;
 			}
 
@@ -411,23 +413,19 @@ public class ShopAssistant {
 
 			player.getItemAssistant().deleteItem(itemID, amount);
 
-			// Only un note items if it's not a player owned store
-			if (!ShopHandler.playerOwnsStore(player.myShopId, player))
-				itemID = getUnNoted(itemID);
-
 			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				// Add items to players store
 				player.getActionSender().sendMessage("You sent " + amount + " " + itemName + " to your store.");
-				BotHandler.addTobank(player.myShopId, itemID, amount);
+				BotHandler.addTobank(player.myShopId, unNotedItemID, amount);
 			} else {
 				// Add currency to players inventory
 				int totalValue = value * amount;
 				player.getItemAssistant().addItem(currency, totalValue);
-				player.getActionSender().sendMessage("You sold " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(itemID).toLowerCase() + ".");
+				player.getActionSender().sendMessage("You sold " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + ".");
 			}
 
 			// Add item to the shop
-			addShopItem(itemID, amount);
+			addShopItem(unNotedItemID, amount);
 			player.getItemAssistant().resetItems(3823);
 			resetShop(player.myShopId);
 			updatePlayerShop();
