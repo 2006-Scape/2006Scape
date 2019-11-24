@@ -273,8 +273,10 @@ public class ShopAssistant {
 	 * Sell item to shop (Shop Price)
 	 **/
 	public void sellToShopPrice(int removeId, int removeSlot) {
+		int unNotedItemID = getUnNoted(removeId);
+		String itemName = ItemAssistant.getItemName(unNotedItemID);
 		for (int i : Constants.ITEM_SELLABLE) {
-			if (i == removeId) {
+			if (unNotedItemID == i) {
 				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + ".");
 				return;
 			}
@@ -284,7 +286,7 @@ public class ShopAssistant {
 			// Only buys what is in stock
 			case 2:
 				for (int j = 0; j <= ShopHandler.ShopItemsStandard[player.myShopId]; j++) {
-					if (removeId == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
+					if (unNotedItemID == (ShopHandler.ShopItems[player.myShopId][j] - 1)) {
 						IsIn = true;
 						break;
 					}
@@ -294,7 +296,7 @@ public class ShopAssistant {
 			case 1:
 				IsIn = true;
 				break;
-			// Player owned store
+			// Player owns this store
 			case 0:
 				IsIn = ShopHandler.playerOwnsStore(player.myShopId, player);
 				break;
@@ -303,8 +305,8 @@ public class ShopAssistant {
 		if (IsIn == false) {
 			player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
-			int ShopValue = (int) Math.floor(getItemShopValue(removeId, 1, true));
-			int tokkulValue = (int) Math.floor(getTokkulValue(removeId) *.85);
+			int ShopValue = (int) Math.floor(getItemShopValue(unNotedItemID, 1, true));
+			int tokkulValue = (int) Math.floor(getTokkulValue(unNotedItemID) *.85);
 			String ShopAdd = "";
 			if (ShopValue >= 1000 && ShopValue < 1000000) {
 				ShopAdd = " (" + (ShopValue / 1000) + "K)";
@@ -312,17 +314,20 @@ public class ShopAssistant {
 				ShopAdd = " (" + (ShopValue / 1000000) + " million)";
 			}
 			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": set your sell price.");
+				if (ShopHandler.getStock(player.myShopId, unNotedItemID) > 0)
+					player.getActionSender().sendMessage(itemName + ": you are selling this item for " + BotHandler.getItemPrice(player.myShopId, unNotedItemID) + " coins.");
+				else
+					player.getActionSender().sendMessage(itemName + ": you haven't set your sell price.");
 			} else if (player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP && player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
 			} else if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + tokkulValue + " tokkul.");
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + tokkulValue + " tokkul.");
 			} else if (player.myShopId == RANGE_SHOP) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getRGItemValue(removeId) + " archery tickets." + ShopAdd);
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getRGItemValue(unNotedItemID) + " archery tickets." + ShopAdd);
 			} else if (player.myShopId == PEST_SHOP) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getPestItemValue(removeId) + " pest control points." + ShopAdd);
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getPestItemValue(unNotedItemID) + " pest control points." + ShopAdd);
 			} else if (player.myShopId == CASTLE_SHOP) {
-				player.getActionSender().sendMessage(ItemAssistant.getItemName(removeId) + ": shop will buy for " + getCastleItemValue(removeId) + " castle war tickets." + ShopAdd);
+				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getCastleItemValue(unNotedItemID) + " castle war tickets." + ShopAdd);
 			}
 		}
 	}
