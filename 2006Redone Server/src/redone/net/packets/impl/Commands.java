@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import static redone.game.content.combat.magic.MagicTeleports.LUMBRIDGE_X;
 import static redone.game.content.combat.magic.MagicTeleports.LUMBRIDGE_Y;
+import static redone.util.GameLogger.writeLog;
 
 public class Commands implements PacketType {
 
@@ -24,7 +25,7 @@ public class Commands implements PacketType {
                 String playerCommand = messageArr[0];
                 String[] commandArguments = Arrays.copyOfRange(messageArr, 1, messageArr.length);
                 if ((playerCommand.startsWith("ban") || playerCommand.startsWith("ip") || playerCommand.startsWith("mute") || playerCommand.startsWith("un")) && player.playerRights > 0 && player.playerRights < 4) {
-                        GameLogger.writeLog(player.playerName, "commands", player.playerName + " used command: " + playerCommand);
+                        writeLog(player.playerName, "commands", player.playerName + " used command: " + playerCommand);
                 }
                 if (player.playerRights >= 0) {
                         playerCommands(player, playerCommand, commandArguments);
@@ -310,6 +311,19 @@ public class Commands implements PacketType {
                                 } catch (Exception e) {
                                         player.getActionSender().sendMessage("Player Must Be Offline.");
                                 }
+                                break;
+                        case "update":
+                                try {
+                                        if (arguments.length == 0) {
+                                                player.getActionSender().sendMessage("You must specify the amount of time in seconds: ::update 300");
+                                                return;
+                                        }
+                                        int seconds = Integer.parseInt(arguments[0]);
+                                        PlayerHandler.updateSeconds = seconds;
+                                        PlayerHandler.updateAnnounced = false;
+                                        PlayerHandler.updateRunning = true;
+                                        PlayerHandler.updateStartTime = System.currentTimeMillis();
+                                } catch (Exception e) {}
                                 break;
                 }
         }
@@ -703,19 +717,6 @@ public class Commands implements PacketType {
                                 break;
                         case "sidebars":
                                 player.getPlayerAssistant().sendSidebars();
-                                break;
-                        case "update":
-                                try {
-                                        if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify the amount of time in seconds: ::update 300");
-                                                return;
-                                        }
-                                        int seconds = Integer.parseInt(arguments[0]);
-                                        PlayerHandler.updateSeconds = seconds;
-                                        PlayerHandler.updateAnnounced = false;
-                                        PlayerHandler.updateRunning = true;
-                                        PlayerHandler.updateStartTime = System.currentTimeMillis();
-                                } catch (Exception e) {}
                                 break;
                 }
         }
