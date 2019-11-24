@@ -169,30 +169,43 @@ public class Commands implements PacketType {
                                                 continue;
                                         }
                                         PlayerSave.saveGame((Client) p);
-                                        System.out.println("Saved game for " + p.playerName
-                                                + ".");
+                                        System.out.println("Saved game for " + p.playerName + ".");
                                         Server.lastMassSave = System.currentTimeMillis();
                                 }
                                 HighscoresHandler hs = new HighscoresHandler();
                                 String[] highscores = new String[]{
-                                        "@dre@Highscores",
-                                        "",
                                         "Top 5 Total Level:",
-                                        hs.getRank(player, 0, "level"), hs.getRank(player,1, "level"), hs.getRank(player,2, "level"), hs.getRank(player,3, "level"), hs.getRank(player,4, "level"),
+                                        hs.getRank(player, 0, "level"),
+                                        hs.getRank(player, 1, "level"),
+                                        hs.getRank(player, 2, "level"),
+                                        hs.getRank(player, 3, "level"),
+                                        hs.getRank(player, 4, "level"),
                                         "",
                                         "Top 5 Wealthiest Players:",
-                                        hs.getRank(player,0, "gold"), hs.getRank(player,1, "gold"), hs.getRank(player,2, "gold"), hs.getRank(player,3, "gold"), hs.getRank(player, 4, "gold"),
+                                        hs.getRank(player, 0, "gold"),
+                                        hs.getRank(player, 1, "gold"),
+                                        hs.getRank(player, 2, "gold"),
+                                        hs.getRank(player, 3, "gold"),
+                                        hs.getRank(player, 4, "gold"),
                                         "",
                                         "Top 5 Highest Total Damage:",
-                                        hs.getRank(player,0, "damage"), hs.getRank(player,1, "damage"), hs.getRank(player,2, "damage"), hs.getRank(player, 3, "damage"), hs.getRank(player, 4, "damage"),
+                                        hs.getRank(player, 0, "damage"),
+                                        hs.getRank(player, 1, "damage"),
+                                        hs.getRank(player, 2, "damage"),
+                                        hs.getRank(player, 3, "damage"),
+                                        hs.getRank(player, 4, "damage"),
                                 };
 
-                                for (int i = 8144; i < 8245; i++) {
-                                        player.getPlayerAssistant().sendFrame126("", i);
-                                }
 
-                                for (int i = 8144; i < 8144 + highscores.length; i++) {
-                                        player.getPlayerAssistant().sendFrame126(highscores[i - 8144], i+3);
+                                // Clear all lines
+                                for (int i = 8144; i < 8195; i++) player.getPlayerAssistant().sendFrame126("", i);
+
+                                player.getPlayerAssistant().sendFrame126("@dre@Highscores", 8144);
+
+                                int lineNumber = 8147;
+                                for (String line : highscores){
+                                        System.out.println(line + " - " + lineNumber);
+                                        player.getPlayerAssistant().sendFrame126(line, lineNumber++);
                                 }
                                 player.getPlayerAssistant().showInterface(8134);
 
