@@ -483,7 +483,10 @@ public class ShopAssistant {
 
 	public boolean buyItem(int itemID, int fromSlot, int amount) {
 		int shopID = player.myShopId;
-		boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable;
+		int notedItemID = getNoted(itemID);
+		boolean isPlayerShop = ShopHandler.ShopBModifier[player.myShopId] == 0;
+		// Items are stackable if from a player owned shop and notable
+		boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable || (isPlayerShop && getNoted(itemID) != itemID);
 		int freeSlots = player.getItemAssistant().freeSlots();
 		int storeQty = ShopHandler.getStock(shopID, itemID);
 		if (amount > 0) {
@@ -497,7 +500,7 @@ public class ShopAssistant {
 				amount = storeQty;
 			}
 			if (freeSlots <= 0){
-				if (!isStackable || isStackable && !player.getItemAssistant().playerHasItem(itemID)) {
+				if (!isStackable || isStackable && !player.getItemAssistant().playerHasItem(isPlayerShop ? notedItemID : itemID)) {
 					player.getActionSender().sendMessage("You don't have enough space in your inventory.");
 					return false;
 				}
@@ -518,11 +521,11 @@ public class ShopAssistant {
 			int value = 0;
 			int currency = 995;
 			// player owned shop
-			boolean playerOwnsShop = ShopHandler.playerOwnsStore(player.myShopId, player);
-			if (playerOwnsShop) {
+			boolean showIsOwnedByThisPlayer = ShopHandler.playerOwnsStore(player.myShopId, player);
+			if (showIsOwnedByThisPlayer) { // PLayers own shop, no cost
 				value = 0;
 				currency = -1;
-			} else if (ShopHandler.ShopBModifier[player.myShopId] == 0) {
+			} else if (isPlayerShop) { // Shop owned by another player
 				value = BotHandler.getItemPrice(player.myShopId, itemID);
 				currency = 995; // gp
 			} else if (player.myShopId == 138 || player.myShopId == 58 || player.myShopId == 139) {
@@ -565,7 +568,7 @@ public class ShopAssistant {
 			}
 
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-			if (!playerOwnsShop) {
+			if (!showIsOwnedByThisPlayer) {
 				player.getItemAssistant().deleteItem2(currency, totalValue);
 				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );
 				// If it is a player owned shop, we need to give them the coins
@@ -574,7 +577,8 @@ public class ShopAssistant {
 			} else {
 				player.getActionSender().sendMessage("You withdrew " + amount + " " + itemName + " from your store." );
 			}
-			player.getItemAssistant().addItem(itemID, amount);
+			// If it is a player owned store, give the player the noted item
+			player.getItemAssistant().addItem(isPlayerShop ? notedItemID : itemID, amount);
 			ShopHandler.buyItem(shopID, itemID, amount);
 			if (ShopHandler.ShopBModifier[shopID] == 0){
 				BotHandler.removeFrombank(shopID, itemID, amount);
