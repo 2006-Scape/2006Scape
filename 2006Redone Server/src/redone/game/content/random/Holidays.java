@@ -1,6 +1,6 @@
 package redone.game.content.random;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -47,31 +47,31 @@ public class Holidays {
 							} else if (holiday.count < HolidayDrops.dropAmount() && holiday.getHoliday()) {
 								switch (Misc.random(holiday.drops)) {
 								case 0:// Varrock
-									Server.itemHandler.createGroundItem(p1, holiday.getItem(), 3214 + Misc.random(holiday.DROP_DISTANCE), 3424 - Misc.random(holiday.DROP_DISTANCE), 1, j);
+									GameEngine.itemHandler.createGroundItem(p1, holiday.getItem(), 3214 + Misc.random(holiday.DROP_DISTANCE), 3424 - Misc.random(holiday.DROP_DISTANCE), 1, j);
 									holiday.count++;
 									break;
 								case 1:// Lumbridge
-									Server.itemHandler.createGroundItem(p1, holiday.getItem(), 3222 + Misc.random(holiday.DROP_DISTANCE), 3218 - Misc.random(holiday.DROP_DISTANCE), 1, j);
+									GameEngine.itemHandler.createGroundItem(p1, holiday.getItem(), 3222 + Misc.random(holiday.DROP_DISTANCE), 3218 - Misc.random(holiday.DROP_DISTANCE), 1, j);
 									holiday.count++;
 									break;
 								case 2:// Falador
-									Server.itemHandler.createGroundItem(p1, holiday.getItem(), 2964 + Misc.random(holiday.DROP_DISTANCE), 3378 - Misc.random(holiday.DROP_DISTANCE), 1, j);
+									GameEngine.itemHandler.createGroundItem(p1, holiday.getItem(), 2964 + Misc.random(holiday.DROP_DISTANCE), 3378 - Misc.random(holiday.DROP_DISTANCE), 1, j);
 									holiday.count++;
 									break;
 								case 3:// Barb Village
-									Server.itemHandler.createGroundItem(p1, holiday.getItem(), 3082 + Misc.random(holiday.DROP_DISTANCE), 3419 - Misc.random(holiday.DROP_DISTANCE), 1, j);
+									GameEngine.itemHandler.createGroundItem(p1, holiday.getItem(), 3082 + Misc.random(holiday.DROP_DISTANCE), 3419 - Misc.random(holiday.DROP_DISTANCE), 1, j);
 									holiday.count++;
 									break;
 								case 4:// Draynor
-									Server.itemHandler.createGroundItem(p1, holiday.getItem(), 3082 + Misc.random(holiday.DROP_DISTANCE), 3249 - Misc.random(holiday.DROP_DISTANCE), 1, j);
+									GameEngine.itemHandler.createGroundItem(p1, holiday.getItem(), 3082 + Misc.random(holiday.DROP_DISTANCE), 3249 - Misc.random(holiday.DROP_DISTANCE), 1, j);
 									holiday.count++;
 									break;
 								case 5:// Al Kharid
-									Server.itemHandler.createGroundItem(p1, holiday.getItem(), 3293 + Misc.random(holiday.DROP_DISTANCE), 3180 - Misc.random(holiday.DROP_DISTANCE), 1, j);
+									GameEngine.itemHandler.createGroundItem(p1, holiday.getItem(), 3293 + Misc.random(holiday.DROP_DISTANCE), 3180 - Misc.random(holiday.DROP_DISTANCE), 1, j);
 									holiday.count++;
 									break;
 								case 6:// Rimmington
-									Server.itemHandler.createGroundItem(p1, holiday.getItem(), 3034 + Misc.random(holiday.DROP_DISTANCE), 3246 - Misc.random(holiday.DROP_DISTANCE), 1, j);
+									GameEngine.itemHandler.createGroundItem(p1, holiday.getItem(), 3034 + Misc.random(holiday.DROP_DISTANCE), 3246 - Misc.random(holiday.DROP_DISTANCE), 1, j);
 									holiday.count++;
 									break;
 								}

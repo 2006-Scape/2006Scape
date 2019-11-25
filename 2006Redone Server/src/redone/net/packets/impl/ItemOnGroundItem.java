@@ -1,6 +1,6 @@
 package redone.net.packets.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.content.skills.firemaking.Firemaking;
 import redone.game.players.Client;
 import redone.net.packets.PacketType;
@@ -19,7 +19,7 @@ public class ItemOnGroundItem implements PacketType {
 		if (!player.getItemAssistant().playerHasItem(itemUsed, 1, itemUsedSlot)) {
 			return;
 		}
-		if (!Server.itemHandler.itemExists(groundItem, gItemX, gItemY)) {
+		if (!GameEngine.itemHandler.itemExists(groundItem, gItemX, gItemY)) {
 			return;
 		}
 

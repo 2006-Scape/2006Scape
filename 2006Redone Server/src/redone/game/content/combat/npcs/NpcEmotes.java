@@ -4,7 +4,7 @@ import redone.game.npcs.NpcHandler;
 
 /**
  * Npc Emotes
- * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public enum NpcEmotes {

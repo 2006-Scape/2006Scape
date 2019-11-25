@@ -1,6 +1,6 @@
 package redone.game.content.skills.firemaking;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -51,7 +51,7 @@ public class Firemaking {
 					c.getActionSender().sendMessage("You cannot light a fire here.");
 					return;
 				}
-				if (Server.objectManager.objectExists(c.absX, c.absY)) {
+				if (GameEngine.objectManager.objectExists(c.absX, c.absY)) {
 					c.getActionSender().sendMessage("You cannot light a fire here.");
 					return;
 				}
@@ -72,7 +72,7 @@ public class Firemaking {
 					}
 					if (groundObject == false) {
 						c.getItemAssistant().deleteItem(logId, c.getItemAssistant().getItemSlot(logId), 1);
-						Server.itemHandler.createGroundItem(c, logId, c.absX, c.absY, 1, c.playerId);
+						GameEngine.itemHandler.createGroundItem(c, logId, c.absX, c.absY, 1, c.playerId);
 					}
 					cycle = 3 + Misc.random(6);
 				} else {
@@ -101,7 +101,7 @@ public class Firemaking {
 							container.stop();
 						}
 						if (c.isFiremaking == true) {
-							Server.itemHandler.removeGroundItem(c, logId, x, y, false);
+							GameEngine.itemHandler.removeGroundItem(c, logId, x, y, false);
 							c.getActionSender().sendSound(SoundList.FIRE_SUCCESSFUL, 100, 0);
 							if (itemUsed == 7331 || usedWith == 7331)
 								new Object(11406, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
@@ -147,8 +147,8 @@ public class Firemaking {
 						if (c.playerIsCooking) {
 							Cooking.resetCooking(c);
 						}
-						Server.objectHandler.createAnObject(c, -1, x, y);
-						Server.itemHandler.createGroundItem(c, 592, x, y, 1, c.getId());
+						GameEngine.objectHandler.createAnObject(c, -1, x, y);
+						GameEngine.itemHandler.createGroundItem(c, 592, x, y, 1, c.getId());
 						container.stop();
 					}
 					@Override

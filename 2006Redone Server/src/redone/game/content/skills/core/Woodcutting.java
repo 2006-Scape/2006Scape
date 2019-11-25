@@ -1,6 +1,6 @@
 package redone.game.content.skills.core;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -345,7 +345,7 @@ public class Woodcutting {
 	}
 
 	public static void dropNest(Client player) {
-		Server.itemHandler.createGroundItem(player, 5070 + Misc.random(4), player.getX(), player.getY(), 1, player.getId());
+		GameEngine.itemHandler.createGroundItem(player, 5070 + Misc.random(4), player.getX(), player.getY(), 1, player.getId());
 	}
 
 	public static boolean playerTrees(Client player, int tree) {

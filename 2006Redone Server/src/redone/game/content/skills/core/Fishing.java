@@ -8,7 +8,6 @@ import redone.game.content.randomevents.RiverTroll;
 import redone.game.content.skills.SkillHandler;
 import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
-import redone.game.players.antimacro.AntiBotting;
 import redone.util.Misc;
 
 
@@ -17,9 +16,6 @@ public class Fishing extends SkillHandler {
 	public static void randomEvents(Client client) {
 		if (Misc.random(350) == 5) {
 			RiverTroll.spawnRiverTroll(client);
-		}
-		if (Misc.random(350) == 0 && RiverTroll.hasRiverTroll == false) {
-			AntiBotting.botCheckInterface(client);
 		}
 		if (RiverTroll.hasRiverTroll == false) {
 			RandomEventHandler.addRandom(client);
@@ -58,10 +54,6 @@ public class Fishing extends SkillHandler {
 	private static void attemptdata(final Client c, final int npcId) {
 		if (!FISHING) {
 			c.getActionSender().sendMessage(c.disabled());
-			return;
-		}
-		if (c.isBotting == true) {
-			c.getActionSender().sendMessage("You can't fish right now!");
 			return;
 		}
 		if (c.playerSkillProp[10][4] > 0) {
@@ -290,11 +282,6 @@ public class Fishing extends SkillHandler {
 								}
 								if (c.playerSkillProp[10][1] > 0 && c.randomEventsEnabled) {
 									randomEvents(c);
-								}
-								if (c.isBotting == true) {
-									c.getActionSender().sendMessage("You can't get any items, until you confirm you are not a bot.");
-									c.getActionSender().sendMessage("If you need to relog you can do so.");
-									container.stop();
 								}
 								if (c.playerSkillProp[10][1] > 0) {
 									c.getItemAssistant().deleteItem(c.playerSkillProp[10][3], c.getItemAssistant().getItemSlot(c.playerSkillProp[10][3]), 1);

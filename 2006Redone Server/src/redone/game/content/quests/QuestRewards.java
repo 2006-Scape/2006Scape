@@ -33,7 +33,7 @@ public class QuestRewards {
 		QuestReward(client, "Knight's Sword Quest", "1 Quest Point", "12,725 Smithing XP", "", "", "", "", 0);
 		QUEST_NAME = "The Knight's Sword";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7346);
-		client.getPlayerAssistant().addNormalExperienceRate(12725, client.playerSmithing);
+		client.getPlayerAssistant().addSkillXP(12725, client.playerSmithing);
 		client.questPoints ++;
 		client.knightS = 9;
 	}
@@ -45,7 +45,7 @@ public class QuestRewards {
 		client.getItemAssistant().addItem(1897, 1);
 		client.getItemAssistant().addItem(2003, 1);
 		client.getItemAssistant().addItem(1560, 1);
-		client.getPlayerAssistant().addNormalExperienceRate(1525, client.playerCooking);
+		client.getPlayerAssistant().addSkillXP(1525, client.playerCooking);
 		client.questPoints++;
 		client.gertCat = 7;
 	}
@@ -63,7 +63,7 @@ public class QuestRewards {
 		QuestReward(client, "Witch's Potion", "1 Quest Point", "325 Magic XP", "", "", "", "", 325);
 		QUEST_NAME = "Witch's Potion";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7348);
-		client.getPlayerAssistant().addNormalExperienceRate(325, client.playerMagic);
+		client.getPlayerAssistant().addSkillXP(325, client.playerMagic);
 		client.questPoints++;
 		client.witchspot = 3;
 	}
@@ -80,7 +80,7 @@ public class QuestRewards {
 		QuestReward(client, "Restless Ghost", "1 Quest Point", "125 Prayer XP", "", "", "", "", 0);
 		QUEST_NAME = "Restless Ghost";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7337);
-		client.getPlayerAssistant().addNormalExperienceRate(125, client.playerPrayer);
+		client.getPlayerAssistant().addSkillXP(125, client.playerPrayer);
 		client.questPoints++;
 		client.restGhost = 5;
 	}
@@ -89,7 +89,7 @@ public class QuestRewards {
 		QuestReward(client, "Vampyre Slayer", "3 Quest Points", "4,825 Attack XP", "", "", "", "", 0);
 		QUEST_NAME = "Vampyre Slayer";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7347);
-		client.getPlayerAssistant().addNormalExperienceRate(4825, client.playerAttack);
+		client.getPlayerAssistant().addSkillXP(4825, client.playerAttack);
 		client.questPoints += 3;
 		client.vampSlayer = 5;
 	}
@@ -108,7 +108,7 @@ public class QuestRewards {
 		QUEST_NAME = "Sheep Shearer";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7344);
 		client.getItemAssistant().addItem(995, 60);
-		client.getPlayerAssistant().addNormalExperienceRate(150, client.playerCrafting);
+		client.getPlayerAssistant().addSkillXP(150, client.playerCrafting);
 		client.questPoints++;
 		client.sheepShear = 2;
 	}
@@ -118,7 +118,7 @@ public class QuestRewards {
 		QUEST_NAME = "Doric's Quest";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7336);
 		client.getItemAssistant().addItem(995, 180);
-		client.getPlayerAssistant().addNormalExperienceRate(1300, client.playerMining);
+		client.getPlayerAssistant().addSkillXP(1300, client.playerMining);
 		client.questPoints++;
 		client.doricQuest = 3;
 	}
@@ -128,7 +128,7 @@ public class QuestRewards {
 		QUEST_NAME = "Imp Catcher";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7340);
 		client.getItemAssistant().addItem(1478, 1);
-		client.getPlayerAssistant().addNormalExperienceRate(875, client.playerMagic);
+		client.getPlayerAssistant().addSkillXP(875, client.playerMagic);
 		client.questPoints++;
 		client.impsC = 2;
 	}
@@ -138,7 +138,7 @@ public class QuestRewards {
 		QUEST_NAME = "Cook's Assistant";
 		client.getPlayerAssistant().sendFrame126("@gre@" + QUEST_NAME + "", 7333);
 		client.getItemAssistant().addItem(995, 500);
-		client.getPlayerAssistant().addNormalExperienceRate(300, client.playerCooking);
+		client.getPlayerAssistant().addSkillXP(300, client.playerCooking);
 		client.questPoints++;
 		client.cookAss = 3;
 	}

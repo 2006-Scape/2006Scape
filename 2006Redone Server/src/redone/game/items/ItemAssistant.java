@@ -1,9 +1,8 @@
 package redone.game.items;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.content.minigames.castlewars.CastleWars;
-import redone.game.items.impl.Weight;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
@@ -111,7 +110,7 @@ public class ItemAssistant {
 
 	public void dropItem(int itemId) {
 		itemId = c.droppedItem;
-		Server.itemHandler.createGroundItem(c, itemId, c.absX, c.absY, c.playerItemsN[getItemSlot(itemId)], c.getId());
+		GameEngine.itemHandler.createGroundItem(c, itemId, c.absX, c.absY, c.playerItemsN[getItemSlot(itemId)], c.getId());
 		deleteItem(itemId,getItemSlot(itemId), c.playerItemsN[getItemSlot(itemId)]);
 		c.getPlayerAssistant().removeAllWindows();
 	}
@@ -120,7 +119,7 @@ public class ItemAssistant {
 		if (isStackable(item) && hasFreeSlots(1)) {
 			addItem(item, amount);
 		} else if (!hasFreeSlots(amount) && !isStackable(item)) {
-			Server.itemHandler.createGroundItem(c, item, c.absX, c.absY,
+			GameEngine.itemHandler.createGroundItem(c, item, c.absX, c.absY,
 					amount, c.playerId);
 			c.getActionSender()
 					.sendMessage(
@@ -224,7 +223,7 @@ public class ItemAssistant {
 
 	public void addItemToBank(int itemId, int amount) {
 		itemId++;
-		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] <= 0 || c.bankItems[i] == itemId && c.bankItemsN[i] + amount < Integer.MAX_VALUE) {
 				c.bankItems[i] = itemId;
 				c.bankItemsN[i] += amount;
@@ -236,7 +235,7 @@ public class ItemAssistant {
 
 	public void removeitemFromBank(int itemId, int amount) {
 		itemId++;
-		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] == itemId) {
 				c.bankItemsN[i] -= amount;
 				if (c.bankItemsN[i] <= 0) {
@@ -459,49 +458,49 @@ public class ItemAssistant {
 		for (int i = 0; i < c.playerItems.length; i++) {
 			if (o != null) {
 				if (tradeable(c.playerItems[i] - 1)) {
-					Server.itemHandler.createGroundItem(o,
+					GameEngine.itemHandler.createGroundItem(o,
 							c.playerItems[i] - 1, c.getX(), c.getY(),
 							c.playerItemsN[i], c.killerId);
 				} else {
 					if (specialCase(c.playerItems[i] - 1)) {
-						Server.itemHandler.createGroundItem(o, 995, c.getX(),
+						GameEngine.itemHandler.createGroundItem(o, 995, c.getX(),
 								c.getY(),
 								getUntradePrice(c.playerItems[i] - 1),
 								c.killerId);
 					}
-					Server.itemHandler.createGroundItem(c,
+					GameEngine.itemHandler.createGroundItem(c,
 							c.playerItems[i] - 1, c.getX(), c.getY(),
 							c.playerItemsN[i], c.playerId);
 				}
 			} else {
-				Server.itemHandler.createGroundItem(c, c.playerItems[i] - 1,
+				GameEngine.itemHandler.createGroundItem(c, c.playerItems[i] - 1,
 						c.getX(), c.getY(), c.playerItemsN[i], c.playerId);
 			}
 		}
 		for (int e = 0; e < c.playerEquipment.length; e++) {
 			if (o != null) {
 				if (tradeable(c.playerEquipment[e])) {
-					Server.itemHandler.createGroundItem(o,
+					GameEngine.itemHandler.createGroundItem(o,
 							c.playerEquipment[e], c.getX(), c.getY(),
 							c.playerEquipmentN[e], c.killerId);
 				} else {
 					if (specialCase(c.playerEquipment[e])) {
-						Server.itemHandler.createGroundItem(o, 995, c.getX(),
+						GameEngine.itemHandler.createGroundItem(o, 995, c.getX(),
 								c.getY(),
 								getUntradePrice(c.playerEquipment[e]),
 								c.killerId);
 					}
-					Server.itemHandler.createGroundItem(c,
+					GameEngine.itemHandler.createGroundItem(c,
 							c.playerEquipment[e], c.getX(), c.getY(),
 							c.playerEquipmentN[e], c.playerId);
 				}
 			} else {
-				Server.itemHandler.createGroundItem(c, c.playerEquipment[e],
+				GameEngine.itemHandler.createGroundItem(c, c.playerEquipment[e],
 						c.getX(), c.getY(), c.playerEquipmentN[e], c.playerId);
 			}
 		}
 		if (o != null) {
-			Server.itemHandler.createGroundItem(o, 526, c.getX(), c.getY(), 1,
+			GameEngine.itemHandler.createGroundItem(o, 526, c.getX(), c.getY(), 1,
 					c.killerId);
 		}
 	}
@@ -552,7 +551,7 @@ public class ItemAssistant {
 	}
 
 	public boolean tradeable(int itemId) {
-		for (int element : Constants.ITEM_TRADEABLE) {
+		for (int element : GameConstants.ITEM_TRADEABLE) {
 			if (itemId == element) {
 				return false;
 			}
@@ -581,11 +580,11 @@ public class ItemAssistant {
 				if (c.playerItems[i] == item + 1 && Item.itemStackable[item]
 						&& c.playerItems[i] > 0) {
 					c.playerItems[i] = item + 1;
-					if (c.playerItemsN[i] + amount < Constants.MAXITEM_AMOUNT
+					if (c.playerItemsN[i] + amount < GameConstants.MAXITEM_AMOUNT
 							&& c.playerItemsN[i] + amount > -1) {
 						c.playerItemsN[i] += amount;
 					} else {
-						c.playerItemsN[i] = Constants.MAXITEM_AMOUNT;
+						c.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
 					}
 					if (c.getOutStream() != null && c != null) {
 						c.getOutStream().createFrameVarSizeWord(34);
@@ -609,14 +608,14 @@ public class ItemAssistant {
 			for (int i = 0; i < c.playerItems.length; i++) {
 				if (c.playerItems[i] <= 0) {
 					c.playerItems[i] = item + 1;
-					if (amount < Constants.MAXITEM_AMOUNT && amount > -1) {
+					if (amount < GameConstants.MAXITEM_AMOUNT && amount > -1) {
 						c.playerItemsN[i] = 1;
 						if (amount > 1) {
 							addItem(item, amount - 1);
 							return true;
 						}
 					} else {
-						c.playerItemsN[i] = Constants.MAXITEM_AMOUNT;
+						c.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
 					}
 					resetItems(3214);
 					i = 30;
@@ -650,11 +649,11 @@ public class ItemAssistant {
 	public void getBonus() {
 		for (int element : c.playerEquipment) {
 			if (element > -1) {
-				for (int j = 0; j < Constants.ITEM_LIMIT; j++) {
-					if (Server.itemHandler.ItemList[j] != null) {
-						if (Server.itemHandler.ItemList[j].itemId == element) {
+				for (int j = 0; j < GameConstants.ITEM_LIMIT; j++) {
+					if (GameEngine.itemHandler.ItemList[j] != null) {
+						if (GameEngine.itemHandler.ItemList[j].itemId == element) {
 							for (int k = 0; k < c.playerBonus.length; k++) {
-								c.playerBonus[k] += Server.itemHandler.ItemList[j].Bonuses[k];
+								c.playerBonus[k] += GameEngine.itemHandler.ItemList[j].Bonuses[k];
 							}
 							break;
 						}
@@ -1417,7 +1416,7 @@ public class ItemAssistant {
 			return false;
 		}
 
-		int targetSlot = Constants.HAT;
+		int targetSlot = GameConstants.HAT;
 		boolean canWearItem = true;
 		if (c.playerItems[slot] == wearID + 1) {
 			getRequirements(getItemName(wearID).toLowerCase(), wearID);
@@ -1468,14 +1467,14 @@ public class ItemAssistant {
 				return false;
 			}
 
-			if (Constants.itemRequirements) {
+			if (GameConstants.ITEM_REQUIREMENTS) {
 				// Check if slot is armor
-				if (targetSlot == Constants.FEET
-						|| targetSlot == Constants.LEGS
-						|| targetSlot == Constants.SHIELD
-						|| targetSlot == Constants.CHEST
-						|| targetSlot == Constants.HAT
-						|| targetSlot == Constants.HANDS) {
+				if (targetSlot == GameConstants.FEET
+						|| targetSlot == GameConstants.LEGS
+						|| targetSlot == GameConstants.SHIELD
+						|| targetSlot == GameConstants.CHEST
+						|| targetSlot == GameConstants.HAT
+						|| targetSlot == GameConstants.HANDS) {
 					if (c.defenceLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[1]) < c.defenceLevelReq) {
 							c.getActionSender().sendMessage("You need a defence level of " + c.defenceLevelReq + " to wear this item.");
@@ -1508,7 +1507,7 @@ public class ItemAssistant {
 					}
 				}
 				// Weapon
-				if (targetSlot == Constants.WEAPON) {
+				if (targetSlot == GameConstants.WEAPON) {
 					if (c.attackLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[0]) < c.attackLevelReq) {
 							c.getActionSender().sendMessage("You need an attack level of " + c.attackLevelReq + " to wield this weapon.");
@@ -1549,13 +1548,13 @@ public class ItemAssistant {
 			}
 
 			if (CastleWars.isInCw(c) || CastleWars.isInCwWait(c)) {
-				if (targetSlot == Constants.CAPE || targetSlot == Constants.HAT) {
+				if (targetSlot == GameConstants.CAPE || targetSlot == GameConstants.HAT) {
 					c.getActionSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
 					return false;
 				}
 			}
 
-			if (targetSlot == Constants.WEAPON) {
+			if (targetSlot == GameConstants.WEAPON) {
 				c.autocasting = false;
 				c.autocastId = 0;
 				c.getPlayerAssistant().sendConfig(108, 0);
@@ -1569,26 +1568,26 @@ public class ItemAssistant {
 				if (toEquip == toRemove + 1 && Item.itemStackable[toRemove]) {
 					deleteItem(toRemove, getItemSlot(toRemove), toEquipN);
 					c.playerEquipmentN[targetSlot] += toEquipN;
-				} else if (targetSlot != Constants.SHIELD && targetSlot != Constants.WEAPON) {
+				} else if (targetSlot != GameConstants.SHIELD && targetSlot != GameConstants.WEAPON) {
 					c.playerItems[slot] = toRemove + 1;
 					c.playerItemsN[slot] = toRemoveN;
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
-				} else if (targetSlot == Constants.SHIELD) {
-					boolean wearing2h = is2handed(getItemName(c.playerEquipment[Constants.WEAPON]).toLowerCase(), c.playerEquipment[Constants.WEAPON]);
+				} else if (targetSlot == GameConstants.SHIELD) {
+					boolean wearing2h = is2handed(getItemName(c.playerEquipment[GameConstants.WEAPON]).toLowerCase(), c.playerEquipment[GameConstants.WEAPON]);
 					if (wearing2h) {
 						// remove the weapon, add to inventory
 						toRemove = c.playerEquipment[c.playerWeapon];
 						toRemoveN = c.playerEquipmentN[c.playerWeapon];
 						c.playerEquipment[c.playerWeapon] = -1;
 						c.playerEquipmentN[c.playerWeapon] = 0;
-						updateSlot(Constants.WEAPON);
+						updateSlot(GameConstants.WEAPON);
 					}
 					c.playerItems[slot] = toRemove + 1;
 					c.playerItemsN[slot] = toRemoveN;
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
-				} else if (targetSlot == Constants.WEAPON) {
+				} else if (targetSlot == GameConstants.WEAPON) {
 					if (CastleWars.SARA_BANNER == toRemove || CastleWars.ZAMMY_BANNER == toRemove) { // alk
 						// update
 						CastleWars.dropFlag(c, toRemove);
@@ -1596,8 +1595,8 @@ public class ItemAssistant {
 						toRemoveN = 0;
 					}
 					boolean is2h = is2handed(getItemName(wearID).toLowerCase(), wearID);
-					boolean wearingShield = c.playerEquipment[Constants.SHIELD] > 0;
-					boolean wearingWeapon = c.playerEquipment[Constants.WEAPON] > 0;
+					boolean wearingShield = c.playerEquipment[GameConstants.SHIELD] > 0;
+					boolean wearingWeapon = c.playerEquipment[GameConstants.WEAPON] > 0;
 					if (is2h) {
 						if (wearingShield && wearingWeapon) {
 							if (freeSlots() > 0) {
@@ -1605,19 +1604,19 @@ public class ItemAssistant {
 								c.playerItemsN[slot] = toRemoveN;
 								c.playerEquipment[targetSlot] = toEquip - 1;
 								c.playerEquipmentN[targetSlot] = toEquipN;
-								removeItem(c.playerEquipment[Constants.SHIELD], Constants.SHIELD);
+								removeItem(c.playerEquipment[GameConstants.SHIELD], GameConstants.SHIELD);
 							} else {
 								c.getActionSender().sendMessage("You do not have enough inventory space to do this.");
 								return false;
 							}
 						} else if (wearingShield && !wearingWeapon) {
-							c.playerItems[slot] = c.playerEquipment[Constants.SHIELD] + 1;
-							c.playerItemsN[slot] = c.playerEquipmentN[Constants.SHIELD];
+							c.playerItems[slot] = c.playerEquipment[GameConstants.SHIELD] + 1;
+							c.playerItemsN[slot] = c.playerEquipmentN[GameConstants.SHIELD];
 							c.playerEquipment[targetSlot] = toEquip - 1;
 							c.playerEquipmentN[targetSlot] = toEquipN;
-							c.playerEquipment[Constants.SHIELD] = -1;
-							c.playerEquipmentN[Constants.SHIELD] = 0;
-							updateSlot(Constants.SHIELD);
+							c.playerEquipment[GameConstants.SHIELD] = -1;
+							c.playerEquipmentN[GameConstants.SHIELD] = 0;
+							updateSlot(GameConstants.SHIELD);
 						} else {
 							c.playerItems[slot] = toRemove + 1;
 							c.playerItemsN[slot] = toRemoveN;
@@ -1633,7 +1632,7 @@ public class ItemAssistant {
 				}
 			}
 			resetItems(3214);
-			if (targetSlot == Constants.WEAPON) {
+			if (targetSlot == GameConstants.WEAPON) {
 				c.usingSpecial = false;
 				addSpecialBar(wearID);
 			}
@@ -1781,7 +1780,7 @@ public class ItemAssistant {
 	public void rearrangeBank() {
 		int totalItems = 0;
 		int highestSlot = 0;
-		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] != 0) {
 				totalItems++;
 				if (highestSlot <= i) {
@@ -1812,7 +1811,7 @@ public class ItemAssistant {
 		}
 
 		int totalItemsAfter = 0;
-		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] != 0) {
 				totalItemsAfter++;
 			}
@@ -1845,9 +1844,9 @@ public class ItemAssistant {
 			if (c.getOutStream() != null) {
 				c.getOutStream().createFrameVarSizeWord(53);
 				c.getOutStream().writeWord(5382); // bank
-				c.getOutStream().writeWord(Constants.BANK_SIZE);
+				c.getOutStream().writeWord(GameConstants.BANK_SIZE);
 			}
-			for (int i = 0; i < Constants.BANK_SIZE; i++) {
+			for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 				if (c.getOutStream() != null) {
 					if (c.bankItemsN[i] > 254) {
 						c.getOutStream().writeByte(255);
@@ -1859,8 +1858,8 @@ public class ItemAssistant {
 				if (c.bankItemsN[i] < 1) {
 					c.bankItems[i] = 0;
 				}
-				if (c.bankItems[i] > Constants.ITEM_LIMIT || c.bankItems[i] < 0) {
-					c.bankItems[i] = Constants.ITEM_LIMIT;
+				if (c.bankItems[i] > GameConstants.ITEM_LIMIT || c.bankItems[i] < 0) {
+					c.bankItems[i] = GameConstants.ITEM_LIMIT;
 				}
 				if (c.getOutStream() != null) {
 					c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
@@ -1897,8 +1896,8 @@ public class ItemAssistant {
 					c.getOutStream().writeByte(c.playerItemsN[i]);
 				}
 			}
-			if (c.playerItems[i] > Constants.ITEM_LIMIT || c.playerItems[i] < 0) {
-				c.playerItems[i] = Constants.ITEM_LIMIT;
+			if (c.playerItems[i] > GameConstants.ITEM_LIMIT || c.playerItems[i] < 0) {
+				c.playerItems[i] = GameConstants.ITEM_LIMIT;
 			}
 			if (c.getOutStream() != null) {
 				c.getOutStream().writeWordBigEndianA(c.playerItems[i]);
@@ -1915,8 +1914,8 @@ public class ItemAssistant {
 			c.getActionSender().sendMessage("You can't store items while trading!");
 			return false;
 		}
-		for (int i = 0; i < Constants.ITEM_BANKABLE.length; i++) {
-			if (itemID == Constants.ITEM_BANKABLE[i]) {
+		for (int i = 0; i < GameConstants.ITEM_BANKABLE.length; i++) {
+			if (itemID == GameConstants.ITEM_BANKABLE[i]) {
 				c.getActionSender().sendMessage("You can't bank that item!");
 				return false;
 			}
@@ -1940,29 +1939,29 @@ public class ItemAssistant {
 			if (Item.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < Constants.BANK_SIZE; i++) {
+				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot]) {
 						if (c.playerItemsN[fromSlot] < amount) {
 							amount = c.playerItemsN[fromSlot];
 						}
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = Constants.BANK_SIZE + 1;
+						i = GameConstants.BANK_SIZE + 1;
 					}
 				}
 
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < Constants.BANK_SIZE; i++) {
+					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = Constants.BANK_SIZE + 1;
+							i = GameConstants.BANK_SIZE + 1;
 						}
 					}
 					c.bankItems[toBankSlot] = c.playerItems[fromSlot];
 					if (c.playerItemsN[fromSlot] < amount) {
 						amount = c.playerItemsN[fromSlot];
 					}
-					if (c.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT
+					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
 							&& c.bankItemsN[toBankSlot] + amount > -1) {
 						c.bankItemsN[toBankSlot] += amount;
 					} else {
@@ -1974,7 +1973,7 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else if (alreadyInBank) {
-					if (c.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT
+					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
 							&& c.bankItemsN[toBankSlot] + amount > -1) {
 						c.bankItemsN[toBankSlot] += amount;
 					} else {
@@ -1993,18 +1992,18 @@ public class ItemAssistant {
 				itemID = c.playerItems[fromSlot];
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < Constants.BANK_SIZE; i++) {
+				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot]) {
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = Constants.BANK_SIZE + 1;
+						i = GameConstants.BANK_SIZE + 1;
 					}
 				}
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < Constants.BANK_SIZE; i++) {
+					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = Constants.BANK_SIZE + 1;
+							i = GameConstants.BANK_SIZE + 1;
 						}
 					}
 					int firstPossibleSlot = 0;
@@ -2067,29 +2066,29 @@ public class ItemAssistant {
 			if (Item.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < Constants.BANK_SIZE; i++) {
+				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot] - 1) {
 						if (c.playerItemsN[fromSlot] < amount) {
 							amount = c.playerItemsN[fromSlot];
 						}
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = Constants.BANK_SIZE + 1;
+						i = GameConstants.BANK_SIZE + 1;
 					}
 				}
 
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < Constants.BANK_SIZE; i++) {
+					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = Constants.BANK_SIZE + 1;
+							i = GameConstants.BANK_SIZE + 1;
 						}
 					}
 					c.bankItems[toBankSlot] = c.playerItems[fromSlot] - 1;
 					if (c.playerItemsN[fromSlot] < amount) {
 						amount = c.playerItemsN[fromSlot];
 					}
-					if (c.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT && c.bankItemsN[toBankSlot] + amount > -1) {
+					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && c.bankItemsN[toBankSlot] + amount > -1) {
 						c.bankItemsN[toBankSlot] += amount;
 					} else {
 						return false;
@@ -2099,7 +2098,7 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else if (alreadyInBank) {
-					if (c.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT && c.bankItemsN[toBankSlot] + amount > -1) {
+					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && c.bankItemsN[toBankSlot] + amount > -1) {
 						c.bankItemsN[toBankSlot] += amount;
 					} else {
 						return false;
@@ -2116,18 +2115,18 @@ public class ItemAssistant {
 				itemID = c.playerItems[fromSlot];
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < Constants.BANK_SIZE; i++) {
+				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot] - 1) {
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = Constants.BANK_SIZE + 1;
+						i = GameConstants.BANK_SIZE + 1;
 					}
 				}
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < Constants.BANK_SIZE; i++) {
+					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = Constants.BANK_SIZE + 1;
+							i = GameConstants.BANK_SIZE + 1;
 						}
 					}
 					int firstPossibleSlot = 0;
@@ -2191,7 +2190,7 @@ public class ItemAssistant {
 
 	public int freeBankSlots() {
 		int freeS = 0;
-			for (int i = 0; i < Constants.BANK_SIZE; i++) {
+			for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 				if (c.bankItems[i] <= 0) {
 					freeS++;
 				}
@@ -2357,8 +2356,8 @@ public class ItemAssistant {
 		}
 
 		if (moveWindow == 5382 && from >= 0 && to >= 0
-				&& from < Constants.BANK_SIZE && to < Constants.BANK_SIZE
-				&& to < Constants.BANK_SIZE) {
+				&& from < GameConstants.BANK_SIZE && to < GameConstants.BANK_SIZE
+				&& to < GameConstants.BANK_SIZE) {
 			if (insertMode) {
 				int tempFrom = from;
 				for (int tempTo = to; tempFrom != tempTo;)
@@ -2552,16 +2551,16 @@ public class ItemAssistant {
 		int enemyX = NpcHandler.npcs[c.oldNpcIndex].getX();
 		int enemyY = NpcHandler.npcs[c.oldNpcIndex].getY();
 		if (Misc.random(10) >= 4) {
-			if (Server.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX, enemyY) == 0) {
-				Server.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
+			if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX, enemyY) == 0) {
+				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
 						enemyY, 1, c.getId());
-			} else if (Server.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX,
+			} else if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX,
 					enemyY) != 0) {
-				int amount = Server.itemHandler.itemAmount(c.playerName, c.rangeItemUsed,
+				int amount = GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed,
 						enemyX, enemyY);
-				Server.itemHandler.removeGroundItem(c, c.rangeItemUsed, enemyX,
+				GameEngine.itemHandler.removeGroundItem(c, c.rangeItemUsed, enemyX,
 						enemyY, false);
-				Server.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
+				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
 						enemyY, amount + 1, c.getId());
 			}
 		}
@@ -2574,16 +2573,16 @@ public class ItemAssistant {
 			return;
 		}
 		if (Misc.random(10) >= 4) {
-			if (Server.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX, enemyY) == 0) {
-				Server.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
+			if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX, enemyY) == 0) {
+				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
 						enemyY, 1, c.getId());
-			} else if (Server.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX,
+			} else if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX,
 					enemyY) != 0) {
-				int amount = Server.itemHandler.itemAmount(c.playerName, c.rangeItemUsed,
+				int amount = GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed,
 						enemyX, enemyY);
-				Server.itemHandler.removeGroundItem(c, c.rangeItemUsed, enemyX,
+				GameEngine.itemHandler.removeGroundItem(c, c.rangeItemUsed, enemyX,
 						enemyY, false);
-				Server.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
+				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
 						enemyY, amount + 1, c.getId());
 			}
 		}
@@ -2622,10 +2621,10 @@ public class ItemAssistant {
 	}
 
 	public static String getItemName(int ItemID) {
-		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
-			if (Server.itemHandler.ItemList[i] != null) {
-				if (Server.itemHandler.ItemList[i].itemId == ItemID) {
-					return Server.itemHandler.ItemList[i].itemName;
+		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
+			if (GameEngine.itemHandler.ItemList[i] != null) {
+				if (GameEngine.itemHandler.ItemList[i].itemId == ItemID) {
+					return GameEngine.itemHandler.ItemList[i].itemName;
 				}
 			}
 		}
@@ -2633,11 +2632,11 @@ public class ItemAssistant {
 	}
 
 	public int getItemId(String itemName) {
-		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
-			if (Server.itemHandler.ItemList[i] != null) {
-				if (Server.itemHandler.ItemList[i].itemName
+		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
+			if (GameEngine.itemHandler.ItemList[i] != null) {
+				if (GameEngine.itemHandler.ItemList[i].itemName
 						.equalsIgnoreCase(itemName)) {
-					return Server.itemHandler.ItemList[i].itemId;
+					return GameEngine.itemHandler.ItemList[i].itemId;
 				}
 			}
 		}
@@ -2715,18 +2714,18 @@ public class ItemAssistant {
 	public int getUnnotedItem(int ItemID) {
 		int NewID = ItemID - 1;
 		String NotedName = "";
-		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
-			if (Server.itemHandler.ItemList[i] != null) {
-				if (Server.itemHandler.ItemList[i].itemId == ItemID) {
-					NotedName = Server.itemHandler.ItemList[i].itemName;
+		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
+			if (GameEngine.itemHandler.ItemList[i] != null) {
+				if (GameEngine.itemHandler.ItemList[i].itemId == ItemID) {
+					NotedName = GameEngine.itemHandler.ItemList[i].itemName;
 				}
 			}
 		}
-		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
-			if (Server.itemHandler.ItemList[i] != null) {
-				if (Server.itemHandler.ItemList[i].itemName == NotedName) {
-					if (Server.itemHandler.ItemList[i].itemDescription.startsWith("Swap this note at any bank for a") == false) {
-						NewID = Server.itemHandler.ItemList[i].itemId;
+		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
+			if (GameEngine.itemHandler.ItemList[i] != null) {
+				if (GameEngine.itemHandler.ItemList[i].itemName == NotedName) {
+					if (GameEngine.itemHandler.ItemList[i].itemDescription.startsWith("Swap this note at any bank for a") == false) {
+						NewID = GameEngine.itemHandler.ItemList[i].itemId;
 						break;
 					}
 				}

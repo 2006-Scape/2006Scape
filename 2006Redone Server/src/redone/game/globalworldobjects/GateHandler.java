@@ -1,6 +1,6 @@
 package redone.game.globalworldobjects;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.objects.Objects;
 import redone.game.players.Client;
 import redone.world.ObjectManager;
@@ -21,7 +21,7 @@ public class GateHandler {
 	}
 	
 	public static void spawnGate(int objectId, int x, int y, int h, int face) {
-		Server.objectHandler.placeObject(new Objects(objectId, x, y, h, face, 0, 0));
+		GameEngine.objectHandler.placeObject(new Objects(objectId, x, y, h, face, 0, 0));
 	}
 	
 	public static void openSingleGate(Client player, int objectId, int x1, int y1, int x2, int y2, int walkX, int walkY, int face1, int face2) {

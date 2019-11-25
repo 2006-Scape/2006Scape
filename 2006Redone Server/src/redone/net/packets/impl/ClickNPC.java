@@ -1,6 +1,6 @@
 package redone.net.packets.impl;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -124,7 +124,7 @@ public class ClickNPC implements PacketType {
 				break;
 			}
 			if (RangeData.correctBowAndArrows(client) < client.playerEquipment[client.playerArrows]
-					&& Constants.CORRECT_ARROWS
+					&& GameConstants.CORRECT_ARROWS
 					&& usingBow
 					&& !RangeData.usingCrystalBow(client)
 					&& client.playerEquipment[client.playerWeapon] != 9185) {

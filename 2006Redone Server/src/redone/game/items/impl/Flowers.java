@@ -1,6 +1,6 @@
 package redone.game.items.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -11,6 +11,7 @@ import redone.world.clip.Region;
 /**
  * @author Faris
  */
+
 public class Flowers {
 
 	/**
@@ -76,7 +77,7 @@ public class Flowers {
 		coords[0] = c.absX;
 		coords[1] = c.absY;
 		updateConstants(newFlower, c);
-		Server.objectHandler.createAnObject(c, newFlower, coords[0], coords[1],
+		GameEngine.objectHandler.createAnObject(c, newFlower, coords[0], coords[1],
 				1);
 		deleteSeeds(c);
 		sendOptions(c);
@@ -86,7 +87,7 @@ public class Flowers {
 		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 	            @Override
 	            public void execute(CycleEventContainer container) {
-				Server.objectHandler.createAnObject(c, -1, coords[0], coords[1], 1);
+				GameEngine.objectHandler.createAnObject(c, -1, coords[0], coords[1], 1);
 				c.getActionSender().sendMessage(	"Your flower is no longer flourishing.");
 				container.stop();
 			}
@@ -164,7 +165,7 @@ public class Flowers {
 		c.startAnimation(827);
 		// c.getPA().checkObjectSpawn(c,-1, c.getX()+1, c.getY(), 1, 10);
 		// c.getPA().object(c,-1, c.getX()+1, c.getY(), 1, 10);
-		Server.objectHandler.createAnObject(c, -1, c.getX() + 1, c.getY(), 1);
+		GameEngine.objectHandler.createAnObject(c, -1, c.getX() + 1, c.getY(), 1);
 		c.turnPlayerTo(c.getX() + 1, c.getY());
 	}
 

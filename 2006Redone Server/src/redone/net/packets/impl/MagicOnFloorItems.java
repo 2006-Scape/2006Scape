@@ -1,6 +1,6 @@
 package redone.net.packets.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -21,7 +21,7 @@ public class MagicOnFloorItems implements PacketType {
 		final int itemX = c.getInStream().readSignedWordBigEndian();
 		c.getInStream().readUnsignedWordA();
 
-		if (!Server.itemHandler.itemExists(itemId, itemX, itemY)) {
+		if (!GameEngine.itemHandler.itemExists(itemId, itemX, itemY)) {
 			c.stopMovement();
 			return;
 		}
@@ -65,11 +65,11 @@ public class MagicOnFloorItems implements PacketType {
 						}
 						if (System.currentTimeMillis() - c.teleGrabDelay > 1550
 								&& c.usingMagic) {
-							if (Server.itemHandler.itemExists(c.teleGrabItem,
+							if (GameEngine.itemHandler.itemExists(c.teleGrabItem,
 									c.teleGrabX, c.teleGrabY)
 									&& c.goodDistance(c.getX(), c.getY(),
 											itemX, itemY, 12)) {
-								Server.itemHandler.removeGroundItem(c,
+								GameEngine.itemHandler.removeGroundItem(c,
 										c.teleGrabItem, c.teleGrabX,
 										c.teleGrabY, true);
 								c.usingMagic = false;

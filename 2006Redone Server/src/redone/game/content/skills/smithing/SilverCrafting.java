@@ -90,20 +90,15 @@ public class SilverCrafting {
 		}
 		if (silverCraft.getUsed() == SILVER_BAR && player.isCrafting) {
 			if (!SkillHandler.CRAFTING) {
-				player.getActionSender().sendMessage(
-						"This skill is currently disabled.");
+				player.getActionSender().sendMessage("This skill is currently disabled.");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(SILVER_BAR)) {
-				player.getDialogueHandler().sendStatement(
-						"You need a silver bar to do this.");
+				player.getDialogueHandler().sendStatement("You need a silver bar to do this.");
 				return;
 			}
-			if (player.playerLevel[player.playerCrafting] < silverCraft
-					.getLevel()) {
-				player.getDialogueHandler().sendStatement(
-						"You need a crafting level of "
-								+ silverCraft.getLevel() + " to make this.");
+			if (player.playerLevel[player.playerCrafting] < silverCraft.getLevel()) {
+				player.getDialogueHandler().sendStatement("You need a crafting level of " + silverCraft.getLevel() + " to make this.");
 				return;
 			}
 			player.startAnimation(SILVER_ANIMATION);

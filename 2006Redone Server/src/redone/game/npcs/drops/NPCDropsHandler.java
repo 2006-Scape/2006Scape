@@ -1,12 +1,12 @@
 package redone.game.npcs.drops;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.items.ItemList;
 import redone.util.Misc;
 
 /**
  * Npc Drops Handler
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class NPCDropsHandler {
@@ -227,7 +227,7 @@ public class NPCDropsHandler {
 	 * @return
 	 */
 	public static int getItemId(String itemName) {
-		for (ItemList i : Server.itemHandler.ItemList) {
+		for (ItemList i : GameEngine.itemHandler.ItemList) {
 			if (i != null) {
 				if (i.itemName.equalsIgnoreCase(itemName)) {
 					return i.itemId;

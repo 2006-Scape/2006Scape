@@ -4,7 +4,7 @@ import redone.game.players.Client;
 
 /**
  * Teles
- * @author Andrew
+ * @author Andrew (Mr Extremez)
  */
 
 public class Teles {

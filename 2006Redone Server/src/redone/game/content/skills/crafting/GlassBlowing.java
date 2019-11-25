@@ -1,6 +1,6 @@
 package redone.game.content.skills.crafting;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.event.*;
 import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
@@ -81,7 +81,7 @@ public class GlassBlowing {
         }
         
         public void makeItem(final int id, final int amount, final int slot) {
-            if(c.playerLevel[Constants.CRAFTING] < data[slot][2]) {
+            if(c.playerLevel[GameConstants.CRAFTING] < data[slot][2]) {
 				c.getActionSender().sendMessage("You need a crafting level of "+data[slot][2]+" make a "+ItemAssistant.getItemName(id)+"");
                 return;
             }
@@ -99,7 +99,7 @@ public class GlassBlowing {
                        if(c.getItemAssistant().playerHasItem(1785)) {
                            c.getItemAssistant().deleteItem(1775, 1);
                            c.getItemAssistant().addItem(id, 1);
-                           c.getPlayerAssistant().addSkillXP(data[slot][3], Constants.CRAFTING);
+                           c.getPlayerAssistant().addSkillXP(data[slot][3], GameConstants.CRAFTING);
                            c.startAnimation(884);
                            made++;
                            if(made >= amount) {

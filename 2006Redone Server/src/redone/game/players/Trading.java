@@ -3,7 +3,7 @@ package redone.game.players;
 import java.time.temporal.ValueRange;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -46,11 +46,6 @@ public class Trading {
 			}
 
 			player.tradeWith = id;
-			if (player.isBotting) {
-				player.getActionSender().sendMessage("You can't trade items, until you confirm you aren't botting.");
-				player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-				return;
-			}
 
 			if (!CastleWars.deleteCastleWarsItems(player, id)) {
 				return;
@@ -270,7 +265,7 @@ public class Trading {
 			return false;
 		}
 
-		for (int i : Constants.ITEM_TRADEABLE) {
+		for (int i : GameConstants.ITEM_TRADEABLE) {
 			if (i == itemID && player.playerRights < 3) {
 				player.getActionSender().sendMessage(
 						"You can't trade this item.");

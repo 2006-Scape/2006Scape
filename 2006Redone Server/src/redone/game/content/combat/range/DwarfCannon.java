@@ -1,7 +1,7 @@
 package redone.game.content.combat.range;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -13,7 +13,7 @@ import redone.util.Misc;
 
 /**
  * Cannon
- * @author Andrew
+ * @author Andrew (Mr Extremez)
  */
 
 public class DwarfCannon {
@@ -46,8 +46,6 @@ public class DwarfCannon {
 	
 	private final int maxDistance = 20;
 	
-	private final int expRate = 50;
-	
 	private int totalRotations = 0;
 	
 	private boolean justClicked = false;
@@ -73,9 +71,9 @@ public class DwarfCannon {
 			return;
 		}
 		for (int i = 0; i < 50; i++) {
-			if (Server.cannonsX[i] == 0 && Server.cannonsY[i] == 0) {
-				Server.cannonsX[i] = player.absX;
-				Server.cannonsY[i] = player.absY;
+			if (GameEngine.cannonsX[i] == 0 && GameEngine.cannonsY[i] == 0) {
+				GameEngine.cannonsX[i] = player.absX;
+				GameEngine.cannonsY[i] = player.absY;
 				break;
 			}
 		}
@@ -163,8 +161,8 @@ public class DwarfCannon {
 		}
 		
 		public boolean nearCannon() {
-			for(int i = 0; i < Server.cannonsX.length; i++) {
-				if ((player.absX >= Server.cannonsX[i] - 1) && (player.absX <= Server.cannonsX[i] + 1) && (player.absY >= Server.cannonsY[i] - 2) && (player.absY <= Server.cannonsY[i] + 1)) {
+			for(int i = 0; i < GameEngine.cannonsX.length; i++) {
+				if ((player.absX >= GameEngine.cannonsX[i] - 1) && (player.absX <= GameEngine.cannonsX[i] + 1) && (player.absY >= GameEngine.cannonsY[i] - 2) && (player.absY <= GameEngine.cannonsY[i] + 1)) {
 						return true;
 					}
 				}
@@ -172,9 +170,9 @@ public class DwarfCannon {
 		}
 		
 		public void loadCannons() {
-			for(int i = 0; i < Server.cannonsX.length; i++) {
-				if (Server.cannonsX[i] != 0) {
-					player.getActionSender().checkObjectSpawn(6, Server.cannonsX[i], Server.cannonsY[i], 0, 10);
+			for(int i = 0; i < GameEngine.cannonsX.length; i++) {
+				if (GameEngine.cannonsX[i] != 0) {
+					player.getActionSender().checkObjectSpawn(6, GameEngine.cannonsX[i], GameEngine.cannonsY[i], 0, 10);
 				}
 			}
 		}
@@ -215,11 +213,11 @@ public class DwarfCannon {
 			
 		public void handleDisconnect() {
 			removeObject(player.cannonX, player.cannonY);
-			for(int i = 0; i < Server.cannonsX.length; i++) {
-				if (Server.cannonsX[i] == player.cannonX && Server.cannonsY[i] == player.cannonY) {
-					Server.cannonsX[i] = 0;
-					Server.cannonsY[i] = 0;
-					Server.cannonsO[i] = null;
+			for(int i = 0; i < GameEngine.cannonsX.length; i++) {
+				if (GameEngine.cannonsX[i] == player.cannonX && GameEngine.cannonsY[i] == player.cannonY) {
+					GameEngine.cannonsX[i] = 0;
+					GameEngine.cannonsY[i] = 0;
+					GameEngine.cannonsO[i] = null;
 				}
 			}
 		}
@@ -228,11 +226,11 @@ public class DwarfCannon {
 			if (hasCannon()) {
 				player.lostCannon = true;
 				removeObject(player.cannonX, player.cannonY);
-				for(int i = 0; i < Server.cannonsX.length; i++) {
-					if (Server.cannonsX[i] == player.cannonX && Server.cannonsY[i] == player.cannonY) {
-						Server.cannonsX[i] = 0;
-						Server.cannonsY[i] = 0;
-						Server.cannonsO[i] = null;
+				for(int i = 0; i < GameEngine.cannonsX.length; i++) {
+					if (GameEngine.cannonsX[i] == player.cannonX && GameEngine.cannonsY[i] == player.cannonY) {
+						GameEngine.cannonsX[i] = 0;
+						GameEngine.cannonsY[i] = 0;
+						GameEngine.cannonsO[i] = null;
 					}
 				}
 				player.cannonX = 0;
@@ -304,10 +302,10 @@ public class DwarfCannon {
 		}
 		
 		public void removeCannon(int x, int y) {
-			for (int i = 0; i < Server.cannonsX.length; i++) {
-				if (Server.cannonsX[i] == x && Server.cannonsY[i] == y) {
-					Server.cannonsX[i] = 0;
-					Server.cannonsY[i] = 0;
+			for (int i = 0; i < GameEngine.cannonsX.length; i++) {
+				if (GameEngine.cannonsX[i] == x && GameEngine.cannonsY[i] == y) {
+					GameEngine.cannonsX[i] = 0;
+					GameEngine.cannonsY[i] = 0;
 					break;
 				}
 			}
@@ -398,7 +396,7 @@ public class DwarfCannon {
 				target.hitUpdateRequired2 = true;
 				target.updateRequired = true;
 				myBalls -= 1;
-				player.getPlayerAssistant().addSkillXP(damage * Constants.RANGE_EXP_RATE, player.playerRanged);
+				player.getPlayerAssistant().addSkillXP(damage * GameConstants.RANGE_EXP_RATE, player.playerRanged);
 			}
 		}
 		

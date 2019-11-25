@@ -1,6 +1,6 @@
 package redone.game.objects.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.content.traveling.Desert;
 import redone.game.players.Client;
 import redone.world.clip.Region;
@@ -54,9 +54,9 @@ public class SpecialObjects {
 	public static void openShantayChest(Client c, int objectId, int obX,
 			int obY, String type) {
 		if (type == "open") {
-			Server.objectHandler.createAnObject(c, 104, obX, obY, -1);
+			GameEngine.objectHandler.createAnObject(c, 104, obX, obY, -1);
 		} else if (type == "shut") {
-			Server.objectHandler.createAnObject(c, 2693, obX, obY, -1);
+			GameEngine.objectHandler.createAnObject(c, 2693, obX, obY, -1);
 		}
 	}
 
@@ -67,7 +67,7 @@ public class SpecialObjects {
 			c.nextChat = 0;
 			return;
 		}
-		Server.objectHandler.createAnObject(c, -1, c.objectX, c.objectY, -1);
+		GameEngine.objectHandler.createAnObject(c, -1, c.objectX, c.objectY, -1);
 		final int[] coords = new int[2];
 		openKharid(c, objectId);
 		if (c.absX == 3267) {

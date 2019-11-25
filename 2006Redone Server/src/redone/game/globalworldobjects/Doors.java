@@ -5,7 +5,7 @@ import java.util.List;
 import java.io.*;
 import java.util.Scanner;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.objects.Objects;
 import redone.game.players.Player;
 
@@ -116,14 +116,14 @@ public class Doors {
 		}
 		if (xAdjustment != 0 || yAdjustment != 0) { 
 			Objects o = new Objects(-1, d.doorX, d.doorY, d.doorZ, 0, d.type, 0);
-			Server.objectHandler.placeObject(o);
+			GameEngine.objectHandler.placeObject(o);
 		}
 		if (d.doorX == d.originalX && d.doorY == d.originalY) {
 			d.doorX += xAdjustment;
 			d.doorY += yAdjustment;
 		} else { 
 			Objects o = new Objects(-1, d.doorX, d.doorY, d.doorZ, 0, d.type, 0);
-			Server.objectHandler.placeObject(o);
+			GameEngine.objectHandler.placeObject(o);
 			d.doorX = d.originalX;
 			d.doorY = d.originalY;
 		}
@@ -140,7 +140,7 @@ public class Doors {
 				d.doorId += 1;
 			}
 		}
-		Server.objectHandler.placeObject(new Objects(d.doorId, d.doorX, d.doorY, d.doorZ, getNextFace(d), d.type, 0));
+		GameEngine.objectHandler.placeObject(new Objects(d.doorId, d.doorX, d.doorY, d.doorZ, getNextFace(d), d.type, 0));
 		return true;
 	}
 	

@@ -3,7 +3,7 @@ package redone.game.content.random;
 import java.awt.Point;
 import java.util.Random;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.objects.Objects;
 import redone.game.players.Client;
 
@@ -26,11 +26,11 @@ public class Balloons extends Objects {
 	public static void popBalloon(Client c, int x, int y) {
 		PartyRoom.coords.remove(getCoords());
 		Balloons empty = remove(x, y);
-		Server.itemHandler.createGroundItem(c, item, x, y, amount, c.playerId);
+		GameEngine.itemHandler.createGroundItem(c, item, x, y, amount, c.playerId);
 		item = 0;
 		amount = 0;
-		Server.objectHandler.addObject(empty);
-		Server.objectHandler.placeObject(empty);
+		GameEngine.objectHandler.addObject(empty);
+		GameEngine.objectHandler.placeObject(empty);
 		c.startAnimation(794);
 	}
 

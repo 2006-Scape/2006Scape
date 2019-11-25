@@ -53,10 +53,8 @@ public class BankPin {
 		}
 		client.getPlayerAssistant().sendFrame126("Welcome to our bank", 15038);
 		client.getPlayerAssistant().sendFrame126("recovery system.", 15039);
-		client.getPlayerAssistant().sendFrame126("Remember, it's important",
-				15040);
-		client.getPlayerAssistant()
-				.sendFrame126("to change your recovery", 15041);
+		client.getPlayerAssistant().sendFrame126("Remember, it's important", 15040);
+		client.getPlayerAssistant().sendFrame126("to change your recovery", 15041);
 		client.getPlayerAssistant().sendFrame126("pin and password", 15042);
 		client.getPlayerAssistant().sendFrame126("every 1-3 months", 15043);
 		if (!client.hasBankpin) {

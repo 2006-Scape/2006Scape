@@ -1,6 +1,6 @@
 package redone.game.content.combat.prayer;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.content.music.sound.SoundList;
 import redone.game.players.Client;
 
@@ -37,10 +37,9 @@ public class ActivatePrayers {
 		int[] rangePrayer = { 3, 11, 19 };
 		int[] magePrayer = { 4, 12, 20 };
 
-		if (c.playerLevel[5] > 0 || !Constants.PRAYER_POINTS_REQUIRED) {
+		if (c.playerLevel[5] > 0) {
 			if (c.getPlayerAssistant().getLevelForXP(c.playerXP[5]) >= c
-					.getPrayer().PRAYER_LEVEL_REQUIRED[i]
-					|| !Constants.PRAYER_LEVEL_REQUIRED) {
+					.getPrayer().PRAYER_LEVEL_REQUIRED[i]) {
 				boolean headIcon = false;
 				switch (i) {
 				case 0:

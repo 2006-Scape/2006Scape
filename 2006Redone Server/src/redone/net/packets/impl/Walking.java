@@ -41,10 +41,6 @@ public class Walking implements PacketType {
 		if (player.stopPlayer == true) {
 			return;
 		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("Please type ::amibotting if you would like to move again");
-			return;
-		}
 		if (player.isFiremaking == true) {
 			player.isFiremaking = false;
 		}
@@ -117,8 +113,7 @@ public class Walking implements PacketType {
 				}
 			}
 			if (packetType != 98) {
-				player.getActionSender().sendMessage(
-						"A magical force stops you from moving.");
+				player.getActionSender().sendMessage("A magical force stops you from moving.");
 				player.playerIndex = 0;
 			}
 			return;
@@ -143,8 +138,9 @@ public class Walking implements PacketType {
 
 		  if(player.openDuel) {
 	            Client o = (Client) PlayerHandler.players[player.duelingWith];
-	            if(o != null)
+	            if(o != null) {
 	                o.getDueling().declineDuel();
+	            }
 	            player.getDueling().declineDuel();
 	        }
 	        if((player.duelStatus >= 1 && player.duelStatus <= 4) || player.duelStatus == 6) {

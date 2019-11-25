@@ -1,6 +1,6 @@
 package redone.game.content.skills.thieving;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -9,7 +9,6 @@ import redone.game.content.skills.SkillHandler;
 import redone.game.items.ItemList;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
-import redone.game.players.antimacro.AntiBotting;
 import redone.util.Misc;
 
 public class Pickpocket extends SkillHandler {
@@ -146,7 +145,7 @@ public class Pickpocket extends SkillHandler {
 	}
 
 	public static int getItemId(String itemName) {
-		for (ItemList i : Server.itemHandler.ItemList) {
+		for (ItemList i : GameEngine.itemHandler.ItemList) {
 			if (i != null) {
 				if (i.itemName.equalsIgnoreCase(itemName)) {
 					return i.itemId;
@@ -169,10 +168,6 @@ public class Pickpocket extends SkillHandler {
 		if (System.currentTimeMillis() - c.lastThieve < 2000 || c.playerStun) {
 			return;
 		}
-		if (c.isBotting == true) {
-			c.getActionSender().sendMessage("You can't thieve right now!");
-			return;
-		}
 		if (c.underAttackBy > 0 || c.underAttackBy2 > 0) {
 			c.getActionSender().sendMessage("You can't pickpocket while in combat!");
 			return;
@@ -191,9 +186,6 @@ public class Pickpocket extends SkillHandler {
 				c.getActionSender().sendMessage("You attempt to pick the  " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
 				c.startAnimation(881);
 				if (Misc.random(c.playerLevel[17] + 5) < Misc.random(n.getLevel())) {
-					if (Misc.random(200) == 0) {
-						AntiBotting.botCheckInterface(c);
-					}
 					RandomEventHandler.addRandom(c);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override

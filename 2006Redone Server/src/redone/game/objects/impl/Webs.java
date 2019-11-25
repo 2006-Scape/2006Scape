@@ -1,6 +1,6 @@
 package redone.game.objects.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.content.music.sound.SoundList;
 import redone.game.players.Client;
 import redone.util.Misc;
@@ -26,7 +26,7 @@ public class Webs {
 			final int objectX, final int objectY) {
 		if (System.currentTimeMillis() - c.webSlashDelay > 1800) {
 			if (Misc.random(3) > 0) {
-				Server.objectHandler.createAnObject(c, -1, objectX, objectY);
+				GameEngine.objectHandler.createAnObject(c, -1, objectX, objectY);
 				// c.startAnimation(451);
 				c.startAnimation(c.getCombatAssistant().getWepAnim());
 				c.webSlashDelay = System.currentTimeMillis();

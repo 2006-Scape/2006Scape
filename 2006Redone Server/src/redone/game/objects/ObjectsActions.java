@@ -1,7 +1,7 @@
 package redone.game.objects;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -293,29 +293,29 @@ public class ObjectsActions {
 	                    player.getActionSender().sendMessage("You need a fishing level of 50 or higher to play Fishing Trawler.");
 	                    return;
 	                }
-	                Server.trawler.getWaitingRoom().join(player);
+	                GameEngine.trawler.getWaitingRoom().join(player);
 	            //}
 	            break;
 
 	        case 2179:
 	        case 70:
-	            Server.trawler.getWaitingRoom().leave(player);
+	            GameEngine.trawler.getWaitingRoom().leave(player);
 	            break;
 	        case 2167:
-	            Server.trawler.fixHole(player, objectX, objectY);
+	            GameEngine.trawler.fixHole(player, objectX, objectY);
 	            break;
 	        case 2166:
-	            Server.trawler.showReward(player);
+	            GameEngine.trawler.showReward(player);
 	            break;
 	        case 2159:
 	        case 2160:
 	            player.trawlerFade(2676, 3170, 0);
 	            break;
 	        case 2175:
-	            Server.trawler.downLadder(player, objectX, objectY);
+	            GameEngine.trawler.downLadder(player, objectX, objectY);
 	            break;
 	        case 2174:
-	            Server.trawler.upLadder(player, objectX, objectY);
+	            GameEngine.trawler.upLadder(player, objectX, objectY);
 	            break;
 		
 		case 2230:
@@ -2086,7 +2086,7 @@ public class ObjectsActions {
 		break;
 
 		case 9398:// deposit box
-			player.getPlayerAssistant().sendFrame126("The Bank of " + Constants.SERVER_NAME + " - Deposit Box", 7421);
+			player.getPlayerAssistant().sendFrame126("The Bank of " + GameConstants.SERVER_NAME + " - Deposit Box", 7421);
 			player.getPlayerAssistant().sendFrame248(4465, 197);
 			player.getItemAssistant().resetItems(7423);
 			break;
@@ -2099,7 +2099,7 @@ public class ObjectsActions {
 
 		case 2403:// should be 2418 but not working
 			if (player.shieldArrav >= 6 && player.getItemAssistant().playerHasItem(759)) {
-				Server.objectHandler.createAnObject(player, 2604, objectX, objectY, 0);
+				GameEngine.objectHandler.createAnObject(player, 2604, objectX, objectY, 0);
 				Region.addObject(2604, objectX, objectY, 0, 0, 0, false);
 			}
 			else {
@@ -2123,7 +2123,7 @@ public class ObjectsActions {
 				player.getActionSender().object(3194, 3381, 3269, 0, 2, 10);
 				Region.addObject(3194, 3381, 3269, 0, 10, 2, false);
 			} else {
-				Server.objectHandler.createAnObject(player, 3194, objectX, objectY, -1);
+				GameEngine.objectHandler.createAnObject(player, 3194, objectX, objectY, -1);
 			}
 		break;
 
@@ -2279,7 +2279,7 @@ public class ObjectsActions {
 		case 14826:
 		case 14831:
 			// Server.objectHandler.startObelisk(objectType);
-			Server.objectManager.startObelisk(objectType);
+			GameEngine.objectManager.startObelisk(objectType);
 			break;
 
 		/*

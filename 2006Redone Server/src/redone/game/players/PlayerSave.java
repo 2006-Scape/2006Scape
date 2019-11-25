@@ -194,9 +194,6 @@ public class PlayerSave {
 							case "needsNewTask":
 								player.needsNewTask = Boolean.parseBoolean(token2);
 								break;
-							case "isBotting":
-								player.isBotting = Boolean.parseBoolean(token2);
-								break;
 							case "musicOn":
 								player.musicOn = Boolean.parseBoolean(token2);
 								break;
@@ -612,8 +609,6 @@ public class PlayerSave {
 			characterfile.write("recievedMask = " + player.recievedMask);
 			characterfile.newLine();
 			characterfile.write("recievedReward = " + player.recievedReward);
-			characterfile.newLine();
-			characterfile.write("isBotting = " + player.isBotting);
 			characterfile.newLine();
 			characterfile.write("global-damage = " + player.globalDamageDealt);
 			characterfile.newLine();

@@ -1,15 +1,15 @@
 package redone.game.content.random;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.players.PlayerHandler;
 
 /**
  * Holiday Drops
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public enum HolidayDrops {
-	EASTER(1961, "Easter", false), HALLOWEEN(1053, "Halloween", true), CHRISTMAS(962, "Christmas", false);
+	EASTER(1961, "Easter", false), HALLOWEEN(1053, "Halloween", false), CHRISTMAS(962, "Christmas", false);
 
 	private final int item;// holiday item
 	private final String name;// holiday name
@@ -23,7 +23,7 @@ public enum HolidayDrops {
 	// amount
 	public static int dropAmount() {
 		int amount = DROP_AMOUNT;
-		if (Constants.SERVER_DEBUG)  {
+		if (GameConstants.SERVER_DEBUG)  {
 			return amount * 60;
 		}
 		return amount;
@@ -46,18 +46,6 @@ public enum HolidayDrops {
 	public boolean getHoliday() {
 		return whichHoliday;
 	}
-	
-	/*private static int addItem() {
-		int random = 2;
-		if (Misc.random(random) == 0) {
-			return 1053;
-		} else if (Misc.random(random) == 1) {
-			return 1055;
-		} else if (Misc.random(random) == 2) {
-			return 1057;
-		}
-		return -1;
-	}*/
 
 	public final int[][] COORDS = { { 3214, 3424 }, // Varrock
 			{ 3222, 3218 }, // Lumbridge

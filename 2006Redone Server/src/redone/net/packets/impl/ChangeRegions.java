@@ -1,7 +1,7 @@
 package redone.net.packets.impl;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.content.music.Music;
 import redone.game.globalworldobjects.Doors;
 import redone.game.players.Client;
@@ -15,13 +15,13 @@ public class ChangeRegions implements PacketType {
 
 	@Override
 	public void processPacket(Client c, int packetType, int packetSize) {
-		if (Constants.SOUND && c.musicOn) {
+		if (GameConstants.SOUND && c.musicOn) {
 			Music.playMusic(c);
 		}
-		Server.objectHandler.updateObjects(c);//testing
+		GameEngine.objectHandler.updateObjects(c);//testing
 		Doors.getSingleton().load();
-		Server.itemHandler.reloadItems(c);
-		Server.objectManager.loadObjects(c);
+		GameEngine.itemHandler.reloadItems(c);
+		GameEngine.objectManager.loadObjects(c);
 		GlobalDropsHandler.reset(c);
 		c.getPlayerAssistant().removeObjects();// testing
 		c.saveFile = true;

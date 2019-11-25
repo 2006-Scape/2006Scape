@@ -1,13 +1,12 @@
 package redone.game.content.skills.smithing;
 
 import redone.game.content.combat.magic.CastRequirements;
-import redone.game.content.combat.magic.MagicRequirements;
 import redone.game.content.music.sound.SoundList;
 import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
 
 /**
- * @author Andrew
+ * @author Andrew (Mr Extremez)
  */
 
 public class Superheat {
@@ -42,19 +41,14 @@ public class Superheat {
 				if (itemID == 444 && c.playerEquipment[c.playerHands] == 776) {
 					c.getPlayerAssistant().addSkillXP(56.2, c.playerSmithing);
 				} else {
-					c.getPlayerAssistant().addSkillXP(smelt[7],
-							c.playerSmithing);
+					c.getPlayerAssistant().addSkillXP(smelt[7], c.playerSmithing);
 				}
 				if (c.playerLevel[c.playerSmithing] < smelt[6]) {
-					c.getActionSender().sendMessage(
-							"You need a smithing level of " + smelt[6]
-									+ " to superheat this ore.");
+					c.getActionSender().sendMessage("You need a smithing level of " + smelt[6] + " to superheat this ore.");
 					return false;
 				}
 				if (c.playerLevel[c.playerMagic] < 43) {
-					c.getActionSender()
-							.sendMessage(
-									"You need a magic level of 43 to superheat this ore.");
+					c.getActionSender().sendMessage("You need a magic level of 43 to superheat this ore.");
 					return false;
 				}
 				c.getItemAssistant().deleteItem(itemID, 1);
@@ -72,8 +66,7 @@ public class Superheat {
 				return true;
 			}
 		}
-		c.getActionSender().sendMessage(
-				"You can only cast superheat item on ores!");
+		c.getActionSender().sendMessage("You can only cast superheat item on ores!");
 		c.getActionSender().sendSound(SoundList.SUPERHEAT_FAIL, 100, 0);
 		return false;
 	}

@@ -12,8 +12,8 @@ import java.util.concurrent.Future;
 import org.apache.mina.common.IoSession;
 
 import redone.Connection;
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -58,14 +58,13 @@ import redone.game.content.traveling.Desert;
 import redone.game.dialogues.DialogueHandler;
 import redone.game.items.GameItem;
 import redone.game.items.ItemAssistant;
+import redone.game.items.Weight;
 import redone.game.items.impl.LightSources;
 import redone.game.items.impl.PotionMixing;
 import redone.game.items.impl.Teles;
-import redone.game.items.impl.Weight;
 import redone.game.npcs.NpcActions;
 import redone.game.npcs.NpcHandler;
 import redone.game.objects.ObjectsActions;
-import redone.game.players.antimacro.AntiBotting;
 import redone.game.shops.ShopAssistant;
 import redone.net.ActionSender;
 import redone.net.HostList;
@@ -444,21 +443,21 @@ public class Client extends Player {
 		super(-1);
 		isBot = true;
 		session = null;
-		inStream = new Stream(new byte[Constants.BUFFER_SIZE]);
+		inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
 		inStream.currentOffset = 0;
-		buffer = new byte[Constants.BUFFER_SIZE];
+		buffer = new byte[GameConstants.BUFFER_SIZE];
 	}
 
 	public Client(IoSession s, int _playerId) {
 		super(_playerId);
 		session = s;
 		synchronized (this) {
-			outStream = new Stream(new byte[Constants.BUFFER_SIZE]);
+			outStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
 			outStream.currentOffset = 0;
 		}
-		inStream = new Stream(new byte[Constants.BUFFER_SIZE]);
+		inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
 		inStream.currentOffset = 0;
-		buffer = new byte[Constants.BUFFER_SIZE];
+		buffer = new byte[GameConstants.BUFFER_SIZE];
 	}
 
 	/**
@@ -547,19 +546,19 @@ public class Client extends Player {
 		}
 		if (getCannon().hasCannon()) {
 			getCannon().removeObject(cannonX, cannonY);
-			for(int i = 0; i < Server.cannonsX.length; i++) {
-				if (Server.cannonsX[i] == cannonX && Server.cannonsY[i] == cannonY) {
-					Server.cannonsX[i] = 0;
-					Server.cannonsY[i] = 0;
-					Server.cannonsO[i] = null;
+			for(int i = 0; i < GameEngine.cannonsX.length; i++) {
+				if (GameEngine.cannonsX[i] == cannonX && GameEngine.cannonsY[i] == cannonY) {
+					GameEngine.cannonsX[i] = 0;
+					GameEngine.cannonsY[i] = 0;
+					GameEngine.cannonsO[i] = null;
 				}
 				lostCannon = true;
 				cannonX = -1;
 				cannonY = -1;
 			}
 		}
-		if(Server.trawler.players.contains(this)) {
-			Server.trawler.players.remove(this);
+		if(GameEngine.trawler.players.contains(this)) {
+			GameEngine.trawler.players.remove(this);
 	    }
 		if (CastleWars.isInCwWait(this)) {
 			CastleWars.leaveWaitingRoom(this);
@@ -581,14 +580,11 @@ public class Client extends Player {
 		if (hasNpc == true) {
 			getSummon().pickUpClean(this, summonId);
 		}
-		if (clanId >= 0) {
-			Server.clanChat.leaveClan(playerId, clanId);
-		}
 
-		if(Server.ersSecret  != null && !Server.ersSecret.equals("") && this.playerRights < 2) {
+		if(GameEngine.ersSecret  != null && !GameEngine.ersSecret.equals("") && this.playerRights < 2) {
 			boolean debugMessage = false;
 			System.out.println("Updating highscores for " + this.playerName + "!");
-			com.everythingrs.hiscores.Hiscores.update(Server.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
+			com.everythingrs.hiscores.Hiscores.update(GameEngine.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
 		} else {
 			System.out.println("EverythingRS API Disabled, highscores not saved!");
 		}
@@ -634,13 +630,10 @@ public class Client extends Player {
 			QuestAssistant.sendStages(this);
 			if (hasNpc == true) {
 				if (summonId > 0) {
-					Server.npcHandler.spawnNpc3(this, summonId, absX, absY - 1,
+					GameEngine.npcHandler.spawnNpc3(this, summonId, absX, absY - 1,
 							heightLevel, 0, 120, 25, 200, 200, true, false,
 							true);
 				}
-			}
-			if (isBotting == true) {
-				AntiBotting.botCheckInterface(this);
 			}
 			if (questPoints > QuestAssistant.MAXIMUM_QUESTPOINTS || playerRights > 2) {
 				questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for abusers
@@ -656,13 +649,13 @@ public class Client extends Player {
 				playerLevel[playerFarming] = 1;
 				getPlayerAssistant().refreshSkill(playerFarming);
 			}
-			if (tutorialProgress > 0 && tutorialProgress < 36 && Constants.TUTORIAL_ISLAND) {
+			if (tutorialProgress > 0 && tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
 				getActionSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
 			}
 			if (tutorialProgress > 35) {
 				getPlayerAssistant().sendSidebars();
 				Weight.updateWeight(this);
-				getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
+				getActionSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
 				getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
@@ -745,13 +738,12 @@ public class Client extends Player {
 			getCombatAssistant().getPlayerAnimIndex();
 			getPlayerAssistant().logIntoPM();
 			getItemAssistant().addSpecialBar(playerEquipment[playerWeapon]);
-			saveTimer = Constants.SAVE_TIMER;
+			saveTimer = GameConstants.SAVE_TIMER;
 			saveCharacter = true;
 			Misc.println("[REGISTERED]: " + playerName + "");
 			handler.updatePlayer(this, outStream);
 			handler.updateNPC(this, outStream);
 			flushOutStream();
-			getPlayerAssistant().clearClanChat();
 			getPlayerAssistant().resetFollow();
 			LightSources.saveBrightness(this);
 			getPlayerAssistant().sendAutoRetalitate();
@@ -774,16 +766,16 @@ public class Client extends Player {
 
 	public void logout(boolean forceLogout) {
 		synchronized (this) {
-			if(Server.trawler.players.contains(this)) {
-				Server.trawler.players.remove(this);
+			if(GameEngine.trawler.players.contains(this)) {
+				GameEngine.trawler.players.remove(this);
 	        }
 			if (getCannon().hasCannon()) {
 				getCannon().removeObject(cannonX, cannonY);
-				for(int i = 0; i < Server.cannonsX.length; i++) {
-					if (Server.cannonsX[i] == cannonX && Server.cannonsY[i] == cannonY) {
-						Server.cannonsX[i] = 0;
-						Server.cannonsY[i] = 0;
-						Server.cannonsO[i] = null;
+				for(int i = 0; i < GameEngine.cannonsX.length; i++) {
+					if (GameEngine.cannonsX[i] == cannonX && GameEngine.cannonsY[i] == cannonY) {
+						GameEngine.cannonsX[i] = 0;
+						GameEngine.cannonsY[i] = 0;
+						GameEngine.cannonsO[i] = null;
 					}
 					lostCannon = true;
 					cannonX = -1;
@@ -876,7 +868,7 @@ public class Client extends Player {
 			int modY = absY > 6400 ? absY - 6400 : absY;
 			wildLevel = (modY - 3520) / 8 + 1;
 			getPlayerAssistant().walkableInterface(197);
-			if (Constants.SINGLE_AND_MULTI_ZONES) {
+			if (GameConstants.SINGLE_AND_MULTI_ZONES) {
 				if (inMulti()) {
 					getPlayerAssistant().sendFrame126("@yel@Level: " + wildLevel,
 							199);
@@ -898,7 +890,7 @@ public class Client extends Player {
 			}
 		} else if (getPlayerAssistant().inPitsWait()) {
 			getActionSender().showOption(3, 0, "Null", 1);
-        } else if(Server.trawler.players.contains(this)) {
+        } else if(GameEngine.trawler.players.contains(this)) {
             getPlayerAssistant().walkableInterface(11908);
 		} else if (isInBarrows() || isInBarrows2()) {
 			getPlayerAssistant().sendFrame126("Kill Count: " + barrowsKillCount, 4536);
@@ -914,7 +906,7 @@ public class Client extends Player {
 
 	public Client getClient(String name) {
 		name = name.toLowerCase();
-		for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
+		for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
 			if (validClient(i)) {
 				Client client = getClient(i);
 				if (client.playerName.toLowerCase().equalsIgnoreCase(name)) {
@@ -930,7 +922,7 @@ public class Client extends Player {
 	}
 
 	public boolean validClient(int id) {
-		if (id < 0 || id > Constants.MAX_PLAYERS) {
+		if (id < 0 || id > GameConstants.MAX_PLAYERS) {
 			return false;
 		}
 		return validClient(getClient(id));
@@ -958,7 +950,7 @@ public class Client extends Player {
 		}
 		getPlayerAssistant().writeEnergy();
 
-		if (System.currentTimeMillis() - specDelay > Constants.INCREASE_SPECIAL_AMOUNT) {
+		if (System.currentTimeMillis() - specDelay > GameConstants.INCREASE_SPECIAL_AMOUNT) {
 			specDelay = System.currentTimeMillis();
 			if (specAmount < 10) {
 				specAmount += .5;
@@ -980,7 +972,7 @@ public class Client extends Player {
 				forcedChat("" + --duelCount);
 				duelDelay = System.currentTimeMillis();
 			} else {
-				damageTaken = new int[Constants.MAX_PLAYERS];
+				damageTaken = new int[GameConstants.MAX_PLAYERS];
 				forcedChat("FIGHT!");
 				duelCount = 0;
 			}
@@ -1124,7 +1116,7 @@ public class Client extends Player {
 			}
 		}
 
-		if (timeOutCounter > Constants.TIMEOUT) {
+		if (timeOutCounter > GameConstants.TIMEOUT) {
 			if (!isBot)
 				logout(true);
 		}
@@ -1242,7 +1234,7 @@ public class Client extends Player {
 	 *            : SOUND DELAY
 	 */
 	public void playSound(Client c, int SOUNDID, int delay) {
-		if (Constants.SOUND) {
+		if (GameConstants.SOUND) {
 			if (soundVolume <= -1) {
 				return;
 			}
@@ -1281,7 +1273,7 @@ public class Client extends Player {
 					 CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
-							Server.fightCaves.spawnNextWave((Client) PlayerHandler.players[playerId]);
+							GameEngine.fightCaves.spawnNextWave((Client) PlayerHandler.players[playerId]);
 							container.stop();
 						}
 						@Override

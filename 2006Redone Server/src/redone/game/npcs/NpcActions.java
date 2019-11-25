@@ -30,11 +30,6 @@ public class NpcActions {
 		if (Fishing.fishingNPC(c, npcType)) {
 			Fishing.fishingNPC(c, 1, npcType);
 		}
-		if (c.isBotting == true) {
-			c.getActionSender().sendMessage("You can't click any npcs, until you confirm you are not botting.");
-			c.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
-		}
 		switch (npcType) {
 		  case 209:
 	        	c.getDialogueHandler().sendDialogues(3500, 209);
@@ -1001,11 +996,6 @@ public class NpcActions {
 		if (Fishing.fishingNPC(c, npcType)) {
 			Fishing.fishingNPC(c, 2, npcType);
 		}
-		if (c.isBotting == true) {
-			c.getActionSender().sendMessage("You can't click any npcs, until you confirm you are not botting.");
-			c.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
-		}
 		if (npcType >= 761 && npcType <= 773 || npcType > 3504
 				&& npcType < 3508 && npcType != 767) {
 			c.getDialogueHandler().sendDialogues(908, npcType);
@@ -1149,11 +1139,6 @@ public class NpcActions {
 		c.npcClickIndex = 0;
 		if (Pickpocket.isNPC(c, npcType)) {
 			Pickpocket.attemptPickpocket(c, npcType);
-			return;
-		}
-		if (c.isBotting == true) {
-			c.getActionSender().sendMessage("You can't click any npcs, until you confirm you are not botting.");
-			c.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
 			return;
 		}
 		if (npcType >= 761 && npcType <= 773 && npcType != 767) {

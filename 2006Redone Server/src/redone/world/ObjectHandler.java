@@ -5,10 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import redone.Server;
+import redone.GameEngine;
 import redone.game.content.skills.core.Mining;
 import redone.game.content.skills.core.Woodcutting;
 import redone.game.objects.Objects;
@@ -30,7 +28,6 @@ public class ObjectHandler {
 
 	public ObjectHandler() {
 		loadGlobalObjects("./data/cfg/global-objects.cfg");
-		// Ladders.loadGlobalLadders("./data/Ladders/AdvancedLadders.cfg");
 	}
 	
 	 public Objects getObjectByPosition(int x, int y) {
@@ -54,7 +51,7 @@ public class ObjectHandler {
 	            addObject(OBJECT);
 	        }
 	        //Server.canLoadObjects = true;
-	        Server.objectHandler.placeObject(OBJECT);
+	        GameEngine.objectHandler.placeObject(OBJECT);
 	    }
 		
 
@@ -65,7 +62,7 @@ public class ObjectHandler {
 		} else {
 			addObject(OBJECT);
 		}
-		Server.objectHandler.placeObject(OBJECT);
+		GameEngine.objectHandler.placeObject(OBJECT);
 	}
 
 	public void createAnObject(Client c, int id, int x, int y, int face) {
@@ -75,7 +72,7 @@ public class ObjectHandler {
 		} else {
 			addObject(OBJECT);
 		}
-		Server.objectHandler.placeObject(OBJECT);
+		GameEngine.objectHandler.placeObject(OBJECT);
 	}
 
 	public void createAnObject(int id, int x, int y) {
@@ -85,7 +82,7 @@ public class ObjectHandler {
 		} else {
 			addObject(OBJECT);
 		}
-		Server.objectHandler.placeObject(OBJECT);
+		GameEngine.objectHandler.placeObject(OBJECT);
 	}
 
 	/**
@@ -295,10 +292,10 @@ public class ObjectHandler {
 				addObject(obby2);
 				addObject(obby3);
 				addObject(obby4);
-				Server.objectHandler.placeObject(obby1);
-				Server.objectHandler.placeObject(obby2);
-				Server.objectHandler.placeObject(obby3);
-				Server.objectHandler.placeObject(obby4);
+				GameEngine.objectHandler.placeObject(obby1);
+				GameEngine.objectHandler.placeObject(obby2);
+				GameEngine.objectHandler.placeObject(obby3);
+				GameEngine.objectHandler.placeObject(obby4);
 				Objects obby5 = new Objects(obeliskIds[index],
 						obeliskCoords[index][0], obeliskCoords[index][1], 0,
 						-1, 10, 10);

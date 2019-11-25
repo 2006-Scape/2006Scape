@@ -1,6 +1,6 @@
 package redone.game.content.guilds;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.content.quests.QuestAssistant;
 import redone.game.globalworldobjects.PassDoor;
 import redone.game.objects.impl.Climbing;
@@ -17,7 +17,7 @@ public class Guilds {
 	private static boolean hasCompletedLegends = false;
 
 	public static void attemptGuild(Client c, int objectId) {
-		if (!Constants.GUILDS) {
+		if (!GameConstants.GUILDS) {
 			c.getActionSender().sendMessage("Guilds are currently disabled.");
 			return;
 		}

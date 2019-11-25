@@ -1,8 +1,8 @@
 package redone.net.packets.impl;
 
 import redone.Connection;
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.bots.BotHandler;
 import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
@@ -52,7 +52,7 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().openUpBank();
                                 break;
                         case "claimvote":
-                                if(!Server.ersSecret.equals("")) {
+                                if(!GameEngine.ersSecret.equals("")) {
                                         final String playerName = player.playerName;
 
                                         com.everythingrs.vote.Vote.service.execute(new Runnable() {
@@ -60,7 +60,7 @@ public class Commands implements PacketType {
                                                 public void run() {
                                                         try {
                                                                 int currentPoints = player.votePoints;
-                                                                com.everythingrs.vote.Vote[] reward = com.everythingrs.vote.Vote.reward(Server.ersSecret, playerName, "1", "all");
+                                                                com.everythingrs.vote.Vote[] reward = com.everythingrs.vote.Vote.reward(GameEngine.ersSecret, playerName, "1", "all");
                                                                 if (reward[0].message != null) {
                                                                         player.getActionSender().sendMessage(reward[0].message);
                                                                         return;
@@ -171,7 +171,7 @@ public class Commands implements PacketType {
                                         }
                                         PlayerSave.saveGame((Client) p);
                                         System.out.println("Saved game for " + p.playerName + ".");
-                                        Server.lastMassSave = System.currentTimeMillis();
+                                        GameEngine.lastMassSave = System.currentTimeMillis();
                                 }
                                 HighscoresHandler hs = new HighscoresHandler();
                                 String[] highscores = new String[]{
@@ -267,7 +267,7 @@ public class Commands implements PacketType {
                                         }
                                         String playerToBan = String.join(" ", arguments);
                                         Connection.addNameToMuteList(playerToBan);
-                                        for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if (PlayerHandler.players[i] != null) {
                                                         if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Client c2 = (Client) PlayerHandler.players[i];
@@ -288,7 +288,7 @@ public class Commands implements PacketType {
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
-                                        for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if (PlayerHandler.players[i] != null) {
                                                         if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Connection.addIpToMuteList(PlayerHandler.players[i].connectedFrom);
@@ -311,7 +311,7 @@ public class Commands implements PacketType {
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
-                                        for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if (PlayerHandler.players[i] != null) {
                                                         if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Connection.unIPMuteUser(PlayerHandler.players[i].connectedFrom);
@@ -365,7 +365,7 @@ public class Commands implements PacketType {
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
-                                        for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Connection.addIpToBanList(PlayerHandler.players[i].connectedFrom);
@@ -388,7 +388,7 @@ public class Commands implements PacketType {
                                         String playerToBan = String.join(" ", arguments);
                                         Connection.addNameToBanList(playerToBan);
                                         Connection.addNameToFile(playerToBan);
-                                        for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 PlayerHandler.players[i].disconnected = true;
@@ -602,7 +602,7 @@ public class Commands implements PacketType {
                                                 return;
                                         }
                                         String playerToAdmin = String.join(" ", arguments);
-                                        for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
@@ -624,7 +624,7 @@ public class Commands implements PacketType {
                                                 return;
                                         }
                                         String playerToAdmin = String.join(" ", arguments);
-                                        for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
@@ -646,7 +646,7 @@ public class Commands implements PacketType {
                                                 return;
                                         }
                                         String playerToMod = String.join(" ", arguments);
-                                        for(int i = 0; i < Constants.MAX_PLAYERS; i++) {
+                                        for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToMod)) {
                                                                 Client c2 = (Client)PlayerHandler.players[i];

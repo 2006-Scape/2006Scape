@@ -1,6 +1,6 @@
 package redone.game.content.traveling;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -87,7 +87,7 @@ public class Desert {
 		}
 		c.startAnimation(CUTTING_ANIMATION);
 		c.getActionSender().sendMessage("You slash away the cactus.");
-		Server.objectHandler.createAnObject(c, DRY_CACTUS, obX, obY, -1);
+		GameEngine.objectHandler.createAnObject(c, DRY_CACTUS, obX, obY, -1);
 		for (int element[] : FILLS) {
 			if (c.getItemAssistant().playerHasItem(element[0])) {
 				c.getItemAssistant().deleteItem(element[0], c.getItemAssistant().getItemSlot(element[0]), 1);
@@ -118,7 +118,7 @@ public class Desert {
 				CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
-								Server.objectHandler.createAnObject(c, objectId, obX, obY, -1);
+								GameEngine.objectHandler.createAnObject(c, objectId, obX, obY, -1);
 								container.stop();
 							}
 							@Override

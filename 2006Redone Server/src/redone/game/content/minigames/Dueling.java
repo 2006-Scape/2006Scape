@@ -2,8 +2,8 @@ package redone.game.content.minigames;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.content.combat.prayer.PrayerDrain;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.items.GameItem;
@@ -156,8 +156,8 @@ public class Dueling {
 				} else {
 					player.getOutStream().writeByte(item.amount);
 				}
-				if (item.id > Constants.ITEM_LIMIT || item.id < 0) {
-					item.id = Constants.ITEM_LIMIT;
+				if (item.id > GameConstants.ITEM_LIMIT || item.id < 0) {
+					item.id = GameConstants.ITEM_LIMIT;
 				}
 				player.getOutStream().writeWordBigEndianA(item.id + 1);
 
@@ -185,8 +185,8 @@ public class Dueling {
 				} else {
 					player.getOutStream().writeByte(item.amount);
 				}
-				if (item.id > Constants.ITEM_LIMIT || item.id < 0) {
-					item.id = Constants.ITEM_LIMIT;
+				if (item.id > GameConstants.ITEM_LIMIT || item.id < 0) {
+					item.id = GameConstants.ITEM_LIMIT;
 				}
 				player.getOutStream().writeWordBigEndianA(item.id + 1);
 				current++;
@@ -205,7 +205,7 @@ public class Dueling {
 
 	public boolean stakeItem(int itemID, int fromSlot, int amount) {
 
-		for (int i : Constants.ITEM_TRADEABLE) {
+		for (int i : GameConstants.ITEM_TRADEABLE) {
 			if (i == itemID || itemID >= 6864 && itemID <= 6882) {
 				player.getActionSender().sendMessage(
 						"You can't stake this item.");
@@ -607,7 +607,7 @@ public class Dueling {
 		if (player.getPlayerAssistant().isPlayer()) {
 			GameLogger.writeLog(player.playerName, "duelingkiller", player.playerName + " killed " + opponent.playerName + " in the duel arena.");
 		}
-		player.getPlayerAssistant().movePlayer(Constants.DUELING_RESPAWN_X + Misc.random(5), Constants.DUELING_RESPAWN_Y + Misc.random(5), 0);
+		player.getPlayerAssistant().movePlayer(GameConstants.DUELING_RESPAWN_X + Misc.random(5), GameConstants.DUELING_RESPAWN_Y + Misc.random(5), 0);
 		player.getPlayerAssistant().requestUpdates();
 		player.getActionSender().showOption(3, 0, "Challenge", 3);
 		player.getActionSender().createPlayerHints(10, -1);
@@ -635,8 +635,8 @@ public class Dueling {
 				} else {
 					player.getOutStream().writeByte(item.amount);
 				}
-				if (item.id > Constants.ITEM_LIMIT || item.id < 0) {
-					item.id = Constants.ITEM_LIMIT;
+				if (item.id > GameConstants.ITEM_LIMIT || item.id < 0) {
+					item.id = GameConstants.ITEM_LIMIT;
 				}
 				player.getOutStream().writeWordBigEndianA(item.id + 1);
 			}
@@ -650,14 +650,14 @@ public class Dueling {
 			if (item.id > 0 && item.amount > 0) {
 				if (Item.itemStackable[item.id]) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
-						Server.itemHandler.createGroundItem(player, item.id,
+						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
 					}
 				} else {
 					int amount = item.amount;
 					for (int a = 1; a <= amount; a++) {
 						if (!player.getItemAssistant().addItem(item.id, 1)) {
-							Server.itemHandler.createGroundItem(player, item.id,
+							GameEngine.itemHandler.createGroundItem(player, item.id,
 									player.getX(), player.getY(), 1, player.getId());
 						}
 					}
@@ -668,14 +668,14 @@ public class Dueling {
 			if (item.id > 0 && item.amount > 0) {
 				if (Item.itemStackable[item.id]) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
-						Server.itemHandler.createGroundItem(player, item.id,
+						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
 					}
 				} else {
 					int amount = item.amount;
 					for (int a = 1; a <= amount; a++) {
 						if (!player.getItemAssistant().addItem(item.id, 1)) {
-							Server.itemHandler.createGroundItem(player, item.id,
+							GameEngine.itemHandler.createGroundItem(player, item.id,
 									player.getX(), player.getY(), 1, player.getId());
 						}
 					}

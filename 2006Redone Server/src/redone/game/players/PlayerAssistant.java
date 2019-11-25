@@ -3,8 +3,8 @@ package redone.game.players;
 import java.util.ArrayList;
 import java.util.Random;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -22,7 +22,6 @@ import redone.game.items.ItemAssistant;
 import redone.game.items.impl.LightSources;
 import redone.game.npcs.Npc;
 import redone.game.npcs.NpcHandler;
-import redone.game.players.antimacro.AntiBotting;
 import redone.util.GameLogger;
 import redone.util.Misc;
 import redone.world.TileControl;
@@ -69,15 +68,6 @@ public class PlayerAssistant {
 		player.getCombatAssistant().getPlayerAnimIndex();
 		requestUpdates();
 	}
-
-	public void clearClanChat() {
-		player.clanId = -1;
-		sendFrame126("Talking in: ", 18139);
-		sendFrame126("Owner: ", 18140);
-		for (int j = 18144; j < 18244; j++) {
-			sendFrame126("", j);
-		}
-	}
 	
 	public boolean isPlayer() {
 		return player.playerRights < 2 || player.playerRights > 3;
@@ -98,7 +88,7 @@ public class PlayerAssistant {
 	
 	public void loginScreen() {
 		showInterface(15244);
-		sendFrame126("Welcome to " + Constants.SERVER_NAME + "\\n", 15257);
+		sendFrame126("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
 
 		if (player.playerLevel[15] < 3) {
@@ -114,7 +104,7 @@ public class PlayerAssistant {
 	        } else {
 	        	sendFrame126("You last login @red@" + (currentDay > 1 ? (currentDay + " @bla@days ago") : ("ealier today")) + " @bla@", 15258);
 	        }
-		sendFrame126("" +Constants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
+		sendFrame126("" +GameConstants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
 		sendFrame126("You have 0 unread messages\\nOn forums!", 15261);
 		if (player.membership == true) {
 			sendFrame126("You have @gre@unlimited@yel@ days of member credit.", 15262);
@@ -127,7 +117,7 @@ public class PlayerAssistant {
 		} else {
 			sendFrame126("\\nYou currently have a bank pin set.\\nBank pins are coming soon!.", 15270);
 		}
-		sendFrame126("Remember to vote daily to help " + Constants.SERVER_NAME + "", 15803);
+		sendFrame126("Remember to vote daily to help " + GameConstants.SERVER_NAME + "", 15803);
 		sendFrame126("Every vote counts! :)", 15804);
 	}
 	
@@ -159,11 +149,11 @@ public class PlayerAssistant {
 	        while (done != fish) {
 	            done++;
 	            int random = r.nextInt(100);
-	            if (random >= 85 - Server.trawler.chanceByLevel(player, 381)) {
+	            if (random >= 85 - GameEngine.trawler.chanceByLevel(player, 381)) {
 	                if (mantas) {
 	                    manta++;
 	                }
-	            } else if (random >= 70 - Server.trawler.chanceByLevel(player,
+	            } else if (random >= 70 - GameEngine.trawler.chanceByLevel(player,
 	                    381)) {
 	                if (turtles) {
 	                    turt++;
@@ -221,9 +211,9 @@ public class PlayerAssistant {
 	                        player.fishingTrawlerReward.get(slot).amount--;
 	                        if (player.fishingTrawlerReward.get(slot).amount <= 0) {
 	                            player.fishingTrawlerReward.remove(slot);
-	                            Server.trawler.showReward(player);
+	                            GameEngine.trawler.showReward(player);
 	                        } else {
-	                            Server.trawler.updateRewardSlot(player, slot);
+	                            GameEngine.trawler.updateRewardSlot(player, slot);
 	                        }
 	                    }
 	                } else {
@@ -234,7 +224,7 @@ public class PlayerAssistant {
 	                for (int j = 0; j < loop; j++) {
 	                    if (player.getItemAssistant().freeSlots() == 0) {
 	                        player.getActionSender().sendMessage("You don't have enough inventory space to withdraw that");
-	                        Server.trawler.updateRewardSlot(player, slot);
+	                        GameEngine.trawler.updateRewardSlot(player, slot);
 	                        return;
 	                    }
 	                    player.getItemAssistant()
@@ -242,7 +232,7 @@ public class PlayerAssistant {
 	                    player.fishingTrawlerReward.get(slot).amount--;
 	                    if (player.fishingTrawlerReward.get(slot).amount <= 0) {
 	                        player.fishingTrawlerReward.remove(slot);
-	                        Server.trawler.showReward(player);
+	                        GameEngine.trawler.showReward(player);
 	                        return;
 	                    }
 	                }
@@ -269,8 +259,8 @@ public class PlayerAssistant {
 	        requestUpdates();
 	    }
 	    
-	public int backupItems[] = new int[Constants.BANK_SIZE];
-	public int backupItemsN[] = new int[Constants.BANK_SIZE];
+	public int backupItems[] = new int[GameConstants.BANK_SIZE];
+	public int backupItemsN[] = new int[GameConstants.BANK_SIZE];
 	public int backupInvItems[] = new int[28];
 	public int backupInvItemsN[] = new int[28];
 
@@ -358,9 +348,9 @@ public class PlayerAssistant {
 }
 
 	public void sendSidebars() {
-		for (int i = 0; i < Constants.SIDEBARS.length; i++) {
+		for (int i = 0; i < GameConstants.SIDEBARS.length; i++) {
 			player.getActionSender().setSidebarInterface(i,
-					Constants.SIDEBARS[i]);
+					GameConstants.SIDEBARS[i]);
 			if (player.playerMagicBook == 0) {
 				player.getActionSender().setSidebarInterface(6, 1151);
 			} else {
@@ -720,13 +710,8 @@ public class PlayerAssistant {
 			player.getActionSender().sendMessage("You can't teleport from a Fight pits Game!");
 			return;
 		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't teleport right now!");
-			return;
-		}
 		if (player.tutorialProgress < 36) {
-			player.getActionSender().sendMessage(
-					"You can't teleport from tutorial island!");
+			player.getActionSender().sendMessage("You can't teleport from tutorial island!");
 			return;
 		}
 		int[] cwitems = { 2552, 2554, 2556, 2558, 2560, 2562, 2564, 2566, 1706,
@@ -743,15 +728,14 @@ public class PlayerAssistant {
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
-			player.getActionSender().sendMessage(
-					"This feature is curently disabled.");
+			player.getActionSender().sendMessage("This feature is curently disabled.");
 			return;
 		}
 		if (player.inWild()
-				&& player.wildLevel > Constants.NO_TELEPORT_WILD_LEVEL) {
+				&& player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
 			player.getActionSender().sendMessage(
 					"You can't teleport above level "
-							+ Constants.NO_TELEPORT_WILD_LEVEL
+							+ GameConstants.NO_TELEPORT_WILD_LEVEL
 							+ " in the wilderness.");
 			return;
 		}
@@ -787,7 +771,7 @@ public class PlayerAssistant {
 			player.teleHeight = height;
 			// client.resetShaking();
 			player.isTeleporting = true;
-			if (Constants.SOUND) {
+			if (GameConstants.SOUND) {
 				player.getActionSender().sendSound(SoundList.TELEPORT, 100, 700);
 			}
 			if (teleportType.equalsIgnoreCase("modern")) {
@@ -821,10 +805,6 @@ public class PlayerAssistant {
 				return;
 			}
 		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't teleport right now!");
-			return;
-		}
 		if (player.inTrade) {
 			player.getActionSender().sendMessage(
 					"You can't teleport while in trade!");
@@ -855,7 +835,7 @@ public class PlayerAssistant {
 					"You are teleblocked and can't teleport.");
 			return;
 		}
-		if (Constants.SOUND) {
+		if (GameConstants.SOUND) {
 			player.getActionSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
 		if (!player.isDead && player.teleTimer == 0) {
@@ -887,23 +867,16 @@ public class PlayerAssistant {
 				return;
 			}
 		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't teleport right now!");
-			return;
-		}
 		if (player.inTrade) {
-			player.getActionSender().sendMessage(
-					"You can't teleport while in trade!");
+			player.getActionSender().sendMessage("You can't teleport while in trade!");
 			return;
 		}
 		if (player.tutorialProgress < 36) {
-			player.getActionSender().sendMessage(
-					"You can't teleport from tutorial island!");
+			player.getActionSender().sendMessage("You can't teleport from tutorial island!");
 			return;
 		}
 		if (FightPits.getState(player) != null) {
-			player.getActionSender().sendMessage(
-					"You can't teleport from a Fight pits Game!");
+			player.getActionSender().sendMessage("You can't teleport from a Fight pits Game!");
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
@@ -921,7 +894,7 @@ public class PlayerAssistant {
 					"You are teleblocked and can't teleport.");
 			return;
 		}
-		if (Constants.SOUND) {
+		if (GameConstants.SOUND) {
 			player.getActionSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
 		if (player.inWild() && player.wildLevel > 30) {
@@ -1008,7 +981,7 @@ public class PlayerAssistant {
 					container.stop();
 					return;
 				}
-				Server.fightCaves.spawnNextWave((Client) PlayerHandler.players[player.playerId]);
+				GameEngine.fightCaves.spawnNextWave((Client) PlayerHandler.players[player.playerId]);
 				container.stop();
 			}
 			@Override
@@ -1236,11 +1209,11 @@ public class PlayerAssistant {
 				Client t = (Client) player;
 				if (t.absX >= x1 && t.absX <= x2 && t.absY >= y1
 						&& t.absY <= y2) {
-					int hit = t.playerLevel[Constants.HITPOINTS] / hp;
+					int hit = t.playerLevel[GameConstants.HITPOINTS] / hp;
 					t.setHitDiff2(hit);
 					t.setHitUpdateRequired2(true);
-					t.playerLevel[Constants.HITPOINTS] -= hit;
-					t.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+					t.playerLevel[GameConstants.HITPOINTS] -= hit;
+					t.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 					t.updateRequired = true;
 				}
 			}
@@ -1252,7 +1225,7 @@ public class PlayerAssistant {
 		if (player.getOutStream() != null && player != null) {
 			if (world != 0) {
 				world += 9;
-			} else if (!Constants.WORLD_LIST_FIX) {
+			} else if (!GameConstants.WORLD_LIST_FIX) {
 				world += 1;
 			}
 			player.getOutStream().createFrame(50);
@@ -1644,19 +1617,12 @@ public class PlayerAssistant {
 				player.getActionSender().sendMessage("You can't alch while in trade!");
 				return;
 			}
-			if (player.isBotting == true) {
-				player.getActionSender().sendMessage("You can't alch right now!");
-				return;
-			}
-			if (Misc.random(200) == 0) {
-				AntiBotting.botCheckInterface(player);
-			}
 			if (System.currentTimeMillis() - player.alchDelay > 1000) {
 				if (!player.getCombatAssistant().checkMagicReqs(49)) {
 					break;
 				}
 				boolean canAlch = true;
-				for (int i : Constants.ITEM_UNALCHABLE) {
+				for (int i : GameConstants.ITEM_UNALCHABLE) {
 					if (itemId == i) {
 						player.getActionSender().sendMessage(
 								"You can't alch that item!");
@@ -1717,19 +1683,12 @@ public class PlayerAssistant {
 						"You can't alch while in trade!");
 				return;
 			}
-			if (player.isBotting == true) {
-				player.getActionSender().sendMessage("You can't alch right now!");
-				return;
-			}
-			if (Misc.random(200) == 0) {
-				AntiBotting.botCheckInterface(player);
-			}
 			if (System.currentTimeMillis() - player.alchDelay > 1000) {
 				if (!player.getCombatAssistant().checkMagicReqs(50)) {
 					break;
 				}
 				boolean canAlch = true;
-				for (int i : Constants.ITEM_UNALCHABLE) {
+				for (int i : GameConstants.ITEM_UNALCHABLE) {
 					if (itemId == i) {
 						player.getActionSender().sendMessage(
 								"You can't alch that item!");
@@ -2008,7 +1967,7 @@ public class PlayerAssistant {
 																	// duel
 																	// repawn to
 																	// wildy
-			movePlayer(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
+			movePlayer(GameConstants.RESPAWN_X, GameConstants.RESPAWN_Y, 0);
 			player.isSkulled = false;
 			player.skullTimer = 0;
 			player.attackedPlayers.clear();
@@ -2026,14 +1985,14 @@ public class PlayerAssistant {
 			}
 			player.getActionSender().sendSound(122, 100, 0);
 			player.getPlayerAssistant().movePlayer(
-					Constants.DUELING_RESPAWN_X + 5,
-					Constants.DUELING_RESPAWN_Y + 5, 0);
+					GameConstants.DUELING_RESPAWN_X + 5,
+					GameConstants.DUELING_RESPAWN_Y + 5, 0);
 			assert o != null;
 			if (o != null) {
 				o.getActionSender().sendSound(122, 100, 0);
 				o.getPlayerAssistant().movePlayer(
-						Constants.DUELING_RESPAWN_X + 5,
-						Constants.DUELING_RESPAWN_Y + 5, 0);
+						GameConstants.DUELING_RESPAWN_X + 5,
+						GameConstants.DUELING_RESPAWN_Y + 5, 0);
 			}
 			if (player.duelStatus != 6) { // if we have won but have died,
 											// don't reset the duel status.
@@ -2458,7 +2417,7 @@ public class PlayerAssistant {
 	}
 
 	public void firstTimeTutorial() {
-		if (Constants.TUTORIAL_ISLAND && player.tutorialProgress == 0) {
+		if (GameConstants.TUTORIAL_ISLAND && player.tutorialProgress == 0) {
 			player.getItemAssistant().deleteAllItems();
 			player.getPlayerAssistant().hideAllSideBars();
 			movePlayer(3094, 3107, 0);
@@ -2469,7 +2428,7 @@ public class PlayerAssistant {
 			//resetStats();
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
-		} else if (player.tutorialProgress == 0 && !Constants.TUTORIAL_ISLAND) {
+		} else if (player.tutorialProgress == 0 && !GameConstants.TUTORIAL_ISLAND) {
 			player.getPlayerAssistant().sendSidebars();
 			PlayerAssistant.removeHintIcon(player);
 			player.getPlayerAssistant().walkableInterface(-1);
@@ -2478,7 +2437,7 @@ public class PlayerAssistant {
 			player.getItemAssistant().clearBank();
 			player.getPlayerAssistant().addStarter();
 			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
-			player.getActionSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
+			player.getActionSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 			player.getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
 			player.getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
@@ -2977,15 +2936,10 @@ public class PlayerAssistant {
 			}
 			return false;
 		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't gain exp, until you confirm you are not a bot.");
-			player.getActionSender().sendMessage("If you need to relog you can do so.");
+		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && GameConstants.TUTORIAL_ISLAND == true) {
 			return false;
 		}
-		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && Constants.TUTORIAL_ISLAND == true) {
-			return false;
-		}
-		amount *= Constants.SERVER_EXP_BONUS;
+		amount *= GameConstants.XP_RATE;
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
 		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
@@ -3030,57 +2984,19 @@ public class PlayerAssistant {
 		return true;
 	}
 
-	public boolean addSkillXP(double amount, int skill) {// normal experience
-															// rate method
+	public boolean addSkillXP(double amount, int skill) {
 		if (amount + player.playerXP[skill] < 0
 				|| player.playerXP[skill] > 200000000) {
 			if (player.playerXP[skill] > 200000000) {
 				player.playerXP[skill] = 200000000;
 			}
-			return false;
-		}
-		if (player.isBotting == true) {
-			player.getActionSender().sendMessage("You can't gain exp, until you confirm you are not a bot.");
-			player.getActionSender().sendMessage("If you need to relog you can do so.");
 			return false;
 		}
 		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3
-				&& Constants.TUTORIAL_ISLAND == true) {
+				&& GameConstants.TUTORIAL_ISLAND == true) {
 			return false;
 		}
-		amount *= Constants.SERVER_EXP_BONUS;
-		int oldLevel = getLevelForXP(player.playerXP[skill]);
-		player.playerXP[skill] += amount;
-		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
-			if (player.playerLevel[skill] < player
-					.getLevelForXP(player.playerXP[skill])
-					&& skill != 3
-					&& skill != 5) {
-				player.playerLevel[skill] = player
-						.getLevelForXP(player.playerXP[skill]);
-			}
-			levelUp(skill);
-			player.gfx100(199);
-			requestUpdates();
-		}
-		player.getActionSender().setSkillLevel(skill,
-				player.playerLevel[skill], player.playerXP[skill]);
-		refreshSkill(skill);
-		return true;
-	}
-
-	public boolean addNormalExperienceRate(int amount, int skill) {// used for
-																	// 1x
-																	// experience
-																	// rates
-		if (amount + player.playerXP[skill] < 0
-				|| player.playerXP[skill] > 200000000) {
-			if (player.playerXP[skill] > 200000000) {
-				player.playerXP[skill] = 200000000;
-			}
-			return false;
-		}
-		amount *= 1;
+		amount *= GameConstants.XP_RATE;
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
 		if (oldLevel < getLevelForXP(player.playerXP[skill])) {

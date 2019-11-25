@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.content.combat.npcs.NpcAggressive;
 import redone.game.content.combat.npcs.NpcCombat;
 import redone.game.content.combat.npcs.NpcEmotes;
@@ -16,7 +16,6 @@ import redone.game.content.randomevents.FreakyForester;
 import redone.game.content.randomevents.RandomEventHandler;
 import redone.game.content.randomevents.RiverTroll;
 import redone.game.npcs.drops.ItemDrop;
-import redone.game.npcs.drops.NPCDrops;
 import redone.game.npcs.drops.NPCDropsHandler;
 import redone.game.players.Client;
 import redone.game.players.Player;
@@ -51,7 +50,7 @@ public class NpcHandler {
 	
 	public static boolean isUndead(int index) {
 		String name = getNpcListName(npcs[index].npcType);
-		for(String s : Constants.UNDEAD)
+		for(String s : GameConstants.UNDEAD)
 			if(s.equalsIgnoreCase(name))
 				return true;
 		return false;
@@ -466,13 +465,13 @@ public class NpcHandler {
 					npcs[i].killerId = 0;
 					if (npcs[i].spawnedBy == 0) {
 						if (npcs[i].absX > npcs[i].makeX
-								+ Constants.NPC_RANDOM_WALK_DISTANCE
+								+ GameConstants.NPC_RANDOM_WALK_DISTANCE
 								|| npcs[i].absX < npcs[i].makeX
-										- Constants.NPC_RANDOM_WALK_DISTANCE
+										- GameConstants.NPC_RANDOM_WALK_DISTANCE
 								|| npcs[i].absY > npcs[i].makeY
-										+ Constants.NPC_RANDOM_WALK_DISTANCE
+										+ GameConstants.NPC_RANDOM_WALK_DISTANCE
 								|| npcs[i].absY < npcs[i].makeY
-										- Constants.NPC_RANDOM_WALK_DISTANCE) {
+										- GameConstants.NPC_RANDOM_WALK_DISTANCE) {
 							npcs[i].walkingHome = true;
 						}
 					}
@@ -564,7 +563,7 @@ public class NpcHandler {
 																		// emote
 						Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
-							if (Constants.combatSounds
+							if (GameConstants.COMBAT_SOUNDS
 									&& NpcHandler.npcs[i].npcType < 3177
 									&& NpcHandler.npcs[i].npcType > 3180) {
 								c.getActionSender()
@@ -656,7 +655,7 @@ public class NpcHandler {
 						npcs[i].updateRequired = true;
 						npcs[i].animUpdateRequired = true;
 						if (npcs[i].npcType >= 2440 && npcs[i].npcType <= 2446) {
-							Server.objectManager.removeObject(npcs[i].absX,
+							GameEngine.objectManager.removeObject(npcs[i].absX,
 									npcs[i].absY);
 						}
 					} else if (npcs[i].actionTimer == 0
@@ -860,7 +859,6 @@ public class NpcHandler {
 
 	public void dropItems(int i) {
 		// TODO: add ring of wealth
-		int item_index = 0;
 		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
 			// These npcs shouldn't have drops
@@ -881,40 +879,40 @@ public class NpcHandler {
 			for (ItemDrop possible_drop : NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase(), npcs[i].npcType)) {
 				if (Misc.random(possible_drop.getChance()) == 0) {
 					int amt = possible_drop.getAmount();
-					Server.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY, amt, c.playerId);
+					GameEngine.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY, amt, c.playerId);
 				}
 			}
 			switch (npcs[i].npcType) {
 				case 2459:
 					FreakyForester.killedPheasant(c, 0);
-					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					break;
 				case 2460:
 					FreakyForester.killedPheasant(c, 1);
-					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					break;
 				case 2461:
 					FreakyForester.killedPheasant(c, 2);
-					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					break;
 				case 2462:
 					FreakyForester.killedPheasant(c, 3);
-					Server.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+					GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					break;
 				case 92:
 					if (c.restGhost == 3) {
-						Server.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						GameEngine.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 						c.restGhost = 4;
 					}
 					break;
 				case 47:
 					if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
-						Server.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						GameEngine.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					}
 					break;
 				case 645:
 					if (c.shieldArrav == 5) {
-						Server.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+						GameEngine.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 					}
 					break;
 			}
@@ -935,8 +933,8 @@ public class NpcHandler {
 					scroll = 2678 + Misc.random(0, 1);
 				else if (level > 150)// hard
 					scroll = 2679;
-				if (scroll >= 0 && Constants.CLUES_ENABLED)
-					Server.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+				if (scroll >= 0 && GameConstants.CLUES_ENABLED)
+					GameEngine.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 			}
 		}
 	}
@@ -1046,10 +1044,10 @@ public class NpcHandler {
 		int y = npc.absY;
 		Player player = PlayerHandler.players[playerId];
 		if (npcs[i].spawnedBy > 0
-				|| x < npc.makeX + Constants.NPC_FOLLOW_DISTANCE
-				&& x > npc.makeX - Constants.NPC_FOLLOW_DISTANCE
-				&& y < npc.makeY + Constants.NPC_FOLLOW_DISTANCE
-				&& y > npc.makeY - Constants.NPC_FOLLOW_DISTANCE) {
+				|| x < npc.makeX + GameConstants.NPC_FOLLOW_DISTANCE
+				&& x > npc.makeX - GameConstants.NPC_FOLLOW_DISTANCE
+				&& y < npc.makeY + GameConstants.NPC_FOLLOW_DISTANCE
+				&& y > npc.makeY - GameConstants.NPC_FOLLOW_DISTANCE) {
 			if (npc.heightLevel == player.heightLevel) {
 				if (player != null && npc != null) {
 					if (playerX > x && playerY < y) {

@@ -3,7 +3,7 @@ package redone.game.content.minigames.trawler;
 import java.util.ArrayList;
 import java.util.Random;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -203,8 +203,8 @@ public class Trawler extends GroupMinigame {
         public void resetWalls() {
                 for(Wall w : Wall.values()) {
                         if(w != null) {
-                                Server.objectHandler.removeObject(Server.objectHandler.getObjectByPosition(w.x, w.y));
-                                Server.objectHandler.createAnObject(perfect_wall, w.x,w.y, w.y == 4826 ? 1 : 3);
+                                GameEngine.objectHandler.removeObject(GameEngine.objectHandler.getObjectByPosition(w.x, w.y));
+                                GameEngine.objectHandler.createAnObject(perfect_wall, w.x,w.y, w.y == 4826 ? 1 : 3);
                         }
                 }
         }
@@ -219,25 +219,25 @@ public class Trawler extends GroupMinigame {
                         System.out.println("null");
                         return;
                 }
-                Server.objectHandler.removeObject(Server.objectHandler.getObjectByPosition(w.x, w.y));
-                Server.objectHandler.removeObject(Server.objectHandler.getObjectByPosition(w.x + (isSunk ? -128 : 128), w.y));
+                GameEngine.objectHandler.removeObject(GameEngine.objectHandler.getObjectByPosition(w.x, w.y));
+                GameEngine.objectHandler.removeObject(GameEngine.objectHandler.getObjectByPosition(w.x + (isSunk ? -128 : 128), w.y));
                 if (wall_status[index] == true) {
-                        Server.objectHandler.createAnObject(leaking_wall, w.x, w.y,
+                        GameEngine.objectHandler.createAnObject(leaking_wall, w.x, w.y,
                                         w.y == 4826 ? 1 : 3);
                         if (isSunk)
-                                Server.objectHandler.createAnObject(leaking_wall, w.x - 128,
+                                GameEngine.objectHandler.createAnObject(leaking_wall, w.x - 128,
                                                 w.y, w.y == 4826 ? 1 : 3);
                         else
-                                Server.objectHandler.createAnObject(leaking_wall, w.x + 128,
+                                GameEngine.objectHandler.createAnObject(leaking_wall, w.x + 128,
                                                 w.y, w.y == 4826 ? 1 : 3);
                 } else {
-                        Server.objectHandler.createAnObject(patched_wall, w.x, w.y,
+                        GameEngine.objectHandler.createAnObject(patched_wall, w.x, w.y,
                                         w.y == 4826 ? 1 : 3);
                         if (isSunk)
-                                Server.objectHandler.createAnObject(patched_wall, w.x - 128,
+                                GameEngine.objectHandler.createAnObject(patched_wall, w.x - 128,
                                                 w.y, w.y == 4826 ? 1 : 3);
                         else
-                                Server.objectHandler.createAnObject(patched_wall, w.x + 128,
+                                GameEngine.objectHandler.createAnObject(patched_wall, w.x + 128,
                                                 w.y, w.y == 4826 ? 1 : 3);
                 }
         }

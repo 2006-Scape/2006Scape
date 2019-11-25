@@ -2,7 +2,7 @@ package redone.world;
 
 import java.util.ArrayList;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -49,8 +49,8 @@ public class ObjectManager {
 					container.stop();
 					return;
 				}
-				Server.objectHandler.placeObject(new Objects(-1, x1, y1, objectH, face, 0, 0));
-				Server.objectHandler.placeObject(new Objects(objectId, objectX, objectY, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(-1, x1, y1, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(objectId, objectX, objectY, objectH, face, 0, 0));
 				container.stop();
 			}
 
@@ -73,9 +73,9 @@ public class ObjectManager {
 					container.stop();
 					return;
 				}
-				Server.objectHandler.placeObject(new Objects(-1, x1, y1, objectH, face, 0, 0));
-				Server.objectHandler.placeObject(new Objects(-1, x2, y2, objectH, face, 0, 0));
-				Server.objectHandler.placeObject(new Objects(objectId, objectX, objectY, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(-1, x1, y1, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(-1, x2, y2, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(objectId, objectX, objectY, objectH, face, 0, 0));
 				container.stop();
 			}
 

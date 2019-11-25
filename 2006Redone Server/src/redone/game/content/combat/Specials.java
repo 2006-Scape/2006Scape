@@ -2,7 +2,7 @@ package redone.game.content.combat;
 
 import java.util.HashMap;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.content.combat.range.RangeData;
 import redone.game.content.music.sound.CombatSounds;
 import redone.game.npcs.NpcHandler;
@@ -241,7 +241,7 @@ public class Specials {
 					.random(player.getCombatAssistant().meleeMaxHit());
 			player.usingSpecial = false;
 			player.getItemAssistant().updateSpecialBar();
-			if (Constants.combatSounds) {
+			if (GameConstants.COMBAT_SOUNDS) {
 				player.getActionSender()
 						.sendSound(
 								CombatSounds

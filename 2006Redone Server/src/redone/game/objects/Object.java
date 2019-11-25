@@ -1,6 +1,6 @@
 package redone.game.objects;
 
-import redone.Server;
+import redone.GameEngine;
 
 public class Object {
 
@@ -14,7 +14,7 @@ public class Object {
 	public int tick;
 
 	public Object(int ID, int X, int Y, int Height, int Face, int Type, int NewId, int Tick) {
-		Object p = Server.objectManager.getObject(X, Y, Height);
+		Object p = GameEngine.objectManager.getObject(X, Y, Height);
 		if (p != null) {
 			if (ID == p.objectId) {
 				return;
@@ -28,7 +28,7 @@ public class Object {
 		type = Type;
 		newId = NewId;
 		tick = Tick;
-		Server.objectManager.addObject(this);
+		GameEngine.objectManager.addObject(this);
 	}
 
 }

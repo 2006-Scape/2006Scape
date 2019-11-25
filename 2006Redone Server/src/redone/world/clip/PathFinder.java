@@ -13,9 +13,6 @@ public class PathFinder {
 		return pathFinder;
 	}
 
-	public PathFinder() {
-	}
-
 	public void findRoute(Client c, int destX, int destY, boolean moveNear,
 			int xLength, int yLength) {
 		if (destX == c.getLocalX() && destY == c.getLocalY() && !moveNear) {

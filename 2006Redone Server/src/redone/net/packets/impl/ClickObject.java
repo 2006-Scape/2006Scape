@@ -1,6 +1,6 @@
 package redone.net.packets.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -233,7 +233,7 @@ public class ClickObject implements PacketType {
 
 		      case 2164:
               case 2165:
-                  Server.trawler.fixNet(player);
+                  GameEngine.trawler.fixNet(player);
                   break;
 
 			case 4462:

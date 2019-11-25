@@ -12,8 +12,8 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
 import redone.Connection;
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.game.players.PlayerSave;
@@ -213,11 +213,11 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 			returnCode = 5;
 		}
 
-		if (PlayerHandler.playerCount >= Constants.MAX_PLAYERS) {
+		if (PlayerHandler.playerCount >= GameConstants.MAX_PLAYERS) {
 			returnCode = 7;
 		}
 
-		if (Server.UpdateServer) {
+		if (GameEngine.UpdateServer) {
 			returnCode = 14;
 		}
 
@@ -236,7 +236,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 						cl.playerEquipmentN[i] = 0;
 					}
 				}
-				if (!Server.playerHandler.newPlayerClient(cl)) {
+				if (!GameEngine.playerHandler.newPlayerClient(cl)) {
 					returnCode = 7;
 					cl.saveFile = false;
 				} else {

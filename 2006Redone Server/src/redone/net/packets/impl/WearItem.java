@@ -9,9 +9,6 @@ import redone.net.packets.PacketType;
  **/
 public class WearItem implements PacketType {
 
-	/* (non-Javadoc)
-	 * @see server.net.packets.PacketType#processPacket(server.game.players.Client, int, int)
-	 */
 	@Override
 	public void processPacket(Client player, int packetType, int packetSize) {
 		player.wearId = player.getInStream().readUnsignedWord();

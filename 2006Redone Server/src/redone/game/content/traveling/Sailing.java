@@ -1,6 +1,6 @@
 package redone.game.content.traveling;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -58,7 +58,7 @@ public class Sailing {
 	}
 
 	public static boolean searchForAlcohol(Client player) {
-		for (int element : Constants.ALCOHOL_RELATED_ITEMS) {
+		for (int element : GameConstants.ALCOHOL_RELATED_ITEMS) {
 			if (player.getItemAssistant().playerHasItem(element, 1)) {
 				player.getDialogueHandler().sendNpcChat1("You can't bring intoxicating items to Asgarnia!", player.npcType, NpcHandler.getNpcListName(player.npcType));
 				player.nextChat = 0;
@@ -71,7 +71,7 @@ public class Sailing {
 	}
 
 	public static boolean quickSearch(Client player) {
-		for (int element : Constants.COMBAT_RELATED_ITEMS) {
+		for (int element : GameConstants.COMBAT_RELATED_ITEMS) {
 			if (player.getItemAssistant().playerHasItem(element, 1) || player.getItemAssistant().playerHasEquipped(element)) {
 				player.getDialogueHandler().sendNpcChat2("Grr! I see you brought some illegal items! Get", "out of my sight immediately!", 657, NpcHandler.getNpcListName(player.npcType));
 				player.nextChat = 0;

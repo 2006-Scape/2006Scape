@@ -2,7 +2,7 @@ package redone.game.content.skills.cooking;
 
 import java.security.SecureRandom;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -268,7 +268,7 @@ public class Cooking extends SkillHandler {
 						c.getActionSender().sendMessage(
 								"You successfully cook the "
 										+ item.getName().toLowerCase() + ".");
-						if (Constants.SOUND) {
+						if (GameConstants.SOUND) {
 							c.getActionSender().sendSound(
 									SoundList.COOK_ITEM, 100, 0);
 						}

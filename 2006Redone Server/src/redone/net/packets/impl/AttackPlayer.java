@@ -1,6 +1,6 @@
 package redone.net.packets.impl;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.content.combat.magic.CastOnOther;
 import redone.game.content.combat.magic.MagicData;
 import redone.game.content.combat.range.RangeData;
@@ -43,12 +43,6 @@ public class AttackPlayer implements PacketType {
 			if (c.autocastId > 0) {
 				c.autocasting = true;
 			}
-			
-			if (c.isBotting == true) {
-				c.getActionSender().sendMessage("You can't attack players, until you confirm you are not botting.");
-				c.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-				return;
-			}
 
 			if (!c.autocasting && c.spellId > 0) {
 				c.spellId = 0;
@@ -84,7 +78,7 @@ public class AttackPlayer implements PacketType {
 				}
 				if (c.duelRule[9]) {
 					boolean canUseWeapon = false;
-					for (int funWeapon : Constants.FUN_WEAPONS) {
+					for (int funWeapon : GameConstants.FUN_WEAPONS) {
 						if (c.playerEquipment[c.playerWeapon] == funWeapon) {
 							canUseWeapon = true;
 						}
@@ -138,7 +132,7 @@ public class AttackPlayer implements PacketType {
 				return;
 			}
 			if (RangeData.correctBowAndArrows(c) < c.playerEquipment[c.playerArrows]
-					&& Constants.CORRECT_ARROWS
+					&& GameConstants.CORRECT_ARROWS
 					&& usingBow
 					&& !RangeData.usingCrystalBow(c)
 					&& c.playerEquipment[c.playerWeapon] != 9185) {
@@ -185,13 +179,6 @@ public class AttackPlayer implements PacketType {
 				c.mageAllowed = true;
 				break;
 			}
-			if (c.isBotting == true) {
-				c.getActionSender().sendMessage("You can't mage players, until you confirm you are not botting.");
-				c.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-				return;
-			}
-			// c.usingSpecial = false;
-			// c.getItems().updateSpecialBar();
 
 			c.playerIndex = c.getInStream().readSignedWordA();
 			int castingSpellId = c.getInStream().readSignedWordBigEndian();
@@ -218,10 +205,10 @@ public class AttackPlayer implements PacketType {
 					c.getTrading().declineTrade(true);
 				}
 				if (c.inWild()
-						&& c.wildLevel > Constants.NO_TELEPORT_WILD_LEVEL) {
+						&& c.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
 					c.getActionSender().sendMessage(
 							"You can't teleport above level "
-									+ Constants.NO_TELEPORT_WILD_LEVEL
+									+ GameConstants.NO_TELEPORT_WILD_LEVEL
 									+ " in the wilderness.");
 					break;
 				}

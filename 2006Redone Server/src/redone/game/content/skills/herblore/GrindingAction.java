@@ -33,16 +33,12 @@ public class GrindingAction {
 
 	public static void init(Client c, int itemUsed, int useWith) {
 		for (Data d : Data.values()) {
-			if (itemUsed == PESTLE_AND_MORTAR && useWith == d.getId()
-					|| itemUsed == d.getId() && useWith == PESTLE_AND_MORTAR) {
+			if (itemUsed == PESTLE_AND_MORTAR && useWith == d.getId() || itemUsed == d.getId() && useWith == PESTLE_AND_MORTAR) {
 				c.startAnimation(364);
-				c.getActionSender().sendSound(SoundList.PESTLE_MOTAR, 100,
-						0);
+				c.getActionSender().sendSound(SoundList.PESTLE_MOTAR, 100, 0);
 				c.getItemAssistant().deleteItem(d.getId(), 1);
 				c.getItemAssistant().addItem(d.getEnd(), 1);
-				c.getActionSender().sendMessage(
-						"You carefully grind the "
-								+ ItemAssistant.getItemName(d.getId()) + ".");
+				c.getActionSender().sendMessage("You carefully grind the " + ItemAssistant.getItemName(d.getId()) + ".");
 				c.getPlayerAssistant().addSkillXP(1, c.playerHerblore);
 			}
 		}

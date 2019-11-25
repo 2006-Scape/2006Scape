@@ -4,8 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.items.Item;
 import redone.game.objects.Objects;
 import redone.game.players.Client;
@@ -49,8 +49,8 @@ public class PartyRoom {
 					b = Balloons.getBalloon(roomItems[x], roomItemsN[x]);
 					trys++;
 				} while (coords.contains(Balloons.getCoords()) && trys < 100);
-				Server.objectHandler.addObject(b);
-				Server.objectHandler.placeObject(b);
+				GameEngine.objectHandler.addObject(b);
+				GameEngine.objectHandler.placeObject(b);
 			}
 			if (trys > 100) {
 				break;
@@ -68,8 +68,8 @@ public class PartyRoom {
 			if (trys > 100) {
 				break;
 			}
-			Server.objectHandler.addObject(o);
-			Server.objectHandler.placeObject(o);
+			GameEngine.objectHandler.addObject(o);
+			GameEngine.objectHandler.placeObject(o);
 		}
 		coords.clear();
 	}
@@ -87,7 +87,7 @@ public class PartyRoom {
 	}
 
 	public static void open(Client c) {
-		if (!Constants.PARTY_ROOM_DISABLED) {
+		if (!GameConstants.PARTY_ROOM_DISABLED) {
 			updateGlobal(c);
 			updateDeposit(c);
 			c.getItemAssistant().resetItems(5064);
@@ -158,7 +158,7 @@ public class PartyRoom {
 
 	public static void depositItem(Client c, int id, int amount) {
 		int slot = arraySlot(c.party, id);
-		for (int i : Constants.ITEM_TRADEABLE) {
+		for (int i : GameConstants.ITEM_TRADEABLE) {
 			if (i == id) {
 				c.getActionSender().sendMessage(
 						"You can't deposit this item.");

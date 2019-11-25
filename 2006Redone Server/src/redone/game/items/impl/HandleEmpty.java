@@ -19,8 +19,7 @@ public class HandleEmpty {
 		if (!itemName.contains("Ring") && !itemName.contains("necklace")) {
 		if (itemName.contains("(3)") || itemName.contains("(4)") || itemName.contains("(2)") || itemName.contains("(1)")  || itemName.contains("Weapon poison")) {
 			if (id != 1712 && id != 1710 && id != 1708 && id != 1706) {
-				c.getItemAssistant().deleteItem(id,
-						c.getItemAssistant().getItemSlot(id), 1);
+				c.getItemAssistant().deleteItem(id, c.getItemAssistant().getItemSlot(id), 1);
 				c.getItemAssistant().addItem(229, 1);
 				c.getActionSender().sendMessage("You empty the vial.");
 				}

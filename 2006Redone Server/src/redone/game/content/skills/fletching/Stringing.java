@@ -74,19 +74,11 @@ public class Stringing {
 			return false;
 		}
 		if (c.playerLevel[9] < loadData.getLevel()) {
-			c.getDialogueHandler().sendStatement(
-					"You need a fletching level of " + loadData.getLevel()
-							+ " to do this");
+			c.getDialogueHandler().sendStatement("You need a fletching level of " + loadData.getLevel() + " to do this");
 			return false;
 		}
-		if (!c.getItemAssistant().playerHasItem(loadData.getItem1())
-				|| !c.getItemAssistant().playerHasItem(loadData.getItem2())) {
-			c.getDialogueHandler().sendStatement(
-					"You need a "
-							+ ItemAssistant.getItemName(loadData.getItem1())
-							+ " and a "
-							+ ItemAssistant.getItemName(loadData.getItem2())
-							+ " to make this.");
+		if (!c.getItemAssistant().playerHasItem(loadData.getItem1()) || !c.getItemAssistant().playerHasItem(loadData.getItem2())) {
+			c.getDialogueHandler().sendStatement("You need a " + ItemAssistant.getItemName(loadData.getItem1()) + " and a " + ItemAssistant.getItemName(loadData.getItem2()) + " to make this.");
 			return false;
 		}
 		c.playerIsFletching = true;
@@ -94,17 +86,13 @@ public class Stringing {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (!c.getItemAssistant().playerHasItem(loadData.getItem1())
-						|| !c.getItemAssistant().playerHasItem(
-								loadData.getItem2())
-						|| c.playerIsFletching == false) {
+				if (!c.getItemAssistant().playerHasItem(loadData.getItem1()) || !c.getItemAssistant().playerHasItem(loadData.getItem2()) || c.playerIsFletching == false) {
 					container.stop();
 					return;
 				}
 				c.getItemAssistant().deleteItem(loadData.getItem1(), 1);
 				c.getItemAssistant().deleteItem(loadData.getItem2(), 1);
-				c.getActionSender().sendMessage(
-						"You add a string to the bow.");
+				c.getActionSender().sendMessage("You add a string to the bow.");
 				c.getItemAssistant().addItem(loadData.getProduct(), 1);
 				c.getPlayerAssistant().addSkillXP(loadData.getXp(), 9);
 			}

@@ -14,24 +14,24 @@ public class Smithing {
 
 	public void readInput(int levelReq, String type, Client c, int amountToMake) {
 		if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Bronze")) {
-			CheckBronze(c, levelReq, amountToMake, type);
+			checkBronze(c, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Iron")) {
-			CheckIron(c, levelReq, amountToMake, type);
+			checkIron(c, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Steel")) {
-			CheckSteel(c, levelReq, amountToMake, type);
+			checkSteel(c, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Mith")) {
-			CheckMith(c, levelReq, amountToMake, type);
+			checkMith(c, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Adam") || ItemAssistant.getItemName(Integer.parseInt(type)).contains("Addy")) {
-			CheckAddy(c, levelReq, amountToMake, type);
+			checkAddy(c, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Rune") || ItemAssistant.getItemName(Integer.parseInt(type)).contains("Runite")) {
-			CheckRune(c, levelReq, amountToMake, type);
+			checkRune(c, levelReq, amountToMake, type);
 		}
 		if (c.playerRights > 1) {
 			c.getActionSender().sendMessage("You made item id: " + type + ".");
 		}
 	}
 
-	private void CheckBronze(Client c, int levelReq, int amountToMake, String type) {
+	private void checkBronze(Client c, int levelReq, int amountToMake, String type) {
 		if (c.tutorialProgress == 20 && !type.equalsIgnoreCase("1205")) {
 			c.getDialogueHandler().sendStatement("You can only make a bronze dagger on this step.");
 			c.nextChat = 0;
@@ -176,14 +176,13 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage(
-					"You need " + levelReq + " smithing to do this!");
+			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void CheckIron(Client c, int levelReq, int amountToMake, String type) {
+	private void checkIron(Client c, int levelReq, int amountToMake, String type) {
 		removeItem = 2351;
 		if (type.equalsIgnoreCase("1349") && levelReq >= 16) { // Axe
 			XP = 25;
@@ -301,8 +300,7 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage(
-					"You need " + levelReq + " smithing to do this!");
+			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 
@@ -310,7 +308,7 @@ public class Smithing {
 
 	}
 
-	private void CheckSteel(Client c, int levelReq, int amountToMake, String type) {
+	private void checkSteel(Client c, int levelReq, int amountToMake, String type) {
 		removeItem = 2353;
 		if (type.equalsIgnoreCase("1353") && levelReq >= 31) { // Axe
 			XP = 38;
@@ -435,7 +433,7 @@ public class Smithing {
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void CheckMith(Client c, int levelReq, int amountToMake, String type) {
+	private void checkMith(Client c, int levelReq, int amountToMake, String type) {
 		removeItem = 2359;
 		if (type.equalsIgnoreCase("1355") && levelReq >= 51) { // Axe
 			XP = 50;
@@ -548,14 +546,13 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage(
-					"You need " + levelReq + " smithing to do this!");
+			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void CheckAddy(Client c, int levelReq, int amountToMake, String type) {
+	private void checkAddy(Client c, int levelReq, int amountToMake, String type) {
 		removeItem = 2361;
 		if (type.equalsIgnoreCase("1357") && levelReq >= 71) { // Axe
 			XP = 63;
@@ -668,14 +665,13 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage(
-					"You need " + levelReq + " smithing to do this!");
+			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void CheckRune(Client c, int levelReq, int amountToMake, String type) {
+	private void checkRune(Client c, int levelReq, int amountToMake, String type) {
 		removeItem = 2363;
 		if (type.equalsIgnoreCase("1359") && levelReq >= 86) { // Axe
 			XP = 75;
@@ -788,74 +784,16 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage(
-					"You need " + levelReq + " smithing to do this!");
+			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
-	
-	/*public boolean smithItem(final Client c, final int addItem, final int removeItem, final int removeItem2, int timesToMake, final int XP) {
-		final int makeTimes = timesToMake;
-		c.isSmithing = true;
-		c.startAnimation(898);
-		final String name = ItemAssistant.getItemName(addItem);
-			CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
-	            @Override
-	            public void execute(CycleEventContainer container) {
-	            	if (!c.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
-	            		container.stop();
-	            	}
-	            	if (makeTimes == 0 || c.isSmithing == false) {
-	            		container.stop();
-	            	}
-					c.getItemAssistant().deleteItem2(removeItem, removeItem2);
-					c.getPlayerAssistant().addSkillXP(XP, c.playerSmithing);
-					c.getPlayerAssistant().refreshSkill(c.playerSmithing);
-					makeTimes--;
-					c.getActionSender().sendSound(468, 100, 0);	
-					if (ItemAssistant.getItemName(addItem).contains("bolt")) {
-						c.getItemAssistant().addItem(addItem, 10);
-					} else if (ItemAssistant.getItemName(addItem).contains("tip") && !ItemAssistant.getItemName(addItem).contains("dart tip")) {
-						c.getItemAssistant().addItem(addItem, 15);
-					} else if (ItemAssistant.getItemName(addItem).contains("dart tip")) {
-						c.getItemAssistant().addItem(addItem, 10);
-					} else if (ItemAssistant.getItemName(addItem).contains("nail")) {
-						c.getItemAssistant().addItem(addItem, 15);
-					} else if (ItemAssistant.getItemName(addItem).contains("arrow")) {
-						c.getItemAssistant().addItem(addItem, 15);
-					} else if (ItemAssistant.getItemName(addItem).contains("knife")) {
-						c.getItemAssistant().addItem(addItem, 5);
-					} else if (ItemAssistant.getItemName(addItem).contains("cannon")) {
-						c.getItemAssistant().addItem(addItem, 4);
-					} else {
-						c.getItemAssistant().addItem(addItem, 1);
-					}	
-	            }
-
-				@Override
-				public void stop() {
-					// TODO Auto-generated method stub
-				}	
-		}, 1);
-		if (makeTimes > 1 && c.getItemAssistant().playerHasItem(removeItem, removeItem2 * 2) && !name.contains("claws") && !name.contains("nails") && !name.contains("dart tip") && !name.contains("tip") && !name.contains("platelegs")) {
-			c.getActionSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + "s.");
-		} else if (makeTimes > 1 && c.getItemAssistant().playerHasItem(removeItem, removeItem2 * 2) && name.contains("claws") || name.contains("nails") || name.contains("dart tip") || name.contains("tip") || name.contains("platelegs")) {
-			c.getActionSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + ".");
-		} else {
-			c.getActionSender().sendMessage("You hammer out a " + ItemAssistant.getItemName(addItem) + ".");
-		}
-		return true;
-	}*/
 
 	public boolean smithItem(Client c, int addItem, int removeItem,
 			int removeItem2, int timesToMake, int XP) {
 		int makeTimes = timesToMake;
 		c.getPlayerAssistant().closeAllWindows();
-		if (c.playerRights == 3) {
-			c.getActionSender().sendMessage(
-					"Your smithing is now set to true.");
-		}
 		c.isSmithing = true;
 		String name = ItemAssistant.getItemName(addItem);
 		if (c.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
@@ -892,18 +830,12 @@ public class Smithing {
 					makeTimes--;
 					c.getActionSender().sendSound(468, 100, 0);
 				} else {
-					if (c.playerRights == 3) {
-						c.getActionSender().sendMessage("Smithing set to false, ran out of bars.");
-					}
 					c.isSmithing = false;
 					break;
 				}
 			}
 		} else {
 			c.getActionSender().sendMessage("You don't have enough bars to make this item!");
-			if (c.playerRights == 3) {
-				c.getActionSender().sendMessage("Smithing set to false, doesn't have enough bars.");
-			}
 			c.isSmithing = false;
 			return false;
 		}

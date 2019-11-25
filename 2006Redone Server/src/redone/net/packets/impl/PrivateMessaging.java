@@ -102,8 +102,7 @@ public class PrivateMessaging implements PacketType {
 					for (int i2 = 1; i2 < PlayerHandler.players.length; i2++) {
 						Client o = (Client) PlayerHandler.players[i2];
 						if (o != null) {
-							if (player.friends[i1] == Misc
-									.playerNameToInt64(PlayerHandler.players[i2].playerName)) {
+							if (player.friends[i1] == Misc.playerNameToInt64(PlayerHandler.players[i2].playerName)) {
 								o.getPlayerAssistant().updatePM(player.playerId, 0);
 								break;
 							}
@@ -128,9 +127,7 @@ public class PrivateMessaging implements PacketType {
 			break;
 
 		case CHANGE_PM_STATUS:
-			// int tradeAndCompete = c.getInStream().readUnsignedByte();
 			player.privateChat = player.getInStream().readUnsignedByte();
-			// int publicChat = c.getInStream().readUnsignedByte();
 			for (int i1 = 1; i1 < PlayerHandler.players.length; i1++) {
 				if (PlayerHandler.players[i1] != null
 						&& PlayerHandler.players[i1].isActive) {

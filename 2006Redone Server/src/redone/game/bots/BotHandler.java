@@ -1,26 +1,24 @@
 package redone.game.bots;
 
-import io.netty.util.Timeout;
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.game.shops.ShopHandler;
 import redone.util.Misc;
-
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BotHandler
-{
+public class BotHandler {
+	
     static final List<Bot> botList = new ArrayList<>(BotConstants.MAX_BOTS);
     static final Random random = new SecureRandom();
     static final int currency = 995;
 
     public static Bot connectBot(String username, int x, int y, int z) {
         Bot bot;
-        if (PlayerHandler.playerCount >= Constants.MAX_PLAYERS) {
+        if (PlayerHandler.playerCount >= GameConstants.MAX_PLAYERS) {
             System.out.println("Bot could not be connected, server is full.");
             return null;
         }

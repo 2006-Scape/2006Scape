@@ -56,6 +56,6 @@ public class ItemOnNpc implements PacketType {
 			player.getItemAssistant().deleteItem(1554, 1);
 			player.getDialogueHandler().sendDialogues(326, npcId);
 		}
-		UseItem.ItemonNpc(player, itemId, slot, i);
+		UseItem.itemOnNpc(player, itemId, slot, i);
 	}
 }

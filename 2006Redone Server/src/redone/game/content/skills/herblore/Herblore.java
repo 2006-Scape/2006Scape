@@ -67,9 +67,7 @@ public class Herblore extends SkillHandler {
 			if (useItem == element[0] && itemUsed == element[1]
 					|| useItem == element[1] && itemUsed == element[0]) {
 				if (c.playerLevel[c.playerHerblore] < element[3]) {
-					c.getActionSender().sendMessage(
-							"You need an herblore level of " + element[3]
-									+ " to mix this potion.");
+					c.getActionSender().sendMessage("You need an herblore level of " + element[3] + " to mix this potion.");
 					return;
 				}
 				send1Item(c, element[2]);
@@ -97,20 +95,13 @@ public class Herblore extends SkillHandler {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				c.getItemAssistant().deleteItem(itemToDelete,
-						c.getItemAssistant().getItemSlot(itemToDelete), 1);
-				c.getItemAssistant().deleteItem(itemToDelete2,
-						c.getItemAssistant().getItemSlot(itemToDelete2), 1);
+				c.getItemAssistant().deleteItem(itemToDelete, c.getItemAssistant().getItemSlot(itemToDelete), 1);
+				c.getItemAssistant().deleteItem(itemToDelete2, c.getItemAssistant().getItemSlot(itemToDelete2), 1);
 				c.getItemAssistant().addItem(itemToAdd, 1);
-				c.getActionSender().sendMessage(
-						"You make a "
-								+ ItemAssistant.getItemName(itemToAdd)
-										.toLowerCase() + ".");
+				c.getActionSender().sendMessage("You make a " + ItemAssistant.getItemName(itemToAdd).toLowerCase() + ".");
 				c.getPlayerAssistant().addSkillXP(potExp, c.playerHerblore);
 				deleteTime(c);
-				if (!c.getItemAssistant().playerHasItem(itemToDelete2, 1)
-						|| !c.getItemAssistant().playerHasItem(itemToDelete, 1)
-						|| c.doAmount <= 0) {
+				if (!c.getItemAssistant().playerHasItem(itemToDelete2, 1) || !c.getItemAssistant().playerHasItem(itemToDelete, 1) || c.doAmount <= 0) {
 					container.stop();
 				}
 				if (!c.isPotionMaking) {

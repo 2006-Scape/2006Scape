@@ -1,7 +1,7 @@
 package redone.net.packets.impl;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.content.consumables.Beverages;
 import redone.game.content.consumables.Kebabs;
 import redone.game.content.consumables.Beverages.beverageData;
@@ -37,11 +37,6 @@ public class ClickItem implements PacketType {
 		if (itemId == 6) {
 			player.getCannon().placeCannon();
 		}
-		if (player.isBotting) {
-			player.getActionSender().sendMessage("You can't click items until you confirm you aren't botting.");
-			player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
-		}
 		String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
 		if (player.getPlayerAssistant().isPlayer()) {
 			GameLogger.writeLog(player.playerName, "clickitem", player.playerName + " clicked item " + itemName + "");
@@ -52,7 +47,7 @@ public class ClickItem implements PacketType {
 		if(CastleWars.isInCw(player) && itemId == 4053) {
 			player.getItemAssistant().deleteItem(4053, player.getItemAssistant().getItemSlot(4053), 1);
 			//npc id, x, y, height, walk, hp, maxhit, att, def
-			Server.npcHandler.spawnNpc2(1532, player.absX, player.absY, player.heightLevel, 0, 200, 0, 0, 100);
+			GameEngine.npcHandler.spawnNpc2(1532, player.absX, player.absY, player.heightLevel, 0, 200, 0, 0, 100);
 			player.getActionSender().sendMessage("You setup a barricade.");
 		} else if (!CastleWars.isInCw(player) && itemId == 4053) {
 			player.getActionSender().sendMessage("You need to be in castlewars to drop a barricade.");
@@ -103,10 +98,10 @@ public class ClickItem implements PacketType {
 		break;
 		
 		  case 583:
-	            Server.trawler.bail(player);
+	            GameEngine.trawler.bail(player);
 	            break;
 	        case 585:
-	            Server.trawler.emptyBucket(player);
+	            GameEngine.trawler.emptyBucket(player);
 	            break;
 
 		case 33:
@@ -144,7 +139,7 @@ public class ClickItem implements PacketType {
 			break;
 			
 		case 2677:
-			if (Constants.CLUES_ENABLED)
+			if (GameConstants.CLUES_ENABLED)
 			{
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 0);
@@ -152,14 +147,14 @@ public class ClickItem implements PacketType {
 			break;
 
 		case 2678:
-			if (Constants.CLUES_ENABLED) {
+			if (GameConstants.CLUES_ENABLED) {
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 1);
 			}
 			break;
 
 		case 2679:
-			if (Constants.CLUES_ENABLED)
+			if (GameConstants.CLUES_ENABLED)
 			{
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 2);

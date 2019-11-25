@@ -1,7 +1,7 @@
 package redone.net.packets.impl;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.content.music.sound.SoundList;
 import redone.game.content.skills.SkillHandler;
@@ -23,11 +23,6 @@ public class DropItem implements PacketType {
 		player.getInStream().readUnsignedByte();
 		player.getInStream().readUnsignedByte();
 		int slot = player.getInStream().readUnsignedWordA();
-		if (player.isBotting) {
-			player.getActionSender().sendMessage("You can't drop items, until you confirm you aren't botting.");
-			player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
-			return;
-		}
 		if (!player.getItemAssistant().playerHasItem(itemId) || !RareProtection.doOtherDupe(player, itemId) || System.currentTimeMillis() - player.alchDelay < 1800 || player.stopPlayerPacket || System.currentTimeMillis() - player.buryDelay < 1800 || !CastleWars.deleteCastleWarsItems(player, itemId)) {
 			return;
 		}
@@ -38,7 +33,7 @@ public class DropItem implements PacketType {
 		}
 		for (LogData logData : LogData.values()) {
 			if (itemId == logData.getLogId()) {
-				if (Server.objectManager.objectExists(player.absX, player.absY)) {
+				if (GameEngine.objectManager.objectExists(player.absX, player.absY)) {
 					player.getActionSender().sendMessage(
 							"You cannot drop a log here.");
 					return;
@@ -61,7 +56,7 @@ public class DropItem implements PacketType {
 			return;
 		}
 		SkillHandler.resetSkills(player);
-		if (player.tutorialProgress < 36 && Constants.TUTORIAL_ISLAND) {
+		if (player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
 			player.getActionSender().sendMessage(
 					"You can't drop items on tutorial island!");
 			return;
@@ -72,7 +67,7 @@ public class DropItem implements PacketType {
 		switch (itemId) {
 		case 1560:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -87,7 +82,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1559:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -102,7 +97,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1558:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -117,7 +112,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1557:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -132,7 +127,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1556:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -147,7 +142,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1555:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -162,7 +157,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1561:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -177,7 +172,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1562:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -192,7 +187,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1563:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -207,7 +202,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1564:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -222,7 +217,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1565:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -237,7 +232,7 @@ public class DropItem implements PacketType {
 			break;
 		case 7583:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -253,7 +248,7 @@ public class DropItem implements PacketType {
 			break;
 		case 1566:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -268,7 +263,7 @@ public class DropItem implements PacketType {
 			break;
 		case 7585:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -301,7 +296,7 @@ public class DropItem implements PacketType {
 			break;
 		case 7584:
 			if (!player.hasNpc) {
-				Server.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
+				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
 						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
 						200, false, false, true);
 				player.getItemAssistant().deleteItem(itemId, slot,
@@ -337,8 +332,8 @@ public class DropItem implements PacketType {
 		if (player.playerItemsN[slot] != 0 && itemId != -1
 				&& player.playerItems[slot] == itemId + 1) {
 			if (droppable) {
-				for (int i = 0; i < Constants.DESTROYABLE_ITEMS.length; i++) { 
-					if (itemId == Constants.DESTROYABLE_ITEMS[i]) {
+				for (int i = 0; i < GameConstants.DESTROYABLE_ITEMS.length; i++) { 
+					if (itemId == GameConstants.DESTROYABLE_ITEMS[i]) {
 						player.droppedItem = itemId;
 						player.getItemAssistant().destroyInterface(itemId);
 						return;
@@ -352,11 +347,11 @@ public class DropItem implements PacketType {
 						return;
 					}
 				}
-				Server.itemHandler.createGroundItem(player, itemId, player.getX(),
+				GameEngine.itemHandler.createGroundItem(player, itemId, player.getX(),
 						player.getY(), player.playerItemsN[slot], player.getId());
 				player.getItemAssistant().deleteItem(itemId, slot,
 						player.playerItemsN[slot]);
-				if (Constants.SOUND) {
+				if (GameConstants.SOUND) {
 					player.getActionSender().sendSound(SoundList.ITEM_DROP, 100,
 							0);
 				}

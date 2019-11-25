@@ -40,8 +40,9 @@ public class Objects {
 
 	public int[] getObjectSize() {
 		ObjectDef def = ObjectDef.getObjectDef(objectId);
-		if (def == null)
+		if (def == null) {
 			return new int[] {1, 1};
+		}
 		if (objectId == 2781) {
 			return new int[] {3, 3};
 		}

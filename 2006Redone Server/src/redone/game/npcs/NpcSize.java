@@ -2,9 +2,9 @@ package redone.game.npcs;
 
 /**
  * NPC Sizes.
- * 
  * @author Primadude.
  */
+
 public class NpcSize {
 
 	/**

@@ -1,6 +1,6 @@
 package redone.net.packets.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -34,11 +34,6 @@ public class PickupItem implements PacketType {
 		player.getCombatAssistant().resetPlayerAttack();
 		player.endCurrentTask();
 		if (player.stopPlayerPacket) {
-			return;
-		}
-		if (player.isBotting) {
-			player.getActionSender().sendMessage("You can't pickup items, until you confirm you aren't botting.");
-			player.getActionSender().sendMessage("If you need to you can type ::amibotting, to see if your botting.");
 			return;
 		}
 		String itemName = ItemAssistant.getItemName(player.pItemId).toLowerCase();
@@ -75,7 +70,7 @@ public class PickupItem implements PacketType {
 				|| player.getY() - 1 == player.pItemY && player.getX() == player.pItemX
 				|| player.getX() + 1 == player.pItemX && player.getY() == player.pItemY
 				|| player.getY() + 1 == player.pItemY && player.getX() == player.pItemX) {
-			Server.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX,
+			GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX,
 					player.pItemY, true);
 			player.getActionSender().sendSound(SoundList.ITEM_PICKUP, 100, 0);
 			GlobalDropsHandler.pickup(player, player.pItemId, player.pItemX, player.pItemY);
@@ -88,7 +83,7 @@ public class PickupItem implements PacketType {
 						container.stop();
 					}
 					if (player.getX() == player.pItemX && player.getY() == player.pItemY && player.walkingToItem) {
-						Server.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX, player.pItemY, true);
+						GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX, player.pItemY, true);
 						container.stop();
 					}
 				}

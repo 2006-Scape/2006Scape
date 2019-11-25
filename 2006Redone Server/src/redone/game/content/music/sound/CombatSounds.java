@@ -1,6 +1,6 @@
 package redone.game.content.music.sound;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.content.combat.magic.MagicData;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
@@ -152,7 +152,7 @@ public class CombatSounds {
 	}
 
 	public static String getItemName(int ItemID) {
-		return Server.itemHandler.ItemList[ItemID].itemName;
+		return GameEngine.itemHandler.ItemList[ItemID].itemName;
 	}
 
 	public static int getMagicSound(Client c, int spellId) {

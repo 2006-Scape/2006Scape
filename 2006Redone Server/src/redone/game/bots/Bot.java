@@ -1,6 +1,6 @@
 package redone.game.bots;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.items.ItemAssistant;
 import redone.game.players.Client;
 import redone.util.Misc;
@@ -31,7 +31,7 @@ public class Bot {
         botClient.isActive = true;
         botClient.disconnected = false;
         botClient.npcCanAttack = false;
-        Server.playerHandler.newPlayerClient(botClient);
+        GameEngine.playerHandler.newPlayerClient(botClient);
 
         botClient.getPlayerAssistant().movePlayer(x, y, z);
 

@@ -32,10 +32,7 @@ public class LogCutting {
 		c.doAmount = amount;
 		c.getPlayerAssistant().removeAllWindows();
 		if (c.playerLevel[9] < level) {
-			c.getActionSender()
-					.sendMessage(
-							"You need a fletching level of " + level
-									+ " to make this.");
+			c.getActionSender().sendMessage("You need a fletching level of " + level + " to make this.");
 			return;
 		}
 		c.playerIsFletching = true;
@@ -336,23 +333,18 @@ public class LogCutting {
 			c.getItemAssistant().deleteItem(2859, amount);
 			c.getItemAssistant().addItem(2861, makeAmount);
 			c.getPlayerAssistant().addSkillXP(3 * amount, c.playerFletching);
-			c.getActionSender().sendMessage(
-					"You turn your " + ItemAssistant.getItemName(2859)
-							+ " into " + ItemAssistant.getItemName(2861) + ".");
+			c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2859) + " into " + ItemAssistant.getItemName(2861) + ".");
 		}
 	}
 
 	public static void flightedArrow(Client c) {// to do
 		if (c.playerLevel[c.playerFletching] < 5) {
-			c.getDialogueHandler().sendStatement(
-					"You need 5 fletching to fletch this.");
+			c.getDialogueHandler().sendStatement("You need 5 fletching to fletch this.");
 			c.nextChat = 0;
 			return;
 		}
-		if (!c.getItemAssistant().playerHasItem(314)
-				|| !c.getItemAssistant().playerHasItem(2864)) {
-			c.getDialogueHandler().sendStatement(
-					"You don't enough materials to make these arrows.");
+		if (!c.getItemAssistant().playerHasItem(314) || !c.getItemAssistant().playerHasItem(2864)) {
+			c.getDialogueHandler().sendStatement("You don't enough materials to make these arrows.");
 			c.nextChat = 0;
 			return;
 		}
@@ -365,98 +357,58 @@ public class LogCutting {
 				c.getItemAssistant().deleteItem(314, feather * 4);
 				c.getItemAssistant().deleteItem(2864, arrowShaft);
 				c.getItemAssistant().addItem(2865, arrowShaft);
-				c.getActionSender().sendMessage(
-						"You turn your " + ItemAssistant.getItemName(2864)
-								+ " into " + ItemAssistant.getItemName(2865)
-								+ "(s).");
-				/*
-				 * } else if (feather > arrowShaft * 4) {//to fix
-				 * c.startAnimation(1248); c.getItemAssistant().deleteItem2(314,
-				 * feather*4); c.getItemAssistant().deleteItem2(2864,
-				 * arrowShaft); c.getItemAssistant().addItem(2865, arrowShaft);
-				 * c.getPacketDispatcher().sendMessage("You turn your " +
-				 * ItemAssistant.getItemName(2864) + " into " +
-				 * ItemAssistant.getItemName(2865) + "(s)."); } else if (feather
-				 * < arrowShaft * 4) {//to fix c.startAnimation(1248);
-				 * c.getItemAssistant().deleteItem2(314, feather*4);
-				 * c.getItemAssistant().deleteItem2(2864, arrowShaft);
-				 * c.getItemAssistant().addItem(2865, arrowShaft);
-				 * c.getPacketDispatcher().sendMessage("You turn your " +
-				 * ItemAssistant.getItemName(2864) + " (s) into " +
-				 * ItemAssistant.getItemName(2865) + "(s).");
-				 */
+				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2864) + " into " + ItemAssistant.getItemName(2865) + "(s).");
 			} else {
-				c.getActionSender()
-						.sendMessage(
-								"You need 4 times the amount of feathers as arrow shafts to do this.");
+				c.getActionSender().sendMessage("You need 4 times the amount of feathers as arrow shafts to do this.");
 			}
 		}
 	}
 
 	public static void ogreArrow(Client c) {
 		if (c.playerLevel[c.playerFletching] < 5) {
-			c.getDialogueHandler().sendStatement(
-					"You need 5 fletching to fletch this.");
+			c.getDialogueHandler().sendStatement("You need 5 fletching to fletch this.");
 			c.nextChat = 0;
 			return;
 		}
-		if (!c.getItemAssistant().playerHasItem(2861)
-				|| !c.getItemAssistant().playerHasItem(2865)) {
-			c.getDialogueHandler().sendStatement(
-					"You don't enough materials to make these arrows.");
+		if (!c.getItemAssistant().playerHasItem(2861) || !c.getItemAssistant().playerHasItem(2865)) {
+			c.getDialogueHandler().sendStatement("You don't enough materials to make these arrows.");
 			c.nextChat = 0;
 			return;
 		}
-		final int wolfBoneArrow = c.getItemAssistant().getItemCount(2861), flightedArrow = c
-				.getItemAssistant().getItemCount(2865);
+		final int wolfBoneArrow = c.getItemAssistant().getItemCount(2861), flightedArrow = c.getItemAssistant().getItemCount(2865);
 		if (c.getItemAssistant().playerHasItem(2861)
 				&& c.getItemAssistant().playerHasItem(2865)) {
 			if (wolfBoneArrow == flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
-				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow,
-						c.playerFletching);
+				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, c.playerFletching);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
-				c.getActionSender().sendMessage(
-						"You turn your " + ItemAssistant.getItemName(2865)
-								+ " (s) into "
-								+ ItemAssistant.getItemName(2866) + "(s).");
+				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow > flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, flightedArrow);
-				c.getPlayerAssistant().addSkillXP(1 * flightedArrow,
-						c.playerFletching);
+				c.getPlayerAssistant().addSkillXP(1 * flightedArrow, c.playerFletching);
 				c.getItemAssistant().deleteItem(2861, flightedArrow);
 				c.getItemAssistant().deleteItem(2865, flightedArrow);
-				c.getActionSender().sendMessage(
-						"You turn your " + ItemAssistant.getItemName(2865)
-								+ " (s) into "
-								+ ItemAssistant.getItemName(2866) + "(s).");
+				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow < flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
-				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow,
-						c.playerFletching);
+				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, c.playerFletching);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
-				c.getActionSender().sendMessage(
-						"You turn your " + ItemAssistant.getItemName(2865)
-								+ " (s) into "
-								+ ItemAssistant.getItemName(2866) + "(s).");
+				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			}
 		}
 	}
 
 	public static void makeShafts(Client c) {
-		if (c.getItemAssistant().playerHasItem(2862)
-				&& c.getItemAssistant().playerHasItem(946)) {
+		if (c.getItemAssistant().playerHasItem(2862) && c.getItemAssistant().playerHasItem(946)) {
 			final int amount = c.getItemAssistant().getItemCount(2862);
-			final int makeAmount = c.getItemAssistant().getItemCount(2862)
-					+ c.getItemAssistant().getItemCount(2862) * Misc.random(4);
+			final int makeAmount = c.getItemAssistant().getItemCount(2862) + c.getItemAssistant().getItemCount(2862) * Misc.random(4);
 			if (!c.getItemAssistant().playerHasItem(2862)) {
-				c.getDialogueHandler().sendStatement(
-						"You don't have any logs left to fletch.");
+				c.getDialogueHandler().sendStatement("You don't have any logs left to fletch.");
 				c.nextChat = 0;
 				return;
 			}
@@ -464,10 +416,7 @@ public class LogCutting {
 			c.getItemAssistant().deleteItem(2862, amount);
 			c.getItemAssistant().addItem(2864, makeAmount);
 			c.getPlayerAssistant().addSkillXP(2 * amount, c.playerFletching);
-			c.getActionSender().sendMessage(
-					"You turn your " + ItemAssistant.getItemName(2862)
-							+ " (s) into " + ItemAssistant.getItemName(2864)
-							+ "(s).");
+			c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2862) + " (s) into " + ItemAssistant.getItemName(2864) + "(s).");
 		}
 	}
 }

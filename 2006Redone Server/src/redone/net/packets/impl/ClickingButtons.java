@@ -1,7 +1,6 @@
 package redone.net.packets.impl;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
 import redone.game.content.combat.Specials;
 import redone.game.content.combat.magic.CastOnOther;
 import redone.game.content.combat.magic.MagicData;
@@ -83,39 +82,6 @@ public class ClickingButtons implements PacketType {
 		switch (actionButtonId) {
 		
 
-		case 71074:
-			if (player.clanId >= 0) {
-				if (Server.clanChat.clans[player.clanId].owner
-						.equalsIgnoreCase(player.playerName)) {
-					Server.clanChat
-							.sendLootShareMessage(
-									player.clanId,
-									"Lootshare has been toggled to "
-											+ (!Server.clanChat.clans[player.clanId].lootshare ? "on"
-													: "off")
-											+ " by the clan leader.");
-					Server.clanChat.clans[player.clanId].lootshare = !Server.clanChat.clans[player.clanId].lootshare;
-				} else
-					player.getActionSender().sendMessage("Only the owner of the clan has the power to do that.");
-			}
-			break;
-		case 70212:
-			if (player.clanId > -1)
-				Server.clanChat.leaveClan(player.playerId, player.clanId);
-			else
-				player.getActionSender().sendMessage("You are not in a clan.");
-			break;
-		case 62137:
-			if (player.clanId >= 0) {
-				player.getActionSender().sendMessage("You are already in a clan.");
-				break;
-			}
-			if (player.getOutStream() != null) {
-				player.getOutStream().createFrame(187);
-				player.flushOutStream();
-			}
-			break;
-		
 		case 55096:
 			player.getPlayerAssistant().removeAllWindows();
             player.droppedItem = -1;
@@ -426,12 +392,6 @@ public class ClickingButtons implements PacketType {
 				Pottery.makeFire(player, 1791, 1923, 8, 15, 28);
 			}
 			break;
-			
-		case 23132:
-			player.getPlayerAssistant().closeAllWindows();
-			player.isBotting = false;
-			player.getActionSender().sendMessage("You are not botting.");
-		break;
 
 		case 9118:
 			player.getPlayerAssistant().closeAllWindows();
@@ -2199,7 +2159,7 @@ public class ClickingButtons implements PacketType {
 				break;
 			}
 
-			if (System.currentTimeMillis() - player.godSpellDelay < Constants.GOD_SPELL_CHARGE) {
+			if (System.currentTimeMillis() - player.godSpellDelay < GameConstants.GOD_SPELL_CHARGE) {
 				player.getActionSender().sendMessage(
 						"You still feel the charge in your body!");
 				break;

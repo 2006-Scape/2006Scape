@@ -4,7 +4,7 @@ import redone.game.players.Client;
 import redone.net.packets.PacketType;
 
 /**
- * @author Andrew
+ * @author Andrew (Mr Extremez)
  */
 
 public class IdleLogout implements PacketType {
@@ -13,8 +13,7 @@ public class IdleLogout implements PacketType {
 	public void processPacket(Client player, int packetType, int packetSize) {
 		if (player.underAttackBy > 0 || player.underAttackBy2 > 0 || player.isBot) {
 			return;
-		} else {
-			player.logout();
 		}
+		player.logout();
 	}
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.mina.common.IoSession;
 
 import redone.Connection;
-import redone.Constants;
+import redone.GameConstants;
 
 public class HostList {
 
@@ -28,7 +28,7 @@ public class HostList {
 		} else {
 			amt += 1;
 		}
-		if (amt > Constants.IPS_ALLOWED || Connection.isIpBanned(addr)) {
+		if (amt > GameConstants.IPS_ALLOWED || Connection.isIpBanned(addr)) {
 			return false;
 		} else {
 			connections.put(addr, amt);

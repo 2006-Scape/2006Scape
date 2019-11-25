@@ -1,6 +1,6 @@
 package redone.net.packets;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.dialogues.Dialogue;
 import redone.game.players.Client;
 import redone.net.packets.impl.AttackPlayer;
@@ -13,7 +13,6 @@ import redone.net.packets.impl.ChallengePlayer;
 import redone.net.packets.impl.ChangeAppearance;
 import redone.net.packets.impl.ChangeRegions;
 import redone.net.packets.impl.Chat;
-import redone.net.packets.impl.ClanChat;
 import redone.net.packets.impl.ClickItem;
 import redone.net.packets.impl.ClickNPC;
 import redone.net.packets.impl.ClickObject;
@@ -71,7 +70,6 @@ public class PacketHandler {
 		packetId[165] = u;
 		packetId[238] = u;
 		packetId[150] = u;
-		packetId[60] = new ClanChat();
 		packetId[120] = new ClickTab();
 		packetId[14] = new ItemOnPlayer();
 		packetId[40] = new Dialogue();
@@ -159,7 +157,7 @@ public class PacketHandler {
 	public static void processPacket(Client c, int packetType, int packetSize) {
         PacketType p = packetId[packetType];
         if(p != null && packetType > 0 && packetType < 257 && packetType == c.packetType && packetSize == c.packetSize) {
-            if (Constants.sendServerPackets && c.playerRights == 3) {
+            if (GameConstants.sendServerPackets && c.playerRights == 3) {
                 c.getActionSender().sendMessage("PacketType: " + packetType + ". PacketSize: " + packetSize + ".");
             }
             try {

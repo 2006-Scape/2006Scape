@@ -4,7 +4,7 @@ import redone.game.players.Client;
 
 /**
  * Lightsources
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class LightSources {

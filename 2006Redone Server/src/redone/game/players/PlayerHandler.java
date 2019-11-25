@@ -1,8 +1,8 @@
 package redone.game.players;
 
 import java.net.InetSocketAddress;
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 import redone.event.CycleEventHandler;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.npcs.Npc;
@@ -13,9 +13,9 @@ import redone.world.GlobalDropsHandler;
 
 public class PlayerHandler {
 
-	public static Player players[] = new Player[Constants.MAX_PLAYERS];
+	public static Player players[] = new Player[GameConstants.MAX_PLAYERS];
 	public static int playerCount = 0, playerBotCount = 0;
-	public static String playersCurrentlyOn[] = new String[Constants.MAX_PLAYERS];
+	public static String playersCurrentlyOn[] = new String[GameConstants.MAX_PLAYERS];
 	public static boolean updateAnnounced;
 	public static boolean updateRunning;
 	public static int updateSeconds;
@@ -23,14 +23,14 @@ public class PlayerHandler {
 	private boolean kickAllPlayers = false;
 
 	static {
-		for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
+		for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
 			players[i] = null;
 		}
 	}
 
 	public boolean newPlayerClient(Client client1) {
 		int slot = -1;
-		for (int i = 1; i < Constants.MAX_PLAYERS; i++) {
+		for (int i = 1; i < GameConstants.MAX_PLAYERS; i++) {
 			if (players[i] == null || players[i].disconnected) {
 				slot = i;
 				break;
@@ -44,7 +44,7 @@ public class PlayerHandler {
 		players[slot] = client1;
 		players[slot].isActive = true;
 		players[slot].connectedFrom = client1.isBot ? "127.0.0.1" : ((InetSocketAddress) client1.getSession().getRemoteAddress()).getAddress().getHostAddress();
-		if (Constants.SERVER_DEBUG) {
+		if (GameConstants.SERVER_DEBUG) {
 			Misc.println("Player Slot " + slot + " slot 0 " + players[0]
 					+ " Player Hit " + players[slot]);
 		}
@@ -62,7 +62,7 @@ public class PlayerHandler {
 	public void updatePlayerNames() {
 		playerBotCount = 0;
 		playerCount = 0;
-		for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
+		for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
 			if (players[i] != null) {
 				playersCurrentlyOn[i] = players[i].playerName;
 				if (players[i].isBot)
@@ -132,8 +132,8 @@ public class PlayerHandler {
 							o.getTrading().declineTrade();
 						}
 					}
-					if(Server.trawler.players.contains(this)) {
-						Server.trawler.players.remove(this);
+					if(GameEngine.trawler.players.contains(this)) {
+						GameEngine.trawler.players.remove(this);
 				    }
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
@@ -203,8 +203,8 @@ public class PlayerHandler {
 							o.getTrading().declineTrade();
 						}
 					}
-					if(Server.trawler.players.contains(this)) {
-						Server.trawler.players.remove(this);
+					if(GameEngine.trawler.players.contains(this)) {
+						GameEngine.trawler.players.remove(this);
 				    }
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
@@ -250,7 +250,7 @@ public class PlayerHandler {
 
 		if (updateRunning && !updateAnnounced) {
 			updateAnnounced = true;
-			Server.UpdateServer = true;
+			GameEngine.UpdateServer = true;
 		}
 		if (updateRunning
 				&& System.currentTimeMillis() - updateStartTime > updateSeconds * 1000) {
@@ -321,7 +321,7 @@ public class PlayerHandler {
 	}
 
 	private final Stream updateBlock = new Stream(
-			new byte[Constants.BUFFER_SIZE]);
+			new byte[GameConstants.BUFFER_SIZE]);
 
 	public void updatePlayer(Player plr, Stream outStr) {
 		// synchronized(plr) {

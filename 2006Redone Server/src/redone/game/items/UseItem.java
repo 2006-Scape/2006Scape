@@ -27,8 +27,7 @@ import redone.util.Misc;
 
 public class UseItem {
 
-	public static void ItemonObject(Client c, int objectID, int objectX,
-			int objectY, int itemId) {
+	public static void itemOnObject(Client c, int objectID, int objectX, int objectY, int itemId) {
 		final int goodPosXType1 = objectX - 5;
 		final int goodPosXType2 = objectX + 5;
 		final int goodPosYType1 = objectY - 5;
@@ -363,8 +362,7 @@ public class UseItem {
 		}
 	}
 
-	public static void ItemonNpc(final Client c, final int itemId,
-			final int npcId, final int slot) {
+	public static void itemOnNpc(final Client c, final int itemId, final int npcId, final int slot) {
 		switch (itemId) {
 
 		default:

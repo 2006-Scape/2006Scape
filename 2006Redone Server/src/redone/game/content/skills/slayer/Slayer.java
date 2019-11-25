@@ -329,21 +329,9 @@ public class Slayer {
 				c.getDialogueHandler().sendDialogues(1227, c.npcType);
 				c.needsNewTask = false;
 				return;
-				/*
-				 * } else if (difficulty != VERY_EASY_TASK && c.needsNewTask &&
-				 * hasTask() && c.wantsEasyTask == true) { int taskLevel =
-				 * VERY_EASY_TASK; int task = getRandomTask(taskLevel);
-				 * c.slayerTask = task; c.taskAmount = getTaskAmount(taskLevel);
-				 * c.getDialogues().handleDialogues(1368, c.npcType);
-				 * c.getPacketDispatcher().sendMessage("You have been assigned "
-				 * + c.taskAmount + " " + getTaskName(c.slayerTask) +
-				 * ", good luck " + c.playerName + "."); c.needsNewTask = false;
-				 */
 			}
 		}
 		int taskLevel = getSlayerDifficulty(c);
-		// System.out.println("EASY :" + easyTask + "\nMEDIUM: " + mediumTask+
-		// "\nHARD: " + hardTask + "");
 		for (Task slayerTask : Task.values()) {
 			if (slayerTask.getDifficulty() == taskLevel) {
 				if (c.playerLevel[18] >= slayerTask.getLevelReq()) {
@@ -462,9 +450,7 @@ public class Slayer {
 		}
 		if (c.slayerPoints < 30) {
 			c.getActionSender().sendMessage("This requires atleast 30 slayer points, which you don't have.");
-			c.getDialogueHandler().sendNpcChat1("This requires atleast 30 slayer points, which you don't have.",
-					c.npcType,
-					NpcHandler.getNpcListName(c.talkingNpc));
+			c.getDialogueHandler().sendNpcChat1("This requires atleast 30 slayer points, which you don't have.", c.npcType,	NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
@@ -482,9 +468,7 @@ public class Slayer {
 		}
 		if (c.slayerPoints < 100) {
 			c.getActionSender().sendMessage("This requires atleast 100 slayer points, which you don't have.");
-			c.getDialogueHandler().sendNpcChat1("This requires atleast 100 slayer points, which you don't have.",
-					c.npcType,
-					NpcHandler.getNpcListName(c.talkingNpc));
+			c.getDialogueHandler().sendNpcChat1("This requires atleast 100 slayer points, which you don't have.", c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
@@ -518,8 +502,7 @@ public class Slayer {
 		int line[] = { 42014, 42015, 42016, 42017 };
 		for (int i = 0; i < c.removedTasks.length; i++) {
 			if (c.removedTasks[i] != -1) {
-				c.getPlayerAssistant().sendFrame126(
-						getTaskName(c.removedTasks[i]), line[i]);
+				c.getPlayerAssistant().sendFrame126(getTaskName(c.removedTasks[i]), line[i]);
 			} else {
 				c.getPlayerAssistant().sendFrame126("", line[i]);
 			}
@@ -549,9 +532,7 @@ public class Slayer {
 			c.getActionSender().sendMessage("You need at least 35 slayer points to buy Slayer darts.");
 			return;
 		}
-		if (c.getItemAssistant().freeSlots() < 2
-				&& !c.getItemAssistant().playerHasItem(560)
-				&& !c.getItemAssistant().playerHasItem(558)) {
+		if (c.getItemAssistant().freeSlots() < 2 && !c.getItemAssistant().playerHasItem(560) && !c.getItemAssistant().playerHasItem(558)) {
 			c.getActionSender().sendMessage("You need at least 2 free lots to purchase this.");
 			return;
 		}
@@ -572,8 +553,7 @@ public class Slayer {
 			c.getActionSender().sendMessage("You need at least 25 slayer points to buy Broad arrows.");
 			return;
 		}
-		if (c.getItemAssistant().freeSlots() < 1
-				&& !c.getItemAssistant().playerHasItem(4160)) {
+		if (c.getItemAssistant().freeSlots() < 1 && !c.getItemAssistant().playerHasItem(4160)) {
 			c.getActionSender().sendMessage("You need at least 1 free lot to purchase this.");
 			return;
 		}

@@ -7,8 +7,7 @@ public class Fillables {
 	}
 
 	public static String fillMessage(int id, int oid) {
-		return "You fill the " + getItemName(id) + " from the "
-				+ getObjectName(oid) + ".";
+		return "You fill the " + getItemName(id) + " from the " + getObjectName(oid) + ".";
 	}
 
 	public static int counterpart(int id) {

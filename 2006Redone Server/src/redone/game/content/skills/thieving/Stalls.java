@@ -1,6 +1,6 @@
 package redone.game.content.skills.thieving;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -10,7 +10,6 @@ import redone.game.items.ItemAssistant;
 import redone.game.items.ItemList;
 import redone.game.npcs.NpcHandler;
 import redone.game.players.Client;
-import redone.game.players.antimacro.AntiBotting;
 import redone.util.Misc;
 
 public class Stalls {
@@ -79,7 +78,7 @@ public class Stalls {
 	}
 
 	public static int getItemId(String itemName) {
-		for (ItemList i : Server.itemHandler.ItemList) {
+		for (ItemList i : GameEngine.itemHandler.ItemList) {
 			if (i != null) {
 				if (i.itemName.equalsIgnoreCase(itemName)) {
 					return i.itemId;
@@ -108,10 +107,6 @@ public class Stalls {
 				c.getActionSender().sendMessage("This skill is currently disabled.");
 				return;
 			}
-			if (c.isBotting == true) {
-				c.getActionSender().sendMessage("You can't thieve right now!");
-				return;
-			}
 			if(c.underAttackBy > 0 || c.underAttackBy2 > 0) {
 				c.getActionSender().sendMessage("You can't steal from a stall while in combat!");
 				return;	
@@ -131,22 +126,16 @@ public class Stalls {
 						return;
 					}
 					c.startAnimation(832);
-					if (Misc.random(100) == 0) {
-						AntiBotting.botCheckInterface(c);
-					}
 					RandomEventHandler.addRandom(c);
-					Server.objectHandler.createAnObject(c, 634, x, y, s.getFace());
+					GameEngine.objectHandler.createAnObject(c, 634, x, y, s.getFace());
 					c.getPlayerAssistant().addSkillXP((int) s.getXp(), c.playerThieving);
 					int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
-					if (c.isBotting == false) {
-						c.getItemAssistant().addItem(random[0], random[1] + (random.length > 2 ? Misc.random(random[2]) : 0));
-					}
 					c.lastThieve = System.currentTimeMillis();
 					c.getActionSender().sendMessage("You steal a "+ItemAssistant.getItemName(random[0])+" from the stall.");
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							Server.objectHandler.createAnObject(c, s.getObject(), x, y, s.getFace());
+							GameEngine.objectHandler.createAnObject(c, s.getObject(), x, y, s.getFace());
 							//new Object(s.getObject(), x, y, 0, s.getFace(), 10, j, getRespawnTime(c, s.getObject()));
 							container.stop();
 						}
@@ -160,31 +149,6 @@ public class Stalls {
 			}
 		}
 	}
-	
-	/*private static int getRespawnTime(Client c, int i) {
-		switch (i) {
-		case 4706:
-			return 2000;
-		case 2561:
-			return 4000;
-		case 635:
-			return 7000;
-		case 14011:
-		case 4705:
-			return 16000;
-		case 7053:
-			return 11000;
-		case 2563:
-			return 15000;
-		case 2565: 
-			return 30000;
-		case 2564:
-			return 80000;
-		case 2562:
-			return 180000;
-		}
-		return 2500 + r(2500);
-	}*/
 
 	private static int getRespawnTime(Client c, int i) {
 		switch (i) {
@@ -219,10 +183,7 @@ public class Stalls {
 	private static void failGuards(final Client c) {
 		for (int i = 1; i < NpcHandler.MAX_NPCS; i ++) {
 			if (NpcHandler.npcs[i] != null) {
-				if (NpcHandler.npcs[i].npcType == 32
-						|| NpcHandler.npcs[i].npcType == 1317
-						|| NpcHandler.npcs[i].npcType == 2236
-						|| NpcHandler.npcs[i].npcType == 2571) {
+				if (NpcHandler.npcs[i].npcType == 32 || NpcHandler.npcs[i].npcType == 1317 || NpcHandler.npcs[i].npcType == 2236 || NpcHandler.npcs[i].npcType == 2571) {
 					if (c.goodDistance(c.absX, c.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 7)
 						&& c.heightLevel == NpcHandler.npcs[i].heightLevel) {
 						if (!NpcHandler.npcs[i].underAttack) {

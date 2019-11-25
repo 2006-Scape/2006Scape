@@ -1,6 +1,6 @@
 package redone.game.content.skills.agility;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;

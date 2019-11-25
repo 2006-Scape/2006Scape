@@ -7,7 +7,7 @@ import redone.game.players.Client;
 
 /**
  * @author phl0w
- * @author highly edited by Andrew
+ * @author highly edited by Andrew (Mr Extremez)
  */
 
 public class Runecrafting {
@@ -74,12 +74,6 @@ public class Runecrafting {
 	public void enterAltar(int objId, int itemUse) {
 		Altars a = forAltar(objId);
 		if (a != null) {
-			/*if (c.runeMist < 4) {
-				c.getDialogueHandler().sendStatement(
-						"You need to beat rune mysteries first to do this.");
-				c.nextChat = 0;
-				return;
-			}*/
 			if (a.getKeys()[1] == c.playerEquipment[c.playerHat] || a.getKeys()[0] == itemUse) {
 				c.getPlayerAssistant().movePlayer(a.getNewLoc()[0], a.getNewLoc()[1], 0);
 				c.getActionSender().sendMessage("You enter the mysterious ruins.");
@@ -161,8 +155,7 @@ public class Runecrafting {
 	public void getMultiSupport(int obj) {
 		Altar_Data ad = forObj(obj);
 		if (ad != null) {
-			int amount = c.getItemAssistant().getItemCount(7936);
-			int amount2 = c.getItemAssistant().getItemCount(1436);
+			int amount = c.getItemAssistant().getItemCount(7936), amount2 = c.getItemAssistant().getItemCount(1436);
 			if (amount2 > 0 && amount > 0) {
 				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemCount(7936));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));

@@ -4,7 +4,7 @@ import redone.game.npcs.drops.ItemDrop;
 
 /**
  * Npc Drops
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class NPCDrops extends NPCDropsHandler {

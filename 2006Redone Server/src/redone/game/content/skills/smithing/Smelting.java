@@ -9,8 +9,6 @@ import redone.game.players.Client;
 import redone.util.Misc;
 
 /**
- * Made by
- * 
  * @author abysspartyy
  */
 

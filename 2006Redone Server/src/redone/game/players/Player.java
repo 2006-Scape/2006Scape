@@ -1,9 +1,7 @@
 package redone.game.players;
 
 import java.util.ArrayList;
-
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
 import redone.game.content.combat.prayer.PrayerDrain;
 import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.items.Item;
@@ -24,8 +22,6 @@ public abstract class Player {
 	public ArrayList<String> killedPlayers = new ArrayList<String>();
 	public ArrayList<Integer> attackedPlayers = new ArrayList<Integer>();
 	public ArrayList<String> lastKilledPlayers = new ArrayList<String>();
-
-	public int CraftInt, Dcolor, FletchInt,  clanId = -1;
 	
 	public int[][] barrowCrypt = {
 			{4921, 0},
@@ -78,8 +74,8 @@ public abstract class Player {
 			showedFire, isPotCrafting, isFiremaking, playerIsFletching, milking,
 			stopPlayerPacket, spiritTree = false, isSmelting,
 			hasPaifAnTeleport = false, isSmithing, doingAgility = false,
-			hasPaid, canTeleport, magicCharge, isBanned = false, fletchNerfed,
-			clickedVamp = false, allowFading, isBotting = false, otherBank = false,
+			hasPaid, canTeleport, magicCharge, 
+			clickedVamp = false, allowFading, otherBank = false,
 			recievedReward = false, poison, golemSpawned = false, zombieSpawned = false, shadeSpawned = false,
 			treeSpiritSpawned = false, chickenSpawned = false, clickedTree = false, filter = true,
 			stopPlayer = false, npcCanAttack = true, gliderOpen = false, hasSandwhichLady = false,
@@ -207,12 +203,8 @@ public abstract class Player {
 
 	public boolean membership = false, awardedmembership = false;
 	public Client teleporter = null;
-	public int[] miningSettings = new int[10];
-	public int[] fishingProp = new int[13];
 	public int[] party = new int[8];
 	public int[] partyN = new int[8];
-	public int[] cookingProp = new int[7];
-	public int[] cookingCoords = new int[2];
 	public String lastReported = "";
 	public String bankPin = "";
 	public int attempts = 3;
@@ -225,9 +217,11 @@ public abstract class Player {
 	public boolean[] killedPheasant = new boolean[5];
 	public boolean playerHasRandomEvent;
 	public boolean canLeaveArea;
+	
 	public int pieSelect = 0, getPheasent, kebabSelect = 0, breadID,
 			chocSelect = 0, bagelSelect = 0, triangleSandwich = 0,
 			squareSandwich = 0, breadSelect = 0;
+	
 	public String clanName, properName;
 	public int lastX, lastY;
 	public int[] voidStatus = new int[5];
@@ -293,9 +287,6 @@ public abstract class Player {
 				autocastId = autocastIds[j + 1];
 				c.getPlayerAssistant().sendConfig(108, 1);
 				c.getActionSender().setSidebarInterface(0, 328);
-				// spellName = getSpellName(autocastId);
-				// spellName = spellName;
-				// c.getPA().sendString(spellName, 354);
 				c = null;
 				break;
 			}
@@ -319,11 +310,11 @@ public abstract class Player {
 	}
 
 	public boolean saraTeam() {
-		return playerEquipment[Constants.CAPE] == 4041;
+		return playerEquipment[GameConstants.CAPE] == 4041;
 	}
 
 	public boolean zammyTeam() {
-		return playerEquipment[Constants.CAPE] == 4042;
+		return playerEquipment[GameConstants.CAPE] == 4042;
 	}
 
 	public boolean inCwSafe() {
@@ -427,25 +418,8 @@ public abstract class Player {
 	public int wearItemTimer, wearId, wearSlot, interfaceId;
 	public int XremoveSlot, XinterfaceID, XremoveID, Xamount;
 
-	// public int tutorial;
 	public boolean usingGlory = false;
-	public int[] woodcut = new int[7];
-	public int wcTimer = 0;
-	public int miningTick = 0;
-	public int miningAnimTick = 0;
-	public int miningRockId = -1;
-	public int miningX = -1;
-	public int miningY = -1;
-	public boolean fishing = false;
-	public int fishTimer = 0;
 	public boolean isMining;
-	public int smeltType; // 1 = bronze, 2 = iron, 3 = steel, 4 = gold, 5 =
-							// mith, 6 = addy, 7 = rune
-	public int smeltTimer = 0;
-	public boolean smeltInterface;
-	public boolean patchCleared;
-	public int[] farmData = new int[2];
-
 	public boolean antiFirePot = false;
 	
 	public boolean underWater = false;
@@ -750,10 +724,10 @@ public abstract class Player {
 	public PlayerHandler handler = null;
 	public int playerItems[] = new int[28];
 	public int playerItemsN[] = new int[28];
-	public int bankItems[] = new int[Constants.BANK_SIZE];
-	public int bankItemsN[] = new int[Constants.BANK_SIZE];
+	public int bankItems[] = new int[GameConstants.BANK_SIZE];
+	public int bankItemsN[] = new int[GameConstants.BANK_SIZE];
 	// used for player owned shops
-	public int bankItemsV[] = new int[Constants.BANK_SIZE];
+	public int bankItemsV[] = new int[GameConstants.BANK_SIZE];
 	public boolean bankNotes = false;
 	public boolean shouldSave = false;
 
@@ -843,11 +817,11 @@ public abstract class Player {
 				playerXP[i] = 0;
 			}
 		}
-		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			bankItems[i] = 0;
 		}
 
-		for (int i = 0; i < Constants.BANK_SIZE; i++) {
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			bankItemsN[i] = 0;
 		}
 
@@ -882,7 +856,7 @@ public abstract class Player {
 
 		heightLevel = 0;
 
-		if (Constants.TUTORIAL_ISLAND) {
+		if (GameConstants.TUTORIAL_ISLAND) {
 			teleportToX = 3094;
 			teleportToY = 3107;
 		} else {
@@ -907,11 +881,11 @@ public abstract class Player {
 		resetWalkingQueue();
 	}
 
-	public static final int maxPlayerListSize = Constants.MAX_PLAYERS;
+	public static final int maxPlayerListSize = GameConstants.MAX_PLAYERS;
 	public Player playerList[] = new Player[maxPlayerListSize];
 	public int playerListSize = 0;
 
-	public byte playerInListBitmap[] = new byte[Constants.MAX_PLAYERS + 7 >> 3];
+	public byte playerInListBitmap[] = new byte[GameConstants.MAX_PLAYERS + 7 >> 3];
 
 	public static final int maxNPCListSize = NpcHandler.MAX_NPCS;
 	public Npc npcList[] = new Npc[maxNPCListSize];
@@ -1217,7 +1191,7 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 		}
 	}
 
-	public byte cachedPropertiesBitmap[] = new byte[Constants.MAX_PLAYERS + 7 >> 3];
+	public byte cachedPropertiesBitmap[] = new byte[GameConstants.MAX_PLAYERS + 7 >> 3];
 
 	public void addNewNPC(Npc npc, Stream str, Stream updateBlock) {
 		int id = npc.npcId;
@@ -1530,9 +1504,6 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 			return;
 		}
 		if (animId == -1) {
-			animId = 65535;
-		}
-		if (isBotting == true) {
 			animId = 65535;
 		}
 		animationRequest = animId;

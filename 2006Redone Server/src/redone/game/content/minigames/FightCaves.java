@@ -1,6 +1,6 @@
 package redone.game.content.minigames;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -311,7 +311,7 @@ public class FightCaves {
 		            @Override
 		            public void execute(CycleEventContainer container) {
 					if (c2 != null) {
-						Server.fightCaves.spawnNextWave(c2);
+						GameEngine.fightCaves.spawnNextWave(c2);
 					}
 					container.stop();
 				}

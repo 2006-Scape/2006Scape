@@ -1,6 +1,6 @@
 package redone.game.content.combat.magic;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.content.music.sound.SoundList;
 import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
@@ -31,7 +31,7 @@ public class MagicSpells extends MagicData {
 					if (c2.playerLevel[3] - damage < 0) {
 						damage = c2.playerLevel[3];
 					}
-					c.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[c.oldSpellId][7] + damage * Constants.MAGIC_EXP_RATE, 6);
+					c.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[c.oldSpellId][7] + damage * GameConstants.MAGIC_EXP_RATE, 6);
 					c.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[c.oldSpellId][7] + damage / 3, 3);
 					// Server.playerHandler.players[playerId].setHitDiff(damage);
 					// Server.playerHandler.players[playerId].setHitUpdateRequired(true);
@@ -99,7 +99,7 @@ public class MagicSpells extends MagicData {
 		if (!PlayerHandler.players[i].inWild()) {
 			return false;
 		}
-		if (Constants.COMBAT_LEVEL_DIFFERENCE) {
+		if (GameConstants.COMBAT_LEVEL_DIFFERENCE) {
 			int combatDif1 = c.getCombatAssistant().getCombatDifference(c.combatLevel,
 					PlayerHandler.players[i].combatLevel);
 			if (combatDif1 > c.wildLevel
@@ -111,7 +111,7 @@ public class MagicSpells extends MagicData {
 			}
 		}
 
-		if (Constants.SINGLE_AND_MULTI_ZONES) {
+		if (GameConstants.SINGLE_AND_MULTI_ZONES) {
 			if (!PlayerHandler.players[i].inMulti()) { // single combat
 														// zones
 				if (PlayerHandler.players[i].underAttackBy != c.playerId

@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import redone.Constants;
-import redone.Server;
+import redone.GameConstants;
+import redone.GameEngine;
 
 public class Item {
 
@@ -187,7 +187,7 @@ public class Item {
 	}
 
 	public static String getItemName(int id) {
-		for (ItemList element : Server.itemHandler.ItemList) {
+		for (ItemList element : GameEngine.itemHandler.ItemList) {
 			if (element != null) {
 				if (element.itemId == id) {
 					return element.itemName;
@@ -197,9 +197,9 @@ public class Item {
 		return null;
 	}
 
-	public static boolean[] itemStackable = new boolean[Constants.ITEM_LIMIT];
-	public static boolean[] itemIsNote = new boolean[Constants.ITEM_LIMIT];
-	public static int[] targetSlots = new int[Constants.ITEM_LIMIT];
+	public static boolean[] itemStackable = new boolean[GameConstants.ITEM_LIMIT];
+	public static boolean[] itemIsNote = new boolean[GameConstants.ITEM_LIMIT];
+	public static int[] targetSlots = new int[GameConstants.ITEM_LIMIT];
 	static {
 		int counter = 0;
 		int c;
@@ -269,7 +269,7 @@ public class Item {
 					case 7138:
 					case 548:
 					case 6185:
-						slot = Constants.LEGS;
+						slot = GameConstants.LEGS;
 						break;
 					// Hats
 					case 4166:
@@ -293,7 +293,7 @@ public class Item {
 					case 5543:
 					case 5545:
 					case 5547:
-						slot = Constants.HAT;
+						slot = GameConstants.HAT;
 						break;
 					// Cape
 					case 4304:
@@ -310,12 +310,12 @@ public class Item {
 					case 3789:
 					case 4514:
 					case 4516:
-						slot = Constants.CAPE;
+						slot = GameConstants.CAPE;
 						break;
 					// Shield
 					case 7051:
 					case 7053:
-						slot = Constants.SHIELD;
+						slot = GameConstants.SHIELD;
 						break;
 					// Chest
 					case 577:
@@ -338,7 +338,7 @@ public class Item {
 					case 7390:
 					case 7392:
 					case 6186:
-						slot = Constants.CHEST;
+						slot = GameConstants.CHEST;
 						break;
 					// Amulet
 					case 3853:
@@ -352,11 +352,11 @@ public class Item {
 					case 4306:
 					case 3867:
 					case 1702:
-						slot = Constants.AMULET;
+						slot = GameConstants.AMULET;
 						break;
 					// Hands
 					case 776:
-						slot = Constants.HANDS;
+						slot = GameConstants.HANDS;
 						break;
 					default:
 						slot = c;
@@ -369,18 +369,6 @@ public class Item {
 			System.out.println("Critical error while loading equipment data! Trace:");
 			e.printStackTrace();
 		}
-
-		/*
-		 * try { BufferedReader in = new BufferedReader(new
-		 * FileReader("./data/data/equipment.dat")); String name = null; while
-		 * ((name = in.readLine()) != null) { int itemId =
-		 * Integer.parseInt(name.substring(0, name.indexOf(":"))); int equipId =
-		 * Integer.parseInt(name.substring(name.indexOf(":") + 1));
-		 * targetSlots[itemId] = equipId; } in.close(); in = null; } catch
-		 * (Exception e) { System.out.println("Error loading equipment list.");
-		 * }
-		 */
-
 	}
 
 }

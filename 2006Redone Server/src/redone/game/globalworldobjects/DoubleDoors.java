@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.game.objects.Objects;
 
 /**
@@ -49,7 +49,7 @@ public class DoubleDoors {
 		DoubleDoors doorClicked = getDoor(id, x, y, z);	
 		
 		if (doorClicked == null) {
-			Server.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
+			GameEngine.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
 			return true;
 		}
 		if (doorClicked.doorId > 12000) {
@@ -168,13 +168,13 @@ public class DoubleDoors {
 			}
 		}
 		if (xAdjustment != 0 || yAdjustment != 0) { 
-			Server.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
+			GameEngine.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
 		}
 		if (d.x == d.originalX && d.y == d.originalY) {
 			d.x += xAdjustment;
 			d.y += yAdjustment;
 		} else { 
-			Server.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
+			GameEngine.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
 			d.x = d.originalX;
 			d.y = d.originalY;
 		}
@@ -191,7 +191,7 @@ public class DoubleDoors {
 				d.doorId = d.originalId;
 			}
 		}
-		Server.objectHandler.placeObject(new Objects(d.doorId, d.x, d.y, d.z, getNextLeftFace(d), 0, 0));
+		GameEngine.objectHandler.placeObject(new Objects(d.doorId, d.x, d.y, d.z, getNextLeftFace(d), 0, 0));
 	}
 	
 	private int getNextLeftFace(DoubleDoors d) {
@@ -251,13 +251,13 @@ public class DoubleDoors {
 			}
 		}
 		if (xAdjustment != 0 || yAdjustment != 0) { 
-			Server.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
+			GameEngine.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
 		}
 		if (d.x == d.originalX && d.y == d.originalY) {
 			d.x += xAdjustment;
 			d.y += yAdjustment;
 		} else { 
-			Server.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
+			GameEngine.objectHandler.placeObject(new Objects(-1, d.x, d.y, d.z, 0, 0, 0));
 			d.x = d.originalX;
 			d.y = d.originalY;
 		}
@@ -274,7 +274,7 @@ public class DoubleDoors {
 				d.doorId = d.originalId;
 			}
 		}
-		Server.objectHandler.placeObject(new Objects(d.doorId, d.x, d.y, d.z, getNextRightFace(d), 0, 0));
+		GameEngine.objectHandler.placeObject(new Objects(d.doorId, d.x, d.y, d.z, getNextRightFace(d), 0, 0));
 	}
 	
 	private int getNextRightFace(DoubleDoors d) {

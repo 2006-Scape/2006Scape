@@ -1,6 +1,6 @@
 package redone.game.dialogues;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.content.quests.QuestAssistant;
 import redone.game.content.quests.QuestRewards;
 import redone.game.content.randomevents.FreakyForester;
@@ -144,7 +144,7 @@ public class DialogueHandler {
 
 			case 14: // lumby guide
 				sendNpcChat1(
-						"Greetings, welcome to " + Constants.SERVER_NAME + ".",
+						"Greetings, welcome to " + GameConstants.SERVER_NAME + ".",
 						player.talkingNpc, "Lumbridge Guide");
 				player.nextChat = 0;
 				break;
@@ -4000,7 +4000,7 @@ public class DialogueHandler {
 				player.nextChat = 1016;
 				break;
 			case 1016:
-				sendNpcChat2("This is the bank of " + Constants.SERVER_NAME + ".", "We have many branches in many towns.", player.talkingNpc, "Banker");
+				sendNpcChat2("This is the bank of " + GameConstants.SERVER_NAME + ".", "We have many branches in many towns.", player.talkingNpc, "Banker");
 				player.nextChat = 0;
 				break;
 			/**
@@ -5002,7 +5002,7 @@ public class DialogueHandler {
 				chatboxText(
 						player,
 						"To start the tutorial use your left mouse button to click on the",
-						"" + Constants.SERVER_NAME
+						"" + GameConstants.SERVER_NAME
 								+ " in this room. He is indicated by a flashing",
 						"yellow arrow above his head. If you can't see him, use your",
 						"keyboard's arrow keys to rotate the view.",
@@ -5755,7 +5755,7 @@ public class DialogueHandler {
 				chatboxText(
 						player,
 						"Follow the path and you will come to the front of the building.",
-						"This is the Bank of " + Constants.SERVER_NAME
+						"This is the Bank of " + GameConstants.SERVER_NAME
 								+ ", where you can store all your",
 						"most valued items. To open your bank box just right click on an",
 						"open booth indicated and select 'use'.", "Banking");
@@ -5809,7 +5809,7 @@ public class DialogueHandler {
 			case 3085:
 				sendNpcChat3(
 						"Now, the next way to earn money quickly is by quests.",
-						"Many people on " + Constants.SERVER_NAME
+						"Many people on " + GameConstants.SERVER_NAME
 								+ " have things they need",
 						"doing, which they will reward you for.",
 						player.talkingNpc, "Financial Advisor");
@@ -6091,7 +6091,7 @@ public class DialogueHandler {
 
 			case 3114:
 				sendNpcChat3(
-						"If all else fails, visit the " + Constants.SERVER_NAME
+						"If all else fails, visit the " + GameConstants.SERVER_NAME
 								+ " website for a whole",
 						"chestload of information on quests, skills, and minigames",
 						"as well as a very good starter's guide.",
@@ -7324,8 +7324,5 @@ public class DialogueHandler {
 		player.getPlayerAssistant().sendFrame126(three, 4905);
 		player.getPlayerAssistant().sendFrame126(four, 4906);
 		player.getPlayerAssistant().sendChatInterface(4900);
-	}
-
-	public void sendDialogues(int i) {
 	}
 }

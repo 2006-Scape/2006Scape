@@ -1,6 +1,6 @@
 package redone.game.shops;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.bots.BotHandler;
 import redone.game.items.Item;
 import redone.game.items.ItemAssistant;
@@ -80,9 +80,9 @@ public class ShopAssistant {
 						{
 						player.getOutStream().writeByte(ShopHandler.ShopItemsN[ShopID][i]);
 					}
-					if (ShopHandler.ShopItems[ShopID][i] > Constants.ITEM_LIMIT
+					if (ShopHandler.ShopItems[ShopID][i] > GameConstants.ITEM_LIMIT
 							|| ShopHandler.ShopItems[ShopID][i] < 0) {
-						ShopHandler.ShopItems[ShopID][i] = Constants.ITEM_LIMIT;
+						ShopHandler.ShopItems[ShopID][i] = GameConstants.ITEM_LIMIT;
 					}
 					player.getOutStream().writeWordBigEndianA(
 							ShopHandler.ShopItems[ShopID][i]);
@@ -275,7 +275,7 @@ public class ShopAssistant {
 	public void sellToShopPrice(int removeId, int removeSlot) {
 		int unNotedItemID = getUnNoted(removeId);
 		String itemName = ItemAssistant.getItemName(unNotedItemID);
-		for (int i : Constants.ITEM_SELLABLE) {
+		for (int i : GameConstants.ITEM_SELLABLE) {
 			if (unNotedItemID == i) {
 				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + ".");
 				return;
@@ -335,13 +335,13 @@ public class ShopAssistant {
 	public boolean sellItem(int itemID, int fromSlot, int amount) {
 		int unNotedItemID = getUnNoted(itemID);
 		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-		for (int i : Constants.ITEM_SELLABLE) {
+		for (int i : GameConstants.ITEM_SELLABLE) {
 			if (i == unNotedItemID) {
 				player.getActionSender().sendMessage("You can't sell " + itemName + ".");
 				return false;
 			}
 		}
-		if (player.playerRights == 2 && !Constants.ADMIN_CAN_SELL_ITEMS) {
+		if (player.playerRights == 2 && !GameConstants.ADMIN_CAN_SELL_ITEMS) {
 			player.getActionSender().sendMessage("Selling items as an admin has been disabled.");
 			return false;
 		}

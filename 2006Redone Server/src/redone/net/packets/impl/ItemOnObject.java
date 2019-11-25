@@ -21,8 +21,6 @@ public class ItemOnObject implements PacketType {
 		player.getInStream().readUnsignedWord();
 		int objectX = player.getInStream().readSignedWordBigEndianA();
 		int itemId = player.getInStream().readUnsignedWord();
-		player.cookingCoords[0] = objectX;
-		player.cookingCoords[1] = objectY;
 		player.turnPlayerTo(objectX, objectY);
 		player.objectX = objectX;
 		player.objectY = objectY;
@@ -213,7 +211,7 @@ public class ItemOnObject implements PacketType {
 			return;
 		}
 
-		UseItem.ItemonObject(player, objectId, objectX, objectY, itemId);
+		UseItem.itemOnObject(player, objectId, objectX, objectY, itemId);
 
 	}
 

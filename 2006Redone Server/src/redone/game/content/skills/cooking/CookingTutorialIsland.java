@@ -1,6 +1,6 @@
 package redone.game.content.skills.cooking;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -94,7 +94,7 @@ public class CookingTutorialIsland extends SkillHandler {
 				// 896);
 				c.startAnimation(c.playerSkillProp[7][5] == 2732 ? 897
 						: c.playerSkillProp[7][5] == 12269 ? 897 : 896);
-				if (Constants.SOUND) {
+				if (GameConstants.SOUND) {
 					c.getActionSender().sendSound(SoundList.COOK_ITEM, 100,
 							0);
 				}

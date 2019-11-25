@@ -2,8 +2,8 @@ package redone.game.items;
 
 public class GroundItem {
 
-	public int itemId, itemX, itemY, itemAmount, itemController, hideTicks,
-			removeTicks;
+	public int itemId, itemX, itemY, itemAmount, itemController, hideTicks, removeTicks;
+	
 	public String ownerName;
 
 	public GroundItem(int id, int x, int y, int h, int amount, int controller,

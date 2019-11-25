@@ -310,9 +310,7 @@ public class Misc {
 			}
 			if (!Character.isLetterOrDigit(s.charAt(i))) {
 				if (i + 1 < s.length()) {
-					s = String.format("%s%s%s", s.subSequence(0, i + 1),
-							Character.toUpperCase(s.charAt(i + 1)),
-							s.substring(i + 2));
+					s = String.format("%s%s%s", s.subSequence(0, i + 1), Character.toUpperCase(s.charAt(i + 1)), s.substring(i + 2));
 				}
 			}
 		}

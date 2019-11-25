@@ -107,7 +107,7 @@ public class ExperienceLamp {
 																			// lamp
 				int xp = c.getPlayerAssistant()
 						.getLevelForXP(c.playerXP[skill]) * 10;
-				c.getPlayerAssistant().addNormalExperienceRate(xp, skill);
+				c.getPlayerAssistant().addSkillXP(xp, skill);
 				c.getItemAssistant().deleteItem(LAMP, 1);
 				c.getActionSender().sendMessage(
 						"@blu@Your wish has been granted!");
@@ -130,18 +130,18 @@ public class ExperienceLamp {
 
 	public static void addExp(Client c) {
 		if (c.getPlayerAssistant().getLevelForXP(c.playerXP[skill]) < 20) {
-			c.getPlayerAssistant().addNormalExperienceRate(1000, skill);
+			c.getPlayerAssistant().addSkillXP(1000, skill);
 			c.getActionSender()
 					.sendMessage(
 							"@blu@You have been awarded 1000 experience in your selected skill!");
 		} else if (c.getPlayerAssistant().getLevelForXP(c.playerXP[skill]) > 19
 				&& c.getPlayerAssistant().getLevelForXP(c.playerXP[skill]) < 35) {
-			c.getPlayerAssistant().addNormalExperienceRate(2000, skill);
+			c.getPlayerAssistant().addSkillXP(2000, skill);
 			c.getActionSender()
 					.sendMessage(
 							"@blu@You have been awarded 2000 experience in your selected skill!");
 		} else {
-			c.getPlayerAssistant().addNormalExperienceRate(3000, skill);
+			c.getPlayerAssistant().addSkillXP(3000, skill);
 			c.getActionSender()
 					.sendMessage(
 							"@blu@You have been awarded 3000 experience in your selected skill!");

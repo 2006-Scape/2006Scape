@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import redone.Constants;
+import redone.GameConstants;
 import redone.game.items.GroundItem;
 import redone.game.items.ItemAssistant;
 import redone.game.items.ItemList;
@@ -29,7 +29,7 @@ public class ItemHandler {
 	public static final int HIDE_TICKS = 100;
 
 	public ItemHandler() {
-		for (int i = 0; i < Constants.ITEM_LIMIT; i++) {
+		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
 			ItemList[i] = null;
 		}
 		loadItemList("item.cfg");
@@ -303,7 +303,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 	 * Item List
 	 **/
 
-	public ItemList ItemList[] = new ItemList[Constants.ITEM_LIMIT];
+	public ItemList ItemList[] = new ItemList[GameConstants.ITEM_LIMIT];
 
 	public void newItemList(int ItemId, String ItemName, String ItemDescription, double ShopValue, double LowAlch, double HighAlch, int Bonuses[]) {
 		// first, search for a free slot

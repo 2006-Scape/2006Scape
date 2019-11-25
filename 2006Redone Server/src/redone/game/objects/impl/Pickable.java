@@ -1,6 +1,6 @@
 package redone.game.objects.impl;
 
-import redone.Server;
+import redone.GameEngine;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -39,7 +39,7 @@ public class Pickable {
 			player.startAnimation(827);
 			if (objectType == 2646 && random(3) == 0 || objectType != 2646) {
 				if (player.outStream != null) {
-					Server.objectHandler.createAnObject(player, -1, objectX, objectY);
+					GameEngine.objectHandler.createAnObject(player, -1, objectX, objectY);
 					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -48,7 +48,7 @@ public class Pickable {
 						@Override
 						public void stop() {
 							if (player.outStream != null) {
-								Server.objectHandler.createAnObject(player,objectType, objectX, objectY);
+								GameEngine.objectHandler.createAnObject(player,objectType, objectX, objectY);
 							}
 						}
 					}, 5);

@@ -11,7 +11,7 @@ import redone.util.Misc;
 /**
  * @Author Sanity for base
  * @Author Satan666
- * @Author Andrew fixing it up
+ * @Author Andrew (Mr Extremez) fixing it up
  */
 
 public class CastleWars {
