@@ -47,8 +47,7 @@ public class PickupItem implements PacketType {
 			return;
 		}
 		if (player.pItemY > 9817 && player.pItemY < 9825 && player.pItemX > 3186 && player.pItemX < 3197 || player.pItemX > 3107 && player.pItemX < 3113 && player.pItemY > 3155 && player.pItemY < 3159 && player.heightLevel == 2) {
-			player.getActionSender().sendMessage(
-					"You can't pick up these items!");
+			player.getActionSender().sendMessage("You can't pick up these items!");
 			return;
 		}
 		for (LogData logData : LogData.values()) {

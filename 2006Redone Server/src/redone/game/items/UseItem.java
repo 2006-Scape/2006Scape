@@ -110,7 +110,7 @@ public class UseItem {
 			c.getPotMixing().mixPotion2(itemUsed, useWith);
 		}
 		GrindingAction.init(c, itemUsed, useWith);
-		CapeDye.capeOnDye(c, itemUsed, useWith);
+		CapeDye.dyeItem(c, itemUsed, useWith);
 		if (Herblore.isIngredient(itemUsed) || Herblore.isIngredient(useWith)) {
 			Herblore.setupPotion(c, itemUsed, useWith);
 		}
