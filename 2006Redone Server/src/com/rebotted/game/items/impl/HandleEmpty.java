@@ -2,7 +2,7 @@ package com.rebotted.game.items.impl;
 
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Genesis
@@ -10,11 +10,11 @@ import com.rebotted.game.players.Client;
 
 public class HandleEmpty {
 
-	public static boolean canEmpty(Client c, int id) {
+	public static boolean canEmpty(Player c, int id) {
 		return filledToEmpty(c, id) != -1;
 	}
 
-	public static int filledToEmpty(Client c, int id) {
+	public static int filledToEmpty(Player c, int id) {
 		String itemName = ItemAssistant.getItemName(id);
 		if (!itemName.contains("Ring") && !itemName.contains("necklace")) {
 		if (itemName.contains("(3)") || itemName.contains("(4)") || itemName.contains("(2)") || itemName.contains("(1)")  || itemName.contains("Weapon poison")) {
@@ -41,7 +41,7 @@ public class HandleEmpty {
 		return -1;
 	}
 
-	public static void handleEmptyItem(Client c, int itemId, int giveItem) {
+	public static void handleEmptyItem(Player c, int itemId, int giveItem) {
 		final String name = ItemAssistant.getItemName(itemId);
 		c.getPacketSender().sendMessage("You empty your " + name + ".");
 		c.getItemAssistant().deleteItem(itemId, 1);

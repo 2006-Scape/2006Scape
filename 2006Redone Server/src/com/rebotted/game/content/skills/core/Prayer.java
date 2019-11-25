@@ -8,7 +8,7 @@ import com.rebotted.game.content.randomevents.Shade;
 import com.rebotted.game.content.randomevents.Zombie;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -46,7 +46,7 @@ public class Prayer {
 			{ 6812, 50 }, // WYVERN BONES
 	};
 
-	public static boolean playerBones(Client c, int item) {
+	public static boolean playerBones(Player player, int item) {
 		for (int[] element : data) {
 			if (item == element[0]) {
 				return true;
@@ -55,7 +55,7 @@ public class Prayer {
 		return false;
 	}
 
-	private static void handleBones(final Client c, int i, int slot) {
+	private static void handleBones(final Player c, int i, int slot) {
 		if(c.randomEventsEnabled) {
 			if (Misc.random(300) == 4 && c.shadeSpawned == false) {
 				Zombie.spawnZombie(c);
@@ -91,7 +91,7 @@ public class Prayer {
 		}
 	}
 
-	public static void buryBones(Client c, int i, int slot) {
+	public static void buryBones(Player c, int i, int slot) {
 		handleBones(c, i, slot);
 	}
 }

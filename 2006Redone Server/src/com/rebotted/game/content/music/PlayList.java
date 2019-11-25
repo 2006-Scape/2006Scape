@@ -2,12 +2,11 @@ package com.rebotted.game.content.music;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class PlayList {
 
-	private final Client player;
+	private final Player player;
 
 	@SuppressWarnings("unused")
 	private final int[] songs = { 2, 3, 12, 14, 9, 157, 76, 57, 419, 15, 18,
@@ -53,8 +52,8 @@ public class PlayList {
 
 	public boolean auto = true;
 
-	public PlayList(Client p) {
-		player = p;
+	public PlayList(Player player2) {
+		player = player2;
 	}
 
 	private static enum Songs {

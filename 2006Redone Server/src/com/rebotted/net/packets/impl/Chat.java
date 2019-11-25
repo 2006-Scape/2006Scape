@@ -1,7 +1,7 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.Connection;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.antimacro.AntiSpam;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
@@ -12,7 +12,7 @@ import com.rebotted.util.Misc;
 public class Chat implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		player.setChatTextEffects(player.getInStream().readUnsignedByteS());
 		player.setChatTextColor(player.getInStream().readUnsignedByteS());
 		player.setChatTextSize((byte) (player.packetSize - 2));
@@ -22,7 +22,6 @@ public class Chat implements PacketType {
 		if (AntiSpam.blockedWords(player, word, true) && !Connection.isMuted(player)) {
 			player.setChatTextUpdateRequired(true);
 		}
-		//System.out.println(word);
 		if (Connection.isMuted(player)) {
 			player.getPacketSender().sendMessage("You are muted and can't speak.");
 			player.setChatTextUpdateRequired(false);

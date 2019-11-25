@@ -1,6 +1,6 @@
 package com.rebotted.game.content.combat.range;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class RangeData {
 
@@ -16,30 +16,30 @@ public class RangeData {
 			868, 869, 806, 807, 808, 809, 810, 811, 825, 826, 827, 828, 829,
 			830, 800, 801, 802, 803, 804, 805, 6522 };
 	
-	public static boolean usingDbow(Client c) {
+	public static boolean usingDbow(Player c) {
 		return c.playerEquipment[c.playerWeapon] == 11235;
 	}
 	
-	public static boolean usingCrystalBow(Client c) {
+	public static boolean usingCrystalBow(Player c) {
 		return c.playerEquipment[c.playerWeapon] >= 4212
 				&& c.playerEquipment[c.playerWeapon] <= 4223;
 	}
 
-	public static boolean usingBolts(Client c) {
+	public static boolean usingBolts(Player c) {
 		return c.playerEquipment[c.playerArrows] >= 9130
 				&& c.playerEquipment[c.playerArrows] <= 9145
 				|| c.playerEquipment[c.playerArrows] >= 9230
 				&& c.playerEquipment[c.playerArrows] <= 9245;
 	}
 
-	public static boolean properBolts(Client c) {
+	public static boolean properBolts(Player c) {
 		return c.playerEquipment[c.playerArrows] >= 9140
 				&& c.playerEquipment[c.playerArrows] <= 9144
 				|| c.playerEquipment[c.playerArrows] >= 9240
 				&& c.playerEquipment[c.playerArrows] <= 9244;
 	}
 	
-	public static boolean usingHally(Client c) {
+	public static boolean usingHally(Player c) {
 		switch (c.playerEquipment[c.playerWeapon]) {
 		case 3190:
 		case 3192:
@@ -56,7 +56,7 @@ public class RangeData {
 		}
 	}
 
-	public static int correctBowAndArrows(Client c) {
+	public static int correctBowAndArrows(Player c) {
 		if (usingBolts(c)) {
 			return -1;
 		}
@@ -102,7 +102,7 @@ public class RangeData {
 		return -1;
 	}
 
-	public static int getRangeStartGFX(Client c) {
+	public static int getRangeStartGFX(Player c) {
 		switch (c.rangeItemUsed) {
 
 		case 863:
@@ -197,7 +197,7 @@ public class RangeData {
 		return -1;
 	}
 
-	public static int getRangeProjectileGFX(Client c) {
+	public static int getRangeProjectileGFX(Player c) {
 		if (c.dbowSpec) {
 			return 672;
 		}
@@ -310,14 +310,14 @@ public class RangeData {
 		return -1;
 	}
 
-	public static int getProjectileSpeed(Client c) {
+	public static int getProjectileSpeed(Player c) {
 		if (c.dbowSpec) {
 			return 100;
 		}
 		return 70;
 	}
 
-	public static int getProjectileShowDelay(Client c) {
+	public static int getProjectileShowDelay(Player c) {
 		switch (c.playerEquipment[c.playerWeapon]) {
 		case 863:
 		case 864:
@@ -360,7 +360,7 @@ public class RangeData {
 		}
 	}
 	
-	public static boolean fullVoidRange(Client c) {
+	public static boolean fullVoidRange(Player c) {
 		return c.playerEquipment[c.playerHat] == 11664
 				&& c.playerEquipment[c.playerLegs] == 8840
 				&& c.playerEquipment[c.playerChest] == 8839

@@ -1,18 +1,18 @@
 package com.rebotted.game.content.consumables;
 
 import java.util.HashMap;
-
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.items.impl.RareProtection;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class Food {
 
-	private final Client c;
+	private final Player c;
 
-	public Food(Client c) {
-		this.c = c;
+	public Food(Player player) {
+		this.c = player;
 	}
 
 	public static enum FoodToEat {

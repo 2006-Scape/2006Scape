@@ -1,9 +1,8 @@
 package com.rebotted.game.content.skills.slayer;
 
 import java.util.ArrayList;
-
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class Slayer {
@@ -28,10 +27,10 @@ public class Slayer {
 	public static ArrayList<Integer> hardTask = new ArrayList<Integer>();
 	public static ArrayList<Integer> veryHardTask = new ArrayList<Integer>();
 
-	private final Client c;
+	private final Player c;
 
-	public Slayer(Client c) {
-		this.c = c;
+	public Slayer(Player player) {
+		this.c = player;
 	}
 
 	public enum SlayerMasters {
@@ -211,11 +210,11 @@ public class Slayer {
 		}
 	}
 	
-	public static boolean getMasterRequirment(Client c, int id) {
+	public static boolean getMasterRequirment(Player player, int id) {
 		for (SlayerMasters slayermasters : SlayerMasters.values()) {
-			if (c.combatLevel < slayermasters.getCombatRequirement()
+			if (player.combatLevel < slayermasters.getCombatRequirement()
 					&& slayermasters.getId() == id) {
-				c.getPacketSender().sendMessage("You need " + slayermasters.getCombatRequirement() + " combat to use this slayer master.");
+				player.getPacketSender().sendMessage("You need " + slayermasters.getCombatRequirement() + " combat to use this slayer master.");
 				return false;
 			}
 		}
@@ -406,9 +405,9 @@ public class Slayer {
 		return Misc.random(amounts[0], amounts[1]);
 	}
 
-	public int getSlayerDifficulty(Client c) {
+	public int getSlayerDifficulty(Player c2) {
 		for(SlayerMasters master : SlayerMasters.values()){
-			if (master.getId() == c.SlayerMaster)
+			if (master.getId() == c2.SlayerMaster)
 				return master.getDifficulty();
 		}
 		return EASY_TASK;

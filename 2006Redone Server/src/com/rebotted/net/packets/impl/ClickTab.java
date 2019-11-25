@@ -1,13 +1,13 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 public class ClickTab implements PacketType {
 
 	@Override
-	public void processPacket(final Client c, int packetType, int packetSize) {
+	public void processPacket(final Player c, int packetType, int packetSize) {
 		switch (packetSize) {
 		case 1:// first part.
 			if (c.tutorialProgress == 0) { // wrench

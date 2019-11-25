@@ -3,14 +3,14 @@ package com.rebotted.game.content.skills.agility;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class WerewolfAgility {
 
-	private final Client c;
+	private final Player c;
 
-	public WerewolfAgility(Client c) {
-		this.c = c;
+	public WerewolfAgility(Player player) {
+		this.c = player;
 	}
 
 	public static final int WEREWOLF_STEPPING_STONE_OBJECT = 5138,

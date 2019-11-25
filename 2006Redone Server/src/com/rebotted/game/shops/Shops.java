@@ -3,7 +3,7 @@ package com.rebotted.game.shops;
 import java.util.HashMap;
 
 import com.rebotted.game.content.randomevents.RandomEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Shops
@@ -81,7 +81,7 @@ public class Shops {
 		
 	}
 
-	public static void dialogueShop(Client c, int npcClick) {
+	public static void dialogueShop(Player c, int npcClick) {
 		final Shop shops = Shop.forId(npcClick);
 		if (shops == null)
 			return;
@@ -90,7 +90,7 @@ public class Shops {
 		}
 	}
 
-	public static void openShop(Client c, int npcClickId) {
+	public static void openShop(Player c, int npcClickId) {
 		final Shop shops = Shop.forId(npcClickId);
 		if (shops == null)
 			return;

@@ -5,22 +5,21 @@ import com.rebotted.game.bots.BotHandler;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.ItemDefinitions;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.GameLogger;
 
-
 /**
  * Many Fixes/Things Added
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class ShopAssistant {
 
-	private final Client player;
+	private final Player player;
 
-	public ShopAssistant(Client client) {
-		player = client;
+	public ShopAssistant(Player player2) {
+		player = player2;
 	}
 
 	public static final int RANGE_SHOP = 111, PEST_SHOP = 175, CASTLE_SHOP = 112;

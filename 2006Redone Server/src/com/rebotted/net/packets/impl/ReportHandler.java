@@ -5,8 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class ReportHandler {
@@ -60,7 +59,7 @@ public class ReportHandler {
 	 *             ex
 	 */
 
-	public static void handleReport(Client c) throws Exception {
+	public static void handleReport(Player c) throws Exception {
 		String player = Misc.longToReportPlayerName(c.inStream.readQWord2());
 		player = player.replaceAll("_", " ");
 		byte rule = (byte) c.inStream.readUnsignedByte();

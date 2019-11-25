@@ -37,10 +37,10 @@ import com.rebotted.world.clip.PathFinder;
 
 public class CombatAssistant {
 
-	private final Client c;
+	private final Player c;
 
-	public CombatAssistant(Client Client) {
-		c = Client;
+	public CombatAssistant(Player player) {
+		c = player;
 	}
 
 	public static boolean inCombat(Client c) {
@@ -2212,33 +2212,33 @@ public class CombatAssistant {
 		}
 	}
 
-	public static void applyRecoil(Client c, int damage, int i) {
+	public static void applyRecoil(Player c2, int damage, int i) {
 		if (damage > 0
-				&& PlayerHandler.players[i].playerEquipment[c.playerRing] == 2550) {
+				&& PlayerHandler.players[i].playerEquipment[c2.playerRing] == 2550) {
 			int recDamage = damage / 10 + 1;
-			if (!c.getHitUpdateRequired()) {
-				c.setHitDiff(recDamage);
-				c.setHitUpdateRequired(true);
-			} else if (!c.getHitUpdateRequired2()) {
-				c.setHitDiff2(recDamage);
-				c.setHitUpdateRequired2(true);
+			if (!c2.getHitUpdateRequired()) {
+				c2.setHitDiff(recDamage);
+				c2.setHitUpdateRequired(true);
+			} else if (!c2.getHitUpdateRequired2()) {
+				c2.setHitDiff2(recDamage);
+				c2.setHitUpdateRequired2(true);
 			}
-			c.dealDamage(recDamage);
-			c.updateRequired = true;
-			removeRecoil(c);
-			c.recoilHits += damage;
+			c2.dealDamage(recDamage);
+			c2.updateRequired = true;
+			removeRecoil(c2);
+			c2.recoilHits += damage;
 		}
 	}
 
-	public static void removeRecoil(Client c) {
-		if (c.recoilHits >= 400) {
-			c.getItemAssistant().removeItem(2550, c.playerRing);
-			c.getItemAssistant().deleteItem(2550,
-					c.getItemAssistant().getItemSlot(2550), 1);
-			c.getPacketSender().sendMessage("Your ring of recoil shaters!");
-			c.recoilHits = 0;
+	public static void removeRecoil(Player c2) {
+		if (c2.recoilHits >= 400) {
+			c2.getItemAssistant().removeItem(2550, c2.playerRing);
+			c2.getItemAssistant().deleteItem(2550,
+					c2.getItemAssistant().getItemSlot(2550), 1);
+			c2.getPacketSender().sendMessage("Your ring of recoil shaters!");
+			c2.recoilHits = 0;
 		} else {
-			c.recoilHits++;
+			c2.recoilHits++;
 		}
 	}
 

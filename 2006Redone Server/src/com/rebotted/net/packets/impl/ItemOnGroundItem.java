@@ -2,14 +2,14 @@ package com.rebotted.net.packets.impl;
 
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.skills.firemaking.Firemaking;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
 
 public class ItemOnGroundItem implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		player.getInStream().readSignedWordBigEndian();
 		int itemUsed = player.getInStream().readSignedWordA();
 		int groundItem = player.getInStream().readUnsignedWord();

@@ -16,10 +16,10 @@ import com.rebotted.util.Misc;
 
 public class Trading {
 
-	private final Client player;
+	private final Player player;
 
-	public Trading(Client Client) {
-		player = Client;
+	public Trading(Player player2) {
+		player = player2;
 	}
 
 	/**

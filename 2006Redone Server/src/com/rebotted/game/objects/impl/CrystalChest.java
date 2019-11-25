@@ -3,7 +3,7 @@ package com.rebotted.game.objects.impl;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class CrystalChest {
@@ -15,7 +15,7 @@ public class CrystalChest {
 	private static final int DRAGONSTONE = 1631;
 	private static final int OPEN_ANIMATION = 881;
 
-	public static void makeKey(Client c) {
+	public static void makeKey(Player c) {
 		if (c.getItemAssistant().playerHasItem(toothHalf(), 1)
 				&& c.getItemAssistant().playerHasItem(loopHalf(), 1)) {
 			c.getItemAssistant().deleteItem(toothHalf(), 1);
@@ -24,7 +24,7 @@ public class CrystalChest {
 		}
 	}
 
-	public static boolean canOpen(Client c) {
+	public static boolean canOpen(Player c) {
 		if (c.getItemAssistant().playerHasItem(KEY)) {
 			return true;
 		} else {
@@ -33,7 +33,7 @@ public class CrystalChest {
 		}
 	}
 
-	public static void searchChest(final Client c, final int id, final int x,
+	public static void searchChest(final Player c, final int id, final int x,
 			final int y) {
 		if (canOpen(c)) {
 			c.getPacketSender().sendMessage(

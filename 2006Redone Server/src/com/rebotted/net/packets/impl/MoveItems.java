@@ -1,6 +1,6 @@
 package com.rebotted.net.packets.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -9,7 +9,7 @@ import com.rebotted.net.packets.PacketType;
 public class MoveItems implements PacketType {
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket(Player c, int packetType, int packetSize) {
 		int interfaceId = c.getInStream().readSignedWordBigEndianA();
 		boolean insertMode = c.getInStream().readSignedByteC() == 1;
 		int from = c.getInStream().readSignedWordBigEndianA();

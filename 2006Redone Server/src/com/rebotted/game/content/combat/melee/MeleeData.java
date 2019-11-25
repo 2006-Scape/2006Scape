@@ -3,18 +3,18 @@ package com.rebotted.game.content.combat.melee;
 import com.rebotted.GameConstants;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class MeleeData {
 
-	public static boolean fullVoidMelee(Client c) {
+	public static boolean fullVoidMelee(Player c) {
 		return c.playerEquipment[c.playerHat] == 11665
 				&& c.playerEquipment[c.playerLegs] == 8840
 				&& c.playerEquipment[c.playerChest] == 8839
 				&& c.playerEquipment[c.playerHands] == 8842;
 	}
 
-	public static int calculateMeleeAttack(Client c) {
+	public static int calculateMeleeAttack(Player c) {
 		int attackLevel = c.playerLevel[0];
 		// 2, 5, 11, 18, 19
 		if (c.getPrayer().prayerActive[2]) {
@@ -43,7 +43,7 @@ public class MeleeData {
 		return (int) (attackLevel + attackLevel * 0.15 + (i + i * 0.05));
 	}
 
-	public static int bestMeleeAtk(Client c) {
+	public static int bestMeleeAtk(Player c) {
 		if (c.playerBonus[0] > c.playerBonus[1]
 				&& c.playerBonus[0] > c.playerBonus[2]) {
 			return 0;
@@ -56,7 +56,7 @@ public class MeleeData {
 				|| c.playerBonus[2] <= c.playerBonus[0] ? 0 : 2;
 	}
 
-	public static int calculateMeleeDefence(Client c) {
+	public static int calculateMeleeDefence(Player c) {
 		int defenceLevel = c.playerLevel[1];
 		int i = c.playerBonus[bestMeleeDef(c)];
 		if (c.getPrayer().prayerActive[0]) {
@@ -73,7 +73,7 @@ public class MeleeData {
 		return (int) (defenceLevel + defenceLevel * 0.15 + (i + i * 0.05));
 	}
 
-	public static int bestMeleeDef(Client c) {
+	public static int bestMeleeDef(Player c) {
 		if (c.playerBonus[5] > c.playerBonus[6]
 				&& c.playerBonus[5] > c.playerBonus[7]) {
 			return 5;
@@ -90,7 +90,7 @@ public class MeleeData {
 	 * Weapon and magic attack speed!
 	 **/
 
-	public static int getAttackDelay(Client c) {
+	public static int getAttackDelay(Player c) {
 		String s = ItemAssistant.getItemName(c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
 		if (c.usingMagic) {
 			switch (MagicData.MAGIC_SPELLS[c.spellId][0]) {
@@ -211,7 +211,7 @@ public class MeleeData {
 	 * Weapon stand, walk, run, etc emotes
 	 **/
 
-	public static void getPlayerAnimIndex(Client c) {
+	public static void getPlayerAnimIndex(Player c) {
 		String weaponName = ItemAssistant.getItemName(
 				c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
 		c.playerStandIndex = 0x328;
@@ -306,7 +306,7 @@ public class MeleeData {
 	 * Weapon emotes
 	 **/
 
-	public static int getWeaponAnimation(Client c) {
+	public static int getWeaponAnimation(Player c) {
 		String weaponName = ItemAssistant.getItemName(
 				c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
 		if (c.playerEquipment[c.playerWeapon] <= 0) {
@@ -394,7 +394,7 @@ public class MeleeData {
 	/**
 	 * Block emotes
 	 */
-	public static int getBlockEmote(Client c) {
+	public static int getBlockEmote(Player c) {
 		if (c.playerEquipment[c.playerShield] >= 8844
 				&& c.playerEquipment[c.playerShield] <= 8850) {
 			return 4177;
@@ -423,7 +423,7 @@ public class MeleeData {
 	/**
 	 * How long it takes to hit your enemy
 	 **/
-	public static int getHitDelay(Client c) {
+	public static int getHitDelay(Player c) {
 		String weaponName = ItemAssistant.getItemName(
 				c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
 		if (c.usingMagic) {

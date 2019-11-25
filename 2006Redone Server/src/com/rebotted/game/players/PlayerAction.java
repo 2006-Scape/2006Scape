@@ -2,10 +2,10 @@ package com.rebotted.game.players;
 
 public class PlayerAction {
 
-	Client c;
+	Player c;
 
-	public PlayerAction(Client c) {
-		this.c = c;
+	public PlayerAction(Player player) {
+		this.c = player;
 	}
 
 	public boolean inAction = false;

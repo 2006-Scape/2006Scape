@@ -12,7 +12,7 @@ import com.rebotted.game.content.skills.herblore.Herblore;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.ExperienceLamp;
 import com.rebotted.game.items.impl.Flowers;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.GameLogger;
 import com.rebotted.util.Misc;
@@ -23,7 +23,7 @@ import com.rebotted.util.Misc;
 public class ClickItem implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		player.endCurrentTask();
 		player.getInStream().readSignedWordBigEndianA();
 		int itemSlot = player.getInStream().readUnsignedWordA();
@@ -139,8 +139,7 @@ public class ClickItem implements PacketType {
 			break;
 			
 		case 2677:
-			if (GameConstants.CLUES_ENABLED)
-			{
+			if (GameConstants.CLUES_ENABLED) {
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 0);
 			}
@@ -154,8 +153,7 @@ public class ClickItem implements PacketType {
 			break;
 
 		case 2679:
-			if (GameConstants.CLUES_ENABLED)
-			{
+			if (GameConstants.CLUES_ENABLED) {
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 2);
 			}

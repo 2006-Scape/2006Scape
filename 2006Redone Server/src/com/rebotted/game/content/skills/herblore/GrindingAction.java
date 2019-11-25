@@ -2,7 +2,7 @@ package com.rebotted.game.content.skills.herblore;
 
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class GrindingAction {
 
@@ -31,15 +31,15 @@ public class GrindingAction {
 		}
 	}
 
-	public static void init(Client c, int itemUsed, int useWith) {
+	public static void init(Player player, int itemUsed, int useWith) {
 		for (Data d : Data.values()) {
 			if (itemUsed == PESTLE_AND_MORTAR && useWith == d.getId() || itemUsed == d.getId() && useWith == PESTLE_AND_MORTAR) {
-				c.startAnimation(364);
-				c.getPacketSender().sendSound(SoundList.PESTLE_MOTAR, 100, 0);
-				c.getItemAssistant().deleteItem(d.getId(), 1);
-				c.getItemAssistant().addItem(d.getEnd(), 1);
-				c.getPacketSender().sendMessage("You carefully grind the " + ItemAssistant.getItemName(d.getId()) + ".");
-				c.getPlayerAssistant().addSkillXP(1, c.playerHerblore);
+				player.startAnimation(364);
+				player.getPacketSender().sendSound(SoundList.PESTLE_MOTAR, 100, 0);
+				player.getItemAssistant().deleteItem(d.getId(), 1);
+				player.getItemAssistant().addItem(d.getEnd(), 1);
+				player.getPacketSender().sendMessage("You carefully grind the " + ItemAssistant.getItemName(d.getId()) + ".");
+				player.getPlayerAssistant().addSkillXP(1, player.playerHerblore);
 			}
 		}
 	}

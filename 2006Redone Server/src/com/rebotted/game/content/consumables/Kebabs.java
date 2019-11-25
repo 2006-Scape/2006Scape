@@ -1,6 +1,6 @@
 package com.rebotted.game.content.consumables;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -36,7 +36,7 @@ public class Kebabs {
 	/**
 	 * Different effects(Healing,lowering,damaging)
 	 */
-	public static void effects(Client c) {
+	public static void effects(Player c) {
 		float eff1 = chances("effect1");
 		float eff2 = chances("effect2");
 		float eff3 = chances("effect3");
@@ -102,35 +102,35 @@ public class Kebabs {
 	/**
 	 * Eatting the kebab
 	 */
-	public static void eat(Client c, int slot) {
-		if (System.currentTimeMillis() - c.foodDelay >= 1500
-				&& c.playerLevel[3] > 0) {
-			if (c.playerLevel[3] == c.getLevelForXP(c.playerXP[3])) { // If
+	public static void eat(Player player, int slot) {
+		if (System.currentTimeMillis() - player.foodDelay >= 1500
+				&& player.playerLevel[3] > 0) {
+			if (player.playerLevel[3] == player.getLevelForXP(player.playerXP[3])) { // If
 																		// full
 																		// health,
 																		// does
 																		// nothing
 																		// but
 																		// eat.
-				c.getCombatAssistant().resetPlayerAttack();
-				c.getPacketSender().sendMessage("You eat the kebab.");
-				c.attackTimer += 2;
-				c.startAnimation(829);
-				c.getItemAssistant().deleteItem(Kebab, slot, 1);
-				c.getPacketSender().sendSound(317, 100, 0);
-				c.foodDelay = System.currentTimeMillis();
-				c.getPlayerAssistant().refreshSkill(3);
+				player.getCombatAssistant().resetPlayerAttack();
+				player.getPacketSender().sendMessage("You eat the kebab.");
+				player.attackTimer += 2;
+				player.startAnimation(829);
+				player.getItemAssistant().deleteItem(Kebab, slot, 1);
+				player.getPacketSender().sendSound(317, 100, 0);
+				player.foodDelay = System.currentTimeMillis();
+				player.getPlayerAssistant().refreshSkill(3);
 				return;
 			}
-			c.getCombatAssistant().resetPlayerAttack();
-			c.getPacketSender().sendMessage("You eat the kebab.");
-			effects(c);
-			c.attackTimer += 2;
-			c.startAnimation(829);
-			c.getItemAssistant().deleteItem(Kebab, slot, 1);
-			c.getPacketSender().sendSound(317, 100, 0);
-			c.foodDelay = System.currentTimeMillis();
-			c.getPlayerAssistant().refreshSkill(3);
+			player.getCombatAssistant().resetPlayerAttack();
+			player.getPacketSender().sendMessage("You eat the kebab.");
+			effects(player);
+			player.attackTimer += 2;
+			player.startAnimation(829);
+			player.getItemAssistant().deleteItem(Kebab, slot, 1);
+			player.getPacketSender().sendSound(317, 100, 0);
+			player.foodDelay = System.currentTimeMillis();
+			player.getPlayerAssistant().refreshSkill(3);
 		}
 	}
 }

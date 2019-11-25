@@ -2,14 +2,14 @@ package com.rebotted.game.globalworldobjects;
 
 import com.rebotted.GameEngine;
 import com.rebotted.game.objects.Objects;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.world.ObjectManager;
 import com.rebotted.world.clip.ObjectDef;
 import com.rebotted.world.clip.Region;
 
 /**
  * GateHandler
- * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 public class GateHandler {
 	
@@ -24,7 +24,7 @@ public class GateHandler {
 		GameEngine.objectHandler.placeObject(new Objects(objectId, x, y, h, face, 0, 0));
 	}
 	
-	public static void openSingleGate(Client player, int objectId, int x1, int y1, int x2, int y2, int walkX, int walkY, int face1, int face2) {
+	public static void openSingleGate(Player player, int objectId, int x1, int y1, int x2, int y2, int walkX, int walkY, int face1, int face2) {
 		if (isGate(objectId) && gateAmount == 0) {
 			spawnGate(-1, x2, y2, player.heightLevel, 0);
 			spawnGate(objectId, x1, y1, player.heightLevel, face1);
@@ -34,7 +34,7 @@ public class GateHandler {
 		}
 	}
 	
-	private static void openDoubleGate(Client player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int face1, int face2) {
+	private static void openDoubleGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int face1, int face2) {
 		if (isGate(objectId) && isGate(objectId2) && gateAmount == 0) {
 			// open gate from default map object
 			spawnGate(-1, x3, y3, player.heightLevel, 0);
@@ -54,7 +54,7 @@ public class GateHandler {
 		}
 	}
 	
-	private static void openSpecialGate(Client player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int face1, int face2, int face3) {
+	private static void openSpecialGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int face1, int face2, int face3) {
 		if (isGate(objectId) && isGate(objectId2) && gateAmount == 0) {
 			spawnGate(-1, x3, y3, player.heightLevel, 0);
 			spawnGate(-1, x4, y4, player.heightLevel, 0);
@@ -72,7 +72,7 @@ public class GateHandler {
 		}
 	}
 	
-	public static void openSpecialWalkGate(Client player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int walkX, int walkY, int face1, int face2, int face3) {
+	public static void openSpecialWalkGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int walkX, int walkY, int face1, int face2, int face3) {
 		if (isGate(objectId) && isGate(objectId2) && gateAmount == 0) {
 			spawnGate(-1, x3, y3, player.heightLevel, 0);
 			spawnGate(-1, x4, y4, player.heightLevel, 0);
@@ -86,7 +86,7 @@ public class GateHandler {
 		}
 	}
 	
-	public static void handleGate(Client player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int type) {
+	public static void handleGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int type) {
 		switch (type) {
 			/**
 			 * X Gate 1
@@ -139,7 +139,7 @@ public class GateHandler {
 		}
 	}
 	
-	public static void handleSpecialGate(Client player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int type) {
+	public static void handleSpecialGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int type) {
 		switch (type) {
 			/**
 			 * X Gate 1

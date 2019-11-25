@@ -4,6 +4,7 @@ import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author phl0w
@@ -12,10 +13,10 @@ import com.rebotted.game.players.Client;
 
 public class Runecrafting {
 
-	private final Client c;
+	private final Player c;
 
-	public Runecrafting(Client c) {
-		this.c = c;
+	public Runecrafting(Player player) {
+		this.c = player;
 	}
 
 	public static void locate(Client c, int xPos, int yPos) {

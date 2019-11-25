@@ -4,32 +4,32 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Spinning extends CraftingData {
 
 	public static int[][] BEFORE_AFTER = { { 1737, 1759, 3, 1 },
 			{ 1779, 1777, 15, 10 } };
 
-	public static void showSpinning(Client c) {
-		c.getPacketSender().sendChatInterface(8880);
-		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
-		c.getPacketSender().sendFrame246(8883, 180, 1737); // left
-		c.getPacketSender().sendFrame246(8884, 180, 1779); // middle
-		c.getPacketSender().sendFrame246(8885, 180, 6051); // right
-		c.getPacketSender().sendFrame126("Wool", 8889);
-		c.getPacketSender().sendFrame126("Flax", 8893);
-		c.getPacketSender().sendFrame126("Magic tree", 8897);
-		c.clickedSpinning = true;
+	public static void showSpinning(Player player) {
+		player.getPacketSender().sendChatInterface(8880);
+		player.getPacketSender().sendFrame126("What would you like to make?", 8879);
+		player.getPacketSender().sendFrame246(8883, 180, 1737); // left
+		player.getPacketSender().sendFrame246(8884, 180, 1779); // middle
+		player.getPacketSender().sendFrame246(8885, 180, 6051); // right
+		player.getPacketSender().sendFrame126("Wool", 8889);
+		player.getPacketSender().sendFrame126("Flax", 8893);
+		player.getPacketSender().sendFrame126("Magic tree", 8897);
+		player.clickedSpinning = true;
 	}
 
-	public static void getAmount(Client c, int amount) {
+	public static void getAmount(Player c, int amount) {
 		c.doAmount = amount;
 		spinItem(c);
 		c.isSpinning = true;
 	}
 
-	public static void spinItem(final Client c) {
+	public static void spinItem(final Player c) {
 		c.getPacketSender().closeAllWindows();
 		for (int[] element : BEFORE_AFTER) {
 			final int before = element[0];

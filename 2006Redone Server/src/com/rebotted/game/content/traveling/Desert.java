@@ -4,7 +4,7 @@ import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class Desert {
@@ -38,21 +38,21 @@ public class Desert {
 	/**
 	 * Gets the cutters.
 	 * 
-	 * @param c
+	 * @param player
 	 *            Player c.
 	 * @return Returns default value.
 	 */
-	public static int getCacCutter(Client c) {
+	public static int getCacCutter(Player player) {
 		int cut = 0;
 		for (int element : CACTUS_CUTTER) {
-			if (c.getItemAssistant().playerHasItem(element)) {
+			if (player.getItemAssistant().playerHasItem(element)) {
 				cut = element;
 			}
 		}
 		return cut;
 	}
 
-	public static void showWarning(Client c) {
+	public static void showWarning(Player c) {
 		for (int i = 8144; i < 8195; i++) {
 			c.getPacketSender().sendFrame126("", i);
 		}
@@ -78,7 +78,7 @@ public class Desert {
 	 * @param obX
 	 * @param obY
 	 */
-	public static void checkCactus(Client c, int objectId, int obX, int obY) {
+	public static void checkCactus(Player c, int objectId, int obX, int obY) {
 		int fail = Misc.random(2);
 		if (fail == 1) {
 			c.getPacketSender().sendMessage("You failed to cut the cactus.");
@@ -111,7 +111,7 @@ public class Desert {
 	 * @param obY
 	 *            Gets the object coordinate y.
 	 */
-	public static void cutCactus(final Client c, int itemId, final int objectId, final int obX, final int obY) {
+	public static void cutCactus(final Player c, int itemId, final int objectId, final int obX, final int obY) {
 		for (int element : CACTUS_CUTTER) {
 			if (itemId == element) {
 				checkCactus(c, objectId, obX, obY);

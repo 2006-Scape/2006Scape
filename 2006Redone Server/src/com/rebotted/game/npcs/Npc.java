@@ -4,7 +4,6 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
@@ -64,7 +63,7 @@ public class Npc {
     	updateRequired = true;
 	}
 	
-	public boolean requestTransformTime(Client player, int itemId, int animation, final int currentId, final int newId, int transformTime, final int npcId) {
+	public boolean requestTransformTime(Player player, int itemId, int animation, final int currentId, final int newId, int transformTime, final int npcId) {
 		if (!player.getItemAssistant().playerHasItem(itemId)) {
 			player.getPacketSender().sendMessage("You need " + ItemAssistant.getItemName(itemId).toLowerCase() + " to do that.");
 			return false;

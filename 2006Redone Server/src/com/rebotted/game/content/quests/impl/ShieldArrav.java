@@ -1,6 +1,7 @@
 package com.rebotted.game.content.quests.impl;
 
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Shield of Arrav
@@ -17,13 +18,13 @@ public class ShieldArrav {
 		this.client = client;
 	}
 
-	public static void showInformation(Client client) {
+	public static void showInformation(Player player) {
 		// Clear all lines
-		for (int i = 8144; i < 8195; i++) client.getPacketSender().sendFrame126("", i);
+		for (int i = 8144; i < 8195; i++) player.getPacketSender().sendFrame126("", i);
 		// Set the title
-		client.getPacketSender().sendFrame126("Shield of Arrav", 8144);
+		player.getPacketSender().sendFrame126("Shield of Arrav", 8144);
 		// Add content
-		if (client.shieldArrav == 0) {
+		if (player.shieldArrav == 0) {
 			lines = new String[]{
 					"I can start this quest by speaking to @red@Reldo @bla@in @red@Varrock's",
 					"@red@Palace Library@bla@, or by speaking to @red@Charlie the Tramp @bla@near",
@@ -31,23 +32,23 @@ public class ShieldArrav {
 					"I will need a friend to help me and some combat experience",
 					"may be an advantage.",
 			};
-		} else if (client.shieldArrav == 1) {
+		} else if (player.shieldArrav == 1) {
 			lines =  new String[]{
 					"I need to find @red@'The Shield of Arrav' @bla@book",
 					"in @red@Varrock's Palace Library",
 			};
-		} else if (client.shieldArrav == 2) {
+		} else if (player.shieldArrav == 2) {
 			lines =  new String[]{
 					"@str@I found 'The Shield of Arrav' book",
 					"I should speak to @red@Reldo",
 			};
-		} else if (client.shieldArrav == 3) {
+		} else if (player.shieldArrav == 3) {
 			lines =  new String[]{
 					"@str@I found 'The Shield of Arrav' book",
 					"@str@I've spoken with Raldo",
 					"Lets go speak with @red@Baraek",
 			};
-		} else if (client.shieldArrav == 4) {
+		} else if (player.shieldArrav == 4) {
 			lines =  new String[]{
 					"@str@I found 'The Shield of Arrav' book",
 					"@str@I've spoken with Raldo",
@@ -56,7 +57,7 @@ public class ShieldArrav {
 					"He said it was located in the South Eastern side of Varrock,",
 					"I should check it out.",
 			};
-		} else if (client.shieldArrav == 5) {
+		} else if (player.shieldArrav == 5) {
 			lines =  new String[]{
 					"@str@I found 'The Shield of Arrav' book",
 					"@str@I've spoken with Raldo",
@@ -65,7 +66,7 @@ public class ShieldArrav {
 					"I need to goto the @red@Blue Moon Inn",
 					"and obtain the intelligence report.",
 			};
-		} else if (client.shieldArrav == 6) {
+		} else if (player.shieldArrav == 6) {
 			lines =  new String[]{
 					"@str@I found 'The Shield of Arrav' book",
 					"@str@I've spoken with Raldo",
@@ -76,7 +77,7 @@ public class ShieldArrav {
 					"and take it to @red@Curator Haig Halen",
 					"he should be at @red@Varrock Museum"
 			};
-		} else if (client.shieldArrav == 7) {
+		} else if (player.shieldArrav == 7) {
 			lines =  new String[]{
 					"@str@I found 'The Shield of Arrav' book",
 					"@str@I've spoken with Raldo",
@@ -87,7 +88,7 @@ public class ShieldArrav {
 					"I need to take this certificate",
 					"to @red@King Roald @bla@for my reward",
 			};
-		} else if (client.shieldArrav == 8) {
+		} else if (player.shieldArrav == 8) {
 			lines =  new String[]{
 					"@str@I found 'The Shield of Arrav' book",
 					"@str@I've spoken with Raldo",
@@ -107,7 +108,7 @@ public class ShieldArrav {
 		}
 		// Send the lines to the client
 		int lineNumber = 8147;
-		for (String line : lines) client.getPacketSender().sendFrame126(line, lineNumber++);
-		client.getPacketSender().showInterface(8134);
+		for (String line : lines) player.getPacketSender().sendFrame126(line, lineNumber++);
+		player.getPacketSender().showInterface(8134);
 	}
 }

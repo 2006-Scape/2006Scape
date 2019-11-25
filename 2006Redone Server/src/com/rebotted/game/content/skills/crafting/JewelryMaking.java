@@ -1,7 +1,7 @@
 package com.rebotted.game.content.skills.crafting;
 
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class JewelryMaking {
 
@@ -28,7 +28,7 @@ public class JewelryMaking {
 
 	};
 
-	public static void mouldInterface(Client c) {
+	public static void mouldInterface(Player c) {
 		c.getPacketSender().showInterface(4161);
 		/* Rings */
 		if (c.getItemAssistant().playerHasItem(1592, 1)) {
@@ -83,7 +83,7 @@ public class JewelryMaking {
 		}
 	}
 
-	public static void stringAmulet(final Client c, final int itemUsed,
+	public static void stringAmulet(final Player c, final int itemUsed,
 			final int usedWith) {
 		final int amuletId = itemUsed == 1759 ? usedWith : itemUsed;
 		for (final CraftingData.amuletData a : CraftingData.amuletData.values()) {
@@ -96,7 +96,7 @@ public class JewelryMaking {
 		}
 	}
 
-	public static void mouldItem(Client c, int item, int amount) {
+	public static void mouldItem(Player player, int item, int amount) {
 		int done = 0;
 
 		final int GOLD_BAR = 2357;
@@ -137,46 +137,46 @@ public class JewelryMaking {
 		if (!isRing && !isNeck && !isAmulet) {
 			return;
 		}
-		if (c.playerLevel[c.playerCrafting] >= lvl) {
+		if (player.playerLevel[player.playerCrafting] >= lvl) {
 			if (ItemAssistant.getItemName(itemAdd).toLowerCase()
 					.contains("gold")
-					&& !c.getItemAssistant().playerHasItem(GOLD_BAR, 1)
-					|| !c.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
-				c.getPacketSender().sendMessage(
+					&& !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)
+					|| !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
+				player.getPacketSender().sendMessage(
 						"You need a Gold bar to make this.");
 				return;
-			} else if (!c.getItemAssistant().playerHasItem(gem, 1)
-					&& c.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
-				c.getPacketSender().sendMessage(
+			} else if (!player.getItemAssistant().playerHasItem(gem, 1)
+					&& player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
+				player.getPacketSender().sendMessage(
 						getRequiredMessage(ItemAssistant.getItemName(gem)));
 				return;
 			}
-			c.getPacketSender().closeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			while (done < amount
 					&& (ItemAssistant.getItemName(gem).toLowerCase()
 							.contains("unarmed")
-							&& c.getItemAssistant().playerHasItem(GOLD_BAR, 1) || c
+							&& player.getItemAssistant().playerHasItem(GOLD_BAR, 1) || player
 							.getItemAssistant().playerHasItem(gem, 1)
-							&& c.getItemAssistant().playerHasItem(GOLD_BAR, 1))) {
-				c.getItemAssistant().deleteItem(gem, 1);
-				c.getItemAssistant().deleteItem(GOLD_BAR, 1);
-				c.getItemAssistant().addItem(itemAdd, 1);
-				c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
-				c.getPlayerAssistant().refreshSkill(c.playerCrafting);
+							&& player.getItemAssistant().playerHasItem(GOLD_BAR, 1))) {
+				player.getItemAssistant().deleteItem(gem, 1);
+				player.getItemAssistant().deleteItem(GOLD_BAR, 1);
+				player.getItemAssistant().addItem(itemAdd, 1);
+				player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
+				player.getPlayerAssistant().refreshSkill(player.playerCrafting);
 				done++;
 			}
 			if (done == 1) {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You craft the gold to form a "
 								+ ItemAssistant.getItemName(itemAdd) + ".");
 			} else if (done > 1) {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You craft the gold to form " + done
 								+ " " + ItemAssistant.getItemName(itemAdd)
 								+ "'s.");
 			}
 		} else {
-			c.getPacketSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You need a Crafting level of " + lvl + " to craft this.");
 			return;
 		}

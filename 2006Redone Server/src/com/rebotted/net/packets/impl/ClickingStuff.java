@@ -1,6 +1,6 @@
 package com.rebotted.net.packets.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
@@ -11,7 +11,7 @@ import com.rebotted.util.Misc;
 public class ClickingStuff implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		if (player.playerIsBusy()) {
 			player.playerIsBusy = false;
 		}
@@ -20,9 +20,9 @@ public class ClickingStuff implements PacketType {
 		if(player.isShopping)
 	        player.isShopping = false;
 		if (player.inTrade) {
-			Client opponent = (Client) PlayerHandler.players[player.tradeWith];
+			Player opponent = (Player) PlayerHandler.players[player.tradeWith];
 			if (!player.acceptedTrade || !opponent.inTrade || opponent == null) {
-				opponent = (Client) PlayerHandler.players[player.tradeWith];
+				opponent = (Player) PlayerHandler.players[player.tradeWith];
 				opponent.tradeAccepted = false;
 				player.tradeAccepted = false;
 				opponent.tradeStatus = 0;
@@ -38,7 +38,7 @@ public class ClickingStuff implements PacketType {
 			}
 
 		if(player.openDuel && player.duelStatus >= 1 && player.duelStatus <= 4) {
-		Client o = (Client) PlayerHandler.players[player.duelingWith];
+		Player o = (Player) PlayerHandler.players[player.duelingWith];
 		if (o != null)
 			if (player.duelStatus >= 1 && player.duelStatus <= 4)
 				player.getDueling().declineDuel();

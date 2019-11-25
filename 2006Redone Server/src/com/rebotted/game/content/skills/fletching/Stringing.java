@@ -4,7 +4,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Tom
@@ -68,38 +68,38 @@ public class Stringing {
 		}
 	}
 
-	public static boolean StringBow(final Client c, int itemUsed, int usedWith) {
+	public static boolean StringBow(final Player player, int itemUsed, int usedWith) {
 		final Data loadData = Data.forId(itemUsed, usedWith);
 		if (loadData == null) {
 			return false;
 		}
-		if (c.playerLevel[9] < loadData.getLevel()) {
-			c.getDialogueHandler().sendStatement("You need a fletching level of " + loadData.getLevel() + " to do this");
+		if (player.playerLevel[9] < loadData.getLevel()) {
+			player.getDialogueHandler().sendStatement("You need a fletching level of " + loadData.getLevel() + " to do this");
 			return false;
 		}
-		if (!c.getItemAssistant().playerHasItem(loadData.getItem1()) || !c.getItemAssistant().playerHasItem(loadData.getItem2())) {
-			c.getDialogueHandler().sendStatement("You need a " + ItemAssistant.getItemName(loadData.getItem1()) + " and a " + ItemAssistant.getItemName(loadData.getItem2()) + " to make this.");
+		if (!player.getItemAssistant().playerHasItem(loadData.getItem1()) || !player.getItemAssistant().playerHasItem(loadData.getItem2())) {
+			player.getDialogueHandler().sendStatement("You need a " + ItemAssistant.getItemName(loadData.getItem1()) + " and a " + ItemAssistant.getItemName(loadData.getItem2()) + " to make this.");
 			return false;
 		}
-		c.playerIsFletching = true;
-		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+		player.playerIsFletching = true;
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (!c.getItemAssistant().playerHasItem(loadData.getItem1()) || !c.getItemAssistant().playerHasItem(loadData.getItem2()) || c.playerIsFletching == false) {
+				if (!player.getItemAssistant().playerHasItem(loadData.getItem1()) || !player.getItemAssistant().playerHasItem(loadData.getItem2()) || player.playerIsFletching == false) {
 					container.stop();
 					return;
 				}
-				c.getItemAssistant().deleteItem(loadData.getItem1(), 1);
-				c.getItemAssistant().deleteItem(loadData.getItem2(), 1);
-				c.getPacketSender().sendMessage("You add a string to the bow.");
-				c.getItemAssistant().addItem(loadData.getProduct(), 1);
-				c.getPlayerAssistant().addSkillXP(loadData.getXp(), 9);
+				player.getItemAssistant().deleteItem(loadData.getItem1(), 1);
+				player.getItemAssistant().deleteItem(loadData.getItem2(), 1);
+				player.getPacketSender().sendMessage("You add a string to the bow.");
+				player.getItemAssistant().addItem(loadData.getProduct(), 1);
+				player.getPlayerAssistant().addSkillXP(loadData.getXp(), 9);
 			}
 
 			@Override
 			public void stop() {
-				c.playerIsFletching = false;
+				player.playerIsFletching = false;
 				return;
 			}
 		}, 3);

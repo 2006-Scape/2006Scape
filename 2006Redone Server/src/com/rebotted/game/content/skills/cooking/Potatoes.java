@@ -2,17 +2,16 @@ package com.rebotted.game.content.skills.cooking;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Potatoes extends SkillHandler {
 
-	Client c;
+	Player c;
 
-	public Potatoes(Client c) {
-		this.c = c;
+	public Potatoes(Player player) {
+		this.c = player;
 	}
 
 	public enum PotatoMaking {
@@ -104,7 +103,7 @@ public class Potatoes extends SkillHandler {
 				c.getPacketSender().sendMessage("You put the topping on.");
 				c.getItemAssistant().addItem(potato.getNewPotatoID(), 1);
 				c.getPlayerAssistant().addSkillXP(
-						potato.getXP() * COOKING_EXPERIENCE, c.playerCooking);
+						potato.getXP(), c.playerCooking);
 				RandomEventHandler.addRandom(c);
 			} else {
 				c.getPacketSender().sendMessage(

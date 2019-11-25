@@ -1,17 +1,17 @@
 package com.rebotted.game.content.skills;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class SkillInterfaces {
 
-	private final Client c;
+	private final Player c;
 
 	public int selected;
 
 	private final int item[] = new int[40];
 
-	public SkillInterfaces(Client client) {
-		c = client;
+	public SkillInterfaces(Player player) {
+		c = player;
 	}
 
 	/*

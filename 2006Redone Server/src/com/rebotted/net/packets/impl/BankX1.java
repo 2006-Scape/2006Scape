@@ -1,6 +1,6 @@
 package com.rebotted.net.packets.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -13,7 +13,7 @@ public class BankX1 implements PacketType {
 	public int XremoveSlot, XinterfaceID, XremoveID, Xamount;
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket(Player c, int packetType, int packetSize) {
 		c.endCurrentTask();
 		if (packetType == 135) {
 			c.xRemoveSlot = c.getInStream().readSignedWordBigEndian();

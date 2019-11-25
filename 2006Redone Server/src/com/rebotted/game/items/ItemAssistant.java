@@ -5,15 +5,16 @@ import com.rebotted.GameEngine;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
 public class ItemAssistant {
 
-	private final Client c;
+	private final Player c;
 
-	public ItemAssistant(Client client) {
-		c = client;
+	public ItemAssistant(Player player) {
+		c = player;
 	}
 
 	private static int COMMON = Misc.random(5), UNCOMMON = Misc.random(25),

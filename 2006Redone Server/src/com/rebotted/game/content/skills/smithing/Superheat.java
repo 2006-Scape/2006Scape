@@ -3,7 +3,7 @@ package com.rebotted.game.content.skills.smithing;
 import com.rebotted.game.content.combat.magic.CastRequirements;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Andrew (Mr Extremez)
@@ -23,51 +23,51 @@ public class Superheat {
 			{ 451, 1, 453, 8, 2363, 50, 85, 50 }, // RUNE ORE
 	};
 
-	public static boolean superHeatItem(Client c, int itemID) {
+	public static boolean superHeatItem(Player player, int itemID) {
 		for (int smelt[] : SMELT) {
 			if (itemID == smelt[0]) {
-				if (!c.getItemAssistant().playerHasItem(smelt[2], smelt[3])) {
+				if (!player.getItemAssistant().playerHasItem(smelt[2], smelt[3])) {
 					if (itemID == 440 && smelt[2] == 453) {
 						continue;
 					} else {
-						c.getPacketSender().sendMessage("You haven't got enough " + ItemAssistant.getItemName(smelt[2]).toLowerCase() + " to cast this spell!");
+						player.getPacketSender().sendMessage("You haven't got enough " + ItemAssistant.getItemName(smelt[2]).toLowerCase() + " to cast this spell!");
 						return false;
 					}
 				}
-				if (!CastRequirements.hasRunes(c, new int[][]{{554, 4}, {561, 1}})) {
-					c.getPacketSender().sendMessage("You don't have the correct runes to cast this spell.");
+				if (!CastRequirements.hasRunes(player, new int[][]{{554, 4}, {561, 1}})) {
+					player.getPacketSender().sendMessage("You don't have the correct runes to cast this spell.");
 					return false;
 				}
-				if (itemID == 444 && c.playerEquipment[c.playerHands] == 776) {
-					c.getPlayerAssistant().addSkillXP(56.2, c.playerSmithing);
+				if (itemID == 444 && player.playerEquipment[player.playerHands] == 776) {
+					player.getPlayerAssistant().addSkillXP(56.2, player.playerSmithing);
 				} else {
-					c.getPlayerAssistant().addSkillXP(smelt[7], c.playerSmithing);
+					player.getPlayerAssistant().addSkillXP(smelt[7], player.playerSmithing);
 				}
-				if (c.playerLevel[c.playerSmithing] < smelt[6]) {
-					c.getPacketSender().sendMessage("You need a smithing level of " + smelt[6] + " to superheat this ore.");
+				if (player.playerLevel[player.playerSmithing] < smelt[6]) {
+					player.getPacketSender().sendMessage("You need a smithing level of " + smelt[6] + " to superheat this ore.");
 					return false;
 				}
-				if (c.playerLevel[c.playerMagic] < 43) {
-					c.getPacketSender().sendMessage("You need a magic level of 43 to superheat this ore.");
+				if (player.playerLevel[player.playerMagic] < 43) {
+					player.getPacketSender().sendMessage("You need a magic level of 43 to superheat this ore.");
 					return false;
 				}
-				c.getItemAssistant().deleteItem(itemID, 1);
-				c.getItemAssistant().deleteItem(smelt[2], smelt[3]);
-				CastRequirements.deleteRunes(c, new int[][]{{554, 4}, {561, 1}});
-				c.getItemAssistant().addItem(smelt[4], 1);
-				c.getPlayerAssistant().addSkillXP(53, c.playerMagic);
-				c.startAnimation(722);
-				c.gfx0(148);
-				c.getPacketSender().sendSound(SoundList.SUPERHEAT, 100, 0);
+				player.getItemAssistant().deleteItem(itemID, 1);
+				player.getItemAssistant().deleteItem(smelt[2], smelt[3]);
+				CastRequirements.deleteRunes(player, new int[][]{{554, 4}, {561, 1}});
+				player.getItemAssistant().addItem(smelt[4], 1);
+				player.getPlayerAssistant().addSkillXP(53, player.playerMagic);
+				player.startAnimation(722);
+				player.gfx0(148);
+				player.getPacketSender().sendSound(SoundList.SUPERHEAT, 100, 0);
 				if (itemID != 444) {
-					c.getPlayerAssistant().addSkillXP(smelt[7], c.playerSmithing);
+					player.getPlayerAssistant().addSkillXP(smelt[7], player.playerSmithing);
 				}
-				c.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendFrame106(6);
 				return true;
 			}
 		}
-		c.getPacketSender().sendMessage("You can only cast superheat item on ores!");
-		c.getPacketSender().sendSound(SoundList.SUPERHEAT_FAIL, 100, 0);
+		player.getPacketSender().sendMessage("You can only cast superheat item on ores!");
+		player.getPacketSender().sendSound(SoundList.SUPERHEAT_FAIL, 100, 0);
 		return false;
 	}
 }

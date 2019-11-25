@@ -3,12 +3,12 @@ package com.rebotted.game.content.music.sound;
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
  * CombatSounds
- * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class CombatSounds {
@@ -155,11 +155,11 @@ public class CombatSounds {
 		return GameEngine.itemHandler.ItemList[ItemID].itemName;
 	}
 
-	public static int getMagicSound(Client c, int spellId) {
+	public static int getMagicSound(Player c, int spellId) {
 		return MagicData.MAGIC_SPELLS[spellId][16];
 	}
 
-	public static int getPlayerBlockSounds(Client c) {
+	public static int getPlayerBlockSounds(Player c) {
 
 		int blockSound = 511;
 
@@ -227,7 +227,7 @@ public class CombatSounds {
 		return blockSound;
 	}
 
-	public static int getWeaponSounds(Client c) {
+	public static int getWeaponSounds(Player c) {
 		if (c.playerEquipment[c.playerWeapon] >= 1) {
 			String wep = getItemName(c.playerEquipment[c.playerWeapon])
 					.toLowerCase();

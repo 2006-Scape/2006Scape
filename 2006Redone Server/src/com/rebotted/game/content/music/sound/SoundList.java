@@ -1,6 +1,6 @@
 package com.rebotted.game.content.music.sound;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Sounds
@@ -9,10 +9,10 @@ import com.rebotted.game.players.Client;
 
 public class SoundList {
 
-	Client c;
+	Player c;
 
-	public SoundList(Client c) {
-		this.c = c;
+	public SoundList(Player player) {
+		this.c = player;
 	}
 
 	/**

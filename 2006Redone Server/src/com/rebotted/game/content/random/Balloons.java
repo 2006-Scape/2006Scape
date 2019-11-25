@@ -2,10 +2,9 @@ package com.rebotted.game.content.random;
 
 import java.awt.Point;
 import java.util.Random;
-
 import com.rebotted.GameEngine;
 import com.rebotted.game.objects.Objects;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Balloons extends Objects {
 
@@ -23,15 +22,15 @@ public class Balloons extends Objects {
 		this.amount = amount;
 	}
 
-	public static void popBalloon(Client c, int x, int y) {
+	public static void popBalloon(Player player, int x, int y) {
 		PartyRoom.coords.remove(getCoords());
 		Balloons empty = remove(x, y);
-		GameEngine.itemHandler.createGroundItem(c, item, x, y, amount, c.playerId);
+		GameEngine.itemHandler.createGroundItem(player, item, x, y, amount, player.playerId);
 		item = 0;
 		amount = 0;
 		GameEngine.objectHandler.addObject(empty);
 		GameEngine.objectHandler.placeObject(empty);
-		c.startAnimation(794);
+		player.startAnimation(794);
 	}
 
 	public static Point getCoords() {

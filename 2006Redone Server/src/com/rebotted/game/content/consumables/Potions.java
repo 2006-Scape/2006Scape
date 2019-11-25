@@ -5,14 +5,14 @@ import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Potions {
 
-	private final Client c;
+	private final Player c;
 
-	public Potions(Client c) {
-		this.c = c;
+	public Potions(Player player) {
+		this.c = player;
 	}
 
 	public void handlePotion(int itemId, int slot) {

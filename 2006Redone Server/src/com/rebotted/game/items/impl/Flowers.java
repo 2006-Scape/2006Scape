@@ -4,7 +4,7 @@ import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
 
@@ -46,7 +46,7 @@ public class Flowers {
 	 * 
 	 * @param c
 	 */
-	public Flowers(final Client c) {
+	public Flowers(final Player c) {
 		if (c.checkBusy()) {
 			return;
 		}
@@ -71,7 +71,7 @@ public class Flowers {
 	 * 
 	 * @param c
 	 */
-	private void executeAction(final Client c) {
+	private void executeAction(final Player c) {
 		final int newFlower = getRandom();
 		final int[] coords = new int[2];
 		coords[0] = c.absX;
@@ -105,7 +105,7 @@ public class Flowers {
 	 * 
 	 * @param c
 	 */
-	private static void moveOneStep(Client c) {
+	private static void moveOneStep(Player c) {
 		if (Region.getClipping(c.getX() - 1, c.getY(), c.heightLevel, -1, 0)) {
 			c.getPlayerAssistant().walkTo(-1, 0);
 		} else if (Region.getClipping(c.getX() + 1, c.getY(), c.heightLevel, 1,
@@ -134,7 +134,7 @@ public class Flowers {
 	 * 
 	 * @param c
 	 */
-	private void sendOptions(Client c) {
+	private void sendOptions(Player c) {
 		c.getDialogueHandler().sendOption2("Leave Flowers", "Harvest Flowers");
 	}
 
@@ -143,30 +143,30 @@ public class Flowers {
 	 * 
 	 * @param c
 	 */
-	private static void deleteSeeds(Client c) {
+	private static void deleteSeeds(Player c) {
 		c.getItemAssistant().deleteItem(299, 1);
 	}
 
-	private void updateConstants(int objectType, Client c) {
+	private void updateConstants(int objectType, Player c) {
 		lastObject = objectType;
 	}
 
 	/**
 	 * Method harvests flower from ground
 	 * 
-	 * @param c
+	 * @param player
 	 * @param object
 	 * @param oX
 	 * @param oY
 	 */
-	public static void harvestFlower(Client c, int object) {
-		c.getItemAssistant().addItem(flowerDecoder(object), 1);
-		c.getPacketSender().sendMessage("You receive a random flower.");
-		c.startAnimation(827);
+	public static void harvestFlower(Player player, int object) {
+		player.getItemAssistant().addItem(flowerDecoder(object), 1);
+		player.getPacketSender().sendMessage("You receive a random flower.");
+		player.startAnimation(827);
 		// c.getPA().checkObjectSpawn(c,-1, c.getX()+1, c.getY(), 1, 10);
 		// c.getPA().object(c,-1, c.getX()+1, c.getY(), 1, 10);
-		GameEngine.objectHandler.createAnObject(c, -1, c.getX() + 1, c.getY(), 1);
-		c.turnPlayerTo(c.getX() + 1, c.getY());
+		GameEngine.objectHandler.createAnObject(player, -1, player.getX() + 1, player.getY(), 1);
+		player.turnPlayerTo(player.getX() + 1, player.getY());
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class Flowers {
 	 * 
 	 * @param option
 	 */
-	public void handleOptions(int option, Client c) {
+	public void handleOptions(int option, Player c) {
 		if (option == 0) {
 			return;
 		} else {

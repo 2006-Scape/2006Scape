@@ -26,7 +26,7 @@ public class ObjectManager {
 	public ArrayList<Object> objects = new ArrayList<Object>();
 	private final ArrayList<Object> toRemove = new ArrayList<Object>();
 	
-	public static void objectTicks(final Client player, final int objectId, final int objectX, final int objectY, final int objectH, final int face, final int objectType, int ticks) {
+	public static void objectTicks(final Player player, final int objectId, final int objectX, final int objectY, final int objectH, final int face, final int objectType, int ticks) {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -41,7 +41,7 @@ public class ObjectManager {
 		}, ticks);
 	}
 	
-	public static void singleGateTicks(final Client player, final int objectId, final int objectX, final int objectY, final int x1, final int y1, final int objectH, final int face, int ticks) {
+	public static void singleGateTicks(final Player player, final int objectId, final int objectX, final int objectY, final int x1, final int y1, final int objectH, final int face, int ticks) {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -63,7 +63,7 @@ public class ObjectManager {
 		}, ticks);
 	}
 	
-	public static void doubleGateTicks(final Client player, final int objectId, final int objectX, final int objectY,
+	public static void doubleGateTicks(final Player player, final int objectId, final int objectX, final int objectY,
 									   final int x1, final int y1, final int x2, final int y2,
 									   final int objectH, final int face, int ticks) {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -173,7 +173,7 @@ public class ObjectManager {
 		return null;
 	}
 
-	public void loadObjects(Client c) {
+	public void loadObjects(Player c) {
 		if (c == null) {
 			return;
 		}
@@ -185,24 +185,24 @@ public class ObjectManager {
 		loadCustomSpawns(c);
 	}
 
-	public void loadCustomSpawns(Client client) {
-		client.getPacketSender().checkObjectSpawn(2474, 3233, 9312, 0, 10);
-		if (client.rope == true) {
-			client.getPacketSender().object(3828, 3227, 3108, 0, 0, 10);
+	public void loadCustomSpawns(Player c) {
+		c.getPacketSender().checkObjectSpawn(2474, 3233, 9312, 0, 10);
+		if (c.rope == true) {
+			c.getPacketSender().object(3828, 3227, 3108, 0, 0, 10);
 			Region.addObject(3828, 3227, 3108, 0, 10, 0, false);
 		} 
-		if (client.rope2 == true) {
-			client.getPacketSender().object(3828, 3509, 9497, 2, 0, 10);
+		if (c.rope2 == true) {
+			c.getPacketSender().object(3828, 3509, 9497, 2, 0, 10);
 			Region.addObject(3828, 3509, 9497, 2, 10, 0, false);
 		}
-		if (client.questPoints >= QuestAssistant.MAXIMUM_QUESTPOINTS) {
-			client.getPacketSender().checkObjectSpawn(2403, 3219, 9623, 3, 10);// RFD
+		if (c.questPoints >= QuestAssistant.MAXIMUM_QUESTPOINTS) {
+			c.getPacketSender().checkObjectSpawn(2403, 3219, 9623, 3, 10);// RFD
 		} else {
-			client.getPacketSender().checkObjectSpawn(-1, 3219, 9623, 3, 10);// RFD
+			c.getPacketSender().checkObjectSpawn(-1, 3219, 9623, 3, 10);// RFD
 		}
 		// CHEST
-		if (client.flourAmount > 0 && client.heightLevel == 0) {
-			client.getPacketSender().checkObjectSpawn(FlourMill.FULL_FLOUR_BIN, 3166, 3306, 0, 10);
+		if (c.flourAmount > 0 && c.heightLevel == 0) {
+			c.getPacketSender().checkObjectSpawn(FlourMill.FULL_FLOUR_BIN, 3166, 3306, 0, 10);
 		}
 	}
 
@@ -269,7 +269,7 @@ public class ObjectManager {
 		}
 	}
 
-	public boolean loadForPlayer(Object o, Client c) {
+	public boolean loadForPlayer(Object o, Player c) {
 		if (o == null || c == null) {
 			return false;
 		}

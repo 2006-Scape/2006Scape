@@ -30,10 +30,10 @@ import com.rebotted.world.clip.Region;
 
 public class PlayerAssistant {
 
-	private Client player;
+	private Player player;
 
-	public PlayerAssistant(Client Client) {
-		this.player = Client;
+	public PlayerAssistant(Player player2) {
+		this.player = player2;
 	}
 	
 	public void objectAnim(int X, int Y, int animationID, int tileObjectType, int orientation) {
@@ -159,25 +159,25 @@ public class PlayerAssistant {
 	        if (manta > 0) {
 	            toReturn.add(new GameItem(389, manta));
 	            if (player.playerLevel[player.playerFishing] >= 81) {
-	                xpToAdd += (manta * 46 * SkillHandler.FISHING_EXPERIENCE);
+	                xpToAdd += (manta * 46);
 	            }
 	        }
 	        if (turt > 0) {
 	            toReturn.add(new GameItem(395, turt));
 	            if (player.playerLevel[player.playerFishing] >= 79) {
-	                xpToAdd += (manta * 38 * SkillHandler.FISHING_EXPERIENCE);
+	                xpToAdd += (manta * 38);
 	            }
 	        }
 	        if (lobs > 0) {
 	            toReturn.add(new GameItem(377, lobs));
 	            if (player.playerLevel[player.playerFishing] >= 40) {
-	                xpToAdd += (manta * 90 * SkillHandler.FISHING_EXPERIENCE);
+	                xpToAdd += (manta * 90);
 	            }
 	        }
 	        if (swordFish > 0) {
 	            toReturn.add(new GameItem(371, swordFish));
 	            if (player.playerLevel[player.playerFishing] >= 50) {
-	                xpToAdd += (manta * 100 * SkillHandler.FISHING_EXPERIENCE);
+	                xpToAdd += (manta * 100);
 	            }
 	        }
 	        if (junk > 0)
@@ -364,7 +364,7 @@ public class PlayerAssistant {
 		player.nextChat = 0;
 	}
 
-	public static void removeHintIcon(Client c) {
+	public static void removeHintIcon(Player c) {
 		c.getPacketSender().drawHeadicon(0, 0, 0, 0);
 	}
 

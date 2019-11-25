@@ -1,6 +1,6 @@
 package com.rebotted.game.content.minigames;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class TreasureTrails {
@@ -300,12 +300,12 @@ public class TreasureTrails {
 	};
 
 
-	public static void addClueReward(Client c, int clueLevel) {
+	public static void addClueReward(Player player, int clueLevel) {
 		int chanceReward = Misc.random(2);
 		if (clueLevel == 0) {
 			switch (chanceReward) {
 			case 0:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelReward), 1,
@@ -313,14 +313,14 @@ public class TreasureTrails {
 				);
 				break;
 			case 1:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(lowLevelReward), 1,
 						Misc.randomArrayItem(lowLevelStacks), Misc.random(50, 150)
 				);
@@ -329,7 +329,7 @@ public class TreasureTrails {
 		} else if (clueLevel == 1) {
 			switch (chanceReward) {
 			case 0:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelReward), 1,
@@ -337,14 +337,14 @@ public class TreasureTrails {
 				);
 				break;
 			case 1:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(mediumLevelReward), 1,
 						Misc.randomArrayItem(mediumLevelStacks), Misc.random(50, 150)
 				);
@@ -353,7 +353,7 @@ public class TreasureTrails {
 		} else if (clueLevel == 2) {
 			switch (chanceReward) {
 			case 0:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelReward), 1,
@@ -361,14 +361,14 @@ public class TreasureTrails {
 				);
 				break;
 			case 1:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelStacks), Misc.random(50, 150)
 				);
 				break;
 			case 2:
-				displayReward(c,
+				displayReward(player,
 						Misc.randomArrayItem(highLevelReward), 1,
 						Misc.randomArrayItem(highLevelStacks), Misc.random(50, 150)
 				);
@@ -376,19 +376,19 @@ public class TreasureTrails {
 			}
 		}
 	}
-	public static void displayReward(Client c, int item, int amount) {
+	public static void displayReward(Player c, int item, int amount) {
 		displayReward(c, item, amount, -1, 1);
 	}
 
-	public static void displayReward(Client c, int item, int amount, int item2, int amount2) {
+	public static void displayReward(Player c, int item, int amount, int item2, int amount2) {
 		displayReward(c, item, amount, item2, amount2, -1, 1);
 	}
 
-	public static void displayReward(Client c, int item, int amount, int item2, int amount2, int item3, int amount3) {
+	public static void displayReward(Player c, int item, int amount, int item2, int amount2, int item3, int amount3) {
 		displayReward(c, item, amount, item2, amount2, item3, amount3, -1, 1);
 	}
 
-	public static void displayReward(Client c, int item, int amount, int item2, int amount2, int item3, int amount3, int item4, int amount4) {
+	public static void displayReward(Player c, int item, int amount, int item2, int amount2, int item3, int amount3, int item4, int amount4) {
 		int[] items = { item, item2, item3, item4 };
 		int[] amounts = { amount, amount2, amount3, amount4 };
 		c.outStream.createFrameVarSizeWord(53);

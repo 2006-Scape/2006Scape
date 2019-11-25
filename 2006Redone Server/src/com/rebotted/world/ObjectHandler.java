@@ -56,7 +56,7 @@ public class ObjectHandler {
 	    }
 		
 
-	public void createAnObject(Client c, int id, int x, int y) {
+	public void createAnObject(Player c, int id, int x, int y) {
 		Objects OBJECT = new Objects(id, x, y, c.heightLevel, 0, 10, 0);
 		if (id == -1) {
 			removeObject(OBJECT);
@@ -66,7 +66,7 @@ public class ObjectHandler {
 		GameEngine.objectHandler.placeObject(OBJECT);
 	}
 
-	public void createAnObject(Client c, int id, int x, int y, int face) {
+	public void createAnObject(Player player, int id, int x, int y, int face) {
 		Objects OBJECT = new Objects(id, x, y, 0, face, 10, 0);
 		if (id == -1) {
 			removeObject(OBJECT);
@@ -116,7 +116,7 @@ public class ObjectHandler {
 	/**
 	 * Update objects when entering a new region or logging in
 	 **/
-	public void updateObjects(Client c) {
+	public void updateObjects(Player c) {
 		for (Objects o : globalObjects) {
 			if (c != null) {
 				if (c.heightLevel == 0 && o.objectTicks == 0 && c.distanceToPoint(o.getObjectX(), o.getObjectY()) <= 60) {

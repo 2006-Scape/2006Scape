@@ -5,7 +5,7 @@ import com.rebotted.game.content.combat.magic.CastOnOther;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.content.combat.range.RangeData;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.net.packets.PacketType;
 
@@ -17,7 +17,7 @@ public class AttackPlayer implements PacketType {
 	public static final int ATTACK_PLAYER = 73, MAGE_PLAYER = 249;
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket(Player c, int packetType, int packetSize) {
 		c.endCurrentTask();
 		c.playerIndex = 0;
 		c.npcIndex = 0;

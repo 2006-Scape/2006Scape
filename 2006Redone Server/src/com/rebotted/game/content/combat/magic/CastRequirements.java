@@ -1,10 +1,10 @@
 package com.rebotted.game.content.combat.magic;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class CastRequirements {
 
-	public static boolean hasRunes(Client c, int[] runes, int[] amount) {
+	public static boolean hasRunes(Player c, int[] runes, int[] amount) {
 		for (int i = 0; i < runes.length; i++) {
 			if (c.getItemAssistant().playerHasItem(runes[i], amount[i]) || MagicRequirements.wearingStaff(c, runes[i])) {
 				return true;
@@ -15,32 +15,32 @@ public class CastRequirements {
 		return false;
 	}
 
-	public static boolean hasRunes(Client c, int[][] runes) {
+	public static boolean hasRunes(Player player, int[][] runes) {
 		for (int[] rune : runes) {
 			// if player doesn't have the required amount of runes or a staff for that rune
-			if (!c.getItemAssistant().playerHasItem(rune[0], rune[1]) && !MagicRequirements.wearingStaff(c, rune[0])) {
+			if (!player.getItemAssistant().playerHasItem(rune[0], rune[1]) && !MagicRequirements.wearingStaff(player, rune[0])) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	public static void deleteRunes(Client c, int[][] runes) {
+	public static void deleteRunes(Player player, int[][] runes) {
 		for (int[] rune : runes) {
-			if (!MagicRequirements.wearingStaff(c, rune[0])) {
-				c.getItemAssistant().deleteItem(rune[0], rune[1]);
+			if (!MagicRequirements.wearingStaff(player, rune[0])) {
+				player.getItemAssistant().deleteItem(rune[0], rune[1]);
 			}
 		}
 	}
 
-	public static void deleteRunes(Client c, int[] runes, int[] amount) {
+	public static void deleteRunes(Player c, int[] runes, int[] amount) {
 		for (int i = 0; i < runes.length; i++) {
 			c.getItemAssistant().deleteItem(runes[i],
 					c.getItemAssistant().getItemSlot(runes[i]), amount[i]);
 		}
 	}
 
-	public static boolean hasRequiredLevel(Client c, int i) {
+	public static boolean hasRequiredLevel(Player c, int i) {
 		return c.playerLevel[6] >= i;
 	}
 

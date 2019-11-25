@@ -1,10 +1,10 @@
 package com.rebotted.game.content.combat.melee;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class MeleeMaxHit {
 
-	public static int calculateMeleeMaxHit(Client c) {
+	public static int calculateMeleeMaxHit(Player c) {
 		double maxHit = 0;
 		int strBonus = c.playerBonus[10];
 		int strength = c.playerLevel[2];

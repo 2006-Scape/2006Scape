@@ -3,21 +3,16 @@ package com.rebotted.game.content.skills.agility;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
 public class Agility {
 
-	/**
-	 * @author Aintaro
-	 */
+	Player c;
 
-	Client c;
-
-	public Agility(Client c) {
-		this.c = c;
+	public Agility(Player player) {
+		this.c = player;
 	}
 
 	public boolean[] agilityProgress = new boolean[6];
@@ -60,11 +55,11 @@ public class Agility {
 		c.isRunning2 = true;
 	}
 
-	private static void setAnimationBack(Client c) {
-		c.isRunning2 = true;
-		c.getPacketSender().sendConfig(173, 1);
-		c.playerWalkIndex = 0x333;
-		c.getPlayerAssistant().requestUpdates();
+	private static void setAnimationBack(Player player) {
+		player.isRunning2 = true;
+		player.getPacketSender().sendConfig(173, 1);
+		player.playerWalkIndex = 0x333;
+		player.getPlayerAssistant().requestUpdates();
 	}
 
 	/**
@@ -79,22 +74,22 @@ public class Agility {
 		destinationReached(EndX, EndY, endingAnimation);
 	}
 
-	public static void brimhavenSkippingStone(final Client c) {
-		if (c.stopPlayerPacket) {
+	public static void brimhavenSkippingStone(final Player player) {
+		if (player.stopPlayerPacket) {
 			return;
 		}
-		if (c.playerLevel[c.playerAgility] < 12) {
-			c.getDialogueHandler().sendStatement("You need 12 agility to use these stepping stones");
-			c.nextChat = 0;
+		if (player.playerLevel[player.playerAgility] < 12) {
+			player.getDialogueHandler().sendStatement("You need 12 agility to use these stepping stones");
+			player.nextChat = 0;
 			return;
 		}
-		c.stopPlayerPacket = true;
-		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+		player.stopPlayerPacket = true;
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				c.startAnimation(769);
-				if (c.absX <= 2997) {
+				player.startAnimation(769);
+				if (player.absX <= 2997) {
 					container.stop();
 				}
 			}
@@ -104,20 +99,20 @@ public class Agility {
 				// c.getPlayerAssistant().addSkillXP(100, c.playerAgility);
 			}
 		}, 1);
-		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (c.absX >= 2648) {
-					c.teleportToX = c.absX - 2;
-					c.teleportToY = c.absY - 5;
-					if (c.absX <= 2997) {
+				if (player.absX >= 2648) {
+					player.teleportToX = player.absX - 2;
+					player.teleportToY = player.absY - 5;
+					if (player.absX <= 2997) {
 						container.stop();
 					}
-				} else if (c.absX <= 2648) {
-					c.teleportToX = c.absX + 2;
-					c.teleportToY = c.absY + 5;
-					if (c.absX >= 2645) {
+				} else if (player.absX <= 2648) {
+					player.teleportToX = player.absX + 2;
+					player.teleportToY = player.absY + 5;
+					if (player.absX >= 2645) {
 						container.stop();
 					}
 				}
@@ -127,8 +122,8 @@ public class Agility {
 			@Override
 			public void stop() {
 				// c.getPlayerAssistant().addSkillXP(300, c.playerAgility);
-				setAnimationBack(c);
-				c.stopPlayerPacket = false;
+				setAnimationBack(player);
+				player.stopPlayerPacket = false;
 			}
 		}, 3);
 	}
@@ -685,7 +680,7 @@ public class Agility {
 			}
 			for (Player player : PlayerHandler.players) {
 				if (player != null) {
-					Client c = (Client) player;
+					Player c = (Player) player;
 					c.getPacketSender().createObjectHints(newObjectX,
 							newObjectY, 130, 2);
 					System.out.println("Updated");

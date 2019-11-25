@@ -8,6 +8,7 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
@@ -18,11 +19,11 @@ import com.rebotted.util.Misc;
 
 public class DwarfCannon {
 
-	public DwarfCannon(Client player) {
-		this.player = player;
+	public DwarfCannon(Player player2) {
+		this.player = player2;
 	}
 
-	private Client player;
+	private Player player;
 
 	public final int[] ITEM_PARTS = {6, 8, 10, 12};
 	

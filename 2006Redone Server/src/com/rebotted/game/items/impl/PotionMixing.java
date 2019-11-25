@@ -1,7 +1,7 @@
 package com.rebotted.game.items.impl;
 
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Sanity
@@ -9,10 +9,10 @@ import com.rebotted.game.players.Client;
 
 public class PotionMixing {
 
-	Client c;
+	Player c;
 
-	public PotionMixing(Client c) {
-		this.c = c;
+	public PotionMixing(Player player) {
+		this.c = player;
 	}
 
 	public void mixPotion2(int id, int id2) {

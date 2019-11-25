@@ -1,14 +1,14 @@
 package com.rebotted.game.globalworldobjects;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 /**
  * Single Gates
- * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class DoubleGates extends GateHandler {
 	
-	public static void useDoubleGate(Client player, int objectId) {
+	public static void useDoubleGate(Player player, int objectId) {
 		switch (objectId) {
 			case 7049:
 				handleGate(player, 7049, 7050, 3077, 3259, 3077, 3260, 3077, 3258, 3078, 3258, 2);

@@ -9,6 +9,7 @@ import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemList;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class Pickpocket extends SkillHandler {
@@ -155,7 +156,7 @@ public class Pickpocket extends SkillHandler {
 		return -1;
 	}
 
-	public static boolean isNPC(Client c, int npc) {
+	public static boolean isNPC(Player c, int npc) {
 		for (final npcData n : npcData.values()) {
 			if (npc == n.getNpc(npc)) {
 				return true;
@@ -164,7 +165,7 @@ public class Pickpocket extends SkillHandler {
 		return false;
 	}
 
-	public static void attemptPickpocket(final Client c, final int npcId) {
+	public static void attemptPickpocket(final Player c, final int npcId) {
 		if (System.currentTimeMillis() - c.lastThieve < 2000 || c.playerStun) {
 			return;
 		}

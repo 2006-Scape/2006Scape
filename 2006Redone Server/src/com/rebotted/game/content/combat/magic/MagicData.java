@@ -1,6 +1,6 @@
 package com.rebotted.game.content.combat.magic;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 public class MagicData {
 
 	public static final int[][] MAGIC_SPELLS = {
@@ -224,7 +224,7 @@ public class MagicData {
 		}
 	}
 	
-	public static boolean multis(Client c) {
+	public static boolean multis(Player c) {
 		switch (MAGIC_SPELLS[c.oldSpellId][0]) {
 		case 12891:
 		case 12881:
@@ -240,7 +240,7 @@ public class MagicData {
 
 	}
 	
-	public static int getFreezeTime(Client c) {
+	public static int getFreezeTime(Player c) {
 		switch (MAGIC_SPELLS[c.oldSpellId][0]) {
 		case 1572:
 		case 12861: // ice rush
@@ -262,7 +262,7 @@ public class MagicData {
 		}
 	}
 
-	public static int getStartHeight(Client c) {
+	public static int getStartHeight(Player c) {
 		switch (MAGIC_SPELLS[c.spellId][0]) {
 		case 1562: // stun
 			return 25;
@@ -290,7 +290,7 @@ public class MagicData {
 		}
 	}
 
-	public static int getEndHeight(Client c) {
+	public static int getEndHeight(Player c) {
 		switch (MAGIC_SPELLS[c.spellId][0]) {
 		case 1562: // stun
 			return 10;
@@ -318,7 +318,7 @@ public class MagicData {
 		}
 	}
 
-	public static int getStartDelay(Client c) {
+	public static int getStartDelay(Player c) {
 		switch (MAGIC_SPELLS[c.spellId][0]) {
 		case 1539:
 			return 60;
@@ -328,7 +328,7 @@ public class MagicData {
 		}
 	}
 
-	public static boolean godSpells(Client c) {
+	public static boolean godSpells(Player c) {
 		switch (MAGIC_SPELLS[c.spellId][0]) {
 		case 1190:
 			return true;
@@ -344,7 +344,7 @@ public class MagicData {
 		}
 	}
 
-	public static int getEndGfxHeight(Client c) {
+	public static int getEndGfxHeight(Player c) {
 		switch (MAGIC_SPELLS[c.oldSpellId][0]) {
 		case 12987:
 		case 12901:
@@ -367,7 +367,7 @@ public class MagicData {
 		}
 	}
 
-	public static int getStartGfxHeight(Client c) {
+	public static int getStartGfxHeight(Player c) {
 		switch (MAGIC_SPELLS[c.spellId][0]) {
 		case 12871:
 		case 12891:
@@ -378,7 +378,7 @@ public class MagicData {
 		}
 	}
 	
-	public static boolean fullVoidMage(Client c) {
+	public static boolean fullVoidMage(Player c) {
 		return c.playerEquipment[c.playerHat] == 11663
 				&& c.playerEquipment[c.playerLegs] == 8840
 				&& c.playerEquipment[c.playerChest] == 8839

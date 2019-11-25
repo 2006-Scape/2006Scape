@@ -1,7 +1,7 @@
 package com.rebotted.game.content.randomevents;
 
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class Zombie {
@@ -11,7 +11,7 @@ public class Zombie {
 			{ 61, 90, 422, 90, 8, 40, 40 }, { 91, 110, 423, 130, 10, 50, 50 },
 			{ 111, 138, 424, 160, 12, 60, 60 } };
 
-	public static void spawnZombie(Client c) {
+	public static void spawnZombie(Player c) {
 		for (int[] element : zombie) {
 			if (c.zombieSpawned == false) {
 			if (c.combatLevel >= element[0] && c.combatLevel <= element[1]) {

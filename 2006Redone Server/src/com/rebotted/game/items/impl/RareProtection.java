@@ -1,6 +1,6 @@
 package com.rebotted.game.items.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Rare Protection
@@ -14,7 +14,7 @@ public class RareProtection {
 			1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050, 1051, 962, 963, 1959, 1961, 1989 };
 	private static final int[] EDIBLE_RARES = { 1959, 1961, 1989 };
 
-	public static boolean equipItem(Client c) {// check when wearing, removing
+	public static boolean equipItem(Player c) {// check when wearing, removing
 		for (int element : RARE_ITEMS) {
 			if (c.wearId == element && c.playerRights < 3) {
 				c.getPacketSender().sendMessage("You shouldn't have that item!");
@@ -26,7 +26,7 @@ public class RareProtection {
 		return true;
 	}
 
-	public static boolean removeItem(Client c, int itemId) {
+	public static boolean removeItem(Player c, int itemId) {
 		for (int element : RARE_ITEMS) {
 			if (itemId == element && c.playerRights < 3) {
 				c.getPacketSender().sendMessage("You shouldn't have that item!");
@@ -37,7 +37,7 @@ public class RareProtection {
 		return true;
 	}
 
-	public static boolean hasDupedItem(Client c) {// check on login
+	public static boolean hasDupedItem(Player c) {// check on login
 		for (int element : RARE_ITEMS) {
 			if (c.getItemAssistant().playerHasItem(element) && c.playerRights < 3) {
 				c.getPacketSender().sendMessage("You can't have these items!");
@@ -49,7 +49,7 @@ public class RareProtection {
 		return true;
 	}
 
-	public static boolean eatDupedItem(Client c, int itemId) {
+	public static boolean eatDupedItem(Player c, int itemId) {
 		for (int element : EDIBLE_RARES) {
 			if (itemId == element && c.playerRights < 3) {
 				c.getPacketSender().sendMessage("You can't eat that item!");
@@ -61,12 +61,12 @@ public class RareProtection {
 		return true;
 	}
 
-	public static boolean doOtherDupe(Client c, int itemId) {
+	public static boolean doOtherDupe(Player player, int itemId) {
 		for (int element : RARE_ITEMS) {
-			if (c.getItemAssistant().playerHasItem(element) && c.playerRights < 3) {
-				c.getPacketSender().sendMessage("You shouldnt have that item!");
-				int amountToDelete = c.getItemAssistant().getItemCount(element);
-				c.getItemAssistant().deleteItem(element, amountToDelete);
+			if (player.getItemAssistant().playerHasItem(element) && player.playerRights < 3) {
+				player.getPacketSender().sendMessage("You shouldnt have that item!");
+				int amountToDelete = player.getItemAssistant().getItemCount(element);
+				player.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}
 		}

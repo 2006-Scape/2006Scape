@@ -12,15 +12,16 @@ import com.rebotted.world.clip.Region;
 
 public class PacketSender {
 
-	private final Client player;
+	private final Player player;
 
-	public PacketSender(Client client) {
-		this.player = client;
+	public PacketSender(Player player2) {
+		this.player = player2;
 	}
 
 
 	public PacketSender sendClan(String name, String message, String clan, int rights) {
-		if (player.getOutStream() == null) return this;
+		if (player.getOutStream() == null) 
+			return this;
 		player.outStream.createFrameVarSizeWord(217);
 		player.outStream.writeString(name);
 		player.outStream.writeString(message);
@@ -31,7 +32,8 @@ public class PacketSender {
 	}
 	
 	public PacketSender createPlayersObjectAnim(int X, int Y, int animationID, int tileObjectType, int orientation) {
-		if (player.getOutStream() == null) return this;
+		if (player.getOutStream() == null) 
+			return this;
 		try{
 			player.getOutStream().createFrame(85);
 			player.getOutStream().writeByteC(Y - (player.mapRegionY * 8));
@@ -62,7 +64,8 @@ public class PacketSender {
 	
 	public PacketSender shakeScreen(int verticleAmount, int verticleSpeed,
 			int horizontalAmount, int horizontalSpeed) {
-		if (player.getOutStream() == null) return this;
+		if (player.getOutStream() == null) 
+			return this;
 		player.getOutStream().createFrame(35); // Creates frame 35.
 		player.getOutStream().writeByte(verticleAmount);
 		player.getOutStream().writeByte(verticleSpeed);

@@ -1,13 +1,13 @@
 package com.rebotted.game.content.skills.agility;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class GnomeAgility {
 
-	private final Client c;
+	private final Player c;
 
-	public GnomeAgility(Client c) {
-		this.c = c;
+	public GnomeAgility(Player player) {
+		this.c = player;
 	}
 	
 	private static long clickTimer = 0;

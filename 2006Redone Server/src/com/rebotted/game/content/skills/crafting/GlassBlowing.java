@@ -3,17 +3,18 @@ package com.rebotted.game.content.skills.crafting;
 import com.rebotted.GameConstants;
 import com.rebotted.event.*;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Arrowz flame
  */
+
 public class GlassBlowing {
     
-	private Client c;
+	private Player c;
 
-	public GlassBlowing(Client c) {
-		this.c = c;
+	public GlassBlowing(Player player) {
+		this.c = player;
 	}
         
         public int[][] data = {

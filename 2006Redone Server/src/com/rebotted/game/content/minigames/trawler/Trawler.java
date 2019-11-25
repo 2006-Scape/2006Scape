@@ -2,14 +2,11 @@ package com.rebotted.game.content.minigames.trawler;
  
 import java.util.ArrayList;
 import java.util.Random;
-
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.GameItem;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
  
 public class Trawler extends GroupMinigame {
@@ -28,7 +25,7 @@ public class Trawler extends GroupMinigame {
          * The arraylist containing all of the players
          */
  
-        public ArrayList<Client> players = new ArrayList<Client>();
+        public ArrayList<Player> players = new ArrayList<Player>();
  
         /*
          * The arraylist containing all of the players that need to removed Created
@@ -36,7 +33,7 @@ public class Trawler extends GroupMinigame {
          * is called simply just call the clear method
          */
  
-        public ArrayList<Client> players_to_remove = new ArrayList<Client>();
+        public ArrayList<Player> players_to_remove = new ArrayList<Player>();
  
         /*
          * A unique id, which the cycle event handler may use to stop the trawlers
@@ -248,7 +245,7 @@ public class Trawler extends GroupMinigame {
          */
  
         public void playerUpdates() {
-                for (Client p : players) {
+                for (Player p : players) {
                         if (p != null) {
                                 p.asClient().getPacketSender().sendFrame126(net_ripped ? "@red@Ripped" : "@gre@Okay", 11935);
                                 p.getPacketSender().sendFrame126("" + fish_caught, 11937);
@@ -284,7 +281,7 @@ public class Trawler extends GroupMinigame {
                         wall_status[j] = false;
                 }
                 playerUpdates();
-                for (Client p : players) {
+                for (Player p : players) {
                         if (p != null) {
                                 p.getPlayerAssistant().removeAllSidebars();
                                 p.getPacketSender().sendMapState(2);
@@ -302,7 +299,7 @@ public class Trawler extends GroupMinigame {
  
                         @Override
                         public void stop() {
-                                for (Client p : players) {
+                                for (Player p : players) {
                                         if (p != null) {
                                         	 	p.getPlayerAssistant().sendSidebars();
                                                 p.getPacketSender().showInterface(5596);
@@ -320,7 +317,7 @@ public class Trawler extends GroupMinigame {
          */
  
         public void onEndLose() {
-                for (Client p : players) {
+                for (Player p : players) {
                         if (p != null) {
                                 p.getPlayerAssistant().movePlayer(1885, 4825, 1);
                         }
@@ -350,7 +347,7 @@ public class Trawler extends GroupMinigame {
                                                         players.clear();
                                                         container.stop();
                                                 } else if (end() == 2) {
-                                                        for (Client p : players) {
+                                                        for (Player p : players) {
                                                                 if (p != null) {
                                                                         p.fishingTrawlerReward = playerReward(p);
                                                                 }
@@ -419,19 +416,19 @@ public class Trawler extends GroupMinigame {
          * Fixes the holes in the ship
          */
  
-        public void fixHole(Client p, int x, int y) {
-                if (doAction(p)) {
-                        if (p.getItemAssistant().playerHasItem(swamp_paste)) {
+        public void fixHole(Player player, int x, int y) {
+                if (doAction(player)) {
+                        if (player.getItemAssistant().playerHasItem(swamp_paste)) {
                                 int index = Wall.getIndex(x, y);
                                 if (index >= 0) {
-                                        p.getItemAssistant().deleteItem(swamp_paste, 1);
-                                        p.startAnimation(832);
+                                        player.getItemAssistant().deleteItem(swamp_paste, 1);
+                                        player.startAnimation(832);
                                         wall_status[index] = false;
                                         updateWall(index);
-                                        p.turnPlayerTo(x, y + (y == 4826 ? 1 : -1));
+                                        player.turnPlayerTo(x, y + (y == 4826 ? 1 : -1));
                                 }
                         } else {
-                                p.getPacketSender().sendMessage("You don't have any swamp paste.");
+                                player.getPacketSender().sendMessage("You don't have any swamp paste.");
                         }
                 }
         }
@@ -440,15 +437,15 @@ public class Trawler extends GroupMinigame {
          * Moves the player to the top of the boat
          */
  
-        public void upLadder(Client p, int obX, int obY) {
-                if (doAction(p)) {
+        public void upLadder(Player player, int obX, int obY) {
+                if (doAction(player)) {
                         if (!isSunk) {
-                                p.startAnimation(climb_up);
-                                p.getPlayerAssistant()
+                                player.startAnimation(climb_up);
+                                player.getPlayerAssistant()
                                                 .movePlayer(obX == 1884 ? 1885 : 1892, obY, 1);
                         } else {
-                                p.startAnimation(climb_up);
-                                p.getPlayerAssistant().movePlayer(obX == 2021 ? 2020 : 2013, obY, 1);
+                                player.startAnimation(climb_up);
+                                player.getPlayerAssistant().movePlayer(obX == 2021 ? 2020 : 2013, obY, 1);
                         }
                 }
         }
@@ -457,15 +454,15 @@ public class Trawler extends GroupMinigame {
          * Moves the player to the top of the boat
          */
  
-        public void downLadder(Client p, int obX, int obY) {
-                if (doAction(p)) {
+        public void downLadder(Player player, int obX, int obY) {
+                if (doAction(player)) {
                         if (!isSunk) {
-                                p.startAnimation(climb_down);
-                                p.getPlayerAssistant()
+                                player.startAnimation(climb_down);
+                                player.getPlayerAssistant()
                                                 .movePlayer(obX == 1884 ? 1885 : 1892, obY, 0);
                         } else {
-                                p.startAnimation(climb_down);
-                                p.getPlayerAssistant().movePlayer(obX == 2021 ? 2020 : 2013, obY, 0);
+                                player.startAnimation(climb_down);
+                                player.getPlayerAssistant().movePlayer(obX == 2021 ? 2020 : 2013, obY, 0);
                         }
                 }
         }
@@ -474,7 +471,7 @@ public class Trawler extends GroupMinigame {
          * Fixes the net on the ship
          */
  
-        public void fixNet(Client p) {
+        public void fixNet(Player p) {
                 if (doAction(p)) {
                         if (!net_ripped) {
                                 p.getPacketSender().sendMessage("The net is not ripped.");
@@ -518,7 +515,7 @@ public class Trawler extends GroupMinigame {
          * Bails water out of the boat
          */
  
-        public void bail(Client p) {
+        public void bail(Player p) {
                 if (doAction(p)) {
                         if (p.getItemAssistant().playerHasItem(bailing_bucket_empty)) {
                                 p.startAnimation(827);
@@ -533,7 +530,7 @@ public class Trawler extends GroupMinigame {
          * Bails water out of the boat
          */
  
-        public void emptyBucket(Client p) {
+        public void emptyBucket(Player p) {
                 if (doAction(p)) {
                         if (p.getItemAssistant().playerHasItem(bailing_bucket_full)) {
                                 p.startAnimation(832);
@@ -574,7 +571,7 @@ public class Trawler extends GroupMinigame {
          */
  
         public void setSwimmingAnimations() {
-                for(Client p : players) {
+                for(Player p : players) {
                         if (p != null) {
                                 p.prevplayerWalkIndex = p.playerWalkIndex;
                                 p.prevPlayerStandIndex = p.playerStandIndex;
@@ -692,7 +689,7 @@ public class Trawler extends GroupMinigame {
          * Loss teleporting
          */
         public void movePlayersLoss() {
-                for (Client p : players) {
+                for (Player p : players) {
                         if (p != null) {
                                 p.getPlayerAssistant().movePlayer(1952, 4826, 0);
                         }
@@ -707,8 +704,8 @@ public class Trawler extends GroupMinigame {
          * Win teleporting
          */
  
-        public void movePlayerWin(final ArrayList<Client> pl) {
-                for (Client p : pl) {
+        public void movePlayerWin(final ArrayList<Player> pl) {
+                for (Player p : pl) {
                         if (p != null) {
                                 p.getPlayerAssistant().removeAllSidebars();
                                 p.getPacketSender().sendMapState(2);
@@ -726,7 +723,7 @@ public class Trawler extends GroupMinigame {
  
                         @Override
                         public void stop() {
-                                for (Client p : pl) {
+                                for (Player p : pl) {
                                         if (p != null) {
                                                 p.getPlayerAssistant().sendSidebars();
                                                 p.getPacketSender().sendMapState(0);
@@ -745,7 +742,7 @@ public class Trawler extends GroupMinigame {
          * Adds the rewards to each player
          */
  
-        public ArrayList<GameItem> playerReward(Client p) {
+        public ArrayList<GameItem> playerReward(Player p) {
                 ArrayList<GameItem> toReturn = new ArrayList<GameItem>();
                 boolean turtles = true;
                 boolean mantas = true;
@@ -784,25 +781,25 @@ public class Trawler extends GroupMinigame {
                 if (manta > 0) {
                         toReturn.add(new GameItem(389, manta));
                         if (p.playerLevel[p.playerFishing] >= 81) {
-                                xpToAdd += (manta * 46 * SkillHandler.FISHING_EXPERIENCE);
+                                xpToAdd += (manta * 46);
                         }
                 }
                 if (turt > 0) {
                         toReturn.add(new GameItem(395, turt));
                         if (p.playerLevel[p.playerFishing] >= 79) {
-                                xpToAdd += (manta * 38 * SkillHandler.FISHING_EXPERIENCE);
+                                xpToAdd += (manta * 38);
                         }
                 }
                 if (lobs > 0) {
                         toReturn.add(new GameItem(377, lobs));
                         if (p.playerLevel[p.playerFishing] >= 40) {
-                                xpToAdd += (manta * 90 * SkillHandler.FISHING_EXPERIENCE);
+                                xpToAdd += (manta * 90);
                         }
                 }
                 if (swordFish > 0) {
                         toReturn.add(new GameItem(371, swordFish));
                         if (p.playerLevel[p.playerFishing] >= 50) {
-                                xpToAdd += (manta * 100 * SkillHandler.FISHING_EXPERIENCE);
+                                xpToAdd += (manta * 100);
                         }
                 }
                 if (junk > 0)
@@ -842,25 +839,25 @@ public class Trawler extends GroupMinigame {
                 return game_time;
         }
        
-        public void resetRewardsInterface(Client c) {
+        public void resetRewardsInterface(Player player) {
                 for(int j = 0; j < 45; j++) {
-                        c.getPacketSender().sendFrame34(-1, j, 4640, -1);
+                        player.getPacketSender().sendFrame34(-1, j, 4640, -1);
                 }
         }
-        public void showReward(Client c) {
-                resetRewardsInterface(c);
-                c.inFishingTrawlerRewardsInterface = true;
-                c.getPacketSender().showInterface(4564);
-                for(int j = 0; j < c.fishingTrawlerReward.size(); j++) {
-                        c.getPacketSender().sendFrame34(c.fishingTrawlerReward.get(j).id, j, 4640, c.fishingTrawlerReward.get(j).amount);
+        public void showReward(Player player) {
+                resetRewardsInterface(player);
+                player.inFishingTrawlerRewardsInterface = true;
+                player.getPacketSender().showInterface(4564);
+                for(int j = 0; j < player.fishingTrawlerReward.size(); j++) {
+                        player.getPacketSender().sendFrame34(player.fishingTrawlerReward.get(j).id, j, 4640, player.fishingTrawlerReward.get(j).amount);
                 }
         }
        
-        public void updateRewardSlot(Client c, int slot) {
-                c.inFishingTrawlerRewardsInterface = true;
-                c.getPacketSender().sendFrame34(c.fishingTrawlerReward.get(slot).id, slot, 4640, c.fishingTrawlerReward.get(slot).amount);
-                if(slot != 4 && c.fishingTrawlerReward.size() == 5) {
-                        c.getPacketSender().sendFrame34(c.fishingTrawlerReward.get(4).id, 4, 4640, c.fishingTrawlerReward.get(4).amount);
+        public void updateRewardSlot(Player player, int slot) {
+                player.inFishingTrawlerRewardsInterface = true;
+                player.getPacketSender().sendFrame34(player.fishingTrawlerReward.get(slot).id, slot, 4640, player.fishingTrawlerReward.get(slot).amount);
+                if(slot != 4 && player.fishingTrawlerReward.size() == 5) {
+                        player.getPacketSender().sendFrame34(player.fishingTrawlerReward.get(4).id, 4, 4640, player.fishingTrawlerReward.get(4).amount);
                 }
         }
        

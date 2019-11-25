@@ -3,14 +3,15 @@ package com.rebotted.game.content.combat.magic;
 import com.rebotted.GameConstants;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
 public class MagicSpells extends MagicData {
 	
-	public static void appendMultiBarrage(Client c, int playerId, boolean splashed) {
+	public static void appendMultiBarrage(Player c, int playerId, boolean splashed) {
 		if (PlayerHandler.players[playerId] != null) {
-			Client c2 = (Client) PlayerHandler.players[playerId];
+			Player c2 = (Client) PlayerHandler.players[playerId];
 			if (c2.isDead || c2.respawnTimer > 0) {
 				return;
 			}
@@ -52,7 +53,7 @@ public class MagicSpells extends MagicData {
 		}
 	}
 
-	public static void multiSpellEffect(Client c, int playerId, int damage) {
+	public static void multiSpellEffect(Player c, int playerId, int damage) {
 		switch (MagicData.MAGIC_SPELLS[c.oldSpellId][0]) {
 		case 13011:
 		case 13023:
@@ -86,7 +87,7 @@ public class MagicSpells extends MagicData {
 		}
 	}
 	
-	public static boolean checkMultiBarrageReqs(Client c, int i) {
+	public static boolean checkMultiBarrageReqs(Player c, int i) {
 		if (PlayerHandler.players[i] == null) {
 			return false;
 		}
@@ -129,11 +130,11 @@ public class MagicSpells extends MagicData {
 		return true;
 	}
 	
-	public static int mageAtk(Client c) {
+	public static int mageAtk(Player c) {
 		return MagicMaxHit.mageAttackBonus(c);
 	}
 	
-	public static int mageDef(Client c) {
+	public static int mageDef(Player c) {
 		return MagicMaxHit.mageDefenceBonus(c);
 	}
 }

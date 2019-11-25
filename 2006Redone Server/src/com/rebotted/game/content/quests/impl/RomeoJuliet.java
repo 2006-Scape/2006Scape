@@ -1,6 +1,6 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Romeo and Juliet
@@ -9,10 +9,10 @@ import com.rebotted.game.players.Client;
 
 public class RomeoJuliet {
 
-	Client client;
+	Player client;
 
-	public RomeoJuliet(Client client) {
-		this.client = client;
+	public RomeoJuliet(Player player) {
+		this.client = player;
 	}
 
 	public void showInformation() {

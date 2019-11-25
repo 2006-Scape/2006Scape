@@ -5,7 +5,7 @@ import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Herblore extends SkillHandler {
 
@@ -23,7 +23,7 @@ public class Herblore extends SkillHandler {
 
 	};
 
-	public static void handleHerbCleaning(final Client c, final int itemId,
+	public static void handleHerbCleaning(final Player c, final int itemId,
 			final int itemSlot) {
 		for (int[] element : CLEAN_DATA) {
 			if (itemId == element[0]) {
@@ -62,7 +62,7 @@ public class Herblore extends SkillHandler {
 			{ 227, 3000, 3004, 59, 0 }, { 227, 2998, 3002, 30, 0 },
 			{ 1975, 97, 3010, 26, 67 }, };
 
-	public static void setupPotion(final Client c, int useItem, int itemUsed) {
+	public static void setupPotion(final Player c, int useItem, int itemUsed) {
 		for (int[] element : POTION_DATA) {
 			if (useItem == element[0] && itemUsed == element[1]
 					|| useItem == element[1] && itemUsed == element[0]) {
@@ -80,7 +80,7 @@ public class Herblore extends SkillHandler {
 		}
 	}
 
-	public static void makePotion(final Client c, int amount) {
+	public static void makePotion(final Player c, int amount) {
 		if (c.playerSkilling[c.playerHerblore]) {
 			return;
 		}
@@ -130,14 +130,14 @@ public class Herblore extends SkillHandler {
 		}, 1);
 	}
 
-	public static void resetHerblore(Client c) {
+	public static void resetHerblore(Player player) {
 		itemToAdd = -1;
 		itemToDelete = -1;
 		itemToDelete2 = -1;
 		potExp = -1;
-		c.isGrinding = false;
-		c.isPotionMaking = false;
-		c.playerSkilling[c.playerHerblore] = false;
+		player.isGrinding = false;
+		player.isPotionMaking = false;
+		player.playerSkilling[player.playerHerblore] = false;
 	}
 
 	public static boolean isHerb(int item) {
@@ -158,26 +158,26 @@ public class Herblore extends SkillHandler {
 		return false;
 	}
 
-	public static void handleHerbloreButtons(Client c, int actionButtonId) {
+	public static void handleHerbloreButtons(Player player, int actionButtonId) {
 		switch (actionButtonId) {
 		case 10239:
-			if (c.isPotionMaking) {
-				makePotion(c, 1);
+			if (player.isPotionMaking) {
+				makePotion(player, 1);
 			}
 			break;
 		case 10238:
-			if (c.isPotionMaking) {
-				makePotion(c, 5);
+			if (player.isPotionMaking) {
+				makePotion(player, 5);
 			}
 			break;
 		case 6212:
-			if (c.isPotionMaking) {
-				makePotion(c, 10);
+			if (player.isPotionMaking) {
+				makePotion(player, 10);
 			}
 			break;
 		case 6211:
-			if (c.isPotionMaking) {
-				makePotion(c, 28);
+			if (player.isPotionMaking) {
+				makePotion(player, 28);
 			}
 			break;
 		}

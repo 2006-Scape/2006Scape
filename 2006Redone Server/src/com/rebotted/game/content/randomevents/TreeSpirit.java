@@ -1,7 +1,7 @@
 package com.rebotted.game.content.randomevents;
 
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class TreeSpirit {
@@ -12,22 +12,22 @@ public class TreeSpirit {
 			{ 21, 40, 440, 57, 3 }, { 61, 90, 441, 90, 4 },
 			{ 91, 110, 442, 130, 5 }, { 111, 138, 443, 160, 7 }, };
 	
-	private static int checkStats(Client client) {
-		return client.getPlayerAssistant().getLevelForXP(client.playerXP[client.playerHitpoints]) * 2;
+	private static int checkStats(Player p) {
+		return p.getPlayerAssistant().getLevelForXP(p.playerXP[p.playerHitpoints]) * 2;
 	}
 	
-	public static void spawnTreeSpirit(Client c) {
+	public static void spawnTreeSpirit(Player p) {
 		for (int[] element : treeSpirit) {
-			if (c.treeSpiritSpawned == false) {
-			if (c.combatLevel >= element[0] && c.combatLevel <= element[1]) {
-				NpcHandler.spawnNpc(c, element[2], c.absX + Misc.random(1),
-						c.absY + Misc.random(1), c.heightLevel, 0, element[3],
-						element[4], checkStats(c), c.playerLevel[c.playerDefence] * 2, true,
+			if (p.treeSpiritSpawned == false) {
+			if (p.combatLevel >= element[0] && p.combatLevel <= element[1]) {
+				NpcHandler.spawnNpc(p, element[2], p.absX + Misc.random(1),
+						p.absY + Misc.random(1), p.heightLevel, 0, element[3],
+						element[4], checkStats(p), p.playerLevel[p.playerDefence] * 2, true,
 						false);
 				NpcHandler.npcs[element[2]]
 						.forceChat("Leave these woods and never return!");
-				c.treeSpiritSpawned = true;
-				c.randomActions = 0;
+				p.treeSpiritSpawned = true;
+				p.randomActions = 0;
 				}
 			}
 		}

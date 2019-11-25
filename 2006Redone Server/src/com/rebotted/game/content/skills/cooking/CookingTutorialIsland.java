@@ -7,12 +7,12 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class CookingTutorialIsland extends SkillHandler {
 
-	public static void cookThisFood(Client p, int i, int object) {
+	public static void cookThisFood(Player p, int i, int object) {
 		switch (i) {
 		case 317:
 			cookFish(p, i, 30, 1, 323, 315, object);
@@ -23,7 +23,7 @@ public class CookingTutorialIsland extends SkillHandler {
 		}
 	}
 
-	private static void cookFish(Client c, int itemID, int xpRecieved,
+	private static void cookFish(Player c, int itemID, int xpRecieved,
 			int levelRequired, int burntFish, int cookedFish, int object) {
 		if (!COOKING) {
 			c.getPacketSender().sendMessage(
@@ -57,16 +57,16 @@ public class CookingTutorialIsland extends SkillHandler {
 		viewCookInterface(c, itemID);
 	}
 
-	public static void getAmount(Client c, int amount) {
-		int item = c.getItemAssistant().getItemAmount(c.playerSkillProp[7][0]);
+	public static void getAmount(Player player, int amount) {
+		int item = player.getItemAssistant().getItemAmount(player.playerSkillProp[7][0]);
 		if (amount > item) {
 			amount = item;
 		}
-		c.doAmount = amount;
-		cookTutFish(c);
+		player.doAmount = amount;
+		cookTutFish(player);
 	}
 
-	public static void resetCooking(Client c) {
+	public static void resetCooking(Player c) {
 		c.playerSkilling[7] = false;
 		c.stopPlayerSkill = false;
 		for (int i = 0; i < 6; i++) {
@@ -74,14 +74,14 @@ public class CookingTutorialIsland extends SkillHandler {
 		}
 	}
 
-	private static void viewCookInterface(Client c, int item) {
+	private static void viewCookInterface(Player c, int item) {
 		c.getPacketSender().sendChatInterface(1743);
 		c.getPacketSender().sendFrame246(13716, 190, item);
 		c.getPacketSender().sendFrame126(
 				"" + ItemAssistant.getItemName(item) + "", 13717);
 	}
 
-	private static void cookTutFish(final Client c) {
+	private static void cookTutFish(final Player c) {
 		if (c.playerSkilling[7]) {
 			return;
 		}

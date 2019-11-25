@@ -1,6 +1,6 @@
 package com.rebotted.game.items.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Teles
@@ -9,19 +9,19 @@ import com.rebotted.game.players.Client;
 
 public class Teles {
 
-	public static void useAOG(Client player) {
+	public static void useAOG(Player player) {
 		player.getDialogueHandler().sendOption4("Edgeville", "Al Kharid", "Karamja", "Draynor");
 		player.dialogueAction = 51;
 		player.getPacketSender().sendMessage("You rub the Amulet of Glory...");
 	}
 
-	public static void useROD(Client player) {
+	public static void useROD(Player player) {
 		player.getDialogueHandler().sendOption2("Duel Arena", "Castle Wars");
 		player.dialogueAction = 161;
 		player.getPacketSender().sendMessage("You rub the Ring of Dueling...");
 	}
 
-	public static void useGN(Client player) {
+	public static void useGN(Player player) {
 		player.getDialogueHandler().sendOption2("Burthrope Games Room", "Barbarian Outpost");
 		player.dialogueAction = 50;
 		player.getPacketSender().sendMessage("You rub the Games Necklace...");
@@ -33,7 +33,7 @@ public class Teles {
 		{ 1712, 1710, 3 }, { 1710, 1708, 2 }, { 1708, 1706, 1 }, { 1706, 1704, 0 } //aog
 	};
 
-	public static void necklaces(Client player) {
+	public static void necklaces(Player player) {
 		for (int[] element : JEWELERY) {
 			if (player.itemUsing == element[0]) {
 				if (player.isOperate) {

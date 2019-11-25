@@ -3,14 +3,14 @@ package com.rebotted.game.content.skills.agility;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class BarbarianAgility {
 
-	private final Client c;
+	private final Player c;
 
-	public BarbarianAgility(Client c) {
-		this.c = c;
+	public BarbarianAgility(Player player) {
+		this.c = player;
 	}
 
 	public static final int BARBARIAN_ROPE_SWING_OBJECT = 2282,

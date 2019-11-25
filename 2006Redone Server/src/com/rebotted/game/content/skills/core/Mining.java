@@ -3,7 +3,7 @@ package com.rebotted.game.content.skills.core;
 import com.rebotted.event.*;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.objects.Object;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
@@ -131,7 +131,7 @@ public class Mining {
 	
 	int pickaxe = -1;
 	
-	public void repeatAnimation(final Client c) {
+	public void repeatAnimation(final Player c) {
 		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -150,7 +150,7 @@ public class Mining {
 		}, 3);
 	}
 	
-	public void startMining(final Client player, final int objectID, final int objectX, final int objectY, final int type) {
+	public void startMining(final Player player, final int objectID, final int objectX, final int objectY, final int type) {
 		if (player.isMining || player.miningRock) return;
 
 		int miningLevel = player.playerLevel[player.playerMining];
@@ -253,13 +253,13 @@ public class Mining {
 		}, getTimer(rock, pickaxe, miningLevel));
 	}
 	
-	public static void resetMining(Client c) {
-		c.getPacketSender().closeAllWindows();
-		c.startAnimation(65535);
-		c.isMining = false;
-		c.rockX = 0;
-		c.rockY = 0;
-		c.miningRock = false;
+	public static void resetMining(Player player) {
+		player.getPacketSender().closeAllWindows();
+		player.startAnimation(65535);
+		player.isMining = false;
+		player.rockX = 0;
+		player.rockY = 0;
+		player.miningRock = false;
 	}
 
 	public int getTimer(rockData rock, int pick, int level) {
@@ -290,56 +290,56 @@ public class Mining {
 		}
 	}
 	
-	public static void prospectRock(final Client c, final String itemName) {
-		if (c.tutorialProgress == 15 || c.tutorialProgress == 16) {
-			c.getPacketSender().closeAllWindows();
-			c.getPacketSender().chatbox(6180);
-			c.getDialogueHandler()
+	public static void prospectRock(final Player player, final String itemName) {
+		if (player.tutorialProgress == 15 || player.tutorialProgress == 16) {
+			player.getPacketSender().closeAllWindows();
+			player.getPacketSender().chatbox(6180);
+			player.getDialogueHandler()
 			.chatboxText(
-					c,
+					player,
 					"Please wait.",
 					"Your character is now attempting to prospect the rock. This should",
 					"only take a few seconds.", "", "");
-			c.getPacketSender().chatbox(6179);
-			   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			player.getPacketSender().chatbox(6179);
+			   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
-					if (c.tutorialProgress == 15) {
-						c.getPacketSender().sendMessage(
+					if (player.tutorialProgress == 15) {
+						player.getPacketSender().sendMessage(
 								"This rock contains "
 										+ itemName.toLowerCase() + ".");
-						c.getPacketSender().chatbox(6180);
-						c.getDialogueHandler()
+						player.getPacketSender().chatbox(6180);
+						player.getDialogueHandler()
 						.chatboxText(
-								c,
+								player,
 								"",
 								"So now you know there's tin in the grey rocks. Try prospecting",
 								"the brown ones next.", "",
 								"It's tin");
-						c.getPacketSender().createArrow(3086, 9501,
-								c.getH(), 2);
-						c.getPacketSender().chatbox(6179);
-						c.tutorialProgress = 16;
+						player.getPacketSender().createArrow(3086, 9501,
+								player.getH(), 2);
+						player.getPacketSender().chatbox(6179);
+						player.tutorialProgress = 16;
 						container.stop();
 						return;
-					} else if (c.tutorialProgress == 16) {
-						c.getPacketSender().sendMessage(
+					} else if (player.tutorialProgress == 16) {
+						player.getPacketSender().sendMessage(
 								"This rock contains "
 										+ itemName.toLowerCase() + ".");
-						c.getPacketSender().chatbox(6180);
-						c.getDialogueHandler()
+						player.getPacketSender().chatbox(6180);
+						player.getDialogueHandler()
 						.chatboxText(
-								c,
+								player,
 								"Talk to the Mining Instructor to find out about these types of",
 								"ore and how you can mine them. He'll even give you the",
 								"required tools.", "",
 								"It's copper");
-						c.getPacketSender().createArrow(1, 5);
-						c.getPacketSender().chatbox(6179);
+						player.getPacketSender().createArrow(1, 5);
+						player.getPacketSender().chatbox(6179);
 						container.stop();
 						return;
 					}
-					c.getPacketSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"This rock contains "
 									+ itemName.toLowerCase() + ".");
 					stop();
@@ -353,11 +353,11 @@ public class Mining {
 			}, 3);
 			return;
 		}
-		c.getPacketSender().sendMessage("You examine the rock for ores...");
-		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+		player.getPacketSender().sendMessage("You examine the rock for ores...");
+		   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 	            @Override
 	            public void execute(CycleEventContainer container) {
-				c.getPacketSender().sendMessage("This rock contains " + itemName + ".");
+				player.getPacketSender().sendMessage("This rock contains " + itemName + ".");
 				container.stop();
 			}
 			@Override
@@ -367,7 +367,7 @@ public class Mining {
 		}, 3);
 	}
 
-	public static void prospectNothing(final Client c) {
+	public static void prospectNothing(final Player c) {
 		c.getPacketSender().sendMessage("You examine the rock for ores...");
 		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 	            @Override

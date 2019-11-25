@@ -1,7 +1,7 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.GameConstants;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -11,7 +11,7 @@ import com.rebotted.net.packets.PacketType;
 public class Trade implements PacketType {
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket(Player c, int packetType, int packetSize) {
 		int tradeId = c.getInStream().readSignedWordBigEndian();
 		c.getPlayerAssistant().resetFollow();
 		c.endCurrentTask();

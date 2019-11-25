@@ -9,7 +9,7 @@ import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.ItemList;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class Stalls {
@@ -97,60 +97,60 @@ public class Stalls {
 		return false;
 	}
 
-	public static void attemptStall(final Client c, final int objectId, final int x, final int y) {
+	public static void attemptStall(final Player p, final int objectId, final int x, final int y) {
 		for (final stallData s : stallData.values()) {
-			if (System.currentTimeMillis() - c.lastThieve < 2500 + r(2500)) {
-				c.getPacketSender().sendMessage("You need to wait longer before you can thieve this stall!");
+			if (System.currentTimeMillis() - p.lastThieve < 2500 + r(2500)) {
+				p.getPacketSender().sendMessage("You need to wait longer before you can thieve this stall!");
 				return;
 			}
 			if (!SkillHandler.THIEVING) {
-				c.getPacketSender().sendMessage("This skill is currently disabled.");
+				p.getPacketSender().sendMessage("This skill is currently disabled.");
 				return;
 			}
-			if(c.underAttackBy > 0 || c.underAttackBy2 > 0) {
-				c.getPacketSender().sendMessage("You can't steal from a stall while in combat!");
+			if(p.underAttackBy > 0 || p.underAttackBy2 > 0) {
+				p.getPacketSender().sendMessage("You can't steal from a stall while in combat!");
 				return;	
 			}
-			if (c.getItemAssistant().freeSlots() == 0) {
-				c.getPacketSender().sendMessage("Not enough space in your inventory.");
+			if (p.getItemAssistant().freeSlots() == 0) {
+				p.getPacketSender().sendMessage("Not enough space in your inventory.");
 				return;
 			}
 			if(objectId == s.getObject()) {
-				if (c.playerLevel[c.playerThieving] >= s.getLevel()) {
-					if(Misc.random(4) == 1 && c.playerLevel[c.playerThieving] < 99) {
-						failGuards(c);
+				if (p.playerLevel[p.playerThieving] >= s.getLevel()) {
+					if(Misc.random(4) == 1 && p.playerLevel[p.playerThieving] < 99) {
+						failGuards(p);
 						return;
 					}
-					if (c.getItemAssistant().freeSlots() == 0) {
-						c.getPacketSender().sendMessage("Not enough space in your inventory.");
+					if (p.getItemAssistant().freeSlots() == 0) {
+						p.getPacketSender().sendMessage("Not enough space in your inventory.");
 						return;
 					}
-					c.startAnimation(832);
-					RandomEventHandler.addRandom(c);
-					GameEngine.objectHandler.createAnObject(c, 634, x, y, s.getFace());
-					c.getPlayerAssistant().addSkillXP((int) s.getXp(), c.playerThieving);
+					p.startAnimation(832);
+					RandomEventHandler.addRandom(p);
+					GameEngine.objectHandler.createAnObject(p, 634, x, y, s.getFace());
+					p.getPlayerAssistant().addSkillXP((int) s.getXp(), p.playerThieving);
 					int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
-					c.lastThieve = System.currentTimeMillis();
-					c.getPacketSender().sendMessage("You steal a "+ItemAssistant.getItemName(random[0])+" from the stall.");
-					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+					p.lastThieve = System.currentTimeMillis();
+					p.getPacketSender().sendMessage("You steal a "+ItemAssistant.getItemName(random[0])+" from the stall.");
+					CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							GameEngine.objectHandler.createAnObject(c, s.getObject(), x, y, s.getFace());
+							GameEngine.objectHandler.createAnObject(p, s.getObject(), x, y, s.getFace());
 							//new Object(s.getObject(), x, y, 0, s.getFace(), 10, j, getRespawnTime(c, s.getObject()));
 							container.stop();
 						}
 						@Override
 						public void stop() {
 						}
-					}, getRespawnTime(c, s.getObject()));
+					}, getRespawnTime(p, s.getObject()));
 				} else {
-					c.getDialogueHandler().sendStatement("You must have a thieving level of " + s.getLevel() + " to steal from this stall.");
+					p.getDialogueHandler().sendStatement("You must have a thieving level of " + s.getLevel() + " to steal from this stall.");
 				}
 			}
 		}
 	}
 
-	private static int getRespawnTime(Client c, int i) {
+	private static int getRespawnTime(Player p, int i) {
 		switch (i) {
 		case 4706:
 			return 3;// veg
@@ -180,16 +180,16 @@ public class Stalls {
 		return 5;
 	}
 
-	private static void failGuards(final Client c) {
+	private static void failGuards(final Player p) {
 		for (int i = 1; i < NpcHandler.MAX_NPCS; i ++) {
 			if (NpcHandler.npcs[i] != null) {
 				if (NpcHandler.npcs[i].npcType == 32 || NpcHandler.npcs[i].npcType == 1317 || NpcHandler.npcs[i].npcType == 2236 || NpcHandler.npcs[i].npcType == 2571) {
-					if (c.goodDistance(c.absX, c.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 7)
-						&& c.heightLevel == NpcHandler.npcs[i].heightLevel) {
+					if (p.goodDistance(p.absX, p.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 7)
+						&& p.heightLevel == NpcHandler.npcs[i].heightLevel) {
 						if (!NpcHandler.npcs[i].underAttack) {
 							NpcHandler.npcs[i].forceChat("What do you think you're doing?!?");
 							NpcHandler.npcs[i].underAttack = true;
-							NpcHandler.npcs[i].killerId = c.playerId;
+							NpcHandler.npcs[i].killerId = p.playerId;
 							return;
 						}
 					}

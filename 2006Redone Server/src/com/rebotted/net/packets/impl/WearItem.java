@@ -1,7 +1,7 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.items.impl.RareProtection;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -10,7 +10,7 @@ import com.rebotted.net.packets.PacketType;
 public class WearItem implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		player.wearId = player.getInStream().readUnsignedWord();
 		player.wearSlot = player.getInStream().readUnsignedWordA();
 		player.interfaceId = player.getInStream().readUnsignedWordA();

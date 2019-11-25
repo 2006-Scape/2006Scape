@@ -1,30 +1,30 @@
 package com.rebotted.game.content.randomevents;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class FreakyForester {
 
-	public static void teleportToLocation(Client client) {
-		client.lastX = client.absX;
-		client.lastY = client.absY;
-		client.lastH = client.heightLevel;
-		client.teleportToX = 2602;
-		client.teleportToY = 4775;
-		client.heightLevel = 0;
-		client.getPacketSender().sendMessage("Talk to the freaky forester to get out.");
+	public static void teleportToLocation(Player c) {
+		c.lastX = c.absX;
+		c.lastY = c.absY;
+		c.lastH = c.heightLevel;
+		c.teleportToX = 2602;
+		c.teleportToY = 4775;
+		c.heightLevel = 0;
+		c.getPacketSender().sendMessage("Talk to the freaky forester to get out.");
 	}
 
 	private static String[] pheasant = { "one", "two", "three", "four", };
 
-	public static String getPheasant(Client client) {
+	public static String getPheasant(Player client) {
 		if (client.getPheasent < 0) {
 			client.getPheasent = Misc.random(3);
 		}
 		return pheasant[client.getPheasent] + " tailed";
 	}
 
-	public static void leaveArea(Client client) {
+	public static void leaveArea(Player client) {
 		if (client.killedPheasant[client.getPheasent]) {
 			client.getPlayerAssistant().movePlayer(client.lastX, client.lastY, client.lastH);
 			client.canLeaveArea = true;
@@ -51,14 +51,14 @@ public class FreakyForester {
 		client.canLeaveArea = false;
 	}
 
-	public static void killedPheasant(Client client, int p) {
+	public static void killedPheasant(Player c, int p) {
 		for (int i = 0; i < 4; i++) {
-			client.killedPheasant[i] = false;
+			c.killedPheasant[i] = false;
 		}
-		client.killedPheasant[p] = true;
+		c.killedPheasant[p] = true;
 	}
 
-	public static boolean hasKilledPheasant(Client client) {
+	public static boolean hasKilledPheasant(Player client) {
 		for (int i = 0; i < 4; i++) {
 			if (client.killedPheasant[i]) {
 				client.canLeaveArea = true;

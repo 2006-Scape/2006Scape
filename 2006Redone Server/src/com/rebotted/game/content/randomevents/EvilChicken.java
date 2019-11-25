@@ -1,7 +1,7 @@
 package com.rebotted.game.content.randomevents;
 
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class EvilChicken {
@@ -13,13 +13,13 @@ public class EvilChicken {
 			{ 61, 90, 2467, 105, 4, 100, 100 },
 			{ 91, 138, 2468, 120, 5, 120, 120 }, };
 
-	public static void spawnChicken(Client player) {
+	public static void spawnChicken(Player c) {
 		for (int[] aChicken : chicken) {
-			if (player.chickenSpawned == false) {
-				if (player.combatLevel >= aChicken[0] && player.combatLevel <= aChicken[1]) {
-					NpcHandler.spawnNpc(player, aChicken[2], player.absX + Misc.random(1), player.absY + Misc.random(1), player.heightLevel, 0, aChicken[3], aChicken[4], aChicken[5], aChicken[6], true, false);
-					player.chickenSpawned = true;
-					player.randomActions = 0;
+			if (c.chickenSpawned == false) {
+				if (c.combatLevel >= aChicken[0] && c.combatLevel <= aChicken[1]) {
+					NpcHandler.spawnNpc(c, aChicken[2], c.absX + Misc.random(1), c.absY + Misc.random(1), c.heightLevel, 0, aChicken[3], aChicken[4], aChicken[5], aChicken[6], true, false);
+					c.chickenSpawned = true;
+					c.randomActions = 0;
 				}
 			}
 		}

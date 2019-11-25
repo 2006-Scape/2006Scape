@@ -32,6 +32,7 @@ import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.items.impl.Teles;
 import com.rebotted.game.objects.impl.Climbing;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
@@ -42,7 +43,7 @@ import com.rebotted.util.Misc;
 public class ClickingButtons implements PacketType {
 
 	@Override
-	public void processPacket(final Client player, int packetType, int packetSize) {
+	public void processPacket(final Player player, int packetType, int packetSize) {
 		int actionButtonId = Misc.hexToInt(player.getInStream().buffer, 0, packetSize);
 		player.getGlassBlowing().handleActionButtin(actionButtonId);
 		GnomeGlider.flightButtons(player, actionButtonId);

@@ -4,7 +4,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.objects.ObjectDefaults;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.ObjectDef;
 
@@ -12,7 +12,7 @@ public class OtherObjects {
 	
 	private final static int[] SPECIAL_OBJECTS = {160, 155, 156, 298, 299, 300, 304, 1181, 5253, 5254, 5255, 5256, 5257, 5258};
 	
-	public static void searchSpecialObject(Client player, int objectType) {
+	public static void searchSpecialObject(Player player, int objectType) {
 		for (int i = 0; i < SPECIAL_OBJECTS.length; i++) {
 			if (objectType == SPECIAL_OBJECTS[i]) {
 				if (System.currentTimeMillis() - player.searchObjectDelay < 1200 || objectType == 160 && player.absX != 3096 || objectType > 154 && objectType < 157 && player.absX != 3098 || player.absY == 3301) {
@@ -25,11 +25,11 @@ public class OtherObjects {
 		}
 	}
 	
-	private static void object(Client player, int id, int x, int y) {
+	private static void object(Player player, int id, int x, int y) {
 		player.getPacketSender().object(id, x, y, 0, ObjectDefaults.getObjectFace(player, id), 10);
 	}
 	
-	private static void handleSpecialObject(final Client player, final int objectType) {	
+	private static void handleSpecialObject(final Player player, final int objectType) {	
 		String objectName = ObjectDef.getObjectDef(objectType).name;
 			if (objectType == 160 && player.absX == 3096) {
 					player.getPlayerAssistant().walkTo(0, 1);

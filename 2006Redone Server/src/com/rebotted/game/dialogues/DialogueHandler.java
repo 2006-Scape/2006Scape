@@ -11,7 +11,7 @@ import com.rebotted.game.content.traveling.Sailing;
 import com.rebotted.game.globalworldobjects.PassDoor;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.objects.impl.SpecialObjects;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerAssistant;
 import com.rebotted.game.shops.Shops.Shop;
 import com.rebotted.util.Misc;
@@ -23,10 +23,10 @@ import com.rebotted.util.Misc;
 
 public class DialogueHandler {
 
-	private final Client player;
+	private final Player player;
 
-	public DialogueHandler(Client client) {
-		this.player = client;
+	public DialogueHandler(Player player2) {
+		this.player = player2;
 	}
 
 	public void sendDialogues(int dialogue, int npcId) {
@@ -3879,9 +3879,6 @@ public class DialogueHandler {
 				break;
 
 
-
-
-
 			case 908:
 				sendPlayerChat1("Hello there " + NpcHandler.getNpcListName(player.talkingNpc) + "!");
 				player.nextChat = 909;
@@ -6951,7 +6948,7 @@ public class DialogueHandler {
 
 	}
 
-	public void chatboxText(Client c, String text, String text1, String text2,
+	public void chatboxText(Player c, String text, String text1, String text2,
 			String text3, String title) {
 		player.getPacketSender().sendFrame126(title, 6180);
 		player.getPacketSender().sendFrame126(text, 6181);
@@ -6960,7 +6957,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendFrame126(text3, 6184);
 	}
 
-	public void clearChatBoxText(Client c) {
+	public void clearChatBoxText(Player c) {
 		player.getPacketSender().sendFrame126("", 6180);
 		player.getPacketSender().sendFrame126("", 6181);
 		player.getPacketSender().sendFrame126("", 6182);
@@ -7191,7 +7188,7 @@ public class DialogueHandler {
 	 * 4151, 5698}, new int { 150, 150}); Displays two items with a select one
 	 * option.
 	 */
-	public void displayTwoItemsOption(Client c, String[] s, int items[],
+	public void displayTwoItemsOption(Player c, String[] s, int items[],
 			int[] zoom) {
 		player.getPacketSender().sendFrame126(s[0], 144);
 		player.getPacketSender().sendFrame126(s[1], 145);
@@ -7203,7 +7200,7 @@ public class DialogueHandler {
 	/**
 	 * Displays single line text
 	 */
-	public void displaySingleLine(Client c, String s) {
+	public void displaySingleLine(Player c, String s) {
 		player.getPacketSender().sendFrame126(s, 357);
 		player.getPacketSender().sendChatInterface(356);
 	}
@@ -7211,7 +7208,7 @@ public class DialogueHandler {
 	/**
 	 * Displays two lined text
 	 */
-	public void displayTwoLined(Client c, String[] s) {
+	public void displayTwoLined(Player c, String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 360);
 		player.getPacketSender().sendFrame126(s[1], 361);
 		player.getPacketSender().sendChatInterface(359);
@@ -7220,7 +7217,7 @@ public class DialogueHandler {
 	/**
 	 * Displays Three lined text
 	 */
-	public void displayThreeLined(Client c, String[] s) {
+	public void displayThreeLined(Player c, String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 364);
 		player.getPacketSender().sendFrame126(s[1], 365);
 		player.getPacketSender().sendFrame126(s[2], 366);
@@ -7230,7 +7227,7 @@ public class DialogueHandler {
 	/**
 	 * Displays Four lined text
 	 */
-	public void displayFourLined(Client c, String[] s) {
+	public void displayFourLined(Player c, String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 369);
 		player.getPacketSender().sendFrame126(s[1], 370);
 		player.getPacketSender().sendFrame126(s[2], 371);
@@ -7241,7 +7238,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 2
 	 */
-	public void displaySelectOption2(Client c, String[] s) {
+	public void displaySelectOption2(Player c, String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2461);
 		player.getPacketSender().sendFrame126(s[1], 2462);
 		player.getPacketSender().sendChatInterface(2459);
@@ -7250,7 +7247,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 3
 	 */
-	public void displaySelectOption3(Client c, String[] s) {
+	public void displaySelectOption3(Player c, String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2471);
 		player.getPacketSender().sendFrame126(s[1], 2472);
 		player.getPacketSender().sendFrame126(s[2], 2473);
@@ -7260,7 +7257,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 4
 	 */
-	public void displaySelectOption4(Client c, String[] s) {
+	public void displaySelectOption4(Player c, String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2482);
 		player.getPacketSender().sendFrame126(s[1], 2483);
 		player.getPacketSender().sendFrame126(s[2], 2484);
@@ -7271,7 +7268,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 5
 	 */
-	public void displaySelectOption5(Client c, String[] s) {
+	public void displaySelectOption5(Player c, String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2494);
 		player.getPacketSender().sendFrame126(s[1], 2495);
 		player.getPacketSender().sendFrame126(s[2], 2496);
@@ -7280,7 +7277,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(2492);
 	}
 
-	public void itemMessage(Client c, String message1, int itemid, int size) {
+	public void itemMessage(Player c, String message1, int itemid, int size) {
 		player.getPacketSender().sendDialogueAnimation(307, 591);
 		player.getPacketSender().sendFrame126(message1, 308);
 		player.getPacketSender().sendFrame246(307, size, itemid);
@@ -7288,7 +7285,7 @@ public class DialogueHandler {
 		c.nextChat = 0;
 	}
 
-	public void sendItemChat1(Client c, String header, String one, int item,
+	public void sendItemChat1(Player c, String header, String one, int item,
 			int zoom) {
 		player.getPacketSender().sendFrame246(4883, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4884);
@@ -7296,7 +7293,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(4882);
 	}
 
-	public void sendItemChat2(Client c, String header, String one, String two,
+	public void sendItemChat2(Player player, String header, String one, String two,
 			int item, int zoom) {
 		player.getPacketSender().sendFrame246(4888, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4889);
@@ -7305,7 +7302,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(4887);
 	}
 
-	public void sendItemChat3(Client c, String header, String one, String two,
+	public void sendItemChat3(Player c, String header, String one, String two,
 			String three, int item, int zoom) {
 		player.getPacketSender().sendFrame246(4894, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4895);
@@ -7315,7 +7312,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(4893);
 	}
 
-	public void sendItemChat4(Client c, String header, String one, String two,
+	public void sendItemChat4(Player c, String header, String one, String two,
 			String three, String four, int item, int zoom) {
 		player.getPacketSender().sendFrame246(4901, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4902);

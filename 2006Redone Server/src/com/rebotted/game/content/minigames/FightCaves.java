@@ -7,6 +7,7 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
@@ -154,17 +155,17 @@ public class FightCaves {
 		}
 	}
 	
-	public static void spawnHealers(Client player, int i, int amount) {
-		if (player.spawnedHealers < 4) {
+	public static void spawnHealers(Player c, int i, int amount) {
+		if (c.spawnedHealers < 4) {
 		int hp = getHp(YT_HURKOT);
 		int max = getMax(YT_HURKOT);
 		int atk = getAtk(YT_HURKOT);
 		int def = getDef(YT_HURKOT);
 			for (int i1 = 0; i1 < amount; i1++) {
-				NpcHandler.spawnNpc(player, YT_HURKOT, HEALER_COORDS[i1][0], HEALER_COORDS[i1][1], player.heightLevel, 0, hp, max, atk, def, false, false);
+				NpcHandler.spawnNpc(c, YT_HURKOT, HEALER_COORDS[i1][0], HEALER_COORDS[i1][1], c.heightLevel, 0, hp, max, atk, def, false, false);
 			}
-		player.spawnedHealers = amount;
-		player.canHealersRespawn = false;
+		c.spawnedHealers = amount;
+		c.canHealersRespawn = false;
 		}
 	}
 
@@ -340,18 +341,18 @@ public class FightCaves {
 		}
 	}
 	
-	public static void healJad(Client player, int i) {
+	public static void healJad(Player c, int i) {
 		if (NpcHandler.npcs[i].npcType == YT_HURKOT && !NpcHandler.npcs[i].isDead) {
-			if (player.getSpecialTarget() != null) {
-				if (player.getSpecialTarget().npcType == TZTOK_JAD) {
-					Npc jad = player.getSpecialTarget();
+			if (c.getSpecialTarget() != null) {
+				if (c.getSpecialTarget().npcType == TZTOK_JAD) {
+					Npc jad = c.getSpecialTarget();
 					NpcHandler.npcs[i].gfx0(444);
 					NpcHandler.npcs[i].startAnimation(2639, i);
 					jad.HP += 1+Misc.random(8);
 					if (jad.HP >= getHp(TZTOK_JAD)) {
 						jad.HP = getHp(TZTOK_JAD);
-						if (player.spawnedHealers < 4)
-							spawnHealers(player, i, 4-player.spawnedHealers);
+						if (c.spawnedHealers < 4)
+							spawnHealers(c, i, 4-c.spawnedHealers);
 					}
 				}
 			}

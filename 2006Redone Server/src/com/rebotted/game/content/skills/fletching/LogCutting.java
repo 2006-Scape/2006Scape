@@ -4,7 +4,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -15,14 +15,14 @@ public class LogCutting {
 
 	private static final int KNIFE = 946, CUT_SOUND = 375;
 	
-	public static void resetFletching(Client c) {
-		if (c.playerIsFletching == true) {
-			c.playerIsFletching = false;
-			c.startAnimation(65535);
+	public static void resetFletching(Player player) {
+		if (player.playerIsFletching == true) {
+			player.playerIsFletching = false;
+			player.startAnimation(65535);
 		}
 	}
 
-	public static void cutLog(final Client c, final int product, final int level, final double xp, int amount) {
+	public static void cutLog(final Player c, final int product, final int level, final double xp, int amount) {
 		if (c.isSpinning) {
 			c.isSpinning = false;
 		}
@@ -101,7 +101,7 @@ public class LogCutting {
 		}, 3);
 	}
 
-	public static void handleClick(Client c, int buttonId) {
+	public static void handleClick(Player c, int buttonId) {
 		if (c.doAmount == 28 && c.playerIsFletching == true) {
 			c.getPacketSender().closeAllWindows();
 			c.playerIsFletching = false;
@@ -317,7 +317,7 @@ public class LogCutting {
 		}
 	}
 
-	public static void wolfBoneArrow(Client c) {
+	public static void wolfBoneArrow(Player c) {
 		if (c.getItemAssistant().playerHasItem(2859)
 				&& c.getItemAssistant().playerHasItem(1755)) {
 			final int amount = c.getItemAssistant().getItemCount(2859);
@@ -337,7 +337,7 @@ public class LogCutting {
 		}
 	}
 
-	public static void flightedArrow(Client c) {// to do
+	public static void flightedArrow(Player c) {// to do
 		if (c.playerLevel[c.playerFletching] < 5) {
 			c.getDialogueHandler().sendStatement("You need 5 fletching to fletch this.");
 			c.nextChat = 0;
@@ -364,7 +364,7 @@ public class LogCutting {
 		}
 	}
 
-	public static void ogreArrow(Client c) {
+	public static void ogreArrow(Player c) {
 		if (c.playerLevel[c.playerFletching] < 5) {
 			c.getDialogueHandler().sendStatement("You need 5 fletching to fletch this.");
 			c.nextChat = 0;
@@ -403,7 +403,7 @@ public class LogCutting {
 		}
 	}
 
-	public static void makeShafts(Client c) {
+	public static void makeShafts(Player c) {
 		if (c.getItemAssistant().playerHasItem(2862) && c.getItemAssistant().playerHasItem(946)) {
 			final int amount = c.getItemAssistant().getItemCount(2862);
 			final int makeAmount = c.getItemAssistant().getItemCount(2862) + c.getItemAssistant().getItemCount(2862) * Misc.random(4);

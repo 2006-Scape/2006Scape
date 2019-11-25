@@ -3,7 +3,7 @@ package com.rebotted.game.content.traveling;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class GnomeGlider {
 
@@ -16,7 +16,7 @@ public class GnomeGlider {
 			{ 48054, 2544, 2970, 0, 10 }, // TO OGRE AREA
 	};
 
-	public static void flightButtons(Client player, int button) {
+	public static void flightButtons(Player player, int button) {
 		if (player.gliderOpen == true) {
 			for (int i = 0; i < getLength(); i++) {
 				if (getButton(i) == button) {
@@ -32,7 +32,7 @@ public class GnomeGlider {
 		}
 	}
 
-	public static void handleFlight(final Client player, final int flightId) {
+	public static void handleFlight(final Player player, final int flightId) {
 		player.getPacketSender().showInterface(802);
 		player.getPacketSender().sendConfig(153, getMove(flightId));
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {

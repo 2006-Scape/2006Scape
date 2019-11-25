@@ -9,7 +9,7 @@ import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.objects.Object;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
 
@@ -17,7 +17,7 @@ public class Firemaking {
 
 	public static boolean stopFiremaking = false, pickedUpFiremakingLog = false, logLit;
 	
-	public static void stopFiremaking(Client c) {
+	public static void stopFiremaking(Player c) {
 		c.startAnimation(65535);
 		SkillHandler.lastSkillingAction = System.currentTimeMillis();
 		c.isFiremaking = false;
@@ -25,7 +25,7 @@ public class Firemaking {
 		logLit = false;
 	}
 	
-	public static void attemptFire(final Client c, final int itemUsed, final int usedWith, final int x, final int y, final boolean groundObject) {
+	public static void attemptFire(final Player c, final int itemUsed, final int usedWith, final int x, final int y, final boolean groundObject) {
 		int firemakingItems[] = {590, 7329, 7330, 7331};
 		for (int i = 0; i < firemakingItems.length; i++) {
 		if (Firemaking.pickedUpFiremakingLog == true) {

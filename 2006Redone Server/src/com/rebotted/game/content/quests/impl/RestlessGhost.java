@@ -1,18 +1,18 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Restless Ghost 
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class RestlessGhost {
 
-	Client client;
+	Player client;
 
-	public RestlessGhost(Client client) {
-		this.client = client;
+	public RestlessGhost(Player player) {
+		this.client = player;
 	}
 
 	public void showInformation() {

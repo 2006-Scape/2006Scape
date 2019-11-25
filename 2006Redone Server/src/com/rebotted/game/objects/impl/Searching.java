@@ -1,6 +1,6 @@
 package com.rebotted.game.objects.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Searching {
 	
@@ -29,7 +29,7 @@ public class Searching {
 		}
 	}
 	
-	public static void searchObject(final Client player, int objectType) {
+	public static void searchObject(final Player player, int objectType) {
 		for (SearchData s: SearchData.values()) {
 			for (int i = 0; i < s.getObjectId().length; i++) {
 				if (objectType == s.getObjectId()[i]) {

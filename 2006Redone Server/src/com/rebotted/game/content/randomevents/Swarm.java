@@ -1,8 +1,8 @@
-package 
-com.rebotted.game.content.randomevents;
+package  com.rebotted.game.content.randomevents;
 
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -12,11 +12,11 @@ import com.rebotted.util.Misc;
 
 public class Swarm {
 
-	private static int checkStats(Client client, boolean bot) {
+	private static int checkStats(Player c, boolean bot) {
 		if (bot) {
-			return client.getPlayerAssistant().getLevelForXP(client.playerXP[client.playerHitpoints]) * 3;
+			return c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerHitpoints]) * 3;
 		} else {
-			return client.getPlayerAssistant().getLevelForXP(client.playerXP[client.playerHitpoints]) * 2;
+			return c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerHitpoints]) * 2;
 		}
 	}
 
@@ -25,20 +25,20 @@ public class Swarm {
 	 * 
 	 * @param c
 	 */
-	public static void spawnSwarm(Client client) {
-		NpcHandler.spawnNpc(client, // param
+	public static void spawnSwarm(Player c) {
+		NpcHandler.spawnNpc(c, // param
 				411, // npctype
-				client.absX + Misc.random(1), // posX
-				client.absY + Misc.random(1), // posY
-				client.heightLevel, // height
+				c.absX + Misc.random(1), // posX
+				c.absY + Misc.random(1), // posY
+				c.heightLevel, // height
 				0, // walkingtype
 				1, // HP
 				2, // maxhit
-				checkStats(client, false),
-				3 * client.combatLevel, // defence
+				checkStats(c, false),
+				3 * c.combatLevel, // defence
 				true, // attackplayer
 				false); // headicon
-		client.autoRet = 0;
+		c.autoRet = 0;
 	}
 
 	/**

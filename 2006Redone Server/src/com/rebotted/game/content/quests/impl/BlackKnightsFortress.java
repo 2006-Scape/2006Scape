@@ -1,18 +1,13 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
-
-/**
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
- * Cooks Assistant
- */
+import com.rebotted.game.players.Player;
 
 public class BlackKnightsFortress {
 
-    Client client;
+    Player client;
 
-    public BlackKnightsFortress(Client client) {
-        this.client = client;
+    public BlackKnightsFortress(Player player) {
+        this.client = player;
     }
     
     public void showInformation() {

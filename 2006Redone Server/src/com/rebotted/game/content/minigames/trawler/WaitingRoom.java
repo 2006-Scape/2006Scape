@@ -1,17 +1,16 @@
 package com.rebotted.game.content.minigames.trawler;
  
 import java.util.ArrayList;
-
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Location;
+import com.rebotted.game.players.Player;
  
 public abstract class WaitingRoom {
        
         public int minimumPlayers;
-        public ArrayList<Client> waiting = new ArrayList<Client>();
+        public ArrayList<Player> waiting = new ArrayList<Player>();
         private int wait_time;
         private int minutes_remaining;
         private boolean active;
@@ -19,8 +18,8 @@ public abstract class WaitingRoom {
         public abstract Location getLocation();
         public abstract boolean startGame();
         public abstract void onStart();
-        public abstract void onLeave(Client p);
-        public abstract void onJoin(Client p);
+        public abstract void onLeave(Player player);
+        public abstract void onJoin(Player p);
         public abstract void onTimeChange();
         public abstract boolean canStart();
        
@@ -35,17 +34,17 @@ public abstract class WaitingRoom {
                 }
         }
        
-        public void join(Client p) {
-                if(!waiting.contains(p)) {
-                        onJoin(p);
-                        waiting.add(p);
+        public void join(Player player) {
+                if(!waiting.contains(player)) {
+                        onJoin(player);
+                        waiting.add(player);
                 }
         }
        
-        public void leave(Client p) {
-                if(waiting.contains(p)) {
-                        onLeave(p);
-                        waiting.remove(p);
+        public void leave(Player player) {
+                if(waiting.contains(player)) {
+                        onLeave(player);
+                        waiting.remove(player);
                 }
         }
        
@@ -90,7 +89,7 @@ public abstract class WaitingRoom {
        
        
         public void messageWaiting(String message) {
-                for(Client p : waiting) {
+                for(Player p : waiting) {
                         if(p != null) {
                                 p.getPacketSender().sendMessage(message);
                         }

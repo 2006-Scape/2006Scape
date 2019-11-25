@@ -1,6 +1,6 @@
 package com.rebotted.game.content.skills.farming;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 
 /**
@@ -12,7 +12,7 @@ public class Flowers {
 	
 	private static final int[] FLOWER_PATCH = {7847, 7848};
 	
-	public static boolean isFlower(Client player, int objectType) {
+	public static boolean isFlower(Player player, int objectType) {
 		for (int i = 0; i < FLOWER_PATCH.length; i++) {
 			if (objectType == FLOWER_PATCH[i]) {
 				return true;

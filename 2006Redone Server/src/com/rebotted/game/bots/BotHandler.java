@@ -7,6 +7,7 @@ import java.util.Random;
 
 import com.rebotted.GameConstants;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.game.shops.ShopHandler;
 import com.rebotted.util.Misc;
@@ -29,7 +30,7 @@ public class BotHandler {
         return bot;
     }
 
-    public static void playerShop(Client player){
+    public static void playerShop(Player player){
         // Must be in the correct zones
         if (!player.inPlayerShopArea() && !player.inBankArea()) {
             player.getPacketSender().sendMessage("You need to be in a bank zone or trade area for this.");
@@ -82,11 +83,11 @@ public class BotHandler {
         }
     }
 
-    private static String getShopName(Client player){
+    private static String getShopName(Player player){
         return "♥" + player.playerName;
     }
 
-    private static Client getPlayerShop(Client player){
+    private static Client getPlayerShop(Player player){
         String shopName = getShopName(player);
         for(Bot bot : botList) {
             if(bot != null && bot.getBotClient() != null) {
@@ -111,7 +112,7 @@ public class BotHandler {
         return null;
     }
 
-    public static void closeShop(Client player) {
+    public static void closeShop(Player player) {
         Client shop = getPlayerShop(player);
         if (shop == null) return;
         shop.getPlayerAssistant().movePlayer(0,0,0);
@@ -140,7 +141,7 @@ public class BotHandler {
         shop.getItemAssistant().addItem(currency, amount);
     }
 
-    public static void takeCoins(Client player){
+    public static void takeCoins(Player player){
         if (!player.getItemAssistant().playerHasItem(currency) && player.getItemAssistant().freeSlots() <= 0) {
             player.getPacketSender().sendMessage("You don't have enough space in your inventory.");
             return;

@@ -1,7 +1,7 @@
 package com.rebotted.game.content.combat.magic;
 
 import com.rebotted.game.content.randomevents.RandomEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class MagicTeleports {
@@ -11,7 +11,7 @@ public class MagicTeleports {
 			LAW_RUNE = 563, BLOOD_RUNE = 565,
 			SOUL_RUNE = 566, BANANA = 1963;
 
-	public static void handleLoginText(Client player) {
+	public static void handleLoginText(Player player) {
 		player.getPacketSender().sendFrame126("Level 25: Varrock Teleport", 1300);
 		player.getPacketSender().sendFrame126("Level 31: Lumbridge Teleport", 1325);
 		player.getPacketSender().sendFrame126("Level 37: Falador Teleport", 1350);
@@ -50,14 +50,14 @@ public class MagicTeleports {
 
 	public static final boolean MAGIC_LEVEL_REQUIRED = true, RUNES_REQUIRED = true;
 
-	public static boolean teleportCheck(Client player) {
+	public static boolean teleportCheck(Player player) {
 		if (player.teleTimer > 0) {
 			return false;
 		}
 		return true;
 	}
 
-	public static void paddewwaTeleport(Client player) {
+	public static void paddewwaTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -79,7 +79,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(64, player.playerMagic);
 	}
 
-	public static void senntisenTeleport(Client player) {
+	public static void senntisenTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -101,7 +101,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(70, player.playerMagic);
 	}
 
-	public static void kharyllTeleport(Client player) {
+	public static void kharyllTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -123,7 +123,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(76, player.playerMagic);
 	}
 
-	public static void lassarTeleport(Client player) {
+	public static void lassarTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -145,7 +145,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(82, player.playerMagic);
 	}
 
-	public static void dareeyakTeleport(Client player) {
+	public static void dareeyakTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -169,7 +169,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(88, player.playerMagic);
 	}
 
-	public static void carrallangarTeleport(Client player) {
+	public static void carrallangarTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -193,7 +193,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(94, player.playerMagic);
 	}
 
-	public static void annakarlTeleport(Client player) {
+	public static void annakarlTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -215,7 +215,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(100, player.playerMagic);
 	}
 
-	public static void ghorrockTeleport(Client player) {
+	public static void ghorrockTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -238,7 +238,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(106, player.playerMagic);
 	}
 
-	public static void varrockTeleport(Client player) {
+	public static void varrockTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -260,7 +260,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(35, player.playerMagic);
 	}
 
-	public static void lumbridgeTeleport(Client player) {
+	public static void lumbridgeTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -282,7 +282,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(35, player.playerMagic);
 	}
 
-	public static void faladorTeleport(Client player) {
+	public static void faladorTeleport(Player player) {
 		/*if (!teleportCheck(player)) {
 			return;
 		}*/
@@ -304,7 +304,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(48, player.playerMagic);
 	}
 
-	public static void camelotTeleport(Client player) {
+	public static void camelotTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -327,7 +327,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(55.5, player.playerMagic);
 	}
 
-	public static void ardougneTeleport(Client player) {
+	public static void ardougneTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -350,7 +350,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(61, player.playerMagic);
 	}
 
-	public static void watchTowerTeleport(Client player) {
+	public static void watchTowerTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -373,7 +373,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(68, player.playerMagic);
 	}
 
-	public static void trollhiemTeleport(Client player) {
+	public static void trollhiemTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}
@@ -396,7 +396,7 @@ public class MagicTeleports {
 		player.getPlayerAssistant().addSkillXP(68, player.playerMagic);
 	}
 
-	public static void apeAtollTeleport(Client player) {
+	public static void apeAtollTeleport(Player player) {
 		if (!teleportCheck(player)) {
 			return;
 		}

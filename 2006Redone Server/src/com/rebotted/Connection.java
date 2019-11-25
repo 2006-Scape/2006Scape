@@ -6,8 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Connection Check Class
@@ -297,8 +296,7 @@ public class Connection {
 
 	public static void addIpToMuteFile(String Name) {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(
-					"./data/bans/IpsMuted.txt", true));
+			BufferedWriter out = new BufferedWriter(new FileWriter("./data/bans/IpsMuted.txt", true));
 			try {
 				out.newLine();
 				out.write(Name);
@@ -310,9 +308,8 @@ public class Connection {
 		}
 	}
 
-	public static boolean isMuted(Client c) {
-		return mutedNames.contains(c.playerName.toLowerCase())
-				|| mutedIps.contains(c.connectedFrom);
+	public static boolean isMuted(Player player) {
+		return mutedNames.contains(player.playerName.toLowerCase()) || mutedIps.contains(player.connectedFrom);
 	}
 
 }

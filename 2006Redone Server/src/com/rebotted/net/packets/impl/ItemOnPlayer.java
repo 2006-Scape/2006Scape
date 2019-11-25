@@ -1,7 +1,7 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.items.impl.RareProtection;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
@@ -13,14 +13,14 @@ import com.rebotted.util.Misc;
 public class ItemOnPlayer implements PacketType {
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket(Player c, int packetType, int packetSize) {
 		int playerId = c.inStream.readUnsignedWord();
 		int itemId = c.playerItems[c.inStream.readSignedWordBigEndian()] - 1;
 		c.endCurrentTask();
 		switch (itemId) {
 
 		case 962:
-			Client o = (Client) PlayerHandler.players[playerId];
+			Player o = (Player) PlayerHandler.players[playerId];
 			if (!RareProtection.CRACKERS && c.playerRights < 3) {
 				int delete = c.getItemAssistant().getItemCount(962);
 				c.getItemAssistant().deleteItem(962, delete);

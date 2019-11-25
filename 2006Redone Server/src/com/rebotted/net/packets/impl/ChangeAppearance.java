@@ -1,6 +1,6 @@
 package com.rebotted.net.packets.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -35,8 +35,7 @@ public class ChangeAppearance implements PacketType {
 	};
 
 	@Override
-	public void processPacket(final Client client, final int packetType,
-			final int packetSize) {
+	public void processPacket(final Player client, final int packetType, final int packetSize) {
 		final int gender = client.getInStream().readSignedByte();
 
 		if (gender != 0 && gender != 1) {

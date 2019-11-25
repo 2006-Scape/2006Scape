@@ -517,7 +517,7 @@ public class PlayerSave {
 	/**
 	 * Saving
 	 **/
-	public static boolean saveGame(Client player) {
+	public static boolean saveGame(Player player) {
 		if (!player.saveFile || player.newPlayer || !player.saveCharacter) {
 			// System.out.println("first");
 			return false;

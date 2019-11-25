@@ -93,7 +93,7 @@ public class NpcCombat {
 		}
 	}
 
-	public static void attackPlayer(Client c, int i) {
+	public static void attackPlayer(Player c, int i) {
 		if (NpcHandler.npcs[i] != null) {
 			if (NpcHandler.npcs[i].isDead) {
 				return;
@@ -273,7 +273,7 @@ public class NpcCombat {
 		}
 	}
 
-	public static void loadSpell(Client c, int i) {
+	public static void loadSpell(Player c, int i) {
 		if (NpcHandler.npcs[i].npcType > 2462 && NpcHandler.npcs[i].npcType < 2469 || NpcHandler.npcs[i].npcType > 3751 && NpcHandler.npcs[i].npcType < 3762) {
 			NpcHandler.npcs[i].attackType = 2;
 		}

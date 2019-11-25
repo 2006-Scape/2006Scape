@@ -4,6 +4,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 
 public class CastOnOther extends CastRequirements {
@@ -18,8 +19,8 @@ public class CastOnOther extends CastRequirements {
 		return false;
 	}
 
-	public static void teleOtherDistance(Client c, int type, int i) {
-		Client castOn = (Client) PlayerHandler.players[i];
+	public static void teleOtherDistance(Player c, int type, int i) {
+		Player castOn = (Client) PlayerHandler.players[i];
 		int[][] data = { { 74, SOUL, LAW, EARTH, 1, 1, 1 },
 				{ 82, SOUL, LAW, WATER, 1, 1, 1 },
 				{ 90, SOUL, LAW, -1, 2, 1, -1 }, };
@@ -53,21 +54,21 @@ public class CastOnOther extends CastRequirements {
 		}
 	}
 
-	public static void teleOtherLocation(final Client c, final int i,
+	public static void teleOtherLocation(final Player player, final int i,
 			boolean decline) {
-		c.getPacketSender().closeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		final int[][] coords = { { 3222, 3218 }, // LUMBRIDGE
 				{ 2967, 3378 }, // FALADOR
 				{ 2757, 3477 }, // CAMELOT
 		};
 		if (!decline) {
-			   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
-					c.startAnimation(715);
-					c.teleportToX = coords[c.teleotherType][0];
-					c.teleportToY = coords[c.teleotherType][1];
-					c.teleotherType = -1;
+					player.startAnimation(715);
+					player.teleportToX = coords[player.teleotherType][0];
+					player.teleportToY = coords[player.teleotherType][1];
+					player.teleotherType = -1;
 					container.stop();
 				}
 				@Override
@@ -76,8 +77,8 @@ public class CastOnOther extends CastRequirements {
 						
 					}
 			}, 3);
-			c.startAnimation(1816);
-			c.gfx100(342);
+			player.startAnimation(1816);
+			player.gfx100(342);
 		}
 	}
 }

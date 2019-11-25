@@ -1,6 +1,6 @@
 package com.rebotted.game.players.antimacro;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * AntiSpam
@@ -19,7 +19,7 @@ public class AntiSpam {
 		"osrs", "2007rs", "runerebels", "06prime", "2006prime", "arios498", "ariosrsps", "coom"
 	};
 	
-	public static boolean blockedWords(Client player, String word, boolean chat) {
+	public static boolean blockedWords(Player player, String word, boolean chat) {
 		for (int i = 0; i < BLOCKED_WORDS.length; i++) {
 			if (player.getPlayerAssistant().isPlayer()) {
 				if (word.contains(BLOCKED_WORDS[i]) || word.equalsIgnoreCase(player.playerPass)) {

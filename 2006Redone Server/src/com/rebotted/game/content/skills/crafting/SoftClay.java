@@ -4,42 +4,40 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Soft Clay
- * 
- * @author Andrew
+ * @author Andrew (Mr Extremez)
  */
 
 public class SoftClay {
 
 	public static final int SOFT_CLAY = 1761, CLAY = 434;
 
-	public static void makeClay(final Client client) {
-		if (!client.getItemAssistant().playerHasItem(CLAY)) {
-			client.getPacketSender().sendMessage(
-					"You need clay to do this.");
+	public static void makeClay(final Player c) {
+		if (!c.getItemAssistant().playerHasItem(CLAY)) {
+			c.getPacketSender().sendMessage("You need clay to do this.");
 			return;
 		}
-		   CycleEventHandler.getSingleton().addEvent(client, new CycleEvent() {
+		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 	            @Override
 	            public void execute(CycleEventContainer container) {
-				int amountToSubtract = client.getItemAssistant().getItemAmount(CLAY);
+				int amountToSubtract = c.getItemAssistant().getItemAmount(CLAY);
 				int amountToAdd = amountToSubtract;
-				client.doAmount = amountToSubtract;
-				client.addAmount = amountToAdd;
-				if (client.getItemAssistant().playerHasItem(CLAY)) {
-					client.getItemAssistant().deleteItem(CLAY, client.doAmount);
-					client.doAmount--;
-					client.getItemAssistant().addItem(SOFT_CLAY, client.addAmount);
-					client.addAmount++;
-					RandomEventHandler.addRandom(client);
-					if (client.doAmount == 0) {
-						client.getPacketSender().sendMessage("You have ran out of clay to turn to soft clay.");
+				c.doAmount = amountToSubtract;
+				c.addAmount = amountToAdd;
+				if (c.getItemAssistant().playerHasItem(CLAY)) {
+					c.getItemAssistant().deleteItem(CLAY, c.doAmount);
+					c.doAmount--;
+					c.getItemAssistant().addItem(SOFT_CLAY, c.addAmount);
+					c.addAmount++;
+					RandomEventHandler.addRandom(c);
+					if (c.doAmount == 0) {
+						c.getPacketSender().sendMessage("You have ran out of clay to turn to soft clay.");
 						container.stop();
 					}
-					if (client.disconnected) {
+					if (c.disconnected) {
 						container.stop();
 					}
 				}

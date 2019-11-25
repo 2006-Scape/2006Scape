@@ -5,10 +5,10 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
- * @author Andrew
+ * @author Andrew (Mr Extremez)
  */
 
 public class Sailing {
@@ -35,81 +35,81 @@ public class Sailing {
 	//2620, 3686 - relleka
 	//2551, 3759 - waterbirth
 	
-	public static boolean checkForCash(Client player) {
-		if (!player.getItemAssistant().playerHasItem(995, 1000)) {
-			player.getDialogueHandler().sendNpcChat1("You need 1000 coins to to travel on this ship!", 2437, NpcHandler.getNpcListName(player.npcType));
-			player.nextChat = 0;
+	public static boolean checkForCash(Player c) {
+		if (!c.getItemAssistant().playerHasItem(995, 1000)) {
+			c.getDialogueHandler().sendNpcChat1("You need 1000 coins to to travel on this ship!", 2437, NpcHandler.getNpcListName(c.npcType));
+			c.nextChat = 0;
 			return false;
 		}
-		player.getItemAssistant().deleteItem(995, 1000);
-		player.getPacketSender().sendMessage("Your free to go and pay the 1000 coins.");
+		c.getItemAssistant().deleteItem(995, 1000);
+		c.getPacketSender().sendMessage("Your free to go and pay the 1000 coins.");
 		return true;
 	}
 
-	public static boolean checkForCoins(Client player) {
-		if (!player.getItemAssistant().playerHasItem(995, 30)) {
-			player.getDialogueHandler().sendNpcChat1("You need 30 coins to to travel on this ship!", 381, NpcHandler.getNpcListName(player.npcType));
-			player.nextChat = 0;
+	public static boolean checkForCoins(Player c) {
+		if (!c.getItemAssistant().playerHasItem(995, 30)) {
+			c.getDialogueHandler().sendNpcChat1("You need 30 coins to to travel on this ship!", 381, NpcHandler.getNpcListName(c.npcType));
+			c.nextChat = 0;
 			return false;
 		}
-		player.getItemAssistant().deleteItem(995, 30);
-		player.getPacketSender().sendMessage("Your free to go and pay the 30 coins.");
+		c.getItemAssistant().deleteItem(995, 30);
+		c.getPacketSender().sendMessage("Your free to go and pay the 30 coins.");
 		return true;
 	}
 
-	public static boolean searchForAlcohol(Client player) {
+	public static boolean searchForAlcohol(Player c) {
 		for (int element : GameConstants.ALCOHOL_RELATED_ITEMS) {
-			if (player.getItemAssistant().playerHasItem(element, 1)) {
-				player.getDialogueHandler().sendNpcChat1("You can't bring intoxicating items to Asgarnia!", player.npcType, NpcHandler.getNpcListName(player.npcType));
-				player.nextChat = 0;
+			if (c.getItemAssistant().playerHasItem(element, 1)) {
+				c.getDialogueHandler().sendNpcChat1("You can't bring intoxicating items to Asgarnia!", c.npcType, NpcHandler.getNpcListName(c.npcType));
+				c.nextChat = 0;
 				return false;
 			}
 		}
-		player.getPacketSender().sendMessage(
+		c.getPacketSender().sendMessage(
 				"Your clean of any possible alchohol.");
 		return true;
 	}
 
-	public static boolean quickSearch(Client player) {
+	public static boolean quickSearch(Player c) {
 		for (int element : GameConstants.COMBAT_RELATED_ITEMS) {
-			if (player.getItemAssistant().playerHasItem(element, 1) || player.getItemAssistant().playerHasEquipped(element)) {
-				player.getDialogueHandler().sendNpcChat2("Grr! I see you brought some illegal items! Get", "out of my sight immediately!", 657, NpcHandler.getNpcListName(player.npcType));
-				player.nextChat = 0;
+			if (c.getItemAssistant().playerHasItem(element, 1) || c.getItemAssistant().playerHasEquipped(element)) {
+				c.getDialogueHandler().sendNpcChat2("Grr! I see you brought some illegal items! Get", "out of my sight immediately!", 657, NpcHandler.getNpcListName(c.npcType));
+				c.nextChat = 0;
 				return false;
 			}
 		}
-		player.getPacketSender().sendMessage("Your clean of any possible weapons.");
+		c.getPacketSender().sendMessage("Your clean of any possible weapons.");
 		return true;
 	}
 
-	public static void startTravel(final Client player, final int i) {
+	public static void startTravel(final Player c, final int i) {
 		if (i == 1) {// entrana check
-			if (!quickSearch(player)) {
+			if (!quickSearch(c)) {
 				return;
 			}
 		}
 		if (i == 2) {// entrana check
-			if (!searchForAlcohol(player)) {
+			if (!searchForAlcohol(c)) {
 				return;
 			}
 		}
 		if (i == 7 || i == 8) {
-			if (!checkForCoins(player)) {
+			if (!checkForCoins(c)) {
 				return;
 			}
 		}
 		if (i == 17 || i == 18) {
-			if (!checkForCash(player)) {
+			if (!checkForCash(c)) {
 				return;
 			}
 		}
-		player.stopPlayerPacket = true;
-		player.getPacketSender().showInterface(3281);
-		player.getPacketSender().sendConfig(75, i);
-		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+		c.stopPlayerPacket = true;
+		c.getPacketSender().showInterface(3281);
+		c.getPacketSender().sendConfig(75, i);
+		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.getPlayerAssistant().movePlayer(getX(i), getY(i), 0);
+				c.getPlayerAssistant().movePlayer(getX(i), getY(i), 0);
 				container.stop();
 			}
 			@Override
@@ -118,14 +118,14 @@ public class Sailing {
 			}
 		}, getTime(i) - 1);
 
-		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.stopPlayerPacket = false;
-				player.getPacketSender().sendConfig(75, -1);
-				player.getPacketSender().closeAllWindows();
-				player.getDialogueHandler().sendStatement("You arrive safely.");
-				player.nextChat = 0;
+				c.stopPlayerPacket = false;
+				c.getPacketSender().sendConfig(75, -1);
+				c.getPacketSender().closeAllWindows();
+				c.getDialogueHandler().sendStatement("You arrive safely.");
+				c.nextChat = 0;
 				container.stop();
 			}
 			@Override

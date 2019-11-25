@@ -1,19 +1,19 @@
 package com.rebotted.game.objects.impl;
 
 import com.rebotted.game.objects.Object;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class AxeInLog {
 
-	public static void pullAxeFromLog(Client client, int x, int y) {
-		if (client.getItemAssistant().freeSlots() <= 0) {
-			client.getPacketSender().sendMessage("Not enough space in your inventory.");
+	public static void pullAxeFromLog(Player player, int x, int y) {
+		if (player.getItemAssistant().freeSlots() <= 0) {
+			player.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return;
 		}
-		client.startAnimation(832);
-		client.getItemAssistant().addItem(1351, 1);
-		client.getPacketSender().sendMessage("You take the axe from the log.");
-		new Object(5582, x, y, client.heightLevel, 2, 10, 5581, 100);
+		player.startAnimation(832);
+		player.getItemAssistant().addItem(1351, 1);
+		player.getPacketSender().sendMessage("You take the axe from the log.");
+		new Object(5582, x, y, player.heightLevel, 2, 10, 5581, 100);
 	}
 
 }

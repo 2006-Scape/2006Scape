@@ -1,40 +1,40 @@
 package com.rebotted.game.content.skills.smithing;
 
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Cleaned by Andrew
- * @author Andrew
+ * @author Andrew (Mr Extremez)
  */
 
 public class Smithing {
 
 	private int addItem, XP, removeItem, removeAmount, makeTimes;
 
-	public void readInput(int levelReq, String type, Client c, int amountToMake) {
+	public void readInput(int levelReq, String type, Player player, int amountToMake) {
 		if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Bronze")) {
-			checkBronze(c, levelReq, amountToMake, type);
+			checkBronze(player, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Iron")) {
-			checkIron(c, levelReq, amountToMake, type);
+			checkIron(player, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Steel")) {
-			checkSteel(c, levelReq, amountToMake, type);
+			checkSteel(player, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Mith")) {
-			checkMith(c, levelReq, amountToMake, type);
+			checkMith(player, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Adam") || ItemAssistant.getItemName(Integer.parseInt(type)).contains("Addy")) {
-			checkAddy(c, levelReq, amountToMake, type);
+			checkAddy(player, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Rune") || ItemAssistant.getItemName(Integer.parseInt(type)).contains("Runite")) {
-			checkRune(c, levelReq, amountToMake, type);
+			checkRune(player, levelReq, amountToMake, type);
 		}
-		if (c.playerRights > 1) {
-			c.getPacketSender().sendMessage("You made item id: " + type + ".");
+		if (player.playerRights > 1) {
+			player.getPacketSender().sendMessage("You made item id: " + type + ".");
 		}
 	}
 
-	private void checkBronze(Client c, int levelReq, int amountToMake, String type) {
-		if (c.tutorialProgress == 20 && !type.equalsIgnoreCase("1205")) {
-			c.getDialogueHandler().sendStatement("You can only make a bronze dagger on this step.");
-			c.nextChat = 0;
+	private void checkBronze(Player player, int levelReq, int amountToMake, String type) {
+		if (player.tutorialProgress == 20 && !type.equalsIgnoreCase("1205")) {
+			player.getDialogueHandler().sendStatement("You can only make a bronze dagger on this step.");
+			player.nextChat = 0;
 			return;
 		}
 		if (type.equalsIgnoreCase("1351") && levelReq >= 1) {
@@ -43,19 +43,19 @@ public class Smithing {
 			removeItem = 2349;
 			removeAmount = 1;
 			makeTimes = amountToMake;
-		} else if (type.equalsIgnoreCase("1205") && levelReq >= 1 && c.tutorialProgress > 20) {
+		} else if (type.equalsIgnoreCase("1205") && levelReq >= 1 && player.tutorialProgress > 20) {
 			XP = 13;
 			addItem = 1205;
 			removeItem = 2349;
 			removeAmount = 1;
 			makeTimes = amountToMake;
-		} else if (type.equalsIgnoreCase("1205") && levelReq >= 1 && c.tutorialProgress == 20) {
+		} else if (type.equalsIgnoreCase("1205") && levelReq >= 1 && player.tutorialProgress == 20) {
 			XP = 13;
 			addItem = 1205;
 			removeItem = 2349;
 			removeAmount = 1;
 			makeTimes = amountToMake;
-			c.getDialogueHandler().sendDialogues(3066, -1);
+			player.getDialogueHandler().sendDialogues(3066, -1);
 		} else if (type.equals("1422") && levelReq >= 2) {
 			XP = 13;
 			addItem = 1422;
@@ -175,14 +175,14 @@ public class Smithing {
 			removeItem = 2349;
 			removeAmount = 5;
 			makeTimes = amountToMake;
-		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getPacketSender().sendMessage("You need " + levelReq + " smithing to do this!");
+		} else if (player.playerLevel[player.playerSmithing] < levelReq) {
+			player.getPacketSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
-		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
+		smithItem(player, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void checkIron(Client c, int levelReq, int amountToMake, String type) {
+	private void checkIron(Player c, int levelReq, int amountToMake, String type) {
 		removeItem = 2351;
 		if (type.equalsIgnoreCase("1349") && levelReq >= 16) { // Axe
 			XP = 25;
@@ -308,7 +308,7 @@ public class Smithing {
 
 	}
 
-	private void checkSteel(Client c, int levelReq, int amountToMake, String type) {
+	private void checkSteel(Player c, int levelReq, int amountToMake, String type) {
 		removeItem = 2353;
 		if (type.equalsIgnoreCase("1353") && levelReq >= 31) { // Axe
 			XP = 38;
@@ -433,7 +433,7 @@ public class Smithing {
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void checkMith(Client c, int levelReq, int amountToMake, String type) {
+	private void checkMith(Player c, int levelReq, int amountToMake, String type) {
 		removeItem = 2359;
 		if (type.equalsIgnoreCase("1355") && levelReq >= 51) { // Axe
 			XP = 50;
@@ -552,7 +552,7 @@ public class Smithing {
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void checkAddy(Client c, int levelReq, int amountToMake, String type) {
+	private void checkAddy(Player c, int levelReq, int amountToMake, String type) {
 		removeItem = 2361;
 		if (type.equalsIgnoreCase("1357") && levelReq >= 71) { // Axe
 			XP = 63;
@@ -671,7 +671,7 @@ public class Smithing {
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	private void checkRune(Client c, int levelReq, int amountToMake, String type) {
+	private void checkRune(Player c, int levelReq, int amountToMake, String type) {
 		removeItem = 2363;
 		if (type.equalsIgnoreCase("1359") && levelReq >= 86) { // Axe
 			XP = 75;
@@ -790,7 +790,7 @@ public class Smithing {
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	public boolean smithItem(Client c, int addItem, int removeItem,
+	public boolean smithItem(Player c, int addItem, int removeItem,
 			int removeItem2, int timesToMake, int XP) {
 		int makeTimes = timesToMake;
 		c.getPacketSender().closeAllWindows();

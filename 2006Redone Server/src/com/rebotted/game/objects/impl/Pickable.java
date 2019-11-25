@@ -5,11 +5,11 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.music.sound.SoundList;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Pickables
- * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class Pickable {
@@ -22,7 +22,7 @@ public class Pickable {
 			{ 3366, 1957 }, // Onion
 	};
 
-	public static void pickObject(final Client player, final int objectType, final int objectX, final int objectY) {
+	public static void pickObject(final Player player, final int objectType, final int objectX, final int objectY) {
 		if (player.miscTimer + 1800 > System.currentTimeMillis()) {
 			return;
 		}
@@ -39,7 +39,7 @@ public class Pickable {
 			player.startAnimation(827);
 			if (objectType == 2646 && random(3) == 0 || objectType != 2646) {
 				if (player.outStream != null) {
-					GameEngine.objectHandler.createAnObject(player, -1, objectX, objectY);
+					GameEngine.objectHandler.createAnObject(-1, objectX, objectY);
 					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -48,7 +48,7 @@ public class Pickable {
 						@Override
 						public void stop() {
 							if (player.outStream != null) {
-								GameEngine.objectHandler.createAnObject(player,objectType, objectX, objectY);
+								GameEngine.objectHandler.createAnObject(objectType, objectX, objectY);
 							}
 						}
 					}, 5);

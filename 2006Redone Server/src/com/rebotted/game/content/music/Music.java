@@ -1,6 +1,6 @@
 package com.rebotted.game.content.music;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -139,7 +139,7 @@ public class Music {
 	 * @param c
 	 *            Client.
 	 */
-	public static void checkMusic(Client c) {
+	public static void checkMusic(Player c) {
 		for (int[] aMUSIC_DATA : MUSIC_DATA) {
 			if (c.getX() / 64 == aMUSIC_DATA[0]
 					&& c.getY() / 64 == aMUSIC_DATA[1]/*
@@ -162,23 +162,23 @@ public class Music {
 	/**
 	 * Checks which song is played in which region.
 	 * 
-	 * @param player
+	 * @param c
 	 *            the player.
 	 */
-	public static void playMusic(Client player) {
+	public static void playMusic(Player c) {
 		for (int[] aMUSIC_DATA : MUSIC_DATA) {
-			if (player.getX() / 64 == aMUSIC_DATA[0]
-					&& player.getY() / 64 == aMUSIC_DATA[1]/*
+			if (c.getX() / 64 == aMUSIC_DATA[0]
+					&& c.getY() / 64 == aMUSIC_DATA[1]/*
 															 * && player .
 															 * getPlayList ( ) .
 															 * auto
 															 */) {
-				if (player.getTemporary("CURRENT_SONG") == null
-						|| (Integer) player.getTemporary("CURRENT_SONG") != aMUSIC_DATA[2]) {
-					player.getPlayList();
-					if (player.getPlayList().auto) {
-						player.addTemporary("CURRENT_SONG", aMUSIC_DATA[2]);
-						player.getPacketSender().sendSong(aMUSIC_DATA[2]);
+				if (c.getTemporary("CURRENT_SONG") == null
+						|| (Integer) c.getTemporary("CURRENT_SONG") != aMUSIC_DATA[2]) {
+					c.getPlayList();
+					if (c.getPlayList().auto) {
+						c.addTemporary("CURRENT_SONG", aMUSIC_DATA[2]);
+						c.getPacketSender().sendSong(aMUSIC_DATA[2]);
 					}
 					int[] edgeVilleSongs = { 98, 111, 127, 157, 106 };
 					int toPlay = Misc.random(4);
@@ -201,7 +201,7 @@ public class Music {
 					 * aMUSIC_DATA[1] == 50) { aMUSIC_DATA[2] =
 					 * battlefield[randomSong]; }
 					 */
-					player.getPlayList().playSong(aMUSIC_DATA[2]);
+					c.getPlayList().playSong(aMUSIC_DATA[2]);
 				}
 			}
 		}

@@ -2,8 +2,7 @@ package com.rebotted.game.content;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -19,10 +18,10 @@ public class BankPin {
 
 	public int recovery_Delay = 3;
 
-	private final Client client;
+	private final Player client;
 
-	public BankPin(Client client) {
-		this.client = client;
+	public BankPin(Player player) {
+		this.client = player;
 	}
 
 	public int allowTimer = 2000000;

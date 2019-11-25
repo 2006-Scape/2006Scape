@@ -4,7 +4,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Tom
@@ -16,7 +16,7 @@ public class Pottery {
 	public static int Fire = 899;
 	public static int softClay = 1761;
 
-	public static void showUnfire(Client c) {
+	public static void showUnfire(Player c) {
 		c.getPacketSender().sendChatInterface(8938);
 		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
 		c.getPacketSender().sendFrame246(8941, 120, 1787); // first
@@ -32,7 +32,7 @@ public class Pottery {
 		c.showedUnfire = true;
 	}
 
-	public static void showFire(Client c) {
+	public static void showFire(Player c) {
 		c.getPacketSender().sendChatInterface(8938);
 		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
 		c.getPacketSender().sendFrame246(8941, 120, 1931); // first
@@ -48,7 +48,7 @@ public class Pottery {
 		c.showedFire = true;
 	}
 
-	public static void makeUnfire(final Client c, final int id,
+	public static void makeUnfire(final Player c, final int id,
 			final double xp, final int level, int amount) {
 		c.getPacketSender().closeAllWindows();
 		c.doAmount = amount;
@@ -112,68 +112,68 @@ public class Pottery {
 		}, 3);
 	}
 
-	public static void makeFire(final Client c, final int startId,
+	public static void makeFire(final Player player, final int startId,
 			final int finishId, final int level, final double xp, int amount) {
-		c.getPacketSender().closeAllWindows();
-		c.doAmount = amount;
-		c.isPotCrafting = true;
-		if (c.getItemAssistant().playerHasItem(startId)
-				&& c.playerLevel[12] >= level && c.isPotCrafting == true) {
-			c.getItemAssistant().deleteItem(startId, 1);
-			c.getItemAssistant().addItem(finishId, 1);
-			c.startAnimation(Fire);
-			c.getPacketSender().sendSound(469, 100, 0);
-			c.getPacketSender().sendMessage(
+		player.getPacketSender().closeAllWindows();
+		player.doAmount = amount;
+		player.isPotCrafting = true;
+		if (player.getItemAssistant().playerHasItem(startId)
+				&& player.playerLevel[12] >= level && player.isPotCrafting == true) {
+			player.getItemAssistant().deleteItem(startId, 1);
+			player.getItemAssistant().addItem(finishId, 1);
+			player.startAnimation(Fire);
+			player.getPacketSender().sendSound(469, 100, 0);
+			player.getPacketSender().sendMessage(
 					"You put a " + ItemAssistant.getItemName(startId)
 							+ " into the oven.");
-			c.getPacketSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You retrieve the " + ItemAssistant.getItemName(finishId)
 							+ " from the oven.");
-			c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
-			c.doAmount--;
+			player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
+			player.doAmount--;
 		}
 
-		if (c.playerLevel[12] < level) {
-			c.getPacketSender().sendMessage(
+		if (player.playerLevel[12] < level) {
+			player.getPacketSender().sendMessage(
 					"You need a crafting level of " + level + " to make this.");
 		}
 
-		if (!c.getItemAssistant().playerHasItem(startId)
-				&& c.playerLevel[12] >= level) {
-			c.getPacketSender().sendMessage(
+		if (!player.getItemAssistant().playerHasItem(startId)
+				&& player.playerLevel[12] >= level) {
+			player.getPacketSender().sendMessage(
 					"You need an " + ItemAssistant.getItemName(startId)
 							+ " to do this.");
 		}
 
-		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (c.getItemAssistant().playerHasItem(startId)
-						&& c.playerLevel[12] >= level
-						&& c.isPotCrafting == true && !(c.doAmount <= 0)) {
-					c.getItemAssistant().deleteItem(startId, 1);
-					c.getItemAssistant().addItem(finishId, 1);
-					c.startAnimation(Fire);
-					c.getPacketSender().sendSound(469, 100, 0);
-					c.getPacketSender().sendMessage(
+				if (player.getItemAssistant().playerHasItem(startId)
+						&& player.playerLevel[12] >= level
+						&& player.isPotCrafting == true && !(player.doAmount <= 0)) {
+					player.getItemAssistant().deleteItem(startId, 1);
+					player.getItemAssistant().addItem(finishId, 1);
+					player.startAnimation(Fire);
+					player.getPacketSender().sendSound(469, 100, 0);
+					player.getPacketSender().sendMessage(
 							"You put a " + ItemAssistant.getItemName(startId)
 									+ " into the oven.");
-					c.getPacketSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"You retrieve the "
 									+ ItemAssistant.getItemName(finishId)
 									+ " from the oven.");
-					c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
-					c.doAmount--;
+					player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
+					player.doAmount--;
 				}
 
-				if (c.isPotCrafting == false
-						|| !c.getItemAssistant().playerHasItem(startId)
-						|| c.playerLevel[12] < level) {
+				if (player.isPotCrafting == false
+						|| !player.getItemAssistant().playerHasItem(startId)
+						|| player.playerLevel[12] < level) {
 					container.stop();
 				}
 
-				if (c.doAmount <= 0) {
+				if (player.doAmount <= 0) {
 					container.stop();
 				}
 
@@ -181,8 +181,8 @@ public class Pottery {
 
 			@Override
 			public void stop() {
-				c.isPotCrafting = false;
-				c.startAnimation(65535);
+				player.isPotCrafting = false;
+				player.startAnimation(65535);
 			}
 		}, 5);
 	}

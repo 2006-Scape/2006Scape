@@ -5,20 +5,19 @@ import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.items.impl.LightSources;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
- * Climbing handles stairs, ladders, trapdoors
- * 
- * @author Andrew
+ * Climbing handles stairs, ladders
+ * @author Andrew (Mr Extremez)
  */
 
 public class Climbing {
 
 	private static final int CLIMB_UP = 828, CLIMB_DOWN = CLIMB_UP;
 
-	public static void handleClimbing(final Client client) {
+	public static void handleClimbing(final Player client) {
 		if (System.currentTimeMillis() - client.climbDelay < 1200) {
 			return;
 		}
@@ -40,7 +39,7 @@ public class Climbing {
 		}, 1);
 	}
 
-	public static void processClimbing(Client client) {
+	public static void processClimbing(Player client) {
 		int chapionsGuildRequiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
 		switch (client.objectId) {
 		case 9584:
@@ -654,99 +653,99 @@ public class Climbing {
 		}
 	}
 
-	public static void climbUp(Client client) {
-		if (System.currentTimeMillis() - client.climbDelay < 1200) {
+	public static void climbUp(Player player) {
+		if (System.currentTimeMillis() - player.climbDelay < 1200) {
 			return;
 		}
 
-		switch (client.heightLevel) {
+		switch (player.heightLevel) {
 		case -1:
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 0);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb up.");
-			client.startAnimation(CLIMB_UP);
-			client.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 0);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb up.");
+			player.startAnimation(CLIMB_UP);
+			player.getPacketSender().closeAllWindows();
 			break;
 		case 0:
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 1);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb up.");
-			client.startAnimation(CLIMB_UP);
-			client.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 1);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb up.");
+			player.startAnimation(CLIMB_UP);
+			player.getPacketSender().closeAllWindows();
 			break;
 		case 1:
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 2);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb up.");
-			client.startAnimation(CLIMB_UP);
-			client.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 2);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb up.");
+			player.startAnimation(CLIMB_UP);
+			player.getPacketSender().closeAllWindows();
 			break;
 		case 2:
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 3);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb up.");
-			client.startAnimation(CLIMB_UP);
-			client.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 3);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb up.");
+			player.startAnimation(CLIMB_UP);
+			player.getPacketSender().closeAllWindows();
 			break;
 		default:
-			if (client.heightLevel > 3) {
-				climbDown(client);
+			if (player.heightLevel > 3) {
+				climbDown(player);
 			}
-			client.getPacketSender().sendMessage("This object is currently not supported.");
-			System.out.println("Bug detected with climbing up object " + client.objectId + " objectX " + client.objectX + " objectY " + client.objectY + ".");
+			player.getPacketSender().sendMessage("This object is currently not supported.");
+			System.out.println("Bug detected with climbing up object " + player.objectId + " objectX " + player.objectX + " objectY " + player.objectY + ".");
 			break;
 		}
 	}
 
-	public static void climbDown(Client client) {
-		if (System.currentTimeMillis() - client.climbDelay < 1200) {
+	public static void climbDown(Player player) {
+		if (System.currentTimeMillis() - player.climbDelay < 1200) {
 			return;
 		}
-		if (client.heightLevel > 3) {
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 3);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb down.");
-			client.startAnimation(CLIMB_DOWN);
-			client.getPacketSender().closeAllWindows();
+		if (player.heightLevel > 3) {
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 3);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb down.");
+			player.startAnimation(CLIMB_DOWN);
+			player.getPacketSender().closeAllWindows();
 		}
-		switch (client.heightLevel) {
+		switch (player.heightLevel) {
 		case 1:
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 0);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb down.");
-			client.startAnimation(CLIMB_DOWN);
-			client.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 0);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb down.");
+			player.startAnimation(CLIMB_DOWN);
+			player.getPacketSender().closeAllWindows();
 			break;
 		case 2:
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 1);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb down.");
-			client.startAnimation(CLIMB_DOWN);
-			client.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 1);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb down.");
+			player.startAnimation(CLIMB_DOWN);
+			player.getPacketSender().closeAllWindows();
 			break;
 		case 3:
-			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 2);
-			client.climbDelay = System.currentTimeMillis();
-			client.getPacketSender().sendMessage("You climb down.");
-			client.startAnimation(CLIMB_DOWN);
-			client.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().movePlayer(player.absX, player.absY, 2);
+			player.climbDelay = System.currentTimeMillis();
+			player.getPacketSender().sendMessage("You climb down.");
+			player.startAnimation(CLIMB_DOWN);
+			player.getPacketSender().closeAllWindows();
 			break;
 		default:
-			if (client.heightLevel < 0) {
-				climbUp(client);
+			if (player.heightLevel < 0) {
+				climbUp(player);
 			}
-			client.getPacketSender().sendMessage("This object is currently not supported.");
-			System.out.println("Bug detected with climbing down object " + client.objectId + " objectX " + client.objectX + " objectY " + client.objectY + ".");
+			player.getPacketSender().sendMessage("This object is currently not supported.");
+			System.out.println("Bug detected with climbing down object " + player.objectId + " objectX " + player.objectX + " objectY " + player.objectY + ".");
 			break;
 		}
 	}
 
-	public static void handleLadder(Client client) {
-		client.getDialogueHandler().sendOption2("Climb Up.", "Climb Down.");
-		client.dialogueAction = 147;
+	public static void handleLadder(Player player) {
+		player.getDialogueHandler().sendOption2("Climb Up.", "Climb Down.");
+		player.dialogueAction = 147;
 	}
 
-	private static void close(Client client, int actionButtonId) {
+	private static void close(Player client, int actionButtonId) {
 		if (actionButtonId == 9157) {
 			client.getPacketSender().sendMessage("You climb up.");
 			client.startAnimation(CLIMB_UP);
@@ -758,7 +757,7 @@ public class Climbing {
 		client.nextChat = 0;
 	}
 
-	public static void handleLadderButtons(Client client, int actionButtonId) {
+	public static void handleLadderButtons(Player client, int actionButtonId) {
 		if (client.dialogueAction != 147) {
 			return;
 		}

@@ -5,7 +5,7 @@ import com.rebotted.game.content.skills.core.Fishing;
 import com.rebotted.game.content.skills.crafting.Tanning;
 import com.rebotted.game.content.skills.thieving.Pickpocket;
 import com.rebotted.game.content.traveling.Sailing;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerAssistant;
 import com.rebotted.game.shops.ShopAssistant;
 import com.rebotted.game.shops.Shops;
@@ -13,10 +13,10 @@ import com.rebotted.util.Misc;
 
 public class NpcActions {
 
-	private final Client c;
+	private final Player c;
 
-	public NpcActions(Client Client) {
-		c = Client;
+	public NpcActions(Player player) {
+		c = player;
 	}
 
 	public void firstClickNpc(int npcType) {

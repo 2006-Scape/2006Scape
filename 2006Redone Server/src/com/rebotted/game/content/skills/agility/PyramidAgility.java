@@ -3,14 +3,14 @@ package com.rebotted.game.content.skills.agility;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class PyramidAgility {
 
-	private final Client c;
+	private final Player c;
 
-	public PyramidAgility(Client c) {
-		this.c = c;
+	public PyramidAgility(Player player) {
+		this.c = player;
 	}
 
 	public static final int PYRAMID_STAIRCE_OBJECT = 10857,
@@ -18,9 +18,7 @@ public class PyramidAgility {
 			PYRAMID_GAP_OBJECT = 10863, PYRAMID_GAP_2 = 10885,
 			PYRAMID_GAP_3 = 10859, PYRAMID_GAP_4 = 10883,
 			PYRAMID_GAP_5 = 10862, LEDGE = 10860, LEDGE_2 = 10886,
-			LEDGE_3 = 10888, PYRAMID_ROCKS = 10852; // pyramid
-													// course
-													// objects
+			LEDGE_3 = 10888, PYRAMID_ROCKS = 10852; 
 
 	public boolean pyramidCourse(int objectId) {
 		switch (objectId) {

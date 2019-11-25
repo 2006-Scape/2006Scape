@@ -1,7 +1,7 @@
 package com.rebotted.game.content.skills.fletching;
 
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Tom
@@ -11,7 +11,7 @@ public class LogCuttingInterface {
 
 	public static int log;
 
-	public static void handleLog(Client c, int item1, int item2) {
+	public static void handleLog(Player c, int item1, int item2) {
 		if (item1 == 946) {
 			fletchInterface(c, item2);
 		} else {
@@ -19,7 +19,7 @@ public class LogCuttingInterface {
 		}
 	}
 
-	public static void fletchInterface(Client c, int item) {
+	public static void fletchInterface(Player c, int item) {
 		if (c.playerIsFletching == true && (item > 1510 && item < 1522)) {
 			LogCutting.resetFletching(c);
 			return;
@@ -76,9 +76,9 @@ public class LogCuttingInterface {
 		c.playerIsFletching = true;
 	}
 
-	public static void handleItemOnItem(Client c, int itemUsed, int useWith) {
+	public static void handleItemOnItem(Player player, int itemUsed, int useWith) {
 		if (itemUsed == 946 || useWith == 946) {
-			handleLog(c, itemUsed, useWith);
+			handleLog(player, itemUsed, useWith);
 		}
 	}
 }

@@ -2,7 +2,7 @@ package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.items.impl.HandleEmpty;
 import com.rebotted.game.items.impl.Teles;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
 
@@ -15,7 +15,7 @@ import com.rebotted.util.Misc;
 public class ItemClick3 implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		int itemId11 = player.getInStream().readSignedWordBigEndianA();
 		int itemId1 = player.getInStream().readSignedWordA();
 		int itemId = player.getInStream().readSignedWordA();

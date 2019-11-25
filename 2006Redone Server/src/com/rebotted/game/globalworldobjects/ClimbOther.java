@@ -2,7 +2,7 @@ package com.rebotted.game.globalworldobjects;
 
 import com.rebotted.game.objects.Object;
 import com.rebotted.game.objects.ObjectDefaults;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.world.clip.ObjectDef;
 import com.rebotted.world.clip.Region;
 
@@ -30,7 +30,7 @@ public class ClimbOther {
 		}
 	}
 
-	public static void handleOpenOther(Client player, int objectType) {
+	public static void handleOpenOther(Player player, int objectType) {
 		for (ClimbData t: ClimbData.values()) {
 			if (objectType == t.getClosed()) {
 				new Object(t.getOpen(), player.objectX, player.objectY, player.heightLevel, ObjectDefaults.getObjectFace(player, t.getClosed()), 10, t.getClosed(), 100);
@@ -39,7 +39,7 @@ public class ClimbOther {
 		}
 	}
 	
-	public static void useOther(Client player, int objectType) {
+	public static void useOther(Player player, int objectType) {
 		final String objectName = ObjectDef.getObjectDef(objectType).name;
 		if (System.currentTimeMillis() - player.climbDelay < 1800) {
 			return;

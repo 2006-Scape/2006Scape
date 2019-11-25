@@ -3,6 +3,7 @@ package com.rebotted.world.clip;
 import java.util.LinkedList;
 
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class PathFinder {
@@ -13,14 +14,14 @@ public class PathFinder {
 		return pathFinder;
 	}
 
-	public void findRoute(Client c, int destX, int destY, boolean moveNear,
+	public void findRoute(Player player, int destX, int destY, boolean moveNear,
 			int xLength, int yLength) {
-		if (destX == c.getLocalX() && destY == c.getLocalY() && !moveNear) {
-			c.getPacketSender().sendMessage("ERROR!");
+		if (destX == player.getLocalX() && destY == player.getLocalY() && !moveNear) {
+			player.getPacketSender().sendMessage("ERROR!");
 			return;
 		}
-		destX = destX - 8 * c.getMapRegionX();
-		destY = destY - 8 * c.getMapRegionY();
+		destX = destX - 8 * player.getMapRegionX();
+		destY = destY - 8 * player.getMapRegionY();
 		int[][] via = new int[104][104];
 		int[][] cost = new int[104][104];
 		LinkedList<Integer> tileQueueX = new LinkedList<Integer>();
@@ -30,8 +31,8 @@ public class PathFinder {
 				cost[xx][yy] = 99999999;
 			}
 		}
-		int curX = c.getLocalX();
-		int curY = c.getLocalY();
+		int curX = player.getLocalX();
+		int curY = player.getLocalY();
 		via[curX][curY] = 99;
 		cost[curX][curY] = 0;
 		int tail = 0;
@@ -42,8 +43,8 @@ public class PathFinder {
 		while (tail != tileQueueX.size() && tileQueueX.size() < pathLength) {
 			curX = tileQueueX.get(tail);
 			curY = tileQueueY.get(tail);
-			int curAbsX = c.getMapRegionX() * 8 + curX;
-			int curAbsY = c.getMapRegionY() * 8 + curY;
+			int curAbsX = player.getMapRegionX() * 8 + curX;
+			int curAbsY = player.getMapRegionY() * 8 + curY;
 			if (curX == destX && curY == destY) {
 				foundPath = true;
 				break;
@@ -52,7 +53,7 @@ public class PathFinder {
 			int thisCost = cost[curX][curY] + 1;
 			if (curY > 0
 					&& via[curX][curY - 1] == 0
-					&& (Region.getClipping(curAbsX, curAbsY - 1, c.heightLevel) & 0x1280102) == 0) {
+					&& (Region.getClipping(curAbsX, curAbsY - 1, player.heightLevel) & 0x1280102) == 0) {
 				tileQueueX.add(curX);
 				tileQueueY.add(curY - 1);
 				via[curX][curY - 1] = 1;
@@ -60,7 +61,7 @@ public class PathFinder {
 			}
 			if (curX > 0
 					&& via[curX - 1][curY] == 0
-					&& (Region.getClipping(curAbsX - 1, curAbsY, c.heightLevel) & 0x1280108) == 0) {
+					&& (Region.getClipping(curAbsX - 1, curAbsY, player.heightLevel) & 0x1280108) == 0) {
 				tileQueueX.add(curX - 1);
 				tileQueueY.add(curY);
 				via[curX - 1][curY] = 2;
@@ -68,7 +69,7 @@ public class PathFinder {
 			}
 			if (curY < 104 - 1
 					&& via[curX][curY + 1] == 0
-					&& (Region.getClipping(curAbsX, curAbsY + 1, c.heightLevel) & 0x1280120) == 0) {
+					&& (Region.getClipping(curAbsX, curAbsY + 1, player.heightLevel) & 0x1280120) == 0) {
 				tileQueueX.add(curX);
 				tileQueueY.add(curY + 1);
 				via[curX][curY + 1] = 4;
@@ -76,7 +77,7 @@ public class PathFinder {
 			}
 			if (curX < 104 - 1
 					&& via[curX + 1][curY] == 0
-					&& (Region.getClipping(curAbsX + 1, curAbsY, c.heightLevel) & 0x1280180) == 0) {
+					&& (Region.getClipping(curAbsX + 1, curAbsY, player.heightLevel) & 0x1280180) == 0) {
 				tileQueueX.add(curX + 1);
 				tileQueueY.add(curY);
 				via[curX + 1][curY] = 8;
@@ -86,9 +87,9 @@ public class PathFinder {
 					&& curY > 0
 					&& via[curX - 1][curY - 1] == 0
 					&& (Region.getClipping(curAbsX - 1, curAbsY - 1,
-							c.heightLevel) & 0x128010e) == 0
-					&& (Region.getClipping(curAbsX - 1, curAbsY, c.heightLevel) & 0x1280108) == 0
-					&& (Region.getClipping(curAbsX, curAbsY - 1, c.heightLevel) & 0x1280102) == 0) {
+							player.heightLevel) & 0x128010e) == 0
+					&& (Region.getClipping(curAbsX - 1, curAbsY, player.heightLevel) & 0x1280108) == 0
+					&& (Region.getClipping(curAbsX, curAbsY - 1, player.heightLevel) & 0x1280102) == 0) {
 				tileQueueX.add(curX - 1);
 				tileQueueY.add(curY - 1);
 				via[curX - 1][curY - 1] = 3;
@@ -98,9 +99,9 @@ public class PathFinder {
 					&& curY < 104 - 1
 					&& via[curX - 1][curY + 1] == 0
 					&& (Region.getClipping(curAbsX - 1, curAbsY + 1,
-							c.heightLevel) & 0x1280138) == 0
-					&& (Region.getClipping(curAbsX - 1, curAbsY, c.heightLevel) & 0x1280108) == 0
-					&& (Region.getClipping(curAbsX, curAbsY + 1, c.heightLevel) & 0x1280120) == 0) {
+							player.heightLevel) & 0x1280138) == 0
+					&& (Region.getClipping(curAbsX - 1, curAbsY, player.heightLevel) & 0x1280108) == 0
+					&& (Region.getClipping(curAbsX, curAbsY + 1, player.heightLevel) & 0x1280120) == 0) {
 				tileQueueX.add(curX - 1);
 				tileQueueY.add(curY + 1);
 				via[curX - 1][curY + 1] = 6;
@@ -110,9 +111,9 @@ public class PathFinder {
 					&& curY > 0
 					&& via[curX + 1][curY - 1] == 0
 					&& (Region.getClipping(curAbsX + 1, curAbsY - 1,
-							c.heightLevel) & 0x1280183) == 0
-					&& (Region.getClipping(curAbsX + 1, curAbsY, c.heightLevel) & 0x1280180) == 0
-					&& (Region.getClipping(curAbsX, curAbsY - 1, c.heightLevel) & 0x1280102) == 0) {
+							player.heightLevel) & 0x1280183) == 0
+					&& (Region.getClipping(curAbsX + 1, curAbsY, player.heightLevel) & 0x1280180) == 0
+					&& (Region.getClipping(curAbsX, curAbsY - 1, player.heightLevel) & 0x1280102) == 0) {
 				tileQueueX.add(curX + 1);
 				tileQueueY.add(curY - 1);
 				via[curX + 1][curY - 1] = 9;
@@ -122,9 +123,9 @@ public class PathFinder {
 					&& curY < 104 - 1
 					&& via[curX + 1][curY + 1] == 0
 					&& (Region.getClipping(curAbsX + 1, curAbsY + 1,
-							c.heightLevel) & 0x12801e0) == 0
-					&& (Region.getClipping(curAbsX + 1, curAbsY, c.heightLevel) & 0x1280180) == 0
-					&& (Region.getClipping(curAbsX, curAbsY + 1, c.heightLevel) & 0x1280120) == 0) {
+							player.heightLevel) & 0x12801e0) == 0
+					&& (Region.getClipping(curAbsX + 1, curAbsY, player.heightLevel) & 0x1280180) == 0
+					&& (Region.getClipping(curAbsX, curAbsY + 1, player.heightLevel) & 0x1280120) == 0) {
 				tileQueueX.add(curX + 1);
 				tileQueueY.add(curY + 1);
 				via[curX + 1][curY + 1] = 12;
@@ -174,8 +175,8 @@ public class PathFinder {
 		tileQueueX.set(tail, curX);
 		tileQueueY.set(tail++, curY);
 		int l5;
-		for (int j5 = l5 = via[curX][curY]; curX != c.getLocalX()
-				|| curY != c.getLocalY(); j5 = via[curX][curY]) {
+		for (int j5 = l5 = via[curX][curY]; curX != player.getLocalX()
+				|| curY != player.getLocalY(); j5 = via[curX][curY]) {
 			if (j5 != l5) {
 				l5 = j5;
 				tileQueueX.set(tail, curX);
@@ -192,18 +193,18 @@ public class PathFinder {
 				curY--;
 			}
 		}
-		c.resetWalkingQueue();
+		player.resetWalkingQueue();
 		int size = tail--;
-		int pathX = c.getMapRegionX() * 8 + tileQueueX.get(tail);
-		int pathY = c.getMapRegionY() * 8 + tileQueueY.get(tail);
-		c.addToWalkingQueue(localize(pathX, c.getMapRegionX()),
-				localize(pathY, c.getMapRegionY()));
+		int pathX = player.getMapRegionX() * 8 + tileQueueX.get(tail);
+		int pathY = player.getMapRegionY() * 8 + tileQueueY.get(tail);
+		player.addToWalkingQueue(localize(pathX, player.getMapRegionX()),
+				localize(pathY, player.getMapRegionY()));
 		for (int i = 1; i < size; i++) {
 			tail--;
-			pathX = c.getMapRegionX() * 8 + tileQueueX.get(tail);
-			pathY = c.getMapRegionY() * 8 + tileQueueY.get(tail);
-			c.addToWalkingQueue(localize(pathX, c.getMapRegionX()),
-					localize(pathY, c.getMapRegionY()));
+			pathX = player.getMapRegionX() * 8 + tileQueueX.get(tail);
+			pathY = player.getMapRegionY() * 8 + tileQueueY.get(tail);
+			player.addToWalkingQueue(localize(pathX, player.getMapRegionX()),
+					localize(pathY, player.getMapRegionY()));
 		}
 	}
 

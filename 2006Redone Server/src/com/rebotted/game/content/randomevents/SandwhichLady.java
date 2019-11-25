@@ -1,13 +1,13 @@
 package com.rebotted.game.content.randomevents;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class SandwhichLady {
 	
 	private static int itemType;
 	
-	public static void handleOptions(Client player, int actionbuttonId) {
+	public static void handleOptions(Player player, int actionbuttonId) {
 		if (player.hasSandwhichLady) {
 		switch (actionbuttonId) {
 		case 63013:
@@ -114,44 +114,44 @@ public class SandwhichLady {
 		}
 	}
 
-	public static void openSandwhichLady(Client player) {
-		player.hasSandwhichLady = true;
-		player.getPacketSender().sendFrame126(" ", 16131);
-		player.getPacketSender().showInterface(16135);
+	public static void openSandwhichLady(Player c) {
+		c.hasSandwhichLady = true;
+		c.getPacketSender().sendFrame126(" ", 16131);
+		c.getPacketSender().showInterface(16135);
 		int randomMessage = Misc.random(6);
 		switch (randomMessage) {
 		case 0:
-			player.getPacketSender().sendFrame126("Please select the pie.",
+			c.getPacketSender().sendFrame126("Please select the pie.",
 					16145);
 			itemType = 0;
 			break;
 		case 1:
-			player.getPacketSender().sendFrame126("Please select the kebab.",
+			c.getPacketSender().sendFrame126("Please select the kebab.",
 					16145);
 			itemType = 1;
 			break;
 		case 2:
-			player.getPacketSender().sendFrame126(
+			c.getPacketSender().sendFrame126(
 					"Please select the chocolate.", 16145);
 			itemType = 2;
 			break;
 		case 3:
-			player.getPacketSender().sendFrame126("Please select the bagel.",
+			c.getPacketSender().sendFrame126("Please select the bagel.",
 					16145);
 			itemType = 3;
 			break;
 		case 4:
-			player.getPacketSender().sendFrame126(
+			c.getPacketSender().sendFrame126(
 					"Please select the triangle sandwich.", 16145);
 			itemType = 4;
 			break;
 		case 5:
-			player.getPacketSender().sendFrame126(
+			c.getPacketSender().sendFrame126(
 					"Please select the square sandwich.", 16145);
 			itemType = 5;
 			break;
 		case 6:
-			player.getPacketSender().sendFrame126("Please select the bread.",
+			c.getPacketSender().sendFrame126("Please select the bread.",
 					16145);
 			itemType = 6;
 			break;

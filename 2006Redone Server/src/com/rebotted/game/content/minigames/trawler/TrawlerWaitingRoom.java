@@ -1,7 +1,7 @@
 package com.rebotted.game.content.minigames.trawler;
  
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Location;
+import com.rebotted.game.players.Player;
  
 public class TrawlerWaitingRoom extends WaitingRoom {
  
@@ -29,14 +29,8 @@ public class TrawlerWaitingRoom extends WaitingRoom {
         @Override
         public void onStart() {
                 trawler.players.clear();
-                /*for(Iterator<Player> i = waiting.iterator(); i.hasNext();) {
-                    Player p = i.next();
-                    if(!boat.playerInArea(p)) {
-                        i.remove(); // Allowed with an iterator
-                    }
-                }*/
        
-                for(Client p : waiting) {
+                for(Player p : waiting) {
                         trawler.players.add(p);
                 }
                
@@ -45,14 +39,12 @@ public class TrawlerWaitingRoom extends WaitingRoom {
         }
  
         @Override
-        public void onLeave(Client p) {
-                //p.asClient().getPA().movePlayer(2804, 3421, 0);
+        public void onLeave(Player p) {
                 p.asClient().getPlayerAssistant().movePlayer(2676, 3170, 0);
         }
  
         @Override
-        public void onJoin(Client p) {
-                //p.asClient().getPA().movePlayer(2808, 3421, 1);
+        public void onJoin(Player p) {
                 p.getPlayerAssistant().movePlayer(2672, 3170, 1);
                 if(!isActive()) {
                         p.getPacketSender().sendMessage(trawler.getGameTime() == 0 ? "The trawler will be returning in less than a minute!" : "The trawler will return in "+trawler.getGameTime() + (trawler.getGameTime() == 1 ? " minute" : " minutes")+"!");
@@ -67,7 +59,7 @@ public class TrawlerWaitingRoom extends WaitingRoom {
  
         @Override
         public void onTimeChange() {
-                for(Client p : waiting) {
+                for(Player p : waiting) {
                         if(!isActive()) {
                                 p.getPacketSender().sendMessage(trawler.getGameTime() == 0 ? "The trawler will be returning in less than a minute!" : "The trawler will return in "+trawler.getGameTime() + (trawler.getGameTime() == 1 ? " minute" : " minutes")+"!");
                         } else {

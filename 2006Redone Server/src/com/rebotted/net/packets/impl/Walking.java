@@ -5,6 +5,7 @@ import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.content.skills.core.Fishing;
 import com.rebotted.game.content.skills.smithing.Smelting;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.net.packets.PacketType;
 
@@ -14,7 +15,7 @@ import com.rebotted.net.packets.PacketType;
 public class Walking implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		player.getDueling().checkDuelWalk();
 
 		if (player.canChangeAppearance) { //|| c.performingAction) {

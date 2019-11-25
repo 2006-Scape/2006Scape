@@ -6,7 +6,7 @@ import com.rebotted.GameEngine;
 import com.rebotted.game.content.combat.prayer.PrayerDrain;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -26,8 +26,8 @@ public class PestControl {
 	/**
 	 * Hashmap for the players in lobby
 	 */
-	public static HashMap<Client, Integer> waitingBoat = new HashMap<Client, Integer>();
-	private static HashMap<Client, Integer> gamePlayers = new HashMap<Client, Integer>();
+	public static HashMap<Player, Integer> waitingBoat = new HashMap<Player, Integer>();
+	private static HashMap<Player, Integer> gamePlayers = new HashMap<Player, Integer>();
 
 	private static int gameTimer = -1;
 	private static int waitTimer = 60;
@@ -117,7 +117,7 @@ public class PestControl {
 	 * @param player
 	 *            The Player.
 	 */
-	public static void removePlayerGame(Client player) {
+	public static void removePlayerGame(Player player) {
 		if (gamePlayers.containsKey(player)) {
 			player.getPlayerAssistant().movePlayer(2657, 2639, 0);
 			gamePlayers.remove(player);
@@ -125,7 +125,7 @@ public class PestControl {
 	}
 
 	private static void waitBoat() {
-		for (final Client c : waitingBoat.keySet()) {
+		for (final Player c : waitingBoat.keySet()) {
 			if (c != null) {
 				if (gameStarted && isInPcBoat(c)) {
 					c.getPacketSender().sendMessage("Next Departure: " + (waitTimer + gameTimer) / 60 + " minutes");
@@ -137,7 +137,7 @@ public class PestControl {
 	}
 
 	public static void setGameInterface() {
-		for (final Client player : gamePlayers.keySet()) {
+		for (final Player player : gamePlayers.keySet()) {
 			if (player != null) {
 				if (gameTimer > 60) {
 					player.getPacketSender().sendMessage("Time remaining: " + gameTimer / 60 + " minutes");
@@ -201,16 +201,14 @@ public class PestControl {
 		waitTimer = -1;
 		spawnNPC();
 		setGameInterface();
-		for (Client player : waitingBoat.keySet()) {
+		for (Player player : waitingBoat.keySet()) {
 			int team = waitingBoat.get(player);
 			if (player == null) {
 				continue;
 			}
-			player.getPlayerAssistant().movePlayer(2656 + Misc.random3(3),
-					2614 - Misc.random3(4), 0);
+			player.getPlayerAssistant().movePlayer(2656 + Misc.random3(3), 2614 - Misc.random3(4), 0);
 			player.getDialogueHandler().sendDialogues(599, 3790);
-			player.getPacketSender().sendMessage(
-					"The Pest Control Game has begun!");
+			player.getPacketSender().sendMessage("The Pest Control Game has begun!");
 			gamePlayers.put(player, team);
 		}
 
@@ -224,7 +222,7 @@ public class PestControl {
 	 */
 	private static int playersInBoat() {
 		int players = 0;
-		for (Client player : waitingBoat.keySet()) {
+		for (Player player : waitingBoat.keySet()) {
 			if (player != null) {
 				players++;
 			}
@@ -237,12 +235,11 @@ public class PestControl {
 
 	/**
 	 * Checks how many players are in the game
-	 * 
 	 * @return players in the game
 	 */
 	private int playersInGame() {
 		int players = 0;
-		for (Client player : gamePlayers.keySet()) {
+		for (Player player : gamePlayers.keySet()) {
 			if (player != null) {
 				players++;
 			}
@@ -253,14 +250,8 @@ public class PestControl {
 		return players;
 	}
 
-	/**
-	 * Ends the game
-	 * 
-	 * @param won
-	 *            Did you win?
-	 */
 	private void endGame(boolean won) {
-		for (Client player : gamePlayers.keySet()) {
+		for (Player player : gamePlayers.keySet()) {
 			if (player == null) {
 				continue;
 			}
@@ -327,7 +318,7 @@ public class PestControl {
 	 * Cleans the player of any damage, loss they may of received
 	 */
 	private void cleanUpPlayer() {
-		for (Client player : gamePlayers.keySet()) {
+		for (Player player : gamePlayers.keySet()) {
 			player.poisonDamage = 0;
 			PrayerDrain.resetPrayers(player);
 			for (int i = 0; i < 24; i++) {
@@ -375,13 +366,13 @@ public class PestControl {
 	/**
 	 * Moves a player out of the waiting boat
 	 * 
-	 * @param c
+	 * @param player
 	 *            Client c
 	 */
-	public static void leaveWaitingBoat(Client c) {
-		if (waitingBoat.containsKey(c)) {
-			waitingBoat.remove(c);
-			c.getPlayerAssistant().movePlayer(2657, 2639, 0);
+	public static void leaveWaitingBoat(Player player) {
+		if (waitingBoat.containsKey(player)) {
+			waitingBoat.remove(player);
+			player.getPlayerAssistant().movePlayer(2657, 2639, 0);
 		}
 	}
 
@@ -391,7 +382,7 @@ public class PestControl {
 	 * @param player
 	 *            The player
 	 */
-	public static void addToWaitRoom(Client player) {
+	public static void addToWaitRoom(Player player) {
 		if (player != null && player.combatLevel > 39) {
 			waitingBoat.put(player, 1);
 			player.getPacketSender().sendMessage(
@@ -418,7 +409,7 @@ public class PestControl {
 	 *            The player
 	 * @return return
 	 */
-	public static boolean isInGame(Client player) {
+	public static boolean isInGame(Player player) {
 		return gamePlayers.containsKey(player);
 	}
 
@@ -429,7 +420,7 @@ public class PestControl {
 	 *            The player
 	 * @return return
 	 */
-	public static boolean isInPcBoat(Client player) {
+	public static boolean isInPcBoat(Player player) {
 		return waitingBoat.containsKey(player);
 	}
 

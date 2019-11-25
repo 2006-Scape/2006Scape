@@ -1,15 +1,14 @@
 package com.rebotted.game.content;
 
 import java.util.HashMap;
-
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class EmoteHandler {
 
-	private final Client player;
+	private final Player player;
 
-	public EmoteHandler(Client c) {
-		this.player = c;
+	public EmoteHandler(Player player2) {
+		this.player = player2;
 	}
 
 	public Emotes EMOTES = null;

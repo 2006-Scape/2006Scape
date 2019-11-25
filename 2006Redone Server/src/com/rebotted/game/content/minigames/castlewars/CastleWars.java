@@ -2,9 +2,7 @@ package com.rebotted.game.content.minigames.castlewars;
 
 import java.util.HashMap;
 import java.util.Iterator;
-
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
@@ -25,11 +23,11 @@ public class CastleWars {
 	/*
 	 * Hashmap for the waitingroom players
 	 */
-	private static HashMap<Client, Integer> waitingRoom = new HashMap<Client, Integer>();
+	private static HashMap<Player, Integer> waitingRoom = new HashMap<Player, Integer>();
 	/*
 	 * hashmap for the gameRoom players
 	 */
-	private static HashMap<Client, Integer> gameRoom = new HashMap<Client, Integer>();
+	private static HashMap<Player, Integer> gameRoom = new HashMap<Player, Integer>();
 	/*
 	 * The coordinates for the waitingRoom both sara/zammy
 	 */
@@ -66,7 +64,7 @@ public class CastleWars {
 	public static final int SARA_HOOD = 4513;
 	public static final int ZAMMY_HOOD = 4515;
 	
-	public static boolean deleteCastleWarsItems(Client c, int itemId) {
+	public static boolean deleteCastleWarsItems(Player c, int itemId) {
 		int[] items = { 4049, 4045, 4053, 4042, 4041, 4037, 4039, 4043 };
 		for (int item : items) {
 			int amount = c.getItemAssistant().getItemCount(item);
@@ -95,16 +93,16 @@ public class CastleWars {
 	private static int gameStartTimer = GAME_START_TIMER;
 	private static boolean gameStarted = false;
 
-	public static void resetPlayer(Client c) {
-		c.getPlayerAssistant().movePlayer(2440 + Misc.random(3), 3089 - Misc.random(3), 0);
-		deleteGameItems(c);
-		c.getPacketSender().sendMessage("Cheating will not be tolerated.");
+	public static void resetPlayer(Player player) {
+		player.getPlayerAssistant().movePlayer(2440 + Misc.random(3), 3089 - Misc.random(3), 0);
+		deleteGameItems(player);
+		player.getPacketSender().sendMessage("Cheating will not be tolerated.");
 	}
 
 	public static void collapseCave(int cave) {
-		Iterator<Client> iterator = gameRoom.keySet().iterator();
+		Iterator<Player> iterator = gameRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client teamPlayer = iterator.next();
+			Player teamPlayer = iterator.next();
 			if (teamPlayer.absX > COLLAPSE_ROCKS[cave][0]
 					&& teamPlayer.absX < COLLAPSE_ROCKS[cave][1]
 					&& teamPlayer.absY > COLLAPSE_ROCKS[cave][2]
@@ -120,37 +118,37 @@ public class CastleWars {
 	 * Method we use to add someone to the waitinroom in a different method,
 	 * this will filter out some error messages
 	 * 
-	 * @param player
+	 * @param p
 	 *            the player that wants to join
 	 * @param team
 	 *            the team!
 	 */
-	public static void addToWaitRoom(Client player, int team) {
-		if (player == null) {
+	public static void addToWaitRoom(Player p, int team) {
+		if (p == null) {
 			return;
 		} else if (gameStarted == true) {
-			player.getPacketSender()
+			p.getPacketSender()
 					.sendMessage(
 							"There's already a Castle Wars going. Please wait a few minutes before trying again.");
 			return;
-		} else if (player.playerEquipment[player.playerHat] > 0 || player.playerEquipment[player.playerCape] > 0 || player.getItemAssistant().playerHasItem(player.playerCape) || player.getItemAssistant().playerHasItem(player.playerHat)) {
-			player.getPacketSender().sendMessage("You may not bring capes or helmets in castle wars.");
+		} else if (p.playerEquipment[p.playerHat] > 0 || p.playerEquipment[p.playerCape] > 0 || p.getItemAssistant().playerHasItem(p.playerCape) || p.getItemAssistant().playerHasItem(p.playerHat)) {
+			p.getPacketSender().sendMessage("You may not bring capes or helmets in castle wars.");
 			return;
 		}
-		toWaitingRoom(player, team);
+		toWaitingRoom(p, team);
 	}
 
 	/**
 	 * Method we use to transfer to player from the outside to the waitingroom
 	 * (:
 	 * 
-	 * @param player
+	 * @param p
 	 *            the player that wants to join
 	 * @param team
 	 *            team he wants to be in - team = 1 (saradomin), team = 2
 	 *            (zamorak), team = 3 (random)
 	 */
-	public static void toWaitingRoom(Client player, int team) {
+	public static void toWaitingRoom(Player p, int team) {
 		int[] food = { 391, 385, 379, 333, 329, 373, 361, 7946, 397, 1891, 365,
 				339, 1942, 6701, 6705, 7056, 7054, 7058, 7060, 315, 347, 325,
 				1897, 2289, 2293, 2297, 2301, 2309, 2323, 2325, 2327, 351,
@@ -161,52 +159,52 @@ public class CastleWars {
 				2116, 7928, 7929, 7930, 7931, 7932, 7933, 10476, 2130, 2003, 2011,
 				4049};
 		for (int element : food) {
-			if (player.getItemAssistant().playerHasItem(element)) {
-				player.getPacketSender().sendMessage("You may not bring your own consumables inside of Castle Wars.");
+			if (p.getItemAssistant().playerHasItem(element)) {
+				p.getPacketSender().sendMessage("You may not bring your own consumables inside of Castle Wars.");
 				return;
 			}
 		}
 		if (team == 1) {
 			if (getSaraPlayers() > getZammyPlayers() && getSaraPlayers() > 0) {
-				player.getPacketSender().sendMessage(
+				p.getPacketSender().sendMessage(
 						"The saradomin team is full, try again later!");
 				return;
 			}
 			if (getZammyPlayers() >= getSaraPlayers() || getSaraPlayers() == 0) {
-				player.getPacketSender().sendMessage(
+				p.getPacketSender().sendMessage(
 						"You have been added to the Saradomin team.");
-				player.getPacketSender().sendMessage(
+				p.getPacketSender().sendMessage(
 						"Next Game Begins In: "
 								+ (gameStartTimer * 3 + timeRemaining * 3)
 								+ " seconds.");
-				addCapes(player, SARA_CAPE);
-				waitingRoom.put(player, team);
-				player.getPlayerAssistant().movePlayer(
+				addCapes(p, SARA_CAPE);
+				waitingRoom.put(p, team);
+				p.getPlayerAssistant().movePlayer(
 						WAIT_ROOM[team - 1][0] + Misc.random(5),
 						WAIT_ROOM[team - 1][1] + Misc.random(5), 0);
 			}
 		} else if (team == 2) {
 			if (getZammyPlayers() > getSaraPlayers() && getZammyPlayers() > 0) {
-				player.getPacketSender().sendMessage(
+				p.getPacketSender().sendMessage(
 						"The zamorak team is full, try again later!");
 				return;
 			}
 			if (getZammyPlayers() <= getSaraPlayers() || getZammyPlayers() == 0) {
-				player.getPacketSender()
+				p.getPacketSender()
 						.sendMessage(
 								"Random team: You have been added to the Zamorak team.");
-				player.getPacketSender().sendMessage(
+				p.getPacketSender().sendMessage(
 						"Next Game Begins In: "
 								+ (gameStartTimer * 3 + timeRemaining * 3)
 								+ " seconds.");
-				addCapes(player, ZAMMY_CAPE);
-				waitingRoom.put(player, team);
-				player.getPlayerAssistant().movePlayer(
+				addCapes(p, ZAMMY_CAPE);
+				waitingRoom.put(p, team);
+				p.getPlayerAssistant().movePlayer(
 						WAIT_ROOM[team - 1][0] + Misc.random(5),
 						WAIT_ROOM[team - 1][1] + Misc.random(5), 0);
 			}
 		} else if (team == 3) {
-			toWaitingRoom(player, getZammyPlayers() > getSaraPlayers() ? 1 : 2);
+			toWaitingRoom(p, getZammyPlayers() > getSaraPlayers() ? 1 : 2);
 			return;
 		}
 	}
@@ -219,7 +217,7 @@ public class CastleWars {
 	 * @param banner
 	 *            banner id!
 	 */
-	public static void returnFlag(Client player, int wearItem) {
+	public static void returnFlag(Player player, int wearItem) {
 		if (player == null) {
 			return;
 		}
@@ -283,7 +281,7 @@ public class CastleWars {
 	 *            the player who returned the flag
 	 * @param team
 	 */
-	public static void captureFlag(Client player) {
+	public static void captureFlag(Player player) {
 		if (player.playerEquipment[player.playerWeapon] > 0) {
 			player.getPacketSender()
 					.sendMessage(
@@ -313,7 +311,7 @@ public class CastleWars {
 	 * @param flagId
 	 *            the banner id.
 	 */
-	public static void addFlag(Client player, int flagId) {
+	public static void addFlag(Player player, int flagId) {
 		player.playerEquipment[player.playerWeapon] = flagId;
 		player.playerEquipmentN[player.playerWeapon] = 1;
 		player.getItemAssistant().updateSlot(player.playerWeapon);
@@ -329,7 +327,7 @@ public class CastleWars {
 	 * @param flagId
 	 *            the flag item ID
 	 */
-	public static void dropFlag(Client player, int flagId) {
+	public static void dropFlag(Player player, int flagId) {
 		int object = -1;
 		switch (flagId) {
 		case SARA_BANNER: // sara
@@ -349,9 +347,8 @@ public class CastleWars {
 		player.getItemAssistant().updateSlot(player.playerWeapon);
 		player.appearanceUpdateRequired = true;
 		player.updateRequired = true;
-		for (Client teamPlayer : gameRoom.keySet()) {
-			teamPlayer.getPacketSender().object(object, player.getX(),
-					player.getY(), 0, 10);
+		for (Player teamPlayer : gameRoom.keySet()) {
+			teamPlayer.getPacketSender().object(object, player.getX(), player.getY(), 0, 10);
 		}
 	}
 
@@ -363,13 +360,11 @@ public class CastleWars {
 	 * @param objectId
 	 *            the flag object id.
 	 */
-	public static void pickupFlag(Client player) {
+	public static void pickupFlag(Player player) {
 		switch (player.objectId) {
 		case 4900: // sara
 			if (player.playerEquipment[player.playerWeapon] > 0) {
-				player.getPacketSender()
-						.sendMessage(
-								"Please remove your weapon before attempting to get the flag again!");
+				player.getPacketSender().sendMessage("Please remove your weapon before attempting to get the flag again!");
 				return;
 			}
 			if (saraFlag != 2) {
@@ -380,9 +375,7 @@ public class CastleWars {
 			break;
 		case 4901: // zammy
 			if (player.playerEquipment[player.playerWeapon] > 0) {
-				player.getPacketSender()
-						.sendMessage(
-								"Please remove your weapon before attempting to get the flag again!");
+				player.getPacketSender().sendMessage("Please remove your weapon before attempting to get the flag again!");
 				return;
 			}
 			if (zammyFlag != 2) {
@@ -393,13 +386,11 @@ public class CastleWars {
 			break;
 		}
 		createHintIcon(player, gameRoom.get(player) == 1 ? 2 : 1);
-		Iterator<Client> iterator = gameRoom.keySet().iterator();
+		Iterator<Player> iterator = gameRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client teamPlayer = iterator.next();
-			teamPlayer.getPacketSender().createObjectHints(player.objectX,
-					player.objectY, 170, -1);
-			teamPlayer.getPacketSender().object(-1, player.objectX,
-					player.objectY, 0, 10);
+			Player teamPlayer = iterator.next();
+			teamPlayer.getPacketSender().createObjectHints(player.objectX, player.objectY, 170, -1);
+			teamPlayer.getPacketSender().object(-1, player.objectX, player.objectY, 0, 10);
 		}
 		return;
 	}
@@ -412,19 +403,13 @@ public class CastleWars {
 	 * @param t
 	 *            team of the opponent team. (:
 	 */
-	public static void createHintIcon(Client player, int t) {
-		Iterator<Client> iterator = gameRoom.keySet().iterator();
+	public static void createHintIcon(Player player, int t) {
+		Iterator<Player> iterator = gameRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client teamPlayer = iterator.next();
-			// System.out.println(teamPlayer.playerName + " => Team => " +
-			// gameRoom.get(teamPlayer));
-			// System.out.println("Desired team = " + t);
+			Player teamPlayer = iterator.next();
 			teamPlayer.getPacketSender().createPlayerHints(10, -1);
 			if (gameRoom.get(teamPlayer) == t) {
-				// System.out.println("Created hint icons for playername " +
-				// teamPlayer.playerName + " and team number: " + t);
-				teamPlayer.getPacketSender().createPlayerHints(10,
-						player.playerId);
+				teamPlayer.getPacketSender().createPlayerHints(10, player.playerId);
 				teamPlayer.getPlayerAssistant().requestUpdates();
 			}
 		}
@@ -439,9 +424,9 @@ public class CastleWars {
 	 *            team of the opponent team. (:
 	 */
 	public static void createFlagHintIcon(int x, int y) {
-		Iterator<Client> iterator = gameRoom.keySet().iterator();
+		Iterator<Player> iterator = gameRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client teamPlayer = iterator.next();
+			Player teamPlayer = iterator.next();
 			teamPlayer.getPacketSender().createObjectHints(x, y, 170, 2);
 		}
 	}
@@ -452,7 +437,7 @@ public class CastleWars {
 	 * @param player
 	 * @return
 	 */
-	public static int getTeamNumber(Client player) {
+	public static int getTeamNumber(Player player) {
 		if (player == null) {
 			return -1;
 		}
@@ -468,7 +453,7 @@ public class CastleWars {
 	 * @param player
 	 *            player who wants to leave
 	 */
-	public static void leaveWaitingRoom(Client player) {
+	public static void leaveWaitingRoom(Player player) {
 		if (player == null) {
 			System.out.println("player is null");
 			return;
@@ -513,18 +498,13 @@ public class CastleWars {
 	 * Method we use to update the player's interface in the waiting room
 	 */
 	public static void updatePlayers() {
-		Iterator<Client> iterator = waitingRoom.keySet().iterator();
+		Iterator<Player> iterator = waitingRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client player = iterator.next();
+			Player player = iterator.next();
 			if (player != null) {
-				player.getPacketSender().sendFrame126(
-						"Next Game Begins In: "
-								+ (gameStartTimer * 3 + timeRemaining * 3)
-								+ " seconds.", 6570);
-				player.getPacketSender().sendFrame126(
-						"Zamorak Players: " + getZammyPlayers() + ".", 6572);
-				player.getPacketSender().sendFrame126(
-						"Saradomin Players: " + getSaraPlayers() + ".", 6664);
+				player.getPacketSender().sendFrame126("Next Game Begins In: " + (gameStartTimer * 3 + timeRemaining * 3) + " seconds.", 6570);
+				player.getPacketSender().sendFrame126("Zamorak Players: " + getZammyPlayers() + ".", 6572);
+				player.getPacketSender().sendFrame126("Saradomin Players: " + getSaraPlayers() + ".", 6664);
 				player.getPacketSender().walkableInterface(6673);
 			}
 		}
@@ -535,9 +515,9 @@ public class CastleWars {
 	 */
 	public static void updateInGamePlayers() {
 		if (getSaraPlayers() > 0 && getZammyPlayers() > 0) {
-			Iterator<Client> iterator = gameRoom.keySet().iterator();
+			Iterator<Player> iterator = gameRoom.keySet().iterator();
 			while (iterator.hasNext()) {
-				Client player = iterator.next();
+				Player player = iterator.next();
 				int config;
 				if (player == null) {
 					continue;
@@ -570,9 +550,9 @@ public class CastleWars {
 		System.out.println("Starting Castle Wars game.");
 		gameStarted = true;
 		timeRemaining = GAME_TIMER / 2;
-		Iterator<Client> iterator = waitingRoom.keySet().iterator();
+		Iterator<Player> iterator = waitingRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client player = iterator.next();
+			Player player = iterator.next();
 			int team = waitingRoom.get(player);
 			if (player == null) {
 				continue;
@@ -589,22 +569,17 @@ public class CastleWars {
 	 * Method we use to end an ongoing cw game.
 	 */
 	public static void endGame() {
-		Iterator<Client> iterator = gameRoom.keySet().iterator();
+		Iterator<Player> iterator = gameRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client player = iterator.next();
+			Player player = iterator.next();
 			int team = gameRoom.get(player);
 			if (player == null) {
 				continue;
 			}
 			player.cwGames++;
-			player.getPlayerAssistant().movePlayer(2440 + Misc.random(3),
-					3089 - Misc.random(3), 0);
-			player.getPacketSender().sendMessage(
-					"Castle Wars: The Castle Wars game has ended!");
-			player.getPacketSender().sendMessage(
-					"Castle Wars: Kills: " + player.cwKills + " Deaths: "
-							+ player.cwDeaths + " Games Played: "
-							+ player.cwGames + ".");
+			player.getPlayerAssistant().movePlayer(2440 + Misc.random(3), 3089 - Misc.random(3), 0);
+			player.getPacketSender().sendMessage("Castle Wars: The Castle Wars game has ended!");
+			player.getPacketSender().sendMessage("Castle Wars: Kills: " + player.cwKills + " Deaths: " 	+ player.cwDeaths + " Games Played: " + player.cwGames + ".");
 			player.getPacketSender().createPlayerHints(10, -1);
 			deleteGameItems(player);
 			player.isDead = false;
@@ -666,7 +641,7 @@ public class CastleWars {
 	 * @param player
 	 *            the player we want to be removed
 	 */
-	public static void removePlayerFromCw(Client player) {
+	public static void removePlayerFromCw(Player player) {
 		if (player == null) {
 			System.out.println("Error removing player from castle wars [REASON = null].");
 			return;
@@ -703,17 +678,17 @@ public class CastleWars {
 	/**
 	 * Will add a cape to a player's equip
 	 * 
-	 * @param player
+	 * @param p
 	 *            the player
 	 * @param capeId
 	 *            the capeId
 	 */
-	public static void addCapes(Client player, int capeId) {
-		player.playerEquipment[player.playerCape] = capeId;
-		player.playerEquipmentN[player.playerCape] = 1;
-		player.getItemAssistant().updateSlot(player.playerCape);
-		player.appearanceUpdateRequired = true;
-		player.updateRequired = true;
+	public static void addCapes(Player p, int capeId) {
+		p.playerEquipment[p.playerCape] = capeId;
+		p.playerEquipmentN[p.playerCape] = 1;
+		p.getItemAssistant().updateSlot(p.playerCape);
+		p.appearanceUpdateRequired = true;
+		p.updateRequired = true;
 	}
 
 	/**
@@ -724,7 +699,7 @@ public class CastleWars {
 	 *            the player who want the game items deleted from.
 	 */
 
-	public static void deleteGameItems(Client player) {
+	public static void deleteGameItems(Player player) {
 		switch (player.playerEquipment[3]) {
 		case 4037:
 		case 4039:
@@ -843,9 +818,9 @@ public class CastleWars {
 	 *            the team of the player
 	 */
 	public static void changeFlagObject(int objectId, int team) {
-		Iterator<Client> iterator = gameRoom.keySet().iterator();
+		Iterator<Player> iterator = gameRoom.keySet().iterator();
 		while (iterator.hasNext()) {
-			Client teamPlayer = iterator.next();
+			Player teamPlayer = iterator.next();
 			teamPlayer.getPacketSender().object(objectId,
 					FLAG_STANDS[team][0], FLAG_STANDS[team][1], 0, 10);
 		}

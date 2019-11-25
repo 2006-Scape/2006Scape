@@ -7,13 +7,13 @@ import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.randomevents.RiverTroll;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 
 public class Fishing extends SkillHandler {
 	
-	public static void randomEvents(Client client) {
+	public static void randomEvents(Player client) {
 		if (Misc.random(350) == 5) {
 			RiverTroll.spawnRiverTroll(client);
 		}
@@ -51,7 +51,7 @@ public class Fishing extends SkillHandler {
 			{ "You attempt to catch a lobster." }, // LOBSTER
 	};
 
-	private static void attemptdata(final Client c, final int npcId) {
+	private static void attemptdata(final Player c, final int npcId) {
 		if (!FISHING) {
 			c.getPacketSender().sendMessage(c.disabled());
 			return;
@@ -345,7 +345,7 @@ public class Fishing extends SkillHandler {
 		}
 	}
 
-	public static boolean hasFishingEquipment(Client c, int equipment) {
+	public static boolean hasFishingEquipment(Player c, int equipment) {
 		if (!c.getItemAssistant().playerHasItem(equipment)) {
 			if (equipment == 311) {
 				if (!c.getItemAssistant().playerHasItem(311)
@@ -369,18 +369,18 @@ public class Fishing extends SkillHandler {
 		return true;
 	}
 
-	public static void resetFishing(Client c) {
-		c.startAnimation(65535);
-		c.stopPlayerSkill = false;
-		c.playerSkilling[10] = false;
-		c.fishingWhirlPool = false;
-		stopEvents(c, eventId);
+	public static void resetFishing(Player player) {
+		player.startAnimation(65535);
+		player.stopPlayerSkill = false;
+		player.playerSkilling[10] = false;
+		player.fishingWhirlPool = false;
+		stopEvents(player, eventId);
 		for (int i = 0; i < 11; i++) {
-			c.playerSkillProp[10][i] = -1;
+			player.playerSkillProp[10][i] = -1;
 		}
 	}
 
-	public static String messages(Client c) {
+	public static String messages(Player c) {
 		if (c.playerSkillProp[10][10] == 1 || c.playerSkillProp[10][10] == 9) {
 			// etc
 			return messages[0][0];
@@ -404,11 +404,11 @@ public class Fishing extends SkillHandler {
 		return null;
 	}
 
-	private static int playerFishingLevel(Client c) {
+	private static int playerFishingLevel(Player c) {
 		return 10 - (int) Math.floor(c.playerLevel[c.playerFishing] / 10);
 	}
 
-	private final static int getTimer(Client c, int npcId) {
+	private final static int getTimer(Player c, int npcId) {
 		switch (npcId) {
 		case 1:
 			return 2;
@@ -439,7 +439,7 @@ public class Fishing extends SkillHandler {
 		}
 	}
 
-	public static void fishingNPC(Client c, int i, int l) {
+	public static void fishingNPC(Player c, int i, int l) {
 		switch (i) {
 		case 1:
 			switch (l) {
@@ -531,7 +531,7 @@ public class Fishing extends SkillHandler {
 		}
 	}
 
-	public static boolean fishingNPC(Client c, int npc) {
+	public static boolean fishingNPC(Player c, int npc) {
 		for (int i = 308; i < 335; i++) {
 			if (npc == i) {
 				return true;

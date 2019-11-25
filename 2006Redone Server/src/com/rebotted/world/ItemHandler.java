@@ -84,7 +84,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 	/**
 	 * Reloads any items if you enter a new region
 	 **/
-	public void reloadItems(Client c) {
+	public void reloadItems(Player c) {
 		for (GroundItem i : items) {
 			if (c != null) {
 				if (c.getItemAssistant().tradeable(i.getItemId())
@@ -156,10 +156,10 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 			{ 4747, 4926 }, { 4749, 4968 }, { 4751, 4994 }, { 4753, 4980 },
 			{ 4755, 4986 }, { 4757, 4992 }, { 4759, 4998 } };
 
-	public void createGroundItem(Client player, int itemId, int itemX, int itemY, int itemAmount, int playerId) {
+	public void createGroundItem(Player c, int itemId, int itemX, int itemY, int itemAmount, int playerId) {
 		if (itemId > 0) {
 			if (itemId >= 2412 && itemId <= 2414) {
-				player.getPacketSender().sendMessage("The cape vanishes as it touches the ground.");
+				c.getPacketSender().sendMessage("The cape vanishes as it touches the ground.");
 				return;
 			}
 			if (itemId > 4705 && itemId < 4760) {
@@ -172,24 +172,24 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 			}
 			if (!com.rebotted.game.items.Item.itemStackable[itemId] && itemAmount > 0) {
 				for (int j = 0; j < itemAmount; j++) {
-					player.getPacketSender().createGroundItem(itemId, itemX, itemY, 1);
-					GroundItem item = new GroundItem(itemId, itemX, itemY, player.getH(), 1, player.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
+					c.getPacketSender().createGroundItem(itemId, itemX, itemY, 1);
+					GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), 1, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
 					addItem(item);
 					String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-					if (player.isDead == false && itemId != 526) {
-						if (player.getPlayerAssistant().isPlayer()) {
-							GameLogger.writeLog(player.playerName, "dropitem", player.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + player.absX + " absY: " + player.absY + "");
+					if (c.isDead == false && itemId != 526) {
+						if (c.getPlayerAssistant().isPlayer()) {
+							GameLogger.writeLog(c.playerName, "dropitem", c.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + c.absX + " absY: " + c.absY + "");
 						}
 					}
 				}
 			} else {
-				player.getPacketSender().createGroundItem(itemId, itemX, itemY, itemAmount);
-				GroundItem item = new GroundItem(itemId, itemX, itemY, player.getH(), itemAmount, player.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
+				c.getPacketSender().createGroundItem(itemId, itemX, itemY, itemAmount);
+				GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), itemAmount, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
 				addItem(item);
 				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-				if (player.isDead == false && itemId != 526) {
-					if (player.getPlayerAssistant().isPlayer()) {
-						GameLogger.writeLog(player.playerName, "dropitem", player.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + player.absX + " absY: " + player.absY + "");
+				if (c.isDead == false && itemId != 526) {
+					if (c.getPlayerAssistant().isPlayer()) {
+						GameLogger.writeLog(c.playerName, "dropitem", c.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + c.absX + " absY: " + c.absY + "");
 					}
 				}
 			}
@@ -224,7 +224,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 	 * Removing the ground item
 	 **/
 
-	public void removeGroundItem(Client c, int itemId, int itemX, int itemY, boolean add) {
+	public void removeGroundItem(Player c, int itemId, int itemX, int itemY, boolean add) {
 		for (GroundItem i : items) {
 			if (i.getItemId() == itemId && i.getItemX() == itemX
 					&& i.getItemY() == itemY) {
@@ -272,7 +272,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 	 * Remove item for just the item controller (item not global yet)
 	 **/
 
-	public void removeControllersItem(GroundItem i, Client c, int itemId,
+	public void removeControllersItem(GroundItem i, Player c, int itemId,
 			int itemX, int itemY, int itemAmount) {
 		c.getPacketSender().removeGroundItem(itemId, itemX, itemY,
 				itemAmount);

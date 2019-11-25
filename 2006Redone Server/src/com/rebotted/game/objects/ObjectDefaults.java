@@ -1,11 +1,11 @@
 package com.rebotted.game.objects;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.world.clip.ObjectDef;
 
 /**
  * ObjectDefaults
- * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class ObjectDefaults {
@@ -16,7 +16,7 @@ public class ObjectDefaults {
 		EAST = 2,
 		WEST = 3;
 	
-	public static int getObjectType(Client player, int objectType) {
+	public static int getObjectType(Player player, int objectType) {
 		String objectName = ObjectDef.getObjectDef(objectType).name;
 		if (objectName.contains("Wardrobe") || objectName.contains("chest") || objectName.contains("Cupboard") || objectName.contains("Coffin")) {
 			return 10;
@@ -24,7 +24,7 @@ public class ObjectDefaults {
 		return 0;
 	}
 	
-	public static int getObjectFace(Client player, int objectType) {
+	public static int getObjectFace(Player player, int objectType) {
 		switch (objectType) {
 		case 388:
 		case 389:

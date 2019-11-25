@@ -7,14 +7,14 @@ import com.rebotted.game.content.skills.crafting.Pottery;
 import com.rebotted.game.content.skills.crafting.Spinning;
 import com.rebotted.game.items.UseItem;
 import com.rebotted.game.items.impl.Fillables;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.world.clip.Region;
 
 public class ItemOnObject implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		player.getInStream().readUnsignedWord();
 		int objectId = player.getInStream().readSignedWordBigEndian();
 		int objectY = player.getInStream().readSignedWordBigEndianA();

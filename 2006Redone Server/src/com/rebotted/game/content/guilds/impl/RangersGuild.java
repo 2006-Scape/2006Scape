@@ -4,15 +4,13 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.range.RangeData;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
  * Rangers Guild
- * 
  * @author Aintaro
  * @edit Haile N.
- *
  */
 public class RangersGuild {
 
@@ -36,10 +34,10 @@ public class RangersGuild {
 	
 	public boolean isFiringTarget;
 
-	private Client c;
+	private Player c;
 
-	public RangersGuild(Client c) {
-		this.c = c;
+	public RangersGuild(Player player) {
+		this.c = player;
 	}
 
 	public void fireAtTarget() {

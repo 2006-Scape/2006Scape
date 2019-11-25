@@ -1,10 +1,10 @@
 package com.rebotted.game.content.combat.range;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class RangeMaxHit {
 	
-	public static int calculateRangeDefence(Client c) {
+	public static int calculateRangeDefence(Player c) {
 		int defenceLevel = c.playerLevel[1];
 		if (c.getPrayer().prayerActive[0]) {
 			defenceLevel += c.getLevelForXP(c.playerXP[c.playerDefence]) * 0.05;
@@ -20,7 +20,7 @@ public class RangeMaxHit {
 		return defenceLevel + c.playerBonus[9] + c.playerBonus[9] / 2;
 	}
 
-	public static int calculateRangeAttack(Client c) {
+	public static int calculateRangeAttack(Player c) {
 		int rangeLevel = c.playerLevel[4];
 		rangeLevel *= c.specAccuracy;
 		if (RangeData.fullVoidRange(c)) {
@@ -40,7 +40,7 @@ public class RangeMaxHit {
 		return (int) (rangeLevel + c.playerBonus[4] * 1.95);
 	}
 
-	public static int rangeMaxHit(Client c) {
+	public static int rangeMaxHit(Player c) {
 		int rangeLevel = c.playerLevel[4];
 		int itemUsed = getRangeStr(c.usingBow ? c.lastArrowUsed : c.lastWeaponUsed);
 		double modifier = 1.00;

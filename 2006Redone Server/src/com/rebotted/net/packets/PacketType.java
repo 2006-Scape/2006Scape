@@ -1,8 +1,8 @@
 package com.rebotted.net.packets;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public interface PacketType {
 
-	public void processPacket(Client c, int packetType, int packetSize);
+	public void processPacket(Player player, int packetType, int packetSize);
 }

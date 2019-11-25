@@ -3,14 +3,14 @@ package com.rebotted.game.content.skills.agility;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class ApeAtollAgility {
 
-	private final Client c;
+	private final Player c;
 
-	public ApeAtollAgility(Client c) {
-		this.c = c;
+	public ApeAtollAgility(Player player) {
+		this.c = player;
 	}
 
 	public static final int APE_ATOLL_STEPPING_STONES_OBJECT = 12568,

@@ -3,108 +3,108 @@ package com.rebotted.game.globalworldobjects;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.Position;
 
 /**
  * Passdoor
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class PassDoor {
 	
 	private static long doorDelay;
 	
-	public static boolean passThroughDoor(final Client client, final int objectType, int face1, final int face2, final int type, int x, int y, final int height) {
+	public static boolean passThroughDoor(final Player player, final int objectType, int face1, final int face2, final int type, int x, int y, final int height) {
 		if (System.currentTimeMillis() - doorDelay < 1200) {
-			client.getPacketSender().sendMessage("You must wait longer to pass this door.");
+			player.getPacketSender().sendMessage("You must wait longer to pass this door.");
 			return false;
 		}
 
-		final int objX = client.objectX;
-		final int objY = client.objectY;
+		final int objX = player.objectX;
+		final int objY = player.objectY;
 
-		client.getPacketSender().object(objectType, objX, objY, height, face1, type);
-		client.getPlayerAssistant().walkTo(x, y);
-		client.stopPlayer = true;
-		CycleEventHandler.getSingleton().addEvent(client, new CycleEvent() {
+		player.getPacketSender().object(objectType, objX, objY, height, face1, type);
+		player.getPlayerAssistant().walkTo(x, y);
+		player.stopPlayer = true;
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				client.getPacketSender().object(objectType, objX, objY, height, face2, type);
+				player.getPacketSender().object(objectType, objX, objY, height, face2, type);
 				container.stop();
 			}
 
 			@Override
 			public void stop() {
-				client.stopPlayer = false;
+				player.stopPlayer = false;
 				doorDelay = System.currentTimeMillis();
 			}
 		}, 2);
 		return true;
 	}
 	
-	public static void processDoor(Client client, int objectType) {
+	public static void processDoor(Player player, int objectType) {
 		//player, object, face1, face2, type, x, y, height
 		switch (objectType) {
 		case 2550:
-		if (Position.checkPosition(client, 2674, 3306, 0)) {
-			passThroughDoor(client, objectType, 0, 1, 0, 0, -1, 0);
+		if (Position.checkPosition(player, 2674, 3306, 0)) {
+			passThroughDoor(player, objectType, 0, 1, 0, 0, -1, 0);
 		}
 		break;	
 		case 2551:
-		if (Position.checkPosition(client, 2674, 3303, 0)) {
-			passThroughDoor(client, objectType, 0, 3, 0, 0, 1, 0);
+		if (Position.checkPosition(player, 2674, 3303, 0)) {
+			passThroughDoor(player, objectType, 0, 3, 0, 0, 1, 0);
 		}
 		break;
 		case 1530:
-			if (Position.checkPosition(client, 2715, 3472, 0)) {
-				passThroughDoor(client, objectType, 1, 0, 0, 1, 0, 0);
-			} else if (Position.checkPosition(client, 2716, 3472, 0)) {
-				passThroughDoor(client, objectType, 1, 0, 0, -1, 0, 0);
-			} else if (Position.checkPosition(client, 3246, 9892, 0)) {
-				passThroughDoor(client, objectType, 1, 0, 0, 1, 0, 0);
-			} else if (Position.checkPosition(client, 3247, 9892, 0)) {
-				passThroughDoor(client, objectType, 1, 0, 0, -1, 0, 0);
-			} else if (Position.checkPosition(client, 3108, 9570, 0)) {
-				passThroughDoor(client, objectType, 1, 0, 0, -1, 0, 0);
-			} else if (Position.checkPosition(client, 3107, 9570, 0)) {
-				passThroughDoor(client, objectType, 1, 0, 0, 1, 0, 0);
-			} else if (Position.checkPosition(client, 3110, 9559, 0)) {
-				passThroughDoor(client, objectType, 3, 0, 0, 1, 0, 0);
-			} else if (Position.checkPosition(client, 3111, 9559, 0)) {
-				passThroughDoor(client, objectType, 3, 0, 0, -1, 0, 0);
+			if (Position.checkPosition(player, 2715, 3472, 0)) {
+				passThroughDoor(player, objectType, 1, 0, 0, 1, 0, 0);
+			} else if (Position.checkPosition(player, 2716, 3472, 0)) {
+				passThroughDoor(player, objectType, 1, 0, 0, -1, 0, 0);
+			} else if (Position.checkPosition(player, 3246, 9892, 0)) {
+				passThroughDoor(player, objectType, 1, 0, 0, 1, 0, 0);
+			} else if (Position.checkPosition(player, 3247, 9892, 0)) {
+				passThroughDoor(player, objectType, 1, 0, 0, -1, 0, 0);
+			} else if (Position.checkPosition(player, 3108, 9570, 0)) {
+				passThroughDoor(player, objectType, 1, 0, 0, -1, 0, 0);
+			} else if (Position.checkPosition(player, 3107, 9570, 0)) {
+				passThroughDoor(player, objectType, 1, 0, 0, 1, 0, 0);
+			} else if (Position.checkPosition(player, 3110, 9559, 0)) {
+				passThroughDoor(player, objectType, 3, 0, 0, 1, 0, 0);
+			} else if (Position.checkPosition(player, 3111, 9559, 0)) {
+				passThroughDoor(player, objectType, 3, 0, 0, -1, 0, 0);
 			}
 			break;
 		case 11993:
-			if (Position.checkPlayerY(client, 3167, 0)) {
-				passThroughDoor(client, objectType, 0, 3, 0, 0, -1, 0);
-			} else if (Position.checkPlayerY(client, 3166, 0)) {
-				passThroughDoor(client, objectType, 0, 3, 0, 0, 1, 0);
-			} else if (Position.checkPlayerY(client, 3163, 0) && client.absX != 3107) {
-				passThroughDoor(client, objectType, 2, 1, 0, 0, -1, 0);
-			} else if (Position.checkPlayerY(client, 3162, 0) && client.absX != 3108 && client.absX != 3106) {
-				passThroughDoor(client, objectType, 2, 1, 0, 0, 1, 0);
-			} else if (Position.checkPosition(client, 3107, 3162, 2)) {
-				passThroughDoor(client, objectType, 1, 2, 0, 1, 0, 2);
-			} else if (Position.checkPosition(client, 3108, 3162, 2)) {
-				passThroughDoor(client, objectType, 1, 2, 0, -1, 0, 2);
-			} else if (Position.checkPosition(client, 3109, 3159, 1)) {
-				passThroughDoor(client, objectType, 1, 2, 0, 1, 0, 1);
-			} else if (Position.checkPosition(client, 3110, 3159, 1)) {
-				passThroughDoor(client, objectType, 1, 2, 0, -1, 0, 1);
-			} else if (Position.checkPosition(client, 3108, 3159, 1)) {
-				passThroughDoor(client, objectType, 2, 1, 0, 0, -1, 1);
-			} else if (Position.checkPosition(client, 3108, 3158, 1)) {
-				passThroughDoor(client, objectType, 2, 1, 0, 0, 1, 1);
-			} else if (Position.checkObject(client, 3107, 3162, 0)) {
-				if (Position.checkPosition(client, 3108, 3162, 0)) {
-					passThroughDoor(client, objectType, 2, 1, 9, -1, -1, 0);
-				} else if (Position.checkPosition(client, 3107, 3163, 0)) {
+			if (Position.checkPlayerY(player, 3167, 0)) {
+				passThroughDoor(player, objectType, 0, 3, 0, 0, -1, 0);
+			} else if (Position.checkPlayerY(player, 3166, 0)) {
+				passThroughDoor(player, objectType, 0, 3, 0, 0, 1, 0);
+			} else if (Position.checkPlayerY(player, 3163, 0) && player.absX != 3107) {
+				passThroughDoor(player, objectType, 2, 1, 0, 0, -1, 0);
+			} else if (Position.checkPlayerY(player, 3162, 0) && player.absX != 3108 && player.absX != 3106) {
+				passThroughDoor(player, objectType, 2, 1, 0, 0, 1, 0);
+			} else if (Position.checkPosition(player, 3107, 3162, 2)) {
+				passThroughDoor(player, objectType, 1, 2, 0, 1, 0, 2);
+			} else if (Position.checkPosition(player, 3108, 3162, 2)) {
+				passThroughDoor(player, objectType, 1, 2, 0, -1, 0, 2);
+			} else if (Position.checkPosition(player, 3109, 3159, 1)) {
+				passThroughDoor(player, objectType, 1, 2, 0, 1, 0, 1);
+			} else if (Position.checkPosition(player, 3110, 3159, 1)) {
+				passThroughDoor(player, objectType, 1, 2, 0, -1, 0, 1);
+			} else if (Position.checkPosition(player, 3108, 3159, 1)) {
+				passThroughDoor(player, objectType, 2, 1, 0, 0, -1, 1);
+			} else if (Position.checkPosition(player, 3108, 3158, 1)) {
+				passThroughDoor(player, objectType, 2, 1, 0, 0, 1, 1);
+			} else if (Position.checkObject(player, 3107, 3162, 0)) {
+				if (Position.checkPosition(player, 3108, 3162, 0)) {
+					passThroughDoor(player, objectType, 2, 1, 9, -1, -1, 0);
+				} else if (Position.checkPosition(player, 3107, 3163, 0)) {
 					// wizz tower
-					passThroughDoor(client, objectType, 2, 1, 9, -1, -1, 0);
+					passThroughDoor(player, objectType, 2, 1, 9, -1, -1, 0);
 				} else {
-					if (client.heightLevel == 0) {
-						passThroughDoor(client, objectType, 2, 1, 9, 1, 1, 0);
+					if (player.heightLevel == 0) {
+						passThroughDoor(player, objectType, 2, 1, 9, 1, 1, 0);
 					}
 				}
 			}

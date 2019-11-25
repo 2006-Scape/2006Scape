@@ -1,6 +1,6 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Doric's Quest
@@ -9,10 +9,10 @@ import com.rebotted.game.players.Client;
 
 public class DoricsQuest {
 
-	Client client;
+	Player client;
 
-	public DoricsQuest(Client client) {
-		this.client = client;
+	public DoricsQuest(Player player) {
+		this.client = player;
 	}
 
 	public void showInformation() {

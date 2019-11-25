@@ -4,7 +4,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * @author Tom
@@ -74,64 +74,64 @@ public class ArrowMaking {
 		}
 	}
 
-	public static boolean makeArrow(final Client c, int itemUsed, int usedWith) {
+	public static boolean makeArrow(final Player player, int itemUsed, int usedWith) {
 		final Data arrowData = Data.forId(itemUsed, usedWith);
 		if (arrowData == null) {
 			return false;
 		}
-		if (c.isWoodcutting == true) {
+		if (player.isWoodcutting == true) {
 			return false;
 		}
-		if (c.playerLevel[9] < arrowData.getLevel()) {
-			c.getDialogueHandler().sendStatement(
+		if (player.playerLevel[9] < arrowData.getLevel()) {
+			player.getDialogueHandler().sendStatement(
 					"You need a fletching level of " + arrowData.getLevel()
 							+ " to do this");
-			c.nextChat = 0;
+			player.nextChat = 0;
 			return false;
 		}
-		if (!c.getItemAssistant().playerHasItem(arrowData.getItem1())
-				|| !c.getItemAssistant().playerHasItem(arrowData.getItem2())) {
-			c.getDialogueHandler().sendStatement(
+		if (!player.getItemAssistant().playerHasItem(arrowData.getItem1())
+				|| !player.getItemAssistant().playerHasItem(arrowData.getItem2())) {
+			player.getDialogueHandler().sendStatement(
 					"You need 15 "
 							+ ItemAssistant.getItemName(arrowData.getItem1())
 							+ " and 15 "
 							+ ItemAssistant.getItemName(arrowData.getItem2())
 							+ " to make this.");
-			c.nextChat = 0;
+			player.nextChat = 0;
 			return false;
 		}
-		if (c.getItemAssistant().freeSlots() < 1 && !c.getItemAssistant().playerHasItem(arrowData.getProduct())) {
-			c.getPacketSender().sendMessage("Not enough space in your inventory.");
+		if (player.getItemAssistant().freeSlots() < 1 && !player.getItemAssistant().playerHasItem(arrowData.getProduct())) {
+			player.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return false;
 		}
-		c.playerIsFletching = true;
+		player.playerIsFletching = true;
 		int factor = 1;
 		final int multiplier = factor;
-		int count1 = c.getItemAssistant().getItemAmount(arrowData.getItem1()) < 15 ? c
+		int count1 = player.getItemAssistant().getItemAmount(arrowData.getItem1()) < 15 ? player
 				.getItemAssistant().getItemAmount(arrowData.getItem1()) : 15;
-		int count2 = c.getItemAssistant().getItemAmount(arrowData.getItem2()) < 15 ? c
+		int count2 = player.getItemAssistant().getItemAmount(arrowData.getItem2()) < 15 ? player
 				.getItemAssistant().getItemAmount(arrowData.getItem2()) : 15;
 		final int count = count1 < count2 ? count1 : count2;
-		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (!c.getItemAssistant().playerHasItem(arrowData.getItem1(),
+				if (!player.getItemAssistant().playerHasItem(arrowData.getItem1(),
 						count)
-						|| !c.getItemAssistant().playerHasItem(
+						|| !player.getItemAssistant().playerHasItem(
 								arrowData.getItem2(), count)
-						|| c.playerIsFletching == false) {
+						|| player.playerIsFletching == false) {
 					container.stop();
 					return;
 				}
-				if (c.isWoodcutting == true) {
+				if (player.isWoodcutting == true) {
 					container.stop();
 				}
-				c.getItemAssistant().deleteItem(arrowData.getItem1(), count);
-				c.getItemAssistant().deleteItem(arrowData.getItem2(), count);
-				c.getItemAssistant().addItem(arrowData.getProduct(),
+				player.getItemAssistant().deleteItem(arrowData.getItem1(), count);
+				player.getItemAssistant().deleteItem(arrowData.getItem2(), count);
+				player.getItemAssistant().addItem(arrowData.getProduct(),
 						count / multiplier);
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You attach the "
 								+ ItemAssistant.getItemName(arrowData
 										.getItem1())
@@ -141,13 +141,13 @@ public class ArrowMaking {
 								+ " "
 								+ ItemAssistant.getItemName(arrowData
 										.getItem2()) + "s.");
-				c.getPlayerAssistant().addSkillXP(
+				player.getPlayerAssistant().addSkillXP(
 						count / multiplier * arrowData.getXp(), 9);
 			}
 
 			@Override
 			public void stop() {
-				c.playerIsFletching = false;
+				player.playerIsFletching = false;
 				return;
 			}
 		}, 1);

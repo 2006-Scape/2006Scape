@@ -3,8 +3,7 @@ package com.rebotted.game.content.minigames;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -37,8 +36,8 @@ public class FightPits {
 	/**
 	 * @note Stores player and State
 	 */
-	private static Map<Client, String> playerMap = Collections
-			.synchronizedMap(new HashMap<Client, String>());
+	private static Map<Player, String> playerMap = Collections
+			.synchronizedMap(new HashMap<Player, String>());
 
 	/**
 	 * @note Where to spawn when pits game starts
@@ -64,8 +63,8 @@ public class FightPits {
 	/**
 	 * @return HashMap Value
 	 */
-	public static String getState(Client c) {
-		return playerMap.get(c);
+	public static String getState(Player player) {
+		return playerMap.get(player);
 	}
 
 	private static final int TOKKUL_ID = 6529;
@@ -73,7 +72,7 @@ public class FightPits {
 	/**
 	 * @note Adds player to waiting room.
 	 */
-	public static void addPlayer(Client c) {
+	public static void addPlayer(Player c) {
 		playerMap.put(c, WAITING);
 		c.getPlayerAssistant().movePlayer(WAITING_ROOM_X, WAITING_ROOM_Y, 0);
 	}
@@ -81,7 +80,7 @@ public class FightPits {
 	/**
 	 * @note Starts the game and moves players to arena
 	 */
-	private static void enterGame(Client c) {
+	private static void enterGame(Player c) {
 		playerMap.put(c, PLAYING);
 		int teleportToX = MINIGAME_START_POINT_X + Misc.random(12);
 		int teleportToY = MINIGAME_START_POINT_Y + Misc.random(12);
@@ -94,41 +93,41 @@ public class FightPits {
 	/**
 	 * @note Removes player from pits if there in waiting or in game
 	 */
-	public static void removePlayer(Client c, boolean forceRemove) {
-		c.inPits = false;
+	public static void removePlayer(Player player, boolean forceRemove) {
+		player.inPits = false;
 		if (forceRemove) {
-			c.getPlayerAssistant()
+			player.getPlayerAssistant()
 					.movePlayer(EXIT_WAITING_X, EXIT_WAITING_Y, 0);
-			playerMap.remove(c);
+			playerMap.remove(player);
 			return;
 		}
-		String state = playerMap.get(c);
+		String state = playerMap.get(player);
 		if (state == null) {
-			c.getPlayerAssistant()
+			player.getPlayerAssistant()
 					.movePlayer(EXIT_WAITING_X, EXIT_WAITING_Y, 0);
 			return;
 		}
 
 		if (state.equals(PLAYING)) {
 			if (getListCount(PLAYING) - 1 == 0 && !forceRemove) {
-				pitsChampion = c.playerName;
-				c.headIcon = 21;
-				c.updateRequired = true;
-				c.getItemAssistant()
+				pitsChampion = player.playerName;
+				player.headIcon = 21;
+				player.updateRequired = true;
+				player.getItemAssistant()
 						.addItem(TOKKUL_ID, 1500 + Misc.random(500));
 
 			}
-			c.getPlayerAssistant().movePlayer(EXIT_GAME_X, EXIT_GAME_Y, 0);
+			player.getPlayerAssistant().movePlayer(EXIT_GAME_X, EXIT_GAME_Y, 0);
 		} else if (state.equals(WAITING)) {
-			c.getPlayerAssistant()
+			player.getPlayerAssistant()
 					.movePlayer(EXIT_WAITING_X, EXIT_WAITING_Y, 0);
-			c.getPacketSender().walkableInterface(-1);
+			player.getPacketSender().walkableInterface(-1);
 		}
-		playerMap.remove(c);
+		playerMap.remove(player);
 
 		if (state.equals(PLAYING)) {
 			if (!forceRemove) {
-				playerMap.put(c, WAITING);
+				playerMap.put(player, WAITING);
 			}
 		}
 	}
@@ -150,7 +149,7 @@ public class FightPits {
 	 * @note Updates players
 	 */
 	private static void update() {
-		for (Client c : playerMap.keySet()) {
+		for (Player c : playerMap.keySet()) {
 			String status = playerMap.get(c);
 			@SuppressWarnings("unused")
 			boolean updated = status == WAITING ? updateWaitingRoom(c) : updateGame(c);
@@ -160,7 +159,7 @@ public class FightPits {
 	/**
 	 * @note Updates waiting room interfaces etc.
 	 */
-	public static boolean updateWaitingRoom(Client c) {
+	public static boolean updateWaitingRoom(Player c) {
 		c.getPacketSender().sendFrame126("Next Game Begins In : " + gameStartTimer, 2805);
 		c.getPacketSender().sendFrame126("Champion: JalYt-Ket-" + pitsChampion, 2806);
 		c.getPacketSender().sendConfig(560, 1);
@@ -171,7 +170,7 @@ public class FightPits {
 	/**
 	 * @note Updates players in game interfaces etc.
 	 */
-	public static boolean updateGame(Client c) {
+	public static boolean updateGame(Player c) {
 		c.getPacketSender().sendFrame126("Foes Remaining: " + getListCount(PLAYING), 2805);
 		c.getPacketSender().sendFrame126("Champion: JalYt-Ket-" + pitsChampion, 2806);
 		c.getPacketSender().sendConfig(560, 1);
@@ -182,8 +181,8 @@ public class FightPits {
 	/**
 	 * @note Handles death and respawn rubbish.
 	 */
-	public static void handleDeath(Client c) {
-		removePlayer(c, true);
+	public static void handleDeath(Player player) {
+		removePlayer(player, true);
 	}
 
 	/*
@@ -216,7 +215,7 @@ public class FightPits {
 	 * @note Starts game for the players in waiting room
 	 */
 	private static void beginGame() {
-		for (Client c : playerMap.keySet()) {
+		for (Player c : playerMap.keySet()) {
 			enterGame(c);
 		}
 	}
@@ -225,7 +224,7 @@ public class FightPits {
 	 * @note Ends game and returns player to their normal spot.
 	 */
 	private static void endGame() {
-		for (Client c : playerMap.keySet()) {
+		for (Player c : playerMap.keySet()) {
 			removePlayer(c, true);
 		}
 	}

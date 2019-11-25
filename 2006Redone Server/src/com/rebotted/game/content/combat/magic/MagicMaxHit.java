@@ -1,10 +1,10 @@
 package com.rebotted.game.content.combat.magic;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class MagicMaxHit {
 
-	public static int mageAttackBonus(Client c) {
+	public static int mageAttackBonus(Player c) {
 		int magicBonus = c.playerLevel[6];
 		if (MagicData.fullVoidMage(c)) {
 			magicBonus += c.getLevelForXP(c.playerXP[6]) * 0.2;
@@ -19,7 +19,7 @@ public class MagicMaxHit {
 		return magicBonus + c.playerBonus[3] * 2;
 	}
 
-	public static int mageDefenceBonus(Client c) {
+	public static int mageDefenceBonus(Player c) {
 		int defenceBonus = c.playerLevel[1] / 2 + c.playerLevel[6] / 2;
 		if (c.getPrayer().prayerActive[0]) {
 			defenceBonus += c.getLevelForXP(c.playerXP[c.playerDefence]) * 0.05;

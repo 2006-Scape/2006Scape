@@ -3,6 +3,7 @@ package com.rebotted.game.npcs.impl;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Pets {
 
@@ -35,7 +36,7 @@ public class Pets {
 		}
 	}
 
-	public void pickUpClean(Client c, int id) {
+	public void pickUpClean(Player c, int id) {
 		for (int[] element : catArray) {
 			if (element[0] == id) {
 				c.getItemAssistant().addItem(element[1], 1);

@@ -1,7 +1,6 @@
 package com.rebotted.game.content.skills.cooking;
 
 import java.security.SecureRandom;
-
 import com.rebotted.GameConstants;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
@@ -10,7 +9,7 @@ import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Cooking extends SkillHandler {
 
@@ -103,7 +102,7 @@ public class Cooking extends SkillHandler {
 		return null;
 	}
 
-	public static void makeBreadOptions(Client c, int item) {
+	public static void makeBreadOptions(Player c, int item) {
 		if (c.getItemAssistant().playerHasItem(1929)
 				&& c.getItemAssistant().playerHasItem(1933)
 				&& item == c.breadID) {
@@ -119,7 +118,7 @@ public class Cooking extends SkillHandler {
 		c.getPacketSender().closeAllWindows();
 	}
 
-	public static void pastryCreation(Client c, int itemID1, int itemID2,
+	public static void pastryCreation(Player c, int itemID1, int itemID2,
 			int giveItem, String message) {
 		if (c.getItemAssistant().playerHasItem(itemID1)
 				&& c.getItemAssistant().playerHasItem(itemID2)) {
@@ -136,7 +135,7 @@ public class Cooking extends SkillHandler {
 		}
 	}
 
-	public static void cookingAddon(Client c, int itemID1, int itemID2,
+	public static void cookingAddon(Player c, int itemID1, int itemID2,
 			int giveItem, int requiredLevel, int expGained) {
 		if (c.playerLevel[7] >= requiredLevel) {
 			if (c.getItemAssistant().playerHasItem(itemID1)
@@ -156,27 +155,27 @@ public class Cooking extends SkillHandler {
 		}
 	}
 
-	private static void setCooking(Client c) {
-		c.playerIsCooking = true;
-		c.stopPlayerSkill = true;
+	private static void setCooking(Player player) {
+		player.playerIsCooking = true;
+		player.stopPlayerSkill = true;
 	}
 
-	public static void resetCooking(Client c) {
-		c.playerIsCooking = false;
-		c.stopPlayerSkill = false;
+	public static void resetCooking(Player player) {
+		player.playerIsCooking = false;
+		player.stopPlayerSkill = false;
 	}
 
-	private static void viewCookInterface(Client c, int item) {
+	private static void viewCookInterface(Player c, int item) {
 		c.getPacketSender().sendChatInterface(1743);
 		c.getPacketSender().sendFrame246(13716, view190 ? 190 : 170, item);
 		c.getPacketSender().sendFrame126(getLine(c) + "" + ItemAssistant.getItemName(item) + "", 13717);
 	}
 
-	public static String getLine(Client c) {
+	public static String getLine(Player c) {
 		return c.below459 ? "\\n\\n\\n\\n" : "\\n\\n\\n\\n\\n";
 	}
 
-	public static boolean startCooking(Client c, int itemId, int objectId) {
+	public static boolean startCooking(Player c, int itemId, int objectId) {
 		CookingItems item = forId(itemId);
 		if (item != null) {
 			if (c.playerLevel[c.playerCooking] < item.getLevelReq()) {
@@ -205,7 +204,7 @@ public class Cooking extends SkillHandler {
 		return false;
 	}
 
-	private static boolean getSuccess(Client c, int burnBonus, int levelReq,
+	private static boolean getSuccess(Player c, int burnBonus, int levelReq,
 			int stopBurn) {
 		if (c.playerLevel[c.playerCooking] >= stopBurn) {
 			return true;
@@ -222,67 +221,67 @@ public class Cooking extends SkillHandler {
 		return burn_chance <= randNum;
 	}
 
-	public static void cookItem(final Client c, final int itemId,
+	public static void cookItem(final Player player, final int itemId,
 			final int amount, final int objectId) {
 		final CookingItems item = forId(itemId);
 
 		if (item != null) {
-			setCooking(c);
-			RandomEventHandler.addRandom(c);
-			c.getPacketSender().closeAllWindows();
-			c.doAmount = amount;
-			if (c.doAmount > c.getItemAssistant().getItemAmount(itemId)) {
-				c.doAmount = c.getItemAssistant().getItemAmount(itemId);
+			setCooking(player);
+			RandomEventHandler.addRandom(player);
+			player.getPacketSender().closeAllWindows();
+			player.doAmount = amount;
+			if (player.doAmount > player.getItemAssistant().getItemAmount(itemId)) {
+				player.doAmount = player.getItemAssistant().getItemAmount(itemId);
 			}
 			if (objectId > 0) {
-				c.startAnimation(objectId == 2732 ? 897 : 896);
+				player.startAnimation(objectId == 2732 ? 897 : 896);
 			}
-			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				@Override
 				public void execute(CycleEventContainer container) {
-					if (!c.playerIsCooking) {
-						resetCooking(c);
+					if (!player.playerIsCooking) {
+						resetCooking(player);
 						container.stop();
 						return;
 					}
-					if (!c.getItemAssistant().playerHasItem(item.getRawItem(),
+					if (!player.getItemAssistant().playerHasItem(item.getRawItem(),
 							1)) {
-						c.getPacketSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								"You have run out of " + item.getName()
 										+ " to cook.");
-						resetCooking(c);
+						resetCooking(player);
 						container.stop();
 						return;
 					}
 
 					// if (c.playerEquipment[c.playerHands] != 775)
-					boolean burn = !getSuccess(c, 3, item.getLevelReq(),
+					boolean burn = !getSuccess(player, 3, item.getLevelReq(),
 							item.getStopBurn());
 					/*
 					 * else burn = !getSuccess(c, 3, item.getLevelReq(), item
 					 * .getStopBurnGloves());
 					 */
-					c.getItemAssistant().deleteItem(item.getRawItem(),
-							c.getItemAssistant().getItemSlot(itemId), 1);
+					player.getItemAssistant().deleteItem(item.getRawItem(),
+							player.getItemAssistant().getItemSlot(itemId), 1);
 					if (!burn) {
-						c.getPacketSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								"You successfully cook the "
 										+ item.getName().toLowerCase() + ".");
 						if (GameConstants.SOUND) {
-							c.getPacketSender().sendSound(
+							player.getPacketSender().sendSound(
 									SoundList.COOK_ITEM, 100, 0);
 						}
-						c.getPlayerAssistant().addSkillXP(item.getXp(),
-								c.playerCooking);
-						c.getItemAssistant().addItem(item.getCookedItem(), 1);
+						player.getPlayerAssistant().addSkillXP(item.getXp(),
+								player.playerCooking);
+						player.getItemAssistant().addItem(item.getCookedItem(), 1);
 					} else {
-						c.getPacketSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								"Oops! You accidentally burnt the "
 										+ item.getName().toLowerCase() + "!");
-						c.getItemAssistant().addItem(item.getBurntItem(), 1);
+						player.getItemAssistant().addItem(item.getBurntItem(), 1);
 					}
-					c.doAmount--;
-					if (c.disconnected) {
+					player.doAmount--;
+					if (player.disconnected) {
 						container.stop();
 						return;
 					}
@@ -290,12 +289,12 @@ public class Cooking extends SkillHandler {
 						container.stop();
 						return;
 					}
-					if (c.doAmount > 0) {
+					if (player.doAmount > 0) {
 						if (objectId > 0) {
-							c.startAnimation(objectId == 2732 ? 897 : 896);
+							player.startAnimation(objectId == 2732 ? 897 : 896);
 						}
-					} else if (c.doAmount == 0) {
-						resetCooking(c);
+					} else if (player.doAmount == 0) {
+						resetCooking(player);
 						container.stop();
 					}
 				}

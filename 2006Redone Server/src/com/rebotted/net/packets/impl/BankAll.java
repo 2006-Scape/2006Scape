@@ -3,7 +3,7 @@ package com.rebotted.net.packets.impl;
 import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.Item;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -12,7 +12,7 @@ import com.rebotted.net.packets.PacketType;
 public class BankAll implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		int removeSlot = player.getInStream().readUnsignedWordA();
 		int interfaceId = player.getInStream().readUnsignedWord();
 		int removeId = player.getInStream().readUnsignedWordA();

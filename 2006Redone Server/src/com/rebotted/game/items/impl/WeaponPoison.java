@@ -1,9 +1,8 @@
 package com.rebotted.game.items.impl;
 
 import java.util.HashMap;
-
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Manages weapon poisoning.
@@ -131,7 +130,7 @@ public class WeaponPoison {
 	 * @param useWith
 	 *            The second item use.
 	 */
-	public static void execute(final Client player, int itemUse, int useWith) {
+	public static void execute(final Player player, int itemUse, int useWith) {
 		final Weapon weapon = Weapon.weapon.get(useWith);
 		if (weapon != null) {
 			for (int element[] : weapon.getNewItemId()) {

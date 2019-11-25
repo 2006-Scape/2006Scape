@@ -3,14 +3,14 @@ package com.rebotted.game.content.skills.agility;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class WildernessAgility {
 
-	private final Client c;
+	private final Player c;
 
-	public WildernessAgility(Client c) {
-		this.c = c;
+	public WildernessAgility(Player player) {
+		this.c = player;
 	}
 
 	public static final int WILDERNESS_PIPE_OBJECT = 2288,

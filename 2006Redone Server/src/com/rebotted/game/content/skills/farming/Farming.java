@@ -1,15 +1,15 @@
 package com.rebotted.game.content.skills.farming;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Farming
- * @author Andrew (I'm A Boss on Rune-Server and Mr Extremez on Mopar & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class Farming {
 	
-	public static void openGuide(Client player, int objectType) {
+	public static void openGuide(Player player, int objectType) {
 		if (Flowers.isFlower(player, objectType)) {
 			player.getSkillInterfaces().farmingComplex(6);
 			player.getSkillInterfaces().selected = 20;

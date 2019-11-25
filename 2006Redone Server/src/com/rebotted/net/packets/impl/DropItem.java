@@ -9,7 +9,7 @@ import com.rebotted.game.content.skills.firemaking.Firemaking;
 import com.rebotted.game.content.skills.firemaking.LogData;
 import com.rebotted.game.items.impl.RareProtection;
 import com.rebotted.game.npcs.impl.Pets;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -18,7 +18,7 @@ import com.rebotted.net.packets.PacketType;
 public class DropItem implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		int itemId = player.getInStream().readUnsignedWordA();
 		player.getInStream().readUnsignedByte();
 		player.getInStream().readUnsignedByte();

@@ -3,12 +3,11 @@ package com.rebotted.game.content.random;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.objects.Objects;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class PartyRoom {
 
@@ -29,7 +28,7 @@ public class PartyRoom {
 		return amount;
 	}
 
-	public static void startTimer(Client c) {
+	public static void startTimer(Player c) {
 		if (System.currentTimeMillis() - lastAnnouncment > 1000 * 60 * announcmentFrequency) {
 			dropAll();
 			lastAnnouncment = System.currentTimeMillis();
@@ -86,18 +85,18 @@ public class PartyRoom {
 		return spare;
 	}
 
-	public static void open(Client c) {
+	public static void open(Player player) {
 		if (!GameConstants.PARTY_ROOM_DISABLED) {
-			updateGlobal(c);
-			updateDeposit(c);
-			c.getItemAssistant().resetItems(5064);
-			c.getPacketSender().sendFrame248(2156, 5063);
+			updateGlobal(player);
+			updateDeposit(player);
+			player.getItemAssistant().resetItems(5064);
+			player.getPacketSender().sendFrame248(2156, 5063);
 		} else {
-			c.getPacketSender().sendMessage("The partyroom has been disabled.");
+			player.getPacketSender().sendMessage("The partyroom has been disabled.");
 		}
 	}
 
-	public static void accept(Client c) {
+	public static void accept(Player c) {
 		for (int x = 0; x < c.party.length; x++) {
 			if (c.partyN[x] > 0) {
 				if (Item.itemStackable[c.party[x]]) {
@@ -145,7 +144,7 @@ public class PartyRoom {
 	// }
 	// }
 
-	public static void fix(Client c) {
+	public static void fix(Player c) {
 		for (int x = 0; x < 8; x++) {
 			if (c.party[x] < 0) {
 				c.partyN[x] = 0;
@@ -155,44 +154,43 @@ public class PartyRoom {
 		}
 	}
 
-	public static void depositItem(Client c, int id, int amount) {
-		int slot = arraySlot(c.party, id);
+	public static void depositItem(Player player, int id, int amount) {
+		int slot = arraySlot(player.party, id);
 		for (int i : GameConstants.ITEM_TRADEABLE) {
 			if (i == id) {
-				c.getPacketSender().sendMessage(
-						"You can't deposit this item.");
+				player.getPacketSender().sendMessage("You can't deposit this item.");
 				return;
 			}
 			if (id == 995) {
-				c.getPacketSender().sendMessage("You can't deposit coins!");
+				player.getPacketSender().sendMessage("You can't deposit coins!");
 				return;
 			}
 		}
-		if (c.getItemAssistant().getItemAmount(id) < amount) {
-			amount = c.getItemAssistant().getItemAmount(id);
+		if (player.getItemAssistant().getItemAmount(id) < amount) {
+			amount = player.getItemAssistant().getItemAmount(id);
 		}
-		if (!c.getItemAssistant().playerHasItem(id, amount)) {
-			c.getPacketSender().sendMessage(
+		if (!player.getItemAssistant().playerHasItem(id, amount)) {
+			player.getPacketSender().sendMessage(
 					"You don't have that many items!");
 			return;
 		}
 		if (slot == -1) {
-			c.getPacketSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You cant deposit more than 8 items at once.");
 			return;
 		}
-		c.getItemAssistant().deleteItem(id, amount);
-		if (c.party[slot] != id) {
-			c.party[slot] = id;
-			c.partyN[slot] = amount;
+		player.getItemAssistant().deleteItem(id, amount);
+		if (player.party[slot] != id) {
+			player.party[slot] = id;
+			player.partyN[slot] = amount;
 		} else {
-			c.party[slot] = id;
-			c.partyN[slot] += amount;
+			player.party[slot] = id;
+			player.partyN[slot] += amount;
 		}
-		updateDeposit(c);
+		updateDeposit(player);
 	}
 
-	public static void withdrawItem(Client c, int slot) {
+	public static void withdrawItem(Player c, int slot) {
 		if (c.party[slot] >= 0 && c.getItemAssistant().freeSlots() > 0) {
 			c.getItemAssistant().addItem(c.party[slot], c.partyN[slot]);
 			c.party[slot] = 0;
@@ -202,35 +200,34 @@ public class PartyRoom {
 		updateGlobal(c);
 	}
 
-	public static void updateDeposit(Client c) {
-		c.getItemAssistant().resetItems(5064);
+	public static void updateDeposit(Player player) {
+		player.getItemAssistant().resetItems(5064);
 		for (int x = 0; x < 8; x++) {
-			if (c.partyN[x] <= 0) {
-				itemOnInterface(c, 2274, x, -1, 0);
+			if (player.partyN[x] <= 0) {
+				itemOnInterface(player, 2274, x, -1, 0);
 			} else {
-				itemOnInterface(c, 2274, x, c.party[x], c.partyN[x]);
+				itemOnInterface(player, 2274, x, player.party[x], player.partyN[x]);
 			}
 		}
 	}
 
-	public static void updateGlobal(Client c) {
+	public static void updateGlobal(Player player) {
 		for (int x = 0; x < roomItems.length; x++) {
 			if (roomItemsN[x] <= 0) {
-				itemOnInterface(c, 2273, x, -1, 0);
+				itemOnInterface(player, 2273, x, -1, 0);
 			} else {
-				itemOnInterface(c, 2273, x, roomItems[x], roomItemsN[x]);
+				itemOnInterface(player, 2273, x, roomItems[x], roomItemsN[x]);
 			}
 		}
 	}
 
-	public static void itemOnInterface(Client c, int frame, int slot, int id,
-			int amount) {
-		c.outStream.createFrameVarSizeWord(34);
-		c.outStream.writeWord(frame);
-		c.outStream.writeByte(slot);
-		c.outStream.writeWord(id + 1);
-		c.outStream.writeByte(255);
-		c.outStream.writeDWord(amount);
-		c.outStream.endFrameVarSizeWord();
+	public static void itemOnInterface(Player player, int frame, int slot, int id, int amount) {
+		player.outStream.createFrameVarSizeWord(34);
+		player.outStream.writeWord(frame);
+		player.outStream.writeByte(slot);
+		player.outStream.writeWord(id + 1);
+		player.outStream.writeByte(255);
+		player.outStream.writeDWord(amount);
+		player.outStream.endFrameVarSizeWord();
 	}
 }

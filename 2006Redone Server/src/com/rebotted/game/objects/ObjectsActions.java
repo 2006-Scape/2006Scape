@@ -45,17 +45,17 @@ import com.rebotted.game.objects.impl.Searching;
 import com.rebotted.game.objects.impl.SpecialObjects;
 import com.rebotted.game.objects.impl.UseOther;
 import com.rebotted.game.objects.impl.Webs;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.Position;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
 
 public class ObjectsActions {
 
-	private final Client player;
+	private final Player player;
 
-	public ObjectsActions(Client Client) {
-		player = Client;
+	public ObjectsActions(Player player2) {
+		player = player2;
 	}
 	
 	public void firstClickObject(int objectType, int objectX, int objectY) {
@@ -1582,8 +1582,7 @@ public class ObjectsActions {
 			break;
 
 		case 2693:
-			SpecialObjects.openShantayChest(player, objectType, objectX, objectY,
-					"open");
+			SpecialObjects.openShantayChest(player, objectType, objectX, objectY, "open");
 			break;
 
 		case 2883:
@@ -2772,8 +2771,7 @@ public class ObjectsActions {
 		case 5584:
 		case 312:
 		case 3366:
-			Pickable.pickObject(player, player.objectId, player.objectX,
-					player.objectY);
+			Pickable.pickObject(player, player.objectId, player.objectX, player.objectY);
 			break;
 
 		case 2558:

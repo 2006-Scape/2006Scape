@@ -3,7 +3,7 @@ package com.rebotted.game.objects.impl;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.world.clip.Region;
 
 /**
@@ -24,7 +24,7 @@ public class FlourMill {
 	 * 
 	 * @param c
 	 */
-	public static void grainOnHopper(Client c, int objectID, int itemId) {
+	public static void grainOnHopper(Player c, int objectID, int itemId) {
 		if (itemId == GRAIN) {
 			// Grain amount - flour amount. Prevents putting more than 30
 			if (c.grain == LIMIT - c.flourAmount || c.flourAmount == LIMIT) {
@@ -47,7 +47,7 @@ public class FlourMill {
 	 * 
 	 * @param c
 	 */
-	public static void hopperControl(final Client c) {
+	public static void hopperControl(final Player c) {
 		if (c.grain > 0) {
 			if (c.flourAmount == LIMIT) {
 				c.getPacketSender().sendMessage(
@@ -89,27 +89,27 @@ public class FlourMill {
 	/**
 	 * Emptys the flour bin...
 	 * 
-	 * @param c
+	 * @param player
 	 */
-	public static void emptyFlourBin(Client c) {
-		if (c.getItemAssistant().playerHasItem(EMPTY_POT, 1)
-				&& c.flourAmount > 0) {
-			c.getItemAssistant().deleteItem(EMPTY_POT, 1);
-			c.getItemAssistant().addItem(POT_OF_FLOUR, 1);
-			c.getPacketSender().sendMessage(
+	public static void emptyFlourBin(Player player) {
+		if (player.getItemAssistant().playerHasItem(EMPTY_POT, 1)
+				&& player.flourAmount > 0) {
+			player.getItemAssistant().deleteItem(EMPTY_POT, 1);
+			player.getItemAssistant().addItem(POT_OF_FLOUR, 1);
+			player.getPacketSender().sendMessage(
 					"You fill a pot with flour from the bin.");
-			c.flourAmount--;
-			if (c.flourAmount < 0) {
-				c.flourAmount = 0;
+			player.flourAmount--;
+			if (player.flourAmount < 0) {
+				player.flourAmount = 0;
 			}
-			if (c.flourAmount == 0) {
-				c.getPacketSender().object(EMPTY_FLOUR_BIN, 3166, 3306, 0, 10);
+			if (player.flourAmount == 0) {
+				player.getPacketSender().object(EMPTY_FLOUR_BIN, 3166, 3306, 0, 10);
 				Region.addObject(EMPTY_FLOUR_BIN, 3166, 3306, 0, 10, 0, false);
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"The flour bin is now empty.");
 			}
 		} else {
-			c.getPacketSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You don't have an empty pot to fill flour with.");
 		}
 	}

@@ -141,7 +141,7 @@ public class GlobalDropsHandler {
 	/**
 	 * Pick up an item at the given location
 	 * 
-	 * @param Player
+	 * @param player2
 	 *            the Player
 	 * @param a
 	 *            item id
@@ -150,7 +150,7 @@ public class GlobalDropsHandler {
 	 * @param c
 	 *            cord y
 	 */
-	public static void pickup(Client Player, int a, int b, int c) {
+	public static void pickup(Player player2, int a, int b, int c) {
 		GlobalDrop drop = itemExists(a, b, c);
 		if (drop == null) {
 			return;
@@ -158,8 +158,8 @@ public class GlobalDropsHandler {
 		if (drop.isTaken()) {
 			return;
 		}
-		if (Player.getItemAssistant().freeSlots() > 0) {
-			Player.getItemAssistant().addItem(drop.getId(), drop.getAmount());
+		if (player2.getItemAssistant().freeSlots() > 0) {
+			player2.getItemAssistant().addItem(drop.getId(), drop.getAmount());
 			drop.setTakenAt(System.currentTimeMillis());
 			drop.setTaken(true);
 			for (Player player : PlayerHandler.players) {
@@ -188,18 +188,18 @@ public class GlobalDropsHandler {
 		}
 	}
 	
-	public static void reset(Client player) {
+	public static void reset(Player c) {
 		for(GlobalDrop drop : globalDrops) {
-			if(player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-				player.getPacketSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
+			if(c.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+				c.getPacketSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
 			}
 		}
 		spawnedDrops.clear();
 		globalDrops.clear();
 		read();
 		for (GlobalDrop drop : globalDrops) {
-			if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-				player.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+			if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && c.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
+				c.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
 				spawnedDrops.add(drop);
 				drop.setSpawned(true);
 			}

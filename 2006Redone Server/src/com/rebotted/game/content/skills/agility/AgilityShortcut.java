@@ -1,6 +1,7 @@
 package com.rebotted.game.content.skills.agility;
 
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Agility Shortcuts
@@ -11,238 +12,238 @@ public class AgilityShortcut {
 
 	private static final int WALK = 1, MOVE = 2, AGILITY = 3;
 
-	private static void handleAgility(Client client, int x, int y, int levelReq, int anim, int walk, String message) {
-		if (client.playerLevel[client.playerAgility] < levelReq) {
-			client.getPacketSender().sendMessage("You need " + levelReq + " agility to use this shortcut.");
+	private static void handleAgility(Player player, int x, int y, int levelReq, int anim, int walk, String message) {
+		if (player.playerLevel[player.playerAgility] < levelReq) {
+			player.getPacketSender().sendMessage("You need " + levelReq + " agility to use this shortcut.");
 			return;
 		}
 		switch (walk) {
 		case 1:
-			client.getPlayerAssistant().walkTo(x, y);
+			player.getPlayerAssistant().walkTo(x, y);
 			break;
 		case 2:
-			client.getPlayerAssistant().movePlayer(x, y, client.heightLevel);
+			player.getPlayerAssistant().movePlayer(x, y, player.heightLevel);
 			break;
 		case 3:
-			client.getAgility().walk(x, y, anim, -1);
+			player.getAgility().walk(x, y, anim, -1);
 			break;
 		}
 		if (anim != 0 && anim != -1) {
-			client.startAnimation(anim);
+			player.startAnimation(anim);
 		}
-		client.getPacketSender().sendMessage(message);
+		player.getPacketSender().sendMessage(message);
 	}
 
-	public static void processAgilityShortcut(Client client) {
-		switch (client.objectId) {
+	public static void processAgilityShortcut(Player player) {
+		switch (player.objectId) {
 		case 993:
-		if (client.absY == 3435) {
-			handleAgility(client, 2761, 3438, 1, 3067, MOVE, "You jump over the stile.");
-		} else if (client.absY == 3438) {
-			handleAgility(client, 2761, 3435, 1, 3067, MOVE, "You jump over the stile.");
+		if (player.absY == 3435) {
+			handleAgility(player, 2761, 3438, 1, 3067, MOVE, "You jump over the stile.");
+		} else if (player.absY == 3438) {
+			handleAgility(player, 2761, 3435, 1, 3067, MOVE, "You jump over the stile.");
 		}
 		break;
 		case 9326:
-		if (client.absX == 2773) {
-			handleAgility(client, 2, 0, 81, 3067, WALK, "You jump over the strange floor.");
-		} else if (client.absX == 2775) {
-			handleAgility(client, -2, 0, 81, 3067, WALK, "You jump over the strange floor.");
+		if (player.absX == 2773) {
+			handleAgility(player, 2, 0, 81, 3067, WALK, "You jump over the strange floor.");
+		} else if (player.absX == 2775) {
+			handleAgility(player, -2, 0, 81, 3067, WALK, "You jump over the strange floor.");
 		}
 		break;
 		case 9321:
-		if (client.absX == 2735) {
-			handleAgility(client, -5, 0, 62, 2240, WALK, "You squeeze through the crevice.");
-		} else if (client.absX == 2730) {
-			handleAgility(client, 5, 0, 62, 2240, WALK, "You squeeze through the crevice.");
+		if (player.absX == 2735) {
+			handleAgility(player, -5, 0, 62, 2240, WALK, "You squeeze through the crevice.");
+		} else if (player.absX == 2730) {
+			handleAgility(player, 5, 0, 62, 2240, WALK, "You squeeze through the crevice.");
 		}
 		break;
 		case 12127:
-			if (client.absY == 4403) {
-				handleAgility(client, 0, -2, 66, 2240, WALK,
+			if (player.absY == 4403) {
+				handleAgility(player, 0, -2, 66, 2240, WALK,
 						"You squeeze past the jutted wall.");
-			} else if (client.absY == 4401) {
-				handleAgility(client, 0, 2, 66, 2240, WALK,
+			} else if (player.absY == 4401) {
+				handleAgility(player, 0, 2, 66, 2240, WALK,
 						"You squeeze past the jutted wall.");
-			} else if (client.absY == 4404) {
-				handleAgility(client, 0, -2, 46, 2240, WALK,
+			} else if (player.absY == 4404) {
+				handleAgility(player, 0, -2, 46, 2240, WALK,
 						"You squeeze past the jutted wall.");
-			} else if (client.absY == 4402) {
-				handleAgility(client, 0, 2, 46, 2240, WALK,
+			} else if (player.absY == 4402) {
+				handleAgility(player, 0, 2, 46, 2240, WALK,
 						"You squeeze past the jutted wall.");
 			}
 			break;
 		case 3933:
-			if (client.absY == 3232) {
-				handleAgility(client, 0, 7, 85, 762, WALK,
+			if (player.absY == 3232) {
+				handleAgility(player, 0, 7, 85, 762, WALK,
 						"You pass through the agility shortcut.");
-			} else if (client.absY == 3239) {
-				handleAgility(client, 0, -7, 85, 762, WALK,
+			} else if (player.absY == 3239) {
+				handleAgility(player, 0, -7, 85, 762, WALK,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 4615:
 		case 4616:
-			if (client.absX == 2595) {
-				handleAgility(client, 2599, client.absY, 1, 3067, MOVE,
+			if (player.absX == 2595) {
+				handleAgility(player, 2599, player.absY, 1, 3067, MOVE,
 						"You pass through the agility shortcut.");
-			} else if (client.absX == 2599) {
-				handleAgility(client, 2595, client.absY, 1, 3067, MOVE,
+			} else if (player.absX == 2599) {
+				handleAgility(player, 2595, player.absY, 1, 3067, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 11844:
-			if (client.absX == 2936) {
-				handleAgility(client, -2, 0, 5, -1, WALK,
+			if (player.absX == 2936) {
+				handleAgility(player, -2, 0, 5, -1, WALK,
 						"You pass through the agility shortcut.");
-			} else if (client.absX == 2934) {
-				handleAgility(client, 2, 0, 5, -1, WALK,
+			} else if (player.absX == 2934) {
+				handleAgility(player, 2, 0, 5, -1, WALK,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 5090:
-			if (client.absX == 2687) {// 2682, 9506
-				handleAgility(client, -5, 0, 5, 762, WALK,
+			if (player.absX == 2687) {// 2682, 9506
+				handleAgility(player, -5, 0, 5, 762, WALK,
 						"You walk across the log balance.");
 			}
 			break;
 		case 5088:
-			if (client.absX == 2682) {// 2867, 9506
-				handleAgility(client, 5, 0, 5, 762, WALK,
+			if (player.absX == 2682) {// 2867, 9506
+				handleAgility(player, 5, 0, 5, 762, WALK,
 						"You walk across the log balance.");
 			}
 			break;
 		case 14922:
-			if (client.objectX == 2344 && client.objectY == 3651) {
-				handleAgility(client, 2344, 3655, 1, 762, MOVE,
+			if (player.objectX == 2344 && player.objectY == 3651) {
+				handleAgility(player, 2344, 3655, 1, 762, MOVE,
 						"You crawl through the hole.");
-			} else if (client.objectX == 2344 && client.objectY == 3654) {
-				handleAgility(client, 2344, 3650, 1, 762, MOVE,
+			} else if (player.objectX == 2344 && player.objectY == 3654) {
+				handleAgility(player, 2344, 3650, 1, 762, MOVE,
 						"You crawl through the hole.");
 			}
 			break;
 		case 9330:
-			if (client.objectX == 2601 && client.objectY == 3336) {
-				handleAgility(client, -4, 0, 33, client.getAgility()
+			if (player.objectX == 2601 && player.objectY == 3336) {
+				handleAgility(player, -4, 0, 33, player.getAgility()
 						.getAnimation(Agility.PIPES_EMOTE), AGILITY,
 						"You pass through the agility shortcut.");
 			}
 		case 5100:
-			if (client.absY == 9566) {
-				handleAgility(client, 2655, 9573, 17, 762, MOVE,
+			if (player.absY == 9566) {
+				handleAgility(player, 2655, 9573, 17, 762, MOVE,
 						"You pass through the agility shortcut.");
-			} else if (client.absY == 9573) {
-				handleAgility(client, 2655, 9573, 17, 762, MOVE,
+			} else if (player.absY == 9573) {
+				handleAgility(player, 2655, 9573, 17, 762, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 9328:
-			if (client.objectX == 2599 && client.objectY == 3336) {
-				handleAgility(client, 4, 0, 33, client.getAgility()
+			if (player.objectX == 2599 && player.objectY == 3336) {
+				handleAgility(player, 4, 0, 33, player.getAgility()
 						.getAnimation(Agility.PIPES_EMOTE), AGILITY,
 						"You pass through the agility shortcut.");
 			}
 			break;
 
 		case 9293:
-			if (client.absX < client.objectX) {
-				handleAgility(client, 2892, 9799, 70, client.getAgility()
+			if (player.absX < player.objectX) {
+				handleAgility(player, 2892, 9799, 70, player.getAgility()
 						.getAnimation(Agility.PIPES_EMOTE), MOVE,
 						"You pass through the agility shortcut.");
 			} else {
-				handleAgility(client, 2886, 9799, 70, client.getAgility()
+				handleAgility(player, 2886, 9799, 70, player.getAgility()
 						.getAnimation(Agility.PIPES_EMOTE), MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 
 		case 9294:
-			if (client.absX < client.objectX) {
-				client.getPlayerAssistant().movePlayer(client.objectX + 1,
-						client.absY, 0);
-				handleAgility(client, 2880, 9713, 80, 3067, MOVE,
+			if (player.absX < player.objectX) {
+				player.getPlayerAssistant().movePlayer(player.objectX + 1,
+						player.absY, 0);
+				handleAgility(player, 2880, 9713, 80, 3067, MOVE,
 						"You jump over the strange wall.");
-			} else if (client.absX > client.objectX) {
-				handleAgility(client, 2878, 9713, 80, 3067, MOVE,
+			} else if (player.absX > player.objectX) {
+				handleAgility(player, 2878, 9713, 80, 3067, MOVE,
 						"You jump over the strange wall.");
 			}
 			break;
 
 		case 9302:
-			if (client.absY == 3112) {
-				handleAgility(client, 2575, 3107, 16, 844, MOVE,
+			if (player.absY == 3112) {
+				handleAgility(player, 2575, 3107, 16, 844, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 
 		case 9301:
-			if (client.absY == 3107) {
-				handleAgility(client, 2575, 3112, 16, 844, MOVE,
+			if (player.absY == 3107) {
+				handleAgility(player, 2575, 3112, 16, 844, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 9309:
-			if (client.absY == 3309) {
-				handleAgility(client, 2948, 3313, 26, 844, MOVE,
+			if (player.absY == 3309) {
+				handleAgility(player, 2948, 3313, 26, 844, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 9310:
-			if (client.absY == 3313) {
-				handleAgility(client, 2948, 3309, 26, 844, MOVE,
+			if (player.absY == 3313) {
+				handleAgility(player, 2948, 3309, 26, 844, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 2322:
-			if (client.absX == 2709) {
-				handleAgility(client, 2704, 3209, 10, 3067, MOVE,
+			if (player.absX == 2709) {
+				handleAgility(player, 2704, 3209, 10, 3067, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 2323:
-			if (client.absX == 2705) {
-				handleAgility(client, 2709, 3205, 10, 3067, MOVE,
+			if (player.absX == 2705) {
+				handleAgility(player, 2709, 3205, 10, 3067, MOVE,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 2332:
-			if (client.absX == 2906) {
-				handleAgility(client, 4, 0, 1, 762, WALK,
+			if (player.absX == 2906) {
+				handleAgility(player, 4, 0, 1, 762, WALK,
 						"You pass through the agility shortcut.");
-			} else if (client.absX == 2910) {
-				handleAgility(client, -4, 0, 1, 762, WALK,
+			} else if (player.absX == 2910) {
+				handleAgility(player, -4, 0, 1, 762, WALK,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 3067:
-			if (client.absX == 2639) {
-				handleAgility(client, -1, 0, 1, 3067, WALK,
+			if (player.absX == 2639) {
+				handleAgility(player, -1, 0, 1, 3067, WALK,
 						"You pass through the agility shortcut.");
-			} else if (client.absX == 2638) {
-				handleAgility(client, -1, 0, 1, 3067, WALK,
+			} else if (player.absX == 2638) {
+				handleAgility(player, -1, 0, 1, 3067, WALK,
 						"You pass through the agility shortcut.");
 			}
 			break;
 		case 2618:
-			if (client.absY == 3492) {
-				handleAgility(client, 0, +2, 1, 3067, WALK,
+			if (player.absY == 3492) {
+				handleAgility(player, 0, +2, 1, 3067, WALK,
 						"You jump over the broken fence.");
-			} else if (client.absY == 3494) {
-				handleAgility(client, -0, -2, 1, 3067, WALK,
+			} else if (player.absY == 3494) {
+				handleAgility(player, -0, -2, 1, 3067, WALK,
 						"You jump over the broken fence.");
 			}
 			break;
 		case 5110:
-			Agility.brimhavenSkippingStone(client);
+			Agility.brimhavenSkippingStone(player);
 			break;
 		case 5111:
-			Agility.brimhavenSkippingStone(client);
+			Agility.brimhavenSkippingStone(player);
 			break;
 		case 2296:
-			if (client.absX == 2603) {
-				handleAgility(client, -5, 0, 1, -1, WALK,
+			if (player.absX == 2603) {
+				handleAgility(player, -5, 0, 1, -1, WALK,
 						"You pass through the agility shortcut.");
-			} else if (client.absX == 2598) {
-				handleAgility(client, 5, 0, 1, -1, WALK,
+			} else if (player.absX == 2598) {
+				handleAgility(player, 5, 0, 1, -1, WALK,
 						"You pass through the agility shortcut.");
 			}
 			break;

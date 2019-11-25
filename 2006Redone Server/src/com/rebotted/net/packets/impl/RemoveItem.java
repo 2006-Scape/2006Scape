@@ -3,7 +3,7 @@ package com.rebotted.net.packets.impl;
 import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.content.skills.crafting.JewelryMaking;
 import com.rebotted.game.items.impl.RareProtection;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -12,7 +12,7 @@ import com.rebotted.net.packets.PacketType;
 public class RemoveItem implements PacketType {
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket(Player c, int packetType, int packetSize) {
 		int interfaceId = c.getInStream().readUnsignedWordA();
 		int removeSlot = c.getInStream().readUnsignedWordA();
 		int removeId = c.getInStream().readUnsignedWordA();

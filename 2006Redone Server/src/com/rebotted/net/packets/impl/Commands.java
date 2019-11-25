@@ -18,7 +18,7 @@ import com.rebotted.world.clip.Region;
 public class Commands implements PacketType {
 
         @Override
-        public void processPacket(Client player, int packetType, int packetSize) {
+        public void processPacket(Player player, int packetType, int packetSize) {
                 String[] messageArr = player.getInStream().readString().split(" ");
                 String playerCommand = messageArr[0];
                 String[] commandArguments = Arrays.copyOfRange(messageArr, 1, messageArr.length);
@@ -27,9 +27,6 @@ public class Commands implements PacketType {
                 }
                 if (player.playerRights >= 0) {
                         playerCommands(player, playerCommand, commandArguments);
-                }
-                if (player.membership || player.playerRights > 1) {
-                        donatorCommands(player, playerCommand, commandArguments);
                 }
                 if (player.playerRights >= 1) {
                         moderatorCommands(player, playerCommand, commandArguments);
@@ -42,7 +39,7 @@ public class Commands implements PacketType {
                 }
         }
 
-        public static void playerCommands(Client player, String playerCommand, String[] arguments) {
+        public static void playerCommands(Player player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase())
                 {
                         case "bank":
@@ -213,11 +210,7 @@ public class Commands implements PacketType {
 
         }
 
-        public static void donatorCommands(Client player, String playerCommand, String[] arguments) {
-
-        }
-
-        public static void moderatorCommands(Client player, String playerCommand, String[] arguments) {
+        public static void moderatorCommands(Player player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
                         case "kick":
                                 try {
@@ -350,7 +343,7 @@ public class Commands implements PacketType {
                 }
         }
 
-        public static void adminCommands(Client player, String playerCommand, String[] arguments) {
+        public static void adminCommands(Player player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
                         case "clearbank":
                                 player.getItemAssistant().clearBank();
@@ -585,7 +578,7 @@ public class Commands implements PacketType {
                 }
         }
 
-        public static void developerCommands(Client player, String playerCommand, String[] arguments) {
+        public static void developerCommands(Player player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase()) {
                         case "clicktotele":
                         case "ctt": // alias

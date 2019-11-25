@@ -2,7 +2,7 @@ package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.content.skills.crafting.JewelryMaking;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -11,7 +11,7 @@ import com.rebotted.net.packets.PacketType;
 public class Bank5 implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		int interfaceId = player.getInStream().readSignedWordBigEndianA();
 		int removeId = player.getInStream().readSignedWordBigEndianA();
 		int removeSlot = player.getInStream().readSignedWordBigEndian();

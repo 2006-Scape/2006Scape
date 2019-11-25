@@ -1,18 +1,18 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Imp Catcher
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class ImpCatcher {
 
-	public Client client;
+	public Player client;
 
-	public ImpCatcher(Client client) {
-		this.client = client;
+	public ImpCatcher(Player player) {
+		this.client = player;
 	}
 
 	public void showInformation() {

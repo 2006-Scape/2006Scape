@@ -2,16 +2,16 @@ package com.rebotted.game.content.minigames;
 
 import com.rebotted.game.content.quests.QuestRewards;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 public class Barrows {
 	
-	public Barrows(Client c) {
-		this.c = c;
+	public Barrows(Player player) {
+		this.c = player;
 	}
 	
-	private Client c;
+	private Player c;
 	
 	/**
 	 * Variables used for reward.

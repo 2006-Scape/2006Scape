@@ -1,13 +1,13 @@
 package com.rebotted.game.content.combat.magic;
 
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 
 public class MagicRequirements {
 
-	public static boolean wearingStaff(Client c, int runeId) {
-		int wep = c.playerEquipment[c.playerWeapon];
+	public static boolean wearingStaff(Player player, int runeId) {
+		int wep = player.playerEquipment[player.playerWeapon];
 		switch (runeId) {
 		case 554:
 			if (wep == 1387 || wep == 1393 || wep == 3053) {
@@ -33,7 +33,7 @@ public class MagicRequirements {
 		return false;
 	}
 
-	public static boolean checkMagicReqs(Client c, int spell) {
+	public static boolean checkMagicReqs(Player c, int spell) {
 		if (c.usingMagic && MagicTeleports.RUNES_REQUIRED) { // check for runes
 			if (!c.getItemAssistant().playerHasItem(
 					MagicData.MAGIC_SPELLS[spell][8],
@@ -150,7 +150,7 @@ public class MagicRequirements {
 		return true;
 	}
 
-	public static int getStaffNeeded(Client c) {
+	public static int getStaffNeeded(Player c) {
 		switch (MagicData.MAGIC_SPELLS[c.spellId][0]) {
 		case 1539:
 			return 1409;

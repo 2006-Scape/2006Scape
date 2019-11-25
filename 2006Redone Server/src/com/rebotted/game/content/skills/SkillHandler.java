@@ -8,7 +8,7 @@ import com.rebotted.game.content.skills.core.Woodcutting;
 import com.rebotted.game.content.skills.herblore.Herblore;
 import com.rebotted.game.content.skills.smithing.Smelting;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Skillhandler
@@ -29,37 +29,21 @@ public class SkillHandler {
 			PRAYER = true, FLETCHING = true, CRAFTING = true, MAGIC = true,
 			FARMING = false, SLAYER = true, SMITHING = true;
 
-	public static final int WOODCUTTING_EXPERIENCE = SKILLING_EXP,
-			MINING_EXPERIENCE = SKILLING_EXP,
-			SMITHING_EXPERIENCE = SKILLING_EXP,
-			FARMING_EXPERIENCE = SKILLING_EXP,
-			FIREMAKING_EXPERIENCE = SKILLING_EXP,
-			HERBLORE_EXPERIENCE = SKILLING_EXP,
-			FISHING_EXPERIENCE = SKILLING_EXP,
-			AGILITY_EXPERIENCE = SKILLING_EXP,
-			PRAYER_EXPERIENCE = SKILLING_EXP,
-			RUNECRAFTING_EXPERIENCE = SKILLING_EXP,
-			CRAFTING_EXPERIENCE = SKILLING_EXP,
-			THIEVING_EXPERIENCE = SKILLING_EXP,
-			SLAYER_EXPERIENCE = SKILLING_EXP,
-			COOKING_EXPERIENCE = SKILLING_EXP,
-			FLETCHING_EXPERIENCE = SKILLING_EXP;
-
-	public static boolean isSkilling(Client c) {
-		if (c.playerSkilling[10] || c.playerStun || c.playerSkilling[12]
-				|| c.playerIsFletching || c.isFletching || c.playerIsCooking
-				|| c.isMining || c.isWoodcutting || c.isSmithing
-				|| c.isSmelting || c.isSpinning || c.isPotionMaking
-				|| c.isPotCrafting || c.isFiremaking
-				|| c.playerSkilling[c.playerHerblore] == true
-				|| c.playerSkilling[13]) {
+	public static boolean isSkilling(Player player) {
+		if (player.playerSkilling[10] || player.playerStun || player.playerSkilling[12]
+				|| player.playerIsFletching || player.isFletching || player.playerIsCooking
+				|| player.isMining || player.isWoodcutting || player.isSmithing
+				|| player.isSmelting || player.isSpinning || player.isPotionMaking
+				|| player.isPotCrafting || player.isFiremaking
+				|| player.playerSkilling[player.playerHerblore] == true
+				|| player.playerSkilling[13]) {
 			return true;
 		}
 		return false;
 	}
 	
 
-	public static void resetItemOnNpc(Client player) {
+	public static void resetItemOnNpc(Player player) {
 		if (player.isMining) {// mining
 			Mining.resetMining(player);
 		} else if (player.playerIsFletching == true) {// fletching
@@ -89,32 +73,32 @@ public class SkillHandler {
 		}
 	}
 
-	public static void resetSkills(Client c) {// call when walking, dropping,
+	public static void resetSkills(Player player) {// call when walking, dropping,
 												// picking up, leveling up
-		if (c.playerSkilling[10]) {// fishing
-			Fishing.resetFishing(c);
-		} else if (c.isMining) {// mining
-			Mining.resetMining(c);
-		} else if (c.playerIsFletching == true) {// fletching
-			c.playerIsFletching = false;
-		} else if (c.playerIsCooking) {// cooking
-			Cooking.resetCooking(c);
-		} else if (c.isSmithing) {// smithing
-			c.isSmithing = false;
+		if (player.playerSkilling[10]) {// fishing
+			Fishing.resetFishing(player);
+		} else if (player.isMining) {// mining
+			Mining.resetMining(player);
+		} else if (player.playerIsFletching == true) {// fletching
+			player.playerIsFletching = false;
+		} else if (player.playerIsCooking) {// cooking
+			Cooking.resetCooking(player);
+		} else if (player.isSmithing) {// smithing
+			player.isSmithing = false;
 		} else if (isSkilling[12]) {// crafting
 			isSkilling[12] = false;
-		} else if (c.isSmelting) {
-			c.isSmelting = false;
-		} else if (c.isCrafting == true) {
-			c.isCrafting = false;
-		} else if (c.isPotionMaking) {// herblore
-			Herblore.resetHerblore(c);
-		} else if (c.isWoodcutting) {// woodcutting
-			Woodcutting.stopWoodcutting(c);
-		} else if (c.isSpinning) {// spinning
-			c.isSpinning = false;
-		} else if (c.isPotCrafting == true) {// pot crafting
-			c.isPotCrafting = false;
+		} else if (player.isSmelting) {
+			player.isSmelting = false;
+		} else if (player.isCrafting == true) {
+			player.isCrafting = false;
+		} else if (player.isPotionMaking) {// herblore
+			Herblore.resetHerblore(player);
+		} else if (player.isWoodcutting) {// woodcutting
+			Woodcutting.stopWoodcutting(player);
+		} else if (player.isSpinning) {// spinning
+			player.isSpinning = false;
+		} else if (player.isPotCrafting == true) {// pot crafting
+			player.isPotCrafting = false;
 		}
 	}
 
@@ -126,7 +110,7 @@ public class SkillHandler {
 		return false;
 	}
 
-	public static boolean membersOnly(Client c) {
+	public static boolean membersOnly(Player c) {
 		if (c.membership == false) {
 			c.getPacketSender()
 					.sendMessage("This is a members only skill.");
@@ -135,7 +119,7 @@ public class SkillHandler {
 		return true;
 	}
 
-	public static boolean noInventorySpace(Client c, String skill) {
+	public static boolean noInventorySpace(Player c, String skill) {
 		if (c.getItemAssistant().freeSlots() == 0) {
 			c.getPacketSender().sendMessage(
 					"You don't have enough inventory space to continue "
@@ -145,22 +129,22 @@ public class SkillHandler {
 		return true;
 	}
 	
-	public static void deleteTime(Client c) {
+	public static void deleteTime(Player c) {
 		c.doAmount--;
 	}
 	
-	public static void stopEvents(Client c, int eventId) {
-		CycleEventHandler.getSingleton().stopEvents(c, eventId);
+	public static void stopEvents(Player player, int eventId) {
+		CycleEventHandler.getSingleton().stopEvents(player, eventId);
 	}
 
-	public static void send1Item(Client c, int itemId) {
+	public static void send1Item(Player c, int itemId) {
 		c.getPacketSender().sendFrame246(1746, view190 ? 190 : 150, itemId);
 		c.getPacketSender().sendFrame126(
 				getLine(c) + "" + ItemAssistant.getItemName(itemId) + "", 2799);
 		c.getPacketSender().sendChatInterface(4429);
 	}
 
-	public static boolean playerHasItem(Client c, String itemName,
+	public static boolean playerHasItem(Player c, String itemName,
 			String skill, int itemID) {
 		if (!c.getItemAssistant().playerHasItem(itemID, 1)) {
 			c.getPacketSender().sendMessage(
@@ -174,7 +158,7 @@ public class SkillHandler {
 		return true;
 	}
 
-	public static void resetPlayerSkillVariables(Client c) {
+	public static void resetPlayerSkillVariables(Player c) {
 		for (int i = 0; i < 20; i++) {
 			if (c.playerSkilling[i]) {
 				for (int l = 0; l < 15; l++) {
@@ -184,7 +168,7 @@ public class SkillHandler {
 		}
 	}
 
-	public static boolean hasRequiredLevel(final Client c, int id, int lvlReq,
+	public static boolean hasRequiredLevel(final Player c, int id, int lvlReq,
 			String skill, String event) {
 		if (c.playerLevel[id] < lvlReq) {
 			c.getPacketSender().sendMessage(
@@ -195,7 +179,7 @@ public class SkillHandler {
 		return true;
 	}
 
-	public static String getLine(Client c) {
+	public static String getLine(Player c) {
 		return c.below459 ? "\\n\\n\\n\\n" : "\\n\\n\\n\\n\\n";
 	}
 

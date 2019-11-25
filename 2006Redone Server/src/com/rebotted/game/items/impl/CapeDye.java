@@ -2,7 +2,7 @@ package com.rebotted.game.items.impl;
 
 import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Dye.java
@@ -46,7 +46,7 @@ public enum CapeDye {
 				{1763, 1767, 1773}
 		};
 	
-		public static boolean blockDye(Client player, CapeDye dye, int itemUsed, int useWith) {
+		public static boolean blockDye(Player player, CapeDye dye, int itemUsed, int useWith) {
 			if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && Item.itemIsNote[useWith]) {
 				player.getPacketSender().sendMessage("You can't dye a noted cape.");
 				return true;
@@ -59,7 +59,7 @@ public enum CapeDye {
 			return false;
 		}
 		
-	public static void dyeItem(Client player, int itemUsed, int useWith) {
+	public static void dyeItem(Player player, int itemUsed, int useWith) {
 		for (CapeDye cape: CapeDye.values()) {
 			if (blockDye(player, cape, itemUsed, useWith)) {
 				return;

@@ -1,6 +1,6 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Gertrudes Cat
@@ -9,10 +9,10 @@ import com.rebotted.game.players.Client;
 
 public class GertrudesCat {
 
-	Client client;
+	Player client;
 
-	public GertrudesCat(Client client) {
-		this.client = client;
+	public GertrudesCat(Player player) {
+		this.client = player;
 	}
 
 	public void showInformation() {

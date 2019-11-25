@@ -3,6 +3,7 @@ package com.rebotted.net.packets;
 import com.rebotted.GameConstants;
 import com.rebotted.game.dialogues.Dialogue;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.impl.AttackPlayer;
 import com.rebotted.net.packets.impl.Bank10;
 import com.rebotted.net.packets.impl.Bank5;
@@ -154,20 +155,20 @@ public class PacketHandler {
 		}
 	}*/
 	
-	public static void processPacket(Client c, int packetType, int packetSize) {
+	public static void processPacket(Player player, int packetType, int packetSize) {
         PacketType p = packetId[packetType];
-        if(p != null && packetType > 0 && packetType < 257 && packetType == c.packetType && packetSize == c.packetSize) {
-            if (GameConstants.sendServerPackets && c.playerRights == 3) {
-                c.getPacketSender().sendMessage("PacketType: " + packetType + ". PacketSize: " + packetSize + ".");
+        if(p != null && packetType > 0 && packetType < 257 && packetType == player.packetType && packetSize == player.packetSize) {
+            if (GameConstants.sendServerPackets && player.playerRights == 3) {
+                player.getPacketSender().sendMessage("PacketType: " + packetType + ". PacketSize: " + packetSize + ".");
             }
             try {
-                p.processPacket(c, packetType, packetSize);
+                p.processPacket(player, packetType, packetSize);
             } catch(Exception e) {
                 e.printStackTrace();
             }
         } else {
-            c.disconnected = true;
-            System.out.println(c.playerName + "is sending invalid PacketType: " + packetType + ". PacketSize: " + packetSize);
+            player.disconnected = true;
+            System.out.println(player.playerName + "is sending invalid PacketType: " + packetType + ". PacketSize: " + packetSize);
         }
     }
 

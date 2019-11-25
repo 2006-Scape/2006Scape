@@ -5,6 +5,7 @@ import com.rebotted.GameEngine;
 import com.rebotted.game.content.music.Music;
 import com.rebotted.game.globalworldobjects.Doors;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.world.GlobalDropsHandler;
 
@@ -14,7 +15,7 @@ import com.rebotted.world.GlobalDropsHandler;
 public class ChangeRegions implements PacketType {
 
 	@Override
-	public void processPacket(Client c, int packetType, int packetSize) {
+	public void processPacket(Player c, int packetType, int packetSize) {
 		if (GameConstants.SOUND && c.musicOn) {
 			Music.playMusic(c);
 		}

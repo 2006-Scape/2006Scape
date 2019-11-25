@@ -7,15 +7,16 @@ import com.rebotted.game.content.combat.range.RangeData;
 import com.rebotted.game.content.music.sound.CombatSounds;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
 public class Specials {
 
-	private final Client player;
+	private final Player player;
 
-	public Specials(Client c) {
-		this.player = c;
+	public Specials(Player player2) {
+		this.player = player2;
 	}
 
 	private enum specialAttack {
@@ -315,84 +316,84 @@ public class Specials {
 		return 0;
 	}
 	
-   public static void specialClicking(Client player, int actionButtonId) {
+   public static void specialClicking(Player player2, int actionButtonId) {
 	   switch (actionButtonId) {
 		case 29188:
-			if (player.playerEquipment[player.playerWeapon] == 1434) {
-				player.specBarId = 7636;
-				player.usingSpecial = !player.usingSpecial;
-				player.getItemAssistant().updateSpecialBar();
+			if (player2.playerEquipment[player2.playerWeapon] == 1434) {
+				player2.specBarId = 7636;
+				player2.usingSpecial = !player2.usingSpecial;
+				player2.getItemAssistant().updateSpecialBar();
 			}
 			break;
 
 		case 29163:
-			if (player.playerEquipment[player.playerWeapon] == 4587) {
-				player.specBarId = 7611;
-				player.usingSpecial = !player.usingSpecial;
-				player.getItemAssistant().updateSpecialBar();
+			if (player2.playerEquipment[player2.playerWeapon] == 4587) {
+				player2.specBarId = 7611;
+				player2.usingSpecial = !player2.usingSpecial;
+				player2.getItemAssistant().updateSpecialBar();
 			}
 			break;
 
 		case 33033:
-			if (player.playerEquipment[player.playerWeapon] == 4153) {
-				player.specBarId = 8505;
-				player.usingSpecial = !player.usingSpecial;
-				player.getItemAssistant().updateSpecialBar();
+			if (player2.playerEquipment[player2.playerWeapon] == 4153) {
+				player2.specBarId = 8505;
+				player2.usingSpecial = !player2.usingSpecial;
+				player2.getItemAssistant().updateSpecialBar();
 			}
 			break;
 
 		case 29038:
-			if (player.playerEquipment[player.playerWeapon] == 4153) {
-				player.specBarId = 7486;
-				player.getSpecials().handleGmaul();
-				player.usingSpecial = !player.usingSpecial;
-				player.getItemAssistant().updateSpecialBar();
+			if (player2.playerEquipment[player2.playerWeapon] == 4153) {
+				player2.specBarId = 7486;
+				player2.getSpecials().handleGmaul();
+				player2.usingSpecial = !player2.usingSpecial;
+				player2.getItemAssistant().updateSpecialBar();
 			}
 			break;
 
 		case 29063:
-		if (player.playerEquipment[player.playerWeapon] == 1377) {
-			if (player.getCombatAssistant().checkSpecAmount(1377)) {
-				player.gfx0(246);
-				player.forcedChat("Raarrrrrgggggghhhhhhh!");
-				player.startAnimation(1056);
-				player.playerLevel[2] = player.getLevelForXP(player.playerXP[2]) + player.getLevelForXP(player.playerXP[2]) * 15 / 100;
-				player.getPlayerAssistant().refreshSkill(2);
-				player.getItemAssistant().updateSpecialBar();
+		if (player2.playerEquipment[player2.playerWeapon] == 1377) {
+			if (player2.getCombatAssistant().checkSpecAmount(1377)) {
+				player2.gfx0(246);
+				player2.forcedChat("Raarrrrrgggggghhhhhhh!");
+				player2.startAnimation(1056);
+				player2.playerLevel[2] = player2.getLevelForXP(player2.playerXP[2]) + player2.getLevelForXP(player2.playerXP[2]) * 15 / 100;
+				player2.getPlayerAssistant().refreshSkill(2);
+				player2.getItemAssistant().updateSpecialBar();
 			} else {
-				player.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");
+				player2.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");
 			}
 		}
 		break;
 
 		case 48023:
-			if (player.playerEquipment[player.playerWeapon] == 4151) {
-				player.specBarId = 12335;
-				player.usingSpecial = !player.usingSpecial;
-				player.getItemAssistant().updateSpecialBar();
+			if (player2.playerEquipment[player2.playerWeapon] == 4151) {
+				player2.specBarId = 12335;
+				player2.usingSpecial = !player2.usingSpecial;
+				player2.getItemAssistant().updateSpecialBar();
 			}
 			break;
 
 		case 29138:
-			if (player.playerEquipment[player.playerWeapon] == 1215 || player.playerEquipment[player.playerWeapon] == 1231 || player.playerEquipment[player.playerWeapon] == 5680 || player.playerEquipment[player.playerWeapon] == 5698) {
-				player.specBarId = 7586;
-				player.usingSpecial = !player.usingSpecial;
-				player.getItemAssistant().updateSpecialBar();
+			if (player2.playerEquipment[player2.playerWeapon] == 1215 || player2.playerEquipment[player2.playerWeapon] == 1231 || player2.playerEquipment[player2.playerWeapon] == 5680 || player2.playerEquipment[player2.playerWeapon] == 5698) {
+				player2.specBarId = 7586;
+				player2.usingSpecial = !player2.usingSpecial;
+				player2.getItemAssistant().updateSpecialBar();
 			}
 			break;
 
 		case 29113:
-			if (player.playerEquipment[player.playerWeapon] == 861 || player.playerEquipment[player.playerWeapon] == 859) {
-				player.specBarId = 7561;
-				player.usingSpecial = !player.usingSpecial;
-				player.getItemAssistant().updateSpecialBar();
+			if (player2.playerEquipment[player2.playerWeapon] == 861 || player2.playerEquipment[player2.playerWeapon] == 859) {
+				player2.specBarId = 7561;
+				player2.usingSpecial = !player2.usingSpecial;
+				player2.getItemAssistant().updateSpecialBar();
 			}
 			break;
 
 		case 29238:
-			player.specBarId = 7686;
-			player.usingSpecial = !player.usingSpecial;
-			player.getItemAssistant().updateSpecialBar();
+			player2.specBarId = 7686;
+			player2.usingSpecial = !player2.usingSpecial;
+			player2.getItemAssistant().updateSpecialBar();
 			break;
 	   }
    }

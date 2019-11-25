@@ -1,18 +1,18 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  * Cooks Assistant
  */
 
 public class CooksAssistant {
 
-	Client client;
+	Player client;
 
-	public CooksAssistant(Client client) {
-		this.client = client;
+	public CooksAssistant(Player player) {
+		this.client = player;
 	}
 
 	private static final int EGG = 1944;

@@ -11,6 +11,7 @@ import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.RareProtection;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.game.players.PlayerSave;
 import com.rebotted.util.GameLogger;
@@ -18,10 +19,10 @@ import com.rebotted.util.Misc;
 
 public class Dueling {
 
-	private final Client player;
+	private final Player player;
 
-	public Dueling(Client Client) {
-		player = Client;
+	public Dueling(Player player2) {
+		player = player2;
 	}
 
 	public CopyOnWriteArrayList<GameItem> otherStakedItems = new CopyOnWriteArrayList<GameItem>();

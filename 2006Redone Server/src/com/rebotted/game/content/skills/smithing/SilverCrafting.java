@@ -1,13 +1,12 @@
 package com.rebotted.game.content.skills.smithing;
 
 import java.util.HashMap;
-
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class SilverCrafting {
 
@@ -82,7 +81,7 @@ public class SilverCrafting {
 
 	}
 
-	public static void makeSilver(final Client player, int buttonId,
+	public static void makeSilver(final Player player, int buttonId,
 			final int amount) {
 		final SilverCraft silverCraft = SilverCraft.forId(buttonId);
 		if (silverCraft == null || silverCraft.getAmount() == 0 && amount == 0) {

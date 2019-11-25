@@ -1,13 +1,13 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.items.UseItem;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 public class ItemOnItem implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		int usedWithSlot = player.getInStream().readUnsignedWord();
 		int itemUsedSlot = player.getInStream().readUnsignedWordA();
 		int useWith = player.playerItems[usedWithSlot] - 1;

@@ -1,6 +1,6 @@
 package com.rebotted.game.content.quests.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 /**
  * Rune Mysteries
@@ -9,10 +9,10 @@ import com.rebotted.game.players.Client;
 
 public class RuneMysteries {
 
-	Client client;
+	Player client;
 
-	public RuneMysteries(Client client) {
-		this.client = client;
+	public RuneMysteries(Player player) {
+		this.client = player;
 	}
 
 	public void showInformation() {

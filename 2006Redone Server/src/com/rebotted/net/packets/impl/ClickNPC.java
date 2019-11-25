@@ -9,7 +9,7 @@ import com.rebotted.game.content.combat.range.RangeData;
 import com.rebotted.game.content.skills.thieving.Pickpocket;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -21,7 +21,7 @@ public class ClickNPC implements PacketType {
 			SECOND_CLICK = 17, THIRD_CLICK = 21;
 
 	@Override
-	public void processPacket(final Client client, int packetType, int packetSize) {
+	public void processPacket(final Player client, int packetType, int packetSize) {
 		client.npcIndex = 0;
 		client.npcClickIndex = 0;
 		client.playerIndex = 0;

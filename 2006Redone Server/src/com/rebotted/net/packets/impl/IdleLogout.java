@@ -1,6 +1,6 @@
 package com.rebotted.net.packets.impl;
 
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -10,7 +10,7 @@ import com.rebotted.net.packets.PacketType;
 public class IdleLogout implements PacketType {
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		if (player.underAttackBy > 0 || player.underAttackBy2 > 0 || player.isBot) {
 			return;
 		}

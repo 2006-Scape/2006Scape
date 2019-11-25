@@ -2,6 +2,7 @@ package com.rebotted.net.packets.impl;
 
 import com.rebotted.Connection;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.game.players.antimacro.AntiSpam;
 import com.rebotted.net.packets.PacketType;
@@ -17,7 +18,7 @@ public class PrivateMessaging implements PacketType {
 			CHANGE_PM_STATUS = 95, REMOVE_IGNORE = 59, ADD_IGNORE = 133;
 
 	@Override
-	public void processPacket(Client player, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		switch (packetType) {
 
 		case ADD_FRIEND:

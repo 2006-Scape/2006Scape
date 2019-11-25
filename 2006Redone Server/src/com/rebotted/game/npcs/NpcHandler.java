@@ -45,7 +45,7 @@ public class NpcHandler {
 		try {
 			NPCDefinition.init();
 		} catch (Exception e) {
-			System.out.println("npc def error");
+			//System.out.println("npc def error");
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class NpcHandler {
 		return false;
 	}
 
-	public void spawnNpc3(Client c, int npcType, int x, int y, int heightLevel,
+	public void spawnNpc3(Player c, int npcType, int x, int y, int heightLevel,
 			int WalkingType, int HP, int maxHit, int attack, int defence,
 			boolean attackPlayer, boolean headIcon, boolean summonFollow) {
 		int slot = -1;
@@ -120,7 +120,7 @@ public class NpcHandler {
 		return false;
 	}
 
-	public int getClosePlayer(Client c, int i) {
+	public int getClosePlayer(Player c, int i) {
 		for (int j = 0; j < PlayerHandler.players.length; j++) {
 			if (PlayerHandler.players[j] != null) {
 				if (j == npcs[i].spawnedBy) {
@@ -151,7 +151,7 @@ public class NpcHandler {
 	/**
 	 * Summon npc, barrows, etc
 	 **/
-	public static void spawnNpc(Client c, int npcType, int x, int y,
+	public static void spawnNpc(Player client, int npcType, int x, int y,
 			int heightLevel, int WalkingType, int HP, int maxHit, int attack,
 			int defence, boolean attackPlayer, boolean headIcon) {
 		// first, search for a free slot
@@ -178,23 +178,23 @@ public class NpcHandler {
 		newNPC.maxHit = maxHit;
 		newNPC.attack = attack;
 		newNPC.defence = defence;
-		newNPC.spawnedBy = c.getId();
+		newNPC.spawnedBy = client.getId();
 		if (newNPC.npcType == FightCaves.TZTOK_JAD) {
-			c.setSpecialTarget(newNPC);
+			client.setSpecialTarget(newNPC);
 		}
 		if (headIcon) {
-			c.getPacketSender().drawHeadicon(1, slot, 0, 0);
+			client.getPacketSender().drawHeadicon(1, slot, 0, 0);
 		}
 		if (attackPlayer) {
 			newNPC.underAttack = true;
-			if (c != null) {
+			if (client != null) {
 				for (int anim = 4277; anim < 4285; anim++) {
 					if (npcType == anim) {
 						newNPC.forceChat("I'M ALIVE!");
 					}
 				}
 
-				newNPC.killerId = c.playerId;
+				newNPC.killerId = client.playerId;
 			}
 		}
 		npcs[slot] = newNPC;
@@ -229,7 +229,7 @@ public class NpcHandler {
 	}
 	
 	private void killedBarrow(int i) {
-		Client c = (Client)PlayerHandler.players[npcs[i].killedBy];
+		Player c = (Client)PlayerHandler.players[npcs[i].killedBy];
 			if(c != null) {
 				for(int o = 0; o < c.barrowsNpcs.length; o++){
 					if(npcs[i].npcType == c.barrowsNpcs[o][0]) {
@@ -241,7 +241,7 @@ public class NpcHandler {
 		}
 	
 	private void killedCrypt(int i) {
-		Client c = (Client)PlayerHandler.players[npcs[i].killedBy];
+		Player c = (Client)PlayerHandler.players[npcs[i].killedBy];
 			if(c != null) {
 				for(int o = 0; o < c.barrowCrypt.length; o++){
 					if(npcs[i].npcType == c.barrowCrypt[o][0]) {
@@ -398,7 +398,7 @@ public class NpcHandler {
 													.getY(), 20)) {
 						
 						if (npcs[i].npcType == FightCaves.YT_HURKOT) {
-							Client c = ((Client)PlayerHandler.players[npcs[i].spawnedBy]);
+							Player c = ((Client)PlayerHandler.players[npcs[i].spawnedBy]);
 							int ranHeal = Misc.random(19);
 							if (ranHeal == 19)
 								FightCaves.healJad(c, i);
@@ -420,7 +420,7 @@ public class NpcHandler {
 					continue;
 				}
 
-				Client client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
+				Player client = (Client) PlayerHandler.players[NpcData.getCloseRandomPlayer(i)];
 				if (client != null) {
 					boolean aggressive = (NpcAggressive.isAggressive(i) || getNpcListCombat(npcs[i].npcType) * 2 > client.combatLevel && getNpcListAggressive(i));
 					if (aggressive && !npcs[i].underAttack && !npcs[i].isDead && npcs[i].MaxHP > 0) {
@@ -437,7 +437,7 @@ public class NpcHandler {
 					if (!npcs[i].isDead) {
 						int p = npcs[i].killerId;
 						if (PlayerHandler.players[p] != null) {
-							Client c = (Client) PlayerHandler.players[p];
+							Player c = (Client) PlayerHandler.players[p];
 							followPlayer(i, c.playerId);
 							if (npcs[i] == null) {
 								continue;
@@ -562,7 +562,7 @@ public class NpcHandler {
 							npcs[i].killedBy = NpcData.getNpcKillerId(i);
 						npcs[i].animNumber = NpcEmotes.getDeadEmote(i); // dead
 																		// emote
-						Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
+						Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
 							if (GameConstants.COMBAT_SOUNDS
 									&& NpcHandler.npcs[i].npcType < 3177
@@ -685,7 +685,7 @@ public class NpcHandler {
 	}
 
 	private void handleratdeath(int i) {
-		final Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
+		final Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
 			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
@@ -704,7 +704,7 @@ public class NpcHandler {
 	}
 
 	private void handleratdeath2(int i) {
-		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
+		Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
 			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
@@ -723,7 +723,7 @@ public class NpcHandler {
 		}
 	}
 
-	public boolean getsPulled(Client c, int i) {
+	public boolean getsPulled(Player c, int i) {
 		switch (npcs[i].npcType) {
 		case 2550:
 			if (npcs[i].firstAttacker > 0) {
@@ -757,7 +757,7 @@ public class NpcHandler {
 
 	}
 	
-	private void stepAway(Client c, int i) {
+	private void stepAway(Player c, int i) {
 		int otherX = NpcHandler.npcs[i].getX();
 		int otherY = NpcHandler.npcs[i].getY();
 		if (otherX == c.getX() && otherY == c.getY()) {
@@ -860,7 +860,7 @@ public class NpcHandler {
 
 	public void dropItems(int i) {
 		// TODO: add ring of wealth
-		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
+		Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
 			// These npcs shouldn't have drops
 			if (npcs[i].npcType == 2627 // Tz-Kih
@@ -943,7 +943,7 @@ public class NpcHandler {
 	 * Slayer Experience
 	 **/
 	public void appendSlayerExperience(int i) {
-		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
+		Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
 			// if (c.getSlayer().isSlayerTask(i)) {
 			if (c.slayerTask == npcs[i].npcType) {
@@ -962,7 +962,7 @@ public class NpcHandler {
 	// }
 
 	public void resetEvent(int i) {
-		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
+		Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
 			RandomEventHandler.addRandom(c);
 		}
@@ -1187,7 +1187,7 @@ public class NpcHandler {
 		return 0;
 	}
 
-	public boolean specialCase(Client c, int i) { // responsible for npcs that
+	public boolean specialCase(Player c, int i) { // responsible for npcs that
 													// much
 		if (goodDistance(npcs[i].getX(), npcs[i].getY(), c.getX(), c.getY(), 8)
 				&& !goodDistance(npcs[i].getX(), npcs[i].getY(), c.getX(),
@@ -1202,7 +1202,7 @@ public class NpcHandler {
 				&& !(npcType >= 2440 && npcType <= 2446);
 	}
 
-	public static void handleSpecialEffects(Client c, int i, int damage) {
+	public static void handleSpecialEffects(Player c, int i, int damage) {
 		if (npcs[i].npcType == 2892 || npcs[i].npcType == 2894) {
 			if (damage > 0) {
 				if (c != null) {

@@ -24,7 +24,7 @@ public class HighscoresHandler {
         }
     }
 
-    public String getRank(Client player, int i, String sortBy) {
+    public String getRank(Player player, int i, String sortBy) {
         if (players.size() <= i) {
             return "-----";
     	}

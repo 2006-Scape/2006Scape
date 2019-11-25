@@ -12,7 +12,7 @@ import com.rebotted.game.content.skills.thieving.Stalls;
 import com.rebotted.game.globalworldobjects.Doors;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.objects.Objects;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.world.clip.Region;
 
@@ -21,7 +21,7 @@ public class ClickObject implements PacketType {
 	public static final int FIRST_CLICK = 132, SECOND_CLICK = 252,
 			THIRD_CLICK = 70, FOURTH_CLICK = 234;
 
-	public void onObjectReached(Client player, Consumer<Client> consumer) {
+	public void onObjectReached(Player player, Consumer<Player> consumer) {
 		if (System.currentTimeMillis() - player.clickDelay < 300)
 			return;
 		player.clickDelay = System.currentTimeMillis();
@@ -73,7 +73,7 @@ public class ClickObject implements PacketType {
 	}
 
 	@Override
-	public void processPacket(final Client player, int packetType, int packetSize) {
+	public void processPacket(final Player player, int packetType, int packetSize) {
 		player.clickObjectType = player.objectX = player.objectId = player.objectY = 0;
 		player.getPlayerAssistant().resetFollow();
 		player.getCombatAssistant().resetPlayerAttack();
@@ -112,124 +112,124 @@ public class ClickObject implements PacketType {
 		}
 	}
 
-	public void completeObjectClick(final Client player, int objectOption) {
-		player.turnPlayerTo(player.objectX, player.objectY);
+	public void completeObjectClick(final Player p, int objectOption) {
+		p.turnPlayerTo(p.objectX, p.objectY);
 
 		switch (objectOption) {
 		case 1:
-			if (player.playerRights == 3 || player.debugMode) {
-				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 1, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+			if (p.playerRights == 3 || p.debugMode) {
+				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 1, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
 			}
 
 			//todo: check if it's a door before fire handle
-			Doors.getSingleton().handleDoor(player.objectId, player.objectX, player.objectY, player.heightLevel, player);
+			Doors.getSingleton().handleDoor(p.objectId, p.objectX, p.objectY, p.heightLevel, p);
 
 			/*if (client.performingAction) {
 				return;
 			}*/
 
-			if (Stalls.isObject(player.objectId)) {
-				Stalls.attemptStall(player, player.objectId, player.objectX, player.objectX);
+			if (Stalls.isObject(p.objectId)) {
+				Stalls.attemptStall(p, p.objectId, p.objectX, p.objectX);
 				return;
 			}
 
-			if (player.teleTimer > 0) {
-				player.getPacketSender().sendMessage(
+			if (p.teleTimer > 0) {
+				p.getPacketSender().sendMessage(
 						"You cannot use objects while teleporting.");
 				return;
 			}
-			if (Math.abs(player.getX() - player.objectX) > 25 || Math.abs(player.getY() - player.objectY) > 25) {
-				player.resetWalkingQueue();
+			if (Math.abs(p.getX() - p.objectX) > 25 || Math.abs(p.getY() - p.objectY) > 25) {
+				p.resetWalkingQueue();
 				break;
 			}
-			switch (player.objectId) {
+			switch (p.objectId) {
 			case 1276:
-				Woodcutting.startWoodcutting(player, 0, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 0, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1278:
-				Woodcutting.startWoodcutting(player, 1, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 1, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1286:
-				Woodcutting.startWoodcutting(player, 2, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 2, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1281:
-				Woodcutting.startWoodcutting(player, 3, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 3, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1308:
-				Woodcutting.startWoodcutting(player, 4, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 4, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 5552:
-				Woodcutting.startWoodcutting(player, 5, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 5, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1307:
-				Woodcutting.startWoodcutting(player, 6, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 6, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1309:
-				Woodcutting.startWoodcutting(player, 7, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 7, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1306:
-				Woodcutting.startWoodcutting(player, 8, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 8, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 5551:
-				Woodcutting.startWoodcutting(player, 9, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 9, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 5553:
-				Woodcutting.startWoodcutting(player, 10, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 10, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 3033:
-				Woodcutting.startWoodcutting(player, 11, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 11, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 3037:
-				Woodcutting.startWoodcutting(player, 12, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 12, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1282:
-				Woodcutting.startWoodcutting(player, 13, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 13, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1383:
-				Woodcutting.startWoodcutting(player, 14, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 14, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 2023:
-				Woodcutting.startWoodcutting(player, 15, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 15, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1319:
-				Woodcutting.startWoodcutting(player, 16, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 16, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1318:
-				Woodcutting.startWoodcutting(player, 17, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 17, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1315:
-				Woodcutting.startWoodcutting(player, 18, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 18, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1316:
-				Woodcutting.startWoodcutting(player, 19, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 19, p.objectX, p.objectY, p.clickObjectType);
 				break;
 			case 1332:
-				Woodcutting.startWoodcutting(player, 20, player.objectX, player.objectY, player.clickObjectType);
+				Woodcutting.startWoodcutting(p, 20, p.objectX, p.objectY, p.clickObjectType);
 				break;
 
 			case 1292:
-				if (player.spiritTree == false && player.clickedTree == true) {
-					player.getPacketSender().sendMessage("You have already spawned a tree spirit.");
+				if (p.spiritTree == false && p.clickedTree == true) {
+					p.getPacketSender().sendMessage("You have already spawned a tree spirit.");
 					return;
 				}
-				if (player.spiritTree == false && player.clickedTree == false) {
-					player.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
-					NpcHandler.spawnNpc(player, 655, player.getX(), player.getY(), 0, 0, 225, 20, 80, 80, true, false);
-					player.clickedTree = true;
-				} else if (player.spiritTree == true) {
-					Woodcutting.startWoodcutting(player, 21, player.objectX, player.objectY, player.clickObjectType);
+				if (p.spiritTree == false && p.clickedTree == false) {
+					p.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
+					NpcHandler.spawnNpc(p, 655, p.getX(), p.getY(), 0, 0, 225, 20, 80, 80, true, false);
+					p.clickedTree = true;
+				} else if (p.spiritTree == true) {
+					Woodcutting.startWoodcutting(p, 21, p.objectX, p.objectY, p.clickObjectType);
 				}
 				break;
 
 			case 1294:
 			case 1293:
 			case 1317:
-				player.getPlayerAssistant().spiritTree();
+				p.getPlayerAssistant().spiritTree();
 				break;
 
 		      case 2164:
               case 2165:
-                  GameEngine.trawler.fixNet(player);
+                  GameEngine.trawler.fixNet(p);
                   break;
 
 			case 4462:
@@ -238,55 +238,55 @@ public class ClickObject implements PacketType {
 			case 4463:
 			case 4464:
 			case 4459:
-				if (!CastleWars.isInCw(player)) {
-					player.getPacketSender().sendMessage("You have to be in castle wars to use these objects.");
-					CastleWars.resetPlayer(player);
+				if (!CastleWars.isInCw(p)) {
+					p.getPacketSender().sendMessage("You have to be in castle wars to use these objects.");
+					CastleWars.resetPlayer(p);
 					return;
 				}
-				CastleWarObjects.handleObject(player, player.objectId, player.objectX, player.objectY);
+				CastleWarObjects.handleObject(p, p.objectId, p.objectX, p.objectY);
 			break;
 
 			case 2513:
-				player.getRangersGuild().fireAtTarget();
+				p.getRangersGuild().fireAtTarget();
 			break;
 
 	        case 8930:
-                player.fade(1975, 4409, 3);
+                p.fade(1975, 4409, 3);
             break;
             case 8929:
-                player.fade(2442, 10147, 0);
+                p.fade(2442, 10147, 0);
             break;
 
 			case 1568:
-				if (player.objectX == 2399 && player.objectY == 3099) {
-					player.getPacketSender()
+				if (p.objectX == 2399 && p.objectY == 3099) {
+					p.getPacketSender()
 							.object(9472, 2399, 3099, 0, 10);
 				}
-				if (player.objectX == 2400 && player.objectY == 3108) {
-					player.getPacketSender()
+				if (p.objectX == 2400 && p.objectY == 3108) {
+					p.getPacketSender()
 							.object(9472, 2400, 3108, 2, 10);
 				}
 				break;
 
 			case 4437:
-				if (player.getItemAssistant().playerHasItem(1265, 1)) {
-					player.getPacketSender().sendMessage(
+				if (p.getItemAssistant().playerHasItem(1265, 1)) {
+					p.getPacketSender().sendMessage(
 							"You start to break up the rocks...");
-					player.startAnimation(625);
-					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+					p.startAnimation(625);
+					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							container.stop();
-							player.startAnimation(65535);
+							p.startAnimation(65535);
 						}
 
 						@Override
 						public void stop() {
-							player.getPacketSender().object(-1,
-									player.objectX, player.objectY, 0, 10);
-							player.getPacketSender().object(4438,
-									player.objectX, player.objectY, 0, 10);
-							player.getPacketSender().sendMessage(
+							p.getPacketSender().object(-1,
+									p.objectX, p.objectY, 0, 10);
+							p.getPacketSender().object(4438,
+									p.objectX, p.objectY, 0, 10);
+							p.getPacketSender().sendMessage(
 									"You break up the rocks.");
 						}
 					}, 3);
@@ -294,22 +294,22 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 4438:
-				if (player.getItemAssistant().playerHasItem(1265, 1)) {
-					player.getPacketSender().sendMessage(
+				if (p.getItemAssistant().playerHasItem(1265, 1)) {
+					p.getPacketSender().sendMessage(
 							"You start to break up the rocks...");
-					player.startAnimation(625);
-					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+					p.startAnimation(625);
+					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							stop();
-							player.startAnimation(65535);
+							p.startAnimation(65535);
 						}
 
 						@Override
 						public void stop() {
-							player.getPacketSender().object(-1,
-									player.objectX, player.objectY, 0, 10);
-							player.getPacketSender().sendMessage(
+							p.getPacketSender().object(-1,
+									p.objectX, p.objectY, 0, 10);
+							p.getPacketSender().sendMessage(
 									"You break up the rocks.");
 						}
 					}, 3);
@@ -317,58 +317,58 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 4448:
-				if (player.getItemAssistant().playerHasItem(1265, 1)) {
-					player.getPacketSender().sendMessage(
+				if (p.getItemAssistant().playerHasItem(1265, 1)) {
+					p.getPacketSender().sendMessage(
 							"You start to mine the wall...");
-					player.startAnimation(625);
-					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+					p.startAnimation(625);
+					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							stop();
-							player.startAnimation(65535);
-							player.getPacketSender().sendMessage(
+							p.startAnimation(65535);
+							p.getPacketSender().sendMessage(
 									"You collapse the cave wall.");
 						}
 
 						@Override
 						public void stop() {
-							if ((player.objectX == 2390 || player.objectX == 2393)
-									&& (player.objectY == 9503 || player.objectY == 9500)) { // east
+							if ((p.objectX == 2390 || p.objectX == 2393)
+									&& (p.objectY == 9503 || p.objectY == 9500)) { // east
 								// cave
 								// side
-								player.getPacketSender().object(-1, 2391,
+								p.getPacketSender().object(-1, 2391,
 										9501, 0, 10);
-								player.getPacketSender().object(4437, 2391,
+								p.getPacketSender().object(4437, 2391,
 										9501, 0, 10);
 								CastleWars.collapseCave(1);
 							}
-							if ((player.objectX == 2399 || player.objectX == 2402)
-									&& (player.objectY == 9511 || player.objectY == 9514)) { // north
+							if ((p.objectX == 2399 || p.objectX == 2402)
+									&& (p.objectY == 9511 || p.objectY == 9514)) { // north
 								// cave
 								// side
-								player.getPacketSender().object(-1, 2400,
+								p.getPacketSender().object(-1, 2400,
 										9512, 1, 10);
-								player.getPacketSender().object(4437, 2400,
+								p.getPacketSender().object(4437, 2400,
 										9512, 1, 10);
 								CastleWars.collapseCave(0);
 							}
-							if ((player.objectX == 2408 || player.objectX == 2411)
-									&& (player.objectY == 9502 || player.objectY == 9505)) { // west
+							if ((p.objectX == 2408 || p.objectX == 2411)
+									&& (p.objectY == 9502 || p.objectY == 9505)) { // west
 								// cave
 								// side
-								player.getPacketSender().object(-1, 2409,
+								p.getPacketSender().object(-1, 2409,
 										9503, 0, 10);
-								player.getPacketSender().object(4437, 2409,
+								p.getPacketSender().object(4437, 2409,
 										9503, 0, 10);
 								CastleWars.collapseCave(3);
 							}
-							if ((player.objectX == 2400 || player.objectX == 2403)
-									&& (player.objectY == 9496 || player.objectY == 9493)) { // south
+							if ((p.objectX == 2400 || p.objectX == 2403)
+									&& (p.objectY == 9496 || p.objectY == 9493)) { // south
 								// cave
 								// side
-								player.getPacketSender().object(-1, 2401,
+								p.getPacketSender().object(-1, 2401,
 										9494, 1, 10);
-								player.getPacketSender().object(4437, 2401,
+								p.getPacketSender().object(4437, 2401,
 										9494, 1, 10);
 								CastleWars.collapseCave(2);
 							}
@@ -378,31 +378,31 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 1733:
-				if (player.objectX == 3058 && player.objectY == 3376) {
-					player.getPlayerAssistant().movePlayer(3058, 9776, 0);
-				} else if (player.objectX == 2603 && player.objectY == 3078) {
+				if (p.objectX == 3058 && p.objectY == 3376) {
+					p.getPlayerAssistant().movePlayer(3058, 9776, 0);
+				} else if (p.objectX == 2603 && p.objectY == 3078) {
 				}
 				break;
 
 			case 55:
-				if (player.objectX == 3061 && player.objectY == 3374) {
-					player.getPlayerAssistant().movePlayer(3058, 9776, 0);
+				if (p.objectX == 3061 && p.objectY == 3374) {
+					p.getPlayerAssistant().movePlayer(3058, 9776, 0);
 				}
 				break;
 
 			case 9472:
-				if (player.objectX == 2399 && player.objectY == 3099) {
-					player.startAnimation(828);
-					player.stopMovement();
-					player.resetWalkingQueue();
-					player.getPlayerAssistant().requestUpdates();
-					player.getPacketSender().closeAllWindows();
-					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+				if (p.objectX == 2399 && p.objectY == 3099) {
+					p.startAnimation(828);
+					p.stopMovement();
+					p.resetWalkingQueue();
+					p.getPlayerAssistant().requestUpdates();
+					p.getPacketSender().closeAllWindows();
+					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							container.stop();
-							player.startAnimation(65535);
-							player.getPlayerAssistant().movePlayer(2400, 9507,
+							p.startAnimation(65535);
+							p.getPlayerAssistant().movePlayer(2400, 9507,
 									0);
 						}
 
@@ -412,18 +412,18 @@ public class ClickObject implements PacketType {
 							}
 					}, 1);
 				}
-				if (player.objectX == 2400 && player.objectY == 3108) {
-					player.startAnimation(828);
-					player.stopMovement();
-					player.resetWalkingQueue();
-					player.getPlayerAssistant().requestUpdates();
-					player.getPacketSender().closeAllWindows();
-					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+				if (p.objectX == 2400 && p.objectY == 3108) {
+					p.startAnimation(828);
+					p.stopMovement();
+					p.resetWalkingQueue();
+					p.getPlayerAssistant().requestUpdates();
+					p.getPacketSender().closeAllWindows();
+					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							stop();
-							player.startAnimation(65535);
-							player.getPlayerAssistant().movePlayer(2399, 9500, 0);
+							p.startAnimation(65535);
+							p.getPlayerAssistant().movePlayer(2399, 9500, 0);
 						}
 
 						@Override
@@ -435,51 +435,51 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 4387:
-				CastleWars.addToWaitRoom(player, 1); // saradomin
+				CastleWars.addToWaitRoom(p, 1); // saradomin
 				break;
 
 			case 4388:
-				CastleWars.addToWaitRoom(player, 2); // zamorak
+				CastleWars.addToWaitRoom(p, 2); // zamorak
 				break;
 
 			case 4408:
-				CastleWars.addToWaitRoom(player, 3); // guthix
+				CastleWars.addToWaitRoom(p, 3); // guthix
 				break;
 
 			case 4389: // sara
 			case 4390: // zammy waiting room portal
-				CastleWars.leaveWaitingRoom(player);
+				CastleWars.leaveWaitingRoom(p);
 				break;
 			}
-			player.getObjects().firstClickObject(player.objectId, player.objectX, player.objectY);
+			p.getObjects().firstClickObject(p.objectId, p.objectX, p.objectY);
 			break;
 
 		case 2:
-			if (player.playerRights == 3) {
-				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 2, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+			if (p.playerRights == 3) {
+				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 2, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
 			}
-			if (Stalls.isObject(player.objectId)) {
-				Stalls.attemptStall(player, player.objectId, player.objectX, player.objectX);
+			if (Stalls.isObject(p.objectId)) {
+				Stalls.attemptStall(p, p.objectId, p.objectX, p.objectX);
 				return;
 			}
-			player.getObjects().secondClickObject(player.objectId, player.objectX, player.objectY);
+			p.getObjects().secondClickObject(p.objectId, p.objectX, p.objectY);
 			break;
 
 		case 3: // 'F'
-			if (player.playerRights == 3) {
-				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 3, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+			if (p.playerRights == 3) {
+				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 3, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
 			}
 
-			player.getObjects().thirdClickObject(player.objectId, player.objectX, player.objectY);
+			p.getObjects().thirdClickObject(p.objectId, p.objectX, p.objectY);
 			break;
 			
 
 		case 4:
-			if (player.playerRights == 3) {
-				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 4, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+			if (p.playerRights == 3) {
+				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 4, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
 			}
 
-			player.getObjects().fourthClickObject(player.objectId, player.objectX, player.objectY);
+			p.getObjects().fourthClickObject(p.objectId, p.objectX, p.objectY);
 			break;
 		}
 	}

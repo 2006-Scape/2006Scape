@@ -6,16 +6,17 @@ import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.items.Item;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
  * Magic on floor items
  **/
+
 public class MagicOnFloorItems implements PacketType {
 
 	@Override
-	public void processPacket(final Client c, int packetType, int packetSize) {
+	public void processPacket(final Player c, int packetType, int packetSize) {
 		final int itemY = c.getInStream().readSignedWordBigEndian();
 		int itemId = c.getInStream().readUnsignedWord();
 		final int itemX = c.getInStream().readSignedWordBigEndian();

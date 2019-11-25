@@ -5,7 +5,7 @@ import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
 /**
@@ -42,7 +42,7 @@ public class Smelting extends SkillHandler {
 	 * 
 	 * @param c
 	 */
-	public static void startSmelting(Client c, int object) {
+	public static void startSmelting(Player c, int object) {
 		for (int j = 0; j < SMELT_FRAME.length; j++) {
 			c.getPacketSender().sendFrame246(SMELT_FRAME[j], 150,
 					SMELT_BARS[j]);
@@ -57,7 +57,7 @@ public class Smelting extends SkillHandler {
 	 * @param c
 	 * @param amount
 	 */
-	public static void doAmount(Client c, int amount, int bartype) {
+	public static void doAmount(Player c, int amount, int bartype) {
 		c.doAmount = amount;
 		smeltBar(c, bartype);
 	}
@@ -67,7 +67,7 @@ public class Smelting extends SkillHandler {
 	 * 
 	 * @param c
 	 */
-	private static void smeltBar(final Client c, int bartype) {
+	private static void smeltBar(final Player c, int bartype) {
 		for (int i = 0; i < data.length; i++) {
 			if (bartype == data[i][0]) {
 				if (c.playerLevel[c.playerSmithing] < data[i][1]) { // Smithing level
@@ -211,7 +211,7 @@ public class Smelting extends SkillHandler {
 	/**
 	 * Gets the index from DATA for which bar to smelt
 	 */
-	public static void getBar(Client c, int i) {
+	public static void getBar(Player c, int i) {
 		switch (i) {
 		case 15147: // bronze (1)
 			doAmount(c, 1, 1);// (c,amount,Index in data)
@@ -323,12 +323,12 @@ public class Smelting extends SkillHandler {
 	/**
 	 * Resets Smelting
 	 */
-	public static void resetSmelting(Client c) {
-		c.playerSkilling[13] = false;
-		c.stopPlayerSkill = false;
-		c.isSmelting = false;
+	public static void resetSmelting(Player player) {
+		player.playerSkilling[13] = false;
+		player.stopPlayerSkill = false;
+		player.isSmelting = false;
 		for (int i = 0; i < 7; i++) {
-			c.playerSkillProp[13][i] = -1;
+			player.playerSkillProp[13][i] = -1;
 		}
 	}
 

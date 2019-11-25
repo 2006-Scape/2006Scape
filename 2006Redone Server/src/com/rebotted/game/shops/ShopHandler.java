@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
@@ -231,7 +232,7 @@ public class ShopHandler {
 		refreshShop(shop_id);
 	}
 
-	public static boolean playerOwnsStore(int shop_id, Client player){
+	public static boolean playerOwnsStore(int shop_id, Player player){
 		return ShopSModifier[shop_id] == 0 && ShopBModifier[shop_id] == 0 && ShopName[shop_id].equalsIgnoreCase(player.properName + "'s Store");
 	}
 }

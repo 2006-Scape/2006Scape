@@ -2,7 +2,7 @@ package com.rebotted.game.objects.impl;
 
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.traveling.Desert;
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 import com.rebotted.world.clip.Region;
 
 public class SpecialObjects {
@@ -10,7 +10,7 @@ public class SpecialObjects {
 	private final static int[] AL_KHARID_GATES = { 2882, 2883 };
 	private final static int[] SHANTAY_GATES = { 4031, 4033 };
 
-	public static void openLumbridgePipe(Client c, int objectType) {
+	public static void openLumbridgePipe(Player c, int objectType) {
 		c.isRunning = false;
 		c.getPacketSender().sendConfig(173, 0);
 		c.playerWalkIndex = 819;
@@ -18,7 +18,7 @@ public class SpecialObjects {
 		c.getPlayerAssistant().walkTo(0, -1);
 	}
 
-	public static boolean openKharid(Client c, int objectId) {
+	public static boolean openKharid(Player player, int objectId) {
 		for (int element : AL_KHARID_GATES) {
 			if (objectId == element) {
 				return true;
@@ -27,7 +27,7 @@ public class SpecialObjects {
 		return false;
 	}
 
-	public static boolean openShantay(Client c, int objectId) {
+	public static boolean openShantay(Player c, int objectId) {
 		for (int element : SHANTAY_GATES) {
 			if (objectId == element) {
 				return true;
@@ -36,7 +36,7 @@ public class SpecialObjects {
 		return false;
 	}
 
-	public static void movePlayer(Client c) {
+	public static void movePlayer(Player c) {
 		if (Region.getClipping(c.getX() - 1, c.getY(), c.heightLevel, -1, 0)) {
 			c.getPlayerAssistant().movePlayer(c.absX + 1, c.absY, 0);
 		} else if (Region.getClipping(c.getX() + 1, c.getY(), c.heightLevel, 1,
@@ -51,38 +51,38 @@ public class SpecialObjects {
 		}
 	}
 
-	public static void openShantayChest(Client c, int objectId, int obX,
+	public static void openShantayChest(Player player, int objectId, int obX,
 			int obY, String type) {
 		if (type == "open") {
-			GameEngine.objectHandler.createAnObject(c, 104, obX, obY, -1);
+			GameEngine.objectHandler.createAnObject(player, 104, obX, obY, -1);
 		} else if (type == "shut") {
-			GameEngine.objectHandler.createAnObject(c, 2693, obX, obY, -1);
+			GameEngine.objectHandler.createAnObject(player, 2693, obX, obY, -1);
 		}
 	}
 
-	public static void initKharid(Client c, int objectId) {
-		if (!c.getItemAssistant().playerHasItem(995, 10)) {
-			c.getDialogueHandler().itemMessage(c,
+	public static void initKharid(Player player, int objectId) {
+		if (!player.getItemAssistant().playerHasItem(995, 10)) {
+			player.getDialogueHandler().itemMessage(player,
 					"You need 10 coins to pass through this gate.", 995, 200);
-			c.nextChat = 0;
+			player.nextChat = 0;
 			return;
 		}
-		GameEngine.objectHandler.createAnObject(c, -1, c.objectX, c.objectY, -1);
+		GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, -1);
 		final int[] coords = new int[2];
-		openKharid(c, objectId);
-		if (c.absX == 3267) {
-			c.getPlayerAssistant().movePlayer(c.absX + 1, c.absY, 0);
-		} else if (c.absX == 3268) {
-			c.getPlayerAssistant().movePlayer(c.absX - 1, c.absY, 0);
+		openKharid(player, objectId);
+		if (player.absX == 3267) {
+			player.getPlayerAssistant().movePlayer(player.absX + 1, player.absY, 0);
+		} else if (player.absX == 3268) {
+			player.getPlayerAssistant().movePlayer(player.absX - 1, player.absY, 0);
 		}
-		c.turnPlayerTo(c.objectX, c.objectY);
-		coords[0] = c.objectX;
-		coords[1] = c.objectY;
-		c.getItemAssistant().deleteItem(995,
-				c.getItemAssistant().getItemSlot(995), 10);
+		player.turnPlayerTo(player.objectX, player.objectY);
+		coords[0] = player.objectX;
+		coords[1] = player.objectY;
+		player.getItemAssistant().deleteItem(995,
+				player.getItemAssistant().getItemSlot(995), 10);
 	}
 
-	private static boolean movePlayer2(Client c) {
+	private static boolean movePlayer2(Player c) {
 		if (c.absY == 3117) {
 			c.getPlayerAssistant().movePlayer(c.absX, c.absY - 2, 0);
 			return true;
@@ -95,7 +95,7 @@ public class SpecialObjects {
 		return false;
 	}
 
-	public static void initShantay(Client c, int objectId) {
+	public static void initShantay(Player c, int objectId) {
 		if (!c.getItemAssistant().playerHasItem(1854, 1) && c.absY == 3117) {
 			c.getDialogueHandler().sendStatement("You need a Shantay pass to go through.");
 			return;

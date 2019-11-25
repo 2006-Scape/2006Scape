@@ -2,15 +2,14 @@ package com.rebotted.game.content.combat.magic;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.rebotted.game.players.Client;
+import com.rebotted.game.players.Player;
 
 public class Enchanting {
 
-	private final Client c;
+	private final Player c;
 
-	public Enchanting(Client c) {
-		this.c = c;
+	public Enchanting(Player player) {
+		this.c = player;
 	}
 
 	public enum Enchant {
