@@ -8,16 +8,11 @@ import com.rebotted.game.players.Player;
  */
 
 public class VampyreSlayer {
+	
+	private static String[] lines = new String[]{};
 
-	Player client;
 
-	public String[] lines = new String[]{};
-
-	public VampyreSlayer(Player player) {
-		this.client = player;
-	}
-
-	public void showInformation() {
+	public static void showInformation(Player client) {
 		// Clear all lines
 		for (int i = 8144; i < 8195; i++) client.getPacketSender().sendFrame126("", i);
 		// Set the title

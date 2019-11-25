@@ -121,17 +121,17 @@ public abstract class Player {
 	private final BankPin bankPin = new BankPin(this);
 	private final Slayer slayer = new Slayer(this);
 	private final ImpCatcher impCatcher = new ImpCatcher(this);
-	private final BlackKnightsFortress blackKnightF = new BlackKnightsFortress(this);
-	private final CooksAssistant cooksAssistant = new CooksAssistant(this);
-	private final RomeoJuliet romeoJuliet = new RomeoJuliet(this);
-	private final DoricsQuest doricsQuest = new DoricsQuest(this);
-	private final VampyreSlayer vampyreSlayer = new VampyreSlayer(this);
-	private final RestlessGhost restlessGhost = new RestlessGhost(this);
-	private final GertrudesCat gertrudesCat = new GertrudesCat(this);
-	private final SheepShearer sheepShearer = new SheepShearer(this);
-	private final RuneMysteries runeMysteries = new RuneMysteries(this);
-	private final WitchsPotion witchsPotion = new WitchsPotion(this);
-	private final PiratesTreasure piratesTreasure = new PiratesTreasure(this);
+	private final BlackKnightsFortress blackKnightF = new BlackKnightsFortress();
+	private final CooksAssistant cooksAssistant = new CooksAssistant();
+	private final RomeoJuliet romeoJuliet = new RomeoJuliet();
+	private final DoricsQuest doricsQuest = new DoricsQuest();
+	private final VampyreSlayer vampyreSlayer = new VampyreSlayer();
+	private final RestlessGhost restlessGhost = new RestlessGhost();
+	private final GertrudesCat gertrudesCat = new GertrudesCat();
+	private final SheepShearer sheepShearer = new SheepShearer();
+	private final RuneMysteries runeMysteries = new RuneMysteries();
+	private final WitchsPotion witchsPotion = new WitchsPotion();
+	private final PiratesTreasure piratesTreasure = new PiratesTreasure();
 	private final PacketSender packetSender = new PacketSender(this);
 	private final DialogueHandler dialogues = new DialogueHandler(this);
 	private final GnomeAgility gnomeStrongHold = new GnomeAgility(this);
@@ -285,54 +285,6 @@ public abstract class Player {
 		return bankPin;
 	}
 
-	public ImpCatcher getImpCatcher() {
-		return impCatcher;
-	}
-
-	public BlackKnightsFortress getBlackKnightsFortress() {
-		return 	blackKnightF;
-	}
-
-	public PiratesTreasure getPiratesTreasure() {
-		return piratesTreasure;
-	}
-
-	public CooksAssistant getCooksAssistant() {
-		return cooksAssistant;
-	}
-
-	public RomeoJuliet getRomeoJuliet() {
-		return romeoJuliet;
-	}
-
-	public DoricsQuest getDoricsQuest() {
-		return doricsQuest;
-	}
-
-	public VampyreSlayer getVampyreSlayer() {
-		return vampyreSlayer;
-	}
-
-	public RestlessGhost getRestlessGhost() {
-		return restlessGhost;
-	}
-
-	public GertrudesCat getGertrudesCat() {
-		return gertrudesCat;
-	}
-
-	public SheepShearer getSheepShearer() {
-		return sheepShearer;
-	}
-
-	public RuneMysteries getRuneMysteries() {
-		return runeMysteries;
-	}
-
-	public WitchsPotion getWitchesPotion() {
-		return witchsPotion;
-	}
-
 	public synchronized Stream getInStream() {
 		return inStream;
 	}
@@ -401,7 +353,7 @@ public abstract class Player {
 		return food;
 	}
 
-	public int TotalShopItems;
+	public int totalShopItems;
 
 	public void startCurrentTask(int ticksBetweenExecution, CycleEvent event) {
 		endCurrentTask();
@@ -598,7 +550,7 @@ public abstract class Player {
 		resetWalkingQueue();
 	}
 
-	public void initialize() {
+	public void loginPlayer() {
 		getPlayerAssistant().loginScreen();
 		if (Connection.isNamedBanned(playerName)) {
 			logout();
@@ -1447,11 +1399,11 @@ public abstract class Player {
 			isHarvesting, openDuel = false,  killedJad = false, canHealersRespawn = true, playerIsBusy = false, miningRock,
 			randomEventsEnabled = false, debugMode = false, clickToTele = false;
 
-	public int votePoints, thankedForDonation, saveDelay, playerKilled, gertCat, restGhost,
+	public int votePoints, saveDelay, playerKilled, gertCat, restGhost,
 			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest, blackKnight, shieldArrav,
-			dragonSlayerQuestStage, sheepShear, impsC, randomActions, pkPoints,
+			sheepShear, impsC, randomActions,
 			totalPlayerDamageDealt, killedBy, lastChatId = 1, privateChat,
-			friendSlot = 0, dialogueId, randomCoffin, newLocation, specEffect,
+			dialogueId, randomCoffin, newLocation, specEffect,
 			specBarId, attackLevelReq, defenceLevelReq, strengthLevelReq,
 			rangeLevelReq, magicLevelReq, slayerLevelReq, agilityLevelReq,
 			followId, skullTimer, nextChat = 0, talkingNpc = -1,
@@ -1476,7 +1428,7 @@ public abstract class Player {
 			underAttackBy2, wildLevel, teleTimer, respawnTimer, saveTimer = 0,
 			teleBlockLength, poisonDelay, slayerPoints, blackMarks,
 			SlayerMaster, teleOtherTimer = 0,
-			teleOtherSlot = -1, tutorialProgress, Cookstage1 = 1,
+			teleOtherSlot = -1, tutorialProgress, cookStage1 = 1,
 			woodcuttingTree, smeltAmount, knightS, otherDirection,
 			brightness = 3, recoilHits, droppedItem = -1,
 			spawnedHealers, cannonX = 0, cannonY = 0,

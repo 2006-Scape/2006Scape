@@ -4,18 +4,12 @@ import com.rebotted.game.players.Player;
 
 /**
  * Romeo and Juliet
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class RomeoJuliet {
 
-	Player client;
-
-	public RomeoJuliet(Player player) {
-		this.client = player;
-	}
-
-	public void showInformation() {
+	public static void showInformation(Player client) {
 		for (int i = 8144; i < 8195; i++) {
 			client.getPacketSender().sendFrame126("", i);
 		}

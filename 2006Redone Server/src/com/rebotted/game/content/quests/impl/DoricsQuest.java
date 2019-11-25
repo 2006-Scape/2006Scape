@@ -4,18 +4,12 @@ import com.rebotted.game.players.Player;
 
 /**
  * Doric's Quest
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class DoricsQuest {
 
-	Player client;
-
-	public DoricsQuest(Player player) {
-		this.client = player;
-	}
-
-	public void showInformation() {
+	public static void showInformation(Player client) {
 		for (int i = 8144; i < 8195; i++) {
 			client.getPacketSender().sendFrame126("", i);
 		}

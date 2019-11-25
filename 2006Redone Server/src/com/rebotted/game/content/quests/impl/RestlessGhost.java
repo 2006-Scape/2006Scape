@@ -9,13 +9,8 @@ import com.rebotted.game.players.Player;
 
 public class RestlessGhost {
 
-	Player client;
 
-	public RestlessGhost(Player player) {
-		this.client = player;
-	}
-
-	public void showInformation() {
+	public void showInformation(Player client) {
 		for (int i = 8144; i < 8195; i++) {
 			client.getPacketSender().sendFrame126("", i);
 		}
@@ -23,9 +18,7 @@ public class RestlessGhost {
 		client.getPacketSender().sendFrame126("", 8145);
 		if (client.restGhost == 0) {
 			client.getPacketSender().sendFrame126("Restless Ghost", 8144);
-			client.getPacketSender().sendFrame126(
-					"I can start this quest by speaking to Father Aereck in",
-					8147);
+			client.getPacketSender().sendFrame126("I can start this quest by speaking to Father Aereck in",	8147);
 			client.getPacketSender().sendFrame126("Lumbridge", 8148);
 			client.getPacketSender().sendFrame126("Minimum Requirments:", 8149);
 			client.getPacketSender().sendFrame126("None.", 8150);

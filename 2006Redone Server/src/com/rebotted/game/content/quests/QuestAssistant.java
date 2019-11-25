@@ -1,7 +1,15 @@
 package com.rebotted.game.content.quests;
 
+import com.rebotted.game.content.quests.impl.BlackKnightsFortress;
+import com.rebotted.game.content.quests.impl.CooksAssistant;
+import com.rebotted.game.content.quests.impl.DoricsQuest;
+import com.rebotted.game.content.quests.impl.GertrudesCat;
 import com.rebotted.game.content.quests.impl.KnightsSword;
+import com.rebotted.game.content.quests.impl.RomeoJuliet;
+import com.rebotted.game.content.quests.impl.SheepShearer;
 import com.rebotted.game.content.quests.impl.ShieldArrav;
+import com.rebotted.game.content.quests.impl.VampyreSlayer;
+import com.rebotted.game.content.quests.impl.WitchsPotion;
 import com.rebotted.game.players.Player;
 
 /**
@@ -269,28 +277,28 @@ public class QuestAssistant {
 		switch (buttonId) {
 
 		case 28165:
-			player.getCooksAssistant().showInformation();
+			CooksAssistant.showInformation(player);
 			break;
 		case 28167:
-			player.getRuneMysteries().showInformation();
+			player.getRuneMysteries().showInformation(player);
 			break;
 		case 28168:
-			player.getDoricsQuest().showInformation();
+			DoricsQuest.showInformation(player);
 			break;
 		case 28169:
-			player.getRestlessGhost().showInformation();
+			player.getRestlessGhost().showInformation(player);
 			break;
 		case 28172:
 			player.getImpCatcher().showInformation();
 			break;
 		case 28173:
-			player.getPiratesTreasure().showInformation();
+			player.getPiratesTreasure().showInformation(player);
 			break;
 		case 28175:
-			player.getRomeoJuliet().showInformation();
+			RomeoJuliet.showInformation(player);
 			break;
 		case 28176:
-			player.getSheepShearer().showInformation();
+			SheepShearer.showInformation(player);
 			break;
 		case 28177:
 			ShieldArrav.showInformation(player);
@@ -299,16 +307,16 @@ public class QuestAssistant {
 			KnightsSword.showInformation(player);
 		break;
 		case 28179:
-			player.getVampyreSlayer().showInformation();
+			VampyreSlayer.showInformation(player);
 			break;
 		case 28180:
-			player.getWitchesPotion().showInformation();
+			WitchsPotion.showInformation(player);
 			break;
 		case 28192:
-			player.getGertrudesCat().showInformation();
+			GertrudesCat.showInformation(player);
 			break;
 		case 28164:
-			player.getBlackKnightsFortress().showInformation();
+			BlackKnightsFortress.showInformation(player);
 			break;
 
 		default:

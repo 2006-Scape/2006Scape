@@ -234,7 +234,7 @@ public class PlayerHandler {
 					players[i] = null;
 				} else {
 					if (!players[i].initialized) {
-						players[i].initialize();
+						players[i].loginPlayer();
 						players[i].initialized = true;
 					} else {
 						players[i].update();

@@ -251,9 +251,6 @@ public class PlayerSave {
 							case "runeMist":
 								player.runeMist = Integer.parseInt(token2);
 								break;
-							case "dragonSlayerQuestStage":
-								player.dragonSlayerQuestStage = Integer.parseInt(token2);
-								break;
 							case "doricQuest":
 								player.doricQuest = Integer.parseInt(token2);
 								break;
@@ -298,9 +295,6 @@ public class PlayerSave {
 								break;
 							case "hasStarter":
 								player.hasStarter = Boolean.parseBoolean(token2);
-								break;
-							case "thankedForDonation":
-								player.thankedForDonation = Integer.parseInt(token2);
 								break;
 							case "membership":
 								player.membership = Boolean.parseBoolean(token2);
@@ -674,8 +668,6 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("summonId = " + player.summonId);
 			characterfile.newLine();
-			characterfile.write("thankedForDonation = " + player.thankedForDonation);
-			characterfile.newLine();
 			characterfile.write("membership = " + player.membership);
 			characterfile.newLine();
 			characterfile.write("questPoints = " + player.questPoints);
@@ -709,8 +701,6 @@ public class PlayerSave {
 			characterfile.write("ptjob = " + player.ptjob);
 			characterfile.newLine();
 			characterfile.write("doricQuest = " + player.doricQuest);
-			characterfile.newLine();
-			characterfile.write("dragonSlayerQuestStage = " + player.dragonSlayerQuestStage);
 			characterfile.newLine();
 			characterfile.write("impsC = " + player.impsC);
 			characterfile.newLine();

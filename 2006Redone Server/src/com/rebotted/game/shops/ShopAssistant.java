@@ -56,15 +56,15 @@ public class ShopAssistant {
 
 	public void resetShop(int ShopID) {
 		synchronized (player) {
-			player.TotalShopItems = 0;
+			player.totalShopItems = 0;
 			for (int i = 0; i < ShopHandler.MaxShopItems; i++) {	//adds items in store when items are sold until max value.
 				if (ShopHandler.ShopItems[ShopID][i] > 0) {
-					player.TotalShopItems++;
+					player.totalShopItems++;
 				}
 			}
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(3900);
-			player.getOutStream().writeWord(player.TotalShopItems);
+			player.getOutStream().writeWord(player.totalShopItems);
 			int TotalCount = 0;
 			for (int i = 0; i < ShopHandler.ShopItems[player.myShopId].length; i++)
 			{
@@ -87,7 +87,7 @@ public class ShopAssistant {
 							ShopHandler.ShopItems[ShopID][i]);
 					TotalCount++;
 				}
-				if (TotalCount > player.TotalShopItems) {
+				if (TotalCount > player.totalShopItems) {
 					break;
 				}
 			}
@@ -348,7 +348,7 @@ public class ShopAssistant {
 	        return false;
 		}
 		// We can only store 40 items per shop
-		if (player.TotalShopItems >= 40) {
+		if (player.totalShopItems >= 40) {
 			player.getPacketSender().sendMessage("This shop is out of space!");
 			return false;
 		}

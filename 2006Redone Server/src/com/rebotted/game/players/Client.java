@@ -7,8 +7,6 @@ import com.rebotted.util.Stream;
 
 public class Client extends Player {
 	
-	
-
 	public Client(IoSession s, int _playerId) {
 		super(_playerId);
 		session = s;
@@ -19,6 +17,7 @@ public class Client extends Player {
 		buffer = new byte[GameConstants.BUFFER_SIZE];
 	}
 	
+	//bots
 	public Client(IoSession s) {
 		super(-1);
 		isBot = true;

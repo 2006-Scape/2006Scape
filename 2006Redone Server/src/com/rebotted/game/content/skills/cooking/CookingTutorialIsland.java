@@ -108,7 +108,7 @@ public class CookingTutorialIsland extends SkillHandler {
 							c.playerSkillProp[7][0],
 							c.getItemAssistant().getItemSlot(
 									c.playerSkillProp[7][0]), 1);
-					if (c.Cookstage1 == 1) {
+					if (c.cookStage1 == 1) {
 						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler()
 								.chatboxText(
@@ -119,7 +119,7 @@ public class CookingTutorialIsland extends SkillHandler {
 										"more shrimp then use them on a fire.",
 										"Burning your shrimp.");
 						c.getPacketSender().chatbox(6179);
-						c.Cookstage1 = 0;
+						c.cookStage1 = 0;
 						c.getItemAssistant()
 								.addItem(c.playerSkillProp[7][3], 1);
 					} else {

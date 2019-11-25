@@ -4,18 +4,12 @@ import com.rebotted.game.players.Player;
 
 /**
  * Rune Mysteries
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class RuneMysteries {
-
-	Player client;
-
-	public RuneMysteries(Player player) {
-		this.client = player;
-	}
-
-	public void showInformation() {
+		
+	public void showInformation(Player client) {
 		for (int i = 8144; i < 8195; i++) {
 			client.getPacketSender().sendFrame126("", i);
 		}

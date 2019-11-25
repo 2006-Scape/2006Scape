@@ -9,17 +9,11 @@ import com.rebotted.game.players.Player;
 
 public class CooksAssistant {
 
-	Player client;
-
-	public CooksAssistant(Player player) {
-		this.client = player;
-	}
-
 	private static final int EGG = 1944;
 	private static final int MILK = 1927;
 	private static final int FLOUR = 1933;
 
-	public void showInformation() {
+	public static void showInformation(Player client) {
 		for (int i = 8144; i < 8195; i++) {
 			client.getPacketSender().sendFrame126("", i);
 		}

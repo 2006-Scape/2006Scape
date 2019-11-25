@@ -9,13 +9,8 @@ import com.rebotted.game.players.Player;
 
 public class PiratesTreasure {
 
-	Player client;
 
-	public PiratesTreasure(Player player) {
-		this.client = player;
-	}
-
-	public void showInformation() {
+	public void showInformation(Player client) {
 		for (int i = 8144; i < 8195; i++) {
 			client.getPacketSender().sendFrame126("", i);
 		}
