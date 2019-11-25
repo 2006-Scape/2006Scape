@@ -574,7 +574,7 @@ public class ShopAssistant {
 
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 			if (!showIsOwnedByThisPlayer) {
-				player.getItemAssistant().deleteItem2(currency, totalValue);
+				player.getItemAssistant().deleteItem(currency, totalValue);
 				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );
 				// If it is a player owned shop, we need to give them the coins
 				if (ShopHandler.ShopSModifier[player.myShopId] == 0)

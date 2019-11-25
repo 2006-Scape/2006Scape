@@ -56,7 +56,7 @@ public class ClickItem implements PacketType {
 			player.getActionSender().sendMessage("You setup a barricade.");
 		} else if (!CastleWars.isInCw(player) && itemId == 4053) {
 			player.getActionSender().sendMessage("You need to be in castlewars to drop a barricade.");
-			player.getItemAssistant().deleteItem2(itemId, player.getItemAssistant().getItemAmount(itemId));
+			player.getItemAssistant().deleteItem(itemId, player.getItemAssistant().getItemAmount(itemId));
 		}
 		if (itemId >= 5509 && itemId <= 5514) {
 			int pouch = -1;
@@ -81,20 +81,20 @@ public class ClickItem implements PacketType {
 		case 407:
 			if (Misc.random(1) == 0) {
 				player.getItemAssistant().addItem(409, 1);
-				player.getItemAssistant().deleteItem2(407, 1);
+				player.getItemAssistant().deleteItem(407, 1);
 			} else {
 				if (Misc.random(1) == 0) {
 					player.getItemAssistant().addItem(411, 1);
-					player.getItemAssistant().deleteItem2(409, 1);
+					player.getItemAssistant().deleteItem(409, 1);
 				} else if (Misc.random(1) == 1) {
 					player.getItemAssistant().addItem(413, 1);
-					player.getItemAssistant().deleteItem2(407, 1);
+					player.getItemAssistant().deleteItem(407, 1);
 				}
 			}
 		break;
 		
 		case 2329:
-			player.getItemAssistant().deleteItem2(2329, 1);
+			player.getItemAssistant().deleteItem(2329, 1);
 			player.getItemAssistant().addItem(2313, 1);
 		break;
 		
@@ -179,7 +179,7 @@ public class ClickItem implements PacketType {
 			break;
 
 		case 3691:
-			player.getItemAssistant().deleteItem2(3691, 1);
+			player.getItemAssistant().deleteItem(3691, 1);
 			player.getItemAssistant().addItem(3690, 1);
 			player.getPlayerAssistant().startTeleport(2661, 3310, 0, "modern");
 			break;
@@ -223,20 +223,20 @@ public class ClickItem implements PacketType {
 
 		case 2297:
 			player.getItemAssistant().addItem(2299, 1);
-			player.getItemAssistant().deleteItem2(2297, 1);
+			player.getItemAssistant().deleteItem(2297, 1);
 			break;
 
 		case 2299:
-			player.getItemAssistant().deleteItem2(2299, 1);
+			player.getItemAssistant().deleteItem(2299, 1);
 			break;
 
 		case 2301:
 			player.getItemAssistant().addItem(2303, 1);
-			player.getItemAssistant().deleteItem2(2301, 1);
+			player.getItemAssistant().deleteItem(2301, 1);
 			break;
 
 		case 2303:
-			player.getItemAssistant().deleteItem2(2303, 1);
+			player.getItemAssistant().deleteItem(2303, 1);
 			break;
 
 		case 2520:
@@ -267,7 +267,7 @@ public class ClickItem implements PacketType {
 			break;
 
 		case 2714:
-			player.getItemAssistant().deleteItem2(itemId, 1);
+			player.getItemAssistant().deleteItem(itemId, 1);
 			player.getItemAssistant().addItem(995, 450);
 			player.getItemAssistant().addItem(1639, 1);
 			player.getItemAssistant().addItem(1635, 1);

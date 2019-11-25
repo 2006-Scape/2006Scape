@@ -10,7 +10,6 @@ import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
 import redone.game.content.combat.magic.MagicData;
 import redone.game.content.combat.prayer.PrayerDrain;
-import redone.game.content.combat.range.RangeData;
 import redone.game.content.minigames.FightPits;
 import redone.game.content.minigames.PestControl;
 import redone.game.content.minigames.castlewars.CastleWars;
@@ -372,10 +371,10 @@ public class PlayerAssistant {
 
 	public boolean removeGloves() {
 		if (player.getItemAssistant().playerHasItem(776)) {
-			player.getItemAssistant().deleteItem2(776, 1);
+			player.getItemAssistant().deleteItem(776, 1);
 			return true;
 		} else if (player.getItemAssistant().playerHasItem(775)) {
-			player.getItemAssistant().deleteItem2(775, 1);
+			player.getItemAssistant().deleteItem(775, 1);
 			return true;
 		} else if (player.playerEquipment[player.playerHands] == 775 || player.playerEquipment[player.playerHands] == 776) {
 			player.getDialogueHandler().sendStatement("You need to take your gloves off to do this.");
@@ -1876,7 +1875,7 @@ public class PlayerAssistant {
 				}
 				if (weapon == CastleWars.SARA_BANNER || weapon == CastleWars.ZAMMY_BANNER) {
 					player.getItemAssistant().removeItem(weapon, 3);
-					player.getItemAssistant().deleteItem2(weapon, 1);
+					player.getItemAssistant().deleteItem(weapon, 1);
 					CastleWars.dropFlag(player, weapon);
 				}
 				if (opponent.duelStatus == 5) {

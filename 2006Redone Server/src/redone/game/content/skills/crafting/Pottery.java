@@ -56,7 +56,7 @@ public class Pottery {
 		if (c.getItemAssistant().playerHasItem(softClay)
 				&& c.playerLevel[12] >= level && c.isPotCrafting == true) {
 			c.startAnimation(unFire);
-			c.getItemAssistant().deleteItem2(softClay, 1);
+			c.getItemAssistant().deleteItem(softClay, 1);
 			c.getItemAssistant().addItem(id, 1);
 			c.getActionSender().sendMessage(
 					"You make the soft clay into a "
@@ -72,7 +72,7 @@ public class Pottery {
 						&& c.playerLevel[12] >= level && !(c.doAmount <= 0)
 						&& c.isPotCrafting == true) {
 					c.startAnimation(unFire);
-					c.getItemAssistant().deleteItem2(softClay, 1);
+					c.getItemAssistant().deleteItem(softClay, 1);
 					c.getItemAssistant().addItem(id, 1);
 					c.getActionSender().sendMessage(
 							"You make the soft clay into a "
@@ -119,7 +119,7 @@ public class Pottery {
 		c.isPotCrafting = true;
 		if (c.getItemAssistant().playerHasItem(startId)
 				&& c.playerLevel[12] >= level && c.isPotCrafting == true) {
-			c.getItemAssistant().deleteItem2(startId, 1);
+			c.getItemAssistant().deleteItem(startId, 1);
 			c.getItemAssistant().addItem(finishId, 1);
 			c.startAnimation(Fire);
 			c.getActionSender().sendSound(469, 100, 0);
@@ -152,7 +152,7 @@ public class Pottery {
 				if (c.getItemAssistant().playerHasItem(startId)
 						&& c.playerLevel[12] >= level
 						&& c.isPotCrafting == true && !(c.doAmount <= 0)) {
-					c.getItemAssistant().deleteItem2(startId, 1);
+					c.getItemAssistant().deleteItem(startId, 1);
 					c.getItemAssistant().addItem(finishId, 1);
 					c.startAnimation(Fire);
 					c.getActionSender().sendSound(469, 100, 0);

@@ -248,7 +248,7 @@ public class ObjectsActions {
 		}
 		if (player.absX == 2816 && player.getItemAssistant().playerHasItem(6306, 100)) {
 			player.getPlayerAssistant().movePlayer(player.absX+1, player.absY, 0);
-			player.getItemAssistant().deleteItem2(6306, 100);
+			player.getItemAssistant().deleteItem(6306, 100);
 		} else if (player.absX == 2817) {
 			player.getPlayerAssistant().movePlayer(player.absX+1, player.absY, 0);
 		}
@@ -340,12 +340,12 @@ public class ObjectsActions {
 			}
 			if (player.getItemAssistant().playerHasItem(954)
 					&& LightSources.playerHasLightSource(player)) {
-				player.getItemAssistant().deleteItem2(954, 1);
+				player.getItemAssistant().deleteItem(954, 1);
 				player.getPlayerAssistant().movePlayer(3168, 9572, 0);
 				return;
 			} else if (player.getItemAssistant().playerHasItem(954)
 					&& !LightSources.playerHasLightSource(player)) {
-				player.getItemAssistant().deleteItem2(954, 1);
+				player.getItemAssistant().deleteItem(954, 1);
 				player.getPlayerAssistant().movePlayer(3168, 9572, 0);
 				return;
 			} else {
@@ -1814,7 +1814,7 @@ public class ObjectsActions {
 				player.turnPlayerTo(player.objectX, player.objectY);
 				player.startAnimation(883);
 				player.getItemAssistant().addItem(2130, 1);
-				player.getItemAssistant().deleteItem2(1927, 1);
+				player.getItemAssistant().deleteItem(1927, 1);
 				player.getPlayerAssistant()
 						.addSkillXP(18, player.playerCooking);
 			} else {
@@ -1826,7 +1826,7 @@ public class ObjectsActions {
 		case 2072: // crate
 			if (player.getItemAssistant().playerHasItem(1963, 10)
 					&& player.luthas == true) {
-				player.getItemAssistant().deleteItem2(1963, 10);
+				player.getItemAssistant().deleteItem(1963, 10);
 				player.getDialogueHandler().sendStatement(
 						"You pack your bananas in the crate...");
 				player.getActionSender().sendMessage(
@@ -1834,7 +1834,7 @@ public class ObjectsActions {
 				player.bananas = 2;
 			} else if (player.getItemAssistant().playerHasItem(431, 1)
 					&& player.pirateTreasure == 1) {
-				player.getItemAssistant().deleteItem2(431, 1);
+				player.getItemAssistant().deleteItem(431, 1);
 				player.getDialogueHandler().sendStatement(
 						"You stash your rum in the crate");
 				player.pirateTreasure = 2;
@@ -2580,7 +2580,7 @@ public class ObjectsActions {
 				NpcHandler.spawnNpc(player, 457, player.getX(), player.getY() + 2, 0, 0, 0, 0, 0, 0, false, false);
 				player.getActionSender().sendMessage("You search the coffin.");
 			} else if (player.restGhost == 4 && player.getItemAssistant().playerHasItem(553, 1)) {
-				player.getItemAssistant().deleteItem2(553, 1);
+				player.getItemAssistant().deleteItem(553, 1);
 				player.getActionSender().sendMessage("You have freed the ghost!");
 				QuestRewards.restFinish(player);
 				NpcHandler.spawnNpc(player, 457, player.getX(), player.getY() + 2, 0, 0, 0, 0, 0, 0, false, false);
@@ -2633,7 +2633,7 @@ public class ObjectsActions {
 		}
 		if (player.absX == 2816 && player.getItemAssistant().playerHasItem(6306, 100)) {
 			player.getPlayerAssistant().movePlayer(player.absX+1, player.absY, 0);
-			player.getItemAssistant().deleteItem2(6306, 100);
+			player.getItemAssistant().deleteItem(6306, 100);
 		} else if (player.absX == 2817) {
 			player.getPlayerAssistant().movePlayer(player.absX+1, player.absY, 0);
 		}

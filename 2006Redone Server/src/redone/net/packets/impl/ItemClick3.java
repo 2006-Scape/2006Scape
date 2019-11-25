@@ -67,12 +67,12 @@ public class ItemClick3 implements PacketType {
 			break;
 			
 		case 1933:
-			player.getItemAssistant().deleteItem2(1933, 1);
+			player.getItemAssistant().deleteItem(1933, 1);
 			player.getItemAssistant().addItem(1931, 1);
 		break;
 		
 		case 1921:
-			player.getItemAssistant().deleteItem2(1921, 1);
+			player.getItemAssistant().deleteItem(1921, 1);
 			player.getItemAssistant().addItem(1923, 1);
 		break;
 

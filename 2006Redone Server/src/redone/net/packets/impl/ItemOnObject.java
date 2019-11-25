@@ -43,8 +43,8 @@ public class ItemOnObject implements PacketType {
 						player.startAnimation(899);
 						player.getActionSender().sendSound(352, 100, 1);
 						player.getActionSender().sendMessage("You smelt the copper and tin together in the furnace.");
-						player.getItemAssistant().deleteItem2(438, 1);
-						player.getItemAssistant().deleteItem2(436, 1);
+						player.getItemAssistant().deleteItem(438, 1);
+						player.getItemAssistant().deleteItem(436, 1);
 						player.getActionSender().sendMessage("You retrieve a bar of bronze.");
 						player.getItemAssistant().addItem(2349, 1);
 						player.getDialogueHandler().sendDialogues(3062, -1);
@@ -52,8 +52,8 @@ public class ItemOnObject implements PacketType {
 						player.startAnimation(899);
 						player.getActionSender().sendSound(352, 100, 1);
 						player.getActionSender().sendMessage("You smelt the copper and tin together in the furnace.");
-						player.getItemAssistant().deleteItem2(438, 1);
-						player.getItemAssistant().deleteItem2(436, 1);
+						player.getItemAssistant().deleteItem(438, 1);
+						player.getItemAssistant().deleteItem(436, 1);
 						player.getActionSender().sendMessage("You retrieve a bar of bronze.");
 						player.getItemAssistant().addItem(2349, 1);
 					}
@@ -187,7 +187,7 @@ public class ItemOnObject implements PacketType {
 
 		if (itemId == 954 && objectId == 2327) {
 			player.getPlayerAssistant().movePlayer(2505, 3087, 0);
-			player.getItemAssistant().deleteItem2(954, 1);
+			player.getItemAssistant().deleteItem(954, 1);
 		} else if (objectId == 2327 && itemId != 954) {
 			player.getActionSender().sendMessage("You need a rope to swing across.");
 		}

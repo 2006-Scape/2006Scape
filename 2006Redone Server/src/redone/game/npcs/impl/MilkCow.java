@@ -32,7 +32,7 @@ public class MilkCow {
 
 				@Override
 				public void execute(CycleEventContainer container) {
-					c.getItemAssistant().deleteItem2(BUCKET, 1);
+					c.getItemAssistant().deleteItem(BUCKET, 1);
 					c.getActionSender().sendMessage("You milk the cow.");
 					c.getItemAssistant().addItem(BUCKET_OF_MILK, 1);
 					container.stop();

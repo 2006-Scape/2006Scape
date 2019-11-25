@@ -9,10 +9,6 @@ import redone.game.players.Client;
 import redone.game.players.PlayerHandler;
 import redone.util.Misc;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class ItemAssistant {
 
 	private final Client c;
@@ -38,14 +34,14 @@ public class ItemAssistant {
 			int chance = element[2];
 			if (Misc.random(chance) == 0 && System.currentTimeMillis() - clickTimer > 1800) {
 				addItem(item, amount);
-				deleteItem2(itemId, 1);
+				deleteItem(itemId, 1);
 				clickTimer = System.currentTimeMillis();
 				c.getActionSender().sendMessage(
 						"You find " + amount + " " + getItemName(item) + ".");
 			} else {
 				if (System.currentTimeMillis() - clickTimer > 1800) {
 					addItem(995, 100);
-					deleteItem2(itemId, 1);
+					deleteItem(itemId, 1);
 					clickTimer = System.currentTimeMillis();
 					c.getActionSender().sendMessage("You find 100 coins.");
 				}
@@ -1752,7 +1748,7 @@ public class ItemAssistant {
 				if (addItem(c.playerEquipment[slot], c.playerEquipmentN[slot])) {
 					if (c.playerEquipment[slot] == CastleWars.SARA_BANNER || c.playerEquipment[slot] == CastleWars.ZAMMY_BANNER) {
 						CastleWars.dropFlag(c, c.playerEquipment[slot]);
-						deleteItem2(c.playerEquipment[slot], 1);
+						deleteItem(c.playerEquipment[slot], 1);
 					}
 					c.playerEquipment[slot] = -1;
 					c.playerEquipmentN[slot] = 0;
@@ -2482,23 +2478,6 @@ public class ItemAssistant {
 			resetItems(3214);
 			Weight.calcWeight(c, id, "deleteitem");
 		}
-	}
-
-	public void deleteItem2(int id, int amount) {
-		int am = amount;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] == id + 1) {
-				if (c.playerItemsN[i] > amount) {
-					c.playerItemsN[i] -= amount;
-					break;
-				} else {
-					c.playerItems[i] = 0;
-					c.playerItemsN[i] = 0;
-				}
-			}
-		}
-		resetItems(3214);
-		Weight.calcWeight(c, id, "deleteItem");
 	}
 
 	/**
