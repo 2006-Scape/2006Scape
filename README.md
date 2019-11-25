@@ -42,7 +42,7 @@ Step 14: Hit OK in the project structure screen
 
 Step 15: Start the FileServer [Image](https://i.imgur.com/moNKg9u.png)
 
-Step 16: Start the Server [Image](https://i.imgur.com/uUw522i.png)
+Step 16: Start the GameEngine [Image](https://i.imgur.com/RTbMxmv.png)
 
 Step 17: Start the Client [Image](https://i.imgur.com/dHTiU0I.png)
 
