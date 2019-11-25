@@ -34,18 +34,6 @@ import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.music.PlayList;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.quests.QuestAssistant;
-import com.rebotted.game.content.quests.impl.BlackKnightsFortress;
-import com.rebotted.game.content.quests.impl.CooksAssistant;
-import com.rebotted.game.content.quests.impl.DoricsQuest;
-import com.rebotted.game.content.quests.impl.GertrudesCat;
-import com.rebotted.game.content.quests.impl.ImpCatcher;
-import com.rebotted.game.content.quests.impl.PiratesTreasure;
-import com.rebotted.game.content.quests.impl.RestlessGhost;
-import com.rebotted.game.content.quests.impl.RomeoJuliet;
-import com.rebotted.game.content.quests.impl.RuneMysteries;
-import com.rebotted.game.content.quests.impl.SheepShearer;
-import com.rebotted.game.content.quests.impl.VampyreSlayer;
-import com.rebotted.game.content.quests.impl.WitchsPotion;
 import com.rebotted.game.content.skills.SkillInterfaces;
 import com.rebotted.game.content.skills.agility.Agility;
 import com.rebotted.game.content.skills.agility.ApeAtollAgility;
@@ -120,18 +108,6 @@ public abstract class Player {
 	private final Teles teles = new Teles();
 	private final BankPin bankPin = new BankPin(this);
 	private final Slayer slayer = new Slayer(this);
-	private final ImpCatcher impCatcher = new ImpCatcher(this);
-	private final BlackKnightsFortress blackKnightF = new BlackKnightsFortress();
-	private final CooksAssistant cooksAssistant = new CooksAssistant();
-	private final RomeoJuliet romeoJuliet = new RomeoJuliet();
-	private final DoricsQuest doricsQuest = new DoricsQuest();
-	private final VampyreSlayer vampyreSlayer = new VampyreSlayer();
-	private final RestlessGhost restlessGhost = new RestlessGhost();
-	private final GertrudesCat gertrudesCat = new GertrudesCat();
-	private final SheepShearer sheepShearer = new SheepShearer();
-	private final RuneMysteries runeMysteries = new RuneMysteries();
-	private final WitchsPotion witchsPotion = new WitchsPotion();
-	private final PiratesTreasure piratesTreasure = new PiratesTreasure();
 	private final PacketSender packetSender = new PacketSender(this);
 	private final DialogueHandler dialogues = new DialogueHandler(this);
 	private final GnomeAgility gnomeStrongHold = new GnomeAgility(this);
@@ -1716,7 +1692,7 @@ public abstract class Player {
 	public int pItemX, pItemY, pItemId;
 	public boolean isMoving, walkingToItem;
 	public boolean isShopping, updateShop;
-	public int myShopId;
+	public int shopId;
 	public int tradeStatus, tradeWith;
 	public boolean forcedChatUpdateRequired, inDuel, tradeAccepted, goodTrade,
 			inTrade, tradeRequested, tradeResetNeeded, tradeConfirmed,

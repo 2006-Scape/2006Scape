@@ -4,8 +4,12 @@ import com.rebotted.game.content.quests.impl.BlackKnightsFortress;
 import com.rebotted.game.content.quests.impl.CooksAssistant;
 import com.rebotted.game.content.quests.impl.DoricsQuest;
 import com.rebotted.game.content.quests.impl.GertrudesCat;
+import com.rebotted.game.content.quests.impl.ImpCatcher;
 import com.rebotted.game.content.quests.impl.KnightsSword;
+import com.rebotted.game.content.quests.impl.PiratesTreasure;
+import com.rebotted.game.content.quests.impl.RestlessGhost;
 import com.rebotted.game.content.quests.impl.RomeoJuliet;
+import com.rebotted.game.content.quests.impl.RuneMysteries;
 import com.rebotted.game.content.quests.impl.SheepShearer;
 import com.rebotted.game.content.quests.impl.ShieldArrav;
 import com.rebotted.game.content.quests.impl.VampyreSlayer;
@@ -280,19 +284,19 @@ public class QuestAssistant {
 			CooksAssistant.showInformation(player);
 			break;
 		case 28167:
-			player.getRuneMysteries().showInformation(player);
+			RuneMysteries.showInformation(player);
 			break;
 		case 28168:
 			DoricsQuest.showInformation(player);
 			break;
 		case 28169:
-			player.getRestlessGhost().showInformation(player);
+			RestlessGhost.showInformation(player);
 			break;
 		case 28172:
-			player.getImpCatcher().showInformation();
+			ImpCatcher.showInformation(player);
 			break;
 		case 28173:
-			player.getPiratesTreasure().showInformation(player);
+			PiratesTreasure.showInformation(player);
 			break;
 		case 28175:
 			RomeoJuliet.showInformation(player);

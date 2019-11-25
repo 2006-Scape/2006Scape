@@ -104,7 +104,7 @@ public class BotHandler {
         for(Bot bot : botList) {
             if(bot != null && bot.getBotClient() != null) {
                 Client botClient = bot.getBotClient();
-                if(botClient.myShopId == shop_id) {
+                if(botClient.shopId == shop_id) {
                     return botClient;
                 }
             }
@@ -173,7 +173,7 @@ public class BotHandler {
         item_id++;
         Client shop = getPlayerShop(shop_id);
         if (shop == null) return 0;
-        for (int slot = 0; slot < ShopHandler.MaxShopItems; slot++) {
+        for (int slot = 0; slot < ShopHandler.MAX_SHOP_ITEMS; slot++) {
             if (shop.bankItems[slot] == item_id) {
                 return Math.max(1, shop.bankItemsV[slot]);
             }
@@ -185,7 +185,7 @@ public class BotHandler {
         item_id++;
         Client shop = getPlayerShop(shop_id);
         if (shop == null) return;
-        for (int slot = 0; slot < ShopHandler.MaxShopItems; slot++) {
+        for (int slot = 0; slot < ShopHandler.MAX_SHOP_ITEMS; slot++) {
             if (shop.bankItems[slot] == item_id) {
                 shop.bankItemsV[slot] = amount;
             }

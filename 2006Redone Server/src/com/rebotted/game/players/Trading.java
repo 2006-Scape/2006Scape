@@ -36,9 +36,9 @@ public class Trading {
 			}
 
 			// player owned shop
-			if (o.isBot && o.myShopId >= 0){
+			if (o.isBot && o.shopId >= 0){
 				if (isCloseTo(o)) {
-					player.getShopAssistant().openShop(o.myShopId);
+					player.getShopAssistant().openShop(o.shopId);
 				} else {
 					player.getPacketSender().sendMessage("Player is not close enough. Retry when you are closer...");
 				}

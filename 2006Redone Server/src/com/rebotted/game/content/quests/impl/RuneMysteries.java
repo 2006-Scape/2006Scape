@@ -9,7 +9,7 @@ import com.rebotted.game.players.Player;
 
 public class RuneMysteries {
 		
-	public void showInformation(Player client) {
+	public static void showInformation(Player client) {
 		for (int i = 8144; i < 8195; i++) {
 			client.getPacketSender().sendFrame126("", i);
 		}

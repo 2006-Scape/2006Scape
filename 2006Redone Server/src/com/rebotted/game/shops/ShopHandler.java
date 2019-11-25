@@ -9,40 +9,50 @@ import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 
-/**
- * Shops
- **/
 
 public class ShopHandler {
 
-	public static int MaxShops = 400;
-	public static int MaxShopItems = 40;
-	public static int MaxShowDelay = 2;
-	public static int MaxSpecShowDelay = 60;
-	public static int TotalShops = 0;
-	public static int[][] ShopItems = new int[MaxShops][MaxShopItems];
-	public static int[][] ShopItemsN = new int[MaxShops][MaxShopItems];
-	public static int[][] ShopItemsDelay = new int[MaxShops][MaxShopItems];
-	public static int[][] ShopItemsSN = new int[MaxShops][MaxShopItems];
-	public static int[] ShopItemsStandard = new int[MaxShops];
-	public static String[] ShopName = new String[MaxShops];
-	public static int[] ShopSModifier = new int[MaxShops];
-	public static int[] ShopBModifier = new int[MaxShops];
-	public static long[][] ShopItemsRestock = new long[MaxShops][MaxShopItems];
+	public static int MAX_SHOPS = 400;
+	
+	public static int MAX_SHOP_ITEMS = 40;
+	
+	public static int SHOW_DELAY = 2;
+	
+	public static int SPECIAL_DELAY = 60;
+	
+	public static int totalshops = 0;
+	
+	public static int[][] shopItems = new int[MAX_SHOPS][MAX_SHOP_ITEMS];
+	
+	public static int[][] shopItemsN = new int[MAX_SHOPS][MAX_SHOP_ITEMS];
+	
+	public static int[][] shopItemsDelay = new int[MAX_SHOPS][MAX_SHOP_ITEMS];
+	
+	public static int[][] shopItemsSN = new int[MAX_SHOPS][MAX_SHOP_ITEMS];
+	
+	public static int[] shopItemsStandard = new int[MAX_SHOPS];
+	
+	public static String[] shopName = new String[MAX_SHOPS];
+	
+	public static int[] shopSModifier = new int[MAX_SHOPS];
+	
+	public static int[] shopBModifier = new int[MAX_SHOPS];
+	
+	public static long[][] shopItemsRestock = new long[MAX_SHOPS][MAX_SHOP_ITEMS];
 
 	public ShopHandler() {
-		for (int i = 0; i < MaxShops; i++) {
-			for (int j = 0; j < MaxShopItems; j++) {
+		for (int i = 0; i < MAX_SHOPS; i++) {
+			for (int j = 0; j < MAX_SHOP_ITEMS; j++) {
 				ResetItem(i, j);
-				ShopItemsSN[i][j] = 0;
+				shopItemsSN[i][j] = 0;
 			}
-			ShopItemsStandard[i] = 0;
-			ShopSModifier[i] = 0;
-			ShopBModifier[i] = 0;
-			ShopName[i] = "";
+			shopItemsStandard[i] = 0;
+			shopSModifier[i] = 0;
+			shopBModifier[i] = 0;
+			shopName[i] = "";
 		}
-		TotalShops = 0;
-		loadShops("shops.cfg");
+		totalshops = 0;
+		loadshops("shops.cfg");
 	}
 	
 	public static int restockTimeItem(int itemId) {
@@ -55,33 +65,33 @@ public class ShopHandler {
 
 	public void process() {
 		boolean DidUpdate = false;
-		for (int i = 1; i <= TotalShops; i++) {
-			if (ShopBModifier[i] == 0 || ShopSModifier[i] == 0) continue;
-			for (int j = 0; j < MaxShopItems; j++) {
-				if (ShopItems[i][j] > 0) {
-					if (ShopItemsDelay[i][j] >= MaxShowDelay) {
-						if (j <= ShopItemsStandard[i] && ShopItemsN[i][j] <= ShopItemsSN[i][j]) {
-							if (ShopItemsN[i][j] < ShopItemsSN[i][j] && System.currentTimeMillis() - ShopItemsRestock[i][j] > restockTimeItem(ShopItems[i][j])) {
-								ShopItemsN[i][j] += 1;
-								ShopItemsDelay[i][j] = 1;
-								ShopItemsDelay[i][j] = 0;
+		for (int i = 1; i <= totalshops; i++) {
+			if (shopBModifier[i] == 0 || shopSModifier[i] == 0) continue;
+			for (int j = 0; j < MAX_SHOP_ITEMS; j++) {
+				if (shopItems[i][j] > 0) {
+					if (shopItemsDelay[i][j] >= SHOW_DELAY) {
+						if (j <= shopItemsStandard[i] && shopItemsN[i][j] <= shopItemsSN[i][j]) {
+							if (shopItemsN[i][j] < shopItemsSN[i][j] && System.currentTimeMillis() - shopItemsRestock[i][j] > restockTimeItem(shopItems[i][j])) {
+								shopItemsN[i][j] += 1;
+								shopItemsDelay[i][j] = 1;
+								shopItemsDelay[i][j] = 0;
 								DidUpdate = true;
-								ShopItemsRestock[i][j] = System.currentTimeMillis();
+								shopItemsRestock[i][j] = System.currentTimeMillis();
 							}
-						} else if (ShopItemsDelay[i][j] >= MaxSpecShowDelay) {
+						} else if (shopItemsDelay[i][j] >= SPECIAL_DELAY) {
 							DiscountItem(i, j);
-							ShopItemsDelay[i][j] = 0;
+							shopItemsDelay[i][j] = 0;
 							DidUpdate = true;
 						}
-						refreshShop(i);
+						refreshshop(i);
 					}
-					ShopItemsDelay[i][j]++;
+					shopItemsDelay[i][j]++;
 				}
 			}
 			if (DidUpdate) {
 				for (int k = 1; k < PlayerHandler.players.length; k++) {
 					if (PlayerHandler.players[k] != null) {
-						if (PlayerHandler.players[k].isShopping && PlayerHandler.players[k].myShopId == i) {
+						if (PlayerHandler.players[k].isShopping && PlayerHandler.players[k].shopId == i) {
 							PlayerHandler.players[k].updateShop = true;
 							PlayerHandler.players[k].updateshop(i);
 						}
@@ -92,27 +102,27 @@ public class ShopHandler {
 		}
 	}
 
-	private void DiscountItem(int ShopID, int ArrayID) {
-		ShopItemsN[ShopID][ArrayID] -= 1;
-		if (ShopItemsN[ShopID][ArrayID] <= 0) {
-			ShopItemsN[ShopID][ArrayID] = 0;
-			ResetItem(ShopID, ArrayID);
+	private void DiscountItem(int shopID, int ArrayID) {
+		shopItemsN[shopID][ArrayID] -= 1;
+		if (shopItemsN[shopID][ArrayID] <= 0) {
+			shopItemsN[shopID][ArrayID] = 0;
+			ResetItem(shopID, ArrayID);
 		}
 	}
 
-	private static void ResetItem(int ShopID, int ArrayID) {
-		ShopItems[ShopID][ArrayID] = 0;
-		ShopItemsN[ShopID][ArrayID] = 0;
-		ShopItemsDelay[ShopID][ArrayID] = 0;
+	private static void ResetItem(int shopID, int ArrayID) {
+		shopItems[shopID][ArrayID] = 0;
+		shopItemsN[shopID][ArrayID] = 0;
+		shopItemsDelay[shopID][ArrayID] = 0;
 	}
 
 
-	public boolean loadShops(String FileName) {
+	public boolean loadshops(String FileName) {
 		String line = "";
 		String token = "";
 		String token2 = "";
 		String token2_2 = "";
-		String[] token3 = new String[(MaxShopItems * 2)];
+		String[] token3 = new String[(MAX_SHOP_ITEMS * 2)];
 		boolean EndOfFile = false;
 		BufferedReader characterfile = null;
 		try {
@@ -137,24 +147,24 @@ public class ShopHandler {
 				token2_2 = token2.replaceAll("\t+", "\t");
 				token3 = token2_2.split("\t");
 				if (token.equals("shop")) {
-					int ShopID = Integer.parseInt(token3[0]);
-					ShopName[ShopID] = token3[1].replaceAll("_", " ");
-					ShopSModifier[ShopID] = Integer.parseInt(token3[2]);
-					ShopBModifier[ShopID] = Integer.parseInt(token3[3]);
+					int shopID = Integer.parseInt(token3[0]);
+					shopName[shopID] = token3[1].replaceAll("_", " ");
+					shopSModifier[shopID] = Integer.parseInt(token3[2]);
+					shopBModifier[shopID] = Integer.parseInt(token3[3]);
 					for (int i = 0; i < ((token3.length - 4) / 2); i++) {
 						if (token3[(4 + (i * 2))] != null) {
-							ShopItems[ShopID][i] = (Integer.parseInt(token3[(4 + (i * 2))]) + 1);
-							ShopItemsN[ShopID][i] = Integer.parseInt(token3[(5 + (i * 2))]);
-							ShopItemsSN[ShopID][i] = Integer.parseInt(token3[(5 + (i * 2))]);
-							ShopItemsStandard[ShopID]++;
+							shopItems[shopID][i] = (Integer.parseInt(token3[(4 + (i * 2))]) + 1);
+							shopItemsN[shopID][i] = Integer.parseInt(token3[(5 + (i * 2))]);
+							shopItemsSN[shopID][i] = Integer.parseInt(token3[(5 + (i * 2))]);
+							shopItemsStandard[shopID]++;
 						} else {
 							break;
 						}
 					}
-					TotalShops++;
+					totalshops++;
 				}
 			} else {
-				if (line.equals("[ENDOFSHOPLIST]")) {
+				if (line.equals("[ENDOFshopLIST]")) {
 					try {
 						characterfile.close();
 					} catch (IOException ioexception) {
@@ -175,37 +185,37 @@ public class ShopHandler {
 	}
 
 	public static void createPlayerShop(Client player){
-		int id = getEmptyShop();
-		player.myShopId = id;
-		ShopSModifier[id] = 0;
-		ShopBModifier[id] = 0;
-		ShopName[id] = player.properName + "'s Store";
-		for (int i = 0; i < MaxShopItems; i++){
-			ShopItems[id][i] = player.bankItems[i];
-			ShopItemsN[id][i] = player.bankItemsN[i];
-			ShopItemsSN[id][i] = 0;
-			ShopItemsDelay[id][i] = 0;
+		int id = getEmptyshop();
+		player.shopId = id;
+		shopSModifier[id] = 0;
+		shopBModifier[id] = 0;
+		shopName[id] = player.properName + "'s Store";
+		for (int i = 0; i < MAX_SHOP_ITEMS; i++){
+			shopItems[id][i] = player.bankItems[i];
+			shopItemsN[id][i] = player.bankItemsN[i];
+			shopItemsSN[id][i] = 0;
+			shopItemsDelay[id][i] = 0;
 		}
-		TotalShops++;
+		totalshops++;
 	}
 
-	private static int getEmptyShop(){
-		for (int i = 0; i < MaxShops; i++) {
-			if (ShopName[i] == "") return i;
+	private static int getEmptyshop(){
+		for (int i = 0; i < MAX_SHOPS; i++) {
+			if (shopName[i] == "") return i;
 		}
 		return -1;
 	}
 
-	public static void refreshShop(int shop_id){
+	public static void refreshshop(int shop_id){
 		// We don't want to remove items that should be kept in stock
-		for (int j = ShopItemsStandard[shop_id]; j < MaxShopItems; j++) {
-			if (ShopItemsN[shop_id][j] <= 0) {
+		for (int j = shopItemsStandard[shop_id]; j < MAX_SHOP_ITEMS; j++) {
+			if (shopItemsN[shop_id][j] <= 0) {
 				ResetItem(shop_id, j);
 				int next = j + 1;
-				if (next < MaxShopItems && ShopItemsN[shop_id][next] > 0) {
-					ShopItems[shop_id][j] = ShopItems[shop_id][next];
-					ShopItemsN[shop_id][j] = ShopItemsN[shop_id][next];
-					ShopItemsDelay[shop_id][j] = ShopItemsDelay[shop_id][next];
+				if (next < MAX_SHOP_ITEMS && shopItemsN[shop_id][next] > 0) {
+					shopItems[shop_id][j] = shopItems[shop_id][next];
+					shopItemsN[shop_id][j] = shopItemsN[shop_id][next];
+					shopItemsDelay[shop_id][j] = shopItemsDelay[shop_id][next];
 					ResetItem(shop_id, next);
 				}
 			}
@@ -214,9 +224,9 @@ public class ShopHandler {
 
 	public static int getStock(int shop_id, int item_id){
 		item_id++;
-		for (int j = 0; j < MaxShopItems; j++) {
-			if (ShopItems[shop_id][j] == item_id) {
-				return ShopItemsN[shop_id][j];
+		for (int j = 0; j < MAX_SHOP_ITEMS; j++) {
+			if (shopItems[shop_id][j] == item_id) {
+				return shopItemsN[shop_id][j];
 			}
 		}
 		return -1;
@@ -224,15 +234,15 @@ public class ShopHandler {
 
 	public static void buyItem(int shop_id, int item_id, int amount){
 		item_id++;
-		for (int j = 0; j < MaxShopItems; j++) {
-			if (ShopItems[shop_id][j] == item_id) {
-				ShopItemsN[shop_id][j] -= amount;
+		for (int j = 0; j < MAX_SHOP_ITEMS; j++) {
+			if (shopItems[shop_id][j] == item_id) {
+				shopItemsN[shop_id][j] -= amount;
 			}
 		}
-		refreshShop(shop_id);
+		refreshshop(shop_id);
 	}
 
 	public static boolean playerOwnsStore(int shop_id, Player player){
-		return ShopSModifier[shop_id] == 0 && ShopBModifier[shop_id] == 0 && ShopName[shop_id].equalsIgnoreCase(player.properName + "'s Store");
+		return shopSModifier[shop_id] == 0 && shopBModifier[shop_id] == 0 && shopName[shop_id].equalsIgnoreCase(player.properName + "'s Store");
 	}
 }
