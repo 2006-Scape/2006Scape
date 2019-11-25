@@ -34,8 +34,8 @@ public class CapeDye {
 	
 	private static void cleanUp(Client c, int itemUsed, int useWith) {
 		c.getPlayerAssistant().addSkillXP(2.5, c.playerCrafting);
-		c.getItemAssistant().deleteItem2(itemUsed, 1);
-		c.getItemAssistant().deleteItem2(useWith, 1);
+		c.getItemAssistant().deleteItem(itemUsed, 1);
+		c.getItemAssistant().deleteItem(useWith, 1);
 	}
 	
 	/**

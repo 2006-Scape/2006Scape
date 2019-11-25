@@ -81,7 +81,7 @@ public class UseItem {
 
 		case 364:
 			if (itemId == 1919) {
-				c.getItemAssistant().deleteItem2(1919, 1);
+				c.getItemAssistant().deleteItem(1919, 1);
 				c.getItemAssistant().addItem(1917, 1);
 				c.getActionSender().sendMessage(
 						"You refill your beer glass.");
@@ -168,7 +168,7 @@ public class UseItem {
 		}
 		if (useWith == 7051 && itemUsed == 590 || itemUsed == 590
 				&& useWith == 7051) {
-			c.getItemAssistant().deleteItem2(7051, 1);
+			c.getItemAssistant().deleteItem(7051, 1);
 			c.getItemAssistant().addItem(7053, 1);
 		}
 		int firemakingItems[] = {590, 7329, 7330, 7331};
@@ -183,75 +183,75 @@ public class UseItem {
 			LeatherMaking.craftLeatherDialogue(c, itemUsed, useWith);
 		}
 		if (itemUsed == 1573 && useWith == 327 || itemUsed == 327 && useWith == 1573) {
-			c.getItemAssistant().deleteItem2(1573, 1);
-			c.getItemAssistant().deleteItem2(327, 1);
+			c.getItemAssistant().deleteItem(1573, 1);
+			c.getItemAssistant().deleteItem(327, 1);
 			c.getItemAssistant().addItem(1552, 1);
 		}
 		if (itemUsed == 38 && useWith == 590 || useWith == 38
 				&& itemUsed == 590) {//
 			c.getItemAssistant().addItem(32, 1);
-			c.getItemAssistant().deleteItem2(38, 1);
+			c.getItemAssistant().deleteItem(38, 1);
 		}
 		if (itemUsed == 36 && useWith == 590 || useWith == 36
 				&& itemUsed == 590) {
 			c.getItemAssistant().addItem(33, 1);
-			c.getItemAssistant().deleteItem2(36, 1);
+			c.getItemAssistant().deleteItem(36, 1);
 		}
 		if (itemUsed == 596 && useWith == 590 || useWith == 596
 				&& itemUsed == 590) {
 			c.getItemAssistant().addItem(594, 1);
-			c.getItemAssistant().deleteItem2(596, 1);
+			c.getItemAssistant().deleteItem(596, 1);
 		}
 		if (itemUsed == 4537 && useWith == 590 || useWith == 4537
 				&& itemUsed == 590) {
 			c.getItemAssistant().addItem(4539, 1);
-			c.getItemAssistant().deleteItem2(4537, 1);
+			c.getItemAssistant().deleteItem(4537, 1);
 		}
 		if (itemUsed == 4548 && useWith == 590 || useWith == 4548
 				&& itemUsed == 590) {
 			c.getItemAssistant().addItem(4550, 1);
-			c.getItemAssistant().deleteItem2(4548, 1);
+			c.getItemAssistant().deleteItem(4548, 1);
 		}
 		if (itemUsed == 1095 && useWith == 2370 || itemUsed == 2370
 				&& useWith == 1095 && c.playerLevel[c.playerCrafting] > 43) {// chaps
-			c.getItemAssistant().deleteItem2(2370, 1);
-			c.getItemAssistant().deleteItem2(1095, 1);
+			c.getItemAssistant().deleteItem(2370, 1);
+			c.getItemAssistant().deleteItem(1095, 1);
 			c.getItemAssistant().addItem(1097, 1);
 			c.getPlayerAssistant().addSkillXP(42, c.playerCrafting);
 		} else if (itemUsed == 1095 && useWith == 2370 || itemUsed == 2370 && useWith == 1095 && c.playerLevel[c.playerCrafting] < 44) {
 			c.getActionSender().sendMessage("You need 44 crafting to make this.");
 		}
 		if (itemUsed == 946 && useWith == 1963 || itemUsed == 1963  && useWith == 946) {
-			c.getItemAssistant().deleteItem2(1963, 1);
+			c.getItemAssistant().deleteItem(1963, 1);
 			c.getItemAssistant().addItem(3162, 1);
 			c.getActionSender().sendMessage("You slice your banana.");
 		}
 		if (itemUsed == 946 && useWith == 1973 || itemUsed == 1973 && useWith == 946) {
-			c.getItemAssistant().deleteItem2(1973, 1);
+			c.getItemAssistant().deleteItem(1973, 1);
 			c.getItemAssistant().addItem(1975, 1);
 			c.getActionSender().sendMessage("You slice your chocolate bar.");
 		}
 		if (itemUsed == 1129 && useWith == 2370 || itemUsed == 2370 && useWith == 1129 && c.playerLevel[c.playerCrafting] > 40) {// body
-			c.getItemAssistant().deleteItem2(2370, 1);
-			c.getItemAssistant().deleteItem2(1129, 1);
+			c.getItemAssistant().deleteItem(2370, 1);
+			c.getItemAssistant().deleteItem(1129, 1);
 			c.getItemAssistant().addItem(1133, 1);
 			c.getPlayerAssistant().addSkillXP(40, c.playerCrafting);
 		} else if (itemUsed == 1129 && useWith == 2370 || itemUsed == 2370 && useWith == 1129 && c.playerLevel[c.playerCrafting] < 41) {
 			c.getActionSender().sendMessage("You need 41 crafting to make this.");
 		}
 		if (itemUsed == 4593 && useWith == 4591 || useWith == 4591 && itemUsed == 4593) {
-			c.getItemAssistant().deleteItem2(4591, 1);
-			c.getItemAssistant().deleteItem2(4593, 1);
+			c.getItemAssistant().deleteItem(4591, 1);
+			c.getItemAssistant().deleteItem(4593, 1);
 			c.getItemAssistant().addItem(4611, 1);
 		}
 		if (itemUsed == 985 && useWith == 987 || itemUsed == 987 && useWith == 985) {
-			c.getItemAssistant().deleteItem2(985, 1);
-			c.getItemAssistant().deleteItem2(987, 1);
+			c.getItemAssistant().deleteItem(985, 1);
+			c.getItemAssistant().deleteItem(987, 1);
 			c.getItemAssistant().addItem(989, 1);
 		}
 		if (itemUsed == 2313 && useWith == 1953 || itemUsed == 1953 && useWith == 2313) {
-			c.getItemAssistant().deleteItem2(2313, 1);
-			c.getItemAssistant().deleteItem2(1953, 1);
+			c.getItemAssistant().deleteItem(2313, 1);
+			c.getItemAssistant().deleteItem(1953, 1);
 			c.getItemAssistant().addItem(2315, 1);
 		}
 
@@ -344,7 +344,7 @@ public class UseItem {
 			if (c.playerLevel[c.playerCooking] >= 35) {
 				c.getItemAssistant().addItem(1993, 1);
 				c.getItemAssistant().deleteItem(1937, 1);
-				c.getItemAssistant().deleteItem2(1987, 1);
+				c.getItemAssistant().deleteItem(1987, 1);
 				c.getPlayerAssistant().addSkillXP(200, c.playerCooking);
 			} else {
 				c.getActionSender().sendMessage(

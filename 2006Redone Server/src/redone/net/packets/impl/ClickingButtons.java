@@ -224,9 +224,9 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			if (System.currentTimeMillis() - player.boneDelay > 2000) {
-				player.getItemAssistant().deleteItem2(561, 1);
-				player.getItemAssistant().deleteItem2(557, 2);
-				player.getItemAssistant().deleteItem2(555, 2);
+				player.getItemAssistant().deleteItem(561, 1);
+				player.getItemAssistant().deleteItem(557, 2);
+				player.getItemAssistant().deleteItem(555, 2);
 				player.getPlayerAssistant().addSkillXP(40, 6);
 				player.getPlayerAssistant().refreshSkill(6);
 				player.startAnimation(722);
@@ -236,7 +236,7 @@ public class ClickingButtons implements PacketType {
 						SoundList.BONES_TO_BANNAS, 100, 0);
 				player.boneDelay = System.currentTimeMillis();
 				do {
-					player.getItemAssistant().deleteItem2(526, 1);
+					player.getItemAssistant().deleteItem(526, 1);
 					player.getItemAssistant().addItem(1963, 1);
 				} while (player.getItemAssistant().playerHasItem(526, 1));
 			}
@@ -272,9 +272,9 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			if (System.currentTimeMillis() - player.boneDelay > 2000) {
-				player.getItemAssistant().deleteItem2(561, 2);
-				player.getItemAssistant().deleteItem2(557, 4);
-				player.getItemAssistant().deleteItem2(555, 4);
+				player.getItemAssistant().deleteItem(561, 2);
+				player.getItemAssistant().deleteItem(557, 4);
+				player.getItemAssistant().deleteItem(555, 4);
 				player.getPlayerAssistant().addSkillXP(40, 6);
 				player.getPlayerAssistant().refreshSkill(6);
 				player.startAnimation(722);
@@ -282,7 +282,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().sendFrame106(6);
 				player.boneDelay = System.currentTimeMillis();
 				do {
-					player.getItemAssistant().deleteItem2(526, 1);
+					player.getItemAssistant().deleteItem(526, 1);
 					player.getItemAssistant().addItem(6883, 1);
 				} while (player.getItemAssistant().playerHasItem(526, 1));
 			}
@@ -652,12 +652,12 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 10193:
-			player.getItemAssistant().deleteItem2(995, 2000);
+			player.getItemAssistant().deleteItem(995, 2000);
 			player.getPlayerAssistant().removeAllWindows();
 			break;
 
 		case 8065:
-			player.getItemAssistant().deleteItem2(995, 2000);
+			player.getItemAssistant().deleteItem(995, 2000);
 			player.getPlayerAssistant().removeAllWindows();
 			break;
 		/** End of Hairdresser buttons */
@@ -1494,16 +1494,16 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(624, player.npcType);
 				return;
 			} else if (player.dialogueAction == 3204) {
-				player.getItemAssistant().deleteItem2(1929, 1);
-				player.getItemAssistant().deleteItem2(1933, 1);
+				player.getItemAssistant().deleteItem(1929, 1);
+				player.getItemAssistant().deleteItem(1933, 1);
 				player.getItemAssistant().addItem(1953, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1931, 1);
 				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
 				player.nextChat = 0;
 			} else if (player.dialogueAction == 3205) {
-				player.getItemAssistant().deleteItem2(1933, 1);
-				player.getItemAssistant().deleteItem2(1937, 1);
+				player.getItemAssistant().deleteItem(1933, 1);
+				player.getItemAssistant().deleteItem(1937, 1);
 				player.getItemAssistant().addItem(1953, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1935, 1);
@@ -1696,16 +1696,16 @@ public class ClickingButtons implements PacketType {
 				player.nextChat = 0;
 				return;
 			} else if (player.dialogueAction == 3204) {
-				player.getItemAssistant().deleteItem2(1929, 1);
-				player.getItemAssistant().deleteItem2(1933, 1);
+				player.getItemAssistant().deleteItem(1929, 1);
+				player.getItemAssistant().deleteItem(1933, 1);
 				player.getItemAssistant().addItem(2307, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1931, 1);
 				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
 				player.nextChat = 0;
 			} else if (player.dialogueAction == 3205) {
-				player.getItemAssistant().deleteItem2(1933, 1);
-				player.getItemAssistant().deleteItem2(1937, 1);
+				player.getItemAssistant().deleteItem(1933, 1);
+				player.getItemAssistant().deleteItem(1937, 1);
 				player.getItemAssistant().addItem(1953, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1935, 1);

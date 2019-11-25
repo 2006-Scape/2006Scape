@@ -40,20 +40,20 @@ public class ItemOnNpc implements PacketType {
 		break;
 		}
 		if (player.getItemAssistant().playerHasItem(995, 1) && npcId == 736) {
-			player.getItemAssistant().deleteItem2(995, 1);
+			player.getItemAssistant().deleteItem(995, 1);
 			player.getDialogueHandler().sendNpcChat1("Thanks!", player.npcType, "Emily");
 		}
 		if (player.getItemAssistant().playerHasItem(1927, 1) && player.gertCat == 2 && npcId == 2997) {
 			player.getDialogueHandler().sendDialogues(319, npcId);
-			player.getItemAssistant().deleteItem2(1927, 1);
+			player.getItemAssistant().deleteItem(1927, 1);
 			player.getItemAssistant().addItem(1925, 1);
 			player.gertCat = 3;
 		} else if (player.getItemAssistant().playerHasItem(1552, 1) && player.gertCat == 3 && npcId == 2997) {
 			player.getDialogueHandler().sendDialogues(323, npcId);
-			player.getItemAssistant().deleteItem2(1552, 1);
+			player.getItemAssistant().deleteItem(1552, 1);
 			player.gertCat = 4;
 		} else if (player.getItemAssistant().playerHasItem(1554, 1) && player.gertCat == 5 && npcId == 2997) {
-			player.getItemAssistant().deleteItem2(1554, 1);
+			player.getItemAssistant().deleteItem(1554, 1);
 			player.getDialogueHandler().sendDialogues(326, npcId);
 		}
 		UseItem.ItemonNpc(player, itemId, slot, i);

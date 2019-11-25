@@ -143,7 +143,7 @@ public class Flowers {
 	 * @param c
 	 */
 	private static void deleteSeeds(Client c) {
-		c.getItemAssistant().deleteItem2(299, 1);
+		c.getItemAssistant().deleteItem(299, 1);
 	}
 
 	private void updateConstants(int objectType, Client c) {

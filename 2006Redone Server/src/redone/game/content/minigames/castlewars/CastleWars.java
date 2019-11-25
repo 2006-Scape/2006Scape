@@ -757,7 +757,7 @@ public class CastleWars {
 		//4049, 4045, 4053, 4042, 4041, 4037, 4039
 		for (int item : items) {
 			if (player.getItemAssistant().playerHasItem(item)) {
-				player.getItemAssistant().deleteItem2(item,
+				player.getItemAssistant().deleteItem(item,
 						player.getItemAssistant().getItemAmount(item));
 			}
 		}

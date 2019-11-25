@@ -343,7 +343,7 @@ public class RangersGuild {
 			if (c.getItemAssistant().playerHasItem(995, 200)) {
 				if (c.getItemAssistant().freeSlots() > 1) {
 					arrowsLeft = 10;
-					c.getItemAssistant().deleteItem2(995, 200);
+					c.getItemAssistant().deleteItem(995, 200);
 					c.getItemAssistant().addItem(ARROWS_REQ, 10);
 					c.getItemAssistant().addItem(841, 1);
 					c.getDialogueHandler().sendStatement("The archer hands you 10 bronze arrows and a bow.");

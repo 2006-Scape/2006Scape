@@ -193,8 +193,10 @@ public class Walking implements PacketType {
 			firstStepY = realY - player.getMapRegionY() * 8;
 		}
 
-		if (player.distanceToPoint(realX, realY) > 30) {
-			return;
+		if (!player.clickToTele) {
+			if (player.distanceToPoint(realX, realY) > 30) {
+				return;
+			}
 		}
 
 		player.setNewWalkCmdIsRunning(player.getInStream().readSignedByteC() == 1 && player.playerEnergy > 0);

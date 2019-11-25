@@ -131,7 +131,7 @@ public class SilverCrafting {
 											.getItemName(
 													silverCraft.getResult())
 											.toLowerCase().toLowerCase() + ".");
-					player.getItemAssistant().deleteItem2(SILVER_BAR, 1);
+					player.getItemAssistant().deleteItem(SILVER_BAR, 1);
 					player.getItemAssistant().addItem(silverCraft.getResult(),
 							1);
 					player.getPlayerAssistant().addSkillXP(

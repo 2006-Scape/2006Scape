@@ -869,7 +869,7 @@ public class Smithing {
 			}
 			while (makeTimes > 0 && c.isSmithing == true) {
 				if (c.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
-					c.getItemAssistant().deleteItem2(removeItem, removeItem2);
+					c.getItemAssistant().deleteItem(removeItem, removeItem2);
 					if (ItemAssistant.getItemName(addItem).contains("bolt")) {
 						c.getItemAssistant().addItem(addItem, 10);
 					} else if (ItemAssistant.getItemName(addItem).contains("tip") && !ItemAssistant.getItemName(addItem).contains("dart tip")) {

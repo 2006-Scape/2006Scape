@@ -9,7 +9,6 @@ import redone.game.content.skills.SkillHandler;
 import redone.game.content.skills.slayer.Slayer;
 import redone.game.content.traveling.Sailing;
 import redone.game.globalworldobjects.PassDoor;
-import redone.game.items.ItemAssistant;
 import redone.game.npcs.NpcHandler;
 import redone.game.objects.impl.SpecialObjects;
 import redone.game.players.Client;
@@ -130,7 +129,7 @@ public class DialogueHandler {
 
 			case 12:
 				if (player.getItemAssistant().playerHasItem(995, 5)) {
-					player.getItemAssistant().deleteItem2(995, 5);
+					player.getItemAssistant().deleteItem(995, 5);
 					sendPlayerChat1("Here's 5 coins you tramp.");
 					player.nextChat = 0;
 				} else {
@@ -181,7 +180,7 @@ public class DialogueHandler {
 			case 20:
 				if (player.getItemAssistant().playerHasItem(995, 2)) {
 					sendPlayerChat1("Yes I would love a beer.");
-					player.getItemAssistant().deleteItem2(995, 2);
+					player.getItemAssistant().deleteItem(995, 2);
 					player.getItemAssistant().addOrDropItem(1917, 1);
 					player.nextChat = 0;
 				} else {
@@ -223,7 +222,7 @@ public class DialogueHandler {
 			case 25:
 				sendPlayerChat1("Yes please.");
 				player.getPlayerAssistant().startTeleport(3308, 3108, 0, "modern");
-				player.getItemAssistant().deleteItem2(995, 200);
+				player.getItemAssistant().deleteItem(995, 200);
 				player.nextChat = 0;
 				break;
 
@@ -268,7 +267,7 @@ public class DialogueHandler {
 				break;
 			case 32:
 				sendNpcChat1("Enjoy!", player.talkingNpc, "Rug Merchant");
-				player.getItemAssistant().deleteItem2(995, 200);
+				player.getItemAssistant().deleteItem(995, 200);
 				player.nextChat = 0;
 				break;
 			case 33:
@@ -516,9 +515,9 @@ public class DialogueHandler {
 				}
 				break;
 			case 86:
-				player.getItemAssistant().deleteItem2(434, 6);
-				player.getItemAssistant().deleteItem2(436, 4);
-				player.getItemAssistant().deleteItem2(440, 2);
+				player.getItemAssistant().deleteItem(434, 6);
+				player.getItemAssistant().deleteItem(436, 4);
+				player.getItemAssistant().deleteItem(440, 2);
 				player.doricQuest = 2;
 				sendNpcChat2("You brought me everything i need.", "Thank You!",
 						player.talkingNpc, "Doric");
@@ -709,10 +708,10 @@ public class DialogueHandler {
 						&& player.getItemAssistant().playerHasItem(1472, 1)
 						&& player.getItemAssistant().playerHasItem(1474, 1)
 						&& player.getItemAssistant().playerHasItem(1476, 1)) {
-					player.getItemAssistant().deleteItem2(1470, 1);
-					player.getItemAssistant().deleteItem2(1472, 1);
-					player.getItemAssistant().deleteItem2(1474, 1);
-					player.getItemAssistant().deleteItem2(1476, 1);
+					player.getItemAssistant().deleteItem(1470, 1);
+					player.getItemAssistant().deleteItem(1472, 1);
+					player.getItemAssistant().deleteItem(1474, 1);
+					player.getItemAssistant().deleteItem(1476, 1);
 					player.impsC = 2;
 					player.nextChat = 162;
 				} else {
@@ -1564,7 +1563,7 @@ public class DialogueHandler {
 			case 313:
 				if (player.getItemAssistant().playerHasItem(995, 100)) {
 					sendStatement("You give the lad 100 coins.");
-					player.getItemAssistant().deleteItem2(995, 100);
+					player.getItemAssistant().deleteItem(995, 100);
 					player.nextChat = 314;
 					player.gertCat = 2;
 				} else {
@@ -2084,7 +2083,7 @@ public class DialogueHandler {
 				break;
 			case 417:
 				sendNpcChat1("Pass it here, pass it!", player.talkingNpc, "Romeo");
-				player.getItemAssistant().deleteItem2(755, 1);
+				player.getItemAssistant().deleteItem(755, 1);
 				player.nextChat = 418;
 				break;
 			case 418:
@@ -2240,9 +2239,9 @@ public class DialogueHandler {
 				break;
 			case 448:
 				sendNpcChat1("I'll take that", player.talkingNpc, "Winelda");
-				player.getItemAssistant().deleteItem2(300, 1);
-				player.getItemAssistant().deleteItem2(227, 1);
-				player.getItemAssistant().deleteItem2(526, 1);
+				player.getItemAssistant().deleteItem(300, 1);
+				player.getItemAssistant().deleteItem(227, 1);
+				player.getItemAssistant().deleteItem(526, 1);
 				player.nextChat = 449;
 				break;
 			case 449:
@@ -2288,7 +2287,7 @@ public class DialogueHandler {
 				break;
 			case 459:
 				sendStatement("Juliet drinks the potion.");
-				player.getItemAssistant().deleteItem2(4836, 1);
+				player.getItemAssistant().deleteItem(4836, 1);
 				player.nextChat = 460;
 				break;
 			case 460:
@@ -2560,7 +2559,7 @@ public class DialogueHandler {
 			case 509:
 				if (player.getItemAssistant().playerHasItem(1917, 1)) {
 					sendPlayerChat1("Okay, here you go.");
-					player.getItemAssistant().deleteItem2(1917, 1);
+					player.getItemAssistant().deleteItem(1917, 1);
 					player.nextChat = 510;
 				} else {
 					sendPlayerChat1("Okay, let me get one.");
@@ -2809,9 +2808,9 @@ public class DialogueHandler {
 							"Cauldron.",
 							"Hetty closes her eyes and begins to chant.",
 							"The caludron bubbles mysteriously.");
-					player.getItemAssistant().deleteItem2(221, 1);
-					player.getItemAssistant().deleteItem2(300, 1);
-					player.getItemAssistant().deleteItem2(2146, 1);
+					player.getItemAssistant().deleteItem(221, 1);
+					player.getItemAssistant().deleteItem(300, 1);
+					player.getItemAssistant().deleteItem(2146, 1);
 					player.nextChat = 552;
 				} else {
 					sendPlayerChat1("I don't have them anymore.");
@@ -2951,7 +2950,7 @@ public class DialogueHandler {
 			case 575:
 				if (player.getItemAssistant().playerHasItem(431, 1)) {
 					sendStatement("Frank happily takes the rum... and hands you a key");
-					player.getItemAssistant().deleteItem2(431, 1);
+					player.getItemAssistant().deleteItem(431, 1);
 					player.getItemAssistant().addOrDropItem(432, 1);
 					player.nextChat = 576;
 				} else {
@@ -3002,7 +3001,7 @@ public class DialogueHandler {
 					return;
 				} else {
 					Sailing.startTravel(player, 5);
-					player.getItemAssistant().deleteItem2(995, 30);
+					player.getItemAssistant().deleteItem(995, 30);
 					player.nextChat = 0;
 				}
 				break;
@@ -3035,13 +3034,13 @@ public class DialogueHandler {
 					return;
 				} else {
 					Sailing.startTravel(player, 6);
-					player.getItemAssistant().deleteItem2(995, 30);
+					player.getItemAssistant().deleteItem(995, 30);
 					player.nextChat = 0;
 				}
 				break;
 
 			case 589:
-				player.getItemAssistant().deleteItem2(995, 30);
+				player.getItemAssistant().deleteItem(995, 30);
 				player.nextChat = 0;
 				break;
 
@@ -3299,7 +3298,7 @@ public class DialogueHandler {
 			case 646:
 				if (player.getItemAssistant().playerHasItem(2325, 1)) {
 					sendStatement2("You hand over the pie. Thurgo eats the pie. Thurgo pats his", "stomach.");
-					player.getItemAssistant().deleteItem2(2325, 1);
+					player.getItemAssistant().deleteItem(2325, 1);
 					player.nextChat = 647;
 				} else {
 					sendPlayerChat1("I don't have pie anymore.");
@@ -3370,7 +3369,7 @@ public class DialogueHandler {
 				break;
 			case 661:
 				sendStatement("You give the portrait to Thurgo. Thurgo studies the portrait.");
-				player.getItemAssistant().deleteItem2(666, 1);
+				player.getItemAssistant().deleteItem(666, 1);
 				player.nextChat = 662;
 				break;
 			case 662:
@@ -3420,9 +3419,9 @@ public class DialogueHandler {
 			case 671:
 				if (player.knightS == 7 || player.knightS == 8) {
 					sendStatement2("You give the blurite ore and two bars to Thurgo. Thurgo starts", "to make the sword. Thurgo hands you a sword.");
-					player.getItemAssistant().deleteItem2(2351, 1);
-					player.getItemAssistant().deleteItem2(2351, 1);
-					player.getItemAssistant().deleteItem2(668, 1);
+					player.getItemAssistant().deleteItem(2351, 1);
+					player.getItemAssistant().deleteItem(2351, 1);
+					player.getItemAssistant().deleteItem(668, 1);
 					player.getItemAssistant().addItem(667, 1);
 					player.knightS = 8;
 					player.nextChat = 672;
@@ -3501,7 +3500,7 @@ public class DialogueHandler {
 				break;
 			case 684:
 				sendStatement("You give the sword to the squire.");
-				player.getItemAssistant().deleteItem2(667, 1);
+				player.getItemAssistant().deleteItem(667, 1);
 				player.knightS = 8;
 				player.nextChat = 685;
 				break;
@@ -4193,7 +4192,7 @@ public class DialogueHandler {
 			case 1054:
 				sendStatement("You give Saniboch 875 coins.");
 				player.nextChat = 1055;
-				player.getItemAssistant().deleteItem2(995, 875);
+				player.getItemAssistant().deleteItem(995, 875);
 				player.hasPaidBrim = true;
 				break;
 			case 1055:
@@ -4390,7 +4389,7 @@ public class DialogueHandler {
 			case 1314:// red 1763, yellow 1765, blue 1767
 				if (player.getItemAssistant().playerHasItem(1951, 3)
 						&& player.getItemAssistant().playerHasItem(995, 5)) {
-					player.getItemAssistant().deleteItem2(1951, 3);
+					player.getItemAssistant().deleteItem(1951, 3);
 					player.getItemAssistant().addOrDropItem(1763, 1);
 					sendPlayerChat1("Red Dye Please.");
 					player.nextChat = 0;
@@ -4405,7 +4404,7 @@ public class DialogueHandler {
 			case 1315:// red 1763, yellow 1765, blue 1767
 				if (player.getItemAssistant().playerHasItem(1957, 2)
 						&& player.getItemAssistant().playerHasItem(995, 5)) {
-					player.getItemAssistant().deleteItem2(1957, 2);
+					player.getItemAssistant().deleteItem(1957, 2);
 					player.getItemAssistant().addOrDropItem(1765, 1);
 					sendPlayerChat1("Yellow Dye Please.");
 					player.nextChat = 0;
@@ -4420,7 +4419,7 @@ public class DialogueHandler {
 			case 1316:// red 1763, yellow 1765, blue 1767
 				if (player.getItemAssistant().playerHasItem(1793, 2)
 						&& player.getItemAssistant().playerHasItem(995, 5)) {
-					player.getItemAssistant().deleteItem2(1793, 2);
+					player.getItemAssistant().deleteItem(1793, 2);
 					player.getItemAssistant().addOrDropItem(1767, 1);
 					sendPlayerChat1("Blue Dye Please.");
 					player.nextChat = 0;
@@ -4566,7 +4565,7 @@ public class DialogueHandler {
 			case 1335:
 				if (player.getItemAssistant().playerHasItem(6183, 1)) {
 					sendPlayerChat1("A frog mask please!");
-					player.getItemAssistant().deleteItem2(6183, 1);
+					player.getItemAssistant().deleteItem(6183, 1);
 					player.getItemAssistant().addOrDropItem(6188, 1);
 					player.nextChat = 0;
 				} else {
@@ -4581,14 +4580,14 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(6183, 1)
 						&& player.playerAppearance[0] == 0) {
 					sendPlayerChat1("A frog prince outfit, please!");
-					player.getItemAssistant().deleteItem2(6183, 1);
+					player.getItemAssistant().deleteItem(6183, 1);
 					player.getItemAssistant().addOrDropItem(6184, 1);
 					player.getItemAssistant().addOrDropItem(6185, 1);
 					player.nextChat = 0;
 				} else if (player.getItemAssistant().playerHasItem(6183, 1)
 						&& player.playerAppearance[0] == 1) {
 					sendPlayerChat1("A frog princess outfit, please!");
-					player.getItemAssistant().deleteItem2(6183, 1);
+					player.getItemAssistant().deleteItem(6183, 1);
 					player.getItemAssistant().addOrDropItem(6186, 1);
 					player.getItemAssistant().addOrDropItem(6187, 1);
 					player.nextChat = 0;
@@ -4635,7 +4634,7 @@ public class DialogueHandler {
 
 			case 1343:
 				if (player.getItemAssistant().playerHasItem(995, 15)) {
-					player.getItemAssistant().deleteItem2(995, 15);
+					player.getItemAssistant().deleteItem(995, 15);
 					player.getItemAssistant().addOrDropItem(954, 1);
 					sendPlayerChat1("I will give you 15 coins for 1 rope.");
 					player.nextChat = 0;
@@ -4649,7 +4648,7 @@ public class DialogueHandler {
 
 			case 1344:
 				if (player.getItemAssistant().playerHasItem(1759, 4)) {
-					player.getItemAssistant().deleteItem2(1759, 4);
+					player.getItemAssistant().deleteItem(1759, 4);
 					player.getItemAssistant().addOrDropItem(954, 1);
 					sendPlayerChat1("I will give you 4 balls of wool for 1 rope.");
 					player.nextChat = 0;
@@ -4681,7 +4680,7 @@ public class DialogueHandler {
 
 			case 1348:
 				if (player.getItemAssistant().playerHasItem(995, 12)) {
-					player.getItemAssistant().deleteItem2(995, 12);
+					player.getItemAssistant().deleteItem(995, 12);
 					player.getItemAssistant().addOrDropItem(3105, 1);
 					sendPlayerChat1("Yes please.");
 					player.nextChat = 0;
@@ -4735,14 +4734,14 @@ public class DialogueHandler {
 			case 1352:
 				if (player.getItemAssistant().playerHasItem(995, 50)
 						&& player.absY > 3485 && player.absY < 3489) {
-					player.getItemAssistant().deleteItem2(995, 50);
+					player.getItemAssistant().deleteItem(995, 50);
 					sendPlayerChat1("Yes please.");
 					player.getPlayerAssistant().startTeleport(2358, 3640, 0,
 							"modern");
 					player.hasPaid = true;
 					player.nextChat = 0;
 				} else if (player.getItemAssistant().playerHasItem(995, 50)) {
-					player.getItemAssistant().deleteItem2(995, 50);
+					player.getItemAssistant().deleteItem(995, 50);
 					sendPlayerChat1("Yes please.");
 					player.getPlayerAssistant().startTeleport(2367, 3488, 0,
 							"modern");
@@ -4887,7 +4886,7 @@ public class DialogueHandler {
 					sendPlayerChat1("Yes please.");
 					player.getPlayerAssistant().showInterface(3559);
 					player.canChangeAppearance = true;
-					player.getItemAssistant().deleteItem2(995, 3000);
+					player.getItemAssistant().deleteItem(995, 3000);
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1("You don't have enough gold to do that.",
@@ -4945,7 +4944,7 @@ public class DialogueHandler {
 			case 1380:
 				if (player.getItemAssistant().playerHasItem(995, 1000)) {
 					sendPlayerChat1("Yes please.");
-					player.getItemAssistant().deleteItem2(995, 1000);
+					player.getItemAssistant().deleteItem(995, 1000);
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1("You don't have enough coins to buy a candle.",
@@ -6157,7 +6156,7 @@ public class DialogueHandler {
 			case 3123:
 				if (player.getItemAssistant().playerHasItem(995, 3)) {
 					sendPlayerChat1("Asgarnian Ale please.");
-					player.getItemAssistant().deleteItem2(995, 3);
+					player.getItemAssistant().deleteItem(995, 3);
 					player.getItemAssistant().addOrDropItem(1905, 1);
 					player.nextChat = 0;
 				} else {
@@ -6169,14 +6168,14 @@ public class DialogueHandler {
 
 			case 3124:
 				sendPlayerChat1("Wizard's Mind Bomb please.");
-				player.getItemAssistant().deleteItem2(995, 3);
+				player.getItemAssistant().deleteItem(995, 3);
 				player.getItemAssistant().addOrDropItem(1907, 1);
 				player.nextChat = 0;
 				break;
 
 			case 3125:
 				sendPlayerChat1("Dwarven Stout please.");
-				player.getItemAssistant().deleteItem2(995, 3);
+				player.getItemAssistant().deleteItem(995, 3);
 				player.getItemAssistant().addOrDropItem(1913, 1);
 				player.nextChat = 0;
 				break;
@@ -6362,7 +6361,7 @@ public class DialogueHandler {
 			case 3156:
 				if (player.getItemAssistant().playerHasItem(995, 16)) {
 					sendPlayerChat1("Meat Pie please.");
-					player.getItemAssistant().deleteItem2(995, 16);
+					player.getItemAssistant().deleteItem(995, 16);
 					player.getItemAssistant().addOrDropItem(2327, 1);
 					player.nextChat = 0;
 				} else {
@@ -6375,7 +6374,7 @@ public class DialogueHandler {
 			case 3157:
 				if (player.getItemAssistant().playerHasItem(995, 20)) {
 					sendPlayerChat1("Stew please.");
-					player.getItemAssistant().deleteItem2(995, 20);
+					player.getItemAssistant().deleteItem(995, 20);
 					player.getItemAssistant().addOrDropItem(2003, 1);
 					player.nextChat = 0;
 				} else {
@@ -6429,7 +6428,7 @@ public class DialogueHandler {
 							"That sounds like a fair offer, here's one woaf leaf.",
 							player.talkingNpc, "Wyson the Gardener");
 					player.getItemAssistant().addOrDropItem(1793, 1);
-					player.getItemAssistant().deleteItem2(995, 15);
+					player.getItemAssistant().deleteItem(995, 15);
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1("You don't have enough coins to buy a woad leaf.",
@@ -6443,7 +6442,7 @@ public class DialogueHandler {
 							"That offer sounds generous, I will give you two woaf leaves!",
 							player.talkingNpc, "Wyson the Gardener");
 					player.getItemAssistant().addOrDropItem(1793, 2);
-					player.getItemAssistant().deleteItem2(995, 20);
+					player.getItemAssistant().deleteItem(995, 20);
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1("You don't have enough coins to buy a woad leaf.",
@@ -6475,7 +6474,7 @@ public class DialogueHandler {
 			case 3171:
 				if (player.getItemAssistant().playerHasItem(995, 5)) {
 					sendNpcChat1("Sure thing.", player.talkingNpc, "Roavar");
-					player.getItemAssistant().deleteItem2(995, 5);
+					player.getItemAssistant().deleteItem(995, 5);
 					player.getItemAssistant().addOrDropItem(2955, 1);
 					player.nextChat = 0;
 				} else {
@@ -6515,7 +6514,7 @@ public class DialogueHandler {
 
 			case 3177:
 				if (player.getItemAssistant().playerHasItem(995, 200)) {
-					player.getItemAssistant().deleteItem2(995, 200);
+					player.getItemAssistant().deleteItem(995, 200);
 					player.getPlayerAssistant().startTeleport(2834, 2953, 0,
 							"modern");
 					player.nextChat = 0;
@@ -6551,7 +6550,7 @@ public class DialogueHandler {
 
 			case 3182:
 				if (player.getItemAssistant().playerHasItem(995, 200)) {
-					player.getItemAssistant().deleteItem2(995, 200);
+					player.getItemAssistant().deleteItem(995, 200);
 					player.getPlayerAssistant().startTeleport(2779, 3212, 0, "modern");
 					player.nextChat = 0;
 				} else {
@@ -6580,7 +6579,7 @@ public class DialogueHandler {
 						&& !player.getItemAssistant().playerHasItem(775)
 						&& player.playerEquipment[player.playerHands] != 775) {
 					sendPlayerChat1("Yes please.");
-					player.getItemAssistant().deleteItem2(995, 25000);
+					player.getItemAssistant().deleteItem(995, 25000);
 					player.getPlayerAssistant().removeGloves();
 					player.getItemAssistant().addOrDropItem(775, 1);
 					player.nextChat = 0;
@@ -6631,7 +6630,7 @@ public class DialogueHandler {
 						&& !player.getItemAssistant().playerHasItem(776)
 						&& player.playerEquipment[player.playerHands] != 776) {
 					sendPlayerChat1("Yes please.");
-					player.getItemAssistant().deleteItem2(995, 25000);
+					player.getItemAssistant().deleteItem(995, 25000);
 					player.getPlayerAssistant().removeGloves();
 					player.getItemAssistant().addOrDropItem(776, 1);
 					player.nextChat = 0;
@@ -6687,7 +6686,7 @@ public class DialogueHandler {
 				break;
 
 			case 3198:
-				player.getItemAssistant().deleteItem2(7418, MOLE_SKIN);
+				player.getItemAssistant().deleteItem(7418, MOLE_SKIN);
 				player.getItemAssistant().addOrDropItem(7413, MOLE_SKIN);
 				sendNpcChat1("Here you go", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
 				player.nextChat = 0;
@@ -6704,7 +6703,7 @@ public class DialogueHandler {
 				break;
 
 			case 3200:
-				player.getItemAssistant().deleteItem2(7416, MOLE_CLAW);
+				player.getItemAssistant().deleteItem(7416, MOLE_CLAW);
 				player.getItemAssistant().addOrDropItem(7413, MOLE_CLAW);
 				sendNpcChat1("Here you go", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
 				player.nextChat = 0;

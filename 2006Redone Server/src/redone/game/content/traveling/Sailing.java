@@ -41,7 +41,7 @@ public class Sailing {
 			player.nextChat = 0;
 			return false;
 		}
-		player.getItemAssistant().deleteItem2(995, 1000);
+		player.getItemAssistant().deleteItem(995, 1000);
 		player.getActionSender().sendMessage("Your free to go and pay the 1000 coins.");
 		return true;
 	}
@@ -52,7 +52,7 @@ public class Sailing {
 			player.nextChat = 0;
 			return false;
 		}
-		player.getItemAssistant().deleteItem2(995, 30);
+		player.getItemAssistant().deleteItem(995, 30);
 		player.getActionSender().sendMessage("Your free to go and pay the 30 coins.");
 		return true;
 	}

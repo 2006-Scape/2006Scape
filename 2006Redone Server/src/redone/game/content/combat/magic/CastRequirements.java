@@ -28,7 +28,7 @@ public class CastRequirements {
 	public static void deleteRunes(Client c, int[][] runes) {
 		for (int[] rune : runes) {
 			if (!MagicRequirements.wearingStaff(c, rune[0])) {
-				c.getItemAssistant().deleteItem2(rune[0], rune[1]);
+				c.getItemAssistant().deleteItem(rune[0], rune[1]);
 			}
 		}
 	}

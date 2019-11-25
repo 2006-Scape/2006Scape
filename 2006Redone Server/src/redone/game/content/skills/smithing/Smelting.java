@@ -129,7 +129,7 @@ public class Smelting extends SkillHandler {
 							c.getItemAssistant().deleteItem(c.playerSkillProp[13][4], 1);
 						}
 						if (c.playerSkillProp[13][5] > 0) {// if coal amount is > 0
-							c.getItemAssistant().deleteItem2(c.playerSkillProp[13][4], c.playerSkillProp[13][5]);
+							c.getItemAssistant().deleteItem(c.playerSkillProp[13][4], c.playerSkillProp[13][5]);
 						}
 
 						if (c.playerSkillProp[13][3] == IRON && c.playerSkillProp[13][4] == -1 && Misc.random(100) >= 50) {

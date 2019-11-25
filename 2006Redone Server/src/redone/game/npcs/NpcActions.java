@@ -485,13 +485,13 @@ public class NpcActions {
 		case 759:
 			if (c.getItemAssistant().playerHasItem(1927, 1) && c.gertCat == 2) {
 				c.getDialogueHandler().sendDialogues(319, npcType);
-				c.getItemAssistant().deleteItem2(1927, 1);
+				c.getItemAssistant().deleteItem(1927, 1);
 				c.getItemAssistant().addItem(1925, 1);
 				c.gertCat = 3;
 			} else if (c.getItemAssistant().playerHasItem(1552, 1)
 					&& c.gertCat == 3) {
 				c.getDialogueHandler().sendDialogues(323, npcType);
-				c.getItemAssistant().deleteItem2(1552, 1);
+				c.getItemAssistant().deleteItem(1552, 1);
 				c.gertCat = 4;
 			} else if (c.gertCat == 4) {
 				c.getDialogueHandler().sendStatement("Hiss!");
@@ -499,7 +499,7 @@ public class NpcActions {
 				c.gertCat = 5;
 			} else if (c.getItemAssistant().playerHasItem(1554, 1)
 					&& c.gertCat == 6) {
-				c.getItemAssistant().deleteItem2(1554, 1);
+				c.getItemAssistant().deleteItem(1554, 1);
 				c.getDialogueHandler().sendDialogues(326, npcType);
 				c.gertCat = 6;
 			} else if (c.gertCat == 2) {
@@ -797,14 +797,14 @@ public class NpcActions {
 		if (c.absX > 2619 && c.absX < 2622 && c.absY > 3680 && c.absY < 3689 && c.getItemAssistant().playerHasItem(995, 1000)) {
 			//Sailing.startTravel(c, 18);
 			c.getPlayerAssistant().startTeleport(2551, 3759, 0, "modern");
-			c.getItemAssistant().deleteItem2(995, 1000);
+			c.getItemAssistant().deleteItem(995, 1000);
 			c.getDialogueHandler().sendStatement("You arrive safely.");
 			c.nextChat = 0;
 		} else {
 			 if (c.getItemAssistant().playerHasItem(995, 1000)) {
 			//Sailing.startTravel(c, 17);	
 			c.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
-			c.getItemAssistant().deleteItem2(995, 1000);
+			c.getItemAssistant().deleteItem(995, 1000);
 			c.getDialogueHandler().sendStatement("You arrive safely.");
 			c.nextChat = 0;
 			 }
@@ -856,7 +856,7 @@ public class NpcActions {
 					c.turnPlayerTo(c.objectX, c.objectY);
 					c.startAnimation(2292);
 					c.getItemAssistant().addItem(1927, 1);
-					c.getItemAssistant().deleteItem2(1925, 1);
+					c.getItemAssistant().deleteItem(1925, 1);
 					c.buryDelay = System.currentTimeMillis();
 				} else {
 					c.getActionSender().sendMessage(
@@ -1027,14 +1027,14 @@ public class NpcActions {
 		if (c.absX > 2619 && c.absX < 2622 && c.absY > 3680 && c.absY < 3689 && c.getItemAssistant().playerHasItem(995, 1000)) {
 			//Sailing.startTravel(c, 18);
 			c.getPlayerAssistant().startTeleport(2551, 3759, 0, "modern");
-			c.getItemAssistant().deleteItem2(995, 1000);
+			c.getItemAssistant().deleteItem(995, 1000);
 			c.getDialogueHandler().sendStatement("You arrive safely.");
 			c.nextChat = 0;
 		} else {
 			 if (c.getItemAssistant().playerHasItem(995, 1000)) {
 			//Sailing.startTravel(c, 17);	
 			c.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
-			c.getItemAssistant().deleteItem2(995, 1000);
+			c.getItemAssistant().deleteItem(995, 1000);
 			c.getDialogueHandler().sendStatement("You arrive safely.");
 			c.nextChat = 0;
 			 }
@@ -1086,7 +1086,7 @@ public class NpcActions {
 		case 1042:
 			if (c.getItemAssistant().playerHasItem(995, 5)) {
 				c.getItemAssistant().addItem(2955, 1);
-				c.getItemAssistant().deleteItem2(995, 5);
+				c.getItemAssistant().deleteItem(995, 5);
 			} else {
 				c.getDialogueHandler().sendNpcChat1(
 						"You need 5 coins to buy a moonlight mead.",
@@ -1191,7 +1191,7 @@ public class NpcActions {
 			if (c.getItemAssistant().playerHasItem(995, 5)) {
 				c.getActionSender().sendMessage(
 						"You buy a shantay pass quickly.");
-				c.getItemAssistant().deleteItem2(995, 5);
+				c.getItemAssistant().deleteItem(995, 5);
 				c.getItemAssistant().addItem(1854, 1);
 			} else {
 				c.getActionSender().sendMessage(

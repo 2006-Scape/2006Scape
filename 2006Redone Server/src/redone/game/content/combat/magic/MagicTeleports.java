@@ -1,6 +1,5 @@
 package redone.game.content.combat.magic;
 
-import redone.game.content.quests.QuestAssistant;
 import redone.game.content.randomevents.RandomEventHandler;
 import redone.game.players.Client;
 import redone.util.Misc;
@@ -419,7 +418,7 @@ public class MagicTeleports {
 			}
 		}
 		CastRequirements.deleteRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 2}, {WATER_RUNE, 2}});
-		player.getItemAssistant().deleteItem2(BANANA, 1);
+		player.getItemAssistant().deleteItem(BANANA, 1);
 		player.getPlayerAssistant().startTeleport(2798 + Misc.random(1), 2798 - Misc.random(1), 1, "modern");
 		player.getPlayerAssistant().addSkillXP(76, player.playerMagic);
 	}

@@ -47,7 +47,7 @@ public class LogCutting {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (c.getItemAssistant().playerHasItem(LogCuttingInterface.log) && c.getItemAssistant().playerHasItem(KNIFE)) {
-					c.getItemAssistant().deleteItem2(LogCuttingInterface.log, 1);
+					c.getItemAssistant().deleteItem(LogCuttingInterface.log, 1);
 					if (product == 52) {
 						c.getItemAssistant().addItem(product, 15);
 					} else {
@@ -333,7 +333,7 @@ public class LogCutting {
 				return;
 			}
 			c.startAnimation(1248);
-			c.getItemAssistant().deleteItem2(2859, amount);
+			c.getItemAssistant().deleteItem(2859, amount);
 			c.getItemAssistant().addItem(2861, makeAmount);
 			c.getPlayerAssistant().addSkillXP(3 * amount, c.playerFletching);
 			c.getActionSender().sendMessage(
@@ -362,8 +362,8 @@ public class LogCutting {
 					.getItemAssistant().getItemCount(2864);
 			if (feather == arrowShaft * 4) {
 				c.startAnimation(1248);
-				c.getItemAssistant().deleteItem2(314, feather * 4);
-				c.getItemAssistant().deleteItem2(2864, arrowShaft);
+				c.getItemAssistant().deleteItem(314, feather * 4);
+				c.getItemAssistant().deleteItem(2864, arrowShaft);
 				c.getItemAssistant().addItem(2865, arrowShaft);
 				c.getActionSender().sendMessage(
 						"You turn your " + ItemAssistant.getItemName(2864)
@@ -416,8 +416,8 @@ public class LogCutting {
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
 				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow,
 						c.playerFletching);
-				c.getItemAssistant().deleteItem2(2861, wolfBoneArrow);
-				c.getItemAssistant().deleteItem2(2865, wolfBoneArrow);
+				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
+				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
 				c.getActionSender().sendMessage(
 						"You turn your " + ItemAssistant.getItemName(2865)
 								+ " (s) into "
@@ -427,8 +427,8 @@ public class LogCutting {
 				c.getItemAssistant().addItem(2866, flightedArrow);
 				c.getPlayerAssistant().addSkillXP(1 * flightedArrow,
 						c.playerFletching);
-				c.getItemAssistant().deleteItem2(2861, flightedArrow);
-				c.getItemAssistant().deleteItem2(2865, flightedArrow);
+				c.getItemAssistant().deleteItem(2861, flightedArrow);
+				c.getItemAssistant().deleteItem(2865, flightedArrow);
 				c.getActionSender().sendMessage(
 						"You turn your " + ItemAssistant.getItemName(2865)
 								+ " (s) into "
@@ -438,8 +438,8 @@ public class LogCutting {
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
 				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow,
 						c.playerFletching);
-				c.getItemAssistant().deleteItem2(2861, wolfBoneArrow);
-				c.getItemAssistant().deleteItem2(2865, wolfBoneArrow);
+				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
+				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
 				c.getActionSender().sendMessage(
 						"You turn your " + ItemAssistant.getItemName(2865)
 								+ " (s) into "
@@ -461,7 +461,7 @@ public class LogCutting {
 				return;
 			}
 			c.startAnimation(1248);
-			c.getItemAssistant().deleteItem2(2862, amount);
+			c.getItemAssistant().deleteItem(2862, amount);
 			c.getItemAssistant().addItem(2864, makeAmount);
 			c.getPlayerAssistant().addSkillXP(2 * amount, c.playerFletching);
 			c.getActionSender().sendMessage(

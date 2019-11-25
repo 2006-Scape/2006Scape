@@ -108,7 +108,7 @@ public class ExperienceLamp {
 				int xp = c.getPlayerAssistant()
 						.getLevelForXP(c.playerXP[skill]) * 10;
 				c.getPlayerAssistant().addNormalExperienceRate(xp, skill);
-				c.getItemAssistant().deleteItem2(LAMP, 1);
+				c.getItemAssistant().deleteItem(LAMP, 1);
 				c.getActionSender().sendMessage(
 						"@blu@Your wish has been granted!");
 				c.getActionSender().sendMessage(
@@ -118,7 +118,7 @@ public class ExperienceLamp {
 			} else if (c.getItemAssistant().playerHasItem(LAMP_2, 1)
 					&& skill > -1) {// vote
 									// reward
-				c.getItemAssistant().deleteItem2(LAMP_2, 1);
+				c.getItemAssistant().deleteItem(LAMP_2, 1);
 				c.getActionSender().sendMessage(
 						"@blu@Your wish has been granted!");
 				addExp(c);

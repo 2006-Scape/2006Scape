@@ -1,6 +1,5 @@
 package redone.game.objects.impl;
 
-import redone.Constants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
 import redone.event.CycleEventHandler;
@@ -495,7 +494,7 @@ public class Climbing {
 				client.playerLevel[17] = client.getPlayerAssistant()
 						.getLevelForXP(client.playerXP[17]) - 1;
 				client.getPlayerAssistant().refreshSkill(17);
-				client.getItemAssistant().deleteItem2(1523, 1);
+				client.getItemAssistant().deleteItem(1523, 1);
 			} else if (!client.getItemAssistant().playerHasItem(1523, 1)
 					&& Misc.random(5) > 2) {
 				client.getActionSender().sendMessage(

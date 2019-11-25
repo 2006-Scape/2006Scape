@@ -182,7 +182,7 @@ public class PartyRoom {
 					"You cant deposit more than 8 items at once.");
 			return;
 		}
-		c.getItemAssistant().deleteItem2(id, amount);
+		c.getItemAssistant().deleteItem(id, amount);
 		if (c.party[slot] != id) {
 			c.party[slot] = id;
 			c.partyN[slot] = amount;

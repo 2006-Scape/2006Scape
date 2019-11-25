@@ -3,7 +3,6 @@ package redone.game.players;
 import java.time.temporal.ValueRange;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.w3c.dom.ranges.Range;
 import redone.Constants;
 import redone.event.CycleEvent;
 import redone.event.CycleEventContainer;
@@ -12,7 +11,6 @@ import redone.game.content.minigames.castlewars.CastleWars;
 import redone.game.items.GameItem;
 import redone.game.items.Item;
 import redone.game.items.ItemAssistant;
-import redone.game.items.impl.RareProtection;
 import redone.util.GameLogger;
 import redone.util.Misc;
 
@@ -319,7 +317,7 @@ public class Trading {
 				if (item.id == itemID) {
 					inTrade = true;
 					item.amount += amount;
-					player.getItemAssistant().deleteItem2(itemID, amount);
+					player.getItemAssistant().deleteItem(itemID, amount);
 					o.getPlayerAssistant().sendFrame126(
 							"Trading with: " + player.playerName + " who has @gre@"
 									+ player.getItemAssistant().freeSlots()
@@ -330,7 +328,7 @@ public class Trading {
 
 			if (!inTrade) {
 				offeredItems.add(new GameItem(itemID, amount));
-				player.getItemAssistant().deleteItem2(itemID, amount);
+				player.getItemAssistant().deleteItem(itemID, amount);
 				o.getPlayerAssistant().sendFrame126(
 						"Trading with: " + player.playerName + " who has @gre@"
 								+ player.getItemAssistant().freeSlots()

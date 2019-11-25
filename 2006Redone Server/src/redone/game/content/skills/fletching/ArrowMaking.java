@@ -127,8 +127,8 @@ public class ArrowMaking {
 				if (c.isWoodcutting == true) {
 					container.stop();
 				}
-				c.getItemAssistant().deleteItem2(arrowData.getItem1(), count);
-				c.getItemAssistant().deleteItem2(arrowData.getItem2(), count);
+				c.getItemAssistant().deleteItem(arrowData.getItem1(), count);
+				c.getItemAssistant().deleteItem(arrowData.getItem2(), count);
 				c.getItemAssistant().addItem(arrowData.getProduct(),
 						count / multiplier);
 				c.getActionSender().sendMessage(

@@ -427,7 +427,7 @@ public class Trawler extends GroupMinigame {
                         if (p.getItemAssistant().playerHasItem(swamp_paste)) {
                                 int index = Wall.getIndex(x, y);
                                 if (index >= 0) {
-                                        p.getItemAssistant().deleteItem2(swamp_paste, 1);
+                                        p.getItemAssistant().deleteItem(swamp_paste, 1);
                                         p.startAnimation(832);
                                         wall_status[index] = false;
                                         updateWall(index);
