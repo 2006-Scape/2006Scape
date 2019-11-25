@@ -158,7 +158,7 @@ public class PacketHandler {
         PacketType p = packetId[packetType];
         if(p != null && packetType > 0 && packetType < 257 && packetType == c.packetType && packetSize == c.packetSize) {
             if (GameConstants.sendServerPackets && c.playerRights == 3) {
-                c.getActionSender().sendMessage("PacketType: " + packetType + ". PacketSize: " + packetSize + ".");
+                c.getPacketSender().sendMessage("PacketType: " + packetType + ". PacketSize: " + packetSize + ".");
             }
             try {
                 p.processPacket(c, packetType, packetSize);

@@ -85,7 +85,7 @@ public class MagicOnFloorItems implements PacketType {
 				}, 1);
 			}
 		} else {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You don't have enough space in your inventory.");
 			c.stopMovement();
 		}

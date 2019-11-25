@@ -18,7 +18,7 @@ public class RemoveItem implements PacketType {
 		int removeId = c.getInStream().readUnsignedWordA();
 		if (removeId == 88) {
 			c.weight += 4.5;
-			c.getActionSender().writeWeight((int) c.weight);
+			c.getPacketSender().writeWeight((int) c.weight);
 		}
 		if (!RareProtection.removeItem(c, removeId)) {
 			return;

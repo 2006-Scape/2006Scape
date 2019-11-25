@@ -24,7 +24,7 @@ public class Chat implements PacketType {
 		}
 		//System.out.println(word);
 		if (Connection.isMuted(player)) {
-			player.getActionSender().sendMessage("You are muted and can't speak.");
+			player.getPacketSender().sendMessage("You are muted and can't speak.");
 			player.setChatTextUpdateRequired(false);
 			return;
 		}

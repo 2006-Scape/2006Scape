@@ -14,111 +14,111 @@ public class QuestAssistant {
 	public static final int MAXIMUM_QUESTPOINTS = 23;
 
 	public static void sendStages(Client client) {
-		client.getPlayerAssistant().sendFrame126("QP: " + client.questPoints + " ", 3985);
+		client.getPacketSender().sendFrame126("QP: " + client.questPoints + " ", 3985);
 		for (Quests quests : Quests.values()) {
 			if (!quests.questStatus() && quests.getStringId() > 0) {
-				client.getPlayerAssistant().sendFrame126("", quests.getStringId());
+				client.getPacketSender().sendFrame126("", quests.getStringId());
 			}
 		}
 		if (client.pirateTreasure == 0) {
-			client.getPlayerAssistant().sendFrame126("Pirate's Treasure", 7341);
+			client.getPacketSender().sendFrame126("Pirate's Treasure", 7341);
 		} else if (client.pirateTreasure == 6) {
-			client.getPlayerAssistant().sendFrame126("@gre@Pirate's Treasure", 7341);
+			client.getPacketSender().sendFrame126("@gre@Pirate's Treasure", 7341);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Pirate's Treasure", 7341);
+			client.getPacketSender().sendFrame126("@yel@Pirate's Treasure", 7341);
 		}
 		if (client.witchspot == 0) {
-			client.getPlayerAssistant().sendFrame126("Witch's Potion", 7348);
+			client.getPacketSender().sendFrame126("Witch's Potion", 7348);
 		} else if (client.witchspot == 3) {
-			client.getPlayerAssistant().sendFrame126("@gre@Witch's Potion", 7348);
+			client.getPacketSender().sendFrame126("@gre@Witch's Potion", 7348);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Witch's Potion", 7348);
+			client.getPacketSender().sendFrame126("@yel@Witch's Potion", 7348);
 		}
 		if (client.romeojuliet == 0) {
-			client.getPlayerAssistant().sendFrame126("Romeo and Juliet", 7343);
+			client.getPacketSender().sendFrame126("Romeo and Juliet", 7343);
 		} else if (client.romeojuliet < 9) {
-			client.getPlayerAssistant().sendFrame126("@yel@Romeo and Juliet",
+			client.getPacketSender().sendFrame126("@yel@Romeo and Juliet",
 					7343);
 		} else if (client.romeojuliet >= 9) {
-			client.getPlayerAssistant().sendFrame126("@gre@Romeo and Juliet",
+			client.getPacketSender().sendFrame126("@gre@Romeo and Juliet",
 					7343);
 		}
 		if (client.vampSlayer == 0) {
-			client.getPlayerAssistant().sendFrame126("Vampyre Slayer", 7347);
+			client.getPacketSender().sendFrame126("Vampyre Slayer", 7347);
 		} else if (client.vampSlayer == 5) {
-			client.getPlayerAssistant().sendFrame126("@gre@Vampyre Slayer", 7347);
+			client.getPacketSender().sendFrame126("@gre@Vampyre Slayer", 7347);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Vampyre Slayer", 7347);
+			client.getPacketSender().sendFrame126("@yel@Vampyre Slayer", 7347);
 		}
 		if (client.doricQuest == 0) {
-			client.getPlayerAssistant().sendFrame126("Doric's Quest", 7336);
+			client.getPacketSender().sendFrame126("Doric's Quest", 7336);
 		} else if (client.doricQuest == 3) {
-			client.getPlayerAssistant().sendFrame126("@gre@Doric's Quest", 7336);
+			client.getPacketSender().sendFrame126("@gre@Doric's Quest", 7336);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Doric's Quest", 7336);
+			client.getPacketSender().sendFrame126("@yel@Doric's Quest", 7336);
 		}
 		if (client.restGhost == 0) {
-			client.getPlayerAssistant().sendFrame126("Restless Ghost", 7337);
+			client.getPacketSender().sendFrame126("Restless Ghost", 7337);
 		} else if (client.restGhost == 5) {
-			client.getPlayerAssistant().sendFrame126("@gre@Restless Ghost", 7337);
+			client.getPacketSender().sendFrame126("@gre@Restless Ghost", 7337);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Restless Ghost", 7337);
+			client.getPacketSender().sendFrame126("@yel@Restless Ghost", 7337);
 		}
 		if (client.impsC == 0) {
-			client.getPlayerAssistant().sendFrame126("Imp Catcher", 7340);
+			client.getPacketSender().sendFrame126("Imp Catcher", 7340);
 		} else if (client.impsC == 1) {
-			client.getPlayerAssistant().sendFrame126("@yel@Imp Catcher", 7340);
+			client.getPacketSender().sendFrame126("@yel@Imp Catcher", 7340);
 		} else if (client.impsC == 2) {
-			client.getPlayerAssistant().sendFrame126("@gre@Imp Catcher", 7340);
+			client.getPacketSender().sendFrame126("@gre@Imp Catcher", 7340);
 		}
 		if (client.gertCat == 0) {
-			client.getPlayerAssistant().sendFrame126("Gertrudes Cat", 7360);
+			client.getPacketSender().sendFrame126("Gertrudes Cat", 7360);
 		} else if (client.gertCat == 7) {
-			client.getPlayerAssistant().sendFrame126("@gre@Gertrudes Cat", 7360);
+			client.getPacketSender().sendFrame126("@gre@Gertrudes Cat", 7360);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Gertrudes Cat", 7360);
+			client.getPacketSender().sendFrame126("@yel@Gertrudes Cat", 7360);
 		}
 		if (client.sheepShear == 0) {
-			client.getPlayerAssistant().sendFrame126("Sheep Shearer", 7344);
+			client.getPacketSender().sendFrame126("Sheep Shearer", 7344);
 		} else if (client.sheepShear == 2) {
-			client.getPlayerAssistant().sendFrame126("@gre@Sheep Shearer", 7344);
+			client.getPacketSender().sendFrame126("@gre@Sheep Shearer", 7344);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Sheep Shearer", 7344);
+			client.getPacketSender().sendFrame126("@yel@Sheep Shearer", 7344);
 		}
 		if (client.runeMist == 0) {
-			client.getPlayerAssistant().sendFrame126("Rune Mysteries", 7335);
+			client.getPacketSender().sendFrame126("Rune Mysteries", 7335);
 		} else if (client.runeMist == 4) {
-			client.getPlayerAssistant().sendFrame126("@gre@Rune Mysteries", 7335);
+			client.getPacketSender().sendFrame126("@gre@Rune Mysteries", 7335);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Rune Mysteries", 7335);
+			client.getPacketSender().sendFrame126("@yel@Rune Mysteries", 7335);
 		}
 		if (client.knightS == 0) {
-			client.getPlayerAssistant().sendFrame126("The Knight's Sword", 7346);
+			client.getPacketSender().sendFrame126("The Knight's Sword", 7346);
 		} else if (client.knightS < 9) {
-			client.getPlayerAssistant().sendFrame126("@yel@The Knight's Sword", 7346);
+			client.getPacketSender().sendFrame126("@yel@The Knight's Sword", 7346);
 		} else if (client.knightS == 9) {
-			client.getPlayerAssistant().sendFrame126("@gre@The Knight's Sword", 7346);
+			client.getPacketSender().sendFrame126("@gre@The Knight's Sword", 7346);
 		}
 		if (client.cookAss == 0) {
-			client.getPlayerAssistant().sendFrame126("Cook's Assistant", 7333);
+			client.getPacketSender().sendFrame126("Cook's Assistant", 7333);
 		} else if (client.cookAss == 3) {
-			client.getPlayerAssistant().sendFrame126("@gre@Cook's Assistant", 7333);
+			client.getPacketSender().sendFrame126("@gre@Cook's Assistant", 7333);
 		} else if (client.cookAss > 0 && client.cookAss < 3) {
-			client.getPlayerAssistant().sendFrame126("@yel@Cook's Assistant", 7333);
+			client.getPacketSender().sendFrame126("@yel@Cook's Assistant", 7333);
 		}
 		if (client.blackKnight == 0) {
-			client.getPlayerAssistant().sendFrame126("Black Knights' Fortress", 7332);
+			client.getPacketSender().sendFrame126("Black Knights' Fortress", 7332);
 		} else if (client.blackKnight == 3) {
-			client.getPlayerAssistant().sendFrame126("@gre@Black Knights' Fortress", 7332);
+			client.getPacketSender().sendFrame126("@gre@Black Knights' Fortress", 7332);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Black Knights' Fortress", 7332);
+			client.getPacketSender().sendFrame126("@yel@Black Knights' Fortress", 7332);
 		}
 		if (client.shieldArrav == 0) {
-			client.getPlayerAssistant().sendFrame126("Shield of Arrav", 7345);
+			client.getPacketSender().sendFrame126("Shield of Arrav", 7345);
 		} else if (client.shieldArrav == 8) {
-			client.getPlayerAssistant().sendFrame126("@gre@Shield of Arrav", 7345);
+			client.getPacketSender().sendFrame126("@gre@Shield of Arrav", 7345);
 		} else {
-			client.getPlayerAssistant().sendFrame126("@yel@Shield of Arrav", 7345);
+			client.getPacketSender().sendFrame126("@yel@Shield of Arrav", 7345);
 		}
 	}
 
@@ -313,7 +313,7 @@ public class QuestAssistant {
 
 		default:
 			if (Quests.forButton(buttonId) != null) {
-				client.getActionSender().sendMessage("The quest " + Quests.forButton(buttonId).getName() + " is currently disabled.");
+				client.getPacketSender().sendMessage("The quest " + Quests.forButton(buttonId).getName() + " is currently disabled.");
 			}
 			break;
 		}

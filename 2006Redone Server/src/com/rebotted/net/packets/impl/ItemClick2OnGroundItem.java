@@ -14,7 +14,7 @@ public class ItemClick2OnGroundItem implements PacketType {
 		final int itemId = c.getInStream().readUnsignedWordA();
 		System.out.println("ItemClick2OnGroundItem - " + c.playerName + " - " + itemId + " - " + itemX + " - " + itemY);
 		if (c.absX != itemX || c.absY != itemY) {
-			c.getActionSender().sendMessage("You can't do that there!");
+			c.getPacketSender().sendMessage("You can't do that there!");
 			return;
 		}
 		c.endCurrentTask();

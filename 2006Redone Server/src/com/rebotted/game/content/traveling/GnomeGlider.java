@@ -26,15 +26,15 @@ public class GnomeGlider {
 		} else {
 			for (int i = 0; i < getLength(); i++) {
 				if (player.gliderOpen == false && getButton(i) == button) {
-					player.getActionSender().sendMessage("You have improperly opened the glider.");
+					player.getPacketSender().sendMessage("You have improperly opened the glider.");
 				}
 			}
 		}
 	}
 
 	public static void handleFlight(final Client player, final int flightId) {
-		player.getPlayerAssistant().showInterface(802);
-		player.getPlayerAssistant().sendConfig(153, getMove(flightId));
+		player.getPacketSender().showInterface(802);
+		player.getPacketSender().sendConfig(153, getMove(flightId));
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -49,8 +49,8 @@ public class GnomeGlider {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.getPlayerAssistant().closeAllWindows();
-				player.getPlayerAssistant().sendConfig(153, -1);
+				player.getPacketSender().closeAllWindows();
+				player.getPacketSender().sendConfig(153, -1);
 				player.gliderOpen = false;
 				container.stop();
 			}

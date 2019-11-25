@@ -70,7 +70,7 @@ public class GlobalDropsHandler {
 								if (System.currentTimeMillis() - drop.getTakenAt() >= TIME_TO_RESPAWN * 1000) {
 									drop.setTaken(false);
 									if (player2.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-										player2.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+										player2.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
 										spawnedDrops.add(drop);
 									}
 
@@ -165,7 +165,7 @@ public class GlobalDropsHandler {
 			for (Player player : PlayerHandler.players) {
 				Client cl = (Client) player;
 				if (cl != null) {
-					cl.getActionSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
+					cl.getPacketSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
 					spawnedDrops.remove(drop);
 				}
 			}
@@ -181,7 +181,7 @@ public class GlobalDropsHandler {
 	public static void load(Client player) {
 		for (GlobalDrop drop : globalDrops) {
 			if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-				player.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+				player.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
 				spawnedDrops.add(drop);
 				drop.setSpawned(true);
 			}
@@ -191,7 +191,7 @@ public class GlobalDropsHandler {
 	public static void reset(Client player) {
 		for(GlobalDrop drop : globalDrops) {
 			if(player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-				player.getActionSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
+				player.getPacketSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
 			}
 		}
 		spawnedDrops.clear();
@@ -199,7 +199,7 @@ public class GlobalDropsHandler {
 		read();
 		for (GlobalDrop drop : globalDrops) {
 			if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && player.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
-				player.getActionSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
+				player.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());
 				spawnedDrops.add(drop);
 				drop.setSpawned(true);
 			}

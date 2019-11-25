@@ -17,7 +17,7 @@ public class Potions {
 
 	public void handlePotion(int itemId, int slot) {
 		if (c.duelRule[5]) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You may not drink potions in this duel.");
 			return;
 		}
@@ -29,7 +29,7 @@ public class Potions {
 			c.foodDelay = System.currentTimeMillis();
 			c.getCombatAssistant().resetPlayerAttack();
 			c.attackTimer++;
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You drink some of your " + Item.getItemName(itemId) + ".");
 			c.startAnimation(829);
 			final String item = Item.getItemName(itemId);
@@ -47,7 +47,7 @@ public class Potions {
 			   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
-					c.getActionSender().sendMessage(m1);
+					c.getPacketSender().sendMessage(m1);
 					container.stop();
 				}
 				@Override
@@ -297,7 +297,7 @@ public class Potions {
 		if (c.playerEnergy > 100) {
 			c.playerEnergy = 100;
 		}
-		c.getPlayerAssistant().sendFrame126((int) Math.ceil(c.playerEnergy) + "%", 149);
+		c.getPacketSender().sendFrame126((int) Math.ceil(c.playerEnergy) + "%", 149);
 	}
 
 	public void drinkAntiPoison(int itemId, int replaceItem, int slot,
@@ -351,7 +351,7 @@ public class Potions {
 					c.playerLevel[j] = c.getLevelForXP(c.playerXP[j]);
 				}
 				c.getPlayerAssistant().refreshSkill(j);
-				c.getActionSender().setSkillLevel(j, c.playerLevel[j],
+				c.getPacketSender().setSkillLevel(j, c.playerLevel[j],
 						c.playerXP[j]);
 			}
 		}
@@ -368,7 +368,7 @@ public class Potions {
 				c.playerLevel[tD] = 1;
 			}
 			c.getPlayerAssistant().refreshSkill(tD);
-			c.getActionSender().setSkillLevel(tD, c.playerLevel[tD],
+			c.getPacketSender().setSkillLevel(tD, c.playerLevel[tD],
 					c.playerXP[tD]);
 		}
 		c.playerLevel[0] += getBrewStat(0, .20);
@@ -392,7 +392,7 @@ public class Potions {
 
 	public void doTheBrew(int itemId, int replaceItem, int slot) {
 		if (c.duelRule[6]) {
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage("You may not eat in this duel.");
 			return;
 		}
@@ -406,7 +406,7 @@ public class Potions {
 				c.playerLevel[tD] = 1;
 			}
 			c.getPlayerAssistant().refreshSkill(tD);
-			c.getActionSender().setSkillLevel(tD, c.playerLevel[tD],
+			c.getPacketSender().setSkillLevel(tD, c.playerLevel[tD],
 					c.playerXP[tD]);
 		}
 		c.playerLevel[1] += getBrewStat(1, .20);
@@ -432,7 +432,7 @@ public class Potions {
 		c.playerItems[slot] = replaceItem + 1;
 		c.antiFirePot = true;
 		c.antiFirePotion();
-		c.getActionSender().sendMessage(
+		c.getPacketSender().sendMessage(
 				"Your immunity against dragon fire has been increased.");
 		c.getItemAssistant().resetItems(3214);
 

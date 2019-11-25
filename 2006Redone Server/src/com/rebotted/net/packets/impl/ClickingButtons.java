@@ -71,7 +71,7 @@ public class ClickingButtons implements PacketType {
 		}
 
 		if (player.playerRights == 3) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					player.playerName + " - actionbutton: " + actionButtonId);
 		}
 		
@@ -83,7 +83,7 @@ public class ClickingButtons implements PacketType {
 		
 
 		case 55096:
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
             player.droppedItem = -1;
 		break;
 		
@@ -162,31 +162,27 @@ public class ClickingButtons implements PacketType {
 
 		case 4135:
 			if (player.inTrade) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't do this in trade!");
 				return;
 			}
 			if (player.playerLevel[6] < 15) {
-				player.getPlayerAssistant()
-						.sendFrame126(
+				player.getPacketSender().sendFrame126(
 								"You need a magic level of @blu@15 @bla@to cast bones to bananas",
 								357);
-				player.getPlayerAssistant().sendChatInterface(356);
+				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(526, 1)) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You don't have any bones!");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(561, 1)
 					|| !player.getItemAssistant().playerHasItem(555, 2)
 					|| !player.getItemAssistant().playerHasItem(557, 2)) {
-				player.getPlayerAssistant()
-						.sendFrame126(
-								"You do not have the correct runes to cast this spell.",
-								357);
-				player.getPlayerAssistant().sendChatInterface(356);
+				player.getPacketSender().sendFrame126("You do not have the correct runes to cast this spell.", 357);
+				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
 			if (System.currentTimeMillis() - player.boneDelay > 2000) {
@@ -197,8 +193,8 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().refreshSkill(6);
 				player.startAnimation(722);
 				player.gfx100(141);
-				player.getPlayerAssistant().sendFrame106(6);
-				player.getActionSender().sendSound(
+				player.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendSound(
 						SoundList.BONES_TO_BANNAS, 100, 0);
 				player.boneDelay = System.currentTimeMillis();
 				do {
@@ -210,31 +206,27 @@ public class ClickingButtons implements PacketType {
 
 		case 62005:
 			if (player.inTrade) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't do this in trade!");
 				return;
 			}
 			if (player.playerLevel[6] < 60) {
-				player.getPlayerAssistant()
-						.sendFrame126(
-								"You need a magic level of @blu@60  @blu@ to cast bones to peaches.",
-								357);
-				player.getPlayerAssistant().sendChatInterface(356);
+				player.getPacketSender().sendFrame126("You need a magic level of @blu@60  @blu@ to cast bones to peaches.", 357);
+				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(526, 1)) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You don't have any bones!");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(561, 2)
 					|| !player.getItemAssistant().playerHasItem(555, 4)
 					|| !player.getItemAssistant().playerHasItem(557, 4)) {
-				player.getPlayerAssistant()
-						.sendFrame126(
+				player.getPacketSender().sendFrame126(
 								"You do not have the correct runes to cast this spell.",
 								357);
-				player.getPlayerAssistant().sendChatInterface(356);
+				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
 			if (System.currentTimeMillis() - player.boneDelay > 2000) {
@@ -245,7 +237,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().refreshSkill(6);
 				player.startAnimation(722);
 				player.gfx100(311);
-				player.getPlayerAssistant().sendFrame106(6);
+				player.getPacketSender().sendFrame106(6);
 				player.boneDelay = System.currentTimeMillis();
 				do {
 					player.getItemAssistant().deleteItem(526, 1);
@@ -394,7 +386,7 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 9118:
-			player.getPlayerAssistant().closeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 49022:
@@ -613,12 +605,12 @@ public class ClickingButtons implements PacketType {
 
 		case 10193:
 			player.getItemAssistant().deleteItem(995, 2000);
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 8065:
 			player.getItemAssistant().deleteItem(995, 2000);
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 		/** End of Hairdresser buttons */
 
@@ -634,7 +626,7 @@ public class ClickingButtons implements PacketType {
 			if (player.musicOn == true) {
 				player.musicOn = false;
 			} else {
-				player.getActionSender().sendMessage("Your music is already turned off.");
+				player.getPacketSender().sendMessage("Your music is already turned off.");
 			}
 			break;
 
@@ -687,18 +679,18 @@ public class ClickingButtons implements PacketType {
 				player.getBankPin().dateRequested();
 				player.getBankPin().dateExpired();
 				player.getDialogueHandler().sendDialogues(1017, 1);
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"[Notice] A PIN delete has been requested. Your PIN will be deleted in "
 										+ player.getBankPin().recovery_Delay
 										+ " days.");
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"To cancel this change just type in the correct PIN.");
 			} else {
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"[Notice] Your PIN is already pending deletion. Please wait the entire 2 days.");
-				player.getPlayerAssistant().closeAllWindows();
+				player.getPacketSender().closeAllWindows();
 			}
 			break;
 
@@ -720,16 +712,16 @@ public class ClickingButtons implements PacketType {
 				player.getBankPin().openPin();
 			} else if (player.hasBankpin && player.enterdBankpin) {
 				player.getBankPin().resetBankPin();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"Your PIN has been deleted as requested.");
 			} else {
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"Please enter your Bank Pin before requesting a delete.");
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"You can do this by simply opening your bank. This is to verify it's really you.");
-				player.getPlayerAssistant().closeAllWindows();
+				player.getPacketSender().closeAllWindows();
 			}
 			break;
 
@@ -872,18 +864,18 @@ public class ClickingButtons implements PacketType {
 		case 151:
 		if (player.autoRet == 1) {
 			player.autoRet = 0;
-			player.getPlayerAssistant().sendConfig(172, 1);
+			player.getPacketSender().sendConfig(172, 1);
 		} else {
-			player.getActionSender().sendMessage("Your auto retaliate is already turned off.");
+			player.getPacketSender().sendMessage("Your auto retaliate is already turned off.");
 		}
 		break;
 		
 		case 150:
 		if (player.autoRet == 0) {
 			player.autoRet = 1;
-			player.getPlayerAssistant().sendConfig(172, 0);
+			player.getPacketSender().sendConfig(172, 0);
 		} else {
-			player.getActionSender().sendMessage("Your auto retaliate is already turned on.");
+			player.getPacketSender().sendMessage("Your auto retaliate is already turned on.");
 		}
 		break;
 
@@ -955,7 +947,7 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 59004:
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 1093:
@@ -966,19 +958,19 @@ public class ClickingButtons implements PacketType {
 			} else {
 				if (player.playerMagicBook == 1) {
 					if (player.playerEquipment[player.playerWeapon] == 4675) {
-						player.getActionSender().setSidebarInterface(0,
+						player.getPacketSender().setSidebarInterface(0,
 								1689);
 					} else {
-						player.getActionSender()
+						player.getPacketSender()
 								.sendMessage(
 										"You can't autocast ancients without an ancient staff.");
 					}
 				} else if (player.playerMagicBook == 0) {
 					if (player.playerEquipment[player.playerWeapon] == 4170) {
-						player.getActionSender().setSidebarInterface(0,
+						player.getPacketSender().setSidebarInterface(0,
 								12050);
 					} else {
-						player.getActionSender().setSidebarInterface(0,
+						player.getPacketSender().setSidebarInterface(0,
 								1829);
 					}
 				}
@@ -1016,7 +1008,7 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(1053, player.npcType);
 				return;
 			case 251:
-				player.getPlayerAssistant().openUpBank();
+				player.getPacketSender().openUpBank();
 				player.nextChat = 0;
 				return;
 			case 144:
@@ -1032,8 +1024,8 @@ public class ClickingButtons implements PacketType {
 				if (player.objectId == 1293 || player.objectId == 1317) {
 					player.getPlayerAssistant().startTeleport(2542, 3169, 0, "modern");
 				} else {
-					player.getActionSender().sendMessage("You can't teleport there, because you are already there!");
-					player.getPlayerAssistant().closeAllWindows();
+					player.getPacketSender().sendMessage("You can't teleport there, because you are already there!");
+					player.getPacketSender().closeAllWindows();
 				}
 				return;
 			case 159:
@@ -1061,7 +1053,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			player.dialogueAction = 0;
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 9168:
@@ -1111,8 +1103,8 @@ public class ClickingButtons implements PacketType {
 					player.getPlayerAssistant().startTeleport(2461, 3444, 0,
 							"modern");
 				} else {
-					player.getActionSender().sendMessage("You can't teleport there, because you are already there!");
-					player.getPlayerAssistant().closeAllWindows();
+					player.getPacketSender().sendMessage("You can't teleport there, because you are already there!");
+					player.getPacketSender().closeAllWindows();
 				}
 				return;
 			case 159:
@@ -1139,7 +1131,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			player.dialogueAction = 0;
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 9169:
@@ -1161,8 +1153,8 @@ public class ClickingButtons implements PacketType {
 					player.getPlayerAssistant().startTeleport(3179, 3507, 0,
 							"modern");
 				} else {
-					player.getActionSender().sendMessage("You can't teleport there, because you are already there!");
-					player.getPlayerAssistant().closeAllWindows();
+					player.getPacketSender().sendMessage("You can't teleport there, because you are already there!");
+					player.getPacketSender().closeAllWindows();
 				}
 				return;
 			case 129:
@@ -1220,7 +1212,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			player.dialogueAction = 0;
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 9157:// barrows tele to tunnels
@@ -1252,11 +1244,11 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().movePlayer(2507, 4717, 0);
 			} else if (player.dialogueAction == 7) {
 				player.getPlayerAssistant().startTeleport(3088, 3933, 0, "modern");
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"NOTE: You are now in the wilderness...");
 			} else if (player.dialogueAction == 8) {
 				player.getPlayerAssistant().resetBarrows();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"Your barrows have been reset.");
 			} else if (player.dialogueAction == 29) {
 				player.getDialogueHandler().sendDialogues(480, player.npcType);
@@ -1283,7 +1275,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			} else if (player.dialogueAction == 3222) {
 				player.getBarrows().checkCoffins();
-				player.getPlayerAssistant().removeAllWindows();
+				player.getPacketSender().closeAllWindows();
 				return;
 			} else if (player.dialogueAction == 3218) {
 				player.getDialogueHandler().sendDialogues(3219, 0);
@@ -1478,7 +1470,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			player.dialogueAction = 0;
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 9158:
@@ -1572,7 +1564,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			} else if (player.dialogueAction == 21) {
 				Flowers.harvestFlower(player, Flowers.lastObject);
-				player.getPlayerAssistant().removeAllWindows();
+				player.getPacketSender().closeAllWindows();
 			} else if (player.dialogueAction == 3111) {
 				player.getDialogueHandler().sendDialogues(3117, 946);
 				return;
@@ -1581,7 +1573,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			} else if (player.dialogueAction == 151) {
 				player.getDialogueHandler().sendDialogues(3000, player.npcType);
-				player.getPlayerAssistant().removeAllWindows();
+				player.getPacketSender().closeAllWindows();
 				return;
 			} else if (player.dialogueAction == 154) {
 				player.getDialogueHandler().sendDialogues(3135, player.npcType);
@@ -1676,7 +1668,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			player.dialogueAction = 0;
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			break;
 
 		case 9178:
@@ -1687,7 +1679,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().startTeleport(3112, 3410, 0, "modern");
 			} else if (player.objectId == 12165) {
 				if (player.dialogueAction == 122) {
-				player.getActionSender().sendMessage("You can't take the canoe to barbarian village because you're already there!");
+				player.getPacketSender().sendMessage("You can't take the canoe to barbarian village because you're already there!");
 				player.getPlayerAssistant().handleCanoe();
 				}
 			}
@@ -1760,7 +1752,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().startTeleport(3203, 3343, 0, "modern");
 			} else if (player.objectId == 12164) {
 				if (player.dialogueAction == 122) {
-					player.getActionSender().sendMessage("You can't take the canoe to the Champion Guild because you're already there!");
+					player.getPacketSender().sendMessage("You can't take the canoe to the Champion Guild because you're already there!");
 					player.getPlayerAssistant().handleCanoe();
 				}
 			}
@@ -1829,7 +1821,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().startTeleport(3243, 3237, 0, "modern");
 			} else if (player.objectId == 12163) {
 				if (player.dialogueAction == 122) {
-					player.getActionSender().sendMessage("You can't take the canoe to Lumbridge because you're already there!");
+					player.getPacketSender().sendMessage("You can't take the canoe to Lumbridge because you're already there!");
 					player.getPlayerAssistant().handleCanoe();
 				}
 			}
@@ -1898,7 +1890,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().startTeleport(3132, 3509, 0, "modern");
 			} else if (player.objectId == 12166) {
 				if (player.dialogueAction == 122) {
-					player.getActionSender().sendMessage("You can't take the canoe to Edgeville because you're already there!");
+					player.getPacketSender().sendMessage("You can't take the canoe to Edgeville because you're already there!");
 					player.getPlayerAssistant().handleCanoe();
 				}
 			}
@@ -1939,7 +1931,7 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(1231, player.npcType);
 			}
 			if (player.dialogueAction == 485) {
-				player.getPlayerAssistant().closeAllWindows();
+				player.getPacketSender().closeAllWindows();
 			}
 			if (player.dialogueAction == 700) {
 				player.getDialogueHandler().sendDialogues(28, player.npcType);
@@ -2078,22 +2070,22 @@ public class ClickingButtons implements PacketType {
 
 				if (player.duelRule[2] && player.duelRule[3]
 						&& player.duelRule[4]) {
-					player.getActionSender()
+					player.getPacketSender()
 							.sendMessage(
 									"You won't be able to attack the player with the rules you have set.");
 					break;
 				}
 				player.duelStatus = 2;
 				if (player.duelStatus == 2) {
-					player.getPlayerAssistant().sendFrame126(
+					player.getPacketSender().sendFrame126(
 							"Waiting for other player...", 6684);
-					opponent.getPlayerAssistant().sendFrame126(
+					opponent.getPacketSender().sendFrame126(
 							"Other player has accepted.", 6684);
 				}
 				if (opponent.duelStatus == 2) {
-					opponent.getPlayerAssistant().sendFrame126(
+					opponent.getPacketSender().sendFrame126(
 							"Waiting for other player...", 6684);
-					player.getPlayerAssistant().sendFrame126(
+					player.getPacketSender().sendFrame126(
 							"Other player has accepted.", 6684);
 				}
 
@@ -2107,7 +2099,7 @@ public class ClickingButtons implements PacketType {
 				Client o = (Client) PlayerHandler.players[player.duelingWith];
 				player.getDueling().declineDuel();
 				o.getDueling().declineDuel();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't stake out of the Duel Arena.");
 			}
 			break;
@@ -2132,16 +2124,16 @@ public class ClickingButtons implements PacketType {
 					player.duelDelay = System.currentTimeMillis();
 					o1.duelDelay = System.currentTimeMillis();
 				} else {
-					player.getPlayerAssistant().sendFrame126(
+					player.getPacketSender().sendFrame126(
 							"Waiting for other player...", 6571);
-					o1.getPlayerAssistant().sendFrame126(
+					o1.getPacketSender().sendFrame126(
 							"Other player has accepted", 6571);
 				}
 			} else {
 				Client o = (Client) PlayerHandler.players[player.duelingWith];
 				player.getDueling().declineDuel();
 				o.getDueling().declineDuel();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't stake out of the Duel Arena.");
 			}
 			break;
@@ -2160,12 +2152,12 @@ public class ClickingButtons implements PacketType {
 			}
 
 			if (System.currentTimeMillis() - player.godSpellDelay < GameConstants.GOD_SPELL_CHARGE) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You still feel the charge in your body!");
 				break;
 			}
 			player.godSpellDelay = System.currentTimeMillis();
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You feel charged with a magical power!");
 			player.gfx100(MagicData.MAGIC_SPELLS[48][3]);
 			player.startAnimation(MagicData.MAGIC_SPELLS[48][2]);
@@ -2176,7 +2168,7 @@ public class ClickingButtons implements PacketType {
 			if (player.tutorialProgress == 11) {
 				player.getDialogueHandler().sendDialogues(3041, 0);
 			}
-			player.getPlayerAssistant().sendConfig(173, 1);
+			player.getPacketSender().sendConfig(173, 1);
 			player.isRunning2 = true;
 			break;
 
@@ -2185,7 +2177,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}*/
 			player.isRunning2 = false;
-			player.getPlayerAssistant().sendConfig(173, 0);
+			player.getPacketSender().sendConfig(173, 0);
 			break;
 
 		case 9154:
@@ -2196,7 +2188,7 @@ public class ClickingButtons implements PacketType {
 			if (player.isBanking) {	
 				player.takeAsNote = true;
 			} else {
-				player.getActionSender().sendMessage("You must be banking to do this!");
+				player.getPacketSender().sendMessage("You must be banking to do this!");
 			}
 			break;
 
@@ -2204,7 +2196,7 @@ public class ClickingButtons implements PacketType {
 		if (player.isBanking) {
 			player.takeAsNote = false;
 		} else {
-			player.getActionSender().sendMessage("You must be banking to do this!");
+			player.getPacketSender().sendMessage("You must be banking to do this!");
 		}
 		break;
 
@@ -2222,7 +2214,7 @@ public class ClickingButtons implements PacketType {
 		case 14221: // mace
 			player.fightMode = 0;// attack
 			if (player.playerName.equalsIgnoreCase("andrew")) {
-				player.getActionSender().sendMessage("Fight mode = 0.");
+				player.getPacketSender().sendMessage("Fight mode = 0.");
 			}
 			if (player.autocasting) {
 				player.getPlayerAssistant().resetAutocast();
@@ -2241,7 +2233,7 @@ public class ClickingButtons implements PacketType {
 		case 14219: // mace
 			player.fightMode = 1;// def
 			if (player.playerName.equalsIgnoreCase("andrew")) {
-				player.getActionSender().sendMessage("Fight mode = 1.");
+				player.getPacketSender().sendMessage("Fight mode = 1.");
 			}
 			if (player.autocasting) {
 				player.getPlayerAssistant().resetAutocast();
@@ -2264,7 +2256,7 @@ public class ClickingButtons implements PacketType {
 		case 14220: // mace
 			player.fightMode = 2;// shared
 			if (player.playerName.equalsIgnoreCase("andrew")) {
-				player.getActionSender().sendMessage("Fight mode = 2.");
+				player.getPacketSender().sendMessage("Fight mode = 2.");
 			}
 			if (player.autocasting) {
 				player.getPlayerAssistant().resetAutocast();
@@ -2282,7 +2274,7 @@ public class ClickingButtons implements PacketType {
 		case 17100: // longrange (darts)
 			player.fightMode = 3;// block
 			if (player.playerName.equalsIgnoreCase("andrew")) {
-				player.getActionSender().sendMessage("Fight mode = 3.");
+				player.getPacketSender().sendMessage("Fight mode = 3.");
 			}
 			if (player.autocasting) {
 				player.getPlayerAssistant().resetAutocast();
@@ -2385,16 +2377,16 @@ public class ClickingButtons implements PacketType {
 			Client ot = (Client) PlayerHandler.players[player.tradeWith];
 			if (ot == null || !ot.inTrade) {
 				player.getTrading().declineTrade();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"Trade declined as the other player has disconnected.");
 				ot.getTrading().declineTrade();
-				ot.getActionSender().sendMessage(
+				ot.getPacketSender().sendMessage(
 						"Trade declined as you disconnected.");
 				break;
 			}
-			player.getPlayerAssistant().sendFrame126(
+			player.getPacketSender().sendFrame126(
 					"Waiting for other player...", 3431);
-			ot.getPlayerAssistant().sendFrame126("Other player has accepted",
+			ot.getPacketSender().sendFrame126("Other player has accepted",
 					3431);
 			player.goodTrade = true;
 			ot.goodTrade = true;
@@ -2403,7 +2395,7 @@ public class ClickingButtons implements PacketType {
 				if (item.id > 0) {
 					if (ot.getItemAssistant().freeSlots() < player.getTrading().offeredItems
 							.size()) {
-						player.getActionSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								ot.playerName
 										+ " only has "
 										+ ot.getItemAssistant().freeSlots()
@@ -2411,7 +2403,7 @@ public class ClickingButtons implements PacketType {
 										+ (player.getTrading().offeredItems
 												.size() - ot.getItemAssistant()
 												.freeSlots()) + " items.");
-						ot.getActionSender().sendMessage(
+						ot.getPacketSender().sendMessage(
 								player.playerName
 										+ " has to remove "
 										+ (player.getTrading().offeredItems
@@ -2423,15 +2415,15 @@ public class ClickingButtons implements PacketType {
 												.freeSlots()) + " items.");
 						player.goodTrade = false;
 						ot.goodTrade = false;
-						player.getPlayerAssistant().sendFrame126(
+						player.getPacketSender().sendFrame126(
 								"Not enough inventory space...", 3431);
-						ot.getPlayerAssistant().sendFrame126(
+						ot.getPacketSender().sendFrame126(
 								"Not enough inventory space...", 3431);
 						break;
 					} else {
-						player.getPlayerAssistant().sendFrame126(
+						player.getPacketSender().sendFrame126(
 								"Waiting for other player...", 3431);
-						ot.getPlayerAssistant().sendFrame126(
+						ot.getPacketSender().sendFrame126(
 								"Other player has accepted", 3431);
 						player.goodTrade = true;
 						ot.goodTrade = true;
@@ -2467,7 +2459,7 @@ public class ClickingButtons implements PacketType {
 			Client ot1 = (Client) PlayerHandler.players[player.tradeWith];
 			if (ot1 == null) {
 				player.getTrading().declineTrade();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"Trade declined as the other player has disconnected.");
 				break;
 			}
@@ -2481,15 +2473,15 @@ public class ClickingButtons implements PacketType {
 					player.getTrading().giveItems();
 					ot1.getTrading().giveItems();
 					//here
-					player.getActionSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"@red@Trade completed.");
-					ot1.getActionSender().sendMessage(
+					ot1.getPacketSender().sendMessage(
 							"@red@Trade completed.");
 					break;
 				}
-				ot1.getPlayerAssistant().sendFrame126(
+				ot1.getPacketSender().sendFrame126(
 						"Other player has accepted.", 3535);
-				player.getPlayerAssistant().sendFrame126(
+				player.getPacketSender().sendFrame126(
 						"Waiting for other player...", 3535);
 			}
 
@@ -2498,56 +2490,56 @@ public class ClickingButtons implements PacketType {
 		case 74176:
 			if (!player.mouseButton) {
 				player.mouseButton = true;
-				player.getPlayerAssistant().sendConfig(500, 1);
-				player.getPlayerAssistant().sendConfig(170, 1);
+				player.getPacketSender().sendConfig(500, 1);
+				player.getPacketSender().sendConfig(170, 1);
 			} else if (player.mouseButton) {
 				player.mouseButton = false;
-				player.getPlayerAssistant().sendConfig(500, 0);
-				player.getPlayerAssistant().sendConfig(170, 0);
+				player.getPacketSender().sendConfig(500, 0);
+				player.getPacketSender().sendConfig(170, 0);
 			}
 			break;
 		case 3189:
 			if (player.splitChat == false) {
-				player.getPlayerAssistant().sendConfig(502, 1);
-				player.getPlayerAssistant().sendConfig(287, 1);
+				player.getPacketSender().sendConfig(502, 1);
+				player.getPacketSender().sendConfig(287, 1);
 				player.splitChat = true;
 			} else if (player.splitChat == true) {
-				player.getPlayerAssistant().sendConfig(502, 0);
-				player.getPlayerAssistant().sendConfig(287, 0);
+				player.getPacketSender().sendConfig(502, 0);
+				player.getPacketSender().sendConfig(287, 0);
 				player.splitChat = false;
 			}
 			break;
 		case 74180:
 			if (!player.chatEffects) {
 				player.chatEffects = true;
-				player.getPlayerAssistant().sendConfig(501, 1);
-				player.getPlayerAssistant().sendConfig(171, 0);
+				player.getPacketSender().sendConfig(501, 1);
+				player.getPacketSender().sendConfig(171, 0);
 			} else {
 				player.chatEffects = false;
-				player.getPlayerAssistant().sendConfig(501, 0);
-				player.getPlayerAssistant().sendConfig(171, 1);
+				player.getPacketSender().sendConfig(501, 0);
+				player.getPacketSender().sendConfig(171, 1);
 			}
 			break;
 		case 74188:
 			if (!player.acceptAid) {
 				player.acceptAid = true;
-				player.getPlayerAssistant().sendConfig(503, 1);
-				player.getPlayerAssistant().sendConfig(427, 1);
+				player.getPacketSender().sendConfig(503, 1);
+				player.getPacketSender().sendConfig(427, 1);
 			} else {
 				player.acceptAid = false;
-				player.getPlayerAssistant().sendConfig(503, 0);
-				player.getPlayerAssistant().sendConfig(427, 0);
+				player.getPacketSender().sendConfig(503, 0);
+				player.getPacketSender().sendConfig(427, 0);
 			}
 			break;
 		case 74192:
 			if (!player.isRunning2) {
 				player.isRunning2 = true;
-				player.getPlayerAssistant().sendConfig(504, 1);
-				player.getPlayerAssistant().sendConfig(173, 1);
+				player.getPacketSender().sendConfig(504, 1);
+				player.getPacketSender().sendConfig(173, 1);
 			} else {
 				player.isRunning2 = false;
-				player.getPlayerAssistant().sendConfig(504, 0);
-				player.getPlayerAssistant().sendConfig(173, 0);
+				player.getPacketSender().sendConfig(504, 0);
+				player.getPacketSender().sendConfig(173, 0);
 			}
 			break;
 			
@@ -2572,28 +2564,28 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 74206:// area1
-			player.getPlayerAssistant().sendConfig(509, 1);
-			player.getPlayerAssistant().sendConfig(510, 0);
-			player.getPlayerAssistant().sendConfig(511, 0);
-			player.getPlayerAssistant().sendConfig(512, 0);
+			player.getPacketSender().sendConfig(509, 1);
+			player.getPacketSender().sendConfig(510, 0);
+			player.getPacketSender().sendConfig(511, 0);
+			player.getPacketSender().sendConfig(512, 0);
 			break;
 		case 74207:// area2
-			player.getPlayerAssistant().sendConfig(509, 0);
-			player.getPlayerAssistant().sendConfig(510, 1);
-			player.getPlayerAssistant().sendConfig(511, 0);
-			player.getPlayerAssistant().sendConfig(512, 0);
+			player.getPacketSender().sendConfig(509, 0);
+			player.getPacketSender().sendConfig(510, 1);
+			player.getPacketSender().sendConfig(511, 0);
+			player.getPacketSender().sendConfig(512, 0);
 			break;
 		case 74208:// area3
-			player.getPlayerAssistant().sendConfig(509, 0);
-			player.getPlayerAssistant().sendConfig(510, 0);
-			player.getPlayerAssistant().sendConfig(511, 1);
-			player.getPlayerAssistant().sendConfig(512, 0);
+			player.getPacketSender().sendConfig(509, 0);
+			player.getPacketSender().sendConfig(510, 0);
+			player.getPacketSender().sendConfig(511, 1);
+			player.getPacketSender().sendConfig(512, 0);
 			break;
 		case 74209:// area4
-			player.getPlayerAssistant().sendConfig(509, 0);
-			player.getPlayerAssistant().sendConfig(510, 0);
-			player.getPlayerAssistant().sendConfig(511, 0);
-			player.getPlayerAssistant().sendConfig(512, 1);
+			player.getPacketSender().sendConfig(509, 0);
+			player.getPacketSender().sendConfig(510, 0);
+			player.getPacketSender().sendConfig(511, 0);
+			player.getPacketSender().sendConfig(512, 1);
 			break;
 
 		case 24017:

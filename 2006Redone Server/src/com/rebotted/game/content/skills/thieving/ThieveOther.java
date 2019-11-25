@@ -25,7 +25,7 @@ public class ThieveOther {
 			int x = element[1];
 			int y = element[2];
 			if (objectType == objectId && client.absX == x && client.absY == y) {
-				client.getActionSender().sendMessage("The door is locked.");
+				client.getPacketSender().sendMessage("The door is locked.");
 				return false;
 			}
 		}
@@ -34,47 +34,47 @@ public class ThieveOther {
 	
 	public static void stealFromChest(Client client, int level, int exp, int reward, int amount) {
 		if (client.playerLevel[client.playerThieving] < level) {
-			client.getActionSender().sendMessage("You need " + level + " thieving to thieve this chest.");
+			client.getPacketSender().sendMessage("You need " + level + " thieving to thieve this chest.");
 			return;
 		}
 		if (!SkillHandler.THIEVING) {
-			client.getActionSender().sendMessage("Thieving is currently disabled.");
+			client.getPacketSender().sendMessage("Thieving is currently disabled.");
 			return;
 		}
 		client.getItemAssistant().addItem(reward, amount);
 		client.getPlayerAssistant().addSkillXP(exp, client.playerThieving);
-		client.getActionSender().sendMessage("You steal " + ItemAssistant.getItemName(reward) + " from the chest.");
+		client.getPacketSender().sendMessage("You steal " + ItemAssistant.getItemName(reward) + " from the chest.");
 	}
 	
 	public static void pickLock(final Client client, int level, final double exp, final int x, final int y, final int hardness, boolean lock) {
 		if (!client.getItemAssistant().playerHasItem(1523, 1) && lock) {
-			client.getActionSender().sendMessage("You need a lock pick to do that.");
+			client.getPacketSender().sendMessage("You need a lock pick to do that.");
 			return;
 		}
 		if (client.playerLevel[client.playerThieving] < level) {
-			client.getActionSender().sendMessage("You need " + level + " thieving to thieve this chest.");
+			client.getPacketSender().sendMessage("You need " + level + " thieving to thieve this chest.");
 			return;
 		}
 		if (!SkillHandler.THIEVING) {
-			client.getActionSender().sendMessage("Thieving is currently disabled.");
+			client.getPacketSender().sendMessage("Thieving is currently disabled.");
 			return;
 		}
 		if (isPicking == true) {
-			client.getActionSender().sendMessage("You are already picking a lock.");
+			client.getPacketSender().sendMessage("You are already picking a lock.");
 			return;
 		}
 		isPicking = true;
-		client.getActionSender().sendMessage("You attempt to pick the lock.");
+		client.getPacketSender().sendMessage("You attempt to pick the lock.");
 		CycleEventHandler.getSingleton().addEvent(client, new CycleEvent() {
 			@Override
 				public void execute(CycleEventContainer container) {
 				if (Misc.random(10) < hardness) {
-					client.getActionSender().sendMessage("You fail to pick the lock.");
+					client.getPacketSender().sendMessage("You fail to pick the lock.");
 					container.stop();
 					return;
 				}
 				client.getPlayerAssistant().movePlayer(x, y, client.heightLevel);
-				client.getActionSender().sendMessage("You manage to pick the lock.");
+				client.getPacketSender().sendMessage("You manage to pick the lock.");
 				client.getPlayerAssistant().addSkillXP(exp, client.playerThieving);
 				container.stop();
 			}

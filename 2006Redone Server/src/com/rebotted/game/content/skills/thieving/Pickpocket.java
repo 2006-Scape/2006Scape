@@ -169,11 +169,11 @@ public class Pickpocket extends SkillHandler {
 			return;
 		}
 		if (c.underAttackBy > 0 || c.underAttackBy2 > 0) {
-			c.getActionSender().sendMessage("You can't pickpocket while in combat!");
+			c.getPacketSender().sendMessage("You can't pickpocket while in combat!");
 			return;
 		}
 		if (!THIEVING) {
-			c.getActionSender().sendMessage("This skill is currently disabled.");
+			c.getPacketSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
 		// membersOnly();
@@ -183,7 +183,7 @@ public class Pickpocket extends SkillHandler {
 					c.getDialogueHandler().sendStatement("You need a Thieving level of " + n.getLevel() + " to pickpocket the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + ".");
 					return;
 				}
-				c.getActionSender().sendMessage("You attempt to pick the  " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
+				c.getPacketSender().sendMessage("You attempt to pick the  " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
 				c.startAnimation(881);
 				if (Misc.random(c.playerLevel[17] + 5) < Misc.random(n.getLevel())) {
 					RandomEventHandler.addRandom(c);
@@ -204,7 +204,7 @@ public class Pickpocket extends SkillHandler {
 							NpcHandler.npcs[npcId].forceChat("What do you think you're doing?");
 							NpcHandler.npcs[npcId].facePlayer(c.playerId);
 							c.lastThieve = System.currentTimeMillis() + 5000;
-							c.getActionSender().sendMessage("You fail to pick the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
+							c.getPacketSender().sendMessage("You fail to pick the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
 							container.stop();
 						}
 						@Override
@@ -234,7 +234,7 @@ public class Pickpocket extends SkillHandler {
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							c.getActionSender().sendMessage(message2);
+							c.getPacketSender().sendMessage(message2);
 							c.getPlayerAssistant().addSkillXP((int) n.getXp(),
 									c.playerThieving);
 							int[] random = n.getPickPockets()[Misc.random(n

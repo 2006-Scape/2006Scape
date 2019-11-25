@@ -118,7 +118,7 @@ public class FightCaves {
 						int def = getDef(npc);
 						NpcHandler.spawnNpc(player, npc, X, Y, H, 0, hp, max, atk, def, true, false);	
 					}
-				player.getActionSender().sendMessage("You are now on wave @red@" + wave + "@bla@.");
+				player.getPacketSender().sendMessage("You are now on wave @red@" + wave + "@bla@.");
 				} else if (player.waveId == 62) {
 					player.getDialogueHandler().sendDialogues(102, 2617);
 					int a = Misc.random(1);
@@ -131,7 +131,7 @@ public class FightCaves {
 					int atk = getAtk(npc);
 					int def = getDef(npc);
 					NpcHandler.spawnNpc(player, npc, X, Y, H, 0, hp, max, atk, def, true, false);
-					player.getActionSender().sendMessage("You are now on wave @red@63@bla@.");
+					player.getPacketSender().sendMessage("You are now on wave @red@63@bla@.");
 				}
 			player.tzhaarToKill = npcAmount;
 			player.tzhaarKilled = 0;
@@ -330,13 +330,13 @@ public class FightCaves {
 			c.getItemAssistant().addItem(6570, 1);
 			c.getItemAssistant().addItem(6529, 8032);
 			c.getDialogueHandler().sendDialogues(103, 2617);
-			c.getActionSender().sendMessage("You were victorious!");
+			c.getPacketSender().sendMessage("You were victorious!");
 			c.getPlayerAssistant().resetTzhaar();
 			c.killedJad = true;
 			c.waveId = 300;
 			c.setSpecialTarget(null);
 		} else {
-			c.getActionSender().sendMessage("You must be in the fight caves to do this.");
+			c.getPacketSender().sendMessage("You must be in the fight caves to do this.");
 		}
 	}
 	

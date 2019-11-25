@@ -38,7 +38,7 @@ public class GlassBlowing {
         
         public void showInterface() {
             if(!started) {
-                c.getPlayerAssistant().showInterface(11462);
+                c.getPacketSender().showInterface(11462);
             }
         }
         
@@ -55,25 +55,25 @@ public class GlassBlowing {
             for(int i = 0; i < data.length; i++) {
                 if(data[i][0] == buttonId) {
                    makeItem(data[i][1], 1, i);
-                   c.getPlayerAssistant().closeAllWindows();
+                   c.getPacketSender().closeAllWindows();
                    break;
                 }
                                
                 if(data[i][0] == buttonId+1) {
                    makeItem(data[i][1], 5, i);
-                   c.getPlayerAssistant().closeAllWindows();
+                   c.getPacketSender().closeAllWindows();
                    break;
                 }
                                 
                 if(data[i][0] == buttonId+2) {
                    makeItem(data[i][1], 10, i);
-                   c.getPlayerAssistant().closeAllWindows();
+                   c.getPacketSender().closeAllWindows();
                    break;
                 }
                                 
                 if(data[i][0] == buttonId+3) {
                    makeItem(data[i][1], 28, i);
-                   c.getPlayerAssistant().closeAllWindows();
+                   c.getPacketSender().closeAllWindows();
                    break;
                 }
             }
@@ -82,7 +82,7 @@ public class GlassBlowing {
         
         public void makeItem(final int id, final int amount, final int slot) {
             if(c.playerLevel[GameConstants.CRAFTING] < data[slot][2]) {
-				c.getActionSender().sendMessage("You need a crafting level of "+data[slot][2]+" make a "+ItemAssistant.getItemName(id)+"");
+				c.getPacketSender().sendMessage("You need a crafting level of "+data[slot][2]+" make a "+ItemAssistant.getItemName(id)+"");
                 return;
             }
             if(!started) {

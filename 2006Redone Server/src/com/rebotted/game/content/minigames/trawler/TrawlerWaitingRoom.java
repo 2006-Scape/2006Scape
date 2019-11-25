@@ -55,9 +55,9 @@ public class TrawlerWaitingRoom extends WaitingRoom {
                 //p.asClient().getPA().movePlayer(2808, 3421, 1);
                 p.getPlayerAssistant().movePlayer(2672, 3170, 1);
                 if(!isActive()) {
-                        p.getActionSender().sendMessage(trawler.getGameTime() == 0 ? "The trawler will be returning in less than a minute!" : "The trawler will return in "+trawler.getGameTime() + (trawler.getGameTime() == 1 ? " minute" : " minutes")+"!");
+                        p.getPacketSender().sendMessage(trawler.getGameTime() == 0 ? "The trawler will be returning in less than a minute!" : "The trawler will return in "+trawler.getGameTime() + (trawler.getGameTime() == 1 ? " minute" : " minutes")+"!");
                 } else {
-                        p.getActionSender().sendMessage(getTimeRemaining() == 0 ? "The trawler will be leaving in less than a minute!" : "The trawler will leave in "+ getTimeRemaining() + (getTimeRemaining() == 1 ? " minute" : " minutes")+"!");
+                        p.getPacketSender().sendMessage(getTimeRemaining() == 0 ? "The trawler will be leaving in less than a minute!" : "The trawler will leave in "+ getTimeRemaining() + (getTimeRemaining() == 1 ? " minute" : " minutes")+"!");
                 }
         }
  
@@ -69,9 +69,9 @@ public class TrawlerWaitingRoom extends WaitingRoom {
         public void onTimeChange() {
                 for(Client p : waiting) {
                         if(!isActive()) {
-                                p.getActionSender().sendMessage(trawler.getGameTime() == 0 ? "The trawler will be returning in less than a minute!" : "The trawler will return in "+trawler.getGameTime() + (trawler.getGameTime() == 1 ? " minute" : " minutes")+"!");
+                                p.getPacketSender().sendMessage(trawler.getGameTime() == 0 ? "The trawler will be returning in less than a minute!" : "The trawler will return in "+trawler.getGameTime() + (trawler.getGameTime() == 1 ? " minute" : " minutes")+"!");
                         } else {
-                                p.getActionSender().sendMessage(getTimeRemaining() == 0 ? "The trawler will be leaving in less than a minute!" : "The trawler will leave in "+ getTimeRemaining() + (getTimeRemaining() == 1 ? " minute" : " minutes")+"!");
+                                p.getPacketSender().sendMessage(getTimeRemaining() == 0 ? "The trawler will be leaving in less than a minute!" : "The trawler will leave in "+ getTimeRemaining() + (getTimeRemaining() == 1 ? " minute" : " minutes")+"!");
                         }
                 }
         }

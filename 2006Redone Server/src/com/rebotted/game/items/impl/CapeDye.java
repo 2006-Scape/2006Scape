@@ -48,10 +48,10 @@ public enum CapeDye {
 	
 		public static boolean blockDye(Client player, CapeDye dye, int itemUsed, int useWith) {
 			if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && Item.itemIsNote[useWith]) {
-				player.getActionSender().sendMessage("You can't dye a noted cape.");
+				player.getPacketSender().sendMessage("You can't dye a noted cape.");
 				return true;
 			} else if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && useWith == dye.getReward() && !Item.itemIsNote[useWith]) {
-				player.getActionSender().sendMessage("That cape is already that color.");
+				player.getPacketSender().sendMessage("That cape is already that color.");
 				return true;
 			} else if (itemUsed == dye.getItemUsed() && !ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape")) {
 				return true;

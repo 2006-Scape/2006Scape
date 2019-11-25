@@ -17,20 +17,20 @@ public class PassDoor {
 	
 	public static boolean passThroughDoor(final Client client, final int objectType, int face1, final int face2, final int type, int x, int y, final int height) {
 		if (System.currentTimeMillis() - doorDelay < 1200) {
-			client.getActionSender().sendMessage("You must wait longer to pass this door.");
+			client.getPacketSender().sendMessage("You must wait longer to pass this door.");
 			return false;
 		}
 
 		final int objX = client.objectX;
 		final int objY = client.objectY;
 
-		client.getActionSender().object(objectType, objX, objY, height, face1, type);
+		client.getPacketSender().object(objectType, objX, objY, height, face1, type);
 		client.getPlayerAssistant().walkTo(x, y);
 		client.stopPlayer = true;
 		CycleEventHandler.getSingleton().addEvent(client, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				client.getActionSender().object(objectType, objX, objY, height, face2, type);
+				client.getPacketSender().object(objectType, objX, objY, height, face2, type);
 				container.stop();
 			}
 

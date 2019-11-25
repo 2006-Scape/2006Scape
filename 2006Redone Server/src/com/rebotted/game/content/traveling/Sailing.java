@@ -42,7 +42,7 @@ public class Sailing {
 			return false;
 		}
 		player.getItemAssistant().deleteItem(995, 1000);
-		player.getActionSender().sendMessage("Your free to go and pay the 1000 coins.");
+		player.getPacketSender().sendMessage("Your free to go and pay the 1000 coins.");
 		return true;
 	}
 
@@ -53,7 +53,7 @@ public class Sailing {
 			return false;
 		}
 		player.getItemAssistant().deleteItem(995, 30);
-		player.getActionSender().sendMessage("Your free to go and pay the 30 coins.");
+		player.getPacketSender().sendMessage("Your free to go and pay the 30 coins.");
 		return true;
 	}
 
@@ -65,7 +65,7 @@ public class Sailing {
 				return false;
 			}
 		}
-		player.getActionSender().sendMessage(
+		player.getPacketSender().sendMessage(
 				"Your clean of any possible alchohol.");
 		return true;
 	}
@@ -78,7 +78,7 @@ public class Sailing {
 				return false;
 			}
 		}
-		player.getActionSender().sendMessage("Your clean of any possible weapons.");
+		player.getPacketSender().sendMessage("Your clean of any possible weapons.");
 		return true;
 	}
 
@@ -104,8 +104,8 @@ public class Sailing {
 			}
 		}
 		player.stopPlayerPacket = true;
-		player.getPlayerAssistant().showInterface(3281);
-		player.getPlayerAssistant().sendConfig(75, i);
+		player.getPacketSender().showInterface(3281);
+		player.getPacketSender().sendConfig(75, i);
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
@@ -122,8 +122,8 @@ public class Sailing {
 			@Override
 			public void execute(CycleEventContainer container) {
 				player.stopPlayerPacket = false;
-				player.getPlayerAssistant().sendConfig(75, -1);
-				player.getPlayerAssistant().closeAllWindows();
+				player.getPacketSender().sendConfig(75, -1);
+				player.getPacketSender().closeAllWindows();
 				player.getDialogueHandler().sendStatement("You arrive safely.");
 				player.nextChat = 0;
 				container.stop();

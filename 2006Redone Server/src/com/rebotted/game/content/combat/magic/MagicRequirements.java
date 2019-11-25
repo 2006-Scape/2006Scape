@@ -51,7 +51,7 @@ public class MagicRequirements {
 							MagicData.MAGIC_SPELLS[spell][14],
 							MagicData.MAGIC_SPELLS[spell][15])
 					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][14])) {
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage(
 								"You don't have the required runes to cast this spell.");
 				return false;
@@ -76,7 +76,7 @@ public class MagicRequirements {
 					}
 				}
 				if (!PlayerHandler.players[c.playerIndex].canUseReducingSpell[c.reduceSpellId]) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"That player is currently immune to this spell.");
 					c.usingMagic = false;
 					c.stopMovement();
@@ -90,7 +90,7 @@ public class MagicRequirements {
 		if (c.usingMagic && staffRequired > 0 && MagicTeleports.RUNES_REQUIRED) { // staff
 																			// required
 			if (c.playerEquipment[c.playerWeapon] != staffRequired) {
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage(
 								"You need a "
 										+ ItemAssistant.getItemName(
@@ -102,7 +102,7 @@ public class MagicRequirements {
 
 		if (c.usingMagic && MagicTeleports.MAGIC_LEVEL_REQUIRED) { // check magic level
 			if (c.playerLevel[6] < MagicData.MAGIC_SPELLS[spell][1]) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need to have a magic level of "
 								+ MagicData.MAGIC_SPELLS[spell][1]
 								+ " to cast this spell.");

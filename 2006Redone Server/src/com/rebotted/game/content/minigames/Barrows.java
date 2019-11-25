@@ -98,7 +98,7 @@ public class Barrows {
 		} else if (c.absX == 2999 && c.absY == 3383 && c.pirateTreasure == 5) {
 				QuestRewards.pirateFinish(c);
 		} else {
-			c.getActionSender().sendMessage("You don't find anything...");
+			c.getPacketSender().sendMessage("You don't find anything...");
 		}
 	}
 	
@@ -128,7 +128,7 @@ public class Barrows {
 			break;
 			}
 		} else {
-			c.getActionSender().sendMessage("You have to be in barrows to do this!");
+			c.getPacketSender().sendMessage("You have to be in barrows to do this!");
 		}
 	}
 	
@@ -136,33 +136,33 @@ public class Barrows {
 	public void checkCoffins() {
 		if (c.isInBarrows2()) {
 			if (c.barrowsKillCount < 5) {
-				c.getActionSender().sendMessage("You still have to kill the following brothers:");
+				c.getPacketSender().sendMessage("You still have to kill the following brothers:");
 				if (c.barrowsNpcs[2][1] == 0) {
-					c.getActionSender().sendMessage("- Karils");
+					c.getPacketSender().sendMessage("- Karils");
 				}
 				if (c.barrowsNpcs[3][1] == 0) {
-					c.getActionSender().sendMessage("- Guthans");
+					c.getPacketSender().sendMessage("- Guthans");
 				}
 				if (c.barrowsNpcs[1][1] == 0) {
-					c.getActionSender().sendMessage("- Torags");
+					c.getPacketSender().sendMessage("- Torags");
 				}
 				if (c.barrowsNpcs[5][1] == 0) {
-					c.getActionSender().sendMessage("- Ahrims");
+					c.getPacketSender().sendMessage("- Ahrims");
 				}
 				if (c.barrowsNpcs[0][1] == 0) {
-					c.getActionSender().sendMessage("- Veracs");
+					c.getPacketSender().sendMessage("- Veracs");
 				}
-				c.getPlayerAssistant().removeAllWindows();
+				c.getPacketSender().closeAllWindows();
 			} else if (c.barrowsKillCount == 5) {
 				NpcHandler.spawnNpc(c, 2026, c.getX(), c.getY()-1, 3, 0, 120, 25, 200, 200, true, true);
-				c.getPlayerAssistant().removeAllWindows();
+				c.getPacketSender().closeAllWindows();
 			} else if (c.barrowsKillCount > 5) {
-				c.getPlayerAssistant().movePlayer(3551, 9694, 0);
-				c.getActionSender().sendMessage("You teleport to the chest.");
-				c.getPlayerAssistant().removeAllWindows();
+					c.getPlayerAssistant().movePlayer(3551, 9694, 0);
+					c.getPacketSender().sendMessage("You teleport to the chest.");
+					c.getPacketSender().closeAllWindows();
 				}
 			} else {
-				c.getActionSender().sendMessage("You have to be in barrows to do this!");
+				c.getPacketSender().sendMessage("You have to be in barrows to do this!");
 			}
 		}
 	
@@ -190,7 +190,7 @@ public class Barrows {
 				c.getItemAssistant().addItem(randomBarrows(), 1);
 			}
 		} else {
-			c.getActionSender().sendMessage("You have to be in barrows to do this!");
+			c.getPacketSender().sendMessage("You have to be in barrows to do this!");
 		}
 	}
 	
@@ -216,7 +216,7 @@ public class Barrows {
 	public void useChest() {
 	if (c.isInBarrows2()) {
 		if (!checkBarrows()) {
-			c.getActionSender().sendMessage("You haven't killed all the brothers!");
+			c.getPacketSender().sendMessage("You haven't killed all the brothers!");
 			return;
 		}
 		if (c.barrowsKillCount == 5) {
@@ -230,11 +230,11 @@ public class Barrows {
 				reward();
 				resetBarrows();
 			} else {
-					c.getActionSender().sendMessage("You need more inventory slots to open the chest.");
+					c.getPacketSender().sendMessage("You need more inventory slots to open the chest.");
 				}
 			}
 		} else {
-			c.getActionSender().sendMessage("You have to be in barrows to do this!");
+			c.getPacketSender().sendMessage("You have to be in barrows to do this!");
 		}
 	}
 	
@@ -247,7 +247,7 @@ public class Barrows {
 				if (c.playerItems[j] - 1 == c.getItemAssistant().brokenBarrows[i][1]) {
 					if (totalCost + 80000 > cashAmount) {
 						breakOut = true;
-						c.getActionSender().sendMessage("You have run out of money.");
+						c.getPacketSender().sendMessage("You have run out of money.");
 						break;
 					} else {
 						totalCost += 80000;

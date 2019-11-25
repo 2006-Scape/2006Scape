@@ -11,7 +11,7 @@ public class ClickTab implements PacketType {
 		switch (packetSize) {
 		case 1:// first part.
 			if (c.tutorialProgress == 0) { // wrench
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -20,10 +20,10 @@ public class ClickTab implements PacketType {
 								"to selecting whether your player should accept help from",
 								"other players. Don't worry about these too much for now.",
 								"@blu@Player controls");
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 				c.tutorialProgress = 1;
 			} else if (c.tutorialProgress == 3) { // backpack
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -32,10 +32,10 @@ public class ClickTab implements PacketType {
 								"that you now have an axe in your inventory. Use this to get",
 								"some logs by clicking on one of the trees in the area.",
 								"Cut down a tree");
-				c.getActionSender().createArrow(3099, 3095, c.getH(), 2);
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().createArrow(3099, 3095, c.getH(), 2);
+				c.getPacketSender().chatbox(6179);
 			} else if (c.tutorialProgress == 4) { // Skills tab
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -45,10 +45,10 @@ public class ClickTab implements PacketType {
 								"have and how much is needed to get to the next level.",
 								"Your skill stats");
 				c.tutorialProgress = 5;
-				c.getActionSender().chatbox(6179);
-				c.getActionSender().createArrow(1, 2);
+				c.getPacketSender().chatbox(6179);
+				c.getPacketSender().createArrow(1, 2);
 			} else if (c.tutorialProgress == 9) { // Music tab
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -57,11 +57,11 @@ public class ClickTab implements PacketType {
 								"unlocked. Once you've examined this menu use the next door",
 								"to continue. If you need a recap, talk to the Master Chef",
 								"The music player");
-				c.getActionSender().createArrow(3073, 3090, c.getH(), 2);
+				c.getPacketSender().createArrow(3073, 3090, c.getH(), 2);
 				c.tutorialProgress = 10;
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 			} else if (c.tutorialProgress == 10) { // Emotes aNd running
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -70,9 +70,9 @@ public class ClickTab implements PacketType {
 								"that some of the emotes are grey and cannot be used now.",
 								"As you progress further into the game you'll gain more.",
 								"Emotes");
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 			} else if (c.tutorialProgress == 12) { // Quest Tab
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -81,9 +81,9 @@ public class ClickTab implements PacketType {
 								"Talk to the Quest Guide again for an explaination.",
 								"", "Your Quest Journal");
 				c.tutorialProgress = 13;
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 			} else if (c.tutorialProgress == 21) { // Worn inventory
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -91,10 +91,10 @@ public class ClickTab implements PacketType {
 								"to the left of the screen with their combined statistics on the",
 								"right. Let's add something. Left click your dagger to 'wield' it.",
 								"", "Worn interface");
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 				c.tutorialProgress = 22;
 			} else if (c.tutorialProgress == 23) { // Attack syle tabs
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -104,29 +104,29 @@ public class ClickTab implements PacketType {
 								"will see the type of XP you will receive when using each attack.",
 								"This is your combat interface");
 				c.tutorialProgress = 24;
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 				c.getItemAssistant()
 						.sendWeapon(
 								c.playerEquipment[c.playerWeapon],
 								ItemAssistant
 										.getItemName(c.playerEquipment[c.playerWeapon]));
-				c.getActionSender().createArrow(3111, 9518, c.getH(), 2);
+				c.getPacketSender().createArrow(3111, 9518, c.getH(), 2);
 			} else if (c.tutorialProgress == 29) { // Prayer
 				c.getDialogueHandler().sendDialogues(3092, 222);
 			} else if (c.tutorialProgress == 30) { // friends tab
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
 								"This will be explaing by Brother Brace shortly, but first click",
 								"on the other flashing face to the right of your screen.",
 								"", "", "This is your friends list");
-				c.getActionSender().setSidebarInterface(9, 5715);
-				c.getActionSender().flashSideBarIcon(-9);
+				c.getPacketSender().setSidebarInterface(9, 5715);
+				c.getPacketSender().flashSideBarIcon(-9);
 				c.tutorialProgress = 31;
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 			} else if (c.tutorialProgress == 31) { // ignores tab
-				c.getActionSender().chatbox(6180);
+				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -135,7 +135,7 @@ public class ClickTab implements PacketType {
 								"messages from people you simply don't like. Speak with",
 								"Brother Brace and he will tell you more.",
 								"This is your ignore list");
-				c.getActionSender().chatbox(6179);
+				c.getPacketSender().chatbox(6179);
 			} else if (c.tutorialProgress == 32) { // Final magic tab
 				c.tutorialProgress = 33;
 				c.getDialogueHandler().sendDialogues(3108, 946);

@@ -21,7 +21,7 @@ public class HandleEmpty {
 			if (id != 1712 && id != 1710 && id != 1708 && id != 1706) {
 				c.getItemAssistant().deleteItem(id, c.getItemAssistant().getItemSlot(id), 1);
 				c.getItemAssistant().addItem(229, 1);
-				c.getActionSender().sendMessage("You empty the vial.");
+				c.getPacketSender().sendMessage("You empty the vial.");
 				}
 			}
 		}
@@ -43,10 +43,10 @@ public class HandleEmpty {
 
 	public static void handleEmptyItem(Client c, int itemId, int giveItem) {
 		final String name = ItemAssistant.getItemName(itemId);
-		c.getActionSender().sendMessage("You empty your " + name + ".");
+		c.getPacketSender().sendMessage("You empty your " + name + ".");
 		c.getItemAssistant().deleteItem(itemId, 1);
 		c.getItemAssistant().addItem(giveItem, 1);
-		c.getActionSender().sendSound(SoundList.EMPTY, 100, 0);
+		c.getPacketSender().sendSound(SoundList.EMPTY, 100, 0);
 	}
 
 }

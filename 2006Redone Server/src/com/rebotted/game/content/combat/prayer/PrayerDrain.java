@@ -28,7 +28,7 @@ public class PrayerDrain {
 		if (c.playerLevel[5] - 1 > 0) {
 			c.playerLevel[5] -= 1;
 		} else {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You have run out of prayer points!");
 			c.playerLevel[5] = 0;
 			resetPrayers(c);
@@ -40,7 +40,7 @@ public class PrayerDrain {
 	public static void resetPrayers(Client c) {
 		for (int i = 0; i < c.getPrayer().prayerActive.length; i++) {
 			c.getPrayer().prayerActive[i] = false;
-			c.getPlayerAssistant().sendConfig(c.getPrayer().PRAYER_GLOW[i], 0);
+			c.getPacketSender().sendConfig(c.getPrayer().PRAYER_GLOW[i], 0);
 		}
 		c.headIcon = -1;
 		c.getPlayerAssistant().requestUpdates();

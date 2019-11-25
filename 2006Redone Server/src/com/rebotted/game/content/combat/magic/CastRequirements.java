@@ -10,7 +10,7 @@ public class CastRequirements {
 				return true;
 			}
 		}
-		c.getActionSender().sendMessage(
+		c.getPacketSender().sendMessage(
 				"You don't have enough required runes to cast this spell!");
 		return false;
 	}

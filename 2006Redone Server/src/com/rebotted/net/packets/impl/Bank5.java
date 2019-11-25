@@ -54,7 +54,7 @@ public class Bank5 implements PacketType {
 				break;
 			}
 			if (player.inTrade) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't store items while trading!");
 				return;
 			}

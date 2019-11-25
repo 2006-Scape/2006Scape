@@ -62,7 +62,7 @@ public class CombatAssistant {
 				NpcHandler.npcs[i].updateRequired = true;
 			}
 			if (GameConstants.COMBAT_SOUNDS && NpcHandler.npcs[i].npcType < 3177 && NpcHandler.npcs[i].npcType > 3180) {
-				c.getActionSender().sendSound(CombatSounds.getNpcBlockSound(NpcHandler.npcs[c.oldNpcIndex].npcType), 100, 0);
+				c.getPacketSender().sendSound(CombatSounds.getNpcBlockSound(NpcHandler.npcs[c.oldNpcIndex].npcType), 100, 0);
 			}
 			NpcHandler.npcs[i].facePlayer(c.playerId);
 			if (NpcHandler.npcs[i].underAttackBy > 0 && GameEngine.npcHandler.getsPulled(c, i)) {
@@ -532,7 +532,7 @@ public class CombatAssistant {
 			}*/
 			if (c.usingMagic && MagicData.MAGIC_SPELLS[c.spellId][0] == 1171) {
 				if (!NpcHandler.isUndead(i)) {
-					c.getActionSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades.");
+					c.getPacketSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades.");
 					resetPlayerAttack();
 					c.stopMovement();
 					c.npcIndex = 0;
@@ -564,39 +564,39 @@ public class CombatAssistant {
 			}
 			if (NpcHandler.npcs[i].npcType == 757 && c.vampSlayer > 2) {
 				if (!c.getItemAssistant().playerHasItem(1549, 1) || !c.getItemAssistant().playerHasItem(2347, 1)) {
-					c.getActionSender().sendMessage("You need a stake and hammer to attack count draynor.");
+					c.getPacketSender().sendMessage("You need a stake and hammer to attack count draynor.");
 					resetPlayerAttack();
 					return;
 				}
 			}
 			if (c.isWoodcutting == true) {
-				c.getActionSender().sendMessage("You can't attack an npc while woodcutting.");
+				c.getPacketSender().sendMessage("You can't attack an npc while woodcutting.");
 				resetPlayerAttack();
 				return;
 			}
 			if (NpcHandler.npcs[i].npcType == 1676) {
-				c.getActionSender().sendMessage("You don't have the heart to kill the poor creature again.");
+				c.getPacketSender().sendMessage("You don't have the heart to kill the poor creature again.");
 				resetPlayerAttack();
 				return;
 			}
 			if (NpcHandler.npcs[i].npcType == 411) {
-				c.getActionSender().sendMessage("You can't attack a swarm!");
+				c.getPacketSender().sendMessage("You can't attack a swarm!");
 				resetPlayerAttack();
 				return;
 			}
 			if (NpcHandler.npcs[i].underAttackBy > 0 && NpcHandler.npcs[i].underAttackBy != c.playerId && !NpcHandler.npcs[i].inMulti()) {
 				c.npcIndex = 0;
-				c.getActionSender().sendMessage("This monster is already in combat.");
+				c.getPacketSender().sendMessage("This monster is already in combat.");
 				return;
 			}
 			if ((c.underAttackBy > 0 || c.underAttackBy2 > 0) && c.underAttackBy2 != i && !c.inMulti()) {
 				resetPlayerAttack();
-				c.getActionSender().sendMessage("I am already under attack.");
+				c.getPacketSender().sendMessage("I am already under attack.");
 				return;
 			}
 			if (NpcHandler.npcs[i].spawnedBy != c.playerId && NpcHandler.npcs[i].spawnedBy > 0) {
 				resetPlayerAttack();
-				c.getActionSender().sendMessage("This monster was not spawned for you.");
+				c.getPacketSender().sendMessage("This monster was not spawned for you.");
 				return;
 			}
 
@@ -647,7 +647,7 @@ public class CombatAssistant {
 						&& GameConstants.COMBAT_SOUNDS
 						&& NpcHandler.npcs[i].npcType < 3177
 						&& NpcHandler.npcs[i].npcType > 3180) {
-					c.getActionSender().sendSound(SoundList.SHOOT_ARROW,
+					c.getPacketSender().sendSound(SoundList.SHOOT_ARROW,
 							100, 0);
 				}
 
@@ -670,7 +670,7 @@ public class CombatAssistant {
 						&& !usingArrows
 						&& c.usingBow
 						&& (c.playerEquipment[c.playerWeapon] < 4212 || c.playerEquipment[c.playerWeapon] > 4223)) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"There is no ammo left in your quiver.");
 					c.stopMovement();
 					c.npcIndex = 0;
@@ -682,7 +682,7 @@ public class CombatAssistant {
 						&& c.playerEquipment[c.playerWeapon] != 9185) {
 					c.getItemAssistant();
 					c.getItemAssistant();
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You can't use "
 									+ ItemAssistant.getItemName(
 											c.playerEquipment[c.playerArrows])
@@ -697,7 +697,7 @@ public class CombatAssistant {
 				}
 
 				if (c.playerEquipment[c.playerWeapon] == 9185 && !properBolts()) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You must use bolts with a crossbow.");
 					c.stopMovement();
 					resetPlayerAttack();
@@ -732,13 +732,13 @@ public class CombatAssistant {
 								c.playerEquipment[c.playerWeapon], i);
 						return;
 					} else {
-						c.getActionSender()
+						c.getPacketSender()
 								.sendMessage(
 										"You don't have the required special energy to use this attack.");
 						c.usingSpecial = false;
 						c.getItemAssistant().updateSpecialBar();
 						if (GameConstants.COMBAT_SOUNDS) {
-							c.getActionSender()
+							c.getPacketSender()
 									.sendSound(
 											CombatSounds
 													.specialSounds(c.playerEquipment[c.playerWeapon]),
@@ -751,13 +751,13 @@ public class CombatAssistant {
 				c.specMaxHitIncrease = 0;
 				if (!c.usingMagic) {
 					if (GameConstants.COMBAT_SOUNDS) {
-						c.getActionSender().sendSound(
+						c.getPacketSender().sendSound(
 								CombatSounds.getWeaponSounds(c), 100, 0);
 					}
 					c.startAnimation(getWepAnim());
 				} else {
 					if (GameConstants.COMBAT_SOUNDS) {
-						c.getActionSender().sendSound(
+						c.getPacketSender().sendSound(
 								CombatSounds.getMagicSound(c, c.spellId), 100,
 								0);
 					}
@@ -869,7 +869,7 @@ public class CombatAssistant {
 
 						case 4223: // 1/10 bow
 							c.getItemAssistant().wearItem(-1, 1, 3);
-							c.getActionSender().sendMessage(
+							c.getPacketSender().sendMessage(
 									"Your crystal bow has fully degraded.");
 							if (!c.getItemAssistant().addItem(4207, 1)) {
 								GameEngine.itemHandler.createGroundItem(c, 4207,
@@ -881,7 +881,7 @@ public class CombatAssistant {
 						default:
 							c.getItemAssistant().wearItem(
 									++c.playerEquipment[c.playerWeapon], 1, 3);
-							c.getActionSender().sendMessage(
+							c.getPacketSender().sendMessage(
 									"Your crystal bow degrades.");
 							c.crystalBowArrowCount = 0;
 							break;
@@ -909,7 +909,7 @@ public class CombatAssistant {
 		if (PlayerHandler.players[i] != null) {
 
 			if (c.usingMagic && MagicData.MAGIC_SPELLS[c.spellId][0] == 1171) {
-				c.getActionSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades, not humans.");
+				c.getPacketSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades, not humans.");
 				resetPlayerAttack();
 				c.stopMovement();
 				return;
@@ -918,7 +918,7 @@ public class CombatAssistant {
 			if (CastleWars.isInCw(PlayerHandler.players[i])
 					&& CastleWars.isInCw(c)) {
 				if (CastleWars.getTeamNumber(c) == CastleWars.getTeamNumber((Client) PlayerHandler.players[i])) {
-					c.getActionSender().sendMessage("You cannot attack your own teammate.");
+					c.getPacketSender().sendMessage("You cannot attack your own teammate.");
 					resetPlayerAttack();
 					return;
 				}
@@ -926,7 +926,7 @@ public class CombatAssistant {
 
 			if (!CastleWars.isInCw(PlayerHandler.players[i])
 					&& CastleWars.isInCw(c)) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You cannot attack people outside castle wars.");
 				resetPlayerAttack();
 				return;
@@ -1019,7 +1019,7 @@ public class CombatAssistant {
 						}
 					}
 					if (!canUseWeapon) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"You can only use fun weapons in this duel!");
 						resetPlayerAttack();
 						return;
@@ -1027,19 +1027,19 @@ public class CombatAssistant {
 				}
 
 				if (c.duelRule[2] && (c.usingBow || c.usingRangeWeapon)) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"Range has been disabled in this duel!");
 					return;
 				}
 				if (c.duelRule[3] && !c.usingBow && !c.usingRangeWeapon
 						&& !c.usingMagic) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"Melee has been disabled in this duel!");
 					return;
 				}
 
 				if (c.duelRule[4] && c.usingMagic) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"Magic has been disabled in this duel!");
 					resetPlayerAttack();
 					return;
@@ -1090,7 +1090,7 @@ public class CombatAssistant {
 						&& c.usingBow
 						&& (c.playerEquipment[c.playerWeapon] < 4212 || c.playerEquipment[c.playerWeapon] > 4223)
 						&& !c.usingMagic) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"There is no ammo left in your quiver.");
 					c.stopMovement();
 					resetPlayerAttack();
@@ -1103,7 +1103,7 @@ public class CombatAssistant {
 						&& !c.usingMagic) {
 					c.getItemAssistant();
 					c.getItemAssistant();
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You can't use "
 									+ ItemAssistant.getItemName(
 									c.playerEquipment[c.playerArrows])
@@ -1118,7 +1118,7 @@ public class CombatAssistant {
 				}
 				if (c.playerEquipment[c.playerWeapon] == 9185 && !properBolts()
 						&& !c.usingMagic) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You must use bolts with a crossbow.");
 					c.stopMovement();
 					resetPlayerAttack();
@@ -1156,13 +1156,13 @@ public class CombatAssistant {
 				c.delayedDamage = c.delayedDamage2 = 0;
 				if (c.usingSpecial && !c.usingMagic) {
 					if (c.duelRule[10] && c.duelStatus == 5) {
-						c.getActionSender()
+						c.getPacketSender()
 								.sendMessage(
 										"Special attacks have been disabled during this duel!");
 						c.usingSpecial = false;
 						c.getItemAssistant().updateSpecialBar();
 						if (GameConstants.COMBAT_SOUNDS) {
-							c.getActionSender()
+							c.getPacketSender()
 									.sendSound(
 											CombatSounds
 													.specialSounds(c.playerEquipment[c.playerWeapon]),
@@ -1178,13 +1178,13 @@ public class CombatAssistant {
 						c.followId = c.playerIndex;
 						return;
 					} else {
-						c.getActionSender()
+						c.getPacketSender()
 								.sendMessage(
 										"You don't have the required special energy to use this attack.");
 						c.usingSpecial = false;
 						c.getItemAssistant().updateSpecialBar();
 						if (GameConstants.COMBAT_SOUNDS) {
-							c.getActionSender()
+							c.getPacketSender()
 									.sendSound(
 											CombatSounds
 													.specialSounds(c.playerEquipment[c.playerWeapon]),
@@ -1197,7 +1197,7 @@ public class CombatAssistant {
 
 				if (!c.usingMagic) {
 					if (GameConstants.COMBAT_SOUNDS) {
-						c.getActionSender().sendSound(
+						c.getPacketSender().sendSound(
 								CombatSounds.getWeaponSounds(c), 100, 0);
 					}
 					c.startAnimation(getWepAnim());
@@ -1205,7 +1205,7 @@ public class CombatAssistant {
 				} else {
 					c.startAnimation(MagicData.MAGIC_SPELLS[c.spellId][2]);
 					if (GameConstants.COMBAT_SOUNDS) {
-						c.getActionSender().sendSound(
+						c.getPacketSender().sendSound(
 								CombatSounds.getMagicSound(c, c.spellId), 100,
 								0);
 					}
@@ -1324,7 +1324,7 @@ public class CombatAssistant {
 							&& !c.magicFailed) {
 						PlayerHandler.players[i].freezeTimer = freezeDelay;
 						o.resetWalkingQueue();
-						o.getActionSender().sendMessage(
+						o.getPacketSender().sendMessage(
 								"You have been frozen.");
 						o.frozenBy = c.playerId;
 					}
@@ -1356,7 +1356,7 @@ public class CombatAssistant {
 
 							case 4223: // 1/10 bow
 								c.getItemAssistant().wearItem(-1, 1, 3);
-								c.getActionSender().sendMessage(
+								c.getPacketSender().sendMessage(
 										"Your crystal bow has fully degraded.");
 								if (!c.getItemAssistant().addItem(4207, 1)) {
 									GameEngine.itemHandler.createGroundItem(c, 4207,
@@ -1368,7 +1368,7 @@ public class CombatAssistant {
 							default:
 								c.getItemAssistant().wearItem(
 										++c.playerEquipment[c.playerWeapon], 1, 3);
-								c.getActionSender().sendMessage(
+								c.getPacketSender().sendMessage(
 										"Your crystal bow degrades.");
 								c.crystalBowArrowCount = 0;
 								break;
@@ -1415,7 +1415,7 @@ public class CombatAssistant {
 				return;
 			}
 			Client o = (Client) PlayerHandler.players[i];
-			o.getPlayerAssistant().removeAllWindows();
+			o.getPacketSender().closeAllWindows();
 			if (o.playerIndex <= 0 && o.npcIndex <= 0) {
 				if (o.autoRet == 1) {
 					o.playerIndex = c.playerId;
@@ -1425,7 +1425,7 @@ public class CombatAssistant {
 					&& !c.castingMagic) { // block animation
 				o.startAnimation(o.getCombatAssistant().getBlockEmote());
 				if (GameConstants.COMBAT_SOUNDS) {
-					o.getActionSender().sendSound(
+					o.getPacketSender().sendSound(
 							CombatSounds.getPlayerBlockSounds(o), 100, 0);
 				}
 			}
@@ -1621,7 +1621,7 @@ public class CombatAssistant {
 							.gfx0(MagicData.MAGIC_SPELLS[c.oldSpellId][5]);
 				} else if (c.magicFailed) {
 					PlayerHandler.players[i].gfx100(85);
-					c.getActionSender().sendSound(SoundList.MAGE_FAIL, 100,
+					c.getPacketSender().sendSound(SoundList.MAGE_FAIL, 100,
 							0);
 				}
 
@@ -1647,9 +1647,9 @@ public class CombatAssistant {
 					case 12445: // teleblock
 						if (System.currentTimeMillis() - o.teleBlockDelay > o.teleBlockLength) {
 							o.teleBlockDelay = System.currentTimeMillis();
-							o.getActionSender().sendMessage(
+							o.getPacketSender().sendMessage(
 									"You have been teleblocked.");
-							o.getActionSender().sendSound(
+							o.getPacketSender().sendSound(
 									SoundList.TELEBLOCK_HIT, 100, 0);
 							if (o.getPrayer().prayerActive[16]
 									&& System.currentTimeMillis()
@@ -1680,7 +1680,7 @@ public class CombatAssistant {
 						PlayerHandler.players[i].playerLevel[0] -= o
 								.getPlayerAssistant().getLevelForXP(
 										PlayerHandler.players[i].playerXP[0]) * 5 / 100;
-						o.getActionSender().sendMessage(
+						o.getPacketSender().sendMessage(
 								"Your attack level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[c.reduceSpellId] = System
 								.currentTimeMillis();
@@ -1691,7 +1691,7 @@ public class CombatAssistant {
 						PlayerHandler.players[i].playerLevel[2] -= o
 								.getPlayerAssistant().getLevelForXP(
 										PlayerHandler.players[i].playerXP[2]) * 5 / 100;
-						o.getActionSender().sendMessage(
+						o.getPacketSender().sendMessage(
 								"Your strength level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[c.reduceSpellId] = System
 								.currentTimeMillis();
@@ -1702,7 +1702,7 @@ public class CombatAssistant {
 						PlayerHandler.players[i].playerLevel[1] -= o
 								.getPlayerAssistant().getLevelForXP(
 										PlayerHandler.players[i].playerXP[1]) * 5 / 100;
-						o.getActionSender().sendMessage(
+						o.getPacketSender().sendMessage(
 								"Your defence level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[c.reduceSpellId] = System
 								.currentTimeMillis();
@@ -1713,7 +1713,7 @@ public class CombatAssistant {
 						PlayerHandler.players[i].playerLevel[1] -= o
 								.getPlayerAssistant().getLevelForXP(
 										PlayerHandler.players[i].playerXP[1]) * 10 / 100;
-						o.getActionSender().sendMessage(
+						o.getPacketSender().sendMessage(
 								"Your defence level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[c.reduceSpellId] = System
 								.currentTimeMillis();
@@ -1724,7 +1724,7 @@ public class CombatAssistant {
 						PlayerHandler.players[i].playerLevel[2] -= o
 								.getPlayerAssistant().getLevelForXP(
 										PlayerHandler.players[i].playerXP[2]) * 10 / 100;
-						o.getActionSender().sendMessage(
+						o.getPacketSender().sendMessage(
 								"Your strength level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[c.reduceSpellId] = System
 								.currentTimeMillis();
@@ -1735,7 +1735,7 @@ public class CombatAssistant {
 						PlayerHandler.players[i].playerLevel[0] -= o
 								.getPlayerAssistant().getLevelForXP(
 										PlayerHandler.players[i].playerXP[0]) * 10 / 100;
-						o.getActionSender().sendMessage(
+						o.getPacketSender().sendMessage(
 								"Your attack level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[c.reduceSpellId] = System
 								.currentTimeMillis();
@@ -1874,14 +1874,14 @@ public class CombatAssistant {
 						|| o.getPrayer().prayerActive[17]
 						|| o.getPrayer().prayerActive[18]) {
 					o.headIcon = -1;
-					o.getPlayerAssistant().sendConfig(
+					o.getPacketSender().sendConfig(
 							c.getPrayer().PRAYER_GLOW[16], 0);
-					o.getPlayerAssistant().sendConfig(
+					o.getPacketSender().sendConfig(
 							c.getPrayer().PRAYER_GLOW[17], 0);
-					o.getPlayerAssistant().sendConfig(
+					o.getPacketSender().sendConfig(
 							c.getPrayer().PRAYER_GLOW[18], 0);
 				}
-				o.getActionSender().sendMessage("You have been injured!");
+				o.getPacketSender().sendMessage("You have been injured!");
 				o.getPrayer().stopPrayerDelay = System.currentTimeMillis();
 				o.getPrayer().prayerActive[16] = false;
 				o.getPrayer().prayerActive[17] = false;
@@ -1895,16 +1895,16 @@ public class CombatAssistant {
 					o.freezeTimer = 30;
 				}
 				o.gfx0(369);
-				o.getActionSender().sendMessage("You have been frozen.");
+				o.getPacketSender().sendMessage("You have been frozen.");
 				o.frozenBy = c.playerId;
 				o.stopMovement();
-				c.getActionSender().sendMessage("You freeze your enemy.");
+				c.getPacketSender().sendMessage("You freeze your enemy.");
 			}
 			break;
 		case 3:
 			if (damage > 0) {
 				o.playerLevel[1] -= damage;
-				o.getActionSender().sendMessage("You feel weak.");
+				o.getPacketSender().sendMessage("You feel weak.");
 				if (o.playerLevel[1] < 1) {
 					o.playerLevel[1] = 1;
 				}
@@ -2061,7 +2061,7 @@ public class CombatAssistant {
 		}
 		if (PlayerHandler.players[c.playerIndex].inDuelArena() && c.duelStatus != 5 && !c.usingMagic) {
 			if (c.duelingArena() || c.duelStatus == 5) {
-				c.getActionSender().sendMessage("You can't challenge inside the arena!");
+				c.getPacketSender().sendMessage("You can't challenge inside the arena!");
 				return false;
 			}
 			c.getDueling().requestDuel(c.playerIndex);
@@ -2072,7 +2072,7 @@ public class CombatAssistant {
 			if (PlayerHandler.players[c.playerIndex].duelingWith == c.getId()) {
 				return true;
 			} else {
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage("This isn't your opponent!");
 				return false;
 			}
@@ -2083,7 +2083,7 @@ public class CombatAssistant {
 		if (!PlayerHandler.players[c.playerIndex].inWild()
 				&& !PlayerHandler.players[c.playerIndex].inCwGame()
 				&& !CastOnOther.castOnOtherSpells(c.castingSpellId)) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"That player is not in the wilderness." + c.castingSpellId);
 			c.stopMovement();
 			resetPlayerAttack();
@@ -2091,7 +2091,7 @@ public class CombatAssistant {
 		}
 		if (!c.inWild() && !PlayerHandler.players[c.playerIndex].inCwGame()
 				&& !CastOnOther.castOnOtherSpells(c.castingSpellId)) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You are not in the wilderness.");
 			c.stopMovement();
 			resetPlayerAttack();
@@ -2102,7 +2102,7 @@ public class CombatAssistant {
 					PlayerHandler.players[c.playerIndex].combatLevel);
 			if (combatDif1 > c.wildLevel
 					|| combatDif1 > PlayerHandler.players[c.playerIndex].wildLevel) {
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage(
 								"Your combat level difference is too great to attack that player here.");
 				c.stopMovement();
@@ -2117,7 +2117,7 @@ public class CombatAssistant {
 																	// zones
 				if (PlayerHandler.players[c.playerIndex].underAttackBy != c.playerId
 						&& PlayerHandler.players[c.playerIndex].underAttackBy != 0) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"That player is already in combat.");
 					c.stopMovement();
 					resetPlayerAttack();
@@ -2125,7 +2125,7 @@ public class CombatAssistant {
 				}
 				if (PlayerHandler.players[c.playerIndex].playerId != c.underAttackBy
 						&& c.underAttackBy != 0 || c.underAttackBy2 > 0) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You are already in combat.");
 					c.stopMovement();
 					resetPlayerAttack();
@@ -2159,11 +2159,11 @@ public class CombatAssistant {
 				PlayerHandler.players[c.playerIndex].updateRequired = true;
 				c.dfsDelay = System.currentTimeMillis();
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"I should be in combat before using this.");
 			}
 		} else {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"My shield hasn't finished recharging yet.");
 		}
 	}
@@ -2180,11 +2180,11 @@ public class CombatAssistant {
 				NpcHandler.npcs[c.npcIndex].updateRequired = true;
 				c.dfsDelay = System.currentTimeMillis();
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"I should be in combat before using this.");
 			}
 		} else {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"My shield hasn't finished recharging yet.");
 		}
 	}
@@ -2235,7 +2235,7 @@ public class CombatAssistant {
 			c.getItemAssistant().removeItem(2550, c.playerRing);
 			c.getItemAssistant().deleteItem(2550,
 					c.getItemAssistant().getItemSlot(2550), 1);
-			c.getActionSender().sendMessage("Your ring of recoil shaters!");
+			c.getPacketSender().sendMessage("Your ring of recoil shaters!");
 			c.recoilHits = 0;
 		} else {
 			c.recoilHits++;

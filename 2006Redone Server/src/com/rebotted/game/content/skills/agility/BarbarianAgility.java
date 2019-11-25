@@ -76,7 +76,7 @@ public class BarbarianAgility {
 				c.getAgility().agilityProgress[2] = true;
 				}
 			} else {
-				c.getActionSender().sendMessage("You can't climb the net from here!");
+				c.getPacketSender().sendMessage("You can't climb the net from here!");
 				return false;
 			}
 			return true;
@@ -101,14 +101,14 @@ public class BarbarianAgility {
 		case BARBARIAN_LADDER_OBJECT:
 			if (c.playerLevel[c.playerAgility] < 35 && c.objectX != 2776
 					&& c.objectY != 3121) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need 35 agility to use this ladder.");
 				return false;
 			} else if (c.objectX == 2776 && c.objectY == 3121) {
 				return true;
 			}
 			c.getAgility().climbDown(c.getX(), c.getY(), 0);
-			c.getActionSender().sendMessage("You climb down.");
+			c.getPacketSender().sendMessage("You climb down.");
 			if (c.getAgility().agilityProgress[3] == true) {
 				c.getAgility().agilityProgress[4] = true;
 			}

@@ -13,7 +13,7 @@ public class AgilityShortcut {
 
 	private static void handleAgility(Client client, int x, int y, int levelReq, int anim, int walk, String message) {
 		if (client.playerLevel[client.playerAgility] < levelReq) {
-			client.getActionSender().sendMessage("You need " + levelReq + " agility to use this shortcut.");
+			client.getPacketSender().sendMessage("You need " + levelReq + " agility to use this shortcut.");
 			return;
 		}
 		switch (walk) {
@@ -30,7 +30,7 @@ public class AgilityShortcut {
 		if (anim != 0 && anim != -1) {
 			client.startAnimation(anim);
 		}
-		client.getActionSender().sendMessage(message);
+		client.getPacketSender().sendMessage(message);
 	}
 
 	public static void processAgilityShortcut(Client client) {

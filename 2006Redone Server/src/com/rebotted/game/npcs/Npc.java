@@ -66,7 +66,7 @@ public class Npc {
 	
 	public boolean requestTransformTime(Client player, int itemId, int animation, final int currentId, final int newId, int transformTime, final int npcId) {
 		if (!player.getItemAssistant().playerHasItem(itemId)) {
-			player.getActionSender().sendMessage("You need " + ItemAssistant.getItemName(itemId).toLowerCase() + " to do that.");
+			player.getPacketSender().sendMessage("You need " + ItemAssistant.getItemName(itemId).toLowerCase() + " to do that.");
 			return false;
 		}
 		if (NpcHandler.npcs[npcId].isTransformed == true)

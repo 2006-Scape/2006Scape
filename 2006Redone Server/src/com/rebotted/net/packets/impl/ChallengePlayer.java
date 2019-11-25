@@ -18,7 +18,7 @@ public class ChallengePlayer implements PacketType {
                 return;
 
 			if (c.duelingArena() || c.duelStatus == 5) {
-				c.getActionSender().sendMessage("You can't challenge inside the arena!");
+				c.getPacketSender().sendMessage("You can't challenge inside the arena!");
 				return;
 			}
 			if (c.inDuelArena()) {

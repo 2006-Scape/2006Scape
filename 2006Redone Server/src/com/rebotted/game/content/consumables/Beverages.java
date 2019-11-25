@@ -96,7 +96,7 @@ public class Beverages {
 		switch (bevEffectId) {
 		case 1:
 			c.playerStandIndex = 3040;
-			c.getActionSender().sendMessage("You start to feel dizzy.");
+			c.getPacketSender().sendMessage("You start to feel dizzy.");
 			   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
@@ -209,7 +209,7 @@ public class Beverages {
 						c.getItemAssistant().deleteItem(beverageId, slotId, 1);
 						c.getItemAssistant().addItem(b.getRep(), 1);
 						c.forcedChat("Cheers mate!");
-						c.getActionSender().sendMessage("You drink the " + b.getName() + ".");
+						c.getPacketSender().sendMessage("You drink the " + b.getName() + ".");
 					}
 				}
 			}

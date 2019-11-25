@@ -66,19 +66,19 @@ public class Prayer {
 		for (final int[] element : data) {
 			if (i == element[0]) {
 				if (!SkillHandler.PRAYER) {
-					c.getActionSender().sendMessage("This skill is currently disabled.");
+					c.getPacketSender().sendMessage("This skill is currently disabled.");
 				}
 				if (System.currentTimeMillis() - c.buryDelay > 800) {
 					c.getItemAssistant().deleteItem(element[0], slot, 1);
 					c.getPlayerAssistant().addSkillXP(element[1], 5);
 					c.buryDelay = System.currentTimeMillis();
 					c.startAnimation(827);
-					c.getActionSender().sendSound(SoundList.BONE_BURY, 100, 0);
-					c.getActionSender().sendMessage("You dig a hole in the ground...");
+					c.getPacketSender().sendSound(SoundList.BONE_BURY, 100, 0);
+					c.getPacketSender().sendMessage("You dig a hole in the ground...");
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							c.getActionSender().sendMessage("You bury the " + ItemAssistant.getItemName(element[0]).toLowerCase() + ".");
+							c.getPacketSender().sendMessage("You bury the " + ItemAssistant.getItemName(element[0]).toLowerCase() + ".");
 							container.stop();
 						}
 						@Override

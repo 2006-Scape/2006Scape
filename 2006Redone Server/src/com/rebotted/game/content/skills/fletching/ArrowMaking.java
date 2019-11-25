@@ -101,7 +101,7 @@ public class ArrowMaking {
 			return false;
 		}
 		if (c.getItemAssistant().freeSlots() < 1 && !c.getItemAssistant().playerHasItem(arrowData.getProduct())) {
-			c.getActionSender().sendMessage("Not enough space in your inventory.");
+			c.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return false;
 		}
 		c.playerIsFletching = true;
@@ -131,7 +131,7 @@ public class ArrowMaking {
 				c.getItemAssistant().deleteItem(arrowData.getItem2(), count);
 				c.getItemAssistant().addItem(arrowData.getProduct(),
 						count / multiplier);
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You attach the "
 								+ ItemAssistant.getItemName(arrowData
 										.getItem1())

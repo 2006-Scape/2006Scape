@@ -412,7 +412,7 @@ public class TreasureTrails {
 		for (int i = 0; i < items.length; i++) {
 			if (items[i] > 0) c.getItemAssistant().addOrDropItem(items[i], amounts[i]);
 		}
-		c.getPlayerAssistant().showInterface(6960);
+		c.getPacketSender().showInterface(6960);
 	}
 
 }

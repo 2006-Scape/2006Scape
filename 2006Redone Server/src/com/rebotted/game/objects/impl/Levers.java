@@ -28,7 +28,7 @@ public class Levers {
 				if (System.currentTimeMillis() - player.leverDelay > 3750) {
 					player.leverDelay = System.currentTimeMillis();
 					player.stopPlayerPacket = true;
-					player.getActionSender().sendMessage("You pull the lever...");
+					player.getPacketSender().sendMessage("You pull the lever...");
 					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {

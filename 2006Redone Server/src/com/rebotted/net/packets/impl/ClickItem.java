@@ -48,9 +48,9 @@ public class ClickItem implements PacketType {
 			player.getItemAssistant().deleteItem(4053, player.getItemAssistant().getItemSlot(4053), 1);
 			//npc id, x, y, height, walk, hp, maxhit, att, def
 			GameEngine.npcHandler.spawnNpc2(1532, player.absX, player.absY, player.heightLevel, 0, 200, 0, 0, 100);
-			player.getActionSender().sendMessage("You setup a barricade.");
+			player.getPacketSender().sendMessage("You setup a barricade.");
 		} else if (!CastleWars.isInCw(player) && itemId == 4053) {
-			player.getActionSender().sendMessage("You need to be in castlewars to drop a barricade.");
+			player.getPacketSender().sendMessage("You need to be in castlewars to drop a barricade.");
 			player.getItemAssistant().deleteItem(itemId, player.getItemAssistant().getItemAmount(itemId));
 		}
 		if (itemId >= 5509 && itemId <= 5514) {
@@ -184,21 +184,21 @@ public class ClickItem implements PacketType {
 		// break;
 
 		case 5070:
-			player.getActionSender().sendMessage("You search the nest.");
+			player.getPacketSender().sendMessage("You search the nest.");
 			player.getItemAssistant().addItem(5076, 1);
 			player.getItemAssistant().deleteItem(itemId, 1);
 			player.getItemAssistant().addItem(5075, 1);
 			break;
 
 		case 5071:
-			player.getActionSender().sendMessage("You search the nest.");
+			player.getPacketSender().sendMessage("You search the nest.");
 			player.getItemAssistant().addItem(5078, 1);
 			player.getItemAssistant().deleteItem(itemId, 1);
 			player.getItemAssistant().addItem(5075, 1);
 			break;
 
 		case 5072:
-			player.getActionSender().sendMessage("You search the nest.");
+			player.getPacketSender().sendMessage("You search the nest.");
 			player.getItemAssistant().addItem(5077, 1);
 			player.getItemAssistant().deleteItem(itemId, 1);
 			player.getItemAssistant().addItem(5075, 1);

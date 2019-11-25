@@ -184,7 +184,7 @@ public class NpcCombat {
 					if (GameConstants.COMBAT_SOUNDS
 							&& NpcHandler.npcs[i].npcType < 3177
 							&& NpcHandler.npcs[i].npcType > 3180) {
-						c.getActionSender()
+						c.getPacketSender()
 								.sendSound(
 										CombatSounds
 												.getNpcAttackSounds(NpcHandler.npcs[i].npcType),
@@ -204,7 +204,7 @@ public class NpcCombat {
 						if (GameConstants.COMBAT_SOUNDS
 								&& NpcHandler.npcs[i].npcType < 3177
 								&& NpcHandler.npcs[i].npcType > 3180) {
-							c.getActionSender()
+							c.getPacketSender()
 									.sendSound(
 											CombatSounds
 													.getNpcAttackSounds(NpcHandler.npcs[i].npcType),
@@ -243,13 +243,13 @@ public class NpcCombat {
 					if (GameConstants.COMBAT_SOUNDS
 							&& NpcHandler.npcs[i].npcType < 3177
 							&& NpcHandler.npcs[i].npcType > 3180) {
-						c.getActionSender()
+						c.getPacketSender()
 								.sendSound(
 										CombatSounds
 												.getNpcAttackSounds(NpcHandler.npcs[i].npcType),
 										100, 0);
 					}
-					c.getPlayerAssistant().removeAllWindows();
+					c.getPacketSender().closeAllWindows();
 				}
 			}
 		}
@@ -638,7 +638,7 @@ public class NpcCombat {
 						c.gfx100(NpcHandler.npcs[i].endGfx);
 					} else {
 						c.gfx100(85);
-						c.getActionSender().sendSound(SoundList.MAGE_FAIL,
+						c.getPacketSender().sendSound(SoundList.MAGE_FAIL,
 								100, 0);
 					}
 				}
@@ -648,12 +648,12 @@ public class NpcCombat {
 					switch (anti) {
 					case 0:// has no shield
 						damage = Misc.random(45) + 10;
-						c.getActionSender().sendMessage("You are badly burnt by the dragon fire!");
+						c.getPacketSender().sendMessage("You are badly burnt by the dragon fire!");
 						break;
 					case 1:// has a shield
 						if (c.getItemAssistant().playerHasEquipped(5, 1540)) {
 							damage = Misc.random(4) + 1;
-							c.getActionSender().sendMessage("Your shield protects you from the fire.");
+							c.getPacketSender().sendMessage("Your shield protects you from the fire.");
 						}
 						break;
 					case 2:// melee

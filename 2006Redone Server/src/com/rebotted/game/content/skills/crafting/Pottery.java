@@ -17,40 +17,40 @@ public class Pottery {
 	public static int softClay = 1761;
 
 	public static void showUnfire(Client c) {
-		c.getPlayerAssistant().sendChatInterface(8938);
-		c.getPlayerAssistant().sendFrame126("What would you like to make?", 8879);
-		c.getPlayerAssistant().sendFrame246(8941, 120, 1787); // first
-		c.getPlayerAssistant().sendFrame246(8942, 150, 1789); // second
-		c.getPlayerAssistant().sendFrame246(8943, 150, 1791); // third
-		c.getPlayerAssistant().sendFrame246(8944, 120, 5352); // 4th
-		c.getPlayerAssistant().sendFrame246(8945, 150, 4438); // 5th
-		c.getPlayerAssistant().sendFrame126("Pot", 8949);
-		c.getPlayerAssistant().sendFrame126("Pie Dish", 8953);
-		c.getPlayerAssistant().sendFrame126("Bowl", 8957);
-		c.getPlayerAssistant().sendFrame126("Plant pot", 8961);
-		c.getPlayerAssistant().sendFrame126("Pot lid", 8965);
+		c.getPacketSender().sendChatInterface(8938);
+		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
+		c.getPacketSender().sendFrame246(8941, 120, 1787); // first
+		c.getPacketSender().sendFrame246(8942, 150, 1789); // second
+		c.getPacketSender().sendFrame246(8943, 150, 1791); // third
+		c.getPacketSender().sendFrame246(8944, 120, 5352); // 4th
+		c.getPacketSender().sendFrame246(8945, 150, 4438); // 5th
+		c.getPacketSender().sendFrame126("Pot", 8949);
+		c.getPacketSender().sendFrame126("Pie Dish", 8953);
+		c.getPacketSender().sendFrame126("Bowl", 8957);
+		c.getPacketSender().sendFrame126("Plant pot", 8961);
+		c.getPacketSender().sendFrame126("Pot lid", 8965);
 		c.showedUnfire = true;
 	}
 
 	public static void showFire(Client c) {
-		c.getPlayerAssistant().sendChatInterface(8938);
-		c.getPlayerAssistant().sendFrame126("What would you like to make?", 8879);
-		c.getPlayerAssistant().sendFrame246(8941, 120, 1931); // first
-		c.getPlayerAssistant().sendFrame246(8942, 150, 2313); // second
-		c.getPlayerAssistant().sendFrame246(8943, 150, 1923); // third
-		c.getPlayerAssistant().sendFrame246(8944, 120, 5350); // 4th
-		c.getPlayerAssistant().sendFrame246(8945, 150, 4440); // 5th
-		c.getPlayerAssistant().sendFrame126("Pot", 8949);
-		c.getPlayerAssistant().sendFrame126("Pie Dish", 8953);
-		c.getPlayerAssistant().sendFrame126("Bowl", 8957);
-		c.getPlayerAssistant().sendFrame126("Plant pot", 8961);
-		c.getPlayerAssistant().sendFrame126("Pot lid", 8965);
+		c.getPacketSender().sendChatInterface(8938);
+		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
+		c.getPacketSender().sendFrame246(8941, 120, 1931); // first
+		c.getPacketSender().sendFrame246(8942, 150, 2313); // second
+		c.getPacketSender().sendFrame246(8943, 150, 1923); // third
+		c.getPacketSender().sendFrame246(8944, 120, 5350); // 4th
+		c.getPacketSender().sendFrame246(8945, 150, 4440); // 5th
+		c.getPacketSender().sendFrame126("Pot", 8949);
+		c.getPacketSender().sendFrame126("Pie Dish", 8953);
+		c.getPacketSender().sendFrame126("Bowl", 8957);
+		c.getPacketSender().sendFrame126("Plant pot", 8961);
+		c.getPacketSender().sendFrame126("Pot lid", 8965);
 		c.showedFire = true;
 	}
 
 	public static void makeUnfire(final Client c, final int id,
 			final double xp, final int level, int amount) {
-		c.getPlayerAssistant().closeAllWindows();
+		c.getPacketSender().closeAllWindows();
 		c.doAmount = amount;
 		c.isPotCrafting = true;
 		if (c.getItemAssistant().playerHasItem(softClay)
@@ -58,7 +58,7 @@ public class Pottery {
 			c.startAnimation(unFire);
 			c.getItemAssistant().deleteItem(softClay, 1);
 			c.getItemAssistant().addItem(id, 1);
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You make the soft clay into a "
 							+ ItemAssistant.getItemName(id) + ".");
 			c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
@@ -74,7 +74,7 @@ public class Pottery {
 					c.startAnimation(unFire);
 					c.getItemAssistant().deleteItem(softClay, 1);
 					c.getItemAssistant().addItem(id, 1);
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You make the soft clay into a "
 									+ ItemAssistant.getItemName(id) + ".");
 					c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
@@ -83,14 +83,14 @@ public class Pottery {
 
 				if (c.playerLevel[12] < level) {
 					container.stop();
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You need a crafting level of " + level
 									+ " to make this.");
 				}
 
 				if (!c.getItemAssistant().playerHasItem(softClay)) {
 					container.stop();
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You need soft clay to do this.");
 				}
 
@@ -114,7 +114,7 @@ public class Pottery {
 
 	public static void makeFire(final Client c, final int startId,
 			final int finishId, final int level, final double xp, int amount) {
-		c.getPlayerAssistant().closeAllWindows();
+		c.getPacketSender().closeAllWindows();
 		c.doAmount = amount;
 		c.isPotCrafting = true;
 		if (c.getItemAssistant().playerHasItem(startId)
@@ -122,11 +122,11 @@ public class Pottery {
 			c.getItemAssistant().deleteItem(startId, 1);
 			c.getItemAssistant().addItem(finishId, 1);
 			c.startAnimation(Fire);
-			c.getActionSender().sendSound(469, 100, 0);
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendSound(469, 100, 0);
+			c.getPacketSender().sendMessage(
 					"You put a " + ItemAssistant.getItemName(startId)
 							+ " into the oven.");
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You retrieve the " + ItemAssistant.getItemName(finishId)
 							+ " from the oven.");
 			c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
@@ -134,13 +134,13 @@ public class Pottery {
 		}
 
 		if (c.playerLevel[12] < level) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need a crafting level of " + level + " to make this.");
 		}
 
 		if (!c.getItemAssistant().playerHasItem(startId)
 				&& c.playerLevel[12] >= level) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need an " + ItemAssistant.getItemName(startId)
 							+ " to do this.");
 		}
@@ -155,11 +155,11 @@ public class Pottery {
 					c.getItemAssistant().deleteItem(startId, 1);
 					c.getItemAssistant().addItem(finishId, 1);
 					c.startAnimation(Fire);
-					c.getActionSender().sendSound(469, 100, 0);
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendSound(469, 100, 0);
+					c.getPacketSender().sendMessage(
 							"You put a " + ItemAssistant.getItemName(startId)
 									+ " into the oven.");
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You retrieve the "
 									+ ItemAssistant.getItemName(finishId)
 									+ " from the oven.");

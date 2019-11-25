@@ -24,14 +24,14 @@ public class ItemOnPlayer implements PacketType {
 			if (!RareProtection.CRACKERS && c.playerRights < 3) {
 				int delete = c.getItemAssistant().getItemCount(962);
 				c.getItemAssistant().deleteItem(962, delete);
-				c.getActionSender().sendMessage("You can't do that!");
+				c.getPacketSender().sendMessage("You can't do that!");
 				return;
 			}
 			c.gfx0(176);
 			c.startAnimation(451);
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You pull the Christmas Cracker...");
-			o.getActionSender().sendMessage(
+			o.getPacketSender().sendMessage(
 					"You pull the Christmas Cracker...");
 			c.getItemAssistant().deleteItem(962, 1);
 			if (Misc.random(3) == 1) {
@@ -46,7 +46,7 @@ public class ItemOnPlayer implements PacketType {
 			c.turnPlayerTo(o.absX, o.absY);
 			break;
 		default:
-			c.getActionSender().sendMessage("Nothing interesting happens.");
+			c.getPacketSender().sendMessage("Nothing interesting happens.");
 			break;
 		}
 

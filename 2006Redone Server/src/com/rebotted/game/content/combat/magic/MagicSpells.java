@@ -45,7 +45,7 @@ public class MagicSpells extends MagicData {
 					multiSpellEffect(c, playerId, damage);
 				} else {
 					c2.gfx100(85);
-					c.getActionSender().sendSound(SoundList.MAGE_FAIL, 100,
+					c.getPacketSender().sendSound(SoundList.MAGE_FAIL, 100,
 							0);
 				}
 			}
@@ -104,7 +104,7 @@ public class MagicSpells extends MagicData {
 					PlayerHandler.players[i].combatLevel);
 			if (combatDif1 > c.wildLevel
 					|| combatDif1 > PlayerHandler.players[i].wildLevel) {
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage(
 								"Your combat level difference is too great to attack that player here.");
 				return false;
@@ -120,7 +120,7 @@ public class MagicSpells extends MagicData {
 				}
 				if (PlayerHandler.players[i].playerId != c.underAttackBy
 						&& c.underAttackBy != 0) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You are already in combat.");
 					return false;
 				}

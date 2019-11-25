@@ -242,7 +242,7 @@ public class Specials {
 			player.usingSpecial = false;
 			player.getItemAssistant().updateSpecialBar();
 			if (GameConstants.COMBAT_SOUNDS) {
-				player.getActionSender()
+				player.getPacketSender()
 						.sendSound(
 								CombatSounds
 										.specialSounds(player.playerEquipment[player.playerWeapon]),
@@ -360,7 +360,7 @@ public class Specials {
 				player.getPlayerAssistant().refreshSkill(2);
 				player.getItemAssistant().updateSpecialBar();
 			} else {
-				player.getActionSender().sendMessage("You don't have the required special energy to use this attack.");
+				player.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");
 			}
 		}
 		break;

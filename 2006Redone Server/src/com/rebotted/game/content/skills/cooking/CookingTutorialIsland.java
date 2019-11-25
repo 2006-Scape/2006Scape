@@ -18,7 +18,7 @@ public class CookingTutorialIsland extends SkillHandler {
 			cookFish(p, i, 30, 1, 323, 315, object);
 			break;
 		default:
-			p.getActionSender().sendMessage("Nothing interesting happens.");
+			p.getPacketSender().sendMessage("Nothing interesting happens.");
 			break;
 		}
 	}
@@ -26,7 +26,7 @@ public class CookingTutorialIsland extends SkillHandler {
 	private static void cookFish(Client c, int itemID, int xpRecieved,
 			int levelRequired, int burntFish, int cookedFish, int object) {
 		if (!COOKING) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"Cooking is currently disabled.");
 			return;
 		}
@@ -75,9 +75,9 @@ public class CookingTutorialIsland extends SkillHandler {
 	}
 
 	private static void viewCookInterface(Client c, int item) {
-		c.getPlayerAssistant().sendChatInterface(1743);
-		c.getPlayerAssistant().sendFrame246(13716, 190, item);
-		c.getPlayerAssistant().sendFrame126(
+		c.getPacketSender().sendChatInterface(1743);
+		c.getPacketSender().sendFrame246(13716, 190, item);
+		c.getPacketSender().sendFrame126(
 				"" + ItemAssistant.getItemName(item) + "", 13717);
 	}
 
@@ -88,14 +88,14 @@ public class CookingTutorialIsland extends SkillHandler {
 		if (c.tutorialProgress == 6) {
 			c.playerSkilling[7] = true;
 			c.stopPlayerSkill = true;
-			c.getPlayerAssistant().removeAllWindows();
+			c.getPacketSender().closeAllWindows();
 			if (c.playerSkillProp[7][5] > 0) {
 				// c.startAnimation(c.playerSkillProp[7][5] == 2732 ? 897 :
 				// 896);
 				c.startAnimation(c.playerSkillProp[7][5] == 2732 ? 897
 						: c.playerSkillProp[7][5] == 12269 ? 897 : 896);
 				if (GameConstants.SOUND) {
-					c.getActionSender().sendSound(SoundList.COOK_ITEM, 100,
+					c.getPacketSender().sendSound(SoundList.COOK_ITEM, 100,
 							0);
 				}
 
@@ -109,7 +109,7 @@ public class CookingTutorialIsland extends SkillHandler {
 							c.getItemAssistant().getItemSlot(
 									c.playerSkillProp[7][0]), 1);
 					if (c.Cookstage1 == 1) {
-						c.getActionSender().chatbox(6180);
+						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler()
 								.chatboxText(
 										c,
@@ -118,12 +118,12 @@ public class CookingTutorialIsland extends SkillHandler {
 										"Let's try cooking without burning it this time. First catch some",
 										"more shrimp then use them on a fire.",
 										"Burning your shrimp.");
-						c.getActionSender().chatbox(6179);
+						c.getPacketSender().chatbox(6179);
 						c.Cookstage1 = 0;
 						c.getItemAssistant()
 								.addItem(c.playerSkillProp[7][3], 1);
 					} else {
-						c.getActionSender().chatbox(6180);
+						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler()
 								.chatboxText(
 										c,
@@ -132,8 +132,8 @@ public class CookingTutorialIsland extends SkillHandler {
 										"instructor. Click on the gate shown and follow the path.",
 										"Remember, you can move the camera with the arrow keys.",
 										"Well done, you've just cooked your first RuneScape meal");
-						c.getActionSender().chatbox(6179);
-						c.getActionSender().createArrow(3089, 3092,
+						c.getPacketSender().chatbox(6179);
+						c.getPacketSender().createArrow(3089, 3092,
 								c.getH(), 2);
 						c.getPlayerAssistant().addSkillXP(
 								c.playerSkillProp[7][1], 7);
@@ -162,7 +162,7 @@ public class CookingTutorialIsland extends SkillHandler {
 				@Override
 				public void execute(CycleEventContainer container) {
 					if (c.playerSkillProp[7][5] > 0) {
-						// c.getPlayerAssistant().sendSound(357, 100, 1); //
+						// c.getPacketSender().sendSound(357, 100, 1); //
 						// cook sound
 						c.startAnimation(c.playerSkillProp[7][5] == 2732 ? 897
 								: 896);

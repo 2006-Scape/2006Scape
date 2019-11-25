@@ -42,38 +42,38 @@ public class BankPin {
 	public void closeBankPin() {
 		firstPin = secondPin = thirdPin = fourthPin = client.playerBankPin = 0;
 		falseButtons();
-		client.getPlayerAssistant().removeAllWindows();
+		client.getPacketSender().closeAllWindows();
 	}
 
 	public void pinSettingFrames() {
 		int pinSendFrames[] = { 15075, 15080, 15110, 15171, 15076, 15176,
 				15104, 15082, 15079 };
 		for (int j = 0; j < 9; j++) {
-			client.getPlayerAssistant().sendFrame126("", pinSendFrames[j]);
+			client.getPacketSender().sendFrame126("", pinSendFrames[j]);
 		}
-		client.getPlayerAssistant().sendFrame126("Welcome to our bank", 15038);
-		client.getPlayerAssistant().sendFrame126("recovery system.", 15039);
-		client.getPlayerAssistant().sendFrame126("Remember, it's important", 15040);
-		client.getPlayerAssistant().sendFrame126("to change your recovery", 15041);
-		client.getPlayerAssistant().sendFrame126("pin and password", 15042);
-		client.getPlayerAssistant().sendFrame126("every 1-3 months", 15043);
+		client.getPacketSender().sendFrame126("Welcome to our bank", 15038);
+		client.getPacketSender().sendFrame126("recovery system.", 15039);
+		client.getPacketSender().sendFrame126("Remember, it's important", 15040);
+		client.getPacketSender().sendFrame126("to change your recovery", 15041);
+		client.getPacketSender().sendFrame126("pin and password", 15042);
+		client.getPacketSender().sendFrame126("every 1-3 months", 15043);
 		if (!client.hasBankpin) {
-			client.getPlayerAssistant().sendFrame126("Set a Bank Pin", 15078);
-			client.getPlayerAssistant().sendFrame126("No PIN Set", 15105);
+			client.getPacketSender().sendFrame126("Set a Bank Pin", 15078);
+			client.getPacketSender().sendFrame126("No PIN Set", 15105);
 		} else {
-			client.getPlayerAssistant().sendFrame126("Delete your PIN", 15078);
+			client.getPacketSender().sendFrame126("Delete your PIN", 15078);
 			if (client.requestPinDelete) {
-				client.getPlayerAssistant().sendFrame126("Pending delete", 15105);
+				client.getPacketSender().sendFrame126("Pending delete", 15105);
 			} else {
-				client.getPlayerAssistant().sendFrame126("Has Bank PIN", 15105);
+				client.getPacketSender().sendFrame126("Has Bank PIN", 15105);
 			}
 		}
-		client.getPlayerAssistant().sendFrame126(recovery_Delay + " days", 15107);
+		client.getPacketSender().sendFrame126(recovery_Delay + " days", 15107);
 	}
 
 	public void bankPinSettings() {
 		pinSettingFrames();
-		client.getPlayerAssistant().showInterface(14924);
+		client.getPacketSender().showInterface(14924);
 	}
 
 	private int resetBankNumbers() {
@@ -83,7 +83,7 @@ public class BankPin {
 	public boolean resetBankPin() {
 		resetBankNumbers();
 		falseButtons();
-		client.getPlayerAssistant().closeAllWindows();
+		client.getPacketSender().closeAllWindows();
 		return client.hasBankpin = false;
 	}
 
@@ -91,19 +91,19 @@ public class BankPin {
 		if (allowTimer > 0 && allowTimer <= 300000) {
 			int time = allowTimer / 6000;
 			if (time >= 2) {
-				client.getActionSender()
+				client.getPacketSender()
 						.sendMessage(
 								"Please wait "
 										+ time
 										+ " minutes before attempting your bank pin again.");
 			} else if (time == 1) {
-				client.getActionSender()
+				client.getPacketSender()
 						.sendMessage(
 								"Please wait "
 										+ time
 										+ " minute before attempting your bank pin again.");
 			} else if (time <= 0) {
-				client.getActionSender()
+				client.getPacketSender()
 						.sendMessage(
 								"Please wait less "
 										+ "than a minute before attempting your bank pin again.");
@@ -124,36 +124,36 @@ public class BankPin {
 
 	public void openPin() {
 		if (client.enterdBankpin) {
-			client.getPlayerAssistant().openUpBank();
+			client.getPacketSender().openUpBank();
 			return;
 		}
 		randomizeNumbers();
-		client.getPlayerAssistant().sendFrame126("First click the FIRST digit",
+		client.getPacketSender().sendFrame126("First click the FIRST digit",
 				15313);
-		client.getPlayerAssistant().sendFrame126("", 14923);
+		client.getPacketSender().sendFrame126("", 14923);
 		int pinSendFrames[] = { 14913, 14914, 14915, 14916 };
 		for (int j = 0; j < 4; j++) {
-			client.getPlayerAssistant().sendFrame126("?", pinSendFrames[j]);
+			client.getPacketSender().sendFrame126("?", pinSendFrames[j]);
 		}
-		client.getPlayerAssistant().showInterface(7424);
+		client.getPacketSender().showInterface(7424);
 		sendPins();
 	}
 
 	private void sendPins() {
 		if (client.enterdBankpin) {
-			client.getPlayerAssistant().openUpBank();
+			client.getPacketSender().openUpBank();
 			return;
 		}
 		for (int i = 0; i < getBankPins().length; i++) {
-			client.getPlayerAssistant().sendFrame126("" + getBankPins()[i],
+			client.getPacketSender().sendFrame126("" + getBankPins()[i],
 					stringIds[i]);
 		}
 	}
 
 	private void handleButtonOne(int button) {
-		client.getPlayerAssistant().sendFrame126("Now click the SECOND digit",
+		client.getPacketSender().sendFrame126("Now click the SECOND digit",
 				15313);
-		client.getPlayerAssistant().sendFrame126("*", 14913);
+		client.getPacketSender().sendFrame126("*", 14913);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				firstPin = getBankPins()[i];
@@ -164,9 +164,9 @@ public class BankPin {
 	}
 
 	private void handleButtonTwo(int button) {
-		client.getPlayerAssistant().sendFrame126("Now click the THIRD digit",
+		client.getPacketSender().sendFrame126("Now click the THIRD digit",
 				15313);
-		client.getPlayerAssistant().sendFrame126("*", 14914);
+		client.getPacketSender().sendFrame126("*", 14914);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				secondPin = getBankPins()[i];
@@ -177,9 +177,9 @@ public class BankPin {
 	}
 
 	private void handleButtonThree(int button) {
-		client.getPlayerAssistant().sendFrame126("Now click the LAST digit",
+		client.getPacketSender().sendFrame126("Now click the LAST digit",
 				15313);
-		client.getPlayerAssistant().sendFrame126("*", 14915);
+		client.getPacketSender().sendFrame126("*", 14915);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				thirdPin = getBankPins()[i];
@@ -195,10 +195,10 @@ public class BankPin {
 
 	private void handleButtonFour(int button) {
 		if (client.enterdBankpin) {
-			client.getPlayerAssistant().openUpBank();
+			client.getPacketSender().openUpBank();
 			return;
 		}
-		client.getPlayerAssistant().sendFrame126("*", 14916);
+		client.getPacketSender().sendFrame126("*", 14916);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				fourthPin = getBankPins()[i];
@@ -211,9 +211,9 @@ public class BankPin {
 			client.thirdPin = client.bankPin3 = thirdPin;
 			client.fourthPin = client.bankPin4 = fourthPin;
 			client.hasBankpin = client.enterdBankpin = true;
-			client.getActionSender().sendMessage(
+			client.getPacketSender().sendMessage(
 					"You have just created a bank pin.");
-			client.getActionSender().sendMessage(
+			client.getPacketSender().sendMessage(
 					"Your new Bank PIN is: " + firstPin + " - " + secondPin
 							+ " - " + thirdPin + " - " + fourthPin);
 			client.saveCharacter = true;
@@ -223,10 +223,10 @@ public class BankPin {
 		if (client.bankPin1 == one && client.bankPin2 == two
 				&& client.bankPin3 == three && client.bankPin4 == four) {
 			falseButtons();
-			client.getPlayerAssistant().removeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			client.enterdBankpin = true;
 			client.playerBankPin = 15000;
-			client.getPlayerAssistant().openUpBank();
+			client.getPacketSender().openUpBank();
 
 		} else {
 			client.attemptsRemaining--;
@@ -238,19 +238,19 @@ public class BankPin {
 				allowTimer = 2000000;
 			}
 			if (client.attemptsRemaining > 1) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"Invalid pin. You have " + client.attemptsRemaining
 								+ " attempts remaining.");
 			} else if (client.attemptsRemaining == 1) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"Invalid pin. You have " + client.attemptsRemaining
 								+ " attempt remaining.");
 			} else if (client.attemptsRemaining <= 0) {
-				client.getActionSender()
+				client.getPacketSender()
 						.sendMessage(
 								"Invalid pin. You must wait 5 minutes before attempting again.");
 			}
-			client.getPlayerAssistant().removeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			falseButtons();
 		}
 	}

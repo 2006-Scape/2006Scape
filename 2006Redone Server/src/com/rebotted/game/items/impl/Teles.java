@@ -12,19 +12,19 @@ public class Teles {
 	public static void useAOG(Client player) {
 		player.getDialogueHandler().sendOption4("Edgeville", "Al Kharid", "Karamja", "Draynor");
 		player.dialogueAction = 51;
-		player.getActionSender().sendMessage("You rub the Amulet of Glory...");
+		player.getPacketSender().sendMessage("You rub the Amulet of Glory...");
 	}
 
 	public static void useROD(Client player) {
 		player.getDialogueHandler().sendOption2("Duel Arena", "Castle Wars");
 		player.dialogueAction = 161;
-		player.getActionSender().sendMessage("You rub the Ring of Dueling...");
+		player.getPacketSender().sendMessage("You rub the Ring of Dueling...");
 	}
 
 	public static void useGN(Client player) {
 		player.getDialogueHandler().sendOption2("Burthrope Games Room", "Barbarian Outpost");
 		player.dialogueAction = 50;
-		player.getActionSender().sendMessage("You rub the Games Necklace...");
+		player.getPacketSender().sendMessage("You rub the Games Necklace...");
 	}
 
 	private static final int[][] JEWELERY = { 
@@ -43,9 +43,9 @@ public class Teles {
 					player.getItemAssistant().addItem(element[1], 1);
 				}
 				if (element[2] > 1) {
-					player.getActionSender().sendMessage("You have " + element[2] + " charges left.");
+					player.getPacketSender().sendMessage("You have " + element[2] + " charges left.");
 				} else {
-					player.getActionSender().sendMessage("You have " + element[2] + " charge left.");
+					player.getPacketSender().sendMessage("You have " + element[2] + " charge left.");
 				}
 			}
 		}

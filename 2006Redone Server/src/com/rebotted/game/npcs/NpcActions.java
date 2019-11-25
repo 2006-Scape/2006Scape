@@ -98,7 +98,7 @@ public class NpcActions {
 			if (c.questPoints >= requiredQP) {
 				c.getDialogueHandler().sendDialogues(1373, npcType);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need " + requiredQP + " quest points to open this shop.");
 			}
 			break;
@@ -157,7 +157,7 @@ public class NpcActions {
 					&& c.playerLevel[c.playerAgility] > 49) {
 				c.getShopAssistant().openShop(118);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You don't have the required skills to open this shop");
 			}
 			break;
@@ -269,7 +269,7 @@ public class NpcActions {
 				c.getDialogueHandler().sendDialogues(3072, npcType);
 			} else if (c.getItemAssistant().playerHasItem(1171)
 					&& c.getItemAssistant().playerHasItem(1277) && c.tutorialProgress == 23) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"I already gave you a sword and shield.");
 				c.nextChat = 0;
 				c.getDialogueHandler()
@@ -408,7 +408,7 @@ public class NpcActions {
 			} else if (c.pirateTreasure == 3) {
 				c.getDialogueHandler().sendDialogues(580, npcType);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"Arr! Thanks for me helping me.");
 			}
 			break;
@@ -498,7 +498,7 @@ public class NpcActions {
 				c.getDialogueHandler().sendDialogues(326, npcType);
 				c.gertCat = 6;
 			} else if (c.gertCat == 2) {
-				c.getActionSender().sendMessage("Hiss!");
+				c.getPacketSender().sendMessage("Hiss!");
 				c.getDialogueHandler().sendStatement("Fluffs hisses but clearly wants something - maybe she is thirsty?");
 			}
 			break;
@@ -545,7 +545,7 @@ public class NpcActions {
 			} else if (c.romeojuliet == 8) {
 				c.getDialogueHandler().sendDialogues(469, npcType);
 			} else if (c.romeojuliet == 9) {
-				c.getActionSender().sendMessage("Thanks for helping me!");
+				c.getPacketSender().sendMessage("Thanks for helping me!");
 			}
 			if (c.romeojuliet == 2
 					&& c.getItemAssistant().playerHasItem(755, 1)) {
@@ -607,7 +607,7 @@ public class NpcActions {
 			} else if (c.runeMist == 3) {
 				c.getDialogueHandler().sendDialogues(238, npcType);
 			} else if (c.runeMist > 3 || c.runeMist < 1) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"He has nothing to say to you.");
 			}
 			break;
@@ -665,7 +665,7 @@ public class NpcActions {
 			}else if (c.blackKnight == 2) {
 				c.getDialogueHandler().sendDialogues(3502, npcType);
 			}else if (c.blackKnight == 3) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"He has nothing to say to you.");
 			}
 			break;
@@ -676,7 +676,7 @@ public class NpcActions {
 			} else if (c.sheepShear == 1) {
 				c.getDialogueHandler().sendDialogues(185, 1);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"He has nothing to say to you.");
 			}
 			break;
@@ -687,7 +687,7 @@ public class NpcActions {
 			} else if (c.bananas > 0) {
 				c.getDialogueHandler().sendDialogues(4, npcType);
 			} else {
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage(
 								"You may now talk to Luthas your bananna task has been reset.");
 				c.luthas = false;
@@ -854,14 +854,14 @@ public class NpcActions {
 					c.getItemAssistant().deleteItem(1925, 1);
 					c.buryDelay = System.currentTimeMillis();
 				} else {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You need a bucket to milk a cow!");
 				}
 			}
 			break;
 
 		case 3789:
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					new StringBuilder().append("You currently have ")
 							.append(c.pcPoints).append(" pest control points.")
 							.toString());
@@ -1037,7 +1037,7 @@ public class NpcActions {
 			if (c.questPoints >= requiredQP) {
 				c.getShopAssistant().openShop(npcType);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need " + requiredQP + " quest points to open this shop.");
 			}
 			break;
@@ -1068,7 +1068,7 @@ public class NpcActions {
 					&& c.playerLevel[c.playerAgility] > 49) {
 				c.getShopAssistant().openShop(118);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You don't have the required skills to open this shop");
 			}
 			break;
@@ -1128,7 +1128,7 @@ public class NpcActions {
 			case 2271: 
 			case 494: 
 			case 2619:
-				c.getPlayerAssistant().openUpBank();
+				c.getPacketSender().openUpBank();
 			break;
 		}
 	}
@@ -1145,7 +1145,7 @@ public class NpcActions {
 			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId)
 				c.getDialogueHandler().sendDialogues(910, npcType);
 			else
-				c.getActionSender().sendMessage("This isn't your cat.");
+				c.getPacketSender().sendMessage("This isn't your cat.");
 		}
 		switch (npcType) {
 		
@@ -1153,7 +1153,7 @@ public class NpcActions {
 		 * Banker
 		 */
 		case 3824:
-			c.getPlayerAssistant().openUpBank();
+			c.getPacketSender().openUpBank();
 		break;
 		
 		case 958:
@@ -1174,12 +1174,12 @@ public class NpcActions {
 
 		case 836:
 			if (c.getItemAssistant().playerHasItem(995, 5)) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You buy a shantay pass quickly.");
 				c.getItemAssistant().deleteItem(995, 5);
 				c.getItemAssistant().addItem(1854, 1);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need 5 coins to buy a pass.");
 			}
 			break;
@@ -1195,7 +1195,7 @@ public class NpcActions {
 
 		case 2258:
 			if (c.playerLevel[20] < 35) {
-				c.getActionSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
+				c.getPacketSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
 				return;
 			}
 			c.getPlayerAssistant().spellTeleport(3027, 4852, 0);

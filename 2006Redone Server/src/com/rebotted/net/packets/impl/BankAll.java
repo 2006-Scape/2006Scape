@@ -4,7 +4,6 @@ import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.players.Client;
-import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
 /**
@@ -58,7 +57,7 @@ public class BankAll implements PacketType {
 				break;
 			}
 			if (player.inTrade) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't store items while trading!");
 				return;
 			}

@@ -30,7 +30,7 @@ public class ObjectManager {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				player.getActionSender().object(objectId, objectX, objectY, objectH, face, objectType);
+				player.getPacketSender().object(objectId, objectX, objectY, objectH, face, objectType);
 				container.stop();
 			}
 
@@ -137,7 +137,7 @@ public class ObjectManager {
 		for (Player player : PlayerHandler.players) {
 			if (player != null) {
 				Client c = (Client) player;
-				c.getActionSender().object(-1, x, y, 0, 10);
+				c.getPacketSender().object(-1, x, y, 0, 10);
 			}
 		}
 	}
@@ -147,7 +147,7 @@ public class ObjectManager {
 			if (player != null) {
 				Client c = (Client) player;
 				if (loadForPlayer(o, c)) {
-					c.getActionSender().object(o.newId, o.objectX, o.objectY, o.face, o.type);
+					c.getPacketSender().object(o.newId, o.objectX, o.objectY, o.face, o.type);
 				}
 			}
 		}
@@ -158,7 +158,7 @@ public class ObjectManager {
 			if (player != null) {
 				Client c = (Client) player;
 				if (c.distanceToPoint(o.objectX, o.objectY) <= 60) {
-					c.getActionSender().object(o.objectId, o.objectX, o.objectY, o.face, o.type);
+					c.getPacketSender().object(o.objectId, o.objectX, o.objectY, o.face, o.type);
 				}
 			}
 		}
@@ -179,30 +179,30 @@ public class ObjectManager {
 		}
 		for (Object o : objects) {
 			if (loadForPlayer(o, c)) {
-				c.getActionSender().object(o.objectId, o.objectX, o.objectY, o.face, o.type);
+				c.getPacketSender().object(o.objectId, o.objectX, o.objectY, o.face, o.type);
 			}
 		}
 		loadCustomSpawns(c);
 	}
 
 	public void loadCustomSpawns(Client client) {
-		client.getActionSender().checkObjectSpawn(2474, 3233, 9312, 0, 10);
+		client.getPacketSender().checkObjectSpawn(2474, 3233, 9312, 0, 10);
 		if (client.rope == true) {
-			client.getActionSender().object(3828, 3227, 3108, 0, 0, 10);
+			client.getPacketSender().object(3828, 3227, 3108, 0, 0, 10);
 			Region.addObject(3828, 3227, 3108, 0, 10, 0, false);
 		} 
 		if (client.rope2 == true) {
-			client.getActionSender().object(3828, 3509, 9497, 2, 0, 10);
+			client.getPacketSender().object(3828, 3509, 9497, 2, 0, 10);
 			Region.addObject(3828, 3509, 9497, 2, 10, 0, false);
 		}
 		if (client.questPoints >= QuestAssistant.MAXIMUM_QUESTPOINTS) {
-			client.getActionSender().checkObjectSpawn(2403, 3219, 9623, 3, 10);// RFD
+			client.getPacketSender().checkObjectSpawn(2403, 3219, 9623, 3, 10);// RFD
 		} else {
-			client.getActionSender().checkObjectSpawn(-1, 3219, 9623, 3, 10);// RFD
+			client.getPacketSender().checkObjectSpawn(-1, 3219, 9623, 3, 10);// RFD
 		}
 		// CHEST
 		if (client.flourAmount > 0 && client.heightLevel == 0) {
-			client.getActionSender().checkObjectSpawn(FlourMill.FULL_FLOUR_BIN, 3166, 3306, 0, 10);
+			client.getPacketSender().checkObjectSpawn(FlourMill.FULL_FLOUR_BIN, 3166, 3306, 0, 10);
 		}
 	}
 

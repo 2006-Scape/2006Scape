@@ -250,13 +250,10 @@ public class Trawler extends GroupMinigame {
         public void playerUpdates() {
                 for (Client p : players) {
                         if (p != null) {
-                                p.asClient()
-                                                .getPlayerAssistant()
-                                                .sendFrame126(net_ripped ? "@red@Ripped" : "@gre@Okay",
-                                                                11935);
-                                p.getPlayerAssistant().sendFrame126("" + fish_caught, 11937);
-                                p.getPlayerAssistant().sendFrame126(game_time + " mins", 11938);
-                                p.getPlayerAssistant().sendFrame20(391, water_level);
+                                p.asClient().getPacketSender().sendFrame126(net_ripped ? "@red@Ripped" : "@gre@Okay", 11935);
+                                p.getPacketSender().sendFrame126("" + fish_caught, 11937);
+                                p.getPacketSender().sendFrame126(game_time + " mins", 11938);
+                                p.getPacketSender().sendFrame20(391, water_level);
                         } else {
                                 players_to_remove.add(p);
                         }
@@ -290,11 +287,11 @@ public class Trawler extends GroupMinigame {
                 for (Client p : players) {
                         if (p != null) {
                                 p.getPlayerAssistant().removeAllSidebars();
-                                p.getPlayerAssistant().sendMapState(2);
-                                p.getPlayerAssistant().showInterface(3281);
-                                p.getPlayerAssistant().sendFrame20(75, 11);
+                                p.getPacketSender().sendMapState(2);
+                                p.getPacketSender().showInterface(3281);
+                                p.getPacketSender().sendFrame20(75, 11);
                                 p.getPlayerAssistant().movePlayer(1885, 4825, 1);
-                                p.getPlayerAssistant().sendFrame126("", 11936);
+                                p.getPacketSender().sendFrame126("", 11936);
                         }
                 }
                 CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
@@ -308,8 +305,8 @@ public class Trawler extends GroupMinigame {
                                 for (Client p : players) {
                                         if (p != null) {
                                         	 	p.getPlayerAssistant().sendSidebars();
-                                                p.getPlayerAssistant().showInterface(5596);
-                                                p.getPlayerAssistant().sendMapState(0);
+                                                p.getPacketSender().showInterface(5596);
+                                                p.getPacketSender().sendMapState(0);
                                         }
                                 }
                                 started = true;
@@ -434,7 +431,7 @@ public class Trawler extends GroupMinigame {
                                         p.turnPlayerTo(x, y + (y == 4826 ? 1 : -1));
                                 }
                         } else {
-                                p.getActionSender().sendMessage("You don't have any swamp paste.");
+                                p.getPacketSender().sendMessage("You don't have any swamp paste.");
                         }
                 }
         }
@@ -480,11 +477,11 @@ public class Trawler extends GroupMinigame {
         public void fixNet(Client p) {
                 if (doAction(p)) {
                         if (!net_ripped) {
-                                p.getActionSender().sendMessage("The net is not ripped.");
+                                p.getPacketSender().sendMessage("The net is not ripped.");
                                 return;
                         }
                         if (!p.getItemAssistant().playerHasItem(rope)) {
-                                p.getActionSender().sendMessage(
+                                p.getPacketSender().sendMessage(
                                                 "You need a rope before attempting to fix the net!");
                                 return;
                         }
@@ -493,10 +490,10 @@ public class Trawler extends GroupMinigame {
                                 p.getItemAssistant().deleteItem(rope, 1);
                                 net_ripped = false;
                                 playerUpdates();
-                                p.getActionSender().sendMessage("You successfully fix the net!");
+                                p.getPacketSender().sendMessage("You successfully fix the net!");
                         } else {
                                 p.getItemAssistant().deleteItem(rope, 1);
-                                p.getActionSender().sendMessage("You failed to repair the net!");
+                                p.getPacketSender().sendMessage("You failed to repair the net!");
                         }
                 }
         }
@@ -596,7 +593,7 @@ public class Trawler extends GroupMinigame {
                                 p.playerTurn90CCWIndex = SWIM_STILL_ANIMATION;
                                 p.playerTurn180Index = SWIM_STILL_ANIMATION;
                                 p.getPlayerAssistant().requestUpdates();
-                                p.getPlayerAssistant().closeAllWindows();
+                                p.getPacketSender().closeAllWindows();
                         }
                 }
         }
@@ -714,9 +711,9 @@ public class Trawler extends GroupMinigame {
                 for (Client p : pl) {
                         if (p != null) {
                                 p.getPlayerAssistant().removeAllSidebars();
-                                p.getPlayerAssistant().sendMapState(2);
-                                p.getPlayerAssistant().showInterface(3281);
-                                p.getPlayerAssistant().sendFrame20(75, 12);
+                                p.getPacketSender().sendMapState(2);
+                                p.getPacketSender().showInterface(3281);
+                                p.getPacketSender().sendFrame20(75, 12);
                                 p.getPlayerAssistant().movePlayer(2666, 3161, 0);
                                 //p.getPlayerAssistant().movePlayer(2804, 3421, 0);
                         }
@@ -732,8 +729,8 @@ public class Trawler extends GroupMinigame {
                                 for (Client p : pl) {
                                         if (p != null) {
                                                 p.getPlayerAssistant().sendSidebars();
-                                                p.getPlayerAssistant().sendMapState(0);
-                                                p.getPlayerAssistant().closeAllWindows();
+                                                p.getPacketSender().sendMapState(0);
+                                                p.getPacketSender().closeAllWindows();
                                         }
                                 }
                                 in_progress = false;
@@ -847,23 +844,23 @@ public class Trawler extends GroupMinigame {
        
         public void resetRewardsInterface(Client c) {
                 for(int j = 0; j < 45; j++) {
-                        c.getPlayerAssistant().sendFrame34(-1, j, 4640, -1);
+                        c.getPacketSender().sendFrame34(-1, j, 4640, -1);
                 }
         }
         public void showReward(Client c) {
                 resetRewardsInterface(c);
                 c.inFishingTrawlerRewardsInterface = true;
-                c.getPlayerAssistant().showInterface(4564);
+                c.getPacketSender().showInterface(4564);
                 for(int j = 0; j < c.fishingTrawlerReward.size(); j++) {
-                        c.getPlayerAssistant().sendFrame34(c.fishingTrawlerReward.get(j).id, j, 4640, c.fishingTrawlerReward.get(j).amount);
+                        c.getPacketSender().sendFrame34(c.fishingTrawlerReward.get(j).id, j, 4640, c.fishingTrawlerReward.get(j).amount);
                 }
         }
        
         public void updateRewardSlot(Client c, int slot) {
                 c.inFishingTrawlerRewardsInterface = true;
-                c.getPlayerAssistant().sendFrame34(c.fishingTrawlerReward.get(slot).id, slot, 4640, c.fishingTrawlerReward.get(slot).amount);
+                c.getPacketSender().sendFrame34(c.fishingTrawlerReward.get(slot).id, slot, 4640, c.fishingTrawlerReward.get(slot).amount);
                 if(slot != 4 && c.fishingTrawlerReward.size() == 5) {
-                        c.getPlayerAssistant().sendFrame34(c.fishingTrawlerReward.get(4).id, 4, 4640, c.fishingTrawlerReward.get(4).amount);
+                        c.getPacketSender().sendFrame34(c.fishingTrawlerReward.get(4).id, 4, 4640, c.fishingTrawlerReward.get(4).amount);
                 }
         }
        

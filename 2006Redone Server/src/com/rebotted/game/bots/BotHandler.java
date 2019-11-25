@@ -32,7 +32,7 @@ public class BotHandler {
     public static void playerShop(Client player){
         // Must be in the correct zones
         if (!player.inPlayerShopArea() && !player.inBankArea()) {
-            player.getActionSender().sendMessage("You need to be in a bank zone or trade area for this.");
+            player.getPacketSender().sendMessage("You need to be in a bank zone or trade area for this.");
             return;
         }
 
@@ -142,13 +142,13 @@ public class BotHandler {
 
     public static void takeCoins(Client player){
         if (!player.getItemAssistant().playerHasItem(currency) && player.getItemAssistant().freeSlots() <= 0) {
-            player.getActionSender().sendMessage("You don't have enough space in your inventory.");
+            player.getPacketSender().sendMessage("You don't have enough space in your inventory.");
             return;
         }
         Client shop = getPlayerShop(player);
         if (shop == null) return;
         if (!shop.getItemAssistant().playerHasItem(currency)) {
-            player.getActionSender().sendMessage("There are no coins to collect.");
+            player.getPacketSender().sendMessage("There are no coins to collect.");
             return;
         }
         int totalCoins = shop.getItemAssistant().getItemAmount(currency);

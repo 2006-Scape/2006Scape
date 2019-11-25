@@ -85,7 +85,7 @@ public class NpcHandler {
 		newNPC.spawnedBy = c.getId();
 		newNPC.facePlayer(c.playerId);
 		if (headIcon) {
-			c.getActionSender().drawHeadicon(1, slot, 0, 0);
+			c.getPacketSender().drawHeadicon(1, slot, 0, 0);
 		}
 		if (summonFollow) {
 			newNPC.summoner = true;
@@ -183,7 +183,7 @@ public class NpcHandler {
 			c.setSpecialTarget(newNPC);
 		}
 		if (headIcon) {
-			c.getActionSender().drawHeadicon(1, slot, 0, 0);
+			c.getPacketSender().drawHeadicon(1, slot, 0, 0);
 		}
 		if (attackPlayer) {
 			newNPC.underAttack = true;
@@ -246,7 +246,7 @@ public class NpcHandler {
 				for(int o = 0; o < c.barrowCrypt.length; o++){
 					if(npcs[i].npcType == c.barrowCrypt[o][0]) {
 						c.barrowsKillCount++;
-						c.getPlayerAssistant().sendFrame126(""+c.barrowsKillCount, 4536);
+						c.getPacketSender().sendFrame126(""+c.barrowsKillCount, 4536);
 					}
 				}
 			}
@@ -567,7 +567,7 @@ public class NpcHandler {
 							if (GameConstants.COMBAT_SOUNDS
 									&& NpcHandler.npcs[i].npcType < 3177
 									&& NpcHandler.npcs[i].npcType > 3180) {
-								c.getActionSender()
+								c.getPacketSender()
 										.sendSound(
 												CombatSounds
 														.getNpcDeathSounds(npcs[i].npcType),
@@ -625,7 +625,7 @@ public class NpcHandler {
 						}
 						if (npcs[i].npcType == 655) {
 							player.spiritTree = true;
-							player.getActionSender().sendMessage(
+							player.getPacketSender().sendMessage(
 									"You have defeated the tree spirit.");
 						}
 						if (npcs[i].npcType > 412 && npcs[i].npcType < 419) {
@@ -687,7 +687,7 @@ public class NpcHandler {
 	private void handleratdeath(int i) {
 		final Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
-			c.getActionSender().chatbox(6180);
+			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 					.chatboxText(
 							c,
@@ -695,8 +695,8 @@ public class NpcHandler {
 							"Pass through the gate and talk to the Combat Instructor, he",
 							"will give you your next task.", "",
 							"Well done, you've made your first kill!");
-			c.getActionSender().chatbox(6179);
-			c.getActionSender().drawHeadicon(1, 6, 0, 0); // draws
+			c.getPacketSender().chatbox(6179);
+			c.getPacketSender().drawHeadicon(1, 6, 0, 0); // draws
 																// headicon to
 																// combat ude
 			c.tutorialProgress = 25;
@@ -706,7 +706,7 @@ public class NpcHandler {
 	private void handleratdeath2(int i) {
 		Client c = (Client) PlayerHandler.players[npcs[i].killedBy];
 		if (c != null) {
-			c.getActionSender().chatbox(6180);
+			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 					.chatboxText(
 							c,
@@ -714,9 +714,9 @@ public class NpcHandler {
 							"ladder shown. If you need to go over any of what you learnt",
 							"here, just talk to the Combat Instructor and he'll tell you what",
 							"he can.", "Moving on");
-			c.getActionSender().chatbox(6179);
+			c.getPacketSender().chatbox(6179);
 			c.tutorialProgress = 26;
-			c.getActionSender().createArrow(3111, 9525, c.getH(), 2); // send
+			c.getPacketSender().createArrow(3111, 9525, c.getH(), 2); // send
 																			// hint
 																			// to
 																			// furnace
@@ -953,7 +953,7 @@ public class NpcHandler {
 					int points = c.getSlayer().getDifficulty(c.slayerTask) * 4;
 					c.slayerTask = -1;
 					c.slayerPoints += points;
-					c.getActionSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points. Please talk to your slayer master.");
+					c.getPacketSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points. Please talk to your slayer master.");
 				}
 			}
 		}

@@ -12,7 +12,7 @@ public class FreakyForester {
 		client.teleportToX = 2602;
 		client.teleportToY = 4775;
 		client.heightLevel = 0;
-		client.getActionSender().sendMessage("Talk to the freaky forester to get out.");
+		client.getPacketSender().sendMessage("Talk to the freaky forester to get out.");
 	}
 
 	private static String[] pheasant = { "one", "two", "three", "four", };
@@ -28,7 +28,7 @@ public class FreakyForester {
 		if (client.killedPheasant[client.getPheasent]) {
 			client.getPlayerAssistant().movePlayer(client.lastX, client.lastY, client.lastH);
 			client.canLeaveArea = true;
-			client.getActionSender().sendMessage("Congratulations, you've completed the freaky forester event!");
+			client.getPacketSender().sendMessage("Congratulations, you've completed the freaky forester event!");
 			if (client.recievedReward == false) {
 				client.getItemAssistant().addItem(6180, 1);
 				client.getItemAssistant().addItem(6181, 1);
@@ -36,7 +36,7 @@ public class FreakyForester {
 				client.recievedReward = true;
 			} else {
 				client.getItemAssistant().addItem(995, 500);
-				client.getActionSender().sendMessage("You have already beat the freaky forester event so you get 500 coins.");
+				client.getPacketSender().sendMessage("You have already beat the freaky forester event so you get 500 coins.");
 			}
 			int delete = client.getItemAssistant().getItemCount(6178);
 			client.getItemAssistant().deleteItem(6178, delete);

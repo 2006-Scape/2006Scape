@@ -56,7 +56,7 @@ public class Bank10 implements PacketType {
 				break;
 			}
 			if (player.inTrade) {
-				player.getActionSender().sendMessage("You can't store items while trading!");
+				player.getPacketSender().sendMessage("You can't store items while trading!");
 				return;
 			}
 			player.getItemAssistant().bankItem(removeId, removeSlot, 10);

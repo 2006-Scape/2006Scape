@@ -23,22 +23,22 @@ public class Weight extends ItemDefinitions {
 				if (c.weight < 0) {
 					c.weight = 0.0;
 				}
-				c.getActionSender().writeWeight((int) c.weight);
+				c.getPacketSender().writeWeight((int) c.weight);
 				return;
 			}
 			c.weight -= getWeight(item) / 10;
 			if (c.weight < 0) {
 				c.weight = 0.0;
 			}
-			c.getActionSender().writeWeight((int) c.weight);
+			c.getPacketSender().writeWeight((int) c.weight);
 		} else if (action.equalsIgnoreCase("additem")) {
 			if (getWeight(item) > 99.20) {
 				c.weight += getWeight(item) / 100;
-				c.getActionSender().writeWeight((int) c.weight);
+				c.getPacketSender().writeWeight((int) c.weight);
 				return;
 			}
 			c.weight += getWeight(item) / 10;
-			c.getActionSender().writeWeight((int) c.weight);
+			c.getPacketSender().writeWeight((int) c.weight);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class Weight extends ItemDefinitions {
 	 */
 	public static void updateWeight(Client c) {
 		if (c != null) {
-			c.getActionSender().writeWeight((int) c.weight);
+			c.getPacketSender().writeWeight((int) c.weight);
 			// Inventory items
 			for (int playerItem : c.playerItems) {
 				if (playerItem > -1) {// inventory
@@ -75,6 +75,6 @@ public class Weight extends ItemDefinitions {
 				}
 			}
 		}
-		c.getActionSender().writeWeight((int) c.weight);
+		c.getPacketSender().writeWeight((int) c.weight);
 	}
 }

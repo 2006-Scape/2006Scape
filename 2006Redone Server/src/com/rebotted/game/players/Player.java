@@ -286,8 +286,8 @@ public abstract class Player {
 				Client c = (Client) PlayerHandler.players[playerId];
 				autocasting = true;
 				autocastId = autocastIds[j + 1];
-				c.getPlayerAssistant().sendConfig(108, 1);
-				c.getActionSender().setSidebarInterface(0, 328);
+				c.getPacketSender().sendConfig(108, 1);
+				c.getPacketSender().setSidebarInterface(0, 328);
 				c = null;
 				break;
 			}

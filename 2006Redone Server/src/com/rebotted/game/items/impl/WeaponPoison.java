@@ -136,7 +136,7 @@ public class WeaponPoison {
 		if (weapon != null) {
 			for (int element[] : weapon.getNewItemId()) {
 				if (itemUse == element[0]) {
-					player.getActionSender().sendMessage("You make a " + ItemAssistant.getItemName(element[1]) + ".");
+					player.getPacketSender().sendMessage("You make a " + ItemAssistant.getItemName(element[1]) + ".");
 					player.getItemAssistant().deleteItem(element[0], player.getItemAssistant().getItemSlot(element[0]), 1);
 					player.getItemAssistant().deleteItem(weapon.getItemId(), player.getItemAssistant().getItemSlot(weapon.getItemId()), 1);
 					player.getItemAssistant().addItem(VIAL, 1);

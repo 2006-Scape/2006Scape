@@ -7,10 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
-import java.util.concurrent.Future;
-
 import org.apache.mina.common.IoSession;
-
 import com.rebotted.Connection;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
@@ -26,7 +23,6 @@ import com.rebotted.game.content.combat.magic.MagicTeleports;
 import com.rebotted.game.content.combat.prayer.PrayerData;
 import com.rebotted.game.content.combat.prayer.PrayerDrain;
 import com.rebotted.game.content.combat.range.DwarfCannon;
-import com.rebotted.game.content.combat.range.RangeData;
 import com.rebotted.game.content.consumables.Food;
 import com.rebotted.game.content.consumables.Potions;
 import com.rebotted.game.content.guilds.impl.RangersGuild;
@@ -63,10 +59,9 @@ import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.items.impl.PotionMixing;
 import com.rebotted.game.items.impl.Teles;
 import com.rebotted.game.npcs.NpcActions;
-import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.objects.ObjectsActions;
 import com.rebotted.game.shops.ShopAssistant;
-import com.rebotted.net.ActionSender;
+import com.rebotted.net.PacketSender;
 import com.rebotted.net.HostList;
 import com.rebotted.net.Packet;
 import com.rebotted.net.StaticPacketBuilder;
@@ -121,7 +116,7 @@ public class Client extends Player {
 	private final RuneMysteries runeMysteries = new RuneMysteries(this);
 	private final WitchsPotion witchsPotion = new WitchsPotion(this);
 	private final PiratesTreasure piratesTreasure = new PiratesTreasure(this);
-	private final ActionSender actionSender = new ActionSender(this);
+	private final PacketSender packetSender = new PacketSender(this);
 	private final DialogueHandler dialogues = new DialogueHandler(this);
 	private final GnomeAgility gnomeStrongHold = new GnomeAgility(this);
 	private final WildernessAgility wildernessAgility = new WildernessAgility(this);
@@ -206,8 +201,8 @@ public class Client extends Player {
 		return dialogues;
 	}
 
-	public ActionSender getActionSender() {
-		return actionSender;
+	public PacketSender getPacketSender() {
+		return packetSender;
 	}
 
 	public SoundList getSound() {
@@ -464,7 +459,7 @@ public class Client extends Player {
 	 * Resets the shaking of the player's screen.
 	 */
 	public void resetShaking() {
-		getActionSender().shakeScreen(1, 0, 0, 0);
+		getPacketSender().shakeScreen(1, 0, 0, 0);
 	}
 
 	public final String disabled() {
@@ -472,18 +467,18 @@ public class Client extends Player {
 	}
 
 	public void puzzleBarrow() {
-		getPlayerAssistant().sendFrame246(4545, 250, 6833);
-		getPlayerAssistant().sendFrame126("1.", 4553);
-		getPlayerAssistant().sendFrame246(4546, 250, 6832);
-		getPlayerAssistant().sendFrame126("2.", 4554);
-		getPlayerAssistant().sendFrame246(4547, 250, 6830);
-		getPlayerAssistant().sendFrame126("3.", 4555);
-		getPlayerAssistant().sendFrame246(4548, 250, 6829);
-		getPlayerAssistant().sendFrame126("4.", 4556);
-		getPlayerAssistant().sendFrame246(4550, 250, 3454);
-		getPlayerAssistant().sendFrame246(4551, 250, 8746);
-		getPlayerAssistant().sendFrame246(4552, 250, 6830);
-		getPlayerAssistant().showInterface(4543);
+		getPacketSender().sendFrame246(4545, 250, 6833);
+		getPacketSender().sendFrame126("1.", 4553);
+		getPacketSender().sendFrame246(4546, 250, 6832);
+		getPacketSender().sendFrame126("2.", 4554);
+		getPacketSender().sendFrame246(4547, 250, 6830);
+		getPacketSender().sendFrame126("3.", 4555);
+		getPacketSender().sendFrame246(4548, 250, 6829);
+		getPacketSender().sendFrame126("4.", 4556);
+		getPacketSender().sendFrame246(4550, 250, 3454);
+		getPacketSender().sendFrame246(4551, 250, 8746);
+		getPacketSender().sendFrame246(4552, 250, 6830);
+		getPacketSender().showInterface(4543);
 	}
 
 	public void flushOutStream() {
@@ -650,15 +645,15 @@ public class Client extends Player {
 				getPlayerAssistant().refreshSkill(playerFarming);
 			}
 			if (tutorialProgress > 0 && tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
-				getActionSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
+				getPacketSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
 			}
 			if (tutorialProgress > 35) {
 				getPlayerAssistant().sendSidebars();
 				Weight.updateWeight(this);
-				getActionSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
-				getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
-				getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
-				getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+				getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+				getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
+				getPacketSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
+				getPacketSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
 				/*if (!hasBankpin) { //Kind of annoying. Maybe add Random % 10 or something.
 					getActionSender().sendMessage("You do not have a bank pin it is highly recommended you set one.");
 				}*/
@@ -666,14 +661,14 @@ public class Client extends Player {
 			getPlayerAssistant().firstTimeTutorial();
 			getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
 			for (int i = 0; i < 25; i++) {
-				getActionSender().setSkillLevel(i, playerLevel[i], playerXP[i]);
+				getPacketSender().setSkillLevel(i, playerLevel[i], playerXP[i]);
 				getPlayerAssistant().refreshSkill(i);
 			}
 			for (int p = 0; p < getPrayer().PRAYER.length; p++) { // reset
 																	// prayer
 																	// glows
 				getPrayer().prayerActive[p] = false;
-				getPlayerAssistant().sendConfig(getPrayer().PRAYER_GLOW[p], 0);
+				getPacketSender().sendConfig(getPrayer().PRAYER_GLOW[p], 0);
 			}
 			lastX = absX;
 			lastY = absY;
@@ -682,18 +677,18 @@ public class Client extends Player {
 				WildernessWarning = true;
 			}
 			if (splitChat == true) {
-				getPlayerAssistant().sendConfig(502, 1);
-				getPlayerAssistant().sendConfig(287, 1);
+				getPacketSender().sendConfig(502, 1);
+				getPacketSender().sendConfig(287, 1);
 			} else {
-				getPlayerAssistant().sendConfig(502, 0);
-				getPlayerAssistant().sendConfig(287, 0);
+				getPacketSender().sendConfig(502, 0);
+				getPacketSender().sendConfig(287, 0);
 			}
 			if (isRunning2) {
-				getPlayerAssistant().sendConfig(504, 1);
-				getPlayerAssistant().sendConfig(173, 1);
+				getPacketSender().sendConfig(504, 1);
+				getPacketSender().sendConfig(173, 1);
 			} else {
-				getPlayerAssistant().sendConfig(504, 0);
-				getPlayerAssistant().sendConfig(173, 0);
+				getPacketSender().sendConfig(504, 0);
+				getPacketSender().sendConfig(173, 0);
 			}
 
 			getPlayList().fixAllColors();
@@ -702,13 +697,13 @@ public class Client extends Player {
 			getPlayerAssistant().handleWeaponStyle();
 			MagicTeleports.handleLoginText(this);
 			accountFlagged = getPlayerAssistant().checkForFlags();
-			getPlayerAssistant().sendConfig(108, 0);// resets autocast button
-			getPlayerAssistant().sendFrame107(); // reset screen
-			getPlayerAssistant().setChatOptions(0, 0, 0); // reset private
+			getPacketSender().sendConfig(108, 0);// resets autocast button
+			getPacketSender().sendFrame107(); // reset screen
+			getPacketSender().setChatOptions(0, 0, 0); // reset private
 															// messaging options
 			correctCoordinates();
-			getActionSender().showOption(4, 0, "Trade With", 3);
-			getActionSender().showOption(5, 0, "Follow", 4);
+			getPacketSender().showOption(4, 0, "Trade With", 3);
+			getPacketSender().showOption(5, 0, "Follow", 4);
 			getItemAssistant().resetItems(3214);
 			getItemAssistant().resetBonus();
 			getItemAssistant().getBonus();
@@ -800,7 +795,7 @@ public class Client extends Player {
 				getPlayerAssistant().movePlayer(2657, 2639, 0);
 			}
 			if(!forceLogout && (underAttackBy > 0 || underAttackBy2 > 0)) {
-				getActionSender().sendMessage("You can't logout during combat!");
+				getPacketSender().sendMessage("You can't logout during combat!");
 				return;
 			}
 		    lastLoginDate = getLastLogin();
@@ -816,7 +811,7 @@ public class Client extends Player {
 					outStream.createFrame(109);
 				properLogout = true;
 			} else {
-				getActionSender().sendMessage("You must wait a few seconds from being out of combat to logout.");
+				getPacketSender().sendMessage("You must wait a few seconds from being out of combat to logout.");
 			}
 		}
 	}
@@ -830,7 +825,7 @@ public class Client extends Player {
 	            @Override
 	            public void execute(CycleEventContainer container) {
 				antiFirePot = false;
-				getActionSender().sendMessage("Your resistance to dragon fire has worn off.");
+				getPacketSender().sendMessage("Your resistance to dragon fire has worn off.");
 				container.stop();
 			}
 			@Override
@@ -867,40 +862,40 @@ public class Client extends Player {
 		if (inWild() && !inCw()) {
 			int modY = absY > 6400 ? absY - 6400 : absY;
 			wildLevel = (modY - 3520) / 8 + 1;
-			getPlayerAssistant().walkableInterface(197);
+			getPacketSender().walkableInterface(197);
 			if (GameConstants.SINGLE_AND_MULTI_ZONES) {
 				if (inMulti()) {
-					getPlayerAssistant().sendFrame126("@yel@Level: " + wildLevel,
+					getPacketSender().sendFrame126("@yel@Level: " + wildLevel,
 							199);
 				} else {
-					getPlayerAssistant().sendFrame126("@yel@Level: " + wildLevel,
+					getPacketSender().sendFrame126("@yel@Level: " + wildLevel,
 							199);
 				}
 			} else {
-				getActionSender().multiWay(-1);
-				getPlayerAssistant().sendFrame126("@yel@Level: " + wildLevel, 199);
+				getPacketSender().multiWay(-1);
+				getPacketSender().sendFrame126("@yel@Level: " + wildLevel, 199);
 			}
-			getActionSender().showOption(3, 0, "Attack", 1);
+			getPacketSender().showOption(3, 0, "Attack", 1);
 		} else if (inDuelArena()) {
-			getPlayerAssistant().walkableInterface(201);
+			getPacketSender().walkableInterface(201);
 			if (duelStatus == 5) {
-				getActionSender().showOption(3, 0, "Attack", 1);
+				getPacketSender().showOption(3, 0, "Attack", 1);
 			} else {
-				getActionSender().showOption(3, 0, "Challenge", 1);
+				getPacketSender().showOption(3, 0, "Challenge", 1);
 			}
 		} else if (getPlayerAssistant().inPitsWait()) {
-			getActionSender().showOption(3, 0, "Null", 1);
+			getPacketSender().showOption(3, 0, "Null", 1);
         } else if(GameEngine.trawler.players.contains(this)) {
-            getPlayerAssistant().walkableInterface(11908);
+        	getPacketSender().walkableInterface(11908);
 		} else if (isInBarrows() || isInBarrows2()) {
-			getPlayerAssistant().sendFrame126("Kill Count: " + barrowsKillCount, 4536);
-			getPlayerAssistant().walkableInterface(4535);
+			getPacketSender().sendFrame126("Kill Count: " + barrowsKillCount, 4536);
+			getPacketSender().walkableInterface(4535);
 		} else if (inCw() || inPits) {
-			getActionSender().showOption(3, 0, "Attack", 1);
+			getPacketSender().showOption(3, 0, "Attack", 1);
 		} else {
-			getPlayerAssistant().sendMapState(0);
-			getPlayerAssistant().walkableInterface(-1);
-			getActionSender().showOption(3, 0, "Null", 1);
+			getPacketSender().sendMapState(0);
+			getPacketSender().walkableInterface(-1);
+			getPacketSender().showOption(3, 0, "Null", 1);
 		}
 	}
 
@@ -945,8 +940,8 @@ public class Client extends Player {
 		}
 		if (playerEnergy <= 0 && isRunning2) {
 			isRunning2 = false;
-			getPlayerAssistant().sendConfig(504, 0);
-			getPlayerAssistant().sendConfig(173, 0);
+			getPacketSender().sendConfig(504, 0);
+			getPacketSender().sendConfig(173, 0);
 		}
 		getPlayerAssistant().writeEnergy();
 
@@ -993,13 +988,13 @@ public class Client extends Player {
 				if (playerLevel[level] < getLevelForXP(playerXP[level])) {
 					if (level != 5) { // prayer doesn't restore
 						playerLevel[level] += 1;
-						getActionSender().setSkillLevel(level,
+						getPacketSender().setSkillLevel(level,
 								playerLevel[level], playerXP[level]);
 						getPlayerAssistant().refreshSkill(level);
 					}
 				} else if (playerLevel[level] > getLevelForXP(playerXP[level])) {
 					playerLevel[level] -= 1;
-					getActionSender().setSkillLevel(level,
+					getPacketSender().setSkillLevel(level,
 							playerLevel[level], playerXP[level]);
 					getPlayerAssistant().refreshSkill(level);
 				}
@@ -1008,12 +1003,12 @@ public class Client extends Player {
 
 		if (!hasMultiSign && inMulti()) {
 			hasMultiSign = true;
-			getActionSender().multiWay(1);
+			getPacketSender().multiWay(1);
 		}
 
 		if (hasMultiSign && !inMulti()) {
 			hasMultiSign = false;
-			getActionSender().multiWay(-1);
+			getPacketSender().multiWay(-1);
 		}
 
 		if (skullTimer > 0) {
@@ -1269,7 +1264,7 @@ public class Client extends Player {
 				if (inFightCaves()) {
 					getDialogueHandler().sendDialogues(101, 2617);
 					getPlayerAssistant().movePlayer(absX, absY, playerId * 4);
-					getActionSender().sendMessage("Your wave will start in 10 seconds.");
+					getPacketSender().sendMessage("Your wave will start in 10 seconds.");
 					 CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
@@ -1294,7 +1289,7 @@ public class Client extends Player {
 	                int tStage = 5;
 	                public void execute(CycleEventContainer container) {
 	                    if (tStage == 5) {
-	                          getPlayerAssistant().showInterface(18460);
+	                    	getPacketSender().showInterface(18460);
 	                        }
 	                        if (tStage == 4) {
 	                          getPlayerAssistant().movePlayer(x, y, height);
@@ -1302,7 +1297,7 @@ public class Client extends Player {
 	                          appearanceUpdateRequired = true;
 	                        }
 	                        if (tStage == 3) {
-	                          getPlayerAssistant().showInterface(18452);
+	                          getPacketSender().showInterface(18452);
 	                        }
 	                        if (tStage == 1) {
 	                            container.stop();
@@ -1313,7 +1308,7 @@ public class Client extends Player {
 	                          }
 	                }
 	                public void stop() {
-	                    getPlayerAssistant().closeAllWindows();
+	                    getPacketSender().closeAllWindows();
 	                    tStage = 0;
 	                }
 	            }, 1);
@@ -1328,7 +1323,7 @@ public class Client extends Player {
                 int tStage = 6;
                 public void execute(CycleEventContainer container) {
                     if (tStage == 6) {
-                          getPlayerAssistant().showInterface(18460);
+                    	getPacketSender().showInterface(18460);
                         }
                         if (tStage == 5) {
                           getPlayerAssistant().movePlayer(x, y, height);
@@ -1336,7 +1331,7 @@ public class Client extends Player {
                           appearanceUpdateRequired = true;
                         }
                         if (tStage == 4) {
-                          getPlayerAssistant().showInterface(18452);
+                        	getPacketSender().showInterface(18452);
                         }
                         if (tStage == 1) {
                             container.stop();
@@ -1347,7 +1342,7 @@ public class Client extends Player {
                           }
                 }
                 public void stop() {
-                    getPlayerAssistant().closeAllWindows();
+                	getPacketSender().closeAllWindows();
                     tStage = 0;
                 }
             }, 1);

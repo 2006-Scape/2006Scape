@@ -55,7 +55,6 @@ public class GameEngine {
 	public static int[] cannonsY = new int [50];
 	public static String[] cannonsO = new String [50];
 	public static boolean sleeping;
-	private static final int cycleRate;
 	public static boolean UpdateServer = false;
 	public static long lastMassSave = System.currentTimeMillis();
 	private static IoAcceptor acceptor;
@@ -80,7 +79,6 @@ public class GameEngine {
 	 */
 	static {
 		serverlistenerPort = 43594;
-		cycleRate = 600;
 		shutdownServer = false;
 	}
 

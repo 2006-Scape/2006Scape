@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import com.rebotted.game.bots.Bot;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;

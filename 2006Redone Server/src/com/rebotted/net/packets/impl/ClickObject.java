@@ -1,14 +1,12 @@
 package com.rebotted.net.packets.impl;
 
 import java.util.function.Consumer;
-
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.minigames.castlewars.CastleWarObjects;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
-import com.rebotted.game.content.skills.core.Mining;
 import com.rebotted.game.content.skills.core.Woodcutting;
 import com.rebotted.game.content.skills.thieving.Stalls;
 import com.rebotted.game.globalworldobjects.Doors;
@@ -16,8 +14,6 @@ import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Client;
 import com.rebotted.net.packets.PacketType;
-import com.rebotted.util.Misc;
-import com.rebotted.world.clip.ObjectDef;
 import com.rebotted.world.clip.Region;
 
 public class ClickObject implements PacketType {
@@ -122,7 +118,7 @@ public class ClickObject implements PacketType {
 		switch (objectOption) {
 		case 1:
 			if (player.playerRights == 3 || player.debugMode) {
-				player.getActionSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 1, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 1, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 
 			//todo: check if it's a door before fire handle
@@ -138,7 +134,7 @@ public class ClickObject implements PacketType {
 			}
 
 			if (player.teleTimer > 0) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You cannot use objects while teleporting.");
 				return;
 			}
@@ -213,11 +209,11 @@ public class ClickObject implements PacketType {
 
 			case 1292:
 				if (player.spiritTree == false && player.clickedTree == true) {
-					player.getActionSender().sendMessage("You have already spawned a tree spirit.");
+					player.getPacketSender().sendMessage("You have already spawned a tree spirit.");
 					return;
 				}
 				if (player.spiritTree == false && player.clickedTree == false) {
-					player.getActionSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
+					player.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
 					NpcHandler.spawnNpc(player, 655, player.getX(), player.getY(), 0, 0, 225, 20, 80, 80, true, false);
 					player.clickedTree = true;
 				} else if (player.spiritTree == true) {
@@ -243,7 +239,7 @@ public class ClickObject implements PacketType {
 			case 4464:
 			case 4459:
 				if (!CastleWars.isInCw(player)) {
-					player.getActionSender().sendMessage("You have to be in castle wars to use these objects.");
+					player.getPacketSender().sendMessage("You have to be in castle wars to use these objects.");
 					CastleWars.resetPlayer(player);
 					return;
 				}
@@ -263,18 +259,18 @@ public class ClickObject implements PacketType {
 
 			case 1568:
 				if (player.objectX == 2399 && player.objectY == 3099) {
-					player.getActionSender()
+					player.getPacketSender()
 							.object(9472, 2399, 3099, 0, 10);
 				}
 				if (player.objectX == 2400 && player.objectY == 3108) {
-					player.getActionSender()
+					player.getPacketSender()
 							.object(9472, 2400, 3108, 2, 10);
 				}
 				break;
 
 			case 4437:
 				if (player.getItemAssistant().playerHasItem(1265, 1)) {
-					player.getActionSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"You start to break up the rocks...");
 					player.startAnimation(625);
 					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -286,11 +282,11 @@ public class ClickObject implements PacketType {
 
 						@Override
 						public void stop() {
-							player.getActionSender().object(-1,
+							player.getPacketSender().object(-1,
 									player.objectX, player.objectY, 0, 10);
-							player.getActionSender().object(4438,
+							player.getPacketSender().object(4438,
 									player.objectX, player.objectY, 0, 10);
-							player.getActionSender().sendMessage(
+							player.getPacketSender().sendMessage(
 									"You break up the rocks.");
 						}
 					}, 3);
@@ -299,7 +295,7 @@ public class ClickObject implements PacketType {
 
 			case 4438:
 				if (player.getItemAssistant().playerHasItem(1265, 1)) {
-					player.getActionSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"You start to break up the rocks...");
 					player.startAnimation(625);
 					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -311,9 +307,9 @@ public class ClickObject implements PacketType {
 
 						@Override
 						public void stop() {
-							player.getActionSender().object(-1,
+							player.getPacketSender().object(-1,
 									player.objectX, player.objectY, 0, 10);
-							player.getActionSender().sendMessage(
+							player.getPacketSender().sendMessage(
 									"You break up the rocks.");
 						}
 					}, 3);
@@ -322,7 +318,7 @@ public class ClickObject implements PacketType {
 
 			case 4448:
 				if (player.getItemAssistant().playerHasItem(1265, 1)) {
-					player.getActionSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"You start to mine the wall...");
 					player.startAnimation(625);
 					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -330,7 +326,7 @@ public class ClickObject implements PacketType {
 				            public void execute(CycleEventContainer container) {
 							stop();
 							player.startAnimation(65535);
-							player.getActionSender().sendMessage(
+							player.getPacketSender().sendMessage(
 									"You collapse the cave wall.");
 						}
 
@@ -340,9 +336,9 @@ public class ClickObject implements PacketType {
 									&& (player.objectY == 9503 || player.objectY == 9500)) { // east
 								// cave
 								// side
-								player.getActionSender().object(-1, 2391,
+								player.getPacketSender().object(-1, 2391,
 										9501, 0, 10);
-								player.getActionSender().object(4437, 2391,
+								player.getPacketSender().object(4437, 2391,
 										9501, 0, 10);
 								CastleWars.collapseCave(1);
 							}
@@ -350,9 +346,9 @@ public class ClickObject implements PacketType {
 									&& (player.objectY == 9511 || player.objectY == 9514)) { // north
 								// cave
 								// side
-								player.getActionSender().object(-1, 2400,
+								player.getPacketSender().object(-1, 2400,
 										9512, 1, 10);
-								player.getActionSender().object(4437, 2400,
+								player.getPacketSender().object(4437, 2400,
 										9512, 1, 10);
 								CastleWars.collapseCave(0);
 							}
@@ -360,9 +356,9 @@ public class ClickObject implements PacketType {
 									&& (player.objectY == 9502 || player.objectY == 9505)) { // west
 								// cave
 								// side
-								player.getActionSender().object(-1, 2409,
+								player.getPacketSender().object(-1, 2409,
 										9503, 0, 10);
-								player.getActionSender().object(4437, 2409,
+								player.getPacketSender().object(4437, 2409,
 										9503, 0, 10);
 								CastleWars.collapseCave(3);
 							}
@@ -370,9 +366,9 @@ public class ClickObject implements PacketType {
 									&& (player.objectY == 9496 || player.objectY == 9493)) { // south
 								// cave
 								// side
-								player.getActionSender().object(-1, 2401,
+								player.getPacketSender().object(-1, 2401,
 										9494, 1, 10);
-								player.getActionSender().object(4437, 2401,
+								player.getPacketSender().object(4437, 2401,
 										9494, 1, 10);
 								CastleWars.collapseCave(2);
 							}
@@ -400,7 +396,7 @@ public class ClickObject implements PacketType {
 					player.stopMovement();
 					player.resetWalkingQueue();
 					player.getPlayerAssistant().requestUpdates();
-					player.getPlayerAssistant().removeAllWindows();
+					player.getPacketSender().closeAllWindows();
 					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
@@ -421,7 +417,7 @@ public class ClickObject implements PacketType {
 					player.stopMovement();
 					player.resetWalkingQueue();
 					player.getPlayerAssistant().requestUpdates();
-					player.getPlayerAssistant().removeAllWindows();
+					player.getPacketSender().closeAllWindows();
 					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
@@ -460,7 +456,7 @@ public class ClickObject implements PacketType {
 
 		case 2:
 			if (player.playerRights == 3) {
-				player.getActionSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 2, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 2, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 			if (Stalls.isObject(player.objectId)) {
 				Stalls.attemptStall(player, player.objectId, player.objectX, player.objectX);
@@ -471,7 +467,7 @@ public class ClickObject implements PacketType {
 
 		case 3: // 'F'
 			if (player.playerRights == 3) {
-				player.getActionSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 3, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 3, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 
 			player.getObjects().thirdClickObject(player.objectId, player.objectX, player.objectY);
@@ -480,7 +476,7 @@ public class ClickObject implements PacketType {
 
 		case 4:
 			if (player.playerRights == 3) {
-				player.getActionSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 4, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 4, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 
 			player.getObjects().fourthClickObject(player.objectId, player.objectX, player.objectY);

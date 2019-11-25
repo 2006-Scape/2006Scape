@@ -29,7 +29,7 @@ public class Firemaking {
 		int firemakingItems[] = {590, 7329, 7330, 7331};
 		for (int i = 0; i < firemakingItems.length; i++) {
 		if (Firemaking.pickedUpFiremakingLog == true) {
-			c.getActionSender().sendMessage("You can't do that!");
+			c.getPacketSender().sendMessage("You can't do that!");
 			Firemaking.pickedUpFiremakingLog = false;
 			return;
 		}
@@ -37,22 +37,22 @@ public class Firemaking {
 			return;
 		}
 		if (!SkillHandler.FIREMAKING) {
-			c.getActionSender().sendMessage("This skill is currently disabled.");
+			c.getPacketSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
 		for (final LogData l : LogData.values()) {
 			final int logId = usedWith == firemakingItems[i] ? itemUsed : usedWith;
 			if (logId == l.getLogId()) {
 				if (c.playerLevel[11] < l.getLevel()) {
-					c.getActionSender().sendMessage("You need a firemaking level of " + l.getLevel() + " to light " + ItemAssistant.getItemName(logId));
+					c.getPacketSender().sendMessage("You need a firemaking level of " + l.getLevel() + " to light " + ItemAssistant.getItemName(logId));
 					return;
 				}
 				if (c.inBank() || c.inLumbBuilding() || c.inDraynorBuilding()) {
-					c.getActionSender().sendMessage("You cannot light a fire here.");
+					c.getPacketSender().sendMessage("You cannot light a fire here.");
 					return;
 				}
 				if (GameEngine.objectManager.objectExists(c.absX, c.absY)) {
-					c.getActionSender().sendMessage("You cannot light a fire here.");
+					c.getPacketSender().sendMessage("You cannot light a fire here.");
 					return;
 				}
 				c.isFiremaking = true;
@@ -60,15 +60,15 @@ public class Firemaking {
 				boolean notInstant = System.currentTimeMillis() - SkillHandler.lastSkillingAction > 2500;
 				int cycle = 2;
 				if (notInstant) {
-					c.getActionSender().sendMessage("You attempt to light a fire.");
-					c.getActionSender().sendSound(SoundList.FIRE_LIGHT, 100, 0);
+					c.getPacketSender().sendMessage("You attempt to light a fire.");
+					c.getPacketSender().sendSound(SoundList.FIRE_LIGHT, 100, 0);
 					if (!notInstant) {
-						c.getActionSender().sendSound(SoundList.FIRST_ATTEMPT, 100, 0);// testing
+						c.getPacketSender().sendSound(SoundList.FIRST_ATTEMPT, 100, 0);// testing
 					}
 					if (c.tutorialProgress == 4) {
-						c.getActionSender().chatbox(6180);
+						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler().chatboxText(c, "", "Your character is now attempting to light the fire.", "This should only take a few seconds.", "", "Please wait");
-						c.getActionSender().chatbox(6179);
+						c.getPacketSender().chatbox(6179);
 					}
 					if (groundObject == false) {
 						c.getItemAssistant().deleteItem(logId, c.getItemAssistant().getItemSlot(logId), 1);
@@ -102,7 +102,7 @@ public class Firemaking {
 						}
 						if (c.isFiremaking == true) {
 							GameEngine.itemHandler.removeGroundItem(c, logId, x, y, false);
-							c.getActionSender().sendSound(SoundList.FIRE_SUCCESSFUL, 100, 0);
+							c.getPacketSender().sendSound(SoundList.FIRE_SUCCESSFUL, 100, 0);
 							if (itemUsed == 7331 || usedWith == 7331)
 								new Object(11406, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
 							else if (itemUsed == 7330 || usedWith == 7330)
@@ -111,7 +111,7 @@ public class Firemaking {
 								new Object(11404, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
 							else
 								new Object(2732, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
-							c.getActionSender().sendMessage("The fire catches and the log beings to burn.");
+							c.getPacketSender().sendMessage("The fire catches and the log beings to burn.");
 							c.getPlayerAssistant().addSkillXP((int) l.getXp(), 11);
 							if (c.tutorialProgress == 4) {
 								c.getDialogueHandler().sendDialogues(3016, 943);

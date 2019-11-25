@@ -30,14 +30,14 @@ public class LogCutting {
 			c.isWoodcutting = false;
 		}
 		c.doAmount = amount;
-		c.getPlayerAssistant().removeAllWindows();
+		c.getPacketSender().closeAllWindows();
 		if (c.playerLevel[9] < level) {
-			c.getActionSender().sendMessage("You need a fletching level of " + level + " to make this.");
+			c.getPacketSender().sendMessage("You need a fletching level of " + level + " to make this.");
 			return;
 		}
 		c.playerIsFletching = true;
 		c.startAnimation(1248);
-		c.getActionSender().sendSound(CUT_SOUND, 100, 0);
+		c.getPacketSender().sendSound(CUT_SOUND, 100, 0);
 
 		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 
@@ -50,7 +50,7 @@ public class LogCutting {
 					} else {
 						c.getItemAssistant().addItem(product, 1);
 					}
-					c.getActionSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into an " + ItemAssistant.getItemName(product) + ".");
+					c.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into an " + ItemAssistant.getItemName(product) + ".");
 					c.getPlayerAssistant().addSkillXP(xp, c.playerFletching);
 					c.doAmount--;
 				}
@@ -87,7 +87,7 @@ public class LogCutting {
 					container.stop();
 					return;
 				}
-				c.getActionSender().sendSound(CUT_SOUND, 100, 0);
+				c.getPacketSender().sendSound(CUT_SOUND, 100, 0);
 				c.startAnimation(1248);
 
 			}
@@ -103,7 +103,7 @@ public class LogCutting {
 
 	public static void handleClick(Client c, int buttonId) {
 		if (c.doAmount == 28 && c.playerIsFletching == true) {
-			c.getPlayerAssistant().closeAllWindows();
+			c.getPacketSender().closeAllWindows();
 			c.playerIsFletching = false;
 			return;
 		}
@@ -333,7 +333,7 @@ public class LogCutting {
 			c.getItemAssistant().deleteItem(2859, amount);
 			c.getItemAssistant().addItem(2861, makeAmount);
 			c.getPlayerAssistant().addSkillXP(3 * amount, c.playerFletching);
-			c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2859) + " into " + ItemAssistant.getItemName(2861) + ".");
+			c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2859) + " into " + ItemAssistant.getItemName(2861) + ".");
 		}
 	}
 
@@ -357,9 +357,9 @@ public class LogCutting {
 				c.getItemAssistant().deleteItem(314, feather * 4);
 				c.getItemAssistant().deleteItem(2864, arrowShaft);
 				c.getItemAssistant().addItem(2865, arrowShaft);
-				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2864) + " into " + ItemAssistant.getItemName(2865) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2864) + " into " + ItemAssistant.getItemName(2865) + "(s).");
 			} else {
-				c.getActionSender().sendMessage("You need 4 times the amount of feathers as arrow shafts to do this.");
+				c.getPacketSender().sendMessage("You need 4 times the amount of feathers as arrow shafts to do this.");
 			}
 		}
 	}
@@ -384,21 +384,21 @@ public class LogCutting {
 				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, c.playerFletching);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
-				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow > flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, flightedArrow);
 				c.getPlayerAssistant().addSkillXP(1 * flightedArrow, c.playerFletching);
 				c.getItemAssistant().deleteItem(2861, flightedArrow);
 				c.getItemAssistant().deleteItem(2865, flightedArrow);
-				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow < flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
 				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, c.playerFletching);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
-				c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			}
 		}
 	}
@@ -416,7 +416,7 @@ public class LogCutting {
 			c.getItemAssistant().deleteItem(2862, amount);
 			c.getItemAssistant().addItem(2864, makeAmount);
 			c.getPlayerAssistant().addSkillXP(2 * amount, c.playerFletching);
-			c.getActionSender().sendMessage("You turn your " + ItemAssistant.getItemName(2862) + " (s) into " + ItemAssistant.getItemName(2864) + "(s).");
+			c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2862) + " (s) into " + ItemAssistant.getItemName(2864) + "(s).");
 		}
 	}
 }

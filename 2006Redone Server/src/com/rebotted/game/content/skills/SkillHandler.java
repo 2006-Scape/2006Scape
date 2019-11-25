@@ -128,7 +128,7 @@ public class SkillHandler {
 
 	public static boolean membersOnly(Client c) {
 		if (c.membership == false) {
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage("This is a members only skill.");
 			return false;
 		}
@@ -137,7 +137,7 @@ public class SkillHandler {
 
 	public static boolean noInventorySpace(Client c, String skill) {
 		if (c.getItemAssistant().freeSlots() == 0) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You don't have enough inventory space to continue "
 							+ skill + "!");
 			return false;
@@ -154,16 +154,16 @@ public class SkillHandler {
 	}
 
 	public static void send1Item(Client c, int itemId) {
-		c.getPlayerAssistant().sendFrame246(1746, view190 ? 190 : 150, itemId);
-		c.getPlayerAssistant().sendFrame126(
+		c.getPacketSender().sendFrame246(1746, view190 ? 190 : 150, itemId);
+		c.getPacketSender().sendFrame126(
 				getLine(c) + "" + ItemAssistant.getItemName(itemId) + "", 2799);
-		c.getPlayerAssistant().sendChatInterface(4429);
+		c.getPacketSender().sendChatInterface(4429);
 	}
 
 	public static boolean playerHasItem(Client c, String itemName,
 			String skill, int itemID) {
 		if (!c.getItemAssistant().playerHasItem(itemID, 1)) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You dont have any " + itemName + " to continue " + skill
 							+ "!");
 			c.getDialogueHandler().sendStatement(
@@ -187,7 +187,7 @@ public class SkillHandler {
 	public static boolean hasRequiredLevel(final Client c, int id, int lvlReq,
 			String skill, String event) {
 		if (c.playerLevel[id] < lvlReq) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You don't have a high enough " + skill + " level to "
 							+ event + ".");
 			return false;

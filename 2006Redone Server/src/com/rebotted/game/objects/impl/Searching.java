@@ -34,7 +34,7 @@ public class Searching {
 			for (int i = 0; i < s.getObjectId().length; i++) {
 				if (objectType == s.getObjectId()[i]) {
 					player.searchObjectDelay = System.currentTimeMillis();
-					player.getActionSender().sendMessage(s.getObjectText());
+					player.getPacketSender().sendMessage(s.getObjectText());
  				}
 			}
 		}	

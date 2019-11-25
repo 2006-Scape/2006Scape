@@ -55,19 +55,19 @@ public class DwarfCannon {
 			return;
 		}
 		if (noSetUpArea()) {
-			player.getActionSender().sendMessage("You are not allowed to set up a cannon here!");
+			player.getPacketSender().sendMessage("You are not allowed to set up a cannon here!");
 			return;
 		}
 		if (hasCannon()) {
-			player.getActionSender().sendMessage("You already have a cannon placed!");
+			player.getPacketSender().sendMessage("You already have a cannon placed!");
 			return;
 		}
 		if (nearCannon()) {
-			player.getActionSender().sendMessage("You must be farther away from an existing cannon to set a new one up!");
+			player.getPacketSender().sendMessage("You must be farther away from an existing cannon to set a new one up!");
 			return;
 		}
 		if (!canSetUp()) {
-			player.getActionSender().sendMessage("You need all the parts of the cannon to set a cannon up.");
+			player.getPacketSender().sendMessage("You need all the parts of the cannon to set a cannon up.");
 			return;
 		}
 		for (int i = 0; i < 50; i++) {
@@ -87,7 +87,7 @@ public class DwarfCannon {
 					return;
 				}
 				if (!canSetUp()) {
-					player.getActionSender().sendMessage("You need all the parts of the cannon to set a cannon up.");
+					player.getPacketSender().sendMessage("You need all the parts of the cannon to set a cannon up.");
 					container.stop();
 					return;
 				}
@@ -119,7 +119,7 @@ public class DwarfCannon {
 		
 		public void loginCheck() {
 			if (needsCannon()) {
-				player.getActionSender().sendMessage("@red@You can collect your cannon at home from Nulodion.");
+				player.getPacketSender().sendMessage("@red@You can collect your cannon at home from Nulodion.");
 			}
 		}
 		
@@ -172,7 +172,7 @@ public class DwarfCannon {
 		public void loadCannons() {
 			for(int i = 0; i < GameEngine.cannonsX.length; i++) {
 				if (GameEngine.cannonsX[i] != 0) {
-					player.getActionSender().checkObjectSpawn(6, GameEngine.cannonsX[i], GameEngine.cannonsY[i], 0, 10);
+					player.getPacketSender().checkObjectSpawn(6, GameEngine.cannonsX[i], GameEngine.cannonsY[i], 0, 10);
 				}
 			}
 		}
@@ -180,7 +180,7 @@ public class DwarfCannon {
 		public void loadCannon(int x, int y) {
 			int cballs = getBalls();
 			if (!myCannon(x, y)) {
-				player.getActionSender().sendMessage("You can't load somebody else's cannon!");
+				player.getPacketSender().sendMessage("You can't load somebody else's cannon!");
 				return;
 			}
 			if (myBalls <= 29) {
@@ -188,26 +188,26 @@ public class DwarfCannon {
 				player.getItemAssistant().deleteItem(ballsID, player.getItemAssistant().getItemSlot(ballsID), amount);
 				myBalls = cballs;
 				if (player.getItemAssistant().playerHasItem(ballsID)) {
-					player.getActionSender().sendMessage(amount > 1 ? "You load the cannon with " + amount + " cannonballs." : "You load the cannon with 1 cannonball.");
+					player.getPacketSender().sendMessage(amount > 1 ? "You load the cannon with " + amount + " cannonballs." : "You load the cannon with 1 cannonball.");
 				} else {
-					player.getActionSender().sendMessage("You have no cannonballs to load into the cannon.");
+					player.getPacketSender().sendMessage("You have no cannonballs to load into the cannon.");
 				}
 			}
 		}
 		
 		public void clickCannon(int x, int y) {
 			if (!myCannon(x, y)) {
-				player.getActionSender().sendMessage("You can't fire somebody else's cannon!");
+				player.getPacketSender().sendMessage("You can't fire somebody else's cannon!");
 				return;
 			}
 			if (myBalls == 0) {
-				player.getActionSender().sendMessage("Your cannon has run out of cannonballs.");
+				player.getPacketSender().sendMessage("Your cannon has run out of cannonballs.");
 				return;
 			}
 			if (myBalls >= 1 && rotating == false) {
 				shoot();
 			} else if (myBalls >= 1 && rotating == true) {
-				player.getActionSender().sendMessage("Your cannon is already shooting.");
+				player.getPacketSender().sendMessage("Your cannon is already shooting.");
 			}
 		}
 			
@@ -313,7 +313,7 @@ public class DwarfCannon {
 		
 		public void pickup(int x, int y) {
 			if (!myCannon(x, y)) {
-				player.getActionSender().sendMessage("You can't pick up somebody else's cannon!");
+				player.getPacketSender().sendMessage("You can't pick up somebody else's cannon!");
 				return;
 			}
 			if (rotating == true) {
@@ -321,14 +321,14 @@ public class DwarfCannon {
 			}
 			if (player.getItemAssistant().freeSlots() > 3) {
 				player.startAnimation(827);
-				player.getActionSender().sendMessage("You pick up the cannon. It's really heavy.");
+				player.getPacketSender().sendMessage("You pick up the cannon. It's really heavy.");
 				removeCannon(player.cannonX, player.cannonY);
 				player.getItemAssistant().addItem(ITEM_PARTS[0], 1);
 				player.getItemAssistant().addItem(ITEM_PARTS[1], 1);
 				player.getItemAssistant().addItem(ITEM_PARTS[2], 1);
 				player.getItemAssistant().addItem(ITEM_PARTS[3], 1);
 			} else {
-				player.getActionSender().sendMessage("You don't have enough free inventory slots to do that.");
+				player.getPacketSender().sendMessage("You don't have enough free inventory slots to do that.");
 			}
 			if (myBalls > 0) {
 				player.getItemAssistant().addItem(ballsID, myBalls);
@@ -345,7 +345,7 @@ public class DwarfCannon {
 			for (int j = 0; j < PlayerHandler.players.length; j++) {
 				if (PlayerHandler.players[j] != null) {
 					Client a = (Client)PlayerHandler.players[j];
-					 a.getActionSender().object(id, x, y, 516, 10);
+					 a.getPacketSender().object(id, x, y, 516, 10);
 				}
 			}
 		}

@@ -5,11 +5,7 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.util.logging.ExceptionLogger;
-
-import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.integrations.discord.commands.*;
-
-import static com.rebotted.integrations.SettingsLoader.loadSettings;
 
 import java.io.IOException;
 

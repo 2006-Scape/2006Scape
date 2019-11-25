@@ -18,7 +18,7 @@ public class SoftClay {
 
 	public static void makeClay(final Client client) {
 		if (!client.getItemAssistant().playerHasItem(CLAY)) {
-			client.getActionSender().sendMessage(
+			client.getPacketSender().sendMessage(
 					"You need clay to do this.");
 			return;
 		}
@@ -36,7 +36,7 @@ public class SoftClay {
 					client.addAmount++;
 					RandomEventHandler.addRandom(client);
 					if (client.doAmount == 0) {
-						client.getActionSender().sendMessage("You have ran out of clay to turn to soft clay.");
+						client.getPacketSender().sendMessage("You have ran out of clay to turn to soft clay.");
 						container.stop();
 					}
 					if (client.disconnected) {

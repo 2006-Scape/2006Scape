@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import com.rebotted.game.players.PlayerHandler;
-
 public class RegisteredAccsWebsite {
     static String password;
     private static boolean hasntwarned = true;

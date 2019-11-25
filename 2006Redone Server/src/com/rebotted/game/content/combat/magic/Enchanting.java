@@ -228,20 +228,20 @@ public class Enchanting {
 									c.getItemAssistant().getItemSlot(
 											ens.getReq3()), ens.getReqAmt3());
 						}
-						c.getPlayerAssistant().sendFrame106(6);
+						c.getPacketSender().sendFrame106(6);
 					} else {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"You can only enchant this jewelry using a level-"
 										+ enc.getELevel()
 										+ " enchantment spell!");
 					}
 				} else {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You do not have enough runes to cast this spell.");
 				}
 			}
 		} else {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need a magic level of at least " + enc.getLevelReq()
 							+ " to cast this spell.");
 		}

@@ -27,7 +27,7 @@ public class Smithing {
 			checkRune(c, levelReq, amountToMake, type);
 		}
 		if (c.playerRights > 1) {
-			c.getActionSender().sendMessage("You made item id: " + type + ".");
+			c.getPacketSender().sendMessage("You made item id: " + type + ".");
 		}
 	}
 
@@ -176,7 +176,7 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
+			c.getPacketSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
@@ -300,7 +300,7 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
+			c.getPacketSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 
@@ -426,7 +426,7 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need " + levelReq + " smithing to do this!");
 			return;
 		}
@@ -546,7 +546,7 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
+			c.getPacketSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
@@ -665,7 +665,7 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
+			c.getPacketSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
@@ -784,7 +784,7 @@ public class Smithing {
 			removeAmount = 5;
 			makeTimes = amountToMake;
 		} else if (c.playerLevel[c.playerSmithing] < levelReq) {
-			c.getActionSender().sendMessage("You need " + levelReq + " smithing to do this!");
+			c.getPacketSender().sendMessage("You need " + levelReq + " smithing to do this!");
 			return;
 		}
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
@@ -793,17 +793,17 @@ public class Smithing {
 	public boolean smithItem(Client c, int addItem, int removeItem,
 			int removeItem2, int timesToMake, int XP) {
 		int makeTimes = timesToMake;
-		c.getPlayerAssistant().closeAllWindows();
+		c.getPacketSender().closeAllWindows();
 		c.isSmithing = true;
 		String name = ItemAssistant.getItemName(addItem);
 		if (c.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
 			c.startAnimation(898);
 			if (makeTimes > 1 && c.getItemAssistant().playerHasItem(removeItem, removeItem2 * 2) && !name.contains("claws") && !name.contains("nails") && !name.contains("dart tip") && !name.contains("tip") && !name.contains("platelegs")) {
-				c.getActionSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + "s.");
+				c.getPacketSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + "s.");
 			} else if (makeTimes > 1 && c.getItemAssistant().playerHasItem(removeItem, removeItem2 * 2) && name.contains("claws") || name.contains("nails") || name.contains("dart tip") || name.contains("tip") || name.contains("platelegs")) {
-				c.getActionSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + ".");
+				c.getPacketSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + ".");
 			} else {
-				c.getActionSender().sendMessage("You hammer out a " + ItemAssistant.getItemName(addItem) + ".");
+				c.getPacketSender().sendMessage("You hammer out a " + ItemAssistant.getItemName(addItem) + ".");
 			}
 			while (makeTimes > 0 && c.isSmithing == true) {
 				if (c.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
@@ -828,14 +828,14 @@ public class Smithing {
 					c.getPlayerAssistant().addSkillXP(XP, c.playerSmithing);
 					c.getPlayerAssistant().refreshSkill(c.playerSmithing);
 					makeTimes--;
-					c.getActionSender().sendSound(468, 100, 0);
+					c.getPacketSender().sendSound(468, 100, 0);
 				} else {
 					c.isSmithing = false;
 					break;
 				}
 			}
 		} else {
-			c.getActionSender().sendMessage("You don't have enough bars to make this item!");
+			c.getPacketSender().sendMessage("You don't have enough bars to make this item!");
 			c.isSmithing = false;
 			return false;
 		}

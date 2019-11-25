@@ -28,7 +28,7 @@ public class PrivateMessaging implements PacketType {
 			for (long friend : player.friends) {
 				if (friend != 0 && friend == friendToAdd) {
 					canAdd = false;
-					player.getActionSender().sendMessage(friendToAdd + " is already on your friends list.");
+					player.getPacketSender().sendMessage(friendToAdd + " is already on your friends list.");
 				}
 			}
 			if (canAdd) {
@@ -40,7 +40,7 @@ public class PrivateMessaging implements PacketType {
 								Client o = (Client) PlayerHandler.players[i2];
 								if (o != null) {
 									if (PlayerHandler.players[i2].privateChat == 0 || PlayerHandler.players[i2].privateChat == 1 && o.getPlayerAssistant().isInPM(Misc.playerNameToInt64(player.playerName))) {
-										player.getPlayerAssistant().loadPM(friendToAdd, 1);
+										player.getPacketSender().loadPM(friendToAdd, 1);
 										break;
 									}
 								}
@@ -74,7 +74,7 @@ public class PrivateMessaging implements PacketType {
 							if (o != null) {
 								if (PlayerHandler.players[i2].privateChat == 0 || PlayerHandler.players[i2].privateChat == 1 && o.getPlayerAssistant().isInPM(Misc.playerNameToInt64(player.playerName))) {
 									if (friend == sendMessageToFriendId) {
-										o.getPlayerAssistant().sendPM(Misc.playerNameToInt64(player.playerName), player.playerRights, pmchatText, pmchatTextSize);
+										o.getPacketSender().sendPM(Misc.playerNameToInt64(player.playerName), player.playerRights, pmchatText, pmchatTextSize);
 										if (player.getPlayerAssistant().isPlayer()) {
 											GameLogger.writeLog(o.playerName, "pmrecieved", player.playerName + " said to " + o.playerName + " " + Misc.textUnpack(pmchatText, packetSize - 8) + "");
 										}
@@ -86,7 +86,7 @@ public class PrivateMessaging implements PacketType {
 						}
 					}
 					if (!pmSent) {
-						player.getActionSender().sendMessage("That player is currently offline.");
+						player.getPacketSender().sendMessage("That player is currently offline.");
 						break;
 					}
 				}

@@ -67,11 +67,11 @@ public class ReportHandler {
 		int mute = c.getInStream().readUnsignedByte();
 
 		if (c.lastReported.equalsIgnoreCase(player) && System.currentTimeMillis() - c.lastReport < 60000) {
-			c.getActionSender().sendMessage("You can only report a player once every 60 seconds.");
+			c.getPacketSender().sendMessage("You can only report a player once every 60 seconds.");
 			return;
 		}
 		if (c.playerName.equalsIgnoreCase(player)) {
-			c.getActionSender().sendMessage("You cannot report yourself!");
+			c.getPacketSender().sendMessage("You cannot report yourself!");
 			return;
 		}
 		if (hasSpoke(player)) {
@@ -95,21 +95,21 @@ public class ReportHandler {
 			writeReport("" + player + " was reported by " + c.playerName + ", "
 					+ reportNames[rule] + ", " + month + ", " + day + "",
 					sendText + ".", reportNames[rule]);
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage(
 							"Thank you, your report has been received and will be reviewed.");
 			if (mute == 1 && c.playerRights > 0) {
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage(
 								"This user is not muted yet! Go to the MODCP on the forums to mute him!");
-				c.getActionSender()
+				c.getPacketSender()
 						.sendMessage(
 								"After you have muted him there, do ::update (username) to finish the mute!");
 			}
 			c.lastReported = player;
 			c.lastReport = System.currentTimeMillis();
 		} else {
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage(
 							"You can only report someone who has spoken in the last 60 seconds.");
 		}

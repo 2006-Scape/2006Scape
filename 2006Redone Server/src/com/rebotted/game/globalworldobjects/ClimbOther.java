@@ -46,10 +46,10 @@ public class ClimbOther {
 		}
 		player.stopMovement();
 		player.startAnimation(827);
-		player.getPlayerAssistant().removeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		player.teleportToX = player.absX;
 		player.teleportToY = player.absY + 6400;
-		player.getActionSender().sendMessage("You climb down the " + objectName.toLowerCase() + ".");
+		player.getPacketSender().sendMessage("You climb down the " + objectName.toLowerCase() + ".");
 		player.climbDelay = System.currentTimeMillis();
 	}
 

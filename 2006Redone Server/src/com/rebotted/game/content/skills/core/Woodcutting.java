@@ -79,7 +79,7 @@ public class Woodcutting {
 						{
 							System.out.println("LOL this happend again: " + exception);
 						}
-						player.getActionSender().sendSound(SoundList.TREE_CUTTING, 100, 0);
+						player.getPacketSender().sendSound(SoundList.TREE_CUTTING, 100, 0);
 					}
 				}
 				else
@@ -98,7 +98,7 @@ public class Woodcutting {
 	public static void handleCanoe(final Client player, final int objectId) {
 		Boolean gotAxe = false;
 		if (player.playerLevel[player.playerWoodcutting] < 12) {
-			player.getActionSender().sendMessage("You need a woodcutting level of at least 12 to use the canoe station.");
+			player.getPacketSender().sendMessage("You need a woodcutting level of at least 12 to use the canoe station.");
 			return;
 		}
 
@@ -111,11 +111,11 @@ public class Woodcutting {
 		}
 		if (gotAxe)
 		{
-			player.getActionSender().sendMessage("You swing your axe at the station.");
+			player.getPacketSender().sendMessage("You swing your axe at the station.");
 		}
 		else
 		{
-			player.getActionSender().sendMessage("You need an axe to cut the station.");
+			player.getPacketSender().sendMessage("You need an axe to cut the station.");
 			return;
 		}
 		for (int axes[] : Axe_Settings) {
@@ -142,7 +142,7 @@ public class Woodcutting {
 							}
 
 						}, 1);
-						player.getActionSender().sendMessage("You cut down the canoe. Please wait...");
+						player.getPacketSender().sendMessage("You cut down the canoe. Please wait...");
 						container.stop();
 					}
 
@@ -164,13 +164,13 @@ public class Woodcutting {
 				player.isWoodcutting = true;
 				player.getItemAssistant().deleteItem(axeHandle, 1);
 				player.getItemAssistant().deleteItem(axeHead, 1);
-				player.getPlayerAssistant().removeAllWindows();
-				player.getActionSender().sendMessage("Your axe handle and axe head have been taken.");
+				player.getPacketSender().closeAllWindows();
+				player.getPacketSender().sendMessage("Your axe handle and axe head have been taken.");
 				CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
 						player.getItemAssistant().addItem(fixedAxe, 1);
-						player.getActionSender().sendMessage("Your axe has been fixed.");
+						player.getPacketSender().sendMessage("Your axe has been fixed.");
 						container.stop();
 					}
 					@Override
@@ -207,18 +207,18 @@ public class Woodcutting {
 			return;
 		}
 		if (player.absX == 2717 && player.absY == 3461) {
-			player.getActionSender().sendMessage("You can't cut the tree from here!");
+			player.getPacketSender().sendMessage("You can't cut the tree from here!");
 			return;
 		}
 		if (!SkillHandler.WOODCUTTING) {
-			player.getActionSender().sendMessage("This skill is currently disabled.");
+			player.getPacketSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
 		int wcLevel = player.playerLevel[8];
 		a = -1;
 		player.turnPlayerTo(x, y);
 		if (Tree_Settings[j][2] > wcLevel) {
-			player.getActionSender().sendMessage("You need a Woodcutting level of " + Tree_Settings[j][2] + " to cut this tree.");
+			player.getPacketSender().sendMessage("You need a Woodcutting level of " + Tree_Settings[j][2] + " to cut this tree.");
 			return;
 		}
 		for (int i = 0; i < Axe_Settings.length; i++) {
@@ -229,35 +229,35 @@ public class Woodcutting {
 			}
 		}
 		if (a == -1) {
-			player.getActionSender().sendMessage("You need an axe to cut this tree.");
+			player.getPacketSender().sendMessage("You need an axe to cut this tree.");
 			return;
 		}
 		if (player.getItemAssistant().freeSlots() < 1) {
-			player.getActionSender().sendMessage("You do not have enough inventory slots to do that.");
+			player.getPacketSender().sendMessage("You do not have enough inventory slots to do that.");
 			return;
 		}
 		if (Misc.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 3)) {
 			if (player.isWoodcutting) {
-				player.getActionSender().sendMessage("You are already woodcutting!");
+				player.getPacketSender().sendMessage("You are already woodcutting!");
 				return;
 			}
 			player.startAnimation(Axe_Settings[a][3]);
 			player.isWoodcutting = true;
-			player.getActionSender().sendSound(SoundList.TREE_CUT_BEGIN, 100, 0);
+			player.getPacketSender().sendSound(SoundList.TREE_CUT_BEGIN, 100, 0);
 			repeatAnimation(player);
 			player.treeX = x;
 			player.treeY = y;
 			if (player.tutorialProgress == 3) {
-				player.getPlayerAssistant().removeAllWindows();
-				player.getActionSender().chatbox(6180);
+				player.getPacketSender().closeAllWindows();
+				player.getPacketSender().chatbox(6180);
 				if (player.playerAppearance[0] == 0) {
 					player.getDialogueHandler().chatboxText(player, "", "Your character is now attempting to cut down the tree. Sit back", "for a moment while he does all the hard work.", "", "Please wait");
 				} else {
 					player.getDialogueHandler().chatboxText(player, "", "Your character is now attempting to cut down the tree. Sit back", "for a moment while she does all the hard work.", "", "Please wait");
 				}
-				player.getActionSender().chatbox(6179);
+				player.getPacketSender().chatbox(6179);
 			} else {
-				player.getActionSender().sendMessage("You swing your axe at the tree.");
+				player.getPacketSender().sendMessage("You swing your axe at the tree.");
 			}
 			CycleEventHandler.getSingleton().addEvent("WoodcuttingEvent".hashCode(), player, new CycleEvent() {
 
@@ -280,14 +280,14 @@ public class Woodcutting {
 						player.startAnimation(Axe_Settings[a][3]);
 					}
 					if (player.getItemAssistant().freeSlots() < 1) {
-						player.getActionSender().sendMessage("You have ran out of inventory slots.");
+						player.getPacketSender().sendMessage("You have ran out of inventory slots.");
 						container.stop();
 					}
 					int XP = Tree_Settings[j][3];
 					if (player.isWoodcutting) {
 						player.getItemAssistant().addItem(Tree_Settings[j][4], 1);
 						player.getPlayerAssistant().addSkillXP(XP, 8);
-						player.getActionSender().sendMessage("You manage to get some " + ItemAssistant.getItemName(Tree_Settings[j][4]).toLowerCase() + " from the tree.");
+						player.getPacketSender().sendMessage("You manage to get some " + ItemAssistant.getItemName(Tree_Settings[j][4]).toLowerCase() + " from the tree.");
 					}
 					if (player.tutorialProgress == 3) {
 						player.getDialogueHandler().sendDialogues(3014, 0);
@@ -306,7 +306,7 @@ public class Woodcutting {
 					}
 					if (Misc.random(100) <= Tree_Settings[j][6]) {
 						cutDownTree(Tree_Settings[j][5], x, y, type, Tree_Settings[j][1], Tree_Settings[j][0]);
-						player.getActionSender().sendSound(SoundList.TREE_EMPTY, 100, 0);
+						player.getPacketSender().sendSound(SoundList.TREE_EMPTY, 100, 0);
 						container.stop();
 					}
 				}
@@ -339,7 +339,7 @@ public class Woodcutting {
 
 	public static void birdNests(Client player) {
 		if (Misc.random(200) == 69 && player.tutorialProgress >= 36) {
-			player.getActionSender().sendMessage("A birds nest falls from the branches.");
+			player.getPacketSender().sendMessage("A birds nest falls from the branches.");
 			dropNest(player);
 		}
 	}

@@ -58,7 +58,7 @@ public class UseItem {
 			if (c.doricQuest >= 3) {
 				c.getSmithingInt().showSmithInterface(itemId);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need to beat dorics quest to use his anvils");
 			}
 			break;
@@ -82,7 +82,7 @@ public class UseItem {
 			if (itemId == 1919) {
 				c.getItemAssistant().deleteItem(1919, 1);
 				c.getItemAssistant().addItem(1917, 1);
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You refill your beer glass.");
 			}
 			break;
@@ -153,7 +153,7 @@ public class UseItem {
 			c.getItemAssistant().addItem(772, 1);
 		} else if (c.playerLevel[c.playerCrafting] < 31 && itemUsed == 771
 				&& useWith == 946) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need 31 crafting to make this.");
 		}
 		if (itemUsed == 946 && useWith == 771
@@ -162,7 +162,7 @@ public class UseItem {
 			c.getItemAssistant().addItem(772, 1);
 		} else if (c.playerLevel[c.playerCrafting] < 31 && itemUsed == 946
 				&& useWith == 771) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need 31 crafting to make this.");
 		}
 		if (useWith == 7051 && itemUsed == 590 || itemUsed == 590
@@ -175,7 +175,7 @@ public class UseItem {
 			if (itemUsed == firemakingItems[i] || useWith == firemakingItems[i] && c.isFiremaking == false) {
 				Firemaking.attemptFire(c, itemUsed, useWith, c.absX, c.absY, false);
 			} else if (itemUsed == firemakingItems[i] || useWith == firemakingItems[i] && c.isFiremaking == true) {
-				c.getActionSender().sendMessage("You can't do that, you are already firemaking.");
+				c.getPacketSender().sendMessage("You can't do that, you are already firemaking.");
 			}
 		}
 		if (itemUsed == 1733 || useWith == 1733) {
@@ -218,17 +218,17 @@ public class UseItem {
 			c.getItemAssistant().addItem(1097, 1);
 			c.getPlayerAssistant().addSkillXP(42, c.playerCrafting);
 		} else if (itemUsed == 1095 && useWith == 2370 || itemUsed == 2370 && useWith == 1095 && c.playerLevel[c.playerCrafting] < 44) {
-			c.getActionSender().sendMessage("You need 44 crafting to make this.");
+			c.getPacketSender().sendMessage("You need 44 crafting to make this.");
 		}
 		if (itemUsed == 946 && useWith == 1963 || itemUsed == 1963  && useWith == 946) {
 			c.getItemAssistant().deleteItem(1963, 1);
 			c.getItemAssistant().addItem(3162, 1);
-			c.getActionSender().sendMessage("You slice your banana.");
+			c.getPacketSender().sendMessage("You slice your banana.");
 		}
 		if (itemUsed == 946 && useWith == 1973 || itemUsed == 1973 && useWith == 946) {
 			c.getItemAssistant().deleteItem(1973, 1);
 			c.getItemAssistant().addItem(1975, 1);
-			c.getActionSender().sendMessage("You slice your chocolate bar.");
+			c.getPacketSender().sendMessage("You slice your chocolate bar.");
 		}
 		if (itemUsed == 1129 && useWith == 2370 || itemUsed == 2370 && useWith == 1129 && c.playerLevel[c.playerCrafting] > 40) {// body
 			c.getItemAssistant().deleteItem(2370, 1);
@@ -236,7 +236,7 @@ public class UseItem {
 			c.getItemAssistant().addItem(1133, 1);
 			c.getPlayerAssistant().addSkillXP(40, c.playerCrafting);
 		} else if (itemUsed == 1129 && useWith == 2370 || itemUsed == 2370 && useWith == 1129 && c.playerLevel[c.playerCrafting] < 41) {
-			c.getActionSender().sendMessage("You need 41 crafting to make this.");
+			c.getPacketSender().sendMessage("You need 41 crafting to make this.");
 		}
 		if (itemUsed == 4593 && useWith == 4591 || useWith == 4591 && itemUsed == 4593) {
 			c.getItemAssistant().deleteItem(4591, 1);
@@ -346,7 +346,7 @@ public class UseItem {
 				c.getItemAssistant().deleteItem(1987, 1);
 				c.getPlayerAssistant().addSkillXP(200, c.playerCooking);
 			} else {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need grapes and a jug of water to make wine.");
 			}
 		}

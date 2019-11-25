@@ -18,11 +18,11 @@ public class Guilds {
 
 	public static void attemptGuild(Client c, int objectId) {
 		if (!GameConstants.GUILDS) {
-			c.getActionSender().sendMessage("Guilds are currently disabled.");
+			c.getPacketSender().sendMessage("Guilds are currently disabled.");
 			return;
 		}
 		if (checkRequirments(c, objectId)) {
-			c.getActionSender().sendMessage("You pass through the guild.");
+			c.getPacketSender().sendMessage("You pass through the guild.");
 			movePlayer(c, objectId);
 		}
 	}
@@ -106,7 +106,7 @@ public class Guilds {
 			}
 			break;
 		default:
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You can't access this guild from here.");
 			break;
 		}

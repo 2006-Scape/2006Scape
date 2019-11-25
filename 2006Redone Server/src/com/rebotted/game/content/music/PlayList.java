@@ -136,7 +136,7 @@ public class PlayList {
 	public void fixAllColors() {
 		for (int i = 0; i < 385; i++) {
 			if (Songs.get(i) != null) {
-				player.getActionSender().sendColor(Songs.get(i).childId,
+				player.getPacketSender().sendColor(Songs.get(i).childId,
 						255 << 10 | 0 << 5 | 0);
 				if (unlocked[Songs.get(i).arraySlot]) {
 					updateList(Songs.get(i).childId);
@@ -151,26 +151,26 @@ public class PlayList {
 			if (Songs.get(songID) == null) {
 				// player.sendMessage("This song has not yet been added to the playlist. - Song ID = "+songID);
 				if (auto) {
-					player.getPlayerAssistant().sendFrame126("Song Unavailable!",
+					player.getPacketSender().sendFrame126("Song Unavailable!",
 							4439);
 					updateList(4439);
 				}
 				return;
 			}
 			if (!unlocked[Songs.get(songID).arraySlot]) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You have unlocked the song "
 								+ names[Songs.get(songID).arraySlot] + ".");
 				// System.out.println("You have unlocked the song " +
 				// names[Songs.get(songID).arraySlot]);
 				unlocked[Songs.get(songID).arraySlot] = true;
 				updateList(Songs.get(songID).childId);
-				player.getPlayerAssistant().sendFrame126(
+				player.getPacketSender().sendFrame126(
 						names[Songs.get(songID).arraySlot], 4439);
 				updateList(4439);
 			} else {
 				if (auto) {
-					player.getPlayerAssistant().sendFrame126(
+					player.getPacketSender().sendFrame126(
 							names[Songs.get(songID).arraySlot], 4439);
 					updateList(4439);
 				}
@@ -181,7 +181,7 @@ public class PlayList {
 	}
 
 	public void updateList(int id) {
-		player.getActionSender().sendColor(id, 0 << 10 | 255 << 5 | 0);
+		player.getPacketSender().sendColor(id, 0 << 10 | 255 << 5 | 0);
 	}
 
 	public void handleButton(int button) {
@@ -192,10 +192,10 @@ public class PlayList {
 			loop = !loop;
 		} else if (button == 6269) {
 			auto = true;
-			player.getPlayerAssistant().sendConfig(18, 1);
+			player.getPacketSender().sendConfig(18, 1);
 		} else if (button == 6270) {
 			auto = false;
-			player.getPlayerAssistant().sendConfig(18, 0);
+			player.getPacketSender().sendConfig(18, 0);
 		} else {
 			// System.out.println("button="+button);
 			int songId = -1;
@@ -209,15 +209,15 @@ public class PlayList {
 			if (songId == -1) {
 				// player.getPacketDispatcher().sendMessage("That song is unavailable at this time.");
 			} else if (!unlocked[Songs.get(songId).arraySlot]) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You have to unlock that song first!");
 			} else {
 				auto = false;
-				player.getPlayerAssistant().sendConfig(18, 0);
+				player.getPacketSender().sendConfig(18, 0);
 				playSong(songId);
 				// System.out.println("sending music to ActionSender packet - song id = "+songId);
-				player.getActionSender().sendSong(songId);
-				player.getPlayerAssistant().sendFrame126(
+				player.getPacketSender().sendSong(songId);
+				player.getPacketSender().sendFrame126(
 						names[Songs.get(songId).arraySlot], 4439);
 				updateList(4439);
 			}

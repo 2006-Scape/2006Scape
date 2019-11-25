@@ -54,20 +54,20 @@ public class Desert {
 
 	public static void showWarning(Client c) {
 		for (int i = 8144; i < 8195; i++) {
-			c.getPlayerAssistant().sendFrame126("", i);
+			c.getPacketSender().sendFrame126("", i);
 		}
-		c.getPlayerAssistant().sendFrame126("@dre@DESERT WARNING", 8144);
-		c.getPlayerAssistant().sendFrame126("", 8145);
-		c.getPlayerAssistant().sendFrame126("The intense heat of the desert reduces your health.", 8147);
-		c.getPlayerAssistant().sendFrame126("Bring 2-5 waterskins to avoid receiving any damage.", 8148);
-		c.getPlayerAssistant().sendFrame126("", 8149);
-		c.getPlayerAssistant().sendFrame126("Wearing desert robes will not prevent the damage, but", 8150);
-		c.getPlayerAssistant().sendFrame126("will reduce it significantly.", 8151);
-		c.getPlayerAssistant().sendFrame126("", 8152);
-		c.getPlayerAssistant().sendFrame126("The waterskins however need to be re-filled. Bring a", 8153);
-		c.getPlayerAssistant().sendFrame126("knife and cut healthy cacti to re-fill the waterskins.", 8154);
-		c.getPlayerAssistant().sendFrame126("@red@Any water vessels will evaporate, such as jug of water.", 8155);
-		c.getPlayerAssistant().showInterface(8134);
+		c.getPacketSender().sendFrame126("@dre@DESERT WARNING", 8144);
+		c.getPacketSender().sendFrame126("", 8145);
+		c.getPacketSender().sendFrame126("The intense heat of the desert reduces your health.", 8147);
+		c.getPacketSender().sendFrame126("Bring 2-5 waterskins to avoid receiving any damage.", 8148);
+		c.getPacketSender().sendFrame126("", 8149);
+		c.getPacketSender().sendFrame126("Wearing desert robes will not prevent the damage, but", 8150);
+		c.getPacketSender().sendFrame126("will reduce it significantly.", 8151);
+		c.getPacketSender().sendFrame126("", 8152);
+		c.getPacketSender().sendFrame126("The waterskins however need to be re-filled. Bring a", 8153);
+		c.getPacketSender().sendFrame126("knife and cut healthy cacti to re-fill the waterskins.", 8154);
+		c.getPacketSender().sendFrame126("@red@Any water vessels will evaporate, such as jug of water.", 8155);
+		c.getPacketSender().showInterface(8134);
 	}
 
 	/**
@@ -81,12 +81,12 @@ public class Desert {
 	public static void checkCactus(Client c, int objectId, int obX, int obY) {
 		int fail = Misc.random(2);
 		if (fail == 1) {
-			c.getActionSender().sendMessage("You failed to cut the cactus.");
+			c.getPacketSender().sendMessage("You failed to cut the cactus.");
 			c.getPlayerAssistant().addSkillXP(1, c.playerWoodcutting);
 			return;
 		}
 		c.startAnimation(CUTTING_ANIMATION);
-		c.getActionSender().sendMessage("You slash away the cactus.");
+		c.getPacketSender().sendMessage("You slash away the cactus.");
 		GameEngine.objectHandler.createAnObject(c, DRY_CACTUS, obX, obY, -1);
 		for (int element[] : FILLS) {
 			if (c.getItemAssistant().playerHasItem(element[0])) {
@@ -127,7 +127,7 @@ public class Desert {
 							}
 						}, CACTUS_DELAY);
 			} else {
-				c.getActionSender().sendMessage("You need a knife or a sharp weapon to cut this.");
+				c.getPacketSender().sendMessage("You need a knife or a sharp weapon to cut this.");
 			}
 		}
 	}

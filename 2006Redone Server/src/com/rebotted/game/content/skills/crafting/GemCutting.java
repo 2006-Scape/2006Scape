@@ -19,7 +19,7 @@ public class GemCutting extends CraftingData {
 		for (final cutGemData g : cutGemData.values()) {
 			if (itemId == g.getUncut()) {
 				if (c.playerLevel[12] < g.getLevel()) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You need a crafting level of " + g.getLevel()
 									+ " to cut this gem.");
 					return false;
@@ -28,7 +28,7 @@ public class GemCutting extends CraftingData {
 					return false;
 				}
 				if (!CRAFTING) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"This skill is currently disabled.");
 					return false;
 				}
@@ -38,7 +38,7 @@ public class GemCutting extends CraftingData {
 			            @Override
 			            public void execute(CycleEventContainer container) {
 						if (Misc.random(2) == 0 && itemUsed > 1624 && itemUsed < 1630 || usedWith > 1624 && usedWith < 1630 && Misc.random(2) == 0) {
-							c.getActionSender().sendMessage("You fail to cut the gem.");
+							c.getPacketSender().sendMessage("You fail to cut the gem.");
 							c.getItemAssistant().addItem(1633, 1);
 							c.getItemAssistant().deleteItem(itemId, 1);
 							c.getPlayerAssistant().addSkillXP(1, 12);
@@ -49,13 +49,13 @@ public class GemCutting extends CraftingData {
 								c.getItemAssistant().addItem(g.getCut(), 1);
 								c.getPlayerAssistant().addSkillXP((int) g.getXP(), 12);
 								c.getItemAssistant();
-								c.getActionSender().sendMessage(
+								c.getPacketSender().sendMessage(
 										"You cut the "
 												+ ItemAssistant.getItemName(
 														itemId).toLowerCase()
 												+ ".");
 								c.startAnimation(g.getAnimation());
-								c.getActionSender().sendSound(
+								c.getPacketSender().sendSound(
 										SoundList.CUT_GEM, 100, 0);
 							} else {
 								container.stop();

@@ -17,10 +17,10 @@ public class ItemOnNpc implements PacketType {
 		SkillHandler.resetItemOnNpc(player);
 		player.endCurrentTask();
 		if (player.playerRights == 3) {
-			player.getActionSender().sendMessage("Item id: " + itemId + " slot: " + slot + " i: " + i);
+			player.getPacketSender().sendMessage("Item id: " + itemId + " slot: " + slot + " i: " + i);
 		}
 		if (player.getItemAssistant().freeSlots() < 1) {
-			player.getActionSender().sendMessage("Your inventory is full.");
+			player.getPacketSender().sendMessage("Your inventory is full.");
 			return;
 		}
 		if (player == null || player.disconnected == true || !player.getItemAssistant().playerHasItem(itemId, 1, slot) || NpcHandler.npcs[i] == null || NpcHandler.npcs[i].isDead || player.isDead || player.isTeleporting) {
@@ -35,7 +35,7 @@ public class ItemOnNpc implements PacketType {
 			}
 			else
 			{
-				player.getActionSender().sendMessage("You need to wait for this sheep's wool to regrow!");
+				player.getPacketSender().sendMessage("You need to wait for this sheep's wool to regrow!");
 			}
 		break;
 		}

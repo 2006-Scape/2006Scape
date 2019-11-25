@@ -34,30 +34,30 @@ public class DropItem implements PacketType {
 		for (LogData logData : LogData.values()) {
 			if (itemId == logData.getLogId()) {
 				if (GameEngine.objectManager.objectExists(player.absX, player.absY)) {
-					player.getActionSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"You cannot drop a log here.");
 					return;
 				}
 			}
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't drop items inside the arena!");
 			return;
 		}
 		if (player.inTrade) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't drop items while trading!");
 			return;
 		}
 		if (player.hasNpc == true) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You already have a pet dropped.");
 			return;
 		}
 		SkillHandler.resetSkills(player);
 		if (player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't drop items on tutorial island!");
 			return;
 		}
@@ -74,9 +74,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Kitten.");
+				player.getPacketSender().sendMessage("You drop your Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Kitten.");
 			}
 			break;
@@ -89,9 +89,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Kitten.");
+				player.getPacketSender().sendMessage("You drop your Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Kitten.");
 			}
 			break;
@@ -104,9 +104,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Kitten.");
+				player.getPacketSender().sendMessage("You drop your Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Kitten.");
 			}
 			break;
@@ -119,9 +119,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Kitten.");
+				player.getPacketSender().sendMessage("You drop your Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Kitten.");
 			}
 			break;
@@ -134,9 +134,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Kitten.");
+				player.getPacketSender().sendMessage("You drop your Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Kitten.");
 			}
 			break;
@@ -149,9 +149,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Kitten.");
+				player.getPacketSender().sendMessage("You drop your Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Kitten.");
 			}
 			break;
@@ -164,9 +164,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Cat.");
+				player.getPacketSender().sendMessage("You drop your Cat.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Cat.");
 			}
 			break;
@@ -179,9 +179,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Cat.");
+				player.getPacketSender().sendMessage("You drop your Cat.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Cat.");
 			}
 			break;
@@ -194,9 +194,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Cat.");
+				player.getPacketSender().sendMessage("You drop your Cat.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Cat.");
 			}
 			break;
@@ -209,9 +209,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Cat.");
+				player.getPacketSender().sendMessage("You drop your Cat.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Cat.");
 			}
 			break;
@@ -224,9 +224,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Cat.");
+				player.getPacketSender().sendMessage("You drop your Cat.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Cat.");
 			}
 			break;
@@ -239,10 +239,10 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You drop your Hell Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Hell Kitten.");
 			}
 			break;
@@ -255,9 +255,9 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage("You drop your Cat.");
+				player.getPacketSender().sendMessage("You drop your Cat.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Cat.");
 			}
 			break;
@@ -270,10 +270,10 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You drop your Hell Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Hell Kitten.");
 			}
 			break;
@@ -291,7 +291,7 @@ public class DropItem implements PacketType {
 			} else {
 				player.getItemAssistant().deleteItem(4045, player.getItemAssistant().getItemAmount(4045));
 				player.getItemAssistant().deleteItem(4046, player.getItemAssistant().getItemAmount(4046));
-				player.getActionSender().sendMessage("You can't do that! Your not in castle wars!");
+				player.getPacketSender().sendMessage("You can't do that! Your not in castle wars!");
 			}
 			break;
 		case 7584:
@@ -303,10 +303,10 @@ public class DropItem implements PacketType {
 						player.playerItemsN[slot]);
 				player.hasNpc = true;
 				player.getPlayerAssistant().followPlayer();
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You drop your Hell Kitten.");
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You already dropped your Hell Kitten.");
 			}
 			break;
@@ -341,7 +341,7 @@ public class DropItem implements PacketType {
 				}
 				if (player.underAttackBy > 0) {
 					if (player.getShopAssistant().getItemShopValue(itemId) > 1000) {
-						player.getActionSender()
+						player.getPacketSender()
 								.sendMessage(
 										"You may not drop items worth more than 1000 while in combat.");
 						return;
@@ -352,11 +352,11 @@ public class DropItem implements PacketType {
 				player.getItemAssistant().deleteItem(itemId, slot,
 						player.playerItemsN[slot]);
 				if (GameConstants.SOUND) {
-					player.getActionSender().sendSound(SoundList.ITEM_DROP, 100,
+					player.getPacketSender().sendSound(SoundList.ITEM_DROP, 100,
 							0);
 				}
 			} else {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"This items cannot be dropped.");
 			}
 		}

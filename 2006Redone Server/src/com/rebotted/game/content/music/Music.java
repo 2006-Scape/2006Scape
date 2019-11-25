@@ -148,13 +148,13 @@ public class Music {
 													 */) {
 				if (c.getTemporary("CURRENT_SONG") == null
 						|| (Integer) c.getTemporary("CURRENT_SONG") != aMUSIC_DATA[2]) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"@gre@Play Music Has Music:@bla@ " + aMUSIC_DATA[0]
 									+ " : " + aMUSIC_DATA[1]);
 				}
 			}
 		}
-		c.getActionSender().sendMessage(
+		c.getPacketSender().sendMessage(
 				"@red@Play Music No Music:@bla@ " + c.getX() / 64 + " : "
 						+ c.getY() / 64);
 	}
@@ -178,7 +178,7 @@ public class Music {
 					player.getPlayList();
 					if (player.getPlayList().auto) {
 						player.addTemporary("CURRENT_SONG", aMUSIC_DATA[2]);
-						player.getActionSender().sendSong(aMUSIC_DATA[2]);
+						player.getPacketSender().sendSong(aMUSIC_DATA[2]);
 					}
 					int[] edgeVilleSongs = { 98, 111, 127, 157, 106 };
 					int toPlay = Misc.random(4);

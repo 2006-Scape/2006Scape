@@ -28,17 +28,17 @@ public class FlourMill {
 		if (itemId == GRAIN) {
 			// Grain amount - flour amount. Prevents putting more than 30
 			if (c.grain == LIMIT - c.flourAmount || c.flourAmount == LIMIT) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't put anymore grain into the hopper.");
 				return;
 			}
 			c.startAnimation(832);
 			c.getItemAssistant().deleteItem(GRAIN, 1);
 			c.grain++;// + 1
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You put the grain in the hopper.");
 		} else {
-			c.getActionSender().sendMessage("Nothing interesting happens.");
+			c.getPacketSender().sendMessage("Nothing interesting happens.");
 		}
 	}
 
@@ -50,11 +50,11 @@ public class FlourMill {
 	public static void hopperControl(final Client c) {
 		if (c.grain > 0) {
 			if (c.flourAmount == LIMIT) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"There is currently too much grain in the hopper.");
 				return;
 			}
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You operate the hopper. The grain slides down the chute.");
 			c.startAnimation(832);
 			  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
@@ -64,7 +64,7 @@ public class FlourMill {
 						return;
 					}
 					if (c.heightLevel == 0) {
-						c.getActionSender().object(FULL_FLOUR_BIN, 3166, 3306, 0, 10);
+						c.getPacketSender().object(FULL_FLOUR_BIN, 3166, 3306, 0, 10);
 						Region.addObject(FULL_FLOUR_BIN, 3166, 3306, 0, 10, 0, false);
 						container.stop();
 					}
@@ -81,7 +81,7 @@ public class FlourMill {
 			c.grain = 0;
 		} else {
 			c.startAnimation(832);
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You operate the hopper. Nothing interesting happens.");
 		}
 	}
@@ -96,20 +96,20 @@ public class FlourMill {
 				&& c.flourAmount > 0) {
 			c.getItemAssistant().deleteItem(EMPTY_POT, 1);
 			c.getItemAssistant().addItem(POT_OF_FLOUR, 1);
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You fill a pot with flour from the bin.");
 			c.flourAmount--;
 			if (c.flourAmount < 0) {
 				c.flourAmount = 0;
 			}
 			if (c.flourAmount == 0) {
-				c.getActionSender().object(EMPTY_FLOUR_BIN, 3166, 3306, 0, 10);
+				c.getPacketSender().object(EMPTY_FLOUR_BIN, 3166, 3306, 0, 10);
 				Region.addObject(EMPTY_FLOUR_BIN, 3166, 3306, 0, 10, 0, false);
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"The flour bin is now empty.");
 			}
 		} else {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You don't have an empty pot to fill flour with.");
 		}
 	}

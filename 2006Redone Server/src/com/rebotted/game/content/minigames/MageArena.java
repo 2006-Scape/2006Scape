@@ -35,19 +35,19 @@ public class MageArena {
 	public void openShop() {
 
 		for (int i = 0; i < shopItems.length; i++) {
-			c.getPlayerAssistant().sendFrame34(15948, shopItems[i], i, 100);
+			c.getPacketSender().sendFrame34(15948, shopItems[i], i, 100);
 		}
 
 		for (int i = 15950; i < interfaceText.length; i++) {
-			c.getPlayerAssistant().sendFrame126(interfaceText[i - 15950], i);
+			c.getPacketSender().sendFrame126(interfaceText[i - 15950], i);
 		}
 
-		c.getPlayerAssistant().sendFrame126(Integer.toString(telePoints), 15955);
-		c.getPlayerAssistant().sendFrame126(Integer.toString(enchantPoints),
+		c.getPacketSender().sendFrame126(Integer.toString(telePoints), 15955);
+		c.getPacketSender().sendFrame126(Integer.toString(enchantPoints),
 				15956);
-		c.getPlayerAssistant().sendFrame126(Integer.toString(gravePoints), 15957);
-		c.getPlayerAssistant().sendFrame126(Integer.toString(alchPoints), 15958);
-		c.getPlayerAssistant().showInterface(15944);
+		c.getPacketSender().sendFrame126(Integer.toString(gravePoints), 15957);
+		c.getPacketSender().sendFrame126(Integer.toString(alchPoints), 15958);
+		c.getPacketSender().showInterface(15944);
 	}
 
 	public int getTelVal(int itemId) {
@@ -255,11 +255,11 @@ public class MageArena {
 	}
 
 	public void sendMessage(int itemId) {
-		c.getActionSender().sendMessage(
+		c.getPacketSender().sendMessage(
 				ItemAssistant.getItemName(itemId) + " costs "
 						+ getGraveValue(itemId) + " Graveyard points, "
 						+ getAlchVal(itemId) + " Alchemy points,");
-		c.getActionSender().sendMessage(
+		c.getPacketSender().sendMessage(
 				"" + getEnchVal(itemId) + " Enchantment points, and "
 						+ getTelVal(itemId) + " Telekinetic points.");
 	}

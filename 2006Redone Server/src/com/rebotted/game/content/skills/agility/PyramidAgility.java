@@ -43,7 +43,7 @@ public class PyramidAgility {
 					c.getAgility().climbUp(c.getX(), c.getY() + 3, 3);
 				} else {
 					c.getAgility().climbUp(c.getX(), c.getY() - 8, 0);
-					c.getActionSender()
+					c.getPacketSender()
 							.sendMessage(
 									"Congratulations you completed the pyramid course!");
 				}
@@ -57,12 +57,12 @@ public class PyramidAgility {
 			if (c.absX == 3349) {
 				c.getAgility().walk(-6, 0,
 						c.getAgility().getAnimation(objectId), -1);
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You leave the agility pyramid");
 			} else if (c.absX == 3343) {
 				c.getAgility()
 						.walk(6, 0, c.getAgility().getAnimation(3043), -1);
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You enter the agility pyramid");
 			}
 			return true;

@@ -82,7 +82,7 @@ public class ChangeAppearance implements PacketType {
 			client.playerAppearance[12] = colors[4]; // skin colour
 
 			client.endCurrentTask();
-			client.getPlayerAssistant().removeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			client.getPlayerAssistant().requestUpdates();
 			client.canChangeAppearance = false;
 		}

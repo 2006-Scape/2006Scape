@@ -44,11 +44,11 @@ public class Kebabs {
 		float eff5 = chances("effect5");
 
 		if (Misc.random(100.0f) <= eff1) { // 8.71%
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"That kebab didn't seem to do a lot.");
 
 		} else if (Misc.random(100.0f) <= eff2) { // 61.24% heals 10% of HP
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage("It restores some life points.");
 			if (c.playerLevel[3] < c.getLevelForXP(c.playerXP[3])) {
 				c.playerLevel[3] += c.getLevelForXP(c.playerXP[3]) * 0.10;
@@ -59,7 +59,7 @@ public class Kebabs {
 			}
 
 		} else if (Misc.random(100.0f) <= eff3) { // 21.12% + 10-20 HP
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"That was a good kebab. You feel a lot better. ");
 			if (c.playerLevel[3] < c.getLevelForXP(c.playerXP[3])) {
 				c.playerLevel[3] += Misc.random(20);
@@ -70,7 +70,7 @@ public class Kebabs {
 
 		} else if (Misc.random(100.0f) <= eff4) {// 3.65% + attk,str,def +
 													// 2-3 + heal 0-300
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage(
 							"Wow, that was an amazing kebab! You feel really invigorated.");
 			c.playerLevel[1] += 2 + Misc.random(1); // def
@@ -87,9 +87,9 @@ public class Kebabs {
 			}
 
 		} else if (Misc.random(100.0f) <= eff5) {// 6.3%. lower STAT
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"That tasted very dodgy. You feel very ill.");
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"Eating the kebab has done damage to some of your stats.");
 			for (int j = 0; j < 2; j++) {
 				c.playerLevel[j] -= 2; // Fix this l0l
@@ -113,22 +113,22 @@ public class Kebabs {
 																		// but
 																		// eat.
 				c.getCombatAssistant().resetPlayerAttack();
-				c.getActionSender().sendMessage("You eat the kebab.");
+				c.getPacketSender().sendMessage("You eat the kebab.");
 				c.attackTimer += 2;
 				c.startAnimation(829);
 				c.getItemAssistant().deleteItem(Kebab, slot, 1);
-				c.getActionSender().sendSound(317, 100, 0);
+				c.getPacketSender().sendSound(317, 100, 0);
 				c.foodDelay = System.currentTimeMillis();
 				c.getPlayerAssistant().refreshSkill(3);
 				return;
 			}
 			c.getCombatAssistant().resetPlayerAttack();
-			c.getActionSender().sendMessage("You eat the kebab.");
+			c.getPacketSender().sendMessage("You eat the kebab.");
 			effects(c);
 			c.attackTimer += 2;
 			c.startAnimation(829);
 			c.getItemAssistant().deleteItem(Kebab, slot, 1);
-			c.getActionSender().sendSound(317, 100, 0);
+			c.getPacketSender().sendSound(317, 100, 0);
 			c.foodDelay = System.currentTimeMillis();
 			c.getPlayerAssistant().refreshSkill(3);
 		}

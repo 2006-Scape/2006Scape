@@ -24,7 +24,7 @@ public class CastOnOther extends CastRequirements {
 				{ 82, SOUL, LAW, WATER, 1, 1, 1 },
 				{ 90, SOUL, LAW, -1, 2, 1, -1 }, };
 		if (!hasRequiredLevel(c, data[type][0])) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need to have a magic level of " + data[type][0]
 							+ " to cast this spell.");
 			return;
@@ -44,9 +44,9 @@ public class CastOnOther extends CastRequirements {
 		if (castOn != null) {
 			if (castOn.distanceToPoint(c.absX, c.absY) <= 15) {
 				if (c.heightLevel == castOn.heightLevel) {
-					castOn.getPlayerAssistant().sendFrame126(location[type], 12560);
-					castOn.getPlayerAssistant().sendFrame126(c.playerName, 12558);
-					castOn.getPlayerAssistant().showInterface(12468);
+					castOn.getPacketSender().sendFrame126(location[type], 12560);
+					castOn.getPacketSender().sendFrame126(c.playerName, 12558);
+					castOn.getPacketSender().showInterface(12468);
 					castOn.teleotherType = type;
 				}
 			}
@@ -55,7 +55,7 @@ public class CastOnOther extends CastRequirements {
 
 	public static void teleOtherLocation(final Client c, final int i,
 			boolean decline) {
-		c.getPlayerAssistant().removeAllWindows();
+		c.getPacketSender().closeAllWindows();
 		final int[][] coords = { { 3222, 3218 }, // LUMBRIDGE
 				{ 2967, 3378 }, // FALADOR
 				{ 2757, 3477 }, // CAMELOT

@@ -28,7 +28,7 @@ public class CrystalChest {
 		if (c.getItemAssistant().playerHasItem(KEY)) {
 			return true;
 		} else {
-			c.getActionSender().sendMessage("The chest is locked");
+			c.getPacketSender().sendMessage("The chest is locked");
 			return false;
 		}
 	}
@@ -36,11 +36,11 @@ public class CrystalChest {
 	public static void searchChest(final Client c, final int id, final int x,
 			final int y) {
 		if (canOpen(c)) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You unlock the chest with your key.");
 			c.getItemAssistant().deleteItem(KEY, 1);
 			c.startAnimation(OPEN_ANIMATION);
-			c.getActionSender().checkObjectSpawn(id + 1, x, y, 2, 10);
+			c.getPacketSender().checkObjectSpawn(id + 1, x, y, 2, 10);
 			  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
@@ -48,9 +48,9 @@ public class CrystalChest {
 					c.getItemAssistant().addItem(995, Misc.random(8230));
 					c.getItemAssistant().addItem(
 							CHEST_REWARDS[Misc.random(getLength() - 1)], 1);
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You find some treasure in the chest.");
-					c.getActionSender().checkObjectSpawn(id, x, y, 2, 10);
+					c.getPacketSender().checkObjectSpawn(id, x, y, 2, 10);
 					container.stop();
 				}
 				@Override

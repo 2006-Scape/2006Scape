@@ -36,11 +36,11 @@ public class Dueling {
 				return;
 			}
 			if (player.inTrade || player.isShopping) {
-				player.getActionSender().sendMessage("You can not stake currently.");
+				player.getPacketSender().sendMessage("You can not stake currently.");
 				return;
 			}
 			if (!player.inDuelArena()) {
-				player.getActionSender().sendMessage("You must be in the duel arena to do that.");
+				player.getPacketSender().sendMessage("You must be in the duel arena to do that.");
 				return;
 			}
 			resetDuel();
@@ -62,14 +62,14 @@ public class Dueling {
 					player.getDueling().openDuel();
 					o.getDueling().openDuel();
 				} else {
-					player.getActionSender()
+					player.getPacketSender()
 							.sendMessage(
 									"You need to get closer to your opponent to start the duel.");
 				}
 
 			} else {
-				player.getActionSender().sendMessage("Sending duel request...");
-				o.getActionSender().sendMessage(player.playerName + ":duelreq:");
+				player.getPacketSender().sendMessage("Sending duel request...");
+				o.getPacketSender().sendMessage(player.playerName + ":duelreq:");
 			}
 		} catch (Exception e) {
 			Misc.println("Error requesting duel.");
@@ -82,15 +82,15 @@ public class Dueling {
 			return;
 		}
 		if (player.inTrade || player.isShopping) {
-			player.getActionSender().sendMessage("You can not stake currently.");
+			player.getPacketSender().sendMessage("You can not stake currently.");
 			return;
 		}
 		if (!player.inDuelArena()) {
-			player.getActionSender().sendMessage("You must be in the duel arena to do that.");
+			player.getPacketSender().sendMessage("You must be in the duel arena to do that.");
 			return;
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage("You can't do that in a duel!");
+			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return;
 		}
 		player.duelStatus = 1;
@@ -101,9 +101,9 @@ public class Dueling {
 		for (int i = 0; i < player.playerEquipment.length; i++) {
 			sendDuelEquipment(player.playerEquipment[i], player.playerEquipmentN[i], i);
 		}
-		player.getPlayerAssistant().sendFrame126("Dueling with: " + o.playerName + " (level-" + o.combatLevel + ")", 6671);
-		player.getPlayerAssistant().sendFrame126("", 6684);
-		player.getPlayerAssistant().sendFrame248(6575, 3321);
+		player.getPacketSender().sendFrame126("Dueling with: " + o.playerName + " (level-" + o.combatLevel + ")", 6671);
+		player.getPacketSender().sendFrame126("", 6684);
+		player.getPacketSender().sendFrame248(6575, 3321);
 		player.getItemAssistant().resetItems(3322);
 	}
 
@@ -131,7 +131,7 @@ public class Dueling {
 		for (int i = 0; i < player.duelRule.length; i++) {
 			player.duelRule[i] = false;
 		}
-		player.getPlayerAssistant().sendFrame87(286, 0);
+		player.getPacketSender().sendFrame87(286, 0);
 		player.duelOption = 0;
 	}
 
@@ -207,21 +207,21 @@ public class Dueling {
 
 		for (int i : GameConstants.ITEM_TRADEABLE) {
 			if (i == itemID || itemID >= 6864 && itemID <= 6882) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't stake this item.");
 				return false;
 			}
 		}
 		if (player.inTrade || player.isShopping) {
-			player.getActionSender().sendMessage("You can not stake currently.");
+			player.getPacketSender().sendMessage("You can not stake currently.");
 			return false;
 		}
 		if (!player.inDuelArena()) {
-			player.getActionSender().sendMessage("You must be in the duel arena to do that.");
+			player.getPacketSender().sendMessage("You must be in the duel arena to do that.");
 			return false;
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage("You can't do that in a duel!");
+			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return false;
 		}
 		if (!RareProtection.doOtherDupe(player, itemID)) {
@@ -263,8 +263,8 @@ public class Dueling {
 			o.getItemAssistant().resetItems(3322);
 			refreshDuelScreen();
 			o.getDueling().refreshDuelScreen();
-			player.getPlayerAssistant().sendFrame126("", 6684);
-			o.getPlayerAssistant().sendFrame126("", 6684);
+			player.getPacketSender().sendFrame126("", 6684);
+			o.getPacketSender().sendFrame126("", 6684);
 		}
 		if (Item.itemStackable[itemID] || Item.itemIsNote[itemID]) {
 			boolean found = false;
@@ -288,8 +288,8 @@ public class Dueling {
 		o.getItemAssistant().resetItems(3322);
 		refreshDuelScreen();
 		o.getDueling().refreshDuelScreen();
-		player.getPlayerAssistant().sendFrame126("", 6684);
-		o.getPlayerAssistant().sendFrame126("", 6684);
+		player.getPacketSender().sendFrame126("", 6684);
+		o.getPacketSender().sendFrame126("", 6684);
 		return true;
 	}
 
@@ -304,15 +304,15 @@ public class Dueling {
             return false;
 	    }
 		if (player.inTrade || player.isShopping) {
-			player.getActionSender().sendMessage("You can not stake currently.");
+			player.getPacketSender().sendMessage("You can not stake currently.");
 			return false;
 		}
 		if (!player.inDuelArena()) {
-			player.getActionSender().sendMessage("You must be in the duel arena to do that.");
+			player.getPacketSender().sendMessage("You must be in the duel arena to do that.");
 			return false;
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage("You can't do that in a duel!");
+			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return false;
 		}
 		if (o.duelStatus <= 0 || player.duelStatus <= 0) {
@@ -322,7 +322,7 @@ public class Dueling {
 		}
 		if (Item.itemStackable[itemID]) {
 			if (player.getItemAssistant().freeSlots() - 1 < player.duelSpaceReq) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You have too many rules set to remove that item.");
 				return false;
 			}
@@ -369,7 +369,7 @@ public class Dueling {
 					o.getItemAssistant().resetItems(3322);
 					player.getDueling().refreshDuelScreen();
 					o.getDueling().refreshDuelScreen();
-					o.getPlayerAssistant().sendFrame126("", 6684);
+					o.getPacketSender().sendFrame126("", 6684);
 				}
 			}
 		}
@@ -398,9 +398,9 @@ public class Dueling {
 		o.getItemAssistant().resetItems(3322);
 		player.getDueling().refreshDuelScreen();
 		o.getDueling().refreshDuelScreen();
-		o.getPlayerAssistant().sendFrame126("", 6684);
+		o.getPacketSender().sendFrame126("", 6684);
 		if (!goodSpace) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You have too many rules set to remove that item.");
 			return true;
 		}
@@ -414,15 +414,15 @@ public class Dueling {
 			return;
 		}
 		if (player.inTrade || player.isShopping) {
-			player.getActionSender().sendMessage("You can not stake currently.");
+			player.getPacketSender().sendMessage("You can not stake currently.");
 			return;
 		}
 		if (!player.inDuelArena()) {
-			player.getActionSender().sendMessage("You must be in the duel arena to confirm a duel.");
+			player.getPacketSender().sendMessage("You must be in the duel arena to confirm a duel.");
 			return;
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage("You can't do that in a duel!");
+			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return;
 		}
 		String itemId = "";
@@ -434,7 +434,7 @@ public class Dueling {
 				itemId += ItemAssistant.getItemName(item.id) + "\\n";
 			}
 		}
-		player.getPlayerAssistant().sendFrame126(itemId, 6516);
+		player.getPacketSender().sendFrame126(itemId, 6516);
 		itemId = "";
 		for (GameItem item : o.getDueling().stakedItems) {
 			if (Item.itemStackable[item.id] || Item.itemIsNote[item.id]) {
@@ -444,20 +444,20 @@ public class Dueling {
 				itemId += ItemAssistant.getItemName(item.id) + "\\n";
 			}
 		}
-		player.getPlayerAssistant().sendFrame126(itemId, 6517);
-		player.getPlayerAssistant().sendFrame126("", 8242);
+		player.getPacketSender().sendFrame126(itemId, 6517);
+		player.getPacketSender().sendFrame126("", 8242);
 		for (int i = 8238; i <= 8253; i++) {
-			player.getPlayerAssistant().sendFrame126("", i);
+			player.getPacketSender().sendFrame126("", i);
 		}
-		player.getPlayerAssistant().sendFrame126("Hitpoints will be restored.", 8250);
-		player.getPlayerAssistant().sendFrame126("Boosted stats will be restored.",
+		player.getPacketSender().sendFrame126("Hitpoints will be restored.", 8250);
+		player.getPacketSender().sendFrame126("Boosted stats will be restored.",
 				8238);
 		if (player.duelRule[8]) {
-			player.getPlayerAssistant().sendFrame126(
+			player.getPacketSender().sendFrame126(
 					"There will be obstacles in the arena.", 8239);
 		}
-		player.getPlayerAssistant().sendFrame126("", 8240);
-		player.getPlayerAssistant().sendFrame126("", 8241);
+		player.getPacketSender().sendFrame126("", 8240);
+		player.getPacketSender().sendFrame126("", 8241);
 
 		String[] rulesOption = { "Players cannot forfeit!",
 				"Players cannot move.", "Players cannot use range.",
@@ -468,28 +468,28 @@ public class Dueling {
 		int lineNumber = 8242;
 		for (int i = 0; i < 8; i++) {
 			if (player.duelRule[i]) {
-				player.getPlayerAssistant().sendFrame126("" + rulesOption[i],
+				player.getPacketSender().sendFrame126("" + rulesOption[i],
 						lineNumber);
 				lineNumber++;
 			}
 		}
-		player.getPlayerAssistant().sendFrame126("", 6571);
-		player.getPlayerAssistant().sendFrame248(6412, 197);
+		player.getPacketSender().sendFrame126("", 6571);
+		player.getPacketSender().sendFrame248(6412, 197);
 		// c.getPA().showInterface(6412);
 	}
 
 	public void startDuel() {
 		Client o = (Client) PlayerHandler.players[player.duelingWith];
 		if (!player.inDuelArena()) {
-			player.getActionSender().sendMessage("You must be in the duel arena to start a duel.");
+			player.getPacketSender().sendMessage("You must be in the duel arena to start a duel.");
 			return;
 		}
 		if (player.inTrade || player.isShopping) {
-			player.getActionSender().sendMessage("You can not stake currently.");
+			player.getPacketSender().sendMessage("You can not stake currently.");
 			return;
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage("You can't do that in a duel!");
+			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return;
 		}
 		if (o == null || o.disconnected) {
@@ -502,7 +502,7 @@ public class Dueling {
 																	// prayer
 																	// glows
 				player.getPrayer().prayerActive[p] = false;
-				player.getPlayerAssistant().sendConfig(player.getPrayer().PRAYER_GLOW[p],
+				player.getPacketSender().sendConfig(player.getPrayer().PRAYER_GLOW[p],
 						0);
 			}
 			player.headIcon = -1;
@@ -542,7 +542,7 @@ public class Dueling {
 			player.getItemAssistant().removeItem(player.playerEquipment[13], 13);
 		}
 		player.duelStatus = 5;
-		player.getPlayerAssistant().removeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		player.specAmount = 10;
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 
@@ -562,8 +562,8 @@ public class Dueling {
 			}
 		}
 
-		player.getActionSender().createPlayerHints(10, o.playerId);
-		player.getActionSender().showOption(3, 0, "Attack", 1);
+		player.getPacketSender().createPlayerHints(10, o.playerId);
+		player.getPacketSender().showOption(3, 0, "Attack", 1);
 		for (int i = 0; i < 20; i++) {
 			player.playerLevel[i] = player.getPlayerAssistant().getLevelForXP(
 					player.playerXP[i]);
@@ -579,12 +579,12 @@ public class Dueling {
 	public void duelVictory() {
 		Client opponent = (Client) PlayerHandler.players[player.duelingWith];
 		if (opponent != null) {
-			player.getPlayerAssistant().sendFrame126("" + opponent.combatLevel, 6839);
-			player.getPlayerAssistant().sendFrame126(opponent.playerName, 6840);
+			player.getPacketSender().sendFrame126("" + opponent.combatLevel, 6839);
+			player.getPacketSender().sendFrame126(opponent.playerName, 6840);
 			opponent.duelStatus = 0;
 		} else {
-			player.getPlayerAssistant().sendFrame126("", 6839);
-			player.getPlayerAssistant().sendFrame126("", 6840);
+			player.getPacketSender().sendFrame126("", 6839);
+			player.getPacketSender().sendFrame126("", 6840);
 		}
 		PrayerDrain.resetPrayers(player);
 		for (int i = 0; i < 20; i++) {
@@ -602,15 +602,15 @@ public class Dueling {
 	        }
 		player.getPlayerAssistant().refreshSkill(3);
 		duelRewardInterface();
-		player.getPlayerAssistant().showInterface(6733);
-		player.getActionSender().sendMessage("You have won the duel!");
+		player.getPacketSender().showInterface(6733);
+		player.getPacketSender().sendMessage("You have won the duel!");
 		if (player.getPlayerAssistant().isPlayer()) {
 			GameLogger.writeLog(player.playerName, "duelingkiller", player.playerName + " killed " + opponent.playerName + " in the duel arena.");
 		}
 		player.getPlayerAssistant().movePlayer(GameConstants.DUELING_RESPAWN_X + Misc.random(5), GameConstants.DUELING_RESPAWN_Y + Misc.random(5), 0);
 		player.getPlayerAssistant().requestUpdates();
-		player.getActionSender().showOption(3, 0, "Challenge", 3);
-		player.getActionSender().createPlayerHints(10, -1);
+		player.getPacketSender().showOption(3, 0, "Challenge", 3);
+		player.getPacketSender().createPlayerHints(10, -1);
 		player.duelSpaceReq = 0;
 		player.openDuel = false;
 		opponent.openDuel = false;
@@ -691,14 +691,14 @@ public class Dueling {
 	public void declineDuel() {
 		Client o = (Client) PlayerHandler.players[player.duelingWith];
 		if (!player.inDuelArena()) {
-			player.getActionSender().sendMessage("You must be in the duel arena to do that.");
+			player.getPacketSender().sendMessage("You must be in the duel arena to do that.");
 			return;
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage("You can't do that in a duel!");
+			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return;
 		}
-		player.getPlayerAssistant().removeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		player.duelStatus = 0;
 		player.openDuel = false;
 		o.openDuel = false;
@@ -735,12 +735,12 @@ public class Dueling {
 		if (player.isDead) {
 			player.lostDuel = true;
 		}
-		player.getActionSender().showOption(3, 0, "Challenge", 3);
+		player.getPacketSender().showOption(3, 0, "Challenge", 3);
 		player.headIconHints = 0;
 		for (int i = 0; i < player.duelRule.length; i++) {
 			player.duelRule[i] = false;
 		}
-		player.getActionSender().createPlayerHints(10, -1);
+		player.getPacketSender().createPlayerHints(10, -1);
 		player.duelStatus = 0;
 		player.duelSpaceReq = 0;
 		//player.openDuel = false;
@@ -763,18 +763,18 @@ public class Dueling {
 		}
 		o.duelStatus = 1;
 		player.duelStatus = 1;
-		o.getPlayerAssistant().sendFrame126("", 6684);
-		player.getPlayerAssistant().sendFrame126("", 6684);
+		o.getPacketSender().sendFrame126("", 6684);
+		player.getPacketSender().sendFrame126("", 6684);
 	}
 
 	public void selectRule(int i) { // rules
 		Client o = (Client) PlayerHandler.players[player.duelingWith];
 		if (!player.inDuelArena()) {
-			player.getActionSender().sendMessage("You must be in the duel arena to change your rules.");
+			player.getPacketSender().sendMessage("You must be in the duel arena to change your rules.");
 			return;
 		}
 		if (player.duelingArena()) {
-			player.getActionSender().sendMessage("You can't do that in a duel!");
+			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return;
 		}
 		if (o == null) {
@@ -801,14 +801,14 @@ public class Dueling {
 		if (i == 16 && (player.getItemAssistant().is2handed(ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
 	                && player.getItemAssistant().freeSlots() == 0) || (o.getItemAssistant().is2handed(ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
 	                && o.getItemAssistant().freeSlots() == 0)) {
-	            player.getActionSender().sendMessage("You or your opponent don't have the required space to set this rule.");
+	            player.getPacketSender().sendMessage("You or your opponent don't have the required space to set this rule.");
 	            return;
 	        }
 
 		if (i >= 11) {
 			if (player.getItemAssistant().freeSlots() < player.duelSpaceReq
 					|| o.getItemAssistant().freeSlots() < o.duelSpaceReq) {
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"You or your opponent don't have the required space to set this rule.");
 				if (player.playerEquipment[player.duelSlot] > 0) {
@@ -829,10 +829,10 @@ public class Dueling {
 			player.duelOption -= player.DUEL_RULE_ID[i];
 		}
 
-		player.getPlayerAssistant().sendFrame87(286, player.duelOption);
+		player.getPacketSender().sendFrame87(286, player.duelOption);
 		o.duelOption = player.duelOption;
 		o.duelRule[i] = player.duelRule[i];
-		o.getPlayerAssistant().sendFrame87(286, o.duelOption);
+		o.getPacketSender().sendFrame87(286, o.duelOption);
 
 		if (player.duelRule[8]) {
 			if (player.duelRule[1]) {

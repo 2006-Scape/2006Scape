@@ -88,7 +88,7 @@ public class Flowers {
 	            @Override
 	            public void execute(CycleEventContainer container) {
 				GameEngine.objectHandler.createAnObject(c, -1, coords[0], coords[1], 1);
-				c.getActionSender().sendMessage(	"Your flower is no longer flourishing.");
+				c.getPacketSender().sendMessage(	"Your flower is no longer flourishing.");
 				container.stop();
 			}
 
@@ -161,7 +161,7 @@ public class Flowers {
 	 */
 	public static void harvestFlower(Client c, int object) {
 		c.getItemAssistant().addItem(flowerDecoder(object), 1);
-		c.getActionSender().sendMessage("You receive a random flower.");
+		c.getPacketSender().sendMessage("You receive a random flower.");
 		c.startAnimation(827);
 		// c.getPA().checkObjectSpawn(c,-1, c.getX()+1, c.getY(), 1, 10);
 		// c.getPA().object(c,-1, c.getX()+1, c.getY(), 1, 10);

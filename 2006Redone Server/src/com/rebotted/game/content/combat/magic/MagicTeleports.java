@@ -12,16 +12,16 @@ public class MagicTeleports {
 			SOUL_RUNE = 566, BANANA = 1963;
 
 	public static void handleLoginText(Client player) {
-		player.getPlayerAssistant().sendFrame126("Level 25: Varrock Teleport", 1300);
-		player.getPlayerAssistant().sendFrame126("Level 31: Lumbridge Teleport", 1325);
-		player.getPlayerAssistant().sendFrame126("Level 37: Falador Teleport", 1350);
-		player.getPlayerAssistant().sendFrame126("Level 45: Camelot Teleport", 1382);
-		player.getPlayerAssistant().sendFrame126("Level 51: Ardougne Teleport", 1415);
-		player.getPlayerAssistant().sendFrame126("Level 54: Paddewwa Teleport", 13037);
-		player.getPlayerAssistant().sendFrame126("Level 60: Senntisten Teleport", 13047);
-		player.getPlayerAssistant().sendFrame126("Level 66: Kharyrll Teleport", 13055);
-		player.getPlayerAssistant().sendFrame126("Level 72: Lassar Teleport", 13063);
-		player.getPlayerAssistant().sendFrame126("Level 78: Dareeyak Teleport", 13071);
+		player.getPacketSender().sendFrame126("Level 25: Varrock Teleport", 1300);
+		player.getPacketSender().sendFrame126("Level 31: Lumbridge Teleport", 1325);
+		player.getPacketSender().sendFrame126("Level 37: Falador Teleport", 1350);
+		player.getPacketSender().sendFrame126("Level 45: Camelot Teleport", 1382);
+		player.getPacketSender().sendFrame126("Level 51: Ardougne Teleport", 1415);
+		player.getPacketSender().sendFrame126("Level 54: Paddewwa Teleport", 13037);
+		player.getPacketSender().sendFrame126("Level 60: Senntisten Teleport", 13047);
+		player.getPacketSender().sendFrame126("Level 66: Kharyrll Teleport", 13055);
+		player.getPacketSender().sendFrame126("Level 72: Lassar Teleport", 13063);
+		player.getPacketSender().sendFrame126("Level 78: Dareeyak Teleport", 13071);
 	}
 
 	/**
@@ -64,13 +64,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 1}, {AIR_RUNE, 1}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 54) {
-				player.getActionSender().sendMessage("You need a magic level of 54 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 54 to cast this spell.");
 				return;
 			}
 		}
@@ -86,13 +86,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {SOUL_RUNE, 1}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 60) {
-				player.getActionSender().sendMessage("You need a magic level of 60 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 60 to cast this spell.");
 				return;
 			}
 		}
@@ -108,13 +108,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {BLOOD_RUNE, 1}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 66) {
-				player.getActionSender().sendMessage("You need a magic level of 66 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 66 to cast this spell.");
 				return;
 			}
 		}
@@ -130,13 +130,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 4}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 72) {
-				player.getActionSender().sendMessage("You need a magic level of 72 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 72 to cast this spell.");
 				return;
 			}
 		}
@@ -152,13 +152,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 3}, {AIR_RUNE, 2}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 78) {
-				player.getActionSender().sendMessage("You need a magic level of 78 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 78 to cast this spell.");
 				return;
 			}
 		}
@@ -176,7 +176,7 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {SOUL_RUNE, 2}})) {
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"You don't have the required runes to cast this spell.");
 				return;
@@ -184,7 +184,7 @@ public class MagicTeleports {
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 84) {
-				player.getActionSender().sendMessage("You need a magic level of 84 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 84 to cast this spell.");
 				return;
 			}
 		}
@@ -200,13 +200,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {BLOOD_RUNE, 2}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 90) {
-				player.getActionSender().sendMessage("You need a magic level of 90 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 90 to cast this spell.");
 				return;
 			}
 		}
@@ -222,13 +222,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 8}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 96) {
-				player.getActionSender().sendMessage("You need a magic level of 96 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 96 to cast this spell.");
 				return;
 			}
 		}
@@ -245,13 +245,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {FIRE_RUNE, 1}, {AIR_RUNE, 3}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 25) {
-				player.getActionSender().sendMessage("You need a magic level of 25 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 25 to cast this spell.");
 				return;
 			}
 		}
@@ -267,13 +267,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {EARTH_RUNE, 1}, {AIR_RUNE, 3}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 32) {
-				player.getActionSender().sendMessage("You need a magic level of 32 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 32 to cast this spell.");
 				return;
 			}
 		}
@@ -289,13 +289,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {WATER_RUNE, 1}, {AIR_RUNE, 3}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 37) {
-				player.getActionSender().sendMessage("You need a magic level of 37 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 37 to cast this spell.");
 				return;
 			}
 		}
@@ -311,13 +311,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 1}, {AIR_RUNE, 5}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 45) {
-				player.getActionSender().sendMessage("You need a magic level of 45 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 45 to cast this spell.");
 				return;
 			}
 		}
@@ -334,13 +334,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {WATER_RUNE, 2}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 51) {
-				player.getActionSender().sendMessage("You need a magic level of 51 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 51 to cast this spell.");
 				return;
 			}
 		}
@@ -357,13 +357,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {EARTH_RUNE, 2}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 58) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You need a magic level of 58 to cast this spell.");
 				return;
 			}
@@ -380,13 +380,13 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 2}})) {
-				player.getActionSender().sendMessage("You don't have the required runes to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return;
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 61) {
-				player.getActionSender().sendMessage("You need a magic level of 61 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 61 to cast this spell.");
 				return;
 			}
 		}
@@ -403,17 +403,17 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		if (RUNES_REQUIRED) {
 			if (!CastRequirements.hasRunes(player, new int[][]{{LAW_RUNE, 2}, {FIRE_RUNE, 2}, {WATER_RUNE, 2}}) || !player.getItemAssistant().playerHasItem(BANANA, 1)) {
-				player.getActionSender().sendMessage("You don't have the required items to cast this spell.");
+				player.getPacketSender().sendMessage("You don't have the required items to cast this spell.");
 				return;
 			}
 		}
 		if (player.questPoints < 19) {
-			player.getActionSender().sendMessage("You need " + 19 + " quest points to teleport here.");
+			player.getPacketSender().sendMessage("You need " + 19 + " quest points to teleport here.");
 			return;
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
 			if (player.playerLevel[player.playerMagic] < 64) {
-				player.getActionSender().sendMessage("You need a magic level of 64 to cast this spell.");
+				player.getPacketSender().sendMessage("You need a magic level of 64 to cast this spell.");
 				return;
 			}
 		}

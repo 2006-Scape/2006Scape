@@ -16,7 +16,7 @@ public class PathFinder {
 	public void findRoute(Client c, int destX, int destY, boolean moveNear,
 			int xLength, int yLength) {
 		if (destX == c.getLocalX() && destY == c.getLocalY() && !moveNear) {
-			c.getActionSender().sendMessage("ERROR!");
+			c.getPacketSender().sendMessage("ERROR!");
 			return;
 		}
 		destX = destX - 8 * c.getMapRegionX();

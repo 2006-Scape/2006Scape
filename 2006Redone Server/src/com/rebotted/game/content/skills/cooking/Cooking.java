@@ -112,11 +112,11 @@ public class Cooking extends SkillHandler {
 			c.getItemAssistant().addItem(1925, 1);
 			c.getItemAssistant().addItem(1931, 1);
 			c.getItemAssistant().addItem(item, 1);
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You make the water and flour to make some "
 							+ ItemAssistant.getItemName(item) + ".");
 		}
-		c.getPlayerAssistant().closeAllWindows();
+		c.getPacketSender().closeAllWindows();
 	}
 
 	public static void pastryCreation(Client c, int itemID1, int itemID2,
@@ -127,11 +127,11 @@ public class Cooking extends SkillHandler {
 			c.getItemAssistant().deleteItem(itemID2, 1);
 			c.getItemAssistant().addItem(giveItem, 1);
 			if (message.equalsIgnoreCase("")) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You mix the two ingredients and get an "
 								+ ItemAssistant.getItemName(giveItem) + ".");
 			} else {
-				c.getActionSender().sendMessage(message);
+				c.getPacketSender().sendMessage(message);
 			}
 		}
 	}
@@ -145,12 +145,12 @@ public class Cooking extends SkillHandler {
 				c.getItemAssistant().deleteItem(itemID2, 1);
 				c.getItemAssistant().addItem(giveItem, 1);
 				c.getPlayerAssistant().addSkillXP(expGained, 7);
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You create a " + ItemAssistant.getItemName(giveItem)
 								+ ".");
 			}
 		} else {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You don't have the required level to make an "
 							+ ItemAssistant.getItemName(giveItem));
 		}
@@ -167,9 +167,9 @@ public class Cooking extends SkillHandler {
 	}
 
 	private static void viewCookInterface(Client c, int item) {
-		c.getPlayerAssistant().sendChatInterface(1743);
-		c.getPlayerAssistant().sendFrame246(13716, view190 ? 190 : 170, item);
-		c.getPlayerAssistant().sendFrame126(getLine(c) + "" + ItemAssistant.getItemName(item) + "", 13717);
+		c.getPacketSender().sendChatInterface(1743);
+		c.getPacketSender().sendFrame246(13716, view190 ? 190 : 170, item);
+		c.getPacketSender().sendFrame126(getLine(c) + "" + ItemAssistant.getItemName(item) + "", 13717);
 	}
 
 	public static String getLine(Client c) {
@@ -180,7 +180,7 @@ public class Cooking extends SkillHandler {
 		CookingItems item = forId(itemId);
 		if (item != null) {
 			if (c.playerLevel[c.playerCooking] < item.getLevelReq()) {
-				c.getPlayerAssistant().removeAllWindows();
+				c.getPacketSender().closeAllWindows();
 				c.getDialogueHandler().sendStatement(
 						"You need a Cooking level of " + item.getLevelReq()
 								+ " to cook this.");
@@ -188,11 +188,11 @@ public class Cooking extends SkillHandler {
 				return false;
 			}
 			if (c.playerIsCooking) {
-				c.getPlayerAssistant().removeAllWindows();
+				c.getPacketSender().closeAllWindows();
 				return false;
 			}
 			if (!COOKING) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"This skill is currently disabled.");
 				return false;
 			}
@@ -229,7 +229,7 @@ public class Cooking extends SkillHandler {
 		if (item != null) {
 			setCooking(c);
 			RandomEventHandler.addRandom(c);
-			c.getPlayerAssistant().removeAllWindows();
+			c.getPacketSender().closeAllWindows();
 			c.doAmount = amount;
 			if (c.doAmount > c.getItemAssistant().getItemAmount(itemId)) {
 				c.doAmount = c.getItemAssistant().getItemAmount(itemId);
@@ -247,7 +247,7 @@ public class Cooking extends SkillHandler {
 					}
 					if (!c.getItemAssistant().playerHasItem(item.getRawItem(),
 							1)) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"You have run out of " + item.getName()
 										+ " to cook.");
 						resetCooking(c);
@@ -265,18 +265,18 @@ public class Cooking extends SkillHandler {
 					c.getItemAssistant().deleteItem(item.getRawItem(),
 							c.getItemAssistant().getItemSlot(itemId), 1);
 					if (!burn) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"You successfully cook the "
 										+ item.getName().toLowerCase() + ".");
 						if (GameConstants.SOUND) {
-							c.getActionSender().sendSound(
+							c.getPacketSender().sendSound(
 									SoundList.COOK_ITEM, 100, 0);
 						}
 						c.getPlayerAssistant().addSkillXP(item.getXp(),
 								c.playerCooking);
 						c.getItemAssistant().addItem(item.getCookedItem(), 1);
 					} else {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"Oops! You accidentally burnt the "
 										+ item.getName().toLowerCase() + "!");
 						c.getItemAssistant().addItem(item.getBurntItem(), 1);

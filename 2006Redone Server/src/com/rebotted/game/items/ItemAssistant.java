@@ -26,7 +26,7 @@ public class ItemAssistant {
 
 	public void addCasketRewards(int itemId) {
 		long clickTimer = 0;
-		c.getActionSender().sendMessage("You search the casket...");
+		c.getPacketSender().sendMessage("You search the casket...");
 		for (int[] element : CASKET) {
 			int item = element[0];
 			int amount = element[1];
@@ -35,14 +35,14 @@ public class ItemAssistant {
 				addItem(item, amount);
 				deleteItem(itemId, 1);
 				clickTimer = System.currentTimeMillis();
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You find " + amount + " " + getItemName(item) + ".");
 			} else {
 				if (System.currentTimeMillis() - clickTimer > 1800) {
 					addItem(995, 100);
 					deleteItem(itemId, 1);
 					clickTimer = System.currentTimeMillis();
-					c.getActionSender().sendMessage("You find 100 coins.");
+					c.getPacketSender().sendMessage("You find 100 coins.");
 				}
 			}
 		}
@@ -52,34 +52,34 @@ public class ItemAssistant {
 			5298, 5299, 5300, 5301, 5302, 5303, 5304, 5315, 5316, 5313, 5314 };
 
 	public void handleTreeSeeds(int itemId) {
-		c.getActionSender().sendMessage("You search the nest...");
+		c.getPacketSender().sendMessage("You search the nest...");
 		final int reward = TREE_SEEDS[Misc.random(TREE_SEEDS.length)];
 		addItem(reward, 1 + Misc.random(1));
 		deleteItem(itemId, 1);
 		addItem(5075, 1);
-		c.getActionSender().sendMessage("You find a " + getItemName(reward) + ".");
+		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
 	}
 	
 	private final int[] SEEDS = { 5291, 5292, 5293, 5294, 5295, 5296, 5297, 298, 5299, 5300, 5301, 5302, 5303, 5304 };
 	
 	public void handleNonTreeSeeds(int itemId) {
-		c.getActionSender().sendMessage("You search the nest...");
+		c.getPacketSender().sendMessage("You search the nest...");
 		final int reward = SEEDS[Misc.random(SEEDS.length)];
 		addItem(reward, 1 + Misc.random(1));
 		deleteItem(itemId, 1);
 		addItem(5075, 1);
-		c.getActionSender().sendMessage("You find a " + getItemName(reward) + ".");
+		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
 	}
 
 	public int[] RINGS = { 1635, 1637, 1639, 1641, 1643 };
 
 	public void handleRings(int itemId) {
-		c.getActionSender().sendMessage("You search the nest...");
+		c.getPacketSender().sendMessage("You search the nest...");
 		int reward = RINGS[Misc.random(RINGS.length)];
 		addItem(reward, 1);
 		deleteItem(itemId, 1);
 		addItem(5075, 1);
-		c.getActionSender().sendMessage("You find a " + getItemName(reward) + ".");
+		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
 	}
 	
     public void updateInventory() {
@@ -94,25 +94,25 @@ public class ItemAssistant {
 				{ "Yes.", "14175" }, { "No.", "14176" }, { "", "14177" },
 				{ "You probably won't be able to", "14182" }, { "get this item back once lost.", "14183" },
 				{ itemName, "14184" } };// make some kind of c.getItemInfo
-		c.getPlayerAssistant().sendFrame34(itemId, 0, 14171, 1);
+		c.getPacketSender().sendFrame34(itemId, 0, 14171, 1);
 		for (int i = 0; i < info.length; i++)
-		c.getPlayerAssistant().sendFrame126(info[i][0], Integer.parseInt(info[i][1]));
-		c.getPlayerAssistant().sendChatInterface(14170);
+		c.getPacketSender().sendFrame126(info[i][0], Integer.parseInt(info[i][1]));
+		c.getPacketSender().sendChatInterface(14170);
 	}
 
 	public void destroyItem(int itemId) {
 		itemId = c.droppedItem;
 		String itemName = getItemName(itemId);
 		deleteItem(itemId,getItemSlot(itemId), c.playerItemsN[getItemSlot(itemId)]);
-		c.getActionSender().sendMessage("Your " + itemName + " vanishes as you destroy it.");
-		c.getPlayerAssistant().removeAllWindows();
+		c.getPacketSender().sendMessage("Your " + itemName + " vanishes as you destroy it.");
+		c.getPacketSender().closeAllWindows();
 	}
 
 	public void dropItem(int itemId) {
 		itemId = c.droppedItem;
 		GameEngine.itemHandler.createGroundItem(c, itemId, c.absX, c.absY, c.playerItemsN[getItemSlot(itemId)], c.getId());
 		deleteItem(itemId,getItemSlot(itemId), c.playerItemsN[getItemSlot(itemId)]);
-		c.getPlayerAssistant().removeAllWindows();
+		c.getPacketSender().closeAllWindows();
 	}
 
 	public void addOrDropItem(int item, int amount) {
@@ -121,7 +121,7 @@ public class ItemAssistant {
 		} else if (!hasFreeSlots(amount) && !isStackable(item)) {
 			GameEngine.itemHandler.createGroundItem(c, item, c.absX, c.absY,
 					amount, c.playerId);
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage(
 							"You have no inventory space, so the item(s) appear beneath you.");
 		} else {
@@ -292,7 +292,7 @@ public class ItemAssistant {
 			if (i == 10) {
 				offset = 1;
 			}
-			c.getPlayerAssistant().sendFrame126(send, 1675 + i + offset);
+			c.getPacketSender().sendFrame126(send, 1675 + i + offset);
 		}
 
 	}
@@ -626,7 +626,7 @@ public class ItemAssistant {
 			return false;
 		} else {
 			resetItems(3214);
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"Not enough space in your inventory.");
 			return false;
 		}
@@ -681,100 +681,100 @@ public class ItemAssistant {
 		WeaponName2 = WeaponName2.replaceAll("Crystal", "");
 		WeaponName2 = WeaponName2.trim();
 		if (WeaponName.equals("Unarmed")) {
-			c.getActionSender().setSidebarInterface(0, 5855); // punch,
+			c.getPacketSender().setSidebarInterface(0, 5855); // punch,
 																	// kick,
 																	// block
-			c.getPlayerAssistant().sendFrame126(WeaponName, 5857);
+			c.getPacketSender().sendFrame126(WeaponName, 5857);
 		} else if (WeaponName.endsWith("whip")) {
-			c.getActionSender().setSidebarInterface(0, 12290); // flick,
+			c.getPacketSender().setSidebarInterface(0, 12290); // flick,
 																	// lash,
 																	// deflect
-			c.getPlayerAssistant().sendFrame246(12291, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 12293);
+			c.getPacketSender().sendFrame246(12291, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 12293);
 		} else if (WeaponName.endsWith("bow") || WeaponName.endsWith("10")
 				|| WeaponName.endsWith("full")
 				|| WeaponName.startsWith("seercull")) {
-			c.getActionSender().setSidebarInterface(0, 1764); // accurate,
+			c.getPacketSender().setSidebarInterface(0, 1764); // accurate,
 																	// rapid,
 																	// longrange
-			c.getPlayerAssistant().sendFrame246(1765, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 1767);
+			c.getPacketSender().sendFrame246(1765, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 1767);
 		} else if (WeaponName.startsWith("Staff")
 				|| WeaponName.endsWith("staff") || WeaponName.endsWith("wand")) {
-			c.getActionSender().setSidebarInterface(0, 328); // spike,
+			c.getPacketSender().setSidebarInterface(0, 328); // spike,
 																	// impale,
 																	// smash,
 																	// block
-			c.getPlayerAssistant().sendFrame246(329, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 331);
+			c.getPacketSender().sendFrame246(329, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 331);
 		} else if (WeaponName2.startsWith("dart")
 				|| WeaponName2.startsWith("knife")
 				|| WeaponName2.startsWith("javelin")
 				|| WeaponName.equalsIgnoreCase("toktz-xil-ul")) {
-			c.getActionSender().setSidebarInterface(0, 4446); // accurate,
+			c.getPacketSender().setSidebarInterface(0, 4446); // accurate,
 																	// rapid,
 																	// longrange
-			c.getPlayerAssistant().sendFrame246(4447, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 4449);
+			c.getPacketSender().sendFrame246(4447, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 4449);
 		} else if (WeaponName2.startsWith("dagger")
 				|| WeaponName2.contains("sword")) {
-			c.getActionSender().setSidebarInterface(0, 2276); // stab,
+			c.getPacketSender().setSidebarInterface(0, 2276); // stab,
 																	// lunge,
 																	// slash,
 																	// block
-			c.getPlayerAssistant().sendFrame246(2277, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 2279);
+			c.getPacketSender().sendFrame246(2277, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 2279);
 		} else if (WeaponName2.startsWith("pickaxe")) {
-			c.getActionSender().setSidebarInterface(0, 5570); // spike,
+			c.getPacketSender().setSidebarInterface(0, 5570); // spike,
 																	// impale,
 																	// smash,
 																	// block
-			c.getPlayerAssistant().sendFrame246(5571, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 5573);
+			c.getPacketSender().sendFrame246(5571, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 5573);
 		} else if (WeaponName2.startsWith("axe")
 				|| WeaponName2.startsWith("battleaxe")) {
-			c.getActionSender().setSidebarInterface(0, 1698); // chop,
+			c.getPacketSender().setSidebarInterface(0, 1698); // chop,
 																	// hack,
 																	// smash,
 																	// block
-			c.getPlayerAssistant().sendFrame246(1699, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 1701);
+			c.getPacketSender().sendFrame246(1699, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 1701);
 		} else if (WeaponName2.startsWith("halberd")) {
-			c.getActionSender().setSidebarInterface(0, 8460); // jab,
+			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
 																	// swipe,
 																	// fend
-			c.getPlayerAssistant().sendFrame246(8461, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 8463);
+			c.getPacketSender().sendFrame246(8461, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 8463);
 		} else if (WeaponName2.startsWith("Scythe")) {
-			c.getActionSender().setSidebarInterface(0, 8460); // jab,
+			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
 																	// swipe,
 																	// fend
-			c.getPlayerAssistant().sendFrame246(8461, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 8463);
+			c.getPacketSender().sendFrame246(8461, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 8463);
 		} else if (WeaponName2.startsWith("spear")) {
-			c.getActionSender().setSidebarInterface(0, 4679); // lunge,
+			c.getPacketSender().setSidebarInterface(0, 4679); // lunge,
 																	// swipe,
 																	// pound,
 																	// block
-			c.getPlayerAssistant().sendFrame246(4680, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 4682);
+			c.getPacketSender().sendFrame246(4680, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 4682);
 		} else if (WeaponName2.toLowerCase().contains("mace")) {
-			c.getActionSender().setSidebarInterface(0, 3796);
-			c.getPlayerAssistant().sendFrame246(3797, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 3799);
+			c.getPacketSender().setSidebarInterface(0, 3796);
+			c.getPacketSender().sendFrame246(3797, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 3799);
 
 		} else if (c.playerEquipment[c.playerWeapon] == 4153) {
-			c.getActionSender().setSidebarInterface(0, 425); // war hamer
+			c.getPacketSender().setSidebarInterface(0, 425); // war hamer
 																	// equip.
-			c.getPlayerAssistant().sendFrame246(426, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 428);
+			c.getPacketSender().sendFrame246(426, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 428);
 		} else {
-			c.getActionSender().setSidebarInterface(0, 2423); // chop,
+			c.getPacketSender().setSidebarInterface(0, 2423); // chop,
 																	// slash,
 																	// lunge,
 																	// block
-			c.getPlayerAssistant().sendFrame246(2424, 200, Weapon);
-			c.getPlayerAssistant().sendFrame126(WeaponName, 2426);
+			c.getPacketSender().sendFrame246(2424, 200, Weapon);
+			c.getPacketSender().sendFrame126(WeaponName, 2426);
 		}
 
 	}
@@ -1226,39 +1226,39 @@ public class ItemAssistant {
 		switch (weapon) {
 
 		case 4151: // whip
-			c.getPlayerAssistant().sendFrame171(0, 12323);
+			c.getPacketSender().sendFrame171(0, 12323);
 			specialAmount(weapon, c.specAmount, 12335);
 			break;
 
 		case 859: // magic bows
 		case 861:
 		case 11235:
-			c.getPlayerAssistant().sendFrame171(0, 7549);
+			c.getPacketSender().sendFrame171(0, 7549);
 			specialAmount(weapon, c.specAmount, 7561);
 			break;
 
 		case 4587: // dscimmy
-			c.getPlayerAssistant().sendFrame171(0, 7599);
+			c.getPacketSender().sendFrame171(0, 7599);
 			specialAmount(weapon, c.specAmount, 7611);
 			break;
 
 		case 3204: // d hally
-			c.getPlayerAssistant().sendFrame171(0, 8493);
+			c.getPacketSender().sendFrame171(0, 8493);
 			specialAmount(weapon, c.specAmount, 8505);
 			break;
 
 		case 1377: // d battleaxe
-			c.getPlayerAssistant().sendFrame171(0, 7499);
+			c.getPacketSender().sendFrame171(0, 7499);
 			specialAmount(weapon, c.specAmount, 7511);
 			break;
 
 		case 4153: // gmaul
-			c.getPlayerAssistant().sendFrame171(0, 7474);
+			c.getPacketSender().sendFrame171(0, 7474);
 			specialAmount(weapon, c.specAmount, 7486);
 			break;
 
 		case 1249: // dspear
-			c.getPlayerAssistant().sendFrame171(0, 7674);
+			c.getPacketSender().sendFrame171(0, 7674);
 			specialAmount(weapon, c.specAmount, 7686);
 			break;
 
@@ -1272,29 +1272,29 @@ public class ItemAssistant {
 		case 11700:
 		case 11730:
 		case 11696:
-			c.getPlayerAssistant().sendFrame171(0, 7574);
+			c.getPacketSender().sendFrame171(0, 7574);
 			specialAmount(weapon, c.specAmount, 7586);
 			break;
 
 		case 1434: // dragon mace
-			c.getPlayerAssistant().sendFrame171(0, 7624);
+			c.getPacketSender().sendFrame171(0, 7624);
 			specialAmount(weapon, c.specAmount, 7636);
 			break;
 
 		default:
-			c.getPlayerAssistant().sendFrame171(1, 7624); // mace
+			c.getPacketSender().sendFrame171(1, 7624); // mace
 															// interface
-			c.getPlayerAssistant().sendFrame171(1, 7474); // hammer, gmaul
-			c.getPlayerAssistant().sendFrame171(1, 7499); // axe
-			c.getPlayerAssistant().sendFrame171(1, 7549); // bow interface
-			c.getPlayerAssistant().sendFrame171(1, 7574); // sword
+			c.getPacketSender().sendFrame171(1, 7474); // hammer, gmaul
+			c.getPacketSender().sendFrame171(1, 7499); // axe
+			c.getPacketSender().sendFrame171(1, 7549); // bow interface
+			c.getPacketSender().sendFrame171(1, 7574); // sword
 															// interface
-			c.getPlayerAssistant().sendFrame171(1, 7599); // scimmy sword
+			c.getPacketSender().sendFrame171(1, 7599); // scimmy sword
 															// interface,
 															// for most
 			// swords
-			c.getPlayerAssistant().sendFrame171(1, 8493);
-			c.getPlayerAssistant().sendFrame171(1, 12323); // whip
+			c.getPacketSender().sendFrame171(1, 8493);
+			c.getPacketSender().sendFrame171(1, 12323); // whip
 															// interface
 			break;
 		}
@@ -1306,25 +1306,25 @@ public class ItemAssistant {
 
 	public void specialAmount(int weapon, double specAmount, int barId) {
 		c.specBarId = barId;
-		c.getPlayerAssistant().sendFrame70(specAmount >= 10 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 10 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 9 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 9 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 8 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 8 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 7 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 7 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 6 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 6 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 5 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 5 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 4 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 4 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 3 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 3 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 2 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 2 ? 500 : 0, 0,
 				--barId);
-		c.getPlayerAssistant().sendFrame70(specAmount >= 1 ? 500 : 0, 0,
+		c.getPacketSender().sendFrame70(specAmount >= 1 ? 500 : 0, 0,
 				--barId);
 		updateSpecialBar();
 		sendWeapon(weapon, getItemName(weapon));
@@ -1336,8 +1336,7 @@ public class ItemAssistant {
 
 	public void updateSpecialBar() {
 		if (c.usingSpecial) {
-			c.getPlayerAssistant()
-					.sendFrame126(
+			c.getPacketSender().sendFrame126(
 							""
 									+ (c.specAmount >= 2 ? "@yel@S P"
 											: "@bla@S P")
@@ -1366,7 +1365,7 @@ public class ItemAssistant {
 									+ (c.specAmount >= 10 ? "@yel@ K"
 											: "@bla@ K"), c.specBarId);
 		} else {
-			c.getPlayerAssistant().sendFrame126(
+			c.getPacketSender().sendFrame126(
 					"@bla@S P E C I A L  A T T A C K", c.specBarId);
 		}
 	}
@@ -1381,12 +1380,12 @@ public class ItemAssistant {
 			return false;
 		}
 		if (c.tutorialProgress < 22) {
-			c.getActionSender().sendMessage("You'll be told how to equip items later.");
+			c.getPacketSender().sendMessage("You'll be told how to equip items later.");
 			return false;
 		}
 
 		if (c.tutorialProgress == 22) {
-			c.getActionSender().chatbox(6180);
+			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 					.chatboxText(c,
 							"Clothes, armour, weapons and many other items are equipped",
@@ -1394,20 +1393,20 @@ public class ItemAssistant {
 							"worn inventory. You can close this window by clicking on the",
 							"small x. Speak to the Combat Instructor to continue.",
 							"You're now holding your dagger");
-			c.getActionSender().chatbox(6179);
+			c.getPacketSender().chatbox(6179);
 			c.tutorialProgress = 23;
 			// c.setSidebarInterface(0, -1);// worn
 
 		} else if (c.tutorialProgress == 23) {
-			c.getActionSender().chatbox(6180);
+			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 					.chatboxText(
 							c,
 							"",
 							"Click on the flashing crossed swords icon to see the combat",
 							"interface.", "", "Combat interface");
-			c.getActionSender().chatbox(6179);
-			c.getActionSender().flashSideBarIcon(0);
+			c.getPacketSender().chatbox(6179);
+			c.getPacketSender().flashSideBarIcon(0);
 			// c.getPacketDispatcher().tutorialIslandInterface(50, 11);
 		}
 
@@ -1423,47 +1422,47 @@ public class ItemAssistant {
 			targetSlot = Item.targetSlots[wearID];
 
 			if (c.duelRule[11] && targetSlot == 0) {
-				c.getActionSender().sendMessage("Wearing hats has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing hats has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[12] && targetSlot == 1) {
-				c.getActionSender().sendMessage("Wearing capes has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing capes has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[13] && targetSlot == 2) {
-				c.getActionSender().sendMessage("Wearing amulets has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing amulets has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[14] && targetSlot == 3) {
-				c.getActionSender().sendMessage("Wielding weapons has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wielding weapons has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[15] && targetSlot == 4) {
-				c.getActionSender().sendMessage("Wearing bodies has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing bodies has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[16] && targetSlot == 5 || c.duelRule[16] && is2handed(getItemName(wearID).toLowerCase(), wearID)) {
-				c.getActionSender().sendMessage("Wearing shield has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing shield has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[17] && targetSlot == 7) {
-				c.getActionSender().sendMessage("Wearing legs has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing legs has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[18] && targetSlot == 9) {
-				c.getActionSender().sendMessage("Wearing gloves has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing gloves has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[19] && targetSlot == 10) {
-				c.getActionSender().sendMessage("Wearing boots has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing boots has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[20] && targetSlot == 12) {
-				c.getActionSender().sendMessage("Wearing rings has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing rings has been disabled in this duel!");
 				return false;
 			}
 			if (c.duelRule[21] && targetSlot == 13) {
-				c.getActionSender().sendMessage("Wearing arrows has been disabled in this duel!");
+				c.getPacketSender().sendMessage("Wearing arrows has been disabled in this duel!");
 				return false;
 			}
 
@@ -1477,32 +1476,32 @@ public class ItemAssistant {
 						|| targetSlot == GameConstants.HANDS) {
 					if (c.defenceLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[1]) < c.defenceLevelReq) {
-							c.getActionSender().sendMessage("You need a defence level of " + c.defenceLevelReq + " to wear this item.");
+							c.getPacketSender().sendMessage("You need a defence level of " + c.defenceLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (c.rangeLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[4]) < c.rangeLevelReq) {
-							c.getActionSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wear this item.");
+							c.getPacketSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (c.magicLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[6]) < c.magicLevelReq) {
-							c.getActionSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wear this item.");
+							c.getPacketSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 				}
 				if (c.slayerLevelReq > 0) {
 					if (c.getPlayerAssistant().getLevelForXP(c.playerXP[18]) < c.slayerLevelReq) {
-						c.getActionSender().sendMessage("You need a slayer level of " + c.slayerLevelReq + " to wear this item.");
+						c.getPacketSender().sendMessage("You need a slayer level of " + c.slayerLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
 				if (c.agilityLevelReq > 0) {
 					if (c.getPlayerAssistant().getLevelForXP(c.playerXP[16]) < c.agilityLevelReq) {
-						c.getActionSender().sendMessage("You need a agility level of " + c.agilityLevelReq + " to wear this item.");
+						c.getPacketSender().sendMessage("You need a agility level of " + c.agilityLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
@@ -1510,19 +1509,19 @@ public class ItemAssistant {
 				if (targetSlot == GameConstants.WEAPON) {
 					if (c.attackLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[0]) < c.attackLevelReq) {
-							c.getActionSender().sendMessage("You need an attack level of " + c.attackLevelReq + " to wield this weapon.");
+							c.getPacketSender().sendMessage("You need an attack level of " + c.attackLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (c.rangeLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[4]) < c.rangeLevelReq) {
-							c.getActionSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wield this weapon.");
+							c.getPacketSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (c.magicLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[6]) < c.magicLevelReq) {
-							c.getActionSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wield this weapon.");
+							c.getPacketSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
@@ -1537,7 +1536,7 @@ public class ItemAssistant {
 				case 5698:
 				case 1305:
 					if (c.spiritTree == false && c.playerRights != 3) {
-						c.getActionSender().sendMessage("You need to beat the tree spirit to wield this weapon.");
+						c.getPacketSender().sendMessage("You need to beat the tree spirit to wield this weapon.");
 						canWearItem = false;
 					}
 			}
@@ -1549,7 +1548,7 @@ public class ItemAssistant {
 
 			if (CastleWars.isInCw(c) || CastleWars.isInCwWait(c)) {
 				if (targetSlot == GameConstants.CAPE || targetSlot == GameConstants.HAT) {
-					c.getActionSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
+					c.getPacketSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
 					return false;
 				}
 			}
@@ -1557,7 +1556,7 @@ public class ItemAssistant {
 			if (targetSlot == GameConstants.WEAPON) {
 				c.autocasting = false;
 				c.autocastId = 0;
-				c.getPlayerAssistant().sendConfig(108, 0);
+				c.getPacketSender().sendConfig(108, 0);
 			}
 
 			if (slot >= 0 && wearID >= 0) {
@@ -1606,7 +1605,7 @@ public class ItemAssistant {
 								c.playerEquipmentN[targetSlot] = toEquipN;
 								removeItem(c.playerEquipment[GameConstants.SHIELD], GameConstants.SHIELD);
 							} else {
-								c.getActionSender().sendMessage("You do not have enough inventory space to do this.");
+								c.getPacketSender().sendMessage("You do not have enough inventory space to do this.");
 								return false;
 							}
 						} else if (wearingShield && !wearingWeapon) {
@@ -1741,7 +1740,7 @@ public class ItemAssistant {
 					CastleWars.dropFlag(c, c.playerEquipment[slot]);
 				}
 				if ((c.playerEquipment[slot] == CastleWars.SARA_CAPE || c.playerEquipment[slot] == CastleWars.ZAMMY_CAPE) && c.inCw()) {
-					c.getActionSender().sendMessage("You cannot unequip your castle wars cape!");
+					c.getPacketSender().sendMessage("You cannot unequip your castle wars cape!");
 					return;
 				}
 				if (addItem(c.playerEquipment[slot], c.playerEquipmentN[slot])) {
@@ -1911,12 +1910,12 @@ public class ItemAssistant {
 
 	public boolean bankItem(int itemID, int fromSlot, int amount) {
 		if (c.inTrade) {
-			c.getActionSender().sendMessage("You can't store items while trading!");
+			c.getPacketSender().sendMessage("You can't store items while trading!");
 			return false;
 		}
 		for (int i = 0; i < GameConstants.ITEM_BANKABLE.length; i++) {
 			if (itemID == GameConstants.ITEM_BANKABLE[i]) {
-				c.getActionSender().sendMessage("You can't bank that item!");
+				c.getPacketSender().sendMessage("You can't bank that item!");
 				return false;
 			}
 		}
@@ -1924,8 +1923,8 @@ public class ItemAssistant {
 			return false;
 		}
 		if (c.otherBank == true) {
-			c.getPlayerAssistant().closeAllWindows();
-			c.getActionSender().sendMessage("You can't bank while viewing someones bank!");
+			c.getPacketSender().closeAllWindows();
+			c.getPacketSender().sendMessage("You can't bank while viewing someones bank!");
 			c.otherBank = false;
 			return false;
 		}
@@ -1965,7 +1964,7 @@ public class ItemAssistant {
 							&& c.bankItemsN[toBankSlot] + amount > -1) {
 						c.bankItemsN[toBankSlot] += amount;
 					} else {
-						c.getActionSender().sendMessage("Bank full!");
+						c.getPacketSender().sendMessage("Bank full!");
 						return false;
 					}
 					deleteItem(c.playerItems[fromSlot] - 1, fromSlot, amount);
@@ -1977,7 +1976,7 @@ public class ItemAssistant {
 							&& c.bankItemsN[toBankSlot] + amount > -1) {
 						c.bankItemsN[toBankSlot] += amount;
 					} else {
-						c.getActionSender().sendMessage("Bank full!");
+						c.getPacketSender().sendMessage("Bank full!");
 						return false;
 					}
 					deleteItem(c.playerItems[fromSlot] - 1, fromSlot, amount);
@@ -1985,7 +1984,7 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else {
-					c.getActionSender().sendMessage("Your bank is full!");
+					c.getPacketSender().sendMessage("Your bank is full!");
 					return false;
 				}
 			} else {
@@ -2055,7 +2054,7 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else {
-					c.getActionSender().sendMessage("Bank full!");
+					c.getPacketSender().sendMessage("Bank full!");
 					return false;
 				}
 			}
@@ -2108,7 +2107,7 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else {
-					c.getActionSender().sendMessage("Bank full!");
+					c.getPacketSender().sendMessage("Bank full!");
 					return false;
 				}
 			} else {
@@ -2178,12 +2177,12 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else {
-					c.getActionSender().sendMessage("Bank full!");
+					c.getPacketSender().sendMessage("Bank full!");
 					return false;
 				}
 			}
 		} else {
-			c.getActionSender().sendMessage("Item not supported " + (c.playerItems[fromSlot] - 1));
+			c.getPacketSender().sendMessage("Item not supported " + (c.playerItems[fromSlot] - 1));
 			return false;
 		}
 	}
@@ -2261,7 +2260,7 @@ public class ItemAssistant {
 						}
 					}
 				} else {
-					c.getActionSender().sendMessage("This item can't be withdrawn as a note.");
+					c.getPacketSender().sendMessage("This item can't be withdrawn as a note.");
 					if (Item.itemStackable[c.bankItems[fromSlot] - 1]) {
 						if (c.bankItemsN[fromSlot] > amount) {
 							if (addItem(c.bankItems[fromSlot] - 1, amount)) {

@@ -41,7 +41,7 @@ public class PlayerAssistant {
 			if(p != null) {
 				Client players = (Client)p;
 				if(players.distanceToPoint(X, Y) <= 25) {
-					player.getActionSender().createPlayersObjectAnim(X, Y, animationID, tileObjectType, orientation);	
+					player.getPacketSender().createPlayersObjectAnim(X, Y, animationID, tileObjectType, orientation);	
 				}
 			}
 		}
@@ -50,21 +50,12 @@ public class PlayerAssistant {
 	public void resetAutocast() {
 		player.autocastId = 0;
 		player.autocasting = false;
-		player.getPlayerAssistant().sendConfig(108, 0);
-	}
-	
-	public void sendFrame36(int id, int state) {
-		if(player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(36);
-			player.getOutStream().writeWordBigEndian(id);
-			player.getOutStream().writeByte(state);
-			player.flushOutStream();
-		}
+		player.getPacketSender().sendConfig(108, 0);
 	}
 	
 	public void setAnimationBack() {
 		player.isRunning = true;
-		sendFrame36(173,1);
+		player.getPacketSender().sendFrame36(173,1);
 		player.getCombatAssistant().getPlayerAnimIndex();
 		requestUpdates();
 	}
@@ -77,7 +68,7 @@ public class PlayerAssistant {
 	public void handleObjectRegion(int objectId, int minX, int minY, int maxX, int maxY) {
 		for (int i = minX; i < maxX+1; i++) {
 			for (int j = minY; j < maxY+1; j++) {
-				player.getActionSender().object(objectId, i, j, -1, 10);
+				player.getPacketSender().object(objectId, i, j, -1, 10);
 			}
 		}
 	}
@@ -87,8 +78,8 @@ public class PlayerAssistant {
 	}
 	
 	public void loginScreen() {
-		showInterface(15244);
-		sendFrame126("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
+		player.getPacketSender().showInterface(15244);
+		player.getPacketSender().sendFrame126("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
 
 		if (player.playerLevel[15] < 3) {
@@ -98,39 +89,33 @@ public class PlayerAssistant {
 			player.getPlayerAssistant().refreshSkill(15);
 		}
 	        if (player.lastLoginDate <= 0) {
-	            sendFrame126("This is your first time logging in!", 15258);
+	            player.getPacketSender().sendFrame126("This is your first time logging in!", 15258);
 	        } else if (player.lastLoginDate == 1) {
-	           sendFrame126("You last login @red@yesterday@bla@", 15258);
+	           player.getPacketSender().sendFrame126("You last login @red@yesterday@bla@", 15258);
 	        } else {
-	        	sendFrame126("You last login @red@" + (currentDay > 1 ? (currentDay + " @bla@days ago") : ("ealier today")) + " @bla@", 15258);
+	        	player.getPacketSender().sendFrame126("You last login @red@" + (currentDay > 1 ? (currentDay + " @bla@days ago") : ("ealier today")) + " @bla@", 15258);
 	        }
-		sendFrame126("" +GameConstants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
-		sendFrame126("You have 0 unread messages\\nOn forums!", 15261);
+		player.getPacketSender().sendFrame126("" +GameConstants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
+		player.getPacketSender().sendFrame126("You have 0 unread messages\\nOn forums!", 15261);
 		if (player.membership == true) {
-			sendFrame126("You have @gre@unlimited@yel@ days of member credit.", 15262);
+			player.getPacketSender().sendFrame126("You have @gre@unlimited@yel@ days of member credit.", 15262);
 		} else {
-			sendFrame126("You are currently not a member.", 15262);
+			player.getPacketSender().sendFrame126("You are currently not a member.", 15262);
 		}
-		sendFrame126("CLICK HERE TO PLAY", 15263);
+		player.getPacketSender().sendFrame126("CLICK HERE TO PLAY", 15263);
 		if (!player.hasBankpin) {
-			sendFrame126("You currently have no bank pin set!\\nWe strongly advise you to set\\n one.", 15270);
+			player.getPacketSender().sendFrame126("You currently have no bank pin set!\\nWe strongly advise you to set\\n one.", 15270);
 		} else {
-			sendFrame126("\\nYou currently have a bank pin set.\\nBank pins are coming soon!.", 15270);
+			player.getPacketSender().sendFrame126("\\nYou currently have a bank pin set.\\nBank pins are coming soon!.", 15270);
 		}
-		sendFrame126("Remember to vote daily to help " + GameConstants.SERVER_NAME + "", 15803);
-		sendFrame126("Every vote counts! :)", 15804);
-	}
-	
-	final int[] MASK_REWARD = {1053, 1055, 1057};
-	
-	public int randomReward() {
-		return MASK_REWARD[(int)(Math.random()*MASK_REWARD.length)];
+		player.getPacketSender().sendFrame126("Remember to vote daily to help " + GameConstants.SERVER_NAME + "", 15803);
+		player.getPacketSender().sendFrame126("Every vote counts! :)", 15804);
 	}
 	
 	public void showMap() {
 		int posisition = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
-		sendConfig(106, posisition);
-		showInterface(5392);
+		player.getPacketSender().sendConfig(106, posisition);
+		player.getPacketSender().showInterface(5392);
 	}
 
 	    public ArrayList<GameItem> randomFish(int fish) {
@@ -217,13 +202,13 @@ public class PlayerAssistant {
 	                        }
 	                    }
 	                } else {
-	                    player.getActionSender().sendMessage("You don't have enough inventory space to withdraw that");
+	                    player.getPacketSender().sendMessage("You don't have enough inventory space to withdraw that");
 	                }
 	            } else {
 	                int loop = player.fishingTrawlerReward.get(slot).amount;
 	                for (int j = 0; j < loop; j++) {
 	                    if (player.getItemAssistant().freeSlots() == 0) {
-	                        player.getActionSender().sendMessage("You don't have enough inventory space to withdraw that");
+	                        player.getPacketSender().sendMessage("You don't have enough inventory space to withdraw that");
 	                        GameEngine.trawler.updateRewardSlot(player, slot);
 	                        return;
 	                    }
@@ -244,7 +229,7 @@ public class PlayerAssistant {
 	    
 	    public void removeAllSidebars() {
 	    	for (int i = 0; i < 14; i++) {
-	    		 player.getActionSender().setSidebarInterface(i, -1);
+	    		 player.getPacketSender().setSidebarInterface(i, -1);
 	    	}
 	    }
 	    
@@ -293,7 +278,7 @@ public class PlayerAssistant {
 			c.bankItems[i] = o.bankItems[i];
 		}
 
-		openUpBank();
+		player.getPacketSender().openUpBank();
 
 		for (int i = 0; i < o.bankItems.length; i++) {
 			c.bankItemsN[i] = backupItemsN[i];
@@ -305,8 +290,8 @@ public class PlayerAssistant {
     if (!player.allowFading)
             return;
     player.allowFading = false;
-    showInterface(13583);
-    sendMapState(2);
+    player.getPacketSender().showInterface(13583);
+    player.getPacketSender().sendMapState(2);
     CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
@@ -319,7 +304,7 @@ public class PlayerAssistant {
             @Override
             public void stop() {
                     player.allowFading = true;
-                    sendMapState(0);
+                    player.getPacketSender().sendMapState(0);
                     CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
                             @Override
                             public void execute(CycleEventContainer container2) {
@@ -328,17 +313,17 @@ public class PlayerAssistant {
 
                             @Override
                             public void stop() {
-                                    closeAllWindows();
+                                    player.getPacketSender().closeAllWindows();
                                     switch (occurrence) {
                                     case 0:
                                             player.getDialogueHandler().sendStatement(
                                                             "You arrive at Port Khazard.");
                                             break;
                                     case 1:
-                                            player.getActionSender().sendMessage("You wash up onto the shore...");
+                                            player.getPacketSender().sendMessage("You wash up onto the shore...");
                                             break;
                                     case 2:
-                                            player.getActionSender().sendMessage("You find yourself inside a hidden cavern.");
+                                            player.getPacketSender().sendMessage("You find yourself inside a hidden cavern.");
                                             break;
                                     }
                             }
@@ -349,12 +334,12 @@ public class PlayerAssistant {
 
 	public void sendSidebars() {
 		for (int i = 0; i < GameConstants.SIDEBARS.length; i++) {
-			player.getActionSender().setSidebarInterface(i,
+			player.getPacketSender().setSidebarInterface(i,
 					GameConstants.SIDEBARS[i]);
 			if (player.playerMagicBook == 0) {
-				player.getActionSender().setSidebarInterface(6, 1151);
+				player.getPacketSender().setSidebarInterface(6, 1151);
 			} else {
-				player.getActionSender().setSidebarInterface(6, 12855);
+				player.getPacketSender().setSidebarInterface(6, 12855);
 			}
 		}
 	}
@@ -380,7 +365,7 @@ public class PlayerAssistant {
 	}
 
 	public static void removeHintIcon(Client c) {
-		c.getActionSender().drawHeadicon(0, 0, 0, 0);
+		c.getPacketSender().drawHeadicon(0, 0, 0, 0);
 	}
 
 	/**
@@ -391,25 +376,13 @@ public class PlayerAssistant {
 	 */
 
 	public void tutorialIslandInterface(int p, int a) {
-		sendFrame20(406, a);
-		sendFrame171(1, 12224);
-		sendFrame171(1, 12225);
-		sendFrame171(1, 12226);
-		sendFrame171(1, 12227);
-		sendFrame126("" + p + "%", 12224);
-		walkableInterface(8680);
-	}
-
-	/**
-	 * Walkable interface test
-	 * 
-	 * @param ID
-	 */
-
-	public void setInterfaceWalkable(int ID) {
-		player.outStream.createFrame(208);
-		player.outStream.writeWordBigEndian_dup(ID);
-		player.flushOutStream();
+		player.getPacketSender().sendFrame20(406, a);
+		player.getPacketSender().sendFrame171(1, 12224);
+		player.getPacketSender().sendFrame171(1, 12225);
+		player.getPacketSender().sendFrame171(1, 12226);
+		player.getPacketSender().sendFrame171(1, 12227);
+		player.getPacketSender().sendFrame126("" + p + "%", 12224);
+		player.getPacketSender().walkableInterface(8680);
 	}
 
 	/**
@@ -418,19 +391,19 @@ public class PlayerAssistant {
 
 	public void hideAllSideBars() {
 		for (int i = 0; i < 14; i++) {
-			player.getActionSender().setSidebarInterface(i, -1);
+			player.getPacketSender().setSidebarInterface(i, -1);
 		}
-		player.getActionSender().setSidebarInterface(10, 2449);
+		player.getPacketSender().setSidebarInterface(10, 2449);
 	}
 
 	public void writeEnergy() {
 		if (player.playerEnergy >= 100) {
-			sendFrame126("100%", 149);
+			player.getPacketSender().sendFrame126("100%", 149);
 		} else { 
 			if (player.playerEnergy > 0 && player.playerEnergy < 100) {
-				sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
+				player.getPacketSender().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 			} else if (player.playerEnergy <= 0) {
-				sendFrame126("0%", 149);
+				player.getPacketSender().sendFrame126("0%", 149);
 			}	
 		}
 	}
@@ -452,7 +425,7 @@ public class PlayerAssistant {
 						tempInt *= 2;
 						loc--;
 					}
-					player.getActionSender().setConfig(491, tempInt);
+					player.getPacketSender().setConfig(491, tempInt);
 				}
 			}
 		}
@@ -660,7 +633,7 @@ public class PlayerAssistant {
 	public void squeezeThroughRailing() {
 		player.startAnimation(2240);
 		player.turnPlayerTo(player.objectX, player.objectY);
-		player.getActionSender().sendMessage("You squeeze through the loose railing.");
+		player.getPacketSender().sendMessage("You squeeze through the loose railing.");
 	}
 
 	public void spiritTree() {
@@ -707,45 +680,45 @@ public class PlayerAssistant {
 
 	public void startTeleport(int x, int y, int height, String teleportType) {
 		if (FightPits.getState(player) != null) {
-			player.getActionSender().sendMessage("You can't teleport from a Fight pits Game!");
+			player.getPacketSender().sendMessage("You can't teleport from a Fight pits Game!");
 			return;
 		}
 		if (player.tutorialProgress < 36) {
-			player.getActionSender().sendMessage("You can't teleport from tutorial island!");
+			player.getPacketSender().sendMessage("You can't teleport from tutorial island!");
 			return;
 		}
 		int[] cwitems = { 2552, 2554, 2556, 2558, 2560, 2562, 2564, 2566, 1706,
 				1708, 1710, 1712, 8007, 8008, 8009, 8010, 8011 };
 		for (int cwitem : cwitems) {
 			if (player.inCw() || player.inCw() && player.getItemAssistant().playerHasItem(cwitem)) {
-				player.getActionSender().sendMessage("You can't teleport from castle wars!");
+				player.getPacketSender().sendMessage("You can't teleport from castle wars!");
 				return;
 			}
 		}
 		if (player.inTrade) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport while in trade!");
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
-			player.getActionSender().sendMessage("This feature is curently disabled.");
+			player.getPacketSender().sendMessage("This feature is curently disabled.");
 			return;
 		}
 		if (player.inWild()
 				&& player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport above level "
 							+ GameConstants.NO_TELEPORT_WILD_LEVEL
 							+ " in the wilderness.");
 			return;
 		}
 		if (System.currentTimeMillis() - player.teleBlockDelay < player.teleBlockLength) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You are teleblocked and can't teleport.");
 			return;
 		}
 		if (SkillHandler.isSkilling(player)) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport while skilling!");
 			return;
 		}
@@ -758,7 +731,7 @@ public class PlayerAssistant {
 				player.clickedTree = false;
 			}
 			player.stopMovement();
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			player.teleX = x;
 			player.teleY = y;
 			player.npcIndex = 0;
@@ -772,7 +745,7 @@ public class PlayerAssistant {
 			// client.resetShaking();
 			player.isTeleporting = true;
 			if (GameConstants.SOUND) {
-				player.getActionSender().sendSound(SoundList.TELEPORT, 100, 700);
+				player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 700);
 			}
 			if (teleportType.equalsIgnoreCase("modern")) {
 				player.startAnimation(714, 10);
@@ -801,46 +774,46 @@ public class PlayerAssistant {
 				1708, 1710, 1712, 8007, 8008, 8009, 8010, 8011 };
 		for (int cwitem : cwitems) {
 			if (player.inCw() || player.inCw() && player.getItemAssistant().playerHasItem(cwitem)) {
-				player.getActionSender().sendMessage("You can't teleport from castle wars!");
+				player.getPacketSender().sendMessage("You can't teleport from castle wars!");
 				return;
 			}
 		}
 		if (player.inTrade) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport while in trade!");
 			return;
 		}
 		if (player.tutorialProgress < 36) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport from tutorial island!");
 			return;
 		}
 		if (FightPits.getState(player) != null) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport from a Fight pits Game!");
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"This feature is curently disabled.");
 			return;
 		}
 		if (player.duelStatus == 5) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport during a duel!");
 			return;
 		}
 		if (System.currentTimeMillis() - player.teleBlockDelay < player.teleBlockLength) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You are teleblocked and can't teleport.");
 			return;
 		}
 		if (GameConstants.SOUND) {
-			player.getActionSender().sendSound(SoundList.TELEPORT, 100, 0);
+			player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
 		if (!player.isDead && player.teleTimer == 0) {
 			player.stopMovement();
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			player.teleX = x;
 			player.teleY = y;
 			player.npcIndex = 0;
@@ -862,49 +835,49 @@ public class PlayerAssistant {
 		for (int cwitem : cwitems) {
 			if (player.inCw() || player.duelStatus > 0
 					&& player.getItemAssistant().playerHasItem(cwitem)) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't teleport from Castle Wars!");
 				return;
 			}
 		}
 		if (player.inTrade) {
-			player.getActionSender().sendMessage("You can't teleport while in trade!");
+			player.getPacketSender().sendMessage("You can't teleport while in trade!");
 			return;
 		}
 		if (player.tutorialProgress < 36) {
-			player.getActionSender().sendMessage("You can't teleport from tutorial island!");
+			player.getPacketSender().sendMessage("You can't teleport from tutorial island!");
 			return;
 		}
 		if (FightPits.getState(player) != null) {
-			player.getActionSender().sendMessage("You can't teleport from a Fight pits Game!");
+			player.getPacketSender().sendMessage("You can't teleport from a Fight pits Game!");
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"This feature is curently disabled.");
 			return;
 		}
 		if (player.duelStatus == 5) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport during a duel!");
 			return;
 		}
 		if (System.currentTimeMillis() - player.teleBlockDelay < player.teleBlockLength) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You are teleblocked and can't teleport.");
 			return;
 		}
 		if (GameConstants.SOUND) {
-			player.getActionSender().sendSound(SoundList.TELEPORT, 100, 0);
+			player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
 		if (player.inWild() && player.wildLevel > 30) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You can't teleport above level 30 in the wilderness.");
 			return;
 		}
 		if (!player.isDead && player.teleTimer == 0) {
 			player.stopMovement();
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			player.teleX = x;
 			player.teleY = y;
 			player.npcIndex = 0;
@@ -1005,204 +978,6 @@ public class PlayerAssistant {
 		}
 	}
 
-	public void sendFrame20(int id, int state) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(36);
-			player.getOutStream().writeWordBigEndian(id);
-			player.getOutStream().writeByte(state);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendFrame126(String s, int id) {
-		if(!player.checkPacket126Update(s, id)) {
-			return;
-		}
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrameVarSizeWord(126);
-			player.getOutStream().writeString(s);
-			player.getOutStream().writeWordA(id);
-			player.getOutStream().endFrameVarSizeWord();
-			player.flushOutStream();
-		}
-	}
-
-	public void sendFrame107() {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(107);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendConfig(int id, int state) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(36);
-			player.getOutStream().writeWordBigEndian(id);
-			player.getOutStream().writeByte(state);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendPlayerDialogueHead(int Frame) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(185);
-			player.getOutStream().writeWordBigEndianA(Frame);
-		}
-	}
-
-	public void showInterface(int interfaceid) {
-		if (player.inTrade || player.inDuel) {
-			return;
-		}
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(97);
-			player.getOutStream().writeWord(interfaceid);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendFrame248(int MainFrame, int SubFrame) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(248);
-			player.getOutStream().writeWordA(MainFrame);
-			player.getOutStream().writeWord(SubFrame);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendFrame246(int MainFrame, int SubFrame, int SubFrame2) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(246);
-			player.getOutStream().writeWordBigEndian(MainFrame);
-			player.getOutStream().writeWord(SubFrame);
-			player.getOutStream().writeWord(SubFrame2);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendFrame171(int MainFrame, int SubFrame) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(171);
-			player.getOutStream().writeByte(MainFrame);
-			player.getOutStream().writeWord(SubFrame);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendDialogueAnimation(int MainFrame, int SubFrame) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(200);
-			player.getOutStream().writeWord(MainFrame);
-			player.getOutStream().writeWord(SubFrame);
-			player.flushOutStream();
-		}
-	}
-
-	public int mapStatus = 0;
-
-	public void sendMapState(int state) { // used for disabling map
-		if (player.getOutStream() != null && player != null) {
-			if (mapStatus != state) {
-				mapStatus = state;
-				player.getOutStream().createFrame(99);
-				player.getOutStream().writeByte(state);
-				player.flushOutStream();
-			}
-		}
-	}
-
-	public void sendFrame106(int sideIcon) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(106);
-			player.getOutStream().writeByteC(sideIcon);
-			player.flushOutStream();
-			player.getPlayerAssistant().requestUpdates();
-		}
-	}
-
-	public void sendFrame70(int i, int o, int id) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(70);
-			player.getOutStream().writeWord(i);
-			player.getOutStream().writeWordBigEndian(o);
-			player.getOutStream().writeWordBigEndian(id);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendNPCDialogueHead(int MainFrame, int SubFrame) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(75);
-			player.getOutStream().writeWordBigEndianA(MainFrame);
-			player.getOutStream().writeWordBigEndianA(SubFrame);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendChatInterface(int Frame) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(164);
-			player.getOutStream().writeWordBigEndian_dup(Frame);
-			player.flushOutStream();
-		}
-	}
-
-	public void setPrivateMessaging(int i) { // friends and ignore list status
-												// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(221);
-			player.getOutStream().writeByte(i);
-			player.flushOutStream();
-		}
-	}
-
-	public void setChatOptions(int publicChat, int privateChat, int tradeBlock) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(206);
-			player.getOutStream().writeByte(publicChat);
-			player.getOutStream().writeByte(privateChat);
-			player.getOutStream().writeByte(tradeBlock);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendFrame87(int id, int state) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(87);
-			player.getOutStream().writeWordBigEndian_dup(id);
-			player.getOutStream().writeDWord_v1(state);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendPM(long name, int rights, byte[] chatmessage,
-			int messagesize) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrameVarSize(196);
-			player.getOutStream().writeQWord(name);
-			player.getOutStream().writeDWord(player.lastChatId++);
-			player.getOutStream().writeByte(rights);
-			player.getOutStream().writeBytes(chatmessage, messagesize, 0);
-			player.getOutStream().endFrameVarSize();
-			player.flushOutStream();
-			Misc.textUnpack(chatmessage, messagesize);
-			Misc.longToPlayerName(name);
-		}
-	}
-
 	public void hitPlayers(int x1, int x2, int y1, int y2, int hp) {
 		for (Player player : PlayerHandler.players) {
 			if (player != null && player.isActive) {
@@ -1219,94 +994,25 @@ public class PlayerAssistant {
 			}
 		}
 	}
-
-	public void loadPM(long playerName, int world) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			if (world != 0) {
-				world += 9;
-			} else if (!GameConstants.WORLD_LIST_FIX) {
-				world += 1;
-			}
-			player.getOutStream().createFrame(50);
-			player.getOutStream().writeQWord(playerName);
-			player.getOutStream().writeByte(world);
-			player.flushOutStream();
-		}
-	}
-
-	public void removeAllWindows() {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(219);
-			player.flushOutStream();
-		}
-	}
-
-	public void closeAllWindows() {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(219);
-			player.flushOutStream();
-		}
-	}
-
-	public void sendFrame34(int id, int slot, int column, int amount) {
-		if (player.getOutStream() != null && player != null) {
-			player.outStream.createFrameVarSizeWord(34); // init item to smith
-			// screen
-			player.outStream.writeWord(column); // Column Across Smith Screen
-			player.outStream.writeByte(4); // Total Rows?
-			player.outStream.writeDWord(slot); // Row Down The Smith Screen
-			player.outStream.writeWord(id + 1); // item
-			player.outStream.writeByte(amount); // how many there are?
-			player.outStream.endFrameVarSizeWord();
-		}
-	}
 	
-	public void sendItemOnInterface(int id, int amount, int child) {
-			player.getOutStream().createFrameVarSizeWord(53);
-			player.getOutStream().writeWord(child);
-			player.getOutStream().writeWord(amount);
-			if (amount > 254){
-				player.getOutStream().writeByte(255);
-				player.getOutStream().writeDWord_v2(amount);
-			} else {
-				player.getOutStream().writeByte(amount);
-			}
-			player.getOutStream().writeWordBigEndianA(id); 
-			player.getOutStream().endFrameVarSizeWord();
-			player.flushOutStream();
-	}
-	
-	public void walkableInterface(int id) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(208);
-			player.getOutStream().writeWordBigEndian_dup(id);
-			player.flushOutStream();
-		}
-	}
-
-	/**
-	 * Reseting animations for everyone
-	 **/
-
-	public void frame1() {
-		for (Player player : PlayerHandler.players) {
-			if (player != null) {
-				Client person = (Client) player;
+	// creates gfx for everyone
+	public void createPlayersStillGfx(int id, int x, int y, int height, int time) {
+		// synchronized(c) {
+		for (Player p : PlayerHandler.players) {
+			if (p != null) {
+				Client person = (Client) p;
 				if (person != null) {
-					if (person.getOutStream() != null && !person.disconnected) {
-						if (player
-								.distanceToPoint(person.getX(), person.getY()) <= 25) {
-							person.getOutStream().createFrame(1);
-							person.flushOutStream();
-							person.getPlayerAssistant().requestUpdates();
+					if (person.getOutStream() != null) {
+						if (person.distanceToPoint(x, y) <= 25) {
+							person.getPacketSender().stillGfx(id, x, y,
+									height, time);
 						}
 					}
 				}
 			}
 		}
 	}
+	
 
 	// projectiles for everyone within 25 squares
 	public void createPlayersProjectile(int x, int y, int offX, int offY,
@@ -1320,7 +1026,7 @@ public class PlayerAssistant {
 					if (person.getOutStream() != null) {
 						if (person.distanceToPoint(x, y) <= 25) {
 							if (p.heightLevel == player.heightLevel) {
-								person.getActionSender().createProjectile(
+								person.getPacketSender().createProjectile(
 										x, y, offX, offY, angle, speed,
 										gfxMoving, startHeight, endHeight,
 										lockon, time);
@@ -1342,7 +1048,7 @@ public class PlayerAssistant {
 				if (person != null) {
 					if (person.getOutStream() != null) {
 						if (person.distanceToPoint(x, y) <= 25) {
-							person.getActionSender()
+							person.getPacketSender()
 									.createProjectile2(x, y, offX, offY, angle,
 											speed, gfxMoving, startHeight,
 											endHeight, lockon, time, slope);
@@ -1354,114 +1060,10 @@ public class PlayerAssistant {
 	}
 
 	/**
-	 ** GFX
-	 **/
-	public void stillGfx(int id, int x, int y, int height, int time) {
-		// synchronized(c) {
-		if (player.getOutStream() != null && player != null) {
-			player.getOutStream().createFrame(85);
-			player.getOutStream().writeByteC(y - player.getMapRegionY() * 8);
-			player.getOutStream().writeByteC(x - player.getMapRegionX() * 8);
-			player.getOutStream().createFrame(4);
-			player.getOutStream().writeByte(0);
-			player.getOutStream().writeWord(id);
-			player.getOutStream().writeByte(height);
-			player.getOutStream().writeWord(time);
-			player.flushOutStream();
-		}
-	}
-
-	// creates gfx for everyone
-	public void createPlayersStillGfx(int id, int x, int y, int height, int time) {
-		// synchronized(c) {
-		for (Player p : PlayerHandler.players) {
-			if (p != null) {
-				Client person = (Client) p;
-				if (person != null) {
-					if (person.getOutStream() != null) {
-						if (person.distanceToPoint(x, y) <= 25) {
-							person.getPlayerAssistant().stillGfx(id, x, y,
-									height, time);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public void openUpBank() {
-		if (player.isBanking = false) {
-			player.getPlayerAssistant().closeAllWindows();
-			return;
-		}
-		if (SkillHandler.isSkilling(player)) {
-			player.getPlayerAssistant().closeAllWindows();
-			player.isBanking = false;
-			return;
-		}
-		if (player.inWild()) {
-			player.getActionSender().sendMessage(
-					"You can't open up a bank in the wilderness!");
-			player.getPlayerAssistant().closeAllWindows();
-			return;
-		}
-
-		if (!player.inBankArea() && player.playerRights < 3)
-		{
-			player.getActionSender().sendMessage("You can't open a bank unless you're in a bank area!");
-			player.getActionSender().sendMessage("If this is a bug, please report it! Your coords are [" + player.absX + "," + player.absY + "]");
-			player.getPlayerAssistant().closeAllWindows();
-			return;
-		}
-
-		if (player.absX == 2813 && player.absY == 3443) {
-			return;
-		}
-		if (player.requestPinDelete) {
-			if (player.enterdBankpin) {
-				player.requestPinDelete = false;
-				player.getActionSender().sendMessage("[Notice] Your PIN pending deletion has been cancelled.");
-			} else if (player.lastLoginDate >= player.pinDeleteDateRequested && player.hasBankpin) {
-				player.hasBankpin = false;
-				player.requestPinDelete = false;
-				player.getActionSender().sendMessage("[Notice] Your PIN has been deleted. It is recommended "
-								+ "to have one.");
-			}
-		}
-		if (!player.enterdBankpin && player.hasBankpin) {
-			player.getBankPin().openPin();
-			return;
-		}
-		if (player.inTrade || player.tradeStatus == 1) {
-			Client o = (Client) PlayerHandler.players[player.tradeWith];
-			if (o != null) {
-				o.getTrading().declineTrade();
-			}
-		}
-		if (player.duelStatus == 1) {
-			Client o = (Client) PlayerHandler.players[player.duelingWith];
-			if (o != null) {
-				o.getDueling().resetDuel();
-			}
-		}
-		if (player.getOutStream() != null && player != null) {
-			player.getItemAssistant().resetItems(5064);
-			player.getItemAssistant().rearrangeBank();
-			player.getItemAssistant().resetBank();
-			player.getItemAssistant().resetTempItems();
-			player.getOutStream().createFrame(248);
-			player.getOutStream().writeWordA(5292);
-			player.getOutStream().writeWord(5063);
-			player.flushOutStream();
-			player.isBanking = true;
-		}
-	}
-
-	/**
 	 * Private Messaging
 	 */
 	public void logIntoPM() {
-		setPrivateMessaging(2);
+		player.getPacketSender().setPrivateMessaging(2);
 		for (Player p : PlayerHandler.players) {
 			if (p != null && p.isActive) {
 				Client o = (Client) p;
@@ -1483,14 +1085,14 @@ public class PlayerAssistant {
 								&& o.getPlayerAssistant()
 										.isInPM(Misc
 												.playerNameToInt64(player.playerName))) {
-							loadPM(friend, 1);
+							player.getPacketSender().loadPM(friend, 1);
 							pmLoaded = true;
 						}
 						break;
 					}
 				}
 				if (!pmLoaded) {
-					loadPM(friend, 0);
+					player.getPacketSender().loadPM(friend, 0);
 				}
 				pmLoaded = false;
 			}
@@ -1516,7 +1118,7 @@ public class PlayerAssistant {
 			for (long friend : player.friends) {
 				if (friend != 0) {
 					if (l == friend) {
-						loadPM(l, world);
+						player.getPacketSender().loadPM(l, world);
 						return;
 					}
 				}
@@ -1527,10 +1129,10 @@ public class PlayerAssistant {
 					if (l == friend) {
 						if (o.getPlayerAssistant().isInPM(
 								Misc.playerNameToInt64(player.playerName))) {
-							loadPM(l, world);
+							player.getPacketSender().loadPM(l, world);
 							return;
 						} else {
-							loadPM(l, 0);
+							player.getPacketSender().loadPM(l, 0);
 							return;
 						}
 					}
@@ -1540,7 +1142,7 @@ public class PlayerAssistant {
 			for (long friend : player.friends) {
 				if (friend != 0) {
 					if (l == friend && player.playerRights < 2) {
-						loadPM(l, 0);
+						player.getPacketSender().loadPM(l, 0);
 						return;
 					}
 				}
@@ -1576,14 +1178,14 @@ public class PlayerAssistant {
 			int healType) {
 		player.attackTimer = player.getCombatAssistant().getAttackDelay();
 		if (player.duelRule[5]) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Potions has been disabled in this duel!");
 			return;
 		}
 		if (!player.isDead
 				&& System.currentTimeMillis() - player.foodDelay > 2000) {
 			if (player.getItemAssistant().playerHasItem(itemId, 1, itemSlot)) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You drink the "
 								+ ItemAssistant.getItemName(itemId)
 										.toLowerCase() + ".");
@@ -1614,7 +1216,7 @@ public class PlayerAssistant {
 		switch (spellId) {
 		case 1162: // low alch
 			if (player.inTrade) {
-				player.getActionSender().sendMessage("You can't alch while in trade!");
+				player.getPacketSender().sendMessage("You can't alch while in trade!");
 				return;
 			}
 			if (System.currentTimeMillis() - player.alchDelay > 1000) {
@@ -1624,7 +1226,7 @@ public class PlayerAssistant {
 				boolean canAlch = true;
 				for (int i : GameConstants.ITEM_UNALCHABLE) {
 					if (itemId == i) {
-						player.getActionSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								"You can't alch that item!");
 						canAlch = false;
 						return;
@@ -1652,9 +1254,9 @@ public class PlayerAssistant {
 					player.startAnimation(MagicData.MAGIC_SPELLS[49][2]);
 					player.gfx100(MagicData.MAGIC_SPELLS[49][3]);
 					player.alchDelay = System.currentTimeMillis();
-					player.getPlayerAssistant().sendFrame106(6);
+					player.getPacketSender().sendFrame106(6);
 					addSkillXP(31, 6);
-					player.getActionSender().sendSound(
+					player.getPacketSender().sendSound(
 							SoundList.LOW_ALCHEMY, 100, 0);
 					RandomEventHandler.addRandom(player);
 					refreshSkill(6);
@@ -1679,7 +1281,7 @@ public class PlayerAssistant {
 
 		case 1178: // high alch
 			if (player.inTrade) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't alch while in trade!");
 				return;
 			}
@@ -1690,7 +1292,7 @@ public class PlayerAssistant {
 				boolean canAlch = true;
 				for (int i : GameConstants.ITEM_UNALCHABLE) {
 					if (itemId == i) {
-						player.getActionSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								"You can't alch that item!");
 						canAlch = false;
 						return;
@@ -1717,10 +1319,10 @@ public class PlayerAssistant {
 					player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
 					player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
 					player.alchDelay = System.currentTimeMillis();
-					player.getPlayerAssistant().sendFrame106(6);
+					player.getPacketSender().sendFrame106(6);
 					RandomEventHandler.addRandom(player);
 					addSkillXP(65, 6);
-					player.getActionSender().sendSound(
+					player.getPacketSender().sendSound(
 							SoundList.HIGH_ALCHEMY, 100, 0);
 					refreshSkill(6);
 				}
@@ -1785,12 +1387,12 @@ public class PlayerAssistant {
 				player.getItemAssistant().deleteItem(9075,
 						player.getItemAssistant().getItemSlot(9075), 4);
 			} else {
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"You do not have the required runes to cast this spell. (9075 for astrals)");
 			}
 		} else {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You must wait 30 seconds before casting this again.");
 		}
 	}
@@ -1823,7 +1425,7 @@ public class PlayerAssistant {
 			if (opponent != null) {
 				if(player.inWild() && player.npcIndex < 1) {
 					if (player.killerId != player.playerId) {
-						opponent.getActionSender().sendMessage(deathMsgs());
+						opponent.getPacketSender().sendMessage(deathMsgs());
 					}
 				}
 				if (player.getPlayerAssistant().isPlayer() && player.inWild() && player.npcIndex < 1) {
@@ -1855,11 +1457,11 @@ public class PlayerAssistant {
 			o.cwKills += 1;
 		} else if (player.duelStatus <= 4) {
 			player.getDueling().stakedItems.clear();
-			player.getActionSender().sendMessage("Oh dear you are dead!");
+			player.getPacketSender().sendMessage("Oh dear you are dead!");
 		} else if (player.duelStatus != 6) {
 			Client duelOpponent = (Client) PlayerHandler.players[player.duelingWith];
 			player.getDueling().stakedItems.clear();
-			player.getActionSender().sendMessage("You have lost the duel!");
+			player.getPacketSender().sendMessage("You have lost the duel!");
 			if (duelOpponent.getPlayerAssistant().isPlayer()) {
 				GameLogger.writeLog(player.playerName, "duelingkilled", player.playerName + " was killed by " + duelOpponent.playerName + " in the duel arena.");
 			}
@@ -1880,7 +1482,7 @@ public class PlayerAssistant {
 		player.vengOn = false;
 		resetFollowers();
 		player.attackTimer = 10;
-		removeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		player.tradeResetNeeded = true;
 	}
 
@@ -1888,7 +1490,7 @@ public class PlayerAssistant {
 		player.isDead = false;
 		player.faceUpdate(-1);
 		player.freezeTimer = 0;
-		removeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		player.tradeResetNeeded = true;
 		if (player.duelStatus <= 4) {
 			if (!CastleWars.isInCw(player) && !PestControl.isInGame(player)
@@ -1958,7 +1560,7 @@ public class PlayerAssistant {
 			player.getDialogueHandler().sendStatement2(
 					"Oh dear you died! Go back to the step you",
 					"were on to continue Tutorial Island.");
-			player.getActionSender().createArrow(3098, 3107, player.getH(),
+			player.getPacketSender().createArrow(3098, 3107, player.getH(),
 					2);
 		} else if (player.inFightCaves()) {// to fix
 			player.getPlayerAssistant().resetTzhaar();
@@ -1978,18 +1580,18 @@ public class PlayerAssistant {
 																// of arena
 			Client o = (Client) PlayerHandler.players[player.duelingWith];
 			if (o != null) {
-				o.getActionSender().createPlayerHints(10, -1);
+				o.getPacketSender().createPlayerHints(10, -1);
 				if (o.duelStatus == 6 && player.duelStatus == 5) {
 					o.getDueling().duelVictory();
 				}
 			}
-			player.getActionSender().sendSound(122, 100, 0);
+			player.getPacketSender().sendSound(122, 100, 0);
 			player.getPlayerAssistant().movePlayer(
 					GameConstants.DUELING_RESPAWN_X + 5,
 					GameConstants.DUELING_RESPAWN_Y + 5, 0);
 			assert o != null;
 			if (o != null) {
-				o.getActionSender().sendSound(122, 100, 0);
+				o.getPacketSender().sendSound(122, 100, 0);
 				o.getPlayerAssistant().movePlayer(
 						GameConstants.DUELING_RESPAWN_X + 5,
 						GameConstants.DUELING_RESPAWN_Y + 5, 0);
@@ -2004,10 +1606,10 @@ public class PlayerAssistant {
 		player.getCombatAssistant().resetPlayerAttack();
 		resetAnimation();
 		player.startAnimation(65535);
-		frame1();
+		player.getPacketSender().frame1();
 		resetTb();
 		player.playerEnergy = 100;
-		player.getPlayerAssistant().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
+		player.getPacketSender().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
 		player.isSkulled = false;
 		player.attackedPlayers.clear();
 		player.headIconPk = -1;
@@ -2023,27 +1625,27 @@ public class PlayerAssistant {
 	public void changeLocation() {
 		switch (player.newLocation) {
 		case 1:
-			player.getPlayerAssistant().sendMapState(2);
+			player.getPacketSender().sendMapState(2);
 			movePlayer(3578, 9706, 3);
 			break;
 		case 2:
-			player.getPlayerAssistant().sendMapState(2);
+			player.getPacketSender().sendMapState(2);
 			movePlayer(3568, 9683, 3);
 			break;
 		case 3:
-			player.getPlayerAssistant().sendMapState(2);
+			player.getPacketSender().sendMapState(2);
 			movePlayer(3557, 9703, 3);
 			break;
 		case 4:
-			player.getPlayerAssistant().sendMapState(2);
+			player.getPacketSender().sendMapState(2);
 			movePlayer(3556, 9718, 3);
 			break;
 		case 5:
-			player.getPlayerAssistant().sendMapState(2);
+			player.getPacketSender().sendMapState(2);
 			movePlayer(3534, 9704, 3);
 			break;
 		case 6:
-			player.getPlayerAssistant().sendMapState(2);
+			player.getPacketSender().sendMapState(2);
 			movePlayer(3546, 9684, 3);
 			break;
 		}
@@ -2275,10 +1877,6 @@ public class PlayerAssistant {
 		player.followId = 0;
 		player.followId2 = 0;
 		player.mageFollow = false;
-		// c.outStream.createFrame(174);
-		// c.outStream.writeWord(0);
-		// c.outStream.writeByte(0);
-		// c.outStream.writeWord(1);
 	}
 
 	public void walkTo(int i, int j) {
@@ -2410,9 +2008,9 @@ public class PlayerAssistant {
 
 	public void sendAutoRetalitate() {
 		if (player.autoRet == 1) {
-			sendConfig(172, 0);
+			player.getPacketSender().sendConfig(172, 0);
 		} else if (player.autoRet == 0) {
-			sendConfig(172, 1);
+			player.getPacketSender().sendConfig(172, 1);
 		}
 	}
 
@@ -2431,24 +2029,24 @@ public class PlayerAssistant {
 		} else if (player.tutorialProgress == 0 && !GameConstants.TUTORIAL_ISLAND) {
 			player.getPlayerAssistant().sendSidebars();
 			PlayerAssistant.removeHintIcon(player);
-			player.getPlayerAssistant().walkableInterface(-1);
-			player.getActionSender().chatbox(-1);
+			player.getPacketSender().walkableInterface(-1);
+			player.getPacketSender().chatbox(-1);
 			player.getItemAssistant().deleteAllItems();
 			player.getItemAssistant().clearBank();
 			player.getPlayerAssistant().addStarter();
 			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
-			player.getActionSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
-			player.getActionSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
-			player.getActionSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
-			player.getActionSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
-			player.getActionSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
+			player.getPacketSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
+			player.getPacketSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
+			player.getPacketSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
 			player.autoRet = 1;
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
 			if (!player.hasBankpin) {
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"You do not, have a bank pin it is highly recommended you set one.");
 			}
@@ -2488,46 +2086,46 @@ public class PlayerAssistant {
 
 	public void levelUp(int skill) {
 		SkillHandler.resetSkills(player);
-		sendFrame126("Total Lvl: " + getTotalLevel(), 3984);
+		player.getPacketSender().sendFrame126("Total Lvl: " + getTotalLevel(), 3984);
 		switch (skill) {
 		case 0:
-			sendFrame126("Congratulations, you just advanced an attack level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced an attack level!",
 					6248);
-			sendFrame126("Your attack level is now "
+			player.getPacketSender().sendFrame126("Your attack level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6249);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced an attack level.");
-			sendChatInterface(6247);
+			player.getPacketSender().sendChatInterface(6247);
 			break;
 
 		case 1:
-			sendFrame126("Congratulations, you just advanced a defence level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a defence level!",
 					6254);
-			sendFrame126("Your defence level is now "
+			player.getPacketSender().sendFrame126("Your defence level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6255);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a defence level.");
-			sendChatInterface(6253);
+			player.getPacketSender().sendChatInterface(6253);
 			break;
 
 		case 2:
-			sendFrame126("Congratulations, you just advanced a strength level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a strength level!",
 					6207);
-			sendFrame126("Your strength level is now "
+			player.getPacketSender().sendFrame126("Your strength level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6208);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a strength level.");
-			sendChatInterface(6206);
+			player.getPacketSender().sendChatInterface(6206);
 			break;
 
 		case 3:
-			sendFrame126("Congratulations, you just advanced a hitpoints level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a hitpoints level!",
 					6217);
-			sendFrame126("Your hitpoints level is now "
+			player.getPacketSender().sendFrame126("Your hitpoints level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6218);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a hitpoints level.");
-			sendChatInterface(6216);
+			player.getPacketSender().sendChatInterface(6216);
 			if (player.playerLevel[3] < player.getPlayerAssistant()
 					.getLevelForXP(player.playerXP[3])) {
 				player.playerLevel[3] += 1;
@@ -2536,166 +2134,166 @@ public class PlayerAssistant {
 			break;
 
 		case 4:
-			sendFrame126("Congratulations, you just advanced a ranged level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a ranged level!",
 					5453);
-			sendFrame126("Your ranged level is now "
+			player.getPacketSender().sendFrame126("Your ranged level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6114);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a ranging level.");
-			sendChatInterface(4443);
+			player.getPacketSender().sendChatInterface(4443);
 			break;
 
 		case 5:
-			sendFrame126("Congratulations, you just advanced a prayer level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a prayer level!",
 					6243);
-			sendFrame126("Your prayer level is now "
+			player.getPacketSender().sendFrame126("Your prayer level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6244);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a prayer level.");
-			sendChatInterface(6242);
+			player.getPacketSender().sendChatInterface(6242);
 			break;
 
 		case 6:
-			sendFrame126("Congratulations, you just advanced a magic level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a magic level!",
 					6212);
-			sendFrame126("Your magic level is now "
+			player.getPacketSender().sendFrame126("Your magic level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6213);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a magic level.");
-			sendChatInterface(6211);
+			player.getPacketSender().sendChatInterface(6211);
 			break;
 
 		case 7:
-			sendFrame126("Congratulations, you just advanced a cooking level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a cooking level!",
 					6227);
-			sendFrame126("Your cooking level is now "
+			player.getPacketSender().sendFrame126("Your cooking level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6228);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a cooking level.");
-			sendChatInterface(6226);
+			player.getPacketSender().sendChatInterface(6226);
 			break;
 
 		case 8:
-			sendFrame126(
+			player.getPacketSender().sendFrame126(
 					"Congratulations, you just advanced a woodcutting level!",
 					4273);
-			sendFrame126("Your woodcutting level is now "
+			player.getPacketSender().sendFrame126("Your woodcutting level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 4274);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a woodcutting level.");
-			sendChatInterface(4272);
+			player.getPacketSender().sendChatInterface(4272);
 			break;
 
 		case 9:
-			sendFrame126("Congratulations, you just advanced a fletching level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a fletching level!",
 					6232);
-			sendFrame126("Your fletching level is now "
+			player.getPacketSender().sendFrame126("Your fletching level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6233);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a fletching level.");
-			sendChatInterface(6231);
+			player.getPacketSender().sendChatInterface(6231);
 			break;
 
 		case 10:
-			sendFrame126("Congratulations, you just advanced a fishing level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a fishing level!",
 					6259);
-			sendFrame126("Your fishing level is now "
+			player.getPacketSender().sendFrame126("Your fishing level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6260);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a fishing level.");
-			sendChatInterface(6258);
+			player.getPacketSender().sendChatInterface(6258);
 			break;
 
 		case 11:
-			sendFrame126(
+			player.getPacketSender().sendFrame126(
 					"Congratulations, you just advanced a fire making level!",
 					4283);
-			sendFrame126("Your firemaking level is now "
+			player.getPacketSender().sendFrame126("Your firemaking level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 4284);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a fire making level.");
-			sendChatInterface(4282);
+			player.getPacketSender().sendChatInterface(4282);
 			break;
 
 		case 12:
-			sendFrame126("Congratulations, you just advanced a crafting level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a crafting level!",
 					6264);
-			sendFrame126("Your crafting level is now "
+			player.getPacketSender().sendFrame126("Your crafting level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6265);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a crafting level.");
-			sendChatInterface(6263);
+			player.getPacketSender().sendChatInterface(6263);
 			break;
 
 		case 13:
-			sendFrame126("Congratulations, you just advanced a smithing level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a smithing level!",
 					6222);
-			sendFrame126("Your smithing level is now "
+			player.getPacketSender().sendFrame126("Your smithing level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6223);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a smithing level.");
-			sendChatInterface(6221);
+			player.getPacketSender().sendChatInterface(6221);
 			break;
 
 		case 14:
-			sendFrame126("Congratulations, you just advanced a mining level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a mining level!",
 					4417);
-			sendFrame126("Your mining level is now "
+			player.getPacketSender().sendFrame126("Your mining level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 4438);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a mining level.");
-			sendChatInterface(4416);
+			player.getPacketSender().sendChatInterface(4416);
 			break;
 
 		case 15:
-			sendFrame126("Congratulations, you just advanced a herblore level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a herblore level!",
 					6238);
-			sendFrame126("Your herblore level is now "
+			player.getPacketSender().sendFrame126("Your herblore level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 6239);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a herblore level.");
-			sendChatInterface(6237);
+			player.getPacketSender().sendChatInterface(6237);
 			break;
 
 		case 16:
-			sendFrame126("Congratulations, you just advanced a agility level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a agility level!",
 					4278);
-			sendFrame126("Your agility level is now "
+			player.getPacketSender().sendFrame126("Your agility level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 4279);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced an agility level.");
-			sendChatInterface(4277);
+			player.getPacketSender().sendChatInterface(4277);
 			break;
 
 		case 17:
-			sendFrame126("Congratulations, you just advanced a thieving level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a thieving level!",
 					4263);
-			sendFrame126("Your theiving level is now "
+			player.getPacketSender().sendFrame126("Your theiving level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 4264);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a thieving level.");
-			sendChatInterface(4261);
+			player.getPacketSender().sendChatInterface(4261);
 			break;
 
 		case 18:
-			sendFrame126("Congratulations, you just advanced a slayer level!",
+			player.getPacketSender().sendFrame126("Congratulations, you just advanced a slayer level!",
 					12123);
-			sendFrame126("Your slayer level is now "
+			player.getPacketSender().sendFrame126("Your slayer level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 12124);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a slayer level.");
-			sendChatInterface(12122);
+			player.getPacketSender().sendChatInterface(12122);
 			break;
 
 		case 20:
-			sendFrame126(
+			player.getPacketSender().sendFrame126(
 					"Congratulations, you just advanced a runecrafting level!",
 					4268);
-			sendFrame126("Your runecrafting level is now "
+			player.getPacketSender().sendFrame126("Your runecrafting level is now "
 					+ getLevelForXP(player.playerXP[skill]) + ".", 4269);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Congratulations, you just advanced a runecrafting level.");
-			sendChatInterface(4267);
+			player.getPacketSender().sendChatInterface(4267);
 			break;
 		}
 		player.dialogueAction = 0;
@@ -2705,193 +2303,193 @@ public class PlayerAssistant {
 	public void refreshSkill(int i) {
 		switch (i) {
 		case 0:
-			sendFrame126("" + player.playerLevel[0] + "", 4004);
-			sendFrame126("" + getLevelForXP(player.playerXP[0]) + "", 4005);
-			sendFrame126("" + player.playerXP[0] + "", 4044);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[0] + "", 4004);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[0]) + "", 4005);
+			player.getPacketSender().sendFrame126("" + player.playerXP[0] + "", 4044);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[0]) + 1)
 							+ "", 4045);
 			break;
 
 		case 1:
-			sendFrame126("" + player.playerLevel[1] + "", 4008);
-			sendFrame126("" + getLevelForXP(player.playerXP[1]) + "", 4009);
-			sendFrame126("" + player.playerXP[1] + "", 4056);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[1] + "", 4008);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[1]) + "", 4009);
+			player.getPacketSender().sendFrame126("" + player.playerXP[1] + "", 4056);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[1]) + 1)
 							+ "", 4057);
 			break;
 
 		case 2:
-			sendFrame126("" + player.playerLevel[2] + "", 4006);
-			sendFrame126("" + getLevelForXP(player.playerXP[2]) + "", 4007);
-			sendFrame126("" + player.playerXP[2] + "", 4050);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[2] + "", 4006);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[2]) + "", 4007);
+			player.getPacketSender().sendFrame126("" + player.playerXP[2] + "", 4050);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[2]) + 1)
 							+ "", 4051);
 			break;
 
 		case 3:
-			sendFrame126("" + player.playerLevel[3] + "", 4016);
-			sendFrame126("" + getLevelForXP(player.playerXP[3]) + "", 4017);
-			sendFrame126("" + player.playerXP[3] + "", 4080);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[3] + "", 4016);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[3]) + "", 4017);
+			player.getPacketSender().sendFrame126("" + player.playerXP[3] + "", 4080);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[3]) + 1)
 							+ "", 4081);
 			break;
 
 		case 4:
-			sendFrame126("" + player.playerLevel[4] + "", 4010);
-			sendFrame126("" + getLevelForXP(player.playerXP[4]) + "", 4011);
-			sendFrame126("" + player.playerXP[4] + "", 4062);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[4] + "", 4010);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[4]) + "", 4011);
+			player.getPacketSender().sendFrame126("" + player.playerXP[4] + "", 4062);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[4]) + 1)
 							+ "", 4063);
 			break;
 
 		case 5:
-			sendFrame126("" + player.playerLevel[5] + "", 4012);
-			sendFrame126("" + getLevelForXP(player.playerXP[5]) + "", 4013);
-			sendFrame126("" + player.playerXP[5] + "", 4068);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[5] + "", 4012);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[5]) + "", 4013);
+			player.getPacketSender().sendFrame126("" + player.playerXP[5] + "", 4068);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[5]) + 1)
 							+ "", 4069);
-			sendFrame126("" + player.playerLevel[5] + "/"
+			player.getPacketSender().sendFrame126("" + player.playerLevel[5] + "/"
 					+ getLevelForXP(player.playerXP[5]) + "", 687);// Prayer
 																	// frame
 			break;
 
 		case 6:
-			sendFrame126("" + player.playerLevel[6] + "", 4014);
-			sendFrame126("" + getLevelForXP(player.playerXP[6]) + "", 4015);
-			sendFrame126("" + player.playerXP[6] + "", 4074);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[6] + "", 4014);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[6]) + "", 4015);
+			player.getPacketSender().sendFrame126("" + player.playerXP[6] + "", 4074);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[6]) + 1)
 							+ "", 4075);
 			break;
 
 		case 7:
-			sendFrame126("" + player.playerLevel[7] + "", 4034);
-			sendFrame126("" + getLevelForXP(player.playerXP[7]) + "", 4035);
-			sendFrame126("" + player.playerXP[7] + "", 4134);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[7] + "", 4034);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[7]) + "", 4035);
+			player.getPacketSender().sendFrame126("" + player.playerXP[7] + "", 4134);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[7]) + 1)
 							+ "", 4135);
 			break;
 
 		case 8:
-			sendFrame126("" + player.playerLevel[8] + "", 4038);
-			sendFrame126("" + getLevelForXP(player.playerXP[8]) + "", 4039);
-			sendFrame126("" + player.playerXP[8] + "", 4146);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[8] + "", 4038);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[8]) + "", 4039);
+			player.getPacketSender().sendFrame126("" + player.playerXP[8] + "", 4146);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[8]) + 1)
 							+ "", 4147);
 			break;
 
 		case 9:
-			sendFrame126("" + player.playerLevel[9] + "", 4026);
-			sendFrame126("" + getLevelForXP(player.playerXP[9]) + "", 4027);
-			sendFrame126("" + player.playerXP[9] + "", 4110);
-			sendFrame126(
+			player.getPacketSender().sendFrame126("" + player.playerLevel[9] + "", 4026);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[9]) + "", 4027);
+			player.getPacketSender().sendFrame126("" + player.playerXP[9] + "", 4110);
+			player.getPacketSender().sendFrame126(
 					"" + getXPForLevel(getLevelForXP(player.playerXP[9]) + 1)
 							+ "", 4111);
 			break;
 
 		case 10:
-			sendFrame126("" + player.playerLevel[10] + "", 4032);
-			sendFrame126("" + getLevelForXP(player.playerXP[10]) + "", 4033);
-			sendFrame126("" + player.playerXP[10] + "", 4128);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[10] + "", 4032);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[10]) + "", 4033);
+			player.getPacketSender().sendFrame126("" + player.playerXP[10] + "", 4128);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[10]) + 1)
 					+ "", 4129);
 			break;
 
 		case 11:
-			sendFrame126("" + player.playerLevel[11] + "", 4036);
-			sendFrame126("" + getLevelForXP(player.playerXP[11]) + "", 4037);
-			sendFrame126("" + player.playerXP[11] + "", 4140);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[11] + "", 4036);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[11]) + "", 4037);
+			player.getPacketSender().sendFrame126("" + player.playerXP[11] + "", 4140);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[11]) + 1)
 					+ "", 4141);
 			break;
 
 		case 12:
-			sendFrame126("" + player.playerLevel[12] + "", 4024);
-			sendFrame126("" + getLevelForXP(player.playerXP[12]) + "", 4025);
-			sendFrame126("" + player.playerXP[12] + "", 4104);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[12] + "", 4024);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[12]) + "", 4025);
+			player.getPacketSender().sendFrame126("" + player.playerXP[12] + "", 4104);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[12]) + 1)
 					+ "", 4105);
 			break;
 
 		case 13:
-			sendFrame126("" + player.playerLevel[13] + "", 4030);
-			sendFrame126("" + getLevelForXP(player.playerXP[13]) + "", 4031);
-			sendFrame126("" + player.playerXP[13] + "", 4122);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[13] + "", 4030);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[13]) + "", 4031);
+			player.getPacketSender().sendFrame126("" + player.playerXP[13] + "", 4122);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[13]) + 1)
 					+ "", 4123);
 			break;
 
 		case 14:
-			sendFrame126("" + player.playerLevel[14] + "", 4028);
-			sendFrame126("" + getLevelForXP(player.playerXP[14]) + "", 4029);
-			sendFrame126("" + player.playerXP[14] + "", 4116);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[14] + "", 4028);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[14]) + "", 4029);
+			player.getPacketSender().sendFrame126("" + player.playerXP[14] + "", 4116);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[14]) + 1)
 					+ "", 4117);
 			break;
 
 		case 15:
-			sendFrame126("" + player.playerLevel[15] + "", 4020);
-			sendFrame126("" + getLevelForXP(player.playerXP[15]) + "", 4021);
-			sendFrame126("" + player.playerXP[15] + "", 4092);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[15] + "", 4020);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[15]) + "", 4021);
+			player.getPacketSender().sendFrame126("" + player.playerXP[15] + "", 4092);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[15]) + 1)
 					+ "", 4093);
 			break;
 
 		case 16:
-			sendFrame126("" + player.playerLevel[16] + "", 4018);
-			sendFrame126("" + getLevelForXP(player.playerXP[16]) + "", 4019);
-			sendFrame126("" + player.playerXP[16] + "", 4086);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[16] + "", 4018);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[16]) + "", 4019);
+			player.getPacketSender().sendFrame126("" + player.playerXP[16] + "", 4086);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[16]) + 1)
 					+ "", 4087);
 			break;
 
 		case 17:
-			sendFrame126("" + player.playerLevel[17] + "", 4022);
-			sendFrame126("" + getLevelForXP(player.playerXP[17]) + "", 4023);
-			sendFrame126("" + player.playerXP[17] + "", 4098);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[17] + "", 4022);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[17]) + "", 4023);
+			player.getPacketSender().sendFrame126("" + player.playerXP[17] + "", 4098);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[17]) + 1)
 					+ "", 4099);
 			break;
 
 		case 18:
-			sendFrame126("" + player.playerLevel[18] + "", 12166);
-			sendFrame126("" + getLevelForXP(player.playerXP[18]) + "", 12167);
-			sendFrame126("" + player.playerXP[18] + "", 12171);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[18] + "", 12166);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[18]) + "", 12167);
+			player.getPacketSender().sendFrame126("" + player.playerXP[18] + "", 12171);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[18]) + 1)
 					+ "", 12172);
 			break;
 
 		case 19:
-			sendFrame126("" + player.playerLevel[19] + "", 13926);
-			sendFrame126("" + getLevelForXP(player.playerXP[19]) + "", 13927);
-			sendFrame126("" + player.playerXP[19] + "", 13921);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[19] + "", 13926);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[19]) + "", 13927);
+			player.getPacketSender().sendFrame126("" + player.playerXP[19] + "", 13921);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[19]) + 1)
 					+ "", 13922);
 			break;
 
 		case 20:
-			sendFrame126("" + player.playerLevel[20] + "", 4152);
-			sendFrame126("" + getLevelForXP(player.playerXP[20]) + "", 4153);
-			sendFrame126("" + player.playerXP[20] + "", 4157);
-			sendFrame126(""
+			player.getPacketSender().sendFrame126("" + player.playerLevel[20] + "", 4152);
+			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[20]) + "", 4153);
+			player.getPacketSender().sendFrame126("" + player.playerXP[20] + "", 4157);
+			player.getPacketSender().sendFrame126(""
 					+ getXPForLevel(getLevelForXP(player.playerXP[20]) + 1)
 					+ "", 4158);
 			break;
@@ -2954,7 +2552,7 @@ public class PlayerAssistant {
 			player.gfx100(199);
 			requestUpdates();
 		}
-		player.getActionSender().setSkillLevel(skill,
+		player.getPacketSender().setSkillLevel(skill,
 				player.playerLevel[skill], player.playerXP[skill]);
 		refreshSkill(skill);
 		return true;
@@ -2978,7 +2576,7 @@ public class PlayerAssistant {
 			player.gfx100(199);
 			requestUpdates();
 		}
-		player.getActionSender().setSkillLevel(skill,
+		player.getPacketSender().setSkillLevel(skill,
 				player.playerLevel[skill], player.playerXP[skill]);
 		refreshSkill(skill);
 		return true;
@@ -3011,7 +2609,7 @@ public class PlayerAssistant {
 			player.gfx100(199);
 			requestUpdates();
 		}
-		player.getActionSender().setSkillLevel(skill,
+		player.getPacketSender().setSkillLevel(skill,
 				player.playerLevel[skill], player.playerXP[skill]);
 		refreshSkill(skill);
 		return true;
@@ -3068,15 +2666,15 @@ public class PlayerAssistant {
 	}
 
 	public void removeObject(int x, int y) {
-		player.getActionSender().object(-1, x, x, 10, 10);
+		player.getPacketSender().object(-1, x, x, 10, 10);
 	}
 
 	public void objectToRemove(int X, int Y) {
-		player.getActionSender().object(-1, X, Y, 10, 10);
+		player.getPacketSender().object(-1, X, Y, 10, 10);
 	}
 
 	private void objectToRemove2(int X, int Y) {
-		player.getActionSender().object(-1, X, Y, -1, 0);
+		player.getPacketSender().object(-1, X, Y, -1, 0);
 	}
 
 	public void removeObjects() {
@@ -3194,12 +2792,12 @@ public class PlayerAssistant {
 			return;
 		}
 		if (System.currentTimeMillis() - player.lastPoisonSip > player.poisonImmune && player.poison == false) {
-			player.getActionSender().sendMessage("You have been poisoned.");
+			player.getPacketSender().sendMessage("You have been poisoned.");
 			player.poisonDamage = damage;
 			player.poison = true;
 		}
 		if (player.poisonDamage == 0 && player.isDead == false) {
-			player.getActionSender().sendMessage("The poison has worn off.");
+			player.getPacketSender().sendMessage("The poison has worn off.");
 			player.poison = false;
 		}
 	}
@@ -3219,7 +2817,7 @@ public class PlayerAssistant {
 		if (i < 0) {
 			return;
 		}
-		player.getActionSender().sendMessage(
+		player.getPacketSender().sendMessage(
 				"This pouch has " + player.pouches[i] + " rune ess in it.");
 	}
 
@@ -3263,7 +2861,7 @@ public class PlayerAssistant {
 				if (player.playerItems[j] - 1 == brokenBarrow[1]) {
 					if (totalCost + 80000 > cashAmount) {
 						breakOut = true;
-						player.getActionSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								"You have run out of money.");
 						break;
 					} else {
@@ -3284,13 +2882,13 @@ public class PlayerAssistant {
 
 	public void handleWeaponStyle() {
 		if (player.fightMode == 0) {
-			player.getPlayerAssistant().sendConfig(43, player.fightMode);
+			player.getPacketSender().sendConfig(43, player.fightMode);
 		} else if (player.fightMode == 1) {
-			player.getPlayerAssistant().sendConfig(43, 3);
+			player.getPacketSender().sendConfig(43, 3);
 		} else if (player.fightMode == 2) {
-			player.getPlayerAssistant().sendConfig(43, 1);
+			player.getPacketSender().sendConfig(43, 1);
 		} else if (player.fightMode == 3) {
-			player.getPlayerAssistant().sendConfig(43, 2);
+			player.getPacketSender().sendConfig(43, 2);
 		}
 	}
 

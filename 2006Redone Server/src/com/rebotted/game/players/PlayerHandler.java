@@ -1,10 +1,8 @@
 package com.rebotted.game.players;
 
 import java.net.InetSocketAddress;
-
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
-import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
@@ -133,8 +131,8 @@ public class PlayerHandler {
 							o.getTrading().declineTrade();
 						}
 					}
-					if(GameEngine.trawler.players.contains(this)) {
-						GameEngine.trawler.players.remove(this);
+					if(GameEngine.trawler.players.contains(players[i])) {
+						GameEngine.trawler.players.remove(players[i]);
 				    }
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
@@ -204,8 +202,8 @@ public class PlayerHandler {
 							o.getTrading().declineTrade();
 						}
 					}
-					if(GameEngine.trawler.players.contains(this)) {
-						GameEngine.trawler.players.remove(this);
+					if(GameEngine.trawler.players.contains(players[i])) {
+						GameEngine.trawler.players.remove(players[i]);
 				    }
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
@@ -228,11 +226,9 @@ public class PlayerHandler {
 
 					Client o1 = (Client) PlayerHandler.players[i];
 					if (PlayerSave.saveGame(o1)) {
-						System.out.println("Game saved for player "
-								+ players[i].playerName);
+						System.out.println("Game saved for player " + players[i].playerName);
 					} else {
-						System.out.println("Could not save for "
-								+ players[i].playerName);
+						System.out.println("Could not save for " + players[i].playerName);
 					}
 					removePlayer(players[i]);
 					players[i] = null;

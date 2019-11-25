@@ -53,7 +53,7 @@ public class Fishing extends SkillHandler {
 
 	private static void attemptdata(final Client c, final int npcId) {
 		if (!FISHING) {
-			c.getActionSender().sendMessage(c.disabled());
+			c.getPacketSender().sendMessage(c.disabled());
 			return;
 		}
 		if (c.playerSkillProp[10][4] > 0) {
@@ -105,9 +105,9 @@ public class Fishing extends SkillHandler {
 				if (c.tutorialProgress == 6) { // if tutorial prog = 6
 					c.startAnimation(c.playerSkillProp[10][0]);
 					c.stopPlayerSkill = true;
-					c.getActionSender().drawHeadicon(0, 0, 0, 0); // deletes
+					c.getPacketSender().drawHeadicon(0, 0, 0, 0); // deletes
 																		// headicon
-					c.getActionSender().chatbox(6180);
+					c.getPacketSender().chatbox(6180);
 					c.getDialogueHandler()
 							.chatboxText(
 									c,
@@ -115,7 +115,7 @@ public class Fishing extends SkillHandler {
 									"As you gain Fishing experience you'll find that there are many",
 									"types of fish and many ways to catch them.",
 									"", "Please wait");
-					c.getActionSender().chatbox(6179);
+					c.getPacketSender().chatbox(6179);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 								@Override
 								public void execute(CycleEventContainer container) {
@@ -189,7 +189,7 @@ public class Fishing extends SkillHandler {
 
 				// end of tutorial island fishing
 
-				c.getActionSender().sendMessage("" + messages(c));
+				c.getPacketSender().sendMessage("" + messages(c));
 				// c.getPA().sendSound(379, 100, 1); // fishing
 				c.startAnimation(c.playerSkillProp[10][0]);
 				c.stopPlayerSkill = true;
@@ -202,13 +202,13 @@ public class Fishing extends SkillHandler {
 
 									if (!c.getItemAssistant().playerHasItem(
 											c.playerSkillProp[10][3])) {
-										c.getActionSender()
+										c.getPacketSender()
 												.sendMessage(
 														"You don't have any "
 																+ ItemAssistant
 																		.getItemName(c.playerSkillProp[10][3])
 																+ " left!");
-										c.getActionSender()
+										c.getPacketSender()
 												.sendMessage(
 														"You need "
 																+ ItemAssistant
@@ -264,7 +264,7 @@ public class Fishing extends SkillHandler {
 									}
 								}
 								if (c.playerSkillProp[10][1] > 0) {
-									c.getActionSender()
+									c.getPacketSender()
 											.sendMessage(
 													"You catch "
 															+ (c.playerSkillProp[10][1] == 321
@@ -351,7 +351,7 @@ public class Fishing extends SkillHandler {
 				if (!c.getItemAssistant().playerHasItem(311)
 						&& !c.getItemAssistant().playerHasItem(10129)
 						&& c.playerEquipment[3] != 10129) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You need a "
 									+ ItemAssistant.getItemName(equipment)
 											.toLowerCase() + " to fish here.");
@@ -360,7 +360,7 @@ public class Fishing extends SkillHandler {
 				}
 			} else {
 				resetFishing(c);
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You need a " + ItemAssistant.getItemName(equipment)
 								+ " to fish here.");
 				return false;

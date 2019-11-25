@@ -71,7 +71,7 @@ public class AttackPlayer implements PacketType {
 			}
 			if (c.duelStatus == 5) {
 				if (c.duelCount > 0) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"The duel hasn't started yet!");
 					c.playerIndex = 0;
 					return;
@@ -84,19 +84,19 @@ public class AttackPlayer implements PacketType {
 						}
 					}
 					if (!canUseWeapon) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"You can only use fun weapons in this duel!");
 						return;
 					}
 				}
 
 				if (c.duelRule[2] && (usingBow || usingOtherRangeWeapons)) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"Range has been disabled in this duel!");
 					return;
 				}
 				if (c.duelRule[3] && !usingBow && !usingOtherRangeWeapons) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"Melee has been disabled in this duel!");
 					return;
 				}
@@ -127,7 +127,7 @@ public class AttackPlayer implements PacketType {
 			if (!usingCross && !usingArrows && usingBow
 					&& c.playerEquipment[c.playerWeapon] < 4212
 					&& c.playerEquipment[c.playerWeapon] > 4223) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You have run out of arrows!");
 				return;
 			}
@@ -136,7 +136,7 @@ public class AttackPlayer implements PacketType {
 					&& usingBow
 					&& !RangeData.usingCrystalBow(c)
 					&& c.playerEquipment[c.playerWeapon] != 9185) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't use "
 								+ ItemAssistant.getItemName(
 										c.playerEquipment[c.playerArrows])
@@ -151,7 +151,7 @@ public class AttackPlayer implements PacketType {
 			}
 			if (c.playerEquipment[c.playerWeapon] == 9185
 					&& !c.getCombatAssistant().properBolts()) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You must use bolts with a crossbow.");
 				c.stopMovement();
 				c.getCombatAssistant().resetPlayerAttack();
@@ -196,7 +196,7 @@ public class AttackPlayer implements PacketType {
 			}
 
 			if (c.playerRights == 3) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"Casting Spell id: " + castingSpellId + ".");
 			}
 
@@ -206,7 +206,7 @@ public class AttackPlayer implements PacketType {
 				}
 				if (c.inWild()
 						&& c.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"You can't teleport above level "
 									+ GameConstants.NO_TELEPORT_WILD_LEVEL
 									+ " in the wilderness.");
@@ -250,13 +250,13 @@ public class AttackPlayer implements PacketType {
 
 				if (c.duelStatus == 5) {
 					if (c.duelCount > 0) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"The duel hasn't started yet!");
 						c.playerIndex = 0;
 						return;
 					}
 					if (c.duelRule[4]) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"Magic has been disabled in this duel!");
 						return;
 					}
@@ -269,7 +269,7 @@ public class AttackPlayer implements PacketType {
 					if (PlayerHandler.players[c.playerIndex].REDUCE_SPELLS[r] == MagicData.MAGIC_SPELLS[c.spellId][0]) {
 						if (System.currentTimeMillis()
 								- PlayerHandler.players[c.playerIndex].reduceSpellDelay[r] < PlayerHandler.players[c.playerIndex].REDUCE_SPELL_TIME[r]) {
-							c.getActionSender()
+							c.getPacketSender()
 									.sendMessage(
 											"That player is currently immune to this spell.");
 							c.usingMagic = false;
@@ -283,7 +283,7 @@ public class AttackPlayer implements PacketType {
 				if (System.currentTimeMillis()
 						- PlayerHandler.players[c.playerIndex].teleBlockDelay < PlayerHandler.players[c.playerIndex].teleBlockLength
 						&& MagicData.MAGIC_SPELLS[c.spellId][0] == 12445) {
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"That player is already affected by this spell.");
 					c.usingMagic = false;
 					c.stopMovement();

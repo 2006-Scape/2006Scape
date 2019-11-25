@@ -12,14 +12,14 @@ public class Spinning extends CraftingData {
 			{ 1779, 1777, 15, 10 } };
 
 	public static void showSpinning(Client c) {
-		c.getPlayerAssistant().sendChatInterface(8880);
-		c.getPlayerAssistant().sendFrame126("What would you like to make?", 8879);
-		c.getPlayerAssistant().sendFrame246(8883, 180, 1737); // left
-		c.getPlayerAssistant().sendFrame246(8884, 180, 1779); // middle
-		c.getPlayerAssistant().sendFrame246(8885, 180, 6051); // right
-		c.getPlayerAssistant().sendFrame126("Wool", 8889);
-		c.getPlayerAssistant().sendFrame126("Flax", 8893);
-		c.getPlayerAssistant().sendFrame126("Magic tree", 8897);
+		c.getPacketSender().sendChatInterface(8880);
+		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
+		c.getPacketSender().sendFrame246(8883, 180, 1737); // left
+		c.getPacketSender().sendFrame246(8884, 180, 1779); // middle
+		c.getPacketSender().sendFrame246(8885, 180, 6051); // right
+		c.getPacketSender().sendFrame126("Wool", 8889);
+		c.getPacketSender().sendFrame126("Flax", 8893);
+		c.getPacketSender().sendFrame126("Magic tree", 8897);
 		c.clickedSpinning = true;
 	}
 
@@ -30,7 +30,7 @@ public class Spinning extends CraftingData {
 	}
 
 	public static void spinItem(final Client c) {
-		c.getPlayerAssistant().removeAllWindows();
+		c.getPacketSender().closeAllWindows();
 		for (int[] element : BEFORE_AFTER) {
 			final int before = element[0];
 			final int after = element[1];
@@ -53,7 +53,7 @@ public class Spinning extends CraftingData {
 							c.getItemAssistant().deleteItem(before, amount);
 							c.getItemAssistant().addItem(after, amount);
 							c.getPlayerAssistant().addSkillXP(exp * amount, c.playerCrafting);
-							c.getActionSender().sendMessage("You spin the " + ItemAssistant.getItemName(before) + " into a " + ItemAssistant.getItemName(after) + ".");
+							c.getPacketSender().sendMessage("You spin the " + ItemAssistant.getItemName(before) + " into a " + ItemAssistant.getItemName(after) + ".");
 							c.doAmount--;
 						}
 

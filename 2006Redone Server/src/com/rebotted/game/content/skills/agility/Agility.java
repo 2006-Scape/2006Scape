@@ -1,6 +1,5 @@
 package com.rebotted.game.content.skills.agility;
 
-import com.rebotted.GameConstants;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
@@ -63,7 +62,7 @@ public class Agility {
 
 	private static void setAnimationBack(Client c) {
 		c.isRunning2 = true;
-		c.getPlayerAssistant().sendConfig(173, 1);
+		c.getPacketSender().sendConfig(173, 1);
 		c.playerWalkIndex = 0x333;
 		c.getPlayerAssistant().requestUpdates();
 	}
@@ -503,7 +502,7 @@ public class Agility {
 	public void lapFinished() {
 		if (agilityProgress[5]) {
 			c.getPlayerAssistant().addSkillXP(lapBonus, c.playerAgility);
-			c.getActionSender().sendMessage("You received some bonus experience for completing the track!");
+			c.getPacketSender().sendMessage("You received some bonus experience for completing the track!");
 			resetAgilityProgress();
 		}
 	}
@@ -653,7 +652,7 @@ public class Agility {
 
 	public boolean checkLevel(int objectId) {
 		if (getLevelRequired(objectId) > c.playerLevel[c.playerAgility]) {
-			c.getActionSender().sendMessage(
+			c.getPacketSender().sendMessage(
 					"You need atleast " + getLevelRequired(objectId)
 							+ " agility to do this.");
 			return true;
@@ -687,7 +686,7 @@ public class Agility {
 			for (Player player : PlayerHandler.players) {
 				if (player != null) {
 					Client c = (Client) player;
-					c.getActionSender().createObjectHints(newObjectX,
+					c.getPacketSender().createObjectHints(newObjectX,
 							newObjectY, 130, 2);
 					System.out.println("Updated");
 				}

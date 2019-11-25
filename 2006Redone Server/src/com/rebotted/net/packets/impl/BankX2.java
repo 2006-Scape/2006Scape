@@ -26,7 +26,7 @@ public class BankX2 implements PacketType {
 					break;
 				}
 				if (player.inTrade) {
-					player.getActionSender().sendMessage("You can't store items while trading!");
+					player.getPacketSender().sendMessage("You can't store items while trading!");
 					return;
 				}
 				player.getItemAssistant().bankItem(player.playerItems[player.xRemoveSlot], player.xRemoveSlot, Xamount);

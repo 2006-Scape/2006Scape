@@ -37,7 +37,7 @@ public class ClickNPC implements PacketType {
 		 **/
 		case ATTACK_NPC:
 			if (client.tutorialProgress == 24) {
-				client.getActionSender().chatbox(6180);
+				client.getPacketSender().chatbox(6180);
 				client.getDialogueHandler()
 						.chatboxText(
 								client,
@@ -46,18 +46,18 @@ public class ClickNPC implements PacketType {
 								"have one too. You will continue to attack the rat until it's dead",
 								"or you do something else.",
 								"Sit back and watch");
-				client.getActionSender().chatbox(6179);
+				client.getPacketSender().chatbox(6179);
 
 			}
 			if (client.tutorialProgress == 33) {
-				client.getActionSender()
+				client.getPacketSender()
 						.sendMessage(
 								"You can't range these chickens you have to mage them!");
 				return;
 			}
 			if (!client.mageAllowed) {
 				client.mageAllowed = true;
-				client.getActionSender().sendMessage("I can't reach that.");
+				client.getPacketSender().sendMessage("I can't reach that.");
 				break;
 			}
 			client.npcIndex = client.getInStream().readUnsignedWordA();
@@ -119,7 +119,7 @@ public class ClickNPC implements PacketType {
 			if (!usingCross && !usingArrows && usingBow
 					&& client.playerEquipment[client.playerWeapon] < 4212
 					&& client.playerEquipment[client.playerWeapon] > 4223 && !usingCross) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You have run out of arrows!");
 				break;
 			}
@@ -128,7 +128,7 @@ public class ClickNPC implements PacketType {
 					&& usingBow
 					&& !RangeData.usingCrystalBow(client)
 					&& client.playerEquipment[client.playerWeapon] != 9185) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You can't use "
 								+ ItemAssistant.getItemName(
 										client.playerEquipment[client.playerArrows])
@@ -143,7 +143,7 @@ public class ClickNPC implements PacketType {
 			}
 			if (client.playerEquipment[client.playerWeapon] == 9185
 					&& !client.getCombatAssistant().properBolts()) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You must use bolts with a crossbow.");
 				client.stopMovement();
 				client.getCombatAssistant().resetPlayerAttack();
@@ -165,7 +165,7 @@ public class ClickNPC implements PacketType {
 		 **/
 		case MAGE_NPC:
 			if (client.tutorialProgress == 33) {
-				client.getActionSender().chatbox(6180);
+				client.getPacketSender().chatbox(6180);
 				client.getDialogueHandler()
 						.chatboxText(
 								client,
@@ -173,16 +173,16 @@ public class ClickNPC implements PacketType {
 								"All you need to do is move on to the mainland. Just speak",
 								"with Terrova and he'll teleport you to Lumbridge Castle.",
 								"", "You have almost completed the tutorial!");
-				client.getActionSender().chatbox(6179);
+				client.getPacketSender().chatbox(6179);
 				// c.getDialogues().sendStatement4("You have almost completed the tutorial!",
 				// "All you need to do is move on to the mainland. Just speak",
 				// "with Terrova and he'll teleport you to Lumbridge.", "");
 				client.tutorialProgress = 34;
-				client.getActionSender().createArrow(1, 9);
+				client.getPacketSender().createArrow(1, 9);
 			}
 			if (!client.mageAllowed) {
 				client.mageAllowed = true;
-				client.getActionSender().sendMessage("I can't reach that.");
+				client.getPacketSender().sendMessage("I can't reach that.");
 				break;
 			}
 			// c.usingSpecial = false;
@@ -198,7 +198,7 @@ public class ClickNPC implements PacketType {
 
 			if (NpcHandler.npcs[client.npcIndex].MaxHP == 0
 					|| NpcHandler.npcs[client.npcIndex].npcType == 944) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You can't attack this npc.");
 				break;
 			}

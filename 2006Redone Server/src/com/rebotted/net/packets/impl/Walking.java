@@ -52,9 +52,9 @@ public class Walking implements PacketType {
 			player.getTrading().declineTrade(true);
 		}
 		if (player.tutorialProgress > 35 && !player.isSmithing) {
-			player.getPlayerAssistant().closeAllWindows();
+			player.getPacketSender().closeAllWindows();
 		} else if (player.tutorialProgress < 36 && player.isSmithing) {
-			player.getPlayerAssistant().closeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			player.isSmithing = false;
 		}
 		SkillHandler.resetSkills(player);
@@ -93,7 +93,7 @@ public class Walking implements PacketType {
 						PlayerHandler.players[player.duelingWith].getX(),
 						PlayerHandler.players[player.duelingWith].getY(), 1)
 						|| player.attackTimer == 0) {
-					player.getActionSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"Walking has been disabled in this duel!");
 				}
 			}
@@ -113,14 +113,14 @@ public class Walking implements PacketType {
 				}
 			}
 			if (packetType != 98) {
-				player.getActionSender().sendMessage("A magical force stops you from moving.");
+				player.getPacketSender().sendMessage("A magical force stops you from moving.");
 				player.playerIndex = 0;
 			}
 			return;
 		}
 
 		if (System.currentTimeMillis() - player.lastSpear < 4000) {
-			player.getActionSender().sendMessage("You have been stunned.");
+			player.getPacketSender().sendMessage("You have been stunned.");
 			player.playerIndex = 0;
 			return;
 		}
@@ -132,8 +132,8 @@ public class Walking implements PacketType {
 		if (player.WildernessWarning == false && player.wildLevel > 0) {
 			player.resetWalkingQueue();
 			player.WildernessWarning = true;
-			player.getPlayerAssistant().sendFrame126("WARNING!", 6940);
-			player.getPlayerAssistant().showInterface(1908);
+			player.getPacketSender().sendFrame126("WARNING!", 6940);
+			player.getPacketSender().showInterface(1908);
 		}
 
 		  if(player.openDuel) {

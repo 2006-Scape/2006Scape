@@ -21,25 +21,25 @@ public class SlayerRequirements {
 		case 1622:
 		case 1623: //rock slug
 		if (!client.getItemAssistant().playerHasItem(BAG_OF_SALT, 1)) {
-			client.getActionSender().sendMessage("You need a Bag of Salt to attack Rock Slugs.");
+			client.getPacketSender().sendMessage("You need a Bag of Salt to attack Rock Slugs.");
 			client.getCombatAssistant().resetPlayerAttack();
 			return false;	
 		}
 		break;
 		case 1632: // turoth
 			if (client.playerEquipment[client.playerWeapon] != LEAF_BLADED_SPEAR && client.playerEquipment[client.playerArrows] != BROAD_ARROWS) {
-				client.getActionSender().sendMessage("You need a Leaf Bladed Spear or Broad Arrows to attack Turoths.");
+				client.getPacketSender().sendMessage("You need a Leaf Bladed Spear or Broad Arrows to attack Turoths.");
 				client.getCombatAssistant().resetPlayerAttack();
 				return false;
 			} else if (client.playerEquipment[client.playerArrows] != BROAD_ARROWS && client.playerEquipment[client.playerWeapon] != LEAF_BLADED_SPEAR) {
-				client.getActionSender().sendMessage("You need a Leaf Bladed Spear or Broad Arrows to attack Turoths.");
+				client.getPacketSender().sendMessage("You need a Leaf Bladed Spear or Broad Arrows to attack Turoths.");
 				client.getCombatAssistant().resetPlayerAttack();
 				return false;
 			}
 			break;
 		case 1612:// banshee
 			if (client.playerEquipment[client.playerHat] != EAR_MUFFS) {
-				client.getActionSender().sendMessage("You need some Ear Muffs to attack Banshees.");
+				client.getPacketSender().sendMessage("You need some Ear Muffs to attack Banshees.");
 				client.getCombatAssistant().resetPlayerAttack();
 				return false;
 			}
@@ -47,14 +47,14 @@ public class SlayerRequirements {
 		case 1620: //basilisk
 		case 1616:// cockatrice
 			if (client.playerEquipment[client.playerShield] != MIRROR_SHIELD) {
-				client.getActionSender().sendMessage("You need a Mirror Shield to attack a " + NpcHandler.getNpcListName(npcType).toLowerCase() + ".");
+				client.getPacketSender().sendMessage("You need a Mirror Shield to attack a " + NpcHandler.getNpcListName(npcType).toLowerCase() + ".");
 				client.getCombatAssistant().resetPlayerAttack();
 				return false;
 			}
 			break;
 		case 1624:// dust devil
 			if (client.playerEquipment[client.playerHat] != FACEMASK) {
-				client.getActionSender().sendMessage("You need a Face Mask to attack Dust devils.");
+				client.getPacketSender().sendMessage("You need a Face Mask to attack Dust devils.");
 				client.getCombatAssistant().resetPlayerAttack();
 				return false;
 			}
@@ -64,14 +64,14 @@ public class SlayerRequirements {
 		case 1606:
 		case 1607:// spectre
 			if (client.playerEquipment[client.playerHat] != NOSE_PEG) {
-				client.getActionSender().sendMessage("You need a Nose Peg to attack Aberrant specter.");
+				client.getPacketSender().sendMessage("You need a Nose Peg to attack Aberrant specter.");
 				client.getCombatAssistant().resetPlayerAttack();
 				return false;
 			}
 			break;
 		case 1611:// garg
 			if (!client.getItemAssistant().playerHasItem(ROCK_HAMMER)) {
-				client.getActionSender().sendMessage("You need a Rock Hammer to attack gargoyles.");
+				client.getPacketSender().sendMessage("You need a Rock Hammer to attack gargoyles.");
 				client.getCombatAssistant().resetPlayerAttack();
 				return false;
 			}

@@ -92,7 +92,7 @@ public abstract class WaitingRoom {
         public void messageWaiting(String message) {
                 for(Client p : waiting) {
                         if(p != null) {
-                                p.getActionSender().sendMessage(message);
+                                p.getPacketSender().sendMessage(message);
                         }
                 }
         }

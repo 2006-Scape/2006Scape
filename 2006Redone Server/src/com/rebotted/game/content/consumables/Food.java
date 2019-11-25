@@ -157,7 +157,7 @@ public class Food {
 			return;
 		}
 		if (c.duelRule[6]) {
-			c.getActionSender()
+			c.getPacketSender()
 					.sendMessage("You may not eat in this duel.");
 			return;
 		}
@@ -178,28 +178,28 @@ public class Food {
 				c.getItemAssistant().addItem(f.replaceWith(), 1);
 			}
 			if (f.getType().equalsIgnoreCase("Food")) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You eat the " + f.getName() + ".");
 			} else if (f.getType().equalsIgnoreCase("Drink")) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You drink the " + f.getName() + ".");
 			}
 			if (id == 1965) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You eat the cabbage. Yuck!");
 			}
 			if (id == 2955) {
-				c.getActionSender().sendMessage("It tastes like something just died in your mouth.");
+				c.getPacketSender().sendMessage("It tastes like something just died in your mouth.");
 			}
 			if (f.getType().equalsIgnoreCase("Food")) {
-				c.getActionSender().sendSound(SoundList.FOOD_EAT, 100, 0);
+				c.getPacketSender().sendSound(SoundList.FOOD_EAT, 100, 0);
 			} else if (f.getType().equalsIgnoreCase("Drink")) {
-				c.getActionSender().sendSound(SoundList.DRINK, 100, 0);
+				c.getPacketSender().sendSound(SoundList.DRINK, 100, 0);
 			}
 			c.foodDelay = System.currentTimeMillis();
 			if (c.playerLevel[3] < c.getLevelForXP(c.playerXP[3])) {
 				c.playerLevel[3] += f.getHeal();
-				c.getActionSender().sendMessage("It heals some health.");
+				c.getPacketSender().sendMessage("It heals some health.");
 				if (c.playerLevel[3] > c.getLevelForXP(c.playerXP[3])) {
 					c.playerLevel[3] = c.getLevelForXP(c.playerXP[3]);
 				}

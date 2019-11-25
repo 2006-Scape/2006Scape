@@ -30,13 +30,13 @@ public class ShopAssistant {
 	 **/
 
 	public void openShop(int ShopID) {
-		player.getActionSender().sendSound(1465, 100, 0);
+		player.getPacketSender().sendSound(1465, 100, 0);
 		player.getItemAssistant().resetItems(3823);
 		resetShop(ShopID);
 		player.isShopping = true;
 		player.myShopId = ShopID;
-		player.getPlayerAssistant().sendFrame248(3824, 3822);
-		player.getPlayerAssistant().sendFrame126(ShopHandler.ShopName[ShopID], 3901);
+		player.getPacketSender().sendFrame248(3824, 3822);
+		player.getPacketSender().sendFrame126(ShopHandler.ShopName[ShopID], 3901);
 	}
 
 	public void updatePlayerShop() {
@@ -133,19 +133,19 @@ public class ShopAssistant {
 			ShopValue = BotHandler.getItemPrice(player.myShopId, itemID);
 		}
 		if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + SpecialValue + " tokkul.");
+			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + SpecialValue + " tokkul.");
 			return;
 		}
 		if (player.myShopId == PEST_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getPestItemValue(itemID) + " pest control points.");
+			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getPestItemValue(itemID) + " pest control points.");
 			return;
 		}
 		if (player.myShopId == CASTLE_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getCastleItemValue(itemID) + " castle wars tickets.");
+			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getCastleItemValue(itemID) + " castle wars tickets.");
 			return;
 		}
 		if (player.myShopId == RANGE_SHOP) {
-			player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getRGItemValue(itemID) + " archery tickets.");
+			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getRGItemValue(itemID) + " archery tickets.");
 			return;
 		}
 		if (ShopValue >= 1000 && ShopValue < 1000000) {
@@ -153,7 +153,7 @@ public class ShopAssistant {
 		} else if (ShopValue >= 1000000) {
 			ShopAdd = " (" + ShopValue / 1000000 + " million)";
 		}
-		player.getActionSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + ShopValue + " coins" + ShopAdd);
+		player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + ShopValue + " coins" + ShopAdd);
 	}
 
 	public int getCastleItemValue(int id) {
@@ -277,7 +277,7 @@ public class ShopAssistant {
 		String itemName = ItemAssistant.getItemName(unNotedItemID);
 		for (int i : GameConstants.ITEM_SELLABLE) {
 			if (unNotedItemID == i) {
-				player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + ".");
+				player.getPacketSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + ".");
 				return;
 			}
 		}
@@ -303,7 +303,7 @@ public class ShopAssistant {
 		}
 
 		if (IsIn == false) {
-			player.getActionSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
+			player.getPacketSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
 			int ShopValue = (int) Math.floor(getItemShopValue(unNotedItemID, 1, true));
 			int tokkulValue = (int) Math.floor(getTokkulValue(unNotedItemID) *.85);
@@ -315,19 +315,19 @@ public class ShopAssistant {
 			}
 			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				if (ShopHandler.getStock(player.myShopId, unNotedItemID) > 0)
-					player.getActionSender().sendMessage(itemName + ": you are selling this item for " + BotHandler.getItemPrice(player.myShopId, unNotedItemID) + " coins.");
+					player.getPacketSender().sendMessage(itemName + ": you are selling this item for " + BotHandler.getItemPrice(player.myShopId, unNotedItemID) + " coins.");
 				else
-					player.getActionSender().sendMessage(itemName + ": you haven't set your sell price.");
+					player.getPacketSender().sendMessage(itemName + ": you haven't set your sell price.");
 			} else if (player.myShopId != RANGE_SHOP && player.myShopId != PEST_SHOP && player.myShopId != CASTLE_SHOP && player.myShopId != 138 && player.myShopId != 58 && player.myShopId != 139) {
-				player.getActionSender().sendMessage(itemName + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
+				player.getPacketSender().sendMessage(itemName + ": shop will buy for " + ShopValue + " coins." + ShopAdd);
 			} else if (player.myShopId == 138 || player.myShopId == 139 || player.myShopId == 58) {
-				player.getActionSender().sendMessage(itemName + ": shop will buy for " + tokkulValue + " tokkul.");
+				player.getPacketSender().sendMessage(itemName + ": shop will buy for " + tokkulValue + " tokkul.");
 			} else if (player.myShopId == RANGE_SHOP) {
-				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getRGItemValue(unNotedItemID) + " archery tickets." + ShopAdd);
+				player.getPacketSender().sendMessage(itemName + ": shop will buy for " + getRGItemValue(unNotedItemID) + " archery tickets." + ShopAdd);
 			} else if (player.myShopId == PEST_SHOP) {
-				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getPestItemValue(unNotedItemID) + " pest control points." + ShopAdd);
+				player.getPacketSender().sendMessage(itemName + ": shop will buy for " + getPestItemValue(unNotedItemID) + " pest control points." + ShopAdd);
 			} else if (player.myShopId == CASTLE_SHOP) {
-				player.getActionSender().sendMessage(itemName + ": shop will buy for " + getCastleItemValue(unNotedItemID) + " castle war tickets." + ShopAdd);
+				player.getPacketSender().sendMessage(itemName + ": shop will buy for " + getCastleItemValue(unNotedItemID) + " castle war tickets." + ShopAdd);
 			}
 		}
 	}
@@ -337,12 +337,12 @@ public class ShopAssistant {
 		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 		for (int i : GameConstants.ITEM_SELLABLE) {
 			if (i == unNotedItemID) {
-				player.getActionSender().sendMessage("You can't sell " + itemName + ".");
+				player.getPacketSender().sendMessage("You can't sell " + itemName + ".");
 				return false;
 			}
 		}
 		if (player.playerRights == 2 && !GameConstants.ADMIN_CAN_SELL_ITEMS) {
-			player.getActionSender().sendMessage("Selling items as an admin has been disabled.");
+			player.getPacketSender().sendMessage("Selling items as an admin has been disabled.");
 			return false;
 		}
 		if(!player.isShopping) {
@@ -350,7 +350,7 @@ public class ShopAssistant {
 		}
 		// We can only store 40 items per shop
 		if (player.TotalShopItems >= 40) {
-			player.getActionSender().sendMessage("This shop is out of space!");
+			player.getPacketSender().sendMessage("This shop is out of space!");
 			return false;
 		}
 		// Check we have the item in our inventory
@@ -379,7 +379,7 @@ public class ShopAssistant {
 			}
 			if (canSellToStore == false) {
 				player.getItemAssistant();
-				player.getActionSender().sendMessage("You can't sell " + itemName + " to this store.");
+				player.getPacketSender().sendMessage("You can't sell " + itemName + " to this store.");
 				return false;
 			}
 			// player owned store, setting item price
@@ -413,20 +413,20 @@ public class ShopAssistant {
 			boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable;
 
 			if (!player.getItemAssistant().playerHasItem(currency) && isStackable && amount < inventoryAmount && player.getItemAssistant().freeSlots() <= 0) {
-				player.getActionSender().sendMessage("You don't have enough space in your inventory.");
+				player.getPacketSender().sendMessage("You don't have enough space in your inventory.");
 			}
 
 			player.getItemAssistant().deleteItem(itemID, amount);
 
 			if (ShopHandler.playerOwnsStore(player.myShopId, player)) {
 				// Add items to players store
-				player.getActionSender().sendMessage("You sent " + amount + " " + itemName + " to your store.");
+				player.getPacketSender().sendMessage("You sent " + amount + " " + itemName + " to your store.");
 				BotHandler.addTobank(player.myShopId, unNotedItemID, amount);
 			} else {
 				// Add currency to players inventory
 				int totalValue = value * amount;
 				player.getItemAssistant().addItem(currency, totalValue);
-				player.getActionSender().sendMessage("You sold " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + ".");
+				player.getPacketSender().sendMessage("You sold " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + ".");
 			}
 
 			// Add item to the shop
@@ -497,7 +497,7 @@ public class ShopAssistant {
 		if (amount > 0) {
 			if (storeQty <= 0) {
 				// none in stock, or not sold here
-				player.getActionSender().sendMessage("You can't buy that right now!");
+				player.getPacketSender().sendMessage("You can't buy that right now!");
 				return false;
 			}
 			if (amount > storeQty) {
@@ -506,7 +506,7 @@ public class ShopAssistant {
 			}
 			if (freeSlots <= 0){
 				if (!isStackable || isStackable && !player.getItemAssistant().playerHasItem(isPlayerShop ? notedItemID : itemID)) {
-					player.getActionSender().sendMessage("You don't have enough space in your inventory.");
+					player.getPacketSender().sendMessage("You don't have enough space in your inventory.");
 					return false;
 				}
 			}
@@ -519,7 +519,7 @@ public class ShopAssistant {
 			}
 			for (int i = 0; i < FISHING_ITEMS.length; i++) {
 				if (player.myShopId == 32 && itemID == FISHING_ITEMS[i]) {
-					player.getActionSender().sendMessage("You can't buy that item from this store!");
+					player.getPacketSender().sendMessage("You can't buy that item from this store!");
 					return false;
 				}		
 			}
@@ -554,7 +554,7 @@ public class ShopAssistant {
 
 			// player has none of the required currency
 			if (currencySlot == -1) {
-				player.getActionSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
+				player.getPacketSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
 				return false;
 			}
 
@@ -567,7 +567,7 @@ public class ShopAssistant {
 				// buy as many as we can afford
 				totalValue = value * amount;
 				if (currencyAmount < totalValue || amount <= 0) {
-					player.getActionSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
+					player.getPacketSender().sendMessage("You don't have enough " + currencyName + " to buy that.");
 					return false;
 				}
 			}
@@ -575,12 +575,12 @@ public class ShopAssistant {
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 			if (!showIsOwnedByThisPlayer) {
 				player.getItemAssistant().deleteItem(currency, totalValue);
-				player.getActionSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );
+				player.getPacketSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );
 				// If it is a player owned shop, we need to give them the coins
 				if (ShopHandler.ShopSModifier[player.myShopId] == 0)
 					BotHandler.addCoins(shopID, totalValue);
 			} else {
-				player.getActionSender().sendMessage("You withdrew " + amount + " " + itemName + " from your store." );
+				player.getPacketSender().sendMessage("You withdrew " + amount + " " + itemName + " from your store." );
 			}
 			// If it is a player owned store, give the player the noted item
 			player.getItemAssistant().addItem(isPlayerShop ? notedItemID : itemID, amount);

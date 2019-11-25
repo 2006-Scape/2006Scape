@@ -138,7 +138,7 @@ public class Climbing {
 				client.getPlayerAssistant().movePlayer(client.absX, 3354, 1);
 			} else if (client.absY == 3358
 					&& client.questPoints < chapionsGuildRequiredQP) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You need " + chapionsGuildRequiredQP + " quest points to use these stairs.");
 			} else if (client.absX == 3180) {
 				client.getPlayerAssistant().movePlayer(3176, client.absY, 1);
@@ -163,7 +163,7 @@ public class Climbing {
 				client.getPlayerAssistant().movePlayer(client.absX, 3358, 0);
 			} else if (client.absY == 3358
 					&& client.questPoints < chapionsGuildRequiredQP) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You need " + chapionsGuildRequiredQP + " quest points to use these stairs");
 			} else if (client.absY == 3449) {
 				client.getPlayerAssistant().movePlayer(3259, 3445, 0);
@@ -276,15 +276,15 @@ public class Climbing {
 		case 7257:
 			client.getPlayerAssistant().movePlayer(3044, 4973, 1);
 			client.startAnimation(827);
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			break;
 		case 6279:
 			if (client.getItemAssistant().playerHasItem(954, 1)) {
 				client.getPlayerAssistant().movePlayer(3206, 9379, 0);
 				client.startAnimation(827);
-				client.getActionSender().sendMessage("You climb down.");
+				client.getPacketSender().sendMessage("You climb down.");
 			} else {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You need a rope to enter.");
 				return;
 			}
@@ -305,7 +305,7 @@ public class Climbing {
 		break;
 		case 6439:
 			client.getPlayerAssistant().movePlayer(3309, 2963, 0);
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			break;
 
 		case 2408:
@@ -313,40 +313,40 @@ public class Climbing {
 				client.playerLevel[5] = 0;
 			}
 			client.getPlayerAssistant().refreshSkill(5);
-			client.getActionSender().sendMessage(
+			client.getPacketSender().sendMessage(
 					"Your prayer is drained as you enter the dungeon.");
 			client.getPlayerAssistant().movePlayer(2823, 9771, 0);
 			client.startAnimation(827);
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 
 			break;
 			case 2147:
 			client.getPlayerAssistant().movePlayer(3104, 9576, 0);
 			client.startAnimation(827);
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			break;
 		case 2148:
 			client.getPlayerAssistant().movePlayer(3103, 3162, 0);
 			client.startAnimation(828);
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			break;
 		case 4383:
 			client.getPlayerAssistant().movePlayer(2515, 10007, 0);
 			client.startAnimation(827);
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			break;
 		case 5131:
 			client.getPlayerAssistant().movePlayer(3549, 9865, 0);
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			break;
 		case 5130:
 			client.getPlayerAssistant().movePlayer(3543, 3463, 0);
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			break;
 		case 4413:
 			client.getPlayerAssistant().movePlayer(2510, 3644, 0);
 			client.startAnimation(828);
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			break;
 		case 3432:
 			client.getPlayerAssistant().movePlayer(3440, 9887, 0);
@@ -396,7 +396,7 @@ public class Climbing {
 				// OtherObjects.useUp(client, client.objectId);
 				client.getPlayerAssistant().movePlayer(3209, 3215, 0);
 				client.startAnimation(CLIMB_UP);
-				client.getActionSender().sendMessage("You climb up.");
+				client.getPacketSender().sendMessage("You climb up.");
 			} else if (client.objectX == 3019 && client.objectY == 9740) {// noord
 				client.getPlayerAssistant().movePlayer(3019, 3341, 0);
 				client.startAnimation(CLIMB_UP);
@@ -459,36 +459,36 @@ public class Climbing {
 
 		case 4879:
 			client.getPlayerAssistant().movePlayer(2807, 9200, 0);
-			client.getActionSender().sendMessage(
+			client.getPacketSender().sendMessage(
 					"You go down the trapdoor.");
 			client.startAnimation(827);
-			client.getPlayerAssistant().removeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 
 		case 5492:
 			if (client.getItemAssistant().playerHasItem(1523, 1)
 					&& Misc.random(4) < 3) {
 				client.getPlayerAssistant().movePlayer(3149, 9652, 0);
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You go down the trapdoor.");
 				client.startAnimation(827);
 				client.getPlayerAssistant().addSkillXP(.5,
 						client.playerThieving);
-				client.getPlayerAssistant().removeAllWindows();
+				client.getPacketSender().closeAllWindows();
 			} else if (!client.getItemAssistant().playerHasItem(1523, 1)
 					&& Misc.random(5) < 2) {
 				client.getPlayerAssistant().movePlayer(3149, 9652, 0);
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You go down the trapdoor.");
 				client.startAnimation(827);
 				client.getPlayerAssistant().addSkillXP(.5,
 						client.playerThieving);
-				client.getPlayerAssistant().removeAllWindows();
+				client.getPacketSender().closeAllWindows();
 			} else if (client.getItemAssistant().playerHasItem(1523, 1)
 					&& Misc.random(4) > 3) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You fail to pick the lock.");
-				client.getActionSender()
+				client.getPacketSender()
 						.sendMessage(
 								"Your thieving has been drained, your fingers feel numb.");
 				client.playerLevel[17] = client.getPlayerAssistant()
@@ -497,9 +497,9 @@ public class Climbing {
 				client.getItemAssistant().deleteItem(1523, 1);
 			} else if (!client.getItemAssistant().playerHasItem(1523, 1)
 					&& Misc.random(5) > 2) {
-				client.getActionSender().sendMessage(
+				client.getPacketSender().sendMessage(
 						"You fail to pick the lock.");
-				client.getActionSender()
+				client.getPacketSender()
 						.sendMessage(
 								"Your thieving has been drained, your fingers feel numb.");
 				client.playerLevel[17] = client.getPlayerAssistant()
@@ -640,7 +640,7 @@ public class Climbing {
 			if (client.objectX == 3077 && client.objectY == 3493) {
 				client.getPlayerAssistant().movePlayer(3077, 9893, 0);
 				client.startAnimation(827);
-				client.getActionSender().sendMessage("You climb down.");
+				client.getPacketSender().sendMessage("You climb down.");
 			}
 			break;
 
@@ -648,7 +648,7 @@ public class Climbing {
 			if (client.objectX == 3076 && client.objectY == 9893) {
 				client.getPlayerAssistant().movePlayer(3078, 3493, 0);
 				client.startAnimation(828);
-				client.getActionSender().sendMessage("You climb up.");
+				client.getPacketSender().sendMessage("You climb up.");
 			}
 			break;
 		}
@@ -663,36 +663,36 @@ public class Climbing {
 		case -1:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 0);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			client.startAnimation(CLIMB_UP);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 		case 0:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 1);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			client.startAnimation(CLIMB_UP);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 		case 1:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 2);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			client.startAnimation(CLIMB_UP);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 		case 2:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 3);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			client.startAnimation(CLIMB_UP);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 		default:
 			if (client.heightLevel > 3) {
 				climbDown(client);
 			}
-			client.getActionSender().sendMessage("This object is currently not supported.");
+			client.getPacketSender().sendMessage("This object is currently not supported.");
 			System.out.println("Bug detected with climbing up object " + client.objectId + " objectX " + client.objectX + " objectY " + client.objectY + ".");
 			break;
 		}
@@ -705,37 +705,37 @@ public class Climbing {
 		if (client.heightLevel > 3) {
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 3);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			client.startAnimation(CLIMB_DOWN);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 		}
 		switch (client.heightLevel) {
 		case 1:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 0);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			client.startAnimation(CLIMB_DOWN);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 		case 2:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 1);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			client.startAnimation(CLIMB_DOWN);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 		case 3:
 			client.getPlayerAssistant().movePlayer(client.absX, client.absY, 2);
 			client.climbDelay = System.currentTimeMillis();
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			client.startAnimation(CLIMB_DOWN);
-			client.getPlayerAssistant().closeAllWindows();
+			client.getPacketSender().closeAllWindows();
 			break;
 		default:
 			if (client.heightLevel < 0) {
 				climbUp(client);
 			}
-			client.getActionSender().sendMessage("This object is currently not supported.");
+			client.getPacketSender().sendMessage("This object is currently not supported.");
 			System.out.println("Bug detected with climbing down object " + client.objectId + " objectX " + client.objectX + " objectY " + client.objectY + ".");
 			break;
 		}
@@ -748,13 +748,13 @@ public class Climbing {
 
 	private static void close(Client client, int actionButtonId) {
 		if (actionButtonId == 9157) {
-			client.getActionSender().sendMessage("You climb up.");
+			client.getPacketSender().sendMessage("You climb up.");
 			client.startAnimation(CLIMB_UP);
 		} else if (actionButtonId == 9158) {
-			client.getActionSender().sendMessage("You climb down.");
+			client.getPacketSender().sendMessage("You climb down.");
 			client.startAnimation(827);
 		}
-		client.getPlayerAssistant().closeAllWindows();
+		client.getPacketSender().closeAllWindows();
 		client.nextChat = 0;
 	}
 

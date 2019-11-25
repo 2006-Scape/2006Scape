@@ -16,15 +16,15 @@ public class Menus {
 	}
 	
 	public static void display4Item(Client player, int i1, int i2, int i3, int i4, String s1, String s2, String s3, String s4) {
-		player.getPlayerAssistant().sendItemOnInterface(8902, 250, i1);
-		player.getPlayerAssistant().sendItemOnInterface(8903, 150, i2);
-		player.getPlayerAssistant().sendItemOnInterface(8904, 200, i3);
-		player.getPlayerAssistant().sendItemOnInterface(8905, 250, i4);
-		player.getPlayerAssistant().sendFrame126(s1, 8909);
-		player.getPlayerAssistant().sendFrame126(s2, 8913);
-		player.getPlayerAssistant().sendFrame126(s3, 8917);
-		player.getPlayerAssistant().sendFrame126(s4, 8921);
-		player.getPlayerAssistant().sendChatInterface(8899);
+		player.getPacketSender().sendItemOnInterface(8902, 250, i1);
+		player.getPacketSender().sendItemOnInterface(8903, 150, i2);
+		player.getPacketSender().sendItemOnInterface(8904, 200, i3);
+		player.getPacketSender().sendItemOnInterface(8905, 250, i4);
+		player.getPacketSender().sendFrame126(s1, 8909);
+		player.getPacketSender().sendFrame126(s2, 8913);
+		player.getPacketSender().sendFrame126(s3, 8917);
+		player.getPacketSender().sendFrame126(s4, 8921);
+		player.getPacketSender().sendChatInterface(8899);
 	}
 
 	public static String determineAorAn(String nextWord) {

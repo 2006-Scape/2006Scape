@@ -54,10 +54,10 @@ public class Pickable {
 					}, 5);
 				}
 			}
-			player.getActionSender().sendSound(SoundList.PICKABLE, 100, 1);
+			player.getPacketSender().sendSound(SoundList.PICKABLE, 100, 1);
 			player.miscTimer = System.currentTimeMillis();
 		} else {
-			player.getActionSender().sendMessage("Your inventory is too full to hold any more items!");
+			player.getPacketSender().sendMessage("Your inventory is too full to hold any more items!");
 		}
 	}
 

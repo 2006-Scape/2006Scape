@@ -54,7 +54,7 @@ public class RangersGuild {
 			if (c.playerEquipment[c.playerArrows] == ARROWS_REQ && c.usingBow) {
 				if (isInTargetArea()) {
 					if (hitChance >= 10) {
-						c.getPlayerAssistant().removeAllWindows();
+						c.getPacketSender().closeAllWindows();
 						c.startAnimation(426);
 						isFiringTarget = true;
 						//c.getPlayerAction().setAction(true);
@@ -65,7 +65,7 @@ public class RangersGuild {
 								if (hitChance >= 10 && hitChance <= 20) {
 									playerScore += 10;
 									sendConfiguration(80 + Misc.random(10), -60 + Misc.random(90));
-									c.getPlayerAssistant().sendFrame126(BLACK, 567);
+									c.getPacketSender().sendFrame126(BLACK, 567);
 									c.getPlayerAssistant().addSkillXP(5, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -73,7 +73,7 @@ public class RangersGuild {
 								} else if (hitChance >= 20 && hitChance < 30) {
 									playerScore += 20;
 									sendConfiguration(-70 + Misc.random(10),10 - Misc.random(40));
-									c.getPlayerAssistant().sendFrame126(BLUE,567);
+									c.getPacketSender().sendFrame126(BLUE,567);
 									c.getPlayerAssistant().addSkillXP(10, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -81,7 +81,7 @@ public class RangersGuild {
 								} else if (hitChance >= 30 && hitChance < 50) {
 									playerScore += 30;
 									sendConfiguration(-30 - Misc.random(15),10 - Misc.random(25));
-									c.getPlayerAssistant().sendFrame126(RED, 567);
+									c.getPacketSender().sendFrame126(RED, 567);
 									c.getPlayerAssistant().addSkillXP(15, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -89,7 +89,7 @@ public class RangersGuild {
 								} else if (hitChance >= 50 && hitChance < 75) {
 									playerScore += 50;
 									sendConfiguration(5 - Misc.random(20),0 - Misc.random(20));
-									c.getPlayerAssistant().sendFrame126(YELLOW, 567);
+									c.getPacketSender().sendFrame126(YELLOW, 567);
 									c.getPlayerAssistant().addSkillXP(15, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -97,13 +97,13 @@ public class RangersGuild {
 								} else if (hitChance >= 75) {
 									playerScore += 100;
 									sendConfiguration(0, 0);
-									c.getPlayerAssistant().sendFrame126(BULLSEYE, 567);
+									c.getPacketSender().sendFrame126(BULLSEYE, 567);
 									c.getPlayerAssistant().addSkillXP(50, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
 									//c.getPlayerAction().canWalk(true);
 								} else {
-									c.getPlayerAssistant().sendFrame126(MISSED, 567);
+									c.getPacketSender().sendFrame126(MISSED, 567);
 									sendConfiguration(1200, 1200);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -134,171 +134,171 @@ public class RangersGuild {
 		switch (arrowsLeft) {
 		case 1:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 538); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 557); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 559); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 560); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 561);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 562); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 563); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566);
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446); 
+			c.getPacketSender().sendFrame70(1200, 1200, 538); 
+			c.getPacketSender().sendFrame70(1200, 1200, 557); 
+			c.getPacketSender().sendFrame70(1200, 1200, 559); 
+			c.getPacketSender().sendFrame70(1200, 1200, 560); 
+			c.getPacketSender().sendFrame70(1200, 1200, 561);
+			c.getPacketSender().sendFrame70(1200, 1200, 562); 
+			c.getPacketSender().sendFrame70(1200, 1200, 563); 
+			c.getPacketSender().sendFrame70(1200, 1200, 564);
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566);
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446); 
 			break;
 
 		case 2:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 557); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 559); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 560); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 561);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 562); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 563);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551);
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446);
+			c.getPacketSender().sendFrame70(0, 0, 538); 
+			c.getPacketSender().sendFrame70(1200, 1200, 557); 
+			c.getPacketSender().sendFrame70(1200, 1200, 559); 
+			c.getPacketSender().sendFrame70(1200, 1200, 560); 
+			c.getPacketSender().sendFrame70(1200, 1200, 561);
+			c.getPacketSender().sendFrame70(1200, 1200, 562); 
+			c.getPacketSender().sendFrame70(1200, 1200, 563);
+			c.getPacketSender().sendFrame70(1200, 1200, 564); 
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551);
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446);
 			break;
 
 		case 3:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538);
-			c.getPlayerAssistant().sendFrame70(0, 0, 557);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 559); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 560); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 561); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 562); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 563); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446); 
+			c.getPacketSender().sendFrame70(0, 0, 538);
+			c.getPacketSender().sendFrame70(0, 0, 557);
+			c.getPacketSender().sendFrame70(1200, 1200, 559); 
+			c.getPacketSender().sendFrame70(1200, 1200, 560); 
+			c.getPacketSender().sendFrame70(1200, 1200, 561); 
+			c.getPacketSender().sendFrame70(1200, 1200, 562); 
+			c.getPacketSender().sendFrame70(1200, 1200, 563); 
+			c.getPacketSender().sendFrame70(1200, 1200, 564); 
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446); 
 			break;
 
 		case 4:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 557);
-			c.getPlayerAssistant().sendFrame70(0, 0, 559); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 560); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 561);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 562);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 563);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536);
-			c.getPlayerAssistant().showInterface(446);
+			c.getPacketSender().sendFrame70(0, 0, 538); 
+			c.getPacketSender().sendFrame70(0, 0, 557);
+			c.getPacketSender().sendFrame70(0, 0, 559); 
+			c.getPacketSender().sendFrame70(1200, 1200, 560); 
+			c.getPacketSender().sendFrame70(1200, 1200, 561);
+			c.getPacketSender().sendFrame70(1200, 1200, 562);
+			c.getPacketSender().sendFrame70(1200, 1200, 563);
+			c.getPacketSender().sendFrame70(1200, 1200, 564); 
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536);
+			c.getPacketSender().showInterface(446);
 			break;
 
 		case 5:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 557); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 559); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 560); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 561); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 562);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 563); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446); 
+			c.getPacketSender().sendFrame70(0, 0, 538); 
+			c.getPacketSender().sendFrame70(0, 0, 557); 
+			c.getPacketSender().sendFrame70(0, 0, 559); 
+			c.getPacketSender().sendFrame70(0, 0, 560); 
+			c.getPacketSender().sendFrame70(1200, 1200, 561); 
+			c.getPacketSender().sendFrame70(1200, 1200, 562);
+			c.getPacketSender().sendFrame70(1200, 1200, 563); 
+			c.getPacketSender().sendFrame70(1200, 1200, 564); 
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446); 
 			break;
 
 		case 6:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 557);
-			c.getPlayerAssistant().sendFrame70(0, 0, 559); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 560); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 561); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 562);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 563); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551);
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446);
+			c.getPacketSender().sendFrame70(0, 0, 538); 
+			c.getPacketSender().sendFrame70(0, 0, 557);
+			c.getPacketSender().sendFrame70(0, 0, 559); 
+			c.getPacketSender().sendFrame70(0, 0, 560); 
+			c.getPacketSender().sendFrame70(0, 0, 561); 
+			c.getPacketSender().sendFrame70(1200, 1200, 562);
+			c.getPacketSender().sendFrame70(1200, 1200, 563); 
+			c.getPacketSender().sendFrame70(1200, 1200, 564); 
+			c.getPacketSender().sendFrame70(1200, 1200, 565);
+			c.getPacketSender().sendFrame70(1200, 1200, 566); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551);
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446);
 			break;
 
 		case 7:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538);
-			c.getPlayerAssistant().sendFrame70(0, 0, 557); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 559); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 560); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 561);
-			c.getPlayerAssistant().sendFrame70(0, 0, 562); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 563); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446); 
+			c.getPacketSender().sendFrame70(0, 0, 538);
+			c.getPacketSender().sendFrame70(0, 0, 557); 
+			c.getPacketSender().sendFrame70(0, 0, 559); 
+			c.getPacketSender().sendFrame70(0, 0, 560); 
+			c.getPacketSender().sendFrame70(0, 0, 561);
+			c.getPacketSender().sendFrame70(0, 0, 562); 
+			c.getPacketSender().sendFrame70(1200, 1200, 563); 
+			c.getPacketSender().sendFrame70(1200, 1200, 564); 
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446); 
 			break;
 
 		case 8:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 557); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 559); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 560); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 561); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 562); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 563); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 564);
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566);
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446); 
+			c.getPacketSender().sendFrame70(0, 0, 538); 
+			c.getPacketSender().sendFrame70(0, 0, 557); 
+			c.getPacketSender().sendFrame70(0, 0, 559); 
+			c.getPacketSender().sendFrame70(0, 0, 560); 
+			c.getPacketSender().sendFrame70(0, 0, 561); 
+			c.getPacketSender().sendFrame70(0, 0, 562); 
+			c.getPacketSender().sendFrame70(0, 0, 563); 
+			c.getPacketSender().sendFrame70(1200, 1200, 564);
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566);
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446); 
 			break;
 
 		case 9:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 557); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 559); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 560); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 561); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 562); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 563); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 564); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 565); 
-			c.getPlayerAssistant().sendFrame70(1200, 1200, 566); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446); 
+			c.getPacketSender().sendFrame70(0, 0, 538); 
+			c.getPacketSender().sendFrame70(0, 0, 557); 
+			c.getPacketSender().sendFrame70(0, 0, 559); 
+			c.getPacketSender().sendFrame70(0, 0, 560); 
+			c.getPacketSender().sendFrame70(0, 0, 561); 
+			c.getPacketSender().sendFrame70(0, 0, 562); 
+			c.getPacketSender().sendFrame70(0, 0, 563); 
+			c.getPacketSender().sendFrame70(0, 0, 564); 
+			c.getPacketSender().sendFrame70(1200, 1200, 565); 
+			c.getPacketSender().sendFrame70(1200, 1200, 566); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446); 
 			break;
 
 		case 10:
 			arrowsLeft--;
-			c.getPlayerAssistant().sendFrame70(0, 0, 538); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 557); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 559); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 560); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 561); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 562); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 563); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 564); 
-			c.getPlayerAssistant().sendFrame70(0, 0, 565); 
-			c.getPlayerAssistant().sendFrame126("" + playerScore, 551); 
-			c.getPlayerAssistant().sendFrame70(xPos, yPos, 536); 
-			c.getPlayerAssistant().showInterface(446); 
+			c.getPacketSender().sendFrame70(0, 0, 538); 
+			c.getPacketSender().sendFrame70(0, 0, 557); 
+			c.getPacketSender().sendFrame70(0, 0, 559); 
+			c.getPacketSender().sendFrame70(0, 0, 560); 
+			c.getPacketSender().sendFrame70(0, 0, 561); 
+			c.getPacketSender().sendFrame70(0, 0, 562); 
+			c.getPacketSender().sendFrame70(0, 0, 563); 
+			c.getPacketSender().sendFrame70(0, 0, 564); 
+			c.getPacketSender().sendFrame70(0, 0, 565); 
+			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
+			c.getPacketSender().showInterface(446); 
 			break;
 		}
 	}

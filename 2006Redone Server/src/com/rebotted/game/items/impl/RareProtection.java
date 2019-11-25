@@ -17,7 +17,7 @@ public class RareProtection {
 	public static boolean equipItem(Client c) {// check when wearing, removing
 		for (int element : RARE_ITEMS) {
 			if (c.wearId == element && c.playerRights < 3) {
-				c.getActionSender().sendMessage("You shouldn't have that item!");
+				c.getPacketSender().sendMessage("You shouldn't have that item!");
 				int amountToDelete = c.getItemAssistant().getItemCount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
@@ -29,7 +29,7 @@ public class RareProtection {
 	public static boolean removeItem(Client c, int itemId) {
 		for (int element : RARE_ITEMS) {
 			if (itemId == element && c.playerRights < 3) {
-				c.getActionSender().sendMessage("You shouldn't have that item!");
+				c.getPacketSender().sendMessage("You shouldn't have that item!");
 				c.getItemAssistant().deleteEquipment(element, 0);
 				return false;
 			}
@@ -40,7 +40,7 @@ public class RareProtection {
 	public static boolean hasDupedItem(Client c) {// check on login
 		for (int element : RARE_ITEMS) {
 			if (c.getItemAssistant().playerHasItem(element) && c.playerRights < 3) {
-				c.getActionSender().sendMessage("You can't have these items!");
+				c.getPacketSender().sendMessage("You can't have these items!");
 				int amountToDelete = c.getItemAssistant().getItemCount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
@@ -52,7 +52,7 @@ public class RareProtection {
 	public static boolean eatDupedItem(Client c, int itemId) {
 		for (int element : EDIBLE_RARES) {
 			if (itemId == element && c.playerRights < 3) {
-				c.getActionSender().sendMessage("You can't eat that item!");
+				c.getPacketSender().sendMessage("You can't eat that item!");
 				int amountToDelete = c.getItemAssistant().getItemCount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
@@ -64,7 +64,7 @@ public class RareProtection {
 	public static boolean doOtherDupe(Client c, int itemId) {
 		for (int element : RARE_ITEMS) {
 			if (c.getItemAssistant().playerHasItem(element) && c.playerRights < 3) {
-				c.getActionSender().sendMessage("You shouldnt have that item!");
+				c.getPacketSender().sendMessage("You shouldnt have that item!");
 				int amountToDelete = c.getItemAssistant().getItemCount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;

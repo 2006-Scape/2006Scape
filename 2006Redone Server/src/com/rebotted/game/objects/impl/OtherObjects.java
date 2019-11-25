@@ -26,7 +26,7 @@ public class OtherObjects {
 	}
 	
 	private static void object(Client player, int id, int x, int y) {
-		player.getActionSender().object(id, x, y, 0, ObjectDefaults.getObjectFace(player, id), 10);
+		player.getPacketSender().object(id, x, y, 0, ObjectDefaults.getObjectFace(player, id), 10);
 	}
 	
 	private static void handleSpecialObject(final Client player, final int objectType) {	
@@ -113,13 +113,13 @@ public class OtherObjects {
 						player.poisonMask = 2;
 						player.dealDamage(nettlesDamage);
 						player.getPlayerAssistant().refreshSkill(3);
-						player.getActionSender().sendMessage("You have been stung by the nettles.");
+						player.getPacketSender().sendMessage("You have been stung by the nettles.");
 						player.stopPlayerPacket = false;
 					}
 				} else if (objectName.startsWith("Hay") || objectName.startsWith("hay")) {
 					final int damage = 1, random = Misc.random(15);
 					player.startAnimation(832);
-					player.getActionSender().sendMessage("You search the " + objectName.toLowerCase() + "...");
+					player.getPacketSender().sendMessage("You search the " + objectName.toLowerCase() + "...");
 					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -134,7 +134,7 @@ public class OtherObjects {
 								player.getPlayerAssistant().refreshSkill(3);
 								container.stop();
 							} else {
-								player.getActionSender().sendMessage("You find nothing of interest.");
+								player.getPacketSender().sendMessage("You find nothing of interest.");
 								container.stop();
 							}
 						}

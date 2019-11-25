@@ -23,9 +23,9 @@ public class Holidays {
 					Client p1 = (Client) player;
 					if (holiday.getHoliday()) {
 						if (p1.playerRights > 2) {
-							p1.getActionSender().sendMessage("Currently dropping " + HolidayDrops.dropAmount() + " items.");
+							p1.getPacketSender().sendMessage("Currently dropping " + HolidayDrops.dropAmount() + " items.");
 						}
-						p1.getActionSender().sendMessage("The " + holiday.getName() + " event has started, goodluck!");
+						p1.getPacketSender().sendMessage("The " + holiday.getName() + " event has started, goodluck!");
 						dropItems(c);
 					}
 				}
@@ -43,7 +43,7 @@ public class Holidays {
 						for (HolidayDrops holiday : HolidayDrops.values()) {
 							if (holiday.count >= HolidayDrops.dropAmount() && holiday.getHoliday()) {
 								stop();
-								p1.getActionSender().sendMessage("The " + holiday.getName() + " event has ended, good luck finding the rest of the items!");
+								p1.getPacketSender().sendMessage("The " + holiday.getName() + " event has ended, good luck finding the rest of the items!");
 							} else if (holiday.count < HolidayDrops.dropAmount() && holiday.getHoliday()) {
 								switch (Misc.random(holiday.drops)) {
 								case 0:// Varrock

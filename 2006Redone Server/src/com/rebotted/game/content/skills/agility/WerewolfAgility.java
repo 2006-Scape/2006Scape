@@ -93,7 +93,7 @@ public class WerewolfAgility {
 							return;
 						}
 						c.getPlayerAssistant().movePlayer(c.getX(), c.getY() + 1, 0);
-						c.getActionSender().sendMessage("You managed to jump over the hurdle.");
+						c.getPacketSender().sendMessage("You managed to jump over the hurdle.");
 						container.stop();
 					}
 					@Override

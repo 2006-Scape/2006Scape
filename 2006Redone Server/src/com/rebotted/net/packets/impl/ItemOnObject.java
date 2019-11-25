@@ -29,7 +29,7 @@ public class ItemOnObject implements PacketType {
 			return;
 		}
 		if (player.playerRights == 3) {
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Object Id:" + objectId + " ObjectX: " + objectX
 							+ " ObjectY: " + objectY + ".");
 		}
@@ -39,20 +39,20 @@ public class ItemOnObject implements PacketType {
 				if (player.getItemAssistant().playerHasItem(438) && player.getItemAssistant().playerHasItem(436)) {
 					if (player.tutorialProgress == 19) {
 						player.startAnimation(899);
-						player.getActionSender().sendSound(352, 100, 1);
-						player.getActionSender().sendMessage("You smelt the copper and tin together in the furnace.");
+						player.getPacketSender().sendSound(352, 100, 1);
+						player.getPacketSender().sendMessage("You smelt the copper and tin together in the furnace.");
 						player.getItemAssistant().deleteItem(438, 1);
 						player.getItemAssistant().deleteItem(436, 1);
-						player.getActionSender().sendMessage("You retrieve a bar of bronze.");
+						player.getPacketSender().sendMessage("You retrieve a bar of bronze.");
 						player.getItemAssistant().addItem(2349, 1);
 						player.getDialogueHandler().sendDialogues(3062, -1);
 					} else if (player.tutorialProgress > 19) {
 						player.startAnimation(899);
-						player.getActionSender().sendSound(352, 100, 1);
-						player.getActionSender().sendMessage("You smelt the copper and tin together in the furnace.");
+						player.getPacketSender().sendSound(352, 100, 1);
+						player.getPacketSender().sendMessage("You smelt the copper and tin together in the furnace.");
 						player.getItemAssistant().deleteItem(438, 1);
 						player.getItemAssistant().deleteItem(436, 1);
-						player.getActionSender().sendMessage("You retrieve a bar of bronze.");
+						player.getPacketSender().sendMessage("You retrieve a bar of bronze.");
 						player.getItemAssistant().addItem(2349, 1);
 					}
 				}
@@ -63,7 +63,7 @@ public class ItemOnObject implements PacketType {
 				player.getItemAssistant().deleteItem(itemId, 1);
 				player.getItemAssistant().addItem(1783, 1);
 			} else {
-				player.getActionSender().sendMessage("You need a bucket of sand to do that!");
+				player.getPacketSender().sendMessage("You need a bucket of sand to do that!");
 			}
 		break;
 		case 12269:
@@ -143,7 +143,7 @@ public class ItemOnObject implements PacketType {
 				player.getItemAssistant().deleteItem(1927, 1);
 				player.getPlayerAssistant().addSkillXP(18, player.playerCooking);
 			} else {
-				player.getActionSender().sendMessage("You need a bucket of milk to do this.");
+				player.getPacketSender().sendMessage("You need a bucket of milk to do this.");
 			}
 			break;
 		}
@@ -164,13 +164,13 @@ public class ItemOnObject implements PacketType {
 		}
 
 		if (itemId == 954 && objectId == 3827 && player.rope == false) {
-			player.getActionSender().object(3828, 3227, 3108, 0, 0, 10);
+			player.getPacketSender().object(3828, 3227, 3108, 0, 0, 10);
 			Region.addObject(3828, 3227, 3108, 0, 0, 0, false);
 			player.rope = true;
 		}
 
 		if (itemId == 954 && objectId == 3830 && player.rope2 == false) {
-			player.getActionSender().object(3828, 3509, 9497, 2, 0, 10);
+			player.getPacketSender().object(3828, 3509, 9497, 2, 0, 10);
 			Region.addObject(3828, 3509, 9497, 2, 0, 0, false);
 			player.rope2 = true;
 		}
@@ -187,7 +187,7 @@ public class ItemOnObject implements PacketType {
 			player.getPlayerAssistant().movePlayer(2505, 3087, 0);
 			player.getItemAssistant().deleteItem(954, 1);
 		} else if (objectId == 2327 && itemId != 954) {
-			player.getActionSender().sendMessage("You need a rope to swing across.");
+			player.getPacketSender().sendMessage("You need a rope to swing across.");
 		}
 
 		if (objectId == 2327 && player.absX == 2511 && player.absY == 3092) {
@@ -206,7 +206,7 @@ public class ItemOnObject implements PacketType {
 			int amount = player.getItemAssistant().getItemCount(itemId);
 			player.getItemAssistant().deleteItem(itemId, amount);
 			player.getItemAssistant().addItem(Fillables.counterpart(itemId), amount);
-			player.getActionSender().sendMessage(Fillables.fillMessage(itemId, objectId));
+			player.getPacketSender().sendMessage(Fillables.fillMessage(itemId, objectId));
 			player.startAnimation(832);
 			return;
 		}

@@ -128,9 +128,9 @@ public class PestControl {
 		for (final Client c : waitingBoat.keySet()) {
 			if (c != null) {
 				if (gameStarted && isInPcBoat(c)) {
-					c.getActionSender().sendMessage("Next Departure: " + (waitTimer + gameTimer) / 60 + " minutes");
+					c.getPacketSender().sendMessage("Next Departure: " + (waitTimer + gameTimer) / 60 + " minutes");
 				} else {
-					c.getActionSender().sendMessage("Next Departure: " + waitTimer + " seconds.");
+					c.getPacketSender().sendMessage("Next Departure: " + waitTimer + " seconds.");
 				}
 			}
 		}
@@ -140,12 +140,12 @@ public class PestControl {
 		for (final Client player : gamePlayers.keySet()) {
 			if (player != null) {
 				if (gameTimer > 60) {
-					player.getActionSender().sendMessage("Time remaining: " + gameTimer / 60 + " minutes");
+					player.getPacketSender().sendMessage("Time remaining: " + gameTimer / 60 + " minutes");
 				} else if (gameTimer < 60) {
-					player.getActionSender().sendMessage("Time remaining: " + gameTimer + " seconds");
+					player.getPacketSender().sendMessage("Time remaining: " + gameTimer + " seconds");
 				}
-				player.getActionSender().sendMessage("The knights current health is " + KNIGHTS_HEALTH + ".");
-				player.getActionSender().sendMessage("Your current pc damage is " + player.pcDamage + ".");
+				player.getPacketSender().sendMessage("The knights current health is " + KNIGHTS_HEALTH + ".");
+				player.getPacketSender().sendMessage("Your current pc damage is " + player.pcDamage + ".");
 			}
 		}
 	}
@@ -209,7 +209,7 @@ public class PestControl {
 			player.getPlayerAssistant().movePlayer(2656 + Misc.random3(3),
 					2614 - Misc.random3(4), 0);
 			player.getDialogueHandler().sendDialogues(599, 3790);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"The Pest Control Game has begun!");
 			gamePlayers.put(player, team);
 		}
@@ -268,7 +268,7 @@ public class PestControl {
 			if (won && player.pcDamage > 50) {
 				player.getDialogueHandler().sendDialogues(598, 3790);
 				int POINT_REWARD = 4;
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You have won the pest control game and have been awarded "
 								+ POINT_REWARD + " Pest Control points.");
 				player.pcPoints += POINT_REWARD;
@@ -277,12 +277,12 @@ public class PestControl {
 				player.getDialogueHandler().sendDialogues(596, 3790);
 				int POINT_REWARD2 = 2;
 				player.pcPoints += POINT_REWARD2;
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"The void knights notice your lack of zeal. You only gain "
 								+ POINT_REWARD2 + " points.");
 			} else {
 				player.getDialogueHandler().sendDialogues(597, 3790);
-				player.getActionSender()
+				player.getPacketSender()
 						.sendMessage(
 								"You failed to kill all the portals in 3 minutes and have not been awarded points.");
 			}
@@ -394,20 +394,20 @@ public class PestControl {
 	public static void addToWaitRoom(Client player) {
 		if (player != null && player.combatLevel > 39) {
 			waitingBoat.put(player, 1);
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You have joined the Pest Control boat.");
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You currently have " + player.pcPoints
 							+ " Pest Control Points.");
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"There are currently " + playersInBoat()
 							+ " players ready in the boat.");
-			player.getActionSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"Players needed: " + PLAYERS_REQUIRED + " to 25 players.");
 			player.getPlayerAssistant().movePlayer(2661, 2639, 0);
 			waitBoat();
 		} else if (player.combatLevel < 40) {
-			player.getActionSender().sendMessage("You need 40 combat to play pest control.");
+			player.getPacketSender().sendMessage("You need 40 combat to play pest control.");
 		}
 	}
 

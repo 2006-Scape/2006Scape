@@ -119,9 +119,9 @@ public class Mining {
 		}
 
 		public int getOre(int playerLevel){
-			if (this == this.ESSENCE)
+			if (this == rockData.ESSENCE)
 				return playerLevel < 30 ? oreIds[0] : oreIds[1];
-			if (this == this.GEM)
+			if (this == rockData.GEM)
 				return gems.getRandom();
 
 			// return a random ore from the possibilities
@@ -159,7 +159,7 @@ public class Mining {
 		player.turnPlayerTo(objectX, objectY);
 		// check if the player has required level for this rock
 		if (rock.getRequiredLevel() > miningLevel) {
-			player.getActionSender().sendMessage("You need a Mining level of " + rock.getRequiredLevel() + " to mine this rock.");
+			player.getPacketSender().sendMessage("You need a Mining level of " + rock.getRequiredLevel() + " to mine this rock.");
 			return;
 		}
 		// check id the player has a pickaxe they can use on them
@@ -171,11 +171,11 @@ public class Mining {
 			}
 		}
 		if (pickaxe == -1) {
-			player.getActionSender().sendMessage("You need a pickaxe to mine this rock.");
+			player.getPacketSender().sendMessage("You need a pickaxe to mine this rock.");
 			return;
 		}
 		if (player.getItemAssistant().freeSlots() < 1) {
-			player.getActionSender().sendMessage("You do not have enough inventory slots to do that.");
+			player.getPacketSender().sendMessage("You do not have enough inventory slots to do that.");
 			return;
 		}
 
@@ -188,11 +188,11 @@ public class Mining {
 
 		// Tutorial only stuff
 		if (player.tutorialProgress == 17 || player.tutorialProgress == 18) {
-			player.getActionSender().chatbox(6180);
+			player.getPacketSender().chatbox(6180);
 			player.getDialogueHandler().chatboxText(player, "", "Your character is now attempting to mine the rock.", "This should only take a few seconds.", "", "Please wait");
-			player.getActionSender().chatbox(6179);
+			player.getPacketSender().chatbox(6179);
 		} else {
-			player.getActionSender().sendMessage("You swing your pick at the rock.");
+			player.getPacketSender().sendMessage("You swing your pick at the rock.");
 		}
 
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -207,7 +207,7 @@ public class Mining {
 				if (player.isMining) {
 					player.getItemAssistant().addItem(oreID, 1);
 					player.getPlayerAssistant().addSkillXP(rock.getXp(), player.playerMining);
-					player.getActionSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(oreID).toLowerCase() + ".");
+					player.getPacketSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(oreID).toLowerCase() + ".");
 				}
 				if (player.tutorialProgress == 17) {
 					if (rock != rockData.TIN) {
@@ -216,7 +216,7 @@ public class Mining {
 						return;
 					}
 					if (player.getItemAssistant().playerHasItem(438)) {
-						player.getActionSender().createArrow(3086, 9501, player.getH(), 2);
+						player.getPacketSender().createArrow(3086, 9501, player.getH(), 2);
 						player.getDialogueHandler().chatboxText(player, "Now you have some tin ore you must need some copper ore, then", "you'll have all you need to create a bronze bar. As you did before", "riger click on the copper rock and select 'mine'.", "", "Mining");
 						player.tutorialProgress = 18;
 					}
@@ -227,12 +227,12 @@ public class Mining {
 						return;
 					}
 					if (player.getItemAssistant().playerHasItem(436)) {
-						player.getActionSender().createArrow(3078, 9495, 0, 2);
+						player.getPacketSender().createArrow(3078, 9495, 0, 2);
 						player.getDialogueHandler().sendDialogues(3061, -1);
 					}
 				}
 				if (player.getItemAssistant().freeSlots() < 1) {
-					player.getActionSender().sendMessage("You have ran out of inventory slots.");
+					player.getPacketSender().sendMessage("You have ran out of inventory slots.");
 					container.stop();
 				}
 				mineRock(rock.getRespawnTimer(), objectX, objectY, type, objectID);
@@ -242,7 +242,7 @@ public class Mining {
 			}
 			@Override
 			public void stop() {
-				player.getPlayerAssistant().removeAllWindows();
+				player.getPacketSender().closeAllWindows();
 				player.startAnimation(65535);
 				player.isMining = false;
 				player.rockX = 0;
@@ -254,7 +254,7 @@ public class Mining {
 	}
 	
 	public static void resetMining(Client c) {
-		c.getPlayerAssistant().removeAllWindows();
+		c.getPacketSender().closeAllWindows();
 		c.startAnimation(65535);
 		c.isMining = false;
 		c.rockX = 0;
@@ -292,23 +292,23 @@ public class Mining {
 	
 	public static void prospectRock(final Client c, final String itemName) {
 		if (c.tutorialProgress == 15 || c.tutorialProgress == 16) {
-			c.getPlayerAssistant().removeAllWindows();
-			c.getActionSender().chatbox(6180);
+			c.getPacketSender().closeAllWindows();
+			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 			.chatboxText(
 					c,
 					"Please wait.",
 					"Your character is now attempting to prospect the rock. This should",
 					"only take a few seconds.", "", "");
-			c.getActionSender().chatbox(6179);
+			c.getPacketSender().chatbox(6179);
 			   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
 					if (c.tutorialProgress == 15) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"This rock contains "
 										+ itemName.toLowerCase() + ".");
-						c.getActionSender().chatbox(6180);
+						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -316,17 +316,17 @@ public class Mining {
 								"So now you know there's tin in the grey rocks. Try prospecting",
 								"the brown ones next.", "",
 								"It's tin");
-						c.getActionSender().createArrow(3086, 9501,
+						c.getPacketSender().createArrow(3086, 9501,
 								c.getH(), 2);
-						c.getActionSender().chatbox(6179);
+						c.getPacketSender().chatbox(6179);
 						c.tutorialProgress = 16;
 						container.stop();
 						return;
 					} else if (c.tutorialProgress == 16) {
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"This rock contains "
 										+ itemName.toLowerCase() + ".");
-						c.getActionSender().chatbox(6180);
+						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler()
 						.chatboxText(
 								c,
@@ -334,12 +334,12 @@ public class Mining {
 								"ore and how you can mine them. He'll even give you the",
 								"required tools.", "",
 								"It's copper");
-						c.getActionSender().createArrow(1, 5);
-						c.getActionSender().chatbox(6179);
+						c.getPacketSender().createArrow(1, 5);
+						c.getPacketSender().chatbox(6179);
 						container.stop();
 						return;
 					}
-					c.getActionSender().sendMessage(
+					c.getPacketSender().sendMessage(
 							"This rock contains "
 									+ itemName.toLowerCase() + ".");
 					stop();
@@ -353,11 +353,11 @@ public class Mining {
 			}, 3);
 			return;
 		}
-		c.getActionSender().sendMessage("You examine the rock for ores...");
+		c.getPacketSender().sendMessage("You examine the rock for ores...");
 		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 	            @Override
 	            public void execute(CycleEventContainer container) {
-				c.getActionSender().sendMessage("This rock contains " + itemName + ".");
+				c.getPacketSender().sendMessage("This rock contains " + itemName + ".");
 				container.stop();
 			}
 			@Override
@@ -368,11 +368,11 @@ public class Mining {
 	}
 
 	public static void prospectNothing(final Client c) {
-		c.getActionSender().sendMessage("You examine the rock for ores...");
+		c.getPacketSender().sendMessage("You examine the rock for ores...");
 		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 	            @Override
 	            public void execute(CycleEventContainer container) {
-				c.getActionSender().sendMessage("There is no ore left in this rock.");
+				c.getPacketSender().sendMessage("There is no ore left in this rock.");
 				container.stop();
 			}
 			@Override

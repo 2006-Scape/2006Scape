@@ -3,9 +3,7 @@ package com.rebotted.net.packets.impl;
 import static com.rebotted.game.content.combat.magic.MagicTeleports.LUMBRIDGE_X;
 import static com.rebotted.game.content.combat.magic.MagicTeleports.LUMBRIDGE_Y;
 import static com.rebotted.util.GameLogger.writeLog;
-
 import java.util.Arrays;
-
 import com.rebotted.Connection;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
@@ -14,7 +12,6 @@ import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.*;
 import com.rebotted.net.packets.PacketType;
-import com.rebotted.util.GameLogger;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
 
@@ -49,7 +46,7 @@ public class Commands implements PacketType {
                 switch (playerCommand.toLowerCase())
                 {
                         case "bank":
-                                player.getPlayerAssistant().openUpBank();
+                                player.getPacketSender().openUpBank();
                                 break;
                         case "claimvote":
                                 if(!GameEngine.ersSecret.equals("")) {
@@ -62,36 +59,36 @@ public class Commands implements PacketType {
                                                                 int currentPoints = player.votePoints;
                                                                 com.everythingrs.vote.Vote[] reward = com.everythingrs.vote.Vote.reward(GameEngine.ersSecret, playerName, "1", "all");
                                                                 if (reward[0].message != null) {
-                                                                        player.getActionSender().sendMessage(reward[0].message);
+                                                                        player.getPacketSender().sendMessage(reward[0].message);
                                                                         return;
                                                                 }
                                                                 player.votePoints = (currentPoints + reward[0].give_amount);
                                                                 //player.getActionSender().sendMessage("Thank you for voting! You now have " + reward[0].vote_points + " vote points.");
-                                                                player.getActionSender().sendMessage(
+                                                                player.getPacketSender().sendMessage(
                                                                         "Thank you for voting! You now have " + player.votePoints + " vote points.");
                                                         } catch (Exception e) {
-                                                                player.getActionSender().sendMessage("Api Services are currently offline. Please check back shortly");
+                                                                player.getPacketSender().sendMessage("Api Services are currently offline. Please check back shortly");
                                                                 e.printStackTrace();
                                                         }
                                                 }
 
                                         });
                                 } else {
-                                        player.getActionSender().sendMessage("Voting Is Not Enabled");
+                                        player.getPacketSender().sendMessage("Voting Is Not Enabled");
                                 }
                                 break;
                         case "coords":
                         case "coord":
                         case "pos":
-                                player.getActionSender().sendMessage("Your coords are [" + player.absX + "," + player.absY + "]");
+                                player.getPacketSender().sendMessage("Your coords are [" + player.absX + "," + player.absY + "]");
                                 break;
                         case "null":
                                 break;
                         case "players":
                                 if (PlayerHandler.getPlayerCount() != 1) {
-                                        player.getActionSender().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online.");
+                                        player.getPacketSender().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online.");
                                 } else {
-                                        player.getActionSender().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
+                                        player.getPacketSender().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
                                 }
                                 break;
                         case "shop":
@@ -107,17 +104,17 @@ public class Commands implements PacketType {
                                 break;
                         case "wealth":
                                 int totalWealth = player.getPlayerAssistant().totalGold();
-                                player.getActionSender().sendMessage("You currently have " + totalWealth + "gp.");
+                                player.getPacketSender().sendMessage("You currently have " + totalWealth + "gp.");
                                 break;
                         case "gfx100":
                                 if (arguments.length == 0)
-                                        player.getActionSender().sendMessage("Must have 1 argument: ::gfx100 80");
+                                        player.getPacketSender().sendMessage("Must have 1 argument: ::gfx100 80");
                                 else
                                         player.gfx100(Integer.parseInt(arguments[0]));
                                 break;
                         case "gfx0":
                                 if (arguments.length == 0)
-                                        player.getActionSender().sendMessage("Must have 1 argument: ::gfx0 80");
+                                        player.getPacketSender().sendMessage("Must have 1 argument: ::gfx0 80");
                                 else
                                         player.gfx0(Integer.parseInt(arguments[0]));
                                 break;
@@ -125,7 +122,7 @@ public class Commands implements PacketType {
                                 if (player.connectedFrom.equals("127.0.0.1")) {
                                         try {
                                                 if (arguments.length < 2) {
-                                                        player.getActionSender().sendMessage("Must specify x, y and optionally z coordinates: ::tele 3222 3218 0");
+                                                        player.getPacketSender().sendMessage("Must specify x, y and optionally z coordinates: ::tele 3222 3218 0");
                                                         return;
                                                 }
                                                 if (arguments.length == 3)
@@ -133,36 +130,36 @@ public class Commands implements PacketType {
                                                 else
                                                         player.getPlayerAssistant().movePlayer(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), player.heightLevel);
                                         } catch (Exception e) {
-                                                player.getActionSender().sendMessage("Invalid coordinates");
+                                                player.getPacketSender().sendMessage("Invalid coordinates");
                                         }
                                 } else {
-                                        player.getActionSender().sendMessage("Can't tele with ip " + player.connectedFrom);
+                                        player.getPacketSender().sendMessage("Can't tele with ip " + player.connectedFrom);
                                 }
                                 break;
                         case "close_interface":
-                                player.getPlayerAssistant().closeAllWindows();
+                                player.getPacketSender().closeAllWindows();
                                 break;
                         case "commands":
-                                player.getActionSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx, ::shop, ::withdrawshop, ::closeshop");
+                                player.getPacketSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx, ::shop, ::withdrawshop, ::closeshop");
                                 break;
                         case "loc":
-                                player.getActionSender().sendMessage(player.absX + "," + player.absY);
+                                player.getPacketSender().sendMessage(player.absX + "," + player.absY);
                                 break;
                         case "stuck":
                                 player.getPlayerAssistant().startTeleport(LUMBRIDGE_X, LUMBRIDGE_Y, 0, "modern");
-                                player.getActionSender().sendMessage("How did you manage that one..");
+                                player.getPacketSender().sendMessage("How did you manage that one..");
                                 player.gfx100(80);
                                 player.startAnimation(404);
                                 break;
                         case "randomtoggle":
                         case "togglerandom":
                                 player.randomEventsEnabled = !player.randomEventsEnabled;
-                                player.getActionSender().sendMessage("You will " + (player.randomEventsEnabled ? "now" : "no longer") + " receieve random events.");
+                                player.getPacketSender().sendMessage("You will " + (player.randomEventsEnabled ? "now" : "no longer") + " receieve random events.");
                                 break;
                         case "debug":
                         case "debugmode":
                                 player.debugMode = !player.debugMode;
-                                player.getActionSender().sendMessage("You will " + (player.debugMode ? "now" : "no longer") + " receieve additional debug information when doing things.");
+                                player.getPacketSender().sendMessage("You will " + (player.debugMode ? "now" : "no longer") + " receieve additional debug information when doing things.");
                                 break;
                         case "highscores":
                                 for (Player p : PlayerHandler.players) {
@@ -199,16 +196,16 @@ public class Commands implements PacketType {
 
 
                                 // Clear all lines
-                                for (int i = 8144; i < 8195; i++) player.getPlayerAssistant().sendFrame126("", i);
+                                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendFrame126("", i);
 
-                                player.getPlayerAssistant().sendFrame126("@dre@Highscores", 8144);
+                                player.getPacketSender().sendFrame126("@dre@Highscores", 8144);
 
                                 int lineNumber = 8147;
                                 for (String line : highscores){
                                         System.out.println(line + " - " + lineNumber);
-                                        player.getPlayerAssistant().sendFrame126(line, lineNumber++);
+                                        player.getPacketSender().sendFrame126(line, lineNumber++);
                                 }
-                                player.getPlayerAssistant().showInterface(8134);
+                                player.getPacketSender().showInterface(8134);
 
                                 break;
 
@@ -225,7 +222,7 @@ public class Commands implements PacketType {
                         case "kick":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::kick playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::kick playername");
                                                 return;
                                         }
                                         String playerToKick = String.join(" ", arguments);
@@ -233,7 +230,7 @@ public class Commands implements PacketType {
                                                 if(player2 != null) {
                                                         if(player2.playerName.equalsIgnoreCase(playerToKick)) {
                                                                 Client c2 = (Client)player2;
-                                                                player.getActionSender().sendMessage("You have kicked " + playerToKick + ".");
+                                                                player.getPacketSender().sendMessage("You have kicked " + playerToKick + ".");
                                                                 c2.disconnected = true;
                                                                 c2.logout(true);
                                                                 break;
@@ -241,7 +238,7 @@ public class Commands implements PacketType {
                                                 }
                                         }
                                 } catch(Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Online.");
+                                        player.getPacketSender().sendMessage("Player Must Be Online.");
                                 }
                                 break;
                         case "yell":
@@ -249,11 +246,11 @@ public class Commands implements PacketType {
                                         if (PlayerHandler.players[j] != null) {
                                                 Client c2 = (Client) PlayerHandler.players[j];
                                                 if (player.playerRights == 1) {
-                                                        c2.getActionSender().sendMessage("@blu@[Moderator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                                                        c2.getPacketSender().sendMessage("@blu@[Moderator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
                                                 } else if (player.playerRights == 2) {
-                                                        c2.getActionSender().sendMessage("@gre@[Administator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                                                        c2.getPacketSender().sendMessage("@gre@[Administator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
                                                 } else if (player.playerRights == 3) {
-                                                        c2.getActionSender().sendMessage("@red@[Developer] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                                                        c2.getPacketSender().sendMessage("@red@[Developer] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
                                                 }
                                         }
                                 }
@@ -262,7 +259,7 @@ public class Commands implements PacketType {
                         case "mute":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::mute playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::mute playername");
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
@@ -271,20 +268,20 @@ public class Commands implements PacketType {
                                                 if (PlayerHandler.players[i] != null) {
                                                         if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Client c2 = (Client) PlayerHandler.players[i];
-                                                                c2.getActionSender().sendMessage("You have been muted by: " + player.playerName);
+                                                                c2.getPacketSender().sendMessage("You have been muted by: " + player.playerName);
                                                                 break;
                                                         }
                                                 }
                                         }
                                 } catch (Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
 
                         case "ipmute":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::ipmute playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::ipmute playername");
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
@@ -292,22 +289,22 @@ public class Commands implements PacketType {
                                                 if (PlayerHandler.players[i] != null) {
                                                         if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Connection.addIpToMuteList(PlayerHandler.players[i].connectedFrom);
-                                                                player.getActionSender().sendMessage("You have IP Muted the user: " + PlayerHandler.players[i].playerName);
+                                                                player.getPacketSender().sendMessage("You have IP Muted the user: " + PlayerHandler.players[i].playerName);
                                                                 Client c2 = (Client) PlayerHandler.players[i];
-                                                                c2.getActionSender().sendMessage("You have been muted by: " + player.playerName);
+                                                                c2.getPacketSender().sendMessage("You have been muted by: " + player.playerName);
                                                                 break;
                                                         }
                                                 }
                                         }
                                 } catch (Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
 
                         case "unipmute":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::unipmute playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::unipmute playername");
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
@@ -315,32 +312,32 @@ public class Commands implements PacketType {
                                                 if (PlayerHandler.players[i] != null) {
                                                         if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Connection.unIPMuteUser(PlayerHandler.players[i].connectedFrom);
-                                                                player.getActionSender().sendMessage("You have Un Ip-Muted the user: " + PlayerHandler.players[i].playerName);
+                                                                player.getPacketSender().sendMessage("You have Un Ip-Muted the user: " + PlayerHandler.players[i].playerName);
                                                                 break;
                                                         }
                                                 }
                                         }
                                 } catch (Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
 
                         case "unmute":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::unmute playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::unmute playername");
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
                                         Connection.unMuteUser(playerToBan);
                                 } catch (Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
                         case "update":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify the amount of time in seconds: ::update 300");
+                                                player.getPacketSender().sendMessage("You must specify the amount of time in seconds: ::update 300");
                                                 return;
                                         }
                                         int seconds = Integer.parseInt(arguments[0]);
@@ -361,7 +358,7 @@ public class Commands implements PacketType {
                         case "ipban":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::ipban playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::ipban playername");
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
@@ -370,19 +367,19 @@ public class Commands implements PacketType {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                                                 Connection.addIpToBanList(PlayerHandler.players[i].connectedFrom);
                                                                 Connection.addIpToFile(PlayerHandler.players[i].connectedFrom);
-                                                                player.getActionSender().sendMessage("You have IP banned the user: "+PlayerHandler.players[i].playerName+" with the host: "+PlayerHandler.players[i].connectedFrom);
+                                                                player.getPacketSender().sendMessage("You have IP banned the user: "+PlayerHandler.players[i].playerName+" with the host: "+PlayerHandler.players[i].connectedFrom);
                                                                 PlayerHandler.players[i].disconnected = true;
                                                         }
                                                 }
                                         }
                                 } catch(Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
                         case "ban":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::ban playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::ban playername");
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
@@ -396,20 +393,20 @@ public class Commands implements PacketType {
                                                 }
                                         }
                                 } catch(Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
                         case "unban":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::unban playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::unban playername");
                                                 return;
                                         }
                                         String playerToBan = String.join(" ", arguments);
                                         Connection.removeNameFromBanList(playerToBan);
-                                        player.getActionSender().sendMessage(playerToBan + " has been unbanned.");
+                                        player.getPacketSender().sendMessage(playerToBan + " has been unbanned.");
                                 } catch(Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
                         case "empty":
@@ -417,7 +414,7 @@ public class Commands implements PacketType {
                                 break;
                         case "dialogue":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an id: ::dialogue id");
+                                        player.getPacketSender().sendMessage("You must specify an id: ::dialogue id");
                                         return;
                                 }
                                 int npcType = 1552;
@@ -426,15 +423,15 @@ public class Commands implements PacketType {
                                 break;
                         case "interface":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an id: ::interface id");
+                                        player.getPacketSender().sendMessage("You must specify an id: ::interface id");
                                         return;
                                 }
                                 int interfaceID = Integer.parseInt(arguments[0]);
-                                player.getPlayerAssistant().showInterface(interfaceID);
+                                player.getPacketSender().showInterface(interfaceID);
                                 break;
                         case "gfx":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an id: ::gfx id");
+                                        player.getPacketSender().sendMessage("You must specify an id: ::gfx id");
                                         return;
                                 }
                                 int gfxID = Integer.parseInt(arguments[0]);
@@ -442,7 +439,7 @@ public class Commands implements PacketType {
                                 break;
                         case "anim":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an id: ::anim id");
+                                        player.getPacketSender().sendMessage("You must specify an id: ::anim id");
                                         return;
                                 }
                                 int animationID = Integer.parseInt(arguments[0]);
@@ -450,18 +447,18 @@ public class Commands implements PacketType {
                                 player.getPlayerAssistant().requestUpdates();
                                 break;
                         case "mypos":
-                                player.getActionSender().sendMessage("X: " + player.absX);
-                                player.getActionSender().sendMessage("Y: " + player.absY);
-                                player.getActionSender().sendMessage("H: " + player.heightLevel);
+                                player.getPacketSender().sendMessage("X: " + player.absX);
+                                player.getPacketSender().sendMessage("Y: " + player.absY);
+                                player.getPacketSender().sendMessage("H: " + player.heightLevel);
                                 break;
                         case "bank":
-                                player.getPlayerAssistant().openUpBank();
+                                player.getPacketSender().openUpBank();
                                 break;
                         case "xteletome":
                         case "teletome":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::teletome playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::teletome playername");
                                                 return;
                                         }
                                         String teleToMe = String.join(" ", arguments);
@@ -469,19 +466,19 @@ public class Commands implements PacketType {
                                                 if (PlayerHandler.players[i] != null) {
                                                         if (PlayerHandler.players[i].playerName.equalsIgnoreCase(teleToMe)) {
                                                                 Client p = (Client) PlayerHandler.players[i];
-                                                                player.getActionSender().sendMessage(p.playerName + " has been teleported to you.");
+                                                                player.getPacketSender().sendMessage(p.playerName + " has been teleported to you.");
                                                                 p.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel);
                                                         }
                                                 }
                                         }
                                 } catch (Exception e) {
-                                        player.getActionSender().sendMessage("Player is not online.");
+                                        player.getPacketSender().sendMessage("Player is not online.");
                                 }
                                 break;
                         case "xteleto":
                         case "teleto":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify a player name: ::teleto playername");
+                                        player.getPacketSender().sendMessage("You must specify a player name: ::teleto playername");
                                         return;
                                 }
                                 String teleTo = String.join(" ", arguments);
@@ -493,7 +490,7 @@ public class Commands implements PacketType {
                                                 }
                                         }
                                 }
-                                player.getActionSender().sendMessage("Could not find " + teleTo + " they must be online!");
+                                player.getPacketSender().sendMessage("Could not find " + teleTo + " they must be online!");
                                 break;
                         case "tp":
                         case "teleport":
@@ -505,19 +502,19 @@ public class Commands implements PacketType {
                                 break;
                         case "up":
                                 player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel + 1);
-                                player.getActionSender().sendMessage("You are now on height level " + player.heightLevel + ".");
+                                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                                 break;
                         case "up2":
                                 player.getPlayerAssistant().movePlayer(player.absX, player.absY - 6400, player.heightLevel);
-                                player.getActionSender().sendMessage("You are now on height level " + player.heightLevel + ".");
+                                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                                 break;
                         case "down":
                                 player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel - 1);
-                                player.getActionSender().sendMessage("You are now on height level " + player.heightLevel + ".");
+                                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                                 break;
                         case "down2":
                                 player.getPlayerAssistant().movePlayer(player.absX, player.absY + 6400, player.heightLevel);
-                                player.getActionSender().sendMessage("You are now on height level " + player.heightLevel + ".");
+                                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                                 break;
                         case "spec":
                                 player.specAmount = 100.0;
@@ -525,7 +522,7 @@ public class Commands implements PacketType {
                         case "setlevel":
                                 try {
                                         if (arguments.length < 2) {
-                                                player.getActionSender().sendMessage("Must specify a skill and level: ::setlevel 1 99");
+                                                player.getPacketSender().sendMessage("Must specify a skill and level: ::setlevel 1 99");
                                                 return;
                                         }
                                         int skill = Integer.parseInt(arguments[0]);
@@ -547,13 +544,13 @@ public class Commands implements PacketType {
                                 }
                                 if (player.playerMagicBook == 0) {
                                         player.playerMagicBook = 1;
-                                        player.getActionSender().setSidebarInterface(6, 12855);
-                                        player.getActionSender().sendMessage("An ancient wisdomin fills your mind.");
+                                        player.getPacketSender().setSidebarInterface(6, 12855);
+                                        player.getPacketSender().sendMessage("An ancient wisdomin fills your mind.");
                                         player.getPlayerAssistant().resetAutocast();
                                 } else if (player.playerMagicBook == 1) {
-                                        player.getActionSender().setSidebarInterface(6, 1151); // modern
+                                        player.getPacketSender().setSidebarInterface(6, 1151); // modern
                                         player.playerMagicBook = 0;
-                                        player.getActionSender().sendMessage("You feel a drain on your memory.");
+                                        player.getPacketSender().sendMessage("You feel a drain on your memory.");
                                         player.autocastId = -1;
                                         player.getPlayerAssistant().resetAutocast();
                                 }
@@ -561,7 +558,7 @@ public class Commands implements PacketType {
                         case "item":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("Must specify an item id: ::item 995 1000");
+                                                player.getPacketSender().sendMessage("Must specify an item id: ::item 995 1000");
                                                 return;
                                         }
                                         int newItemID = Integer.parseInt(arguments[0]);
@@ -569,11 +566,11 @@ public class Commands implements PacketType {
                                         if (newItemID <= 10000 && newItemID >= 0) {
                                                 player.getItemAssistant().addItem(newItemID, newItemAmount);
                                                 if (player.isBusy()) {
-                                                        player.getPlayerAssistant().closeAllWindows();
+                                                        player.getPacketSender().closeAllWindows();
                                                 }
-                                                player.getActionSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
+                                                player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
                                         } else {
-                                                player.getActionSender().sendMessage("No such item.");
+                                                player.getPacketSender().sendMessage("No such item.");
                                         }
                                 } catch (Exception e) {}
                                 break;
@@ -593,12 +590,12 @@ public class Commands implements PacketType {
                         case "clicktotele":
                         case "ctt": // alias
                                 player.clickToTele = !player.clickToTele;
-                                player.getActionSender().sendMessage("Click to teleport: " + (player.clickToTele ? "Enabled" : "Disabled"));
+                                player.getPacketSender().sendMessage("Click to teleport: " + (player.clickToTele ? "Enabled" : "Disabled"));
                                 break;
                         case "giveadmin":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::giveadmin playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::giveadmin playername");
                                                 return;
                                         }
                                         String playerToAdmin = String.join(" ", arguments);
@@ -606,7 +603,7 @@ public class Commands implements PacketType {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
-                                                                player.getActionSender().sendMessage("You have given " + playerToAdmin + " admin.");
+                                                                player.getPacketSender().sendMessage("You have given " + playerToAdmin + " admin.");
                                                                 c2.playerRights = 2;
                                                                 c2.logout(true);
                                                                 break;
@@ -614,13 +611,13 @@ public class Commands implements PacketType {
                                                 }
                                         }
                                 } catch(Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
                         case "demote":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::demote playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::demote playername");
                                                 return;
                                         }
                                         String playerToAdmin = String.join(" ", arguments);
@@ -628,7 +625,7 @@ public class Commands implements PacketType {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
-                                                                player.getActionSender().sendMessage("You have demoted " + playerToAdmin + ".");
+                                                                player.getPacketSender().sendMessage("You have demoted " + playerToAdmin + ".");
                                                                 c2.playerRights = 0;
                                                                 c2.logout(true);
                                                                 break;
@@ -636,13 +633,13 @@ public class Commands implements PacketType {
                                                 }
                                         }
                                 } catch(Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
                         case "givemod":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify a player name: ::givemod playername");
+                                                player.getPacketSender().sendMessage("You must specify a player name: ::givemod playername");
                                                 return;
                                         }
                                         String playerToMod = String.join(" ", arguments);
@@ -650,7 +647,7 @@ public class Commands implements PacketType {
                                                 if(PlayerHandler.players[i] != null) {
                                                         if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToMod)) {
                                                                 Client c2 = (Client)PlayerHandler.players[i];
-                                                                player.getActionSender().sendMessage("You have given " + playerToMod + " mod.");
+                                                                player.getPacketSender().sendMessage("You have given " + playerToMod + " mod.");
                                                                 c2.playerRights = 1;
                                                                 c2.logout(true);
                                                                 break;
@@ -658,29 +655,29 @@ public class Commands implements PacketType {
                                                 }
                                         }
                                 } catch(Exception e) {
-                                        player.getActionSender().sendMessage("Player Must Be Offline.");
+                                        player.getPacketSender().sendMessage("Player Must Be Offline.");
                                 }
                                 break;
                         case "object":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an ID: ::object 1000");
+                                        player.getPacketSender().sendMessage("You must specify an ID: ::object 1000");
                                         return;
                                 }
-                                player.getActionSender().object(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 0, 10);
+                                player.getPacketSender().object(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 0, 10);
                                 Region.addObject(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 10, 0, false);
                                 break;
                         case "object2":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an ID: ::object2 1000");
+                                        player.getPacketSender().sendMessage("You must specify an ID: ::object2 1000");
                                         return;
                                 }
-                                player.getActionSender().object(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 0, 0);
+                                player.getPacketSender().object(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 0, 0);
                                 Region.addObject(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 0, 0, false);
                                 break;
                         case "npc":
                                 try {
                                         if (arguments.length == 0) {
-                                                player.getActionSender().sendMessage("You must specify an ID: ::npc 1000");
+                                                player.getPacketSender().sendMessage("You must specify an ID: ::npc 1000");
                                                 return;
                                         }
                                         int newNPC = Integer.parseInt(arguments[0]),
@@ -690,41 +687,41 @@ public class Commands implements PacketType {
                                         boolean attackPlayer = NpcHandler.getNpcListCombat(newNPC) > 0;
                                         if (newNPC > 0) {
                                                 NpcHandler.spawnNpc(player, newNPC, player.absX, player.absY, player.heightLevel, 0, NpcHandler.getNpcListHP(newNPC), maxHit, attack, defence, attackPlayer, false);
-                                                player.getActionSender().sendMessage("You spawn a " + NpcHandler.getNpcListName(newNPC).toLowerCase() + ".");
+                                                player.getPacketSender().sendMessage("You spawn a " + NpcHandler.getNpcListName(newNPC).toLowerCase() + ".");
                                                 //player.npcSpawned = newNPC;
                                         } else {
-                                                player.getActionSender().sendMessage("Npc " + newNPC + " does not exist.");
+                                                player.getPacketSender().sendMessage("Npc " + newNPC + " does not exist.");
                                         }
                                 } catch (Exception e) {}
                                 break;
                         case "cantattack":
                                 player.npcCanAttack = !player.npcCanAttack;
-                                player.getActionSender().sendMessage("Npcs " + (player.npcCanAttack ? "can" : "can no longer") + " attack you.");
+                                player.getPacketSender().sendMessage("Npcs " + (player.npcCanAttack ? "can" : "can no longer") + " attack you.");
                                 break;
                         case "sound":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an ID: ::sound 10");
+                                        player.getPacketSender().sendMessage("You must specify an ID: ::sound 10");
                                         return;
                                 }
-                                player.getActionSender().sendSound(Integer.parseInt(arguments[0]), 100, 0);
+                                player.getPacketSender().sendSound(Integer.parseInt(arguments[0]), 100, 0);
                                 break;
                         case "tutprog":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an ID: ::tutprog 10");
+                                        player.getPacketSender().sendMessage("You must specify an ID: ::tutprog 10");
                                         return;
                                 }
                                 player.tutorialProgress = Integer.parseInt(arguments[0]);;
                                 break;
                         case "song":
                                 if (arguments.length == 0) {
-                                        player.getActionSender().sendMessage("You must specify an ID: ::song 10");
+                                        player.getPacketSender().sendMessage("You must specify an ID: ::song 10");
                                         return;
                                 }
                                 int songID = Integer.parseInt(arguments[0]);
-                                player.getActionSender().sendSong(songID);
+                                player.getPacketSender().sendSong(songID);
                                 break;
                         case "run":
-                                player.getActionSender().sendMessage("You have refilled your run-energy!");
+                                player.getPacketSender().sendMessage("You have refilled your run-energy!");
                                 player.playerEnergy = 100;
                                 break;
                         case "runes":

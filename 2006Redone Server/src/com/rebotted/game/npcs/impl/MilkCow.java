@@ -23,7 +23,7 @@ public class MilkCow {
 
 	public static void milk(final Client c) {
 		if (!c.getItemAssistant().playerHasItem(BUCKET)) {
-			c.getActionSender().sendMessage("You need a bucket in order to milk this cow.");
+			c.getPacketSender().sendMessage("You need a bucket in order to milk this cow.");
 			return;
 		} else {
 			c.startAnimation(2305);
@@ -33,7 +33,7 @@ public class MilkCow {
 				@Override
 				public void execute(CycleEventContainer container) {
 					c.getItemAssistant().deleteItem(BUCKET, 1);
-					c.getActionSender().sendMessage("You milk the cow.");
+					c.getPacketSender().sendMessage("You milk the cow.");
 					c.getItemAssistant().addItem(BUCKET_OF_MILK, 1);
 					container.stop();
 				}

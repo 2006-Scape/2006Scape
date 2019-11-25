@@ -40,7 +40,7 @@ public class Trading {
 				if (isCloseTo(o)) {
 					player.getShopAssistant().openShop(o.myShopId);
 				} else {
-					player.getActionSender().sendMessage("Player is not close enough. Retry when you are closer...");
+					player.getPacketSender().sendMessage("Player is not close enough. Retry when you are closer...");
 				}
 				return;
 			}
@@ -53,7 +53,7 @@ public class Trading {
 
 			if (!player.inTrade && o.tradeRequested && o.tradeWith == player.playerId && player.playerIsBusy() == false && o.playerIsBusy() == false) { //start trading process
 				if (!isCloseTo(o)) {
-					player.getActionSender().sendMessage("Player is not close enough. Retry when you are closer...");
+					player.getPacketSender().sendMessage("Player is not close enough. Retry when you are closer...");
 				} else {
 					player.getTrading().openTrade();
 					o.getTrading().openTrade();
@@ -61,11 +61,11 @@ public class Trading {
 			} else if (!player.inTrade && player.playerIsBusy() == false && o.playerIsBusy() == false) { //send trade request
 				//Problem = sends the request then walk to player. Solution= change processing order. Fix= Send message when trying to open the trade interface if the other player isn't closer than 3 tiles.
 				player.tradeRequested = true;
-				player.getActionSender().sendMessage("Sending trade request...");
-				o.getActionSender()
+				player.getPacketSender().sendMessage("Sending trade request...");
+				o.getPacketSender()
 						.sendMessage(player.playerName + ":tradereq:");
 			} else if (player.playerIsBusy() == true || o.playerIsBusy() == true) {
-				player.getActionSender().sendMessage("Other player is busy at the moment.");
+				player.getPacketSender().sendMessage("Other player is busy at the moment.");
 			}
 		} catch (Exception e) {
 			Misc.println("Error requesting trade.");
@@ -99,14 +99,14 @@ public class Trading {
 		} else if (o.playerRights == 2) {
 			out = "@cr2@" + out;
 		}
-		player.getPlayerAssistant().sendFrame126(
+		player.getPacketSender().sendFrame126(
 				"Trading with: " + o.playerName + " who has @gre@"
 						+ o.getItemAssistant().freeSlots() + " free slots",
 				3417);
-		player.getPlayerAssistant().sendFrame126("", 3431);
-		player.getPlayerAssistant().sendFrame126(
+		player.getPacketSender().sendFrame126("", 3431);
+		player.getPacketSender().sendFrame126(
 				"Are you sure you want to make this trade?", 3535);
-		player.getPlayerAssistant().sendFrame248(3323, 3321);
+		player.getPacketSender().sendFrame248(3323, 3321);
 	}
 
 	public void resetTItems(int WriteFrame) {
@@ -156,7 +156,7 @@ public class Trading {
 							if (!item.stackable) {
 								offeredItems.remove(item);
 								player.getItemAssistant().addItem(itemID, 1);
-								o.getPlayerAssistant().sendFrame126(
+								o.getPacketSender().sendFrame126(
 										"Trading with: "
 												+ player.playerName
 												+ " who has @gre@"
@@ -168,7 +168,7 @@ public class Trading {
 									item.amount -= amount;
 									player.getItemAssistant()
 											.addItem(itemID, amount);
-									o.getPlayerAssistant().sendFrame126(
+									o.getPacketSender().sendFrame126(
 											"Trading with: "
 													+ player.playerName
 													+ " who has @gre@"
@@ -180,7 +180,7 @@ public class Trading {
 									offeredItems.remove(item);
 									player.getItemAssistant()
 											.addItem(itemID, amount);
-									o.getPlayerAssistant().sendFrame126(
+									o.getPacketSender().sendFrame126(
 											"Trading with: "
 													+ player.playerName
 													+ " who has @gre@"
@@ -191,7 +191,7 @@ public class Trading {
 							}
 							break;
 						}
-						o.getPlayerAssistant().sendFrame126(
+						o.getPacketSender().sendFrame126(
 								"Trading with: " + player.playerName
 										+ " who has @gre@"
 										+ player.getItemAssistant().freeSlots()
@@ -201,8 +201,8 @@ public class Trading {
 						player.getItemAssistant().resetItems(3322);
 						resetTItems(3415);
 						o.getTrading().resetOTItems(3416);
-						player.getPlayerAssistant().sendFrame126("", 3431);
-						o.getPlayerAssistant().sendFrame126("", 3431);
+						player.getPacketSender().sendFrame126("", 3431);
+						o.getPacketSender().sendFrame126("", 3431);
 					}
 				}
 			}
@@ -213,7 +213,7 @@ public class Trading {
 						if (item.amount > amount) {
 							item.amount -= amount;
 							player.getItemAssistant().addItem(itemID, amount);
-							o.getPlayerAssistant().sendFrame126(
+							o.getPacketSender().sendFrame126(
 									"Trading with: " + player.playerName
 											+ " who has @gre@"
 											+ player.getItemAssistant().freeSlots()
@@ -222,7 +222,7 @@ public class Trading {
 							amount = item.amount;
 							offeredItems.remove(item);
 							player.getItemAssistant().addItem(itemID, amount);
-							o.getPlayerAssistant().sendFrame126(
+							o.getPacketSender().sendFrame126(
 									"Trading with: " + player.playerName
 											+ " who has @gre@"
 											+ player.getItemAssistant().freeSlots()
@@ -233,7 +233,7 @@ public class Trading {
 				}
 			}
 
-			o.getPlayerAssistant().sendFrame126(
+			o.getPacketSender().sendFrame126(
 					"Trading with: " + player.playerName + " who has @gre@"
 							+ player.getItemAssistant().freeSlots() + " free slots",
 					3417);
@@ -242,8 +242,8 @@ public class Trading {
 			player.getItemAssistant().resetItems(3322);
 			resetTItems(3415);
 			o.getTrading().resetOTItems(3416);
-			player.getPlayerAssistant().sendFrame126("", 3431);
-			o.getPlayerAssistant().sendFrame126("", 3431);
+			player.getPacketSender().sendFrame126("", 3431);
+			o.getPacketSender().sendFrame126("", 3431);
 		} catch (Exception e) {
 		}
 		return true;
@@ -255,19 +255,19 @@ public class Trading {
 			return false;
 		}
 		if (!(player.playerItems[fromSlot] == itemID + 1 )){//&& player.playerItemsN[fromSlot] >= amount)) { I removed this check to permit trading max amount of item in inventory even when amount is higher than quantity in inventory.
-			player.getActionSender().sendMessage("You don't have that amount!");
+			player.getPacketSender().sendMessage("You don't have that amount!");
 			return false;
 		}
 		
 		if (amount >= Integer.MAX_VALUE) {
-			player.getActionSender().sendMessage("You can't possibly have that much of that item!");
+			player.getPacketSender().sendMessage("You can't possibly have that much of that item!");
 			player.getItemAssistant().deleteItem(itemID, fromSlot, amount);
 			return false;
 		}
 
 		for (int i : GameConstants.ITEM_TRADEABLE) {
 			if (i == itemID && player.playerRights < 3) {
-				player.getActionSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You can't trade this item.");
 				return false;
 			}
@@ -280,21 +280,21 @@ public class Trading {
 					offeredItems.add(new GameItem(itemID, 1));
 					player.getItemAssistant().deleteItem(itemID,
 							player.getItemAssistant().getItemSlot(itemID), 1);
-					o.getPlayerAssistant().sendFrame126(
+					o.getPacketSender().sendFrame126(
 							"Trading with: " + player.playerName + " who has @gre@"
 									+ player.getItemAssistant().freeSlots()
 									+ " free slots", 3417);
 				}
 			}
-			o.getPlayerAssistant().sendFrame126(
+			o.getPacketSender().sendFrame126(
 					"Trading with: " + player.playerName + " who has @gre@"
 							+ player.getItemAssistant().freeSlots() + " free slots",
 					3417);
 			player.getItemAssistant().resetItems(3322);
 			resetTItems(3415);
 			o.getTrading().resetOTItems(3416);
-			player.getPlayerAssistant().sendFrame126("", 3431);
-			o.getPlayerAssistant().sendFrame126("", 3431);
+			player.getPacketSender().sendFrame126("", 3431);
+			o.getPacketSender().sendFrame126("", 3431);
 		}
 		if (player.getItemAssistant().getItemCount(itemID) < amount) {
 			amount = player.getItemAssistant().getItemCount(itemID);
@@ -313,7 +313,7 @@ public class Trading {
 					inTrade = true;
 					item.amount += amount;
 					player.getItemAssistant().deleteItem(itemID, amount);
-					o.getPlayerAssistant().sendFrame126(
+					o.getPacketSender().sendFrame126(
 							"Trading with: " + player.playerName + " who has @gre@"
 									+ player.getItemAssistant().freeSlots()
 									+ " free slots", 3417);
@@ -324,21 +324,21 @@ public class Trading {
 			if (!inTrade) {
 				offeredItems.add(new GameItem(itemID, amount));
 				player.getItemAssistant().deleteItem(itemID, amount);
-				o.getPlayerAssistant().sendFrame126(
+				o.getPacketSender().sendFrame126(
 						"Trading with: " + player.playerName + " who has @gre@"
 								+ player.getItemAssistant().freeSlots()
 								+ " free slots", 3417);
 			}
 		}
-		o.getPlayerAssistant().sendFrame126(
+		o.getPacketSender().sendFrame126(
 				"Trading with: " + player.playerName + " who has @gre@"
 						+ player.getItemAssistant().freeSlots() + " free slots",
 				3417);
 		player.getItemAssistant().resetItems(3322);
 		resetTItems(3415);
 		o.getTrading().resetOTItems(3416);
-		player.getPlayerAssistant().sendFrame126("", 3431);
-		o.getPlayerAssistant().sendFrame126("", 3431);
+		player.getPacketSender().sendFrame126("", 3431);
+		o.getPacketSender().sendFrame126("", 3431);
 		return true;
 	}
 
@@ -349,9 +349,9 @@ public class Trading {
 		player.tradeConfirmed = false;
 		player.tradeConfirmed2 = false;
 		player.acceptedTrade = false;
-		player.getPlayerAssistant().removeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		player.tradeResetNeeded = false;
-		player.getPlayerAssistant().sendFrame126(
+		player.getPacketSender().sendFrame126(
 				"Are you sure you want to make this trade?", 3535);
 	}
 
@@ -361,7 +361,7 @@ public class Trading {
 	}
 
 	public void declineTrade(boolean tellOther) {
-		player.getPlayerAssistant().removeAllWindows();
+		player.getPacketSender().closeAllWindows();
 		Client o = (Client) PlayerHandler.players[player.tradeWith];
 		if (o == null) {
 			return;
@@ -369,7 +369,7 @@ public class Trading {
 
 		if (tellOther) {
 			o.getTrading().declineTrade(false);
-			o.getTrading().player.getPlayerAssistant().removeAllWindows();
+			o.getTrading().player.getPacketSender().closeAllWindows();
 		}
 
 		for (GameItem item : offeredItems) {
@@ -465,7 +465,7 @@ public class Trading {
 			}
 		}
 
-		player.getPlayerAssistant().sendFrame126(SendTrade, 3557);
+		player.getPacketSender().sendFrame126(SendTrade, 3557);
 		SendTrade = "Absolutely nothing!";
 		SendAmount = "";
 		Count = 0;
@@ -495,9 +495,9 @@ public class Trading {
 				Count++;
 			}
 		}
-		player.getPlayerAssistant().sendFrame126(SendTrade, 3558);
+		player.getPacketSender().sendFrame126(SendTrade, 3558);
 		// TODO: find out what 197 does eee 3213
-		player.getPlayerAssistant().sendFrame248(3443, 197);
+		player.getPacketSender().sendFrame248(3443, 197);
 	}
 
 	public void giveItems() {
@@ -518,7 +518,7 @@ public class Trading {
 					GameLogger.writeLog(player.playerName, "tradesrecieved", player.playerName + " was traded by " + o.playerName + " and recieved " + item.amount + " " + itemName + "");
 				}
 			}
-			player.getPlayerAssistant().removeAllWindows();
+			player.getPacketSender().closeAllWindows();
 			player.tradeResetNeeded = true;
 			   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 		            @Override

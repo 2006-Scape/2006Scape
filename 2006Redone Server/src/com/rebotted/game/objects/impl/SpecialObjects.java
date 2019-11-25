@@ -12,7 +12,7 @@ public class SpecialObjects {
 
 	public static void openLumbridgePipe(Client c, int objectType) {
 		c.isRunning = false;
-		c.getPlayerAssistant().sendConfig(173, 0);
+		c.getPacketSender().sendConfig(173, 0);
 		c.playerWalkIndex = 819;
 		c.getPlayerAssistant().requestUpdates();
 		c.getPlayerAssistant().walkTo(0, -1);
@@ -90,7 +90,7 @@ public class SpecialObjects {
 			c.getPlayerAssistant().movePlayer(c.absX, c.absY + 2, 0);
 			return true;
 		}
-		c.getActionSender().sendMessage(
+		c.getPacketSender().sendMessage(
 				"Move closer so you can use the gate.");
 		return false;
 	}
@@ -102,7 +102,7 @@ public class SpecialObjects {
 		}
 		final int[] coords = new int[2];
 		openShantay(c, objectId);
-		c.getActionSender().sendMessage("You pass through the gate.");
+		c.getPacketSender().sendMessage("You pass through the gate.");
 		movePlayer2(c);
 		c.turnPlayerTo(c.objectX, c.objectY);
 		coords[0] = c.objectX;

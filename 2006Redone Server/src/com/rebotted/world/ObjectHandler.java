@@ -121,11 +121,11 @@ public class ObjectHandler {
 			if (c != null) {
 				if (c.heightLevel == 0 && o.objectTicks == 0 && c.distanceToPoint(o.getObjectX(), o.getObjectY()) <= 60) {
 					if (Woodcutting.playerTrees(c, o.getObjectId()) || Mining.rockExists(o.getObjectId())) {
-						c.getActionSender().object(o.getObjectId(), o.getObjectX(), o.getObjectY(), 0, o.getObjectFace(), o.getObjectType());
+						c.getPacketSender().object(o.getObjectId(), o.getObjectX(), o.getObjectY(), 0, o.getObjectFace(), o.getObjectType());
 					}
 				}
 				if (c.heightLevel == o.getObjectHeight() && !Woodcutting.playerTrees(c, o.getObjectId()) && !Mining.rockExists(o.getObjectId()) && o.objectTicks == 0 && c.distanceToPoint(o.getObjectX(), o.getObjectY()) <= 60) {
-					c.getActionSender().object(o.getObjectId(), o.getObjectX(), o.getObjectY(), c.heightLevel, o.getObjectFace(), o.getObjectType());
+					c.getPacketSender().object(o.getObjectId(), o.getObjectX(), o.getObjectY(), c.heightLevel, o.getObjectFace(), o.getObjectType());
 				}
 			}
 		}
@@ -144,7 +144,7 @@ public class ObjectHandler {
 							o.getObjectY()) <= 60) {
 						removeAllObjects(o);
 						globalObjects.add(o);
-						person.getActionSender().object(
+						person.getPacketSender().object(
 								o.getObjectId(), o.getObjectX(),
 								o.getObjectY(), o.getObjectFace(),
 								o.getObjectType());

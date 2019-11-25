@@ -92,7 +92,7 @@ public class Stringing {
 				}
 				c.getItemAssistant().deleteItem(loadData.getItem1(), 1);
 				c.getItemAssistant().deleteItem(loadData.getItem2(), 1);
-				c.getActionSender().sendMessage("You add a string to the bow.");
+				c.getPacketSender().sendMessage("You add a string to the bow.");
 				c.getItemAssistant().addItem(loadData.getProduct(), 1);
 				c.getPlayerAssistant().addSkillXP(loadData.getXp(), 9);
 			}

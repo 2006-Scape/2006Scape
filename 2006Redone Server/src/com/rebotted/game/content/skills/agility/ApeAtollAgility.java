@@ -25,7 +25,7 @@ public class ApeAtollAgility {
 		switch (objectId) {
 		case APE_ATOLL_STEPPING_STONES_OBJECT:
 			if (c.npcId2 != NINJA_MONKEY_NPC) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't do that! You aren't a monkey.");
 				return false;
 			}
@@ -33,7 +33,7 @@ public class ApeAtollAgility {
 				return false;
 			}
 			if (c.getAgility().hotSpot(2755, 2742)) {
-				c.getActionSender().sendMessage("You jump the step stone.");
+				c.getPacketSender().sendMessage("You jump the step stone.");
 				c.getAgility().walk(-2, 0,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
@@ -45,7 +45,7 @@ public class ApeAtollAgility {
 
 		case APE_ATOLL_TROPICAL_TREE_OBJECT:
 			if (c.npcId2 != NINJA_MONKEY_NPC) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't do that! You aren't a monkey.");
 				return false;
 			}
@@ -53,7 +53,7 @@ public class ApeAtollAgility {
 				return false;
 			}
 			if (c.getAgility().hotSpot(2753, 2742) && c.heightLevel == 0) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You managed to climb up the Tree.");
 				c.getAgility().climbUpTropicalTree(c.getX(), c.getY(), 2);
 				c.getPlayerAssistant().addSkillXP(
@@ -66,7 +66,7 @@ public class ApeAtollAgility {
 
 		case APE_ATOLL_MONKEYBARS_OBJECT:
 			if (c.npcId2 != NINJA_MONKEY_NPC) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't do that! You aren't a monkey.");
 				return false;
 			}
@@ -74,7 +74,7 @@ public class ApeAtollAgility {
 				return false;
 			}
 			if (c.getAgility().hotSpot(2752, 2741)) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You swing yourself to the other side");
 				c.getAgility().moveHeight = 0;
 				c.getAgility().walk(-5, 0,
@@ -89,7 +89,7 @@ public class ApeAtollAgility {
 
 		case APE_ATOLL_SKULL_SLOPE_OBJECT:
 			if (c.npcId2 != NINJA_MONKEY_NPC) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't do that! You aren't a monkey.");
 				return false;
 			}
@@ -101,7 +101,7 @@ public class ApeAtollAgility {
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
 						c.getAgility().getXp(objectId), c.playerAgility);
-				c.getActionSender().sendMessage("You climb your way up");
+				c.getPacketSender().sendMessage("You climb your way up");
 				if (c.getAgility().agilityProgress[2] == true) {
 					c.getAgility().agilityProgress[3] = true;
 				}
@@ -110,7 +110,7 @@ public class ApeAtollAgility {
 
 		case APE_ATOLL_SWINGROPE_OBJECT:
 			if (c.npcId2 != NINJA_MONKEY_NPC) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't do that! You aren't a monkey.");
 				return false;
 			}
@@ -133,7 +133,7 @@ public class ApeAtollAgility {
 							return;
 						}
 						c.getPlayerAssistant().movePlayer(2756, 2731, 0);
-						c.getActionSender().sendMessage(
+						c.getPacketSender().sendMessage(
 								"You swing yourself to the other side");
 						container.stop();
 					}
@@ -147,7 +147,7 @@ public class ApeAtollAgility {
 
 		case APE_ATOLL_BIG_TROPICAL_TREE_OBJECT:
 			if (c.npcId2 != NINJA_MONKEY_NPC) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You can't do that! You aren't a monkey.");
 				return false;
 			}

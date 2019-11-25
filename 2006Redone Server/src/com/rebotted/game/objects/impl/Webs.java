@@ -30,10 +30,10 @@ public class Webs {
 				// c.startAnimation(451);
 				c.startAnimation(c.getCombatAssistant().getWepAnim());
 				c.webSlashDelay = System.currentTimeMillis();
-				c.getActionSender().sendSound(SoundList.SLASH_WEB, 100, 0);
-				c.getActionSender().sendMessage("You successfully slash open the web.");
+				c.getPacketSender().sendSound(SoundList.SLASH_WEB, 100, 0);
+				c.getPacketSender().sendMessage("You successfully slash open the web.");
 			} else {
-				c.getActionSender().sendMessage("You fail to slash through the web.");
+				c.getPacketSender().sendMessage("You fail to slash through the web.");
 				return;
 			}
 		}

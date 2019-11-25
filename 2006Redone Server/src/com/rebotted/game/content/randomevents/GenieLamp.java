@@ -30,8 +30,8 @@ public class GenieLamp {
 
 	public static void rubGenieLamp(Client c, int itemId) {
 		if (itemId == GENIE_LAMP1) {// || itemId == GENIE_LAMP2) {
-			c.getActionSender().sendMessage("You rub the lamp...");
-			c.getPlayerAssistant().showInterface(2808);
+			c.getPacketSender().sendMessage("You rub the lamp...");
+			c.getPacketSender().showInterface(2808);
 		}
 	}
 

@@ -165,7 +165,7 @@ public class Slayer {
 
 	public boolean canAttackNpc(int i) {
 		if (c.playerLevel[c.playerSlayer] < getRequiredLevel(NpcHandler.npcs[i].npcType)) {
-			c.getActionSender().sendMessage("You need a slayer level of " + getRequiredLevel(NpcHandler.npcs[i].npcType) + " to attack this npc.");
+			c.getPacketSender().sendMessage("You need a slayer level of " + getRequiredLevel(NpcHandler.npcs[i].npcType) + " to attack this npc.");
 			c.getCombatAssistant().resetPlayerAttack();
 			return false;
 		}
@@ -215,7 +215,7 @@ public class Slayer {
 		for (SlayerMasters slayermasters : SlayerMasters.values()) {
 			if (c.combatLevel < slayermasters.getCombatRequirement()
 					&& slayermasters.getId() == id) {
-				c.getActionSender().sendMessage("You need " + slayermasters.getCombatRequirement() + " combat to use this slayer master.");
+				c.getPacketSender().sendMessage("You need " + slayermasters.getCombatRequirement() + " combat to use this slayer master.");
 				return false;
 			}
 		}
@@ -340,7 +340,7 @@ public class Slayer {
 						int task = getRandomTask(taskLevel);
 						for (int removedTask : c.removedTasks) {
 							if (task == removedTask) {
-								c.getActionSender().sendMessage("Unavailable task: " + task);
+								c.getPacketSender().sendMessage("Unavailable task: " + task);
 								generateTask();
 								return;
 							}
@@ -351,7 +351,7 @@ public class Slayer {
 						int task = getRandomTask(getDifficulty(taskLevel - 1));
 						for (int removedTask : c.removedTasks) {
 							if (task == removedTask) {
-								c.getActionSender().sendMessage("Unavailable task: " + task);
+								c.getPacketSender().sendMessage("Unavailable task: " + task);
 								generateTask();
 								return;
 							}
@@ -361,7 +361,7 @@ public class Slayer {
 						c.needsNewTask = false;
 					}
 					c.getDialogueHandler().sendDialogues(1237, c.npcType);// assign task
-					c.getActionSender().sendMessage("You have been assigned " + c.taskAmount + " " + getTaskName(c.slayerTask) + ", good luck " + c.playerName + ".");
+					c.getPacketSender().sendMessage("You have been assigned " + c.taskAmount + " " + getTaskName(c.slayerTask) + ", good luck " + c.playerName + ".");
 					return;
 				}
 			}
@@ -428,33 +428,19 @@ public class Slayer {
 		}
 		return easyTask.get(r(easyTask.size() - 1));
 	}
-
-	public void handleInterface(String shop) {
-		if (shop.equalsIgnoreCase("buy")) {
-			c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41011);
-			c.getPlayerAssistant().showInterface(41000);
-		} else if (shop.equalsIgnoreCase("learn")) {
-			c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41511);
-			c.getPlayerAssistant().showInterface(41500);
-		} else if (shop.equalsIgnoreCase("assignment")) {
-			c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 42011);
-			updateCurrentlyRemoved();
-			c.getPlayerAssistant().showInterface(42000);
-		}
-	}
-
+	
 	public void cancelTask() {
 		if (!hasTask()) {
-			c.getActionSender().sendMessage("You must have a task to cancel first.");
+			c.getPacketSender().sendMessage("You must have a task to cancel first.");
 			return;
 		}
 		if (c.slayerPoints < 30) {
-			c.getActionSender().sendMessage("This requires atleast 30 slayer points, which you don't have.");
+			c.getPacketSender().sendMessage("This requires atleast 30 slayer points, which you don't have.");
 			c.getDialogueHandler().sendNpcChat1("This requires atleast 30 slayer points, which you don't have.", c.npcType,	NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
-		c.getActionSender().sendMessage("You have cancelled your current task of " + c.taskAmount + " " + getTaskName(c.slayerTask) + ".");
+		c.getPacketSender().sendMessage("You have cancelled your current task of " + c.taskAmount + " " + getTaskName(c.slayerTask) + ".");
 		c.slayerTask = -1;
 		c.taskAmount = 0;
 		c.slayerPoints -= 30;
@@ -463,11 +449,11 @@ public class Slayer {
 	public void removeTask() {
 		int counter = 0;
 		if (!hasTask()) {
-			c.getActionSender().sendMessage("You must have a task to remove first.");
+			c.getPacketSender().sendMessage("You must have a task to remove first.");
 			return;
 		}
 		if (c.slayerPoints < 100) {
-			c.getActionSender().sendMessage("This requires atleast 100 slayer points, which you don't have.");
+			c.getPacketSender().sendMessage("This requires atleast 100 slayer points, which you don't have.");
 			c.getDialogueHandler().sendNpcChat1("This requires atleast 100 slayer points, which you don't have.", c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
@@ -477,7 +463,7 @@ public class Slayer {
 				counter++;
 			}
 			if (counter == 4) {
-				c.getActionSender().sendMessage("You don't have any open slots left to remove tasks.");
+				c.getPacketSender().sendMessage("You don't have any open slots left to remove tasks.");
 				return;
 			}
 			if (c.removedTasks[i] == -1) {
@@ -485,7 +471,7 @@ public class Slayer {
 				c.slayerPoints -= 100;
 				c.slayerTask = -1;
 				c.taskAmount = 0;
-				c.getActionSender().sendMessage("Your current slayer task has been removed, you can't obtain this task again.");
+				c.getPacketSender().sendMessage("Your current slayer task has been removed, you can't obtain this task again.");
 				updateCurrentlyRemoved();
 				return;
 			}
@@ -493,18 +479,18 @@ public class Slayer {
 	}
 
 	public void updatePoints() {
-		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41011);
-		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 41511);
-		c.getPlayerAssistant().sendFrame126("Slayer Points: " + c.slayerPoints, 42011);
+		c.getPacketSender().sendFrame126("Slayer Points: " + c.slayerPoints, 41011);
+		c.getPacketSender().sendFrame126("Slayer Points: " + c.slayerPoints, 41511);
+		c.getPacketSender().sendFrame126("Slayer Points: " + c.slayerPoints, 42011);
 	}
 
 	public void updateCurrentlyRemoved() {
 		int line[] = { 42014, 42015, 42016, 42017 };
 		for (int i = 0; i < c.removedTasks.length; i++) {
 			if (c.removedTasks[i] != -1) {
-				c.getPlayerAssistant().sendFrame126(getTaskName(c.removedTasks[i]), line[i]);
+				c.getPacketSender().sendFrame126(getTaskName(c.removedTasks[i]), line[i]);
 			} else {
-				c.getPlayerAssistant().sendFrame126("", line[i]);
+				c.getPacketSender().sendFrame126("", line[i]);
 			}
 		}
 	}
@@ -514,13 +500,13 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 50) {
-			c.getActionSender().sendMessage( "You need at least 50 slayer points to gain 32,500 Experience.");
+			c.getPacketSender().sendMessage( "You need at least 50 slayer points to gain 32,500 Experience.");
 			return;
 		}
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 50;
 		c.getPlayerAssistant().addSkillXP(32500, 18);
-		c.getActionSender().sendMessage("You spend 50 slayer points and gain 32,500 experience in slayer.");
+		c.getPacketSender().sendMessage("You spend 50 slayer points and gain 32,500 experience in slayer.");
 		updatePoints();
 	}
 
@@ -529,17 +515,17 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 35) {
-			c.getActionSender().sendMessage("You need at least 35 slayer points to buy Slayer darts.");
+			c.getPacketSender().sendMessage("You need at least 35 slayer points to buy Slayer darts.");
 			return;
 		}
 		if (c.getItemAssistant().freeSlots() < 2 && !c.getItemAssistant().playerHasItem(560) && !c.getItemAssistant().playerHasItem(558)) {
-			c.getActionSender().sendMessage("You need at least 2 free lots to purchase this.");
+			c.getPacketSender().sendMessage("You need at least 2 free lots to purchase this.");
 			return;
 		}
 
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 35;
-		c.getActionSender().sendMessage("You spend 35 slayer points and aquire 250 casts of Slayer darts.");
+		c.getPacketSender().sendMessage("You spend 35 slayer points and aquire 250 casts of Slayer darts.");
 		c.getItemAssistant().addItem(558, 1000);
 		c.getItemAssistant().addItem(560, 250);
 		updatePoints();
@@ -550,16 +536,16 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 25) {
-			c.getActionSender().sendMessage("You need at least 25 slayer points to buy Broad arrows.");
+			c.getPacketSender().sendMessage("You need at least 25 slayer points to buy Broad arrows.");
 			return;
 		}
 		if (c.getItemAssistant().freeSlots() < 1 && !c.getItemAssistant().playerHasItem(4160)) {
-			c.getActionSender().sendMessage("You need at least 1 free lot to purchase this.");
+			c.getPacketSender().sendMessage("You need at least 1 free lot to purchase this.");
 			return;
 		}
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 25;
-		c.getActionSender().sendMessage("You spend 35 slayer points and aquire 250 Broad arrows.");
+		c.getPacketSender().sendMessage("You spend 35 slayer points and aquire 250 Broad arrows.");
 		c.getItemAssistant().addItem(4160, 250);
 		updatePoints();
 	}
@@ -569,12 +555,12 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 25) {
-			c.getActionSender().sendMessage("You need at least 25 slayer points to buy Slayer's respite.");
+			c.getPacketSender().sendMessage("You need at least 25 slayer points to buy Slayer's respite.");
 			return;
 		}
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 25;
-		c.getActionSender().sendMessage("You spend 25 slayer points and aquire a useful Slayer's respite.");
+		c.getPacketSender().sendMessage("You spend 25 slayer points and aquire a useful Slayer's respite.");
 		c.getItemAssistant().addItem(5841, 1);
 		updatePoints();
 	}

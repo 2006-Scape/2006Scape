@@ -8,7 +8,7 @@ public class CastleWarObjects {
 		switch (id) {
 		case 4469:
 			if (CastleWars.getTeamNumber(c) == 2) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You are not allowed in the other teams spawn point.");
 				break;
 			}
@@ -32,7 +32,7 @@ public class CastleWarObjects {
 			break;
 		case 4470:
 			if (CastleWars.getTeamNumber(c) == 1) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You are not allowed in the other teams spawn point.");
 				break;
 			}
@@ -83,7 +83,7 @@ public class CastleWarObjects {
 			break;
 		case 4411: // castle wars jumping stones
 			if (x == c.getX() && y == c.getY()) {
-				c.getActionSender().sendMessage("You are standing on the rock you clicked.");
+				c.getPacketSender().sendMessage("You are standing on the rock you clicked.");
 			} else if (x > c.getX() && y == c.getY()) {
 				c.getPlayerAssistant().walkTo(1, 0);
 			} else if (x < c.getX() && y == c.getY()) {
@@ -93,7 +93,7 @@ public class CastleWarObjects {
 			} else if (y < c.getY() && x == c.getX()) {
 				c.getPlayerAssistant().walkTo(0, -1);
 			} else {
-				c.getActionSender().sendMessage("Can't reach that.");
+				c.getPacketSender().sendMessage("Can't reach that.");
 			}
 			break;
 		case 4419:
@@ -199,7 +199,7 @@ public class CastleWarObjects {
 		if (System.currentTimeMillis() - c.miscTimer > 1200) {
 			c.startAnimation(881);
 			c.getItemAssistant().addItem(4049, 1);
-			c.getActionSender().sendMessage("You get some bandages");
+			c.getPacketSender().sendMessage("You get some bandages");
 			c.miscTimer = System.currentTimeMillis();
 		}
 		break;
@@ -227,14 +227,14 @@ public class CastleWarObjects {
 			break;
 		case 4461: // barricades
 			if (System.currentTimeMillis() - c.miscTimer > 1200) {
-				c.getActionSender().sendMessage("You get a barricade!");
+				c.getPacketSender().sendMessage("You get a barricade!");
 				c.getItemAssistant().addItem(4053, 1);
 				c.miscTimer = System.currentTimeMillis();
 			}
 			break;
 		case 4463: // explosive potion!
 			if (System.currentTimeMillis() - c.miscTimer > 1200) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You get an explosive potion!");
 				c.getItemAssistant().addItem(4045, 1);
 				c.miscTimer = System.currentTimeMillis();
@@ -242,7 +242,7 @@ public class CastleWarObjects {
 			break;
 		case 4464: // pickaxe table
 			if (System.currentTimeMillis() - c.miscTimer > 1200) {
-				c.getActionSender().sendMessage(
+				c.getPacketSender().sendMessage(
 						"You get a bronzen pickaxe for mining.");
 				c.getItemAssistant().addItem(1265, 1);
 				c.miscTimer = System.currentTimeMillis();
@@ -250,21 +250,21 @@ public class CastleWarObjects {
 			break;
 		case 4459: // tinderbox table
 			if (System.currentTimeMillis() - c.miscTimer > 1200) {
-				c.getActionSender().sendMessage("You take a tinderbox!");
+				c.getPacketSender().sendMessage("You take a tinderbox!");
 				c.getItemAssistant().addItem(590, 1);
 				c.miscTimer = System.currentTimeMillis();
 			}
 			break;
 		case 4462:
 			if (System.currentTimeMillis() - c.miscTimer > 1200) {
-				c.getActionSender().sendMessage("You take some rope!");
+				c.getPacketSender().sendMessage("You take some rope!");
 				c.getItemAssistant().addItem(954, 1);
 				c.miscTimer = System.currentTimeMillis();
 			}
 			break;
 		case 4460:
 			if (System.currentTimeMillis() - c.miscTimer > 1200) {
-				c.getActionSender().sendMessage("You take a rock!");
+				c.getPacketSender().sendMessage("You take a rock!");
 				c.getItemAssistant().addItem(4043, 1);
 				c.miscTimer = System.currentTimeMillis();
 			}

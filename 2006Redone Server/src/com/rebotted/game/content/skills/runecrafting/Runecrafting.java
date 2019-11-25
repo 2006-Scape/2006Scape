@@ -33,7 +33,7 @@ public class Runecrafting {
 		if (c.absY <= yPos) {
 			Y = "North";
 		}
-		c.getActionSender().sendMessage("You need to travel " + Y + "-" + X + ".");
+		c.getPacketSender().sendMessage("You need to travel " + Y + "-" + X + ".");
 	}
 
 	private enum Altars {
@@ -76,9 +76,9 @@ public class Runecrafting {
 		if (a != null) {
 			if (a.getKeys()[1] == c.playerEquipment[c.playerHat] || a.getKeys()[0] == itemUse) {
 				c.getPlayerAssistant().movePlayer(a.getNewLoc()[0], a.getNewLoc()[1], 0);
-				c.getActionSender().sendMessage("You enter the mysterious ruins.");
+				c.getPacketSender().sendMessage("You enter the mysterious ruins.");
 			} else {
-				c.getActionSender().sendMessage("Nothing interesting happens.");
+				c.getPacketSender().sendMessage("Nothing interesting happens.");
 			}
 		}
 	}
@@ -137,16 +137,16 @@ public class Runecrafting {
 		if (ad != null) {
 			RandomEventHandler.addRandom(c);
 			if (!SkillHandler.RUNECRAFTING) {
-				c.getActionSender().sendMessage("This skill is currently disabled.");
+				c.getPacketSender().sendMessage("This skill is currently disabled.");
 				return false;
 			}
 			if (c.playerLevel[c.playerRunecrafting] >= ad.levelReq) {
 				getMultiSupport(obj);
 				c.startAnimation(791);
 				c.gfx100(186);
-				c.getActionSender().sendSound(SoundList.RUNECRAFTING, 100, 0);
+				c.getPacketSender().sendSound(SoundList.RUNECRAFTING, 100, 0);
 			} else {
-				c.getActionSender().sendMessage("You need a runecrafting level of at least " + ad.levelReq + " to make runes here.");
+				c.getPacketSender().sendMessage("You need a runecrafting level of at least " + ad.levelReq + " to make runes here.");
 			}
 		}
 		return false;
@@ -172,7 +172,7 @@ public class Runecrafting {
 				c.getItemAssistant().addItem(ad.rewardedRune, amount2 * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
 				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, c.playerRunecrafting);
 			} else {
-				c.getActionSender().sendMessage("You don't have any essence left.");
+				c.getPacketSender().sendMessage("You don't have any essence left.");
 			}
 		}
 	}

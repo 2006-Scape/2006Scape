@@ -44,7 +44,7 @@ public class AbyssalHandler {
 			break;
 		case 7138: // soul
 		case 7141: // blood
-			c.getActionSender().sendMessage("This altar is currently disabled.");
+			c.getPacketSender().sendMessage("This altar is currently disabled.");
 			break;
 		}
 	}

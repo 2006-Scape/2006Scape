@@ -90,7 +90,7 @@ public class SilverCrafting {
 		}
 		if (silverCraft.getUsed() == SILVER_BAR && player.isCrafting) {
 			if (!SkillHandler.CRAFTING) {
-				player.getActionSender().sendMessage("This skill is currently disabled.");
+				player.getPacketSender().sendMessage("This skill is currently disabled.");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(SILVER_BAR)) {
@@ -103,7 +103,7 @@ public class SilverCrafting {
 			}
 			player.startAnimation(SILVER_ANIMATION);
 			player.isCrafting = true;
-			player.getPlayerAssistant().closeAllWindows();
+			player.getPacketSender().closeAllWindows();
 
 			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
@@ -120,7 +120,7 @@ public class SilverCrafting {
 					}
 					container.setTick(3);
 					player.startAnimation(SILVER_ANIMATION);
-					player.getActionSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"You make the silver bar into "
 									+ ItemAssistant
 											.getItemName(

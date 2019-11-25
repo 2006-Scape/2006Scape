@@ -19,9 +19,9 @@ public class ShieldArrav {
 
 	public static void showInformation(Client client) {
 		// Clear all lines
-		for (int i = 8144; i < 8195; i++) client.getPlayerAssistant().sendFrame126("", i);
+		for (int i = 8144; i < 8195; i++) client.getPacketSender().sendFrame126("", i);
 		// Set the title
-		client.getPlayerAssistant().sendFrame126("Shield of Arrav", 8144);
+		client.getPacketSender().sendFrame126("Shield of Arrav", 8144);
 		// Add content
 		if (client.shieldArrav == 0) {
 			lines = new String[]{
@@ -107,7 +107,7 @@ public class ShieldArrav {
 		}
 		// Send the lines to the client
 		int lineNumber = 8147;
-		for (String line : lines) client.getPlayerAssistant().sendFrame126(line, lineNumber++);
-		client.getPlayerAssistant().showInterface(8134);
+		for (String line : lines) client.getPacketSender().sendFrame126(line, lineNumber++);
+		client.getPacketSender().showInterface(8134);
 	}
 }

@@ -24,9 +24,9 @@ public class RandomEventHandler {
 		player.teleportToX = FAIL_COORDS[loc][0];
 		player.teleportToY = FAIL_COORDS[loc][1];
 		player.heightLevel = 0;
-		player.getActionSender().sendMessage("You wake up in a strange location...");
+		player.getPacketSender().sendMessage("You wake up in a strange location...");
 		resetEvent(player);
-		player.getPlayerAssistant().closeAllWindows();
+		player.getPacketSender().closeAllWindows();
 	}
 
 	public static void callRandom(Client player) { // add all random events here
@@ -66,12 +66,12 @@ public class RandomEventHandler {
 			if (player.randomActions >= CALL_RANDOM) {
 				callRandom(player);
 				if (player.playerIsBusy() && !player.hasSandwhichLady) {
-					player.getPlayerAssistant().closeAllWindows();
+					player.getPacketSender().closeAllWindows();
 				}
 			} else {
 				int nextRandom = CALL_RANDOM - player.randomActions;
 				if (player.playerRights == 3) {
-					player.getActionSender().sendMessage("Next random will be in " + nextRandom + " more random actions.");
+					player.getPacketSender().sendMessage("Next random will be in " + nextRandom + " more random actions.");
 				}
 				player.randomActions += 1;
 			}

@@ -122,7 +122,7 @@ public class FightPits {
 		} else if (state.equals(WAITING)) {
 			c.getPlayerAssistant()
 					.movePlayer(EXIT_WAITING_X, EXIT_WAITING_Y, 0);
-			c.getPlayerAssistant().walkableInterface(-1);
+			c.getPacketSender().walkableInterface(-1);
 		}
 		playerMap.remove(c);
 
@@ -153,8 +153,7 @@ public class FightPits {
 		for (Client c : playerMap.keySet()) {
 			String status = playerMap.get(c);
 			@SuppressWarnings("unused")
-			boolean updated = status == WAITING ? updateWaitingRoom(c)
-					: updateGame(c);
+			boolean updated = status == WAITING ? updateWaitingRoom(c) : updateGame(c);
 		}
 	}
 
@@ -162,12 +161,10 @@ public class FightPits {
 	 * @note Updates waiting room interfaces etc.
 	 */
 	public static boolean updateWaitingRoom(Client c) {
-		c.getPlayerAssistant().sendFrame126(
-				"Next Game Begins In : " + gameStartTimer, 2805);
-		c.getPlayerAssistant().sendFrame126(
-				"Champion: JalYt-Ket-" + pitsChampion, 2806);
-		c.getPlayerAssistant().sendConfig(560, 1);
-		c.getPlayerAssistant().walkableInterface(2804);
+		c.getPacketSender().sendFrame126("Next Game Begins In : " + gameStartTimer, 2805);
+		c.getPacketSender().sendFrame126("Champion: JalYt-Ket-" + pitsChampion, 2806);
+		c.getPacketSender().sendConfig(560, 1);
+		c.getPacketSender().walkableInterface(2804);
 		return true;
 	}
 
@@ -175,12 +172,10 @@ public class FightPits {
 	 * @note Updates players in game interfaces etc.
 	 */
 	public static boolean updateGame(Client c) {
-		c.getPlayerAssistant().sendFrame126(
-				"Foes Remaining: " + getListCount(PLAYING), 2805);
-		c.getPlayerAssistant().sendFrame126(
-				"Champion: JalYt-Ket-" + pitsChampion, 2806);
-		c.getPlayerAssistant().sendConfig(560, 1);
-		c.getPlayerAssistant().walkableInterface(2804);
+		c.getPacketSender().sendFrame126("Foes Remaining: " + getListCount(PLAYING), 2805);
+		c.getPacketSender().sendFrame126("Champion: JalYt-Ket-" + pitsChampion, 2806);
+		c.getPacketSender().sendConfig(560, 1);
+		c.getPacketSender().walkableInterface(2804);
 		return true;
 	}
 

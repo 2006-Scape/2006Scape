@@ -22,38 +22,38 @@ public class LightSources {
 	}
 
 	public static void brightness1(Client c) {
-		c.getPlayerAssistant().sendConfig(505, 1);
-		c.getPlayerAssistant().sendConfig(506, 0);
-		c.getPlayerAssistant().sendConfig(507, 0);
-		c.getPlayerAssistant().sendConfig(508, 0);
-		c.getPlayerAssistant().sendConfig(166, 1);
+		c.getPacketSender().sendConfig(505, 1);
+		c.getPacketSender().sendConfig(506, 0);
+		c.getPacketSender().sendConfig(507, 0);
+		c.getPacketSender().sendConfig(508, 0);
+		c.getPacketSender().sendConfig(166, 1);
 		c.brightness = 1;
 	}
 
 	public static void brightness2(Client c) {
-		c.getPlayerAssistant().sendConfig(505, 0);
-		c.getPlayerAssistant().sendConfig(506, 1);
-		c.getPlayerAssistant().sendConfig(507, 0);
-		c.getPlayerAssistant().sendConfig(508, 0);
-		c.getPlayerAssistant().sendConfig(166, 2);
+		c.getPacketSender().sendConfig(505, 0);
+		c.getPacketSender().sendConfig(506, 1);
+		c.getPacketSender().sendConfig(507, 0);
+		c.getPacketSender().sendConfig(508, 0);
+		c.getPacketSender().sendConfig(166, 2);
 		c.brightness = 2;
 	}
 
 	public static void brightness3(Client c) {
-		c.getPlayerAssistant().sendConfig(505, 0);
-		c.getPlayerAssistant().sendConfig(506, 0);
-		c.getPlayerAssistant().sendConfig(507, 1);
-		c.getPlayerAssistant().sendConfig(508, 0);
-		c.getPlayerAssistant().sendConfig(166, 3);
+		c.getPacketSender().sendConfig(505, 0);
+		c.getPacketSender().sendConfig(506, 0);
+		c.getPacketSender().sendConfig(507, 1);
+		c.getPacketSender().sendConfig(508, 0);
+		c.getPacketSender().sendConfig(166, 3);
 		c.brightness = 3;
 	}
 
 	public static void brightness4(Client c) {
-		c.getPlayerAssistant().sendConfig(505, 0);
-		c.getPlayerAssistant().sendConfig(506, 0);
-		c.getPlayerAssistant().sendConfig(507, 0);
-		c.getPlayerAssistant().sendConfig(508, 1);
-		c.getPlayerAssistant().sendConfig(166, 4);
+		c.getPacketSender().sendConfig(505, 0);
+		c.getPacketSender().sendConfig(506, 0);
+		c.getPacketSender().sendConfig(507, 0);
+		c.getPacketSender().sendConfig(508, 1);
+		c.getPacketSender().sendConfig(166, 4);
 		c.brightness = 4;
 	}
 
@@ -76,7 +76,7 @@ public class LightSources {
 				return true;
 			}
 		}
-		c.getActionSender().sendMessage("It's recommended that you get a light source to continue.");
+		c.getPacketSender().sendMessage("It's recommended that you get a light source to continue.");
 		brightness1(c);
 		return false;
 	}

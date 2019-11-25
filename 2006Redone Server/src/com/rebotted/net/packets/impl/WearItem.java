@@ -50,11 +50,11 @@ public class WearItem implements PacketType {
 
 		if (player.wearId == 88) {
 			player.weight -= 4.5;
-			player.getActionSender().writeWeight((int) player.weight);
+			player.getPacketSender().writeWeight((int) player.weight);
 		}
 
 		if (player.wearSlot == player.playerHat) {
-			player.getActionSender().setConfig(491, 0);
+			player.getPacketSender().setConfig(491, 0);
 		}
 
 		player.getPlayerAssistant().handleTiara();

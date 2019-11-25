@@ -100,19 +100,19 @@ public class Stalls {
 	public static void attemptStall(final Client c, final int objectId, final int x, final int y) {
 		for (final stallData s : stallData.values()) {
 			if (System.currentTimeMillis() - c.lastThieve < 2500 + r(2500)) {
-				c.getActionSender().sendMessage("You need to wait longer before you can thieve this stall!");
+				c.getPacketSender().sendMessage("You need to wait longer before you can thieve this stall!");
 				return;
 			}
 			if (!SkillHandler.THIEVING) {
-				c.getActionSender().sendMessage("This skill is currently disabled.");
+				c.getPacketSender().sendMessage("This skill is currently disabled.");
 				return;
 			}
 			if(c.underAttackBy > 0 || c.underAttackBy2 > 0) {
-				c.getActionSender().sendMessage("You can't steal from a stall while in combat!");
+				c.getPacketSender().sendMessage("You can't steal from a stall while in combat!");
 				return;	
 			}
 			if (c.getItemAssistant().freeSlots() == 0) {
-				c.getActionSender().sendMessage("Not enough space in your inventory.");
+				c.getPacketSender().sendMessage("Not enough space in your inventory.");
 				return;
 			}
 			if(objectId == s.getObject()) {
@@ -122,7 +122,7 @@ public class Stalls {
 						return;
 					}
 					if (c.getItemAssistant().freeSlots() == 0) {
-						c.getActionSender().sendMessage("Not enough space in your inventory.");
+						c.getPacketSender().sendMessage("Not enough space in your inventory.");
 						return;
 					}
 					c.startAnimation(832);
@@ -131,7 +131,7 @@ public class Stalls {
 					c.getPlayerAssistant().addSkillXP((int) s.getXp(), c.playerThieving);
 					int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
 					c.lastThieve = System.currentTimeMillis();
-					c.getActionSender().sendMessage("You steal a "+ItemAssistant.getItemName(random[0])+" from the stall.");
+					c.getPacketSender().sendMessage("You steal a "+ItemAssistant.getItemName(random[0])+" from the stall.");
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {

@@ -10,10 +10,10 @@ public class BrimhavenVines {
 
 	public static void handleBrimhavenVines(Client c, int objectType) {
 		if (!Woodcutting.hasAxe(c)) {
-			c.getActionSender().sendMessage("You will need an axe to chop through these!");
+			c.getPacketSender().sendMessage("You will need an axe to chop through these!");
 			return;
 		}
-		c.getActionSender().sendMessage("You chop your way through the vines.");
+		c.getPacketSender().sendMessage("You chop your way through the vines.");
 		switch (objectType) {
 		case 12987:
 		case 12986:
