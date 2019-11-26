@@ -16,6 +16,7 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.BankPin;
 import com.rebotted.game.content.EmoteHandler;
 import com.rebotted.game.content.combat.CombatAssistant;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.Specials;
 import com.rebotted.game.content.combat.magic.Enchanting;
 import com.rebotted.game.content.combat.prayer.PrayerData;
@@ -636,7 +637,7 @@ public abstract class Player {
 			int modY = absY > 6400 ? absY - 6400 : absY;
 			wildLevel = (modY - 3520) / 8 + 1;
 			getPacketSender().walkableInterface(197);
-			if (GameConstants.SINGLE_AND_MULTI_ZONES) {
+			if (CombatConstants.SINGLE_AND_MULTI_ZONES) {
 				if (inMulti()) {
 					getPacketSender().sendFrame126("@yel@Level: " + wildLevel,
 							199);
@@ -717,7 +718,7 @@ public abstract class Player {
 		}
 		getPlayerAssistant().writeEnergy();
 
-		if (System.currentTimeMillis() - specDelay > GameConstants.INCREASE_SPECIAL_AMOUNT) {
+		if (System.currentTimeMillis() - specDelay > CombatConstants.INCREASE_SPECIAL_AMOUNT) {
 			specDelay = System.currentTimeMillis();
 			if (specAmount < 10) {
 				specAmount += .5;

@@ -1,6 +1,7 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.GameConstants;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.magic.CastOnOther;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.content.combat.range.RangeData;
@@ -132,7 +133,7 @@ public class AttackPlayer implements PacketType {
 				return;
 			}
 			if (RangeData.correctBowAndArrows(c) < c.playerEquipment[c.playerArrows]
-					&& GameConstants.CORRECT_ARROWS
+					&& CombatConstants.CORRECT_ARROWS
 					&& usingBow
 					&& !RangeData.usingCrystalBow(c)
 					&& c.playerEquipment[c.playerWeapon] != 9185) {

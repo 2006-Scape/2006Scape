@@ -1,9 +1,9 @@
 package com.rebotted.net.packets.impl;
 
-import com.rebotted.GameConstants;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.content.combat.range.RangeData;
 import com.rebotted.game.content.skills.thieving.Pickpocket;
@@ -124,7 +124,7 @@ public class ClickNPC implements PacketType {
 				break;
 			}
 			if (RangeData.correctBowAndArrows(client) < client.playerEquipment[client.playerArrows]
-					&& GameConstants.CORRECT_ARROWS
+					&& CombatConstants.CORRECT_ARROWS
 					&& usingBow
 					&& !RangeData.usingCrystalBow(client)
 					&& client.playerEquipment[client.playerWeapon] != 9185) {

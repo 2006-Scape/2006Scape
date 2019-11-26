@@ -1,8 +1,6 @@
 package com.rebotted.game.content.combat;
 
 import java.util.HashMap;
-
-import com.rebotted.GameConstants;
 import com.rebotted.game.content.combat.range.RangeData;
 import com.rebotted.game.content.music.sound.CombatSounds;
 import com.rebotted.game.npcs.NpcHandler;
@@ -232,7 +230,7 @@ public class Specials {
 			player.delayedDamage2 = Misc.random(player.getCombatAssistant().meleeMaxHit());
 			player.usingSpecial = false;
 			player.getItemAssistant().updateSpecialBar();
-			if (GameConstants.COMBAT_SOUNDS) {
+			if (CombatConstants.COMBAT_SOUNDS) {
 				player.getPacketSender().sendSound(CombatSounds.specialSounds(player.playerEquipment[player.playerWeapon]), 100, 0);
 			}
 		}

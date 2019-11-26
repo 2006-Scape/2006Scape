@@ -1,10 +1,10 @@
 package com.rebotted.game.content.combat.range;
 
-import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
@@ -397,7 +397,7 @@ public class DwarfCannon {
 				target.hitUpdateRequired2 = true;
 				target.updateRequired = true;
 				myBalls -= 1;
-				player.getPlayerAssistant().addSkillXP(damage * GameConstants.RANGE_EXP_RATE, player.playerRanged);
+				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE, player.playerRanged);
 			}
 		}
 		

@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.npcs.NpcAggressive;
 import com.rebotted.game.content.combat.npcs.NpcCombat;
 import com.rebotted.game.content.combat.npcs.NpcEmotes;
@@ -564,7 +565,7 @@ public class NpcHandler {
 																		// emote
 						Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
-							if (GameConstants.COMBAT_SOUNDS
+							if (CombatConstants.COMBAT_SOUNDS
 									&& NpcHandler.npcs[i].npcType < 3177
 									&& NpcHandler.npcs[i].npcType > 3180) {
 								c.getPacketSender()
