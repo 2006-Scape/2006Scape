@@ -24,26 +24,26 @@ public class Specials {
 		// ItemName(ItemId, SpecDamage, SpecAccuracy, SpecAmount, Anim, GFX0,
 		// GFX100, DoubleHit, SsSpec, SpecEffect)
 
-		ABYSSAL_WHIP(4151, 1, 1.25, 5, 1658, 341, -1, false, false, 0),
-		DRAGON_DAGGER(1215, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
-		DRAGON_DAGGER_P(1231, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
-		DRAGON_DAGGER_PP(5698, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
-		DRAGON_DAGGER_PPP(5680, 1.15, 1.25, 2.5, 1062, -1, 252, true, false, 0),
-		DRAGON_LONG(1305, 1.20, 1.10, 2.5, 1058, -1, 248, false, false, 0),
-		DRAGON_MACE(1434, 1.55, 1.25, 2.5, 1060, -1, 251, false, false, 0),
-		DRAGON_SCIMITAR(4587, 1, 1.25, 5.5, 1872, -1, 347, false, false, 1),
-		DRAGON_HALBERD(3204, 1.25, .85, 3, 1203, -1, 282, true, false, 0),
-		GRANITE_MAUL(4153, 1.10, .85, 5, 1667, -1, 337, false, false, 0),
-		MAGIC_SHORTBOW(861, 1.05, .95, 5.5, 1074, -1, -1, true, false, 0), 
-		MAGIC_LONGBOW(859, 1.20, 1.05, 5.5, 426, -1, -1, false, false, 0);
+		ABYSSAL_WHIP(4151, 1, 1.25, 5, 1658, 341, -1, false, 0),
+		DRAGON_DAGGER(1215, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_DAGGER_P(1231, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_DAGGER_PP(5698, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_DAGGER_PPP(5680, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_LONG(1305, 1.20, 1.10, 2.5, 1058, -1, 248, false, 0),
+		DRAGON_MACE(1434, 1.55, 1.25, 2.5, 1060, -1, 251, false, 0),
+		DRAGON_SCIMITAR(4587, 1, 1.25, 5.5, 1872, -1, 347, false, 1),
+		DRAGON_HALBERD(3204, 1.25, .85, 3, 1203, -1, 282, true, 0),
+		GRANITE_MAUL(4153, 1.10, .85, 5, 1667, -1, 337, false, 0),
+		MAGIC_SHORTBOW(861, 1.05, .95, 5.5, 1074, -1, -1, true, 0), 
+		MAGIC_LONGBOW(859, 1.20, 1.05, 5.5, 426, -1, -1, false, 0);
 		
 		private int weapon, anim, gfx1, gfx2, specEffect;
 		private double specDamage, specAccuracy, specAmount;
-		private boolean doubleHit, ssSpec;
+		private boolean doubleHit;
 
 		private specialAttack(int weapon, double specDamage,
 				double specAccuracy, double specAmount, int anim, int gfx1,
-				int gfx2, boolean doubleHit, boolean ssSpec, int specEffect) {
+				int gfx2, boolean doubleHit, int specEffect) {
 			this.weapon = weapon;
 			this.specDamage = specDamage;
 			this.specAccuracy = specAccuracy;
@@ -52,7 +52,6 @@ public class Specials {
 			this.gfx1 = gfx1;
 			this.gfx2 = gfx2;
 			this.doubleHit = doubleHit;
-			this.ssSpec = ssSpec;
 			this.specEffect = specEffect;
 		}
 
@@ -88,9 +87,6 @@ public class Specials {
 			return doubleHit;
 		}
 
-		private boolean getSsSpec() {
-			return ssSpec;
-		}
 
 		@SuppressWarnings("unused")
 		private int getSpecEffect() {
@@ -113,9 +109,7 @@ public class Specials {
 
 	public void activateSpecial(int weapon, int i) {
 		int equippedWeapon = player.playerEquipment[player.playerWeapon];
-		if (NpcHandler.npcs[i] == null && player.npcIndex > 0
-				|| PlayerHandler.players[player.playerIndex] == null
-				&& player.playerIndex > 0) {
+		if (NpcHandler.npcs[i] == null && player.npcIndex > 0 || PlayerHandler.players[player.playerIndex] == null && player.playerIndex > 0) {
 			return;
 		}
 		player.doubleHit = false;
@@ -128,8 +122,7 @@ public class Specials {
 			player.oldPlayerIndex = i;
 			PlayerHandler.players[i].underAttackBy = player.playerId;
 			PlayerHandler.players[i].logoutDelay = System.currentTimeMillis();
-			PlayerHandler.players[i].singleCombatDelay = System
-					.currentTimeMillis();
+			PlayerHandler.players[i].singleCombatDelay = System.currentTimeMillis();
 			PlayerHandler.players[i].killerId = player.playerId;
 		}
 		player.specEffect = 0;
@@ -226,7 +219,6 @@ public class Specials {
 					player.specAccuracy = SA.getSpecAccuracy();
 					player.hitDelay = player.getCombatAssistant().getHitDelay();
 					player.doubleHit = SA.getDoubleHit();
-					player.ssSpec = SA.getSsSpec();
 				} else {
 					player.gfx0(SA.getGfx1());
 					player.startAnimation(SA.getAnim());
@@ -234,36 +226,26 @@ public class Specials {
 					player.specAccuracy = SA.getSpecAccuracy();
 					player.hitDelay = player.getCombatAssistant().getHitDelay();
 					player.doubleHit = SA.getDoubleHit();
-					player.ssSpec = SA.getSsSpec();
 				}
 			}
 			player.delayedDamage = Misc.random(player.getCombatAssistant().meleeMaxHit());
-			player.delayedDamage2 = Misc
-					.random(player.getCombatAssistant().meleeMaxHit());
+			player.delayedDamage2 = Misc.random(player.getCombatAssistant().meleeMaxHit());
 			player.usingSpecial = false;
 			player.getItemAssistant().updateSpecialBar();
 			if (GameConstants.COMBAT_SOUNDS) {
-				player.getPacketSender()
-						.sendSound(
-								CombatSounds
-										.specialSounds(player.playerEquipment[player.playerWeapon]),
-								100, 0);
+				player.getPacketSender().sendSound(CombatSounds.specialSounds(player.playerEquipment[player.playerWeapon]), 100, 0);
 			}
 		}
 	}
 
 	public void handleGmaul() {
 		if (player.npcIndex > 0 && NpcHandler.npcs[player.npcIndex] != null) {
-			if (player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex]
-					.getX(), NpcHandler.npcs[player.npcIndex].getY(), player
-					.getCombatAssistant().getRequiredDistance())) {
+			if (player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY(), player.getCombatAssistant().getRequiredDistance())) {
 				if (player.getCombatAssistant().checkSpecAmount(4153)) {
-					boolean hit = Misc.random(player.getCombatAssistant().calcAtt()) > Misc
-							.random(NpcHandler.npcs[player.npcIndex].defence);
+					boolean hit = Misc.random(player.getCombatAssistant().calcAtt()) > Misc.random(NpcHandler.npcs[player.npcIndex].defence);
 					int damage = 0;
 					if (hit) {
-						damage = Misc.random(player.getCombatAssistant()
-								.meleeMaxHit());
+						damage = Misc.random(player.getCombatAssistant().meleeMaxHit());
 						NpcHandler.npcs[player.npcIndex].HP -= damage;
 						NpcHandler.npcs[player.npcIndex].hitDiff2 = damage;
 						NpcHandler.npcs[player.npcIndex].hitUpdateRequired2 = true;
@@ -279,17 +261,12 @@ public class Specials {
 					.getCombatAssistant().getRequiredDistance())) {
 				if (player.getCombatAssistant().checkReqs()) {
 					if (player.getCombatAssistant().checkSpecAmount(4153)) {
-						boolean hit = Misc.random(player.getCombatAssistant()
-								.calcAtt()) > Misc.random(o
-								.getCombatAssistant().calcDef());
+						boolean hit = Misc.random(player.getCombatAssistant().calcAtt()) > Misc.random(o.getCombatAssistant().calcDef());
 						int damage = 0;
 						if (hit) {
-							damage = Misc.random(player.getCombatAssistant()
-									.meleeMaxHit());
+							damage = Misc.random(player.getCombatAssistant().meleeMaxHit());
 						}
-						if (o.getPrayer().prayerActive[18]
-								&& System.currentTimeMillis()
-										- o.protMeleeDelay > 1500) {
+						if (o.getPrayer().prayerActive[18] && System.currentTimeMillis() - o.protMeleeDelay > 1500) {
 							damage *= .6;
 						}
 						if (o.playerLevel[3] - damage <= 0) {

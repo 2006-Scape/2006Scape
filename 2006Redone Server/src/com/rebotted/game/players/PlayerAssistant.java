@@ -97,11 +97,7 @@ public class PlayerAssistant {
 	        }
 		player.getPacketSender().sendFrame126("" +GameConstants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
 		player.getPacketSender().sendFrame126("You have 0 unread messages\\nOn forums!", 15261);
-		if (player.membership == true) {
-			player.getPacketSender().sendFrame126("You have @gre@unlimited@yel@ days of member credit.", 15262);
-		} else {
-			player.getPacketSender().sendFrame126("You are currently not a member.", 15262);
-		}
+		player.getPacketSender().sendFrame126("You have @gre@unlimited@yel@ days of member credit.", 15262);
 		player.getPacketSender().sendFrame126("CLICK HERE TO PLAY", 15263);
 		if (!player.hasBankpin) {
 			player.getPacketSender().sendFrame126("You currently have no bank pin set!\\nWe strongly advise you to set\\n one.", 15270);
@@ -1371,32 +1367,6 @@ public class PlayerAssistant {
 		}
 	}
 
-	public void vengMe() {
-		if (System.currentTimeMillis() - player.lastVeng > 30000) {
-			if (player.getItemAssistant().playerHasItem(557, 10)
-					&& player.getItemAssistant().playerHasItem(9075, 4)
-					&& player.getItemAssistant().playerHasItem(560, 2)) {
-				player.vengOn = true;
-				player.lastVeng = System.currentTimeMillis();
-				player.startAnimation(4410);
-				player.gfx100(726);
-				player.getItemAssistant().deleteItem(557,
-						player.getItemAssistant().getItemSlot(557), 10);
-				player.getItemAssistant().deleteItem(560,
-						player.getItemAssistant().getItemSlot(560), 2);
-				player.getItemAssistant().deleteItem(9075,
-						player.getItemAssistant().getItemSlot(9075), 4);
-			} else {
-				player.getPacketSender()
-						.sendMessage(
-								"You do not have the required runes to cast this spell. (9075 for astrals)");
-			}
-		} else {
-			player.getPacketSender().sendMessage(
-					"You must wait 30 seconds before casting this again.");
-		}
-	}
-
 	public void resetTb() {
 		player.teleBlockLength = 0;
 		player.teleBlockDelay = 0;
@@ -1478,8 +1448,6 @@ public class PlayerAssistant {
 		resetDamageDone();
 		player.specAmount = 10;
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
-		player.lastVeng = 0;
-		player.vengOn = false;
 		resetFollowers();
 		player.attackTimer = 10;
 		player.getPacketSender().closeAllWindows();

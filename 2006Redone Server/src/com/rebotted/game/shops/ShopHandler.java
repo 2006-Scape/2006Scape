@@ -93,7 +93,7 @@ public class ShopHandler {
 					if (PlayerHandler.players[k] != null) {
 						if (PlayerHandler.players[k].isShopping && PlayerHandler.players[k].shopId == i) {
 							PlayerHandler.players[k].updateShop = true;
-							PlayerHandler.players[k].updateshop(i);
+							PlayerHandler.players[k].updateShop(i);
 						}
 					}
 				}

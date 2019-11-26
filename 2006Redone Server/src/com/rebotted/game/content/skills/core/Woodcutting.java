@@ -27,31 +27,74 @@ public class Woodcutting {
 			{6739, 61, 8, 2846}, 
 			{13661, 41, 8, 10251} 
 		};
-
-	public final static int[][] Tree_Settings = {
-			{ 1276, 1342, 1, 25, 1511, 45, 100 },
-			{ 1278, 1342, 1, 25, 1511, 45, 100 }, 
-			{ 1286, 1342, 1, 25, 1511, 45, 100 },
-			{ 1281, 1356, 15, 38, 1521, 11, 20 },
-			{ 1308, 7399, 30, 68, 1519, 11, 8 },
-			{ 5552, 7399, 30, 68, 1519, 11, 8 },
-			{ 1307, 1343, 45, 100, 1517, 48, 8 },
-			{ 1309, 7402, 60, 175, 1515, 79, 5 },
-			{ 1306, 7401, 75, 250, 1513, 150, 3 },
-			{ 5551, 7399, 30, 68, 1519, 11, 8 },
-			{ 5553, 7399, 30, 68, 1519, 11, 8 },
-			{ 3033, 1342, 1, 25, 1511, 45, 100 }, 
-			{ 3037, 1356, 15, 38, 1521, 11, 20 },
-			{ 1282, 1342, 1, 25, 1511, 45, 100 },
-			{ 1383, 1342, 1, 25, 1511, 45, 100 },
-			{ 2023, 3371, 1, 25, 2862, 45, 100 },
-			{ 1319, 1341, 1, 25, 1511, 45, 100 },
-			{ 1318, 1341, 1, 25, 1511, 45, 100 }, 
-			{ 1315, 1341, 1, 25, 1511, 45, 100 }, 
-			{ 1316, 1341, 1, 25, 1511, 45, 100 }, 
-			{ 1332, 1341, 1, 25, 1511, 45, 100 },
-			{ 1292, 1341, 36, 1, 771, 45, 100 } 
-	};
+	
+	private static enum treeData {
+		TREE(new int[] {1276, 1278, 1286, 3033, 1282, 1383}, 1342, 1, 25, 1511, 11, 100),
+		OAK(new int[] {1281, 3037}, 1356, 15, 38, 1521, 25, 20),
+		WILLOW(new int[] {1308, 5552, 5551, 5553}, 7399, 30, 68, 1519, 30, 8),
+		MAPLE(new int[] {1307}, 1343, 45, 100, 1517, 48, 8),
+		YEW(new int[] {1309}, 7402, 60, 175, 1515, 79, 5),
+		MAGIC(new int[] {1306}, 7401, 75, 250, 1513, 150, 3),
+		EVERGREEN(new int[] {1319, 1318, 1315, 1316, 1332}, 1341, 1, 25, 1511, 11, 100),
+		ACHEY(new int[] {2023}, 3371, 1, 25, 1511, 11, 100),
+		DRAMEN(new int[] {1292}, 1341, 1, 25, 771, 45, 100);
+		
+		private int[] treeId;
+		private int stumpId, levelReq, xpRecieved, logRecieved, respawnTime, cutChance;
+		
+		private treeData(int[] treeId, int stumpId, int levelReq, int xpRecieved, int logRecieved, int respawnTime, int cutChance) {
+			this.treeId = treeId;
+			this.stumpId = stumpId;
+			this.levelReq = levelReq;
+			this.xpRecieved = xpRecieved;
+			this.logRecieved = logRecieved;
+			this.respawnTime = respawnTime;
+			this.cutChance = cutChance;
+		}
+		
+		private int getStump() {
+			return stumpId;
+		}
+		
+		private int getLevelReq() {
+			return levelReq;
+		}
+		
+		private int getXpReceived() {
+			return xpRecieved;
+		}
+		
+		private int getLogRecieved() {
+			return logRecieved;
+		}
+		
+		private int getRespawnTime() {
+			return respawnTime;
+		}
+		
+		private int getChance() {
+			return cutChance;
+		}
+		
+		private int getObject(int object) {
+			for (int element : treeId) {
+				if (object == element) {
+					return element;
+				}
+			}
+			return -1;
+		}
+		
+		private static treeData getTree(int objectId) {
+			for (treeData tree : treeData.values()) {
+				if (objectId == tree.getObject(objectId)) {
+					return tree;
+				}
+			}
+			return null;
+		}
+		
+	}
 
 	public static int[][] FIX_AXE = { { 492, 508, 1351 }, { 492, 510, 1349 },
 			{ 492, 512, 1353 }, { 492, 514, 1361 }, { 492, 516, 1355 },
@@ -63,22 +106,16 @@ public class Woodcutting {
 		CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (p.isWoodcutting)
-				{
-					if ((a >= 0) && (a < Axe_Settings.length))
-					{
-						try
-						{
+				if (p.isWoodcutting) {
+					if ((a >= 0) && (a < Axe_Settings.length))	{
+						try {
 							p.startAnimation(Axe_Settings[a][3]);
-						} catch (ArrayIndexOutOfBoundsException exception)
-						{
+						} catch (ArrayIndexOutOfBoundsException exception) {
 							System.out.println("LOL this happend again: " + exception);
 						}
 						p.getPacketSender().sendSound(SoundList.TREE_CUTTING, 100, 0);
 					}
-				}
-				else
-				{
+				} else {
 					container.stop();
 				}
 			}
@@ -99,17 +136,13 @@ public class Woodcutting {
 
 		for (int axes[] : Axe_Settings) {
 			int type = axes[0];
-			if ( player.getItemAssistant().playerHasItem(type) || player.playerEquipment[player.playerWeapon] == type)
-			{
+			if ( player.getItemAssistant().playerHasItem(type) || player.playerEquipment[player.playerWeapon] == type) {
 				gotAxe = true;
 			}
 		}
-		if (gotAxe)
-		{
+		if (gotAxe) {
 			player.getPacketSender().sendMessage("You swing your axe at the station.");
-		}
-		else
-		{
+		} else {
 			player.getPacketSender().sendMessage("You need an axe to cut the station.");
 			return;
 		}
@@ -196,7 +229,7 @@ public class Woodcutting {
 		return false;
 	}
 
-	public static void startWoodcutting(final Player p, final int j, final int x, final int y, final int type) {
+	public static void startWoodcutting(final Player p, final int objectId, final int x, final int y, final int type) {
 		CycleEventHandler.getSingleton().stopEvents(p, "WoodcuttingEvent".hashCode());
 		if (p.isWoodcutting || p.isFletching || p.isFiremaking || p.playerIsFletching) {
 			return;
@@ -211,9 +244,10 @@ public class Woodcutting {
 		}
 		int wcLevel = p.playerLevel[8];
 		a = -1;
+		treeData tree = treeData.getTree(objectId);
 		p.turnPlayerTo(x, y);
-		if (Tree_Settings[j][2] > wcLevel) {
-			p.getPacketSender().sendMessage("You need a Woodcutting level of " + Tree_Settings[j][2] + " to cut this tree.");
+		if (tree.getLevelReq() > wcLevel) {
+			p.getPacketSender().sendMessage("You need a Woodcutting level of " + tree.getLevelReq() + " to cut this tree.");
 			return;
 		}
 		for (int i = 0; i < Axe_Settings.length; i++) {
@@ -278,11 +312,11 @@ public class Woodcutting {
 						p.getPacketSender().sendMessage("You have ran out of inventory slots.");
 						container.stop();
 					}
-					int XP = Tree_Settings[j][3];
+					int XP = tree.getXpReceived();
 					if (p.isWoodcutting) {
-						p.getItemAssistant().addItem(Tree_Settings[j][4], 1);
+						p.getItemAssistant().addItem(tree.getLogRecieved(), 1);
 						p.getPlayerAssistant().addSkillXP(XP, 8);
-						p.getPacketSender().sendMessage("You manage to get some " + ItemAssistant.getItemName(Tree_Settings[j][4]).toLowerCase() + " from the tree.");
+						p.getPacketSender().sendMessage("You manage to get some " + ItemAssistant.getItemName(tree.getLogRecieved()).toLowerCase() + " from the tree.");
 					}
 					if (p.tutorialProgress == 3) {
 						p.getDialogueHandler().sendDialogues(3014, 0);
@@ -299,8 +333,8 @@ public class Woodcutting {
 					if (p.playerIsFletching || p.isFiremaking) {
 						container.stop();
 					}
-					if (Misc.random(100) <= Tree_Settings[j][6]) {
-						cutDownTree(Tree_Settings[j][5], x, y, type, Tree_Settings[j][1], Tree_Settings[j][0]);
+					if (Misc.random(100) <= tree.getChance()) {
+						cutDownTree(tree.getRespawnTime(), x, y, type, tree.getStump(), objectId);
 						p.getPacketSender().sendSound(SoundList.TREE_EMPTY, 100, 0);
 						container.stop();
 					}
@@ -312,7 +346,7 @@ public class Woodcutting {
 					p.treeX = 0;
 					p.treeY = 0;
 				}
-			}, getTimer(j, a, wcLevel));
+			}, getTimer(tree, a, wcLevel));
 		}
 	}
 
@@ -323,8 +357,8 @@ public class Woodcutting {
 		player.treeY = 0;
 	}
 	
-	public static int getTimer(int b, int c, int level) {
-		double timer = (int)((Tree_Settings[b][2]  * 2) + 20 + Misc.random(20))-((Axe_Settings[c][2] * (Axe_Settings[c][2] * 0.75)) + level);
+	public static int getTimer(treeData tree, int axe, int level) {
+		double timer = (int)((tree.getLevelReq()  * 2) + 20 + Misc.random(20))-((Axe_Settings[axe][2] * (Axe_Settings[axe][2] * 0.75)) + level);
 		if (timer < 3.0) {
 			return 3;
 		} else {
@@ -384,17 +418,19 @@ public class Woodcutting {
 			{ // MAPLE
 			1307, 4674, 8435, 8436, 8437, 8438, 8439, 8440, 8441, 8442, 8443,
 					8444, 8454, 8455, 8456, 8457, 8458, 8459, 8460, 8461,
-					13415, 13423, }, { // YEW
+					13415, 13423, }, 
+			{ // YEW
 			1309, 8503, 8504, 8505, 8506, 8507, 8508, 8509, 8510, 8511, 8512,
-					8513, 13416, 13422, }, { // MAGIC
+					8513, 13416, 13422, }, 
+			{ // MAGIC
 			1306, 8396, 8397, 8398, 8399, 8400, 8401, 8402, 8403, 8404, 8405,
 					8406, 8407, 8408, 8409, 13417, 13424, } };
 
-	public static void cutDownTree(int respawnTime, int x, int y, int type, int i, int j) {
-		new Object(i, x, y, 0, type, 10, j, respawnTime);
+	public static void cutDownTree(int respawnTime, int objectX, int objectY, int type, int i, int objectId) {
+		new Object(i, objectX, objectY, 0, type, 10, objectId, respawnTime);
 		for (int t = 0; t < PlayerHandler.players.length; t++) {
 			if (PlayerHandler.players[t] != null) {
-				if (PlayerHandler.players[t].treeX == x && PlayerHandler.players[t].treeY == y) {
+				if (PlayerHandler.players[t].treeX == objectX && PlayerHandler.players[t].treeY == objectY) {
 					PlayerHandler.players[t].isWoodcutting = false;
 					PlayerHandler.players[t].startAnimation(65535);
 					PlayerHandler.players[t].treeX = 0;

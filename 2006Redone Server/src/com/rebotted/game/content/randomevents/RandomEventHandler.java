@@ -1,6 +1,5 @@
 package com.rebotted.game.content.randomevents;
 
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
@@ -61,8 +60,7 @@ public class RandomEventHandler {
 	}
 
 	public static void addRandom(Player c) {
-		if (c.randomEventsEnabled)
-		{
+		if (c.randomEventsEnabled) {
 			if (c.randomActions >= CALL_RANDOM) {
 				callRandom(c);
 				if (c.playerIsBusy() && !c.hasSandwhichLady) {

@@ -1379,28 +1379,6 @@ public class CombatAssistant {
 		}
 	}
 
-	public void appendVengeance(int otherPlayer, int damage) {
-		if (damage <= 0) {
-			return;
-		}
-		Player o = PlayerHandler.players[otherPlayer];
-		o.forcedText = "Taste Vengeance!";
-		o.forcedChatUpdateRequired = true;
-		o.updateRequired = true;
-		o.vengOn = false;
-		if (o.playerLevel[3] - damage > 0) {
-			damage = (int) (damage * 0.75);
-			if (damage > c.playerLevel[3]) {
-				damage = c.playerLevel[3];
-			}
-			c.setHitDiff2(damage);
-			c.setHitUpdateRequired2(true);
-			c.playerLevel[3] -= damage;
-			c.getPlayerAssistant().refreshSkill(3);
-		}
-		c.updateRequired = true;
-	}
-
 	public void playerDelayedHit(int i) {
 		if (PlayerHandler.players[i] != null) {
 			if (PlayerHandler.players[i].isDead || c.isDead
@@ -1513,10 +1491,6 @@ public class CombatAssistant {
 				if (damage2 < 0 && damage2 != -1) {
 					damage2 = 0;
 				}
-				if (o.vengOn) {
-					appendVengeance(i, damage);
-					appendVengeance(i, damage2);
-				}
 				if (damage > 0) {
 					applyRecoil(c, damage, i);
 				}
@@ -1599,9 +1573,6 @@ public class CombatAssistant {
 				}
 				if (PlayerHandler.players[i].playerLevel[3] - damage < 0) {
 					damage = PlayerHandler.players[i].playerLevel[3];
-				}
-				if (o.vengOn) {
-					appendVengeance(i, damage);
 				}
 				if (damage > 0) {
 					applyRecoil(c, damage, i);
@@ -1843,9 +1814,6 @@ public class CombatAssistant {
 				&& !veracsEffect) { // if prayer active reduce damage by 40%
 			damage = damage * 60 / 100;
 		}
-		if (c.maxNextHit) {
-			damage = meleeMaxHit();
-		}
 		if (damage > 0 && guthansEffect) {
 			c.playerLevel[3] += damage;
 			if (c.playerLevel[3] > c.getLevelForXP(c.playerXP[3])) {
@@ -1854,15 +1822,8 @@ public class CombatAssistant {
 			c.getPlayerAssistant().refreshSkill(3);
 			o.gfx0(398);
 		}
-		if (c.ssSpec && damageMask == 2) {
-			damage = 5 + Misc.random(11);
-			c.ssSpec = false;
-		}
 		if (PlayerHandler.players[i].playerLevel[3] - damage < 0) {
 			damage = PlayerHandler.players[i].playerLevel[3];
-		}
-		if (o.vengOn && damage > 0) {
-			appendVengeance(i, damage);
 		}
 		if (damage > 0) {
 			applyRecoil(c, damage, i);

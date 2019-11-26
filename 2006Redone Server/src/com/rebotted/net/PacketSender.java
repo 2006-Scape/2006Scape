@@ -2,8 +2,15 @@ package com.rebotted.net;
 
 import java.text.DecimalFormat;
 
+import com.rebotted.Connection;
 import com.rebotted.GameConstants;
+import com.rebotted.GameEngine;
+import com.rebotted.game.content.combat.magic.MagicTeleports;
+import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.content.skills.SkillHandler;
+import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.Weight;
+import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
@@ -17,7 +24,135 @@ public class PacketSender {
 	public PacketSender(Player player2) {
 		this.player = player2;
 	}
-
+	
+	public PacketSender loginPlayer() {
+		player.getPlayerAssistant().loginScreen();
+		if (Connection.isNamedBanned(player.playerName)) {
+			player.logout();
+			return this;
+		}
+		if (player.getOutStream() != null) {
+			player.outStream.createFrame(249);
+			player.outStream.writeByteA(1);
+			player.outStream.writeWordBigEndianA(player.playerId);
+			for (int j = 0; j < PlayerHandler.players.length; j++) {
+				if (j == player.playerId) {
+					continue;
+				}
+				if (PlayerHandler.players[j] != null) {
+					if (PlayerHandler.players[j].playerName.equalsIgnoreCase(player.playerName)) {
+						player.disconnected = true;
+					}
+				}
+			}
+		}
+		player.lastLoginDate = player.getLastLogin();
+		QuestAssistant.sendStages(player);
+		if (player.hasNpc == true) {
+			if (player.summonId > 0) {
+				GameEngine.npcHandler.spawnNpc3(player, player.summonId, player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200, 200, true, false, true);
+			}
+		}
+		if (player.questPoints > QuestAssistant.MAXIMUM_QUESTPOINTS || player.playerRights > 2) {
+			player.questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for abusers
+		}
+		if (player.playerHitpoints < 0) {
+			player.isDead = true;
+		}
+		if (player.playerLevel[player.playerHitpoints] > 99) {
+			player.playerLevel[player.playerHitpoints] = 99;// check for abusers
+			player.getPlayerAssistant().refreshSkill(3);
+		}
+		if (player.playerLevel[player.playerFarming] > 1 && player.playerRights < 3) {
+			player.playerLevel[player.playerFarming] = 1;
+			player.getPlayerAssistant().refreshSkill(player.playerFarming);
+		}
+		if (player.tutorialProgress > 0 && player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
+			player.getPacketSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
+		}
+		if (player.tutorialProgress > 35) {
+			player.getPlayerAssistant().sendSidebars();
+			Weight.updateWeight(player);
+			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
+			player.getPacketSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
+			player.getPacketSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+			/*if (!hasBankpin) { //Kind of annoying. Maybe add Random % 10 or something.
+				getActionSender().sendMessage("You do not have a bank pin it is highly recommended you set one.");
+			}*/
+		}
+		player.getPlayerAssistant().firstTimeTutorial();
+		player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]));
+		for (int i = 0; i < 25; i++) {
+			player.getPacketSender().setSkillLevel(i, player.playerLevel[i], player.playerXP[i]);
+			player.getPlayerAssistant().refreshSkill(i);
+		}
+		for (int p = 0; p < player.getPrayer().PRAYER.length; p++) { // reset prayer glow
+			player.getPrayer().prayerActive[p] = false;
+			player.getPacketSender().sendConfig(player.getPrayer().PRAYER_GLOW[p], 0);
+		}
+		player.lastX = player.absX;
+		player.lastY = player.absY;
+		player.lastH = player.heightLevel;
+		if (player.inWild()) {
+			player.WildernessWarning = true;
+		}
+		if (player.splitChat == true) {
+			player.getPacketSender().sendConfig(502, 1);
+			player.getPacketSender().sendConfig(287, 1);
+		} else {
+			player.getPacketSender().sendConfig(502, 0);
+			player.getPacketSender().sendConfig(287, 0);
+		}
+		if (player.isRunning2) {
+			player.getPacketSender().sendConfig(504, 1);
+			player.getPacketSender().sendConfig(173, 1);
+		} else {
+			player.getPacketSender().sendConfig(504, 0);
+			player.getPacketSender().sendConfig(173, 0);
+		}
+		player.getPlayList().fixAllColors();
+		player.getPlayerAction().setAction(false);
+		player.getPlayerAction().canWalk(true);
+		player.getPlayerAssistant().handleWeaponStyle();
+		MagicTeleports.handleLoginText(player);
+		player.accountFlagged = player.getPlayerAssistant().checkForFlags();
+		player.getPacketSender().sendConfig(108, 0);// resets autocast button
+		player.getPacketSender().sendFrame107(); // reset screen
+		player.getPacketSender().setChatOptions(0, 0, 0); // reset private messaging options
+		player.correctCoordinates();
+		player.getPacketSender().showOption(4, 0, "Trade With", 3);
+		player.getPacketSender().showOption(5, 0, "Follow", 4);
+		player.getItemAssistant().resetItems(3214);
+		player.getItemAssistant().resetBonus();
+		player.getItemAssistant().getBonus();
+		player.getItemAssistant().writeBonus();
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerHat], 1, player.playerHat);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerCape], 1, player.playerCape);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerAmulet], 1, player.playerAmulet);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerArrows], player.playerEquipmentN[player.playerArrows], player.playerArrows);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerChest], 1, player.playerChest);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerShield], 1, player.playerShield);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerLegs], 1, player.playerLegs);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerHands], 1, player.playerHands);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerFeet], 1, player.playerFeet);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerRing], 1,player.playerRing);
+		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerWeapon], player.playerEquipmentN[player.playerWeapon], player.playerWeapon);
+		player.getCombatAssistant().getPlayerAnimIndex();
+		player.getPlayerAssistant().logIntoPM();
+		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
+		player.saveTimer = GameConstants.SAVE_TIMER;
+		player.saveCharacter = true;
+		Misc.println("[REGISTERED]: " + player.playerName + "");
+		player.handler.updatePlayer(player, player.outStream);
+		player.handler.updateNPC(player, player.outStream);
+		player.flushOutStream();
+		player.getPlayerAssistant().resetFollow();
+		LightSources.saveBrightness(player);
+		player.getPlayerAssistant().sendAutoRetalitate();
+		player.getCannon().loginCheck();
+		return this;
+	}
 
 	public PacketSender sendClan(String name, String message, String clan, int rights) {
 		if (player.getOutStream() == null) 

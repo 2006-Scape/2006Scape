@@ -234,7 +234,7 @@ public class PlayerHandler {
 					players[i] = null;
 				} else {
 					if (!players[i].initialized) {
-						players[i].loginPlayer();
+						players[i].getPacketSender().loginPlayer();
 						players[i].initialized = true;
 					} else {
 						players[i].update();
@@ -278,7 +278,7 @@ public class PlayerHandler {
 		int size = plr.npcListSize;
 		plr.npcListSize = 0;
 		for (int i = 0; i < size; i++) {
-			if (plr.RebuildNPCList == false && plr.withinDistance(plr.npcList[i]) == true) {
+			if (plr.rebuildNPCList == false && plr.withinDistance(plr.npcList[i]) == true) {
 				plr.npcList[i].updateNPCMovement(str);
 				plr.npcList[i].appendNPCUpdateBlock(updateBlock);
 				plr.npcList[plr.npcListSize++] = plr.npcList[i];
@@ -294,7 +294,7 @@ public class PlayerHandler {
 		for (Npc i : NpcHandler.npcs) {
 			if (i != null) {
 				int id = i.npcId;
-				if (plr.RebuildNPCList == false
+				if (plr.rebuildNPCList == false
 						&& (plr.npcInListBitmap[id >> 3] & 1 << (id & 7)) != 0) {
 				} else if (plr.withinDistance(i) == false) {
 				} else {
@@ -303,7 +303,7 @@ public class PlayerHandler {
 			}
 		}
 
-		plr.RebuildNPCList = false;
+		plr.rebuildNPCList = false;
 
 		if (str != null) {
 			if (updateBlock.currentOffset > 0) {
