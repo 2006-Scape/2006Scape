@@ -166,7 +166,7 @@ public class BotHandler {
     public static void removeFrombank(int shop_id, int item_id, int amount){
         Client shop = getPlayerShop(shop_id);
         if (shop == null) return;
-        shop.getItemAssistant().removeitemFromBank(item_id, amount);
+        shop.getItemAssistant().removeItemFromBank(item_id, amount);
     }
 
     public static int getItemPrice(int shop_id, int item_id){

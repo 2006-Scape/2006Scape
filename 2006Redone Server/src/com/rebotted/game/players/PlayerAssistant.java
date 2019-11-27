@@ -1,8 +1,8 @@
 package com.rebotted.game.players;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Random;
-
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
@@ -15,6 +15,7 @@ import com.rebotted.game.content.minigames.PestControl;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
+import com.rebotted.game.content.skills.SkillData;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.content.skills.smithing.Superheat;
 import com.rebotted.game.items.GameItem;
@@ -2027,441 +2028,43 @@ public class PlayerAssistant {
 		}
 	}
 
-	public int getTotalLevel()
-	{
-		return getLevelForXP(player.playerXP[0])
-				+ getLevelForXP(player.playerXP[1])
-				+ getLevelForXP(player.playerXP[2])
-				+ getLevelForXP(player.playerXP[3])
-				+ getLevelForXP(player.playerXP[4])
-				+ getLevelForXP(player.playerXP[5])
-				+ getLevelForXP(player.playerXP[6])
-				+ getLevelForXP(player.playerXP[7])
-				+ getLevelForXP(player.playerXP[8])
-				+ getLevelForXP(player.playerXP[9])
-				+ getLevelForXP(player.playerXP[10])
-				+ getLevelForXP(player.playerXP[11])
-				+ getLevelForXP(player.playerXP[12])
-				+ getLevelForXP(player.playerXP[13])
-				+ getLevelForXP(player.playerXP[14])
-				+ getLevelForXP(player.playerXP[15])
-				+ getLevelForXP(player.playerXP[16])
-				+ getLevelForXP(player.playerXP[17])
-				+ getLevelForXP(player.playerXP[18])
-				+ getLevelForXP(player.playerXP[19])
-				+ getLevelForXP(player.playerXP[20]);
+	public int getTotalLevel() {
+		int total = 0;
+		for (int i = 0; i <= 20; i++) {
+			total += getLevelForXP(player.playerXP[i]);
+		}
+		return total;
 	}
 
 	public void levelUp(int skill) {
 		SkillHandler.resetSkills(player);
-		player.getPacketSender().sendFrame126("Total Lvl: " + getTotalLevel(), 3984);
-		switch (skill) {
-		case 0:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced an attack level!",
-					6248);
-			player.getPacketSender().sendFrame126("Your attack level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6249);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced an attack level.");
-			player.getPacketSender().sendChatInterface(6247);
-			break;
+		player.getPacketSender().sendFrame126("Total Lvl: "+getTotalLevel(), 3984);
+		player.getPacketSender().sendFrame126("Combat Lvl: "+player.calculateCombatLevel()+"", 3983);
 
-		case 1:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a defence level!",
-					6254);
-			player.getPacketSender().sendFrame126("Your defence level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6255);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a defence level.");
-			player.getPacketSender().sendChatInterface(6253);
-			break;
-
-		case 2:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a strength level!",
-					6207);
-			player.getPacketSender().sendFrame126("Your strength level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6208);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a strength level.");
-			player.getPacketSender().sendChatInterface(6206);
-			break;
-
-		case 3:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a hitpoints level!",
-					6217);
-			player.getPacketSender().sendFrame126("Your hitpoints level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6218);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a hitpoints level.");
-			player.getPacketSender().sendChatInterface(6216);
-			if (player.playerLevel[3] < player.getPlayerAssistant()
-					.getLevelForXP(player.playerXP[3])) {
-				player.playerLevel[3] += 1;
-			}
-			refreshSkill(3);
-			break;
-
-		case 4:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a ranged level!",
-					5453);
-			player.getPacketSender().sendFrame126("Your ranged level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6114);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a ranging level.");
-			player.getPacketSender().sendChatInterface(4443);
-			break;
-
-		case 5:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a prayer level!",
-					6243);
-			player.getPacketSender().sendFrame126("Your prayer level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6244);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a prayer level.");
-			player.getPacketSender().sendChatInterface(6242);
-			break;
-
-		case 6:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a magic level!",
-					6212);
-			player.getPacketSender().sendFrame126("Your magic level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6213);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a magic level.");
-			player.getPacketSender().sendChatInterface(6211);
-			break;
-
-		case 7:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a cooking level!",
-					6227);
-			player.getPacketSender().sendFrame126("Your cooking level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6228);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a cooking level.");
-			player.getPacketSender().sendChatInterface(6226);
-			break;
-
-		case 8:
-			player.getPacketSender().sendFrame126(
-					"Congratulations, you just advanced a woodcutting level!",
-					4273);
-			player.getPacketSender().sendFrame126("Your woodcutting level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 4274);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a woodcutting level.");
-			player.getPacketSender().sendChatInterface(4272);
-			break;
-
-		case 9:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a fletching level!",
-					6232);
-			player.getPacketSender().sendFrame126("Your fletching level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6233);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a fletching level.");
-			player.getPacketSender().sendChatInterface(6231);
-			break;
-
-		case 10:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a fishing level!",
-					6259);
-			player.getPacketSender().sendFrame126("Your fishing level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6260);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a fishing level.");
-			player.getPacketSender().sendChatInterface(6258);
-			break;
-
-		case 11:
-			player.getPacketSender().sendFrame126(
-					"Congratulations, you just advanced a fire making level!",
-					4283);
-			player.getPacketSender().sendFrame126("Your firemaking level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 4284);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a fire making level.");
-			player.getPacketSender().sendChatInterface(4282);
-			break;
-
-		case 12:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a crafting level!",
-					6264);
-			player.getPacketSender().sendFrame126("Your crafting level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6265);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a crafting level.");
-			player.getPacketSender().sendChatInterface(6263);
-			break;
-
-		case 13:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a smithing level!",
-					6222);
-			player.getPacketSender().sendFrame126("Your smithing level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6223);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a smithing level.");
-			player.getPacketSender().sendChatInterface(6221);
-			break;
-
-		case 14:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a mining level!",
-					4417);
-			player.getPacketSender().sendFrame126("Your mining level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 4438);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a mining level.");
-			player.getPacketSender().sendChatInterface(4416);
-			break;
-
-		case 15:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a herblore level!",
-					6238);
-			player.getPacketSender().sendFrame126("Your herblore level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 6239);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a herblore level.");
-			player.getPacketSender().sendChatInterface(6237);
-			break;
-
-		case 16:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a agility level!",
-					4278);
-			player.getPacketSender().sendFrame126("Your agility level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 4279);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced an agility level.");
-			player.getPacketSender().sendChatInterface(4277);
-			break;
-
-		case 17:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a thieving level!",
-					4263);
-			player.getPacketSender().sendFrame126("Your theiving level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 4264);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a thieving level.");
-			player.getPacketSender().sendChatInterface(4261);
-			break;
-
-		case 18:
-			player.getPacketSender().sendFrame126("Congratulations, you just advanced a slayer level!",
-					12123);
-			player.getPacketSender().sendFrame126("Your slayer level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 12124);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a slayer level.");
-			player.getPacketSender().sendChatInterface(12122);
-			break;
-
-		case 20:
-			player.getPacketSender().sendFrame126(
-					"Congratulations, you just advanced a runecrafting level!",
-					4268);
-			player.getPacketSender().sendFrame126("Your runecrafting level is now "
-					+ getLevelForXP(player.playerXP[skill]) + ".", 4269);
-			player.getPacketSender().sendMessage(
-					"Congratulations, you just advanced a runecrafting level.");
-			player.getPacketSender().sendChatInterface(4267);
-			break;
-		}
+		Optional<SkillData> data = SkillData.getSkill(skill);
+		
+		if(!data.isPresent())
+			return;
+					
+		player.getPacketSender().sendMessage("Congratulations, you've advanced a level in "+data.get().toString()+"!");
+		player.getPacketSender().sendFrame126("Congratulations, you've advanced a level in "+data.get().toString()+"!", data.get().getFrame2());
+		player.getPacketSender().sendFrame126("Your " +data.get().toString()+ " level is now " + getLevelForXP(player.playerXP[skill]) + ".", data.get().getFrame3());
+		player.getPacketSender().sendChatInterface(data.get().getFrame1());
 		player.dialogueAction = 0;
-		player.nextChat = 0;
 	}
 
-	public void refreshSkill(int i) {
-		switch (i) {
-		case 0:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[0] + "", 4004);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[0]) + "", 4005);
-			player.getPacketSender().sendFrame126("" + player.playerXP[0] + "", 4044);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[0]) + 1)
-							+ "", 4045);
-			break;
+	public void refreshSkill(int skill) {
+		player.getPacketSender().sendFrame126("Total Lvl: "+getTotalLevel(), 3984);
+		player.getPacketSender().sendFrame126("Combat Lvl: "+player.calculateCombatLevel()+"", 3983);
+		Optional<SkillData> data = SkillData.getSkill(skill);
 
-		case 1:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[1] + "", 4008);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[1]) + "", 4009);
-			player.getPacketSender().sendFrame126("" + player.playerXP[1] + "", 4056);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[1]) + 1)
-							+ "", 4057);
-			break;
+		if(!data.isPresent())
+			return;
 
-		case 2:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[2] + "", 4006);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[2]) + "", 4007);
-			player.getPacketSender().sendFrame126("" + player.playerXP[2] + "", 4050);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[2]) + 1)
-							+ "", 4051);
-			break;
-
-		case 3:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[3] + "", 4016);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[3]) + "", 4017);
-			player.getPacketSender().sendFrame126("" + player.playerXP[3] + "", 4080);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[3]) + 1)
-							+ "", 4081);
-			break;
-
-		case 4:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[4] + "", 4010);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[4]) + "", 4011);
-			player.getPacketSender().sendFrame126("" + player.playerXP[4] + "", 4062);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[4]) + 1)
-							+ "", 4063);
-			break;
-
-		case 5:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[5] + "", 4012);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[5]) + "", 4013);
-			player.getPacketSender().sendFrame126("" + player.playerXP[5] + "", 4068);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[5]) + 1)
-							+ "", 4069);
-			player.getPacketSender().sendFrame126("" + player.playerLevel[5] + "/"
-					+ getLevelForXP(player.playerXP[5]) + "", 687);// Prayer
-																	// frame
-			break;
-
-		case 6:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[6] + "", 4014);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[6]) + "", 4015);
-			player.getPacketSender().sendFrame126("" + player.playerXP[6] + "", 4074);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[6]) + 1)
-							+ "", 4075);
-			break;
-
-		case 7:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[7] + "", 4034);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[7]) + "", 4035);
-			player.getPacketSender().sendFrame126("" + player.playerXP[7] + "", 4134);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[7]) + 1)
-							+ "", 4135);
-			break;
-
-		case 8:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[8] + "", 4038);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[8]) + "", 4039);
-			player.getPacketSender().sendFrame126("" + player.playerXP[8] + "", 4146);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[8]) + 1)
-							+ "", 4147);
-			break;
-
-		case 9:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[9] + "", 4026);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[9]) + "", 4027);
-			player.getPacketSender().sendFrame126("" + player.playerXP[9] + "", 4110);
-			player.getPacketSender().sendFrame126(
-					"" + getXPForLevel(getLevelForXP(player.playerXP[9]) + 1)
-							+ "", 4111);
-			break;
-
-		case 10:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[10] + "", 4032);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[10]) + "", 4033);
-			player.getPacketSender().sendFrame126("" + player.playerXP[10] + "", 4128);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[10]) + 1)
-					+ "", 4129);
-			break;
-
-		case 11:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[11] + "", 4036);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[11]) + "", 4037);
-			player.getPacketSender().sendFrame126("" + player.playerXP[11] + "", 4140);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[11]) + 1)
-					+ "", 4141);
-			break;
-
-		case 12:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[12] + "", 4024);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[12]) + "", 4025);
-			player.getPacketSender().sendFrame126("" + player.playerXP[12] + "", 4104);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[12]) + 1)
-					+ "", 4105);
-			break;
-
-		case 13:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[13] + "", 4030);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[13]) + "", 4031);
-			player.getPacketSender().sendFrame126("" + player.playerXP[13] + "", 4122);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[13]) + 1)
-					+ "", 4123);
-			break;
-
-		case 14:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[14] + "", 4028);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[14]) + "", 4029);
-			player.getPacketSender().sendFrame126("" + player.playerXP[14] + "", 4116);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[14]) + 1)
-					+ "", 4117);
-			break;
-
-		case 15:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[15] + "", 4020);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[15]) + "", 4021);
-			player.getPacketSender().sendFrame126("" + player.playerXP[15] + "", 4092);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[15]) + 1)
-					+ "", 4093);
-			break;
-
-		case 16:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[16] + "", 4018);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[16]) + "", 4019);
-			player.getPacketSender().sendFrame126("" + player.playerXP[16] + "", 4086);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[16]) + 1)
-					+ "", 4087);
-			break;
-
-		case 17:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[17] + "", 4022);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[17]) + "", 4023);
-			player.getPacketSender().sendFrame126("" + player.playerXP[17] + "", 4098);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[17]) + 1)
-					+ "", 4099);
-			break;
-
-		case 18:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[18] + "", 12166);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[18]) + "", 12167);
-			player.getPacketSender().sendFrame126("" + player.playerXP[18] + "", 12171);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[18]) + 1)
-					+ "", 12172);
-			break;
-
-		case 19:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[19] + "", 13926);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[19]) + "", 13927);
-			player.getPacketSender().sendFrame126("" + player.playerXP[19] + "", 13921);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[19]) + 1)
-					+ "", 13922);
-			break;
-
-		case 20:
-			player.getPacketSender().sendFrame126("" + player.playerLevel[20] + "", 4152);
-			player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[20]) + "", 4153);
-			player.getPacketSender().sendFrame126("" + player.playerXP[20] + "", 4157);
-			player.getPacketSender().sendFrame126(""
-					+ getXPForLevel(getLevelForXP(player.playerXP[20]) + 1)
-					+ "", 4158);
-			break;
-		}
+		player.getPacketSender().sendFrame126("" + player.playerLevel[skill] + "", data.get().getFrame4());
+		player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[skill]) + "", data.get().getFrame5());
+		player.getPacketSender().sendFrame126("" + player.playerXP[skill] + "", data.get().getFrame6());
+		player.getPacketSender().sendFrame126("" + getXPForLevel(getLevelForXP(player.playerXP[skill]) + 1) + "", data.get().getFrame7());
 	}
 
 	public int getXPForLevel(int level) {
@@ -2785,8 +2388,7 @@ public class PlayerAssistant {
 		if (i < 0) {
 			return;
 		}
-		player.getPacketSender().sendMessage(
-				"This pouch has " + player.pouches[i] + " rune ess in it.");
+		player.getPacketSender().sendMessage("This pouch has " + player.pouches[i] + " rune ess in it.");
 	}
 
 	public void fillPouch(int i) {
@@ -2829,8 +2431,7 @@ public class PlayerAssistant {
 				if (player.playerItems[j] - 1 == brokenBarrow[1]) {
 					if (totalCost + 80000 > cashAmount) {
 						breakOut = true;
-						player.getPacketSender().sendMessage(
-								"You have run out of money.");
+						player.getPacketSender().sendMessage("You have run out of money.");
 						break;
 					} else {
 						totalCost += 80000;
@@ -2843,8 +2444,7 @@ public class PlayerAssistant {
 			}
 		}
 		if (totalCost > 0) {
-			player.getItemAssistant().deleteItem(995,
-					player.getItemAssistant().getItemSlot(995), totalCost);
+			player.getItemAssistant().deleteItem(995, player.getItemAssistant().getItemSlot(995), totalCost);
 		}
 	}
 
