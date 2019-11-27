@@ -9,7 +9,7 @@ import com.rebotted.game.players.Player;
 
 public class SingleGates extends GateHandler {
 	
-	public static void useSingleGate(Player player, int objectId) {
+	public void useSingleGate(Player player, int objectId) {
 		switch (objectId) {
 			case 3444:
 				openSingleGate(player, 3444, 3405, 9894, 3405, 9895, 0, player.absY == 9894 ? 1 : -1, 0, 3);

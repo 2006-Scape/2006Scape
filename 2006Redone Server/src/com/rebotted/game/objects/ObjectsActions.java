@@ -110,8 +110,8 @@ public class ObjectsActions {
 		Searching.searchObject(player, objectType);
 		Levers.pullLever(player, objectType);
 		ThieveOther.lockedDoor(player, objectType);
-		SingleGates.useSingleGate(player, objectType);
-		DoubleGates.useDoubleGate(player, objectType);
+		player.getSingleGates().useSingleGate(player, objectType);
+		player.getDoubleGates().useDoubleGate(player, objectType);
 		PassDoor.processDoor(player, objectType);
 		AbyssalHandler.handleAbyssalTeleport(player, objectType);
 		// if its a rock we can mine, mine it

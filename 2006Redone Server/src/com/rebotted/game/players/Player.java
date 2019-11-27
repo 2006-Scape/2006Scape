@@ -49,6 +49,9 @@ import com.rebotted.game.content.skills.smithing.Smithing;
 import com.rebotted.game.content.skills.smithing.SmithingInterface;
 import com.rebotted.game.content.traveling.Desert;
 import com.rebotted.game.dialogues.DialogueHandler;
+import com.rebotted.game.globalworldobjects.DoubleGates;
+import com.rebotted.game.globalworldobjects.GateHandler;
+import com.rebotted.game.globalworldobjects.SingleGates;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
@@ -124,6 +127,21 @@ public abstract class Player {
 	private ChallengePlayer challengePlayer = new ChallengePlayer();
 	private DwarfCannon dwarfCannon = new DwarfCannon(this);
 	private CycleEventContainer currentTask;
+	private GateHandler gateHandler = new GateHandler();
+	private SingleGates singleGates = new SingleGates();
+	private DoubleGates doubleGates = new DoubleGates();
+	
+	public SingleGates getSingleGates() {
+		return singleGates;
+	}
+	
+	public DoubleGates getDoubleGates() {
+		return doubleGates;
+	}
+	
+	public GateHandler getGateHandler() {
+		return gateHandler;
+	}
 
 	public DwarfCannon getCannon() {
 		return dwarfCannon;
