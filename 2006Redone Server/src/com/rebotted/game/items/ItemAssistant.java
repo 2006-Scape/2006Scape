@@ -196,7 +196,6 @@ public class ItemAssistant {
 	}
 
 	public void removeItem(int slot) {
-		// synchronized(c) {
 		if (c.getOutStream() != null && c != null) {
 			if (c.playerEquipment[slot] > -1) {
 				if (addItem(c.playerEquipment[slot], c.playerEquipmentN[slot])) {
@@ -251,7 +250,6 @@ public class ItemAssistant {
 	}
 
 	public void resetItems(int WriteFrame) {
-		// synchronized(c) {
 		if (c.getOutStream() != null && c != null) {
 			c.getOutStream().createFrameVarSizeWord(53);
 			c.getOutStream().writeWord(WriteFrame);
@@ -1604,36 +1602,34 @@ public class ItemAssistant {
 	}
 
 	public void wearItem(int wearID, int wearAmount, int targetSlot) {
-		synchronized (c) {
-			if (c.getOutStream() != null && c != null) {
-				c.getOutStream().createFrameVarSizeWord(34);
-				c.getOutStream().writeWord(1688);
-				c.getOutStream().writeByte(targetSlot);
-				c.getOutStream().writeWord(wearID + 1);
+		if (c.getOutStream() != null && c != null) {
+			c.getOutStream().createFrameVarSizeWord(34);
+			c.getOutStream().writeWord(1688);
+			c.getOutStream().writeByte(targetSlot);
+			c.getOutStream().writeWord(wearID + 1);
 
-				if (wearAmount > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord(wearAmount);
-				} else {
-					c.getOutStream().writeByte(wearAmount);
-				}
-				c.getOutStream().endFrameVarSizeWord();
-				c.flushOutStream();
-				c.playerEquipment[targetSlot] = wearID;
-				c.playerEquipmentN[targetSlot] = wearAmount;
-				c.getItemAssistant();
-				c.getItemAssistant()
-						.sendWeapon(
-								c.playerEquipment[c.playerWeapon],
-								ItemAssistant
-										.getItemName(c.playerEquipment[c.playerWeapon]));
-				resetBonus();
-				getBonus();
-				writeBonus();
-				c.getCombatAssistant().getPlayerAnimIndex();
-				c.updateRequired = true;
-				c.setAppearanceUpdateRequired(true);
+			if (wearAmount > 254) {
+				c.getOutStream().writeByte(255);
+				c.getOutStream().writeDWord(wearAmount);
+			} else {
+				c.getOutStream().writeByte(wearAmount);
 			}
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
+			c.playerEquipment[targetSlot] = wearID;
+			c.playerEquipmentN[targetSlot] = wearAmount;
+			c.getItemAssistant();
+			c.getItemAssistant()
+					.sendWeapon(
+							c.playerEquipment[c.playerWeapon],
+							ItemAssistant
+									.getItemName(c.playerEquipment[c.playerWeapon]));
+			resetBonus();
+			getBonus();
+			writeBonus();
+			c.getCombatAssistant().getPlayerAnimIndex();
+			c.updateRequired = true;
+			c.setAppearanceUpdateRequired(true);
 		}
 	}
 
@@ -1744,41 +1740,38 @@ public class ItemAssistant {
 	}
 
 	public void resetBank() {
-		synchronized (c) {
+		if (c.getOutStream() != null) {
+			c.getOutStream().createFrameVarSizeWord(53);
+			c.getOutStream().writeWord(5382); // bank
+			c.getOutStream().writeWord(GameConstants.BANK_SIZE);
+		}
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			if (c.getOutStream() != null) {
-				c.getOutStream().createFrameVarSizeWord(53);
-				c.getOutStream().writeWord(5382); // bank
-				c.getOutStream().writeWord(GameConstants.BANK_SIZE);
-			}
-			for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
-				if (c.getOutStream() != null) {
-					if (c.bankItemsN[i] > 254) {
-						c.getOutStream().writeByte(255);
-						c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
-					} else {
-						c.getOutStream().writeByte(c.bankItemsN[i]);
-					}
-				}
-				if (c.bankItemsN[i] < 1) {
-					c.bankItems[i] = 0;
-				}
-				if (c.bankItems[i] > GameConstants.ITEM_LIMIT || c.bankItems[i] < 0) {
-					c.bankItems[i] = GameConstants.ITEM_LIMIT;
-				}
-				if (c.getOutStream() != null) {
-					c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+				if (c.bankItemsN[i] > 254) {
+					c.getOutStream().writeByte(255);
+					c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
+				} else {
+					c.getOutStream().writeByte(c.bankItemsN[i]);
 				}
 			}
+			if (c.bankItemsN[i] < 1) {
+				c.bankItems[i] = 0;
+			}
+			if (c.bankItems[i] > GameConstants.ITEM_LIMIT || c.bankItems[i] < 0) {
+				c.bankItems[i] = GameConstants.ITEM_LIMIT;
+			}
+			if (c.getOutStream() != null) {
+				c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+			}
+		}
 
-			if (c.getOutStream() != null) {
-				c.getOutStream().endFrameVarSizeWord();
-				c.flushOutStream();
-			}
+		if (c.getOutStream() != null) {
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
 		}
 	}
 
 	public void resetTempItems() {
-		// synchronized(c) {
 		int itemCount = 0;
 		for (int i = 0; i < c.playerItems.length; i++) {
 			if (c.playerItems[i] > -1) {
@@ -2222,7 +2215,6 @@ public class ItemAssistant {
 	 **/
 
 	public void setEquipment(int wearID, int amount, int targetSlot) {
-		// synchronized(c) {
 		if (c.getOutStream() != null) {
 			c.getOutStream().createFrameVarSizeWord(34);
 			c.getOutStream().writeWord(1688);
@@ -2313,7 +2305,6 @@ public class ItemAssistant {
 	 **/
 
 	public void deleteEquipment(int i, int j) {
-		// synchronized(c) {
 		if (PlayerHandler.players[c.playerId] == null) {
 			return;
 		}
@@ -2387,7 +2378,6 @@ public class ItemAssistant {
 	 * Delete Arrows
 	 **/
 	public void deleteArrow() {
-		// synchronized(c) {
 		if (c.playerEquipment[c.playerCape] == 10499 && Misc.random(5) != 1
 				&& c.playerEquipment[c.playerArrows] != 4740) {
 			return;
@@ -2418,7 +2408,6 @@ public class ItemAssistant {
 	}
 
 	public void deleteEquipment() {
-		// synchronized(c) {
 		if (c.playerEquipmentN[c.playerWeapon] == 1) {
 			deleteEquipment(
 					c.playerEquipment[c.playerWeapon], c.playerWeapon);
