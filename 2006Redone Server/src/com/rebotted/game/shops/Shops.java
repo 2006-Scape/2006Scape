@@ -154,7 +154,8 @@ public class Shops {
 		SHOP145(1778, 140),
 		SHOP146(1782, 141),
 		SHOP147(849, 142),
-		SHOP148(933, 145);
+		SHOP148(933, 145),
+		SHOP149(932, 192);
 
 		private final int npcId, shopId;
 		
