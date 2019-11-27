@@ -82,11 +82,11 @@ public class NpcActions {
 		
 		case 693: //rang guild shots
 			c.getDialogueHandler().sendDialogues(3201, npcType);
-		break;
+			break;
 		
 		case 694: //rang guild store
 			c.getShopAssistant().openShop(111);
-		break;
+			break;
 
 		case 1834:
 			c.getDialogueHandler().sendDialogues(1378, npcType);
