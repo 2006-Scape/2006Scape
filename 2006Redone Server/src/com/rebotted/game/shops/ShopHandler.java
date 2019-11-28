@@ -12,7 +12,7 @@ import com.rebotted.util.Misc;
 
 public class ShopHandler {
 
-	public static int MAX_SHOPS = 400;
+	public static int MAX_SHOPS = 800;
 	
 	public static int MAX_SHOP_ITEMS = 40;
 	
