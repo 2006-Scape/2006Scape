@@ -405,7 +405,7 @@ public class DwarfCannon {
 		private Npc targetNpc() {
 			for (int i = 0; i < NpcHandler.MAX_NPCS; i++) {
 				Npc npc = NpcHandler.npcs[i];
-				if (npc == null || npc.heightLevel != player.heightLevel) {
+				if (npc == null || npc.heightLevel != player.heightLevel || !canAttackSlayer(i)) {
 					continue;
 				}
 				int myX = player.cannonX;
@@ -465,6 +465,10 @@ public class DwarfCannon {
 		
 		public boolean inDistance(int npcX, int npcY) {
 			return (npcX >= player.cannonX - maxDistance && npcX <= player.cannonX + maxDistance && npcY >= player.cannonY - maxDistance && npcY <= player.cannonY + maxDistance);
+		}
+
+		public boolean canAttackSlayer(int i){
+			return player.playerLevel[player.playerSlayer] >= player.getSlayer().getRequiredLevel(NpcHandler.npcs[i].npcType);
 		}
 		
 		private void cannonProjectile(Npc n) {
