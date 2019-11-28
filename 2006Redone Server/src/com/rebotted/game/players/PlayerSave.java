@@ -296,9 +296,6 @@ public class PlayerSave {
 							case "hasStarter":
 								player.hasStarter = Boolean.parseBoolean(token2);
 								break;
-							case "membership":
-								player.membership = Boolean.parseBoolean(token2);
-								break;
 							case "canSpeak":
 								player.canSpeak = Boolean.parseBoolean(token2);
 								break;
@@ -667,8 +664,6 @@ public class PlayerSave {
 			characterfile.write("has-npc = " + player.hasNpc);
 			characterfile.newLine();
 			characterfile.write("summonId = " + player.summonId);
-			characterfile.newLine();
-			characterfile.write("membership = " + player.membership);
 			characterfile.newLine();
 			characterfile.write("questPoints = " + player.questPoints);
 			characterfile.newLine();

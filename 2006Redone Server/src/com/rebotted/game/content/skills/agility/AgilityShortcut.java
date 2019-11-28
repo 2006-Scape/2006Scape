@@ -1,11 +1,10 @@
 package com.rebotted.game.content.skills.agility;
 
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 
 /**
  * Agility Shortcuts
- * @author Andrew (I'm A Boss on Rune-Server, Mr Extremez on Moparscape & Runelocus)
+ * @author Andrew (Mr Extremez)
  */
 
 public class AgilityShortcut {

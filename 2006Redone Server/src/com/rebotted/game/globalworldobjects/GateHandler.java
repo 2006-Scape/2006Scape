@@ -1,6 +1,7 @@
 package com.rebotted.game.globalworldobjects;
 
 import com.rebotted.GameEngine;
+import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
 import com.rebotted.world.ObjectManager;
@@ -9,185 +10,190 @@ import com.rebotted.world.clip.Region;
 
 /**
  * GateHandler
+ * (needs to be re written tbh)
  * @author Andrew (Mr Extremez)
  */
 public class GateHandler {
 	
-	public static int gateAmount = 0, gateTicks = 100;
+	public int gateStatus = 0, gateTicks = 50,
+		CLOSED = 0, PARTIAL_OPEN = 1, OPEN = 2;
 	
-	public static boolean isGate(int objectId) {
+	public boolean isGate(int objectId) {
 		String objectName = ObjectDef.getObjectDef(objectId).name;
-		return objectName.equalsIgnoreCase("gate") || objectName.equalsIgnoreCase("Gate");
+		try {
+			return objectName.equalsIgnoreCase("gate") || objectName.equalsIgnoreCase("Gate");
+		} catch (Exception e) {
+			return false;
+		}
+	} 
+	
+	public void spawnGate(Player player, int objectId, int newObjectX, int newObjectY, int height, int face) {
+		GameEngine.objectHandler.placeObject(new Objects(objectId, newObjectX, newObjectY, height, face, 0, 0));
+		player.getPacketSender().sendSound(SoundList.OPEN_GATE, 100, 0);
 	}
 	
-	public static void spawnGate(int objectId, int x, int y, int h, int face) {
-		GameEngine.objectHandler.placeObject(new Objects(objectId, x, y, h, face, 0, 0));
-	}
-	
-	public static void openSingleGate(Player player, int objectId, int x1, int y1, int x2, int y2, int walkX, int walkY, int face1, int face2) {
-		if (isGate(objectId) && gateAmount == 0) {
-			spawnGate(-1, x2, y2, player.heightLevel, 0);
-			spawnGate(objectId, x1, y1, player.heightLevel, face1);
-			gateAmount = 1;
+	public void openSingleGate(Player player, int objectId, int newObjectX, int newObjectY, int oldObjectX, int oldObjectY, int walkX, int walkY, int newFace, int oldFace) {
+		if (isGate(objectId) && player.getGateHandler().gateStatus == CLOSED) {
+			spawnGate(player, -1, oldObjectX, oldObjectY, player.heightLevel, 0);
+			spawnGate(player, objectId, newObjectX, newObjectY, player.heightLevel, newFace);
+			player.getGateHandler().gateStatus = PARTIAL_OPEN;
 			player.getPlayerAssistant().walkTo(walkX, walkY);
-			ObjectManager.singleGateTicks(player, objectId, x2, y2, x1, y1, player.heightLevel, face2, 2);
+			ObjectManager.singleGateTicks(player, objectId, oldObjectX, oldObjectY, newObjectX, newObjectY, player.heightLevel, oldFace, 2);
 		}
 	}
 	
-	private static void openDoubleGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int face1, int face2) {
-		if (isGate(objectId) && isGate(objectId2) && gateAmount == 0) {
-			// open gate from default map object
-			spawnGate(-1, x3, y3, player.heightLevel, 0);
-			spawnGate(-1, x4, y4, player.heightLevel, 0);
-			spawnGate(objectId, x1, y1, player.heightLevel, face1);
-			Region.addObject(objectId, x1, y1, player.heightLevel, 0, face1, false);
-			gateAmount = 1;
-			spawnGate(objectId2, x2, y2, player.heightLevel, face1);
-			Region.addObject(objectId2, x2, y2, player.heightLevel, 0, face1, false);
-			gateAmount = 2;
-			ObjectManager.doubleGateTicks(player, objectId, x3, y3, x1, y1, x2, y2, player.heightLevel, face2, gateTicks);
-			ObjectManager.doubleGateTicks(player, objectId2, x4, y4, x1, y1, x2, y2, player.heightLevel, face2, gateTicks);
-		} else if (isGate(objectId) && isGate(objectId2) && gateAmount == 2) {
-			// close gate back to default
-			ObjectManager.doubleGateTicks(player, objectId, x3, y3, x1, y1, x2, y2, player.heightLevel, face2, 0);
-			ObjectManager.doubleGateTicks(player, objectId2, x4, y4, x1, y1, x2, y2, player.heightLevel, face2, 0);
+	private void openDoubleGate(Player player, int objectId, int objectId2, int newObjectX, int newObjectY, int newObjectX2, int newObjectY2, int oldObjectX, int oldObjectY, int oldObjectX2, int oldObjectY2, int newFace, int oldFace) {
+		if (isGate(objectId) && isGate(objectId2) && player.getGateHandler().gateStatus == CLOSED) {
+			spawnGate(player, -1, oldObjectX, oldObjectY, player.heightLevel, 0);
+			spawnGate(player, -1, oldObjectX2, oldObjectY2, player.heightLevel, 0);
+			spawnGate(player, objectId, newObjectX, newObjectY, player.heightLevel, newFace);
+			Region.addObject(objectId, newObjectX, newObjectY, player.heightLevel, 0, newFace, false);
+			player.getGateHandler().gateStatus = PARTIAL_OPEN;
+			spawnGate(player, objectId2, newObjectX2, newObjectY2, player.heightLevel, newFace);
+			Region.addObject(objectId2, newObjectX2, newObjectY2, player.heightLevel, 0, newFace, false);
+			player.getGateHandler().gateStatus = OPEN;
+			ObjectManager.doubleGateTicks(player, objectId, oldObjectX, oldObjectY, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, player.getGateHandler().gateTicks);
+			ObjectManager.doubleGateTicks(player, objectId2, oldObjectX2, oldObjectY2, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, player.getGateHandler().gateTicks);
+		} else if (isGate(objectId) && isGate(objectId2) && player.getGateHandler().gateStatus == OPEN) {
+			ObjectManager.doubleGateTicks(player, objectId, oldObjectX, oldObjectY, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, 0);
+			ObjectManager.doubleGateTicks(player, objectId2, oldObjectX2, oldObjectY2, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, 0);
 		}
 	}
 	
-	private static void openSpecialGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int face1, int face2, int face3) {
-		if (isGate(objectId) && isGate(objectId2) && gateAmount == 0) {
-			spawnGate(-1, x3, y3, player.heightLevel, 0);
-			spawnGate(-1, x4, y4, player.heightLevel, 0);
-			spawnGate(objectId, x1, y1, player.heightLevel, face1);
-			Region.addObject(objectId, x1, y1, player.heightLevel, 0, face1, false);
-			gateAmount = 1;
-			spawnGate(objectId2, x2, y2, player.heightLevel, face2);
-			Region.addObject(objectId2, x2, y2, player.heightLevel, 0, face2, false);
-			gateAmount = 2;
-			ObjectManager.doubleGateTicks(player, objectId, x3, y3, x1, y1, x2, y2, player.heightLevel, face3, gateTicks);
-			ObjectManager.doubleGateTicks(player, objectId2, x4, y4, x1, y1, x2, y2, player.heightLevel, face3, gateTicks);
-		} else if (isGate(objectId) && isGate(objectId2) && gateAmount == 2) {
-			ObjectManager.doubleGateTicks(player, objectId, x3, y3, x1, y1, x2, y2, player.heightLevel, face3, 0);
-			ObjectManager.doubleGateTicks(player, objectId2, x4, y4, x1, y1, x2, y2, player.heightLevel, face3, 0);
+	private void openSpecialGate(Player player, int objectId, int objectId2, int newObjectX, int newObjectY, int newObjectX2, int newObjectY2, int oldObjectX, int oldObjectY, int oldObjectX2, int oldObjectY2, int newFace, int newFace2, int oldFace) {
+		if (isGate(objectId) && isGate(objectId2) && player.getGateHandler().gateStatus == CLOSED) {
+			spawnGate(player, -1, oldObjectX, oldObjectY, player.heightLevel, 0);
+			spawnGate(player, -1, oldObjectX2, oldObjectY2, player.heightLevel, 0);
+			spawnGate(player, objectId, newObjectX, newObjectY, player.heightLevel, newFace);
+			Region.addObject(objectId, newObjectX, newObjectY, player.heightLevel, 0, newFace, false);
+			player.getGateHandler().gateStatus = PARTIAL_OPEN;
+			spawnGate(player, objectId2, newObjectX2, newObjectY2, player.heightLevel, newFace2);
+			Region.addObject(objectId2, newObjectX2, newObjectY2, player.heightLevel, 0, newFace2, false);
+			player.getGateHandler().gateStatus = OPEN;
+			ObjectManager.doubleGateTicks(player, objectId, oldObjectX, oldObjectY, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, player.getGateHandler().gateTicks);
+			ObjectManager.doubleGateTicks(player, objectId2, oldObjectX2, oldObjectY2, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, player.getGateHandler().gateTicks);
+		} else if (isGate(objectId) && isGate(objectId2) && player.getGateHandler().gateStatus == OPEN) {
+			ObjectManager.doubleGateTicks(player, objectId, oldObjectX, oldObjectY, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, 0);
+			ObjectManager.doubleGateTicks(player, objectId2, oldObjectX2, oldObjectY2, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, 0);
 		}
 	}
 	
-	public static void openSpecialWalkGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int walkX, int walkY, int face1, int face2, int face3) {
-		if (isGate(objectId) && isGate(objectId2) && gateAmount == 0) {
-			spawnGate(-1, x3, y3, player.heightLevel, 0);
-			spawnGate(-1, x4, y4, player.heightLevel, 0);
-			spawnGate(objectId, x1, y1, player.heightLevel, face1);
-			gateAmount = 1;
-			spawnGate(objectId2, x2, y2, player.heightLevel, face2);
-			gateAmount = 2;
+	public void openMetalGateWalk(Player player, int objectId, int objectId2, int newObjectX, int newObjectY, int newObjectX2, int newObjectY2, int oldObjectX, int oldObjectY, int oldObjectX2, int oldObjectY2, int walkX, int walkY, int newFace, int newFace2, int oldFace) {
+		if (isGate(objectId) && isGate(objectId2) && player.getGateHandler().gateStatus == CLOSED) {
+			spawnGate(player, -1, oldObjectX, oldObjectY, player.heightLevel, 0);
+			spawnGate(player, -1, oldObjectX2, oldObjectY2, player.heightLevel, 0);
+			spawnGate(player, objectId, newObjectX, newObjectY, player.heightLevel, newFace);
+			player.getGateHandler().gateStatus = PARTIAL_OPEN;
+			spawnGate(player, objectId2, newObjectX2, newObjectY2, player.heightLevel, newFace2);
+			player.getGateHandler().gateStatus = OPEN;
 			player.getPlayerAssistant().walkTo(walkX, walkY);
-			ObjectManager.doubleGateTicks(player, objectId, x3, y3, x1, y1, x2, y2, player.heightLevel, face3, 2);
-			ObjectManager.doubleGateTicks(player, objectId2, x4, y4, x1, y1, x2, y2, player.heightLevel, face3, 2);
+			ObjectManager.doubleGateTicks(player, objectId, oldObjectX, oldObjectY, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, 2);
+			ObjectManager.doubleGateTicks(player, objectId2, oldObjectX2, oldObjectY2, newObjectX, newObjectY, newObjectX2, newObjectY2, player.heightLevel, oldFace, 2);
 		}
 	}
 	
-	public static void handleGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int type) {
+	public void handleWoodenGate(Player player, int objectId, int objectId2, int newObjectX, int newObjectY, int newObjectX2, int newObjectY2, int oldObjectX, int oldObjectY, int oldObjectX2, int oldObjectY2, int type) {
 		switch (type) {
 			/**
 			 * X Gate 1
 			 */
 			case 0:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 2, 3);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 2, 3);
 			break;
 			/**
 			 * Y Gate 1
 			 */ 
 			case 1:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 3, 0);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 3, 0);
 			break;
 			/**
 			 * X Gate 2
 			 */
 			case 2:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 0, 1);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 0, 1);
 			break;
 			/**
 			* Y Gate 2
 			*/ 
 			case 3:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 1, 0);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 1, 0);
 			break;
 			/**
 			 * X Gate 3
 			 */
 			case 4:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 0, 3);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 0, 3);
 			break;
 			/**
 			* Y Gate 3
 			*/ 
 			case 5:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 1, 2);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 1, 2);
 			break;
 			/**
 			 * X Gate 4
 			 */
 			case 6:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 2, 1);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 2, 1);
 			break;
 			/**
 			* Y Gate 4
 			*/ 
 			case 7:
-				openDoubleGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 3, 2);
+				openDoubleGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 3, 2);
 			break;
 		}
 	}
 	
-	public static void handleSpecialGate(Player player, int objectId, int objectId2, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int type) {
+	public void handleMetalGate(Player player, int objectId, int objectId2, int newObjectX, int newObjectY, int newObjectX2, int newObjectY2, int oldObjectX, int oldObjectY, int oldObjectX2, int oldObjectY2, int type) {
 		switch (type) {
 			/**
 			 * X Gate 1
 			 */
 			case 0:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 2, 0, 3);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 2, 0, 3);
 			break;
 			/**
 			 * Y Gate 1
 			 */
 			case 1:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 1, 3, 0);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 1, 3, 0);
 			break;
 			/**
 			 * X Gate 2
 			 */
 			case 2:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 0, 2, 3);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 0, 2, 3);
 			break;
 			/**
 			 * Y Gate 2
 			 */
 			case 3:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 3, 1, 0);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 3, 1, 0);
 			break;
 			/**
 			 * X Gate 3
 			 */
 			case 4:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 2, 0, 1);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 2, 0, 1);
 			break;
 			/**
 			 * Y Gate 3
 			 */
 			case 5:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 3, 1, 2);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 3, 1, 2);
 			break;
 			/**
 			 * X Gate 4
 			 */
 			case 6:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 0, 2, 1);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 0, 2, 1);
 			break;
 			/**
 			 * Y Gate 4
 			 */
 			case 7:
-				openSpecialGate(player, objectId, objectId2, x1, y1, x2, y2, x3, y3, x4, y4, 1, 3, 2);
+				openSpecialGate(player, objectId, objectId2, newObjectX, newObjectY, newObjectX2, newObjectY2, oldObjectX, oldObjectY, oldObjectX2, oldObjectY2, 1, 3, 2);
 			break;
 		}
 	}

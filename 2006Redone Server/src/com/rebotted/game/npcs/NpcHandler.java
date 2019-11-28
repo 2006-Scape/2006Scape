@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.npcs.NpcAggressive;
 import com.rebotted.game.content.combat.npcs.NpcCombat;
 import com.rebotted.game.content.combat.npcs.NpcEmotes;
@@ -388,14 +389,7 @@ public class NpcHandler {
 					if (PlayerHandler.players[npcs[i].spawnedBy] == null
 							|| PlayerHandler.players[npcs[i].spawnedBy].heightLevel != npcs[i].heightLevel
 							|| PlayerHandler.players[npcs[i].spawnedBy].respawnTimer > 0
-							|| !PlayerHandler.players[npcs[i].spawnedBy]
-									.goodDistance(
-											npcs[i].getX(),
-											npcs[i].getY(),
-											PlayerHandler.players[npcs[i].spawnedBy]
-													.getX(),
-											PlayerHandler.players[npcs[i].spawnedBy]
-													.getY(), 20)) {
+							|| !PlayerHandler.players[npcs[i].spawnedBy].goodDistance(npcs[i].getX(), npcs[i].getY(), PlayerHandler.players[npcs[i].spawnedBy].getX(), PlayerHandler.players[npcs[i].spawnedBy].getY(), ((FightCaves.isFightCaveNpc(i)) ? 60 : 20))) {
 						
 						if (npcs[i].npcType == FightCaves.YT_HURKOT) {
 							Player c = ((Client)PlayerHandler.players[npcs[i].spawnedBy]);
@@ -564,7 +558,7 @@ public class NpcHandler {
 																		// emote
 						Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
-							if (GameConstants.COMBAT_SOUNDS
+							if (CombatConstants.COMBAT_SOUNDS
 									&& NpcHandler.npcs[i].npcType < 3177
 									&& NpcHandler.npcs[i].npcType > 3180) {
 								c.getPacketSender()

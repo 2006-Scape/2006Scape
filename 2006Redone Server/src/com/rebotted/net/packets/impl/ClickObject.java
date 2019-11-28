@@ -134,79 +134,17 @@ public class ClickObject implements PacketType {
 			}
 
 			if (p.teleTimer > 0) {
-				p.getPacketSender().sendMessage(
-						"You cannot use objects while teleporting.");
+				p.getPacketSender().sendMessage("You cannot use objects while teleporting.");
 				return;
 			}
 			if (Math.abs(p.getX() - p.objectX) > 25 || Math.abs(p.getY() - p.objectY) > 25) {
 				p.resetWalkingQueue();
 				break;
 			}
+			if (Woodcutting.playerTrees(p, p.objectId) && p.objectId != 1292) {
+				Woodcutting.startWoodcutting(p, p.objectId, p.objectX, p.objectY, p.clickObjectType);
+			}
 			switch (p.objectId) {
-			case 1276:
-				Woodcutting.startWoodcutting(p, 0, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1278:
-				Woodcutting.startWoodcutting(p, 1, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1286:
-				Woodcutting.startWoodcutting(p, 2, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1281:
-				Woodcutting.startWoodcutting(p, 3, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1308:
-				Woodcutting.startWoodcutting(p, 4, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 5552:
-				Woodcutting.startWoodcutting(p, 5, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1307:
-				Woodcutting.startWoodcutting(p, 6, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1309:
-				Woodcutting.startWoodcutting(p, 7, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1306:
-				Woodcutting.startWoodcutting(p, 8, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 5551:
-				Woodcutting.startWoodcutting(p, 9, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 5553:
-				Woodcutting.startWoodcutting(p, 10, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 3033:
-				Woodcutting.startWoodcutting(p, 11, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 3037:
-				Woodcutting.startWoodcutting(p, 12, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1282:
-				Woodcutting.startWoodcutting(p, 13, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1383:
-				Woodcutting.startWoodcutting(p, 14, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 2023:
-				Woodcutting.startWoodcutting(p, 15, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1319:
-				Woodcutting.startWoodcutting(p, 16, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1318:
-				Woodcutting.startWoodcutting(p, 17, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1315:
-				Woodcutting.startWoodcutting(p, 18, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1316:
-				Woodcutting.startWoodcutting(p, 19, p.objectX, p.objectY, p.clickObjectType);
-				break;
-			case 1332:
-				Woodcutting.startWoodcutting(p, 20, p.objectX, p.objectY, p.clickObjectType);
-				break;
-
 			case 1292:
 				if (p.spiritTree == false && p.clickedTree == true) {
 					p.getPacketSender().sendMessage("You have already spawned a tree spirit.");
@@ -217,7 +155,7 @@ public class ClickObject implements PacketType {
 					NpcHandler.spawnNpc(p, 655, p.getX(), p.getY(), 0, 0, 225, 20, 80, 80, true, false);
 					p.clickedTree = true;
 				} else if (p.spiritTree == true) {
-					Woodcutting.startWoodcutting(p, 21, p.objectX, p.objectY, p.clickObjectType);
+					Woodcutting.startWoodcutting(p, p.objectId, p.objectX, p.objectY, p.clickObjectType);
 				}
 				break;
 

@@ -2,6 +2,7 @@ package com.rebotted.game.content.combat.npcs;
 
 import com.rebotted.GameConstants;
 import com.rebotted.game.content.combat.CombatAssistant;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.melee.MeleeData;
 import com.rebotted.game.content.minigames.FightCaves;
 import com.rebotted.game.content.music.sound.CombatSounds;
@@ -181,7 +182,7 @@ public class NpcCombat {
 					NpcHandler.npcs[i].attackTimer = NpcData.getNpcDelay(i);
 					NpcHandler.npcs[i].hitDelayTimer = NpcData.getHitDelay(i);
 					NpcHandler.npcs[i].attackType = 0;
-					if (GameConstants.COMBAT_SOUNDS
+					if (CombatConstants.COMBAT_SOUNDS
 							&& NpcHandler.npcs[i].npcType < 3177
 							&& NpcHandler.npcs[i].npcType > 3180) {
 						c.getPacketSender()
@@ -201,7 +202,7 @@ public class NpcCombat {
 					if (NpcHandler.multiAttacks(i)) {
 						multiAttackGfx(i, NpcHandler.npcs[i].projectileId);
 						NpcData.startAnimation(NpcEmotes.getAttackEmote(i), i);
-						if (GameConstants.COMBAT_SOUNDS
+						if (CombatConstants.COMBAT_SOUNDS
 								&& NpcHandler.npcs[i].npcType < 3177
 								&& NpcHandler.npcs[i].npcType > 3180) {
 							c.getPacketSender()
@@ -240,7 +241,7 @@ public class NpcCombat {
 					c.singleCombatDelay2 = System.currentTimeMillis();
 					NpcHandler.npcs[i].oldIndex = c.playerId;
 					NpcData.startAnimation(NpcEmotes.getAttackEmote(i), i);
-					if (GameConstants.COMBAT_SOUNDS
+					if (CombatConstants.COMBAT_SOUNDS
 							&& NpcHandler.npcs[i].npcType < 3177
 							&& NpcHandler.npcs[i].npcType > 3180) {
 						c.getPacketSender()

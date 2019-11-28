@@ -196,7 +196,6 @@ public class ItemAssistant {
 	}
 
 	public void removeItem(int slot) {
-		// synchronized(c) {
 		if (c.getOutStream() != null && c != null) {
 			if (c.playerEquipment[slot] > -1) {
 				if (addItem(c.playerEquipment[slot], c.playerEquipmentN[slot])) {
@@ -234,7 +233,7 @@ public class ItemAssistant {
 		}
 	}
 
-	public void removeitemFromBank(int itemId, int amount) {
+	public void removeItemFromBank(int itemId, int amount) {
 		itemId++;
 		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] == itemId) {
@@ -251,7 +250,6 @@ public class ItemAssistant {
 	}
 
 	public void resetItems(int WriteFrame) {
-		// synchronized(c) {
 		if (c.getOutStream() != null && c != null) {
 			c.getOutStream().createFrameVarSizeWord(53);
 			c.getOutStream().writeWord(WriteFrame);
@@ -330,30 +328,6 @@ public class ItemAssistant {
 		return count;
 	}
 
-	public void sendItemsKept() {
-		// synchronized(c) {
-		if (c.getOutStream() != null && c != null) {
-			c.getOutStream().createFrameVarSizeWord(53);
-			c.getOutStream().writeWord(6963);
-			c.getOutStream().writeWord(c.itemKeptId.length);
-			for (int i = 0; i < c.itemKeptId.length; i++) {
-				if (c.playerItemsN[i] > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord_v2(1);
-				} else {
-					c.getOutStream().writeByte(1);
-				}
-				if (c.itemKeptId[i] > 0) {
-					c.getOutStream().writeWordBigEndianA(c.itemKeptId[i] + 1);
-				} else {
-					c.getOutStream().writeWordBigEndianA(0);
-				}
-			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
-		}
-	}
-
 	/**
 	 * Item kept on death
 	 **/
@@ -427,8 +401,7 @@ public class ItemAssistant {
 			deleteEquipment(c.playerEquipment[i1], i1);
 		}
 		for (int i = 0; i < c.playerItems.length; i++) {
-			deleteItem(c.playerItems[i] - 1, getItemSlot(c.playerItems[i] - 1),
-					c.playerItemsN[i]);
+			deleteItem(c.playerItems[i] - 1, getItemSlot(c.playerItems[i] - 1), c.playerItemsN[i]);
 		}
 	}
 	
@@ -531,26 +504,6 @@ public class ItemAssistant {
 		return false;
 	}
 
-	public void addToVoidList(int itemId) {
-		switch (itemId) {
-		case 2518:
-			c.voidStatus[0]++;
-			break;
-		case 2520:
-			c.voidStatus[1]++;
-			break;
-		case 2522:
-			c.voidStatus[2]++;
-			break;
-		case 2524:
-			c.voidStatus[3]++;
-			break;
-		case 2526:
-			c.voidStatus[4]++;
-			break;
-		}
-	}
-
 	public boolean tradeable(int itemId) {
 		for (int element : GameConstants.ITEM_TRADEABLE) {
 			if (itemId == element) {
@@ -560,11 +513,7 @@ public class ItemAssistant {
 		return true;
 	}
 
-	/**
-	 * Add Item
-	 **/
 	public boolean addItem(int item, int amount) {
-		// synchronized(c) {
 		if (item == CastleWars.SARA_BANNER || item == CastleWars.ZAMMY_BANNER) {
 			return false;
 		}
@@ -627,8 +576,7 @@ public class ItemAssistant {
 			return false;
 		} else {
 			resetItems(3214);
-			c.getPacketSender().sendMessage(
-					"Not enough space in your inventory.");
+			c.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return false;
 		}
 	}
@@ -668,114 +616,114 @@ public class ItemAssistant {
 	 * Wear Item
 	 **/
 
-	public void sendWeapon(int Weapon, String WeaponName) {
-		String WeaponName2 = WeaponName.replaceAll("Bronze", "");
-		WeaponName2 = WeaponName2.replaceAll("Iron", "");
-		WeaponName2 = WeaponName2.replaceAll("Steel", "");
-		WeaponName2 = WeaponName2.replaceAll("Black", "");
-		WeaponName2 = WeaponName2.replaceAll("Mithril", "");
-		WeaponName2 = WeaponName2.replaceAll("Adamant", "");
-		WeaponName2 = WeaponName2.replaceAll("Rune", "");
-		WeaponName2 = WeaponName2.replaceAll("Granite", "");
-		WeaponName2 = WeaponName2.replaceAll("Dragon", "");
-		WeaponName2 = WeaponName2.replaceAll("Drag", "");
-		WeaponName2 = WeaponName2.replaceAll("Crystal", "");
-		WeaponName2 = WeaponName2.trim();
-		if (WeaponName.equals("Unarmed")) {
+	public void sendWeapon(int weapon, String weaponName) {
+		String newWeapon = weaponName.replaceAll("Bronze", "");
+		newWeapon = newWeapon.replaceAll("Iron", "");
+		newWeapon = newWeapon.replaceAll("Steel", "");
+		newWeapon = newWeapon.replaceAll("Black", "");
+		newWeapon = newWeapon.replaceAll("Mithril", "");
+		newWeapon = newWeapon.replaceAll("Adamant", "");
+		newWeapon = newWeapon.replaceAll("Rune", "");
+		newWeapon = newWeapon.replaceAll("Granite", "");
+		newWeapon = newWeapon.replaceAll("Dragon", "");
+		newWeapon = newWeapon.replaceAll("Drag", "");
+		newWeapon = newWeapon.replaceAll("Crystal", "");
+		newWeapon = newWeapon.trim();
+		if (weaponName.equals("Unarmed")) {
 			c.getPacketSender().setSidebarInterface(0, 5855); // punch,
 																	// kick,
 																	// block
-			c.getPacketSender().sendFrame126(WeaponName, 5857);
-		} else if (WeaponName.endsWith("whip")) {
+			c.getPacketSender().sendFrame126(weaponName, 5857);
+		} else if (weaponName.endsWith("whip")) {
 			c.getPacketSender().setSidebarInterface(0, 12290); // flick,
 																	// lash,
 																	// deflect
-			c.getPacketSender().sendFrame246(12291, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 12293);
-		} else if (WeaponName.endsWith("bow") || WeaponName.endsWith("10")
-				|| WeaponName.endsWith("full")
-				|| WeaponName.startsWith("seercull")) {
+			c.getPacketSender().sendFrame246(12291, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 12293);
+		} else if (weaponName.endsWith("bow") || weaponName.endsWith("10")
+				|| weaponName.endsWith("full")
+				|| weaponName.startsWith("seercull")) {
 			c.getPacketSender().setSidebarInterface(0, 1764); // accurate,
 																	// rapid,
 																	// longrange
-			c.getPacketSender().sendFrame246(1765, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 1767);
-		} else if (WeaponName.startsWith("Staff")
-				|| WeaponName.endsWith("staff") || WeaponName.endsWith("wand")) {
+			c.getPacketSender().sendFrame246(1765, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 1767);
+		} else if (weaponName.startsWith("Staff")
+				|| weaponName.endsWith("staff") || weaponName.endsWith("wand")) {
 			c.getPacketSender().setSidebarInterface(0, 328); // spike,
 																	// impale,
 																	// smash,
 																	// block
-			c.getPacketSender().sendFrame246(329, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 331);
-		} else if (WeaponName2.startsWith("dart")
-				|| WeaponName2.startsWith("knife")
-				|| WeaponName2.startsWith("javelin")
-				|| WeaponName.equalsIgnoreCase("toktz-xil-ul")) {
+			c.getPacketSender().sendFrame246(329, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 331);
+		} else if (newWeapon.startsWith("dart")
+				|| newWeapon.startsWith("knife")
+				|| newWeapon.startsWith("javelin")
+				|| weaponName.equalsIgnoreCase("toktz-xil-ul")) {
 			c.getPacketSender().setSidebarInterface(0, 4446); // accurate,
 																	// rapid,
 																	// longrange
-			c.getPacketSender().sendFrame246(4447, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 4449);
-		} else if (WeaponName2.startsWith("dagger")
-				|| WeaponName2.contains("sword")) {
+			c.getPacketSender().sendFrame246(4447, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 4449);
+		} else if (newWeapon.startsWith("dagger")
+				|| newWeapon.contains("sword")) {
 			c.getPacketSender().setSidebarInterface(0, 2276); // stab,
 																	// lunge,
 																	// slash,
 																	// block
-			c.getPacketSender().sendFrame246(2277, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 2279);
-		} else if (WeaponName2.startsWith("pickaxe")) {
+			c.getPacketSender().sendFrame246(2277, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 2279);
+		} else if (newWeapon.startsWith("pickaxe")) {
 			c.getPacketSender().setSidebarInterface(0, 5570); // spike,
 																	// impale,
 																	// smash,
 																	// block
-			c.getPacketSender().sendFrame246(5571, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 5573);
-		} else if (WeaponName2.startsWith("axe")
-				|| WeaponName2.startsWith("battleaxe")) {
+			c.getPacketSender().sendFrame246(5571, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 5573);
+		} else if (newWeapon.startsWith("axe")
+				|| newWeapon.startsWith("battleaxe")) {
 			c.getPacketSender().setSidebarInterface(0, 1698); // chop,
 																	// hack,
 																	// smash,
 																	// block
-			c.getPacketSender().sendFrame246(1699, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 1701);
-		} else if (WeaponName2.startsWith("halberd")) {
+			c.getPacketSender().sendFrame246(1699, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 1701);
+		} else if (newWeapon.startsWith("halberd")) {
 			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
 																	// swipe,
 																	// fend
-			c.getPacketSender().sendFrame246(8461, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 8463);
-		} else if (WeaponName2.startsWith("Scythe")) {
+			c.getPacketSender().sendFrame246(8461, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 8463);
+		} else if (newWeapon.startsWith("Scythe")) {
 			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
 																	// swipe,
 																	// fend
-			c.getPacketSender().sendFrame246(8461, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 8463);
-		} else if (WeaponName2.startsWith("spear")) {
+			c.getPacketSender().sendFrame246(8461, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 8463);
+		} else if (newWeapon.startsWith("spear")) {
 			c.getPacketSender().setSidebarInterface(0, 4679); // lunge,
 																	// swipe,
 																	// pound,
 																	// block
-			c.getPacketSender().sendFrame246(4680, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 4682);
-		} else if (WeaponName2.toLowerCase().contains("mace")) {
+			c.getPacketSender().sendFrame246(4680, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 4682);
+		} else if (newWeapon.toLowerCase().contains("mace")) {
 			c.getPacketSender().setSidebarInterface(0, 3796);
-			c.getPacketSender().sendFrame246(3797, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 3799);
+			c.getPacketSender().sendFrame246(3797, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 3799);
 
 		} else if (c.playerEquipment[c.playerWeapon] == 4153) {
 			c.getPacketSender().setSidebarInterface(0, 425); // war hamer
 																	// equip.
-			c.getPacketSender().sendFrame246(426, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 428);
+			c.getPacketSender().sendFrame246(426, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 428);
 		} else {
 			c.getPacketSender().setSidebarInterface(0, 2423); // chop,
 																	// slash,
 																	// lunge,
 																	// block
-			c.getPacketSender().sendFrame246(2424, 200, Weapon);
-			c.getPacketSender().sendFrame126(WeaponName, 2426);
+			c.getPacketSender().sendFrame246(2424, 200, weapon);
+			c.getPacketSender().sendFrame126(weaponName, 2426);
 		}
 
 	}
@@ -1204,7 +1152,7 @@ public class ItemAssistant {
 		if (itemName.contains("crystal")) {
 			return true;
 		}
-		if (itemName.contains("godsword") || itemName.contains("aradomin sword") || itemName.contains("2h") || itemName.contains("spear")) {
+		if (itemName.contains("2h") || itemName.contains("spear")) {
 			return true;
 		}
 		switch (itemId) {
@@ -1212,7 +1160,6 @@ public class ItemAssistant {
 			case 11730:
 			case 4153:
 			case 6528:
-			case 14484:
 				return true;
 		}
 		return false;
@@ -1307,26 +1254,16 @@ public class ItemAssistant {
 
 	public void specialAmount(int weapon, double specAmount, int barId) {
 		c.specBarId = barId;
-		c.getPacketSender().sendFrame70(specAmount >= 10 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 9 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 8 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 7 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 6 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 5 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 4 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 3 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 2 ? 500 : 0, 0,
-				--barId);
-		c.getPacketSender().sendFrame70(specAmount >= 1 ? 500 : 0, 0,
-				--barId);
+		c.getPacketSender().sendFrame70(specAmount >= 10 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 9 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 8 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 7 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 6 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 5 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 4 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 3 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 2 ? 500 : 0, 0, --barId);
+		c.getPacketSender().sendFrame70(specAmount >= 1 ? 500 : 0, 0, --barId);
 		updateSpecialBar();
 		sendWeapon(weapon, getItemName(weapon));
 	}
@@ -1665,54 +1602,38 @@ public class ItemAssistant {
 	}
 
 	public void wearItem(int wearID, int wearAmount, int targetSlot) {
-		synchronized (c) {
-			if (c.getOutStream() != null && c != null) {
-				c.getOutStream().createFrameVarSizeWord(34);
-				c.getOutStream().writeWord(1688);
-				c.getOutStream().writeByte(targetSlot);
-				c.getOutStream().writeWord(wearID + 1);
+		if (c.getOutStream() != null && c != null) {
+			c.getOutStream().createFrameVarSizeWord(34);
+			c.getOutStream().writeWord(1688);
+			c.getOutStream().writeByte(targetSlot);
+			c.getOutStream().writeWord(wearID + 1);
 
-				if (wearAmount > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord(wearAmount);
-				} else {
-					c.getOutStream().writeByte(wearAmount);
-				}
-				c.getOutStream().endFrameVarSizeWord();
-				c.flushOutStream();
-				c.playerEquipment[targetSlot] = wearID;
-				c.playerEquipmentN[targetSlot] = wearAmount;
-				c.getItemAssistant();
-				c.getItemAssistant()
-						.sendWeapon(
-								c.playerEquipment[c.playerWeapon],
-								ItemAssistant
-										.getItemName(c.playerEquipment[c.playerWeapon]));
-				resetBonus();
-				getBonus();
-				/*for (int bowId : RangeData.BOWS) {
-					if (c.playerEquipment[c.playerWeapon] == bowId) {
-						for (int arrowId : RangeData.ARROWS) {
-							if (c.playerEquipment[c.playerArrows] == arrowId && c.playerEquipment[c.playerWeapon] == bowId) {
-								writeBonus();
-							} else if (c.playerEquipment[c.playerWeapon] == bowId && c.playerEquipment[c.playerArrows] != arrowId) {
-								writeBonus();
-							} else if (c.playerEquipment[c.playerArrows] != arrowId && c.playerEquipment[c.playerWeapon] != bowId) {
-								writeBonus();
-							}
-						}
-					}
-				}*/
-				writeBonus();
-				c.getCombatAssistant().getPlayerAnimIndex();
-				c.updateRequired = true;
-				c.setAppearanceUpdateRequired(true);
+			if (wearAmount > 254) {
+				c.getOutStream().writeByte(255);
+				c.getOutStream().writeDWord(wearAmount);
+			} else {
+				c.getOutStream().writeByte(wearAmount);
 			}
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
+			c.playerEquipment[targetSlot] = wearID;
+			c.playerEquipmentN[targetSlot] = wearAmount;
+			c.getItemAssistant();
+			c.getItemAssistant()
+					.sendWeapon(
+							c.playerEquipment[c.playerWeapon],
+							ItemAssistant
+									.getItemName(c.playerEquipment[c.playerWeapon]));
+			resetBonus();
+			getBonus();
+			writeBonus();
+			c.getCombatAssistant().getPlayerAnimIndex();
+			c.updateRequired = true;
+			c.setAppearanceUpdateRequired(true);
 		}
 	}
 
 	public void updateSlot(int slot) {
-		// synchronized(c) {
 		if (c.getOutStream() != null && c != null) {
 			c.getOutStream().createFrameVarSizeWord(34);
 			c.getOutStream().writeWord(1688);
@@ -1730,11 +1651,7 @@ public class ItemAssistant {
 
 	}
 
-	/**
-	 * Remove Item
-	 **/
 	public void removeItem(int wearID, int slot) {
-		// synchronized(c) {
 		if (c.getOutStream() != null && c != null) {
 			if (c.playerEquipment[slot] > -1) {
 				if (c.playerEquipment[slot] == CastleWars.SARA_BANNER|| c.playerEquipment[slot] == CastleWars.ZAMMY_BANNER) {
@@ -1770,7 +1687,6 @@ public class ItemAssistant {
 				}
 			}
 		}
-		// }
 	}
 
 	/**
@@ -1823,58 +1739,39 @@ public class ItemAssistant {
 		}
 	}
 
-	public void itemOnInterface(int id, int amount) {
-		// synchronized(c) {
-		c.getOutStream().createFrameVarSizeWord(53);
-		c.getOutStream().writeWord(2274);
-		c.getOutStream().writeWord(1);
-		if (amount > 254) {
-			c.getOutStream().writeByte(255);
-			c.getOutStream().writeDWord_v2(amount);
-		} else {
-			c.getOutStream().writeByte(amount);
-		}
-		c.getOutStream().writeWordBigEndianA(id);
-		c.getOutStream().endFrameVarSizeWord();
-		c.flushOutStream();
-	}
-
 	public void resetBank() {
-		synchronized (c) {
+		if (c.getOutStream() != null) {
+			c.getOutStream().createFrameVarSizeWord(53);
+			c.getOutStream().writeWord(5382); // bank
+			c.getOutStream().writeWord(GameConstants.BANK_SIZE);
+		}
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
 			if (c.getOutStream() != null) {
-				c.getOutStream().createFrameVarSizeWord(53);
-				c.getOutStream().writeWord(5382); // bank
-				c.getOutStream().writeWord(GameConstants.BANK_SIZE);
-			}
-			for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
-				if (c.getOutStream() != null) {
-					if (c.bankItemsN[i] > 254) {
-						c.getOutStream().writeByte(255);
-						c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
-					} else {
-						c.getOutStream().writeByte(c.bankItemsN[i]);
-					}
-				}
-				if (c.bankItemsN[i] < 1) {
-					c.bankItems[i] = 0;
-				}
-				if (c.bankItems[i] > GameConstants.ITEM_LIMIT || c.bankItems[i] < 0) {
-					c.bankItems[i] = GameConstants.ITEM_LIMIT;
-				}
-				if (c.getOutStream() != null) {
-					c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+				if (c.bankItemsN[i] > 254) {
+					c.getOutStream().writeByte(255);
+					c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
+				} else {
+					c.getOutStream().writeByte(c.bankItemsN[i]);
 				}
 			}
+			if (c.bankItemsN[i] < 1) {
+				c.bankItems[i] = 0;
+			}
+			if (c.bankItems[i] > GameConstants.ITEM_LIMIT || c.bankItems[i] < 0) {
+				c.bankItems[i] = GameConstants.ITEM_LIMIT;
+			}
+			if (c.getOutStream() != null) {
+				c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+			}
+		}
 
-			if (c.getOutStream() != null) {
-				c.getOutStream().endFrameVarSizeWord();
-				c.flushOutStream();
-			}
+		if (c.getOutStream() != null) {
+			c.getOutStream().endFrameVarSizeWord();
+			c.flushOutStream();
 		}
 	}
 
 	public void resetTempItems() {
-		// synchronized(c) {
 		int itemCount = 0;
 		for (int i = 0; i < c.playerItems.length; i++) {
 			if (c.playerItems[i] > -1) {
@@ -2318,7 +2215,6 @@ public class ItemAssistant {
 	 **/
 
 	public void setEquipment(int wearID, int amount, int targetSlot) {
-		// synchronized(c) {
 		if (c.getOutStream() != null) {
 			c.getOutStream().createFrameVarSizeWord(34);
 			c.getOutStream().writeWord(1688);
@@ -2409,7 +2305,6 @@ public class ItemAssistant {
 	 **/
 
 	public void deleteEquipment(int i, int j) {
-		// synchronized(c) {
 		if (PlayerHandler.players[c.playerId] == null) {
 			return;
 		}
@@ -2483,7 +2378,6 @@ public class ItemAssistant {
 	 * Delete Arrows
 	 **/
 	public void deleteArrow() {
-		// synchronized(c) {
 		if (c.playerEquipment[c.playerCape] == 10499 && Misc.random(5) != 1
 				&& c.playerEquipment[c.playerArrows] != 4740) {
 			return;
@@ -2514,7 +2408,6 @@ public class ItemAssistant {
 	}
 
 	public void deleteEquipment() {
-		// synchronized(c) {
 		if (c.playerEquipmentN[c.playerWeapon] == 1) {
 			deleteEquipment(
 					c.playerEquipment[c.playerWeapon], c.playerWeapon);

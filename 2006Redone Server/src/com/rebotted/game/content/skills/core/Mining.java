@@ -151,8 +151,8 @@ public class Mining {
 	}
 	
 	public void startMining(final Player player, final int objectID, final int objectX, final int objectY, final int type) {
-		if (player.isMining || player.miningRock) return;
-
+		if (player.isMining || player.miningRock) 
+			return;
 		int miningLevel = player.playerLevel[player.playerMining];
 		rockData rock = rockData.getRock(objectID);
 		pickaxe = -1;
@@ -272,8 +272,7 @@ public class Mining {
 	}
 
 	public void mineRock(int respawnTime, int x, int y, int type, int i) {
-		if (i != 2491)
-		{
+		if (i != 2491) {
 			new Object(452, x, y, 0, type, 10, i, respawnTime);
 			Region.addObject(452, x, y, 0, 10, type, false);
 		}

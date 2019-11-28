@@ -41,55 +41,52 @@ public class ObjectManager {
 		}, ticks);
 	}
 	
-	public static void singleGateTicks(final Player player, final int objectId, final int objectX, final int objectY, final int x1, final int y1, final int objectH, final int face, int ticks) {
+	public static void singleGateTicks(final Player player, final int objectId, final int newObjectX, final int newObjectY, final int oldObjectX, final int oldObjectY, final int objectH, final int face, int ticks) {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (DoubleGates.gateAmount == 0) {
+				if (player.getGateHandler().gateStatus == player.getGateHandler().CLOSED || player.disconnected) {
 					container.stop();
 					return;
 				}
-				GameEngine.objectHandler.placeObject(new Objects(-1, x1, y1, objectH, face, 0, 0));
-				GameEngine.objectHandler.placeObject(new Objects(objectId, objectX, objectY, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(-1, oldObjectX, oldObjectY, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(objectId, newObjectX, newObjectY, objectH, face, 0, 0));
 				container.stop();
 			}
 
 			@Override
 			public void stop() {
-				if (DoubleGates.gateAmount == 1) {
-					DoubleGates.gateAmount = 0;
+				if (player.getGateHandler().gateStatus == player.getGateHandler().PARTIAL_OPEN) {
+					player.getGateHandler().gateStatus = player.getGateHandler().CLOSED;
 				}
 			}
 		}, ticks);
 	}
 	
-	public static void doubleGateTicks(final Player player, final int objectId, final int objectX, final int objectY,
-									   final int x1, final int y1, final int x2, final int y2,
-									   final int objectH, final int face, int ticks) {
+	public static void doubleGateTicks(final Player player, final int objectId, final int newObjectX, final int newObjectY, final int oldObjectX, final int oldObjectY, final int oldObjectX2, final int oldObjectY2, final int objectH, final int face, int ticks) {
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (DoubleGates.gateAmount == 0) {
+				if (player.getGateHandler().gateStatus == player.getGateHandler().CLOSED || player.disconnected) {
 					container.stop();
 					return;
 				}
-				GameEngine.objectHandler.placeObject(new Objects(-1, x1, y1, objectH, face, 0, 0));
-				GameEngine.objectHandler.placeObject(new Objects(-1, x2, y2, objectH, face, 0, 0));
-				GameEngine.objectHandler.placeObject(new Objects(objectId, objectX, objectY, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(-1, oldObjectX, oldObjectY, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(-1, oldObjectX2, oldObjectY2, objectH, face, 0, 0));
+				GameEngine.objectHandler.placeObject(new Objects(objectId, newObjectX, newObjectY, objectH, face, 0, 0));
 				container.stop();
 			}
 
 			@Override
 			public void stop() {
-				if (DoubleGates.gateAmount == 2) {
-					DoubleGates.gateAmount = 1;
-				} else if (DoubleGates.gateAmount == 1) {
-					DoubleGates.gateAmount = 0;
+				if (player.getGateHandler().gateStatus == player.getGateHandler().OPEN) {
+					player.getGateHandler().gateStatus = player.getGateHandler().PARTIAL_OPEN;
+				} else if (player.getGateHandler().gateStatus == player.getGateHandler().PARTIAL_OPEN) {
+					player.getGateHandler().gateStatus = player.getGateHandler().CLOSED;
 				}
 			}
 		}, ticks);
 	}
-
  
 	public boolean objectExists(final int x, final int y) {
 		for (Object o : objects) {

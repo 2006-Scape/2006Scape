@@ -110,15 +110,6 @@ public class SkillHandler {
 		return false;
 	}
 
-	public static boolean membersOnly(Player c) {
-		if (c.membership == false) {
-			c.getPacketSender()
-					.sendMessage("This is a members only skill.");
-			return false;
-		}
-		return true;
-	}
-
 	public static boolean noInventorySpace(Player c, String skill) {
 		if (c.getItemAssistant().freeSlots() == 0) {
 			c.getPacketSender().sendMessage(

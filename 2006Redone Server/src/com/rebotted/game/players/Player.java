@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import org.apache.mina.common.IoSession;
-import com.rebotted.Connection;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
@@ -17,9 +16,9 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.BankPin;
 import com.rebotted.game.content.EmoteHandler;
 import com.rebotted.game.content.combat.CombatAssistant;
+import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.Specials;
 import com.rebotted.game.content.combat.magic.Enchanting;
-import com.rebotted.game.content.combat.magic.MagicTeleports;
 import com.rebotted.game.content.combat.prayer.PrayerData;
 import com.rebotted.game.content.combat.prayer.PrayerDrain;
 import com.rebotted.game.content.combat.range.DwarfCannon;
@@ -33,7 +32,6 @@ import com.rebotted.game.content.minigames.PestControl;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.music.PlayList;
 import com.rebotted.game.content.music.sound.SoundList;
-import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.content.skills.SkillInterfaces;
 import com.rebotted.game.content.skills.agility.Agility;
 import com.rebotted.game.content.skills.agility.ApeAtollAgility;
@@ -51,11 +49,12 @@ import com.rebotted.game.content.skills.smithing.Smithing;
 import com.rebotted.game.content.skills.smithing.SmithingInterface;
 import com.rebotted.game.content.traveling.Desert;
 import com.rebotted.game.dialogues.DialogueHandler;
+import com.rebotted.game.globalworldobjects.DoubleGates;
+import com.rebotted.game.globalworldobjects.GateHandler;
+import com.rebotted.game.globalworldobjects.SingleGates;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.items.Weight;
-import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.items.impl.PotionMixing;
 import com.rebotted.game.items.impl.Teles;
 import com.rebotted.game.npcs.Npc;
@@ -128,6 +127,21 @@ public abstract class Player {
 	private ChallengePlayer challengePlayer = new ChallengePlayer();
 	private DwarfCannon dwarfCannon = new DwarfCannon(this);
 	private CycleEventContainer currentTask;
+	private GateHandler gateHandler = new GateHandler();
+	private SingleGates singleGates = new SingleGates();
+	private DoubleGates doubleGates = new DoubleGates();
+	
+	public SingleGates getSingleGates() {
+		return singleGates;
+	}
+	
+	public DoubleGates getDoubleGates() {
+		return doubleGates;
+	}
+	
+	public GateHandler getGateHandler() {
+		return gateHandler;
+	}
 
 	public DwarfCannon getCannon() {
 		return dwarfCannon;
@@ -526,153 +540,6 @@ public abstract class Player {
 		resetWalkingQueue();
 	}
 
-	public void loginPlayer() {
-		getPlayerAssistant().loginScreen();
-		if (Connection.isNamedBanned(playerName)) {
-			logout();
-			return;
-		}
-		synchronized (this) {
-			if (getOutStream() != null) {
-				outStream.createFrame(249);
-				outStream.writeByteA(membership ? 1 : 0);
-				outStream.writeWordBigEndianA(playerId);
-				for (int j = 0; j < PlayerHandler.players.length; j++) {
-					if (j == playerId) {
-						continue;
-					}
-					if (PlayerHandler.players[j] != null) {
-						if (PlayerHandler.players[j].playerName.equalsIgnoreCase(playerName)) {
-							disconnected = true;
-						}
-					}
-				}
-			}
-			lastLoginDate = getLastLogin();
-			QuestAssistant.sendStages(this);
-			if (hasNpc == true) {
-				if (summonId > 0) {
-					GameEngine.npcHandler.spawnNpc3(this, summonId, absX, absY - 1,
-							heightLevel, 0, 120, 25, 200, 200, true, false,
-							true);
-				}
-			}
-			if (questPoints > QuestAssistant.MAXIMUM_QUESTPOINTS || playerRights > 2) {
-				questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for abusers
-			}
-			if (playerHitpoints < 0) {
-				isDead = true;
-			}
-			if (playerLevel[playerHitpoints] > 99) {
-				playerLevel[playerHitpoints] = 99;// check for abusers
-				getPlayerAssistant().refreshSkill(3);
-			}
-			if (playerLevel[playerFarming] > 1 && playerRights < 3) {
-				playerLevel[playerFarming] = 1;
-				getPlayerAssistant().refreshSkill(playerFarming);
-			}
-			if (tutorialProgress > 0 && tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
-				getPacketSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
-			}
-			if (tutorialProgress > 35) {
-				getPlayerAssistant().sendSidebars();
-				Weight.updateWeight(this);
-				getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
-				getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
-				getPacketSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
-				getPacketSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
-				/*if (!hasBankpin) { //Kind of annoying. Maybe add Random % 10 or something.
-					getActionSender().sendMessage("You do not have a bank pin it is highly recommended you set one.");
-				}*/
-			}
-			getPlayerAssistant().firstTimeTutorial();
-			getItemAssistant().sendWeapon(playerEquipment[playerWeapon], ItemAssistant.getItemName(playerEquipment[playerWeapon]));
-			for (int i = 0; i < 25; i++) {
-				getPacketSender().setSkillLevel(i, playerLevel[i], playerXP[i]);
-				getPlayerAssistant().refreshSkill(i);
-			}
-			for (int p = 0; p < getPrayer().PRAYER.length; p++) { // reset
-																	// prayer
-																	// glows
-				getPrayer().prayerActive[p] = false;
-				getPacketSender().sendConfig(getPrayer().PRAYER_GLOW[p], 0);
-			}
-			lastX = absX;
-			lastY = absY;
-			lastH = heightLevel;
-			if (inWild()) {
-				WildernessWarning = true;
-			}
-			if (splitChat == true) {
-				getPacketSender().sendConfig(502, 1);
-				getPacketSender().sendConfig(287, 1);
-			} else {
-				getPacketSender().sendConfig(502, 0);
-				getPacketSender().sendConfig(287, 0);
-			}
-			if (isRunning2) {
-				getPacketSender().sendConfig(504, 1);
-				getPacketSender().sendConfig(173, 1);
-			} else {
-				getPacketSender().sendConfig(504, 0);
-				getPacketSender().sendConfig(173, 0);
-			}
-
-			getPlayList().fixAllColors();
-			getPlayerAction().setAction(false);
-			getPlayerAction().canWalk(true);
-			getPlayerAssistant().handleWeaponStyle();
-			MagicTeleports.handleLoginText(this);
-			accountFlagged = getPlayerAssistant().checkForFlags();
-			getPacketSender().sendConfig(108, 0);// resets autocast button
-			getPacketSender().sendFrame107(); // reset screen
-			getPacketSender().setChatOptions(0, 0, 0); // reset private
-															// messaging options
-			correctCoordinates();
-			getPacketSender().showOption(4, 0, "Trade With", 3);
-			getPacketSender().showOption(5, 0, "Follow", 4);
-			getItemAssistant().resetItems(3214);
-			getItemAssistant().resetBonus();
-			getItemAssistant().getBonus();
-			getItemAssistant().writeBonus();
-			getItemAssistant().setEquipment(playerEquipment[playerHat], 1,
-					playerHat);
-			getItemAssistant().setEquipment(playerEquipment[playerCape], 1,
-					playerCape);
-			getItemAssistant().setEquipment(playerEquipment[playerAmulet], 1,
-					playerAmulet);
-			getItemAssistant().setEquipment(playerEquipment[playerArrows],
-					playerEquipmentN[playerArrows], playerArrows);
-			getItemAssistant().setEquipment(playerEquipment[playerChest], 1,
-					playerChest);
-			getItemAssistant().setEquipment(playerEquipment[playerShield], 1,
-					playerShield);
-			getItemAssistant().setEquipment(playerEquipment[playerLegs], 1,
-					playerLegs);
-			getItemAssistant().setEquipment(playerEquipment[playerHands], 1,
-					playerHands);
-			getItemAssistant().setEquipment(playerEquipment[playerFeet], 1,
-					playerFeet);
-			getItemAssistant().setEquipment(playerEquipment[playerRing], 1,
-					playerRing);
-			getItemAssistant().setEquipment(playerEquipment[playerWeapon],
-					playerEquipmentN[playerWeapon], playerWeapon);
-			getCombatAssistant().getPlayerAnimIndex();
-			getPlayerAssistant().logIntoPM();
-			getItemAssistant().addSpecialBar(playerEquipment[playerWeapon]);
-			saveTimer = GameConstants.SAVE_TIMER;
-			saveCharacter = true;
-			Misc.println("[REGISTERED]: " + playerName + "");
-			handler.updatePlayer(this, outStream);
-			handler.updateNPC(this, outStream);
-			flushOutStream();
-			getPlayerAssistant().resetFollow();
-			LightSources.saveBrightness(this);
-			getPlayerAssistant().sendAutoRetalitate();
-			getCannon().loginCheck();
-		}
-	}
-
 	public void update() {
 		synchronized (this) {
 			handler.updatePlayer(this, outStream);
@@ -788,7 +655,7 @@ public abstract class Player {
 			int modY = absY > 6400 ? absY - 6400 : absY;
 			wildLevel = (modY - 3520) / 8 + 1;
 			getPacketSender().walkableInterface(197);
-			if (GameConstants.SINGLE_AND_MULTI_ZONES) {
+			if (CombatConstants.SINGLE_AND_MULTI_ZONES) {
 				if (inMulti()) {
 					getPacketSender().sendFrame126("@yel@Level: " + wildLevel,
 							199);
@@ -869,7 +736,7 @@ public abstract class Player {
 		}
 		getPlayerAssistant().writeEnergy();
 
-		if (System.currentTimeMillis() - specDelay > GameConstants.INCREASE_SPECIAL_AMOUNT) {
+		if (System.currentTimeMillis() - specDelay > CombatConstants.INCREASE_SPECIAL_AMOUNT) {
 			specDelay = System.currentTimeMillis();
 			if (specAmount < 10) {
 				specAmount += .5;
@@ -1307,8 +1174,7 @@ public abstract class Player {
 		this.statedInterface = statedInterface;
 	}
 
-
-	public String currentTime, date, slayerMaster;
+	public String slayerMaster;
 	
 	public boolean lostCannon = false, refresh = false, isBot = false;
 
@@ -1321,17 +1187,16 @@ public abstract class Player {
 			{2035, 0}
 	};
 
-	public long homeTele, lastDesert, eventTimer, lastRunRecovery,
-			lastButton, lastFire, lastLight, muteTime, waitTime, miscTimer,
-			ladderTimer, webSlashDelay, climbDelay, lastReport = 0,
+	public long homeTele, lastDesert, lastButton, lastFire, lastLight, muteTime, waitTime, miscTimer,
+			webSlashDelay, climbDelay, lastReport = 0,
 			lastPlayerMove, lastPoison, lastPoisonSip, poisonImmune, lastSpear,
-			lastProtItem, dfsDelay, lastVeng, lastYell, teleGrabDelay,
+			lastProtItem, dfsDelay, lastYell, teleGrabDelay,
 			protMageDelay, protMeleeDelay, protRangeDelay, lastAction,
 			lastThieve, lastLockPick, alchDelay, specDelay = System.currentTimeMillis(), duelDelay, teleBlockDelay,
 			godSpellDelay, singleCombatDelay, singleCombatDelay2, reduceStat,
 			restoreStatsDelay, logoutDelay, buryDelay, foodDelay, potDelay,
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
-			boneDelay, botAttempts, leverDelay = 0, farmTime, searchObjectDelay = 0, clickDelay = 0;
+			boneDelay, leverDelay = 0, searchObjectDelay = 0, clickDelay = 0;
 
 
 	private Npc specialTarget = null;
@@ -1344,21 +1209,19 @@ public abstract class Player {
 
 	public boolean initialized = false, musicOn = true, luthas,
 			playerIsCooking, disconnected = false, ruleAgreeButton = false,
-			RebuildNPCList = false, isActive = false, isKicked = false,
+			rebuildNPCList = false, isActive = false, isKicked = false,
 			isSkulled = false, friendUpdate = false, newPlayer = false,
 			hasMultiSign = false, saveCharacter = false, mouseButton = false,
 			chatEffects = true, acceptAid = false, recievedMask,
 			nextDialogue = false, autocasting = false, usedSpecial = false,
 			mageFollow = false, dbowSpec = false, craftingLeather = false,
-			properLogout = false, secDbow = false, maxNextHit = false,
-			ssSpec = false, vengOn = false, addStarter = false,
-			accountFlagged = false, inPartyRoom = false, msbSpec = false,
+			properLogout = false, secDbow = false,
+			addStarter = false, accountFlagged = false, inPartyRoom = false, msbSpec = false,
 			hasBankPin, enterdBankpin, firstPinEnter, requestPinDelete,
 			secondPinEnter, thirdPinEnter, fourthPinEnter, hasBankpin,
 			isBanking, isTeleporting = false, desertWarning,
 			isPotionMaking = false, isGrinding = false, hasStarter, isSpinning,
-			clickedSpinning, hasPaidBrim, isHerblore, herbloreI, secondHerb,
-			playerStun, playerFletch, isWoodcutting, playerIsFiremaking,
+			clickedSpinning, hasPaidBrim, playerStun, playerFletch, isWoodcutting, playerIsFiremaking,
 			hasNpc = false, playerIsFishing = false, isOperate, below459 = true,
 			splitChat, strongHold, village, needsNewTask = false,
 			canSpeak = true, ignoreFrog, ratdied2 = false,
@@ -1366,8 +1229,7 @@ public abstract class Player {
 			canWalkTutorial, closeTutorialInterface, isCrafting, showedUnfire,
 			showedFire, isPotCrafting, isFiremaking, playerIsFletching, milking,
 			stopPlayerPacket, spiritTree = false, isSmelting,
-			hasPaifAnTeleport = false, isSmithing, doingAgility = false,
-			hasPaid, canTeleport, magicCharge, 
+			isSmithing, hasPaid, canTeleport, magicCharge, 
 			clickedVamp = false, allowFading, otherBank = false,
 			recievedReward = false, poison, golemSpawned = false, zombieSpawned = false, shadeSpawned = false,
 			treeSpiritSpawned = false, chickenSpawned = false, clickedTree = false, filter = true,
@@ -1395,7 +1257,7 @@ public abstract class Player {
 			lastPinSettings = -1, setPinDate = -1, changePinDate = -1,
 			deletePinDate = -1, firstPin, secondPin, thirdPin, fourthPin,
 			bankPin1, bankPin2, bankPin3, bankPin4, pinDeleteDateRequested,
-			rememberNpcIndex, lastLoginDate, selectedSkill, log = -1, newHerb,
+			rememberNpcIndex, lastLoginDate, selectedSkill, newHerb,
 			newItem, newXp, doingHerb, herbAmount, treeX, treeY, lastH,
 			cookingItem, cookingObject, summonId, npcId2 = 0, leatherType = -1,
 			weightCarried, teleotherType, rockX, rockY, itemUsing, tzKekTimer, 
@@ -1405,8 +1267,7 @@ public abstract class Player {
 			teleBlockLength, poisonDelay, slayerPoints, blackMarks,
 			SlayerMaster, teleOtherTimer = 0,
 			teleOtherSlot = -1, tutorialProgress, cookStage1 = 1,
-			woodcuttingTree, smeltAmount, knightS, otherDirection,
-			brightness = 3, recoilHits, droppedItem = -1,
+			knightS, brightness = 3, recoilHits, droppedItem = -1,
 			spawnedHealers, cannonX = 0, cannonY = 0,
 			playerShopId;
 
@@ -1492,7 +1353,6 @@ public abstract class Player {
 
 	private final boolean barrowsNpcDead[] = new boolean[6];
 
-	public boolean membership = false, awardedmembership = false;
 	public Client teleporter = null;
 	public int[] party = new int[8];
 	public int[] partyN = new int[8];
@@ -1513,7 +1373,7 @@ public abstract class Player {
 			chocSelect = 0, bagelSelect = 0, triangleSandwich = 0,
 			squareSandwich = 0, breadSelect = 0;
 	
-	public String clanName, properName;
+	public String properName;
 	public int lastX, lastY;
 	public int[] voidStatus = new int[5];
 	public int[] itemKeptId = new int[4];
@@ -1677,7 +1537,7 @@ public abstract class Player {
 			4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 2097152,
 			8388608, 16777216, 67108864, 134217728 };
 
-	public boolean doubleHit, usingSpecial, npcDroppingItems, usingRangeWeapon,
+	public boolean doubleHit, usingSpecial, usingRangeWeapon,
 			usingBow, usingMagic, castingMagic;
 	public int npcIndex, npcClickIndex, npcType, castingSpellId, oldSpellId,
 			spellId, hitDelay;
@@ -1704,12 +1564,10 @@ public abstract class Player {
 	public int combatLevel;
 	public boolean saveFile = false;
 	public int playerAppearance[] = new int[13];
-	public int apset;
 	public int actionID;
 	public int wearItemTimer, wearId, wearSlot, interfaceId;
 	public int XremoveSlot, XinterfaceID, XremoveID, Xamount;
 
-	public boolean usingGlory = false;
 	public boolean isMining;
 	public boolean antiFirePot = false;
 	
@@ -1768,10 +1626,7 @@ public abstract class Player {
 
 	public boolean inCw() {
 		Client c = (Client) this;
-		if (CastleWars.isInCwWait(c)) {
-			return true;
-		}
-		if (CastleWars.isInCw(c)) {
+		if (CastleWars.isInCwWait(c) || CastleWars.isInCw(c)) {
 			return true;
 		}
 		return false;
@@ -1848,8 +1703,7 @@ public abstract class Player {
 		if (inCw()) {
 			return true;
 		}
-		if (absX > 2941 && absX < 3392 && absY > 3518 && absY < 3966
-				|| absX > 2941 && absX < 3392 && absY > 9918 && absY < 10366) {
+		if (absX > 2941 && absX < 3392 && absY > 3518 && absY < 3966 || absX > 2941 && absX < 3392 && absY > 9918 && absY < 10366) {
 			return true;
 		}
 		return false;
@@ -2065,7 +1919,7 @@ public abstract class Player {
 	public int[] playerLevel = new int[25];
 	public int[] playerXP = new int[25];
 
-	public void updateshop(int i) {
+	public void updateShop(int i) {
 		Client p = (Client) PlayerHandler.players[playerId];
 		p.getShopAssistant().resetShop(i);
 	}
@@ -2126,7 +1980,6 @@ public abstract class Player {
 		playerAppearance[11] = 5; // feet colour
 		playerAppearance[12] = 0; // skin colour
 
-		apset = 0;
 		actionID = 0;
 
 		playerEquipment[playerHat] = -1;
@@ -2201,8 +2054,7 @@ public abstract class Player {
 	}
 
 	public int distanceToPoint(int pointX, int pointY) {
-		return (int) Math.sqrt(Math.pow(absX - pointX, 2)
-				+ Math.pow(absY - pointY, 2));
+		return (int) Math.sqrt(Math.pow(absX - pointX, 2) + Math.pow(absY - pointY, 2));
 	}
 
 	public int mapRegionX, mapRegionY;
@@ -2235,7 +2087,6 @@ public abstract class Player {
 	}
 
 	public void addToWalkingQueue(int x, int y) {
-		// if (VirtualWorld.I(heightLevel, absX, absY, x, y, 0)) {
 		int next = (wQueueWritePtr + 1) % walkingQueueSize;
 		if (next == wQueueWritePtr) {
 			return;
@@ -2243,11 +2094,11 @@ public abstract class Player {
 		walkingQueueX[wQueueWritePtr] = x;
 		walkingQueueY[wQueueWritePtr] = y;
 		wQueueWritePtr = next;
-		// }
 	}
-public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
-	return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
-}
+	
+	public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
+		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
+	}
 
 	public int getNextWalkingDirection() {
 		if (wQueueReadPtr == wQueueWritePtr) {
@@ -2321,7 +2172,6 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 			if (isRunning) {
 				dir2 = getNextWalkingDirection();
 			}
-			// c.sendMessage("Cycle Ended");
 			int deltaX = 0, deltaY = 0;
 			if (currentX < 2 * 8) {
 				deltaX = 4 * 8;
@@ -2376,8 +2226,7 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 			}
 		}
 		if (dir1 == -1) {
-			// don't have to update the character position, because we're
-			// just standing
+			// don't have to update the character position, because we're just standing
 			if (str != null){
 					str.createFrameVarSizeWord(81);
 				str.initBitAccess();
@@ -2569,8 +2418,6 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 
 		playerProps.writeByte(headIcon);
 		playerProps.writeByte(headIconPk);
-		// playerProps.writeByte(headIconHints);
-		// playerProps.writeByte(bountyIcon);
 
 		if (playerEquipment[playerHat] > 1) {
 			playerProps.writeWord(0x200 + playerEquipment[playerHat]);
@@ -2765,8 +2612,6 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 		Client c = (Client) this;
 		String s = ItemAssistant.getItemName(c.playerEquipment[c.playerWeapon]);
 		if (s.contains("2h")) {
-			return true;
-		} else if (s.contains("godsword")) {
 			return true;
 		}
 		return false;
@@ -3213,9 +3058,11 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 	}
 
 	public void setInStreamDecryption(ISAACRandomGen inStreamDecryption) {
+		
 	}
 
 	public void setOutStreamDecryption(ISAACRandomGen outStreamDecryption) {
+		
 	}
 
 	public boolean samePlayer() {
@@ -3272,7 +3119,6 @@ public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, 
 			PrayerDrain.resetPrayers(c);
 		}
 	}
-
 
 	public int[] damageTaken = new int[PlayerHandler.players.length];
 
