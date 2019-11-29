@@ -404,56 +404,59 @@ public class DwarfCannon {
 		
 		private Npc targetNpc() {
 			for (int i = 0; i < NpcHandler.MAX_NPCS; i++) {
-            if (NpcHandler.npcs[i] == null) {
-                continue;
-            }
-            Npc npc = NpcHandler.npcs[i];
-            int myX = player.cannonX;
-            int myY = player.cannonY;
-            int theirX = npc.absX;
-            int theirY = npc.absY;
-            if (!npc.isDead && !npc.isDead && npc.HP != 0 && npc.npcType != 1266 && npc.npcType != 1268 && inDistance(theirX, theirY)) {
-                switch (rotation) {
-                    case 1:
-                        if (theirY > myY && theirX >= myX - 1 && theirX <= myX + 1) {
-                            return npc;
-                        }
-                        break;
-                    case 2:
-                        if (theirX >= myX + 1 && theirY >= myY + 1) {
-                            return npc;
-                        }
-                        break;
-                    case 3:
-                        if (theirX > myX && theirY >= myY - 1 && theirY <= myY + 1) {
-                            return npc;
-                        }
-                        break;
-                    case 4:
-                        if (theirY <= myY - 1 && theirX >= myX + 1) {
-                            return npc;
-                        }
-                        break;
-                    case 5:
-                        if (theirY < myY && theirX >= myX - 1 && theirX <= myX + 1) {
-                            return npc;
-                        }
-                        break;
-                    case 6:
-                        if (theirX <= myX - 1 && theirY <= myY - 1) {
-                            return npc;
-                        }
-                        break;
-                    case 7:
-                        if (theirX < myX && theirY >= myY - 1 && theirY <= myY + 1) {
-                            return npc;
-                        }
-                        break;
-                    case 8:
-                        if (theirX <= myX - 1 && theirY >= myY + 1) {
-                            return npc;
-                        }
-                        break;
+				Npc npc = NpcHandler.npcs[i];
+				if (npc == null || npc.heightLevel != player.heightLevel || !canAttackSlayer(i)) {
+					continue;
+				}
+				int myX = player.cannonX;
+				int myY = player.cannonY;
+				int theirX = npc.absX;
+				int theirY = npc.absY;
+
+
+
+				if (!npc.isDead && !npc.isDead && npc.HP != 0 && npc.npcType != 1266 && npc.npcType != 1268 && inDistance(theirX, theirY)) {
+					switch (rotation) {
+						case 1:
+							if (theirY > myY && theirX >= myX - 1 && theirX <= myX + 1) {
+								return npc;
+							}
+							break;
+						case 2:
+							if (theirX >= myX + 1 && theirY >= myY + 1) {
+								return npc;
+							}
+							break;
+						case 3:
+							if (theirX > myX && theirY >= myY - 1 && theirY <= myY + 1) {
+								return npc;
+							}
+							break;
+						case 4:
+							if (theirY <= myY - 1 && theirX >= myX + 1) {
+								return npc;
+							}
+							break;
+						case 5:
+							if (theirY < myY && theirX >= myX - 1 && theirX <= myX + 1) {
+								return npc;
+							}
+							break;
+						case 6:
+							if (theirX <= myX - 1 && theirY <= myY - 1) {
+								return npc;
+							}
+							break;
+						case 7:
+							if (theirX < myX && theirY >= myY - 1 && theirY <= myY + 1) {
+								return npc;
+							}
+							break;
+						case 8:
+							if (theirX <= myX - 1 && theirY >= myY + 1) {
+								return npc;
+							}
+							break;
                 	}
             	}
 			}
@@ -462,6 +465,10 @@ public class DwarfCannon {
 		
 		public boolean inDistance(int npcX, int npcY) {
 			return (npcX >= player.cannonX - maxDistance && npcX <= player.cannonX + maxDistance && npcY >= player.cannonY - maxDistance && npcY <= player.cannonY + maxDistance);
+		}
+
+		public boolean canAttackSlayer(int i){
+			return player.playerLevel[player.playerSlayer] >= player.getSlayer().getRequiredLevel(NpcHandler.npcs[i].npcType);
 		}
 		
 		private void cannonProjectile(Npc n) {
