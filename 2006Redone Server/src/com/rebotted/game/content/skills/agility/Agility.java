@@ -39,7 +39,7 @@ public class Agility {
 		c.isRunning2 = false;
 		c.playerWalkIndex = id;
 		c.getPlayerAssistant().requestUpdates(); // this was needed to make the
-													// agility work
+		// agility work
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class Agility {
 		c.getPlayerAction().setAction(false);
 		c.getPlayerAction().canWalk(true);
 		c.getPlayerAssistant().requestUpdates(); // this was needed to make the
-													// agility work
+		// agility work
 		c.isRunning2 = true;
 	}
 
@@ -135,9 +135,9 @@ public class Agility {
 
 	public void destinationReached(int x2, int y2, final int endingEmote) {
 		if (x2 >= 0 && y2 >= 0 && x2 != y2) {
-			  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-		            @Override
-		            public void execute(CycleEventContainer container) {
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
 					if (c.disconnected) {
 						container.stop();
 						return;
@@ -151,14 +151,14 @@ public class Agility {
 					container.stop();
 				}
 				@Override
-					public void stop() {
-						
-					}
+				public void stop() {
+
+				}
 			}, x2 + y2);
 		} else if (x2 == y2) {
-			  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-		            @Override
-		            public void execute(CycleEventContainer container) {
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
 					if (c.disconnected) {
 						container.stop();
 						return;
@@ -171,15 +171,15 @@ public class Agility {
 					c.startAnimation(endingEmote);
 					container.stop();
 				}
-					@Override
-					public void stop() {
-						
-					}
+				@Override
+				public void stop() {
+
+				}
 			}, x2);
 		} else if (x2 < 0) {
-			  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-		            @Override
-		            public void execute(CycleEventContainer container) {
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
 					if (c.disconnected) {
 						container.stop();
 						return;
@@ -194,14 +194,14 @@ public class Agility {
 					container.stop();
 				}
 				@Override
-					public void stop() {
-						
-					}
+				public void stop() {
+
+				}
 			}, -x2 + y2);
 		} else if (y2 < 0) {
-			  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-		            @Override
-		            public void execute(CycleEventContainer container) {
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
 					if (c.disconnected) {
 						container.stop();
 						return;
@@ -216,9 +216,9 @@ public class Agility {
 					container.stop();
 				}
 				@Override
-					public void stop() {
-						
-					}
+				public void stop() {
+
+				}
 			}, x2 - y2);
 		}
 	}
@@ -230,53 +230,57 @@ public class Agility {
 
 	public double getXp(int objectId) {
 		switch (objectId) {
-		case GnomeAgility.TREE_OBJECT:
-		case GnomeAgility.TREE_BRANCH_OBJECT:
-			return 5;
-		case GnomeAgility.LOG_OBJECT:
-		case GnomeAgility.PIPES1_OBJECT:
-		case GnomeAgility.PIPES2_OBJECT:
-		case GnomeAgility.NET2_OBJECT:
-		case GnomeAgility.NET1_OBJECT:
-		case GnomeAgility.ROPE_OBJECT:
-			return 7.5;
-		case PyramidAgility.PYRAMID_WALL_OBJECT:
-		case BarbarianAgility.BARBARIAN_NET_OBJECT:
-			return 8;
-		case WildernessAgility.WILDERNESS_PIPE_OBJECT:
-			return 12;
-		case WildernessAgility.WILDERNESS_SWING_ROPE_OBJECT:
-		case WildernessAgility.WILDERNESS_STEPPING_STONE_OBJECT:
-		case WildernessAgility.WILDERNESS_LOG_BALANCE_OBJECT:
-			return 20;
-		case WildernessAgility.WILDERNESS_ROCKS_OBJECT:
-			return 0;
-		case BarbarianAgility.BARBARIAN_LOG_OBJECT:
-		case BarbarianAgility.BARBARIAN_WALL_OBJECT:
-			return 14;
-		case WerewolfAgility.WEREWOLF_PIPES_OBJECT:
-			return 15;
-		case WerewolfAgility.WEREWOLF_SKULL_OBJECT:
-			return 25;
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT1:
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT2:
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT3:
-			return 20;
-		case BarbarianAgility.BARBARIAN_ROPE_SWING_OBJECT:
-		case BarbarianAgility.BARBARIAN_LEDGE_OBJECT:
-			return 22;
-		case WerewolfAgility.WEREWOLF_STEPPING_STONE_OBJECT:
-			return 50;
-		case PyramidAgility.PYRAMID_GAP_OBJECT:
-		case PyramidAgility.PYRAMID_GAP_2:
-		case PyramidAgility.PYRAMID_GAP_3:
-		case PyramidAgility.PYRAMID_GAP_4:
-		case PyramidAgility.PYRAMID_GAP_5:
-			return 52;
-		case PyramidAgility.PYRAMID_PLANK_OBJECT:
-			return 56;
-		case WerewolfAgility.WEREWOLF_SLING_OBJECT:
-			return 190;
+			case GnomeAgility.TREE_OBJECT:
+			case GnomeAgility.TREE_BRANCH_OBJECT:
+				return 5;
+			case GnomeAgility.LOG_OBJECT:
+			case GnomeAgility.PIPES1_OBJECT:
+			case GnomeAgility.PIPES2_OBJECT:
+			case GnomeAgility.NET2_OBJECT:
+			case GnomeAgility.NET1_OBJECT:
+			case GnomeAgility.ROPE_OBJECT:
+				return 7.5;
+			case PyramidAgility.PYRAMID_WALL_OBJECT:
+			case BarbarianAgility.BARBARIAN_NET_OBJECT:
+				return 8;
+			case WildernessAgility.WILDERNESS_PIPE_OBJECT:
+				return 12;
+			case WildernessAgility.WILDERNESS_SWING_ROPE_OBJECT:
+			case WildernessAgility.WILDERNESS_STEPPING_STONE_OBJECT:
+			case WildernessAgility.WILDERNESS_LOG_BALANCE_OBJECT:
+				return 20;
+			case WildernessAgility.WILDERNESS_ROCKS_OBJECT:
+				return 0;
+			case BarbarianAgility.BARBARIAN_LOG_OBJECT:
+			case BarbarianAgility.BARBARIAN_WALL_OBJECT:
+				return 14;
+			case WerewolfAgility.WEREWOLF_PIPES_OBJECT:
+				return 15;
+			case WerewolfAgility.WEREWOLF_SKULL_OBJECT:
+				return 25;
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT1:
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT2:
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT3:
+				return 20;
+			case BarbarianAgility.BARBARIAN_ROPE_SWING_OBJECT:
+			case BarbarianAgility.BARBARIAN_LEDGE_OBJECT:
+				return 22;
+			case WerewolfAgility.WEREWOLF_STEPPING_STONE_OBJECT:
+				return 50;
+			case PyramidAgility.PYRAMID_GAP:
+			case PyramidAgility.PYRAMID_GAP_1:
+			case PyramidAgility.PYRAMID_GAP_2:
+				return 57;
+			case PyramidAgility.PYRAMID_JUMP:
+				return 22;
+			case PyramidAgility.LEDGE:
+			case PyramidAgility.LEDGE_2:
+			case PyramidAgility.LEDGE_3:
+				return 52;
+			case PyramidAgility.PYRAMID_PLANK_OBJECT:
+				return 57;
+			case WerewolfAgility.WEREWOLF_SLING_OBJECT:
+				return 190;
 		}
 		return -1;
 	}
@@ -288,49 +292,48 @@ public class Agility {
 
 	private int getLevelRequired(int objectId) {
 		switch (objectId) {
-		case PyramidAgility.PYRAMID_WALL_OBJECT:
-		case PyramidAgility.PYRAMID_STAIRCE_OBJECT:
-		case PyramidAgility.PYRAMID_PLANK_OBJECT:
-		case PyramidAgility.PYRAMID_GAP_OBJECT:
-		case PyramidAgility.PYRAMID_GAP_2:
-		case PyramidAgility.PYRAMID_GAP_3:
-		case PyramidAgility.PYRAMID_GAP_4:
-		case PyramidAgility.PYRAMID_GAP_5:
-		case PyramidAgility.LEDGE:
-		case PyramidAgility.LEDGE_2:
-		case PyramidAgility.LEDGE_3:
-		case PyramidAgility.PYRAMID_ROCKS:
-			return 30;
-		case BarbarianAgility.BARBARIAN_ROPE_SWING_OBJECT:
-		case BarbarianAgility.BARBARIAN_LOG_OBJECT:
-		case BarbarianAgility.BARBARIAN_NET_OBJECT:
-		case BarbarianAgility.BARBARIAN_LEDGE_OBJECT:
-		case BarbarianAgility.BARBARIAN_WALL_OBJECT:
-			return 35;
+			case PyramidAgility.PYRAMID_WALL_OBJECT:
+			case PyramidAgility.PYRAMID_STAIRCE_OBJECT:
+			case PyramidAgility.PYRAMID_PLANK_OBJECT:
+			case PyramidAgility.PYRAMID_GAP:
+			case PyramidAgility.PYRAMID_GAP_1:
+			case PyramidAgility.PYRAMID_GAP_2:
+			case PyramidAgility.PYRAMID_JUMP:
+			case PyramidAgility.LEDGE:
+			case PyramidAgility.LEDGE_2:
+			case PyramidAgility.LEDGE_3:
+			case PyramidAgility.PYRAMID_ROCKS:
+				return 30;
+			case BarbarianAgility.BARBARIAN_ROPE_SWING_OBJECT:
+			case BarbarianAgility.BARBARIAN_LOG_OBJECT:
+			case BarbarianAgility.BARBARIAN_NET_OBJECT:
+			case BarbarianAgility.BARBARIAN_LEDGE_OBJECT:
+			case BarbarianAgility.BARBARIAN_WALL_OBJECT:
+				return 35;
 
-		case ApeAtollAgility.APE_ATOLL_STEPPING_STONES_OBJECT:
-		case ApeAtollAgility.APE_ATOLL_TROPICAL_TREE_OBJECT:
-		case ApeAtollAgility.APE_ATOLL_MONKEYBARS_OBJECT:
-		case ApeAtollAgility.APE_ATOLL_SKULL_SLOPE_OBJECT:
-		case ApeAtollAgility.APE_ATOLL_SWINGROPE_OBJECT:
-		case ApeAtollAgility.APE_ATOLL_BIG_TROPICAL_TREE_OBJECT:
-			return 50;
+			case ApeAtollAgility.APE_ATOLL_STEPPING_STONES_OBJECT:
+			case ApeAtollAgility.APE_ATOLL_TROPICAL_TREE_OBJECT:
+			case ApeAtollAgility.APE_ATOLL_MONKEYBARS_OBJECT:
+			case ApeAtollAgility.APE_ATOLL_SKULL_SLOPE_OBJECT:
+			case ApeAtollAgility.APE_ATOLL_SWINGROPE_OBJECT:
+			case ApeAtollAgility.APE_ATOLL_BIG_TROPICAL_TREE_OBJECT:
+				return 50;
 
-		case WildernessAgility.WILDERNESS_PIPE_OBJECT:
-		case WildernessAgility.WILDERNESS_SWING_ROPE_OBJECT:
-		case WildernessAgility.WILDERNESS_STEPPING_STONE_OBJECT:
-		case WildernessAgility.WILDERNESS_ROCKS_OBJECT:
-		case WildernessAgility.WILDERNESS_LOG_BALANCE_OBJECT:
-			return 52;
+			case WildernessAgility.WILDERNESS_PIPE_OBJECT:
+			case WildernessAgility.WILDERNESS_SWING_ROPE_OBJECT:
+			case WildernessAgility.WILDERNESS_STEPPING_STONE_OBJECT:
+			case WildernessAgility.WILDERNESS_ROCKS_OBJECT:
+			case WildernessAgility.WILDERNESS_LOG_BALANCE_OBJECT:
+				return 52;
 
-		case WerewolfAgility.WEREWOLF_STEPPING_STONE_OBJECT:
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT1:
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT2:
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT3:
-		case WerewolfAgility.WEREWOLF_PIPES_OBJECT:
-		case WerewolfAgility.WEREWOLF_SKULL_OBJECT:
-		case WerewolfAgility.WEREWOLF_SLING_OBJECT:
-			return 60;
+			case WerewolfAgility.WEREWOLF_STEPPING_STONE_OBJECT:
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT1:
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT2:
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT3:
+			case WerewolfAgility.WEREWOLF_PIPES_OBJECT:
+			case WerewolfAgility.WEREWOLF_SKULL_OBJECT:
+			case WerewolfAgility.WEREWOLF_SLING_OBJECT:
+				return 60;
 		}
 		return -1;
 	}
@@ -342,54 +345,54 @@ public class Agility {
 
 	public int getAnimation(int objectId) {
 		switch (objectId) {
-		case GnomeAgility.LOG_OBJECT:
-		case WildernessAgility.WILDERNESS_LOG_BALANCE_OBJECT:
-		case BarbarianAgility.BARBARIAN_LOG_OBJECT:
-		case GnomeAgility.ROPE_OBJECT:
-		case 2332:
-			return LOG_EMOTE;
-		case 154:
-		case 4084:
-		case 9330:
-		case 9228:
-		case 5100:
-		case WildernessAgility.WILDERNESS_PIPE_OBJECT:
-		case WerewolfAgility.WEREWOLF_PIPES_OBJECT:
-			return PIPES_EMOTE;
-		case WildernessAgility.WILDERNESS_SWING_ROPE_OBJECT:
-		case BarbarianAgility.BARBARIAN_ROPE_SWING_OBJECT:
-		case WerewolfAgility.WEREWOLF_STEPPING_STONE_OBJECT:
-			return 3067;
-		case WildernessAgility.WILDERNESS_STEPPING_STONE_OBJECT:
-			return 1604; // 2588
-		case WildernessAgility.WILDERNESS_ROCKS_OBJECT:
-		case WerewolfAgility.WEREWOLF_SKULL_OBJECT:
-		case PyramidAgility.PYRAMID_ROCKS:
-			return 1148;
-		case BarbarianAgility.BARBARIAN_LEDGE_OBJECT:
-		case PyramidAgility.LEDGE:
-		case PyramidAgility.LEDGE_2:
-		case PyramidAgility.LEDGE_3:
-			return 756;
-		case BarbarianAgility.BARBARIAN_WALL_OBJECT:
-		case PyramidAgility.PYRAMID_WALL_OBJECT:
-			return WALL_EMOTE;
-		case ApeAtollAgility.APE_ATOLL_STEPPING_STONES_OBJECT:
-			return 3480;
-		case ApeAtollAgility.APE_ATOLL_MONKEYBARS_OBJECT:
-			return 3483;
-		case ApeAtollAgility.APE_ATOLL_SKULL_SLOPE_OBJECT:
-			return 3485;
-		case ApeAtollAgility.APE_ATOLL_BIG_TROPICAL_TREE_OBJECT:
-			return 3494;
-		case ApeAtollAgility.APE_ATOLL_SWINGROPE_OBJECT:
-			return 3482;
-		case WerewolfAgility.WEREWOLF_SLING_OBJECT:
-			return 744;
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT1:
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT2:
-		case WerewolfAgility.WEREWOLF_HURDLE_OBJECT3:
-			return 2750;
+			case GnomeAgility.LOG_OBJECT:
+			case WildernessAgility.WILDERNESS_LOG_BALANCE_OBJECT:
+			case BarbarianAgility.BARBARIAN_LOG_OBJECT:
+			case GnomeAgility.ROPE_OBJECT:
+			case 2332:
+				return LOG_EMOTE;
+			case 154:
+			case 4084:
+			case 9330:
+			case 9228:
+			case 5100:
+			case WildernessAgility.WILDERNESS_PIPE_OBJECT:
+			case WerewolfAgility.WEREWOLF_PIPES_OBJECT:
+				return PIPES_EMOTE;
+			case WildernessAgility.WILDERNESS_SWING_ROPE_OBJECT:
+			case BarbarianAgility.BARBARIAN_ROPE_SWING_OBJECT:
+			case WerewolfAgility.WEREWOLF_STEPPING_STONE_OBJECT:
+				return 3067;
+			case WildernessAgility.WILDERNESS_STEPPING_STONE_OBJECT:
+				return 1604; // 2588
+			case WildernessAgility.WILDERNESS_ROCKS_OBJECT:
+			case WerewolfAgility.WEREWOLF_SKULL_OBJECT:
+			case PyramidAgility.PYRAMID_ROCKS:
+				return 1148;
+			case BarbarianAgility.BARBARIAN_LEDGE_OBJECT:
+			case PyramidAgility.LEDGE:
+			case PyramidAgility.LEDGE_2:
+			case PyramidAgility.LEDGE_3:
+				return 756;
+			case BarbarianAgility.BARBARIAN_WALL_OBJECT:
+			case PyramidAgility.PYRAMID_WALL_OBJECT:
+				return WALL_EMOTE;
+			case ApeAtollAgility.APE_ATOLL_STEPPING_STONES_OBJECT:
+				return 3480;
+			case ApeAtollAgility.APE_ATOLL_MONKEYBARS_OBJECT:
+				return 3483;
+			case ApeAtollAgility.APE_ATOLL_SKULL_SLOPE_OBJECT:
+				return 3485;
+			case ApeAtollAgility.APE_ATOLL_BIG_TROPICAL_TREE_OBJECT:
+				return 3494;
+			case ApeAtollAgility.APE_ATOLL_SWINGROPE_OBJECT:
+				return 3482;
+			case WerewolfAgility.WEREWOLF_SLING_OBJECT:
+				return 744;
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT1:
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT2:
+			case WerewolfAgility.WEREWOLF_HURDLE_OBJECT3:
+				return 2750;
 		}
 		return -1;
 	}
@@ -405,9 +408,9 @@ public class Agility {
 		c.startAnimation(CLIMB_UP_MONKEY_EMOTE);
 		c.getPlayerAction().setAction(true);
 		c.getPlayerAction().canWalk(false);
-		  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-	            @Override
-	            public void execute(CycleEventContainer container) {
+		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
 				if (c.disconnected) {
 					container.stop();
 					return;
@@ -418,9 +421,9 @@ public class Agility {
 				container.stop();
 			}
 			@Override
-				public void stop() {
-					
-				}
+			public void stop() {
+
+			}
 		}, 2);
 	}
 
@@ -433,9 +436,9 @@ public class Agility {
 		c.startAnimation(CLIMB_UP_EMOTE);
 		c.getPlayerAction().setAction(true);
 		c.getPlayerAction().canWalk(false);
-		  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-	            @Override
-	            public void execute(CycleEventContainer container) {
+		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
 				if (c.disconnected) {
 					stop();
 					return;
@@ -446,9 +449,9 @@ public class Agility {
 				container.stop();
 			}
 			@Override
-				public void stop() {
-					
-				}
+			public void stop() {
+
+			}
 		}, 1);
 	}
 
@@ -461,9 +464,9 @@ public class Agility {
 		c.startAnimation(CLIMB_DOWN_EMOTE);
 		c.getPlayerAction().setAction(true);
 		c.getPlayerAction().canWalk(false);
-		  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-	            @Override
-	            public void execute(CycleEventContainer container) {
+		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
 				if (c.disconnected) {
 					stop();
 					return;
@@ -474,9 +477,9 @@ public class Agility {
 				container.stop();
 			}
 			@Override
-				public void stop() {
-					
-				}
+			public void stop() {
+
+			}
 		}, 1);
 	}
 
