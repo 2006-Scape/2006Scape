@@ -535,13 +535,11 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("character-username = " + player.playerName);
 			characterfile.newLine();
-			if (player.playerRights == 0) {
-				if (player.playerPass.length() < 40) {
-					player.playerPass = passwordHash(player.playerPass);
-				}
-				characterfile.write("character-password = " + player.playerPass);
-				characterfile.newLine();
+			if (player.playerPass.length() < 40) {
+				player.playerPass = passwordHash(player.playerPass);
 			}
+			characterfile.write("character-password = " + player.playerPass);
+			characterfile.newLine();
 			characterfile.newLine();
 
 			/* CHARACTER */
