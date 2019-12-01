@@ -84,7 +84,7 @@ public class Commands implements PacketType {
                                 if (arguments.length < 2) {
                                         player.getPacketSender().sendMessage("Must have 2 arguments: ::password oldpassword newpassword");
                                         return;
-                                } else if (!PlayerSave.passwordHash(arguments[0]).equalsIgnoreCase(player.playerPass)) {
+                                } else if (!PlayerSave.passwordHash(arguments[0]).equalsIgnoreCase(player.playerPass) || arguments[0].equalsIgnoreCase(player.playerPass)) {
                                         player.getPacketSender().sendMessage("Your old password is incorrect");
                                         return;
                                 } else {
