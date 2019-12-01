@@ -77,7 +77,22 @@ public class Commands implements PacketType {
                         case "coords":
                         case "coord":
                         case "pos":
-                                player.getPacketSender().sendMessage("Your coords are [" + player.absX + "," + player.absY + "]");
+                                player.getPacketSender().sendMessage("Your coords are [" + player.absX + ", " + player.absY + ", " + player.heightLevel + "]");
+                                break;
+                        case "password":
+                        case "pwd":
+                                if (arguments.length < 2) {
+                                        player.getPacketSender().sendMessage("Must have 2 arguments: ::password oldpassword newpassword");
+                                        return;
+                                } else if (!PlayerSave.passwordHash(arguments[0]).equalsIgnoreCase(player.playerPass) || arguments[0].equalsIgnoreCase(player.playerPass)) {
+                                        player.getPacketSender().sendMessage("Your old password is incorrect");
+                                        return;
+                                } else {
+                                        player.getPacketSender().sendMessage("Password updated!");
+                                        player.playerPass = arguments[1];
+                                        player.disconnected = true;
+                                        player.logout(true);
+                                }
                                 break;
                         case "null":
                                 break;

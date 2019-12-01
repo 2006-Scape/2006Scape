@@ -65,11 +65,8 @@ public class PlayerSave {
 					    if (!doRealLogin)
 							break;
 						if (token.equals("character-password")) {
-							if (playerPass.equalsIgnoreCase(token2)) {
-								// Hash their password and store it!
-								playerPass = passwordHash(token2);
-							} else if (passwordHash(playerPass).equalsIgnoreCase(token2)) {
-								playerPass = token2; //Valid password
+							if (playerPass.equalsIgnoreCase(token2) || passwordHash(playerPass).equalsIgnoreCase(token2)) {
+								player.playerPass = token2; //Valid password
 							} else {
 							    System.out.println("hash doesn't match: " + passwordHash(playerPass).toLowerCase());
 							    System.out.println("currently is: " + passwordHash(token2).toLowerCase());
@@ -487,7 +484,7 @@ public class PlayerSave {
 			return 14;
 	}
 
-	private static String passwordHash(String token2) {
+	public static String passwordHash(String token2) {
 	    String hashed = "HAS HAS FAILED!";
 		try {
 			MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -535,13 +532,11 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("character-username = " + player.playerName);
 			characterfile.newLine();
-			if (player.playerRights == 0) {
-				if (player.playerPass.length() < 40) {
-					player.playerPass = passwordHash(player.playerPass);
-				}
-				characterfile.write("character-password = " + player.playerPass);
-				characterfile.newLine();
+			if (player.playerPass.length() < 40) {
+				player.playerPass = passwordHash(player.playerPass);
 			}
+			characterfile.write("character-password = " + player.playerPass);
+			characterfile.newLine();
 			characterfile.newLine();
 
 			/* CHARACTER */

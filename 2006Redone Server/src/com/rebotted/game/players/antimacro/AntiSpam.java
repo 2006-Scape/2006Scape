@@ -10,13 +10,11 @@ import com.rebotted.game.players.Player;
 public class AntiSpam {
 	
 	private final static String[] BLOCKED_WORDS = {
-		"(dot)", ".com", "tk", ".org", ".net", ".info", ".cam", ".c0m", ". net", "(,)com",
-		".inf0", ".0rg", "(.)", ".biz", ".co.uk", ". com", ". info", ". c0m", ",com",
-		". biz", ". tk", ". 0rg", ". cam", ". inf0", "c'om", "c'0m", ". org", "dupe",
-		"http", "no-ip", "tradereq", "duelreq", "www", "vww", "c' om", "c' 0m", "w-w-w",
-		"w'ww", "w'w'w", "w 'ww", "w' w' w", "ww' w", "wvv", "ww", "wwv", "vvv", "vwv",
-		"w)w)w", "?com", "/com", "'com", "(com)", "(w)(w)(w)", "bot", "sythe", "abusewith.us",
-		"osrs", "2007rs", "runerebels", "06prime", "2006prime", "arios498", "ariosrsps", "coom"
+		"(dot)", ".com", "tk", ".org", ".net", ".info", ".cam", ".c0m", ". net", "(,)com", ".inf0", ".0rg", "(.)",
+		".biz", ".co.uk", ". com", ". info", ". c0m", ",com", ". biz", ". tk", ". 0rg", ". cam", ". inf0", "c'om",
+		"c'0m", ". org", "http", "no-ip", "tradereq", "duelreq", "www", "vww", "c' om", "c' 0m", "w-w-w", "w'ww",
+		"w'w'w", "w 'ww", "w' w' w", "ww' w", "wvv", "wwv", "vvv", "vwv", "w)w)w", "?com", "/com", "'com",  "(com)",
+		"(w)(w)(w)", "sythe", "abusewith.us", "runerebels", "06prime", "2006prime", "arios498", "ariosrsps", "coom"
 	};
 	
 	public static boolean blockedWords(Player player, String word, boolean chat) {
