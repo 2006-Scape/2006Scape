@@ -273,14 +273,18 @@ public class Agility {
 			return 22;
 		case WerewolfAgility.WEREWOLF_STEPPING_STONE_OBJECT:
 			return 50;
-		case PyramidAgility.PYRAMID_GAP_OBJECT:
+		case PyramidAgility.PYRAMID_GAP:
+		case PyramidAgility.PYRAMID_GAP_1:
 		case PyramidAgility.PYRAMID_GAP_2:
-		case PyramidAgility.PYRAMID_GAP_3:
-		case PyramidAgility.PYRAMID_GAP_4:
-		case PyramidAgility.PYRAMID_GAP_5:
+			return 57;
+		case PyramidAgility.PYRAMID_JUMP:
+			return 22;
+		case PyramidAgility.LEDGE:
+		case PyramidAgility.LEDGE_2:
+		case PyramidAgility.LEDGE_3:
 			return 52;
 		case PyramidAgility.PYRAMID_PLANK_OBJECT:
-			return 56;
+			return 57;
 		case WerewolfAgility.WEREWOLF_SLING_OBJECT:
 			return 190;
 		}
@@ -297,11 +301,10 @@ public class Agility {
 		case PyramidAgility.PYRAMID_WALL_OBJECT:
 		case PyramidAgility.PYRAMID_STAIRCE_OBJECT:
 		case PyramidAgility.PYRAMID_PLANK_OBJECT:
-		case PyramidAgility.PYRAMID_GAP_OBJECT:
+		case PyramidAgility.PYRAMID_GAP:
+		case PyramidAgility.PYRAMID_GAP_1:
 		case PyramidAgility.PYRAMID_GAP_2:
-		case PyramidAgility.PYRAMID_GAP_3:
-		case PyramidAgility.PYRAMID_GAP_4:
-		case PyramidAgility.PYRAMID_GAP_5:
+		case PyramidAgility.PYRAMID_JUMP:
 		case PyramidAgility.LEDGE:
 		case PyramidAgility.LEDGE_2:
 		case PyramidAgility.LEDGE_3:

@@ -25,10 +25,14 @@ public class WildernessAgility {
 			if (c.getAgility().checkLevel(objectId)) {
 				return false;
 			}
+			if ((c.absX >= 3003 && c.absX <= 3006) && (c.absY >= 3945 && c.absY <= 3954)) {
+				return false;
+			}
+
 			if (c.getAgility().hotSpot(3004, 3937)) {
 				c.getAgility().walk(0, 13,
-						c.getAgility().getAnimation(objectId), 748);
-			} else if (c.absX == 3004 && c.absY > 3937 && c.absY < 3950) {
+						c.getAgility().getAnimation(objectId), -1);
+			} else if ((c.absX >= 3003 && c.absX <= 3005) && (c.absY > 3937 && c.absY < 3950)) {
 				c.getPlayerAssistant().movePlayer(3004, 3950, 0);
 			}
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
@@ -39,7 +43,7 @@ public class WildernessAgility {
 			if (c.getAgility().checkLevel(objectId)) {
 				return false;
 			}
-			if (c.getAgility().hotSpot(3005, 3953)) {
+			if (c.getAgility().hotSpot(3005, 3953) || ((c.absX >= 3004 && c.absX <= 3006) && (c.absY > 3950 && c.absY < 3953))) {
 				c.getAgility().walk(0, 1,
 						c.getAgility().getAnimation(objectId), -1);
 				if (c.getAgility().agilityProgress[0] == true) {
@@ -87,9 +91,17 @@ public class WildernessAgility {
 			if (c.getAgility().checkLevel(objectId)) {
 				return false;
 			}
-			if (c.getAgility().hotSpot(3002, 3945)) {
-				c.getAgility().walk(-8, 0,
-						c.getAgility().getAnimation(objectId), -1);
+			if (c.getAgility().hotSpot(3002, 3945) || ((c.absX >= 3001 && c.absX <= 3002) && (c.absY >= 3944 && c.absY <= 3946))) {
+				if (c.absY != 3945)
+				{
+					c.getPlayerAssistant().movePlayer(2994, ((3945 - c.absY) + c.absY), 0);
+				}
+				else
+				{
+					c.getAgility().walk(-8, 0,
+							c.getAgility().getAnimation(objectId), -1);
+				}
+
 				if (c.getAgility().agilityProgress[3] == true) {
 					c.getAgility().agilityProgress[5] = true;
 				}
