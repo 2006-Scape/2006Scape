@@ -487,7 +487,7 @@ public class PlayerSave {
 			return 14;
 	}
 
-	private static String passwordHash(String token2) {
+	public static String passwordHash(String token2) {
 	    String hashed = "HAS HAS FAILED!";
 		try {
 			MessageDigest digest = MessageDigest.getInstance("MD5");
