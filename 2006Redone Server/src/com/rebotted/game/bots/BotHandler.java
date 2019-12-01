@@ -155,6 +155,7 @@ public class BotHandler {
         int totalCoins = shop.getItemAssistant().getItemAmount(currency);
         player.getItemAssistant().addItem(currency, totalCoins);
         shop.getItemAssistant().deleteItem(currency, totalCoins);
+        player.getPacketSender().sendMessage("You collected " + totalCoins + " coins.");
     }
 
     public static void addTobank(int shop_id, int item_id, int amount){
