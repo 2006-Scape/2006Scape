@@ -1461,47 +1461,43 @@ public class PlayerAssistant {
 		player.freezeTimer = 0;
 		player.getPacketSender().closeAllWindows();
 		player.tradeResetNeeded = true;
-		if (player.duelStatus <= 4) {
-			if (!CastleWars.isInCw(player) && !PestControl.isInGame(player)
-					&& !PestControl.isInPcBoat(player)
-					&& player.tutorialProgress > 35
-					&& FightPits.getState(player) == null
-					&& !player.inFightCaves()) {
-				player.getItemAssistant().resetKeepItems();
-				if (player.playerRights != 3) {
-					if (!player.isSkulled) { // what items to keep
-						player.getItemAssistant().keepItem(0, true);
-						player.getItemAssistant().keepItem(1, true);
-						player.getItemAssistant().keepItem(2, true);
-					}
-					if (player.getPrayer().prayerActive[10]
-							&& System.currentTimeMillis() - player.lastProtItem > 700) {
-						player.getItemAssistant().keepItem(3, true);
-					}
-					player.getItemAssistant().dropAllItems(); // drop all items
-					player.getItemAssistant().deleteAllItems(); // delete all
-																// items
+		if (player.duelStatus <= 4 // Player Duelling
+				&& !player.inDuelArena() // Dual Arena
+				&& !CastleWars.isInCw(player) // Castle Wars
+				&& !PestControl.isInGame(player) // Pest Control
+				&& !PestControl.isInPcBoat(player) // Pest Control
+				&& player.tutorialProgress <= 35 // Tutorial Island
+				&& FightPits.getState(player) == null // Fight Pits
+				&& !player.inFightCaves() // Fight Caves
+		) {
+			player.getItemAssistant().resetKeepItems();
+			// admin and bots do not lose/drop items
+			if (player.playerRights != 3 && !player.isBot) {
+				if (!player.isSkulled) { // what items to keep
+					player.getItemAssistant().keepItem(0, true);
+					player.getItemAssistant().keepItem(1, true);
+					player.getItemAssistant().keepItem(2, true);
+				}
+				if (player.getPrayer().prayerActive[10] && System.currentTimeMillis() - player.lastProtItem > 700) {
+					player.getItemAssistant().keepItem(3, true);
+				}
+				player.getItemAssistant().dropAllItems(); // drop all items
+				player.getItemAssistant().deleteAllItems(); // delete all items
 
-					if (!player.isSkulled) { // add the kept items once we
-												// finish deleting and dropping
-												// them
-						for (int i1 = 0; i1 < 3; i1++) {
-							if (player.itemKeptId[i1] > 0) {
-								player.getItemAssistant().addItem(
-										player.itemKeptId[i1], 1);
-							}
-						}
-					}
-					if (player.getPrayer().prayerActive[10]) { // if we have
-																// protect items
-						if (player.itemKeptId[3] > 0) {
-							player.getItemAssistant().addItem(
-									player.itemKeptId[3], 1);
+				if (!player.isSkulled) { // add the kept items once we finish deleting and dropping them
+					for (int i1 = 0; i1 < 3; i1++) {
+						if (player.itemKeptId[i1] > 0) {
+							player.getItemAssistant().addItem(player.itemKeptId[i1], 1);
 						}
 					}
 				}
-				player.getItemAssistant().resetKeepItems();
+				if (player.getPrayer().prayerActive[10]) { // if we have protect items
+					if (player.itemKeptId[3] > 0) {
+						player.getItemAssistant().addItem(player.itemKeptId[3], 1);
+					}
+				}
 			}
+			player.getItemAssistant().resetKeepItems();
 		}
 		PrayerDrain.resetPrayers(player);
 		for (int i = 0; i < 20; i++) {
