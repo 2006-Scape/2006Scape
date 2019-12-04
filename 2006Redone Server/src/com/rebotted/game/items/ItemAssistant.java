@@ -2489,9 +2489,6 @@ public class ItemAssistant {
 			c.playerItemsN[i] = 0;
 		}
 		resetItems(3214);
-		/*
-		 * c.weight = 0; Weight.updateWeight(c);
-		 */
 	}
 
 	public int freeSlots() {

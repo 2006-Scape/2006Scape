@@ -272,8 +272,8 @@ public class MagicTeleports {
 			}
 		}
 		if (MAGIC_LEVEL_REQUIRED) {
-			if (player.playerLevel[player.playerMagic] < 32) {
-				player.getPacketSender().sendMessage("You need a magic level of 32 to cast this spell.");
+			if (player.playerLevel[player.playerMagic] < 31) {
+				player.getPacketSender().sendMessage("You need a magic level of 31 to cast this spell.");
 				return;
 			}
 		}
