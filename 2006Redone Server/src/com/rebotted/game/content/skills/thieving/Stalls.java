@@ -132,6 +132,7 @@ public class Stalls {
 					int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
 					p.lastThieve = System.currentTimeMillis();
 					p.getPacketSender().sendMessage("You steal a "+ItemAssistant.getItemName(random[0])+" from the stall.");
+					p.getItemAssistant().addItem(random[0], 1);
 					CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
