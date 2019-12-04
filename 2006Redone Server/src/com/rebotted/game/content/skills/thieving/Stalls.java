@@ -143,7 +143,7 @@ public class Stalls {
 				int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
 				s.respawnTime = System.currentTimeMillis() + (respawnTime * GameConstants.CYCLE_TIME);
 				p.getPacketSender().sendMessage("You steal a " + ItemAssistant.getItemName(random[0]) + " from the stall.");
-				p.getItemAssistant().addItem(random[0], 1);
+				p.getItemAssistant().addItem(random[0], random[1]);
 				CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
