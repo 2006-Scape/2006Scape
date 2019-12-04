@@ -20,77 +20,126 @@ public class Pickpocket extends SkillHandler {
 
 	public static enum npcData {
 
-		MAN(new int[] { 1, 2, 3, 3222 }, 1, 8.0, 1, 5, new int[] { 995, 3 }), WOMEN(
-				new int[] { 4, 5, 6 }, 1, 8.0, 1, 5, new int[] { 995, 3 }), FARMER(
-				new int[] { 7, 1757 }, 10, 14.5, 1, 5, new int[] { 995, 9 },
-				new int[] { 5318, 4 }), HAM_FEMALE(new int[] { 1715 }, 15,
-				18.5, 2, 4, new int[] { 995, 2 + r(19) },
-				new int[] { 4302, 1 }, new int[] { 4304, 1 }, new int[] { 4298,
-						1 }, new int[] { 4308, 1 }, new int[] { 4300, 1 },
-				new int[] { 4310, 1 }, new int[] { 4306, 1 }), HAM_MALE(
-				new int[] { 1714 }, 20, 22.5, 2, 4,
-				new int[] { 995, 2 + r(19) }, new int[] { 4302, 1 }, new int[] {
-						4304, 1 }, new int[] { 4298, 1 },
-				new int[] { 4308, 1 }, new int[] { 4300, 1 }, new int[] { 4310,
-						1 }, new int[] { 4306, 1 }), WARRIOR(
-				new int[] { 15, 18 }, 25, 26.0, 2, 5, new int[] { 995, 18 }), ROGUE(
-				new int[] { 187 }, 32, 35.5, 2, 5, new int[] { 995, 25 },
-				new int[] { 995, 40 }, new int[] { 7919, 1 }, new int[] { 556,
-						6 }, new int[] { 5686, 1 }, new int[] { 1523, 1 },
-				new int[] { 1944, 1 }), MASTER_FARMER(new int[] { 2234, 2235 },
-				38, 43.0, 2, 5, new int[] { i("potato seed"), 1 + r(2) },
-				new int[] { i("onion seed"), 1 + r(2) }, new int[] {
-						i("cabbage seed"), 1 + r(2) }, new int[] {
-						i("tomato seed"), 1 + r(1) }, new int[] {
-						i("sweetcorn seedseed"), 1 + r(1) }, new int[] {
-						i("strawberry seed"), 1 }, new int[] {
-						i("watermelon seed"), 1 }, new int[] {
-						i("barely seed"), 1 + r(3) }, new int[] {
-						i("hammerstone seed"), 1 + r(2) }, new int[] {
-						i("asgarnian seed"), 1 + r(1) }, new int[] {
-						i("jute seed"), 1 + r(2) }, new int[] {
-						i("yanillian seed"), 1 + r(1) }, new int[] {
-						i("krandorian seed"), 1 }, new int[] {
-						i("wildblood seed"), 1 }, new int[] {
-						i("redberry seed"), 1 }, new int[] {
-						i("cadavaberry seed"), 1 }, new int[] {
-						i("dwellberry seed"), 1 }, new int[] {
-						i("jangerberry seed"), 1 }, new int[] {
-						i("whiteberry seed"), 1 }, new int[] {
-						i("poison ivy seed"), 1 }, new int[] {
-						i("marigold seed"), 1 }, new int[] {
-						i("rosemarry seed"), 1 }, new int[] {
-						i("nasturtium seed"), 1 }, new int[] { i("woad seed"),
-						1 }, new int[] { i("limpwurt seed"), 1 }, new int[] {
-						i("guam seed"), 1 },
-				new int[] { i("marentill seed"), 1 }, new int[] {
-						i("tarromin seed"), 1 }, new int[] {
-						i("harralander seed"), 1 }, new int[] {
-						i("ranarr seed"), 1 }, new int[] { i("toadflax seed"),
-						1 }, new int[] { i("irit seed"), 1 }, new int[] {
-						i("avantoe seed"), 1 },
-				new int[] { i("kwuarm seed"), 1 }, new int[] {
-						i("snapdragon seed"), 1 }, new int[] {
-						i("cadantine seed"), 1 }, new int[] {
-						i("lantadyme seed"), 1 }, new int[] {
-						i("dwarf weed seed"), 1 }, new int[] {
-						i("torstol seed"), 1 }, new int[] {
-						i("bittercap mushroom spore"), 1 }, new int[] {
-						i("belladonna seed"), 1 }, new int[] {
-						i("cactus seed"), 1 }), GUARD(new int[] { 9, 32 }, 40,
-				46.8, 2, 5, new int[] { 995, 30 }), KNIGHT(new int[] { 26 },
-				55, 84.3, 3, 5, new int[] { 995, 50 }), MENAPHITE_THUG(
-				new int[] { 1904 }, 65, 137.5, 5, 5, new int[] { 995, 60 }), WATCHMAN(
-				new int[] { 431 }, 65, 137.5, 3, 5, new int[] { 995, 60 },
-				new int[] { 4593, 1 }), PALADIN(new int[] { 20 }, 70, 151.8, 5,
-				4, new int[] { 995, 80 }, new int[] { 562, 2 }), GNOME(
-				new int[] { 66 }, 75, 198.3, 1, 6, new int[] { 995, 300 },
-				new int[] { 557, 1 }, new int[] { 444, 1 },
-				new int[] { 569, 1 }, new int[] { 2150 }, new int[] { 2162 }), HERO(
-				new int[] { 21 }, 80, 273.3, 4, 6, new int[] { 995, 300 },
-				new int[] { 560, 2 }, new int[] { 565, 1 },
-				new int[] { 569, 1 }, new int[] { 1617, 1 },
-				new int[] { 444, 1 }, new int[] { 1993 });
+		MAN(new int[] { 1, 2, 3, 3222 }, 1, 8.0, 1, 5, new int[][] {
+				{995, 3},
+		}),
+		WOMEN(new int[] { 4, 5, 6 }, 1, 8.0, 1, 5, new int[][] {
+				{995, 3},
+		}),
+		FARMER(new int[] { 7, 1757 }, 10, 14.5, 1, 5, new int[][]{
+				{995, 9},
+				{5318, 4},
+		}),
+		HAM_FEMALE(new int[] { 1714, 1715 }, 15, 18.5, 2, 4, new int[][]{
+				{995, 2, 19},
+				{4302, 1},
+				{4304, 1},
+				{4298, 1},
+				{4308, 1},
+				{4300, 1},
+				{4310, 1},
+				{4306, 1},
+		}),
+		HAM_MALE(new int[] { 1714 }, 20, 22.5, 2, 4, new int[][]{
+				{995, 2, 19},
+				{4302, 1},
+				{4304, 1},
+				{4298, 1},
+				{4308, 1},
+				{4300, 1},
+				{4310, 1},
+				{4306, 1},
+		}),
+		WARRIOR(new int[] { 15, 18 }, 25, 26.0, 2, 5, new int[][] {
+				{995, 18},
+		}),
+		ROGUE(new int[] { 187 }, 32, 35.5, 2, 5, new int[][]{
+				{995, 25},
+				{995, 40},
+				{7919, 1},
+				{556, 6},
+				{5686, 1},
+				{1523, 1},
+				{1944, 1},
+		}),
+		MASTER_FARMER(new int[] { 2234, 2235 }, 38, 43.0, 2, 5, new int[][] {
+				{i("potato seed"), 1, 2},
+				{i("onion seed"), 1, 2},
+				{i("cabbage seed"), 1, 2},
+				{i("tomato seed"), 1, 1},
+				{i("sweetcorn seedseed"), 1, 1},
+				{i("strawberry seed"), 1},
+				{i("watermelon seed"), 1},
+				{i("barely seed"), 1, 3},
+				{i("hammerstone seed"), 1, 2},
+				{i("asgarnian seed"), 1, 1},
+				{i("jute seed"), 1, 2},
+				{i("yanillian seed"), 1, 1},
+				{i("krandorian seed"), 1},
+				{i("wildblood seed"), 1},
+				{i("redberry seed"), 1},
+				{i("cadavaberry seed"), 1},
+				{i("dwellberry seed"), 1},
+				{i("jangerberry seed"), 1},
+				{i("whiteberry seed"), 1},
+				{i("poison ivy seed"), 1},
+				{i("marigold seed"), 1},
+				{i("rosemarry seed"), 1},
+				{i("nasturtium seed"), 1},
+				{i("woad seed"), 1},
+				{i("limpwurt seed"), 1},
+				{i("guam seed"), 1},
+				{i("marentill seed"), 1},
+				{i("tarromin seed"), 1},
+				{i("harralander seed"), 1},
+				{i("ranarr seed"), 1},
+				{i("toadflax seed"), 1},
+				{i("irit seed"), 1},
+				{i("avantoe seed"), 1},
+				{i("kwuarm seed"), 1},
+				{i("snapdragon seed"), 1},
+				{i("cadantine seed"), 1},
+				{i("lantadyme seed"), 1},
+				{i("dwarf weed seed"), 1},
+				{i("torstol seed"), 1},
+				{i("bittercap mushroom spore"), 1},
+				{i("belladonna seed"), 1},
+				{i("cactus seed"), 1},
+		}),
+		GUARD(new int[] { 9, 32 }, 40, 46.8, 2, 5, new int[][] {
+				{995, 30},
+		}),
+		KNIGHT(new int[] { 26 }, 55, 84.3, 3, 5, new int[][] {
+				{995, 50},
+		}),
+		MENAPHITE_THUG(new int[] { 1904 }, 65, 137.5, 5, 5, new int[][] {
+				{995, 60},
+		}),
+		WATCHMAN(new int[] { 431 }, 65, 137.5, 3, 5, new int[][] {
+				{995, 60},
+				{4593, 1},
+		}),
+		PALADIN(new int[] { 20 }, 70, 151.8, 5, 4, new int[][]{
+				{995, 80},
+				{562, 2},
+		}),
+		GNOME(new int[] { 66 }, 75, 198.3, 1, 6, new int[][] {
+				{995, 300},
+				{557, 1},
+				{444, 1},
+				{569, 1},
+				{2150, 1},
+				{2162, 1},
+		}),
+		HERO(new int[] { 21 }, 80, 273.3, 4, 6, new int[][]{
+				{995, 300},
+				{560, 2},
+				{565, 1},
+				{569, 1},
+				{1617, 1},
+				{444, 1},
+				{1993, 1},
+		});
 
 		private final int levelReq, damage, stun;
 		private final int[] npcId;
@@ -98,7 +147,7 @@ public class Pickpocket extends SkillHandler {
 		private final double xp;
 
 		private npcData(final int[] npcId, final int levelReq, final double xp,
-				final int damage, final int stun, final int[]... pickpockets) {
+				final int damage, final int stun, final int[][] pickpockets) {
 			this.npcId = npcId;
 			this.levelReq = levelReq;
 			this.xp = xp;
@@ -238,13 +287,8 @@ public class Pickpocket extends SkillHandler {
 							c.getPacketSender().sendMessage(message2);
 							c.getPlayerAssistant().addSkillXP((int) n.getXp(),
 									c.playerThieving);
-							int[] random = n.getPickPockets()[Misc.random(n
-									.getPickPockets().length - 1)];
-							c.getItemAssistant().addItem(
-									random[0],
-									random[1]
-											+ (random.length > 2 ? Misc
-													.random(random[2]) : 0));
+							int[] random = n.getPickPockets()[Misc.random(n.getPickPockets().length - 1)];
+							c.getItemAssistant().addItem(random[0], random[1] + (random.length > 2 ? Misc.random(random[2]) : 0));
 							container.stop();
 						}
 						@Override

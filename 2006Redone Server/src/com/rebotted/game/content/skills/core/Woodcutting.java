@@ -426,8 +426,8 @@ public class Woodcutting {
 			1306, 8396, 8397, 8398, 8399, 8400, 8401, 8402, 8403, 8404, 8405,
 					8406, 8407, 8408, 8409, 13417, 13424, } };
 
-	public static void cutDownTree(int respawnTime, int objectX, int objectY, int type, int i, int objectId) {
-		new Object(i, objectX, objectY, 0, type, 10, objectId, respawnTime);
+	public static void cutDownTree(int respawnTime, int objectX, int objectY, int type, int stumpID, int treeID) {
+		new Object(stumpID, objectX, objectY, 0, type, 10, treeID, respawnTime);
 		for (int t = 0; t < PlayerHandler.players.length; t++) {
 			if (PlayerHandler.players[t] != null) {
 				if (PlayerHandler.players[t].treeX == objectX && PlayerHandler.players[t].treeY == objectY) {
