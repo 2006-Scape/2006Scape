@@ -1876,14 +1876,13 @@ public class ObjectsActions {
 			break;
 
 		case 2406:
+			if (player.playerEquipment[player.playerWeapon] != 772) {
+				player.getPacketSender().sendMessage("This door is locked.");
+				return;
+			}
 			if (player.playerEquipment[player.playerWeapon] == 772) {
-				player.getPlayerAssistant().startTeleport(2452, 4470, 0,
-						"modern");
-				player.getPacketSender().sendMessage(
-						"You are suddenly teleported away.");
-			} else {
-				player.getPacketSender()
-						.sendMessage("This door is locked.");
+				player.getPlayerAssistant().startTeleport(2452, 4470, 0, "modern");
+				player.getPacketSender().sendMessage("You are suddenly teleported away.");
 			}
 			break;
 

@@ -2051,6 +2051,7 @@ public class PlayerAssistant {
 		player.getPacketSender().sendFrame126("Your " +data.get().toString()+ " level is now " + getLevelForXP(player.playerXP[skill]) + ".", data.get().getFrame3());
 		player.getPacketSender().sendChatInterface(data.get().getFrame1());
 		player.dialogueAction = 0;
+		player.nextChat = 0;
 	}
 
 	public void refreshSkill(int skill) {

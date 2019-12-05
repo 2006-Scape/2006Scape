@@ -1,5 +1,6 @@
 package com.rebotted.game.content.skills.thieving;
 
+import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
@@ -9,6 +10,7 @@ import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.ItemList;
 import com.rebotted.game.npcs.NpcHandler;
+import com.rebotted.game.objects.Object;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
@@ -38,6 +40,7 @@ public class Stalls {
 		private int objectId, levelReq, face;
 		private int[][] stalls;
 		private double xp;
+		private long respawnTime;
 		
 		private stallData(final int objectId, final int levelReq, final double xp, final int face, final int[]... stalls) {
 			this.objectId = objectId;
@@ -45,6 +48,7 @@ public class Stalls {
 			this.xp = xp;
 			this.face = face;
 			this.stalls = stalls;
+			this.respawnTime = System.currentTimeMillis();
 		}
 
 		public int getObject() {
@@ -98,84 +102,89 @@ public class Stalls {
 	}
 
 	public static void attemptStall(final Player p, final int objectId, final int x, final int y) {
+		// Skill is disabled on this server
+		if (!SkillHandler.THIEVING) {
+			p.getPacketSender().sendMessage("This skill is currently disabled.");
+			return;
+		}
+		// In combat
+		if(p.underAttackBy > 0 || p.underAttackBy2 > 0) {
+			p.getPacketSender().sendMessage("You can't steal from a stall while in combat!");
+			return;
+		}
+		// No inventory space
+		if (p.getItemAssistant().freeSlots() == 0) {
+			p.getPacketSender().sendMessage("Not enough space in your inventory.");
+			return;
+		}
 		for (final stallData s : stallData.values()) {
-			if (System.currentTimeMillis() - p.lastThieve < 2500 + r(2500)) {
-				p.getPacketSender().sendMessage("You need to wait longer before you can thieve this stall!");
-				return;
-			}
-			if (!SkillHandler.THIEVING) {
-				p.getPacketSender().sendMessage("This skill is currently disabled.");
-				return;
-			}
-			if(p.underAttackBy > 0 || p.underAttackBy2 > 0) {
-				p.getPacketSender().sendMessage("You can't steal from a stall while in combat!");
-				return;	
-			}
-			if (p.getItemAssistant().freeSlots() == 0) {
-				p.getPacketSender().sendMessage("Not enough space in your inventory.");
-				return;
-			}
 			if(objectId == s.getObject()) {
-				if (p.playerLevel[p.playerThieving] >= s.getLevel()) {
-					if(Misc.random(4) == 1 && p.playerLevel[p.playerThieving] < 99) {
-						failGuards(p);
-						return;
-					}
-					if (p.getItemAssistant().freeSlots() == 0) {
-						p.getPacketSender().sendMessage("Not enough space in your inventory.");
-						return;
-					}
-					p.startAnimation(832);
-					RandomEventHandler.addRandom(p);
-					GameEngine.objectHandler.createAnObject(p, 634, x, y, s.getFace());
-					p.getPlayerAssistant().addSkillXP((int) s.getXp(), p.playerThieving);
-					int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
-					p.lastThieve = System.currentTimeMillis();
-					p.getPacketSender().sendMessage("You steal a "+ItemAssistant.getItemName(random[0])+" from the stall.");
-					CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
-						@Override
-						public void execute(CycleEventContainer container) {
-							GameEngine.objectHandler.createAnObject(p, s.getObject(), x, y, s.getFace());
-							//new Object(s.getObject(), x, y, 0, s.getFace(), 10, j, getRespawnTime(c, s.getObject()));
-							container.stop();
-						}
-						@Override
-						public void stop() {
-						}
-					}, getRespawnTime(p, s.getObject()));
-				} else {
-					p.getDialogueHandler().sendStatement("You must have a thieving level of " + s.getLevel() + " to steal from this stall.");
+				// Wait for respawn
+				if (System.currentTimeMillis() < s.respawnTime) {
+					p.getPacketSender().sendMessage("You need to wait longer before you can thieve this stall!");
+					return;
 				}
+				// Thieving level too low
+				if (p.playerLevel[p.playerThieving] < s.getLevel()) {
+					p.getDialogueHandler().sendStatement("You must have a thieving level of " + s.getLevel() + " to steal from this stall.");
+					return;
+				}
+				// Failed, was caught red handed
+				if(Misc.random(4) == 1 && p.playerLevel[p.playerThieving] < 99) {
+					failGuards(p);
+					return;
+				}
+				p.startAnimation(832);
+				RandomEventHandler.addRandom(p);
+				int respawnTime = getRespawnTime(objectId);
+				GameEngine.objectHandler.createAnObject(p, 634, x, y, s.getFace());
+				//new Object(634, x, y, 0, s.getFace(), 10, objectId, respawnTime);
+				p.getPlayerAssistant().addSkillXP((int) s.getXp(), p.playerThieving);
+				int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
+				s.respawnTime = System.currentTimeMillis() + (respawnTime * GameConstants.CYCLE_TIME);
+				p.getPacketSender().sendMessage("You steal a " + ItemAssistant.getItemName(random[0]) + " from the stall.");
+				p.getItemAssistant().addItem(random[0], random[1]);
+				CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer container) {
+						GameEngine.objectHandler.createAnObject(p, s.getObject(), x, y, s.getFace());
+						//new Object(objectId, x, y, 0, s.getFace(), 10, j, getRespawnTime(objectId));
+						container.stop();
+					}
+					@Override
+					public void stop() {
+					}
+				}, respawnTime);
 			}
 		}
 	}
 
-	private static int getRespawnTime(Player p, int i) {
+	private static int getRespawnTime(int i) {
 		switch (i) {
-		case 4706:
-			return 3;// veg
-		case 2561:
-			return 4;// baker
-		case 635:
-			return 12;// tea
-		case 2560:
-			return 13;// silk
-		case 14011:
-			return 27;// wine
-		case 7053:
-			return 18;// seed
-		case 2563:
-			return 25;// fur
-		case 4705:
-			return 27;// fish
-		case 2565:
-			return 50;// silver
-		case 2564:
-		case 4877:
-		case 4878:
-			return 133;// spice, scimitar, magic
-		case 2562:
-			return 300;// gem
+			case 4706:
+				return 3;// veg
+			case 2561:
+				return 4;// baker
+			case 635:
+				return 12;// tea
+			case 2560:
+				return 13;// silk
+			case 14011:
+				return 27;// wine
+			case 7053:
+				return 18;// seed
+			case 2563:
+				return 25;// fur
+			case 4705:
+				return 27;// fish
+			case 2565:
+				return 50;// silver
+			case 2564:
+			case 4877:
+			case 4878:
+				return 133;// spice, scimitar, magic
+			case 2562:
+				return 300;// gem
 		}
 		return 5;
 	}
