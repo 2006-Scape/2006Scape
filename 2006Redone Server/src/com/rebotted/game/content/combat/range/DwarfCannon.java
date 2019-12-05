@@ -7,10 +7,12 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
+import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.clip.Region;
 
 /**
  * Cannon
@@ -97,7 +99,7 @@ public class DwarfCannon {
 				player.turnPlayerTo(player.absX, player.absY);
 				player.cannonX = player.absX;
 				player.cannonY = player.absY;
-				placeObject(OBJECT_PARTS[setUpStage], player.absX, player.absY);
+				placeObject(OBJECT_PARTS[setUpStage], player.absX, player.absY, true);
 				player.getItemAssistant().deleteItem(ITEM_PARTS[setUpStage], 1);
 				setUpStage ++;
 			}
@@ -120,7 +122,7 @@ public class DwarfCannon {
 		
 		public void loginCheck() {
 			if (needsCannon()) {
-				player.getPacketSender().sendMessage("@red@You can collect your cannon at home from Nulodion.");
+				player.getPacketSender().sendMessage("@red@You can collect your cannon from Nulodion.");
 			}
 		}
 		
@@ -342,17 +344,14 @@ public class DwarfCannon {
 			player.cannonY = 0;
 		}
 		
-		public void placeObject(int id, int x, int y) {
-			for (int j = 0; j < PlayerHandler.players.length; j++) {
-				if (PlayerHandler.players[j] != null) {
-					Client a = (Client)PlayerHandler.players[j];
-					 a.getPacketSender().object(id, x, y, 516, 10);
-				}
-			}
+		public void placeObject(int id, int x, int y, boolean add) {
+			GameEngine.objectHandler.placeObject(new Objects(id, x, y, 0, 516, 10, 0));
+			if (add)
+			Region.addObject(id, x, y, 0, 10, 516, true);
 		}
 		
 		public void removeObject(int x, int y) {
-			placeObject(-1, x, y);
+			placeObject(-1, x, y, false);
 		}
 		
 		public boolean noSetUpArea() {

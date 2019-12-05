@@ -54,12 +54,12 @@ public class Doors {
 		return null;
 	}
 
-	public boolean handleDoor(int id, int x, int y, int z, Player player) {
+	public boolean handleDoor(Player player, int id, int x, int y, int z) {
 
 		Doors d = getDoor(id, x, y, z);
 
 		if (d == null) {
-			if (DoubleDoors.getSingleton().handleDoor(id, x, y, z)) {
+			if (DoubleDoors.getSingleton().handleDoor(player, id, x, y, z)) {
 				return true;
 			}
 			return false;

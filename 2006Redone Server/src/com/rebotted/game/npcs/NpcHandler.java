@@ -1010,6 +1010,9 @@ public class NpcHandler {
 		if (PlayerHandler.players[playerId] == null) {
 			return;
 		}
+		if (PlayerHandler.players[playerId].npcCanAttack == false) {
+			return;
+		}
 		if (PlayerHandler.players[playerId].respawnTimer > 0) {
 			npcs[i].facePlayer(0);
 			npcs[i].randomWalk = true;

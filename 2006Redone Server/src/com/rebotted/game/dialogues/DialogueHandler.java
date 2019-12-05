@@ -6854,12 +6854,17 @@ public class DialogueHandler {
 
 			case 3501:
 				if (player.getCannon().needsCannon()) {
-					sendNpcChat1("Here is your cannon, try not to lose it again.", player.talkingNpc, "Nulodion");
-					for (int i = 0; i < 4; i++) {
+					if (player.getItemAssistant().freeSlots() >= 4) {
+						sendNpcChat1("Here is your cannon, try not to lose it again.", player.talkingNpc, "Nulodion");
+						for (int i = 0; i < 4; i++) {
 						player.getItemAssistant().addItem(player.getCannon().ITEM_PARTS[i], 1);
+						}
+						player.lostCannon = false;
+						player.nextChat = 0;
+					} else {
+						sendNpcChat1("You need at least 4 free inventory spots.", player.talkingNpc, "Nulodion");
+						player.nextChat = 0;
 					}
-					player.lostCannon = false;
-					player.nextChat = 0;
 				} else {
 					sendNpcChat1("" + Misc.capitalize(player.playerName) + " you do not have a cannon to collect currently.", player.talkingNpc, "Nulodion");
 					player.nextChat = 0;

@@ -148,6 +148,12 @@ public class DoubleGates extends GateHandler {
 				handleMetalGate(player, 1596, 1597, 2815, 3182, 2815, 3183, 2816, 3182, 2816, 3183, 3);
 			} else if (player.objectY > 3449 && player.objectY < 3452) {
 				handleMetalGate(player, 1596, 1597, 2936, 3451, 2936, 3450, 2935, 3451, 2935, 3450, 7);
+			} else if (player.objectY > 3848 && player.objectY < 3851) {
+				handleMetalGate(player, 1596, 1597, 3007, 3849, 3007, 3850, 3008, 3849, 3008, 3850, 3);
+			} else if (player.objectX > 3223 && player.objectX < 3226) {
+				handleMetalGate(player, 1596, 1597, 3225, 3903, 3224, 3903, 3225, 3904, 3224, 3904, 0);
+			} else if (player.objectX > 2946 && player.objectX < 2949) {
+				handleMetalGate(player, 1596, 1597, 2948, 3903, 2947, 3903, 2948, 3904, 2947, 3904, 0);
 			}
 			break;
 			case 1597:
@@ -161,6 +167,12 @@ public class DoubleGates extends GateHandler {
 				handleMetalGate(player, 1597, 1596, 2815, 3183, 2815, 3182, 2816, 3183, 2816, 3182, 1);
 			} else if (player.objectY > 3449 && player.objectY < 3452) {
 				handleMetalGate(player, 1597, 1596, 2936, 3450, 2936, 3451, 2935, 3450, 2935, 3451, 5);
+			} else if (player.objectY > 3848 && player.objectY < 3851) {
+				handleMetalGate(player, 1597, 1596, 3007, 3850, 3007, 3849, 3008, 3850, 3008, 3849, 1);
+			} else if (player.objectX > 3223 && player.objectX < 3226) {
+				handleMetalGate(player, 1597, 1596, 3224, 3903, 3225, 3903, 3224, 3904, 3225, 3904, 2);
+			} else if (player.objectX > 2946 && player.objectX < 2949) {
+				handleMetalGate(player, 1597, 1596, 2947, 3903, 2948, 3903, 2947, 3904, 2948, 3904, 2);
 			}
 			break;
 			case 1557:

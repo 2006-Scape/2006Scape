@@ -122,11 +122,7 @@ public class ClickObject implements PacketType {
 			}
 
 			//todo: check if it's a door before fire handle
-			Doors.getSingleton().handleDoor(p.objectId, p.objectX, p.objectY, p.heightLevel, p);
-
-			/*if (client.performingAction) {
-				return;
-			}*/
+			Doors.getSingleton().handleDoor(p, p.objectId, p.objectX, p.objectY, p.heightLevel);
 
 			if (Stalls.isObject(p.objectId)) {
 				Stalls.attemptStall(p, p.objectId, p.objectX, p.objectX);

@@ -40,9 +40,9 @@ public class PlayerAssistant {
 	public void objectAnim(int X, int Y, int animationID, int tileObjectType, int orientation) {
 		for (Player p : PlayerHandler.players) {
 			if(p != null) {
-				Client players = (Client)p;
+				Player players = (Player)p;
 				if(players.distanceToPoint(X, Y) <= 25) {
-					player.getPacketSender().createPlayersObjectAnim(X, Y, animationID, tileObjectType, orientation);	
+					players.getPacketSender().createPlayersObjectAnim(X, Y, animationID, tileObjectType, orientation);	
 				}
 			}
 		}
