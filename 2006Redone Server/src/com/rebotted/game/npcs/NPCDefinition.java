@@ -20,9 +20,7 @@ public class NPCDefinition {
 	}
 
 	public static NPCDefinition forId(int id) {
-            
 		NPCDefinition d = definitions[id];
-                
 		if (d == null) {
 			d = produceDefinition(id);
 		}

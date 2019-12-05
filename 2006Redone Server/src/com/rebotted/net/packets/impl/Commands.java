@@ -42,9 +42,6 @@ public class Commands implements PacketType {
         public static void playerCommands(Player player, String playerCommand, String[] arguments) {
                 switch (playerCommand.toLowerCase())
                 {
-                        case "bank":
-                                player.getPacketSender().openUpBank();
-                                break;
                         case "claimvote":
                                 if(!GameEngine.ersSecret.equals("")) {
                                         final String playerName = player.playerName;

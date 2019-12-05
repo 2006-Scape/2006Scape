@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import com.rebotted.GameEngine;
 import com.rebotted.game.objects.Objects;
+import com.rebotted.game.players.Player;
 
 /**
  * 
@@ -45,11 +46,11 @@ public class DoubleDoors {
 		return null;
 	}
 	
-	public boolean handleDoor(int id, int x, int y, int z) {
+	public boolean handleDoor(Player player, int id, int x, int y, int z) {
 		DoubleDoors doorClicked = getDoor(id, x, y, z);	
 		
 		if (doorClicked == null) {
-			GameEngine.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
+			//GameEngine.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
 			return true;
 		}
 		if (doorClicked.doorId > 12000) {
