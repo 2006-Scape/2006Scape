@@ -4,11 +4,11 @@ import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
+import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemList;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
@@ -251,8 +251,19 @@ public class Pickpocket extends SkillHandler {
 							c.getPlayerAssistant().refreshSkill(3);
 							c.gfx100(80);
 							c.startAnimation(404);
-							NpcHandler.npcs[npcId].forceChat("What do you think you're doing?");
-							NpcHandler.npcs[npcId].facePlayer(c.playerId);
+							c.getPacketSender().sendSound(SoundList.STUNNED, 100, 0);
+							for (int i = 0; i < NpcHandler.MAX_NPCS; i++) {
+								if (NpcHandler.npcs[i] != null) {
+									if (NpcHandler.npcs[i].npcType == npcId) {
+										if (c.goodDistance(c.absX, c.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 1) && c.heightLevel == NpcHandler.npcs[i].heightLevel) {
+												if (!NpcHandler.npcs[i].underAttack) {
+													NpcHandler.npcs[i].forceChat("What do you think you're doing?");
+													NpcHandler.npcs[i].facePlayer(c.playerId);
+												}
+											}
+										}
+								}
+							}
 							c.lastThieve = System.currentTimeMillis() + 5000;
 							c.getPacketSender().sendMessage("You fail to pick the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
 							container.stop();
