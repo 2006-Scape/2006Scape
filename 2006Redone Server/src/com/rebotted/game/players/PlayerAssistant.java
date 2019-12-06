@@ -1466,7 +1466,7 @@ public class PlayerAssistant {
 				&& !CastleWars.isInCw(player) // Castle Wars
 				&& !PestControl.isInGame(player) // Pest Control
 				&& !PestControl.isInPcBoat(player) // Pest Control
-				&& player.tutorialProgress <= 35 // Tutorial Island
+				&& player.tutorialProgress > 35 // Tutorial Island
 				&& FightPits.getState(player) == null // Fight Pits
 				&& !player.inFightCaves() // Fight Caves
 		) {
