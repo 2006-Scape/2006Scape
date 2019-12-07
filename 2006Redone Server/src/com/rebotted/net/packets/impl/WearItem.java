@@ -47,12 +47,10 @@ public class WearItem implements PacketType {
 			player.getPlayerAssistant().emptyPouch(pouch);
 			return;
 		}
-
-		if (player.wearId == 88) {
+		if (player.wearId == 88 && player.playerEquipment[10] != 88) {
 			player.weight -= 4.5;
 			player.getPacketSender().writeWeight((int) player.weight);
 		}
-
 		if (player.wearSlot == player.playerHat) {
 			player.getPacketSender().setConfig(491, 0);
 		}

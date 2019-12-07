@@ -62,10 +62,6 @@ public class ObjectsActions {
 		player.faceUpdate(0);
 		player.clickObjectType = 0;
 		player.turnPlayerTo(objectX, objectY);
-		if (!Region.objectExists(objectType, objectX, objectY, player.heightLevel) && player.playerRights > 1) {
-			player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
-		    return;
-		}
 		if (Webs.webs(player, objectType)) {
 			Webs.slashWeb(player, objectType, objectX, objectY);
 			return;
@@ -2559,10 +2555,10 @@ public class ObjectsActions {
 		player.faceUpdate(0);
 		player.clickObjectType = 0;
 		player.turnPlayerTo(obX, obY);
-		if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
-			player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
-		    return;
-		}
+		//if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
+		//	player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
+		//    return;
+		//}
 		LogCutting.resetFletching(player);
 		switch (objectType) {
 		case 6:
@@ -2819,10 +2815,10 @@ public class ObjectsActions {
 		if (player.playerRights == 3) {
 			player.getPacketSender().sendMessage("Object type: " + objectType);
 		}
-		if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
-			player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
-		    return;
-		}
+		//if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
+		//	player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
+		//    return;
+		//}
 		if (Stalls.isObject(objectType)) {
 			Stalls.attemptStall(player, objectType, obX, obY);
 			return;
@@ -2865,10 +2861,10 @@ public class ObjectsActions {
 		if (player.playerRights == 3) {
 			player.getPacketSender().sendMessage("Object type: " + objectType);
 		}
-		if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
-			player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
-		    return;
-		}
+		//if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
+		//	player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
+		//    return;
+		//}
 		Farming.openGuide(player, player.objectId);
 		switch (objectType) {
 		

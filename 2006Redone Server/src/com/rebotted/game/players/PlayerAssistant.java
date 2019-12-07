@@ -2461,6 +2461,6 @@ public class PlayerAssistant {
 	}
 
 	public int totalGold() {
-		return player.getItemAssistant().getBankQuantitiy(996) + player.getItemAssistant().getItemAmount(995);
+		return player.getItemAssistant().getBankQuantity(996) + player.getItemAssistant().getItemAmount(995);
 	}
 }

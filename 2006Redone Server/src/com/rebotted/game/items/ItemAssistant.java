@@ -195,32 +195,6 @@ public class ItemAssistant {
 		return c.playerEquipment[slot] == itemID;
 	}
 
-	public void removeItem(int slot) {
-		if (c.getOutStream() != null && c != null) {
-			if (c.playerEquipment[slot] > -1) {
-				if (addItem(c.playerEquipment[slot], c.playerEquipmentN[slot])) {
-					c.playerEquipment[slot] = -1;
-					c.playerEquipmentN[slot] = 0;
-					sendWeapon(c.playerEquipment[c.playerWeapon],
-							getItemName(c.playerEquipment[c.playerWeapon]));
-					resetBonus();
-					getBonus();
-					writeBonus();
-					c.getCombatAssistant().getPlayerAnimIndex();
-					c.getOutStream().createFrame(34);
-					c.getOutStream().writeWord(6);
-					c.getOutStream().writeWord(1688);
-					c.getOutStream().writeByte(slot);
-					c.getOutStream().writeWord(0);
-					c.getOutStream().writeByte(0);
-					c.flushOutStream();
-					c.updateRequired = true;
-					c.setAppearanceUpdateRequired(true);
-				}
-			}
-		}
-	}
-
 	public void addItemToBank(int itemId, int amount) {
 		itemId++;
 		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
@@ -2095,7 +2069,7 @@ public class ItemAssistant {
 		return freeS;
 	}
 
-	public int getBankQuantitiy(int itemID)
+	public int getBankQuantity(int itemID)
 	{
 		for (int i = 0; i < c.bankItems.length; i++) {
 			if (c.bankItems[i] == itemID)
@@ -2107,19 +2081,67 @@ public class ItemAssistant {
 	}
 
 	public void fromBank(int itemID, int fromSlot, int amount) {
+		boolean cantWithdrawCuzMaxStack = false;
 		if (amount > 0) {
 			if (c.bankItems[fromSlot] > 0) {
-				if (!c.takeAsNote) {
-					if (Item.itemStackable[c.bankItems[fromSlot] - 1]) {
+			    if (c.getItemAssistant().playerHasItem(itemID))
+                {
+                	for (int i = 0; i <= 27;i++)
+					{
+						if (itemID == c.playerItems[i] || (itemID == 995 && c.playerItems[i] - 1 == 995))
+						{
+							if ((c.playerItemsN[i] + amount + 1) < -1)
+							{
+								cantWithdrawCuzMaxStack = true;
+								break;
+							}
+						}
+					}
+                }
+				if (!cantWithdrawCuzMaxStack)
+				{
+					if (!c.takeAsNote) {
+						if (Item.itemStackable[c.bankItems[fromSlot] - 1]) {
+							if (c.bankItemsN[fromSlot] > amount) {
+								if (addItem(c.bankItems[fromSlot] - 1, amount)) {
+									c.bankItemsN[fromSlot] -= amount;
+									resetBank();
+									resetItems(5064);
+								}
+							} else {
+								if (addItem(c.bankItems[fromSlot] - 1,
+										c.bankItemsN[fromSlot])) {
+									c.bankItems[fromSlot] = 0;
+									c.bankItemsN[fromSlot] = 0;
+									resetBank();
+									resetItems(5064);
+								}
+							}
+						} else {
+							while (amount > 0) {
+								if (c.bankItemsN[fromSlot] > 0) {
+									if (addItem(c.bankItems[fromSlot] - 1, 1)) {
+										c.bankItemsN[fromSlot] += -1;
+										amount--;
+									} else {
+										amount = 0;
+									}
+								} else {
+									amount = 0;
+								}
+							}
+							resetBank();
+							resetItems(5064);
+						}
+					} else if (c.takeAsNote && Item.itemIsNote[c.bankItems[fromSlot]]) {
 						if (c.bankItemsN[fromSlot] > amount) {
-							if (addItem(c.bankItems[fromSlot] - 1, amount)) {
+							if (addItem(c.bankItems[fromSlot], amount)) {
 								c.bankItemsN[fromSlot] -= amount;
 								resetBank();
 								resetItems(5064);
 							}
 						} else {
-							if (addItem(c.bankItems[fromSlot] - 1,
-									c.bankItemsN[fromSlot])) {
+							if (addItem(c.bankItems[fromSlot], c.bankItemsN[fromSlot])) {
 								c.bankItems[fromSlot] = 0;
 								c.bankItemsN[fromSlot] = 0;
 								resetBank();
@@ -2127,70 +2149,44 @@ public class ItemAssistant {
 							}
 						}
 					} else {
-						while (amount > 0) {
-							if (c.bankItemsN[fromSlot] > 0) {
-								if (addItem(c.bankItems[fromSlot] - 1, 1)) {
-									c.bankItemsN[fromSlot] += -1;
-									amount--;
-								} else {
-									amount = 0;
+						c.getPacketSender().sendMessage("This item can't be withdrawn as a note.");
+						if (Item.itemStackable[c.bankItems[fromSlot] - 1]) {
+							if (c.bankItemsN[fromSlot] > amount) {
+								if (addItem(c.bankItems[fromSlot] - 1, amount)) {
+									c.bankItemsN[fromSlot] -= amount;
+									resetBank();
+									resetItems(5064);
 								}
 							} else {
-								amount = 0;
-							}
-						}
-						resetBank();
-						resetItems(5064);
-					}
-				} else if (c.takeAsNote && Item.itemIsNote[c.bankItems[fromSlot]]) {
-					if (c.bankItemsN[fromSlot] > amount) {
-						if (addItem(c.bankItems[fromSlot], amount)) {
-							c.bankItemsN[fromSlot] -= amount;
-							resetBank();
-							resetItems(5064);
-						}
-					} else {
-						if (addItem(c.bankItems[fromSlot], c.bankItemsN[fromSlot])) {
-							c.bankItems[fromSlot] = 0;
-							c.bankItemsN[fromSlot] = 0;
-							resetBank();
-							resetItems(5064);
-						}
-					}
-				} else {
-					c.getPacketSender().sendMessage("This item can't be withdrawn as a note.");
-					if (Item.itemStackable[c.bankItems[fromSlot] - 1]) {
-						if (c.bankItemsN[fromSlot] > amount) {
-							if (addItem(c.bankItems[fromSlot] - 1, amount)) {
-								c.bankItemsN[fromSlot] -= amount;
-								resetBank();
-								resetItems(5064);
+								if (addItem(c.bankItems[fromSlot] - 1,
+										c.bankItemsN[fromSlot])) {
+									c.bankItems[fromSlot] = 0;
+									c.bankItemsN[fromSlot] = 0;
+									resetBank();
+									resetItems(5064);
+								}
 							}
 						} else {
-							if (addItem(c.bankItems[fromSlot] - 1,
-									c.bankItemsN[fromSlot])) {
-								c.bankItems[fromSlot] = 0;
-								c.bankItemsN[fromSlot] = 0;
-								resetBank();
-								resetItems(5064);
-							}
-						}
-					} else {
-						while (amount > 0) {
-							if (c.bankItemsN[fromSlot] > 0) {
-								if (addItem(c.bankItems[fromSlot] - 1, 1)) {
-									c.bankItemsN[fromSlot] += -1;
-									amount--;
+							while (amount > 0) {
+								if (c.bankItemsN[fromSlot] > 0) {
+									if (addItem(c.bankItems[fromSlot] - 1, 1)) {
+										c.bankItemsN[fromSlot] += -1;
+										amount--;
+									} else {
+										amount = 0;
+									}
 								} else {
 									amount = 0;
 								}
-							} else {
-								amount = 0;
 							}
+							resetBank();
+							resetItems(5064);
 						}
-						resetBank();
-						resetItems(5064);
 					}
+				}
+				else
+				{
+					c.getPacketSender().sendMessage("Can't withdraw more of that item!");
 				}
 			}
 		}

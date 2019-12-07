@@ -1773,15 +1773,19 @@ public class NPCDrops extends NPCDropsHandler {
 	public static final ItemDrop[] kingblackdragon = {
 			new ItemDrop( i("dragon bones"), 1, ALWAYS ),
 			new ItemDrop( i("black dragonhide"), 1, ALWAYS ),
-			new ItemDrop( i("rune longsword"), 1, UNCOMMON ),
-			new ItemDrop( i("rune battleaxe"), 1, UNCOMMON ),
 			new ItemDrop( i("blood rune"), 50, COMMON ),
 			new ItemDrop( i("death rune"), 50, COMMON ),
+			new ItemDrop( i("iron arrow"), 690, COMMON ),
 			new ItemDrop( i("law rune"), 50, UNCOMMON ),
 			new ItemDrop( i("mithril arrow"), 250, UNCOMMON ),
 			new ItemDrop( i("rune arrow"), 50, UNCOMMON ),
 			new ItemDrop( i("rune sq shield"), 1, UNCOMMON ),
 			new ItemDrop( i("rune platebody"), 1, UNCOMMON ),
+			new ItemDrop( i("rune longsword"), 1, UNCOMMON ),
+			new ItemDrop( i("rune battleaxe"), 1, UNCOMMON ),
+			new ItemDrop( 1319, 1, UNCOMMON ), //Rune 2h sword
+			new ItemDrop( 1201, 1, UNCOMMON ), //Rune kiteshield
+			new ItemDrop( 1615, 1, UNCOMMON ), //Dragonstone
 			new ItemDrop( i("dragon med helm"), 1, RARE ),
 			new ItemDrop( 2361, new int[]{1, 4}, UNCOMMON ),
 			new ItemDrop( 2363, new int[]{1, 2}, UNCOMMON ),

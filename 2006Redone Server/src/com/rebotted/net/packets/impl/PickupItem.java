@@ -44,7 +44,7 @@ public class PickupItem implements PacketType {
 		if (!CastleWars.deleteCastleWarsItems(player, player.pItemId)) {
 			return;
 		}
-		if (!RareProtection.doOtherDupe(player, player.pItemId)) {
+		if (!RareProtection.removeItemOtherActions(player, player.pItemId)) {
 			return;
 		}
 		if (player.pItemY > 9817 && player.pItemY < 9825 && player.pItemX > 3186 && player.pItemX < 3197 || player.pItemX > 3107 && player.pItemX < 3113 && player.pItemY > 3155 && player.pItemY < 3159 && player.heightLevel == 2) {
