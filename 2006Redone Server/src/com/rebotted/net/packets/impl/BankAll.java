@@ -1,5 +1,6 @@
 package com.rebotted.net.packets.impl;
 
+import com.rebotted.GameConstants;
 import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.Item;
@@ -74,8 +75,25 @@ public class BankAll implements PacketType {
 			break;
 
 		case 5382:
-			player.getItemAssistant().fromBank(player.bankItems[removeSlot], removeSlot,
-					player.bankItemsN[removeSlot]);
+			if (player.getItemAssistant().playerHasItem(removeId)) {
+				for (int i = 0; i <= 27; i++) {
+					if (removeId == player.playerItems[i] - 1)
+					{
+						if ((player.playerItemsN[i] + player.bankItemsN[removeSlot] + 1) < -1) {
+							player.getPacketSender().sendMessage("Can't withdraw more of that item!");
+							break;
+						} else {
+							player.getItemAssistant().fromBank(player.bankItems[removeSlot], removeSlot,
+									player.bankItemsN[removeSlot]);
+						}
+					}
+				}
+			}
+			else
+			{
+				player.getItemAssistant().fromBank(player.bankItems[removeSlot], removeSlot,
+						player.bankItemsN[removeSlot]);
+			}
 			break;
 
 		case 3322:

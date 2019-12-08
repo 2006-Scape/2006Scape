@@ -23,7 +23,7 @@ public class DropItem implements PacketType {
 		player.getInStream().readUnsignedByte();
 		player.getInStream().readUnsignedByte();
 		int slot = player.getInStream().readUnsignedWordA();
-		if (!player.getItemAssistant().playerHasItem(itemId) || !RareProtection.doOtherDupe(player, itemId) || System.currentTimeMillis() - player.alchDelay < 1800 || player.stopPlayerPacket || System.currentTimeMillis() - player.buryDelay < 1800 || !CastleWars.deleteCastleWarsItems(player, itemId)) {
+		if (!player.getItemAssistant().playerHasItem(itemId) || !RareProtection.removeItemOtherActions(player, itemId) || System.currentTimeMillis() - player.alchDelay < 1800 || player.stopPlayerPacket || System.currentTimeMillis() - player.buryDelay < 1800 || !CastleWars.deleteCastleWarsItems(player, itemId)) {
 			return;
 		}
 		for (LogData logData : LogData.values()) {

@@ -225,7 +225,7 @@ public class Dueling {
 			player.getPacketSender().sendMessage("You can't do that in a duel!");
 			return false;
 		}
-		if (!RareProtection.doOtherDupe(player, itemID)) {
+		if (!RareProtection.removeItemOtherActions(player, itemID)) {
 			return false;
 		}
 		if (amount <= 0) {

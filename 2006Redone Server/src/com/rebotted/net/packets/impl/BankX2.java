@@ -33,7 +33,7 @@ public class BankX2 implements PacketType {
 				break;
 
 			case 5382:
-				player.getItemAssistant().fromBank(player.bankItems[player.xRemoveSlot], player.xRemoveSlot, Xamount);
+					player.getItemAssistant().fromBank(player.bankItems[player.xRemoveSlot], player.xRemoveSlot, Xamount);
 				break;
 
 			case 7423:

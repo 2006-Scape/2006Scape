@@ -270,7 +270,6 @@ public class ClickNPC implements PacketType {
 				}, 1);
 			}
 			break;
-
 		case SECOND_CLICK:
 			client.npcClickIndex = client.inStream.readUnsignedWordBigEndianA();
 			client.npcType = NpcHandler.npcs[client.npcClickIndex].npcType;
@@ -281,7 +280,7 @@ public class ClickNPC implements PacketType {
 						NpcHandler.npcs[client.npcClickIndex].getY());
 				NpcHandler.npcs[client.npcClickIndex].facePlayer(client.playerId);
 				client.getNpcs().secondClickNpc(client.npcType);
-				if (Pickpocket.isNPC(client, client.npcType)) {
+				if (Pickpocket.isNPC(client, client.npcType) && !((client.underAttackBy > 0 || client.underAttackBy2 > 0))) {
 					Pickpocket.attemptPickpocket(client, client.npcType);
 					return;
 				}
