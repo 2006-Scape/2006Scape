@@ -525,6 +525,8 @@ public class Commands implements PacketType {
                                 player.specAmount = 100.0;
                                 break;
                         case "setlevel":
+                        case "level":
+                        case "skill":
                                 try {
                                         if (arguments.length < 2) {
                                                 player.getPacketSender().sendMessage("Must specify a skill and level: ::setlevel 1 99");
