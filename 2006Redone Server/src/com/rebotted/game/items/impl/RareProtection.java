@@ -9,7 +9,7 @@ import com.rebotted.game.players.Player;
 
 public class RareProtection {
 
-	public static final boolean RARES = true, CRACKERS = true;
+	public static final boolean RARES = false, CRACKERS = false;
 	private static final int[] RARE_ITEMS = { 1037, 1038, 1039, 1040, 1041,
 			1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050, 1051, 962, 963, 1959, 1961, 1989 };
 	private static final int[] EDIBLE_RARES = { 1959, 1961, 1989 };
