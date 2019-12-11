@@ -104,10 +104,12 @@ public class Commands implements PacketType {
                                 BotHandler.playerShop(player);
                                 break;
                         case "withdrawshop":
+                                player.getPacketSender().sendMessage("Shorter version: ::wshop");
                         case "wshop":
                                 BotHandler.takeCoins(player);
                                 break;
                         case "closeshop":
+                                player.getPacketSender().sendMessage("Shorter version: ::cshop");
                         case "cshop":
                                 BotHandler.closeShop(player);
                                 break;
@@ -149,7 +151,7 @@ public class Commands implements PacketType {
                                 player.getPacketSender().closeAllWindows();
                                 break;
                         case "commands":
-                                player.getPacketSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx, ::shop, ::withdrawshop, ::closeshop");
+                                player.getPacketSender().sendMessage("::players, ::highscores, ::loc, ::stuck, ::randomtoggle, ::debug, ::togglegfx, ::shop");
                                 break;
                         case "loc":
                                 player.getPacketSender().sendMessage(player.absX + "," + player.absY);
