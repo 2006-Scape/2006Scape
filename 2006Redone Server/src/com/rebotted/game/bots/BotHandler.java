@@ -37,7 +37,7 @@ public class BotHandler {
             return;
         }
 
-        player.getPacketSender().sendMessage("Shop commands: ::withdrawshop, ::closeshop");
+        player.getPacketSender().sendMessage("Shop commands- ::withdrawshop, ::closeshop");
 
         Client playerShop = getPlayerShop(player);
 
