@@ -3,11 +3,9 @@
  * THIS IS TO ALLOW LOCAL PARABOT TO CONTINUE TO WORK
  */
 
+import javax.swing.*;
 import java.applet.AppletContext;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -11537,6 +11535,16 @@ public class Game extends RSApplet {
 	}
 
 	public Game() {
+	    //Test if they're on 32-bit, warn them if they are
+		if (!System.getProperty("os.arch").contains("64"))
+		{
+			JOptionPane.showMessageDialog(null, "You're running 32-bit java. This will definitely cause problems.\nYou can get the right Java 8 at AdoptOpenJDK.net", "You're running 32-bit Java!", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Please upgrade to 64-bit java to avoid problems! (AdoptOpenJDK.net)");
+		}
+		if (Double.parseDouble(System.getProperty("java.specification.version")) >= 1.9) {
+			JOptionPane.showMessageDialog(null, "You're not running Java 8. This will definitely cause problems.\nYou can get Java 8 from AdoptOpenJDK.net", "You're not running Java 8!", JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("Please downgrade to Java 8 to avoid problems! (AdoptOpenJDK.net)");
+		}
 		server = ClientSettings.SERVER_IP;
 		anIntArrayArray825 = new int[104][104];
 		friendsNodeIDs = new int[200];
