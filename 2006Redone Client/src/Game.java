@@ -11542,7 +11542,7 @@ public class Game extends RSApplet {
 			System.out.println("Please upgrade to 64-bit java to avoid problems! (AdoptOpenJDK.net)");
 		}
 		if (Double.parseDouble(System.getProperty("java.specification.version")) >= 1.9) {
-			JOptionPane.showMessageDialog(null, "You're not running Java 8. This will definitely cause problems.\nYou can get Java 8 from AdoptOpenJDK.net", "You're not running Java 8!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "You're not running Java 8. If you're using Parabot, this will cause problems!\nYou can get Java 8 from AdoptOpenJDK.net", "You're not running Java 8!", JOptionPane.INFORMATION_MESSAGE);
 			System.out.println("Please downgrade to Java 8 to avoid problems! (AdoptOpenJDK.net)");
 		}
 		server = ClientSettings.SERVER_IP;
