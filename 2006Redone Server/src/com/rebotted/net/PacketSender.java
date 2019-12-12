@@ -794,6 +794,7 @@ public class PacketSender {
 		if (player.getOutStream() == null) return this;
 		player.outStream.createFrame(240);
 		DecimalFormat twoDForm = new DecimalFormat("#.##");
+		weight = Math.max(0, weight);
 		player.outStream.writeWord(Integer.valueOf(twoDForm.format(weight)));
 		return this;
 	}

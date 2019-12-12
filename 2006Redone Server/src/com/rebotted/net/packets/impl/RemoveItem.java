@@ -2,6 +2,7 @@ package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.content.skills.crafting.JewelryMaking;
+import com.rebotted.game.items.Weight;
 import com.rebotted.game.items.impl.RareProtection;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
@@ -16,15 +17,13 @@ public class RemoveItem implements PacketType {
 		int interfaceId = c.getInStream().readUnsignedWordA();
 		int removeSlot = c.getInStream().readUnsignedWordA();
 		int removeId = c.getInStream().readUnsignedWordA();
-		if (removeId == 88) {
-			c.weight += 4.5;
-			c.getPacketSender().writeWeight((int) c.weight);
-		}
 		if (!RareProtection.removeItem(c, removeId)) {
 			return;
 		}
 
 		c.endCurrentTask();
+
+		Weight.updateWeight(c);
 
 		switch (interfaceId) {
 
@@ -90,11 +89,11 @@ public class RemoveItem implements PacketType {
 		case 1121:
 		case 1122:
 		case 1123:
-			c.getSmithing().readInput(c.playerLevel[c.playerSmithing],
-					Integer.toString(removeId), c, 1);
+			c.getSmithing().readInput(c.playerLevel[c.playerSmithing], Integer.toString(removeId), c, 1);
 			break;
 
 		}
+		Weight.updateWeight(c);
 	}
 
 }

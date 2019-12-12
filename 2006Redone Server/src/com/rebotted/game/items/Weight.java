@@ -49,29 +49,18 @@ public class Weight extends ItemDefinitions {
 	 */
 	public static void updateWeight(Player player) {
 		if (player != null) {
-			player.getPacketSender().writeWeight((int) player.weight);
+			player.weight = 0;
 			// Inventory items
 			for (int playerItem : player.playerItems) {
 				if (playerItem > -1) {// inventory
-					for (ItemList i1 : GameEngine.itemHandler.ItemList) {
-						if (i1 != null) {
-							if (i1.itemId == playerItem) {
-								calcWeight(player, playerItem, "addItem");
-							}
-						}
-					}
+					calcWeight(player, playerItem, "addItem");
 				}
 			}
 			// Equiped items
 			for (int element : player.playerEquipment) {
 				if (element > -1) {// equipment
-					for (ItemList i1 : GameEngine.itemHandler.ItemList) {
-						if (i1 != null) {
-							if (i1.itemId == element) {
-								calcWeight(player, element, "addItem");
-							}
-						}
-					}
+					if (element == 88) player.weight -= 4.5;
+					else calcWeight(player, element, "addItem");
 				}
 			}
 		}
