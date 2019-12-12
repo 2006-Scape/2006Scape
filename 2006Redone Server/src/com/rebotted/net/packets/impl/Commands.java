@@ -93,8 +93,6 @@ public class Commands implements PacketType {
                                         player.logout(true);
                                 }
                                 break;
-                        case "null":
-                                break;
                         case "players":
                         case "playershops":
                                 int count = playerCommand.equalsIgnoreCase("players") ? PlayerHandler.getPlayerCount() : PlayerHandler.getPlayerShopCount();
