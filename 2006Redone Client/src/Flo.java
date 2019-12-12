@@ -25,6 +25,9 @@ public final class Flo {
 				return;
 			} else if (i == 1) {
 				anInt390 = stream.read3Bytes();
+				if (ClientSettings.SNOW) {
+					anInt390 = 0xffffff;
+				}
 				method262(anInt390);
 			} else if (i == 2) {
 				anInt391 = stream.readUnsignedByte();

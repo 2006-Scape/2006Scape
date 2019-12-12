@@ -141,11 +141,11 @@ public class Item {
 	private static String[] fullhat = { "med helm", "coif", "Dharok's helm",
 			"hood", "Initiate helm", "Coif", "Helm of neitiznot",
 			"Armadyl helmet", "Berserker helm", "Archer helm", "Farseer helm",
-			"Warrior helm", "Void" };
+			"Warrior helm", "Void"};
 	/* Fullmask covers your entire head. */  
 	private static String[] fullmask = { "full helm(t)", "full helm(g)", "full helm", "mask", "Verac's helm",
 			"Guthan's helm", "Karil's coif", "mask", "Torag's helm", "Void", "helmet",
-			"sallet", "Facemask" };
+			"sallet", "Facemask", "Bearhead"};
 
 	public static boolean isFullBody(int itemId) {
 		String weapon = getItemName(itemId);
@@ -276,6 +276,8 @@ public class Item {
 					case 1167:
 					case 5525:
 					case 4168:
+					case 4502:
+					case 1037:
 					case 1025:
 					case 7112:
 					case 7124:
