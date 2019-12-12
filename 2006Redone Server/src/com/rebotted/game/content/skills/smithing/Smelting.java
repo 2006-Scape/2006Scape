@@ -134,18 +134,14 @@ public class Smelting extends SkillHandler {
 							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 							c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
 							c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
-						}
-
-						if (c.playerSkillProp[13][3] == GOLD && c.playerSkillProp[13][4] == -1 && c.playerEquipment[c.playerHands] == 776) {
+						} else if (c.playerSkillProp[13][3] == GOLD && c.playerEquipment[c.playerHands] == 776) {
 							c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
 							c.getPlayerAssistant().addSkillXP(56.2,	c.playerSmithing);
 							c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
 						} else {
-							if (c.playerSkillProp[13][3] != IRON) {
-								c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
-								c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
-								c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
-							}
+							c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
+							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
+							c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
 						}
 
 						// ///////////////////////////////CHECKING//////////////////////
