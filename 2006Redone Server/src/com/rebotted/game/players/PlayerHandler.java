@@ -13,7 +13,7 @@ import com.rebotted.world.GlobalDropsHandler;
 public class PlayerHandler {
 
 	public static Player players[] = new Player[GameConstants.MAX_PLAYERS];
-	public static int playerCount = 0, playerBotCount = 0;
+	public static int playerCount = 0, playerShopCount = 0;
 	public static String playersCurrentlyOn[] = new String[GameConstants.MAX_PLAYERS];
 	public static boolean updateAnnounced;
 	public static boolean updateRunning;
@@ -54,18 +54,18 @@ public class PlayerHandler {
 		return playerCount;
 	}
 
-	public static int getPlayerBotCount() {
-		return playerBotCount;
+	public static int getPlayerShopCount() {
+		return playerShopCount;
 	}
 
 	public void updatePlayerNames() {
-		playerBotCount = 0;
+		playerShopCount = 0;
 		playerCount = 0;
 		for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
 			if (players[i] != null) {
 				playersCurrentlyOn[i] = players[i].playerName;
 				if (players[i].isBot)
-					playerBotCount++;
+					playerShopCount++;
 				else
 					playerCount++;
 			} else {

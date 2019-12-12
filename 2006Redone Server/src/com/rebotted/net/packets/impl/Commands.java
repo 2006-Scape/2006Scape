@@ -14,6 +14,7 @@ import com.rebotted.game.players.*;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
+import org.apollo.jagcached.Constants;
 
 public class Commands implements PacketType {
 
@@ -95,10 +96,37 @@ public class Commands implements PacketType {
                         case "null":
                                 break;
                         case "players":
-                                if (PlayerHandler.getPlayerCount() != 1) {
-                                        player.getPacketSender().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online.");
+                        case "playershops":
+                                int count = playerCommand.equalsIgnoreCase("players") ? PlayerHandler.getPlayerCount() : PlayerHandler.getPlayerShopCount();
+                                if (count != 1) {
+                                        player.getPacketSender().sendMessage("There are currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "players" : "player shops") + " online.");
                                 } else {
-                                        player.getPacketSender().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
+                                        player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online.");
+                                }
+                                 if (player.playerRights > 0) {
+                                        String[] players = new String[count];
+
+                                        int playerIndex = 0;
+                                        for(Player _player : PlayerHandler.players) {
+                                                if(_player != null) {
+                                                        if (playerCommand.equalsIgnoreCase("players") ? !_player.isBot : _player.isBot)
+                                                                players[playerIndex++] = _player.properName;
+                                                }
+                                        }
+
+
+                                        // Clear all lines
+                                        for (int i = 8144; i < 8195; i++) player.getPacketSender().sendFrame126("", i);
+
+                                        player.getPacketSender().sendFrame126("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
+
+                                        int playersLineNumber = 8147;
+                                        for (String line : players){
+                                                player.getPacketSender().sendFrame126(line, playersLineNumber++);
+                                        }
+                                        player.getPacketSender().showInterface(8134);
+                                        break;
+
                                 }
                                 break;
                         case "shop":
