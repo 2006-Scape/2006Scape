@@ -72,7 +72,9 @@ public class ClickItem implements PacketType {
 			return;
 		}
 		switch (itemId) {
-		
+		case 4079:
+			player.startAnimation(1457);
+			break;
 		case 407:
 			if (Misc.random(1) == 0) {
 				player.getItemAssistant().addItem(409, 1);
@@ -182,25 +184,37 @@ public class ClickItem implements PacketType {
 		// break;
 
 		case 5070:
-			player.getPacketSender().sendMessage("You search the nest.");
-			player.getItemAssistant().addItem(5076, 1);
-			player.getItemAssistant().deleteItem(itemId, 1);
-			player.getItemAssistant().addItem(5075, 1);
+			if (player.getItemAssistant().freeSlots() >= 2) {
+				player.getPacketSender().sendMessage("You search the nest.");
+				player.getItemAssistant().addItem(5076, 1);
+				player.getItemAssistant().deleteItem(itemId, 1);
+				player.getItemAssistant().addItem(5075, 1);
+			} else {
+				player.getPacketSender().sendMessage("You do not have enough inventory space to do that.");
+			}
 			break;
 
 		case 5071:
+		if (player.getItemAssistant().freeSlots() >= 2) {
 			player.getPacketSender().sendMessage("You search the nest.");
 			player.getItemAssistant().addItem(5078, 1);
 			player.getItemAssistant().deleteItem(itemId, 1);
 			player.getItemAssistant().addItem(5075, 1);
-			break;
+		} else {
+			player.getPacketSender().sendMessage("You do not have enough inventory space to do that.");
+		}
+		break;
 
 		case 5072:
-			player.getPacketSender().sendMessage("You search the nest.");
-			player.getItemAssistant().addItem(5077, 1);
-			player.getItemAssistant().deleteItem(itemId, 1);
-			player.getItemAssistant().addItem(5075, 1);
-			break;
+			if (player.getItemAssistant().freeSlots() >= 2) {
+				player.getPacketSender().sendMessage("You search the nest.");
+				player.getItemAssistant().addItem(5077, 1);
+				player.getItemAssistant().deleteItem(itemId, 1);
+				player.getItemAssistant().addItem(5075, 1);
+			} else {
+				player.getPacketSender().sendMessage("You do not have enough inventory space to do that.");
+			}
+		break;
 
 		case 5073:
 			player.getItemAssistant().handleTreeSeeds(itemId);

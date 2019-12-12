@@ -11,7 +11,6 @@ import com.rebotted.game.content.skills.firemaking.Firemaking;
 import com.rebotted.game.content.skills.firemaking.LogData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.RareProtection;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.GameLogger;

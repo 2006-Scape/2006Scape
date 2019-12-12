@@ -13,6 +13,7 @@ import com.rebotted.game.content.skills.fletching.Stringing;
 import com.rebotted.game.content.skills.herblore.GrindingAction;
 import com.rebotted.game.content.skills.herblore.Herblore;
 import com.rebotted.game.items.impl.CapeDye;
+import com.rebotted.game.items.impl.GodPages;
 import com.rebotted.game.items.impl.WeaponPoison;
 import com.rebotted.game.npcs.impl.MilkCow;
 import com.rebotted.game.objects.impl.CrystalChest;
@@ -98,7 +99,7 @@ public class UseItem {
 
 	}
 
-	public static void ItemonItem(Player player, int itemUsed, int useWith) {
+	public static void itemOnItem(Player player, int itemUsed, int useWith) {
 		LogCuttingInterface.handleItemOnItem(player, itemUsed, useWith);
 		ArrowMaking.makeArrow(player, itemUsed, useWith);
 		Stringing.StringBow(player, itemUsed, useWith);
@@ -111,6 +112,7 @@ public class UseItem {
 		}
 		GrindingAction.init(player, itemUsed, useWith);
 		CapeDye.dyeItem(player, itemUsed, useWith);
+		GodPages.itemOnItemHandle(player, useWith, itemUsed);
 		if (Herblore.isIngredient(itemUsed) || Herblore.isIngredient(useWith)) {
 			Herblore.setupPotion(player, itemUsed, useWith);
 		}

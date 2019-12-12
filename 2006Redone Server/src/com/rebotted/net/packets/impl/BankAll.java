@@ -1,6 +1,5 @@
 package com.rebotted.net.packets.impl;
 
-import com.rebotted.GameConstants;
 import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.Item;
