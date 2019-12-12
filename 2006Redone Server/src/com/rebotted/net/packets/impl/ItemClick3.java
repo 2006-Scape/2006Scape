@@ -33,7 +33,10 @@ public class ItemClick3 implements PacketType {
 		player.endCurrentTask();
 
 		switch (itemId) {
-
+		case 4079:
+			player.startAnimation(1460);
+			break;
+			
 		case 2552:
 		case 2554:
 		case 2556:

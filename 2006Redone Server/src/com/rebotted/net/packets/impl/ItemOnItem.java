@@ -16,7 +16,7 @@ public class ItemOnItem implements PacketType {
 			return;
 		}
 		player.endCurrentTask();
-		UseItem.ItemonItem(player, itemUsed, useWith);
+		UseItem.itemOnItem(player, itemUsed, useWith);
 	}
 
 }

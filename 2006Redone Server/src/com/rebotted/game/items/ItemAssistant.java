@@ -1439,7 +1439,11 @@ public class ItemAssistant {
 					}
 				}
 			}
-
+			
+			if (wearID == 4079) {
+				c.startAnimation(1458);
+				return false;
+			}
 			switch (wearID) {
 				// Dragon daggers/sword
 				case 1215:

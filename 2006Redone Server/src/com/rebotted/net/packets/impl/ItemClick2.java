@@ -27,6 +27,9 @@ public class ItemClick2 implements PacketType {
 		}
 
 		switch (itemId) {
+		case 4079:
+			c.startAnimation(1459);
+			break;
 		}
 
 	}
