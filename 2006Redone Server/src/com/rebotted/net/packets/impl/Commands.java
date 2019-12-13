@@ -14,7 +14,6 @@ import com.rebotted.game.players.*;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
-import org.apollo.jagcached.Constants;
 
 public class Commands implements PacketType {
 
