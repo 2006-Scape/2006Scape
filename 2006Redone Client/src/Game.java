@@ -11536,7 +11536,7 @@ public class Game extends RSApplet {
 
 	public Game() {
 	    //Test if they're on 32-bit, warn them if they are
-		if (!System.getProperty("os.arch").contains("64"))
+		if (!System.getProperty("sun.arch.data.model").contains("64"))
 		{
 			JOptionPane.showMessageDialog(null, "You're running 32-bit java. This will definitely cause problems.\nYou can get the right Java 8 at AdoptOpenJDK.net", "You're running 32-bit Java!", JOptionPane.INFORMATION_MESSAGE);
 			System.out.println("Please upgrade to 64-bit java to avoid problems! (AdoptOpenJDK.net)");
