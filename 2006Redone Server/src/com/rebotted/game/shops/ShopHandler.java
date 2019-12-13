@@ -16,9 +16,9 @@ public class ShopHandler {
 	
 	public static int MAX_SHOP_ITEMS = 40;
 	
-	public static int SHOW_DELAY = 2;
+	public static int SHOW_DELAY = 1; // Restock 1 item every tick
 	
-	public static int SPECIAL_DELAY = 60;
+	public static int SPECIAL_DELAY = 60; // Remove overstocked items after 60 ticks
 	
 	public static int totalshops = 0;
 	
@@ -106,13 +106,13 @@ public class ShopHandler {
 		shopItemsN[shopID][ArrayID] -= 1;
 		if (shopItemsN[shopID][ArrayID] <= 0) {
 			shopItemsN[shopID][ArrayID] = 0;
-			if (shopItemsStandard[shopID] >= ArrayID)
+			if (shopItemsStandard[shopID] <= ArrayID)
 				ResetItem(shopID, ArrayID);
 		}
 	}
 
 	private static void ResetItem(int shopID, int ArrayID) {
-		if (shopItemsStandard[shopID] < ArrayID) return;
+		if (shopItemsStandard[shopID] > ArrayID) return;
 		shopItems[shopID][ArrayID] = 0;
 		shopItemsN[shopID][ArrayID] = 0;
 		shopItemsDelay[shopID][ArrayID] = 0;
