@@ -5,7 +5,11 @@
 
 import javax.swing.*;
 import java.applet.AppletContext;
-import java.awt.*;
+//import java.awt.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;

@@ -4,7 +4,13 @@
 
 import javax.swing.*;
 import java.applet.Applet;
-import java.awt.*;
+//import java.awt.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.FontMetrics;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
