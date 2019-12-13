@@ -14,6 +14,7 @@ import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
+import com.rebotted.util.MainFrameIDs;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
 
@@ -278,7 +279,7 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame126(String s, int id) {
+	public PacketSender sendFrame126(String s, int id) { //Seems to be about chat messsages
 		if(!player.checkPacket126Update(s, id)) {
 			return this;
 		}
@@ -320,8 +321,9 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame248(int MainFrame, int SubFrame) {
+	public PacketSender sendFrame248(int MainFrame, int SubFrame) { //Trade-like interfaces
 		// synchronized(c) {
+		player.lastMainFrameInterface = MainFrame;
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(248);
 			player.getOutStream().writeWordA(MainFrame);
@@ -331,7 +333,8 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame246(int MainFrame, int SubFrame, int SubFrame2) {
+	public PacketSender sendFrame246(int MainFrame, int SubFrame, int SubFrame2) { //A lot of generic interfaces; cooking, etc
+		player.lastMainFrameInterface = MainFrame;
 		// synchronized(c) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(246);
@@ -343,7 +346,7 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame171(int MainFrame, int SubFrame) {
+	public PacketSender sendFrame171(int MainFrame, int SubFrame) { //Special attack bar?
 		// synchronized(c) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(171);
@@ -379,7 +382,7 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame106(int sideIcon) {
+	public PacketSender sendFrame106(int sideIcon) { //Something to do with magic
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(106);
 			player.getOutStream().writeByteC(sideIcon);
@@ -389,7 +392,7 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame70(int i, int o, int id) {
+	public PacketSender sendFrame70(int i, int o, int id) { //Ranging guild minigame
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(70);
 			player.getOutStream().writeWord(i);
@@ -442,7 +445,7 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame87(int id, int state) {
+	public PacketSender sendFrame87(int id, int state) { //Castlewars and duel arena texts
 		// synchronized(c) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(87);
@@ -487,6 +490,7 @@ public class PacketSender {
 	}
 
 	public PacketSender closeAllWindows() {
+		player.lastMainFrameInterface = -1;
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(219);
 			player.flushOutStream();
@@ -594,6 +598,7 @@ public class PacketSender {
 			player.getItemAssistant().resetTempItems();
 			player.getOutStream().createFrame(248);
 			player.getOutStream().writeWordA(5292);
+			player.lastMainFrameInterface = MainFrameIDs.BANK; //Setting it to 5292, since I *think* that's what interface got opened
 			player.getOutStream().writeWord(5063);
 			player.flushOutStream();
 			player.isBanking = true;

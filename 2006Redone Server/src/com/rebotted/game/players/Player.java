@@ -121,7 +121,7 @@ public abstract class Player {
 	private final ObjectManager objectManager = new ObjectManager();
 	public ArrayList<GameItem> fishingTrawlerReward = new ArrayList<GameItem>();
 	private final RangersGuild rangersGuild = new RangersGuild(this);
-	private GlassBlowing glassBlowing = new GlassBlowing(this);
+    private GlassBlowing glassBlowing = new GlassBlowing(this);
 	private Barrows barrows = new Barrows(this);
 	private Mining mining = new Mining();
 	private ChallengePlayer challengePlayer = new ChallengePlayer();
@@ -130,7 +130,8 @@ public abstract class Player {
 	private GateHandler gateHandler = new GateHandler();
 	private SingleGates singleGates = new SingleGates();
 	private DoubleGates doubleGates = new DoubleGates();
-	
+	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
+
 	public SingleGates getSingleGates() {
 		return singleGates;
 	}
