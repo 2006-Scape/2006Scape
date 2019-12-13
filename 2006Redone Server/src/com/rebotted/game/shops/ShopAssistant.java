@@ -289,7 +289,6 @@ public class ShopAssistant {
 						canSellItem = true;
 						break;
 					}
-					System.out.println("cannot sell item not in stock " + unNotedItemID + " " + itemName);
 				}
 				break;
 			// General store
