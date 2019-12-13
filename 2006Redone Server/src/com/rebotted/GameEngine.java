@@ -60,7 +60,7 @@ public class GameEngine {
 	private static IoAcceptor acceptor;
 	private static ConnectionHandler connectionHandler;
 	private static ConnectionThrottleFilter throttleFilter;
-	private static boolean shutdownServer = false;
+	public static boolean shutdownServer = false;
 	public static int garbageCollectDelay = 40;
 	public static boolean shutdownClientHandler;
 	private static int serverlistenerPort;
