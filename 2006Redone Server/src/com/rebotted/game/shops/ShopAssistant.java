@@ -280,13 +280,13 @@ public class ShopAssistant {
 				return;
 			}
 		}
-		boolean IsIn = false;
+		boolean canSellItem = false;
 		switch (ShopHandler.shopSModifier[player.shopId]) {
 			// Only buys what is in stock
 			case 2:
 				for (int j = 0; j <= ShopHandler.shopItemsStandard[player.shopId]; j++) {
 					if (unNotedItemID == (ShopHandler.shopItems[player.shopId][j] - 1)) {
-						IsIn = true;
+						canSellItem = true;
 						break;
 					}
 					System.out.println("cannot sell item not in stock " + unNotedItemID + " " + itemName);
@@ -294,15 +294,15 @@ public class ShopAssistant {
 				break;
 			// General store
 			case 1:
-				IsIn = true;
+				canSellItem = true;
 				break;
 			// Player owns this store
 			case 0:
-				IsIn = ShopHandler.playerOwnsStore(player.shopId, player);
+				canSellItem = ShopHandler.playerOwnsStore(player.shopId, player);
 				break;
 		}
 
-		if (IsIn == false) {
+		if (canSellItem == false) {
 			player.getPacketSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
 			int ShopValue = (int) Math.floor(getItemShopValue(unNotedItemID, 1, true));
@@ -469,7 +469,7 @@ public class ShopAssistant {
 	private static int getUnNoted(int itemID){
 		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID - 1).toLowerCase();
-		if (itemName.contains(ItemNameUnNotedItem)) {
+		if (itemName.equalsIgnoreCase(ItemNameUnNotedItem)) {
 			itemID--; //Replace the noted item by it's un-noted version.
 		}
 		return itemID;
@@ -478,7 +478,7 @@ public class ShopAssistant {
 	private static int getNoted(int itemID){
 		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
 		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID + 1).toLowerCase();
-		if (itemName.contains(ItemNameUnNotedItem)) {
+		if (itemName.equalsIgnoreCase(ItemNameUnNotedItem)) {
 			itemID++; //Replace the item by it's noted version.
 		}
 		return itemID;
