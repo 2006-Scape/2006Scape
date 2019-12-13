@@ -16,9 +16,9 @@ public class ShopHandler {
 	
 	public static int MAX_SHOP_ITEMS = 40;
 	
-	public static int SHOW_DELAY = 2;
+	public static int SHOW_DELAY = 1; // Restock 1 item every tick
 	
-	public static int SPECIAL_DELAY = 60;
+	public static int SPECIAL_DELAY = 60; // Remove overstocked items after 60 ticks
 	
 	public static int totalshops = 0;
 	
@@ -106,11 +106,13 @@ public class ShopHandler {
 		shopItemsN[shopID][ArrayID] -= 1;
 		if (shopItemsN[shopID][ArrayID] <= 0) {
 			shopItemsN[shopID][ArrayID] = 0;
-			ResetItem(shopID, ArrayID);
+			if (shopItemsStandard[shopID] <= ArrayID)
+				ResetItem(shopID, ArrayID);
 		}
 	}
 
 	private static void ResetItem(int shopID, int ArrayID) {
+		if (shopItemsStandard[shopID] > ArrayID) return;
 		shopItems[shopID][ArrayID] = 0;
 		shopItemsN[shopID][ArrayID] = 0;
 		shopItemsDelay[shopID][ArrayID] = 0;
@@ -143,19 +145,19 @@ public class ShopHandler {
 				token = line.substring(0, spot);
 				token = token.trim();
 				token2 = line.substring(spot + 1);
-				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t+", "\t");
-				token3 = token2_2.split("\t");
+				token3 = token2.trim().split("\t+");
 				if (token.equals("shop")) {
 					int shopID = Integer.parseInt(token3[0]);
 					shopName[shopID] = token3[1].replaceAll("_", " ");
 					shopSModifier[shopID] = Integer.parseInt(token3[2]);
 					shopBModifier[shopID] = Integer.parseInt(token3[3]);
 					for (int i = 0; i < ((token3.length - 4) / 2); i++) {
-						if (token3[(4 + (i * 2))] != null) {
-							shopItems[shopID][i] = (Integer.parseInt(token3[(4 + (i * 2))]) + 1);
-							shopItemsN[shopID][i] = Integer.parseInt(token3[(5 + (i * 2))]);
-							shopItemsSN[shopID][i] = Integer.parseInt(token3[(5 + (i * 2))]);
+						int itemID = Integer.parseInt(token3[(4 + (i * 2))]);
+						int itemAmount = Integer.parseInt(token3[(5 + (i * 2))]);
+						if (itemID > 0) {
+							shopItems[shopID][i] = itemID + 1;
+							shopItemsN[shopID][i] = itemAmount;
+							shopItemsSN[shopID][i] = itemAmount;
 							shopItemsStandard[shopID]++;
 						} else {
 							break;
@@ -164,7 +166,7 @@ public class ShopHandler {
 					totalshops++;
 				}
 			} else {
-				if (line.equals("[ENDOFshopLIST]")) {
+				if (line.equalsIgnoreCase("[ENDOFSHOPLIST]")) {
 					try {
 						characterfile.close();
 					} catch (IOException ioexception) {
