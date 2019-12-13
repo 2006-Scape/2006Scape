@@ -276,7 +276,7 @@ public class ShopAssistant {
 		String itemName = ItemAssistant.getItemName(unNotedItemID);
 		for (int i : GameConstants.ITEM_SELLABLE) {
 			if (unNotedItemID == i) {
-				player.getPacketSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + ".");
+				player.getPacketSender().sendMessage("You can't sell " + itemName + ".");
 				return;
 			}
 		}
@@ -289,6 +289,7 @@ public class ShopAssistant {
 						IsIn = true;
 						break;
 					}
+					System.out.println("cannot sell item not in stock " + unNotedItemID + " " + itemName);
 				}
 				break;
 			// General store
