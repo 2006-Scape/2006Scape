@@ -393,7 +393,11 @@ public class Game extends RSApplet {
 					}
 					if (l == 0) {
 						if (i1 > 0 && i1 < 110) {
+							try {
 							textDrawingArea.method389(false, 4, 0, chatMessages[k], i1);
+							} catch (Exception e) {
+								
+							}
 						}
 						j++;
 					}

@@ -3093,6 +3093,7 @@ public abstract class Player {
 			int difference = playerLevel[3] - damage;
 			if (difference <= getLevelForXP(playerXP[3]) / 10 && difference > 0)
 				appendRedemption();
+				getPlayerAssistant().handleROL();
 		} else {
 			if (hitUpdateRequired) {
 				hitUpdateRequired = false;

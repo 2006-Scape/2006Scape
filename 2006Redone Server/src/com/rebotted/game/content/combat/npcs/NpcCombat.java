@@ -665,13 +665,23 @@ public class NpcCombat {
 				if (damage > 0) {
 					CombatAssistant.applyRecoilNPC(c, damage, i);
 				}
-				NpcHandler.handleSpecialEffects(c, i, damage);
-				c.logoutDelay = System.currentTimeMillis(); // logout delay
-				c.handleHitMask(damage);
-				c.playerLevel[3] -= damage;
-				c.getPlayerAssistant().refreshSkill(3);
-				FightCaves.tzKihEffect(c, i, damage);
-				c.updateRequired = true;
+				if (c.playerLevel[3] - damage < 0) {
+					damage = c.playerLevel[3];
+				}
+				int difference = c.playerLevel[3] - damage;
+				if (c.getPlayerAssistant().savePlayer()) {
+					c.getPlayerAssistant().handleROL();
+				} else if (difference <= c.getLevelForXP(c.playerXP[3]) / 10 && difference > 0) {
+					c.appendRedemption();
+				} else {
+					NpcHandler.handleSpecialEffects(c, i, damage);
+					c.logoutDelay = System.currentTimeMillis(); // logout delay
+					c.handleHitMask(damage);
+					c.playerLevel[3] -= damage;
+					c.getPlayerAssistant().refreshSkill(3);
+					FightCaves.tzKihEffect(c, i, damage);
+					c.updateRequired = true;
+				}
 			}
 		}
 	}
