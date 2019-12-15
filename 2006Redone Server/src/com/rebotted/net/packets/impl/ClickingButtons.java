@@ -1737,6 +1737,8 @@ public class ClickingButtons implements PacketType {
 							"@red@Trade completed.");
 					ot1.getPacketSender().sendMessage(
 							"@red@Trade completed.");
+					player.tradeStatus = 0;
+					ot1.tradeStatus = 0;
 					break;
 				}
 				ot1.getPacketSender().sendFrame126(

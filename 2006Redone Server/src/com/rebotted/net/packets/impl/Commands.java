@@ -641,7 +641,7 @@ public class Commands implements PacketType {
                                                 if (player.isBusy()) {
                                                         player.getPacketSender().closeAllWindows();
                                                 }
-                                                player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
+                                               // player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
                                         } else {
                                                 player.getPacketSender().sendMessage("No such item.");
                                         }
