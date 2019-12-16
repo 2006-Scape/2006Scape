@@ -106,6 +106,10 @@ public class PlayerHandler {
 					players[i].disconnected = true;
 				}
 			}
+			if (updateRunning) //If there's an update intended, and that's why we kicked everyone:
+			{
+				GameEngine.shutdownServer = true;
+			}
 		}
 		for (int i = 0; i < PlayerHandler.players.length; i++) {
 			if (players[i] == null || !players[i].isActive) {
