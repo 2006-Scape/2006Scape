@@ -7,6 +7,7 @@ import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
+import com.rebotted.util.MainFrameIDs;
 import com.rebotted.util.Misc;
 
 public class ItemAssistant {
@@ -1804,6 +1805,12 @@ public class ItemAssistant {
 			c.otherBank = false;
 			return false;
 		}
+
+		if (!(c.lastMainFrameInterface == MainFrameIDs.DEPOSIT_BOX || c.lastMainFrameInterface == MainFrameIDs.BANK)) { //Packet exploit prevention
+			c.getPacketSender().sendMessage("You don't have a bank open! Report this ID to developers: " + c.lastMainFrameInterface);
+			return false;
+		}
+
 		if (c.playerItemsN[fromSlot] <= 0) {
 			return false;
 		}
