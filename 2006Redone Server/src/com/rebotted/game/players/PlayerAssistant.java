@@ -37,6 +37,19 @@ public class PlayerAssistant {
 		this.player = player2;
 	}
 	
+	public boolean savePlayer() {
+		return (player.wildLevel < 20 && player.playerEquipment[GameConstants.RING] == 2570 && player.playerLevel[3] > 0 && player.playerLevel[3] <= player.getLevelForXP(player.playerXP[3]) / 10 && player.underAttackBy > 0);
+	}
+	
+	public void handleROL() {
+		if (!savePlayer()) {
+			return;
+		}
+		player.getItemAssistant().deleteEquipment(2570, GameConstants.RING);
+		player.getPlayerAssistant().startTeleport(3222, 3218, 0, "modern");
+		player.getPacketSender().sendMessage("Your ring of life saves you.");
+	}
+	
 	public void objectAnim(int X, int Y, int animationID, int tileObjectType, int orientation) {
 		for (Player p : PlayerHandler.players) {
 			if(p != null) {
@@ -2062,6 +2075,9 @@ public class PlayerAssistant {
 		player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[skill]) + "", data.get().getFrame5());
 		player.getPacketSender().sendFrame126("" + player.playerXP[skill] + "", data.get().getFrame6());
 		player.getPacketSender().sendFrame126("" + getXPForLevel(getLevelForXP(player.playerXP[skill]) + 1) + "", data.get().getFrame7());
+		if (skill == 5) {
+			player.getPacketSender().sendFrame126("" + player.playerLevel[5] + "/" + getLevelForXP(player.playerXP[5]) + "", 687);// Prayer
+		}
 	}
 
 	public int getXPForLevel(int level) {

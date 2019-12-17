@@ -14,6 +14,8 @@ import com.rebotted.game.players.*;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Commands implements PacketType {
 
@@ -128,6 +130,22 @@ public class Commands implements PacketType {
                                 break;
                         case "shop":
                                 BotHandler.playerShop(player);
+                                break;
+                        case "snow":
+                                Calendar date = new GregorianCalendar();
+                                if ((date.get(Calendar.MONTH) + 1) == 12 && !player.inWild())
+                                {
+                                        if (player.isSnowy)
+                                        {
+                                                player.isSnowy = false;
+                                                player.getPacketSender().walkableInterface(-1);
+                                        }
+                                        else {
+                                                player.isSnowy = true;
+                                                player.getPacketSender().walkableInterface(11877);
+                                        }
+                                        player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
+                                }
                                 break;
                         case "withdrawshop":
                                 player.getPacketSender().sendMessage("Shorter version: ::wshop");
@@ -641,7 +659,7 @@ public class Commands implements PacketType {
                                                 if (player.isBusy()) {
                                                         player.getPacketSender().closeAllWindows();
                                                 }
-                                                player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
+                                               // player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
                                         } else {
                                                 player.getPacketSender().sendMessage("No such item.");
                                         }

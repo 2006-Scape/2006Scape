@@ -1080,7 +1080,7 @@ public class ObjectsActions {
 			}
 			break;
 			
-		case 9299:
+		case 9299: //Lumbridge squeeze-through fence
 			if (player.absX == 3240) {
 				if (player.absY == 3191) {
 					player.getPlayerAssistant().walkTo(0, -1);

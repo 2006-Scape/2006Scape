@@ -121,7 +121,7 @@ public abstract class Player {
 	private final ObjectManager objectManager = new ObjectManager();
 	public ArrayList<GameItem> fishingTrawlerReward = new ArrayList<GameItem>();
 	private final RangersGuild rangersGuild = new RangersGuild(this);
-	private GlassBlowing glassBlowing = new GlassBlowing(this);
+    private GlassBlowing glassBlowing = new GlassBlowing(this);
 	private Barrows barrows = new Barrows(this);
 	private Mining mining = new Mining();
 	private ChallengePlayer challengePlayer = new ChallengePlayer();
@@ -130,7 +130,8 @@ public abstract class Player {
 	private GateHandler gateHandler = new GateHandler();
 	private SingleGates singleGates = new SingleGates();
 	private DoubleGates doubleGates = new DoubleGates();
-	
+	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
+
 	public SingleGates getSingleGates() {
 		return singleGates;
 	}
@@ -344,6 +345,8 @@ public abstract class Player {
 	}
 
 	public int totalShopItems;
+
+	public boolean isSnowy;
 
 	public void startCurrentTask(int ticksBetweenExecution, CycleEvent event) {
 		endCurrentTask();
@@ -655,6 +658,7 @@ public abstract class Player {
 			int modY = absY > 6400 ? absY - 6400 : absY;
 			wildLevel = (modY - 3520) / 8 + 1;
 			getPacketSender().walkableInterface(197);
+			isSnowy = false;
 			if (CombatConstants.SINGLE_AND_MULTI_ZONES) {
 				if (inMulti()) {
 					getPacketSender().sendFrame126("@yel@Level: " + wildLevel,
@@ -670,6 +674,7 @@ public abstract class Player {
 			getPacketSender().showOption(3, 0, "Attack", 1);
 		} else if (inDuelArena()) {
 			getPacketSender().walkableInterface(201);
+			isSnowy = false;
 			if (duelStatus == 5) {
 				getPacketSender().showOption(3, 0, "Attack", 1);
 			} else {
@@ -679,14 +684,19 @@ public abstract class Player {
 			getPacketSender().showOption(3, 0, "Null", 1);
         } else if(GameEngine.trawler.players.contains(this)) {
         	getPacketSender().walkableInterface(11908);
+			isSnowy = false;
 		} else if (isInBarrows() || isInBarrows2()) {
 			getPacketSender().sendFrame126("Kill Count: " + barrowsKillCount, 4536);
 			getPacketSender().walkableInterface(4535);
+			isSnowy = false;
 		} else if (inCw() || inPits) {
 			getPacketSender().showOption(3, 0, "Attack", 1);
 		} else {
 			getPacketSender().sendMapState(0);
-			getPacketSender().walkableInterface(-1);
+			if (!isSnowy)
+			{
+				getPacketSender().walkableInterface(-1);
+			}
 			getPacketSender().showOption(3, 0, "Null", 1);
 		}
 	}
@@ -724,7 +734,6 @@ public abstract class Player {
 	}
 
 	public void process() {
-
 		if (playerEnergy < 100 && System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
 			playerEnergy += 1;
 			lastIncrease = System.currentTimeMillis();
@@ -1704,6 +1713,12 @@ public abstract class Player {
 			return true;
 		}
 		if (absX > 2941 && absX < 3392 && absY > 3518 && absY < 3966 || absX > 2941 && absX < 3392 && absY > 9918 && absY < 10366) {
+			if (!WildernessWarning) {
+				resetWalkingQueue();
+				WildernessWarning = true;
+				getPacketSender().sendFrame126("WARNING!", 6940);
+				getPacketSender().showInterface(1908);
+			}
 			return true;
 		}
 		return false;
@@ -3093,6 +3108,7 @@ public abstract class Player {
 			int difference = playerLevel[3] - damage;
 			if (difference <= getLevelForXP(playerXP[3]) / 10 && difference > 0)
 				appendRedemption();
+				getPlayerAssistant().handleROL();
 		} else {
 			if (hitUpdateRequired) {
 				hitUpdateRequired = false;

@@ -200,7 +200,11 @@ public final class TextDrawingArea extends DrawingArea {
 					if (flag1) {
 						method392(aByteArrayArray1491[c], i + anIntArray1494[c] + 1, k + anIntArray1495[c] + 1, anIntArray1492[c], anIntArray1493[c], 0);
 					}
+					try {
 					method392(aByteArrayArray1491[c], i + anIntArray1494[c], k + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], j);
+					} catch (Exception e) {
+						
+					}
 				}
 				i += anIntArray1496[c];
 			}

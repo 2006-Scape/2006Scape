@@ -2150,16 +2150,6 @@ public class CombatAssistant {
 		}
 	}
 
-	/*
-	 * public void applyRecoil(int damage, int i) { if (damage > 0 &&
-	 * PlayerHandler.players[i].playerEquipment[c.playerRing] == 2550) { int
-	 * recDamage = damage / 10 + 1; if (!c.getHitUpdateRequired()) {
-	 * c.setHitDiff(recDamage); c.setHitUpdateRequired(true); } else if
-	 * (!c.getHitUpdateRequired2()) { c.setHitDiff2(recDamage);
-	 * c.setHitUpdateRequired2(true); } c.dealDamage(recDamage);
-	 * c.updateRequired = true; } }
-	 */
-
 	public static void applyRecoilNPC(Client c, int damage, int i) {
 		if (c == null || c.npcIndex == 0) {
 			return;
