@@ -2093,6 +2093,11 @@ public class ItemAssistant {
 
 	public void fromBank(int itemID, int fromSlot, int amount) {
 		boolean cantWithdrawCuzMaxStack = false;
+		if (c.lastMainFrameInterface != MainFrameIDs.BANK)
+		{
+			c.getPacketSender().sendMessage("Your bank isn't open!");
+			return;
+		}
 		if (amount > 0) {
 			if (c.bankItems[fromSlot] > 0) {
 			    if (c.getItemAssistant().playerHasItem(itemID))
