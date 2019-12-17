@@ -1806,7 +1806,7 @@ public class ItemAssistant {
 			return false;
 		}
 
-		if (!(c.lastMainFrameInterface == MainFrameIDs.DEPOSIT_BOX || c.lastMainFrameInterface == MainFrameIDs.BANK)) { //Packet exploit prevention
+		if (!(c.lastMainFrameInterface == MainFrameIDs.DEPOSIT_BOX || c.lastMainFrameInterface == MainFrameIDs.BANK || c.inBankArea())) { //Packet exploit prevention
 			c.getPacketSender().sendMessage("You don't have a bank open! Report this ID to developers: " + c.lastMainFrameInterface);
 			return false;
 		}
@@ -2093,7 +2093,7 @@ public class ItemAssistant {
 
 	public void fromBank(int itemID, int fromSlot, int amount) {
 		boolean cantWithdrawCuzMaxStack = false;
-		if (c.lastMainFrameInterface != MainFrameIDs.BANK)
+		if (!(c.lastMainFrameInterface == MainFrameIDs.BANK || c.inBankArea()))
 		{
 			c.getPacketSender().sendMessage("Your bank isn't open!");
 			return;
