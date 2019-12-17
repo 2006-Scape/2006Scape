@@ -1757,6 +1757,7 @@ public abstract class Player {
                 isInArea(2530,4725,2550,4705) || //Phasmatys
 				isInArea(2834, 10215, 2841, 10204) || // Keldagrim
 				isInArea(2379, 4453, 2386, 4462) || // Zanaris
+				isInArea(2582, 3423, 2591, 3417) || //Fishing Guild
 				false;
 	}
 
