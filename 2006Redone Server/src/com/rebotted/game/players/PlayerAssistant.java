@@ -1858,6 +1858,8 @@ public class PlayerAssistant {
 	}
 
 	public void walkTo(int i, int j) {
+		PathFinder.getPathFinder().findRoute(player, i, j, false, 1, 1);
+		/*
 		player.newWalkCmdSteps = 0;
 		if (++player.newWalkCmdSteps > 50) {
 			player.newWalkCmdSteps = 0;
@@ -1871,13 +1873,15 @@ public class PlayerAssistant {
 		for (int n = 0; n < player.newWalkCmdSteps; n++) {
 			player.getNewWalkCmdX()[n] += k;
 			player.getNewWalkCmdY()[n] += l;
-		}
+		}*/
 	}
 
 	public void walkTo2(int i, int j) {
 		if (player.freezeDelay > 0) {
 			return;
 		}
+		PathFinder.getPathFinder().findRoute(player, i, j, false, 1, 1);
+		/*
 		player.newWalkCmdSteps = 0;
 		if (++player.newWalkCmdSteps > 50) {
 			player.newWalkCmdSteps = 0;
@@ -1891,7 +1895,7 @@ public class PlayerAssistant {
 		for (int n = 0; n < player.newWalkCmdSteps; n++) {
 			player.getNewWalkCmdX()[n] += k;
 			player.getNewWalkCmdY()[n] += l;
-		}
+		}*/
 	}
 
 	public void stopDiagonal(int otherX, int otherY) {

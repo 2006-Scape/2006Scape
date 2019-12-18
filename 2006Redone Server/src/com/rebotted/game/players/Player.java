@@ -511,7 +511,7 @@ public abstract class Player {
 			PestControl.leaveWaitingBoat(this);
 			getPlayerAssistant().movePlayer(2657, 2639, 0);
 		}
-		if (hasNpc == true) {
+		if (hasNpc) {
 			getSummon().pickUpClean(this, summonId);
 		}
 
@@ -599,7 +599,7 @@ public abstract class Player {
 			lastY = absY;
 			lastH = heightLevel;
 			CycleEventHandler.getSingleton().stopEvents(this);
-			if (hasNpc == true) {
+			if (hasNpc) {
 				getSummon().pickUpClean(this, summonId);
 			}
 			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
@@ -723,10 +723,6 @@ public abstract class Player {
 			return false;
 		}
 		return validClient(getClient(id));
-	}
-
-	public boolean validClient(String name) {
-		return validClient(getClient(name));
 	}
 
 	public boolean validClient(Client client) {
@@ -1757,6 +1753,7 @@ public abstract class Player {
                 isInArea(2530,4725,2550,4705) || //Phasmatys
 				isInArea(2834, 10215, 2841, 10204) || // Keldagrim
 				isInArea(2379, 4453, 2386, 4462) || // Zanaris
+				isInArea(2582, 3423, 2591, 3417) || //Fishing Guild
 				false;
 	}
 

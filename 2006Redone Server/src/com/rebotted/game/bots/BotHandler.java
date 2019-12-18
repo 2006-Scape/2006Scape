@@ -32,7 +32,7 @@ public class BotHandler {
 
     public static void playerShop(Player player){
         // Must be in the correct zones
-        if (!player.inPlayerShopArea() && !player.inBankArea()) {
+        if (!player.inPlayerShopArea()) {
             player.getPacketSender().sendMessage("You need to be in a bank zone or trade area for this.");
             return;
         }
