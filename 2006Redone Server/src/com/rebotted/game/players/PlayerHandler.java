@@ -12,9 +12,9 @@ import com.rebotted.world.GlobalDropsHandler;
 
 public class PlayerHandler {
 
-	public static Player players[] = new Player[GameConstants.MAX_PLAYERS];
+	public static Player[] players = new Player[GameConstants.MAX_PLAYERS];
 	public static int playerCount = 0, playerShopCount = 0;
-	public static String playersCurrentlyOn[] = new String[GameConstants.MAX_PLAYERS];
+	public static String[] playersCurrentlyOn = new String[GameConstants.MAX_PLAYERS];
 	public static boolean updateAnnounced;
 	public static boolean updateRunning;
 	public static int updateSeconds;
@@ -74,19 +74,7 @@ public class PlayerHandler {
 		}
 	}
 
-	public static int getPlayerID(String playerName) {
-		for (int i = 0; i < PlayerHandler.players.length; i++) {
-			if (playersCurrentlyOn[i] != null) {
-				if (playersCurrentlyOn[i].equalsIgnoreCase(playerName)) {
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
-
 	public static boolean isPlayerOn(String playerName) {
-		// synchronized (PlayerHandler.players) {
 		for (int i = 0; i < PlayerHandler.players.length; i++) {
 			if (playersCurrentlyOn[i] != null) {
 				if (playersCurrentlyOn[i].equalsIgnoreCase(playerName)) {
@@ -98,12 +86,11 @@ public class PlayerHandler {
 	}
 
 	public void process() {
-		// synchronized (PlayerHandler.players) {
 		updatePlayerNames();
 		if (kickAllPlayers) {
-			for (int i = 0; i < PlayerHandler.players.length; i++) {
-				if (players[i] != null) {
-					players[i].disconnected = true;
+			for (Player player : PlayerHandler.players) {
+				if (player != null) {
+					player.disconnected = true;
 				}
 			}
 			if (updateRunning) //If there's an update intended, and that's why we kicked everyone:
@@ -135,13 +122,11 @@ public class PlayerHandler {
 							o.getTrading().declineTrade();
 						}
 					}
-					if(GameEngine.trawler.players.contains(players[i])) {
-						GameEngine.trawler.players.remove(players[i]);
-				    }
+					GameEngine.trawler.players.remove(players[i]);
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
 					players[i].lastH = players[i].heightLevel;
-					if (players[i].hasNpc == true) {
+					if (players[i].hasNpc) {
 						t.getSummon().pickUpClean(t, players[i].summonId);
 					}
 					if (players[i].duelStatus == 5) {
@@ -206,13 +191,11 @@ public class PlayerHandler {
 							o.getTrading().declineTrade();
 						}
 					}
-					if(GameEngine.trawler.players.contains(players[i])) {
-						GameEngine.trawler.players.remove(players[i]);
-				    }
+					GameEngine.trawler.players.remove(players[i]);
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
 					players[i].lastH = players[i].heightLevel;
-					if (players[i].hasNpc == true) {
+					if (players[i].hasNpc) {
 						t.getSummon().pickUpClean(t, players[i].summonId);
 					}
 					if (players[i].duelStatus == 5) {
@@ -258,12 +241,12 @@ public class PlayerHandler {
 			kickAllPlayers = true;
 		}
 
-		for (int i = 0; i < PlayerHandler.players.length; i++) {
-			if (players[i] == null || !players[i].isActive) {
+		for (Player player : PlayerHandler.players) {
+			if (player == null || !player.isActive) {
 				continue;
 			}
 			try {
-				players[i].clearUpdateFlags();
+				player.clearUpdateFlags();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -282,7 +265,7 @@ public class PlayerHandler {
 		int size = plr.npcListSize;
 		plr.npcListSize = 0;
 		for (int i = 0; i < size; i++) {
-			if (plr.rebuildNPCList == false && plr.withinDistance(plr.npcList[i]) == true) {
+			if (!plr.rebuildNPCList && plr.withinDistance(plr.npcList[i])) {
 				plr.npcList[i].updateNPCMovement(str);
 				plr.npcList[i].appendNPCUpdateBlock(updateBlock);
 				plr.npcList[plr.npcListSize++] = plr.npcList[i];
@@ -298,9 +281,9 @@ public class PlayerHandler {
 		for (Npc i : NpcHandler.npcs) {
 			if (i != null) {
 				int id = i.npcId;
-				if (plr.rebuildNPCList == false
+				if (!plr.rebuildNPCList
 						&& (plr.npcInListBitmap[id >> 3] & 1 << (id & 7)) != 0) {
-				} else if (plr.withinDistance(i) == false) {
+				} else if (!plr.withinDistance(i)) {
 				} else {
 					plr.addNewNPC(i, str, updateBlock);
 				}
@@ -360,18 +343,18 @@ public class PlayerHandler {
 				}
 			}
 		}
-		for (int i = 0; i < PlayerHandler.players.length; i++) {
-			if (players[i] == null || !players[i].isActive || players[i] == plr) {
+		for (Player player : PlayerHandler.players) {
+			if (player == null || !player.isActive || player == plr) {
 				continue;
 			}
-			int id = players[i].playerId;
+			int id = player.playerId;
 			if ((plr.playerInListBitmap[id >> 3] & 1 << (id & 7)) != 0) {
 				continue;
 			}
-			if (!plr.withinDistance(players[i])) {
+			if (!plr.withinDistance(player)) {
 				continue;
 			}
-			plr.addNewPlayer(players[i], outStr, updateBlock);
+			plr.addNewPlayer(player, outStr, updateBlock);
 		}
 		if (outStr != null) {
 			if (updateBlock.currentOffset > 0) {
@@ -386,7 +369,7 @@ public class PlayerHandler {
 		}
 		
 		if (plr.refresh) {
-			GlobalDropsHandler.reset((Client)plr);
+			GlobalDropsHandler.reset(plr);
 			plr.refresh = false;
 		}
 	}
@@ -394,7 +377,7 @@ public class PlayerHandler {
 	private void removePlayer(Player plr) {
 		if (plr.privateChat != 2) {
 			for (int i = 1; i < PlayerHandler.players.length; i++) {
-				if (players[i] == null || players[i].isActive == false) {
+				if (players[i] == null || !players[i].isActive) {
 					continue;
 				}
 				Client o = (Client) PlayerHandler.players[i];

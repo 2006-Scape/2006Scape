@@ -511,7 +511,7 @@ public abstract class Player {
 			PestControl.leaveWaitingBoat(this);
 			getPlayerAssistant().movePlayer(2657, 2639, 0);
 		}
-		if (hasNpc == true) {
+		if (hasNpc) {
 			getSummon().pickUpClean(this, summonId);
 		}
 
@@ -599,7 +599,7 @@ public abstract class Player {
 			lastY = absY;
 			lastH = heightLevel;
 			CycleEventHandler.getSingleton().stopEvents(this);
-			if (hasNpc == true) {
+			if (hasNpc) {
 				getSummon().pickUpClean(this, summonId);
 			}
 			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
@@ -723,10 +723,6 @@ public abstract class Player {
 			return false;
 		}
 		return validClient(getClient(id));
-	}
-
-	public boolean validClient(String name) {
-		return validClient(getClient(name));
 	}
 
 	public boolean validClient(Client client) {
