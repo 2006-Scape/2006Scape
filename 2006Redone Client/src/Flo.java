@@ -2,6 +2,9 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public final class Flo {
 
 	public static void unpackConfig(StreamLoader streamLoader) {
@@ -25,7 +28,8 @@ public final class Flo {
 				return;
 			} else if (i == 1) {
 				anInt390 = stream.read3Bytes();
-				if (ClientSettings.SNOW) {
+				Calendar date = new GregorianCalendar();
+				if ((date.get(Calendar.MONTH) + 1) == 12) {
 					anInt390 = 0xffffff;
 				}
 				method262(anInt390);

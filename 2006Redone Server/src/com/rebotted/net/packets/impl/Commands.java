@@ -143,8 +143,8 @@ public class Commands implements PacketType {
                                         else {
                                                 player.isSnowy = true;
                                                 player.getPacketSender().walkableInterface(11877);
+                                                player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
                                         }
-                                        player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
                                 }
                                 break;
                         case "withdrawshop":
