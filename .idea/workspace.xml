@@ -7,13 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c1d485e-b413-4c80-b742-7c5a88c1c73c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2006Redone Server/src/com/rebotted/net/packets/impl/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/2006Redone Server/src/com/rebotted/net/packets/impl/Commands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/com/rebotted/net/packets/impl/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/CompiledServer/production/2006rebotted/com/rebotted/net/packets/impl/Commands.class" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileColors">
+    <fileColor scope="Local Unit Tests" color="#161c22" />
+    <fileColor scope="Android Instrumented Tests" color="#161c22" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -29,24 +34,19 @@
     <option name="height" value="1407" />
   </component>
   <component name="ProjectId" id="1Sr1PyvKre5eWJ6XgOrqWrHM5hp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/2006Redone Client/METAs/Client Meta" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.GameEngine">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -97,6 +97,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -107,8 +119,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572306880139</updated>
+      <workItem from="1576853591840" duration="1190000" />
+      <workItem from="1576854792240" duration="1663000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -136,5 +153,23 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom" timestamp="1576858443106">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom/0.40.1920.1040@0.40.1920.1040" timestamp="1576858443106" />
+    <state width="1877" height="266" key="GridCell.Tab.0.center" timestamp="1576858443106">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.center/0.40.1920.1040@0.40.1920.1040" timestamp="1576858443106" />
+    <state width="1877" height="266" key="GridCell.Tab.0.left" timestamp="1576858443105">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.left/0.40.1920.1040@0.40.1920.1040" timestamp="1576858443105" />
+    <state width="1877" height="266" key="GridCell.Tab.0.right" timestamp="1576858443106">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="266" key="GridCell.Tab.0.right/0.40.1920.1040@0.40.1920.1040" timestamp="1576858443106" />
   </component>
 </project>
