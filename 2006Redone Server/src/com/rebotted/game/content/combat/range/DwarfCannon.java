@@ -86,6 +86,7 @@ public class DwarfCannon {
 				if (setUpStage >= 4) {
 					container.stop();
 					setUpStage = 0;
+					player.CannonSetupStage = setUpStage;
 					settingUp = false;
 					return;
 				}
@@ -102,6 +103,7 @@ public class DwarfCannon {
 				placeObject(OBJECT_PARTS[setUpStage], player.absX, player.absY, true);
 				player.getItemAssistant().deleteItem(ITEM_PARTS[setUpStage], 1);
 				setUpStage ++;
+				player.CannonSetupStage = setUpStage;
 			}
 			@Override
 			public void stop() {
@@ -148,7 +150,7 @@ public class DwarfCannon {
 		}
 		
 		public boolean hasCannon() {
-			return (player.cannonX > 0) && (player.cannonY > 0) || (player.cannonX > 0 && player.cannonY > 0);
+			return (player.CannonSetupStage != 0 || (player.cannonX > 0 && player.cannonY > 0));
 		}
 		
 		private boolean myCannon(int x, int y) {
@@ -313,7 +315,7 @@ public class DwarfCannon {
 				}
 			}
 		}
-		
+
 		public void pickup(int x, int y) {
 			if (!myCannon(x, y)) {
 				player.getPacketSender().sendMessage("You can't pick up somebody else's cannon!");
@@ -343,13 +345,13 @@ public class DwarfCannon {
 			player.cannonX = 0;
 			player.cannonY = 0;
 		}
-		
+
 		public void placeObject(int id, int x, int y, boolean add) {
 			GameEngine.objectHandler.placeObject(new Objects(id, x, y, 0, 516, 10, 0));
 			if (add)
 			Region.addObject(id, x, y, 0, 10, 516, true);
 		}
-		
+
 		public void removeObject(int x, int y) {
 			placeObject(-1, x, y, false);
 		}

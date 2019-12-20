@@ -344,11 +344,6 @@ public class ShopAssistant {
 			player.getPacketSender().sendMessage("Selling items as an admin has been disabled.");
 			return false;
 		}
-		if (!player.inPlayerShopArea()) //Packet abuse!
-		{
-			player.getPacketSender().sendMessage("You're not in a shopping area! Enter one to sell items & manage your store.");
-			return false;
-		}
 		if(!player.isShopping) {
 	        return false;
 		}

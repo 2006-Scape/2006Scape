@@ -1187,6 +1187,8 @@ public abstract class Player {
 	
 	public boolean lostCannon = false, refresh = false, isBot = false;
 
+	public int CannonSetupStage;
+
 	public ArrayList<String> killedPlayers = new ArrayList<String>();
 	public ArrayList<Integer> attackedPlayers = new ArrayList<Integer>();
 	public ArrayList<String> lastKilledPlayers = new ArrayList<String>();

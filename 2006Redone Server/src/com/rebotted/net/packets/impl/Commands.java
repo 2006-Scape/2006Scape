@@ -79,6 +79,9 @@ public class Commands implements PacketType {
                         case "loc":
                                 player.getPacketSender().sendMessage("Your coords are [" + player.absX + ", " + player.absY + ", " + player.heightLevel + "]");
                                 break;
+                        case "energy":
+                                player.getPacketSender().sendMessage(String.format("Run energy: %d", (int) player.playerEnergy));
+                                break;
                         case "password":
                         case "pwd":
                                 if (arguments.length < 2) {
@@ -128,6 +131,9 @@ public class Commands implements PacketType {
 
                                 }
                                 break;
+                        case "prayer":
+                                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[5]));
+                                break;
                         case "shop":
                                 BotHandler.playerShop(player);
                                 break;
@@ -143,8 +149,8 @@ public class Commands implements PacketType {
                                         else {
                                                 player.isSnowy = true;
                                                 player.getPacketSender().walkableInterface(11877);
+                                                player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
                                         }
-                                        player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
                                 }
                                 break;
                         case "withdrawshop":
