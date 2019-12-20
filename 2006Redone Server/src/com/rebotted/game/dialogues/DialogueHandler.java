@@ -1184,7 +1184,7 @@ public class DialogueHandler {
 				break;
 			case 247:
 				sendNpcChat3(
-						"But, when this tower was burnt down, the sercret of creating runes was lost with it...",
+						"But, when this tower was burnt down, the secret of creating runes was lost with it...",
 						"or so I thought.",
 						"Some months ago, while searching these ruins for information, ",
 						player.talkingNpc, "Sedridor");

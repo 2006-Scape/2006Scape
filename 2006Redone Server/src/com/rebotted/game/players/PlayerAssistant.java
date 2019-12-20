@@ -2014,10 +2014,9 @@ public class PlayerAssistant {
 			player.getPlayerAssistant().addStarter();
 			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
 			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
-			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
-			player.getPacketSender().sendMessage("Source code at github.com/dginovker/2006rebotted");
-			player.getPacketSender().sendMessage("Welcome to the Beta! A reset will occur before main release -");
-			player.getPacketSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source and pull requests are welcome!");
+			player.getPacketSender().sendMessage("Source code: github.com/dginovker/2006rebotted");
+			player.getPacketSender().sendMessage("Discord: discord.gg/4zrA2Wy");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
 			player.autoRet = 1;

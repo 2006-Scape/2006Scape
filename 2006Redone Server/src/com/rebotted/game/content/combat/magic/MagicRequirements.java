@@ -15,7 +15,7 @@ public class MagicRequirements {
 			}
 			break;
 		case 555:
-			if (wep == 1383 || wep == 1395) {
+			if (wep == 1383 || wep == 1395 || wep == 6562) {
 				return true;
 			}
 			break;
@@ -25,7 +25,7 @@ public class MagicRequirements {
 			}
 			break;
 		case 557:
-			if (wep == 1385 || wep == 1399 || wep == 3053) {
+			if (wep == 1385 || wep == 1399 || wep == 3053 || wep == 6562) {
 				return true;
 			}
 			break;
