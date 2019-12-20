@@ -80,7 +80,7 @@ public class Commands implements PacketType {
                                 player.getPacketSender().sendMessage("Your coords are [" + player.absX + ", " + player.absY + ", " + player.heightLevel + "]");
                                 break;
                         case "energy":
-                                player.getPacketSender().sendMessage(String.valueOf((int) player.playerEnergy));
+                                player.getPacketSender().sendMessage(String.format("Run energy: %d", (int) player.playerEnergy));
                                 break;
                         case "password":
                         case "pwd":
@@ -132,7 +132,7 @@ public class Commands implements PacketType {
                                 }
                                 break;
                         case "prayer":
-                                player.getPacketSender().sendMessage(String.valueOf(player.playerLevel[5]));
+                                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[5]));
                                 break;
                         case "shop":
                                 BotHandler.playerShop(player);
