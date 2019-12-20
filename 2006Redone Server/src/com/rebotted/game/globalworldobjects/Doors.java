@@ -8,6 +8,7 @@ import java.util.Scanner;
 import com.rebotted.GameEngine;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
+import com.rebotted.world.clip.Region;
 
 
 public class Doors {
@@ -67,6 +68,18 @@ public class Doors {
 
 		//todo: improvment: if player manage to get to door then open the door.
 		if(player.distanceToPoint(x, y) > 1) return  false;
+
+		/**
+		 *  Here we shall remove the clipping from the door
+		 *  We can't add the clipping back when it is closed, because we apparently never update the d.open value....
+		 */
+		if(d != null) {
+			if(d.open == 0) {
+				Region.removeClipping(x, y, z);
+			} else {
+				//Region.addClipping(x, y, z, 0);
+			}
+		}
 
 		int xAdjustment = 0, yAdjustment = 0;
 		if (d.type == 0) {
