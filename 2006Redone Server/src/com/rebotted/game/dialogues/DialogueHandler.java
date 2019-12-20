@@ -6843,7 +6843,7 @@ public class DialogueHandler {
 			 * @author Andrew
 			 */
 			case 3500:
-				if (player.getCannon().needsCannon()) {
+				if (player.lostCannon) {
 					sendNpcChat2("Hello, " + Misc.capitalize(player.playerName) + ".", "I see that you lost your cannon.", player.talkingNpc, "Nulodion");
 					player.nextChat = 3501;
 				} else {
@@ -6853,7 +6853,7 @@ public class DialogueHandler {
 				break;
 
 			case 3501:
-				if (player.getCannon().needsCannon()) {
+				if (player.lostCannon) {
 					if (player.getItemAssistant().freeSlots() >= 4) {
 						sendNpcChat1("Here is your cannon, try not to lose it again.", player.talkingNpc, "Nulodion");
 						for (int i = 0; i < 4; i++) {

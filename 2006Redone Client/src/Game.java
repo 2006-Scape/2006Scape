@@ -5970,7 +5970,6 @@ public class Game extends RSApplet {
 			}
 
 		}
-
 		int j3 = j2;
 		int k3 = j1;
 		anIntArrayArray901[j2][j1] = 99;
