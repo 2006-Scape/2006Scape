@@ -62,6 +62,27 @@ public class Region {
 		clips[height][x - regionAbsX][y - regionAbsY] |= shift;
 	}
 
+	private void removeClip(int x, int y, int height) {
+		final int regionAbsX = (id >> 8) * 64;
+		final int regionAbsY = (id & 0xff) * 64;
+		if (clips[height] == null) {
+			clips[height] = new int[64][64];
+		}
+		clips[height][x - regionAbsX][y - regionAbsY] = 0;
+	}
+
+	public static void removeClipping(int x, int y, int height) {
+		final int regionX = x >> 3;
+		final int regionY = y >> 3;
+		final int regionId = ((regionX / 8) << 8) + (regionY / 8);
+		for (Region r : regions) {
+			if (r.id() == regionId) {
+				r.removeClip(x, y, height);
+				break;
+			}
+		}
+	}
+
 	private void addProjectileClip(int x, int y, int height, int shift) {
 		int regionAbsX = (id >> 8) * 64;
 		int regionAbsY = (id & 0xff) * 64;
