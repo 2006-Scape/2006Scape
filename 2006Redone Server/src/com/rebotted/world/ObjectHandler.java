@@ -15,6 +15,7 @@ import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.clip.Region;
 
 /**
  * @author Sanity
@@ -135,6 +136,7 @@ public class ObjectHandler {
 	 * Creates the object for anyone who is within 60 squares of the object
 	 **/
 	public void placeObject(Objects o) {
+		Region.addClipping(o.getObjectX(), o.getObjectY(), o.getObjectHeight(), 0);
 		for (Player p : PlayerHandler.players) {
 			if (p != null) {
 				Client person = (Client) p;

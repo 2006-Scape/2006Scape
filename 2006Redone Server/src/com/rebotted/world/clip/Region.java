@@ -289,7 +289,7 @@ public class Region {
 		return projectileClips[height][x - regionAbsX][y - regionAbsY];
 	}
 
-	private static void addClipping(int x, int y, int height, int shift) {
+	public static void addClipping(int x, int y, int height, int shift) {
 		int regionX = x >> 3;
 		int regionY = y >> 3;
 		int regionId = (regionX / 8 << 8) + regionY / 8;
