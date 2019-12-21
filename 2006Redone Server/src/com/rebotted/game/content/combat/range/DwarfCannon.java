@@ -117,17 +117,12 @@ public class DwarfCannon {
 			}
 		}, 2);
 	}
-	
-		public boolean needsCannon() {
-			return (player.lostCannon == true);
-		}
 		
 		public void loginCheck() {
-			if (needsCannon()) {
+			if (player.lostCannon) {
 				player.getPacketSender().sendMessage("@red@You can collect your cannon from Nulodion.");
 			}
 		}
-		
 		private boolean canSetUp() {
 			if (setUpStage == 0) {
 				if (player.getItemAssistant().playerHasItem(ITEM_PARTS[0])  && player.getItemAssistant().playerHasItem(ITEM_PARTS[1]) && player.getItemAssistant().playerHasItem(ITEM_PARTS[2]) && player.getItemAssistant().playerHasItem(ITEM_PARTS[3])) {
