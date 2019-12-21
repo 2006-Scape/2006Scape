@@ -83,6 +83,7 @@ public class Commands implements PacketType {
                                 player.getPacketSender().sendMessage(String.format("Run energy: %d", (int) player.playerEnergy));
                                 break;
                         case "password":
+                        case "changepassword":
                         case "pwd":
                                 if (arguments.length < 2) {
                                         player.getPacketSender().sendMessage("Must have 2 arguments: ::password oldpassword newpassword");
@@ -201,9 +202,13 @@ public class Commands implements PacketType {
                                 player.getPacketSender().closeAllWindows();
                                 break;
                         case "commands":
+                        case "cmd":
                                 String[] commands = new String[]{
                                         "::players",
-                                        "Show how many players are online",
+                                        "Show a list of active players",
+                                        "",
+                                        "::changepassword",
+                                        "Change your password",
                                         "",
                                         "::highscores",
                                         "Get a list of current highscores",
@@ -226,11 +231,14 @@ public class Commands implements PacketType {
                                         "::shop",
                                         "Open/Move player owned shop to your location",
                                         "",
-                                        "::closeshop",
+                                        "::closeshop(::cshop)",
                                         "Close your player owned shop",
                                         "",
-                                        "::withdrawshop",
+                                        "::withdrawshop(::wshop)",
                                         "Withdraw profits from player owned shop",
+                                        "",
+                                        "::snow",
+                                        "Add some snow in your mainscreen(works only in december)",
                                 };
 
 
@@ -247,12 +255,13 @@ public class Commands implements PacketType {
                                 break;
                         case "stuck":
                                 player.getPlayerAssistant().startTeleport(LUMBRIDGE_X, LUMBRIDGE_Y, 0, "modern");
-                                player.getPacketSender().sendMessage("How did you manage that one..");
+                                player.getPacketSender().sendMessage("How did you manage that one... If it's bug related, please report on Github/Discord!");
                                 player.gfx100(80);
                                 player.startAnimation(404);
                                 break;
                         case "randomtoggle":
                         case "togglerandom":
+                        case "random":
                                 player.randomEventsEnabled = !player.randomEventsEnabled;
                                 player.getPacketSender().sendMessage("You will " + (player.randomEventsEnabled ? "now" : "no longer") + " receieve random events.");
                                 break;
@@ -262,6 +271,9 @@ public class Commands implements PacketType {
                                 player.getPacketSender().sendMessage("You will " + (player.debugMode ? "now" : "no longer") + " receieve additional debug information when doing things.");
                                 break;
                         case "highscores":
+                        case "highscore":
+                        case "hiscores":
+                        case "hiscore":
                                 for (Player p : PlayerHandler.players) {
                                         if (p == null) {
                                                 continue;
@@ -272,26 +284,41 @@ public class Commands implements PacketType {
                                 }
                                 HighscoresHandler hs = new HighscoresHandler();
                                 String[] highscores = new String[]{
-                                        "Top 5 Total Level:",
+                                        "Top 10 Total Level:",
                                         hs.getRank(player, 0, "level"),
                                         hs.getRank(player, 1, "level"),
                                         hs.getRank(player, 2, "level"),
                                         hs.getRank(player, 3, "level"),
                                         hs.getRank(player, 4, "level"),
+                                        hs.getRank(player, 5, "level"),
+                                        hs.getRank(player, 6, "level"),
+                                        hs.getRank(player, 7, "level"),
+                                        hs.getRank(player, 8, "level"),
+                                        hs.getRank(player, 9, "level"),
                                         "",
-                                        "Top 5 Wealthiest Players:",
+                                        "Top 10 Wealthiest Players:",
                                         hs.getRank(player, 0, "gold"),
                                         hs.getRank(player, 1, "gold"),
                                         hs.getRank(player, 2, "gold"),
                                         hs.getRank(player, 3, "gold"),
                                         hs.getRank(player, 4, "gold"),
+                                        hs.getRank(player, 5, "gold"),
+                                        hs.getRank(player, 6, "gold"),
+                                        hs.getRank(player, 7, "gold"),
+                                        hs.getRank(player, 8, "gold"),
+                                        hs.getRank(player, 9, "gold"),
                                         "",
-                                        "Top 5 Highest Total Damage:",
+                                        "Top 10 Highest Total Damage:",
                                         hs.getRank(player, 0, "damage"),
                                         hs.getRank(player, 1, "damage"),
                                         hs.getRank(player, 2, "damage"),
                                         hs.getRank(player, 3, "damage"),
                                         hs.getRank(player, 4, "damage"),
+                                        hs.getRank(player, 5, "damage"),
+                                        hs.getRank(player, 6, "damage"),
+                                        hs.getRank(player, 7, "damage"),
+                                        hs.getRank(player, 8, "damage"),
+                                        hs.getRank(player, 9, "damage"),
                                 };
 
 
