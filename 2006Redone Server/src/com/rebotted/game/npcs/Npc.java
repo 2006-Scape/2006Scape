@@ -23,6 +23,7 @@ public class Npc {
 	public int summonedBy, size;
 	public int focusPointX, focusPointY, masterId;
 	public boolean turnUpdateRequired;
+	public int chasingRat = -1;
 
 	/**
 	 * attackType: 0 = melee, 1 = range, 2 = mage

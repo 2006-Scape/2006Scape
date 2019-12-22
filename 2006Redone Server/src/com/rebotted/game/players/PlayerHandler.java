@@ -142,7 +142,7 @@ public class PlayerHandler {
 					players[i].lastY = players[i].absY;
 					players[i].lastH = players[i].heightLevel;
 					if (players[i].hasNpc == true) {
-						t.getSummon().pickUpClean(t, players[i].summonId);
+						t.getSummon().quickPickup(t, players[i].summonId);
 					}
 					if (players[i].duelStatus == 5) {
 						Client o = (Client) PlayerHandler.players[players[i].duelingWith];
@@ -213,7 +213,7 @@ public class PlayerHandler {
 					players[i].lastY = players[i].absY;
 					players[i].lastH = players[i].heightLevel;
 					if (players[i].hasNpc == true) {
-						t.getSummon().pickUpClean(t, players[i].summonId);
+						t.getSummon().quickPickup(t, players[i].summonId);
 					}
 					if (players[i].duelStatus == 5) {
 						Client o1 = (Client) PlayerHandler.players[players[i].duelingWith];

@@ -12,9 +12,9 @@ import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.Weight;
 import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.MainFrameIDs;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
-import com.rebotted.util.MainFrameIDs;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
 

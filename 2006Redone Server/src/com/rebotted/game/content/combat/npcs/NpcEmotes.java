@@ -1,6 +1,8 @@
 package com.rebotted.game.content.combat.npcs;
 
+import com.rebotted.GameEngine;
 import com.rebotted.game.npcs.NpcHandler;
+import com.rebotted.game.players.Player;
 
 /**
  * Npc Emotes
@@ -163,7 +165,7 @@ public enum NpcEmotes {
 		return -1;
 	}
 
-	public static int getDeadEmote(int i) {
+	public static int getDeadEmote(Player player, int i) {
 		for (NpcEmotes e : NpcEmotes.values()) {
 			for (int f = 0; f < e.getNpcId().length; f++) {
 				if (NpcHandler.npcs[i].npcType == e.getNpcId()[f]) {
@@ -172,6 +174,12 @@ public enum NpcEmotes {
 					switch (NpcHandler.npcs[i].npcType) {
 					case 2745:
 						return 2654;
+					case 1158:
+						GameEngine.npcHandler.spawnSecondForm(player, i);
+						return 6242;
+					case 1160:
+						GameEngine.npcHandler.spawnFirstForm(player, i);
+						return 6233;
 					}
 				}
 			}

@@ -282,6 +282,26 @@ public class NpcCombat {
 			NpcHandler.npcs[i].attackType = 1;
 		}
 		switch (NpcHandler.npcs[i].npcType) {
+		case 1158://kq first form
+			int kqRandom = Misc.random(3);
+				if (kqRandom == 2) {
+					NpcHandler.npcs[i].projectileId = 280; //gfx
+					NpcHandler.npcs[i].attackType = 2;	
+					NpcHandler.npcs[i].endGfx = 279;
+				} else {
+					NpcHandler.npcs[i].attackType = 0;	
+				}
+				break;
+			case 1160://kq secondform
+				int kqRandom2 = Misc.random(3);
+				if (kqRandom2 == 2) {
+					NpcHandler.npcs[i].projectileId = 279; //gfx
+					NpcHandler.npcs[i].attackType = 1 + Misc.random(1);	
+					NpcHandler.npcs[i].endGfx = 278;
+				} else {
+					NpcHandler.npcs[i].attackType = 0;	
+				}
+				break;
 		case 2607:
 			NpcHandler.npcs[i].attackType = 1;
 		case 2591:
@@ -569,25 +589,17 @@ public class NpcCombat {
 							damage = c.playerLevel[GameConstants.HITPOINTS] - 1;
 						}
 					}
-					if (c.getPrayer().prayerActive[18]
-							&& !(NpcHandler.npcs[i].npcType == 2030)) { // protect
-																		// from
-																		// melee)
-																		// {
-																		// //
-																		// protect
-																		// from
-																		// melee
+					if (c.getPrayer().prayerActive[18] && !(NpcHandler.npcs[i].npcType == 2030)) { // protect from melee
 						damage = 0;
-					} else if (c.getPrayer().prayerActive[18]
-							&& NpcHandler.npcs[i].npcType == 2030) {
+					} else if (c.getPrayer().prayerActive[18] && NpcHandler.npcs[i].npcType == 2030) {
 						if (NpcHandler.npcs[i].attackType == 0) {
 							damage = Misc.random(NpcHandler.npcs[i].maxHit);
 						}
-						if (10 + Misc
-								.random(MeleeData.calculateMeleeDefence(c)) > Misc
-								.random(NpcHandler.npcs[i].attack)) {
-							damage = 0;
+						if (10 + Misc.random(MeleeData.calculateMeleeDefence(c)) > Misc.random(NpcHandler.npcs[i].attack)) {
+							 if (NpcHandler.npcs[i].npcType == 1158 || NpcHandler.npcs[i].npcType == 1160) 
+								damage = (damage / 2);
+							 else
+								 damage = 0;
 						}
 					}
 					if (c.playerLevel[3] - damage < 0) {
@@ -597,10 +609,11 @@ public class NpcCombat {
 
 				if (NpcHandler.npcs[i].attackType == 1) { // range
 					damage = Misc.random(NpcHandler.npcs[i].maxHit);
-					if (10 + Misc.random(c.getCombatAssistant()
-							.calculateRangeDefence()) > Misc
-							.random(NpcHandler.npcs[i].attack)) {
-						damage = 0;
+					if (10 + Misc.random(c.getCombatAssistant().calculateRangeDefence()) > Misc.random(NpcHandler.npcs[i].attack)) {
+						if (NpcHandler.npcs[i].npcType == 1158 || NpcHandler.npcs[i].npcType == 1160) 
+							damage = (damage / 2);
+						 else
+							 damage = 0;
 					}
 					if (NpcData.cantKillYou(NpcHandler.npcs[i].npcType)) {
 						if (damage >= c.playerLevel[GameConstants.HITPOINTS]) {
@@ -618,8 +631,7 @@ public class NpcCombat {
 				if (NpcHandler.npcs[i].attackType == 2) { // magic
 					damage = Misc.random(NpcHandler.npcs[i].maxHit);
 					boolean magicFailed = false;
-					if (10 + Misc.random(c.getCombatAssistant().mageDef()) > Misc
-							.random(NpcHandler.npcs[i].attack)) {
+					if (10 + Misc.random(c.getCombatAssistant().mageDef()) > Misc.random(NpcHandler.npcs[i].attack)) {
 						damage = 0;
 						magicFailed = true;
 					}
@@ -628,19 +640,23 @@ public class NpcCombat {
 							damage = c.playerLevel[GameConstants.HITPOINTS] - 1;
 						}
 					}
-					if (c.getPrayer().prayerActive[16]) { // protect from magic
-						damage = 0;
-						magicFailed = true;
-					}
-					if (c.playerLevel[3] - damage < 0) {
-						damage = c.playerLevel[3];
-					}
-					if (NpcHandler.npcs[i].endGfx > 0 && (!magicFailed || FightCaves.isFightCaveNpc(i))) {
-						c.gfx100(NpcHandler.npcs[i].endGfx);
-					} else {
-						c.gfx100(85);
-						c.getPacketSender().sendSound(SoundList.MAGE_FAIL,
-								100, 0);
+					if(c.getPrayer().prayerActive[16]) { // protect from magic
+						
+						 if (NpcHandler.npcs[i].npcType == 1158)  {
+							 damage = (damage / 2);
+						 } else {
+							 damage = 0;
+						}
+						magicFailed = true;			
+						if (c.playerLevel[3] - damage < 0) { 
+							damage = c.playerLevel[3];
+						}
+						if(NpcHandler.npcs[i].endGfx > 0 && (!magicFailed || FightCaves.isFightCaveNpc(i))) {
+							c.gfx100(NpcHandler.npcs[i].endGfx);
+						} else {
+							c.gfx100(85);
+							c.getPacketSender().sendSound(SoundList.MAGE_FAIL, 100, 0);
+						}
 					}
 				}
 

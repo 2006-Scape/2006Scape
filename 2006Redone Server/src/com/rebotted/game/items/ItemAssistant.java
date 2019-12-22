@@ -5,9 +5,9 @@ import com.rebotted.GameEngine;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
+import com.rebotted.game.players.MainFrameIDs;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
-import com.rebotted.util.MainFrameIDs;
 import com.rebotted.util.Misc;
 
 public class ItemAssistant {

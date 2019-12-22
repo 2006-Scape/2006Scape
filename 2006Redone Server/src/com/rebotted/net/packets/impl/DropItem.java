@@ -61,222 +61,12 @@ public class DropItem implements PacketType {
 					"You can't drop items on tutorial island!");
 			return;
 		}
+		if (Pets.isCatItem(itemId)) {
+			Pets.dropPet(player, itemId, slot);
+		}
 
 		player.endCurrentTask();
-
 		switch (itemId) {
-		case 1560:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Kitten.");
-			}
-			break;
-		case 1559:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Kitten.");
-			}
-			break;
-		case 1558:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Kitten.");
-			}
-			break;
-		case 1557:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Kitten.");
-			}
-			break;
-		case 1556:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Kitten.");
-			}
-			break;
-		case 1555:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Kitten.");
-			}
-			break;
-		case 1561:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Cat.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Cat.");
-			}
-			break;
-		case 1562:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Cat.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Cat.");
-			}
-			break;
-		case 1563:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Cat.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Cat.");
-			}
-			break;
-		case 1564:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Cat.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Cat.");
-			}
-			break;
-		case 1565:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Cat.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Cat.");
-			}
-			break;
-		case 7583:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage(
-						"You drop your Hell Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Hell Kitten.");
-			}
-			break;
-		case 1566:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage("You drop your Cat.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Cat.");
-			}
-			break;
-		case 7585:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage(
-						"You drop your Hell Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Hell Kitten.");
-			}
-			break;
 		case 4045:
 			if (CastleWars.isInCw(player)) {
 				int explosiveHit = 15;
@@ -292,22 +82,6 @@ public class DropItem implements PacketType {
 				player.getItemAssistant().deleteItem(4045, player.getItemAssistant().getItemAmount(4045));
 				player.getItemAssistant().deleteItem(4046, player.getItemAssistant().getItemAmount(4046));
 				player.getPacketSender().sendMessage("You can't do that! Your not in castle wars!");
-			}
-			break;
-		case 7584:
-			if (!player.hasNpc) {
-				GameEngine.npcHandler.spawnNpc3(player, Pets.summonItemId(itemId),
-						player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200,
-						200, false, false, true);
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
-				player.hasNpc = true;
-				player.getPlayerAssistant().followPlayer();
-				player.getPacketSender().sendMessage(
-						"You drop your Hell Kitten.");
-			} else {
-				player.getPacketSender().sendMessage(
-						"You already dropped your Hell Kitten.");
 			}
 			break;
 		}
@@ -357,7 +131,7 @@ public class DropItem implements PacketType {
 				}
 			} else {
 				player.getPacketSender().sendMessage(
-						"This items cannot be dropped.");
+						"This item cannot be dropped.");
 			}
 		}
 	}

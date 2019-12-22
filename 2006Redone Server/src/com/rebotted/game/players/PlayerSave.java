@@ -100,6 +100,9 @@ public class PlayerSave {
 							case "myBalls":
 								player.getCannon().myBalls = Integer.parseInt(token2);
 								break;
+							case "ratsCaught":
+								player.ratsCaught = Integer.parseInt(token2);
+								break;
 							case "cannonX":
 								player.cannonX = Integer.parseInt(token2);
 								break;
@@ -575,6 +578,8 @@ public class PlayerSave {
 			characterfile.write("hasPaid = " + player.hasPaid);
 			characterfile.newLine();
 			characterfile.write("lostCannon = " + player.lostCannon);
+			characterfile.newLine();
+			characterfile.write("ratsCaught = " + player.ratsCaught);
 			characterfile.newLine();
 			characterfile.write("cannonX = " + player.cannonX);
 			characterfile.newLine();

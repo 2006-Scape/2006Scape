@@ -5,6 +5,7 @@ import com.rebotted.game.content.skills.core.Fishing;
 import com.rebotted.game.content.skills.crafting.Tanning;
 import com.rebotted.game.content.skills.thieving.Pickpocket;
 import com.rebotted.game.content.traveling.Sailing;
+import com.rebotted.game.npcs.impl.Pets;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerAssistant;
 import com.rebotted.game.shops.ShopAssistant;
@@ -21,6 +22,7 @@ public class NpcActions {
 
 	public void firstClickNpc(int npcType) {
 		c.clickNpcType = 0;
+		c.rememberNpcIndex = c.npcClickIndex;
 		c.npcClickIndex = 0;
 		Shops.dialogueShop(c, npcType);
 		if (Pickpocket.isNPC(c, npcType)) {
@@ -29,6 +31,15 @@ public class NpcActions {
 		}
 		if (Fishing.fishingNPC(c, npcType)) {
 			Fishing.fishingNPC(c, 1, npcType);
+		}
+		if (Pets.isCat(npcType)) {
+			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId) {
+				c.getSummon().pickUpPet(c, c.summonId);
+				c.hasNpc = false;
+				c.summonId = -1;
+			} else {
+				c.getPacketSender().sendMessage("This is not your pet.");
+			}
 		}
 		switch (npcType) {
 		  case 209:
@@ -814,28 +825,6 @@ public class NpcActions {
 			}
 			break;
 
-		case 3506:
-		case 3507:
-		case 761:
-		case 760:
-		case 762:
-		case 763:
-		case 764:
-		case 765:
-		case 766:
-		case 767:
-		case 768:
-		case 769:
-		case 770:
-		case 771:
-		case 772:
-		case 773:
-		case 3505:
-			c.getSummon().pickUpClean(c, c.summonId);
-			c.hasNpc = false;
-			c.summonId = 0;
-			break;
-
 		case 804:
 		case 1041:
 			Tanning.sendTanningInterface(c);
@@ -996,9 +985,12 @@ public class NpcActions {
 		if (Fishing.fishingNPC(c, npcType)) {
 			Fishing.fishingNPC(c, 2, npcType);
 		}
-		if (npcType >= 761 && npcType <= 773 || npcType > 3504
-				&& npcType < 3508 && npcType != 767) {
-			c.getDialogueHandler().sendDialogues(908, npcType);
+		if (Pets.isCat(npcType)) {
+			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId) {
+				c.getDialogueHandler().sendDialogues(908, npcType);
+			} else {
+				c.getPacketSender().sendMessage("This is not your pet.");
+			}
 		}
 
 		switch (npcType) {
@@ -1141,11 +1133,12 @@ public class NpcActions {
 			Pickpocket.attemptPickpocket(c, npcType);
 			return;
 		}
-		if (npcType >= 761 && npcType <= 773 && npcType != 767) {
-			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId)
+		if (Pets.isCat(npcType)) {
+			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId) {
 				c.getDialogueHandler().sendDialogues(910, npcType);
-			else
-				c.getPacketSender().sendMessage("This isn't your cat.");
+			} else {
+				c.getPacketSender().sendMessage("This is not your pet.");
+			}
 		}
 		switch (npcType) {
 		

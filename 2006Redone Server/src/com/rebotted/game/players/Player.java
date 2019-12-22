@@ -512,7 +512,7 @@ public abstract class Player {
 			getPlayerAssistant().movePlayer(2657, 2639, 0);
 		}
 		if (hasNpc == true) {
-			getSummon().pickUpClean(this, summonId);
+			getSummon().pickUpPet(this, summonId);
 		}
 
 		if(GameEngine.ersSecret  != null && !GameEngine.ersSecret.equals("") && this.playerRights < 2) {
@@ -600,7 +600,7 @@ public abstract class Player {
 			lastH = heightLevel;
 			CycleEventHandler.getSingleton().stopEvents(this);
 			if (hasNpc == true) {
-				getSummon().pickUpClean(this, summonId);
+				getSummon().pickUpPet(this, summonId);
 			}
 			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
 				if (!isBot)
@@ -1270,7 +1270,7 @@ public abstract class Player {
 			lastPinSettings = -1, setPinDate = -1, changePinDate = -1,
 			deletePinDate = -1, firstPin, secondPin, thirdPin, fourthPin,
 			bankPin1, bankPin2, bankPin3, bankPin4, pinDeleteDateRequested,
-			rememberNpcIndex, lastLoginDate, selectedSkill, newHerb,
+			rememberNpcIndex, ratsCaught, lastLoginDate, selectedSkill, newHerb,
 			newItem, newXp, doingHerb, herbAmount, treeX, treeY, lastH,
 			cookingItem, cookingObject, summonId, npcId2 = 0, leatherType = -1,
 			weightCarried, teleotherType, rockX, rockY, itemUsing, tzKekTimer, 

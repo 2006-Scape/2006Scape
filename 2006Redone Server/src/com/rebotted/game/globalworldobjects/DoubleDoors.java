@@ -51,10 +51,12 @@ public class DoubleDoors {
 		DoubleDoors doorClicked = getDoor(id, x, y, z);
 
 		if (doorClicked == null) {
+			//System.out.println("Door: " + id + " null debug at x: " + x + " y: " + y + ".");
 			//GameEngine.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
 			return true;
 		}
-		if (doorClicked.doorId > 12000) {
+		if (doorClicked.doorId > 15000) {
+		//	System.out.println("Door: " + id + " clicking debug x: " + x + " y: " + y + ".");
 			return true; //nearly all of these are not opened
 		}
 
