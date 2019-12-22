@@ -59,11 +59,15 @@ public class Doors {
 		Doors d = getDoor(id, x, y, z);
 
 		if (d == null) {
+			//System.out.println("D: " + id + " null debug x: " + x + " y: " + y + ".");
 			return DoubleDoors.getSingleton().handleDoor(player, id, x, y, z);
 		}
 
 		//todo: improvment: if player manage to get to door then open the door.
-		if(player.distanceToPoint(x, y) > 1) return  false;
+		if(player.distanceToPoint(x, y) > 1) {
+			//System.out.println("Door (single): " + id + " not in distance debug at x: " + x + " y: " + y + ".");
+			return false;
+		}
 
 		//Remove clipping for old door (gets added back in placeObject)
 		Region.removeClipping(x, y, z);

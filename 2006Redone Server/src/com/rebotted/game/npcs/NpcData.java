@@ -54,14 +54,6 @@ public class NpcData {
 		return false;
 	}
 
-	/*
-	 * public static boolean isAggressive(int i) { if
-	 * (NPCHandler.npcs[i].aggressive && !onlyMage(NPCHandler.npcs[i].npcType))
-	 * { return true; } if (NPCHandler.npcs[i].inWild() &&
-	 * NPCHandler.npcs[i].MaxHP > 0 && !onlyMage(NPCHandler.npcs[i].npcType)) {
-	 * return true; } return false; }
-	 */
-
 	public static int getNpcKillerId(int npcId) {
 		int oldDamage = 0;
 		int killerId = 0;
@@ -256,6 +248,9 @@ public class NpcData {
 	 **/
 	public static int getRespawnTime(int i) {
 		switch (NpcHandler.npcs[i].npcType) {
+		case 1158:
+		case 1160:
+		return -1;
 		case 2881:
 		case 2882:
 		case 2883:

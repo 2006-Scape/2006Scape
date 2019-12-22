@@ -47,7 +47,7 @@ public class ClickItem implements PacketType {
 		if(CastleWars.isInCw(player) && itemId == 4053) {
 			player.getItemAssistant().deleteItem(4053, player.getItemAssistant().getItemSlot(4053), 1);
 			//npc id, x, y, height, walk, hp, maxhit, att, def
-			GameEngine.npcHandler.spawnNpc2(1532, player.absX, player.absY, player.heightLevel, 0, 200, 0, 0, 100);
+			GameEngine.npcHandler.spawnNpc2(1532, player.absX, player.absY, player.heightLevel, 0, 200, 0, 0, 100, false);
 			player.getPacketSender().sendMessage("You setup a barricade.");
 		} else if (!CastleWars.isInCw(player) && itemId == 4053) {
 			player.getPacketSender().sendMessage("You need to be in castlewars to drop a barricade.");

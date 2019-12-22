@@ -1611,12 +1611,12 @@ public class ObjectsActions {
 
 		// PARTY ROOM START
 		case 2417: // 26193 if falador
-			player.inPartyRoom = true;
+			//player.inPartyRoom = true;
 			PartyRoom.open(player);
 			break;
 
 		case 2416:
-			player.inPartyRoom = true;
+			//player.inPartyRoom = true;
 			PartyRoom.dropAll();
 			break;
 

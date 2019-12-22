@@ -1,6 +1,7 @@
 package com.rebotted.game.dialogues;
 
 import com.rebotted.GameConstants;
+import com.rebotted.GameEngine;
 import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.content.quests.QuestRewards;
 import com.rebotted.game.content.randomevents.FreakyForester;
@@ -3901,9 +3902,9 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 912:
-				player.getDialogueHandler().sendStatement(
-						"Catching rats is currently disabled.");
-				player.nextChat = 0;
+				GameEngine.npcHandler.catchRat(player.rememberNpcIndex);
+				player.getPacketSender().closeAllWindows();
+				player.nextChat = 0;	
 				break;
 			case 913:
 				sendStatement("You shoo your cat away.");
