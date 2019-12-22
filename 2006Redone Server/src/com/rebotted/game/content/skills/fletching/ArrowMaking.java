@@ -104,55 +104,52 @@ public class ArrowMaking {
 			player.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return false;
 		}
-		player.playerIsFletching = true;
-		int factor = 1;
-		final int multiplier = factor;
-		int count1 = player.getItemAssistant().getItemAmount(arrowData.getItem1()) < 15 ? player
-				.getItemAssistant().getItemAmount(arrowData.getItem1()) : 15;
-		int count2 = player.getItemAssistant().getItemAmount(arrowData.getItem2()) < 15 ? player
-				.getItemAssistant().getItemAmount(arrowData.getItem2()) : 15;
-		final int count = count1 < count2 ? count1 : count2;
-		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
-
-			@Override
-			public void execute(CycleEventContainer container) {
-				if (!player.getItemAssistant().playerHasItem(arrowData.getItem1(),
-						count)
-						|| !player.getItemAssistant().playerHasItem(
-								arrowData.getItem2(), count)
-						|| player.playerIsFletching == false) {
-					container.stop();
-					return;
+		if (!player.playerIsFletching)
+		{
+			player.playerIsFletching = true;
+			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+				int factor = 1;
+				final int multiplier = factor;
+				int count1 = player.getItemAssistant().getItemAmount(arrowData.getItem1()) < 15 ? player
+						.getItemAssistant().getItemAmount(arrowData.getItem1()) : 15;
+				int count2 = player.getItemAssistant().getItemAmount(arrowData.getItem2()) < 15 ? player
+						.getItemAssistant().getItemAmount(arrowData.getItem2()) : 15;
+				final int count = count1 < count2 ? count1 : count2;
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (!player.getItemAssistant().playerHasItem(arrowData.getItem1(),
+							count)
+							|| !player.getItemAssistant().playerHasItem(
+							arrowData.getItem2(), count) || player.isWoodcutting || player.isCrafting || player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isSmithing || player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing || player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting || player.playerIsCooking || player.isPotCrafting) {
+						container.stop();
+						return;
+					}
+					player.getPacketSender().sendSound(375, 100, 0);
+					player.getItemAssistant().deleteItem(arrowData.getItem1(), count);
+					player.getItemAssistant().deleteItem(arrowData.getItem2(), count);
+					player.getItemAssistant().addItem(arrowData.getProduct(),
+							count / multiplier);
+					player.getPacketSender().sendMessage(
+							"You attach the "
+									+ ItemAssistant.getItemName(arrowData
+									.getItem1())
+									+ " to "
+									+ count
+									/ multiplier
+									+ " "
+									+ ItemAssistant.getItemName(arrowData
+									.getItem2()) + "s.");
+					player.getPlayerAssistant().addSkillXP(
+							count / multiplier * arrowData.getXp(), 9);
 				}
-				if (player.isWoodcutting == true) {
-					container.stop();
-				}
-				player.getItemAssistant().deleteItem(arrowData.getItem1(), count);
-				player.getItemAssistant().deleteItem(arrowData.getItem2(), count);
-				player.getItemAssistant().addItem(arrowData.getProduct(),
-						count / multiplier);
-				player.getPacketSender().sendMessage(
-						"You attach the "
-								+ ItemAssistant.getItemName(arrowData
-										.getItem1())
-								+ " to "
-								+ count
-								/ multiplier
-								+ " "
-								+ ItemAssistant.getItemName(arrowData
-										.getItem2()) + "s.");
-				player.getPlayerAssistant().addSkillXP(
-						count / multiplier * arrowData.getXp(), 9);
-			}
 
-			@Override
-			public void stop() {
-				player.playerIsFletching = false;
-				return;
-			}
-		}, 1);
+				@Override
+				public void stop() {
+					player.playerIsFletching = false;
+				}
+			}, 1);
+		}
 		return true;
-
 	}
 
 }

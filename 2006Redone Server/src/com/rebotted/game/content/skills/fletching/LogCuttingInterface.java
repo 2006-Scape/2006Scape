@@ -20,12 +20,14 @@ public class LogCuttingInterface {
 	}
 
 	public static void fletchInterface(Player c, int item) {
-		if (c.playerIsFletching == true && (item > 1510 && item < 1522)) {
-			LogCutting.resetFletching(c);
+		if (c.playerIsFletching) {
+			c.playerIsFletching = false;
 			return;
-		} else if (c.playerIsFletching == true && (item < 1510 || item > 1521)) {
+		}
+		if (item < 1510 || item > 1521) {
 			c.playerIsFletching = false;
 			c.getPacketSender().sendMessage("Nothing interesting happens.");
+			return;
 		}
 		log = item;
 		if (item == 1511) {
@@ -73,7 +75,6 @@ public class LogCuttingInterface {
 			c.getPacketSender().sendFrame126(ItemAssistant.getItemName(72), 8874);
 			c.getPacketSender().sendFrame126(ItemAssistant.getItemName(70), 8878);
 		}
-		c.playerIsFletching = true;
 	}
 
 	public static void handleItemOnItem(Player player, int itemUsed, int useWith) {

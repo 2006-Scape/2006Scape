@@ -86,10 +86,11 @@ public class Stringing {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (!player.getItemAssistant().playerHasItem(loadData.getItem1()) || !player.getItemAssistant().playerHasItem(loadData.getItem2()) || player.playerIsFletching == false) {
+				if (!player.getItemAssistant().playerHasItem(loadData.getItem1()) || !player.getItemAssistant().playerHasItem(loadData.getItem2()) || !player.playerIsFletching) {
 					container.stop();
 					return;
 				}
+				player.getPacketSender().sendSound(1311, 100, 0);
 				player.getItemAssistant().deleteItem(loadData.getItem1(), 1);
 				player.getItemAssistant().deleteItem(loadData.getItem2(), 1);
 				player.getPacketSender().sendMessage("You add a string to the bow.");
