@@ -22,83 +22,45 @@ public class LogCutting {
 		}
 	}
 
-	public static void cutLog(final Player c, final int product, final int level, final double xp, int amount) {
-		if (c.isSpinning) {
-			c.isSpinning = false;
-		}
-		if (c.isWoodcutting) {
-			c.isWoodcutting = false;
-		}
-		c.doAmount = amount;
-		c.getPacketSender().closeAllWindows();
-		if (c.playerLevel[9] < level) {
-			c.getPacketSender().sendMessage("You need a fletching level of " + level + " to make this.");
+	public static void cutLog(final Player player, final int product, final int level, final double xp, int amount) {
+		player.doAmount = amount;
+		player.getPacketSender().closeAllWindows();
+		if (player.playerLevel[9] < level) {
+			player.getPacketSender().sendMessage("You need a fletching level of " + level + " to make this.");
 			return;
 		}
-		c.playerIsFletching = true;
-		c.startAnimation(1248);
-		c.getPacketSender().sendSound(CUT_SOUND, 100, 0);
-
-		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-
-			@Override
-			public void execute(CycleEventContainer container) {
-				if (c.getItemAssistant().playerHasItem(LogCuttingInterface.log) && c.getItemAssistant().playerHasItem(KNIFE)) {
-					c.getItemAssistant().deleteItem(LogCuttingInterface.log, 1);
-					if (product == 52) {
-						c.getItemAssistant().addItem(product, 15);
-					} else {
-						c.getItemAssistant().addItem(product, 1);
+		if (!player.playerIsFletching)
+		{
+			player.playerIsFletching = true;
+			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (player.doAmount <= 0 || !player.getItemAssistant().playerHasItem(LogCuttingInterface.log) || !player.getItemAssistant().playerHasItem(KNIFE) || player.isWoodcutting || player.isCrafting || player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isSmithing || player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing || player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting || player.playerIsCooking || player.isPotCrafting) {
+						container.stop();
+						return;
 					}
-					c.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into an " + ItemAssistant.getItemName(product) + ".");
-					c.getPlayerAssistant().addSkillXP(xp, c.playerFletching);
-					c.doAmount--;
+					player.startAnimation(1248);
+					player.getItemAssistant().deleteItem(LogCuttingInterface.log, 1);
+					if (product == 52)
+					{
+						player.getItemAssistant().addItem(product, 15);
+					}
+					else
+					{
+						player.getItemAssistant().addItem(product, 1);
+					}
+					player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into an " + ItemAssistant.getItemName(product) + ".");
+					player.getPlayerAssistant().addSkillXP(xp, player.playerFletching);
+					player.doAmount--;
+					player.getPacketSender().sendSound(CUT_SOUND, 100, 0);
 				}
 
-				if (!c.getItemAssistant().playerHasItem(LogCuttingInterface.log)) {
-					container.stop();
-					return;
+				@Override
+				public void stop() {
+					player.playerIsFletching = false;
 				}
-				
-				if (c.playerIsFletching == false) {
-					container.stop();
-					return;
-				}
-
-				if (c.doAmount <= 0) {
-					container.stop();
-					return;
-				}
-
-			}
-
-			@Override
-			public void stop() {
-				c.playerIsFletching = false;
-				c.startAnimation(65535);
-				return;
-			}
-		}, 3);
-		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-
-			@Override
-			public void execute(CycleEventContainer container) {
-				if (c.playerIsFletching == false) {
-					container.stop();
-					return;
-				}
-				c.getPacketSender().sendSound(CUT_SOUND, 100, 0);
-				c.startAnimation(1248);
-
-			}
-
-			@Override
-			public void stop() {
-				c.playerIsFletching = false;
-				c.startAnimation(65535);
-				return;
-			}
-		}, 3);
+			}, 3);
+		}
 	}
 
 	public static void handleClick(Player c, int buttonId) {

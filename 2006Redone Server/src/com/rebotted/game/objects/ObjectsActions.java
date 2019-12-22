@@ -69,7 +69,7 @@ public class ObjectsActions {
 		if (player.stopPlayerPacket == true) {
 			return;
 		}
-		LogCutting.resetFletching(player);
+		//LogCutting.resetFletching(player);
 		if (player.getGnomeStrongHold().gnomeCourse(objectType)) {
 			return;
 		}
@@ -2554,11 +2554,9 @@ public class ObjectsActions {
 		player.faceUpdate(0);
 		player.clickObjectType = 0;
 		player.turnPlayerTo(obX, obY);
-		//if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
-		//	player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
-		//    return;
-		//}
-		LogCutting.resetFletching(player);
+		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
+			return;
+		}
 		switch (objectType) {
 		case 6:
 			player.getCannon().loadCannon(obX, obY);
@@ -2814,10 +2812,9 @@ public class ObjectsActions {
 		if (player.playerRights == 3) {
 			player.getPacketSender().sendMessage("Object type: " + objectType);
 		}
-		//if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
-		//	player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
-		//    return;
-		//}
+		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
+		   return;
+		}
 		if (Stalls.isObject(objectType)) {
 			Stalls.attemptStall(player, objectType, obX, obY);
 			return;
@@ -2860,13 +2857,11 @@ public class ObjectsActions {
 		if (player.playerRights == 3) {
 			player.getPacketSender().sendMessage("Object type: " + objectType);
 		}
-		//if (!Region.objectExists(objectType, obX, obY, player.heightLevel) && player.playerRights > 1) {
-		//	player.getPacketSender().sendMessage("[DEBUG] This object does not exist.");
-		//    return;
-		//}
-		Farming.openGuide(player, player.objectId);
-		switch (objectType) {
-		
+		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
+		    return;
 		}
+		Farming.openGuide(player, player.objectId);
+//		switch (objectType) {
+//		}
 	}
 }

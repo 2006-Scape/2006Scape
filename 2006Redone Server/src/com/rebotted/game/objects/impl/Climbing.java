@@ -456,6 +456,13 @@ public class Climbing {
 			case 3443:
 				client.getPlayerAssistant().movePlayer(3423, 3485, 0);
 				break;
+			case 1754:
+				if (client.objectX == 3116 && client.objectY == 3452) {
+					client.getPlayerAssistant().movePlayer(3222, 3218, 0);
+					client.startAnimation(CLIMB_DOWN);
+					client.resetWalkingQueue();
+				}
+					break;
 			case 1755:
 				if (client.objectX == 3116 && client.objectY == 9852) {
 					client.getPlayerAssistant().movePlayer(3116, 3451, 0);

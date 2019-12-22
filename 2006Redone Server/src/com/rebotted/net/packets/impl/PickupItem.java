@@ -73,7 +73,6 @@ public class PickupItem implements PacketType {
 		SkillHandler.resetSkills(player);
 		player.getCombatAssistant().resetPlayerAttack();
 			player.walkingToItem = true;
-			//player.getPacketSender().sendMessage("walkingToItem");
 			player.soundDone = false;
 			   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 		            @Override
@@ -94,7 +93,6 @@ public class PickupItem implements PacketType {
 					@Override
 					public void stop() {
 						player.walkingToItem = false;
-						//player.getPacketSender().sendMessage("!walkingToItem - stop");
 						GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX, player.pItemY, true);
 						GlobalDropsHandler.pickup(player, player.pItemId, player.pItemX, player.pItemY);
 						if (!player.soundDone)

@@ -47,6 +47,7 @@ public class Potions {
 			   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
+					c.getPacketSender().sendSound(1210, 100, 0);
 					c.getPacketSender().sendMessage(m1);
 					container.stop();
 				}
