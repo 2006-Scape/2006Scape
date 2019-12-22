@@ -1,12 +1,8 @@
 package com.rebotted.world;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.skills.core.Mining;
 import com.rebotted.game.content.skills.core.Woodcutting;
@@ -29,7 +25,7 @@ public class ObjectHandler {
 	public static List<Objects> removedObjects = new ArrayList<Objects>();
 
 	public ObjectHandler() {
-		loadGlobalObjects("./data/cfg/global-objects.cfg");
+		
 	}
 	
 	 public Objects getObjectByPosition(int x, int y) {
@@ -189,77 +185,6 @@ public class ObjectHandler {
 			}
 
 		}
-	}
-
-	public boolean loadGlobalObjects(String fileName) {
-		String line = "";
-		String token = "";
-		String token2 = "";
-		String token2_2 = "";
-		String[] token3 = new String[10];
-		boolean EndOfFile = false;
-		BufferedReader objectFile = null;
-		try {
-			objectFile = new BufferedReader(new FileReader("./" + fileName));
-		} catch (FileNotFoundException fileex) {
-			Misc.println(fileName + ": file not found.");
-			return false;
-		}
-		try {
-			line = objectFile.readLine();
-		} catch (IOException ioexception) {
-			Misc.println(fileName + ": error loading file.");
-			try {
-				objectFile.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return false;
-		}
-		while (EndOfFile == false && line != null) {
-			line = line.trim();
-			int spot = line.indexOf("=");
-			if (spot > -1) {
-				token = line.substring(0, spot);
-				token = token.trim();
-				token2 = line.substring(spot + 1);
-				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token3 = token2_2.split("\t");
-				if (token.equals("object")) {
-					Objects object = new Objects(Integer.parseInt(token3[0]),
-							Integer.parseInt(token3[1]),
-							Integer.parseInt(token3[2]),
-							Integer.parseInt(token3[3]),
-							Integer.parseInt(token3[4]),
-							Integer.parseInt(token3[5]), 0);
-					addObject(object);
-				}
-			} else {
-				if (line.equals("[ENDOFOBJECTLIST]")) {
-					try {
-						objectFile.close();
-					} catch (IOException ioexception) {
-					}
-					//return true;
-				}
-			}
-			try {
-				line = objectFile.readLine();
-			} catch (IOException ioexception1) {
-				EndOfFile = true;
-			}
-		}
-		try {
-			objectFile.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
 	public final int IN_USE_ID = 14825;

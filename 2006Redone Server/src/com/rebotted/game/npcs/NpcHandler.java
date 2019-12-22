@@ -7,6 +7,9 @@ import java.io.IOException;
 
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
+import com.rebotted.event.CycleEvent;
+import com.rebotted.event.CycleEventContainer;
+import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.npcs.NpcAggressive;
 import com.rebotted.game.content.combat.npcs.NpcCombat;
@@ -19,6 +22,7 @@ import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.randomevents.RiverTroll;
 import com.rebotted.game.npcs.drops.ItemDrop;
 import com.rebotted.game.npcs.drops.NPCDropsHandler;
+import com.rebotted.game.npcs.impl.Pets;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
@@ -33,6 +37,101 @@ public class NpcHandler {
 	public static int maxListedNPCs = 4000;
 	public static Npc npcs[] = new Npc[MAX_NPCS];
 	public static NpcList NpcList[] = new NpcList[maxListedNPCs];
+	
+	public void spawnSecondForm(Player c, final int i) {
+		//	npcs[i].gfx0(1055);
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				spawnNpc2(1160, npcs[i].absX, npcs[i].absY, 0, 1, 230, 45, 500, 300, true);
+				container.stop();	
+			}
+			@Override
+			public void stop() {
+				
+			}
+		}, 15);
+	}
+	
+	
+	/**
+	* kq respawn first form
+	*/
+	public void spawnFirstForm(Player c, final int i) {
+		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				spawnNpc2(1158, npcs[i].absX, npcs[i].absY, 0, 1, 230, 45, 500, 300, true);
+				container.stop();	
+			}
+			@Override
+			public void stop() {
+				
+			}
+		}, 15);
+	}
+
+	
+	public void catchRat(final int npcIndex) {
+		int foundRat = -1;
+		for (int i = 0; i < MAX_NPCS; i++) {
+			if (npcs[i] == null || foundRat != -1)  {
+				continue;
+			}
+			if(npcs[i].npcType == 47 && !npcs[i].isDead) {
+				if(goodDistance(npcs[npcIndex].absX, npcs[npcIndex].absY, npcs[i].absX, npcs[i].absY, 5)) {
+					foundRat = i;
+					continue;
+				}
+			}
+		}
+		final Client slaveOwner = (PlayerHandler.players[npcs[npcIndex].summonedBy] != null ? (Client) PlayerHandler.players[npcs[npcIndex].summonedBy] : null); 
+		if(foundRat == -1) {
+			if(slaveOwner != null) {
+				slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " can't seem to find any rats nearby.");
+			}
+		} else {
+			npcs[npcIndex].chasingRat = foundRat;
+			boolean beatChance = (Misc.random(2) == 1 ? true : false);
+			 CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
+		            @Override
+		            public void execute(CycleEventContainer container) {
+					if(npcs[npcIndex].absX == npcs[npcs[npcIndex].chasingRat].absX && npcs[npcIndex].absY == npcs[npcs[npcIndex].chasingRat].absY && (beatChance || npcs[npcIndex].npcType >= 768 && npcs[npcIndex].npcType <= 773)) {
+						npcs[npcs[npcIndex].chasingRat].isDead = true;
+						npcs[npcs[npcIndex].chasingRat].forceChat("Eek!");
+						npcs[npcIndex].forceChat("Meow!");
+						//startAnimation(9163, npcIndex);
+						slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " caught a rat!");
+						if(npcs[npcIndex].npcType >= 761 && npcs[npcIndex].npcType <= 766)
+							slaveOwner.ratsCaught++;
+						if(slaveOwner.ratsCaught == Pets.RATS_NEEDED_TO_GROW) {
+							slaveOwner.getPacketSender().sendMessage("Your kitten has grown into a cat!");
+							int newNpcId = npcs[npcIndex].npcType+7;
+							int[] coords = {npcs[npcIndex].absX, npcs[npcIndex].absY, npcs[npcIndex].heightLevel};
+							spawnNpc3(slaveOwner, newNpcId, coords[0], coords[1], coords[2], 0, 120, 25, 200, 200, true, false, true);
+							npcs[npcIndex].absX = 0;
+							npcs[npcIndex].absY = 0;
+							npcs[npcIndex] = null;
+							//Spawns grown cat in spot of kitten.
+							slaveOwner.summonId = Pets.summonItemId(newNpcId);
+							slaveOwner.ratsCaught = 0;
+						}
+						npcs[npcIndex].chasingRat = -1;
+					} else {
+						if(slaveOwner != null)
+							slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " failed to catch the rat.");
+						npcs[npcIndex].chasingRat = -1;
+					}
+					container.stop();
+				}
+					@Override
+					public void stop() {
+						// TODO Auto-generated method stub
+						
+					}
+			}, 4);
+		}
+	}
 
 	public NpcHandler() {
 		for (int i = 0; i < MAX_NPCS; i++) {
@@ -139,15 +238,6 @@ public class NpcHandler {
 		return 0;
 	}
 
-	public int npcSize(int i) {
-		switch (npcs[i].npcType) {
-		case 2883:
-		case 2882:
-		case 2881:
-			return 3;
-		}
-		return 0;
-	}
 
 	/**
 	 * Summon npc, barrows, etc
@@ -201,7 +291,7 @@ public class NpcHandler {
 		npcs[slot] = newNPC;
 	}
 
-	public void spawnNpc2(int npcType, int x, int y, int heightLevel, int WalkingType, int HP, int maxHit, int attack, int defence) {
+	public void spawnNpc2(int npcType, int x, int y, int heightLevel, int WalkingType, int HP, int maxHit, int attack, int defence, boolean attackPlayer) {
 		// first, search for a free slot
 		int slot = -1;
 		for (int i = 1; i < MAX_NPCS; i++) {
@@ -225,6 +315,9 @@ public class NpcHandler {
 		newNPC.MaxHP = HP;
 		newNPC.maxHit = maxHit;
 		newNPC.attack = attack;
+		if (attackPlayer) {
+			newNPC.underAttack = true;
+		}
 		newNPC.defence = defence;
 		npcs[slot] = newNPC;
 	}
@@ -356,6 +449,13 @@ public class NpcHandler {
 					npcs[i].absX = slaveOwner.absX;
 					npcs[i].absY = slaveOwner.absY - 1;
 				}
+				
+				 if (slaveOwner != null && slaveOwner.hasNpc && npcs[i].summoner) {
+                     if (slaveOwner.goodDistance(npcs[i].absX, npcs[i].absY, slaveOwner.absX, slaveOwner.absY, 15)) {
+                    	 NpcHandler.followPlayer(i, slaveOwner.playerId);
+                     }
+				 }
+                           
 
 				if (npcs[i].actionTimer > 0) {
 					npcs[i].actionTimer--;
@@ -385,7 +485,7 @@ public class NpcHandler {
 					}
 				}
 
-				if (npcs[i].spawnedBy > 0) { // delete summons npc
+				if (npcs[i].spawnedBy > 0) { 
 					if (PlayerHandler.players[npcs[i].spawnedBy] == null
 							|| PlayerHandler.players[npcs[i].spawnedBy].heightLevel != npcs[i].heightLevel
 							|| PlayerHandler.players[npcs[i].spawnedBy].respawnTimer > 0
@@ -393,11 +493,10 @@ public class NpcHandler {
 						
 						if (npcs[i].npcType == FightCaves.YT_HURKOT) {
 							Player c = ((Client)PlayerHandler.players[npcs[i].spawnedBy]);
-							int ranHeal = Misc.random(19);
-							if (ranHeal == 19)
+							int ranHeal = Misc.random(10);
+							if (ranHeal == 10)
 								FightCaves.healJad(c, i);
 						}
-
 						if (PlayerHandler.players[npcs[i].spawnedBy] != null) {
 							for (int o = 0; o < PlayerHandler.players[npcs[i].spawnedBy].barrowsNpcs.length; o++) {
 								if (npcs[i].npcType == PlayerHandler.players[npcs[i].spawnedBy].barrowsNpcs[o][0]) {
@@ -552,12 +651,11 @@ public class NpcHandler {
 							&& npcs[i].needRespawn == false) {
 						npcs[i].updateRequired = true;
 						npcs[i].facePlayer(0);
-						if (npcs[i].killedBy <= 0)
-							npcs[i].killedBy = NpcData.getNpcKillerId(i);
-						npcs[i].animNumber = NpcEmotes.getDeadEmote(i); // dead
-																		// emote
 						Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
+							if (npcs[i].killedBy <= 0)
+								npcs[i].killedBy = NpcData.getNpcKillerId(i);
+							npcs[i].animNumber = NpcEmotes.getDeadEmote(c, i); // dead emote
 							if (CombatConstants.COMBAT_SOUNDS
 									&& NpcHandler.npcs[i].npcType < 3177
 									&& NpcHandler.npcs[i].npcType > 3180) {
@@ -653,8 +751,7 @@ public class NpcHandler {
 							GameEngine.objectManager.removeObject(npcs[i].absX,
 									npcs[i].absY);
 						}
-					} else if (npcs[i].actionTimer == 0
-							&& npcs[i].needRespawn == true) {
+					} else if (npcs[i].actionTimer == 0 && npcs[i].needRespawn == true && npcs[i].npcType != 1158) {
 						if (npcs[i].spawnedBy > 0) {
 							npcs[i] = null;
 						} else {
@@ -735,6 +832,12 @@ public class NpcHandler {
 
 	public static boolean multiAttacks(int i) {
 		switch (npcs[i].npcType) {
+		 case 1158: //kq
+				if (npcs[i].attackType == 2)
+				return true;
+			case 1160: //kq
+				if (npcs[i].attackType == 1)
+				return true;
 		case 2558:
 			return true;
 		case 2562:
@@ -1200,7 +1303,8 @@ public class NpcHandler {
 	}
 
 	public static void handleSpecialEffects(Player c, int i, int damage) {
-		if (npcs[i].npcType == 2892 || npcs[i].npcType == 2894) {
+		if (npcs[i].npcType == 2892 || npcs[i].npcType == 2894 || npcs[i].npcType == 1158 
+				|| npcs[i].npcType == 1160) {
 			if (damage > 0) {
 				if (c != null) {
 					if (c.playerLevel[5] > 0) {
@@ -1226,6 +1330,8 @@ public class NpcHandler {
 
 	public static int getMaxHit(int i) {
 		switch (npcs[i].npcType) {
+		case 1158:
+			return 30;
 		case 2558:
 			if (npcs[i].attackType == 2) {
 				return 28;
@@ -1338,7 +1444,7 @@ public class NpcHandler {
 		for (int i = 0; i < maxListedNPCs; i++) {
 			if (NpcList[i] != null) {
 				if (NpcList[i].npcId == npcId) {
-					return NpcList[i].npcName;
+					return NpcList[i].npcName.replace("_", " ");
 				}
 			}
 		}
@@ -1408,6 +1514,9 @@ public class NpcHandler {
 	public boolean getNpcListAggressive(int npcId) {
 		return NPCDefinition.forId(npcId).isAggressive();
 	}
-
+	
+	public int getNpcSize(int npcId) {
+		return NPCDefinition.forId(npcId).getSize();
+	}
 
 }

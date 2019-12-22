@@ -431,11 +431,11 @@ public class PestControl {
 	private void spawnNPC() {
 		//npcid, npcx, npcy, heightlevel, walking type, hp, att, def
 		for (int[] aPcNPCData : pcNPCData) {
-			GameEngine.npcHandler.spawnNpc2(aPcNPCData[0], aPcNPCData[1], aPcNPCData[2], 0, 0, 200, 0, 0, playersInGame() * 200);
+			GameEngine.npcHandler.spawnNpc2(aPcNPCData[0], aPcNPCData[1], aPcNPCData[2], 0, 0, 200, 0, 0, playersInGame() * 200, false);
 		}
 		for (int[] voidMonsters : voidMonsterData) {
 			//Server.npcHandler.spawnNpc2(voidMonsters[0], voidMonsters[1], voidMonsters[2], 0, 1, voidMonsters[NpcHandler.getNpcListHP(voidMonsters[0])], NpcHandler.getNpcListCombat(voidMonsters[0])/10, NpcHandler.getNpcListCombat(voidMonsters[0]), playersInGame() * 200);
-			GameEngine.npcHandler.spawnNpc2(voidMonsters[0], voidMonsters[1], voidMonsters[2], 0, 1, 500, 20, 200, 25);
+			GameEngine.npcHandler.spawnNpc2(voidMonsters[0], voidMonsters[1], voidMonsters[2], 0, 1, 500, 20, 200, 25, false);
 		}
 	}
 }
