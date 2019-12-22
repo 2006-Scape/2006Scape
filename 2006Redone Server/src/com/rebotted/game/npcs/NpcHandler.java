@@ -651,11 +651,15 @@ public class NpcHandler {
 							&& npcs[i].needRespawn == false) {
 						npcs[i].updateRequired = true;
 						npcs[i].facePlayer(0);
+						if (npcs[i].killedBy <= 0)
+							npcs[i].killedBy = NpcData.getNpcKillerId(i);
+						npcs[i].animNumber = NpcEmotes.getDeadEmote(i); // dead
+						// emote
 						Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
-							if (npcs[i].killedBy <= 0)
-								npcs[i].killedBy = NpcData.getNpcKillerId(i);
-							npcs[i].animNumber = NpcEmotes.getDeadEmote(c, i); // dead emote
+//							if (npcs[i].killedBy <= 0)
+//								npcs[i].killedBy = NpcData.getNpcKillerId(i);
+//							npcs[i].animNumber = NpcEmotes.getDeadEmote(c, i); // dead emote
 							if (CombatConstants.COMBAT_SOUNDS
 									&& NpcHandler.npcs[i].npcType < 3177
 									&& NpcHandler.npcs[i].npcType > 3180) {
