@@ -10,6 +10,7 @@ import java.util.Scanner;
 import com.rebotted.GameEngine;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
+import com.rebotted.world.clip.Region;
 
 /**
  * 
@@ -47,8 +48,8 @@ public class DoubleDoors {
 	}
 	
 	public boolean handleDoor(Player player, int id, int x, int y, int z) {
-		DoubleDoors doorClicked = getDoor(id, x, y, z);	
-		
+		DoubleDoors doorClicked = getDoor(id, x, y, z);
+
 		if (doorClicked == null) {
 			//GameEngine.objectHandler.placeObject(new Objects(-1, x, y, z, 0, 0, 0));
 			return true;
@@ -56,6 +57,9 @@ public class DoubleDoors {
 		if (doorClicked.doorId > 12000) {
 			return true; //nearly all of these are not opened
 		}
+
+		Region.removeClipping(x, y, z);
+
 		if (doorClicked.open == 0) { 
 			if (doorClicked.originalFace == 0) {
 				DoubleDoors lowerDoor = getDoor(id - 3, x, y -1, z);

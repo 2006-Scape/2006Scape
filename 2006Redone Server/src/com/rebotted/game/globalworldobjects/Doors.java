@@ -56,30 +56,17 @@ public class Doors {
 	}
 
 	public boolean handleDoor(Player player, int id, int x, int y, int z) {
-
 		Doors d = getDoor(id, x, y, z);
 
 		if (d == null) {
-			if (DoubleDoors.getSingleton().handleDoor(player, id, x, y, z)) {
-				return true;
-			}
-			return false;
+			return DoubleDoors.getSingleton().handleDoor(player, id, x, y, z);
 		}
 
 		//todo: improvment: if player manage to get to door then open the door.
 		if(player.distanceToPoint(x, y) > 1) return  false;
 
-		/**
-		 *  Here we shall remove the clipping from the door
-		 *  We can't add the clipping back when it is closed, because we apparently never update the d.open value....
-		 */
-		if(d != null) {
-			if(d.open == 0) {
-				Region.removeClipping(x, y, z);
-			} else {
-				//Region.addClipping(x, y, z, 0);
-			}
-		}
+		//Remove clipping for old door (gets added back in placeObject)
+		Region.removeClipping(x, y, z);
 
 		int xAdjustment = 0, yAdjustment = 0;
 		if (d.type == 0) {
