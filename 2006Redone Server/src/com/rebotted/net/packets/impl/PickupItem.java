@@ -27,6 +27,14 @@ public class PickupItem implements PacketType {
 		player.pItemY = player.getInStream().readSignedWordBigEndian();
 		player.pItemId = player.getInStream().readUnsignedWord();
 		player.pItemX = player.getInStream().readSignedWordBigEndian();
+		if (player.getItemAssistant().freeSlots() < 1)
+		{
+			if (!(player.getItemAssistant().playerHasItem(player.pItemId) && player.getItemAssistant().isStackable(player.pItemId)))
+			{
+				player.getPacketSender().sendMessage("Not enough inventory space...");
+				return;
+			}
+		}
 		if (Math.abs(player.getX() - player.pItemX) > 25 || Math.abs(player.getY() - player.pItemY) > 25) {
 			player.resetWalkingQueue();
 			return;
@@ -64,34 +72,37 @@ public class PickupItem implements PacketType {
 		}
 		SkillHandler.resetSkills(player);
 		player.getCombatAssistant().resetPlayerAttack();
-		if (player.getX() == player.pItemX && player.getY() == player.pItemY
-				|| player.getX() - 1 == player.pItemX && player.getY() == player.pItemY
-				|| player.getY() - 1 == player.pItemY && player.getX() == player.pItemX
-				|| player.getX() + 1 == player.pItemX && player.getY() == player.pItemY
-				|| player.getY() + 1 == player.pItemY && player.getX() == player.pItemX) {
-			GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX,
-					player.pItemY, true);
-			player.getPacketSender().sendSound(SoundList.ITEM_PICKUP, 100, 0);
-			GlobalDropsHandler.pickup(player, player.pItemId, player.pItemX, player.pItemY);
-		} else {
 			player.walkingToItem = true;
+			//player.getPacketSender().sendMessage("walkingToItem");
+			player.soundDone = false;
 			   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 		            @Override
 		            public void execute(CycleEventContainer container) {
 					if (!player.walkingToItem) {
 						container.stop();
 					}
-					if (player.getX() == player.pItemX && player.getY() == player.pItemY && player.walkingToItem) {
-						GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX, player.pItemY, true);
+					if ((player.getX() == player.pItemX && player.getY() == player.pItemY
+							|| player.getX() - 1 == player.pItemX && player.getY() == player.pItemY
+							|| player.getY() - 1 == player.pItemY && player.getX() == player.pItemX
+							|| player.getX() + 1 == player.pItemX && player.getY() == player.pItemY
+							|| player.getY() + 1 == player.pItemY && player.getX() == player.pItemX
+						||player.getX() == player.pItemX && player.getY() == player.pItemY) && player.walkingToItem) {
 						container.stop();
 					}
 				}
 
-				@Override
-				public void stop() {
-					player.walkingToItem = false;
-				}
-			}, 1);
-		}
+					@Override
+					public void stop() {
+						player.walkingToItem = false;
+						//player.getPacketSender().sendMessage("!walkingToItem - stop");
+						GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX, player.pItemY, true);
+						GlobalDropsHandler.pickup(player, player.pItemId, player.pItemX, player.pItemY);
+						if (!player.soundDone)
+						{
+							player.soundDone = true;
+							player.getPacketSender().sendSound(SoundList.ITEM_PICKUP, 100, 0);
+						}
+					}
+				}, 1);
 	}
 }
