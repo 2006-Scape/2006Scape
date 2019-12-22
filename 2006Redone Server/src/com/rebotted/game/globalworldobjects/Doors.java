@@ -66,7 +66,7 @@ public class Doors {
 		if(player.distanceToPoint(x, y) > 1) return  false;
 
 		//Remove clipping for old door (gets added back in placeObject)
-		Region.removeClipping(x, y, z);
+		//Region.removeClipping(x, y, z);
 
 		int xAdjustment = 0, yAdjustment = 0;
 		if (d.type == 0) {

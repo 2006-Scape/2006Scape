@@ -58,7 +58,7 @@ public class DoubleDoors {
 			return true; //nearly all of these are not opened
 		}
 
-		Region.removeClipping(x, y, z);
+		//Region.removeClipping(x, y, z);
 
 		if (doorClicked.open == 0) { 
 			if (doorClicked.originalFace == 0) {
