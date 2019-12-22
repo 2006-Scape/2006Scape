@@ -150,7 +150,7 @@ public class GlobalDropsHandler {
 	 * @param c
 	 *            cord y
 	 */
-	public static void pickup(Player player2, int a, int b, int c) {
+	public static void pickup(Player player, int a, int b, int c) {
 		GlobalDrop drop = itemExists(a, b, c);
 		if (drop == null) {
 			return;
@@ -158,16 +158,20 @@ public class GlobalDropsHandler {
 		if (drop.isTaken()) {
 			return;
 		}
-		if (player2.getItemAssistant().freeSlots() > 0) {
-			player2.getItemAssistant().addItem(drop.getId(), drop.getAmount());
-			drop.setTakenAt(System.currentTimeMillis());
-			drop.setTaken(true);
-			for (Player player : PlayerHandler.players) {
-				Client cl = (Client) player;
-				if (cl != null) {
-					cl.getPacketSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
-					spawnedDrops.remove(drop);
-				}
+		if (player.getItemAssistant().freeSlots() < 1) {
+			if (!(player.getItemAssistant().playerHasItem(player.pItemId) && player.getItemAssistant().isStackable(player.pItemId))) {
+				player.getPacketSender().sendMessage("Not enough inventory space...");
+				return;
+			}
+		}
+		player.getItemAssistant().addItem(drop.getId(), drop.getAmount());
+		drop.setTakenAt(System.currentTimeMillis());
+		drop.setTaken(true);
+		for (Player playerLoop : PlayerHandler.players) {
+			Client cl = (Client) playerLoop;
+			if (cl != null) {
+				cl.getPacketSender().removeGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount());
+				spawnedDrops.remove(drop);
 			}
 		}
 	}

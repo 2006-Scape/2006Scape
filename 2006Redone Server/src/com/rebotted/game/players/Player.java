@@ -969,6 +969,8 @@ public abstract class Player {
 
 	public int soundVolume = 10;
 
+	public boolean soundDone;
+
 	/**
 	 * Outputs a send packet which is built from the data params provided
 	 * towards a connected user client channel.
