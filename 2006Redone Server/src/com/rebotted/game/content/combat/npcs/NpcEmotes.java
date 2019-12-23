@@ -165,43 +165,25 @@ public enum NpcEmotes {
 		return -1;
 	}
 
-//	public static int getDeadEmote(Player player, int i) {
-//		for (NpcEmotes e : NpcEmotes.values()) {
-//			for (int f = 0; f < e.getNpcId().length; f++) {
-//				if (NpcHandler.npcs[i].npcType == e.getNpcId()[f]) {
-//					return e.getDead();
-//				} else {
-//					switch (NpcHandler.npcs[i].npcType) {
-//					case 2745:
-//						return 2654;
-//					case 1158:
-//						GameEngine.npcHandler.spawnSecondForm(player, i);
-//						return 6242;
-//					case 1160:
-//						GameEngine.npcHandler.spawnFirstForm(player, i);
-//						return 6233;
-//					}
-//				}
-//			}
-//		}
-//		return 2304;
-//	}
-//
-//}
-public static int getDeadEmote(int i) {
-	for (NpcEmotes e : NpcEmotes.values()) {
-		for (int f = 0; f < e.getNpcId().length; f++) {
-			if (NpcHandler.npcs[i].npcType == e.getNpcId()[f]) {
-				return e.getDead();
-			} else {
-				switch (NpcHandler.npcs[i].npcType) {
+	public static int getDeadEmote(Player player, int i) {
+		for (NpcEmotes e : NpcEmotes.values()) {
+			for (int f = 0; f < e.getNpcId().length; f++) {
+				if (NpcHandler.npcs[i].npcType == e.getNpcId()[f]) {
+					return e.getDead();
+				} else {
+					switch (NpcHandler.npcs[i].npcType) {
 					case 2745:
 						return 2654;
+					case 1158:
+						GameEngine.npcHandler.spawnSecondForm(player, i);
+						return 6242;
+					case 1160:
+						GameEngine.npcHandler.spawnFirstForm(player, i);
+						return 6233;
+					}
 				}
 			}
 		}
+		return 2304;
 	}
-	return 2304;
-}
-
 }
