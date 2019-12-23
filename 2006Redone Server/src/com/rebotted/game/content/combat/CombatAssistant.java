@@ -61,7 +61,7 @@ public class CombatAssistant {
 				NpcHandler.npcs[i].animUpdateRequired = true;
 				NpcHandler.npcs[i].updateRequired = true;
 			}
-			if (CombatConstants.COMBAT_SOUNDS && NpcHandler.npcs[i].npcType < 3177 && NpcHandler.npcs[i].npcType > 3180) {
+			if (CombatConstants.COMBAT_SOUNDS) {
 				c.getPacketSender().sendSound(CombatSounds.getNpcBlockSound(NpcHandler.npcs[c.oldNpcIndex].npcType), 100, 0);
 			}
 			NpcHandler.npcs[i].facePlayer(c.playerId);
@@ -644,9 +644,7 @@ public class CombatAssistant {
 					return;
 				}
 				if (c.usingRangeWeapon || c.usingBow
-						&& CombatConstants.COMBAT_SOUNDS
-						&& NpcHandler.npcs[i].npcType < 3177
-						&& NpcHandler.npcs[i].npcType > 3180) {
+						&& CombatConstants.COMBAT_SOUNDS) {
 					c.getPacketSender().sendSound(SoundList.SHOOT_ARROW,
 							100, 0);
 				}

@@ -241,9 +241,7 @@ public class NpcCombat {
 					c.singleCombatDelay2 = System.currentTimeMillis();
 					NpcHandler.npcs[i].oldIndex = c.playerId;
 					NpcData.startAnimation(NpcEmotes.getAttackEmote(i), i);
-					if (CombatConstants.COMBAT_SOUNDS
-							&& NpcHandler.npcs[i].npcType < 3177
-							&& NpcHandler.npcs[i].npcType > 3180) {
+					if (CombatConstants.COMBAT_SOUNDS) {
 						c.getPacketSender()
 								.sendSound(
 										CombatSounds

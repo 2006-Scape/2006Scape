@@ -647,27 +647,16 @@ public class NpcHandler {
 				}
 
 				if (npcs[i].isDead) {
-					if (npcs[i].actionTimer == 0 && npcs[i].applyDead == false
-							&& npcs[i].needRespawn == false) {
+					if (npcs[i].actionTimer == 0 && npcs[i].applyDead == false && npcs[i].needRespawn == false) {
 						npcs[i].updateRequired = true;
 						npcs[i].facePlayer(0);
 						if (npcs[i].killedBy <= 0)
 							npcs[i].killedBy = NpcData.getNpcKillerId(i);
-						npcs[i].animNumber = NpcEmotes.getDeadEmote(i); // dead
-						// emote
 						Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
-//							if (npcs[i].killedBy <= 0)
-//								npcs[i].killedBy = NpcData.getNpcKillerId(i);
-//							npcs[i].animNumber = NpcEmotes.getDeadEmote(c, i); // dead emote
-							if (CombatConstants.COMBAT_SOUNDS
-									&& NpcHandler.npcs[i].npcType < 3177
-									&& NpcHandler.npcs[i].npcType > 3180) {
-								c.getPacketSender()
-										.sendSound(
-												CombatSounds
-														.getNpcDeathSounds(npcs[i].npcType),
-												100, 0);
+							npcs[i].animNumber = NpcEmotes.getDeadEmote(c, i); // dead emote
+							if (CombatConstants.COMBAT_SOUNDS) {
+								c.getPacketSender().sendSound(CombatSounds.getNpcDeathSounds(npcs[i].npcType), 100, 0);
 							}
 						}
 						npcs[i].animUpdateRequired = true;
