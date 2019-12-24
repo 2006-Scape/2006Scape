@@ -91,7 +91,7 @@ public class DwarfCannon {
 
 				@Override
 				public void stop() {
-					player.playerIsFletching = false;
+					player.isSmithing = false;
 				}
 			}, 3);
 		}
