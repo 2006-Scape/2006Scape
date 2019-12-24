@@ -18,13 +18,16 @@ public class Walking implements PacketType {
 	public void processPacket(Player player, int packetType, int packetSize) {
 		player.getDueling().checkDuelWalk();
 
+		if (player.playerIsBusy()) {
+			player.playerIsBusy = false;
+		}
 		if (player.canChangeAppearance) { //|| c.performingAction) {
 			return;
 		}
 		if (player.getCannon().settingUp) {
 			return;
 		}
-		if (player.isTeleporting == true) {
+		if (player.isTeleporting) {
 			player.isTeleporting = false;
 		}
 		if (player.playerSkilling[10]) {// fishing

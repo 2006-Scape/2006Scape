@@ -544,7 +544,7 @@ public class ItemAssistant {
 					}
 					resetItems(3214);
 					i = 30;
-					
+
 					Weight.updateWeight(c);
 					return true;
 				}
