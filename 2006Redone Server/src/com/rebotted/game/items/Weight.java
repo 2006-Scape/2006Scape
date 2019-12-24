@@ -16,7 +16,7 @@ public class Weight extends ItemDefinitions {
 	 * @param action
 	 *            - deleteitem, additem, equip, unequip.
 	 */
-	public static void calcWeight(Player c, int item, String action) {
+	private static void calcWeight(Player c, int item, String action) {
 		if (action.equalsIgnoreCase("deleteitem")) {
 			if (getWeight(item) > 99.20) {
 				c.weight -= getWeight(item) / 100;
@@ -63,7 +63,7 @@ public class Weight extends ItemDefinitions {
 					else calcWeight(player, element, "addItem");
 				}
 			}
+			player.getPacketSender().writeWeight((int) player.weight);
 		}
-		player.getPacketSender().writeWeight((int) player.weight);
 	}
 }
