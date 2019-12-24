@@ -526,7 +526,7 @@ public class ItemAssistant {
 						c.flushOutStream();
 					}
 					i = 30;
-					Weight.calcWeight(c, item, "additem");
+					Weight.updateWeight(c);
 					return true;
 				}
 			}
@@ -544,7 +544,8 @@ public class ItemAssistant {
 					}
 					resetItems(3214);
 					i = 30;
-					Weight.calcWeight(c, item, "additem");
+
+					Weight.updateWeight(c);
 					return true;
 				}
 			}
@@ -1662,7 +1663,7 @@ public class ItemAssistant {
 					c.flushOutStream();
 					c.updateRequired = true;
 					c.setAppearanceUpdateRequired(true);
-					Weight.calcWeight(c, wearID, "deleteitem");
+					Weight.updateWeight(c);
 				}
 			}
 		}
@@ -2367,7 +2368,7 @@ public class ItemAssistant {
 			}
 		}
 		resetItems(3214);
-		Weight.calcWeight(c, id, "deleteitem");
+		Weight.updateWeight(c);
 	}
 
 	public void deleteItem(int id, int slot, int amount) {
@@ -2382,7 +2383,7 @@ public class ItemAssistant {
 				c.playerItems[slot] = 0;
 			}
 			resetItems(3214);
-			Weight.calcWeight(c, id, "deleteitem");
+			Weight.updateWeight(c);
 		}
 	}
 

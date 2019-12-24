@@ -51,20 +51,20 @@ public class Trading {
 				return;
 			}
 
-			if (!player.inTrade && o.tradeRequested && o.tradeWith == player.playerId && player.playerIsBusy() == false && o.playerIsBusy() == false) { //start trading process
+			if (!player.inTrade && o.tradeRequested && o.tradeWith == player.playerId && !player.playerIsBusy() && !o.playerIsBusy() ) { //start trading process
 				if (!isCloseTo(o)) {
 					player.getPacketSender().sendMessage("Player is not close enough. Retry when you are closer...");
 				} else {
 					player.getTrading().openTrade();
 					o.getTrading().openTrade();
 				}
-			} else if (!player.inTrade && player.playerIsBusy() == false && o.playerIsBusy() == false) { //send trade request
+			} else if (!player.inTrade && !player.playerIsBusy() && !o.playerIsBusy()) { //send trade request
 				//Problem = sends the request then walk to player. Solution= change processing order. Fix= Send message when trying to open the trade interface if the other player isn't closer than 3 tiles.
 				player.tradeRequested = true;
 				player.getPacketSender().sendMessage("Sending trade request...");
 				o.getPacketSender()
 						.sendMessage(player.playerName + ":tradereq:");
-			} else if (player.playerIsBusy() == true || o.playerIsBusy() == true) {
+			} else if (player.playerIsBusy()|| o.playerIsBusy()) {
 				player.getPacketSender().sendMessage("Other player is busy at the moment.");
 			}
 		} catch (Exception e) {

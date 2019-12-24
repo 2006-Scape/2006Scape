@@ -230,8 +230,8 @@ public class ItemDefinitions {
 		if (id >= 0 && id < definitions.length)
 			return definitions[id].weight;
 
-		System.out.println("WARNING: id " + id + " doesn't have a definition!");
-		return 0.0;
+		System.out.println("WARNING: id " + id + " doesn't have a definition! 2.147kg is used as weight.");
+		return 2.147;
 	}
 
 	/**
