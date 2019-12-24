@@ -11,6 +11,11 @@ public class SmithingInterface {
 	}
 
 	public void showSmithInterface(int itemId) {
+		if (!c.getItemAssistant().playerHasItem(2347))
+		{
+			c.getPacketSender().sendMessage("You need an hammer to do that.");
+			return;
+		}
 		if (itemId == 2349 && c.tutorialProgress == 20) {
 			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler().chatboxText(c, "Now you have the Smithing menu open, you will see a list of all", "the things you can make. Only the dagger can be made at your", "skill level, this is shown by the white text under it. You'll need", "to select the dagger to continue.", "Smithing a dagger");
