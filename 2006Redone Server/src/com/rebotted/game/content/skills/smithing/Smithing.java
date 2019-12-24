@@ -1,7 +1,12 @@
 package com.rebotted.game.content.skills.smithing;
 
+import com.rebotted.event.CycleEvent;
+import com.rebotted.event.CycleEventContainer;
+import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.players.Player;
+
+import java.lang.reflect.Array;
 
 /**
  * Cleaned by Andrew
@@ -17,7 +22,7 @@ public class Smithing {
 			checkBronze(player, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Iron")) {
 			checkIron(player, levelReq, amountToMake, type);
-		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Steel")) {
+		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Steel") || ItemAssistant.getItemName(Integer.parseInt(type)).contains("ball")) {
 			checkSteel(player, levelReq, amountToMake, type);
 		} else if (ItemAssistant.getItemName(Integer.parseInt(type)).contains("Mith")) {
 			checkMith(player, levelReq, amountToMake, type);
@@ -313,6 +318,11 @@ public class Smithing {
 		if (type.equalsIgnoreCase("1353") && levelReq >= 31) { // Axe
 			XP = 38;
 			addItem = 1353;
+			removeAmount = 1;
+			makeTimes = amountToMake;
+		} else if (type.equals("2") && levelReq >= 35) { // Cannonball
+			XP = 26;
+			addItem = 2;
 			removeAmount = 1;
 			makeTimes = amountToMake;
 		} else if (type.equalsIgnoreCase("1207") && levelReq >= 30) { // Dagger
@@ -790,55 +800,76 @@ public class Smithing {
 		smithItem(c, addItem, removeItem, removeAmount, makeTimes, XP);
 	}
 
-	public boolean smithItem(Player c, int addItem, int removeItem,
-			int removeItem2, int timesToMake, int XP) {
-		int makeTimes = timesToMake;
-		c.getPacketSender().closeAllWindows();
-		c.isSmithing = true;
+	public static void smithItem(Player player, int addItem, int removeItem,
+									int removeItem2, int timesToMake, int XP) {
+
+		player.doAmount = timesToMake;
+		player.getPacketSender().closeAllWindows();
 		String name = ItemAssistant.getItemName(addItem);
-		if (c.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
-			c.startAnimation(898);
-			if (makeTimes > 1 && c.getItemAssistant().playerHasItem(removeItem, removeItem2 * 2) && !name.contains("claws") && !name.contains("nails") && !name.contains("dart tip") && !name.contains("tip") && !name.contains("platelegs")) {
-				c.getPacketSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + "s.");
-			} else if (makeTimes > 1 && c.getItemAssistant().playerHasItem(removeItem, removeItem2 * 2) && name.contains("claws") || name.contains("nails") || name.contains("dart tip") || name.contains("tip") || name.contains("platelegs")) {
-				c.getPacketSender().sendMessage("You make some " + ItemAssistant.getItemName(addItem) + ".");
-			} else {
-				c.getPacketSender().sendMessage("You hammer out a " + ItemAssistant.getItemName(addItem) + ".");
-			}
-			while (makeTimes > 0 && c.isSmithing == true) {
-				if (c.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
-					c.getItemAssistant().deleteItem(removeItem, removeItem2);
-					if (ItemAssistant.getItemName(addItem).contains("bolt")) {
-						c.getItemAssistant().addItem(addItem, 10);
-					} else if (ItemAssistant.getItemName(addItem).contains("tip") && !ItemAssistant.getItemName(addItem).contains("dart tip")) {
-						c.getItemAssistant().addItem(addItem, 15);
-					} else if (ItemAssistant.getItemName(addItem).contains("dart tip")) {
-						c.getItemAssistant().addItem(addItem, 10);
-					} else if (ItemAssistant.getItemName(addItem).contains("nail")) {
-						c.getItemAssistant().addItem(addItem, 15);
-					} else if (ItemAssistant.getItemName(addItem).contains("arrow")) {
-						c.getItemAssistant().addItem(addItem, 15);
-					} else if (ItemAssistant.getItemName(addItem).contains("knife")) {
-						c.getItemAssistant().addItem(addItem, 5);
-					} else if (ItemAssistant.getItemName(addItem).contains("cannon")) {
-						c.getItemAssistant().addItem(addItem, 4);
-					} else {
-						c.getItemAssistant().addItem(addItem, 1);
+		if (player.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
+			if (!player.isSmithing)
+			{
+				player.isSmithing = true;
+				player.startAnimation(898);
+				CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+					@Override
+					public void execute(CycleEventContainer container) {
+						if (player.doAmount <= 0 || !player.getItemAssistant().playerHasItem(removeItem, removeItem2) || !player.isSmithing || player.isWoodcutting || player.isCrafting || player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isFletching || player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing || player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting || player.playerIsCooking || player.isPotCrafting) {
+							container.stop();
+						}
+						else
+						{
+							player.startAnimation(898);
+							player.getPacketSender().sendSound(468, 100, 0);
+							if (name.contains("ball"))
+							{
+								player.getPacketSender().sendMessage("You make some " + name.toLowerCase() + "s.");
+							}
+							else if (name.charAt(name.length() -1) == 's') {
+								player.getPacketSender().sendMessage("You make some " + name.toLowerCase() + ".");
+							} else {
+								if (name.charAt(1) == 'a' || name.charAt(1) == 'e' || name.toLowerCase().charAt(1) == 'i' || name.charAt(1) == 'o' || name.charAt(1) == 'u')
+								{
+									player.getPacketSender().sendMessage("You make an " + name.toLowerCase() + ".");
+								}
+								else
+								{
+									player.getPacketSender().sendMessage("You make a " + name.toLowerCase() + ".");
+								}
+							}
+							player.getItemAssistant().deleteItem(removeItem, removeItem2);
+							player.getPacketSender().sendMessage(ItemAssistant.getItemName(addItem));
+							if (name.contains("bolt")) {
+								player.getItemAssistant().addItem(addItem, 10);
+							} else if (name.contains("tip") && !name.contains("dart tip")) {
+								player.getItemAssistant().addItem(addItem, 15);
+							} else if (name.contains("dart tip")) {
+								player.getItemAssistant().addItem(addItem, 10);
+							} else if (name.contains("nail")) {
+								player.getItemAssistant().addItem(addItem, 15);
+							} else if (name.contains("arrow")) {
+								player.getItemAssistant().addItem(addItem, 15);
+							} else if (name.contains("knife")) {
+								player.getItemAssistant().addItem(addItem, 5);
+							} else if (name.contains("ball")) {
+								player.getItemAssistant().addItem(addItem, 4);
+							} else {
+								player.getItemAssistant().addItem(addItem, 1);
+							}
+							player.getPlayerAssistant().addSkillXP(XP, player.playerSmithing);
+							player.doAmount--;
+						}
 					}
-					c.getPlayerAssistant().addSkillXP(XP, c.playerSmithing);
-					c.getPlayerAssistant().refreshSkill(c.playerSmithing);
-					makeTimes--;
-					c.getPacketSender().sendSound(468, 100, 0);
-				} else {
-					c.isSmithing = false;
-					break;
-				}
+
+					@Override
+					public void stop() {
+						player.isSmithing = false;
+					}
+				}, addItem == 2 ? 10 : 3);
 			}
 		} else {
-			c.getPacketSender().sendMessage("You don't have enough bars to make this item!");
-			c.isSmithing = false;
-			return false;
+			player.getPacketSender().sendMessage("You don't have enough bars to make this item!");
+			player.isSmithing = false;
 		}
-		return true;
 	}
 }
