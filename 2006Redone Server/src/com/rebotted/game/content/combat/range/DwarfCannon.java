@@ -5,6 +5,8 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.CombatConstants;
+import com.rebotted.game.content.skills.fletching.LogCuttingInterface;
+import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.objects.Objects;
@@ -33,6 +35,10 @@ public class DwarfCannon {
 	
 	private final int ballsID = 2;
 
+	public final int steelBarID = 2353;
+
+	private final int ammoMouldID = 4;
+
 	public boolean settingUp = false;
 	
 	private int setUpStage = 0;
@@ -53,6 +59,44 @@ public class DwarfCannon {
 	
 	private boolean justClicked = false;
 
+	public static void makeBall(Player player)
+	{
+		//An interface could be added instead of making all.
+		if (!player.getItemAssistant().playerHasItem(2353) || !player.getItemAssistant().playerHasItem(4))
+		{
+			player.getPacketSender().sendMessage("You need an ammo mould and steel bars to make cannonballs.");
+			return;
+		}
+		if (!player.isSmithing)
+		{
+			player.isSmithing = true;
+			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (player.isWoodcutting || player.isCrafting || player.isFletching || player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing || player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting || player.playerIsCooking || player.isPotCrafting ||!player.isSmithing || !player.getItemAssistant().playerHasItem(2353) || !player.getItemAssistant().playerHasItem(4))
+					{
+						container.stop();
+						return;
+					}
+					else
+					{
+						player.startAnimation(899);
+						player.getItemAssistant().deleteItem(2353, 1);
+						player.getItemAssistant().addItem(2, 4);
+						player.getPacketSender().sendMessage("You make some cannonballs.");
+						player.getPlayerAssistant().addSkillXP(26, player.playerSmithing);
+						player.getPacketSender().sendSound(352, 100, 0);
+					}
+				}
+
+				@Override
+				public void stop() {
+					player.isSmithing = false;
+				}
+			}, 3);
+		}
+
+	}
 	public void placeCannon() {
 		if (settingUp == true) {
 			return;

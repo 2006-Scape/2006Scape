@@ -39,20 +39,26 @@ public class LogCutting {
 						container.stop();
 						return;
 					}
-					player.startAnimation(1248);
-					player.getItemAssistant().deleteItem(LogCuttingInterface.log, 1);
-					if (product == 52)
-					{
-						player.getItemAssistant().addItem(product, 15);
-					}
 					else
 					{
-						player.getItemAssistant().addItem(product, 1);
+						player.startAnimation(1248);
+						player.getItemAssistant().deleteItem(LogCuttingInterface.log, 1);
+						if (product == 52)
+						{
+							player.getItemAssistant().addItem(product, 15);
+							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into 15 " + ItemAssistant.getItemName(product) + "s.");
+
+						}
+						else
+						{
+							player.getItemAssistant().addItem(product, 1);
+							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into a " + ItemAssistant.getItemName(product) + ".");
+
+						}
+						player.getPlayerAssistant().addSkillXP(xp, player.playerFletching);
+						player.doAmount--;
+						player.getPacketSender().sendSound(CUT_SOUND, 100, 0);
 					}
-					player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into an " + ItemAssistant.getItemName(product) + ".");
-					player.getPlayerAssistant().addSkillXP(xp, player.playerFletching);
-					player.doAmount--;
-					player.getPacketSender().sendSound(CUT_SOUND, 100, 0);
 				}
 
 				@Override

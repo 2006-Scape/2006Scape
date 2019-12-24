@@ -32,7 +32,7 @@ public class RestlessGhost {
 			client.getPacketSender().sendFrame126("Restless Ghost", 8144);
 			client.getPacketSender().sendFrame126(
 					"@str@I've talked Father Urhey", 8147);
-			client.getPacketSender().sendFrame126("@str@He gave me a amulet",
+			client.getPacketSender().sendFrame126("@str@He gave me an amulet",
 					8148);
 			client.getPacketSender().sendFrame126(
 					"I should speak to the ghost", 8149);

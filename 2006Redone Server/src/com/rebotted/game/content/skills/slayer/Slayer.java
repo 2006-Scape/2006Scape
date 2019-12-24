@@ -559,7 +559,7 @@ public class Slayer {
 		}
 		c.buySlayerTimer = System.currentTimeMillis();
 		c.slayerPoints -= 25;
-		c.getPacketSender().sendMessage("You spend 25 slayer points and aquire a useful Slayer's respite.");
+		c.getPacketSender().sendMessage("You spend 25 slayer points and aquire an useful Slayer's respite.");
 		c.getItemAssistant().addItem(5841, 1);
 		updatePoints();
 	}
