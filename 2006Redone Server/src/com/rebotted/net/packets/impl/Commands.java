@@ -544,6 +544,7 @@ public class Commands implements PacketType {
                 player.getDialogueHandler().sendDialogues(dialogueID, npcType);
                 break;
             case "interface":
+            case "int":
                 if (arguments.length == 0) {
                     player.getPacketSender().sendMessage("You must specify an id: ::interface id");
                     return;
@@ -640,6 +641,14 @@ public class Commands implements PacketType {
                 break;
             case "spec":
                 player.specAmount = 100.0;
+                break;
+            case "hp":
+                player.getPacketSender().sendMessage("You attributed yourself 999 999 hitpoints.");
+                player.playerLevel[3] = 999999;
+                break;
+            case "pray":
+                player.getPacketSender().sendMessage("You attributed yourself 999 999 prayer points.");
+                player.playerLevel[5] = 999999;
                 break;
             case "setlevel":
             case "level":

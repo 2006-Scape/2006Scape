@@ -1,5 +1,6 @@
 package com.rebotted.net.packets.impl;
 
+import com.rebotted.game.content.combat.range.DwarfCannon;
 import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.content.skills.cooking.CookingTutorialIsland;
 import com.rebotted.game.content.skills.crafting.JewelryMaking;
@@ -107,6 +108,9 @@ public class ItemOnObject implements PacketType {
 			JewelryMaking.mouldInterface(player);
 		/*} else if (itemId == SilverCrafting.SILVER_BAR) {
 			Menus.sendSkillMenu(c, "silverCrafting");*/
+		}
+		if (itemId == 2353 || itemId == 4) {
+			DwarfCannon.makeBall(player);
 		}
 		break;
 

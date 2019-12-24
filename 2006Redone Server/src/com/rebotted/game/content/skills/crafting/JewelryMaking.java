@@ -76,7 +76,7 @@ public class JewelryMaking {
 		} else {
 			c.getPacketSender().sendFrame246(4241, 120, 1595);
 			c.getPacketSender().sendFrame126(
-					"You need a amulet mould to craft necklaces", 4242);
+					"You need an amulet mould to craft necklaces", 4242);
 			for (int i = 0; i < MOULD_INTERFACE_IDS[2].length; i++) {
 				c.getPacketSender().sendFrame34(-1, i, 4245, 1);
 			}

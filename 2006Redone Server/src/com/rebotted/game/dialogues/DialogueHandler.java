@@ -2639,7 +2639,7 @@ public class DialogueHandler {
 				player.nextChat = 522;
 				break;
 			case 522:
-				sendNpcChat1("You are a eager one.", player.talkingNpc,
+				sendNpcChat1("You are an eager one.", player.talkingNpc,
 						"Doctor Harlow");
 				player.nextChat = 523;
 				break;
