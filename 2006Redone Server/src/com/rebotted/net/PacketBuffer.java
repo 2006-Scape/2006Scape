@@ -36,7 +36,7 @@ public class PacketBuffer {
 	}
 
 	public PacketBuffer addBoolean(boolean val) {
-		return addByte(val == true ? 1 : 0);
+		return addByte(val ? 1 : 0);
 	}
 
 	public boolean getBoolean() {

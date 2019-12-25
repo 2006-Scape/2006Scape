@@ -34,7 +34,7 @@ public class GnomeAgility {
 		case NET1_OBJECT:
 			c.getAgility().climbUp(c.getX(), c.getY() - 2, 1);
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
-			if (c.getAgility().agilityProgress[0] == true) {
+			if (c.getAgility().agilityProgress[0]) {
 				c.getAgility().agilityProgress[1] = true;
 			}
 			return true;
@@ -42,7 +42,7 @@ public class GnomeAgility {
 		case TREE_OBJECT:
 			c.getAgility().climbUp(c.getX(), c.getY() - 3, 2);
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
-			if (c.getAgility().agilityProgress[1] == true) {
+			if (c.getAgility().agilityProgress[1]) {
 				c.getAgility().agilityProgress[2] = true;
 			}
 			return true;
@@ -58,7 +58,7 @@ public class GnomeAgility {
 			c.getPlayerAssistant().movePlayer(2483, 3420, 2);
 			}
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
-			if (c.getAgility().agilityProgress[2] == true) {
+			if (c.getAgility().agilityProgress[2]) {
 				c.getAgility().agilityProgress[3] = true;
 			}
 			return true;
@@ -66,7 +66,7 @@ public class GnomeAgility {
 		case TREE_BRANCH_OBJECT:
 			c.getAgility().climbDown(c.getX(), c.getY(), 0);
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
-			if (c.getAgility().agilityProgress[3] == true) {
+			if (c.getAgility().agilityProgress[3]) {
 				c.getAgility().agilityProgress[4] = true;
 			}
 			return true;
@@ -79,7 +79,7 @@ public class GnomeAgility {
 				c.getAgility().climbUp(c.getX(), c.getY() + 2, 0);
 				c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
 				clickTimer = System.currentTimeMillis();
-				if (c.getAgility().agilityProgress[4] == true) {
+				if (c.getAgility().agilityProgress[4]) {
 					c.getAgility().agilityProgress[5] = true;
 				}
 			}
@@ -88,7 +88,7 @@ public class GnomeAgility {
 		case PIPES1_OBJECT:
 			if (c.getAgility().hotSpot(2484, 3430)) {
 				c.getAgility().walk(0, 7, c.getAgility().getAnimation(objectId), 748);
-				if (c.getAgility().agilityProgress[5] == true) {
+				if (c.getAgility().agilityProgress[5]) {
 					c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
 					c.getAgility().lapBonus = 1400 / 30;
 					c.getAgility().lapFinished();
@@ -105,7 +105,7 @@ public class GnomeAgility {
 		case PIPES2_OBJECT:
 			if (c.getAgility().hotSpot(2487, 3430)) {
 				c.getAgility().walk(0, 7, c.getAgility().getAnimation(objectId), 748);
-				if (c.getAgility().agilityProgress[5] == true) {
+				if (c.getAgility().agilityProgress[5]) {
 					c.getPlayerAssistant().addSkillXP(
 							c.getAgility().getXp(objectId), c.playerAgility);
 					c.getAgility().lapBonus = 1400 / 30;

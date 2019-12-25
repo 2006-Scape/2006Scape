@@ -28,7 +28,7 @@ public class Firemaking {
 	public static void attemptFire(final Player c, final int itemUsed, final int usedWith, final int x, final int y, final boolean groundObject) {
 		int firemakingItems[] = {590, 7329, 7330, 7331};
 		for (int i = 0; i < firemakingItems.length; i++) {
-		if (Firemaking.pickedUpFiremakingLog == true) {
+		if (Firemaking.pickedUpFiremakingLog) {
 			c.getPacketSender().sendMessage("You can't do that!");
 			Firemaking.pickedUpFiremakingLog = false;
 			return;
@@ -87,20 +87,20 @@ public class Firemaking {
 					walk = false;
 				}
 				c.startAnimation(733);
-				c.getPlayerAssistant().walkTo(walk == true ? -1 : 1, 0);
+				c.getPlayerAssistant().walkTo(walk ? -1 : 1, 0);
 				stopFiremaking = false;
 				CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 
 					@Override
 					public void execute(CycleEventContainer container) {
-						if (stopFiremaking == true) {
+						if (stopFiremaking) {
 							stopFiremaking = false;
 							return;
 						}
 						if (c.isWoodcutting || c.playerIsFletching || c.isFletching) {
 							container.stop();
 						}
-						if (c.isFiremaking == true) {
+						if (c.isFiremaking) {
 							GameEngine.itemHandler.removeGroundItem(c, logId, x, y, false);
 							c.getPacketSender().sendSound(SoundList.FIRE_SUCCESSFUL, 100, 0);
 							if (itemUsed == 7331 || usedWith == 7331)
@@ -120,7 +120,7 @@ public class Firemaking {
 
 										@Override
 										public void execute(CycleEventContainer container) {
-											c.turnPlayerTo(walk == true ? x + 1 : x - 1, y);
+											c.turnPlayerTo(walk ? x + 1 : x - 1, y);
 											logLit = true;
 											stopFiremaking(c);
 											container.stop();

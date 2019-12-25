@@ -35,7 +35,7 @@ public class SkillHandler {
 				|| player.isMining || player.isWoodcutting || player.isSmithing
 				|| player.isSmelting || player.isSpinning || player.isPotionMaking
 				|| player.isPotCrafting || player.isFiremaking
-				|| player.playerSkilling[player.playerHerblore] == true
+				|| player.playerSkilling[player.playerHerblore]
 				|| player.playerSkilling[13]) {
 			return true;
 		}
@@ -46,7 +46,7 @@ public class SkillHandler {
 	public static void resetItemOnNpc(Player player) {
 		if (player.isMining) {// mining
 			Mining.resetMining(player);
-		} else if (player.playerIsFletching == true) {// fletching
+		} else if (player.playerIsFletching) {// fletching
 			player.playerIsFletching = false;
 		} else if (player.playerIsCooking) {// cooking
 			Cooking.resetCooking(player);
@@ -56,7 +56,7 @@ public class SkillHandler {
 			isSkilling[12] = false;
 		} else if (player.isSmelting) {
 			player.isSmelting = false;
-		} else if (player.isCrafting == true) {
+		} else if (player.isCrafting) {
 			player.isCrafting = false;
 		} else if (player.isPotionMaking) {// herblore
 			Herblore.resetHerblore(player);
@@ -64,7 +64,7 @@ public class SkillHandler {
 			Woodcutting.stopWoodcutting(player);
 		} else if (player.isSpinning) {// spinning
 			player.isSpinning = false;
-		} else if (player.isPotCrafting == true) {// pot crafting
+		} else if (player.isPotCrafting) {// pot crafting
 			player.isPotCrafting = false;
 		} else if (player.playerIsCooking) {// cooking
 			Cooking.resetCooking(player);
@@ -79,7 +79,7 @@ public class SkillHandler {
 			Fishing.resetFishing(player);
 		} else if (player.isMining) {// mining
 			Mining.resetMining(player);
-		} else if (player.playerIsFletching == true) {// fletching
+		} else if (player.playerIsFletching) {// fletching
 			player.playerIsFletching = false;
 		} else if (player.playerIsCooking) {// cooking
 			Cooking.resetCooking(player);
@@ -89,7 +89,7 @@ public class SkillHandler {
 			isSkilling[12] = false;
 		} else if (player.isSmelting) {
 			player.isSmelting = false;
-		} else if (player.isCrafting == true) {
+		} else if (player.isCrafting) {
 			player.isCrafting = false;
 		} else if (player.isPotionMaking) {// herblore
 			Herblore.resetHerblore(player);
@@ -97,7 +97,7 @@ public class SkillHandler {
 			Woodcutting.stopWoodcutting(player);
 		} else if (player.isSpinning) {// spinning
 			player.isSpinning = false;
-		} else if (player.isPotCrafting == true) {// pot crafting
+		} else if (player.isPotCrafting) {// pot crafting
 			player.isPotCrafting = false;
 		}
 	}

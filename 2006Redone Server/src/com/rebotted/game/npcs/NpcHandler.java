@@ -667,7 +667,7 @@ public class NpcHandler {
 						npcs[i].actionTimer = 4; // delete time
 						resetPlayersInCombat(i);
 					} else if (npcs[i].actionTimer == 0
-							&& npcs[i].applyDead == true
+							&& npcs[i].applyDead
 							&& npcs[i].needRespawn == false) {
 						npcs[i].needRespawn = true;
 						npcs[i].actionTimer = NpcData.getRespawnTime(i); // respawn
@@ -698,7 +698,7 @@ public class NpcHandler {
 							if (player.tutorialProgress == 24) {
 								handleratdeath(i);
 							} else if (player.tutorialProgress == 25
-									&& player.ratdied2 == true) {
+									&& player.ratdied2) {
 								handleratdeath2(i);
 							}
 						}
@@ -744,7 +744,7 @@ public class NpcHandler {
 							GameEngine.objectManager.removeObject(npcs[i].absX,
 									npcs[i].absY);
 						}
-					} else if (npcs[i].actionTimer == 0 && npcs[i].needRespawn == true && npcs[i].npcType != 1158) {
+					} else if (npcs[i].actionTimer == 0 && npcs[i].needRespawn && npcs[i].npcType != 1158) {
 						if (npcs[i].spawnedBy > 0) {
 							npcs[i] = null;
 						} else {

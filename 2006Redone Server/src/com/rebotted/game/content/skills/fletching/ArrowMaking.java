@@ -79,7 +79,7 @@ public class ArrowMaking {
 		if (arrowData == null) {
 			return false;
 		}
-		if (player.isWoodcutting == true) {
+		if (player.isWoodcutting) {
 			return false;
 		}
 		if (player.playerLevel[9] < arrowData.getLevel()) {

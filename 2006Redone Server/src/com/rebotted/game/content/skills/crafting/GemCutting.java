@@ -13,7 +13,7 @@ public class GemCutting extends CraftingData {
 	public static boolean cutGem(final Player player, final int itemUsed,
 			final int usedWith) {
 		/*
-		 * if (c.isCrafting == true) { return false; }
+		 * if (c.isCrafting) { return false; }
 		 */
 		final int itemId = itemUsed == 1755 ? usedWith : itemUsed;
 		for (final cutGemData g : cutGemData.values()) {
@@ -43,7 +43,7 @@ public class GemCutting extends CraftingData {
 							player.getItemAssistant().deleteItem(itemId, 1);
 							player.getPlayerAssistant().addSkillXP(1, 12);
 						}
-						if (player.isCrafting == true) {
+						if (player.isCrafting) {
 							if (player.getItemAssistant().playerHasItem(itemId)) {
 								player.getItemAssistant().deleteItem(itemId, 1);
 								player.getItemAssistant().addItem(g.getCut(), 1);

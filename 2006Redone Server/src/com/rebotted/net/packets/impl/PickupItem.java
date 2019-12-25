@@ -59,7 +59,7 @@ public class PickupItem implements PacketType {
 			return;
 		}
 		for (LogData logData : LogData.values()) {
-			if (player.isFiremaking == true && player.pItemId == logData.getLogId()) {
+			if (player.isFiremaking && player.pItemId == logData.getLogId()) {
 				player.getPacketSender().sendMessage("You can't do that!");
 				Firemaking.stopFiremaking = true;
 				return;

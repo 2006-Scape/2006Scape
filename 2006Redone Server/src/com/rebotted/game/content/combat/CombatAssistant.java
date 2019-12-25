@@ -569,7 +569,7 @@ public class CombatAssistant {
 					return;
 				}
 			}
-			if (c.isWoodcutting == true) {
+			if (c.isWoodcutting) {
 				c.getPacketSender().sendMessage("You can't attack an npc while woodcutting.");
 				resetPlayerAttack();
 				return;

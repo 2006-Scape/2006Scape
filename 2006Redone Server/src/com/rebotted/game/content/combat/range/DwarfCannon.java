@@ -98,7 +98,7 @@ public class DwarfCannon {
 
 	}
 	public void placeCannon() {
-		if (settingUp == true) {
+		if (settingUp) {
 			return;
 		}
 		if (noSetUpArea()) {
@@ -250,7 +250,7 @@ public class DwarfCannon {
 			}
 			if (myBalls >= 1 && rotating == false) {
 				shoot();
-			} else if (myBalls >= 1 && rotating == true) {
+			} else if (myBalls >= 1 && rotating) {
 				player.getPacketSender().sendMessage("Your cannon is already shooting.");
 			}
 		}
@@ -283,7 +283,7 @@ public class DwarfCannon {
 		}
 		
 		public void shoot() {
-			if (justClicked == true) {
+			if (justClicked) {
 				return;
 			}
 			rotating = true;
@@ -302,7 +302,7 @@ public class DwarfCannon {
 						rotating = false;
 						e.stop();
 					}
-					if (rotating == true) {
+					if (rotating) {
 						rotation += 1;
 						rotateCannon();
 						shootNpcs();
@@ -360,7 +360,7 @@ public class DwarfCannon {
 				player.getPacketSender().sendMessage("You can't pick up somebody else's cannon!");
 				return;
 			}
-			if (rotating == true) {
+			if (rotating) {
 				rotating = false;
 			}
 			if (player.getItemAssistant().freeSlots() > 3) {

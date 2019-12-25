@@ -17,7 +17,7 @@ public class GnomeGlider {
 	};
 
 	public static void flightButtons(Player player, int button) {
-		if (player.gliderOpen == true) {
+		if (player.gliderOpen) {
 			for (int i = 0; i < getLength(); i++) {
 				if (getButton(i) == button) {
 					handleFlight(player, i);

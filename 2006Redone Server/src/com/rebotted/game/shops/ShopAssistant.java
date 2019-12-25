@@ -41,7 +41,7 @@ public class ShopAssistant {
 	public void updatePlayerShop() {
 		for (int i = 0; i < PlayerHandler.players.length; i++) {
 			if (PlayerHandler.players[i] != null) {
-				if (PlayerHandler.players[i].isShopping == true
+				if (PlayerHandler.players[i].isShopping
 						&& PlayerHandler.players[i].shopId == player.shopId
 						&& i != player.playerId) {
 					PlayerHandler.players[i].updateShop = true;

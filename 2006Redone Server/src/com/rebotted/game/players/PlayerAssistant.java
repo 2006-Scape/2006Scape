@@ -737,7 +737,7 @@ public class PlayerAssistant {
 			if (player.playerIndex > 0 || player.npcIndex > 0) {
 				player.getCombatAssistant().resetPlayerAttack();
 			}
-			if (player.clickedTree == true) {
+			if (player.clickedTree) {
 				player.clickedTree = false;
 			}
 			player.stopMovement();
@@ -1450,13 +1450,13 @@ public class PlayerAssistant {
 				GameLogger.writeLog(player.playerName, "duelingkilled", player.playerName + " was killed by " + duelOpponent.playerName + " in the duel arena.");
 			}
 		}
-		if (player.vampSlayer == 3 && player.clickedVamp == true) {
+		if (player.vampSlayer == 3 && player.clickedVamp) {
 			player.clickedVamp = false;
 		} else if (player.isWoodcutting) {
 			player.isWoodcutting = false;
 		} else if (player.playerSkilling[10]) {
 			player.playerSkilling[10] = false;
-		} else if(player.clickedTree == true) {
+		} else if(player.clickedTree) {
 				player.clickedTree = false;
 		}
 		resetDamageDone();
@@ -2117,7 +2117,7 @@ public class PlayerAssistant {
 			}
 			return false;
 		}
-		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && GameConstants.TUTORIAL_ISLAND == true) {
+		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && GameConstants.TUTORIAL_ISLAND) {
 			return false;
 		}
 		amount *= GameConstants.XP_RATE;
@@ -2174,7 +2174,7 @@ public class PlayerAssistant {
 			return false;
 		}
 		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3
-				&& GameConstants.TUTORIAL_ISLAND == true) {
+				&& GameConstants.TUTORIAL_ISLAND) {
 			return false;
 		}
 		amount *= GameConstants.XP_RATE;

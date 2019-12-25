@@ -66,7 +66,7 @@ public class ObjectsActions {
 			Webs.slashWeb(player, objectType, objectX, objectY);
 			return;
 		}
-		if (player.stopPlayerPacket == true) {
+		if (player.stopPlayerPacket) {
 			return;
 		}
 		//LogCutting.resetFletching(player);
@@ -907,8 +907,8 @@ public class ObjectsActions {
 
 		case 3015:
 		case 3016:
-			if (player.tutorialProgress == 7 || player.diedOnTut == true) {
-				if (player.diedOnTut == true) {
+			if (player.tutorialProgress == 7 || player.diedOnTut) {
+				if (player.diedOnTut) {
 					player.getPlayerAssistant().movePlayer(player.absX - 1,
 							player.absY, 0);
 					player.getPacketSender().createArrow(3078, 3084,
@@ -1117,7 +1117,7 @@ public class ObjectsActions {
 
 				case 3020:
 				case 3021:
-				if (player.diedOnTut == true && (player.getY() == 9502 || player.getY() == 9503)) {
+				if (player.diedOnTut && (player.getY() == 9502 || player.getY() == 9503)) {
 					player.getDialogueHandler()
 							.sendStatement2(
 									"You have died so now all you need to do is continue",
@@ -1171,8 +1171,8 @@ public class ObjectsActions {
 		case 3022:
 			if (player.tutorialProgress >= 24
 					&& (player.getY() == 9519 || player.getY() == 9518)
-					|| player.diedOnTut == true) {
-				if (player.diedOnTut == true) {
+					|| player.diedOnTut) {
+				if (player.diedOnTut) {
 					player.getDialogueHandler()
 							.sendStatement2("Be more careful this time",
 									"now continue to kill the rat and talk to the guide.");
@@ -1361,8 +1361,8 @@ public class ObjectsActions {
 			break;
 
 		case 3029:
-			if (player.tutorialProgress >= 14 || player.diedOnTut == true) {
-				if (player.diedOnTut == true) {
+			if (player.tutorialProgress >= 14 || player.diedOnTut) {
+				if (player.diedOnTut) {
 					player.startAnimation(828);
 					player.getPlayerAssistant().movePlayer(3088, 9520, 0);
 					player.getPacketSender().createArrow(3094, 9503,
@@ -1781,7 +1781,7 @@ public class ObjectsActions {
 				NpcHandler.spawnNpc(player, 757, player.getX(), player.getY(), 0, 0, 50, 10, 30, 30, true, true);
 				player.getPacketSender().sendMessage("You will need a stake and hammer to attack count draynor.");
 				player.clickedVamp = true;
-			} else if (player.vampSlayer == 3 && player.clickedVamp == true) {
+			} else if (player.vampSlayer == 3 && player.clickedVamp) {
 				player.getPacketSender().sendMessage("You have already spawned the vampyre.");
 				return;
 			} else if (player.vampSlayer > 3) {
@@ -1820,7 +1820,7 @@ public class ObjectsActions {
 
 		case 2072: // crate
 			if (player.getItemAssistant().playerHasItem(1963, 10)
-					&& player.luthas == true) {
+					&& player.luthas) {
 				player.getItemAssistant().deleteItem(1963, 10);
 				player.getDialogueHandler().sendStatement(
 						"You pack your bananas in the crate...");
@@ -1859,7 +1859,7 @@ public class ObjectsActions {
 		case 2073: // Banana tree
 		case 4754:
 			if (System.currentTimeMillis() - player.waitTime > 2000) {
-				if (player.luthas == true) {
+				if (player.luthas) {
 					player.bananas += 1;
 					player.getItemAssistant().addItem(1963, 1);
 					player.waitTime = System.currentTimeMillis();

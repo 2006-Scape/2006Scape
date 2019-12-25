@@ -50,7 +50,7 @@ public class DropItem implements PacketType {
 					"You can't drop items while trading!");
 			return;
 		}
-		if (player.hasNpc == true) {
+		if (player.hasNpc) {
 			player.getPacketSender().sendMessage(
 					"You already have a pet dropped.");
 			return;
@@ -96,7 +96,7 @@ public class DropItem implements PacketType {
 
 		for (int p : Pets.CAT_ITEMS) {
 			if (p == itemId) {
-				if (player.hasNpc == true) {
+				if (player.hasNpc) {
 					droppable = false;
 					break;
 				}

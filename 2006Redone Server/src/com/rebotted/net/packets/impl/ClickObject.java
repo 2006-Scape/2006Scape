@@ -142,7 +142,7 @@ public class ClickObject implements PacketType {
 			}
 			switch (p.objectId) {
 			case 1292:
-				if (p.spiritTree == false && p.clickedTree == true) {
+				if (p.spiritTree == false && p.clickedTree) {
 					p.getPacketSender().sendMessage("You have already spawned a tree spirit.");
 					return;
 				}
@@ -150,7 +150,7 @@ public class ClickObject implements PacketType {
 					p.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
 					NpcHandler.spawnNpc(p, 655, p.getX(), p.getY(), 0, 0, 225, 20, 80, 80, true, false);
 					p.clickedTree = true;
-				} else if (p.spiritTree == true) {
+				} else if (p.spiritTree) {
 					Woodcutting.startWoodcutting(p, p.objectId, p.objectX, p.objectY, p.clickObjectType);
 				}
 				break;

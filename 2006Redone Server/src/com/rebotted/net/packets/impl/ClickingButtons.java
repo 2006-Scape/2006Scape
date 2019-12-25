@@ -57,7 +57,7 @@ public class ClickingButtons implements PacketType {
 		Climbing.handleLadderButtons(player, actionButtonId);
 		Specials.specialClicking(player, actionButtonId);
 		DialogueOptions.handleDialogueOptions(player, actionButtonId);
-		if (player.musicOn == true) {
+		if (player.musicOn) {
 			player.getPlayList().handleButton(actionButtonId);
 		}
 
@@ -253,7 +253,7 @@ public class ClickingButtons implements PacketType {
 		case 34185:
 		case 34193:
 		case 34189:
-			if (player.clickedSpinning == true) {
+			if (player.clickedSpinning) {
 				Spinning.getAmount(player, 1);
 			}
 			break;
@@ -261,7 +261,7 @@ public class ClickingButtons implements PacketType {
 		case 34184:
 		case 34188:
 		case 34192:
-			if (player.clickedSpinning == true) {
+			if (player.clickedSpinning) {
 				Spinning.getAmount(player, 5);
 			}
 			break;
@@ -269,7 +269,7 @@ public class ClickingButtons implements PacketType {
 		case 34183:
 		case 34187:
 		case 34191:
-			if (player.clickedSpinning == true) {
+			if (player.clickedSpinning) {
 				Spinning.getAmount(player, 10);
 			}
 			break;
@@ -277,7 +277,7 @@ public class ClickingButtons implements PacketType {
 		case 34182:
 		case 34186:
 		case 34190:
-			if (player.clickedSpinning == true) {
+			if (player.clickedSpinning) {
 				Spinning.getAmount(player, 28);
 			}
 			break;
@@ -287,100 +287,100 @@ public class ClickingButtons implements PacketType {
 		 */
 		// item 1
 		case 34245:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1787, 6.3, 1, 1);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1787, 1931, 1, 6.3, 1);
 			}
 			break;
 		case 34244:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1787, 6.3, 1, 5);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1787, 1931, 1, 6.3, 5);
 			}
 			break;
 		case 34243:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1787, 6.3, 1, 10);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1787, 1931, 1, 6.3, 10);
 			}
 			break;
 		case 34242:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1787, 6.3, 1, 28);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1787, 1931, 1, 6.3, 28);
 			}
 			break;
 		// item 2
 		case 34249:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1789, 15, 7, 1);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1789, 2313, 7, 10, 1);
 			}
 			break;
 		case 34248:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1789, 15, 7, 5);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1789, 2313, 7, 10, 5);
 			}
 			break;
 		case 34247:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1789, 15, 7, 10);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1789, 2313, 7, 10, 10);
 			}
 			break;
 		case 34246:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1789, 15, 7, 28);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1789, 2313, 7, 10, 28);
 			}
 			break;
 		// item 3
 		case 34253:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1791, 18, 8, 1);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1791, 1923, 8, 15, 1);
 			}
 			break;
 		case 34252:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1791, 18, 8, 5);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1791, 1923, 8, 15, 5);
 			}
 			break;
 		case 34251:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1791, 18, 8, 10);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1791, 1923, 8, 15, 10);
 			}
 			break;
 		case 34250:
-			if (player.showedUnfire == true) {
+			if (player.showedUnfire) {
 				Pottery.makeUnfire(player, 1791, 18, 8, 28);
 			}
-			if (player.showedFire == true) {
+			if (player.showedFire) {
 				Pottery.makeFire(player, 1791, 1923, 8, 15, 28);
 			}
 			break;
@@ -623,7 +623,7 @@ public class ClickingButtons implements PacketType {
 			break;
 
 		case 3162:
-			if (player.musicOn == true) {
+			if (player.musicOn) {
 				player.musicOn = false;
 			} else {
 				player.getPacketSender().sendMessage("Your music is already turned off.");
@@ -1765,7 +1765,7 @@ public class ClickingButtons implements PacketType {
 				player.getPacketSender().sendConfig(502, 1);
 				player.getPacketSender().sendConfig(287, 1);
 				player.splitChat = true;
-			} else if (player.splitChat == true) {
+			} else if (player.splitChat) {
 				player.getPacketSender().sendConfig(502, 0);
 				player.getPacketSender().sendConfig(287, 0);
 				player.splitChat = false;

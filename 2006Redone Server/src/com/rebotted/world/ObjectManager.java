@@ -184,11 +184,11 @@ public class ObjectManager {
 
 	public void loadCustomSpawns(Player c) {
 		c.getPacketSender().checkObjectSpawn(2474, 3233, 9312, 0, 10);
-		if (c.rope == true) {
+		if (c.rope) {
 			c.getPacketSender().object(3828, 3227, 3108, 0, 0, 10);
 			Region.addObject(3828, 3227, 3108, 0, 10, 0, false);
 		} 
-		if (c.rope2 == true) {
+		if (c.rope2) {
 			c.getPacketSender().object(3828, 3509, 9497, 2, 0, 10);
 			Region.addObject(3828, 3509, 9497, 2, 10, 0, false);
 		}
