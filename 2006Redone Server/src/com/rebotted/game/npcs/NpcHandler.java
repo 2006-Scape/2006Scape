@@ -967,7 +967,7 @@ public class NpcHandler {
 				// These npcs shouldn't have drops
 				return;
 			}
-			for (ItemDrop possible_drop : NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase(), npcs[i].npcType)) {
+			for (ItemDrop possible_drop : NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase().replace(" ", "_"), npcs[i].npcType)) {
 				if (Misc.random(possible_drop.getChance()) == 0) {
 					int amt = possible_drop.getAmount();
 					GameEngine.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY, amt, c.playerId);

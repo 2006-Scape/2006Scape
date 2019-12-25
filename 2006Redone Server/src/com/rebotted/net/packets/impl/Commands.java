@@ -820,7 +820,7 @@ public class Commands implements PacketType {
                     boolean attackPlayer = NpcHandler.getNpcListCombat(newNPC) > 0;
                     if (newNPC > 0) {
                         NpcHandler.spawnNpc(player, newNPC, player.absX, player.absY, player.heightLevel, 0, NpcHandler.getNpcListHP(newNPC), maxHit, attack, defence, attackPlayer, false);
-                        player.getPacketSender().sendMessage("You spawn a " + NpcHandler.getNpcListName(newNPC).toLowerCase() + ".");
+                        player.getPacketSender().sendMessage("You spawn a " + NpcHandler.getNpcListName(newNPC) + ".");
                         //player.npcSpawned = newNPC;
                     } else {
                         player.getPacketSender().sendMessage("Npc " + newNPC + " does not exist.");
