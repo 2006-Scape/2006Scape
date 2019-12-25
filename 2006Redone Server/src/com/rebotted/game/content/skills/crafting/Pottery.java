@@ -54,7 +54,7 @@ public class Pottery {
 		c.doAmount = amount;
 		c.isPotCrafting = true;
 		if (c.getItemAssistant().playerHasItem(softClay)
-				&& c.playerLevel[12] >= level && c.isPotCrafting == true) {
+				&& c.playerLevel[12] >= level && c.isPotCrafting) {
 			c.startAnimation(unFire);
 			c.getItemAssistant().deleteItem(softClay, 1);
 			c.getItemAssistant().addItem(id, 1);
@@ -70,7 +70,7 @@ public class Pottery {
 			public void execute(CycleEventContainer container) {
 				if (c.getItemAssistant().playerHasItem(softClay)
 						&& c.playerLevel[12] >= level && !(c.doAmount <= 0)
-						&& c.isPotCrafting == true) {
+						&& c.isPotCrafting) {
 					c.startAnimation(unFire);
 					c.getItemAssistant().deleteItem(softClay, 1);
 					c.getItemAssistant().addItem(id, 1);
@@ -118,7 +118,7 @@ public class Pottery {
 		player.doAmount = amount;
 		player.isPotCrafting = true;
 		if (player.getItemAssistant().playerHasItem(startId)
-				&& player.playerLevel[12] >= level && player.isPotCrafting == true) {
+				&& player.playerLevel[12] >= level && player.isPotCrafting) {
 			player.getItemAssistant().deleteItem(startId, 1);
 			player.getItemAssistant().addItem(finishId, 1);
 			player.startAnimation(Fire);
@@ -151,7 +151,7 @@ public class Pottery {
 			public void execute(CycleEventContainer container) {
 				if (player.getItemAssistant().playerHasItem(startId)
 						&& player.playerLevel[12] >= level
-						&& player.isPotCrafting == true && !(player.doAmount <= 0)) {
+						&& player.isPotCrafting && !(player.doAmount <= 0)) {
 					player.getItemAssistant().deleteItem(startId, 1);
 					player.getItemAssistant().addItem(finishId, 1);
 					player.startAnimation(Fire);

@@ -141,7 +141,7 @@ public class PlayerHandler {
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
 					players[i].lastH = players[i].heightLevel;
-					if (players[i].hasNpc == true) {
+					if (players[i].hasNpc) {
 						t.getSummon().quickPickup(t, players[i].summonId);
 					}
 					if (players[i].duelStatus == 5) {
@@ -212,7 +212,7 @@ public class PlayerHandler {
 					players[i].lastX = players[i].absX;
 					players[i].lastY = players[i].absY;
 					players[i].lastH = players[i].heightLevel;
-					if (players[i].hasNpc == true) {
+					if (players[i].hasNpc) {
 						t.getSummon().quickPickup(t, players[i].summonId);
 					}
 					if (players[i].duelStatus == 5) {
@@ -282,7 +282,7 @@ public class PlayerHandler {
 		int size = plr.npcListSize;
 		plr.npcListSize = 0;
 		for (int i = 0; i < size; i++) {
-			if (plr.rebuildNPCList == false && plr.withinDistance(plr.npcList[i]) == true) {
+			if (plr.rebuildNPCList == false && plr.withinDistance(plr.npcList[i])) {
 				plr.npcList[i].updateNPCMovement(str);
 				plr.npcList[i].appendNPCUpdateBlock(updateBlock);
 				plr.npcList[plr.npcListSize++] = plr.npcList[i];

@@ -40,7 +40,7 @@ public class Spinning extends CraftingData {
 
 				@Override
 				public void execute(CycleEventContainer container) {
-					if (c.isSpinning == true) {
+					if (c.isSpinning) {
 						if (c.getItemAssistant().playerHasItem(before)) {
 							if (c.playerLevel[c.playerCrafting] < level) {
 								c.getDialogueHandler().sendStatement(

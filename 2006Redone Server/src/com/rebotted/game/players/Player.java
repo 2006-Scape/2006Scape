@@ -511,7 +511,7 @@ public abstract class Player {
 			PestControl.leaveWaitingBoat(this);
 			getPlayerAssistant().movePlayer(2657, 2639, 0);
 		}
-		if (hasNpc == true) {
+		if (hasNpc) {
 			getSummon().pickUpPet(this, summonId);
 		}
 
@@ -599,7 +599,7 @@ public abstract class Player {
 			lastY = absY;
 			lastH = heightLevel;
 			CycleEventHandler.getSingleton().stopEvents(this);
-			if (hasNpc == true) {
+			if (hasNpc) {
 				getSummon().pickUpPet(this, summonId);
 			}
 			if (forceLogout || System.currentTimeMillis() - logoutDelay > 2500) {
@@ -2063,7 +2063,7 @@ public abstract class Player {
 		if (heightLevel != npc.heightLevel) {
 			return false;
 		}
-		if (npc.needRespawn == true) {
+		if (npc.needRespawn) {
 			return false;
 		}
 		int deltaX = npc.absX - absX, deltaY = npc.absY - absY;

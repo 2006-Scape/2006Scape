@@ -218,7 +218,7 @@ public class Trawler extends GroupMinigame {
                 }
                 GameEngine.objectHandler.removeObject(GameEngine.objectHandler.getObjectByPosition(w.x, w.y));
                 GameEngine.objectHandler.removeObject(GameEngine.objectHandler.getObjectByPosition(w.x + (isSunk ? -128 : 128), w.y));
-                if (wall_status[index] == true) {
+                if (wall_status[index]) {
                         GameEngine.objectHandler.createAnObject(leaking_wall, w.x, w.y,
                                         w.y == 4826 ? 1 : 3);
                         if (isSunk)

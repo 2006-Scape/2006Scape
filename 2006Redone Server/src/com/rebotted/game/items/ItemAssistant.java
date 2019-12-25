@@ -1800,7 +1800,7 @@ public class ItemAssistant {
 		if (!CastleWars.deleteCastleWarsItems(c, itemID)) {
 			return false;
 		}
-		if (c.otherBank == true) {
+		if (c.otherBank) {
 			c.getPacketSender().closeAllWindows();
 			c.getPacketSender().sendMessage("You can't bank while viewing someones bank!");
 			c.otherBank = false;

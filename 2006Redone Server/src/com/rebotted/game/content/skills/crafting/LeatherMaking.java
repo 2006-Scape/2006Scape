@@ -62,7 +62,7 @@ public class LeatherMaking extends CraftingData {
 	private static int amount;
 
 	public static void craftLeather(final Player player, final int buttonId) {
-		if (player.isCrafting == true) {
+		if (player.isCrafting) {
 			return;
 		}
 		for (final leatherData l : leatherData.values()) {
@@ -106,7 +106,7 @@ public class LeatherMaking extends CraftingData {
 								@Override
 								public void execute(
 										CycleEventContainer container) {
-									if (player.isCrafting == true) {
+									if (player.isCrafting) {
 										if (!player.getItemAssistant()
 												.playerHasItem(1734)) {
 											player.getPacketSender()

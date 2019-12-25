@@ -49,7 +49,7 @@ public class PacketSender {
 		}
 		player.lastLoginDate = player.getLastLogin();
 		QuestAssistant.sendStages(player);
-		if (player.hasNpc == true) {
+		if (player.hasNpc) {
 			if (player.summonId > 0) {
 				GameEngine.npcHandler.spawnNpc3(player, player.summonId, player.absX, player.absY - 1, player.heightLevel, 0, 120, 25, 200, 200, true, false, true);
 			}
@@ -98,7 +98,7 @@ public class PacketSender {
 		if (player.inWild()) {
 			player.WildernessWarning = true;
 		}
-		if (player.splitChat == true) {
+		if (player.splitChat) {
 			player.getPacketSender().sendConfig(502, 1);
 			player.getPacketSender().sendConfig(287, 1);
 		} else {

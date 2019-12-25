@@ -59,7 +59,7 @@ public class ThieveOther {
 			client.getPacketSender().sendMessage("Thieving is currently disabled.");
 			return;
 		}
-		if (isPicking == true) {
+		if (isPicking) {
 			client.getPacketSender().sendMessage("You are already picking a lock.");
 			return;
 		}

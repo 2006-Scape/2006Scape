@@ -56,7 +56,7 @@ public class BarbarianAgility {
 			if (c.getAgility().hotSpot(2551, 3546)) {
 				c.getAgility().walk(-10, 0, c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
-				if (c.getAgility().agilityProgress[0] == true) {
+				if (c.getAgility().agilityProgress[0]) {
 					c.getAgility().agilityProgress[1] = true;
 				}
 			} else if (c.absX < 2551 && c.absX > 2541) {
@@ -72,7 +72,7 @@ public class BarbarianAgility {
 			c.getAgility().climbUp(c.getX() - 1, c.getY(), 1);
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId),
 					c.playerAgility);
-			if (c.getAgility().agilityProgress[1] == true) {
+			if (c.getAgility().agilityProgress[1]) {
 				c.getAgility().agilityProgress[2] = true;
 				}
 			} else {
@@ -90,7 +90,7 @@ public class BarbarianAgility {
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
 						c.getAgility().getXp(objectId), c.playerAgility);
-				if (c.getAgility().agilityProgress[2] == true) {
+				if (c.getAgility().agilityProgress[2]) {
 					c.getAgility().agilityProgress[3] = true;
 				}
 			} else if (c.absX < 2536 && c.absX > 2532) {
@@ -109,7 +109,7 @@ public class BarbarianAgility {
 			}
 			c.getAgility().climbDown(c.getX(), c.getY(), 0);
 			c.getPacketSender().sendMessage("You climb down.");
-			if (c.getAgility().agilityProgress[3] == true) {
+			if (c.getAgility().agilityProgress[3]) {
 				c.getAgility().agilityProgress[4] = true;
 			}
 			return true;
@@ -123,10 +123,10 @@ public class BarbarianAgility {
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
 						c.getAgility().getXp(objectId), c.playerAgility);
-				if (c.getAgility().agilityProgress[4] == true) {
+				if (c.getAgility().agilityProgress[4]) {
 					c.getAgility().agilityProgress[5] = true;
 				}
-				if (c.getAgility().agilityProgress[5] == true) {
+				if (c.getAgility().agilityProgress[5]) {
 					c.getAgility().lapBonus = 1700 / 30;
 					c.getAgility().lapFinished();
 					c.getAgility().resetAgilityProgress();

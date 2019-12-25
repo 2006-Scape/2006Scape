@@ -42,13 +42,13 @@ public class Walking implements PacketType {
 		if (player.playerStun) {
 			return;
 		}
-		if (player.stopPlayer == true) {
+		if (player.stopPlayer) {
 			return;
 		}
-		if (player.isFiremaking == true) {
+		if (player.isFiremaking) {
 			player.isFiremaking = false;
 		}
-		if (player.stopPlayerPacket == true) {
+		if (player.stopPlayerPacket) {
 			return;
 		}
 		if (player.inTrade) {
@@ -65,10 +65,10 @@ public class Walking implements PacketType {
 		if (player.closeTutorialInterface == false && player.tutorialProgress == 36) {
 			player.getDialogueHandler().sendDialogues(3116, player.npcType);
 		}
-		if (player.gliderOpen == true) {
+		if (player.gliderOpen) {
 			player.gliderOpen = false;
 		}
-		if (player.isBanking == true) {
+		if (player.isBanking) {
 			player.isBanking = false;
 		}
 		if (player.canWalkTutorial == false && player.tutorialProgress < 36) {

@@ -23,7 +23,7 @@ public class ItemOnNpc implements PacketType {
 			player.getPacketSender().sendMessage("Your inventory is full.");
 			return;
 		}
-		if (player == null || player.disconnected == true || !player.getItemAssistant().playerHasItem(itemId, 1, slot) || NpcHandler.npcs[i] == null || NpcHandler.npcs[i].isDead || player.isDead || player.isTeleporting) {
+		if (player == null || player.disconnected || !player.getItemAssistant().playerHasItem(itemId, 1, slot) || NpcHandler.npcs[i] == null || NpcHandler.npcs[i].isDead || player.isDead || player.isTeleporting) {
 			return;
 		}
 		player.faceNpc(i);

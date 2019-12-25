@@ -176,7 +176,7 @@ public class UseItem {
 		for (int i = 0; i < firemakingItems.length; i++) {
 			if (itemUsed == firemakingItems[i] || useWith == firemakingItems[i] && player.isFiremaking == false) {
 				Firemaking.attemptFire(player, itemUsed, useWith, player.absX, player.absY, false);
-			} else if (itemUsed == firemakingItems[i] || useWith == firemakingItems[i] && player.isFiremaking == true) {
+			} else if (itemUsed == firemakingItems[i] || useWith == firemakingItems[i] && player.isFiremaking) {
 				player.getPacketSender().sendMessage("You can't do that, you are already firemaking.");
 			}
 		}

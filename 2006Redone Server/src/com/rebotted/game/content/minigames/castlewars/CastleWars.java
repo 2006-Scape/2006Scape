@@ -126,7 +126,7 @@ public class CastleWars {
 	public static void addToWaitRoom(Player p, int team) {
 		if (p == null) {
 			return;
-		} else if (gameStarted == true) {
+		} else if (gameStarted) {
 			p.getPacketSender()
 					.sendMessage(
 							"There's already a Castle Wars going. Please wait a few minutes before trying again.");

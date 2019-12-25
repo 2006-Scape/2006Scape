@@ -16,7 +16,7 @@ public class LogCutting {
 	private static final int KNIFE = 946, CUT_SOUND = 375;
 	
 	public static void resetFletching(Player player) {
-		if (player.playerIsFletching == true) {
+		if (player.playerIsFletching) {
 			player.playerIsFletching = false;
 			player.startAnimation(65535);
 		}
@@ -70,7 +70,7 @@ public class LogCutting {
 	}
 
 	public static void handleClick(Player c, int buttonId) {
-		if (c.doAmount == 28 && c.playerIsFletching == true) {
+		if (c.doAmount == 28 && c.playerIsFletching) {
 			c.getPacketSender().closeAllWindows();
 			c.playerIsFletching = false;
 			return;
@@ -80,7 +80,7 @@ public class LogCutting {
 		 * normal log (item on interface 3)
 		 */
 		case 34185:
-		if (c.playerIsFletching == true) {
+		if (c.playerIsFletching) {
 			cutLog(c, 52, 1, 5, 1);
 			c.playerIsFletching = false;
 			return;
@@ -96,7 +96,7 @@ public class LogCutting {
 			cutLog(c, 52, 1, 5, 28);
 			return;
 		case 34189:
-		if (c.playerIsFletching == true) {
+		if (c.playerIsFletching) {
 			cutLog(c, 50, 5, 5, 1);
 			c.playerIsFletching = false;
 			return;
@@ -112,7 +112,7 @@ public class LogCutting {
 			cutLog(c, 50, 5, 5, 28);
 			return;
 		case 34193:
-		if (c.playerIsFletching == true) {
+		if (c.playerIsFletching) {
 			cutLog(c, 48, 10, 10, 1);
 			c.playerIsFletching = false;
 			return;
@@ -134,23 +134,23 @@ public class LogCutting {
 			 * first item
 			 */
 		case 34170:
-			if (LogCuttingInterface.log == 1521 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1521 && c.playerIsFletching) {
 				cutLog(c, 54, 20, 16.5, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1519 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1519 && c.playerIsFletching) {
 				cutLog(c, 60, 35, 33.3, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1517 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1517 && c.playerIsFletching) {
 				cutLog(c, 64, 50, 50, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1515 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1515 && c.playerIsFletching) {
 				cutLog(c, 68, 65, 67.5, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1513 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1513 && c.playerIsFletching) {
 				cutLog(c, 72, 80, 83.25, 1);
 				c.playerIsFletching = false;
 			}
@@ -210,23 +210,23 @@ public class LogCutting {
 			 * second item
 			 */
 		case 34174:
-			if (LogCuttingInterface.log == 1521 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1521 && c.playerIsFletching) {
 				cutLog(c, 56, 25, 25, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1519 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1519 && c.playerIsFletching) {
 				cutLog(c, 58, 40, 41.5, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1517 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1517 && c.playerIsFletching) {
 				cutLog(c, 62, 55, 58.3, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1515 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1515 && c.playerIsFletching) {
 				cutLog(c, 66, 70, 70, 1);
 				c.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1513 && c.playerIsFletching == true) {
+			if (LogCuttingInterface.log == 1513 && c.playerIsFletching) {
 				cutLog(c, 70, 85, 91.5, 1);
 				c.playerIsFletching = false;
 			}

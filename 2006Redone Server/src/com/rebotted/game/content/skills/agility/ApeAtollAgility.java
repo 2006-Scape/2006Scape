@@ -58,7 +58,7 @@ public class ApeAtollAgility {
 				c.getAgility().climbUpTropicalTree(c.getX(), c.getY(), 2);
 				c.getPlayerAssistant().addSkillXP(
 						c.getAgility().getXp(objectId), c.playerAgility);
-				if (c.getAgility().agilityProgress[0] == true) {
+				if (c.getAgility().agilityProgress[0]) {
 					c.getAgility().agilityProgress[1] = true;
 				}
 			}
@@ -81,7 +81,7 @@ public class ApeAtollAgility {
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
 						c.getAgility().getXp(objectId), c.playerAgility);
-				if (c.getAgility().agilityProgress[1] == true) {
+				if (c.getAgility().agilityProgress[1]) {
 					c.getAgility().agilityProgress[2] = true;
 				}
 			}
@@ -102,7 +102,7 @@ public class ApeAtollAgility {
 				c.getPlayerAssistant().addSkillXP(
 						c.getAgility().getXp(objectId), c.playerAgility);
 				c.getPacketSender().sendMessage("You climb your way up");
-				if (c.getAgility().agilityProgress[2] == true) {
+				if (c.getAgility().agilityProgress[2]) {
 					c.getAgility().agilityProgress[3] = true;
 				}
 			}
@@ -122,7 +122,7 @@ public class ApeAtollAgility {
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
 						c.getAgility().getXp(objectId), c.playerAgility);
-				if (c.getAgility().agilityProgress[3] == true) {
+				if (c.getAgility().agilityProgress[3]) {
 					c.getAgility().agilityProgress[4] = true;
 				}
 				  CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
@@ -161,7 +161,7 @@ public class ApeAtollAgility {
 			c.getAgility().moveHeight = 0;
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId),
 					c.playerAgility);
-			if (c.getAgility().agilityProgress[4] == true) {
+			if (c.getAgility().agilityProgress[4]) {
 				c.getAgility().agilityProgress[5] = true;
 			}
 			c.getAgility().lapBonus = 2700;

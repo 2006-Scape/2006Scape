@@ -76,7 +76,7 @@ public class DialogueHandler {
 				break;
 
 			case 4:
-				if (player.luthas == true && player.bananas >= 2) {
+				if (player.luthas && player.bananas >= 2) {
 					player.getItemAssistant().addOrDropItem(995, 30);
 					sendNpcChat1(
 							"Thank you for your services you have been rewarded 30 coins.",
@@ -4703,14 +4703,14 @@ public class DialogueHandler {
 							"for 50 coins?", player.talkingNpc,
 							NpcHandler.getNpcListName(player.talkingNpc));
 					player.nextChat = 1350;
-				} else if (player.hasPaid == true && player.absY > 3485
+				} else if (player.hasPaid && player.absY > 3485
 						&& player.absY < 3489) {
 					sendNpcChat1(
 							"Hello, are you interested in a free ride up the river?",
 							player.talkingNpc,
 							NpcHandler.getNpcListName(player.talkingNpc));
 					player.nextChat = 1350;
-				} else if (player.hasPaid == true) {
+				} else if (player.hasPaid) {
 					sendNpcChat1(
 							"Hello, are you interested in a free back down the river?",
 							player.talkingNpc,
@@ -4745,12 +4745,12 @@ public class DialogueHandler {
 							"modern");
 					player.hasPaid = true;
 					player.nextChat = 0;
-				} else if (player.hasPaid == true && player.absY > 3485
+				} else if (player.hasPaid && player.absY > 3485
 						&& player.absY < 3489) {
 					sendPlayerChat1("Yes please.");
 					player.getPlayerAssistant().startTeleport(2358, 3640, 0,
 							"modern");
-				} else if (player.hasPaid == true) {
+				} else if (player.hasPaid) {
 					sendPlayerChat1("Yes please.");
 					player.getPlayerAssistant().startTeleport(2367, 3488, 0,
 							"modern");
@@ -6743,7 +6743,7 @@ public class DialogueHandler {
 				VotingHandler.setAsReceived(client.playerName);
 				client.recievedMask = true;
 				client.nextChat = 0;
-			} else if (client.recievedMask == true && Constants.HALLOWEEN) {
+			} else if (client.recievedMask && Constants.HALLOWEEN) {
 				sendNpcChat2("You have already recieved a halloween mask.", "What reward would you like?", 945, "" + Constants.SERVER_NAME + " Guide");
 				client.nextChat = 3207;
 			}

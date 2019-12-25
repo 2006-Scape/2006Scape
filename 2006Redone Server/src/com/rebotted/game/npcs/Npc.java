@@ -69,7 +69,7 @@ public class Npc {
 			player.getPacketSender().sendMessage("You need " + ItemAssistant.getItemName(itemId).toLowerCase() + " to do that.");
 			return false;
 		}
-		if (NpcHandler.npcs[npcId].isTransformed == true)
+		if (NpcHandler.npcs[npcId].isTransformed)
 			return false;
 		if (animation > 0)
 			player.startAnimation(animation);
