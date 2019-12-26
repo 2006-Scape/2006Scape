@@ -33,7 +33,6 @@ public class ItemHandler {
 			ItemList[i] = null;
 		}
 		loadItemList("item.cfg");
-		loadItemPrices("prices.txt");
 	}
 
 	/**
@@ -328,22 +327,6 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 		ItemList[slot] = newItemList;
 	}
 
-	public void loadItemPrices(String filename) {
-		try {
-			@SuppressWarnings("resource")
-			Scanner s = new Scanner(new File("./data/cfg/" + filename));
-			while (s.hasNextLine()) {
-				String[] line = s.nextLine().split(" ");
-				ItemList temp = getItemList(Integer.parseInt(line[0]));
-				if (temp != null) {
-					temp.ShopValue = Integer.parseInt(line[1]);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public ItemList getItemList(int i) {
 		for (com.rebotted.game.items.ItemList element : ItemList) {
 			if (element != null) {
@@ -376,7 +359,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 			Misc.println(FileName + ": error loading file.");
 			// return false;
 		}
-		while (EndOfFile == false && line != null) {
+		while (!EndOfFile && line != null) {
 			line = line.trim();
 			int spot = line.indexOf("=");
 			if (spot > -1) {
