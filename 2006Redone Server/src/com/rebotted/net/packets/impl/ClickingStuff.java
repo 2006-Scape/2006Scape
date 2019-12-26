@@ -38,13 +38,12 @@ public class ClickingStuff implements PacketType {
 			}
 
 		if(player.openDuel && player.duelStatus >= 1 && player.duelStatus <= 4) {
-		Player o = (Player) PlayerHandler.players[player.duelingWith];
+		Player o = PlayerHandler.players[player.duelingWith];
 		if (o != null)
 			if (player.duelStatus >= 1 && player.duelStatus <= 4)
 				player.getDueling().declineDuel();
 				o.getDueling().declineDuel();
 			}
-
 		if (player.duelStatus == 6) {
 			player.getDueling().claimStakedItems();
 		}

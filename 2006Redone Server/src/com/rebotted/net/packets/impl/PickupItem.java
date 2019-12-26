@@ -31,7 +31,7 @@ public class PickupItem implements PacketType {
 		{
 			if (!(player.getItemAssistant().playerHasItem(player.pItemId) && player.getItemAssistant().isStackable(player.pItemId)))
 			{
-				player.getPacketSender().sendMessage("Not enough inventory space...");
+				player.getPacketSender().sendMessage("Not enough space in your inventory.");
 				return;
 			}
 		}

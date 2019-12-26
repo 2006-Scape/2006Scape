@@ -701,13 +701,18 @@ public class PlayerAssistant {
 				1708, 1710, 1712, 8007, 8008, 8009, 8010, 8011 };
 		for (int cwitem : cwitems) {
 			if (player.inCw() || player.inCw() && player.getItemAssistant().playerHasItem(cwitem)) {
-				player.getPacketSender().sendMessage("You can't teleport from castle wars!");
+				player.getPacketSender().sendMessage("You can't teleport from castle wars.");
 				return;
 			}
 		}
 		if (player.inTrade) {
 			player.getPacketSender().sendMessage(
-					"You can't teleport while in trade!");
+					"You can't teleport while in trade.");
+			return;
+		}
+		if (player.duelStatus == 5) {
+			player.getPacketSender().sendMessage(
+					"You can't do that in a duel.");
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
