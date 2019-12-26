@@ -553,6 +553,7 @@ public class ItemAssistant {
 		} else {
             GameEngine.itemHandler.createGroundItem(c, item,
                     c.getX(), c.getY(), 1, c.getId());
+			resetItems(3214);
 			c.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return false;
 		}
