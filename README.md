@@ -63,4 +63,4 @@ java -jar Client-2.8.1.jar -login username password -loadlocal -v -clearcache
   - If more than 2 arguments are passed in (can be anything), the client runs locally
 - `2006Redone file_server` contains the file server code that is *required* to be running before a client can connect to a server. It must be running locally before a client can connect. `src` is the Sources directory
 
-- `2006Redone_Client` and `2006Redone_Server` contain the compiled class code/outputs.
+- `CompiledServer/` contains the compiled class code and artifacts.
