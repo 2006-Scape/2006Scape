@@ -139,14 +139,6 @@ public class Walking implements PacketType {
 			player.getPacketSender().sendFrame126("WARNING!", 6940);
 			player.getPacketSender().showInterface(1908);
 		}
-		if (player.duelStatus == 5) {
-			if (player.duelCount > 0) {
-				player.getPacketSender().sendMessage(
-						"The duel hasn't started yet!");
-				player.playerIndex = 0;
-				return;
-			}
-		}
 		if (player.openDuel && player.duelStatus <= 3) {
 			Client o = (Client) PlayerHandler.players[player.duelingWith];
 			if (o != null) {
