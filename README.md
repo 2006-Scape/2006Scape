@@ -28,10 +28,7 @@ Step 8: Start the Client ([Image](https://i.imgur.com/dHTiU0I.png))
 
 ## How to get your code onto this project page
 
-Follow this guide here: [https://www.jetbrains.com/help/idea/contribute-to-projects.html](https://www.jetbrains.com/help/idea/contribute-to-projects.html)
-
-A more formal guide will be created on the 2006rebotted forums in the future.
-
+See this [forum post](https://2006rebotted.tk/forums/viewthread.php?forum=5&id=78).
 
 # Using Parabot with your local server:
 - **1:** Download the latest `localhost_2006rebotted.jar` from [here](https://github.com/dginovker/2006rebotted/releases) (or, if testing server changes, compile it yourself like [this](https://i.imgur.com/uDrF0gl.png))
