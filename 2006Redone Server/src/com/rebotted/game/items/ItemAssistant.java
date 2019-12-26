@@ -511,7 +511,7 @@ public class ItemAssistant {
 					} else {
 						c.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
 					}
-					if (c.getOutStream() != null && c != null) {
+					if (c.getOutStream() != null) {
 						c.getOutStream().createFrameVarSizeWord(34);
 						c.getOutStream().writeWord(3214);
 						c.getOutStream().writeByte(i);
@@ -551,6 +551,8 @@ public class ItemAssistant {
 			}
 			return false;
 		} else {
+            GameEngine.itemHandler.createGroundItem(c, item,
+                    c.getX(), c.getY(), 1, c.getId());
 			resetItems(3214);
 			c.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return false;

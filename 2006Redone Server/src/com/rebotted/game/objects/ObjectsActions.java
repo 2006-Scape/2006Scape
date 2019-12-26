@@ -6,6 +6,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.guilds.Guilds;
+import com.rebotted.game.content.minigames.Dueling;
 import com.rebotted.game.content.minigames.FightPits;
 import com.rebotted.game.content.minigames.PestControl;
 import com.rebotted.game.content.minigames.castlewars.CastleWarObjects;
@@ -1689,7 +1690,9 @@ public class ObjectsActions {
 		case 2462:
 			RuneCraftingActions.handleRuneCrafting(player, objectType);
 			break;
-
+		case 3203:
+			Dueling.HandleForfeit(player);
+			break;
 		case 6481:
 				player.getPlayerAssistant().movePlayer(3233, 9317, 0);
 			break;

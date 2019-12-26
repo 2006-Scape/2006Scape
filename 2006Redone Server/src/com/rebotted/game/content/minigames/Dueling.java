@@ -17,6 +17,8 @@ import com.rebotted.game.players.PlayerSave;
 import com.rebotted.util.GameLogger;
 import com.rebotted.util.Misc;
 
+import static com.rebotted.game.content.music.sound.SoundList.DUEL_WON;
+
 public class Dueling {
 
 	private final Player player;
@@ -51,12 +53,9 @@ public class Dueling {
 			if (o == null) {
 				return;
 			}
-			/*if (player.connectedFrom.equals(o.connectedFrom)) {
-				player.getActionSender().sendMessage("You can't duel your own IP.");
-				return;
-			}*/
+
 			player.duelRequested = true;
-			if (player.duelStatus == 0 && o.duelStatus == 0 && player.duelRequested
+			if (player.duelStatus == 0 && o.duelStatus == 0
 					&& o.duelRequested && player.duelingWith == o.getId()
 					&& o.duelingWith == player.getId()) {
 				if (player.goodDistance(player.getX(), player.getY(), o.getX(), o.getY(), 2)) {
@@ -142,10 +141,7 @@ public class Dueling {
 			if (o == null) {
 				return;
 			}
-		    if(!player.openDuel && !o.openDuel) {
-                declineDuel();
-                return;
-            }
+
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(6669);
 			player.getOutStream().writeWord(stakedItems.toArray().length);
@@ -577,6 +573,15 @@ public class Dueling {
 		player.getPlayerAssistant().requestUpdates();
 	}
 
+	public static void HandleForfeit(Player player)
+	{
+		Client opponent = (Client) PlayerHandler.players[player.duelingWith];
+		opponent.getDueling().duelVictory();
+		player.getDueling().resetDuel();
+		player.getPlayerAssistant().movePlayer(GameConstants.DUELING_RESPAWN_X + Misc.random(5), GameConstants.DUELING_RESPAWN_Y + Misc.random(5), 0);
+		player.getPacketSender().sendMessage("You have lost the duel!");
+	}
+
 	public void duelVictory() {
 		Client opponent = (Client) PlayerHandler.players[player.duelingWith];
 		if (opponent != null) {
@@ -593,7 +598,7 @@ public class Dueling {
 					player.playerXP[i]);
 			player.getPlayerAssistant().refreshSkill(i);
 		}
-		// c.getPacketDispatcher().sendSound(Sound.DUEL_WON, 100, 0);
+		 //player.getPacketSender().sendSound(DUEL_WON, 100, 0); Not good sound
 		player.duelStatus = 6;
 		  if (player.isSkulled) {
 	            player.isSkulled = false;
@@ -619,9 +624,7 @@ public class Dueling {
 		player.getCombatAssistant().resetPlayerAttack();
 		player.duelRequested = false;
 		PlayerSave.saveGame(player);
-	    if (opponent != null) {
-	    	PlayerSave.saveGame(opponent);
-	    }
+	    PlayerSave.saveGame(opponent);
 	}
 
 	public void duelRewardInterface() {
@@ -686,7 +689,6 @@ public class Dueling {
 		resetDuel();
 		resetDuelItems();
 		PlayerSave.saveGame(player);
-		player.duelStatus = 0;
 	}
 
 	public void declineDuel() {
@@ -717,9 +719,7 @@ public class Dueling {
 			}
 		}
 		stakedItems.clear();
-		for (int i = 0; i < player.duelRule.length; i++) {
-			player.duelRule[i] = false;
-		}
+		refreshduelRules();
 	}
 	
 	public void checkDuelWalk() {
@@ -727,25 +727,19 @@ public class Dueling {
 		if (player.duelStatus == 5 && o.duelStatus == 5 && o.duelingArena() && !player.duelingArena()) {
 			o.getDueling().duelVictory();
 			player.getDueling().resetDuel();
-			return;
 		}
 	}
 
 	public void resetDuel() {
-		//Client o = (Client) PlayerHandler.players[player.duelingWith];
 		if (player.isDead) {
 			player.lostDuel = true;
 		}
 		player.getPacketSender().showOption(3, 0, "Challenge", 3);
 		player.headIconHints = 0;
-		for (int i = 0; i < player.duelRule.length; i++) {
-			player.duelRule[i] = false;
-		}
+		refreshduelRules();
 		player.getPacketSender().createPlayerHints(10, -1);
 		player.duelStatus = 0;
 		player.duelSpaceReq = 0;
-		//player.openDuel = false;
-		//o.openDuel = false;
 		player.duelingWith = 0;
 		player.getPlayerAssistant().requestUpdates();
 		player.getCombatAssistant().resetPlayerAttack();
