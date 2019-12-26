@@ -1352,6 +1352,11 @@ public class ClickingButtons implements PacketType {
 									"You won't be able to attack the player with the rules you have set.");
 					break;
 				}
+				if (player.duelRule[9]) {
+					player.getPacketSender()
+							.sendMessage(
+									"@red@You won't be able to attack if you don't have a fun weapon.");
+				}
 				player.duelStatus = 2;
 				if (player.duelStatus == 2) {
 					player.getPacketSender().sendFrame126(
@@ -1676,9 +1681,9 @@ public class ClickingButtons implements PacketType {
 						player.goodTrade = false;
 						ot.goodTrade = false;
 						player.getPacketSender().sendFrame126(
-								"Not enough inventory space...", 3431);
+								"Not enough space in your inventory.", 3431);
 						ot.getPacketSender().sendFrame126(
-								"Not enough inventory space...", 3431);
+								"Not enough space in your inventory.", 3431);
 						break;
 					} else {
 						player.getPacketSender().sendFrame126(

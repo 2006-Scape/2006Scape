@@ -590,7 +590,7 @@ public abstract class Player {
 				PestControl.leaveWaitingBoat(this);
 				getPlayerAssistant().movePlayer(2657, 2639, 0);
 			}
-			if(!forceLogout && (underAttackBy > 0 || underAttackBy2 > 0)) {
+			if(!forceLogout && (underAttackBy > 0 || underAttackBy2 > 0) || duelStatus == 5) {
 				getPacketSender().sendMessage("You can't logout during combat!");
 				return;
 			}

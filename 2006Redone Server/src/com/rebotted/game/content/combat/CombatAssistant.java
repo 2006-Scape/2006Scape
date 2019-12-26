@@ -2021,6 +2021,7 @@ public class CombatAssistant {
 		if (PlayerHandler.players[c.playerIndex].inDuelArena() && c.duelStatus != 5 && !c.usingMagic) {
 			if (c.duelingArena() || c.duelStatus == 5) {
 				c.getPacketSender().sendMessage("You can't challenge inside the arena!");
+				resetPlayerAttack();
 				return false;
 			}
 			c.getDueling().requestDuel(c.playerIndex);

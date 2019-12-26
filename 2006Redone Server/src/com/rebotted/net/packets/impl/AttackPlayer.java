@@ -85,8 +85,6 @@ public class AttackPlayer implements PacketType {
 						}
 					}
 					if (!canUseWeapon) {
-						c.getPacketSender().sendMessage(
-								"You can only use fun weapons in this duel!");
 						return;
 					}
 				}
@@ -213,6 +211,13 @@ public class AttackPlayer implements PacketType {
 									+ " in the wilderness.");
 					break;
 				}
+				if (c.duelStatus == 5) {
+					c.getPacketSender().sendMessage("You can't do that in a duel.");
+					c.usingMagic = false;
+					c.stopMovement();
+					c.getCombatAssistant().resetPlayerAttack();
+					return;
+				}
 			}
 
 			switch (c.castingSpellId) {
@@ -259,6 +264,15 @@ public class AttackPlayer implements PacketType {
 					if (c.duelRule[4]) {
 						c.getPacketSender().sendMessage(
 								"Magic has been disabled in this duel!");
+						return;
+					}
+					if (MagicData.MAGIC_SPELLS[c.spellId][0] == 12445)
+					{
+						c.getPacketSender().sendMessage(
+								"You can't do that in a duel.");
+						c.usingMagic = false;
+						c.stopMovement();
+						c.getCombatAssistant().resetPlayerAttack();
 						return;
 					}
 				}

@@ -160,7 +160,7 @@ public class GlobalDropsHandler {
 		}
 		if (player.getItemAssistant().freeSlots() < 1) {
 			if (!(player.getItemAssistant().playerHasItem(player.pItemId) && player.getItemAssistant().isStackable(player.pItemId))) {
-				player.getPacketSender().sendMessage("Not enough inventory space...");
+				player.getPacketSender().sendMessage("Not enough space in your inventory.");
 				return;
 			}
 		}
