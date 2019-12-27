@@ -190,7 +190,11 @@ public final class ItemDef {
 
 		cacheIndex = (cacheIndex + 1) % 10;
 		ItemDef itemDef = cache[cacheIndex];
-		stream.currentOffset = streamIndices[i];
+		try {
+			stream.currentOffset = streamIndices[i];
+		} catch (Exception e) {
+			System.out.println("Itemdef issue? Apparently this ID is out of bounds: " + e);
+		}
 		itemDef.id = i;
 		itemDef.setDefaults();
 		itemDef.readValues(stream);
