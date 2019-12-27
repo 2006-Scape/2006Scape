@@ -4,5 +4,5 @@ for i in {0..50}
 do
     rm -rf com/
     cp -r ../CompiledServer/production/2006rebotted/com .
-    java -Xmx15G -cp ".:./libs/*" com.rebotted.GameEngine
+    java -Xmx15G -cp ".:./libs/*" com.rebotted.GameEngine | tee -a server_running_output.txt
 done
