@@ -406,7 +406,9 @@ public class Dueling {
 
 	public void confirmDuel() {
 		Client o = (Client) PlayerHandler.players[player.duelingWith];
-		if (o == null) {
+		if (o == null || ((o.getDueling().stakedItems.size() + o.getDueling().otherStakedItems.size()) > player.getItemAssistant().freeSlots())) {
+			player.getPacketSender().sendMessage("Not enough inventory spaces.");
+			o.getPacketSender().sendMessage("Not enough inventory spaces.");
 			declineDuel();
 			return;
 		}
@@ -703,8 +705,10 @@ public class Dueling {
 		}
 		player.getPacketSender().closeAllWindows();
 		player.duelStatus = 0;
+		o.duelStatus = 0;
 		player.openDuel = false;
 		o.openDuel = false;
+
 		player.duelingWith = 0;
 		player.duelSpaceReq = 0;
 		player.duelRequested = false;
