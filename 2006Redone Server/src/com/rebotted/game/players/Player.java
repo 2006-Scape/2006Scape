@@ -1771,6 +1771,7 @@ public abstract class Player {
 				isInArea(2379, 4453, 2386, 4462) || // Zanaris
 				isInArea(2582, 3423, 2591, 3417) || //Fishing Guild
 				isInArea(3509, 3483, 3516, 3476) || //Canifis
+				isInArea(3297, 3133, 3311, 3115) || //Shantay Pass
 				false;
 	}
 
