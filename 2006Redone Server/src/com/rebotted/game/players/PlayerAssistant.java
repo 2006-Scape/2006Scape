@@ -693,6 +693,13 @@ public class PlayerAssistant {
 			player.getPacketSender().sendMessage("You can't teleport from a Fight pits Game!");
 			return;
 		}
+		if (player.inWild() && player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
+			player.getPacketSender().sendMessage(
+					"You can't teleport above level "
+							+ GameConstants.NO_TELEPORT_WILD_LEVEL
+							+ " in the wilderness.");
+			return;
+		}
 		if (player.tutorialProgress < 36) {
 			player.getPacketSender().sendMessage("You can't teleport from tutorial island!");
 			return;
@@ -717,14 +724,6 @@ public class PlayerAssistant {
 		}
 		if (!SkillHandler.MAGIC) {
 			player.getPacketSender().sendMessage("This feature is curently disabled.");
-			return;
-		}
-		if (player.inWild()
-				&& player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
-			player.getPacketSender().sendMessage(
-					"You can't teleport above level "
-							+ GameConstants.NO_TELEPORT_WILD_LEVEL
-							+ " in the wilderness.");
 			return;
 		}
 		if (System.currentTimeMillis() - player.teleBlockDelay < player.teleBlockLength) {
