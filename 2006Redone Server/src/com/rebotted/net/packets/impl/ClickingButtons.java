@@ -1409,7 +1409,7 @@ public class ClickingButtons implements PacketType {
 					player.getPacketSender().sendFrame126(
 							"Waiting for other player...", 6571);
 					o1.getPacketSender().sendFrame126(
-							"Other player has accepted", 6571);
+							"Other player has accepted.", 6571);
 				}
 			} else {
 				Client o = (Client) PlayerHandler.players[player.duelingWith];
@@ -1651,7 +1651,7 @@ public class ClickingButtons implements PacketType {
 			}
 			player.getPacketSender().sendFrame126(
 					"Waiting for other player...", 3431);
-			ot.getPacketSender().sendFrame126("Other player has accepted",
+			ot.getPacketSender().sendFrame126("Other player has accepted.",
 					3431);
 			player.goodTrade = true;
 			ot.goodTrade = true;
@@ -1681,15 +1681,15 @@ public class ClickingButtons implements PacketType {
 						player.goodTrade = false;
 						ot.goodTrade = false;
 						player.getPacketSender().sendFrame126(
-								"Not enough space in your inventory.", 3431);
+								"Not enough inventory spaces.", 3431);
 						ot.getPacketSender().sendFrame126(
-								"Not enough space in your inventory.", 3431);
+								"Not enough inventory spaces.", 3431);
 						break;
 					} else {
 						player.getPacketSender().sendFrame126(
 								"Waiting for other player...", 3431);
 						ot.getPacketSender().sendFrame126(
-								"Other player has accepted", 3431);
+								"Other player has accepted.", 3431);
 						player.goodTrade = true;
 						ot.goodTrade = true;
 					}
