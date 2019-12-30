@@ -2,14 +2,13 @@ package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.Specials;
-import com.rebotted.game.content.combat.magic.CastOnOther;
-import com.rebotted.game.content.combat.magic.MagicData;
-import com.rebotted.game.content.combat.magic.MagicTeleports;
+import com.rebotted.game.content.combat.magic.*;
 import com.rebotted.game.content.combat.prayer.ActivatePrayers;
 import com.rebotted.game.content.music.Music;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.content.random.PartyRoom;
+import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.randomevents.SandwhichLady;
 import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.content.skills.cooking.CookingTutorialIsland;
@@ -92,73 +91,30 @@ public class ClickingButtons implements PacketType {
             player.droppedItem = -1;
 			break;
 
-		case 50235:
-			MagicTeleports.paddewwaTeleport(player);
-			break;
 
-		case 50245:
-			MagicTeleports.senntisenTeleport(player);
-			break;
+			/**
+			 * Spellbook Teleports
+			 */
 
-		case 50253:
-			MagicTeleports.kharyllTeleport(player);
-			break;
+			case 50235:
+			case 50245:
+			case 50253:
+			case 51005:
+			case 51013:
+			case 51023:
+			case 51031:
+			case 51039:
+			case 4140:
+			case 4143:
+			case 4146:
+			case 4150:
+			case 6004:
+			case 6005:
+			case 29031:
+			case 72038:
+				MagicTeleports.handleSpellTeleport(player, SpellTeleport.forButtonId(actionButtonId));
+				break;
 
-		case 51005:
-			MagicTeleports.lassarTeleport(player);
-			break;
-
-		case 51013:
-			MagicTeleports.dareeyakTeleport(player);
-			break;
-
-		case 51023:
-			MagicTeleports.carrallangarTeleport(player);
-			break;
-
-		case 51031:
-			MagicTeleports.annakarlTeleport(player);
-			break;
-
-		case 51039:
-			MagicTeleports.ghorrockTeleport(player);
-			break;
-
-		case 4140:
-			MagicTeleports.varrockTeleport(player);
-			break;
-
-		case 4143:
-			MagicTeleports.lumbridgeTeleport(player);
-			break;
-
-		case 4146:
-			MagicTeleports.faladorTeleport(player);
-			break;
-
-		case 4150:
-			MagicTeleports.camelotTeleport(player);
-			break;
-
-		case 6004:
-			MagicTeleports.ardougneTeleport(player);
-			break;
-
-		case 6005:
-			MagicTeleports.watchTowerTeleport(player);
-			break;
-
-		case 29031:
-			MagicTeleports.trollhiemTeleport(player);
-			break;
-
-		case 72038:
-			MagicTeleports.apeAtollTeleport(player);
-			break;
-
-		/**
-		 * End of Modern Teleports
-		 */
 
 		case 4135:
 			if (player.inTrade) {
