@@ -61,9 +61,9 @@ public class ItemAssistant {
 		addItem(5075, 1);
 		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
 	}
-	
+
 	private final int[] SEEDS = { 5291, 5292, 5293, 5294, 5295, 5296, 5297, 298, 5299, 5300, 5301, 5302, 5303, 5304 };
-	
+
 	public void handleNonTreeSeeds(int itemId) {
 		c.getPacketSender().sendMessage("You search the nest...");
 		final int reward = SEEDS[Misc.random(SEEDS.length)];
@@ -83,12 +83,12 @@ public class ItemAssistant {
 		addItem(5075, 1);
 		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
 	}
-	
-    public void updateInventory() {
-        this.resetItems(3214);
-    }
-    
-    public void destroyInterface(int itemId) {
+
+	public void updateInventory() {
+		this.resetItems(3214);
+	}
+
+	public void destroyInterface(int itemId) {
 		itemId = c.droppedItem;
 		String itemName = getItemName(c.droppedItem);
 		String[][] info = {
@@ -98,7 +98,7 @@ public class ItemAssistant {
 				{ itemName, "14184" } };// make some kind of c.getItemInfo
 		c.getPacketSender().sendFrame34(itemId, 0, 14171, 1);
 		for (int i = 0; i < info.length; i++)
-		c.getPacketSender().sendFrame126(info[i][0], Integer.parseInt(info[i][1]));
+			c.getPacketSender().sendFrame126(info[i][0], Integer.parseInt(info[i][1]));
 		c.getPacketSender().sendChatInterface(14170);
 	}
 
@@ -134,13 +134,13 @@ public class ItemAssistant {
 	public boolean hasFreeSlots(int slots) {
 		return freeSlots() >= slots;
 	}
-	
-	   public void replaceItem(int itemToReplace, int replaceWith) {
-	         if(playerHasItem(itemToReplace)) {
-	             deleteItem(itemToReplace, 1);
-	             addItem(replaceWith, 1);
-	         }
-	     }
+
+	public void replaceItem(int itemToReplace, int replaceWith) {
+		if(playerHasItem(itemToReplace)) {
+			deleteItem(itemToReplace, 1);
+			addItem(replaceWith, 1);
+		}
+	}
 
 	public static int getTotalAmountEquipment(Client c) {
 		int total = 0;
@@ -379,19 +379,19 @@ public class ItemAssistant {
 			deleteItem(c.playerItems[i] - 1, getItemSlot(c.playerItems[i] - 1), c.playerItemsN[i]);
 		}
 	}
-	
+
 	/**
 	 * Clear Bank
 	 */
-	
+
 	public void clearBank() {
-	try {
-		for (int i = 0; i < c.bankItems[i]; i++) {
-            c.bankItems[i] = 0;
-            c.bankItemsN[i] = 0;
-		}
-		resetTempItems();
-		resetBank();
+		try {
+			for (int i = 0; i < c.bankItems[i]; i++) {
+				c.bankItems[i] = 0;
+				c.bankItemsN[i] = 0;
+			}
+			resetTempItems();
+			resetBank();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -456,25 +456,25 @@ public class ItemAssistant {
 
 	public int getUntradePrice(int item) {
 		switch (item) {
-		case 2518:
-		case 2524:
-		case 2526:
-			return 100000;
-		case 2520:
-		case 2522:
-			return 150000;
+			case 2518:
+			case 2524:
+			case 2526:
+				return 100000;
+			case 2520:
+			case 2522:
+				return 150000;
 		}
 		return 0;
 	}
 
 	public boolean specialCase(int itemId) {
 		switch (itemId) {
-		case 2518:
-		case 2520:
-		case 2522:
-		case 2524:
-		case 2526:
-			return true;
+			case 2518:
+			case 2520:
+			case 2522:
+			case 2524:
+			case 2526:
+				return true;
 		}
 		return false;
 	}
@@ -511,7 +511,7 @@ public class ItemAssistant {
 					} else {
 						c.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
 					}
-					if (c.getOutStream() != null) {
+					if (c.getOutStream() != null && c != null) {
 						c.getOutStream().createFrameVarSizeWord(34);
 						c.getOutStream().writeWord(3214);
 						c.getOutStream().writeByte(i);
@@ -526,7 +526,7 @@ public class ItemAssistant {
 						c.flushOutStream();
 					}
 					i = 30;
-					Weight.updateWeight(c);
+					Weight.calcWeight(c, item, "additem");
 					return true;
 				}
 			}
@@ -544,8 +544,7 @@ public class ItemAssistant {
 					}
 					resetItems(3214);
 					i = 30;
-
-					Weight.updateWeight(c);
+					Weight.calcWeight(c, item, "additem");
 					return true;
 				}
 			}
@@ -607,29 +606,29 @@ public class ItemAssistant {
 		newWeapon = newWeapon.trim();
 		if (weaponName.equals("Unarmed")) {
 			c.getPacketSender().setSidebarInterface(0, 5855); // punch,
-																	// kick,
-																	// block
+			// kick,
+			// block
 			c.getPacketSender().sendFrame126(weaponName, 5857);
 		} else if (weaponName.endsWith("whip")) {
 			c.getPacketSender().setSidebarInterface(0, 12290); // flick,
-																	// lash,
-																	// deflect
+			// lash,
+			// deflect
 			c.getPacketSender().sendFrame246(12291, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 12293);
 		} else if (weaponName.endsWith("bow") || weaponName.endsWith("10")
 				|| weaponName.endsWith("full")
 				|| weaponName.startsWith("seercull")) {
 			c.getPacketSender().setSidebarInterface(0, 1764); // accurate,
-																	// rapid,
-																	// longrange
+			// rapid,
+			// longrange
 			c.getPacketSender().sendFrame246(1765, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 1767);
 		} else if (weaponName.startsWith("Staff")
 				|| weaponName.endsWith("staff") || weaponName.endsWith("wand")) {
 			c.getPacketSender().setSidebarInterface(0, 328); // spike,
-																	// impale,
-																	// smash,
-																	// block
+			// impale,
+			// smash,
+			// block
 			c.getPacketSender().sendFrame246(329, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 331);
 		} else if (newWeapon.startsWith("dart")
@@ -637,50 +636,50 @@ public class ItemAssistant {
 				|| newWeapon.startsWith("javelin")
 				|| weaponName.equalsIgnoreCase("toktz-xil-ul")) {
 			c.getPacketSender().setSidebarInterface(0, 4446); // accurate,
-																	// rapid,
-																	// longrange
+			// rapid,
+			// longrange
 			c.getPacketSender().sendFrame246(4447, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 4449);
 		} else if (newWeapon.startsWith("dagger")
 				|| newWeapon.contains("sword")) {
 			c.getPacketSender().setSidebarInterface(0, 2276); // stab,
-																	// lunge,
-																	// slash,
-																	// block
+			// lunge,
+			// slash,
+			// block
 			c.getPacketSender().sendFrame246(2277, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 2279);
 		} else if (newWeapon.startsWith("pickaxe")) {
 			c.getPacketSender().setSidebarInterface(0, 5570); // spike,
-																	// impale,
-																	// smash,
-																	// block
+			// impale,
+			// smash,
+			// block
 			c.getPacketSender().sendFrame246(5571, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 5573);
 		} else if (newWeapon.startsWith("axe")
 				|| newWeapon.startsWith("battleaxe")) {
 			c.getPacketSender().setSidebarInterface(0, 1698); // chop,
-																	// hack,
-																	// smash,
-																	// block
+			// hack,
+			// smash,
+			// block
 			c.getPacketSender().sendFrame246(1699, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 1701);
 		} else if (newWeapon.startsWith("halberd")) {
 			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
-																	// swipe,
-																	// fend
+			// swipe,
+			// fend
 			c.getPacketSender().sendFrame246(8461, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 8463);
 		} else if (newWeapon.startsWith("Scythe")) {
 			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
-																	// swipe,
-																	// fend
+			// swipe,
+			// fend
 			c.getPacketSender().sendFrame246(8461, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 8463);
 		} else if (newWeapon.startsWith("spear")) {
 			c.getPacketSender().setSidebarInterface(0, 4679); // lunge,
-																	// swipe,
-																	// pound,
-																	// block
+			// swipe,
+			// pound,
+			// block
 			c.getPacketSender().sendFrame246(4680, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 4682);
 		} else if (newWeapon.toLowerCase().contains("mace")) {
@@ -690,14 +689,14 @@ public class ItemAssistant {
 
 		} else if (c.playerEquipment[c.playerWeapon] == 4153) {
 			c.getPacketSender().setSidebarInterface(0, 425); // war hamer
-																	// equip.
+			// equip.
 			c.getPacketSender().sendFrame246(426, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 428);
 		} else {
 			c.getPacketSender().setSidebarInterface(0, 2423); // chop,
-																	// slash,
-																	// lunge,
-																	// block
+			// slash,
+			// lunge,
+			// block
 			c.getPacketSender().sendFrame246(2424, 200, weapon);
 			c.getPacketSender().sendFrame126(weaponName, 2426);
 		}
@@ -874,241 +873,241 @@ public class ItemAssistant {
 		}
 
 		switch (itemId) {
-		case 8839:
-		case 8840:
-		case 8842:
-		case 11663:
-		case 11664:
-		case 11665:
-			c.attackLevelReq = 42;
-			c.rangeLevelReq = 42;
-			c.strengthLevelReq = 42;
-			c.magicLevelReq = 42;
-			c.defenceLevelReq = 42;
-			return;
-		case 10551:
-		case 2503:
-		case 2501:
-		case 2499:
-		case 1135:
-			c.defenceLevelReq = 40;
-			return;
-		case 1133:
-			c.defenceLevelReq = 20;
-			c.rangeLevelReq = 20;
-			return;
-		case 11235:
-		case 6522:
-			c.rangeLevelReq = 60;
-			break;
-		case 1097:
-			c.rangeLevelReq = 20;
-			break;
-		case 864:
-		case 863:
-			c.rangeLevelReq = 1;
-			break;
-		case 865:
-			c.rangeLevelReq = 5;
-			break;
-		case 866:
-			c.rangeLevelReq = 20;
-			break;
-		case 867:
-			c.rangeLevelReq = 30;
-			break;
-		case 868:
-			c.rangeLevelReq = 40;
-			break;
-		case 6524:
-			c.defenceLevelReq = 60;
-			break;
-		case 11284:
-			c.defenceLevelReq = 75;
-			return;
-		case 6889:
-		case 6914:
-			c.magicLevelReq = 60;
-			break;
-		case 10828:
-			c.defenceLevelReq = 55;
-			break;
-		case 11724:
-		case 11726:
-		case 11728:
-			c.defenceLevelReq = 65;
-			break;
-		case 847:
-		case 849:
-			c.rangeLevelReq = 20;
-			break;
-		case 843:
-		case 845:
-			c.rangeLevelReq = 5;
-			break;
-		case 851:
-		case 853:
-			c.rangeLevelReq = 30;
-			break;
-		case 855:
-		case 857:
-			c.rangeLevelReq = 40;
-			break;
-		case 859:
-		case 861:
-			c.rangeLevelReq = 50;
-			break;
-		case 3749:
-		case 3751:
-		case 3755:
-		case 3753:
-			c.defenceLevelReq = 45;
-			break;
+			case 8839:
+			case 8840:
+			case 8842:
+			case 11663:
+			case 11664:
+			case 11665:
+				c.attackLevelReq = 42;
+				c.rangeLevelReq = 42;
+				c.strengthLevelReq = 42;
+				c.magicLevelReq = 42;
+				c.defenceLevelReq = 42;
+				return;
+			case 10551:
+			case 2503:
+			case 2501:
+			case 2499:
+			case 1135:
+				c.defenceLevelReq = 40;
+				return;
+			case 1133:
+				c.defenceLevelReq = 20;
+				c.rangeLevelReq = 20;
+				return;
+			case 11235:
+			case 6522:
+				c.rangeLevelReq = 60;
+				break;
+			case 1097:
+				c.rangeLevelReq = 20;
+				break;
+			case 864:
+			case 863:
+				c.rangeLevelReq = 1;
+				break;
+			case 865:
+				c.rangeLevelReq = 5;
+				break;
+			case 866:
+				c.rangeLevelReq = 20;
+				break;
+			case 867:
+				c.rangeLevelReq = 30;
+				break;
+			case 868:
+				c.rangeLevelReq = 40;
+				break;
+			case 6524:
+				c.defenceLevelReq = 60;
+				break;
+			case 11284:
+				c.defenceLevelReq = 75;
+				return;
+			case 6889:
+			case 6914:
+				c.magicLevelReq = 60;
+				break;
+			case 10828:
+				c.defenceLevelReq = 55;
+				break;
+			case 11724:
+			case 11726:
+			case 11728:
+				c.defenceLevelReq = 65;
+				break;
+			case 847:
+			case 849:
+				c.rangeLevelReq = 20;
+				break;
+			case 843:
+			case 845:
+				c.rangeLevelReq = 5;
+				break;
+			case 851:
+			case 853:
+				c.rangeLevelReq = 30;
+				break;
+			case 855:
+			case 857:
+				c.rangeLevelReq = 40;
+				break;
+			case 859:
+			case 861:
+				c.rangeLevelReq = 50;
+				break;
+			case 3749:
+			case 3751:
+			case 3755:
+			case 3753:
+				c.defenceLevelReq = 45;
+				break;
 
-		case 7462:
-		case 7461:
-			c.defenceLevelReq = 40;
-			break;
-		case 8846:
-			c.defenceLevelReq = 5;
-			break;
-		case 8847:
-			c.defenceLevelReq = 10;
-			break;
-		case 8848:
-			c.defenceLevelReq = 20;
-			break;
-		case 8849:
-			c.defenceLevelReq = 30;
-			break;
-		case 8850:
-			c.defenceLevelReq = 40;
-			break;
+			case 7462:
+			case 7461:
+				c.defenceLevelReq = 40;
+				break;
+			case 8846:
+				c.defenceLevelReq = 5;
+				break;
+			case 8847:
+				c.defenceLevelReq = 10;
+				break;
+			case 8848:
+				c.defenceLevelReq = 20;
+				break;
+			case 8849:
+				c.defenceLevelReq = 30;
+				break;
+			case 8850:
+				c.defenceLevelReq = 40;
+				break;
 
-		case 7460:
-			c.defenceLevelReq = 40;
-			break;
+			case 7460:
+				c.defenceLevelReq = 40;
+				break;
 
-		case 837:
-			c.rangeLevelReq = 61;
-			break;
+			case 837:
+				c.rangeLevelReq = 61;
+				break;
 
-		case 4151: // if you don't want to use names
-			c.attackLevelReq = 70;
-			return;
+			case 4151: // if you don't want to use names
+				c.attackLevelReq = 70;
+				return;
 
-		case 6724: // seercull
-			c.rangeLevelReq = 60; // idk if that is correct
-			return;
-		case 6523:
-		case 6525:
-		case 6527:
-			c.attackLevelReq = 60;
-			return;
-		case 6526:
-			c.attackLevelReq = 60;
-			c.magicLevelReq = 60;
-			return;
-		case 4156:
-			c.defenceLevelReq = 20;
-			c.slayerLevelReq = 25;
-			return;
-		case 1391:
-		case 1393:
-		case 1395:
-		case 1397:
-		case 1399:
-		case 3053:
-			c.attackLevelReq = 30;
-			c.magicLevelReq = 30;
-			return;
-		case 4158:
-			c.slayerLevelReq = 55;
-			c.attackLevelReq = 50;
-			return;
-		case 4153:
-			c.attackLevelReq = 50;
-			c.strengthLevelReq = 50;
-			return;
-		case 6528:
-			c.strengthLevelReq = 60;
-			return;
-		case 4161:
-			c.slayerLevelReq = 20;
-			return;
-		case 4168:
-			c.slayerLevelReq = 60;
-			return;
-		case 6696:
-			c.slayerLevelReq = 22;
-			return;
-		case 8923:
-			c.slayerLevelReq = 35;
-			return;
-		case 7159:
-			c.slayerLevelReq = 37;
-			return;
-		case 6708:
-			c.slayerLevelReq = 42;
-			return;
-		case 4170:
-			c.slayerLevelReq = 55;
-			return;
-		case 4162:
-			c.slayerLevelReq = 75;
-			return;
-		case 7421:
-		case 7422:
-		case 7423:
-		case 7424:
-		case 7425:
-		case 7426:
-		case 7427:
-		case 7428:
-		case 7429:
-		case 7430:
-		case 7431:
-		case 7432:
-			c.slayerLevelReq = 57;
-			return;
-		case 4212:
-		case 4214:
-		case 4215:
-		case 4216:
-		case 4217:
-		case 4218:
-		case 4219:
-		case 4220:
-		case 4221:
-		case 4222:
-		case 4223:
-			c.agilityLevelReq = 50;
-			c.rangeLevelReq = 70;
-			return;
-		case 4150:
-		case 4160:
-		case 4172:
-		case 4174:
-			c.slayerLevelReq = 55;
-			return;
-		case 1015:
-			c.defenceLevelReq = 1;
-			return;
-		case 6664:
-			c.slayerLevelReq = 32;
-			return;
-		case 4551:
-			c.defenceLevelReq = 5;
-			return;
-		case 7051:
-			c.slayerLevelReq = 33;
-			return;
-		case 4166:
-			c.slayerLevelReq = 15;
-			return;
-		case 4164:
-			c.slayerLevelReq = 10;
-			return;
+			case 6724: // seercull
+				c.rangeLevelReq = 60; // idk if that is correct
+				return;
+			case 6523:
+			case 6525:
+			case 6527:
+				c.attackLevelReq = 60;
+				return;
+			case 6526:
+				c.attackLevelReq = 60;
+				c.magicLevelReq = 60;
+				return;
+			case 4156:
+				c.defenceLevelReq = 20;
+				c.slayerLevelReq = 25;
+				return;
+			case 1391:
+			case 1393:
+			case 1395:
+			case 1397:
+			case 1399:
+			case 3053:
+				c.attackLevelReq = 30;
+				c.magicLevelReq = 30;
+				return;
+			case 4158:
+				c.slayerLevelReq = 55;
+				c.attackLevelReq = 50;
+				return;
+			case 4153:
+				c.attackLevelReq = 50;
+				c.strengthLevelReq = 50;
+				return;
+			case 6528:
+				c.strengthLevelReq = 60;
+				return;
+			case 4161:
+				c.slayerLevelReq = 20;
+				return;
+			case 4168:
+				c.slayerLevelReq = 60;
+				return;
+			case 6696:
+				c.slayerLevelReq = 22;
+				return;
+			case 8923:
+				c.slayerLevelReq = 35;
+				return;
+			case 7159:
+				c.slayerLevelReq = 37;
+				return;
+			case 6708:
+				c.slayerLevelReq = 42;
+				return;
+			case 4170:
+				c.slayerLevelReq = 55;
+				return;
+			case 4162:
+				c.slayerLevelReq = 75;
+				return;
+			case 7421:
+			case 7422:
+			case 7423:
+			case 7424:
+			case 7425:
+			case 7426:
+			case 7427:
+			case 7428:
+			case 7429:
+			case 7430:
+			case 7431:
+			case 7432:
+				c.slayerLevelReq = 57;
+				return;
+			case 4212:
+			case 4214:
+			case 4215:
+			case 4216:
+			case 4217:
+			case 4218:
+			case 4219:
+			case 4220:
+			case 4221:
+			case 4222:
+			case 4223:
+				c.agilityLevelReq = 50;
+				c.rangeLevelReq = 70;
+				return;
+			case 4150:
+			case 4160:
+			case 4172:
+			case 4174:
+				c.slayerLevelReq = 55;
+				return;
+			case 1015:
+				c.defenceLevelReq = 1;
+				return;
+			case 6664:
+				c.slayerLevelReq = 32;
+				return;
+			case 4551:
+				c.defenceLevelReq = 5;
+				return;
+			case 7051:
+				c.slayerLevelReq = 33;
+				return;
+			case 4166:
+				c.slayerLevelReq = 15;
+				return;
+			case 4164:
+				c.slayerLevelReq = 10;
+				return;
 		}
 	}
 
@@ -1149,78 +1148,78 @@ public class ItemAssistant {
 	public void addSpecialBar(int weapon) {
 		switch (weapon) {
 
-		case 4151: // whip
-			c.getPacketSender().sendFrame171(0, 12323);
-			specialAmount(weapon, c.specAmount, 12335);
-			break;
+			case 4151: // whip
+				c.getPacketSender().sendFrame171(0, 12323);
+				specialAmount(weapon, c.specAmount, 12335);
+				break;
 
-		case 859: // magic bows
-		case 861:
-		case 11235:
-			c.getPacketSender().sendFrame171(0, 7549);
-			specialAmount(weapon, c.specAmount, 7561);
-			break;
+			case 859: // magic bows
+			case 861:
+			case 11235:
+				c.getPacketSender().sendFrame171(0, 7549);
+				specialAmount(weapon, c.specAmount, 7561);
+				break;
 
-		case 4587: // dscimmy
-			c.getPacketSender().sendFrame171(0, 7599);
-			specialAmount(weapon, c.specAmount, 7611);
-			break;
+			case 4587: // dscimmy
+				c.getPacketSender().sendFrame171(0, 7599);
+				specialAmount(weapon, c.specAmount, 7611);
+				break;
 
-		case 3204: // d hally
-			c.getPacketSender().sendFrame171(0, 8493);
-			specialAmount(weapon, c.specAmount, 8505);
-			break;
+			case 3204: // d hally
+				c.getPacketSender().sendFrame171(0, 8493);
+				specialAmount(weapon, c.specAmount, 8505);
+				break;
 
-		case 1377: // d battleaxe
-			c.getPacketSender().sendFrame171(0, 7499);
-			specialAmount(weapon, c.specAmount, 7511);
-			break;
+			case 1377: // d battleaxe
+				c.getPacketSender().sendFrame171(0, 7499);
+				specialAmount(weapon, c.specAmount, 7511);
+				break;
 
-		case 4153: // gmaul
-			c.getPacketSender().sendFrame171(0, 7474);
-			specialAmount(weapon, c.specAmount, 7486);
-			break;
+			case 4153: // gmaul
+				c.getPacketSender().sendFrame171(0, 7474);
+				specialAmount(weapon, c.specAmount, 7486);
+				break;
 
-		case 1249: // dspear
-			c.getPacketSender().sendFrame171(0, 7674);
-			specialAmount(weapon, c.specAmount, 7686);
-			break;
+			case 1249: // dspear
+				c.getPacketSender().sendFrame171(0, 7674);
+				specialAmount(weapon, c.specAmount, 7686);
+				break;
 
-		case 1215:// dragon dagger
-		case 1231:
-		case 5680:
-		case 5698:
-		case 1305: // dragon long
-		case 11694:
-		case 11698:
-		case 11700:
-		case 11730:
-		case 11696:
-			c.getPacketSender().sendFrame171(0, 7574);
-			specialAmount(weapon, c.specAmount, 7586);
-			break;
+			case 1215:// dragon dagger
+			case 1231:
+			case 5680:
+			case 5698:
+			case 1305: // dragon long
+			case 11694:
+			case 11698:
+			case 11700:
+			case 11730:
+			case 11696:
+				c.getPacketSender().sendFrame171(0, 7574);
+				specialAmount(weapon, c.specAmount, 7586);
+				break;
 
-		case 1434: // dragon mace
-			c.getPacketSender().sendFrame171(0, 7624);
-			specialAmount(weapon, c.specAmount, 7636);
-			break;
+			case 1434: // dragon mace
+				c.getPacketSender().sendFrame171(0, 7624);
+				specialAmount(weapon, c.specAmount, 7636);
+				break;
 
-		default:
-			c.getPacketSender().sendFrame171(1, 7624); // mace
-															// interface
-			c.getPacketSender().sendFrame171(1, 7474); // hammer, gmaul
-			c.getPacketSender().sendFrame171(1, 7499); // axe
-			c.getPacketSender().sendFrame171(1, 7549); // bow interface
-			c.getPacketSender().sendFrame171(1, 7574); // sword
-															// interface
-			c.getPacketSender().sendFrame171(1, 7599); // scimmy sword
-															// interface,
-															// for most
-			// swords
-			c.getPacketSender().sendFrame171(1, 8493);
-			c.getPacketSender().sendFrame171(1, 12323); // whip
-															// interface
-			break;
+			default:
+				c.getPacketSender().sendFrame171(1, 7624); // mace
+				// interface
+				c.getPacketSender().sendFrame171(1, 7474); // hammer, gmaul
+				c.getPacketSender().sendFrame171(1, 7499); // axe
+				c.getPacketSender().sendFrame171(1, 7549); // bow interface
+				c.getPacketSender().sendFrame171(1, 7574); // sword
+				// interface
+				c.getPacketSender().sendFrame171(1, 7599); // scimmy sword
+				// interface,
+				// for most
+				// swords
+				c.getPacketSender().sendFrame171(1, 8493);
+				c.getPacketSender().sendFrame171(1, 12323); // whip
+				// interface
+				break;
 		}
 	}
 
@@ -1251,33 +1250,33 @@ public class ItemAssistant {
 	public void updateSpecialBar() {
 		if (c.usingSpecial) {
 			c.getPacketSender().sendFrame126(
-							""
-									+ (c.specAmount >= 2 ? "@yel@S P"
-											: "@bla@S P")
-									+ ""
-									+ (c.specAmount >= 3 ? "@yel@ E"
-											: "@bla@ E")
-									+ ""
-									+ (c.specAmount >= 4 ? "@yel@ C I"
-											: "@bla@ C I")
-									+ ""
-									+ (c.specAmount >= 5 ? "@yel@ A L"
-											: "@bla@ A L")
-									+ ""
-									+ (c.specAmount >= 6 ? "@yel@  A"
-											: "@bla@  A")
-									+ ""
-									+ (c.specAmount >= 7 ? "@yel@ T T"
-											: "@bla@ T T")
-									+ ""
-									+ (c.specAmount >= 8 ? "@yel@ A"
-											: "@bla@ A")
-									+ ""
-									+ (c.specAmount >= 9 ? "@yel@ C"
-											: "@bla@ C")
-									+ ""
-									+ (c.specAmount >= 10 ? "@yel@ K"
-											: "@bla@ K"), c.specBarId);
+					""
+							+ (c.specAmount >= 2 ? "@yel@S P"
+							: "@bla@S P")
+							+ ""
+							+ (c.specAmount >= 3 ? "@yel@ E"
+							: "@bla@ E")
+							+ ""
+							+ (c.specAmount >= 4 ? "@yel@ C I"
+							: "@bla@ C I")
+							+ ""
+							+ (c.specAmount >= 5 ? "@yel@ A L"
+							: "@bla@ A L")
+							+ ""
+							+ (c.specAmount >= 6 ? "@yel@  A"
+							: "@bla@  A")
+							+ ""
+							+ (c.specAmount >= 7 ? "@yel@ T T"
+							: "@bla@ T T")
+							+ ""
+							+ (c.specAmount >= 8 ? "@yel@ A"
+							: "@bla@ A")
+							+ ""
+							+ (c.specAmount >= 9 ? "@yel@ C"
+							: "@bla@ C")
+							+ ""
+							+ (c.specAmount >= 10 ? "@yel@ K"
+							: "@bla@ K"), c.specBarId);
 		} else {
 			c.getPacketSender().sendFrame126(
 					"@bla@S P E C I A L  A T T A C K", c.specBarId);
@@ -1441,7 +1440,7 @@ public class ItemAssistant {
 					}
 				}
 			}
-			
+
 			if (wearID == 4079) {
 				c.startAnimation(1458);
 				return false;
@@ -1663,7 +1662,7 @@ public class ItemAssistant {
 					c.flushOutStream();
 					c.updateRequired = true;
 					c.setAppearanceUpdateRequired(true);
-					Weight.updateWeight(c);
+					Weight.calcWeight(c, wearID, "deleteitem");
 				}
 			}
 		}
@@ -1800,7 +1799,7 @@ public class ItemAssistant {
 		if (!CastleWars.deleteCastleWarsItems(c, itemID)) {
 			return false;
 		}
-		if (c.otherBank) {
+		if (c.otherBank == true) {
 			c.getPacketSender().closeAllWindows();
 			c.getPacketSender().sendMessage("You can't bank while viewing someones bank!");
 			c.otherBank = false;
@@ -2073,11 +2072,11 @@ public class ItemAssistant {
 
 	public int freeBankSlots() {
 		int freeS = 0;
-			for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
-				if (c.bankItems[i] <= 0) {
-					freeS++;
-				}
+		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+			if (c.bankItems[i] <= 0) {
+				freeS++;
 			}
+		}
 		return freeS;
 	}
 
@@ -2101,9 +2100,9 @@ public class ItemAssistant {
 		}
 		if (amount > 0) {
 			if (c.bankItems[fromSlot] > 0) {
-			    if (c.getItemAssistant().playerHasItem(itemID))
-                {
-                	for (int i = 0; i <= 27;i++)
+				if (c.getItemAssistant().playerHasItem(itemID))
+				{
+					for (int i = 0; i <= 27;i++)
 					{
 						if (itemID == c.playerItems[i] || (itemID == 995 && c.playerItems[i] - 1 == 995))
 						{
@@ -2114,7 +2113,7 @@ public class ItemAssistant {
 							}
 						}
 					}
-                }
+				}
 				if (!cantWithdrawCuzMaxStack)
 				{
 					if (!c.takeAsNote) {
@@ -2368,7 +2367,7 @@ public class ItemAssistant {
 			}
 		}
 		resetItems(3214);
-		Weight.updateWeight(c);
+		Weight.calcWeight(c, id, "deleteitem");
 	}
 
 	public void deleteItem(int id, int slot, int amount) {
@@ -2383,7 +2382,7 @@ public class ItemAssistant {
 				c.playerItems[slot] = 0;
 			}
 			resetItems(3214);
-			Weight.updateWeight(c);
+			Weight.calcWeight(c, id, "deleteitem");
 		}
 	}
 
@@ -2636,5 +2635,5 @@ public class ItemAssistant {
 		}
 		return NewID;
 	}
-	
+
 }
