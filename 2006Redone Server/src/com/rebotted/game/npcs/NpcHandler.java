@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
@@ -650,12 +649,14 @@ public class NpcHandler {
 					if (npcs[i].actionTimer == 0 && npcs[i].applyDead == false && npcs[i].needRespawn == false) {
 						npcs[i].updateRequired = true;
 						npcs[i].facePlayer(0);
-						if (npcs[i].killedBy <= 0)
-							npcs[i].killedBy = NpcData.getNpcKillerId(i);
+						npcs[i].killedBy = NpcData.getNpcKillerId(i);
 						Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
 						if (c != null) {
 							npcs[i].animNumber = NpcEmotes.getDeadEmote(c, i); // dead emote
 							if (CombatConstants.COMBAT_SOUNDS) {
+								if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
+									return;
+								}
 								c.getPacketSender().sendSound(CombatSounds.getNpcDeathSounds(npcs[i].npcType), 100, 0);
 							}
 						}

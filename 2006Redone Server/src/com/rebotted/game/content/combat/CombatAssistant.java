@@ -62,6 +62,9 @@ public class CombatAssistant {
 				NpcHandler.npcs[i].updateRequired = true;
 			}
 			if (CombatConstants.COMBAT_SOUNDS) {
+				if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
+					return;
+				}
 				c.getPacketSender().sendSound(CombatSounds.getNpcBlockSound(NpcHandler.npcs[c.oldNpcIndex].npcType), 100, 0);
 			}
 			NpcHandler.npcs[i].facePlayer(c.playerId);
@@ -152,7 +155,7 @@ public class CombatAssistant {
 					c.getPlayerAssistant().refreshSkill(4);
 				}
 				if (damage > 0) {
-					if (NpcHandler.npcs[i].npcType >= 3777 && NpcHandler.npcs[i].npcType <= 3780 || PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType)) {
+					if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
 						c.pcDamage += damage;
 					}
 				}
@@ -232,7 +235,7 @@ public class CombatAssistant {
 				c.getPlayerAssistant().refreshSkill(6);
 
 				if (damage > 0) {
-					if (NpcHandler.npcs[i].npcType >= 3777 && NpcHandler.npcs[i].npcType <= 3780 || PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType)) {
+					if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
 						c.pcDamage += damage;
 					}
 				}
@@ -353,7 +356,7 @@ public class CombatAssistant {
 			}
 		}
 		if (damage > 0) {
-			if (NpcHandler.npcs[i].npcType >= 3777 && NpcHandler.npcs[i].npcType <= 3780 || PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType)) {
+			if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
 				c.pcDamage += damage;
 			}
 		}

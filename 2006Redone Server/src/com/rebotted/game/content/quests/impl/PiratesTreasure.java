@@ -24,7 +24,7 @@ public class PiratesTreasure {
 			client.getPacketSender().sendFrame126("Port Sarim", 8148);
 			client.getPacketSender().sendFrame126("", 8149);
 			client.getPacketSender().sendFrame126(
-					"There are no minimum requirments.", 8150);
+					"There are no minimum requirements.", 8150);
 		} else if (client.pirateTreasure == 1) {
 			client.getPacketSender().sendFrame126("Pirate's Treasure", 8144);
 			client.getPacketSender().sendFrame126(
