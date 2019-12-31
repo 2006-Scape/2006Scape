@@ -1,13 +1,12 @@
 package com.rebotted.net.packets.impl;
 
-import static com.rebotted.game.content.combat.magic.MagicTeleports.LUMBRIDGE_X;
-import static com.rebotted.game.content.combat.magic.MagicTeleports.LUMBRIDGE_Y;
 import static com.rebotted.util.GameLogger.writeLog;
 import java.util.Arrays;
 import com.rebotted.Connection;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.game.bots.BotHandler;
+import com.rebotted.game.content.combat.magic.SpellTeleport;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.*;
@@ -254,7 +253,7 @@ public class Commands implements PacketType {
                 player.getPacketSender().showInterface(8134);
                 break;
             case "stuck":
-                player.getPlayerAssistant().startTeleport(LUMBRIDGE_X, LUMBRIDGE_Y, 0, "modern");
+                player.getPlayerAssistant().startTeleport(SpellTeleport.LUMBRIDGE.getDestX(), SpellTeleport.LUMBRIDGE.getDestY(), 0, "modern");
                 player.getPacketSender().sendMessage("How did you manage that one... If it's bug related, please report on Github/Discord!");
                 player.gfx100(80);
                 player.startAnimation(404);

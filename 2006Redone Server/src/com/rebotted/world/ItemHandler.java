@@ -33,7 +33,6 @@ public class ItemHandler {
 			ItemList[i] = null;
 		}
 		loadItemList("item.cfg");
-		loadItemPrices("prices.txt");
 	}
 
 	/**
