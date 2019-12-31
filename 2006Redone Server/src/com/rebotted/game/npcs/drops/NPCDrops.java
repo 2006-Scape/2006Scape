@@ -2012,10 +2012,10 @@ public class NPCDrops extends NPCDropsHandler {
 
 	public static final ItemDrop[] imp = {
 			new ItemDrop(i("ashes"), 1, ALWAYS),
-			new ItemDrop(i("red bead"), 1, UNCOMMON),
-			new ItemDrop(i("yellow bead"), 1, UNCOMMON),
-			new ItemDrop(i("black bead"), 1, UNCOMMON),
-			new ItemDrop(i("white bead"), 1, UNCOMMON),
+			new ItemDrop(i("red bead"), 1, COMMON),
+			new ItemDrop(i("yellow bead"), 1, COMMON),
+			new ItemDrop(i("black bead"), 1, COMMON),
+			new ItemDrop(i("white bead"), 1, COMMON),
 			new ItemDrop(i("tinderbox"), 1, UNCOMMON),
 			new ItemDrop(i("ball of wool"), 1, COMMON),
 			new ItemDrop(i("hammer"), 1, COMMON),

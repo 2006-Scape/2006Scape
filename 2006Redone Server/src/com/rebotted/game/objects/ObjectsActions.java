@@ -1462,7 +1462,7 @@ public class ObjectsActions {
 			break;
 
 		case 14315:
-			if (!PestControl.waitingBoat.containsKey(player) && player.absX == 2657 && player.absY > 2638 && player.absY < 264) {
+			if (!PestControl.waitingBoat.containsKey(player) && player.absX == 2657 && player.absY > 2638 && player.absY < 2640) {
 				PestControl.addToWaitRoom(player);
 			} else {
 				if (player.absX == 2657 && player.absY > 2638 && player.absY < 2641) {
@@ -1691,7 +1691,7 @@ public class ObjectsActions {
 			RuneCraftingActions.handleRuneCrafting(player, objectType);
 			break;
 		case 3203:
-			Dueling.HandleForfeit(player);
+			Dueling.handleForfeit(player);
 			break;
 		case 6481:
 				player.getPlayerAssistant().movePlayer(3233, 9317, 0);

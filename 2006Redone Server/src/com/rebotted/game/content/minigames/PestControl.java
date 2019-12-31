@@ -52,6 +52,7 @@ public class PestControl {
 	public int ravager = 3742 + Misc.random(4);
 	public int torcher = 3752 + Misc.random(7);
 	public int splater = 3727 + Misc.random(4);
+	
 
 	private final int[][] pcNPCData = { { 3777, 2628, 2591 }, // portal
 			{ 3778, 2680, 2588 }, // portal
@@ -150,40 +151,6 @@ public class PestControl {
 		}
 	}
 
-	/*
-	 * private void setBoatInterface() { try { for (Client c :
-	 * waitingBoat.keySet()) { if (c != null) { try { if (gameStarted) {
-	 * c.getPlayerAssistant().sendString("Next Departure: " + (waitTimer +
-	 * gameTimer)/60 + " minutes", 21120); } else {
-	 * c.getPlayerAssistant().sendString("Next Departure: " + waitTimer + "",
-	 * 21120); } c.getPlayerAssistant().sendString("Players Ready: " +
-	 * playersInBoat() + "", 21121); c.getPlayerAssistant().sendString("(Need "
-	 * + PLAYERS_REQUIRED + " to 25 players)", 21122);
-	 * c.getPlayerAssistant().sendString("Points: " + c.pcPoints + "", 21123);
-	 * switch (waitTimer) { case 60: c.getPacketDispatcher
-	 * ().sendMessage("Next game will start in: 60 seconds."); break; case 30:
-	 * c.
-	 * getPacketDispatcher().sendMessage("Next game will start in: 30 seconds."
-	 * ); break; } } catch (RuntimeException e) { // TODO Auto-generated catch
-	 * block e.printStackTrace(); } } } } catch (RuntimeException e) {
-	 * System.out.println("Failed to set interfaces"); e.printStackTrace(); } }
-	 */
-
-	/*
-	 * private void setGameInterface() { for (Client player :
-	 * gamePlayers.keySet()) { if (player != null) { for (int i = 0; i <
-	 * portalHealth.length; i++) { if (portalHealth[i] > 0) {
-	 * player.getPlayerAssistant().sendString("" + portalHealth[i] + "", 21111 +
-	 * i); } else player.getPlayerAssistant().sendString("Dead", 21111 + i); }
-	 * player.getPlayerAssistant().sendString("" + KNIGHTS_HEALTH, 21115);
-	 * player.getPlayerAssistant().sendString("" + player.pcDamage, 21116); if
-	 * (gameTimer > 60) {
-	 * player.getPlayerAssistant().sendString("Time remaining: " +
-	 * (gameTimer/60) + " minutes", 21117); } else {
-	 * player.getPlayerAssistant().sendString("Time remaining: " + gameTimer +
-	 * " seconds", 21117); } } } }
-	 */
-
 	/***
 	 * Moving players to arena if there's enough players
 	 */
@@ -208,10 +175,10 @@ public class PestControl {
 			}
 			player.getPlayerAssistant().movePlayer(2656 + Misc.random3(3), 2614 - Misc.random3(4), 0);
 			player.getDialogueHandler().sendDialogues(599, 3790);
-			player.getPacketSender().sendMessage("The Pest Control Game has begun!");
+			player.getPacketSender().sendMessage("The Pest Control game has begun!");
+			player.npcCanAttack = true;
 			gamePlayers.put(player, team);
 		}
-
 		waitingBoat.clear();
 	}
 
@@ -322,14 +289,12 @@ public class PestControl {
 			player.poisonDamage = 0;
 			PrayerDrain.resetPrayers(player);
 			for (int i = 0; i < 24; i++) {
-				player.playerLevel[i] = player.getPlayerAssistant()
-						.getLevelForXP(player.playerXP[i]);
+				player.playerLevel[i] = player.getPlayerAssistant().getLevelForXP(player.playerXP[i]);
 				player.getPlayerAssistant().refreshSkill(i);
 			}
 			player.specAmount = 10;
 			player.pcDamage = 0;
-			player.getItemAssistant().addSpecialBar(
-					player.playerEquipment[player.playerWeapon]);
+			player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 		}
 	}
 
@@ -425,7 +390,11 @@ public class PestControl {
 	}
 
 	public static boolean npcIsPCMonster(int npcType) {
-		return npcType >= 3727 && npcType <= 3776;
+		return (npcType >= 3727 && npcType <= 3776);
+	}
+	
+	public static boolean isPCPortal(int npcType) {
+		return (npcType >= 3777 && npcType <= 3780);
 	}
 
 	private void spawnNPC() {
@@ -434,8 +403,8 @@ public class PestControl {
 			GameEngine.npcHandler.spawnNpc2(aPcNPCData[0], aPcNPCData[1], aPcNPCData[2], 0, 0, 200, 0, 0, playersInGame() * 200, false);
 		}
 		for (int[] voidMonsters : voidMonsterData) {
-			//Server.npcHandler.spawnNpc2(voidMonsters[0], voidMonsters[1], voidMonsters[2], 0, 1, voidMonsters[NpcHandler.getNpcListHP(voidMonsters[0])], NpcHandler.getNpcListCombat(voidMonsters[0])/10, NpcHandler.getNpcListCombat(voidMonsters[0]), playersInGame() * 200);
-			GameEngine.npcHandler.spawnNpc2(voidMonsters[0], voidMonsters[1], voidMonsters[2], 0, 1, 500, 20, 200, 25, false);
+			//GameEngine.npcHandler.spawnNpc2(voidMonsters[0], voidMonsters[1], voidMonsters[2], 0, 1, voidMonsters[NpcHandler.getNpcListHP(voidMonsters[0])], NpcHandler.getNpcListCombat(voidMonsters[0])/10, NpcHandler.getNpcListCombat(voidMonsters[0]), playersInGame() * 200);
+			GameEngine.npcHandler.spawnNpc2(voidMonsters[0], voidMonsters[1], voidMonsters[2], 0, 1, 50, 20, 75, 50, true);
 		}
 	}
 }

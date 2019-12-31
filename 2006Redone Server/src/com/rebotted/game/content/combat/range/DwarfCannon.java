@@ -5,14 +5,10 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.CombatConstants;
-import com.rebotted.game.content.skills.fletching.LogCuttingInterface;
-import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.objects.Objects;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
-import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
 
@@ -36,8 +32,6 @@ public class DwarfCannon {
 	private final int ballsID = 2;
 
 	public final int steelBarID = 2353;
-
-	private final int ammoMouldID = 4;
 
 	public boolean settingUp = false;
 	

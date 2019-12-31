@@ -5,6 +5,7 @@ import com.rebotted.game.content.combat.CombatAssistant;
 import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.melee.MeleeData;
 import com.rebotted.game.content.minigames.FightCaves;
+import com.rebotted.game.content.minigames.PestControl;
 import com.rebotted.game.content.music.sound.CombatSounds;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.npcs.NpcData;
@@ -182,14 +183,11 @@ public class NpcCombat {
 					NpcHandler.npcs[i].attackTimer = NpcData.getNpcDelay(i);
 					NpcHandler.npcs[i].hitDelayTimer = NpcData.getHitDelay(i);
 					NpcHandler.npcs[i].attackType = 0;
-					if (CombatConstants.COMBAT_SOUNDS
-							&& NpcHandler.npcs[i].npcType < 3177
-							&& NpcHandler.npcs[i].npcType > 3180) {
-						c.getPacketSender()
-								.sendSound(
-										CombatSounds
-												.getNpcAttackSounds(NpcHandler.npcs[i].npcType),
-										100, 0);
+					if (CombatConstants.COMBAT_SOUNDS) {
+						if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
+							return;
+						}
+						c.getPacketSender().sendSound(CombatSounds.getNpcAttackSounds(NpcHandler.npcs[i].npcType), 100, 0);
 					}
 					if (special) {
 						loadSpell2(i);
@@ -202,14 +200,11 @@ public class NpcCombat {
 					if (NpcHandler.multiAttacks(i)) {
 						multiAttackGfx(i, NpcHandler.npcs[i].projectileId);
 						NpcData.startAnimation(NpcEmotes.getAttackEmote(i), i);
-						if (CombatConstants.COMBAT_SOUNDS
-								&& NpcHandler.npcs[i].npcType < 3177
-								&& NpcHandler.npcs[i].npcType > 3180) {
-							c.getPacketSender()
-									.sendSound(
-											CombatSounds
-													.getNpcAttackSounds(NpcHandler.npcs[i].npcType),
-											100, 0);
+						if (CombatConstants.COMBAT_SOUNDS) {
+							if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
+								return;
+							}
+							c.getPacketSender().sendSound(CombatSounds.getNpcAttackSounds(NpcHandler.npcs[i].npcType), 100, 0);
 						}
 						NpcHandler.npcs[i].oldIndex = c.playerId;
 						return;
@@ -242,11 +237,10 @@ public class NpcCombat {
 					NpcHandler.npcs[i].oldIndex = c.playerId;
 					NpcData.startAnimation(NpcEmotes.getAttackEmote(i), i);
 					if (CombatConstants.COMBAT_SOUNDS) {
-						c.getPacketSender()
-								.sendSound(
-										CombatSounds
-												.getNpcAttackSounds(NpcHandler.npcs[i].npcType),
-										100, 0);
+						if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
+							return;
+						}
+						c.getPacketSender().sendSound(CombatSounds.getNpcAttackSounds(NpcHandler.npcs[i].npcType), 100, 0);
 					}
 					c.getPacketSender().closeAllWindows();
 				}

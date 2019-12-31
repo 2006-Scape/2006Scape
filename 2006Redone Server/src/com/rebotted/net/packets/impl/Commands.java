@@ -642,11 +642,11 @@ public class Commands implements PacketType {
                 player.specAmount = 100.0;
                 break;
             case "hp":
-                player.getPacketSender().sendMessage("You attributed yourself 999 999 hitpoints.");
+                player.getPacketSender().sendMessage("You attributed yourself 999,999 hitpoints.");
                 player.playerLevel[3] = 999999;
                 break;
             case "pray":
-                player.getPacketSender().sendMessage("You attributed yourself 999 999 prayer points.");
+                player.getPacketSender().sendMessage("You attributed yourself 999,999 prayer points.");
                 player.playerLevel[5] = 999999;
                 break;
             case "setlevel":
@@ -654,7 +654,7 @@ public class Commands implements PacketType {
             case "skill":
                 try {
                     if (arguments.length < 2) {
-                        player.getPacketSender().sendMessage("Must specify a skill and level: ::setlevel 1 99");
+                        player.getPacketSender().sendMessage("Must specify a skill and level - ::setlevel 1 99");
                         return;
                     }
                     int skill = Integer.parseInt(arguments[0]);

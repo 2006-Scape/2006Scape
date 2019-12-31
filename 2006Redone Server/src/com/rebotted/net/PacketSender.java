@@ -1068,7 +1068,8 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendSong(int id) {
-		if (player.getOutStream() == null) return this;
+		if (player.getOutStream() == null) 
+			return this;
 		if (player != null && id != -1) {
 			player.getOutStream().createFrame(74);
 			player.getOutStream().writeWordBigEndian(id);
@@ -1081,7 +1082,8 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendQuickSong(int id, int songDelay) {
-		if (player.getOutStream() == null) return this;
+		if (player.getOutStream() == null) 
+			return this;
 		if (player != null) {
 			player.getOutStream().createFrame(121);
 			player.getOutStream().writeWordBigEndian(id);
@@ -1096,7 +1098,8 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendSound(int id, int type, int delay, int volume) {
-		if (player.getOutStream() == null) return this;
+		if (player.getOutStream() == null) 
+			return this;
 		if (player != null && id != -1) {
 			player.getOutStream().createFrame(174);
 			player.getOutStream().writeWord(id);
