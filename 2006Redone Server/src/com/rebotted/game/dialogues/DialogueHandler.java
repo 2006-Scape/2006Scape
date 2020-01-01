@@ -520,7 +520,7 @@ public class DialogueHandler {
 				player.getItemAssistant().deleteItem(436, 4);
 				player.getItemAssistant().deleteItem(440, 2);
 				player.doricQuest = 2;
-				sendNpcChat2("You brought me everything i need.", "Thank You!",
+				sendNpcChat2("You brought me everything I need.", "Thank You!",
 						player.talkingNpc, "Doric");
 				player.nextChat = 87;
 				break;
@@ -1008,7 +1008,7 @@ public class DialogueHandler {
 				break;
 			case 215:
 				sendNpcChat3(
-						"I need time to study this, " + player.playerName + ".",
+						"I need time to study this, " + Misc.capitalize(player.playerName) + ".",
 						"Can you please do me this task while I study this talisman you have brought me?",
 						"In the mighty town of Varrock, which", player.talkingNpc,
 						"Sedridor");
@@ -1046,7 +1046,7 @@ public class DialogueHandler {
 				player.nextChat = 220;
 				break;
 			case 220:
-				sendNpcChat2("Do this thing for me " + player.playerName + ".",
+				sendNpcChat2("Do this thing for me " + Misc.capitalize(player.playerName) + ".",
 						" Be rewarded in a way you can never imagine.",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 222;
@@ -1152,7 +1152,7 @@ public class DialogueHandler {
 				player.nextChat = 239;
 				break;
 			case 239:
-				sendNpcChat2("Ah, " + player.playerName + ". How goes your quest?",
+				sendNpcChat2("Ah, " + Misc.capitalize(player.playerName) + ". How goes your quest?",
 						"Have you delivered the research notes to my friend yet?",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 240;
@@ -3046,7 +3046,7 @@ public class DialogueHandler {
 				break;
 
 			case 590:
-				sendNpcChat1("Hello " + player.playerName + ".", player.talkingNpc,
+				sendNpcChat1("Hello " + Misc.capitalize(player.playerName) + ".", player.talkingNpc,
 						"Gnome Pilot");
 				player.nextChat = 591;
 				break;
@@ -4285,7 +4285,7 @@ public class DialogueHandler {
 				break;
 			case 1237:
 				sendNpcChat2("You have been assigned " + player.taskAmount + " " + player.getSlayer().getTaskName(player.slayerTask) + ",",
-						"Good luck " + player.playerName + ".",
+						"Good luck " + Misc.capitalize(player.playerName) + ".",
 						player.talkingNpc,
 						NpcHandler.getNpcListName(player.talkingNpc));
 				player.nextChat = 0;
@@ -4440,7 +4440,7 @@ public class DialogueHandler {
 			case 1318:
 				if (player.getSlayer().hasTask()) {
 					sendNpcChat3(
-							"Hello " + player.playerName + ".",
+							"Hello " + Misc.capitalize(player.playerName) + ".",
 							"You currently need to kill "
 									+ player.taskAmount
 									+ " more "
@@ -4476,7 +4476,7 @@ public class DialogueHandler {
 			case 1320:
 				if (player.getSlayer().hasTask()) {
 					sendNpcChat2(
-							"Hello " + player.playerName + ".",
+							"Hello " + Misc.capitalize(player.playerName) + ".",
 							"I am located in "
 									+ player.getSlayer().getMasterLocation(
 									player.SlayerMaster) + ".",
@@ -4495,7 +4495,7 @@ public class DialogueHandler {
 				break;
 
 			case 1322:
-				sendNpcChat2("Hello " + player.playerName + ".", "Are you interested in buying anything?", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
+				sendNpcChat2("Hello " + Misc.capitalize(player.playerName) + ".", "Are you interested in buying anything?", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
 				player.nextChat = 1323;
 				break;
 
@@ -4527,7 +4527,7 @@ public class DialogueHandler {
 				break;
 
 			case 1329:
-				sendNpcChat2("Hello " + player.playerName + ".",
+				sendNpcChat2("Hello " + Misc.capitalize(player.playerName) + ".",
 						"Are you interested in buying anything?",
 						player.talkingNpc,
 						NpcHandler.getNpcListName(player.talkingNpc));
@@ -4856,7 +4856,7 @@ public class DialogueHandler {
 			case 1368:
 				sendNpcChat2("You have been assigned " + player.taskAmount + " "
 								+ player.getSlayer().getTaskName(player.slayerTask) + ",",
-						"Good luck " + player.playerName + ".", player.talkingNpc,
+						"Good luck " + Misc.capitalize(player.playerName) + ".", player.talkingNpc,
 						NpcHandler.getNpcListName(player.talkingNpc));
 				player.nextChat = 0;
 				break;
@@ -4895,7 +4895,7 @@ public class DialogueHandler {
 				break;
 
 			case 1373:
-				sendNpcChat2("Hello " + player.playerName + ".",
+				sendNpcChat2("Hello " + Misc.capitalize(player.playerName) + ".",
 						"Are you interested in buying anything?",
 						player.talkingNpc,
 						NpcHandler.getNpcListName(player.talkingNpc));
@@ -4928,7 +4928,7 @@ public class DialogueHandler {
 				break;
 
 			case 1378:
-				sendNpcChat2("Hello " + player.playerName + ".",
+				sendNpcChat2("Hello " + Misc.capitalize(player.playerName) + ".",
 						"Are you interested in buying a candle for 1k?",
 						player.talkingNpc, "Candle Seller");
 				player.nextChat = 1379;
@@ -6123,7 +6123,7 @@ public class DialogueHandler {
 				break;
 
 			case 3118:
-				sendNpcChat2("Hello " + player.playerName + ".",
+				sendNpcChat2("Hello " + Misc.capitalize(player.playerName) + ".",
 						"Are you interested in buying any beer?",
 						player.talkingNpc,
 						NpcHandler.getNpcListName(player.talkingNpc));
@@ -6383,7 +6383,7 @@ public class DialogueHandler {
 				break;
 
 			case 3158:
-				sendNpcChat1("Hello, " + player.playerName + " what would you like to do?", player.talkingNpc, "Wyson the Gardener");
+				sendNpcChat1("Hello, " + Misc.capitalize(player.playerName) + " what would you like to do?", player.talkingNpc, "Wyson the Gardener");
 				player.nextChat = 3159;
 				break;
 
@@ -6733,29 +6733,8 @@ public class DialogueHandler {
 				player.dialogueAction = 3205;//187
 				break;
 
-			/*case 3206:
-			if (Constants.HALLOWEEN == false) {
-				sendNpcChat2("The halloween event is now over,", "what would you like?", 945, "" + Constants.SERVER_NAME + " Guide");
-				client.nextChat = 3207;
-			} else if (client.recievedMask == false && Constants.HALLOWEEN) {
-				sendNpcChat2("Thank you so much for voting!", "Enjoy your mask!", 945, "" + Constants.SERVER_NAME + " Guide");
-				client.getItemAssistant().addOrDropItem(client.getPlayerAssistant().randomReward(), 1);
-				VotingHandler.setAsReceived(client.playerName);
-				client.recievedMask = true;
-				client.nextChat = 0;
-			} else if (client.recievedMask && Constants.HALLOWEEN) {
-				sendNpcChat2("You have already recieved a halloween mask.", "What reward would you like?", 945, "" + Constants.SERVER_NAME + " Guide");
-				client.nextChat = 3207;
-			}
-			break;
-
-			case 3207:
-				sendOption3("Experience Lamp (Depends on Level of Skill)", "Coins (1-4k)", "Energy Lamp");
-				client.dialogueAction = 188;
-			break;*/
-
 			case 3208:
-				sendNpcChat1("Hello, " + player.playerName + " what would you like to do?", 958, "Fadli");
+				sendNpcChat1("Hello, " + Misc.capitalize(player.playerName) + " what would you like to do?", 958, "Fadli");
 				player.nextChat = 3209;
 				break;
 
@@ -6824,7 +6803,7 @@ public class DialogueHandler {
 				break;
 
 			case 3221://28
-				sendStatement("Congratulations, " + player.playerName + ". You've completed the barrows challenge & your reward has been delivered.");
+				sendStatement("Congratulations, " + Misc.capitalize(player.playerName) + ". You've completed the barrows challenge & your reward has been delivered.");
 				player.nextChat = 0;
 				break;
 
@@ -6919,7 +6898,7 @@ public class DialogueHandler {
 				player.nextChat = 3509;
 				break;
 			case 3509:
-				sendNpcChat1("Thank you so much " + player.playerName + "!", player.talkingNpc, "Sir Amik Varze");
+				sendNpcChat1("Thank you so much " + Misc.capitalize(player.playerName) + "!", player.talkingNpc, "Sir Amik Varze");
 				player.nextChat = 0;
 				break;
 			case 3510:
@@ -6933,7 +6912,7 @@ public class DialogueHandler {
 				}
 				break;
 			case 3511:
-				sendNpcChat1("Thank you very much " + player.playerName + "!",
+				sendNpcChat1("Thank you very much " + Misc.capitalize(player.playerName) + "!",
 						player.talkingNpc, "Sir Amik Varze");
 				player.nextChat = 3512;
 				break;

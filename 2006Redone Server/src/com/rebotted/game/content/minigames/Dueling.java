@@ -1,7 +1,6 @@
 package com.rebotted.game.content.minigames;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.combat.prayer.PrayerDrain;
@@ -16,8 +15,6 @@ import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.game.players.PlayerSave;
 import com.rebotted.util.GameLogger;
 import com.rebotted.util.Misc;
-
-import static com.rebotted.game.content.music.sound.SoundList.DUEL_WON;
 
 public class Dueling {
 
@@ -575,7 +572,7 @@ public class Dueling {
 		player.getPlayerAssistant().requestUpdates();
 	}
 
-	public static void HandleForfeit(Player player)
+	public static void handleForfeit(Player player)
 	{
 		Client opponent = (Client) PlayerHandler.players[player.duelingWith];
 		opponent.getDueling().duelVictory();

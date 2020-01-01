@@ -7,7 +7,7 @@ public class RangeData {
 	public final static int[] BOWS = { 9185, 839, 845, 847, 851, 855, 859, 841,
 			843, 849, 853, 857, 861, 4212, 4214, 4215, 11235, 4216, 4217, 4218,
 			4219, 4220, 4221, 4222, 4223, 6724, 4734, 4934, 4935, 4936, 4937 };
-	public final static int[] ARROWS = { 882, 884, 886, 888, 890, 892, 4740,
+	public final static int[] ARROWS = { 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 4740,
 			11212, 9140, 9141, 4142, 9143, 9144, 9240, 9241, 9242, 9243, 9244,
 			9245, 4150, 4160, 4172 };
 	public final static int[] NO_ARROW_DROP = { 4212, 4214, 4215, 4216, 4217,
@@ -50,10 +50,8 @@ public class RangeData {
 		case 3202:
 		case 3204:
 			return true;
-
-		default:
-			return false;
 		}
+		return false;
 	}
 
 	public static int correctBowAndArrows(Player c) {
