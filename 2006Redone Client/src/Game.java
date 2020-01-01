@@ -9503,13 +9503,13 @@ public class Game extends RSApplet {
 		if (loginScreenState == 3) {
 			chatTextDrawingArea.method382(0xffff00, c / 2, "Create a free account", c1 / 2 - 60, true);
 			int k = c1 / 2 - 35;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "To create a new account you need to", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "To create a new account just click", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "go back to the main " + ClientSettings.SERVER_NAME + " webpage", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "\"Cancel\" below, and click \"Existing User\".", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "and choose the red 'create account'", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "Log in with any credentials you want and an", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "button at the top right of that page.", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "account will automatically be created for you.", k, true);
 			k += 15;
 			int j1 = c / 2;
 			int i2 = c1 / 2 + 50;
