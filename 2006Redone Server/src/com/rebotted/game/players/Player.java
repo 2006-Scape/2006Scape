@@ -75,7 +75,7 @@ import com.rebotted.util.Stream;
 import com.rebotted.world.ObjectManager;
 
 public abstract class Player {
-	
+
 	public byte buffer[] = null;
 	public Stream inStream = null, outStream = null;
     public IoSession session;
@@ -135,11 +135,11 @@ public abstract class Player {
 	public SingleGates getSingleGates() {
 		return singleGates;
 	}
-	
+
 	public DoubleGates getDoubleGates() {
 		return doubleGates;
 	}
-	
+
 	public GateHandler getGateHandler() {
 		return gateHandler;
 	}
@@ -155,19 +155,19 @@ public abstract class Player {
 	public Mining getMining() {
 		return mining;
 	}
-	
+
 	public Barrows getBarrows() {
 		return barrows;
 	}
-	
+
     public GlassBlowing getGlassBlowing() {
         return glassBlowing;
     }
-	
+
 	public RangersGuild getRangersGuild() {
 		return rangersGuild;
 	}
-	
+
 	public ObjectManager getObjectManager() {
 		return objectManager;
 	}
@@ -251,7 +251,7 @@ public abstract class Player {
 	public PlayerAction getPlayerAction() {
 		return playeraction;
 	}
-	
+
 	public Desert getDesert() {
 		return desert;
 	}
@@ -365,16 +365,16 @@ public abstract class Player {
 	}
 
 	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
-	
+
 	public class TinterfaceText {
 		public int id;
 		public String currentState;
-		
+
 		public TinterfaceText(String s, int id) {
 			this.currentState = s;
 			this.id = id;
 		}
-		
+
 	}
 
 	public boolean checkPacket126Update(String text, int id) {
@@ -626,7 +626,7 @@ public abstract class Player {
 			}
 			@Override
 				public void stop() {
-					
+
 				}
 		}, 200);
 	}
@@ -644,7 +644,7 @@ public abstract class Player {
 	public boolean isBusy() {
 		return isBusy;
 	}
-	
+
 	 public int getLastLogin() {
 	        Calendar cal = new GregorianCalendar();
 	        int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -974,7 +974,7 @@ public abstract class Player {
 	/**
 	 * Outputs a send packet which is built from the data params provided
 	 * towards a connected user client channel.
-	 * 
+	 *
 	 * @param id
 	 *            The identification number of the sound.
 	 * @param volume
@@ -1000,7 +1000,7 @@ public abstract class Player {
 	/**
 	 * Outputs a send packet which is built from the data params provided
 	 * towards a connected user client channel.
-	 * 
+	 *
 	 * @param id
 	 *            The identification number of the sound.
 	 * @param volume
@@ -1013,7 +1013,7 @@ public abstract class Player {
 	/**
 	 * Outputs a send packet which is built from the data params provided
 	 * towards a connected user client channel.
-	 * 
+	 *
 	 * @param id
 	 *            The identification number of the sound.
 	 */
@@ -1023,7 +1023,7 @@ public abstract class Player {
 
 	/**
 	 * Play sounds
-	 * 
+	 *
 	 * @param SOUNDID
 	 *            : ID
 	 * @param delay
@@ -1074,14 +1074,14 @@ public abstract class Player {
 						}
 						@Override
 							public void stop() {
-								
+
 							}
 					}, 16);
 				}
 			}
 		}
 	}
-	
+
 	 public void trawlerFade(final int x, final int y, final int height) {
 	        if (System.currentTimeMillis() - lastAction > 5000) {
 	            lastAction = System.currentTimeMillis();
@@ -1115,7 +1115,7 @@ public abstract class Player {
 	            }, 1);
 	        }
 	    }
-	
+
 	public void fade(final int x, final int y, final int height) {
         if (System.currentTimeMillis() - lastAction > 5000) {
             lastAction = System.currentTimeMillis();
@@ -1166,7 +1166,7 @@ public abstract class Player {
 
 	/**
 	 * Sets the option clicked
-	 * 
+	 *
 	 * @param i
 	 *            the option clicked
 	 */
@@ -1174,19 +1174,19 @@ public abstract class Player {
 	public void setOptionClicked(int i) {
 		optionClicked = i;
 	}
-	
+
 	public String statedInterface = "";
-	
+
 	public String getStatedInterface() {
 		return statedInterface;
 	}
-	
+
 	public void setStatedInterface(String statedInterface) {
 		this.statedInterface = statedInterface;
 	}
 
 	public String slayerMaster;
-	
+
 	public boolean lostCannon = false, refresh = false, isBot = false;
 
 	public int CannonSetupStage;
@@ -1194,7 +1194,7 @@ public abstract class Player {
 	public ArrayList<String> killedPlayers = new ArrayList<String>();
 	public ArrayList<Integer> attackedPlayers = new ArrayList<Integer>();
 	public ArrayList<String> lastKilledPlayers = new ArrayList<String>();
-	
+
 	public int[][] barrowCrypt = {
 			{4921, 0},
 			{2035, 0}
@@ -1242,7 +1242,7 @@ public abstract class Player {
 			canWalkTutorial, closeTutorialInterface, isCrafting, showedUnfire,
 			showedFire, isPotCrafting, isFiremaking, playerIsFletching, milking,
 			stopPlayerPacket, spiritTree = false, isSmelting,
-			isSmithing, hasPaid, canTeleport, magicCharge, 
+			isSmithing, hasPaid, canTeleport, magicCharge,
 			clickedVamp = false, allowFading, otherBank = false,
 			recievedReward = false, poison, golemSpawned = false, zombieSpawned = false, shadeSpawned = false,
 			treeSpiritSpawned = false, chickenSpawned = false, clickedTree = false, filter = true,
@@ -1273,7 +1273,7 @@ public abstract class Player {
 			rememberNpcIndex, ratsCaught, lastLoginDate, selectedSkill, newHerb,
 			newItem, newXp, doingHerb, herbAmount, treeX, treeY, lastH,
 			cookingItem, cookingObject, summonId, npcId2 = 0, leatherType = -1,
-			weightCarried, teleotherType, rockX, rockY, itemUsing, tzKekTimer, 
+			weightCarried, teleotherType, rockX, rockY, itemUsing, tzKekTimer,
 			bananas, flourAmount, grain, questPoints, questStages,
 			teleGrabItem, teleGrabX, teleGrabY, duelCount, underAttackBy,
 			underAttackBy2, wildLevel, teleTimer, respawnTimer, saveTimer = 0,
@@ -1381,11 +1381,11 @@ public abstract class Player {
 	public boolean[] killedPheasant = new boolean[5];
 	public boolean playerHasRandomEvent;
 	public boolean canLeaveArea;
-	
+
 	public int pieSelect = 0, getPheasent, kebabSelect = 0, breadID,
 			chocSelect = 0, bagelSelect = 0, triangleSandwich = 0,
 			squareSandwich = 0, breadSelect = 0;
-	
+
 	public String properName;
 	public int lastX, lastY;
 	public int[] voidStatus = new int[5];
@@ -1582,8 +1582,18 @@ public abstract class Player {
 	public int XremoveSlot, XinterfaceID, XremoveID, Xamount;
 
 	public boolean isMining;
+	public boolean hasThievedStall;
+
+	public boolean hasThievedStall() {
+		return hasThievedStall;
+	}
+
+	public void setHasThievedStall(boolean hasThievedStall) {
+		this.hasThievedStall = hasThievedStall;
+	}
+
 	public boolean antiFirePot = false;
-	
+
 	public boolean underWater = false;
     public boolean prevRunning2;
     public int prevPrevPlayerRunIndex;
@@ -1597,7 +1607,7 @@ public abstract class Player {
    public Client asClient() {
        return (Client) this;
    }
-   
+
    private Player player;
    public Player asPlayer() {
        return (Player) player;
@@ -1609,7 +1619,7 @@ public abstract class Player {
        }
        return false;
    }
-   
+
    public boolean inTrawlerGame() {
        if(inArea(2808, 2811,3415,3425)) {
            return true;
@@ -1712,7 +1722,7 @@ public abstract class Player {
 		}
 		return false;
 	}
-	
+
 	public boolean inKqArea() {
 		if (absX >= 3467  && absX <= 3506 && absY >= 9477 && absY <= 9513) {
 			return true;
@@ -1803,23 +1813,23 @@ public abstract class Player {
 		}
 		return false;
 	}
-	
-	
+
+
 	 public boolean playerIsBusy() {
 	        if(isShopping || inTrade || openDuel || isBanking || duelStatus == 1) {
 	            return true;
 	        }
 	        return false;
 	    }
-	
-	public boolean isInBarrows() {		
+
+	public boolean isInBarrows() {
 		if(absX > 3543 && absX < 3584 && absY > 3265 && absY < 3311) {
 			return true;
 		}
 		return false;
 	}
-	
-	public boolean isInBarrows2() {		
+
+	public boolean isInBarrows2() {
 		if(absX > 3529 && absX < 3581 && absY > 9673 && absY < 9722) {
 			return true;
 		}
@@ -1845,7 +1855,7 @@ public abstract class Player {
 		   return isInAreaxxyy(3090, 3099, 3487, 3500) || isInAreaxxyy(3089, 3090, 3492, 3498) || isInAreaxxyy(3249, 3258, 3413, 3428) || isInAreaxxyy(3180, 3191, 3432, 3448) || isInAreaxxyy(2945, 2948, 3365, 3374) ||
 			   isInAreaxxyy(2943, 2948, 3367, 3374) || isInAreaxxyy(2945, 2950, 3365, 3370) || isInAreaxxyy(3009, 3018, 3352, 3359) || isInAreaxxyy(3017, 3022, 3353, 3357);
 	}
-	
+
 	public boolean inLumbBuilding() {
 		return isInAreaxxyy(3205, 3216, 3209, 3228) || isInAreaxxyy(3229, 3233, 3206, 3208) || isInAreaxxyy(3228, 3233, 3201, 3205) || isInAreaxxyy(3230, 3237, 3195, 3198) || isInAreaxxyy(3238, 3229, 3209, 3211) ||
 			   isInAreaxxyy(3240, 3247, 3204, 3215) || isInAreaxxyy(3247, 3252, 3190, 3195) || isInAreaxxyy(3227, 3230, 3212, 3216) || isInAreaxxyy(3227, 3230, 3221, 3225) || isInAreaxxyy(3229, 3232, 3236, 3241) ||
@@ -2125,7 +2135,7 @@ public abstract class Player {
 		walkingQueueY[wQueueWritePtr] = y;
 		wQueueWritePtr = next;
 	}
-	
+
 	public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
 		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
 	}
@@ -3088,11 +3098,11 @@ public abstract class Player {
 	}
 
 	public void setInStreamDecryption(ISAACRandomGen inStreamDecryption) {
-		
+
 	}
 
 	public void setOutStreamDecryption(ISAACRandomGen outStreamDecryption) {
-		
+
 	}
 
 	public boolean samePlayer() {
@@ -3115,7 +3125,7 @@ public abstract class Player {
 		logoutDelay = System.currentTimeMillis();
 		singleCombatDelay = System.currentTimeMillis();
 	}
-	
+
 
 	public void dealDamage(int damage) {
 		if (teleTimer <= 0) {
@@ -3133,7 +3143,7 @@ public abstract class Player {
 			}
 		}
 	}
-	
+
 	public void appendRedemption() {
 		Client c = (Client) PlayerHandler.players[playerId];
 		if (c.getPrayer().prayerActive[22]) {
