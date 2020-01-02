@@ -385,7 +385,7 @@ public class CombatSounds {
 	public static int specialSounds(int id) {
 		if (id == 4151) {// whip
 			return 1081;
-		} else if (id == 5698 || id == 1231 || id == 1215) {// dds
+		} else if (id == 5698 || id == 1231 || id == 1215 || id == 5680) {// dds
 			return 793;
 		} else if (id == 1434) {// Mace
 			return 387;
@@ -399,7 +399,7 @@ public class CombatSounds {
 			return 1305;
 		} else if (id == 1305) { // D Long
 			return 390;
-		} else if (id == 861 || id == 11235) { // MSB, Darkbow
+		} else if (id == 861 || id == 11235 || id == 859) { // MSB, Darkbow
 			return 386;
 		} else if (id == 1377) { // DBAxe
 			return 389;

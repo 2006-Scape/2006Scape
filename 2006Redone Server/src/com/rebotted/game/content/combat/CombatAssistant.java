@@ -730,7 +730,7 @@ public class CombatAssistant {
 						c.lastWeaponUsed = c.playerEquipment[c.playerWeapon];
 						c.lastArrowUsed = c.playerEquipment[c.playerArrows];
 						c.getSpecials().activateSpecial(
-								c.playerEquipment[c.playerWeapon], i);
+								c.playerEquipment[c.playerWeapon], null, i);
 						return;
 					} else {
 						c.getPacketSender()
@@ -1175,7 +1175,7 @@ public class CombatAssistant {
 					if (checkSpecAmount(equippedWeapon)) {
 						c.lastArrowUsed = c.playerEquipment[c.playerArrows];
 						c.getSpecials().activateSpecial(
-								c.playerEquipment[c.playerWeapon], i);
+								c.playerEquipment[c.playerWeapon], o, i);
 						c.followId = c.playerIndex;
 						return;
 					} else {
@@ -2246,10 +2246,6 @@ public class CombatAssistant {
 			return true;
 		}
 		return false;
-	}
-
-	public void activateSpecial(int weapon, int i) {
-		c.getSpecials().activateSpecial(weapon, i);
 	}
 
 	public boolean checkSpecAmount(int weapon) {
