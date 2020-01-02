@@ -1,6 +1,6 @@
 # 2006rebotted - an open source, bottable remake server. Pull requests welcome!
 
-## Discord Link: https://discord.gg/4zrA2Wy
+## Discord Link: https://discord.gg/hZ6VfWG
 
 ## How to Play
 
