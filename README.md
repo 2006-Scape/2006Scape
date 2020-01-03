@@ -1,4 +1,4 @@
-# 2006rebotted - an open source, bottable remake server. Pull requests welcome!
+# 2006rebotted - an open source, actively developed emulation server. Pull requests welcome!
 
 ## Discord Link: https://discord.gg/hZ6VfWG
 
