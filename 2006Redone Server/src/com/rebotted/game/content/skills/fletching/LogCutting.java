@@ -35,24 +35,29 @@ public class LogCutting {
 			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				@Override
 				public void execute(CycleEventContainer container) {
-					if (player.doAmount <= 0 || !player.getItemAssistant().playerHasItem(LogCuttingInterface.log) || !player.getItemAssistant().playerHasItem(KNIFE) || player.isWoodcutting || player.isCrafting || player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isSmithing || player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing || player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting || player.playerIsCooking || player.isPotCrafting) {
+					if (player.doAmount <= 0 || !player.getItemAssistant().playerHasItem(player.getFletching().log) 
+							|| !player.getItemAssistant().playerHasItem(KNIFE) || player.isWoodcutting || player.isCrafting 
+							|| player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isSmithing 
+							|| player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing 
+							|| player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting 
+							|| player.playerIsCooking || player.isPotCrafting) {
 						container.stop();
 						return;
 					}
 					else
 					{
 						player.startAnimation(1248);
-						player.getItemAssistant().deleteItem(LogCuttingInterface.log, 1);
+						player.getItemAssistant().deleteItem(player.getFletching().log, 1);
 						if (product == 52)
 						{
 							player.getItemAssistant().addItem(product, 15);
-							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into 15 " + ItemAssistant.getItemName(product) + "s.");
+							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(player.getFletching().log) + " into 15 " + ItemAssistant.getItemName(product) + "s.");
 
 						}
 						else
 						{
 							player.getItemAssistant().addItem(product, 1);
-							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(LogCuttingInterface.log) + " into a " + ItemAssistant.getItemName(product) + ".");
+							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(player.getFletching().log) + " into a " + ItemAssistant.getItemName(product) + ".");
 
 						}
 						player.getPlayerAssistant().addSkillXP(xp, player.playerFletching);
@@ -69,10 +74,10 @@ public class LogCutting {
 		}
 	}
 
-	public static void handleClick(Player c, int buttonId) {
-		if (c.doAmount == 28 && c.playerIsFletching) {
-			c.getPacketSender().closeAllWindows();
-			c.playerIsFletching = false;
+	public static void handleClick(Player player, int buttonId) {
+		if (player.doAmount == 28 && player.playerIsFletching) {
+			player.getPacketSender().closeAllWindows();
+			player.playerIsFletching = false;
 			return;
 		}
 		switch (buttonId) {
@@ -80,52 +85,52 @@ public class LogCutting {
 		 * normal log (item on interface 3)
 		 */
 		case 34185:
-		if (c.playerIsFletching) {
-			cutLog(c, 52, 1, 5, 1);
-			c.playerIsFletching = false;
+		if (player.playerIsFletching) {
+			cutLog(player, 52, 1, 5, 1);
+			player.playerIsFletching = false;
 			return;
 		}
 		break;
 		case 34184:
-			cutLog(c, 52, 1, 5, 5);
+			cutLog(player, 52, 1, 5, 5);
 			return;
 		case 34183:
-			cutLog(c, 52, 1, 5, 10);
+			cutLog(player, 52, 1, 5, 10);
 			return;
 		case 34182:
-			cutLog(c, 52, 1, 5, 28);
+			cutLog(player, 52, 1, 5, 28);
 			return;
 		case 34189:
-		if (c.playerIsFletching) {
-			cutLog(c, 50, 5, 5, 1);
-			c.playerIsFletching = false;
+		if (player.playerIsFletching) {
+			cutLog(player, 50, 5, 5, 1);
+			player.playerIsFletching = false;
 			return;
 		}
 		break;
 		case 34188:
-			cutLog(c, 50, 5, 5, 5);
+			cutLog(player, 50, 5, 5, 5);
 			return;
 		case 34187:
-			cutLog(c, 50, 5, 5, 10);
+			cutLog(player, 50, 5, 5, 10);
 			return;
 		case 34186:
-			cutLog(c, 50, 5, 5, 28);
+			cutLog(player, 50, 5, 5, 28);
 			return;
 		case 34193:
-		if (c.playerIsFletching) {
-			cutLog(c, 48, 10, 10, 1);
-			c.playerIsFletching = false;
+		if (player.playerIsFletching) {
+			cutLog(player, 48, 10, 10, 1);
+			player.playerIsFletching = false;
 			return;
 		}
 		break;
 		case 34192:
-			cutLog(c, 48, 10, 10, 5);
+			cutLog(player, 48, 10, 10, 5);
 			return;
 		case 34191:
-			cutLog(c, 48, 10, 10, 10);
+			cutLog(player, 48, 10, 10, 10);
 			return;
 		case 34190:
-			cutLog(c, 48, 10, 10, 28);
+			cutLog(player, 48, 10, 10, 28);
 			return;
 			/*
 			 * rest of the log's (item on interface 2)
@@ -134,152 +139,152 @@ public class LogCutting {
 			 * first item
 			 */
 		case 34170:
-			if (LogCuttingInterface.log == 1521 && c.playerIsFletching) {
-				cutLog(c, 54, 20, 16.5, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1521 && player.playerIsFletching) {
+				cutLog(player, 54, 20, 16.5, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1519 && c.playerIsFletching) {
-				cutLog(c, 60, 35, 33.3, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1519 && player.playerIsFletching) {
+				cutLog(player, 60, 35, 33.3, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1517 && c.playerIsFletching) {
-				cutLog(c, 64, 50, 50, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1517 && player.playerIsFletching) {
+				cutLog(player, 64, 50, 50, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1515 && c.playerIsFletching) {
-				cutLog(c, 68, 65, 67.5, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1515 && player.playerIsFletching) {
+				cutLog(player, 68, 65, 67.5, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1513 && c.playerIsFletching) {
-				cutLog(c, 72, 80, 83.25, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1513 && player.playerIsFletching) {
+				cutLog(player, 72, 80, 83.25, 1);
+				player.playerIsFletching = false;
 			}
 			return;
 		case 34169:
-			if (LogCuttingInterface.log == 1521) {
-				cutLog(c, 54, 20, 16.5, 5);
+			if (player.getFletching().log == 1521) {
+				cutLog(player, 54, 20, 16.5, 5);
 			}
-			if (LogCuttingInterface.log == 1519) {
-				cutLog(c, 60, 35, 33.3, 5);
+			if (player.getFletching().log == 1519) {
+				cutLog(player, 60, 35, 33.3, 5);
 			}
-			if (LogCuttingInterface.log == 1517) {
-				cutLog(c, 64, 50, 50, 5);
+			if (player.getFletching().log == 1517) {
+				cutLog(player, 64, 50, 50, 5);
 			}
-			if (LogCuttingInterface.log == 1515) {
-				cutLog(c, 68, 65, 67.5, 5);
+			if (player.getFletching().log == 1515) {
+				cutLog(player, 68, 65, 67.5, 5);
 			}
-			if (LogCuttingInterface.log == 1513) {
-				cutLog(c, 72, 80, 83.25, 5);
+			if (player.getFletching().log == 1513) {
+				cutLog(player, 72, 80, 83.25, 5);
 			}
 			return;
 		case 34168:
-			if (LogCuttingInterface.log == 1521) {
-				cutLog(c, 54, 20, 16.5, 10);
+			if (player.getFletching().log == 1521) {
+				cutLog(player, 54, 20, 16.5, 10);
 			}
-			if (LogCuttingInterface.log == 1519) {
-				cutLog(c, 60, 35, 33.3, 10);
+			if (player.getFletching().log == 1519) {
+				cutLog(player, 60, 35, 33.3, 10);
 			}
-			if (LogCuttingInterface.log == 1517) {
-				cutLog(c, 64, 50, 50, 10);
+			if (player.getFletching().log == 1517) {
+				cutLog(player, 64, 50, 50, 10);
 			}
-			if (LogCuttingInterface.log == 1515) {
-				cutLog(c, 68, 65, 67.5, 10);
+			if (player.getFletching().log == 1515) {
+				cutLog(player, 68, 65, 67.5, 10);
 			}
-			if (LogCuttingInterface.log == 1513) {
-				cutLog(c, 72, 80, 83.25, 10);
+			if (player.getFletching().log == 1513) {
+				cutLog(player, 72, 80, 83.25, 10);
 			}
 			return;
 		case 34167:
-			if (LogCuttingInterface.log == 1521) {
-				cutLog(c, 54, 20, 16.5, 28);
+			if (player.getFletching().log == 1521) {
+				cutLog(player, 54, 20, 16.5, 28);
 			}
-			if (LogCuttingInterface.log == 1519) {
-				cutLog(c, 60, 35, 33.3, 28);
+			if (player.getFletching().log == 1519) {
+				cutLog(player, 60, 35, 33.3, 28);
 			}
-			if (LogCuttingInterface.log == 1517) {
-				cutLog(c, 64, 50, 50, 28);
+			if (player.getFletching().log == 1517) {
+				cutLog(player, 64, 50, 50, 28);
 			}
-			if (LogCuttingInterface.log == 1515) {
-				cutLog(c, 68, 65, 67.5, 28);
+			if (player.getFletching().log == 1515) {
+				cutLog(player, 68, 65, 67.5, 28);
 			}
-			if (LogCuttingInterface.log == 1513) {
-				cutLog(c, 72, 80, 83.25, 28);
+			if (player.getFletching().log == 1513) {
+				cutLog(player, 72, 80, 83.25, 28);
 			}
 			return;
 			/*
 			 * second item
 			 */
 		case 34174:
-			if (LogCuttingInterface.log == 1521 && c.playerIsFletching) {
-				cutLog(c, 56, 25, 25, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1521 && player.playerIsFletching) {
+				cutLog(player, 56, 25, 25, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1519 && c.playerIsFletching) {
-				cutLog(c, 58, 40, 41.5, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1519 && player.playerIsFletching) {
+				cutLog(player, 58, 40, 41.5, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1517 && c.playerIsFletching) {
-				cutLog(c, 62, 55, 58.3, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1517 && player.playerIsFletching) {
+				cutLog(player, 62, 55, 58.3, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1515 && c.playerIsFletching) {
-				cutLog(c, 66, 70, 70, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1515 && player.playerIsFletching) {
+				cutLog(player, 66, 70, 70, 1);
+				player.playerIsFletching = false;
 			}
-			if (LogCuttingInterface.log == 1513 && c.playerIsFletching) {
-				cutLog(c, 70, 85, 91.5, 1);
-				c.playerIsFletching = false;
+			if (player.getFletching().log == 1513 && player.playerIsFletching) {
+				cutLog(player, 70, 85, 91.5, 1);
+				player.playerIsFletching = false;
 			}
 			return;
 		case 34173:
-			if (LogCuttingInterface.log == 1521) {
-				cutLog(c, 56, 25, 25, 5);
+			if (player.getFletching().log == 1521) {
+				cutLog(player, 56, 25, 25, 5);
 			}
-			if (LogCuttingInterface.log == 1519) {
-				cutLog(c, 58, 40, 41.5, 5);
+			if (player.getFletching().log == 1519) {
+				cutLog(player, 58, 40, 41.5, 5);
 			}
-			if (LogCuttingInterface.log == 1517) {
-				cutLog(c, 62, 55, 58.3, 5);
+			if (player.getFletching().log == 1517) {
+				cutLog(player, 62, 55, 58.3, 5);
 			}
-			if (LogCuttingInterface.log == 1515) {
-				cutLog(c, 66, 70, 70, 5);
+			if (player.getFletching().log == 1515) {
+				cutLog(player, 66, 70, 70, 5);
 			}
-			if (LogCuttingInterface.log == 1513) {
-				cutLog(c, 70, 85, 91.5, 5);
+			if (player.getFletching().log == 1513) {
+				cutLog(player, 70, 85, 91.5, 5);
 			}
 			return;
 		case 34172:
-			if (LogCuttingInterface.log == 1521) {
-				cutLog(c, 56, 25, 25, 10);
+			if (player.getFletching().log == 1521) {
+				cutLog(player, 56, 25, 25, 10);
 			}
-			if (LogCuttingInterface.log == 1519) {
-				cutLog(c, 58, 40, 41.5, 10);
+			if (player.getFletching().log == 1519) {
+				cutLog(player, 58, 40, 41.5, 10);
 			}
-			if (LogCuttingInterface.log == 1517) {
-				cutLog(c, 62, 55, 58.3, 10);
+			if (player.getFletching().log == 1517) {
+				cutLog(player, 62, 55, 58.3, 10);
 			}
-			if (LogCuttingInterface.log == 1515) {
-				cutLog(c, 66, 70, 70, 10);
+			if (player.getFletching().log == 1515) {
+				cutLog(player, 66, 70, 70, 10);
 			}
-			if (LogCuttingInterface.log == 1513) {
-				cutLog(c, 70, 85, 91.5, 10);
+			if (player.getFletching().log == 1513) {
+				cutLog(player, 70, 85, 91.5, 10);
 			}
 			return;
 		case 34171:
-			if (LogCuttingInterface.log == 1521) {
-				cutLog(c, 56, 25, 25, 28);
+			if (player.getFletching().log == 1521) {
+				cutLog(player, 56, 25, 25, 28);
 			}
-			if (LogCuttingInterface.log == 1519) {
-				cutLog(c, 58, 40, 41.5, 28);
+			if (player.getFletching().log == 1519) {
+				cutLog(player, 58, 40, 41.5, 28);
 			}
-			if (LogCuttingInterface.log == 1517) {
-				cutLog(c, 62, 55, 58.3, 28);
+			if (player.getFletching().log == 1517) {
+				cutLog(player, 62, 55, 58.3, 28);
 			}
-			if (LogCuttingInterface.log == 1515) {
-				cutLog(c, 66, 70, 70, 28);
+			if (player.getFletching().log == 1515) {
+				cutLog(player, 66, 70, 70, 28);
 			}
-			if (LogCuttingInterface.log == 1513) {
-				cutLog(c, 70, 85, 91.5, 28);
+			if (player.getFletching().log == 1513) {
+				cutLog(player, 70, 85, 91.5, 28);
 			}
 			return;
 		}

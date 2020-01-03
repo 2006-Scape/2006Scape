@@ -1,6 +1,5 @@
 package com.rebotted.game.items;
 
-import com.rebotted.GameEngine;
 import com.rebotted.game.players.Player;
 
 /**

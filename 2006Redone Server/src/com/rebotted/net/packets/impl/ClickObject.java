@@ -58,14 +58,16 @@ public class ClickObject implements PacketType {
 				int yMin = objectY - 1;
 				int yMax = yMin + size[1] + 1;
 
-				if (x >= xMin && y >= yMin && x <= xMax && y <= yMax) {
+				if ((x >= xMin && y >= yMin && x <= xMax && y <= yMax) || (player.getRangersGuild().isInTargetArea() && player.objectId == 2513)) {
 					consumer.accept(player);
 					container.stop();
 				}
 			}
 
 			@Override
-			public void stop() {}
+			public void stop() {
+				
+			}
 		};
 
 		player.startCurrentTask(1, objectWalkToEvent);
