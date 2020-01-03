@@ -9,7 +9,7 @@ import com.rebotted.game.players.Player;
 
 public class LogCuttingInterface {
 
-	public static int log;
+	public int log;
 
 	public static void handleLog(Player c, int item1, int item2) {
 		if (item1 == 946) {
@@ -29,7 +29,7 @@ public class LogCuttingInterface {
 			c.getPacketSender().sendMessage("Nothing interesting happens.");
 			return;
 		}
-		log = item;
+		c.getFletching().log = item;
 		if (item == 1511) {
 			c.getPacketSender().sendChatInterface(8880);
 			c.getPacketSender().sendFrame126("What would you like to make?", 8879);

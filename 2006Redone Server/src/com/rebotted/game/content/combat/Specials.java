@@ -354,7 +354,9 @@ public class Specials {
 			break;
 
 		case 29138:
-			if (player2.playerEquipment[player2.playerWeapon] == 1215 || player2.playerEquipment[player2.playerWeapon] == 1231 || player2.playerEquipment[player2.playerWeapon] == 5680 || player2.playerEquipment[player2.playerWeapon] == 5698) {
+			if (player2.playerEquipment[player2.playerWeapon] == 1215 || player2.playerEquipment[player2.playerWeapon] == 1231 
+				|| player2.playerEquipment[player2.playerWeapon] == 5680 || player2.playerEquipment[player2.playerWeapon] == 5698
+				|| player2.playerEquipment[player2.playerWeapon] == 1305) {
 				player2.specBarId = 7586;
 				player2.usingSpecial = !player2.usingSpecial;
 				player2.getItemAssistant().updateSpecialBar();

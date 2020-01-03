@@ -43,6 +43,7 @@ import com.rebotted.game.content.skills.agility.WildernessAgility;
 import com.rebotted.game.content.skills.cooking.Potatoes;
 import com.rebotted.game.content.skills.core.Mining;
 import com.rebotted.game.content.skills.crafting.GlassBlowing;
+import com.rebotted.game.content.skills.fletching.LogCuttingInterface;
 import com.rebotted.game.content.skills.runecrafting.Runecrafting;
 import com.rebotted.game.content.skills.slayer.Slayer;
 import com.rebotted.game.content.skills.smithing.Smithing;
@@ -76,6 +77,7 @@ import com.rebotted.world.ObjectManager;
 
 public abstract class Player {
 
+	
 	public byte buffer[] = null;
 	public Stream inStream = null, outStream = null;
     public IoSession session;
@@ -118,6 +120,7 @@ public abstract class Player {
 	private final Smithing smithing = new Smithing();
 	private final SmithingInterface smithingInterface = new SmithingInterface(this);
 	private final PrayerData prayer = new PrayerData();
+	private final LogCuttingInterface fletching = new LogCuttingInterface();
 	private final ObjectManager objectManager = new ObjectManager();
 	public ArrayList<GameItem> fishingTrawlerReward = new ArrayList<GameItem>();
 	private final RangersGuild rangersGuild = new RangersGuild(this);
@@ -132,6 +135,10 @@ public abstract class Player {
 	private DoubleGates doubleGates = new DoubleGates();
 	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
 
+	public LogCuttingInterface getFletching() {
+		return fletching;
+	}
+	
 	public SingleGates getSingleGates() {
 		return singleGates;
 	}
