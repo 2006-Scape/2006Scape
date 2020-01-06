@@ -275,15 +275,15 @@ public class Mining {
 		if (i != 2491) {
 			new Object(452, x, y, 0, type, 10, i, respawnTime);
 			Region.addObject(452, x, y, 0, 10, type, false);
-		}
 
-		for (int t = 0; t < PlayerHandler.players.length; t++) {
-			if (PlayerHandler.players[t] != null) {
-				if (PlayerHandler.players[t].rockX == x && PlayerHandler.players[t].rockY == y) {
-					PlayerHandler.players[t].isMining = false;
-					PlayerHandler.players[t].startAnimation(65535);
-					PlayerHandler.players[t].rockX = 0;
-					PlayerHandler.players[t].rockY = 0;
+			for (int t = 0; t < PlayerHandler.players.length; t++) {
+				if (PlayerHandler.players[t] != null) {
+					if (PlayerHandler.players[t].rockX == x && PlayerHandler.players[t].rockY == y) {
+						PlayerHandler.players[t].isMining = false;
+						PlayerHandler.players[t].startAnimation(65535);
+						PlayerHandler.players[t].rockX = 0;
+						PlayerHandler.players[t].rockY = 0;
+					}
 				}
 			}
 		}
