@@ -65,10 +65,6 @@ public class PassDoor {
 				passThroughDoor(player, objectType, 1, 0, 0, 1, 0, 0);
 			} else if (Position.checkPosition(player, 3247, 9892, 0)) {
 				passThroughDoor(player, objectType, 1, 0, 0, -1, 0, 0);
-			} else if (Position.checkPosition(player, 3108, 9570, 0)) {
-				passThroughDoor(player, objectType, 1, 0, 0, -1, 0, 0);
-			} else if (Position.checkPosition(player, 3107, 9570, 0)) {
-				passThroughDoor(player, objectType, 1, 0, 0, 1, 0, 0);
 			} else if (Position.checkPosition(player, 3110, 9559, 0)) {
 				passThroughDoor(player, objectType, 3, 0, 0, 1, 0, 0);
 			} else if (Position.checkPosition(player, 3111, 9559, 0)) {
@@ -76,15 +72,7 @@ public class PassDoor {
 			}
 			break;
 		case 11993:
-			if (Position.checkPlayerY(player, 3167, 0)) {
-				passThroughDoor(player, objectType, 0, 3, 0, 0, -1, 0);
-			} else if (Position.checkPlayerY(player, 3166, 0)) {
-				passThroughDoor(player, objectType, 0, 3, 0, 0, 1, 0);
-			} else if (Position.checkPlayerY(player, 3163, 0) && player.absX != 3107) {
-				passThroughDoor(player, objectType, 2, 1, 0, 0, -1, 0);
-			} else if (Position.checkPlayerY(player, 3162, 0) && player.absX != 3108 && player.absX != 3106) {
-				passThroughDoor(player, objectType, 2, 1, 0, 0, 1, 0);
-			} else if (Position.checkPosition(player, 3107, 3162, 2)) {
+			if (Position.checkPosition(player, 3107, 3162, 2)) {
 				passThroughDoor(player, objectType, 1, 2, 0, 1, 0, 2);
 			} else if (Position.checkPosition(player, 3108, 3162, 2)) {
 				passThroughDoor(player, objectType, 1, 2, 0, -1, 0, 2);
