@@ -110,7 +110,6 @@ public class Fishing extends SkillHandler {
 					c.getPacketSender().chatbox(6180);
 					c.getDialogueHandler()
 							.chatboxText(
-									c,
 									"This should only take a few seconds.",
 									"As you gain Fishing experience you'll find that there are many",
 									"types of fish and many ways to catch them.",

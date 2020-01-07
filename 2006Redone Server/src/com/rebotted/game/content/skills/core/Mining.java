@@ -189,7 +189,7 @@ public class Mining {
 		// Tutorial only stuff
 		if (player.tutorialProgress == 17 || player.tutorialProgress == 18) {
 			player.getPacketSender().chatbox(6180);
-			player.getDialogueHandler().chatboxText(player, "", "Your character is now attempting to mine the rock.", "This should only take a few seconds.", "", "Please wait");
+			player.getDialogueHandler().chatboxText("", "Your character is now attempting to mine the rock.", "This should only take a few seconds.", "", "Please wait");
 			player.getPacketSender().chatbox(6179);
 		} else {
 			player.getPacketSender().sendMessage("You swing your pick at the rock.");
@@ -217,7 +217,7 @@ public class Mining {
 					}
 					if (player.getItemAssistant().playerHasItem(438)) {
 						player.getPacketSender().createArrow(3086, 9501, player.getH(), 2);
-						player.getDialogueHandler().chatboxText(player, "Now you have some tin ore you must need some copper ore, then", "you'll have all you need to create a bronze bar. As you did before", "riger click on the copper rock and select 'mine'.", "", "Mining");
+						player.getDialogueHandler().chatboxText("Now you have some tin ore you must need some copper ore, then", "you'll have all you need to create a bronze bar. As you did before", "riger click on the copper rock and select 'mine'.", "", "Mining");
 						player.tutorialProgress = 18;
 					}
 				} else if (player.tutorialProgress == 18) {
@@ -295,7 +295,6 @@ public class Mining {
 			player.getPacketSender().chatbox(6180);
 			player.getDialogueHandler()
 			.chatboxText(
-					player,
 					"Please wait.",
 					"Your character is now attempting to prospect the rock. This should",
 					"only take a few seconds.", "", "");
@@ -310,7 +309,6 @@ public class Mining {
 						player.getPacketSender().chatbox(6180);
 						player.getDialogueHandler()
 						.chatboxText(
-								player,
 								"",
 								"So now you know there's tin in the grey rocks. Try prospecting",
 								"the brown ones next.", "",
@@ -328,7 +326,6 @@ public class Mining {
 						player.getPacketSender().chatbox(6180);
 						player.getDialogueHandler()
 						.chatboxText(
-								player,
 								"Talk to the Mining Instructor to find out about these types of",
 								"ore and how you can mine them. He'll even give you the",
 								"required tools.", "",

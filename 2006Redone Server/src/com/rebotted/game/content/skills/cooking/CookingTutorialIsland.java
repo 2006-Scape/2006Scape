@@ -112,7 +112,6 @@ public class CookingTutorialIsland extends SkillHandler {
 						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler()
 								.chatboxText(
-										c,
 										"You have just burned your first shrimp. This is normal. As you",
 										"get more experience in Cooking, you will burn stuff less often.",
 										"Let's try cooking without burning it this time. First catch some",
@@ -126,7 +125,6 @@ public class CookingTutorialIsland extends SkillHandler {
 						c.getPacketSender().chatbox(6180);
 						c.getDialogueHandler()
 								.chatboxText(
-										c,
 										"If you'd like a recap on anything you've learnt so far, speak to",
 										"the Survival Expert. You can now move on to the next",
 										"instructor. Click on the gate shown and follow the path.",

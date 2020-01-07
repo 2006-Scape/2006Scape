@@ -1300,7 +1300,7 @@ public class ItemAssistant {
 		if (c.tutorialProgress == 22) {
 			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
-					.chatboxText(c,
+					.chatboxText(
 							"Clothes, armour, weapons and many other items are equipped",
 							"like this. You can unequip items by clicking on the item in the",
 							"worn inventory. You can close this window by clicking on the",
@@ -1314,7 +1314,6 @@ public class ItemAssistant {
 			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 					.chatboxText(
-							c,
 							"",
 							"Click on the flashing crossed swords icon to see the combat",
 							"interface.", "", "Combat interface");

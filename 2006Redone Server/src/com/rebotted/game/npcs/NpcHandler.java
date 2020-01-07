@@ -775,7 +775,6 @@ public class NpcHandler {
 			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 					.chatboxText(
-							c,
 							"",
 							"Pass through the gate and talk to the Combat Instructor, he",
 							"will give you your next task.", "",
@@ -794,7 +793,6 @@ public class NpcHandler {
 			c.getPacketSender().chatbox(6180);
 			c.getDialogueHandler()
 					.chatboxText(
-							c,
 							"You have completed the tasks here. To move on, click on the",
 							"ladder shown. If you need to go over any of what you learnt",
 							"here, just talk to the Combat Instructor and he'll tell you what",

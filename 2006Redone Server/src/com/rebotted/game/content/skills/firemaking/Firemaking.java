@@ -67,7 +67,7 @@ public class Firemaking {
 					}
 					if (c.tutorialProgress == 4) {
 						c.getPacketSender().chatbox(6180);
-						c.getDialogueHandler().chatboxText(c, "", "Your character is now attempting to light the fire.", "This should only take a few seconds.", "", "Please wait");
+						c.getDialogueHandler().chatboxText("", "Your character is now attempting to light the fire.", "This should only take a few seconds.", "", "Please wait");
 						c.getPacketSender().chatbox(6179);
 					}
 					if (groundObject == false) {
