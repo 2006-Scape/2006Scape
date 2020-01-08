@@ -285,7 +285,6 @@ public class NpcActions {
 				c.nextChat = 0;
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"In your worn inventory panel, right click on the dagger and",
 								"select the remove option from the drop down list. After you've",
 								"unequipped the dagger, wield the sword and shield. As you",

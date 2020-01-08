@@ -62,8 +62,7 @@ public class SpecialObjects {
 
 	public static void initKharid(Player player, int objectId) {
 		if (!player.getItemAssistant().playerHasItem(995, 10)) {
-			player.getDialogueHandler().itemMessage(player,
-					"You need 10 coins to pass through this gate.", 995, 200);
+			player.getDialogueHandler().itemMessage("You need 10 coins to pass through this gate.", 995, 200);
 			player.nextChat = 0;
 			return;
 		}

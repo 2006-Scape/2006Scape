@@ -18,7 +18,7 @@ public class SmithingInterface {
 		}
 		if (itemId == 2349 && c.tutorialProgress == 20) {
 			c.getPacketSender().chatbox(6180);
-			c.getDialogueHandler().chatboxText(c, "Now you have the Smithing menu open, you will see a list of all", "the things you can make. Only the dagger can be made at your", "skill level, this is shown by the white text under it. You'll need", "to select the dagger to continue.", "Smithing a dagger");
+			c.getDialogueHandler().chatboxText("Now you have the Smithing menu open, you will see a list of all", "the things you can make. Only the dagger can be made at your", "skill level, this is shown by the white text under it. You'll need", "to select the dagger to continue.", "Smithing a dagger");
 			c.getPacketSender().chatbox(6179);
 			makeBronzeInterface(c);
 			c.isSmithing = true;

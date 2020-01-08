@@ -970,7 +970,6 @@ public class ObjectsActions {
 				player.getPacketSender().chatbox(6180);
 				player.getDialogueHandler()
 						.chatboxText(
-								player,
 								"Follow the path to the chapel and enter it.",
 								"Once inside talk to the monk. He'll tell you all about the skill.",
 								"", "", "Prayer");
@@ -1006,7 +1005,6 @@ public class ObjectsActions {
 				player.getPacketSender().chatbox(6180);
 				player.getDialogueHandler()
 						.chatboxText(
-								player,
 								"The guide here will tell you all about making cash. Just click on",
 								"him to hear what he's got to say.", "", "",
 								"Financial advice");
@@ -1025,7 +1023,6 @@ public class ObjectsActions {
 				player.getPacketSender().chatbox(6180);
 				player.getDialogueHandler()
 						.chatboxText(
-								player,
 								"You can store stuff here for safekeeping. If you die anything",
 								"in your bank will be saved. To deposit something, rich click it",
 								"and select 'store'. Once you've had a good look, close the",
@@ -1129,7 +1126,6 @@ public class ObjectsActions {
 				player.getPacketSender().chatbox(6180);
 				player.getDialogueHandler()
 						.chatboxText(
-								player,
 								"In this area you will find out about combat with swords and",
 								"bows. Speak to the guide and he will tell you all about it.",
 								"", "", "Combat");
@@ -1181,7 +1177,6 @@ public class ObjectsActions {
 				player.getPacketSender().chatbox(6180);
 				player.getDialogueHandler()
 						.chatboxText(
-								player,
 								"",
 								"To attack the rat, right click it and select the attack option. you",
 								"will then walk over to it and start hitting it.",

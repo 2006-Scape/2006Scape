@@ -10,7 +10,7 @@ final class RSFrame extends Frame {
 	public RSFrame(RSApplet RSApplet_, int i, int j) {
 		rsApplet = RSApplet_;
 		setTitle(ClientSettings.SERVER_NAME);
-		setResizable(true);
+		setResizable(false);
 		setMinimumSize(new Dimension(i + 8, j + 28));
 		setVisible(true);
 		toFront();

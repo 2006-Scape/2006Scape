@@ -7,6 +7,7 @@ import java.math.BigInteger;
 
 public class ClientSettings {
 	
+	public static String SNOW_MONTH = ".12";
 	/**
 	 * The Servers Name
 	 */

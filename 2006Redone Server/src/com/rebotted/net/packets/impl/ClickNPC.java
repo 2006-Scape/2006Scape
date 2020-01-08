@@ -40,7 +40,6 @@ public class ClickNPC implements PacketType {
 				client.getPacketSender().chatbox(6180);
 				client.getDialogueHandler()
 						.chatboxText(
-								client,
 								"While you are fighting you will see a bar over your head. The",
 								"bar shows how much health you have left. Your opponent will",
 								"have one too. You will continue to attack the rat until it's dead",
@@ -168,7 +167,6 @@ public class ClickNPC implements PacketType {
 				client.getPacketSender().chatbox(6180);
 				client.getDialogueHandler()
 						.chatboxText(
-								client,
 								"",
 								"All you need to do is move on to the mainland. Just speak",
 								"with Terrova and he'll teleport you to Lumbridge Castle.",

@@ -900,15 +900,15 @@ public class DialogueHandler {
 				break;
 			case 195:
 				sendNpcChat2(
-						"It seems to be mystical and I have never seen anything like it before.",
-						"Would you take it to the head wizard at",
+						"It seems to be mystical and I have never seen anything like it",
+						"before. Would you take it to the head wizard at-",
 						player.talkingNpc, "Duke Horacio");
 				player.nextChat = 196;
 				break;
 			case 196:
 				sendNpcChat3(
-						"the Wizards Tower for me?",
-						"It's just south-west of here and should not take you very long at all.",
+						"the Wizards Tower for me? It's just south-west",
+						"of here and should not take you very long at all.",
 						"I would be awfully grateful.", player.talkingNpc,
 						"Duke Horacio");
 				player.nextChat = 197;
@@ -923,8 +923,8 @@ public class DialogueHandler {
 				break;
 			case 199:
 				sendNpcChat2(
-						"Thank you very much, stranger.",
-						"I'm sure the head wizard will reward you for such an interesting find.",
+						"Thank you very much, stranger. I'm sure the ",
+						"head wizard will reward you for such an interesting find.",
 						player.talkingNpc, "Duke Horacio");
 				player.nextChat = 200;
 				break;
@@ -938,8 +938,8 @@ public class DialogueHandler {
 				break;
 			case 201:
 				sendNpcChat2(
-						"Welcome adventurer, to the world renowed Wizards Tower",
-						"How may I help you?", player.talkingNpc, "Sedridor");
+						"Welcome adventurer, to the world renowed",
+						"Wizards Tower. How may I help you?", player.talkingNpc, "Sedridor");
 				player.nextChat = 202;
 				break;
 			case 202:
@@ -965,9 +965,9 @@ public class DialogueHandler {
 				break;
 			case 207:
 				sendPlayerChat3(
-						"The Duke of Lumbridge sent me to find him. Most of these",
-						"I have this weird talisman he found.",
-						"He said the head wizard would be very interested in it.");
+						"The Duke of Lumbridge sent me to find him.",
+						"I have this weird talisman he found. He said",
+						"the head wizard would be very interested in it.");
 				player.nextChat = 208;
 				break;
 			case 208:
@@ -1000,8 +1000,8 @@ public class DialogueHandler {
 				break;
 			case 214:
 				sendNpcChat4("Th-this talisman you brought me...! ",
-						"It is the last piece of the puzzle, I think! Finally!",
-						"The legacy of our ancestors.",
+						"It is the last piece of the puzzle, I think!",
+						"Finally! The legacy of our ancestors.",
 						"It will return to us once more!", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 215;
@@ -1009,22 +1009,23 @@ public class DialogueHandler {
 			case 215:
 				sendNpcChat3(
 						"I need time to study this, " + Misc.capitalize(player.playerName) + ".",
-						"Can you please do me this task while I study this talisman you have brought me?",
-						"In the mighty town of Varrock, which", player.talkingNpc,
+						"Can you please do me this task while I study this talisman",
+						"you have brought me? In the mighty town of Varrock, which", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 216;
 				break;
 			case 216:
-				sendNpcChat2(
-						"is located North East of here, there is a certain shop that sells magical runes.",
-						"I have in this package all of the research I have done relating to the Rune Stones, and",
+				sendNpcChat3(
+						"is located North East of here, there is a certain shop",
+						"that sells magical runes.I have in this package all of the research",
+						"I have done relating to the Rune Stones, and",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 217;
 				break;
 			case 217:
 				sendNpcChat3(
-						"require sombody to take them to the shopkeeper so that he may share my research",
-						"and offer me his insights.",
+						"require somebody to take them to the shopkeeper so",
+						"that he may share my research and offer me his insights.",
 						"Do this thing for me, and bring back what he gives you,",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 218;
@@ -1032,8 +1033,8 @@ public class DialogueHandler {
 			case 218:
 				sendNpcChat3(
 						"and if my suspicions are correct,",
-						"I will let you into the knowledge of one of the greatest secrets this world has ever known!",
-						"A secret so powerful that it destroyed the",
+						"I will let you into the knowledge of one of the greatest secrets",
+						"this world has ever known! A secret so powerful that it destroyed the",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 219;
 				break;
@@ -1070,15 +1071,16 @@ public class DialogueHandler {
 			case 225:
 				sendNpcChat3(
 						"Once in Varrock, take this package to the owner of the rune shop.",
-						"His name is Aubury.",
-						"You may find it helpful to ask one of Varrock's citizens for directions,",
+						"His name is Aubury. You may find it ",
+						"helpful to ask one of Varrock's citizens for directions,",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 226;
 				break;
 			case 226:
-				sendNpcChat3(
-						"as Varrock can be a confusing place for the first time visitor.",
-						"He will give you a special item - bring it back to me,",
+				sendNpcChat4(
+						"as Varrock can be a confusing place for the first time",
+						"visitor. He will give you a special item - bring it",
+						"back to me,",
 						"and I shall show you the mystery of the runes...",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 227;
@@ -1110,14 +1112,15 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 232: // 9169
-				sendPlayerChat1("I have been sent here with a package for you. It's for the head wizard at the Wizards Tower.");
+				sendPlayerChat2("I have been sent here with a package for you.",
+						"It's for the head wizard at the Wizards Tower.");
 				player.nextChat = 233;
 				break;
 			case 233:
 				sendNpcChat3(
 						"Really? But... surely he can't have..?",
-						"Please, let me have it,",
-						"it must be extremely important for him to have sent a stranger.",
+						"Please, let me have it, it must be ",
+						"extremely important for him to have sent a stranger.",
 						player.talkingNpc, "Aubury");
 				player.nextChat = 234;
 				break;
@@ -1128,9 +1131,10 @@ public class DialogueHandler {
 				player.nextChat = 235;
 				break;
 			case 235:
-				sendNpcChat2(
+				sendNpcChat3(
 						"This... this is incredible. Please,",
-						"give me a few moments to quickly look over this, and then talk to me again.",
+						"give me a few moments to quickly look over this,",
+						"and then talk to me again.",
 						player.talkingNpc, "Aubury");
 				player.nextChat = 236;
 				break;
@@ -1140,25 +1144,28 @@ public class DialogueHandler {
 				player.nextChat = 237;
 				break;
 			case 237:
-				sendNpcChat1(
-						"Thank you, now you should head back to Sedridor and tell him your discoveries.",
+				sendNpcChat2(
+						"Thank you, now you should head back to Sedridor",
+						"and tell him your discoveries.",
 						player.talkingNpc, "Aubury");
 				player.nextChat = 0;
 				break;
 			case 238:
 				sendNpcChat2(
-						"Welcome, adventure to the world-renowed Wizards Tower.",
-						"How may i help you?", player.talkingNpc, "Sedridor");
+						"Welcome, adventure to the world-renowed",
+						"Wizards Tower. How may i help you?", player.talkingNpc, "Sedridor");
 				player.nextChat = 239;
 				break;
 			case 239:
-				sendNpcChat2("Ah, " + Misc.capitalize(player.playerName) + ". How goes your quest?",
-						"Have you delivered the research notes to my friend yet?",
+				sendNpcChat3("Ah, " + Misc.capitalize(player.playerName) + ".",
+						"How goes your quest? Have you delivered the research",
+						"notes to my friend yet?",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 240;
 				break;
 			case 240:
-				sendPlayerChat1("Yes, I have. He gave me some research notes to pass on to you.");
+				sendPlayerChat2("Yes, I have.",
+						"He gave me some research notes to pass on to you.");
 				player.nextChat = 241;
 				break;
 			case 241:
@@ -1177,64 +1184,69 @@ public class DialogueHandler {
 				player.nextChat = 245;
 				break;
 			case 245:
-				sendNpcChat2(
-						"Many centuries ago, the wizards of the Wizards Tower learnt the secret of creating runes,",
+				sendNpcChat3(
+						"Many centuries ago, the wizards of the Wizards Tower",
+						"learnt the secret of creating runes,",
 						"which allowed them to cast magic very easily.",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 247;
 				break;
 			case 247:
 				sendNpcChat3(
-						"But, when this tower was burnt down, the secret of creating runes was lost with it...",
-						"or so I thought.",
-						"Some months ago, while searching these ruins for information, ",
+						"But, when this tower was burnt down, the secret of creating",
+						"runes was lost with it... or so I thought. Some",
+						"months ago, while searching these ruins for information, ",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 248;
 				break;
 			case 248:
 				sendNpcChat2(
-						"I came upon a scroll that made refrence to a magical rock",
-						"deep in the ice fields of the north.", player.talkingNpc,
+						"I came upon a scroll that made refrence to a magical",
+						"rock deep in the ice fields of the north.", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 249;
 				break;
 			case 249:
-				sendNpcChat3(
-						"This rock was called the rune essence by those magicians who studied it's powers.",
-						"Apparently, by simply breaking a chunk for it,",
-						"a rune could be fashioned and taken to certain",
+				sendNpcChat4(
+						"This rock was called the rune essence by",
+						"those magicians who studied it's powers. Apparently, by simply",
+						"breaking a chunk for it, a rune could be fashioned",
+						"and taken to certain magical altars",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 250;
 				break;
 			case 250:
-				sendNpcChat3(
-						"magical altars that were scattered across the land.",
+				sendNpcChat4(
+						"that were scattered across the land.",
 						"Now, this is an intersting little peice of history,",
-						"not much use to us since we do not have access to this rune essence",
+						"not much use to us since we do not have access to",
+						"this rune essence",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 251;
 				break;
 			case 251:
-				sendNpcChat2(
-						"teleportations spell that he had never come across before, When cast,",
-						"it took him to a strange rock, yet it felt strangly familiar.",
+				sendNpcChat3(
+						"teleportations spell that he had never come across before,",
+						"When cast, it took him to a strange rock, yet it",
+						"felt strangly familiar.",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 252;
 				break;
 			case 252:
 				sendNpcChat3(
-						"As I'm sure you have guessed, he had discovered a spell to the mythical rune essence.",
-						"As soon as he told me of this,",
-						"I saw the importance of the find.", player.talkingNpc,
+						"As I'm sure you have guessed, he had discovered a spell",
+						"to the mythical rune essence. As soon as he told me of",
+						"this. I saw the importance of the find.", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 253;
 				break;
 			case 253:
-				sendNpcChat2(
-						"For, if we could find the altars spoken of in the ancient texts",
-						"we would once more be able to create runes as our ancestors had done!",
+				sendNpcChat3(
+						"For, if we could find the altars spoken of in the ancient",
+						"texts, we would once more be able to create runes as",
+						"our ancestors had done!",
 						player.talkingNpc, "Sedridor");
-				player.nextChat = 254;
+				player.nextChat = 254; 
 				break;
 			case 254:
 				sendPlayerChat1("I'm still not sure how I fit into this little story of yours.");
@@ -1243,8 +1255,8 @@ public class DialogueHandler {
 			case 255:
 				sendNpcChat3(
 						"You haven't guessed?",
-						"This talisman you brough me is the key to the elemental altar of air!",
-						"When you hold it, it directs you to", player.talkingNpc,
+						"This talisman you brough me is the key to the elemental altar",
+						"of air! When you hold it, it directs you to", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 256;
 				break;
@@ -1258,69 +1270,75 @@ public class DialogueHandler {
 			case 257:
 				sendNpcChat3(
 						"That's not all!",
-						"By finding other talismans similar to his one,",
-						"you will eventually be able to craft every rune that is available in this world, jus",
+						"By finding other talismans similar to his one, ou will eventually",
+						"be able to craft every rune that is available in this world, just",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 258;
 				break;
 			case 258:
 				sendNpcChat3(
 						"as our ancestors did.",
-						"I cannot stress enough what find this is!",
-						"Now, due to the risks invovled in letting this mighty power fall into the wrong hands.",
+						"I cannot stress enough what find this is! ow, due to the risks",
+						"involved in letting this mighty power fall into the wrong hands.",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 259;
 				break;
 			case 259:
-				sendNpcChat3(
-						"I will keep the teleport spell to the rune essence a closely guarded secret.",
-						"This means that, if any evil power should discover the talismans required to enter the emental temples,",
-						"we will be able to prevent their", player.talkingNpc,
+				sendNpcChat4(
+						"I will keep the teleport spell to the rune essence a closely",
+						"guarded secret. This means that, if any evil power should discover",
+						"the talismans required to enter the emental temples, we will be",
+						"able to prevent their", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 260;
 				break;
 			case 260:
 				sendNpcChat3(
-						"access to the rune essence.",
-						"I know not where the altars are located, not do I know where the talismans have been scattered,",
+						"access to the rune essence.I know not where the altars",
+						"are located, not do I know where the talismans have been scattered,",
 						"but now return your air talisman.", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 261;
 				break;
 			case 261:
-				sendNpcChat1(
-						"Find the Air Altar and you will be able to craft you blank runes into air runes at will.",
+				sendNpcChat2(
+						"Find the Air Altar and you will be able to craft",
+						"blank runes into air runes at will.",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 262;
 				break;
 			case 262:
-				sendNpcChat2(
+				sendNpcChat3(
 						"Any time you wish to visit the rune essence,",
-						"speak to me or Aubury and we will open a portal to that mystical place.",
+						"speak to me or Aubury and we will open a portal",
+						"to that mystical place.",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 264;
 				break;
 			case 264:
-				sendPlayerChat1("So, only you and Aubury know the teleport spell to the rune essence?");
+				sendPlayerChat2("So, only you and Aubury know the teleport spell",
+						"to the rune essence?");
 				player.nextChat = 266;
 				break;
 			case 266:
-				sendNpcChat2(
+				sendNpcChat3(
 						"No, there are others. When you speak to them,",
-						"they will know you and grant you access to that place when asked.",
+						"they will know you and grant you access to that place",
+						"when asked.",
 						player.talkingNpc, "Sedridor");
 				player.nextChat = 267;
 				break;
 			case 267:
-				sendNpcChat2(
-						"Use the air talisman to locate the Air Altar and use any further talismans you find to locate the other altars.",
+				sendNpcChat3(
+						"Use the air talisman to locate the Air Altar and use",
+						"any further talismans you find to locate the other altars.",
 						"Now, my research notes please?", player.talkingNpc,
 						"Sedridor");
 				player.nextChat = 268;
 				break;
 			case 268:
 				itemMessage1(
-						"You give the research notes to Sedrdior. He gives you an air talisman.",
+						"You give the research notes to Sedridor. He gives you an air talisman.",
 						290, 1);
 				player.getItemAssistant().deleteItem(290, 1);
 				player.runeMist = 4;
@@ -3754,7 +3772,7 @@ public class DialogueHandler {
 				player.nextChat = 740;
 				break;
 			case 740:
-				sendItemChat1(player, "", "Straven hands you a key", 759, 150);
+				sendItemChat1("", "Straven hands you a key", 759, 150);
 				player.getItemAssistant().addOrDropItem(759, 1);
 				player.shieldArrav = 6;
 				player.nextChat = 0;
@@ -3775,7 +3793,7 @@ public class DialogueHandler {
 				sendStatement("It's empty.");
 				break;
 			case 744:
-				sendItemChat1(player, "", "You find half of a shield, which you take.", 763, 150);
+				sendItemChat1("", "You find half of a shield, which you take.", 763, 150);
 				player.getItemAssistant().addOrDropItem(763, 1);
 				player.nextChat = 0;
 				break;
@@ -3808,9 +3826,9 @@ public class DialogueHandler {
 				break;
 			case 750:
 				if (player.getItemAssistant().playerHasItem(763))
-					sendItemChat1(player, "", "The curator peers at the shield", 763, 150);
+					sendItemChat1("", "The curator peers at the shield", 763, 150);
 				else if (player.getItemAssistant().playerHasItem(765))
-					sendItemChat1(player, "", "The curator peers at the shield", 765, 150);
+					sendItemChat1("", "The curator peers at the shield", 765, 150);
 				player.nextChat = 751;
 				break;
 			case 751:
@@ -3830,16 +3848,16 @@ public class DialogueHandler {
 				break;
 			case 754:
 				if (player.getItemAssistant().playerHasItem(763)) {
-					sendItemChat1(player, "", "You hand over the shield half.", 763, 150);
+					sendItemChat1("", "You hand over the shield half.", 763, 150);
 					player.getItemAssistant().deleteItem(763, 1);
 				} else if (player.getItemAssistant().playerHasItem(765)) {
-					sendItemChat1(player, "", "You hand over the shield half.", 765, 150);
+					sendItemChat1("", "You hand over the shield half.", 765, 150);
 					player.getItemAssistant().deleteItem(765, 1);
 				}
 				player.nextChat = 755;
 				break;
 			case 755:
-				sendItemChat1(player, "", "The curator writes out a certificate.", 769, 150);
+				sendItemChat1("", "The curator writes out a certificate.", 769, 150);
 				player.getItemAssistant().addOrDropItem(769, 1);
 				player.shieldArrav = 7;
 				player.nextChat = 0;
@@ -3854,7 +3872,7 @@ public class DialogueHandler {
 				player.nextChat = 758;
 				break;
 			case 758:
-				sendItemChat1(player, "", "You show the certificate to the king.", 769, 150);
+				sendItemChat1("", "You show the certificate to the king.", 769, 150);
 				player.nextChat = 759;
 				break;
 			case 759:
@@ -3870,7 +3888,7 @@ public class DialogueHandler {
 				player.nextChat = 761;
 				break;
 			case 761:
-				sendItemChat1(player, "", "You hand over the certificate, The king gives you 1,200gp.", 995, 150);
+				sendItemChat1("", "You hand over the certificate, The king gives you 1,200gp.", 995, 150);
 				player.nextChat = 762;
 				break;
 			case 762:
@@ -4998,7 +5016,7 @@ public class DialogueHandler {
 				// progress bar + tutorial int
 				player.getPacketSender().createArrow(1, 1);
 				chatboxText(
-						player,
+						
 						"To start the tutorial use your left mouse button to click on the",
 						"" + GameConstants.SERVER_NAME
 								+ " in this room. He is indicated by a flashing",
@@ -5068,7 +5086,7 @@ public class DialogueHandler {
 			case 3007: // Player controls
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						player,
+						
 						"Please click on the flashing wrench icon found at the bottom",
 						"right of your screen. This will display your player controls.",
 						"", "", "Player controls");
@@ -5092,7 +5110,7 @@ public class DialogueHandler {
 				player.getPacketSender().chatbox(6180);
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						player,
+						
 						"You can interact with many items of scenery by simply clicking",
 						"on them. Right clicking will also give more options. Feel free to",
 						"try it with the things in this room, then click on the door",
@@ -5107,7 +5125,7 @@ public class DialogueHandler {
 			case 3011: // door handling
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						player,
+						
 						"Follow the path to find the next instructor. Clicking on the",
 						"ground will walk you to that point. Talk to the Survival Expert by",
 						"the pond to the continue the tutorial. Remember you can rotate",
@@ -5132,14 +5150,14 @@ public class DialogueHandler {
 				break;
 
 			case 3013: // giving bronze and tinder
-				sendItemChat2(player, "",
+				sendItemChat2("",
 						"The Survival Guide gives you a @blu@tinderbox @bla@and a",
 						"@blu@bronze axe!", 590, 150);
 				player.getItemAssistant().addOrDropItem(590, 1);
 				player.getItemAssistant().addOrDropItem(1351, 1);
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"Click on the flashing backpack icons to the right hand side of",
 						"the main window to view your inventory. Your inventory is a list",
 						"of everything you have on your backpack.", "",
@@ -5151,14 +5169,14 @@ public class DialogueHandler {
 				player.tutorialProgress = 3;
 				break;
 			case 3014: // finished cutting tree
-				sendItemChat1(player, "", "You got some logs", 1511, 150);
+				sendItemChat1("", "You got some logs", 1511, 150);
 				PlayerAssistant.removeHintIcon(player);
 				player.nextChat = 3015;
 				break;
 			case 3015: // firemaking time
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						player,
+						
 						"Well done! You managed to cut some logs from the tree! Next,",
 						"use the tinderbox in your inventory to light the logs.",
 						"First click on the tinderbox to use it.",
@@ -5172,7 +5190,7 @@ public class DialogueHandler {
 			case 3016: // firemaking done skill tab flashing now.
 				// client.getPacketSender().closeAllWindows();
 				chatboxText(
-						player,
+						
 						"Click on the flashing bar graph icon near the inventory button",
 						"to see your skill stats.", "", "",
 						"You gained some experience.");
@@ -5195,12 +5213,12 @@ public class DialogueHandler {
 				break;
 
 			case 3018:
-				sendItemChat1(player, "",
+				sendItemChat1("",
 						"The Survival Guide gives you a @blu@net!", 303, 150);
 				player.getItemAssistant().addOrDropItem(303, 1);
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"Click on the sparkling fishing spot indicated by the flashing",
 						"arrow. Remember, you can check your inventory by clicking the",
 						"backpack icon.", "", "Catch some Shrimp");
@@ -5212,7 +5230,7 @@ public class DialogueHandler {
 			case 3019: // Cooking the shrimp
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"Now you have caught some shrimp let's cook it. First light a",
 						"fire, chop down a tree and then use the tinderbox on the logs.",
 						"If you've lost your axe or tinderbox, Brynna will give you",
@@ -5229,7 +5247,7 @@ public class DialogueHandler {
 				// // 15 percent
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"Talk to the chef indicated. He will teach you the more advanced",
 						"aspects of Cooking such as combining ingredients. He will also",
 						"teach you about your music player menu as well.", "",
@@ -5268,7 +5286,7 @@ public class DialogueHandler {
 
 			case 3025: // he gives u bucket of water etc TTUOTRIAL PROG 8
 				sendItemChat2(
-						player,
+						
 						"",
 						"The Cooking Guide gives you a @blu@bucket of water@bla@ and a",
 						"@blu@pot of flour!", 1933, 150);
@@ -5276,7 +5294,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(1929, 1);
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"This is the base for many of the meals. To make dough we must",
 						"mix flour and water. First right click the bucket of water and",
 						"select use, then left click on the pot of flour.", "",
@@ -5288,7 +5306,7 @@ public class DialogueHandler {
 			case 3026: // cooking dough
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"Now you have made dough, you can cook it. To cook the dough",
 						"use it with the range shown by the arrow. If you lose your",
 						"dough, talk to Leo - he will give you more ingredients.",
@@ -5303,7 +5321,7 @@ public class DialogueHandler {
 			case 3037: // new tutorial prog
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"Well done! Your first loaf of bread. As you gain experience in",
 						"Cooking you will be able to make other things like pies, cakes",
 						"and even kebabs. Now you've got the hang of cooking, let's",
@@ -5322,7 +5340,7 @@ public class DialogueHandler {
 			case 3038: // Emotes
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"",
 						"Now, how about showing some feelings? You will see a flashing",
 						"icon in the shape of a person. Click on that to access your",
@@ -5339,7 +5357,7 @@ public class DialogueHandler {
 			case 3039: // running
 				player.tutorialProgress = 11;
 				player.getPacketSender().chatbox(6180);
-				chatboxText(player,
+				chatboxText(
 						"It's only a short distance to the next guide.",
 						"Why not try running there? Start by opening the player",
 						"settings, that's the flashing icon of a wrench.", "",
@@ -5353,7 +5371,7 @@ public class DialogueHandler {
 			case 3040:
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"In this menu you will see many options. At the bottom in the",
 						"middle is a button with the symbol of a running shoe. You can",
 						"turn this button on or off to select run or walk. Give it a go,",
@@ -5364,7 +5382,7 @@ public class DialogueHandler {
 			case 3041: // clicked on run
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"Now that you have the run button turned on, follow the path",
 						"until you come to the end. You may notice that the numbers on",
 						"the button goes down. This is your run energy. If your run",
@@ -5386,7 +5404,7 @@ public class DialogueHandler {
 				// guide
 				// client.getPacketDispatcher().tutorialIslandInterface(35, 8);//30 or 35 percent
 				player.getPacketSender().chatbox(6180);
-				chatboxText(player, "Talk with the Quest Guide.", "",
+				chatboxText("Talk with the Quest Guide.", "",
 						"He will tell you all about quests.", "", "");
 				player.getPacketSender().chatbox(6179);
 				player.tutorialProgress = 12;
@@ -5405,7 +5423,7 @@ public class DialogueHandler {
 			case 3044: // Send quest tab
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
-				chatboxText(player, "Open the Quest Journal.", "",
+				chatboxText("Open the Quest Journal.", "",
 						"Click on the flashing icon next to your inventory.", "",
 						"");
 				player.getPacketSender().chatbox(6179);
@@ -5464,7 +5482,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"",
 						"It's time to enter some caves. Click on the ladder to go down to",
 						"the next area.", "", "Moving on");
@@ -5483,7 +5501,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"Next let's get you a weapon or more to the point, you can",
 						"make your first weapon yourself. Don't panic, the Mining",
 						"Instructor will help you. Talk to him and he'll tell you all about it.",
@@ -5520,7 +5538,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"To prospect a mineable rock, just right click it and select the",
 						"'prospect rock' option. This will tell you the type of ore you can",
 						"mine from it. Try it now on one of the rocks indicated.",
@@ -5557,12 +5575,12 @@ public class DialogueHandler {
 				player.nextChat = 3060;
 				break;
 			case 3060:
-				sendItemChat1(player, "",
+				sendItemChat1("",
 						"Dezzick gives you a @blu@bronze pickaxe!", 1265, 300);
 				player.getItemAssistant().addOrDropItem(1265, 1);
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"It's quite simple really. All you need to do is right click on the",
 						"rock and select 'mine'. You can only mine when you have a",
 						"pickaxe. So give a try: first mine one tin ore.", "",
@@ -5579,7 +5597,7 @@ public class DialogueHandler {
 				player.tutorialProgress = 19;
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"You should now have both some copper and tin ore. So let's",
 						"smelt them to make a bronze bar. To do this, right click on",
 						"either tin or copper ore and select use, then left click on the",
@@ -5589,7 +5607,7 @@ public class DialogueHandler {
 				player.tutorialProgress = 20;
 				player.nextChat = 0;
 				player.getPacketSender().chatbox(6180);
-				chatboxText(player, "", "Speak to the Mining Instructor and he'll show you how to make", "it into a weapon.", "", "You've made a bronze bar!");
+				chatboxText("", "Speak to the Mining Instructor and he'll show you how to make", "it into a weapon.", "", "You've made a bronze bar!");
 				player.getPacketSender().chatbox(6179);
 				player.getPacketSender().createArrow(1, 5);
 				break;
@@ -5607,10 +5625,10 @@ public class DialogueHandler {
 				break;
 
 			case 3065: // giving you the hammer
-				sendItemChat1(player, "", "Dezzick gives you a @blu@hammer!", 2347, 300);
+				sendItemChat1("", "Dezzick gives you a @blu@hammer!", 2347, 300);
 				player.getItemAssistant().addOrDropItem(2347, 1);
 				player.nextChat = 0;
-				chatboxText(player, "To smith you'll need a hammer - like the one you were given by", "Dezzick - access to an anvil like the one with the arrow over it", "and enough metal bars to make what you are trying to smith.", "", "Smithing a dagger");
+				chatboxText("To smith you'll need a hammer - like the one you were given by", "Dezzick - access to an anvil like the one with the arrow over it", "and enough metal bars to make what you are trying to smith.", "", "Smithing a dagger");
 				player.getPacketSender().createArrow(3082, 9499, player.getH(), 2); // send
 				// hint
 				// to
@@ -5618,7 +5636,7 @@ public class DialogueHandler {
 				break;
 
 			case 3066:
-				chatboxText(player, "So let's move on. Go through the gates shown by the arrow.", "Remember you may need to move the camera to see your,", "surroundings. Speak to the guide for a recap at any time.", "", "You've finished in this area");
+				chatboxText("So let's move on. Go through the gates shown by the arrow.", "Remember you may need to move the camera to see your,", "surroundings. Speak to the guide for a recap at any time.", "", "You've finished in this area");
 				player.tutorialProgress = 21;
 				player.getPacketSender().createArrow(3094, 9503, player.getH(), 2); // send
 				// hint
@@ -5660,7 +5678,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"",
 						"You now have access to a new interface. Click on the flashing",
 						"icon of a man the one to the right of your backpack icon.",
@@ -5681,7 +5699,7 @@ public class DialogueHandler {
 
 			case 3073:
 				sendItemChat2(
-						player,
+						
 						"",// Gives me sword and shield
 						"The Combat Guide gives you a @blu@bronze sword@bla@ and a",
 						"@blu@wooden shield!", 1171, 300);
@@ -5689,7 +5707,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(1277, 1);
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"In your worn inventory panel, right click on the dagger and",
 						"select the remove option from the drop down list. After you've",
 						"unequipped the dagger, wield the sword and shield. As you",
@@ -5725,7 +5743,7 @@ public class DialogueHandler {
 
 			case 3077: // gives me bow and arrow
 				sendItemChat2(
-						player,
+						
 						"",
 						"The Combat Guide gives you some @blu@bronze arrows@bla@ and",
 						"a @blu@shortbow!", 841, 300);
@@ -5733,7 +5751,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(882, 50);
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"Now you have a bow and some arrows. Before you can use",
 						"them you'll need to equip them. Remember: to attack, right",
 						"click on the monster and select attack.", "",
@@ -5751,7 +5769,7 @@ public class DialogueHandler {
 			case 3078: // fresh
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"Follow the path and you will come to the front of the building.",
 						"This is the Bank of " + GameConstants.SERVER_NAME
 								+ ", where you can store all your",
@@ -5834,7 +5852,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.tutorialProgress = 28;
 				player.getPacketSender().chatbox(6180);
-				chatboxText(player, "", "Continue through the next door.", "", "",
+				chatboxText("", "Continue through the next door.", "", "",
 						"");
 				player.getPacketSender().chatbox(6179);
 				player.getPacketSender().createArrow(3129, 3124, player.getH(),
@@ -5865,7 +5883,7 @@ public class DialogueHandler {
 			case 3091:
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
-				chatboxText(player, "",
+				chatboxText("",
 						"Click on the flashing icon to open the Prayer menu.", "",
 						"", "Your Prayer menu");
 				player.getPacketSender().chatbox(6179);
@@ -5910,7 +5928,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"You should now see another new icon. Click on the flashing",
 						"icon to open your friends list.", "", "", "Friends list");
 				player.getPacketSender().chatbox(6179);
@@ -5976,7 +5994,7 @@ public class DialogueHandler {
 				sendPlayerChat1("Okay thanks. I'll bear that in mind.");
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"You're almost finished on tutorial island. Pass through the",
 						"door to find the path leading to your final instructor.",
 						"", "", "Your final instructor!");
@@ -6009,7 +6027,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						player,
+						
 						"",
 						"Open up the Magic menu by clicking on the flashing icon next",
 						"to the Prayer button you just learned about.", "",
@@ -6031,7 +6049,7 @@ public class DialogueHandler {
 
 			case 3109:
 				sendItemChat1(
-						player,
+						
 						"",
 						"Terrova gives you five @blu@air runes@bla@ and @blu@five mind runes!",
 						556, 300);
@@ -6039,7 +6057,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(556, 5);
 				player.nextChat = 0;
 				chatboxText(
-						player,
+						
 						"Now you have runes you should see the Wind Strike icon at the",
 						"top left corner of the Magic interface - second in from the",
 						"left. Walk over to the caged chickens, click the Wind Strike icon",
@@ -6933,7 +6951,7 @@ public class DialogueHandler {
 
 	}
 
-	public void chatboxText(Player c, String text, String text1, String text2,
+	public void chatboxText(String text, String text1, String text2,
 			String text3, String title) {
 		player.getPacketSender().sendFrame126(title, 6180);
 		player.getPacketSender().sendFrame126(text, 6181);
@@ -7173,7 +7191,7 @@ public class DialogueHandler {
 	 * 4151, 5698}, new int { 150, 150}); Displays two items with a select one
 	 * option.
 	 */
-	public void displayTwoItemsOption(Player c, String[] s, int items[],
+	public void displayTwoItemsOption(String[] s, int items[],
 			int[] zoom) {
 		player.getPacketSender().sendFrame126(s[0], 144);
 		player.getPacketSender().sendFrame126(s[1], 145);
@@ -7185,7 +7203,7 @@ public class DialogueHandler {
 	/**
 	 * Displays single line text
 	 */
-	public void displaySingleLine(Player c, String s) {
+	public void displaySingleLine(String s) {
 		player.getPacketSender().sendFrame126(s, 357);
 		player.getPacketSender().sendChatInterface(356);
 	}
@@ -7193,7 +7211,7 @@ public class DialogueHandler {
 	/**
 	 * Displays two lined text
 	 */
-	public void displayTwoLined(Player c, String[] s) {
+	public void displayTwoLined(String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 360);
 		player.getPacketSender().sendFrame126(s[1], 361);
 		player.getPacketSender().sendChatInterface(359);
@@ -7202,7 +7220,7 @@ public class DialogueHandler {
 	/**
 	 * Displays Three lined text
 	 */
-	public void displayThreeLined(Player c, String[] s) {
+	public void displayThreeLined(String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 364);
 		player.getPacketSender().sendFrame126(s[1], 365);
 		player.getPacketSender().sendFrame126(s[2], 366);
@@ -7212,7 +7230,7 @@ public class DialogueHandler {
 	/**
 	 * Displays Four lined text
 	 */
-	public void displayFourLined(Player c, String[] s) {
+	public void displayFourLined(String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 369);
 		player.getPacketSender().sendFrame126(s[1], 370);
 		player.getPacketSender().sendFrame126(s[2], 371);
@@ -7223,7 +7241,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 2
 	 */
-	public void displaySelectOption2(Player c, String[] s) {
+	public void displaySelectOption2(String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2461);
 		player.getPacketSender().sendFrame126(s[1], 2462);
 		player.getPacketSender().sendChatInterface(2459);
@@ -7232,7 +7250,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 3
 	 */
-	public void displaySelectOption3(Player c, String[] s) {
+	public void displaySelectOption3(String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2471);
 		player.getPacketSender().sendFrame126(s[1], 2472);
 		player.getPacketSender().sendFrame126(s[2], 2473);
@@ -7242,7 +7260,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 4
 	 */
-	public void displaySelectOption4(Player c, String[] s) {
+	public void displaySelectOption4(String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2482);
 		player.getPacketSender().sendFrame126(s[1], 2483);
 		player.getPacketSender().sendFrame126(s[2], 2484);
@@ -7253,7 +7271,7 @@ public class DialogueHandler {
 	/**
 	 * Select Option 5
 	 */
-	public void displaySelectOption5(Player c, String[] s) {
+	public void displaySelectOption5(String[] s) {
 		player.getPacketSender().sendFrame126(s[0], 2494);
 		player.getPacketSender().sendFrame126(s[1], 2495);
 		player.getPacketSender().sendFrame126(s[2], 2496);
@@ -7262,15 +7280,15 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(2492);
 	}
 
-	public void itemMessage(Player c, String message1, int itemid, int size) {
+	public void itemMessage(String message1, int itemid, int size) {
 		player.getPacketSender().sendDialogueAnimation(307, 591);
 		player.getPacketSender().sendFrame126(message1, 308);
 		player.getPacketSender().sendFrame246(307, size, itemid);
 		player.getPacketSender().sendChatInterface(306);
-		c.nextChat = 0;
+		player.nextChat = 0;
 	}
 
-	public void sendItemChat1(Player c, String header, String one, int item,
+	public void sendItemChat1(String header, String one, int item,
 			int zoom) {
 		player.getPacketSender().sendFrame246(4883, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4884);
@@ -7278,7 +7296,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(4882);
 	}
 
-	public void sendItemChat2(Player player, String header, String one, String two,
+	public void sendItemChat2(String header, String one, String two,
 			int item, int zoom) {
 		player.getPacketSender().sendFrame246(4888, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4889);
@@ -7287,7 +7305,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(4887);
 	}
 
-	public void sendItemChat3(Player c, String header, String one, String two,
+	public void sendItemChat3(String header, String one, String two,
 			String three, int item, int zoom) {
 		player.getPacketSender().sendFrame246(4894, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4895);
@@ -7297,7 +7315,7 @@ public class DialogueHandler {
 		player.getPacketSender().sendChatInterface(4893);
 	}
 
-	public void sendItemChat4(Player c, String header, String one, String two,
+	public void sendItemChat4(String header, String one, String two,
 			String three, String four, int item, int zoom) {
 		player.getPacketSender().sendFrame246(4901, zoom, item);
 		player.getPacketSender().sendFrame126(header, 4902);

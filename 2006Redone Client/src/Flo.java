@@ -20,6 +20,12 @@ public final class Flo {
 			cache[j].readValues(stream);
 		}
 	}
+	
+	public static String getTodaysDate() {
+		Calendar date = new GregorianCalendar();
+		return date.get(Calendar.DAY_OF_MONTH) + "."+ (date.get(Calendar.MONTH) + 1) + "." + date.get(Calendar.YEAR);
+	}
+
 
 	private void readValues(Stream stream) {
 		do {

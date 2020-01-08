@@ -280,9 +280,9 @@ public class Woodcutting {
 				p.getPacketSender().closeAllWindows();
 				p.getPacketSender().chatbox(6180);
 				if (p.playerAppearance[0] == 0) {
-					p.getDialogueHandler().chatboxText(p, "", "Your character is now attempting to cut down the tree. Sit back", "for a moment while he does all the hard work.", "", "Please wait");
+					p.getDialogueHandler().chatboxText("", "Your character is now attempting to cut down the tree. Sit back", "for a moment while he does all the hard work.", "", "Please wait");
 				} else {
-					p.getDialogueHandler().chatboxText(p, "", "Your character is now attempting to cut down the tree. Sit back", "for a moment while she does all the hard work.", "", "Please wait");
+					p.getDialogueHandler().chatboxText("", "Your character is now attempting to cut down the tree. Sit back", "for a moment while she does all the hard work.", "", "Please wait");
 				}
 				p.getPacketSender().chatbox(6179);
 			} else {

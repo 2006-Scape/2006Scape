@@ -14,7 +14,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"On the side panel you can now see a variety of options from",
 								"changing your graphic settings and audio and music volume",
 								"to selecting whether your player should accept help from",
@@ -26,7 +25,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"You can click on the backpack icon at any time to view the",
 								"items that you currently have in your inventory. You will see",
 								"that you now have an axe in your inventory. Use this to get",
@@ -38,7 +36,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"Here you will see how good your skills are. As you move your",
 								"mouse over any of the icons in this panel, the small yellow",
 								"popup box will show you the exact amount of experience you",
@@ -51,7 +48,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"From this interface you can control the music that is played.",
 								"As you explore the world, more of the tunes will become",
 								"unlocked. Once you've examined this menu use the next door",
@@ -64,7 +60,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"For those situations where words don't quite describe how you",
 								"feel, try an emote. Go ahead, try one out! You might notice",
 								"that some of the emotes are grey and cannot be used now.",
@@ -75,7 +70,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"",
 								"This is your Quest Journal, a list of all the quests in the game.",
 								"Talk to the Quest Guide again for an explaination.",
@@ -86,7 +80,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"You can see what items you are wearing in the worn inventory",
 								"to the left of the screen with their combined statistics on the",
 								"right. Let's add something. Left click your dagger to 'wield' it.",
@@ -97,7 +90,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"From this interface you can select the type of attack your",
 								"character will use. Different monsters have different",
 								"weaknesses. If you hover your mouse over the buttons, you",
@@ -117,7 +109,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"This will be explaing by Brother Brace shortly, but first click",
 								"on the other flashing face to the right of your screen.",
 								"", "", "This is your friends list");
@@ -129,7 +120,6 @@ public class ClickTab implements PacketType {
 				c.getPacketSender().chatbox(6180);
 				c.getDialogueHandler()
 						.chatboxText(
-								c,
 								"The two lists - friends and ignore - can be very helpful for",
 								"keeping track of when your friends are online or for blocking",
 								"messages from people you simply don't like. Speak with",
