@@ -1789,6 +1789,7 @@ public abstract class Player {
 				isInArea(2582, 3423, 2591, 3417) || //Fishing Guild
 				isInArea(3509, 3483, 3516, 3476) || //Canifis
 				isInArea(3297, 3133, 3311, 3115) || //Shantay Pass
+                isInArea(3049, 4977, 3035, 4967) && heightLevel == 1 || //Rogues den
 				false;
 	}
 
