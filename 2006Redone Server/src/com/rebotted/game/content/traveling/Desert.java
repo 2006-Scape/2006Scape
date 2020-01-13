@@ -87,7 +87,7 @@ public class Desert {
 		}
 		c.startAnimation(CUTTING_ANIMATION);
 		c.getPacketSender().sendMessage("You slash away the cactus.");
-		GameEngine.objectHandler.createAnObject(c, DRY_CACTUS, obX, obY, -1);
+		GameEngine.objectHandler.createAnObject(c, DRY_CACTUS, obX, obY, c.heightLevel, -1);
 		for (int element[] : FILLS) {
 			if (c.getItemAssistant().playerHasItem(element[0])) {
 				c.getItemAssistant().deleteItem(element[0], c.getItemAssistant().getItemSlot(element[0]), 1);
@@ -118,7 +118,7 @@ public class Desert {
 				CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
-								GameEngine.objectHandler.createAnObject(c, objectId, obX, obY, -1);
+								GameEngine.objectHandler.createAnObject(c, objectId, obX, obY, c.heightLevel, -1);
 								container.stop();
 							}
 							@Override

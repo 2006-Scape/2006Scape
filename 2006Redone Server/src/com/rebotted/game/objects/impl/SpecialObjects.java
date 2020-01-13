@@ -54,9 +54,9 @@ public class SpecialObjects {
 	public static void openShantayChest(Player player, int objectId, int obX,
 			int obY, String type) {
 		if (type == "open") {
-			GameEngine.objectHandler.createAnObject(player, 104, obX, obY, -1);
+			GameEngine.objectHandler.createAnObject(player, 104, obX, obY, player.heightLevel, -1);
 		} else if (type == "shut") {
-			GameEngine.objectHandler.createAnObject(player, 2693, obX, obY, -1);
+			GameEngine.objectHandler.createAnObject(player, 2693, obX, obY, player.heightLevel, -1);
 		}
 	}
 
@@ -66,7 +66,7 @@ public class SpecialObjects {
 			player.nextChat = 0;
 			return;
 		}
-		GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, -1);
+		GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, player.heightLevel, -1);
 		final int[] coords = new int[2];
 		openKharid(player, objectId);
 		if (player.absX == 3267) {

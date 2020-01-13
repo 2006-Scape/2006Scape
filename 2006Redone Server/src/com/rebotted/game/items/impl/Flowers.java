@@ -77,7 +77,7 @@ public class Flowers {
 		coords[0] = c.absX;
 		coords[1] = c.absY;
 		updateConstants(newFlower, c);
-		GameEngine.objectHandler.createAnObject(c, newFlower, coords[0], coords[1],
+		GameEngine.objectHandler.createAnObject(c, newFlower, coords[0], coords[1], c.heightLevel,
 				1);
 		deleteSeeds(c);
 		sendOptions(c);
@@ -87,7 +87,7 @@ public class Flowers {
 		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 	            @Override
 	            public void execute(CycleEventContainer container) {
-				GameEngine.objectHandler.createAnObject(c, -1, coords[0], coords[1], 1);
+				GameEngine.objectHandler.createAnObject(c, -1, coords[0], coords[1], c.heightLevel, 1);
 				c.getPacketSender().sendMessage(	"Your flower is no longer flourishing.");
 				container.stop();
 			}
@@ -165,7 +165,7 @@ public class Flowers {
 		player.startAnimation(827);
 		// c.getPA().checkObjectSpawn(c,-1, c.getX()+1, c.getY(), 1, 10);
 		// c.getPA().object(c,-1, c.getX()+1, c.getY(), 1, 10);
-		GameEngine.objectHandler.createAnObject(player, -1, player.getX() + 1, player.getY(), 1);
+		GameEngine.objectHandler.createAnObject(player, -1, player.getX() + 1, player.getY(), player.getH(), 1);
 		player.turnPlayerTo(player.getX() + 1, player.getY());
 	}
 

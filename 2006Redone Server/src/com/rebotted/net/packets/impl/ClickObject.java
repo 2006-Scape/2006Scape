@@ -126,11 +126,6 @@ public class ClickObject implements PacketType {
 			//todo: check if it's a door before fire handle
 			Doors.getSingleton().handleDoor(p, p.objectId, p.objectX, p.objectY, p.heightLevel);
 
-			if (Stalls.isObject(p.objectId)) {
-				Stalls.attemptStall(p, p.objectId, p.objectX, p.objectX);
-				return;
-			}
-
 			if (p.teleTimer > 0) {
 				p.getPacketSender().sendMessage("You cannot use objects while teleporting.");
 				return;
@@ -393,10 +388,6 @@ public class ClickObject implements PacketType {
 		case 2:
 			if (p.playerRights == 3) {
 				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 2, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
-			}
-			if (Stalls.isObject(p.objectId)) {
-				Stalls.attemptStall(p, p.objectId, p.objectX, p.objectX);
-				return;
 			}
 			p.getObjects().secondClickObject(p.objectId, p.objectX, p.objectY);
 			break;

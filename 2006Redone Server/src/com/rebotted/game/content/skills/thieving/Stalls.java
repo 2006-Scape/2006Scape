@@ -26,12 +26,14 @@ public class Stalls {
 				new int[] { i("cabbage seed"), 1 }, new int[] {i("tomato seed"), 1 }, new int[] { i("sweetcorn seed"), 1 }, new int[] { i("strawberry seed"), 1 },
 				new int[] {i("watermelon seed"), 1 }, new int[] {i("barley seed"), 1 }, new int[] { i("jute seed"), 1 }, new int[] { i("marigold seed"), 1 },
 				new int[] {i("rosemary seed"), 1 }, new int[] {i("hammerstone seed"), 1 }, new int[] {i("asgarnain seed"), 1 }, new int[] {i("yanillian seed"), 1 },
-				new int[] {i("krandorian seed"), 1 }, new int[] {i("wildblood seed"), 1 }), FUR_STALL(2563, 35, 36, 0, new int[] { 6814, 1 }, new int[] { 958, 1 }),
+				new int[] {i("krandorian seed"), 1 }, new int[] {i("wildblood seed"), 1 }), 
+		FUR_STALL(2563, 35, 36, 0, new int[] { 6814, 1 }, new int[] { 958, 1 }),
 		FUR_STALL2(4278, 35, 36, 0, new int[] { 6814, 1 }, new int[] { 958, 1 }),
 		FISH_STALL(4705, 42, 42, 0, new int[] { 359, 1 }),
 		FISH_STALL2(4277, 42, 42, 0, new int[] { 359, 1 }),
 		SILVER_STALL(2565, 50, 54, 2, new int[] { 442, 1 }, new int[] { 2355, 1 }),
-		SPICE_STALL(2564, 65, 81.3, 0, new int[] { 2007, 1 }, new int[] { 946, 1 }, new int[] { 1550, 1 }), GEM_STALL(2562, 75, 160, 3,
+		SPICE_STALL(2564, 65, 81.3, 0, new int[] { 2007, 1 }, new int[] { 946, 1 }, new int[] { 1550, 1 }), 
+		GEM_STALL(2562, 75, 160, 3,
 				new int[] { 1617, 1 }, new int[] { 1619, 1 }, new int[] { 1621, 1 }, new int[] { 1623, 1 }),
 		MAGIC_STALL(4877, 65, 100, 0, new int[] {i("air rune"), 1}, new int[] {i("water rune"), 1}, new int[] {i("fire rune"), 1}, new int[] {i("law rune"), 1}),
 		SCIMITAR_STALL(4878, 65, 100, 0, new int[] {i("iron scimitar"), 1}, new int[] {i("steel scimitar"), 1});
@@ -140,9 +142,8 @@ public class Stalls {
 				}
 				p.startAnimation(832);
 				RandomEventHandler.addRandom(p);
-				int respawnTime = getRespawnTime(objectId);
-				GameEngine.objectHandler.createAnObject(p, 634, x, y, s.getFace());
-				//new Object(634, x, y, 0, s.getFace(), 10, objectId, respawnTime);
+				int respawnTime = getRespawnTime(s.getObject());
+				GameEngine.objectHandler.createAnObject(p, 634, x, y, 0, getSpecialFace(p, s));
 				p.getPlayerAssistant().addSkillXP((int) s.getXp(), p.playerThieving);
 				int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
 				s.respawnTime = System.currentTimeMillis() + (respawnTime * GameConstants.CYCLE_TIME);
@@ -152,8 +153,7 @@ public class Stalls {
 				CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
-						GameEngine.objectHandler.createAnObject(p, s.getObject(), x, y, s.getFace());
-						//new Object(objectId, x, y, 0, s.getFace(), 10, j, getRespawnTime(objectId));
+						GameEngine.objectHandler.createAnObject(p, s.getObject(), x, y, 0, getSpecialFace(p, s));
 						p.setHasThievedStall(false);
 						container.stop();
 					}
@@ -163,6 +163,20 @@ public class Stalls {
 				}, respawnTime);
 			}
 		}
+	}
+	
+	private static int getSpecialFace(Player player, stallData s) {
+		int face;
+		if (player.objectX == 3083 && player.objectY == 3251) {
+			face = 3;
+		} else if (player.objectX == 3075 && player.objectY == 3249) {
+			face = 1;
+		} else if (player.objectX == 3079 && player.objectY == 3253) {
+			face = 2;
+		} else {
+			face = s.getFace();
+		}
+		return face;
 	}
 
 	private static int getRespawnTime(int i) {

@@ -70,7 +70,6 @@ public class ObjectsActions {
 		if (player.stopPlayerPacket) {
 			return;
 		}
-		//LogCutting.resetFletching(player);
 		if (player.getGnomeStrongHold().gnomeCourse(objectType)) {
 			return;
 		}
@@ -114,6 +113,10 @@ public class ObjectsActions {
 		// if its a rock we can mine, mine it
 		if (Mining.rockExists(objectType))
 			player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
+		if (Stalls.isObject(objectType)) {
+			Stalls.attemptStall(player, objectType, objectX, objectY);
+			return;
+		}
 		switch (objectType) {
 		case 6:
 			player.getCannon().clickCannon(objectX, objectY);
@@ -2091,7 +2094,7 @@ public class ObjectsActions {
 
 		case 2403:// should be 2418 but not working
 			if (player.shieldArrav >= 6 && player.getItemAssistant().playerHasItem(759)) {
-				GameEngine.objectHandler.createAnObject(player, 2604, objectX, objectY, 0);
+				GameEngine.objectHandler.createAnObject(player, 2604, objectX, objectY, player.heightLevel, 0);
 				Region.addObject(2604, objectX, objectY, 0, 0, 0, false);
 			}
 			else {
@@ -2115,7 +2118,7 @@ public class ObjectsActions {
 				player.getPacketSender().object(3194, 3381, 3269, 0, 2, 10);
 				Region.addObject(3194, 3381, 3269, 0, 10, 2, false);
 			} else {
-				GameEngine.objectHandler.createAnObject(player, 3194, objectX, objectY, -1);
+				GameEngine.objectHandler.createAnObject(player, 3194, objectX, objectY, player.heightLevel, -1);
 			}
 		break;
 
@@ -2553,6 +2556,10 @@ public class ObjectsActions {
 		player.clickObjectType = 0;
 		player.turnPlayerTo(obX, obY);
 		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
+			return;
+		}
+		if (Stalls.isObject(objectType)) {
+			Stalls.attemptStall(player, objectType, obX, obY);
 			return;
 		}
 		switch (objectType) {
