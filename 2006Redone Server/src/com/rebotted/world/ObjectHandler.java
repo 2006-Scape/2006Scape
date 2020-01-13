@@ -63,8 +63,8 @@ public class ObjectHandler {
 		GameEngine.objectHandler.placeObject(OBJECT);
 	}
 
-	public void createAnObject(Player player, int id, int x, int y, int face) {
-		Objects OBJECT = new Objects(id, x, y, 0, face, 10, 0);
+	public void createAnObject(Player player, int id, int x, int y, int h, int face) {
+		Objects OBJECT = new Objects(id, x, y, h, face, 10, 0);
 		if (id == -1) {
 			removeObject(OBJECT);
 		} else {
