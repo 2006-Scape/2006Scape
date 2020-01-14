@@ -76,7 +76,6 @@ import com.rebotted.util.Stream;
 import com.rebotted.world.ObjectManager;
 
 public abstract class Player {
-
 	
 	public byte buffer[] = null;
 	public Stream inStream = null, outStream = null;
@@ -621,7 +620,8 @@ public abstract class Player {
 
 
 	public int packetSize = 0, packetType = -1;
-	public boolean WildernessWarning = false;
+	public boolean wildernessWarning = false;
+	public int axeAnimation = -1;
 
 	public void antiFirePotion() {
 		   CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
@@ -1742,9 +1742,9 @@ public abstract class Player {
 			return true;
 		}
 		if (absX > 2941 && absX < 3392 && absY > 3518 && absY < 3966 || absX > 2941 && absX < 3392 && absY > 9918 && absY < 10366) {
-			if (!WildernessWarning) {
+			if (!wildernessWarning) {
 				resetWalkingQueue();
-				WildernessWarning = true;
+				wildernessWarning = true;
 				getPacketSender().sendFrame126("WARNING!", 6940);
 				getPacketSender().showInterface(1908);
 			}

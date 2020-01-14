@@ -100,16 +100,14 @@ public class Woodcutting {
 			{ 492, 512, 1353 }, { 492, 514, 1361 }, { 492, 516, 1355 },
 			{ 492, 518, 1357 }, { 492, 520, 1359 }, };
 
-	private static int a = -1;
-
 	public static void repeatAnimation(final Player p) {
 		CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (p.isWoodcutting) {
-					if ((a >= 0) && (a < Axe_Settings.length))	{
+					if ((p.axeAnimation >= 0) && (p.axeAnimation < Axe_Settings.length))	{
 						try {
-							p.startAnimation(Axe_Settings[a][3]);
+							p.startAnimation(Axe_Settings[p.axeAnimation][3]);
 						} catch (ArrayIndexOutOfBoundsException exception) {
 							System.out.println("LOL this happend again: " + exception);
 						}
@@ -243,7 +241,7 @@ public class Woodcutting {
 			return;
 		}
 		int wcLevel = p.playerLevel[8];
-		a = -1;
+		p.axeAnimation = -1;
 		treeData tree = treeData.getTree(objectId);
 		p.turnPlayerTo(x, y);
 		if (tree.getLevelReq() > wcLevel) {
@@ -253,11 +251,11 @@ public class Woodcutting {
 		for (int i = 0; i < Axe_Settings.length; i++) {
 			if (p.getItemAssistant().playerHasItem(Axe_Settings[i][0]) || p.playerEquipment[p.playerWeapon] == Axe_Settings[i][0]) {
 				if (Axe_Settings[i][1] <= wcLevel) {
-					a = i;
+					p.axeAnimation = i;
 				}
 			}
 		}
-		if (a == -1) {
+		if (p.axeAnimation == -1) {
 			p.getPacketSender().sendMessage("You need an axe to cut this tree.");
 			return;
 		}
@@ -270,7 +268,7 @@ public class Woodcutting {
 				p.getPacketSender().sendMessage("You are already woodcutting!");
 				return;
 			}
-			p.startAnimation(Axe_Settings[a][3]);
+			p.startAnimation(Axe_Settings[p.axeAnimation][3]);
 			p.isWoodcutting = true;
 			p.getPacketSender().sendSound(SoundList.TREE_CUT_BEGIN, 100, 0);
 			repeatAnimation(p);
@@ -292,7 +290,7 @@ public class Woodcutting {
 
 				@Override
 				public void execute(CycleEventContainer container) {
-					if (a <= -1)
+					if (p.axeAnimation <= -1)
 					{
 						container.stop();
 						return;
@@ -306,7 +304,7 @@ public class Woodcutting {
 						return;
 					}
 					if (p.isWoodcutting) {
-						p.startAnimation(Axe_Settings[a][3]);
+						p.startAnimation(Axe_Settings[p.axeAnimation][3]);
 					}
 					if (p.getItemAssistant().freeSlots() < 1) {
 						p.getPacketSender().sendMessage("You have ran out of inventory slots.");
@@ -346,7 +344,7 @@ public class Woodcutting {
 					p.treeX = 0;
 					p.treeY = 0;
 				}
-			}, getTimer(tree, a, wcLevel));
+			}, getTimer(tree, p.axeAnimation, wcLevel));
 		}
 	}
 

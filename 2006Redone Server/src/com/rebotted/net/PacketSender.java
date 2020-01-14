@@ -96,7 +96,7 @@ public class PacketSender {
 		player.lastY = player.absY;
 		player.lastH = player.heightLevel;
 		if (player.inWild()) {
-			player.WildernessWarning = true;
+			player.wildernessWarning = true;
 		}
 		if (player.splitChat) {
 			player.getPacketSender().sendConfig(502, 1);
