@@ -133,9 +133,9 @@ public class Walking implements PacketType {
 			player.mageAllowed = true;
 		}
 
-		if (!player.WildernessWarning && player.wildLevel > 0) {
+		if (!player.wildernessWarning && player.wildLevel > 0) {
 			player.resetWalkingQueue();
-			player.WildernessWarning = true;
+			player.wildernessWarning = true;
 			player.getPacketSender().sendFrame126("WARNING!", 6940);
 			player.getPacketSender().showInterface(1908);
 		}
