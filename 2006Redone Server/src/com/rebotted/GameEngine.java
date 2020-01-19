@@ -16,7 +16,7 @@ import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.minigames.trawler.Trawler;
 import com.rebotted.game.globalworldobjects.Doors;
 import com.rebotted.game.globalworldobjects.DoubleDoors;
-import com.rebotted.game.items.ItemDefinitions;
+import com.rebotted.game.items.ItemDefinition;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
@@ -135,7 +135,7 @@ public class GameEngine {
 		Region.load();
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();
-		ItemDefinitions.read();
+		ItemDefinition.read();
 		GlobalDropsHandler.initialize();
 		Connection.initialize();
 		HostBlacklist.loadBlacklist();

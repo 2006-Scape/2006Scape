@@ -4,7 +4,7 @@ import com.rebotted.GameConstants;
 import com.rebotted.game.bots.BotHandler;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
-import com.rebotted.game.items.ItemDefinitions;
+import com.rebotted.game.items.ItemDefinition;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.GameLogger;
@@ -100,8 +100,8 @@ public class ShopAssistant {
 		double ShopValue = 1;
 		double TotPrice = 0;
 		double sellingRatio = isSelling ? 0.85 : 1;
-		if (ItemDefinitions.getDef()[ItemID] != null) {
-			ShopValue = ItemDefinitions.getDef()[ItemID].highAlch / 3.0 * 5.0 * sellingRatio;
+		if (ItemDefinition.getDefs()[ItemID] != null) {
+			ShopValue = ItemDefinition.getDefs()[ItemID].highAlch / 3.0 * 5.0 * sellingRatio;
 		}
 
 		TotPrice = ShopValue;
@@ -409,7 +409,7 @@ public class ShopAssistant {
 				currency = 995;
 			}
 
-			boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable;
+			boolean isStackable = ItemDefinition.getDefs()[itemID].isStackable;
 
 			if (!player.getItemAssistant().playerHasItem(currency) && isStackable && amount < inventoryAmount && player.getItemAssistant().freeSlots() <= 0) {
 				player.getPacketSender().sendMessage("You don't have enough space in your inventory.");
@@ -490,7 +490,7 @@ public class ShopAssistant {
 		int notedItemID = getNoted(itemID);
 		boolean isPlayerShop = ShopHandler.shopBModifier[player.shopId] == 0;
 		// Items are stackable if from a player owned shop and notable
-		boolean isStackable = ItemDefinitions.getDef()[itemID].isStackable || (isPlayerShop && getNoted(itemID) != itemID);
+		boolean isStackable = ItemDefinition.getDefs()[itemID].isStackable || (isPlayerShop && getNoted(itemID) != itemID);
 		int freeSlots = player.getItemAssistant().freeSlots();
 		int storeQty = ShopHandler.getStock(shopID, itemID);
 		if (amount > 0) {
