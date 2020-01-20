@@ -1,8 +1,6 @@
 package com.rebotted.game.items;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -38,7 +36,7 @@ public class ItemDefinition {
 
 	public ItemDefinition(String iname, String idescription, int ishopvalue, int ilowalch, int ihighalch, boolean iisstackable, boolean iisnoteable,
 						  int iweight, double[] ibonuses, int istand, int iwalk, int irun, int iturn90left, int iturn90right, int iturn180,
-						  int iattack, int iblock) {
+						  int iattack, int iblock, int iid) {
 		this.name = iname;
 		this.itemDescription = idescription;
 		this.shopValue = ishopvalue;
@@ -56,11 +54,12 @@ public class ItemDefinition {
 		this.turn180 = iturn180;
 		this.attack = iattack;
 		this.block = iblock;
+		this.id = iid;
 	}
 
-    private static int id;
+    private int id;
 
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
@@ -69,97 +68,27 @@ public class ItemDefinition {
 	 * Reads the definitions from the file.
 	 */
 	public static void read() {
-		try {
-			DataInputStream in = new DataInputStream(new FileInputStream("./data/data/itemdef.gsu"));
-			total = in.readShort();
-			System.out.println(total);
-			if(definitions == null)
-				definitions = new ItemDefinition[total];
-			for(int j = 0; j < total; j++) {
-				if(definitions[j] == null) {
-					definitions[j] = new ItemDefinition();
-				}
-				definitions[j].getValues(in);
-				System.out.println(definitions[j]);
+		ArrayList<ItemDefinition> definitionsAL = new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new FileReader("./data/data/itemdef.json"))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+			    definitionsAL.add(fromString(line));
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Reads the stream values.
-	 * @param in
-	 */
-	private void getValues(DataInputStream in) {
-		try {
-			do {
-				int opcode = in.readByte();
-				if(opcode == 0)
-					return;
-				if(opcode == 1) {
-					name = in.readUTF();
-				} else if(opcode == 2) {
-					itemDescription = in.readUTF();
-				} else if(opcode == 3) {
-					shopValue = in.readInt();
-				} else if(opcode == 4) {
-					lowAlch = in.readInt();
-				} else if(opcode == 5) {
-					highAlch = in.readInt();
-				} else if(opcode == 6) {
-					isStackable = true;
-				} else if(opcode == 7) {
-					isNoteable = true;
-				} else if(opcode == 8) {
-					weight = in.readDouble();
-				} else if(opcode == 9) {
-					int length = in.readShort();
-					bonuses = new double[length];
-					for (int index = 0; index < length; index++) {
-						bonuses[index] = in.readDouble();
-					}
-				} else if(opcode == 10) {
-					stand = in.readShort();
-				} else if(opcode == 11) {
-					walk = in.readShort();
-				} else if(opcode == 12) {
-					run = in.readShort();
-				} else if(opcode == 13) {
-					turn90left = in.readShort();
-				} else if(opcode == 14) {
-					turn90right = in.readShort();
-				} else if(opcode == 15) {
-					turn180 = in.readShort();
-				} else if(opcode == 16) {
-					attack = in.readShort();
-				} else if(opcode == 17) {
-					block = in.readShort();
-				} else {
-					System.out.println("Unrecognized opcode: " + opcode);
-				}
-			} while(true);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		definitions = Arrays.copyOf(definitionsAL.toArray(), definitionsAL.size(), ItemDefinition[].class);
 	}
 
 	/**
 	 * The item definition cache.
 	 */
-	public static ItemDefinition definitions[];
+	public static ItemDefinition[] definitions;
 
 	/**
 	 * The total items read from the definitions.
 	 */
 	public static int total;
-
-	/**
-	 * Returns the total item number.
-	 */
-	public static int getTotal() {
-		return total;
-	}
 
 	/**
 	 * The item name.
@@ -392,20 +321,15 @@ public class ItemDefinition {
 				jobj.getInt("turn90right"),
 				jobj.getInt("turn180"),
 				jobj.getInt("attack"),
-				jobj.getInt("block"));
-	}
-
-	private String nuke(String str){
-		String stripped = str.replaceAll("<.*?>", "");
-		stripped = stripped.replaceAll("\"", "\\\\\"");
-		return stripped;
+				jobj.getInt("block"),
+				jobj.getInt("id"));
 	}
 
 	@Override
 	public String toString() {
 		return "{" +
-				"name:\"" + nuke(name) + '\"' +
-				", itemDescription:\"" + nuke(itemDescription) + '\"' +
+				"name:\"" + name + '\"' +
+				", itemDescription:\"" + itemDescription + '\"' +
 				", shopValue:" + shopValue +
 				", lowAlch:" + lowAlch +
 				", highAlch:" + highAlch +
@@ -421,6 +345,7 @@ public class ItemDefinition {
 				", turn180:" + turn180 +
 				", attack:" + attack +
 				", block:" + block +
+                ", id:" + id +
 				'}';
 	}
 }
