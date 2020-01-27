@@ -11239,9 +11239,9 @@ public class Game extends RSApplet {
 				// 15767 = Drama Type 
 				if (l7 == 15244) {
 					if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
-						openInterfaceID = 15767;
-					} else {
 						openInterfaceID = 15819;
+					} else {
+						openInterfaceID = 15801;
 					}
 					fullScreenInterfaceId = 15244;
 				} else {
