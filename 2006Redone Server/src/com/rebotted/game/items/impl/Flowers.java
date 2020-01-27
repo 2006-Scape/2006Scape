@@ -135,7 +135,7 @@ public class Flowers {
 	 * @param c
 	 */
 	private void sendOptions(Player c) {
-		c.getDialogueHandler().sendOption2("Leave Flowers", "Harvest Flowers");
+		c.getDialogueHandler().sendOption("Leave Flowers", "Harvest Flowers");
 	}
 
 	/**

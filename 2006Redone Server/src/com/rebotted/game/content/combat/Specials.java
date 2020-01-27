@@ -107,7 +107,6 @@ public class Specials {
 
 	public void activateSpecial(int weapon, Client o, int i) {
 		int equippedWeapon = player.playerEquipment[player.playerWeapon];
-
 		if (NpcHandler.npcs[i] == null && player.npcIndex > 0 || PlayerHandler.players[player.playerIndex] == null && player.playerIndex > 0) {
 			return;
 		}
@@ -219,8 +218,7 @@ public class Specials {
 					player.hitDelay = player.getCombatAssistant().getHitDelay();
 					player.doubleHit = SA.getDoubleHit();
 				} else {
-					if (o != null)
-					{
+					if (o != null) {
 						o.gfx0(SA.getGfx1());
 					}
 					player.startAnimation(SA.getAnim());

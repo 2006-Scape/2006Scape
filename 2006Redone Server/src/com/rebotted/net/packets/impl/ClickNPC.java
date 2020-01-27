@@ -278,10 +278,6 @@ public class ClickNPC implements PacketType {
 						NpcHandler.npcs[client.npcClickIndex].getY());
 				NpcHandler.npcs[client.npcClickIndex].facePlayer(client.playerId);
 				client.getNpcs().secondClickNpc(client.npcType);
-				if (Pickpocket.isNPC(client, client.npcType) && !((client.underAttackBy > 0 || client.underAttackBy2 > 0))) {
-					Pickpocket.attemptPickpocket(client, client.npcType);
-					return;
-				}
 			} else {
 				client.clickNpcType = 2;
 				   CycleEventHandler.getSingleton().addEvent(client, new CycleEvent() {

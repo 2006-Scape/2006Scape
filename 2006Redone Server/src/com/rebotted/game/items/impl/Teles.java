@@ -10,19 +10,19 @@ import com.rebotted.game.players.Player;
 public class Teles {
 
 	public static void useAOG(Player player) {
-		player.getDialogueHandler().sendOption4("Edgeville", "Al Kharid", "Karamja", "Draynor");
+		player.getDialogueHandler().sendOption("Edgeville", "Al Kharid", "Karamja", "Draynor");
 		player.dialogueAction = 51;
 		player.getPacketSender().sendMessage("You rub the Amulet of Glory...");
 	}
 
 	public static void useROD(Player player) {
-		player.getDialogueHandler().sendOption2("Duel Arena", "Castle Wars");
+		player.getDialogueHandler().sendOption("Duel Arena", "Castle Wars");
 		player.dialogueAction = 161;
 		player.getPacketSender().sendMessage("You rub the Ring of Dueling...");
 	}
 
 	public static void useGN(Player player) {
-		player.getDialogueHandler().sendOption2("Burthrope Games Room", "Barbarian Outpost");
+		player.getDialogueHandler().sendOption("Burthrope Games Room", "Barbarian Outpost");
 		player.dialogueAction = 50;
 		player.getPacketSender().sendMessage("You rub the Games Necklace...");
 	}

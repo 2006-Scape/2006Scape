@@ -1,7 +1,8 @@
 package com.rebotted.game.objects.impl;
 
 import com.rebotted.GameEngine;
-import com.rebotted.game.content.traveling.Desert;
+import com.rebotted.game.content.traveling.DesertCactus;
+import com.rebotted.game.content.traveling.DesertHeat;
 import com.rebotted.game.players.Player;
 import com.rebotted.world.clip.Region;
 
@@ -107,7 +108,7 @@ public class SpecialObjects {
 		coords[0] = c.objectX;
 		coords[1] = c.objectY;
 		if (c.desertWarning == false && c.absY == 3117) {
-			Desert.showWarning(c);
+			DesertHeat.showWarning(c);
 			c.desertWarning = true;
 		}
 		if (c.absY == 3117) {

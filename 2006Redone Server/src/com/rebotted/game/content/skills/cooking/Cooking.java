@@ -10,6 +10,7 @@ import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.players.Player;
+import com.rebotted.util.Misc;
 
 public class Cooking extends SkillHandler {
 
@@ -82,8 +83,6 @@ public class Cooking extends SkillHandler {
 			return stopBurn;
 		}
 
-		@SuppressWarnings("unused")
-		// causes bugs
 		private int getStopBurnGloves() {
 			return stopBurnGloves;
 		}
@@ -221,10 +220,9 @@ public class Cooking extends SkillHandler {
 		return burn_chance <= randNum;
 	}
 
-	public static void cookItem(final Player player, final int itemId,
-			final int amount, final int objectId) {
+	public static void cookItem(final Player player, final int itemId, final int amount, final int objectId) {
+		CycleEventHandler.getSingleton().stopEvents(player, "cookingEvent".hashCode());
 		final CookingItems item = forId(itemId);
-
 		if (item != null) {
 			setCooking(player);
 			RandomEventHandler.addRandom(player);
@@ -233,10 +231,13 @@ public class Cooking extends SkillHandler {
 			if (player.doAmount > player.getItemAssistant().getItemAmount(itemId)) {
 				player.doAmount = player.getItemAssistant().getItemAmount(itemId);
 			}
+			if (player.playerIsCooking && !Misc.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 2)) {
+				return;
+			}
 			if (objectId > 0) {
 				player.startAnimation(objectId == 2732 ? 897 : 896);
 			}
-			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+			CycleEventHandler.getSingleton().addEvent("cookingEvent".hashCode(), player, new CycleEvent() {
 				@Override
 				public void execute(CycleEventContainer container) {
 					if (!player.playerIsCooking) {
@@ -254,13 +255,12 @@ public class Cooking extends SkillHandler {
 						return;
 					}
 
-					// if (c.playerEquipment[c.playerHands] != 775)
-					boolean burn = !getSuccess(player, 3, item.getLevelReq(),
-							item.getStopBurn());
-					/*
-					 * else burn = !getSuccess(c, 3, item.getLevelReq(), item
-					 * .getStopBurnGloves());
-					 */
+					boolean burn;
+					if (player.playerEquipment[GameConstants.HANDS] == 775) {
+						burn = !getSuccess(player, 3, item.getLevelReq(), item.getStopBurnGloves());
+					} else {
+						burn = !getSuccess(player, 3, item.getLevelReq(), item.getStopBurn());
+					}
 					player.getItemAssistant().deleteItem(item.getRawItem(),
 							player.getItemAssistant().getItemSlot(itemId), 1);
 					if (!burn) {

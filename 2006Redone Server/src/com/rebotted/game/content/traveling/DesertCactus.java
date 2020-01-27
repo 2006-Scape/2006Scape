@@ -7,7 +7,7 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
-public class Desert {
+public class DesertCactus {
 
 	/**
 	 * The animation played when cutting the cactus.(SLASH)
@@ -50,24 +50,6 @@ public class Desert {
 			}
 		}
 		return cut;
-	}
-
-	public static void showWarning(Player c) {
-		for (int i = 8144; i < 8195; i++) {
-			c.getPacketSender().sendFrame126("", i);
-		}
-		c.getPacketSender().sendFrame126("@dre@DESERT WARNING", 8144);
-		c.getPacketSender().sendFrame126("", 8145);
-		c.getPacketSender().sendFrame126("The intense heat of the desert reduces your health.", 8147);
-		c.getPacketSender().sendFrame126("Bring 2-5 waterskins to avoid receiving any damage.", 8148);
-		c.getPacketSender().sendFrame126("", 8149);
-		c.getPacketSender().sendFrame126("Wearing desert robes will not prevent the damage, but", 8150);
-		c.getPacketSender().sendFrame126("will reduce it significantly.", 8151);
-		c.getPacketSender().sendFrame126("", 8152);
-		c.getPacketSender().sendFrame126("The waterskins however need to be re-filled. Bring a", 8153);
-		c.getPacketSender().sendFrame126("knife and cut healthy cacti to re-fill the waterskins.", 8154);
-		c.getPacketSender().sendFrame126("@red@Any water vessels will evaporate, such as jug of water.", 8155);
-		c.getPacketSender().showInterface(8134);
 	}
 
 	/**

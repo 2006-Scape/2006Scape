@@ -1,5 +1,6 @@
 package com.rebotted.net.packets.impl;
 
+import com.rebotted.game.content.skills.runecrafting.Runecrafting;
 import com.rebotted.game.items.impl.HandleEmpty;
 import com.rebotted.game.items.impl.Teles;
 import com.rebotted.game.players.Player;
@@ -33,6 +34,24 @@ public class ItemClick3 implements PacketType {
 		player.endCurrentTask();
 
 		switch (itemId) {
+		case 1438:// Air Talisman
+			Runecrafting.locate(player, 2985, 3292);
+			break;
+		case 1440:// Earth Talisman
+			Runecrafting.locate(player, 3306, 3474);
+			break;
+		case 1442:// Fire Talisman
+			Runecrafting.locate(player, 3313, 3255);
+			break;
+		case 1444:// Water Talisman
+			Runecrafting.locate(player, 3185, 3165);
+			break;
+		case 1446:// Body Talisman
+			Runecrafting.locate(player, 3053, 3445);
+			break;
+		case 1448:// Mind Talisman
+			Runecrafting.locate(player, 2982, 3514);
+			break;
 		case 4079:
 			player.startAnimation(1460);
 			break;

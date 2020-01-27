@@ -579,6 +579,31 @@ public class NpcHandler {
 						npcs[i].getNextNPCMovement(i);
 						npcs[i].updateRequired = true;
 					}
+					if (npcs[i].walkingType >= 0) {
+						switch(npcs[i].walkingType) {
+
+						case 5:
+							npcs[i].turnNpc(npcs[i].absX-1, npcs[i].absY);
+							break;
+
+						case 4:
+							npcs[i].turnNpc(npcs[i].absX+1, npcs[i].absY);
+							break;
+
+						case 3:
+							npcs[i].turnNpc(npcs[i].absX, npcs[i].absY-1);
+							break;
+						case 2:
+							npcs[i].turnNpc(npcs[i].absX, npcs[i].absY+1);
+							break;
+
+						default:
+							if (npcs[i].walkingType >= 0) {
+								npcs[i].turnNpc(npcs[i].absX, npcs[i].absY);
+							}
+							break;
+						}
+					}
 					if (npcs[i].walkingType == 1) {
 						if (Misc.random(3) == 1 && !npcs[i].walkingHome) {
 							int MoveX = 0;

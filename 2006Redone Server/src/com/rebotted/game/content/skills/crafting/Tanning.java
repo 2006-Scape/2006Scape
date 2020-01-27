@@ -32,9 +32,8 @@ public class Tanning extends CraftingData {
 				if (price > coins) {
 					price = coins - coins % t.getPrice();
 				}
-				if (price == 0) {
-					player.getPacketSender().sendMessage(
-							"You do not have enough coins to tan this hide.");
+				if (amount > 0 && price == 0) {
+					player.getPacketSender().sendMessage("You do not have enough coins to tan this hide.");
 					return;
 				}
 				amount = price / t.getPrice();
@@ -43,14 +42,11 @@ public class Tanning extends CraftingData {
 				if (player.getItemAssistant().playerHasItem(995, price)) {
 					if (player.getItemAssistant().playerHasItem(hide)) {
 						player.getItemAssistant().deleteItem(hide, amount);
-						player.getItemAssistant().deleteItem(995,
-								player.getItemAssistant().getItemSlot(995), price);
+						player.getItemAssistant().deleteItem(995, player.getItemAssistant().getItemSlot(995), price);
 						player.getItemAssistant().addItem(leather, amount);
-						player.getPacketSender().sendMessage(
-								"The tanner tans the hides for you.");
+						player.getPacketSender().sendMessage("The tanner tans the hides for you.");
 					} else {
-						player.getPacketSender().sendMessage(
-								"You do not have any hides to tan.");
+						player.getPacketSender().sendMessage("You do not have any hides to tan.");
 						return;
 					}
 				} else {

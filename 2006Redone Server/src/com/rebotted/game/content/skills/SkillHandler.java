@@ -4,9 +4,9 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.content.skills.core.Fishing;
 import com.rebotted.game.content.skills.core.Mining;
-import com.rebotted.game.content.skills.core.Woodcutting;
 import com.rebotted.game.content.skills.herblore.Herblore;
 import com.rebotted.game.content.skills.smithing.Smelting;
+import com.rebotted.game.content.skills.woodcutting.Woodcutting;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.players.Player;
 

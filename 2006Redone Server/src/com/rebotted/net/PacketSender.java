@@ -1,13 +1,13 @@
 package com.rebotted.net;
 
 import java.text.DecimalFormat;
-
 import com.rebotted.Connection;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.combat.magic.MagicTeleports;
 import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.content.skills.SkillHandler;
+import com.rebotted.game.content.skills.runecrafting.Tiaras;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.Weight;
 import com.rebotted.game.items.impl.LightSources;
@@ -141,6 +141,7 @@ public class PacketSender {
 		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerWeapon], player.playerEquipmentN[player.playerWeapon], player.playerWeapon);
 		player.getCombatAssistant().getPlayerAnimIndex();
 		player.getPlayerAssistant().logIntoPM();
+		Tiaras.handleTiara(player, GameConstants.HAT);
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 		player.saveTimer = GameConstants.SAVE_TIMER;
 		player.saveCharacter = true;

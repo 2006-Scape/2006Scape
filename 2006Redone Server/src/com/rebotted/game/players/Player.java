@@ -48,7 +48,8 @@ import com.rebotted.game.content.skills.runecrafting.Runecrafting;
 import com.rebotted.game.content.skills.slayer.Slayer;
 import com.rebotted.game.content.skills.smithing.Smithing;
 import com.rebotted.game.content.skills.smithing.SmithingInterface;
-import com.rebotted.game.content.traveling.Desert;
+import com.rebotted.game.content.traveling.DesertCactus;
+import com.rebotted.game.content.traveling.DesertHeat;
 import com.rebotted.game.dialogues.DialogueHandler;
 import com.rebotted.game.globalworldobjects.DoubleGates;
 import com.rebotted.game.globalworldobjects.GateHandler;
@@ -98,7 +99,7 @@ public abstract class Player {
 	private final Enchanting enchanting = new Enchanting(this);
 	private final Potatoes potatoes = new Potatoes(this);
 	private final PlayerAction playeraction = new PlayerAction(this);
-	private final Desert desert = new Desert();
+	private final DesertCactus desert = new DesertCactus();
 	private final Specials specials = new Specials(this);
 	private final SoundList sound = new SoundList(this);
 	public String creationAddress = "";
@@ -259,7 +260,7 @@ public abstract class Player {
 		return playeraction;
 	}
 
-	public Desert getDesert() {
+	public DesertCactus getDesert() {
 		return desert;
 	}
 
@@ -741,6 +742,10 @@ public abstract class Player {
 	}
 
 	public void process() {
+		if (inDesert() && heightLevel == 0) {
+			DesertHeat.callHeat(this);
+		}
+		
 		if (playerEnergy < 100 && System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
 			playerEnergy += 1;
 			lastIncrease = System.currentTimeMillis();
@@ -1067,25 +1072,25 @@ public abstract class Player {
 	public void correctCoordinates() {
 		if (inPcGame()) {
 			getPlayerAssistant().movePlayer(2657, 2639, 0);
-			if (FightPitsArea()) {
-				getPlayerAssistant().movePlayer(2399, 5178, 0);
-				if (inFightCaves()) {
-					getDialogueHandler().sendDialogues(101, 2617);
-					getPlayerAssistant().movePlayer(absX, absY, playerId * 4);
-					getPacketSender().sendMessage("Your wave will start in 10 seconds.");
-					 CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
-				            @Override
-				            public void execute(CycleEventContainer container) {
-							GameEngine.fightCaves.spawnNextWave((Client) PlayerHandler.players[playerId]);
-							container.stop();
-						}
-						@Override
-							public void stop() {
-
-							}
-					}, 16);
+		} else if (FightPitsArea()) {
+			getPlayerAssistant().movePlayer(2399, 5178, 0);
+		} else if (getX() == 0 && getY() == 0) {
+			getPlayerAssistant().movePlayer(3222, 3218, 0);
+		} else if (inFightCaves()) {
+			getDialogueHandler().sendDialogues(101, 2617);
+			getPlayerAssistant().movePlayer(absX, absY, playerId * 4);
+			getPacketSender().sendMessage("Your wave will start in 10 seconds.");
+			 CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
+		            @Override
+		            public void execute(CycleEventContainer container) {
+					GameEngine.fightCaves.spawnNextWave((Client) PlayerHandler.players[playerId]);
+					container.stop();
 				}
-			}
+				@Override
+					public void stop() {
+
+					}
+			}, 16);
 		}
 	}
 
@@ -1217,6 +1222,8 @@ public abstract class Player {
 			restoreStatsDelay, logoutDelay, buryDelay, foodDelay, potDelay,
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
 			boneDelay, leverDelay = 0, searchObjectDelay = 0, clickDelay = 0;
+	
+	public boolean hideYell = false;
 
 
 	private Npc specialTarget = null;
@@ -1226,6 +1233,8 @@ public abstract class Player {
 		public Npc getSpecialTarget() {
 			return specialTarget;
 		}
+		
+	public int miningAxe = -1, woodcuttingAxe = -1;
 
 	public boolean initialized = false, musicOn = true, luthas,
 			playerIsCooking, disconnected = false, ruleAgreeButton = false,
@@ -1373,6 +1382,8 @@ public abstract class Player {
 
 	private final boolean barrowsNpcDead[] = new boolean[6];
 
+	public int ectofuntusBoneUsed;
+	public String ectofuntusBoneCrusherState = "Empty";
 	public Client teleporter = null;
 	public int[] party = new int[8];
 	public int[] partyN = new int[8];
@@ -1810,9 +1821,12 @@ public abstract class Player {
 				isInArea(2451, 3408, 2425, 3437) ||
 				false;
 	}
-
+	
 	public boolean inDesert() {
-		return absX >= 3137 && absX <= 3321 && absY >= 2880 && absY <= 3115;
+		if (tutorialProgress >= 0 && tutorialProgress <= 36) {
+			return false;
+		}
+		return (getX() >= 3137 && getX() <= 3321 && getY() >= 2880 && getY() <= 3115);
 	}
 
 	public boolean duelingArena() {
@@ -1824,11 +1838,11 @@ public abstract class Player {
 
 
 	 public boolean playerIsBusy() {
-	        if(isShopping || inTrade || openDuel || isBanking || duelStatus == 1) {
-	            return true;
-	        }
-	        return false;
-	    }
+        if (isShopping || inTrade || openDuel || isBanking || duelStatus == 1) {
+            return true;
+        }
+        return false;
+	 }
 
 	public boolean isInBarrows() {
 		if(absX > 3543 && absX < 3584 && absY > 3265 && absY < 3311) {

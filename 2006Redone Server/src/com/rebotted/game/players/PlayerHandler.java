@@ -53,6 +53,18 @@ public class PlayerHandler {
 	public static int getPlayerCount() {
 		return playerCount;
 	}
+	
+	public static int getNonPlayerCount() {
+		int count = 0;
+		for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+			if (players[i] != null) {
+				if (players[i].playerRights >= 1) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 
 	public static int getPlayerShopCount() {
 		return playerShopCount;

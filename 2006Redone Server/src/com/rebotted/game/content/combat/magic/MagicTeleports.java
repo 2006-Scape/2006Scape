@@ -41,21 +41,4 @@ public class MagicTeleports {
 		player.getPlayerAssistant().startTeleport(teleport.getDestX(), teleport.getDestY(), teleport.getDestZ(), teleport.getType());
 		player.getPlayerAssistant().addSkillXP(teleport.getExperienceGained(), player.playerMagic);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

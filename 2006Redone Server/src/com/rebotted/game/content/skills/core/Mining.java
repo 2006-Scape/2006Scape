@@ -129,14 +129,12 @@ public class Mining {
 		}
 	}
 	
-	int pickaxe = -1;
-	
 	public void repeatAnimation(final Player c) {
 		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (c.isMining) {
-					c.startAnimation(Pick_Settings[pickaxe][3]);
+					c.startAnimation(Pick_Settings[c.miningAxe][3]);
 				} else {
 					container.stop();
 				}
@@ -151,11 +149,12 @@ public class Mining {
 	}
 	
 	public void startMining(final Player player, final int objectID, final int objectX, final int objectY, final int type) {
+		CycleEventHandler.getSingleton().stopEvents(player, "miningEvent".hashCode());
 		if (player.isMining || player.miningRock) 
 			return;
 		int miningLevel = player.playerLevel[player.playerMining];
 		rockData rock = rockData.getRock(objectID);
-		pickaxe = -1;
+		player.miningAxe = -1;
 		player.turnPlayerTo(objectX, objectY);
 		// check if the player has required level for this rock
 		if (rock.getRequiredLevel() > miningLevel) {
@@ -166,11 +165,11 @@ public class Mining {
 		for (int i = 0; i < Pick_Settings.length; i++) {
 			if (player.getItemAssistant().playerHasItem(Pick_Settings[i][0]) || player.playerEquipment[player.playerWeapon] == Pick_Settings[i][0]) {
 				if (Pick_Settings[i][1] <= miningLevel) {
-					pickaxe = i;
+					player.miningAxe = i;
 				}
 			}
 		}
-		if (pickaxe == -1) {
+		if (player.miningAxe == -1) {
 			player.getPacketSender().sendMessage("You need a pickaxe to mine this rock.");
 			return;
 		}
@@ -179,7 +178,7 @@ public class Mining {
 			return;
 		}
 
-		player.startAnimation(Pick_Settings[pickaxe][3]);
+		player.startAnimation(Pick_Settings[player.miningAxe][3]);
 		player.isMining = true;
 		repeatAnimation(player);
 		player.rockX = objectX;
@@ -195,7 +194,7 @@ public class Mining {
 			player.getPacketSender().sendMessage("You swing your pick at the rock.");
 		}
 
-		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+		CycleEventHandler.getSingleton().addEvent("miningEvent".hashCode(), player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
 				int oreID = rock.getOre(miningLevel);
@@ -237,8 +236,9 @@ public class Mining {
 				}
 				mineRock(rock.getRespawnTimer(), objectX, objectY, type, objectID);
 				container.stop();
-				if (rock == rockData.ESSENCE)
+				if (rock == rockData.ESSENCE) {
 					startMining(player, objectID, objectX, objectY, type);
+				}
 			}
 			@Override
 			public void stop() {
@@ -250,7 +250,7 @@ public class Mining {
 				player.miningRock = false;
 				return;
 			}
-		}, getTimer(rock, pickaxe, miningLevel));
+		}, getTimer(rock, player.miningAxe, miningLevel));
 	}
 	
 	public static void resetMining(Player player) {

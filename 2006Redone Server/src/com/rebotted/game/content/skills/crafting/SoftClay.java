@@ -15,38 +15,36 @@ public class SoftClay {
 
 	public static final int SOFT_CLAY = 1761, CLAY = 434;
 
-	public static void makeClay(final Player c) {
-		if (!c.getItemAssistant().playerHasItem(CLAY)) {
-			c.getPacketSender().sendMessage("You need clay to do this.");
+	public static void makeClay(final Player player) {
+		if (!player.getItemAssistant().playerHasItem(CLAY)) {
+			player.getPacketSender().sendMessage("You need clay to do this.");
 			return;
 		}
-		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-	            @Override
+		player.isSpinning = true;
+		player.doAmount = player.getItemAssistant().getItemAmount(CLAY);
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+	        @Override
 	            public void execute(CycleEventContainer container) {
-				int amountToSubtract = c.getItemAssistant().getItemAmount(CLAY);
-				int amountToAdd = amountToSubtract;
-				c.doAmount = amountToSubtract;
-				c.addAmount = amountToAdd;
-				if (c.getItemAssistant().playerHasItem(CLAY)) {
-					c.getItemAssistant().deleteItem(CLAY, c.doAmount);
-					c.doAmount--;
-					c.getItemAssistant().addItem(SOFT_CLAY, c.addAmount);
-					c.addAmount++;
-					RandomEventHandler.addRandom(c);
-					if (c.doAmount == 0) {
-						c.getPacketSender().sendMessage("You have ran out of clay to turn to soft clay.");
+				if (player.getItemAssistant().playerHasItem(CLAY) && player.isSpinning == true) {
+					player.startAnimation(896);
+					player.getItemAssistant().deleteItem(CLAY, 1);
+					player.getItemAssistant().addItem(SOFT_CLAY, 1);
+					player.doAmount--;
+					RandomEventHandler.addRandom(player);
+					player.getPacketSender().sendMessage("You turn the clay into soft clay.");
+					if (player.disconnected || player.isSpinning == false || player.doAmount == 0) {
 						container.stop();
-					}
-					if (c.disconnected) {
-						container.stop();
+						return;
 					}
 				}
 	        }
 			@Override
 				public void stop() {
-					
+					player.isSpinning = false;
+					player.startAnimation(65535);
+					return;
 				}
-		}, 1);
+		}, 3);
 	}
-
+	
 }

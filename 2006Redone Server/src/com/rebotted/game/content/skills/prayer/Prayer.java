@@ -1,4 +1,4 @@
-package com.rebotted.game.content.skills.core;
+package com.rebotted.game.content.skills.prayer;
 
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;

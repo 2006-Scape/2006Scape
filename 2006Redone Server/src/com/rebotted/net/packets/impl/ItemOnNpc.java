@@ -29,12 +29,8 @@ public class ItemOnNpc implements PacketType {
 		player.faceNpc(i);
 		switch(npcId) {
 			case 43:
-				if (NpcHandler.npcs[i].requestTransformTime(player, 1735, 893, 43, 42, 50, i)) {
-					player.getItemAssistant().addItem(1737, 1);
-				} else {
-					player.getPacketSender().sendMessage("You need to wait for this sheep's wool to regrow!");
-				}
-			break;
+				NpcHandler.npcs[i].shearSheep(player, 1735, 1737, 893, 43, 42, 50);
+				break;
 		}
 		if (player.getItemAssistant().playerHasItem(995, 1) && npcId == 736) {
 			player.getItemAssistant().deleteItem(995, 1);

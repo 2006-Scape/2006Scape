@@ -91,6 +91,9 @@ public class PlayerSave {
 							case "isBot":
 								player.isBot = Boolean.parseBoolean(token2);
 								break;
+							case "hideYell":
+								player.hideYell = Boolean.parseBoolean(token2);
+								break;
 							case "blackMarks":
 								player.blackMarks = Integer.parseInt(token2);
 								break;
@@ -554,6 +557,8 @@ public class PlayerSave {
 			characterfile.write("character-rights = " + player.playerRights);
 			characterfile.newLine();
 			characterfile.write("isBot = " + player.isBot);
+			characterfile.newLine();
+			characterfile.write("hideYell = " + player.hideYell);
 			characterfile.newLine();
 			characterfile.write("hasStarter = " + player.hasStarter);
 			characterfile.newLine();

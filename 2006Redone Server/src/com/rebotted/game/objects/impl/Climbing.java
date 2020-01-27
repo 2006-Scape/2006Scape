@@ -874,7 +874,7 @@ public class Climbing {
 	}
 
 	public static void handleLadder(Player player) {
-		player.getDialogueHandler().sendOption2("Climb Up.", "Climb Down.");
+		player.getDialogueHandler().sendOption("Climb Up.", "Climb Down.");
 		player.dialogueAction = 147;
 	}
 

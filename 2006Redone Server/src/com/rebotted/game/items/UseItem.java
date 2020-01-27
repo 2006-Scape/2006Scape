@@ -12,6 +12,9 @@ import com.rebotted.game.content.skills.fletching.LogCuttingInterface;
 import com.rebotted.game.content.skills.fletching.Stringing;
 import com.rebotted.game.content.skills.herblore.GrindingAction;
 import com.rebotted.game.content.skills.herblore.Herblore;
+import com.rebotted.game.content.skills.prayer.Ectofuntus;
+import com.rebotted.game.content.skills.prayer.Ectofuntus.EctofuntusData;
+import com.rebotted.game.content.skills.runecrafting.Tiaras;
 import com.rebotted.game.items.impl.CapeDye;
 import com.rebotted.game.items.impl.GodPages;
 import com.rebotted.game.items.impl.WeaponPoison;
@@ -39,6 +42,17 @@ public class UseItem {
 			c.getPlayerAssistant().playerWalk(objectX, objectY);
 		}
 		if (!c.getItemAssistant().playerHasItem(itemId, 1)) {
+			return;
+		}
+		if (itemId == Ectofuntus.BUCKET) {
+			Ectofuntus.fillBucketWithSlime(c, objectID);
+		}
+		for (final EctofuntusData ectofuntus : EctofuntusData.values()) {
+			if (itemId == ectofuntus.getBoneId()) {
+				Ectofuntus.boneOnLoader(c, objectID, itemId);
+			}
+		}
+		if (Tiaras.bindTiara(c, itemId, objectID)) {
 			return;
 		}
 		switch (objectID) {

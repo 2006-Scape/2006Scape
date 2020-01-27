@@ -7,8 +7,9 @@ import com.rebotted.game.content.consumables.Kebabs;
 import com.rebotted.game.content.consumables.Beverages.beverageData;
 import com.rebotted.game.content.minigames.TreasureTrails;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
-import com.rebotted.game.content.skills.core.Prayer;
 import com.rebotted.game.content.skills.herblore.Herblore;
+import com.rebotted.game.content.skills.prayer.Prayer;
+import com.rebotted.game.content.skills.woodcutting.BirdNest;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.ExperienceLamp;
 import com.rebotted.game.items.impl.Flowers;
@@ -167,7 +168,7 @@ public class ClickItem implements PacketType {
 			break;
 
 		case 4155:// enchanted gem
-			player.getDialogueHandler().sendOption4("How many kills do I have left?",
+			player.getDialogueHandler().sendOption("How many kills do I have left?",
 					"Who are you?", "Where are you located?",
 					"How many slayer points do I have?");
 			player.dialogueAction = 145;
@@ -215,18 +216,18 @@ public class ClickItem implements PacketType {
 				player.getPacketSender().sendMessage("You do not have enough inventory space to do that.");
 			}
 		break;
-
+		
 		case 5073:
-			player.getItemAssistant().handleTreeSeeds(itemId);
+			BirdNest.handleBirdNest(player, itemId, 0);
 			break;
 
 		case 5074:
-			player.getItemAssistant().handleRings(itemId);
+			BirdNest.handleBirdNest(player, itemId, 1);
 			break;
 			
 		case 7413:
-			player.getItemAssistant().handleNonTreeSeeds(itemId);
-		break;
+			BirdNest.handleBirdNest(player, itemId, 2);
+			break;
 
 		case 2297:
 			player.getItemAssistant().addItem(2299, 1);
