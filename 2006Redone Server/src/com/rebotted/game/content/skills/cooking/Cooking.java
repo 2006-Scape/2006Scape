@@ -231,9 +231,6 @@ public class Cooking extends SkillHandler {
 			if (player.doAmount > player.getItemAssistant().getItemAmount(itemId)) {
 				player.doAmount = player.getItemAssistant().getItemAmount(itemId);
 			}
-			if (player.playerIsCooking && !Misc.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 2)) {
-				return;
-			}
 			if (objectId > 0) {
 				player.startAnimation(objectId == 2732 ? 897 : 896);
 			}
@@ -254,7 +251,6 @@ public class Cooking extends SkillHandler {
 						container.stop();
 						return;
 					}
-
 					boolean burn;
 					if (player.playerEquipment[GameConstants.HANDS] == 775) {
 						burn = !getSuccess(player, 3, item.getLevelReq(), item.getStopBurnGloves());
@@ -286,6 +282,10 @@ public class Cooking extends SkillHandler {
 						return;
 					}
 					if (objectId < 0) {
+						container.stop();
+						return;
+					}
+					if (player.playerIsCooking && !Misc.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 2)) {
 						container.stop();
 						return;
 					}
