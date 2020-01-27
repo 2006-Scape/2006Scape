@@ -222,11 +222,13 @@ public class Pickpocket extends SkillHandler {
 			c.getPacketSender().sendMessage("You can't pickpocket while in combat!");
 			return;
 		}
+		if (System.currentTimeMillis() - c.logoutDelay < 4000) {
+			return;
+		}
 		if (!THIEVING) {
 			c.getPacketSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
-		// membersOnly();
 		for (final npcData n : npcData.values()) {
 			if (npcId == n.getNpc(npcId)) {
 				if (c.playerLevel[c.playerThieving] < n.getLevel()) {

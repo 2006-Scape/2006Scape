@@ -17,16 +17,16 @@ import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.content.randomevents.FreakyForester;
 import com.rebotted.game.content.skills.agility.AgilityShortcut;
 import com.rebotted.game.content.skills.core.Mining;
-import com.rebotted.game.content.skills.core.Woodcutting;
 import com.rebotted.game.content.skills.crafting.Spinning;
 import com.rebotted.game.content.skills.farming.Farming;
-import com.rebotted.game.content.skills.fletching.LogCutting;
+import com.rebotted.game.content.skills.prayer.Ectofuntus;
 import com.rebotted.game.content.skills.runecrafting.AbyssalHandler;
 import com.rebotted.game.content.skills.runecrafting.RuneCraftingActions;
 import com.rebotted.game.content.skills.smithing.Smelting;
 import com.rebotted.game.content.skills.thieving.Stalls;
 import com.rebotted.game.content.skills.thieving.ThieveOther;
-import com.rebotted.game.content.traveling.Desert;
+import com.rebotted.game.content.skills.woodcutting.Woodcutting;
+import com.rebotted.game.content.traveling.DesertCactus;
 import com.rebotted.game.globalworldobjects.ClimbOther;
 import com.rebotted.game.globalworldobjects.DoubleGates;
 import com.rebotted.game.globalworldobjects.PassDoor;
@@ -118,6 +118,13 @@ public class ObjectsActions {
 			return;
 		}
 		switch (objectType) {
+		case 11163:
+			Ectofuntus.useBoneGrinder(player);
+		break;
+		
+		case 11164:
+			Ectofuntus.emptyBin(player);
+		break;
 		case 6:
 			player.getCannon().clickCannon(objectX, objectY);
 			break;
@@ -890,7 +897,7 @@ public class ObjectsActions {
 			break;
 
 		case 2670:
-			Desert.cutCactus(player, Desert.getCacCutter(player), objectType,
+			DesertCactus.cutCactus(player, DesertCactus.getCacCutter(player), objectType,
 					objectX, objectY);
 			break;
 
@@ -917,7 +924,7 @@ public class ObjectsActions {
 							player.absY, 0);
 					player.getPacketSender().createArrow(3078, 3084,
 							player.getH(), 2);
-					player.getDialogueHandler().sendStatement2(
+					player.getDialogueHandler().sendStatement(
 							"You have died and have already beat this step",
 							"you may continue.");
 				} else if (player.diedOnTut == false) {
@@ -936,7 +943,7 @@ public class ObjectsActions {
 			if (player.tutorialProgress > 9) {
 				PassDoor.passThroughDoor(player, 3018, 1, 2, 0, -1, 0, 0);
 				if (player.diedOnTut) {
-					player.getDialogueHandler().sendStatement2(
+					player.getDialogueHandler().sendStatement(
 							"You have died and have already beat this step",
 							"you may continue.");
 					player.getPacketSender().createArrow(3086, 3126,
@@ -951,7 +958,7 @@ public class ObjectsActions {
 			if (player.tutorialProgress > 6 || player.diedOnTut) {
 				if (player.diedOnTut && Position.checkPosition(player, 3079, 3084, 0)) {
 					PassDoor.passThroughDoor(player, 3017, 3, 0, 0, -1, 0, 0);
-					player.getDialogueHandler().sendStatement2("You have died and have already beat this step", "you may continue.");
+					player.getDialogueHandler().sendStatement("You have died and have already beat this step", "you may continue.");
 					player.getPacketSender().createArrow(3072, 3090, player.getH(), 2);
 				} else if (player.diedOnTut == false && Position.checkPosition(player, 3079, 3084, 0)) {
 					PassDoor.passThroughDoor(player, 3017, 3, 0, 0, -1, 0, 0);
@@ -1053,7 +1060,7 @@ public class ObjectsActions {
 			if (player.tutorialProgress >= 11 || player.diedOnTut) {
 				if (player.diedOnTut && Position.checkPosition(player, 3086, 3126, 0)) {
 					PassDoor.passThroughDoor(player, 3019, 2, 3, 0, 0, -1, 0);
-					player.getDialogueHandler().sendStatement2(
+					player.getDialogueHandler().sendStatement(
 							"You have died and have already beat this step",
 							"you may continue.");
 					player.getPacketSender().createArrow(3088, 3119,
@@ -1074,7 +1081,7 @@ public class ObjectsActions {
 				player.getPacketSender().createArrow(1, 2);
 			} else if (Position.checkPosition(player, 3097, 3107, 0) && player.diedOnTut) {
 				player.getPacketSender().createArrow(3089, 3092, player.getH(), 2);
-				player.getDialogueHandler().sendStatement2("You have died and have already beat this step", "you may continue.");
+				player.getDialogueHandler().sendStatement("You have died and have already beat this step", "you may continue.");
 			} else if (player.tutorialProgress < 2 && player.diedOnTut != true) {
 				player.getPacketSender().sendMessage("You aren't on this step yet.");
 				return;
@@ -1120,7 +1127,7 @@ public class ObjectsActions {
 				case 3021:
 				if (player.diedOnTut && (player.getY() == 9502 || player.getY() == 9503)) {
 					player.getDialogueHandler()
-							.sendStatement2(
+							.sendStatement(
 									"You have died so now all you need to do is continue",
 									"onto the next step.");
 					player.getPacketSender().createArrow(3111, 9518,
@@ -1174,7 +1181,7 @@ public class ObjectsActions {
 					|| player.diedOnTut) {
 				if (player.diedOnTut) {
 					player.getDialogueHandler()
-							.sendStatement2("Be more careful this time",
+							.sendStatement("Be more careful this time",
 									"now continue to kill the rat and talk to the guide.");
 				}
 				player.getPacketSender().chatbox(6180);
@@ -1366,7 +1373,7 @@ public class ObjectsActions {
 					player.getPlayerAssistant().movePlayer(3088, 9520, 0);
 					player.getPacketSender().createArrow(3094, 9503,
 							player.getH(), 2);
-					player.getDialogueHandler().sendStatement2(
+					player.getDialogueHandler().sendStatement(
 							"You have died and have already beat this step",
 							"you may continue.");
 				} else if (player.diedOnTut == false) {

@@ -124,7 +124,7 @@ public class OtherObjects {
 						@Override
 						public void execute(CycleEventContainer container) {
 							if (random == 1) {
-								player.getDialogueHandler().sendStatement2("Wow! A needle!", "Now what are the chances of finding that?");
+								player.getDialogueHandler().sendStatement("Wow! A needle!", "Now what are the chances of finding that?");
 								player.nextChat = 0;
 								player.getItemAssistant().addItem(1733, 1);
 								container.stop();

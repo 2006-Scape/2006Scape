@@ -439,11 +439,11 @@ public class DialogueOptions {
 				player.nextChat = 0;
 				return;
 			} else if (player.dialogueAction == 183) {
-				player.getDialogueHandler().sendPlayerChat1("Well I hope you find it soon.");
+				player.getDialogueHandler().sendPlayerChat("Well I hope you find it soon.");
 				player.nextChat = 0;
 				return;
 			} else if (player.dialogueAction == 184) {
-				player.getDialogueHandler().sendPlayerChat1("No, I've got lots of mining work to do.");
+				player.getDialogueHandler().sendPlayerChat("No, I've got lots of mining work to do.");
 				player.nextChat = 0;
 				return;
 			} else if (player.dialogueAction == 3204) {

@@ -17,11 +17,6 @@ import com.rebotted.game.players.PlayerAssistant;
 import com.rebotted.game.shops.Shops.Shop;
 import com.rebotted.util.Misc;
 
-/**
- * Anims:
- * http://www.rune-server.org/runescape-development/rs2-server/tutorials/518991-pi-317-player-npc-facial-dialogue-expressions.html
- */
-
 public class DialogueHandler {
 
 	private final Player player;
@@ -41,7 +36,7 @@ public class DialogueHandler {
 				break;
 
 			case 1: // was 16
-				sendOption2("I would like to reset my barrows brothers.",
+				sendOption("I would like to reset my barrows brothers.",
 						"I would like to fix all my barrows");
 				player.dialogueAction = 8;
 				break;
@@ -91,13 +86,13 @@ public class DialogueHandler {
 				break;
 
 			case 8:
-				sendOption2("I would like to collect some banana's for you",
+				sendOption("I would like to collect some banana's for you",
 						"Never mind");
 				player.dialogueAction = 92;
 				break;
 
 			case 9:
-				sendPlayerChat1("I would like to collect some banana's for you.");
+				sendPlayerChat("I would like to collect some banana's for you.");
 				player.luthas = true;
 				player.bananas = 1;
 				player.nextChat = 10;
@@ -111,7 +106,7 @@ public class DialogueHandler {
 				break;
 
 			case 5:
-				sendPlayerChat1("Hello, how's it going?");
+				sendPlayerChat("Hello, how's it going?");
 				player.nextChat = 6;
 				break;
 			case 6:
@@ -119,19 +114,19 @@ public class DialogueHandler {
 				player.nextChat = 7;
 				break;
 			case 7:
-				sendPlayerChat1("Very well thank you.");
+				sendPlayerChat("Very well thank you.");
 				player.nextChat = 0;
 				break;
 
 			case 11:
-				sendOption2("Here's 5 coins you tramp.", "Leave, me alone.");
+				sendOption("Here's 5 coins you tramp.", "Leave, me alone.");
 				player.dialogueAction = 90;
 				break;
 
 			case 12:
 				if (player.getItemAssistant().playerHasItem(995, 5)) {
 					player.getItemAssistant().deleteItem(995, 5);
-					sendPlayerChat1("Here's 5 coins you tramp.");
+					sendPlayerChat("Here's 5 coins you tramp.");
 					player.nextChat = 0;
 				} else {
 					player.nextChat = 13;
@@ -139,7 +134,7 @@ public class DialogueHandler {
 				break;
 
 			case 13:
-				sendPlayerChat1("No! Leave me alone.");
+				sendPlayerChat("No! Leave me alone.");
 				player.nextChat = 0;
 				break;
 
@@ -151,7 +146,7 @@ public class DialogueHandler {
 				break;
 
 			case 15:
-				sendOption2("I would like to view your shop",
+				sendOption("I would like to view your shop",
 						"I would like to fix my barrows");
 				player.dialogueAction = 91;
 				break;
@@ -180,12 +175,12 @@ public class DialogueHandler {
 
 			case 20:
 				if (player.getItemAssistant().playerHasItem(995, 2)) {
-					sendPlayerChat1("Yes I would love a beer.");
+					sendPlayerChat("Yes I would love a beer.");
 					player.getItemAssistant().deleteItem(995, 2);
 					player.getItemAssistant().addOrDropItem(1917, 1);
 					player.nextChat = 0;
 				} else {
-					sendPlayerChat1("I don't have enough coins to buy a beer.");
+					sendPlayerChat("I don't have enough coins to buy a beer.");
 					player.nextChat = 0;
 				}
 				break;
@@ -198,7 +193,7 @@ public class DialogueHandler {
 				break;
 
 			case 22:
-				sendOption2("Yes", "No");
+				sendOption("Yes", "No");
 				player.dialogueAction = 93;
 				break;
 
@@ -221,7 +216,7 @@ public class DialogueHandler {
 				break;
 
 			case 25:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.getPlayerAssistant().startTeleport(3308, 3108, 0, "modern");
 				player.getItemAssistant().deleteItem(995, 200);
 				player.nextChat = 0;
@@ -241,28 +236,28 @@ public class DialogueHandler {
 				break;
 
 			case 27:
-				sendOption4("Pollnivneach (North)", "Bedabin Camp", "Uzer",
+				sendOption("Pollnivneach (North)", "Bedabin Camp", "Uzer",
 						"Shantay Pass");
 				player.dialogueAction = 700;
 				break;
 
 			case 28:
-				sendPlayerChat1("Pollnivneach please.");
+				sendPlayerChat("Pollnivneach please.");
 				player.getPlayerAssistant().startTeleport(3350, 3004, 0, "modern");
 				player.nextChat = 32;
 				break;
 			case 29:
-				sendPlayerChat1("Bedabin Camp please.");
+				sendPlayerChat("Bedabin Camp please.");
 				player.getPlayerAssistant().startTeleport(3180, 3043, 0, "modern");
 				player.nextChat = 32;
 				break;
 			case 30:
-				sendPlayerChat1("Uzer please.");
+				sendPlayerChat("Uzer please.");
 				player.getPlayerAssistant().startTeleport(3469, 3111, 0, "modern");
 				player.nextChat = 32;
 				break;
 			case 31:
-				sendPlayerChat1("Shantay pass please.");
+				sendPlayerChat("Shantay pass please.");
 				player.getPlayerAssistant().startTeleport(3308, 3108, 0, "modern");
 				player.nextChat = 32;
 				break;
@@ -278,16 +273,16 @@ public class DialogueHandler {
 				break;
 
 			case 34:
-				sendOption2("Yes", "No");
+				sendOption("Yes", "No");
 				player.dialogueAction = 67;
 				break;
 
 			case 35:
-				sendPlayerChat1("No thank you.");
+				sendPlayerChat("No thank you.");
 				player.nextChat = 0;
 				break;
 			case 36:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 583;
 				break;
 
@@ -298,19 +293,19 @@ public class DialogueHandler {
 				player.nextChat = 38;
 				break;
 			case 38:
-				sendOption3("Yes please.", "No thank you.", "Can I get a job here?");
+				sendOption("Yes please.", "No thank you.", "Can I get a job here?");
 				player.dialogueAction = 68;
 				break;
 			case 39:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.getShopAssistant().openShop(34);
 				break;
 			case 40:
-				sendPlayerChat1("No thank you.");
+				sendPlayerChat("No thank you.");
 				player.nextChat = 0;
 				break;
 			case 41:
-				sendPlayerChat1("Can I get a job here?");
+				sendPlayerChat("Can I get a job here?");
 				player.ptjob = 1;
 				player.nextChat = 42;
 				break;
@@ -322,7 +317,7 @@ public class DialogueHandler {
 				player.nextChat = 43;
 				break;
 			case 43:
-				sendPlayerChat1("No, I haven't.");
+				sendPlayerChat("No, I haven't.");
 				player.nextChat = 44;
 				break;
 			case 44:
@@ -333,7 +328,7 @@ public class DialogueHandler {
 				player.nextChat = 45;
 				break;
 			case 45:
-				sendPlayerChat1("Where can I get one of those?");
+				sendPlayerChat("Where can I get one of those?");
 				player.nextChat = 46;
 				break;
 			case 46:
@@ -350,11 +345,11 @@ public class DialogueHandler {
 				break;
 			case 48:
 				if (player.getItemAssistant().playerHasItem(1005, 1)) {
-					sendPlayerChat1("Yes I have one here.");
+					sendPlayerChat("Yes I have one here.");
 					player.nextChat = 49;
 					player.ptjob = 1;
 				} else {
-					sendPlayerChat1("No I still need to get one.");
+					sendPlayerChat("No I still need to get one.");
 					player.nextChat = 0;
 				}
 				break;
@@ -370,12 +365,12 @@ public class DialogueHandler {
 				player.nextChat = 51;
 				break;
 			case 51:
-				sendOption4("What's wrong?", "Can you cook me a cake?",
+				sendOption("What's wrong?", "Can you cook me a cake?",
 						"You don't look very happy.", "Nice hat.");
 				player.dialogueAction = 52;
 				break;
 			case 52:
-				sendPlayerChat1("What's wrong?");
+				sendPlayerChat("What's wrong?");
 				player.nextChat = 54;
 				break;
 			case 54:
@@ -395,16 +390,16 @@ public class DialogueHandler {
 				player.nextChat = 56;
 				break;
 			case 56:
-				sendOption2("I'm always happy to help a cook in distress.",
+				sendOption("I'm always happy to help a cook in distress.",
 						"I can't right now, Maybe later.");
 				player.dialogueAction = 57;
 				break;
 			case 57:
-				sendPlayerChat1("Yes, I'll help you.");// 9157
+				sendPlayerChat("Yes, I'll help you.");// 9157
 				player.nextChat = 60;
 				break;
 			case 58:
-				sendPlayerChat1("I can't right now, Maybe later.");// 9158
+				sendPlayerChat("I can't right now, Maybe later.");// 9158
 				player.nextChat = 59;
 				break;
 			case 59:
@@ -420,7 +415,7 @@ public class DialogueHandler {
 				player.nextChat = 61;
 				break;
 			case 61:
-				sendPlayerChat1("So where do I find these ingredients then?");
+				sendPlayerChat("So where do I find these ingredients then?");
 				player.nextChat = 62;
 				break;
 			case 62:
@@ -441,7 +436,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 65:
-				sendPlayerChat1("You don't look so happy.");
+				sendPlayerChat("You don't look so happy.");
 				player.nextChat = 54;
 				break;
 			case 66:
@@ -454,10 +449,10 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(1944, 1)
 						&& player.getItemAssistant().playerHasItem(1927, 1)
 						&& player.getItemAssistant().playerHasItem(1933, 1)) {
-					sendPlayerChat1("Here's all the items!");
+					sendPlayerChat("Here's all the items!");
 					player.nextChat = 68;
 				} else {
-					sendPlayerChat1("I don't have all the items yet.");
+					sendPlayerChat("I don't have all the items yet.");
 					player.nextChat = 59;
 				}
 				break;
@@ -471,7 +466,7 @@ public class DialogueHandler {
 				player.nextChat = 69;
 				break;
 			case 69:
-				sendPlayerChat1("So do I get to go to the Duke's Party?");
+				sendPlayerChat("So do I get to go to the Duke's Party?");
 				player.nextChat = 70;
 				break;
 			case 70:
@@ -481,7 +476,7 @@ public class DialogueHandler {
 				player.nextChat = 72;
 				break;
 			case 72:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"Well, maybe one day I'll be important enough to sit on",
 						"the Duke's table");
 				player.nextChat = 74;
@@ -508,10 +503,10 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(434, 6)
 						&& player.getItemAssistant().playerHasItem(436, 4)
 						&& player.getItemAssistant().playerHasItem(440, 2)) {
-					sendPlayerChat1("Here's all the items!");
+					sendPlayerChat("Here's all the items!");
 					player.nextChat = 86;
 				} else {
-					sendPlayerChat1("I haven't found all the items yet.");
+					sendPlayerChat("I haven't found all the items yet.");
 					player.nextChat = 88;
 				}
 				break;
@@ -539,7 +534,7 @@ public class DialogueHandler {
 				player.nextChat = 90;
 				break;
 			case 90:
-				sendOption2("Mind your own buisness, Shortstuff!",
+				sendOption("Mind your own buisness, Shortstuff!",
 						"I wanted to use your anivils.");
 				player.dialogueAction = 55;
 				break;
@@ -554,7 +549,7 @@ public class DialogueHandler {
 				player.nextChat = 98;
 				break;
 			case 98:
-				sendPlayerChat1("Yes, I would like to use your anivil.");
+				sendPlayerChat("Yes, I would like to use your anivil.");
 				player.nextChat = 93;
 				break;
 			case 93:
@@ -565,16 +560,16 @@ public class DialogueHandler {
 				player.nextChat = 94;
 				break;
 			case 94:
-				sendOption2("Yes i will get you the materials.",
+				sendOption("Yes i will get you the materials.",
 						"No, hitting rocks is boring.");
 				player.dialogueAction = 56;
 				break;
 			case 95:
-				sendPlayerChat1("No, hitting rocks is boring.");
+				sendPlayerChat("No, hitting rocks is boring.");
 				player.nextChat = 0;
 				break;
 			case 96:
-				sendPlayerChat1("Yes i will get you the materials.");
+				sendPlayerChat("Yes i will get you the materials.");
 				player.nextChat = 97;
 				break;
 			case 97:
@@ -588,7 +583,7 @@ public class DialogueHandler {
 				player.nextChat = 99;
 				break;
 			case 99:
-				sendPlayerChat1("Certainly, I'll be right back!");
+				sendPlayerChat("Certainly, I'll be right back!");
 				player.doricQuest = 1;
 				QuestAssistant.sendStages(player);
 				player.nextChat = 0;
@@ -614,7 +609,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 145:
-				sendPlayerChat1("Give me a quest!");
+				sendPlayerChat("Give me a quest!");
 				player.nextChat = 146;
 				break;
 			case 146:
@@ -623,7 +618,7 @@ public class DialogueHandler {
 				player.nextChat = 147;
 				break;
 			case 147:
-				sendPlayerChat1("Give me a quest please.");
+				sendPlayerChat("Give me a quest please.");
 				player.nextChat = 148;
 				break;
 			case 148:
@@ -660,12 +655,12 @@ public class DialogueHandler {
 				player.nextChat = 153;
 				break;
 			case 153:
-				sendOption2("I'll try.",
+				sendOption("I'll try.",
 						"I've better things to do than chase imps.");
 				player.dialogueAction = 125;
 				break;
 			case 154:
-				sendPlayerChat1("I'll try.");
+				sendPlayerChat("I'll try.");
 				player.impsC = 1;
 				QuestAssistant.sendStages(player);
 				player.nextChat = 155;
@@ -682,7 +677,7 @@ public class DialogueHandler {
 				player.nextChat = 157;
 				break;
 			case 157:
-				sendPlayerChat1("I am still working on it.");
+				sendPlayerChat("I am still working on it.");
 				player.nextChat = 0;
 				break;
 
@@ -692,7 +687,7 @@ public class DialogueHandler {
 				player.nextChat = 159;
 				break;
 			case 159:
-				sendPlayerChat1("I've got all four beads. It was hard work I can tell you.");
+				sendPlayerChat("I've got all four beads. It was hard work I can tell you.");
 				player.nextChat = 160;
 				break;
 			case 160:
@@ -723,7 +718,7 @@ public class DialogueHandler {
 				QuestRewards.impFinish(player);
 				break;
 			case 163:
-				sendPlayerChat1("I've better things to do than chase imps.");
+				sendPlayerChat("I've better things to do than chase imps.");
 				player.nextChat = 0;
 				break;
 
@@ -735,12 +730,12 @@ public class DialogueHandler {
 				player.nextChat = 165;
 				break;
 			case 165:
-				sendOption3("I'm looking for a quest.",
+				sendOption("I'm looking for a quest.",
 						"I'm looking for something to kill.", "I'm lost.");
 				player.dialogueAction = 63;
 				break;
 			case 166:
-				sendPlayerChat1("I'm looking for a quest.");
+				sendPlayerChat("I'm looking for a quest.");
 				player.nextChat = 170;
 				break;
 			case 167:
@@ -774,7 +769,7 @@ public class DialogueHandler {
 				player.nextChat = 172;
 				break;
 			case 172:
-				sendOption3("Yes okay. I can do that.",
+				sendOption("Yes okay. I can do that.",
 						"That doesn't sound a very exciting quest.",
 						"What do you mean, The Thing?");
 				player.sheepShear = 1;
@@ -782,15 +777,15 @@ public class DialogueHandler {
 				player.dialogueAction = 64;
 				break;
 			case 173:
-				sendPlayerChat1("Yes okay. I can do that.");
+				sendPlayerChat("Yes okay. I can do that.");
 				player.nextChat = 177;
 				break;
 			case 174:
-				sendPlayerChat1("Nevermind, that doesn't sound a very exciting quest.");
+				sendPlayerChat("Nevermind, that doesn't sound a very exciting quest.");
 				player.nextChat = 0;
 				break;
 			case 175:
-				sendPlayerChat1("What do you mean, The Thing?");
+				sendPlayerChat("What do you mean, The Thing?");
 				player.nextChat = 176;
 				break;
 			case 176:
@@ -804,11 +799,11 @@ public class DialogueHandler {
 				player.nextChat = 178;
 				break;
 			case 178:
-				sendOption2("Of course!", "Err. No, I don't know acctually.");
+				sendOption("Of course!", "Err. No, I don't know acctually.");
 				player.dialogueAction = 65;
 				break;
 			case 179:
-				sendPlayerChat1("Of course!");
+				sendPlayerChat("Of course!");
 				player.nextChat = 180;
 				break;
 			case 180:
@@ -817,12 +812,12 @@ public class DialogueHandler {
 				player.nextChat = 181;
 				break;
 			case 181:
-				sendOption2("I'm something of an expert actually!",
+				sendOption("I'm something of an expert actually!",
 						"I don't know how to spin wool, sorry..");
 				player.dialogueAction = 66;
 				break;
 			case 182:
-				sendPlayerChat1("I'm something of an expert actually!");
+				sendPlayerChat("I'm something of an expert actually!");
 				player.nextChat = 183;
 				break;
 			case 183:
@@ -842,7 +837,7 @@ public class DialogueHandler {
 				break;
 			case 186:
 				if (player.getItemAssistant().playerHasItem(1759, 20)) {
-					sendPlayerChat1("I have some.");
+					sendPlayerChat("I have some.");
 					player.getItemAssistant().deleteItem(1759, 20);
 					player.nextChat = 187;
 				} else {
@@ -855,7 +850,7 @@ public class DialogueHandler {
 				player.nextChat = 188;
 				break;
 			case 188:
-				sendPlayerChat1("That's the last of them.");
+				sendPlayerChat("That's the last of them.");
 				player.nextChat = 189;
 				break;
 			case 189:
@@ -872,13 +867,13 @@ public class DialogueHandler {
 				player.nextChat = 191;
 				break;
 			case 191:
-				sendOption3("Have you any quests for me?",
+				sendOption("Have you any quests for me?",
 						"Where can I find money?",
 						"Can I have an anti dragon shield please?");
 				player.dialogueAction = 124;
 				break;
 			case 192:// 9158
-				sendPlayerChat1("Where can I find money?");
+				sendPlayerChat("Where can I find money?");
 				player.nextChat = 193;
 				break;
 			case 193:
@@ -914,11 +909,11 @@ public class DialogueHandler {
 				player.nextChat = 197;
 				break;
 			case 197:
-				sendOption2("Sure, no problem.", "Not right now.");
+				sendOption("Sure, no problem.", "Not right now.");
 				player.dialogueAction = 140;
 				break;
 			case 198:// 9157
-				sendPlayerChat1("Sure, no problem.");
+				sendPlayerChat("Sure, no problem.");
 				player.nextChat = 199;
 				break;
 			case 199:
@@ -929,7 +924,7 @@ public class DialogueHandler {
 				player.nextChat = 200;
 				break;
 			case 200:
-				itemMessage1("The duke hands you an @blu@air talisman@blu@.", 1438,
+				itemMessage("The duke hands you an @blu@air talisman@blu@.", 1438,
 						1);
 				player.getItemAssistant().addOrDropItem(1438, 1);
 				player.runeMist = 1;
@@ -943,7 +938,7 @@ public class DialogueHandler {
 				player.nextChat = 202;
 				break;
 			case 202:
-				sendOption3("Nothing thanks, I'm just looking around.",
+				sendOption("Nothing thanks, I'm just looking around.",
 						"What are you doing down here?",
 						"I'm looking for the head wizard.");
 				player.dialogueAction = 126;
@@ -954,7 +949,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 204: // 9169
-				sendPlayerChat1("I'm looking for the head wizard.");
+				sendPlayerChat("I'm looking for the head wizard.");
 				player.nextChat = 205;
 				break;
 			case 205:
@@ -964,7 +959,7 @@ public class DialogueHandler {
 				player.nextChat = 207;
 				break;
 			case 207:
-				sendPlayerChat3(
+				sendPlayerChat(
 						"The Duke of Lumbridge sent me to find him.",
 						"I have this weird talisman he found. He said",
 						"the head wizard would be very interested in it.");
@@ -979,16 +974,16 @@ public class DialogueHandler {
 				player.nextChat = 209;
 				break;
 			case 209:
-				sendOption2("Ok, here you are.",
+				sendOption("Ok, here you are.",
 						"No, I'll only give it to the head wizard.");
 				player.dialogueAction = 127;
 				break;
 			case 210:// 9157
-				sendPlayerChat1("Ok, here you are.");
+				sendPlayerChat("Ok, here you are.");
 				player.nextChat = 212;
 				break;
 			case 212:
-				itemMessage1("You hand the Talisman to the wizard.", 1438, 1);
+				itemMessage("You hand the Talisman to the wizard.", 1438, 1);
 				player.getItemAssistant().deleteItem(1438, 1);
 				player.runeMist = 2;
 				player.nextChat = 213;
@@ -1053,11 +1048,11 @@ public class DialogueHandler {
 				player.nextChat = 222;
 				break;
 			case 222:
-				sendOption2("Yes, certainly.", "No, I'm busy.");
+				sendOption("Yes, certainly.", "No, I'm busy.");
 				player.dialogueAction = 128;
 				break;
 			case 223:// 9157
-				sendPlayerChat1("Yes, certainly.");
+				sendPlayerChat("Yes, certainly.");
 				player.nextChat = 224;
 				break;
 			case 224:
@@ -1086,7 +1081,7 @@ public class DialogueHandler {
 				player.nextChat = 227;
 				break;
 			case 227:
-				itemMessage1("The head wizard gives you a package.", 290, 1);
+				itemMessage("The head wizard gives you a package.", 290, 1);
 				player.getItemAssistant().addOrDropItem(290, 1);
 				player.nextChat = 228;
 				break;
@@ -1101,18 +1096,18 @@ public class DialogueHandler {
 				player.nextChat = 230;
 				break;
 			case 230:
-				sendOption3("Yes please!",
+				sendOption("Yes please!",
 						"Oh, it's a rune shop. No thank you, then.",
 						"I have been sent here with a package for you.");
 				player.dialogueAction = 129;
 				break;
 			case 231: // 9167
-				sendPlayerChat1("Yes please!");
+				sendPlayerChat("Yes please!");
 				player.getShopAssistant().openShop(52);
 				player.nextChat = 0;
 				break;
 			case 232: // 9169
-				sendPlayerChat2("I have been sent here with a package for you.",
+				sendPlayerChat("I have been sent here with a package for you.",
 						"It's for the head wizard at the Wizards Tower.");
 				player.nextChat = 233;
 				break;
@@ -1125,7 +1120,7 @@ public class DialogueHandler {
 				player.nextChat = 234;
 				break;
 			case 234:
-				itemMessage1("You hand Aubury the research package.", 290, 1);
+				itemMessage("You hand Aubury the research package.", 290, 1);
 				player.getItemAssistant().deleteItem(290, 1);
 				player.runeMist = 3;
 				player.nextChat = 235;
@@ -1139,7 +1134,7 @@ public class DialogueHandler {
 				player.nextChat = 236;
 				break;
 			case 236:
-				itemMessage1("Aubury gives you the research notes.", 290, 1);
+				itemMessage("Aubury gives you the research notes.", 290, 1);
 				player.getItemAssistant().addOrDropItem(290, 1);
 				player.nextChat = 237;
 				break;
@@ -1164,7 +1159,7 @@ public class DialogueHandler {
 				player.nextChat = 240;
 				break;
 			case 240:
-				sendPlayerChat2("Yes, I have.",
+				sendPlayerChat("Yes, I have.",
 						"He gave me some research notes to pass on to you.");
 				player.nextChat = 241;
 				break;
@@ -1173,7 +1168,7 @@ public class DialogueHandler {
 				player.nextChat = 242;
 				break;
 			case 242:
-				sendPlayerChat1("Sure. I have them here.");
+				sendPlayerChat("Sure. I have them here.");
 				player.nextChat = 243;
 				break;
 			case 243:
@@ -1249,7 +1244,7 @@ public class DialogueHandler {
 				player.nextChat = 254; 
 				break;
 			case 254:
-				sendPlayerChat1("I'm still not sure how I fit into this little story of yours.");
+				sendPlayerChat("I'm still not sure how I fit into this little story of yours.");
 				player.nextChat = 255;
 				break;
 			case 255:
@@ -1316,7 +1311,7 @@ public class DialogueHandler {
 				player.nextChat = 264;
 				break;
 			case 264:
-				sendPlayerChat2("So, only you and Aubury know the teleport spell",
+				sendPlayerChat("So, only you and Aubury know the teleport spell",
 						"to the rune essence?");
 				player.nextChat = 266;
 				break;
@@ -1337,7 +1332,7 @@ public class DialogueHandler {
 				player.nextChat = 268;
 				break;
 			case 268:
-				itemMessage1(
+				itemMessage(
 						"You give the research notes to Sedridor. He gives you an air talisman.",
 						290, 1);
 				player.getItemAssistant().deleteItem(290, 1);
@@ -1346,7 +1341,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 269:
-				sendPlayerChat1("Hello, are you ok?");
+				sendPlayerChat("Hello, are you ok?");
 				player.nextChat = 270;
 				break;
 			case 270:
@@ -1360,7 +1355,7 @@ public class DialogueHandler {
 				player.nextChat = 272;
 				break;
 			case 272:
-				sendPlayerChat1("Lost whom?");
+				sendPlayerChat("Lost whom?");
 				player.nextChat = 273;
 				break;
 			case 273:
@@ -1369,7 +1364,7 @@ public class DialogueHandler {
 				player.nextChat = 274;
 				break;
 			case 274:
-				sendPlayerChat1("Who's Fluffs?");
+				sendPlayerChat("Who's Fluffs?");
 				player.nextChat = 275;
 				break;
 			case 275:
@@ -1381,18 +1376,18 @@ public class DialogueHandler {
 				player.nextChat = 276;
 				break;
 			case 276:
-				sendOption3(
+				sendOption(
 						"Well, I suppose I could though I'd need more details.",
 						"What's in it for me?",
 						"Sorry, I'm too busy to play per rescue.");
 				player.dialogueAction = 60;
 				break;
 			case 277: // 9167
-				sendPlayerChat1("Well, I suppose I could though I'd need more details.");
+				sendPlayerChat("Well, I suppose I could though I'd need more details.");
 				player.nextChat = 280;
 				break;
 			case 278: // 9169
-				sendPlayerChat1("Sorry I'm too busy to play per rescue.");
+				sendPlayerChat("Sorry I'm too busy to play per rescue.");
 				player.nextChat = 0;
 				break;
 			case 279: // 9168
@@ -1416,7 +1411,7 @@ public class DialogueHandler {
 				player.nextChat = 282;
 				break;
 			case 282:
-				sendPlayerChat2("The marketplace? Which one would that be?",
+				sendPlayerChat("The marketplace? Which one would that be?",
 						"It would help to know what they get up to, as well.");
 				player.nextChat = 283;
 				break;
@@ -1435,14 +1430,14 @@ public class DialogueHandler {
 				player.nextChat = 285;
 				break;
 			case 285:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"I'll see what I can do. Two young lads in Varrock.",
 						"I hope that there's no school trip passing when I arrive.");
 				QuestAssistant.sendStages(player);
 				player.nextChat = 0;
 				break;
 			case 286:
-				sendPlayerChat1("Hello there, I've been looking for you.");
+				sendPlayerChat("Hello there, I've been looking for you.");
 				player.nextChat = 287;
 				break;
 			case 287:
@@ -1451,7 +1446,7 @@ public class DialogueHandler {
 				player.nextChat = 288;
 				break;
 			case 288:
-				sendPlayerChat2("What?",
+				sendPlayerChat("What?",
 						"I'm trying to help your mum find some cat called Fluffs.");
 				player.nextChat = 289;
 				break;
@@ -1464,7 +1459,7 @@ public class DialogueHandler {
 				player.nextChat = 290;
 				break;
 			case 290:
-				sendPlayerChat2("Where is this secret hideout?",
+				sendPlayerChat("Where is this secret hideout?",
 						"I really need to find that cat for you mum.");
 				player.nextChat = 291;
 				break;
@@ -1475,7 +1470,7 @@ public class DialogueHandler {
 				player.nextChat = 292;
 				break;
 			case 292:
-				sendPlayerChat2("From my limited knowledge of law,",
+				sendPlayerChat("From my limited knowledge of law,",
 						"they are not usually involved in manhunts for children.");
 				player.nextChat = 293;
 				break;
@@ -1488,7 +1483,7 @@ public class DialogueHandler {
 				player.nextChat = 294;
 				break;
 			case 294:
-				sendOption3(
+				sendOption(
 						"Tell me sonny, or I will inform you are a pair of criminals.",
 						"What will make you tell me?",
 						"Well never mind, it's Fluffs loss.");
@@ -1500,11 +1495,11 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 296: // 9169
-				sendPlayerChat1("Well never mind, it's Fluffs loss.");
+				sendPlayerChat("Well never mind, it's Fluffs loss.");
 				player.nextChat = 0;
 				break;
 			case 297: // 9168
-				sendPlayerChat1("What will make you tell me?");
+				sendPlayerChat("What will make you tell me?");
 				player.nextChat = 298;
 				break;
 			case 298:
@@ -1513,7 +1508,7 @@ public class DialogueHandler {
 				player.nextChat = 299;
 				break;
 			case 299:
-				sendPlayerChat1("How much?");
+				sendPlayerChat("How much?");
 				player.nextChat = 300;
 				break;
 			case 300:
@@ -1534,7 +1529,7 @@ public class DialogueHandler {
 				player.nextChat = 304;
 				break;
 			case 304:
-				sendPlayerChat2("100 coins!",
+				sendPlayerChat("100 coins!",
 						"What sort of expensive things do you need that badly?");
 				player.nextChat = 305;
 				break;
@@ -1545,7 +1540,7 @@ public class DialogueHandler {
 				player.nextChat = 306;
 				break;
 			case 306:
-				sendPlayerChat2("Why should I pay you then",
+				sendPlayerChat("Why should I pay you then",
 						"can you answer that as easily?");
 				player.nextChat = 307;
 				break;
@@ -1557,11 +1552,11 @@ public class DialogueHandler {
 				player.nextChat = 308;
 				break;
 			case 308:
-				sendOption2("I'm not paying you a thing.", "Okay then, I'll pay.");
+				sendOption("I'm not paying you a thing.", "Okay then, I'll pay.");
 				player.dialogueAction = 62;
 				break;
 			case 309: // 9158
-				sendPlayerChat2("Okay then. I'll pay, but I'll want you,",
+				sendPlayerChat("Okay then. I'll pay, but I'll want you,",
 						"to tell your mother what a nice person I am.");
 				player.nextChat = 310;
 				break;
@@ -1570,7 +1565,7 @@ public class DialogueHandler {
 				player.nextChat = 311;
 				break;
 			case 311:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"I'll want you to tell your mother what a nice person I am",
 						"so she rewards me for this search.");
 				player.nextChat = 312;
@@ -1591,7 +1586,7 @@ public class DialogueHandler {
 				}
 				break;
 			case 314:
-				sendPlayerChat1("There you go, now where did you see Fluffs?");
+				sendPlayerChat("There you go, now where did you see Fluffs?");
 				player.nextChat = 315;
 				break;
 			case 315:
@@ -1604,7 +1599,7 @@ public class DialogueHandler {
 				player.nextChat = 316;
 				break;
 			case 316:
-				sendPlayerChat1("Anything else?");
+				sendPlayerChat("Anything else?");
 				player.nextChat = 317;
 				break;
 			case 317:
@@ -1621,7 +1616,7 @@ public class DialogueHandler {
 				player.nextChat = 319;
 				break;
 			case 319:
-				sendPlayerChat1("Progress atleast.");
+				sendPlayerChat("Progress atleast.");
 				player.nextChat = 321;
 				break;
 			case 321:
@@ -1633,15 +1628,15 @@ public class DialogueHandler {
 				player.nextChat = 323;
 				break;
 			case 323:
-				sendPlayerChat1("Progress atleast.");
+				sendPlayerChat("Progress atleast.");
 				player.nextChat = 324;
 				break;
 			case 324:
-				sendStatement2("Fluffs devours the dougle sardine greedly.", "Then she mews at you again.");
+				sendStatement("Fluffs devours the dougle sardine greedly.", "Then she mews at you again.");
 				player.nextChat = 0;
 				break;
 			case 325:
-				sendStatement2("Fluffs seems afraid to leave.", "In the lumberyard below you can hear the mewing.");
+				sendStatement("Fluffs seems afraid to leave.", "In the lumberyard below you can hear the mewing.");
 				player.nextChat = 0;
 				break;
 			case 326:
@@ -1653,7 +1648,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 328:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"Hello Gertrude. Fluffs has run off with her lost kittens.",
 						"That I have now returned to her.");
 				player.nextChat = 329;
@@ -1678,7 +1673,7 @@ public class DialogueHandler {
 				player.nextChat = 332;
 				break;
 			case 332:
-				sendPlayerChat1("That's okay, I like to do my bit.");
+				sendPlayerChat("That's okay, I like to do my bit.");
 				player.nextChat = 333;
 				break;
 			case 333:
@@ -1690,7 +1685,7 @@ public class DialogueHandler {
 				player.nextChat = 334;
 				break;
 			case 334:
-				sendPlayerChat1("Well, if one needs a home.");
+				sendPlayerChat("Well, if one needs a home.");
 				player.nextChat = 335;
 				break;
 			case 335:
@@ -1716,7 +1711,7 @@ public class DialogueHandler {
 				player.nextChat = 339;
 				break;
 			case 339:
-				sendOption4("Who's Saradomin?", "Nice place you've got here",
+				sendOption("Who's Saradomin?", "Nice place you've got here",
 						"I'm looking for a quest", "Never Mind");
 				player.dialogueAction = 32;
 				break;
@@ -1726,11 +1721,11 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 341:// 9179
-				sendPlayerChat1("Nice place you've got here.");
+				sendPlayerChat("Nice place you've got here.");
 				player.nextChat = 0;
 				break;
 			case 342:// 9180
-				sendPlayerChat1("I'm looking for a quest.");
+				sendPlayerChat("I'm looking for a quest.");
 				player.nextChat = 343;
 				break;
 			case 343:
@@ -1739,7 +1734,7 @@ public class DialogueHandler {
 				player.nextChat = 344;
 				break;
 			case 344:
-				sendPlayerChat1("Okay, let me help then.");
+				sendPlayerChat("Okay, let me help then.");
 				player.nextChat = 345;
 				break;
 			case 345:
@@ -1769,7 +1764,7 @@ public class DialogueHandler {
 				player.nextChat = 349;
 				break;
 			case 349:
-				sendPlayerChat1("Likewise.");
+				sendPlayerChat("Likewise.");
 				player.nextChat = 350;
 				break;
 			case 350:
@@ -1782,7 +1777,7 @@ public class DialogueHandler {
 				QuestAssistant.sendStages(player);
 				break;
 			case 351:
-				sendPlayerChat1("I will thanks.");
+				sendPlayerChat("I will thanks.");
 				player.nextChat = 0;
 				break;
 			case 352:
@@ -1791,21 +1786,21 @@ public class DialogueHandler {
 				player.nextChat = 353;
 				break;
 			case 353:
-				sendOption4("Well, that's friendly",
+				sendOption("Well, that's friendly",
 						"Father Aereck sent me to talk to you",
 						"I've come to repossess your house", "Never Mind");
 				player.dialogueAction = 33;
 				break;
 			case 354:// 9178
-				sendPlayerChat1("Well, that's friendly.");
+				sendPlayerChat("Well, that's friendly.");
 				player.nextChat = 0;
 				break;
 			case 355: // 9180
-				sendPlayerChat1("I've come to repossess your house.");
+				sendPlayerChat("I've come to repossess your house.");
 				player.nextChat = 0;
 				break;
 			case 356: // 9179
-				sendPlayerChat1("Father Aereck sent me to talk to you.");
+				sendPlayerChat("Father Aereck sent me to talk to you.");
 				player.nextChat = 357;
 				break;
 			case 357:
@@ -1815,12 +1810,12 @@ public class DialogueHandler {
 				player.nextChat = 358;
 				break;
 			case 358:
-				sendOption2("A ghost is haunting his graveyard",
+				sendOption("A ghost is haunting his graveyard",
 						"You mean he gets into lots of problems?");
 				player.dialogueAction = 34;
 				break;
 			case 359: // 9158
-				sendPlayerChat1("You mean he gets into lots of problems?");
+				sendPlayerChat("You mean he gets into lots of problems?");
 				player.nextChat = 360;
 				break;
 			case 360:
@@ -1829,7 +1824,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 361:
-				sendPlayerChat1("A ghost is haunting his graveyard");
+				sendPlayerChat("A ghost is haunting his graveyard");
 				player.nextChat = 362;
 				break;
 			case 362:
@@ -1884,11 +1879,11 @@ public class DialogueHandler {
 				player.nextChat = 370;
 				break;
 			case 370:
-				sendPlayerChat1("Thank you. I'll give it a try.");
+				sendPlayerChat("Thank you. I'll give it a try.");
 				player.nextChat = 0;
 				break;
 			case 371:
-				sendPlayerChat1("Hello ghost how are you?");
+				sendPlayerChat("Hello ghost how are you?");
 				player.nextChat = 372;
 				break;
 			case 372:
@@ -1897,7 +1892,7 @@ public class DialogueHandler {
 				player.nextChat = 373;
 				break;
 			case 373:
-				sendPlayerChat1("What's the problem?");
+				sendPlayerChat("What's the problem?");
 				player.nextChat = 374;
 				break;
 			case 374:
@@ -1906,21 +1901,21 @@ public class DialogueHandler {
 				player.nextChat = 375;
 				break;
 			case 375:
-				sendOption4("Yep. Now, tell me what the problem is.",
+				sendOption("Yep. Now, tell me what the problem is.",
 						"No, you sound like you're speaking nonsense to me.",
 						"Wow, this amulet works!", "Never mind.");
 				player.dialogueAction = 35;
 				break;
 			case 376: // 9179
-				sendPlayerChat1("No, you sound like you're speaking nonsense to me.");
+				sendPlayerChat("No, you sound like you're speaking nonsense to me.");
 				player.nextChat = 0;
 				break;
 			case 377: // 9180
-				sendPlayerChat1("Wow, this amulet works!");
+				sendPlayerChat("Wow, this amulet works!");
 				player.nextChat = 0;
 				break;
 			case 378: // 9178
-				sendPlayerChat1("Yep. Now, tell me what the problem is.");
+				sendPlayerChat("Yep. Now, tell me what the problem is.");
 				player.nextChat = 379;
 				break;
 			case 379:
@@ -1930,11 +1925,11 @@ public class DialogueHandler {
 				player.nextChat = 380;
 				break;
 			case 380:
-				sendPlayerChat1("Okay, okay, I can understand you.");
+				sendPlayerChat("Okay, okay, I can understand you.");
 				player.nextChat = 381;
 				break;
 			case 381:
-				sendPlayerChat1("But have you any idea why you're doomed to be a ghost?");
+				sendPlayerChat("But have you any idea why you're doomed to be a ghost?");
 				player.nextChat = 382;
 				break;
 			case 382:
@@ -1943,7 +1938,7 @@ public class DialogueHandler {
 				player.nextChat = 383;
 				break;
 			case 383:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"I've been told that a certain task needs to be completed",
 						"before you can rest in peace.");
 				player.nextChat = 384;
@@ -1954,7 +1949,7 @@ public class DialogueHandler {
 				player.nextChat = 385;
 				break;
 			case 385:
-				sendPlayerChat1("What? I can see your head perfectly fine. Well, see through it at least.");
+				sendPlayerChat("What? I can see your head perfectly fine. Well, see through it at least.");
 				player.nextChat = 386;
 				break;
 			case 386:
@@ -1972,7 +1967,7 @@ public class DialogueHandler {
 				player.restGhost = 3;
 				break;
 			case 388:
-				sendPlayerChat1("Okay. I'll try to get your skull back for you so you can rest in peace.");
+				sendPlayerChat("Okay. I'll try to get your skull back for you so you can rest in peace.");
 				player.nextChat = 0;
 				break;
 			case 389:
@@ -1985,11 +1980,11 @@ public class DialogueHandler {
 				player.nextChat = 391;
 				break;
 			case 391:
-				sendOption2("What's wrong?", "Yes it's your hair");
+				sendOption("What's wrong?", "Yes it's your hair");
 				player.dialogueAction = 118;
 				break;
 			case 392: // 9158
-				sendPlayerChat1("Haha yes it's your hair, get a haircut loser!");
+				sendPlayerChat("Haha yes it's your hair, get a haircut loser!");
 				player.nextChat = 393;
 				break;
 			case 393:
@@ -1997,7 +1992,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 394: // 9157
-				sendPlayerChat1("What's wrong?");
+				sendPlayerChat("What's wrong?");
 				player.nextChat = 396;
 				break;
 			case 396:
@@ -2012,7 +2007,7 @@ public class DialogueHandler {
 				player.nextChat = 398;
 				break;
 			case 398:
-				sendOption2("Why don't you just meet in person?",
+				sendOption("Why don't you just meet in person?",
 						"I might have to go now...");
 				player.dialogueAction = 119;
 				break;
@@ -2033,19 +2028,19 @@ public class DialogueHandler {
 				player.nextChat = 403;
 				break;
 			case 403:
-				sendOption2("Yes I'll do so now", "Is that my fish calling me?");
+				sendOption("Yes I'll do so now", "Is that my fish calling me?");
 				player.dialogueAction = 120;
 				break;
 			case 404:// 9158
-				sendPlayerChat1("I might have to go now...");
+				sendPlayerChat("I might have to go now...");
 				player.nextChat = 0;
 				break;
 			case 405:
-				sendPlayerChat1("Why not just meet her in person?");
+				sendPlayerChat("Why not just meet her in person?");
 				player.nextChat = 406;
 				break;
 			case 406:
-				sendPlayerChat1("Yeah anything to help a lover in need.");
+				sendPlayerChat("Yeah anything to help a lover in need.");
 				player.nextChat = 407;
 				break;
 			case 407:
@@ -2070,7 +2065,7 @@ public class DialogueHandler {
 				player.nextChat = 411;
 				break;
 			case 411:
-				sendPlayerChat2("Wait, what's happening? Romeo has",
+				sendPlayerChat("Wait, what's happening? Romeo has",
 						"been looking all over for you.");
 				player.nextChat = 412;
 				break;
@@ -2097,7 +2092,7 @@ public class DialogueHandler {
 				player.nextChat = 416;
 				break;
 			case 416:
-				sendPlayerChat1("Yes she gave me this let---");
+				sendPlayerChat("Yes she gave me this let---");
 				player.nextChat = 417;
 				break;
 			case 417:
@@ -2132,7 +2127,7 @@ public class DialogueHandler {
 				player.nextChat = 422;
 				break;
 			case 422:
-				sendPlayerChat2("She gave me a letter to give you..",
+				sendPlayerChat("She gave me a letter to give you..",
 						"Which I don't have on me");
 				player.nextChat = 423;
 				break;
@@ -2155,7 +2150,7 @@ public class DialogueHandler {
 				player.nextChat = 427;
 				break;
 			case 427:
-				sendPlayerChat2("Are you just going to give up??",
+				sendPlayerChat("Are you just going to give up??",
 						"What about love?");
 				player.nextChat = 428;
 				break;
@@ -2185,7 +2180,7 @@ public class DialogueHandler {
 				player.nextChat = 433;
 				break;
 			case 433:
-				sendPlayerChat1("Wait how did you know?");
+				sendPlayerChat("Wait how did you know?");
 				player.nextChat = 434;
 				break;
 			case 434:
@@ -2200,16 +2195,16 @@ public class DialogueHandler {
 				player.nextChat = 436;
 				break;
 			case 436:
-				sendOption2("So what do I need to do?",
+				sendOption("So what do I need to do?",
 						"I don't think I'm up for this anymore...");
 				player.dialogueAction = 121;
 				break;
 			case 437:// 9158
-				sendPlayerChat1("This is just getting more twisted...I have to go...");
+				sendPlayerChat("This is just getting more twisted...I have to go...");
 				player.nextChat = 0;
 				break;
 			case 438:// 9157
-				sendPlayerChat1("So what do you need me to do?");
+				sendPlayerChat("So what do you need me to do?");
 				player.nextChat = 439;
 				break;
 			case 439:
@@ -2239,7 +2234,7 @@ public class DialogueHandler {
 				player.nextChat = 444;
 				break;
 			case 444:
-				sendPlayerChat2("She wants me to bring her 3 items",
+				sendPlayerChat("She wants me to bring her 3 items",
 						"Then she'll speak to me");
 				player.nextChat = 445;
 				break;
@@ -2249,7 +2244,7 @@ public class DialogueHandler {
 				player.nextChat = 446;
 				break;
 			case 446:
-				sendPlayerChat1("Oh just a rat's");
+				sendPlayerChat("Oh just a rat's");
 				player.nextChat = 448;
 				break;
 			case 447:
@@ -2279,7 +2274,7 @@ public class DialogueHandler {
 				player.nextChat = 453;
 				break;
 			case 453:
-				sendPlayerChat1("Wait but will Juliet actually drink it?");
+				sendPlayerChat("Wait but will Juliet actually drink it?");
 				player.nextChat = 454;
 				break;
 			case 454:
@@ -2293,7 +2288,7 @@ public class DialogueHandler {
 				player.nextChat = 456;
 				break;
 			case 456:
-				sendPlayerChat1("Wow she's polite...");
+				sendPlayerChat("Wow she's polite...");
 				player.nextChat = 0;
 				break;
 			case 457:
@@ -2301,7 +2296,7 @@ public class DialogueHandler {
 				player.nextChat = 458;
 				break;
 			case 458:
-				sendPlayerChat1("Here take this.");
+				sendPlayerChat("Here take this.");
 				player.nextChat = 459;
 				break;
 			case 459:
@@ -2314,7 +2309,7 @@ public class DialogueHandler {
 				player.nextChat = 461;
 				break;
 			case 461:
-				sendPlayerChat1("Now tell me why you've been ignoring Romeo!");
+				sendPlayerChat("Now tell me why you've been ignoring Romeo!");
 				player.nextChat = 462;
 				break;
 			case 462:
@@ -2329,7 +2324,7 @@ public class DialogueHandler {
 				player.nextChat = 464;
 				break;
 			case 464:
-				sendPlayerChat1("Wait was that it?");
+				sendPlayerChat("Wait was that it?");
 				player.nextChat = 465;
 				break;
 			case 465:
@@ -2343,7 +2338,7 @@ public class DialogueHandler {
 				player.nextChat = 467;
 				break;
 			case 467:
-				sendPlayerChat1("I should get going");
+				sendPlayerChat("I should get going");
 				player.nextChat = 0;
 				player.romeojuliet++;
 				break;
@@ -2358,12 +2353,12 @@ public class DialogueHandler {
 				player.nextChat = 470;
 				break;
 			case 470:
-				sendPlayerChat2("She's been planning a surprise",
+				sendPlayerChat("She's been planning a surprise",
 						"birthday party for you all along");
 				player.nextChat = 471;
 				break;
 			case 471:
-				sendPlayerChat2("Her mother was in on in too. They",
+				sendPlayerChat("Her mother was in on in too. They",
 						"just wanted to show that they're always there for you");
 				player.nextChat = 472;
 				break;
@@ -2392,7 +2387,7 @@ public class DialogueHandler {
 				}
 				break;
 			case 211:
-				sendOption2("Quest.", "Buy Wool.");
+				sendOption("Quest.", "Buy Wool.");
 				player.dialogueAction = 168;
 				break;
 			case 476:
@@ -2402,7 +2397,7 @@ public class DialogueHandler {
 				player.nextChat = 477;
 				break;
 			case 477:
-				sendPlayerChat1("Wha-");
+				sendPlayerChat("Wha-");
 				player.nextChat = 478;
 				break;
 			case 478:
@@ -2412,16 +2407,16 @@ public class DialogueHandler {
 				player.nextChat = 479;
 				break;
 			case 479:
-				sendOption2("Why don't you save your own village?",
+				sendOption("Why don't you save your own village?",
 						"What terrible threat?");
 				player.dialogueAction = 29;
 				break;
 			case 480:// 9157
-				sendPlayerChat1("Why don't you save your own village?");
+				sendPlayerChat("Why don't you save your own village?");
 				player.nextChat = 0;
 				break;
 			case 481:// 9158
-				sendPlayerChat1("What terrible threat?");
+				sendPlayerChat("What terrible threat?");
 				player.nextChat = 482;
 				break;
 			case 482:
@@ -2432,7 +2427,7 @@ public class DialogueHandler {
 				player.nextChat = 483;
 				break;
 			case 483:
-				sendPlayerChat2("The vampire showed up all of a sudden",
+				sendPlayerChat("The vampire showed up all of a sudden",
 						"and started attacking your village?");
 				player.nextChat = 484;
 				break;
@@ -2457,11 +2452,11 @@ public class DialogueHandler {
 				player.nextChat = 487;
 				break;
 			case 487:
-				sendOption2("Yes", "No");
+				sendOption("Yes", "No");
 				player.dialogueAction = 30;
 				break;
 			case 488:// 9157
-				sendPlayerChat1("Yes I'll help you.");
+				sendPlayerChat("Yes I'll help you.");
 				player.vampSlayer = 1;
 				QuestAssistant.sendStages(player);
 				player.nextChat = 489;
@@ -2474,7 +2469,7 @@ public class DialogueHandler {
 				player.nextChat = 490;
 				break;
 			case 490:
-				sendPlayerChat1("Who is this harlow?");
+				sendPlayerChat("Who is this harlow?");
 				player.nextChat = 491;
 				break;
 			case 491:
@@ -2485,7 +2480,7 @@ public class DialogueHandler {
 				player.nextChat = 492;
 				break;
 			case 492:
-				sendPlayerChat2("You already know a vampire slayer?",
+				sendPlayerChat("You already know a vampire slayer?",
 						"What do you need me for?");
 				player.nextChat = 493;
 				break;
@@ -2498,7 +2493,7 @@ public class DialogueHandler {
 				player.nextChat = 494;
 				break;
 			case 494:
-				sendPlayerChat1("Where can i find this Harlow?");
+				sendPlayerChat("Where can i find this Harlow?");
 				player.nextChat = 495;
 				break;
 			case 495:
@@ -2511,7 +2506,7 @@ public class DialogueHandler {
 				player.nextChat = 496;
 				break;
 			case 496:
-				sendPlayerChat1("Okay, I'll go find Harlow.");
+				sendPlayerChat("Okay, I'll go find Harlow.");
 				player.nextChat = 497;
 				break;
 			case 497:
@@ -2525,22 +2520,22 @@ public class DialogueHandler {
 				player.nextChat = 499;
 				break;
 			case 499:
-				sendOption4("No you've had enough.",
+				sendOption("No you've had enough.",
 						"Are you Dr Harlow, the famous vampire slayer?",
 						"You couldn't possibly be Dr Harlow, your just a drunk.",
 						"Never mind.");
 				player.dialogueAction = 31;
 				break;
 			case 500:// 9178
-				sendPlayerChat1("No you've had enough.");
+				sendPlayerChat("No you've had enough.");
 				player.nextChat = 0;
 				break;
 			case 501:// 9180
-				sendPlayerChat1("You couldn't possibly be Dr Harlow, your just a drunk.");
+				sendPlayerChat("You couldn't possibly be Dr Harlow, your just a drunk.");
 				player.nextChat = 0;
 				break;
 			case 502:// 9179
-				sendPlayerChat1("Are you Dr harlow, the famous vampire Slayer?");
+				sendPlayerChat("Are you Dr harlow, the famous vampire Slayer?");
 				player.nextChat = 503;
 				break;
 			case 503:
@@ -2549,7 +2544,7 @@ public class DialogueHandler {
 				player.nextChat = 504;
 				break;
 			case 504:
-				sendPlayerChat2("Your friend Morgan sent me.",
+				sendPlayerChat("Your friend Morgan sent me.",
 						"He said you could teach me how to slay a vampire.");
 				player.nextChat = 505;
 				break;
@@ -2565,7 +2560,7 @@ public class DialogueHandler {
 				player.nextChat = 507;
 				break;
 			case 507:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"Your good friend Morgan is living in fear of a vampire,",
 						"and all you think about is beer?");
 				player.nextChat = 508;
@@ -2577,11 +2572,11 @@ public class DialogueHandler {
 				break;
 			case 509:
 				if (player.getItemAssistant().playerHasItem(1917, 1)) {
-					sendPlayerChat1("Okay, here you go.");
+					sendPlayerChat("Okay, here you go.");
 					player.getItemAssistant().deleteItem(1917, 1);
 					player.nextChat = 510;
 				} else {
-					sendPlayerChat1("Okay, let me get one.");
+					sendPlayerChat("Okay, let me get one.");
 					player.nextChat = 0;
 				}
 				break;
@@ -2591,7 +2586,7 @@ public class DialogueHandler {
 				player.nextChat = 511;
 				break;
 			case 511:
-				sendPlayerChat1("So tell me how to kill vampires then.");
+				sendPlayerChat("So tell me how to kill vampires then.");
 				player.nextChat = 512;
 				break;
 			case 512:
@@ -2652,7 +2647,7 @@ public class DialogueHandler {
 				player.nextChat = 521;
 				break;
 			case 521:
-				sendPlayerChat2("Okay, So those are the supplies I need",
+				sendPlayerChat("Okay, So those are the supplies I need",
 						"but how do I acctually kill him?");
 				player.nextChat = 522;
 				break;
@@ -2698,11 +2693,11 @@ public class DialogueHandler {
 				player.nextChat = 528;
 				break;
 			case 528:
-				sendPlayerChat1("Thank you!");
+				sendPlayerChat("Thank you!");
 				player.nextChat = 0;
 				break;
 			case 529:
-				sendPlayerChat1("I killed the vampire!");
+				sendPlayerChat("I killed the vampire!");
 				player.nextChat = 530;
 				break;
 			case 530:
@@ -2712,11 +2707,11 @@ public class DialogueHandler {
 				break;
 			case 531:
 				if (player.getItemAssistant().playerHasItem(1549)) {
-					sendPlayerChat1("I still need to kill the vampire.");
+					sendPlayerChat("I still need to kill the vampire.");
 					player.nextChat = 0;
 				} else if (!player.getItemAssistant().playerHasItem(1549) && player.vampSlayer == 3) {
 					player.getItemAssistant().addOrDropItem(1549, 1);
-					sendPlayerChat1("Thank you, I will be more careful next time.");
+					sendPlayerChat("Thank you, I will be more careful next time.");
 					player.nextChat = 0;
 				}
 				break;
@@ -2726,12 +2721,12 @@ public class DialogueHandler {
 				player.nextChat = 533;
 				break;
 			case 533:
-				sendOption2("I am in search of a quest",
+				sendOption("I am in search of a quest",
 						"I've heard that you are a witch");
 				player.dialogueAction = 74;
 				break;
 			case 534: // 9157
-				sendPlayerChat1("I am in search of a quest.");
+				sendPlayerChat("I am in search of a quest.");
 				player.nextChat = 536;
 				break;
 			case 535: // 9158
@@ -2744,21 +2739,21 @@ public class DialogueHandler {
 				player.nextChat = 537;
 				break;
 			case 537:
-				sendOption3("Yes help me become one with my darker side.",
+				sendOption("Yes help me become one with my darker side.",
 						"No I have my principles and hour.",
 						"What, you mean improve my magic?");
 				player.dialogueAction = 58;
 				break;
 			case 538:// 9168
-				sendPlayerChat1("No I have my principles and hour.");
+				sendPlayerChat("No I have my principles and hour.");
 				player.nextChat = 0;
 				break;
 			case 539:// 9169
-				sendPlayerChat1("What, you mean improve my magic?");
+				sendPlayerChat("What, you mean improve my magic?");
 				player.nextChat = 0;
 				break;
 			case 540:// 9167
-				sendPlayerChat1("Yes help me become one with my darker side.");
+				sendPlayerChat("Yes help me become one with my darker side.");
 				player.nextChat = 541;
 				break;
 			case 541:
@@ -2773,7 +2768,7 @@ public class DialogueHandler {
 				player.nextChat = 543;
 				break;
 			case 543:
-				sendPlayerChat1("What do I need?");
+				sendPlayerChat("What do I need?");
 				player.nextChat = 544;
 				break;
 			case 544:
@@ -2782,7 +2777,7 @@ public class DialogueHandler {
 				player.nextChat = 545;
 				break;
 			case 545:
-				sendPlayerChat1("Great, I'll go and get them.");
+				sendPlayerChat("Great, I'll go and get them.");
 				player.witchspot = 1;
 				QuestAssistant.sendStages(player);
 				player.nextChat = 0;
@@ -2796,21 +2791,21 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(221, 1)
 						&& player.getItemAssistant().playerHasItem(300, 1)
 						&& player.getItemAssistant().playerHasItem(2146, 1)) {
-					sendPlayerChat1("Yes I have everything!");
+					sendPlayerChat("Yes I have everything!");
 					player.witchspot = 2;
 					player.nextChat = 550;
 				} else {
-					sendPlayerChat1("No I still need to keep looking.");
+					sendPlayerChat("No I still need to keep looking.");
 					player.nextChat = 0;
 				}
 				break;
 			case 548:
-				sendPlayerChat1("Yes I have everything!");
+				sendPlayerChat("Yes I have everything!");
 				player.witchspot = 2;
 				player.nextChat = 550;
 				break;
 			case 549:
-				sendPlayerChat1("No I still need to keep looking.");
+				sendPlayerChat("No I still need to keep looking.");
 				player.nextChat = 0;
 				break;
 			case 550:
@@ -2822,7 +2817,7 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(221, 1)
 						&& player.getItemAssistant().playerHasItem(300, 1)
 						&& player.getItemAssistant().playerHasItem(2146, 1)) {
-					sendStatement4(
+					sendStatement(
 							"You pass the ingredients to Hetty and she puts them all into her,",
 							"Cauldron.",
 							"Hetty closes her eyes and begins to chant.",
@@ -2832,12 +2827,12 @@ public class DialogueHandler {
 					player.getItemAssistant().deleteItem(2146, 1);
 					player.nextChat = 552;
 				} else {
-					sendPlayerChat1("I don't have them anymore.");
+					sendPlayerChat("I don't have them anymore.");
 					player.nextChat = 0;
 				}
 				break;
 			case 552:
-				sendPlayerChat1("Well, is it ready?");
+				sendPlayerChat("Well, is it ready?");
 				player.nextChat = 553;
 				break;
 			case 553:
@@ -2850,11 +2845,11 @@ public class DialogueHandler {
 				player.nextChat = 555;
 				break;
 			case 555:
-				sendOption2("I'm in search of treasure.", "Arr!");
+				sendOption("I'm in search of treasure.", "Arr!");
 				player.dialogueAction = 71;
 				break;
 			case 556:// 9157
-				sendPlayerChat1("I'm in search of treasure.");
+				sendPlayerChat("I'm in search of treasure.");
 				player.nextChat = 557;
 				break;
 			case 557:
@@ -2865,7 +2860,7 @@ public class DialogueHandler {
 				player.nextChat = 558;
 				break;
 			case 558:
-				sendPlayerChat1("What sort of price?");
+				sendPlayerChat("What sort of price?");
 				player.nextChat = 559;
 				break;
 			case 559:
@@ -2882,15 +2877,15 @@ public class DialogueHandler {
 				player.nextChat = 561;
 				break;
 			case 561:
-				sendOption2("Ok, I will bring you some rum.", "Not right now.");
+				sendOption("Ok, I will bring you some rum.", "Not right now.");
 				player.dialogueAction = 72;
 				break;
 			case 562:// 9158
-				sendPlayerChat1("Not right now.");
+				sendPlayerChat("Not right now.");
 				player.nextChat = 0;
 				break;
 			case 563:// 9157
-				sendPlayerChat1("Ok, I will bring you some rum.");
+				sendPlayerChat("Ok, I will bring you some rum.");
 				player.nextChat = 564;
 				break;
 			case 564:
@@ -2900,7 +2895,7 @@ public class DialogueHandler {
 				player.nextChat = 565;
 				break;
 			case 565:
-				sendPlayerChat1("What do you mean?");
+				sendPlayerChat("What do you mean?");
 				player.nextChat = 566;
 				break;
 			case 566:
@@ -2912,7 +2907,7 @@ public class DialogueHandler {
 				player.nextChat = 567;
 				break;
 			case 567:
-				sendPlayerChat1("Well, I'll give it a shot.");
+				sendPlayerChat("Well, I'll give it a shot.");
 				player.nextChat = 568;
 				break;
 			case 568:
@@ -2928,7 +2923,7 @@ public class DialogueHandler {
 					sendNpcChat1("Arr, Matey!", player.talkingNpc, "Redbeard Frank");
 					player.nextChat = 570;
 				} else {
-					sendPlayerChat1("No I still need to get some rum.");
+					sendPlayerChat("No I still need to get some rum.");
 					player.nextChat = 0;
 				}
 				break;
@@ -2939,10 +2934,10 @@ public class DialogueHandler {
 				break;
 			case 571:
 				if (player.getItemAssistant().playerHasItem(431, 1)) {
-					sendPlayerChat1("Yes I've got some.");
+					sendPlayerChat("Yes I've got some.");
 					player.nextChat = 572;
 				} else {
-					sendPlayerChat1("No I still need to get it.");
+					sendPlayerChat("No I still need to get it.");
 					player.nextChat = 0;
 				}
 				break;
@@ -2973,7 +2968,7 @@ public class DialogueHandler {
 					player.getItemAssistant().addOrDropItem(432, 1);
 					player.nextChat = 576;
 				} else {
-					sendPlayerChat1("I still need to get some rum.");
+					sendPlayerChat("I still need to get some rum.");
 					player.nextChat = 0;
 				}
 				break;
@@ -2990,17 +2985,17 @@ public class DialogueHandler {
 				player.nextChat = 578;
 				break;
 			case 578:
-				sendOption2("Ok thanks, I'll go and get it.",
+				sendOption("Ok thanks, I'll go and get it.",
 						"So why didn't you ever get it?");
 				player.dialogueAction = 73;
 				break;
 			case 579:// 9157
-				sendPlayerChat1("Ok thanks, I'll go and get it.");
+				sendPlayerChat("Ok thanks, I'll go and get it.");
 				player.pirateTreasure = 3;
 				player.nextChat = 0;
 				break;
 			case 580:// 9158
-				sendPlayerChat1("So why didn't you ever get it?");
+				sendPlayerChat("So why didn't you ever get it?");
 				player.nextChat = 581;
 				break;
 			case 581:
@@ -3009,13 +3004,13 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 582:// 9158
-				sendPlayerChat1("Arr!");
+				sendPlayerChat("Arr!");
 				player.nextChat = 0;
 				break;
 
 			case 583:
 				if (!player.getItemAssistant().playerHasItem(995, 30)) {
-					sendPlayerChat1("Sorry, I don't have enough coins for that.");
+					sendPlayerChat("Sorry, I don't have enough coins for that.");
 					player.nextChat = 0;
 					return;
 				} else {
@@ -3032,23 +3027,23 @@ public class DialogueHandler {
 				break;
 
 			case 585:
-				sendOption2("Yes", "No");
+				sendOption("Yes", "No");
 				player.dialogueAction = 68;
 				break;
 
 			case 586:
-				sendPlayerChat1("No thank you.");
+				sendPlayerChat("No thank you.");
 				player.nextChat = 0;
 				break;
 
 			case 587:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 588;
 				break;
 
 			case 588:
 				if (!player.getItemAssistant().playerHasItem(995, 30)) {
-					sendPlayerChat1("Sorry, I don't have enough coins for that.");
+					sendPlayerChat("Sorry, I don't have enough coins for that.");
 					player.nextChat = 0;
 					return;
 				} else {
@@ -3076,17 +3071,17 @@ public class DialogueHandler {
 				break;
 
 			case 592:
-				sendOption2("Yes", "No");
+				sendOption("Yes", "No");
 				player.dialogueAction = 130;
 				break;
 
 			case 593:
-				sendPlayerChat1("No thank you.");
+				sendPlayerChat("No thank you.");
 				player.nextChat = 0;
 				break;
 
 			case 594:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 595;
 				break;
 
@@ -3144,7 +3139,7 @@ public class DialogueHandler {
 				player.nextChat = 85;
 				break;
 			case 604:
-				sendOption2("Void Knight Armor", "Experience Shop");
+				sendOption("Void Knight Armor", "Experience Shop");
 				player.dialogueAction = 85;
 				break;
 			case 605:
@@ -3160,11 +3155,11 @@ public class DialogueHandler {
 				player.nextChat = 611;
 				break;
 			case 611:
-				sendOption2("And how is life as a squire?", "Wouldn't you prefer to be a squire for me?");
+				sendOption("And how is life as a squire?", "Wouldn't you prefer to be a squire for me?");
 				player.dialogueAction = 181;/*DIALOGUE ACTION*/
 				break;
 			case 612:
-				sendPlayerChat1("And how is life as a squire?");
+				sendPlayerChat("And how is life as a squire?");
 				player.nextChat = 613;
 				break;
 			case 613:
@@ -3172,11 +3167,11 @@ public class DialogueHandler {
 				player.nextChat = 614;
 				break;
 			case 614:
-				sendOption3("Do you know where you lost it?", "I can make a new sword if you like...", "Is he angry?");
+				sendOption("Do you know where you lost it?", "I can make a new sword if you like...", "Is he angry?");
 				player.dialogueAction = 182;/*DIALOGUE ACTION*/
 				break;
 			case 615:
-				sendPlayerChat1("I can make a new sword if you like...");
+				sendPlayerChat("I can make a new sword if you like...");
 				player.nextChat = 616;
 				break;
 			case 616:
@@ -3192,11 +3187,11 @@ public class DialogueHandler {
 				player.nextChat = 619;
 				break;
 			case 619:
-				sendOption2("So would these dwarves make another one?", "Well I hope you find it soon.");
+				sendOption("So would these dwarves make another one?", "Well I hope you find it soon.");
 				player.dialogueAction = 183;/*DIALOGUE ACTION*/
 				break;
 			case 620:
-				sendPlayerChat1("So would these dwarves make another one?");
+				sendPlayerChat("So would these dwarves make another one?");
 				player.nextChat = 621;
 				break;
 			case 621:
@@ -3208,11 +3203,11 @@ public class DialogueHandler {
 				player.nextChat = 623;
 				break;
 			case 623:
-				sendOption2("Ok, I'll give it a go.", "No, I've got lots of mining work to do.");
+				sendOption("Ok, I'll give it a go.", "No, I've got lots of mining work to do.");
 				player.dialogueAction = 184;/*DIALOGUE ACTION*/
 				break;
 			case 624:
-				sendPlayerChat1("Ok, I'll give it a go.");
+				sendPlayerChat("Ok, I'll give it a go.");
 				player.knightS = 1;
 				QuestAssistant.sendStages(player);
 				player.nextChat = 625;
@@ -3228,7 +3223,7 @@ public class DialogueHandler {
 				player.nextChat = 627;
 				break;
 			case 627:
-				sendOption3("Do you have anything to trade?", "What do you do?", "What do you know about the Imcando Dwarves?");
+				sendOption("Do you have anything to trade?", "What do you do?", "What do you know about the Imcando Dwarves?");
 				player.dialogueAction = 185;/*DIALOGUE ACTION*/
 				break;
 			case 628:
@@ -3241,7 +3236,7 @@ public class DialogueHandler {
 				break;
 			case 630:
 				if (player.knightS == 1) {
-					sendPlayerChat1("What do you know about the Imcando dwarves?");
+					sendPlayerChat("What do you know about the Imcando dwarves?");
 					player.nextChat = 631;
 				} else {
 					sendNpcChat1("You are not on this part of the Knights Sword quest.", player.talkingNpc, "Reldo");
@@ -3261,7 +3256,7 @@ public class DialogueHandler {
 				player.nextChat = 634;
 				break;
 			case 634:
-				sendPlayerChat1("So are there any Imcando left at all?");
+				sendPlayerChat("So are there any Imcando left at all?");
 				player.nextChat = 635;
 				break;
 			case 635:
@@ -3286,7 +3281,7 @@ public class DialogueHandler {
 			case 640:
 				if (player.knightS == 2) {
 					if (player.getItemAssistant().playerHasItem(2325, 1)) {
-						sendPlayerChat1("Hello. Are you an Imcando dwarf?");
+						sendPlayerChat("Hello. Are you an Imcando dwarf?");
 						player.nextChat = 641;
 					} else if (!player.getItemAssistant().playerHasItem(2325, 1)) {
 						sendNpcChat1("I am not interested in talking to you right now.", player.talkingNpc, "Thurgo");
@@ -3301,7 +3296,7 @@ public class DialogueHandler {
 				break;
 
 			case 642:
-				sendPlayerChat1("Would you like some redberry pie?");
+				sendPlayerChat("Would you like some redberry pie?");
 				player.nextChat = 644;
 				break;
 
@@ -3316,11 +3311,11 @@ public class DialogueHandler {
 				break;
 			case 646:
 				if (player.getItemAssistant().playerHasItem(2325, 1)) {
-					sendStatement2("You hand over the pie. Thurgo eats the pie. Thurgo pats his", "stomach.");
+					sendStatement("You hand over the pie. Thurgo eats the pie. Thurgo pats his", "stomach.");
 					player.getItemAssistant().deleteItem(2325, 1);
 					player.nextChat = 647;
 				} else {
-					sendPlayerChat1("I don't have pie anymore.");
+					sendPlayerChat("I don't have pie anymore.");
 					player.nextChat = 0;
 				}
 				break;
@@ -3330,7 +3325,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 648:
-				sendPlayerChat1("Can you make a special sword?");
+				sendPlayerChat("Can you make a special sword?");
 				player.nextChat = 649;
 				break;
 			case 649:
@@ -3338,7 +3333,7 @@ public class DialogueHandler {
 				player.nextChat = 650;
 				break;
 			case 650:
-				sendPlayerChat4("I need you to make a sword for one of Falador's", "knights. He had one which was passed down through five", "generations, but his squire lost it. So we need an", "identical one to replace it.");
+				sendPlayerChat("I need you to make a sword for one of Falador's", "knights. He had one which was passed down through five", "generations, but his squire lost it. So we need an", "identical one to replace it.");
 				player.nextChat = 651;
 				break;
 			case 651:
@@ -3350,7 +3345,7 @@ public class DialogueHandler {
 				player.nextChat = 653;
 				break;
 			case 653:
-				sendPlayerChat1("I'll go ask his squire and see if I can find one.");
+				sendPlayerChat("I'll go ask his squire and see if I can find one.");
 				player.knightS = 4;
 				player.nextChat = 0;
 				break;
@@ -3360,7 +3355,7 @@ public class DialogueHandler {
 				player.nextChat = 655;
 				break;
 			case 655:
-				sendPlayerChat2("I've found an Imcando dwarf but he needs a picture of", "the sword before he can make it.");
+				sendPlayerChat("I've found an Imcando dwarf but he needs a picture of", "the sword before he can make it.");
 				player.nextChat = 656;
 				break;
 			case 656:
@@ -3368,7 +3363,7 @@ public class DialogueHandler {
 				player.nextChat = 657;
 				break;
 			case 657:
-				sendPlayerChat1("Ok, I'll try and get that then.");
+				sendPlayerChat("Ok, I'll try and get that then.");
 				player.nextChat = 658;
 				break;
 			case 658:
@@ -3383,7 +3378,7 @@ public class DialogueHandler {
 				break;
 			// back to thurgo
 			case 660:
-				sendPlayerChat2("I have found a picture of the sword I would like you to", "make.");
+				sendPlayerChat("I have found a picture of the sword I would like you to", "make.");
 				player.nextChat = 661;
 				break;
 			case 661:
@@ -3417,7 +3412,7 @@ public class DialogueHandler {
 				player.nextChat = 668;
 				break;
 			case 668:
-				sendPlayerChat1("Ok. I'll go and find them then.");
+				sendPlayerChat("Ok. I'll go and find them then.");
 				player.nextChat = 0;
 				break;
 
@@ -3428,16 +3423,16 @@ public class DialogueHandler {
 				break;
 			case 670:
 				if (player.getItemAssistant().playerHasItem(2351, 2) && player.getItemAssistant().playerHasItem(668, 1)) {
-					sendPlayerChat1("I have them right here.");
+					sendPlayerChat("I have them right here.");
 					player.nextChat = 671;
 				} else {
-					sendPlayerChat1("I'm still working on it.");
+					sendPlayerChat("I'm still working on it.");
 					player.nextChat = 0;
 				}
 				break;
 			case 671:
 				if (player.knightS == 7 || player.knightS == 8) {
-					sendStatement2("You give the blurite ore and two bars to Thurgo. Thurgo starts", "to make the sword. Thurgo hands you a sword.");
+					sendStatement("You give the blurite ore and two bars to Thurgo. Thurgo starts", "to make the sword. Thurgo hands you a sword.");
 					player.getItemAssistant().deleteItem(2351, 1);
 					player.getItemAssistant().deleteItem(2351, 1);
 					player.getItemAssistant().deleteItem(668, 1);
@@ -3450,7 +3445,7 @@ public class DialogueHandler {
 				}
 				break;
 			case 672:
-				sendPlayerChat1("Thank you very much!");
+				sendPlayerChat("Thank you very much!");
 				player.nextChat = 673;
 				break;
 
@@ -3470,7 +3465,7 @@ public class DialogueHandler {
 				break;
 
 			case 675:
-				sendPlayerChat2("I've seemed to have lost my sword.", "Can you make me another?");
+				sendPlayerChat("I've seemed to have lost my sword.", "Can you make me another?");
 				player.nextChat = 676;
 				break;
 
@@ -3500,7 +3495,7 @@ public class DialogueHandler {
 				player.nextChat = 680;
 				break;
 			case 680:
-				sendPlayerChat1("Thank you very much!");
+				sendPlayerChat("Thank you very much!");
 				player.nextChat = 681;
 				break;
 			case 681:
@@ -3510,7 +3505,7 @@ public class DialogueHandler {
 
 			// back to squire
 			case 682:
-				sendPlayerChat1("I have retrieved your sword for you.");
+				sendPlayerChat("I have retrieved your sword for you.");
 				player.nextChat = 683;
 				break;
 			case 683:
@@ -3530,7 +3525,7 @@ public class DialogueHandler {
 			//Shield of Arrav Quest line:
 			//Reldo
 			case 690:
-				sendOption3("Do you have anything to trade?", "What do you do?", "I'm in search of a quest.");
+				sendOption("Do you have anything to trade?", "What do you do?", "I'm in search of a quest.");
 				player.dialogueAction = 186;/*DIALOGUE ACTION*/
 				break;
 			case 691:
@@ -3550,20 +3545,20 @@ public class DialogueHandler {
 				player.nextChat = 695;
 				break;
 			case 695:
-				sendPlayerChat1("Thank you.");
+				sendPlayerChat("Thank you.");
 				player.shieldArrav = 1;
 				player.nextChat = 0;
 				break;
 			//bookcase
 			case 696:
-				sendPlayerChat2("Aha! 'The Shield of Arrav'! Exactly what I was looking", "for");
+				sendPlayerChat("Aha! 'The Shield of Arrav'! Exactly what I was looking", "for");
 				player.getItemAssistant().addOrDropItem(757, 1);
 				player.shieldArrav = 2;
 				player.nextChat = 0;
 				break;
 			//reldo
 			case 697:
-				sendPlayerChat2("Ok. I've read the book. Do you know where I can find", "the Phoenix Gang?");
+				sendPlayerChat("Ok. I've read the book. Do you know where I can find", "the Phoenix Gang?");
 				player.nextChat = 698;
 				break;
 			case 698:
@@ -3576,12 +3571,12 @@ public class DialogueHandler {
 				player.nextChat = 700;
 				break;
 			case 700:
-				sendPlayerChat1("Thanks, I'll try that!");
+				sendPlayerChat("Thanks, I'll try that!");
 				player.nextChat = 0;
 				break;
 			//Baraek
 			case 701:
-				sendPlayerChat1("Can you tell me where I can find the Phoenix Gang?");
+				sendPlayerChat("Can you tell me where I can find the Phoenix Gang?");
 				player.nextChat = 702;
 				break;
 			case 702:
@@ -3589,7 +3584,7 @@ public class DialogueHandler {
 				player.nextChat = 703;
 				break;
 			case 703:
-				sendPlayerChat1("So DO you know where they are?");
+				sendPlayerChat("So DO you know where they are?");
 				player.nextChat = 704;
 				break;
 			case 704:
@@ -3606,10 +3601,10 @@ public class DialogueHandler {
 				break;
 			case 707:
 				if (player.getItemAssistant().playerHasItem(995, 20)) {
-					sendPlayerChat1("Okay. Have 20 gold coins.");
+					sendPlayerChat("Okay. Have 20 gold coins.");
 					player.nextChat = 708;
 				} else {
-					sendPlayerChat1("I'm a little short on gold coins right now..");
+					sendPlayerChat("I'm a little short on gold coins right now..");
 					player.nextChat = 0;
 				}
 				break;
@@ -3630,12 +3625,12 @@ public class DialogueHandler {
 				player.nextChat = 710;
 				break;
 			case 710:
-				sendPlayerChat1("Thanks!");
+				sendPlayerChat("Thanks!");
 				player.nextChat = 0;
 				break;
 			//Straven
 			case 711:
-				sendPlayerChat1("What's through that door?");
+				sendPlayerChat("What's through that door?");
 				player.nextChat = 712;
 				break;
 			case 712:
@@ -3648,7 +3643,7 @@ public class DialogueHandler {
 					player.nextChat = 713;
 				break;
 			case 713:
-				sendPlayerChat1("I know who you are!");
+				sendPlayerChat("I know who you are!");
 				player.nextChat = 714;
 				break;
 			case 714:
@@ -3664,7 +3659,7 @@ public class DialogueHandler {
 				player.nextChat = 717;
 				break;
 			case 717:
-				sendPlayerChat2("This is the headquarters of the Phoenix Gang, the most", "powerful crime syndicate this city has ever seen!");
+				sendPlayerChat("This is the headquarters of the Phoenix Gang, the most", "powerful crime syndicate this city has ever seen!");
 				player.nextChat = 718;
 				break;
 			case 718:
@@ -3676,7 +3671,7 @@ public class DialogueHandler {
 				player.nextChat = 720;
 				break;
 			case 720:
-				sendPlayerChat1("I'd like to offer you my services.");
+				sendPlayerChat("I'd like to offer you my services.");
 				player.nextChat = 721;
 				break;
 			case 721:
@@ -3696,7 +3691,7 @@ public class DialogueHandler {
 				player.nextChat = 725;
 				break;
 			case 725:
-				sendPlayerChat1("How would I go about doing that?");
+				sendPlayerChat("How would I go about doing that?");
 				player.nextChat = 726;
 				break;
 			case 726:
@@ -3720,7 +3715,7 @@ public class DialogueHandler {
 				player.nextChat = 729;
 				break;
 			case 729:
-				sendPlayerChat1("Ok, I'll get right on it.");
+				sendPlayerChat("Ok, I'll get right on it.");
 				player.shieldArrav = 5;
 				player.nextChat = 0;
 				break;
@@ -3732,7 +3727,7 @@ public class DialogueHandler {
 					player.nextChat = 731;
 				break;
 			case 731:
-				sendPlayerChat1("I haven't managed to find the report yet...");
+				sendPlayerChat("I haven't managed to find the report yet...");
 				player.nextChat = 732;
 				break;
 			case 732:
@@ -3743,7 +3738,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 733:
-				sendPlayerChat1("I have the intelligence report!");
+				sendPlayerChat("I have the intelligence report!");
 				player.nextChat = 734;
 				break;
 			case 734:
@@ -3764,7 +3759,7 @@ public class DialogueHandler {
 				player.nextChat = 738;
 				break;
 			case 738:
-				sendPlayerChat1("Nice to meet you.");
+				sendPlayerChat("Nice to meet you.");
 				player.nextChat = 739;
 				break;
 			case 739:
@@ -3772,7 +3767,7 @@ public class DialogueHandler {
 				player.nextChat = 740;
 				break;
 			case 740:
-				sendItemChat1("", "Straven hands you a key", 759, 150);
+				sendItemChat(759, 150, "", "Straven hands you a key");
 				player.getItemAssistant().addOrDropItem(759, 1);
 				player.shieldArrav = 6;
 				player.nextChat = 0;
@@ -3793,7 +3788,7 @@ public class DialogueHandler {
 				sendStatement("It's empty.");
 				break;
 			case 744:
-				sendItemChat1("", "You find half of a shield, which you take.", 763, 150);
+				sendItemChat(763, 150, "", "You find half of a shield, which you take.");
 				player.getItemAssistant().addOrDropItem(763, 1);
 				player.nextChat = 0;
 				break;
@@ -3806,7 +3801,7 @@ public class DialogueHandler {
 					player.nextChat = 0;
 				break;
 			case 746:
-				sendPlayerChat2("I have half the shield of Arrav here. Can I get a", "reward?");
+				sendPlayerChat("I have half the shield of Arrav here. Can I get a", "reward?");
 				player.nextChat = 747;
 				break;
 			case 747:
@@ -3817,7 +3812,7 @@ public class DialogueHandler {
 				player.nextChat = 748;
 				break;
 			case 748:
-				sendPlayerChat1("Well, I'm here to claim it.");
+				sendPlayerChat("Well, I'm here to claim it.");
 				player.nextChat = 749;
 				break;
 			case 749:
@@ -3826,9 +3821,9 @@ public class DialogueHandler {
 				break;
 			case 750:
 				if (player.getItemAssistant().playerHasItem(763))
-					sendItemChat1("", "The curator peers at the shield", 763, 150);
+					sendItemChat(763, 150, "", "The curator peers at the shield");
 				else if (player.getItemAssistant().playerHasItem(765))
-					sendItemChat1("", "The curator peers at the shield", 765, 150);
+					sendItemChat(763, 150, "", "The curator peers at the shield");
 				player.nextChat = 751;
 				break;
 			case 751:
@@ -3848,31 +3843,31 @@ public class DialogueHandler {
 				break;
 			case 754:
 				if (player.getItemAssistant().playerHasItem(763)) {
-					sendItemChat1("", "You hand over the shield half.", 763, 150);
+					sendItemChat(763, 150, "", "You hand over the shield half.");
 					player.getItemAssistant().deleteItem(763, 1);
 				} else if (player.getItemAssistant().playerHasItem(765)) {
-					sendItemChat1("", "You hand over the shield half.", 765, 150);
+					sendItemChat(765, 150, "", "You hand over the shield half.");
 					player.getItemAssistant().deleteItem(765, 1);
 				}
 				player.nextChat = 755;
 				break;
 			case 755:
-				sendItemChat1("", "The curator writes out a certificate.", 769, 150);
+				sendItemChat(769, 150, "", "The curator writes out a certificate.");
 				player.getItemAssistant().addOrDropItem(769, 1);
 				player.shieldArrav = 7;
 				player.nextChat = 0;
 				break;
 			//King Roald
 			case 756:
-				sendPlayerChat1("Greetings, your majesty.");
+				sendPlayerChat("Greetings, your majesty.");
 				player.nextChat = 757;
 				break;
 			case 757:
-				sendPlayerChat2("Your majesty, I have come to claim the reward for the", "return of the Shield of Arrav.");
+				sendPlayerChat("Your majesty, I have come to claim the reward for the", "return of the Shield of Arrav.");
 				player.nextChat = 758;
 				break;
 			case 758:
-				sendItemChat1("", "You show the certificate to the king.", 769, 150);
+				sendItemChat(769, 150, "", "You show the certificate to the king.");
 				player.nextChat = 759;
 				break;
 			case 759:
@@ -3888,7 +3883,7 @@ public class DialogueHandler {
 				player.nextChat = 761;
 				break;
 			case 761:
-				sendItemChat1("", "You hand over the certificate, The king gives you 1,200gp.", 995, 150);
+				sendItemChat(995, 150, "", "You hand over the certificate, The king gives you 1,200gp.");
 				player.nextChat = 762;
 				break;
 			case 762:
@@ -3899,7 +3894,7 @@ public class DialogueHandler {
 
 
 			case 908:
-				sendPlayerChat1("Hello there " + NpcHandler.getNpcListName(player.talkingNpc) + "!");
+				sendPlayerChat("Hello there " + NpcHandler.getNpcListName(player.talkingNpc) + "!");
 				player.nextChat = 909;
 				break;
 			case 909:
@@ -3908,7 +3903,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 910:
-				sendOption3("Pet", "Catch Rat", "Shoo Away");
+				sendOption("Pet", "Catch Rat", "Shoo Away");
 				player.dialogueAction = 222;
 				player.nextChat = 0;
 				break;
@@ -3944,7 +3939,7 @@ public class DialogueHandler {
 				player.nextChat = 1001;
 				break;
 			case 1001:
-				sendOption4("Yes, can I work out front now?",
+				sendOption("Yes, can I work out front now?",
 						"Yes, are you going to pay me yet?",
 						"No it's a complete mess", "Can I buy something please?");
 				player.dialogueAction = 69;
@@ -3954,16 +3949,16 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1003:// 9180
-				sendPlayerChat1("No it's a complete mess");
+				sendPlayerChat("No it's a complete mess");
 				player.nextChat = 0;
 				break;
 			case 1004:// 9181
-				sendPlayerChat1("Can I buy something please?");
+				sendPlayerChat("Can I buy something please?");
 				player.getShopAssistant().openShop(34);
 				player.nextChat = 0;
 				break;
 			case 1005:// 9178
-				sendPlayerChat1("Yes can I work out front now?");
+				sendPlayerChat("Yes can I work out front now?");
 				player.nextChat = 1006;
 				break;
 			case 1006:
@@ -3976,11 +3971,11 @@ public class DialogueHandler {
 				player.nextChat = 1008;
 				break;
 			case 1008:
-				sendOption2("Yes", "No");
+				sendOption("Yes", "No");
 				player.dialogueAction = 70;
 				break;
 			case 1009:
-				sendPlayerChat1("Yes.");
+				sendPlayerChat("Yes.");
 				player.getPlayerAssistant().movePlayer(1761, 5192, 0);
 				player.nextChat = 0;
 				break;
@@ -4007,12 +4002,12 @@ public class DialogueHandler {
 				break;
 			case 1014:// bank open done, this place done, settings done, to do
 				// delete pin
-				sendOption3("I'd like to access my bank account, please.", "I'd like to check my my P I N settings.", "What is this place?");
+				sendOption("I'd like to access my bank account, please.", "I'd like to check my my P I N settings.", "What is this place?");
 				player.dialogueAction = 251;
 				break;
 			/** What is this place? **/
 			case 1015:
-				sendPlayerChat1("What is this place?");
+				sendPlayerChat("What is this place?");
 				player.nextChat = 1016;
 				break;
 			case 1016:
@@ -4030,7 +4025,7 @@ public class DialogueHandler {
 				break;
 
 			case 1018:
-				sendPlayerChat1("Can I come through this gate?");
+				sendPlayerChat("Can I come through this gate?");
 				player.nextChat = 1019;
 				break;
 			case 1019:
@@ -4044,12 +4039,12 @@ public class DialogueHandler {
 				}
 				break;
 			case 1020:
-				sendOption3("Okay, I'll pay.", "Who does my money go to?",
+				sendOption("Okay, I'll pay.", "Who does my money go to?",
 						"No thanks, I'll walk around.");
 				player.dialogueAction = 502;
 				break;
 			case 1022:
-				sendPlayerChat1("Who does my money go to?");
+				sendPlayerChat("Who does my money go to?");
 				player.nextChat = 1023;
 				break;
 			case 1023:
@@ -4058,20 +4053,20 @@ public class DialogueHandler {
 				player.nextChat = 1024;
 				break;
 			case 1024:
-				sendOption2("Okay, I'll pay.", "No thanks, I'll walk around.");
+				sendOption("Okay, I'll pay.", "No thanks, I'll walk around.");
 				player.dialogueAction = 508;
 				break;
 			case 1025:
-				sendPlayerChat1("No thanks, I'll walk around.");
+				sendPlayerChat("No thanks, I'll walk around.");
 				player.nextChat = 0;
 				break;
 
 			case 1026:
 				if (!player.getItemAssistant().playerHasItem(995, 10)) {
-					sendPlayerChat1("I haven't got that much.");
+					sendPlayerChat("I haven't got that much.");
 					player.nextChat = 0;
 				} else {
-					sendPlayerChat1("Okay, I'll pay.");
+					sendPlayerChat("Okay, I'll pay.");
 					player.nextChat = 1027;
 				}
 				break;
@@ -4090,7 +4085,7 @@ public class DialogueHandler {
 			 */
 
 			case 1033:
-				sendOption2(
+				sendOption(
 						"I would like to skip tutorial Island and go to Mainland",
 						"I would like to continue");
 				player.dialogueAction = 132;
@@ -4116,14 +4111,14 @@ public class DialogueHandler {
 				player.nextChat = 1037;
 				break;
 			case 1037:
-				sendOption4("Can I go through that door please?",
+				sendOption("Can I go through that door please?",
 						"Where does this strange entrance lead?",
 						"Good day to you too.",
 						"I'm impressed, that tree is growing on that shed.");
 				player.dialogueAction = 228;
 				break;
 			case 1038:
-				sendPlayerChat1("I'm impressed, that tree is growing on that shed.");
+				sendPlayerChat("I'm impressed, that tree is growing on that shed.");
 				player.nextChat = 1039;
 				break;
 			case 1040:
@@ -4133,11 +4128,11 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1041:
-				sendPlayerChat1("Good day to you too.");
+				sendPlayerChat("Good day to you too.");
 				player.nextChat = 0;
 				break;
 			case 1042:
-				sendPlayerChat1("Where does this strange entrance lead?");
+				sendPlayerChat("Where does this strange entrance lead?");
 				player.nextChat = 1043;
 				break;
 			case 1043:
@@ -4154,7 +4149,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1045:
-				sendPlayerChat1("Can I go through that door please?");
+				sendPlayerChat("Can I go through that door please?");
 				player.nextChat = 1046;
 				break;
 			case 1046:
@@ -4164,7 +4159,7 @@ public class DialogueHandler {
 				player.nextChat = 1047;
 				break;
 			case 1047:
-				sendOption3("Ok, here's 875 coins.", "Never mind.",
+				sendOption("Ok, here's 875 coins.", "Never mind.",
 						"Why is it worth the entry cost?");
 				player.dialogueAction = 230;
 				break;
@@ -4174,11 +4169,11 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1049:
-				sendPlayerChat1("Never mind.");
+				sendPlayerChat("Never mind.");
 				player.nextChat = 0;
 				break;
 			case 1050:
-				sendPlayerChat1("Why is it worth the entry cost?");
+				sendPlayerChat("Why is it worth the entry cost?");
 				player.nextChat = 1051;
 				break;
 			case 1051:
@@ -4198,10 +4193,10 @@ public class DialogueHandler {
 				break;
 			case 1053:
 				if (player.getItemAssistant().playerHasItem(995, 875)) {
-					sendPlayerChat1("Ok, here's 875 coins.");
+					sendPlayerChat("Ok, here's 875 coins.");
 					player.nextChat = 1054;
 				} else {
-					sendPlayerChat1("I don't have the money at the moment.");
+					sendPlayerChat("I don't have the money at the moment.");
 					player.nextChat = 1057;
 				}
 				break;
@@ -4217,7 +4212,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 1056:
-				sendPlayerChat1("I don't have the money at the moment.");
+				sendPlayerChat("I don't have the money at the moment.");
 				player.nextChat = 1057;
 				break;
 			case 1057:
@@ -4228,7 +4223,7 @@ public class DialogueHandler {
 				player.nextChat = 1058;
 				break;
 			case 1058:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"But you don't even have clothes, how can you seriously",
 						"call anyone riff raff");
 				player.nextChat = 1059;
@@ -4261,14 +4256,14 @@ public class DialogueHandler {
 				}
 				break;
 			case 1229:
-				sendOption4("I need another assignement.",
+				sendOption("I need another assignement.",
 						"Where is the location of my task?",
 						"I would like to view your shop.",
 						"I would like to cancel or remove my task.");
 				player.dialogueAction = 142;
 				break;
 			case 1231:
-				sendOption2("I want to cancel my current task.",
+				sendOption("I want to cancel my current task.",
 						"I want to remove my task for ever.");
 				player.dialogueAction = 143;
 				break;
@@ -4317,13 +4312,13 @@ public class DialogueHandler {
 				break;
 
 			case 1301:
-				sendOption3("A haircut, please.", "A shave, please.",
+				sendOption("A haircut, please.", "A shave, please.",
 						"No, thank you.");
 				player.dialogueAction = 1301;
 				break;
 
 			case 1302:// first option
-				sendPlayerChat1("A haircut, please.");
+				sendPlayerChat("A haircut, please.");
 				player.nextChat = 1303;
 				break;
 
@@ -4352,7 +4347,7 @@ public class DialogueHandler {
 			// end of hairstyle cut.
 
 			case 1306: // dialogue option 3
-				sendPlayerChat1("No, thank you.");
+				sendPlayerChat("No, thank you.");
 				player.nextChat = 1307;
 				break;
 
@@ -4363,7 +4358,7 @@ public class DialogueHandler {
 				break;
 			// END
 			case 1308: // start of shaving
-				sendPlayerChat1("A shave, please.");
+				sendPlayerChat("A shave, please.");
 				player.nextChat = 1309;
 				break;
 
@@ -4399,7 +4394,7 @@ public class DialogueHandler {
 				player.nextChat = 1313;
 				break;
 			case 1313:
-				sendOption3("Red Dye", "Yellow Dye", "Blue Dye");
+				sendOption("Red Dye", "Yellow Dye", "Blue Dye");
 				player.dialogueAction = 144;
 				break;
 			case 1314:// red 1763, yellow 1765, blue 1767
@@ -4407,7 +4402,7 @@ public class DialogueHandler {
 						&& player.getItemAssistant().playerHasItem(995, 5)) {
 					player.getItemAssistant().deleteItem(1951, 3);
 					player.getItemAssistant().addOrDropItem(1763, 1);
-					sendPlayerChat1("Red Dye Please.");
+					sendPlayerChat("Red Dye Please.");
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1(
@@ -4422,7 +4417,7 @@ public class DialogueHandler {
 						&& player.getItemAssistant().playerHasItem(995, 5)) {
 					player.getItemAssistant().deleteItem(1957, 2);
 					player.getItemAssistant().addOrDropItem(1765, 1);
-					sendPlayerChat1("Yellow Dye Please.");
+					sendPlayerChat("Yellow Dye Please.");
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1(
@@ -4437,7 +4432,7 @@ public class DialogueHandler {
 						&& player.getItemAssistant().playerHasItem(995, 5)) {
 					player.getItemAssistant().deleteItem(1793, 2);
 					player.getItemAssistant().addOrDropItem(1767, 1);
-					sendPlayerChat1("Blue Dye Please.");
+					sendPlayerChat("Blue Dye Please.");
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1(
@@ -4518,17 +4513,17 @@ public class DialogueHandler {
 				break;
 
 			case 1323:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 146;
 				break;
 
 			case 1324:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 1325:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 1326;
 				break;
 
@@ -4553,23 +4548,23 @@ public class DialogueHandler {
 				break;
 
 			case 1330:
-				sendOption3("Yes please.", "No Thanks.",
+				sendOption("Yes please.", "No Thanks.",
 						"I have a frog token I would like to exchange.");
 				player.dialogueAction = 148;
 				break;
 
 			case 1331:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 1332:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 1334;
 				break;
 
 			case 1333:
-				sendOption2("A frog mask please!", "A frog outfit, please!");
+				sendOption("A frog mask please!", "A frog outfit, please!");
 				player.dialogueAction = 149;
 				break;
 
@@ -4580,7 +4575,7 @@ public class DialogueHandler {
 
 			case 1335:
 				if (player.getItemAssistant().playerHasItem(6183, 1)) {
-					sendPlayerChat1("A frog mask please!");
+					sendPlayerChat("A frog mask please!");
 					player.getItemAssistant().deleteItem(6183, 1);
 					player.getItemAssistant().addOrDropItem(6188, 1);
 					player.nextChat = 0;
@@ -4595,14 +4590,14 @@ public class DialogueHandler {
 			case 1336:
 				if (player.getItemAssistant().playerHasItem(6183, 1)
 						&& player.playerAppearance[0] == 0) {
-					sendPlayerChat1("A frog prince outfit, please!");
+					sendPlayerChat("A frog prince outfit, please!");
 					player.getItemAssistant().deleteItem(6183, 1);
 					player.getItemAssistant().addOrDropItem(6184, 1);
 					player.getItemAssistant().addOrDropItem(6185, 1);
 					player.nextChat = 0;
 				} else if (player.getItemAssistant().playerHasItem(6183, 1)
 						&& player.playerAppearance[0] == 1) {
-					sendPlayerChat1("A frog princess outfit, please!");
+					sendPlayerChat("A frog princess outfit, please!");
 					player.getItemAssistant().deleteItem(6183, 1);
 					player.getItemAssistant().addOrDropItem(6186, 1);
 					player.getItemAssistant().addOrDropItem(6187, 1);
@@ -4622,29 +4617,29 @@ public class DialogueHandler {
 				break;
 
 			case 1338:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 166;
 				break;
 
 			case 1339:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 1340:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 1341;
 				break;
 
 			case 1341:
-				sendOption3("I will give you 15 coins for 1 rope.",
+				sendOption("I will give you 15 coins for 1 rope.",
 						"I will give you 4 balls of wool for 1 rope.",
 						"Never mind.");
 				player.dialogueAction = 167;
 				break;
 
 			case 1342:
-				sendPlayerChat1("Never mind.");
+				sendPlayerChat("Never mind.");
 				player.nextChat = 0;
 				break;
 
@@ -4652,7 +4647,7 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(995, 15)) {
 					player.getItemAssistant().deleteItem(995, 15);
 					player.getItemAssistant().addOrDropItem(954, 1);
-					sendPlayerChat1("I will give you 15 coins for 1 rope.");
+					sendPlayerChat("I will give you 15 coins for 1 rope.");
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1("You don't even have 15 coins.",
@@ -4666,7 +4661,7 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(1759, 4)) {
 					player.getItemAssistant().deleteItem(1759, 4);
 					player.getItemAssistant().addOrDropItem(954, 1);
-					sendPlayerChat1("I will give you 4 balls of wool for 1 rope.");
+					sendPlayerChat("I will give you 4 balls of wool for 1 rope.");
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1("You don't even have 4 balls of wool.",
@@ -4685,12 +4680,12 @@ public class DialogueHandler {
 				break;
 
 			case 1346:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 170;
 				break;
 
 			case 1347:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
@@ -4698,7 +4693,7 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(995, 12)) {
 					player.getItemAssistant().deleteItem(995, 12);
 					player.getItemAssistant().addOrDropItem(3105, 1);
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.nextChat = 0;
 				} else {
 					sendNpcChat1("You need 12 gp to buy these.", player.talkingNpc,
@@ -4738,12 +4733,12 @@ public class DialogueHandler {
 				break;
 
 			case 1350:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 171;
 				break;
 
 			case 1351:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
@@ -4751,25 +4746,25 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(995, 50)
 						&& player.absY > 3485 && player.absY < 3489) {
 					player.getItemAssistant().deleteItem(995, 50);
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getPlayerAssistant().startTeleport(2358, 3640, 0,
 							"modern");
 					player.hasPaid = true;
 					player.nextChat = 0;
 				} else if (player.getItemAssistant().playerHasItem(995, 50)) {
 					player.getItemAssistant().deleteItem(995, 50);
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getPlayerAssistant().startTeleport(2367, 3488, 0,
 							"modern");
 					player.hasPaid = true;
 					player.nextChat = 0;
 				} else if (player.hasPaid && player.absY > 3485
 						&& player.absY < 3489) {
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getPlayerAssistant().startTeleport(2358, 3640, 0,
 							"modern");
 				} else if (player.hasPaid) {
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getPlayerAssistant().startTeleport(2367, 3488, 0,
 							"modern");
 				}
@@ -4783,17 +4778,17 @@ public class DialogueHandler {
 				break;
 
 			case 1354:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 172;
 				break;
 
 			case 1355:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 1357;
 				break;
 
 			case 1356:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
@@ -4810,17 +4805,17 @@ public class DialogueHandler {
 				break;
 
 			case 1359:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 173;
 				break;
 
 			case 1360:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 1362;
 				break;
 
 			case 1361:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
@@ -4853,17 +4848,17 @@ public class DialogueHandler {
 				break;
 
 			case 1364:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 174;
 				break;
 
 			case 1365:
-				sendPlayerChat1("No thanks I would like to stay with my task.");
+				sendPlayerChat("No thanks I would like to stay with my task.");
 				player.nextChat = 0;
 				break;
 
 			case 1366:
-				sendPlayerChat1("Yes please I would like an easier task.");
+				sendPlayerChat("Yes please I would like an easier task.");
 				player.nextChat = 1367;
 				break;
 
@@ -4888,18 +4883,18 @@ public class DialogueHandler {
 				break;
 
 			case 1370:
-				sendOption2("Yes please.", "No thanks, I'm not interested.");
+				sendOption("Yes please.", "No thanks, I'm not interested.");
 				player.dialogueAction = 176;
 				break;
 
 			case 1371:
-				sendPlayerChat1("No thanks, I'm not interested.");
+				sendPlayerChat("No thanks, I'm not interested.");
 				player.nextChat = 0;
 				break;
 
 			case 1372:
 				if (player.getItemAssistant().playerHasItem(995, 3000)) {
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getPacketSender().showInterface(3559);
 					player.canChangeAppearance = true;
 					player.getItemAssistant().deleteItem(995, 3000);
@@ -4921,17 +4916,17 @@ public class DialogueHandler {
 				break;
 
 			case 1374:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 177;
 				break;
 
 			case 1375:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 1376:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 1377;
 				break;
 
@@ -4953,13 +4948,13 @@ public class DialogueHandler {
 				break;
 
 			case 1379:
-				sendOption2("Yes please.", "No thank you.");
+				sendOption("Yes please.", "No thank you.");
 				player.dialogueAction = 179;
 				break;
 
 			case 1380:
 				if (player.getItemAssistant().playerHasItem(995, 1000)) {
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getItemAssistant().deleteItem(995, 1000);
 					player.nextChat = 0;
 				} else {
@@ -4970,41 +4965,41 @@ public class DialogueHandler {
 				break;
 
 			case 1381:
-				sendPlayerChat1("No thank you.");
+				sendPlayerChat("No thank you.");
 				player.nextChat = 0;
 				break;
 
 			case 2995:
 				player.canWalkTutorial = false;
-				sendStatement2(
+				sendStatement(
 						"Before you start if you would like to skip Tutorial Island,",
 						"now is your chance. If you skip you will be brought to mainland.");
 				player.nextChat = 2996;
 				break;
 
 			case 2996:
-				sendStatement2(
+				sendStatement(
 						"If you don't want to skip Tutorial Island you can stay here.",
 						"Would you like to skip Tutorial Island, or stay here?");
 				player.nextChat = 2997;
 				break;
 
 			case 2997:
-				sendOption2(
+				sendOption(
 						"I would like to skip Tutorial Island and go to Mainland.",
 						"I would like to stay here and complete Tutorial island.");
 				player.dialogueAction = 151;
 				break;
 
 			case 2998:
-				sendPlayerChat1("Yes I would like to skip Tutorial Island.");
+				sendPlayerChat("Yes I would like to skip Tutorial Island.");
 				player.nextChat = 3115;
 				break;
 
 			case 2999:
 				if (!player.getItemAssistant().playerHasItem(1549) && player.vampSlayer == 3) {
 					player.getItemAssistant().addOrDropItem(1549, 1);
-					sendPlayerChat1("Thank you, I will be more careful next time.");
+					sendPlayerChat("Thank you, I will be more careful next time.");
 					player.nextChat = 0;
 				}
 				break;
@@ -5150,9 +5145,9 @@ public class DialogueHandler {
 				break;
 
 			case 3013: // giving bronze and tinder
-				sendItemChat2("",
+				sendItemChat(590, 150, "",
 						"The Survival Guide gives you a @blu@tinderbox @bla@and a",
-						"@blu@bronze axe!", 590, 150);
+						"@blu@bronze axe!");
 				player.getItemAssistant().addOrDropItem(590, 1);
 				player.getItemAssistant().addOrDropItem(1351, 1);
 				player.nextChat = 0;
@@ -5169,7 +5164,7 @@ public class DialogueHandler {
 				player.tutorialProgress = 3;
 				break;
 			case 3014: // finished cutting tree
-				sendItemChat1("", "You got some logs", 1511, 150);
+				sendItemChat(1511, 150, "", "You got some logs");
 				PlayerAssistant.removeHintIcon(player);
 				player.nextChat = 3015;
 				break;
@@ -5213,8 +5208,8 @@ public class DialogueHandler {
 				break;
 
 			case 3018:
-				sendItemChat1("",
-						"The Survival Guide gives you a @blu@net!", 303, 150);
+				sendItemChat(303, 150, "",
+						"The Survival Guide gives you a @blu@net!");
 				player.getItemAssistant().addOrDropItem(303, 1);
 				player.nextChat = 0;
 				chatboxText(
@@ -5266,7 +5261,7 @@ public class DialogueHandler {
 				break;
 
 			case 3022:
-				sendPlayerChat2(
+				sendPlayerChat(
 						"I already know how to cook. Brynna taught me just", "now.");
 				player.nextChat = 3023;
 				break;
@@ -5284,12 +5279,11 @@ public class DialogueHandler {
 				player.nextChat = 3025;
 				break;
 
-			case 3025: // he gives u bucket of water etc TTUOTRIAL PROG 8
-				sendItemChat2(
-						
+			case 3025:
+				sendItemChat(1933, 150, 
 						"",
 						"The Cooking Guide gives you a @blu@bucket of water@bla@ and a",
-						"@blu@pot of flour!", 1933, 150);
+						"@blu@pot of flour!");
 				player.getItemAssistant().addOrDropItem(1933, 1);
 				player.getItemAssistant().addOrDropItem(1929, 1);
 				player.nextChat = 0;
@@ -5521,7 +5515,7 @@ public class DialogueHandler {
 				break;
 
 			case 3053:// mining tutor start
-				sendPlayerChat1("You can call me "
+				sendPlayerChat("You can call me "
 						+ Misc.capitalize(player.playerName) + ".");
 				player.nextChat = 3054;
 				break;
@@ -5551,7 +5545,7 @@ public class DialogueHandler {
 				player.tutorialProgress = 15;
 				break;
 			case 3056: // done prospecting
-				sendPlayerChat2(
+				sendPlayerChat(
 						"I prospected both types of rocks! One set contains tin",
 						"and the other has copper ore inside.");
 				player.nextChat = 3057;
@@ -5575,8 +5569,8 @@ public class DialogueHandler {
 				player.nextChat = 3060;
 				break;
 			case 3060:
-				sendItemChat1("",
-						"Dezzick gives you a @blu@bronze pickaxe!", 1265, 300);
+				sendItemChat(1265, 300, "",
+						"Dezzick gives you a @blu@bronze pickaxe!");
 				player.getItemAssistant().addOrDropItem(1265, 1);
 				player.nextChat = 0;
 				chatboxText(
@@ -5614,7 +5608,7 @@ public class DialogueHandler {
 
 			case 3063:
 				player.nextChat = 3064;
-				sendPlayerChat1("How do I make a weapon out of this?");
+				sendPlayerChat("How do I make a weapon out of this?");
 				break;
 
 			case 3064:
@@ -5625,7 +5619,7 @@ public class DialogueHandler {
 				break;
 
 			case 3065: // giving you the hammer
-				sendItemChat1("", "Dezzick gives you a @blu@hammer!", 2347, 300);
+				sendItemChat(2347, 300, "", "Dezzick gives you a @blu@hammer!");
 				player.getItemAssistant().addOrDropItem(2347, 1);
 				player.nextChat = 0;
 				chatboxText("To smith you'll need a hammer - like the one you were given by", "Dezzick - access to an anvil like the one with the arrow over it", "and enough metal bars to make what you are trying to smith.", "", "Smithing a dagger");
@@ -5650,7 +5644,7 @@ public class DialogueHandler {
 			 * start of melee
 			 */
 			case 3067:// Melee instructor c.tutorialProgress = 22
-				sendPlayerChat1("Hi! My name is "
+				sendPlayerChat("Hi! My name is "
 						+ Misc.capitalize(player.playerName) + ".");
 				player.nextChat = 3068;
 				break;
@@ -5698,11 +5692,10 @@ public class DialogueHandler {
 				break;
 
 			case 3073:
-				sendItemChat2(
-						
+				sendItemChat(1171, 300,
 						"",// Gives me sword and shield
 						"The Combat Guide gives you a @blu@bronze sword@bla@ and a",
-						"@blu@wooden shield!", 1171, 300);
+						"@blu@wooden shield!");
 				player.getItemAssistant().addOrDropItem(1171, 1);
 				player.getItemAssistant().addOrDropItem(1277, 1);
 				player.nextChat = 0;
@@ -5717,7 +5710,7 @@ public class DialogueHandler {
 				break;
 
 			case 3074:
-				sendPlayerChat1("I did it! I killed a giant rat!");
+				sendPlayerChat("I did it! I killed a giant rat!");
 				player.nextChat = 3075;
 				break;
 
@@ -5742,11 +5735,10 @@ public class DialogueHandler {
 				break;
 
 			case 3077: // gives me bow and arrow
-				sendItemChat2(
-						
+				sendItemChat(841, 300,
 						"",
 						"The Combat Guide gives you some @blu@bronze arrows@bla@ and",
-						"a @blu@shortbow!", 841, 300);
+						"a @blu@shortbow!");
 				player.getItemAssistant().addOrDropItem(841, 1);
 				player.getItemAssistant().addOrDropItem(882, 50);
 				player.nextChat = 0;
@@ -5781,7 +5773,7 @@ public class DialogueHandler {
 				break;
 
 			case 3079: // fiancial dude start
-				sendPlayerChat1("Hello. Who are you?");
+				sendPlayerChat("Hello. Who are you?");
 				player.nextChat = 3080;
 
 				break;
@@ -5794,7 +5786,7 @@ public class DialogueHandler {
 				break;
 
 			case 3081:
-				sendPlayerChat1("Okay. How can I make money then?");
+				sendPlayerChat("Okay. How can I make money then?");
 				player.nextChat = 3082;
 				break;
 
@@ -5867,7 +5859,7 @@ public class DialogueHandler {
 			 */
 
 			case 3089: // start of dialogue
-				sendPlayerChat1("Good day, brother, my name's "
+				sendPlayerChat("Good day, brother, my name's "
 						+ Misc.capitalize(player.playerName) + ".");
 				player.nextChat = 3090;
 				break;
@@ -5967,7 +5959,7 @@ public class DialogueHandler {
 				break;
 
 			case 3100:
-				sendPlayerChat1("Are there rules on in-game behaviour?");
+				sendPlayerChat("Are there rules on in-game behaviour?");
 				player.nextChat = 3101;
 				break;
 			case 3101:
@@ -5991,7 +5983,7 @@ public class DialogueHandler {
 				player.nextChat = 3104;
 				break;
 			case 3104: // last one
-				sendPlayerChat1("Okay thanks. I'll bear that in mind.");
+				sendPlayerChat("Okay thanks. I'll bear that in mind.");
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
 						
@@ -6011,7 +6003,7 @@ public class DialogueHandler {
 			 */
 
 			case 3105:
-				sendPlayerChat1("Hello.");
+				sendPlayerChat("Hello.");
 				player.nextChat = 3106;
 				break;
 
@@ -6023,7 +6015,7 @@ public class DialogueHandler {
 				break;
 
 			case 3107:
-				// sendItemChat1(client, "", "", 0, 50);
+				// sendItemChat(client, "", "", 0, 50);
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
@@ -6048,11 +6040,9 @@ public class DialogueHandler {
 				break;
 
 			case 3109:
-				sendItemChat1(
-						
+				sendItemChat(556, 300,
 						"",
-						"Terrova gives you five @blu@air runes@bla@ and @blu@five mind runes!",
-						556, 300);
+						"Terrova gives you five @blu@air runes@bla@ and @blu@five mind runes!");
 				player.getItemAssistant().addOrDropItem(558, 5);
 				player.getItemAssistant().addOrDropItem(556, 5);
 				player.nextChat = 0;
@@ -6063,7 +6053,7 @@ public class DialogueHandler {
 						"left. Walk over to the caged chickens, click the Wind Strike icon",
 						"and then select one of the chicken to cast it on.",
 						"Cast Wind Strke at a chicken");
-				// sendStatement4("Now you have runes you should see the Wind Strike icon at the",
+				// sendStatement("Now you have runes you should see the Wind Strike icon at the",
 				// "top left corner of the Magic interface - second in from the",
 				// "left. Walk over to the caged chickens, click the Wind Strike icon",
 				// "and then select one of the chicken to cast it on.");
@@ -6081,7 +6071,7 @@ public class DialogueHandler {
 				break;
 
 			case 3111:
-				sendOption2("Mainland", "Stay here");
+				sendOption("Mainland", "Stay here");
 				player.dialogueAction = 3111;
 				player.nextChat = 0;
 				break;
@@ -6117,7 +6107,7 @@ public class DialogueHandler {
 
 			case 3115:
 				player.tutorialProgress = 36;
-				sendStatement4(
+				sendStatement(
 						"Welcome to Lumbridge! To get more help, simply click on the",
 						"Lumbridge Guide or one of the Tutors - these can be found by",
 						"looking for the question mark icon on your mini-map. If you find",
@@ -6149,29 +6139,29 @@ public class DialogueHandler {
 				break;
 
 			case 3119:
-				sendOption2("Yes please.", "No Thanks.");
+				sendOption("Yes please.", "No Thanks.");
 				player.dialogueAction = 152;
 				break;
 
 			case 3120:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 3121:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 3122;
 				break;
 
 			case 3122:
-				sendOption4("Asgarnain Ale", "Wizard's Mind Bomb", "Dwarven Stout",
+				sendOption("Asgarnain Ale", "Wizard's Mind Bomb", "Dwarven Stout",
 						"Never Mind");
 				player.dialogueAction = 153;
 				break;
 
 			case 3123:
 				if (player.getItemAssistant().playerHasItem(995, 3)) {
-					sendPlayerChat1("Asgarnian Ale please.");
+					sendPlayerChat("Asgarnian Ale please.");
 					player.getItemAssistant().deleteItem(995, 3);
 					player.getItemAssistant().addOrDropItem(1905, 1);
 					player.nextChat = 0;
@@ -6183,21 +6173,21 @@ public class DialogueHandler {
 				break;
 
 			case 3124:
-				sendPlayerChat1("Wizard's Mind Bomb please.");
+				sendPlayerChat("Wizard's Mind Bomb please.");
 				player.getItemAssistant().deleteItem(995, 3);
 				player.getItemAssistant().addOrDropItem(1907, 1);
 				player.nextChat = 0;
 				break;
 
 			case 3125:
-				sendPlayerChat1("Dwarven Stout please.");
+				sendPlayerChat("Dwarven Stout please.");
 				player.getItemAssistant().deleteItem(995, 3);
 				player.getItemAssistant().addOrDropItem(1913, 1);
 				player.nextChat = 0;
 				break;
 
 			case 3126:
-				sendPlayerChat1("Never mind.");
+				sendPlayerChat("Never mind.");
 				player.nextChat = 0;
 				break;
 
@@ -6247,13 +6237,13 @@ public class DialogueHandler {
 				break;
 
 			case 3134:
-				sendOption2("So... do you know anywhere good to explore?",
+				sendOption("So... do you know anywhere good to explore?",
 						"Do I get a reward?");
 				player.dialogueAction = 154;
 				break;
 
 			case 3135:
-				sendPlayerChat1("Do I get a reward? For freeing you and all...");
+				sendPlayerChat("Do I get a reward? For freeing you and all...");
 				player.nextChat = 3136;
 				break;
 
@@ -6267,7 +6257,7 @@ public class DialogueHandler {
 				break;
 
 			case 3137:
-				sendPlayerChat1("So... do you know anywhere good to explore?");
+				sendPlayerChat("So... do you know anywhere good to explore?");
 				player.nextChat = 3138;
 				break;
 
@@ -6290,17 +6280,17 @@ public class DialogueHandler {
 				break;
 
 			case 3140:
-				sendOption2("Yes please!", "No, it's too dangerous for me.");
+				sendOption("Yes please!", "No, it's too dangerous for me.");
 				player.dialogueAction = 155;
 				break;
 
 			case 3141:
-				sendPlayerChat1("No, it's too dangerous for me.");
+				sendPlayerChat("No, it's too dangerous for me.");
 				player.nextChat = 0;
 				break;
 
 			case 3142:
-				sendPlayerChat1("Yes please!");
+				sendPlayerChat("Yes please!");
 				player.nextChat = 3143;
 				break;
 
@@ -6318,17 +6308,17 @@ public class DialogueHandler {
 				break;
 
 			case 3145:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 156;
 				break;
 
 			case 3146:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 3147:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 3148;
 				break;
 
@@ -6350,17 +6340,17 @@ public class DialogueHandler {
 				break;
 
 			case 3151:
-				sendOption2("Yes please.", "No thanks.");
+				sendOption("Yes please.", "No thanks.");
 				player.dialogueAction = 157;
 				break;
 
 			case 3152:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 3153:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 3154;
 				break;
 
@@ -6370,13 +6360,13 @@ public class DialogueHandler {
 				break;
 
 			case 3155:
-				sendOption2("Meat Pie", "Stew");
+				sendOption("Meat Pie", "Stew");
 				player.dialogueAction = 158;
 				break;
 
 			case 3156:
 				if (player.getItemAssistant().playerHasItem(995, 16)) {
-					sendPlayerChat1("Meat Pie please.");
+					sendPlayerChat("Meat Pie please.");
 					player.getItemAssistant().deleteItem(995, 16);
 					player.getItemAssistant().addOrDropItem(2327, 1);
 					player.nextChat = 0;
@@ -6389,7 +6379,7 @@ public class DialogueHandler {
 
 			case 3157:
 				if (player.getItemAssistant().playerHasItem(995, 20)) {
-					sendPlayerChat1("Stew please.");
+					sendPlayerChat("Stew please.");
 					player.getItemAssistant().deleteItem(995, 20);
 					player.getItemAssistant().addOrDropItem(2003, 1);
 					player.nextChat = 0;
@@ -6406,17 +6396,17 @@ public class DialogueHandler {
 				break;
 
 			case 3159:
-				sendOption3("Buy woad leaves.", "Exchange mole skins/claws for nests.", "Nothing.");
+				sendOption("Buy woad leaves.", "Exchange mole skins/claws for nests.", "Nothing.");
 				player.dialogueAction = 159;
 				break;
 
 			case 3160:
-				sendPlayerChat1("I don't want to do anything.");
+				sendPlayerChat("I don't want to do anything.");
 				player.nextChat = 0;
 				break;
 
 			case 3161:
-				sendPlayerChat1("I would like to buy woad leaves.");
+				sendPlayerChat("I would like to buy woad leaves.");
 				player.nextChat = 3162;
 				break;
 
@@ -6427,7 +6417,7 @@ public class DialogueHandler {
 				break;
 
 			case 3163:
-				sendOption4("5 coins", "10 coins", "15 coins", "20 coins");
+				sendOption("5 coins", "10 coins", "15 coins", "20 coins");
 				player.dialogueAction = 160;
 				break;
 
@@ -6473,17 +6463,17 @@ public class DialogueHandler {
 				break;
 
 			case 3168:
-				sendOption2("Yes please.", "No Thanks.");
+				sendOption("Yes please.", "No Thanks.");
 				player.dialogueAction = 162;
 				break;
 
 			case 3169:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 3170:
-				sendPlayerChat1("Yes please can I get a moonlight mean?");
+				sendPlayerChat("Yes please can I get a moonlight mean?");
 				player.nextChat = 3171;
 				break;
 
@@ -6501,7 +6491,7 @@ public class DialogueHandler {
 				break;
 
 			case 3172:
-				sendOption2("Experience Lamp",
+				sendOption("Experience Lamp",
 						"Magical Lamp that restores your run to full");
 				player.dialogueAction = 163;
 				break;
@@ -6514,17 +6504,17 @@ public class DialogueHandler {
 				break;
 
 			case 3174:
-				sendOption2("Yes please.", "No Thanks.");
+				sendOption("Yes please.", "No Thanks.");
 				player.dialogueAction = 164;
 				break;
 
 			case 3175:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 3176:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 3177;
 				break;
 
@@ -6550,17 +6540,17 @@ public class DialogueHandler {
 				break;
 
 			case 3179:
-				sendOption2("Yes please.", "No Thanks.");
+				sendOption("Yes please.", "No Thanks.");
 				player.dialogueAction = 165;
 				break;
 
 			case 3180:
-				sendPlayerChat1("No thanks.");
+				sendPlayerChat("No thanks.");
 				player.nextChat = 0;
 				break;
 
 			case 3181:
-				sendPlayerChat1("Yes please.");
+				sendPlayerChat("Yes please.");
 				player.nextChat = 3182;
 				break;
 
@@ -6581,12 +6571,12 @@ public class DialogueHandler {
 				break;
 
 			case 3184:
-				sendOption2("Yes please.", "No thank you.");
+				sendOption("Yes please.", "No thank you.");
 				player.dialogueAction = 178;
 				break;
 
 			case 3185:
-				sendPlayerChat1("No thank you, do I look like I'm a cook?");
+				sendPlayerChat("No thank you, do I look like I'm a cook?");
 				player.nextChat = 0;
 				break;
 
@@ -6594,7 +6584,7 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(995, 25000)
 						&& !player.getItemAssistant().playerHasItem(775)
 						&& player.playerEquipment[player.playerHands] != 775) {
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getItemAssistant().deleteItem(995, 25000);
 					player.getPlayerAssistant().removeGloves();
 					player.getItemAssistant().addOrDropItem(775, 1);
@@ -6618,7 +6608,7 @@ public class DialogueHandler {
 				break;
 
 			case 3188:
-				sendOption2("Yea! I'm fearless!", "No way! That looks scary!");
+				sendOption("Yea! I'm fearless!", "No way! That looks scary!");
 				player.dialogueAction = 1;
 				player.nextChat = 0;
 				break;
@@ -6632,12 +6622,12 @@ public class DialogueHandler {
 				break;
 
 			case 3190:
-				sendOption2("Yes please.", "No thank you.");
+				sendOption("Yes please.", "No thank you.");
 				player.dialogueAction = 175;
 				break;
 
 			case 3191:
-				sendPlayerChat1("No thank you, do I look like I'm a smither?");
+				sendPlayerChat("No thank you, do I look like I'm a smither?");
 				player.nextChat = 0;
 				break;
 
@@ -6645,7 +6635,7 @@ public class DialogueHandler {
 				if (player.getItemAssistant().playerHasItem(995, 25000)
 						&& !player.getItemAssistant().playerHasItem(776)
 						&& player.playerEquipment[player.playerHands] != 776) {
-					sendPlayerChat1("Yes please.");
+					sendPlayerChat("Yes please.");
 					player.getItemAssistant().deleteItem(995, 25000);
 					player.getPlayerAssistant().removeGloves();
 					player.getItemAssistant().addOrDropItem(776, 1);
@@ -6682,18 +6672,18 @@ public class DialogueHandler {
 				break;
 
 			case 3195:
-				sendPlayerChat1("I would like to exchange mole skins/claws for nests.");
+				sendPlayerChat("I would like to exchange mole skins/claws for nests.");
 				player.nextChat = 3196;
 				break;
 
 			case 3196:
-				sendOption2("Mole skins.", "Mole claws.");
+				sendOption("Mole skins.", "Mole claws.");
 				player.dialogueAction = 180;
 				break;
 
 			case 3197:
 				if (MOLE_SKIN > 0) {
-					sendPlayerChat2("I would like to exchange my " + MOLE_SKIN + " mole skins,", "for bird nests.");
+					sendPlayerChat("I would like to exchange my " + MOLE_SKIN + " mole skins,", "for bird nests.");
 					player.nextChat = 3198;
 				} else {
 					sendNpcChat1("You don't have any mole skins.", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
@@ -6710,7 +6700,7 @@ public class DialogueHandler {
 
 			case 3199:
 				if (MOLE_CLAW > 0) {
-					sendPlayerChat2("I would like to exchange my " + MOLE_CLAW + " mole claws,", "for bird nests.");
+					sendPlayerChat("I would like to exchange my " + MOLE_CLAW + " mole claws,", "for bird nests.");
 					player.nextChat = 3200;
 				} else {
 					sendNpcChat1("You don't have any mole claws.", player.talkingNpc, NpcHandler.getNpcListName(player.talkingNpc));
@@ -6737,17 +6727,17 @@ public class DialogueHandler {
 				break;
 
 			case 3203:
-				sendOption4("I would like to buy shots.", "I would like to exchange my points.", "How am I doing right now?", "Never mind.");
+				sendOption("I would like to buy shots.", "I would like to exchange my points.", "How am I doing right now?", "Never mind.");
 				player.dialogueAction = 485;
 				break;
 
 			case 3204:
-				sendOption2("Pastry Dough", "Bread Dough");
+				sendOption("Pastry Dough", "Bread Dough");
 				player.dialogueAction = 3204;//186
 				break;
 
 			case 3205:
-				sendOption2("Pastry Dough", "Bread Dough");
+				sendOption("Pastry Dough", "Bread Dough");
 				player.dialogueAction = 3205;//187
 				break;
 
@@ -6757,12 +6747,12 @@ public class DialogueHandler {
 				break;
 
 			case 3209:
-				sendOption2("I would like to open my bank.", "I would like to view your shop.");
+				sendOption("I would like to open my bank.", "I would like to view your shop.");
 				player.dialogueAction = 189;
 				break;
 
 			case 3210:
-				sendPlayerChat1("I would like to open my bank.");
+				sendPlayerChat("I would like to open my bank.");
 				player.nextChat = 3211;
 				break;
 
@@ -6772,7 +6762,7 @@ public class DialogueHandler {
 				break;
 
 			case 3212:
-				sendPlayerChat1("I would like to view your shop.");
+				sendPlayerChat("I would like to view your shop.");
 				player.nextChat = 3213;
 				break;
 
@@ -6782,7 +6772,7 @@ public class DialogueHandler {
 				break;
 
 			case 3214:
-				sendPlayerChat1("How's it going?");
+				sendPlayerChat("How's it going?");
 				player.nextChat = 3215;
 				break;
 
@@ -6806,7 +6796,7 @@ public class DialogueHandler {
 				break;
 
 			case 3218://25
-				sendOption2("Yes, I'm not afraid of anything!", "No way, the smell itself turns me away.");
+				sendOption("Yes, I'm not afraid of anything!", "No way, the smell itself turns me away.");
 				player.dialogueAction = 3218;
 				break;
 
@@ -6817,7 +6807,7 @@ public class DialogueHandler {
 
 			case 3220://27
 				player.dialogueAction = 3220;
-				sendOption2("Yes, I'm a brave warrior!", "Maybe I shouldn't, I could lose my items!");
+				sendOption("Yes, I'm a brave warrior!", "Maybe I shouldn't, I could lose my items!");
 				break;
 
 			case 3221://28
@@ -6832,7 +6822,7 @@ public class DialogueHandler {
 				break;
 
 			case 3223://30
-				sendOption2("Yes, I've killed all the other brothers!", "No, I still need to kill more brothers");
+				sendOption("Yes, I've killed all the other brothers!", "No, I still need to kill more brothers");
 				player.nextChat = 0;
 				break;
 
@@ -6876,17 +6866,17 @@ public class DialogueHandler {
 				player.nextChat = 3523;
 				break;
 			/*case 3503:
-				sendOption2(
+				sendOption(
 						"I seek a Quest!",
 						"I don't, I'm just looking around.");
 				player.dialogueAction = 1000;
 				break;*/
 			case 3523:
-				sendPlayerChat1("I Seek a Quest!");
+				sendPlayerChat("I Seek a Quest!");
 				player.nextChat = 3504;
 				break;
 			case 3524:
-				sendPlayerChat1("I don't, I'm just looking around.");
+				sendPlayerChat("I don't, I'm just looking around.");
 				player.nextChat = 0;
 				break;
 			case 3504:
@@ -6896,11 +6886,11 @@ public class DialogueHandler {
 				player.nextChat = 3506;
 				break;
 			/*case 3505:
-				sendOption2("I laugh in the face of danger!", "I go and cower in a corner at the fist sign of danger!");
+				sendOption("I laugh in the face of danger!", "I go and cower in a corner at the fist sign of danger!");
 				player.nextChat = 3506;
 				break;*/
 			case 3506:
-				sendPlayerChat1("I laugh in the face on danger!");// 9158
+				sendPlayerChat("I laugh in the face on danger!");// 9158
 				player.nextChat = 3507;
 				break;
 			case 3507:
@@ -6910,7 +6900,7 @@ public class DialogueHandler {
 				player.nextChat = 3508;
 				break;
 			case 3508:
-				sendPlayerChat1("Alright, I better get going!");
+				sendPlayerChat("Alright, I better get going!");
 				player.blackKnight = 1;
 				QuestAssistant.sendStages(player);
 				player.nextChat = 3509;
@@ -6921,11 +6911,11 @@ public class DialogueHandler {
 				break;
 			case 3510:
 				if (player.getItemAssistant().playerHasItem(291, 30)) {
-					sendPlayerChat1("Here's all the items!");
+					sendPlayerChat("Here's all the items!");
 					player.blackKnight = 2;
 					player.nextChat = 3511;
 				} else {
-					sendPlayerChat1("I don't have all the items yet.");
+					sendPlayerChat("I don't have all the items yet.");
 					player.nextChat = 0;
 				}
 				break;
@@ -6946,9 +6936,7 @@ public class DialogueHandler {
 				QuestRewards.blackKnightReward(player);
 				player.nextChat = 0;
 				break;
-
 		}
-
 	}
 
 	public void chatboxText(String text, String text1, String text2,
@@ -6976,116 +6964,163 @@ public class DialogueHandler {
 		player.getPacketSender().sendFrame126(text3, 6184);
 		player.getPacketSender().sendChatInterface(6179);
 	}
-
-	/*
-	 * Options
-	 */
-
-	public void sendPlayerChat1(String s) {
-		player.getPacketSender().sendDialogueAnimation(969, 591);
-		player.getPacketSender().sendFrame126(player.playerName, 970);
-		player.getPacketSender().sendFrame126(s, 971);
-		player.getPacketSender().sendPlayerDialogueHead(969);
-		player.getPacketSender().sendChatInterface(968);
-	}
-
-	public void sendPlayerChat2(String s, String s1) {
-		player.getPacketSender().sendDialogueAnimation(974, 591);
-		player.getPacketSender().sendFrame126(player.playerName, 975);
-		player.getPacketSender().sendFrame126(s, 976);
-		player.getPacketSender().sendFrame126(s1, 977);
-		player.getPacketSender().sendPlayerDialogueHead(974);
-		player.getPacketSender().sendChatInterface(973);
+	
+	private int getChatAnim(ChatEmotes ce) {
+		return ChatEmotes.getAnimId(ce);
 	}
 	
-	private void sendPlayerChat3(String s, String s1, String s2) {
-		player.getPacketSender().sendDialogueAnimation(980, 591);
-		player.getPacketSender().sendFrame126(player.playerName, 981);
-		player.getPacketSender().sendFrame126(s, 982);
-		player.getPacketSender().sendFrame126(s1, 983);
-		player.getPacketSender().sendFrame126(s2, 984);
-		player.getPacketSender().sendPlayerDialogueHead(980);
-		player.getPacketSender().sendChatInterface(979);
+	public void sendPlayerChat(String... line) {
+		switch (line.length) {
+			case 1:
+				player.getPacketSender().sendDialogueAnimation(969, getChatAnim(ChatEmotes.DEFAULT));
+				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 970);
+				player.getPacketSender().sendFrame126(line[0], 971);
+				player.getPacketSender().sendPlayerDialogueHead(969);
+				player.getPacketSender().sendChatInterface(968);
+			break;
+			case 2:
+				player.getPacketSender().sendDialogueAnimation(974, getChatAnim(ChatEmotes.DEFAULT));
+				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 975);
+				player.getPacketSender().sendFrame126(line[0], 976);
+				player.getPacketSender().sendFrame126(line[1], 977);
+				player.getPacketSender().sendPlayerDialogueHead(974);
+				player.getPacketSender().sendChatInterface(973);
+			break;
+			case 3:
+				player.getPacketSender().sendDialogueAnimation(980, getChatAnim(ChatEmotes.DEFAULT));
+				player.getPacketSender().sendFrame126(player.playerName, 981);
+				player.getPacketSender().sendFrame126(line[0], 982);
+				player.getPacketSender().sendFrame126(line[1], 983);
+				player.getPacketSender().sendFrame126(line[2], 984);
+				player.getPacketSender().sendPlayerDialogueHead(980);
+				player.getPacketSender().sendChatInterface(979);
+			break;
+			case 4:
+				player.getPacketSender().sendDialogueAnimation(987, getChatAnim(ChatEmotes.DEFAULT));
+				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 988);
+				player.getPacketSender().sendFrame126(line[0], 989);
+				player.getPacketSender().sendFrame126(line[1], 990);
+				player.getPacketSender().sendFrame126(line[2], 991);
+				player.getPacketSender().sendFrame126(line[3], 992);
+				player.getPacketSender().sendPlayerDialogueHead(987);
+				player.getPacketSender().sendChatInterface(986);
+			break;
+		}
 	}
 
-	private void sendPlayerChat4(String s, String s1, String s2, String s3) {
-		player.getPacketSender().sendDialogueAnimation(987, 591);
-		player.getPacketSender().sendFrame126(player.playerName, 988);
-		player.getPacketSender().sendFrame126(s, 989);
-		player.getPacketSender().sendFrame126(s1, 990);
-		player.getPacketSender().sendFrame126(s2, 991);
-		player.getPacketSender().sendFrame126(s3, 992);
-		player.getPacketSender().sendPlayerDialogueHead(987);
-		player.getPacketSender().sendChatInterface(986);
+	public void sendPlayerChat(ChatEmotes e, String... line) {
+		switch (line.length) {
+			case 1:
+				player.getPacketSender().sendDialogueAnimation(969, getChatAnim(e));
+				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 970);
+				player.getPacketSender().sendFrame126(line[0], 971);
+				player.getPacketSender().sendPlayerDialogueHead(969);
+				player.getPacketSender().sendChatInterface(968);
+			break;
+			case 2:
+				player.getPacketSender().sendDialogueAnimation(974, getChatAnim(e));
+				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 975);
+				player.getPacketSender().sendFrame126(line[0], 976);
+				player.getPacketSender().sendFrame126(line[1], 977);
+				player.getPacketSender().sendPlayerDialogueHead(974);
+				player.getPacketSender().sendChatInterface(973);
+			break;
+			case 3:
+				player.getPacketSender().sendDialogueAnimation(980, getChatAnim(e));
+				player.getPacketSender().sendFrame126(player.playerName, 981);
+				player.getPacketSender().sendFrame126(line[0], 982);
+				player.getPacketSender().sendFrame126(line[1], 983);
+				player.getPacketSender().sendFrame126(line[2], 984);
+				player.getPacketSender().sendPlayerDialogueHead(980);
+				player.getPacketSender().sendChatInterface(979);
+			break;
+			case 4:
+				player.getPacketSender().sendDialogueAnimation(987, getChatAnim(e));
+				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 988);
+				player.getPacketSender().sendFrame126(line[0], 989);
+				player.getPacketSender().sendFrame126(line[1], 990);
+				player.getPacketSender().sendFrame126(line[2], 991);
+				player.getPacketSender().sendFrame126(line[3], 992);
+				player.getPacketSender().sendPlayerDialogueHead(987);
+				player.getPacketSender().sendChatInterface(986);
+			break;
+		}
 	}
 
-	public void sendOption2(String s, String s1) {
-		player.getPacketSender().sendFrame126("Select an Option", 2460);
-		player.getPacketSender().sendFrame126(s, 2461);
-		player.getPacketSender().sendFrame126(s1, 2462);
-		player.getPacketSender().sendChatInterface(2459);
+	/**
+	 * Options
+	 * such as yes/no
+	 */
+	
+	public void sendOption(String... line) {
+		switch (line.length) {
+			case 2:
+				player.getPacketSender().sendFrame126("Select an Option", 2460);
+				player.getPacketSender().sendFrame126(line[0], 2461);
+				player.getPacketSender().sendFrame126(line[1], 2462);
+				player.getPacketSender().sendChatInterface(2459);
+			break;
+			case 3:
+				player.getPacketSender().sendFrame126("Select an Option", 2470);
+				player.getPacketSender().sendFrame126(line[0], 2471);
+				player.getPacketSender().sendFrame126(line[1], 2472);
+				player.getPacketSender().sendFrame126(line[2], 2473);
+				player.getPacketSender().sendChatInterface(2469);
+			break;
+			case 4:
+				player.getPacketSender().sendFrame126("Select an Option", 2481);
+				player.getPacketSender().sendFrame126(line[0], 2482);
+				player.getPacketSender().sendFrame126(line[1], 2483);
+				player.getPacketSender().sendFrame126(line[2], 2484);
+				player.getPacketSender().sendFrame126(line[3], 2485);
+				player.getPacketSender().sendChatInterface(2480);
+			break;
+			case 5:
+				player.getPacketSender().sendFrame126("Select an Option", 2493);
+				player.getPacketSender().sendFrame126(line[0], 2494);
+				player.getPacketSender().sendFrame126(line[1], 2495);
+				player.getPacketSender().sendFrame126(line[2], 2496);
+				player.getPacketSender().sendFrame126(line[3], 2497);
+				player.getPacketSender().sendFrame126(line[4], 2498);
+				player.getPacketSender().sendChatInterface(2492);
+			break;
+		}
 	}
 
-	public void sendOption3(String s, String s1, String s2) {
-		player.getPacketSender().sendFrame126("Select an Option", 2470);
-		player.getPacketSender().sendFrame126(s, 2471);
-		player.getPacketSender().sendFrame126(s1, 2472);
-		player.getPacketSender().sendFrame126(s2, 2473);
-		player.getPacketSender().sendChatInterface(2469);
-	}
-
-	public void sendOption4(String s, String s1, String s2, String s3) {
-		player.getPacketSender().sendFrame126("Select an Option", 2481);
-		player.getPacketSender().sendFrame126(s, 2482);
-		player.getPacketSender().sendFrame126(s1, 2483);
-		player.getPacketSender().sendFrame126(s2, 2484);
-		player.getPacketSender().sendFrame126(s3, 2485);
-		player.getPacketSender().sendChatInterface(2480);
-	}
-
-	public void sendOption5(String s, String s1, String s2, String s3, String s4) {
-		player.getPacketSender().sendFrame126("Select an Option", 2493);
-		player.getPacketSender().sendFrame126(s, 2494);
-		player.getPacketSender().sendFrame126(s1, 2495);
-		player.getPacketSender().sendFrame126(s2, 2496);
-		player.getPacketSender().sendFrame126(s3, 2497);
-		player.getPacketSender().sendFrame126(s4, 2498);
-		player.getPacketSender().sendChatInterface(2492);
-	}
-
-	/*
+	/**
 	 * Statements
+	 * plain statement message
 	 */
 
-	public void sendStatement(String s) { // 1 line click here to continue chat
-											// box interface
-		player.getPacketSender().sendFrame126(s, 357);
-		player.getPacketSender().sendFrame126("Click here to continue", 358);
-		player.getPacketSender().sendChatInterface(356);
-	}
-
-	public void sendStatement2(String s, String s1) {
-		player.getPacketSender().sendFrame126(s, 360);
-		player.getPacketSender().sendFrame126(s1, 361);
-		player.getPacketSender().sendFrame126("Click here to continue", 362);
-		player.getPacketSender().sendChatInterface(359);
-	}
-
-	public void sendStatement3(String s, String s1, String s2) {
-		player.getPacketSender().sendFrame126(s, 364);
-		player.getPacketSender().sendFrame126(s1, 365);
-		player.getPacketSender().sendFrame126(s1, 366);
-		player.getPacketSender().sendFrame126("Click here to continue", 367);
-		player.getPacketSender().sendChatInterface(363);
-	}
-
-	public void sendStatement4(String s, String s1, String s2, String s3) {
-		player.getPacketSender().sendFrame126(s, 369);
-		player.getPacketSender().sendFrame126(s1, 370);
-		player.getPacketSender().sendFrame126(s2, 371);
-		player.getPacketSender().sendFrame126(s3, 372);
-		player.getPacketSender().sendFrame126("Click here to continue", 373);
-		player.getPacketSender().sendChatInterface(368);
+	public void sendStatement(String... line) {
+		switch (line.length) {
+			case 1:
+				player.getPacketSender().sendFrame126(line[0], 357);
+				player.getPacketSender().sendFrame126("Click here to continue", 358);
+				player.getPacketSender().sendChatInterface(356);
+			break;
+			case 2:
+				player.getPacketSender().sendFrame126(line[0], 360);
+				player.getPacketSender().sendFrame126(line[1], 361);
+				player.getPacketSender().sendFrame126("Click here to continue", 362);
+				player.getPacketSender().sendChatInterface(359);
+			break;
+			case 3:
+				player.getPacketSender().sendFrame126(line[0], 364);
+				player.getPacketSender().sendFrame126(line[1], 365);
+				player.getPacketSender().sendFrame126(line[2], 366);
+				player.getPacketSender().sendFrame126("Click here to continue", 367);
+				player.getPacketSender().sendChatInterface(363);
+			break;
+			case 4:
+				player.getPacketSender().sendFrame126(line[0], 369);
+				player.getPacketSender().sendFrame126(line[1], 370);
+				player.getPacketSender().sendFrame126(line[2], 371);
+				player.getPacketSender().sendFrame126(line[3], 372);
+				player.getPacketSender().sendFrame126("Click here to continue", 373);
+				player.getPacketSender().sendChatInterface(368);
+			break;
+		}
 	}
 
 	public void itemMessage(String title, String message, int itemid, int size) {
@@ -7160,126 +7195,6 @@ public class DialogueHandler {
 	 * ItemInformation Box
 	 */
 
-	public void itemMessage1(String message1, int itemid, int size) {
-		player.getPacketSender().sendDialogueAnimation(307, 591);
-		player.getPacketSender().sendFrame126(message1, 308);
-		player.getPacketSender().sendFrame246(307, size, itemid);
-		player.getPacketSender().sendChatInterface(306);
-		player.nextChat = 0;
-	}
-
-	/*
-	 * Give items
-	 */
-
-	public void sendGiveItemNpc(String text1, String text2, int item1, int item2) {
-		player.getPacketSender().sendFrame126(text1, 6232);
-		player.getPacketSender().sendFrame126(text2, 6233);
-		player.getPacketSender().sendFrame246(6235, 170, item1);
-		player.getPacketSender().sendFrame246(6236, 170, item2);
-		player.getPacketSender().sendChatInterface(6231);
-	}
-
-	public void sendGiveItemNpc(String text, int item) {
-		player.getPacketSender().sendFrame126(text, 308);
-		player.getPacketSender().sendFrame246(307, 200, item);
-		player.getPacketSender().sendChatInterface(306);
-	}
-
-	/**
-	 * USAGE: displayTwoItemsOption(c, new String {"Whip", "DDS", new int {
-	 * 4151, 5698}, new int { 150, 150}); Displays two items with a select one
-	 * option.
-	 */
-	public void displayTwoItemsOption(String[] s, int items[],
-			int[] zoom) {
-		player.getPacketSender().sendFrame126(s[0], 144);
-		player.getPacketSender().sendFrame126(s[1], 145);
-		player.getPacketSender().sendFrame246(items[0], zoom[0], 142);
-		player.getPacketSender().sendFrame246(items[1], zoom[1], 143);
-		player.getPacketSender().sendChatInterface(139);
-	}
-
-	/**
-	 * Displays single line text
-	 */
-	public void displaySingleLine(String s) {
-		player.getPacketSender().sendFrame126(s, 357);
-		player.getPacketSender().sendChatInterface(356);
-	}
-
-	/**
-	 * Displays two lined text
-	 */
-	public void displayTwoLined(String[] s) {
-		player.getPacketSender().sendFrame126(s[0], 360);
-		player.getPacketSender().sendFrame126(s[1], 361);
-		player.getPacketSender().sendChatInterface(359);
-	}
-
-	/**
-	 * Displays Three lined text
-	 */
-	public void displayThreeLined(String[] s) {
-		player.getPacketSender().sendFrame126(s[0], 364);
-		player.getPacketSender().sendFrame126(s[1], 365);
-		player.getPacketSender().sendFrame126(s[2], 366);
-		player.getPacketSender().sendChatInterface(363);
-	}
-
-	/**
-	 * Displays Four lined text
-	 */
-	public void displayFourLined(String[] s) {
-		player.getPacketSender().sendFrame126(s[0], 369);
-		player.getPacketSender().sendFrame126(s[1], 370);
-		player.getPacketSender().sendFrame126(s[2], 371);
-		player.getPacketSender().sendFrame126(s[2], 372);
-		player.getPacketSender().sendChatInterface(368);
-	}
-
-	/**
-	 * Select Option 2
-	 */
-	public void displaySelectOption2(String[] s) {
-		player.getPacketSender().sendFrame126(s[0], 2461);
-		player.getPacketSender().sendFrame126(s[1], 2462);
-		player.getPacketSender().sendChatInterface(2459);
-	}
-
-	/**
-	 * Select Option 3
-	 */
-	public void displaySelectOption3(String[] s) {
-		player.getPacketSender().sendFrame126(s[0], 2471);
-		player.getPacketSender().sendFrame126(s[1], 2472);
-		player.getPacketSender().sendFrame126(s[2], 2473);
-		player.getPacketSender().sendChatInterface(2469);
-	}
-
-	/**
-	 * Select Option 4
-	 */
-	public void displaySelectOption4(String[] s) {
-		player.getPacketSender().sendFrame126(s[0], 2482);
-		player.getPacketSender().sendFrame126(s[1], 2483);
-		player.getPacketSender().sendFrame126(s[2], 2484);
-		player.getPacketSender().sendFrame126(s[3], 2485);
-		player.getPacketSender().sendChatInterface(2480);
-	}
-
-	/**
-	 * Select Option 5
-	 */
-	public void displaySelectOption5(String[] s) {
-		player.getPacketSender().sendFrame126(s[0], 2494);
-		player.getPacketSender().sendFrame126(s[1], 2495);
-		player.getPacketSender().sendFrame126(s[2], 2496);
-		player.getPacketSender().sendFrame126(s[3], 2497);
-		player.getPacketSender().sendFrame126(s[4], 2498);
-		player.getPacketSender().sendChatInterface(2492);
-	}
-
 	public void itemMessage(String message1, int itemid, int size) {
 		player.getPacketSender().sendDialogueAnimation(307, 591);
 		player.getPacketSender().sendFrame126(message1, 308);
@@ -7288,41 +7203,39 @@ public class DialogueHandler {
 		player.nextChat = 0;
 	}
 
-	public void sendItemChat1(String header, String one, int item,
-			int zoom) {
-		player.getPacketSender().sendFrame246(4883, zoom, item);
-		player.getPacketSender().sendFrame126(header, 4884);
-		player.getPacketSender().sendFrame126(one, 4885);
-		player.getPacketSender().sendChatInterface(4882);
+	public void sendItemChat(int item, int zoom, String header, String... line) {
+		switch (line.length) {
+			case 1:
+				player.getPacketSender().sendFrame246(4883, zoom, item);
+				player.getPacketSender().sendFrame126(header, 4884);
+				player.getPacketSender().sendFrame126(line[0], 4885);
+				player.getPacketSender().sendChatInterface(4882);
+			break;
+			case 2:
+				player.getPacketSender().sendFrame246(4888, zoom, item);
+				player.getPacketSender().sendFrame126(header, 4889);
+				player.getPacketSender().sendFrame126(line[0], 4890);
+				player.getPacketSender().sendFrame126(line[1], 4891);
+				player.getPacketSender().sendChatInterface(4887);
+			break;
+			case 3:
+				player.getPacketSender().sendFrame246(4894, zoom, item);
+				player.getPacketSender().sendFrame126(header, 4895);
+				player.getPacketSender().sendFrame126(line[0], 4896);
+				player.getPacketSender().sendFrame126(line[1], 4897);
+				player.getPacketSender().sendFrame126(line[2], 4898);
+				player.getPacketSender().sendChatInterface(4893);
+			break;
+			case 4:
+				player.getPacketSender().sendFrame246(4901, zoom, item);
+				player.getPacketSender().sendFrame126(header, 4902);
+				player.getPacketSender().sendFrame126(line[0], 4903);
+				player.getPacketSender().sendFrame126(line[1], 4904);
+				player.getPacketSender().sendFrame126(line[2], 4905);
+				player.getPacketSender().sendFrame126(line[3], 4906);
+				player.getPacketSender().sendChatInterface(4900);
+			break;
+		}
 	}
-
-	public void sendItemChat2(String header, String one, String two,
-			int item, int zoom) {
-		player.getPacketSender().sendFrame246(4888, zoom, item);
-		player.getPacketSender().sendFrame126(header, 4889);
-		player.getPacketSender().sendFrame126(one, 4890);
-		player.getPacketSender().sendFrame126(two, 4891);
-		player.getPacketSender().sendChatInterface(4887);
-	}
-
-	public void sendItemChat3(String header, String one, String two,
-			String three, int item, int zoom) {
-		player.getPacketSender().sendFrame246(4894, zoom, item);
-		player.getPacketSender().sendFrame126(header, 4895);
-		player.getPacketSender().sendFrame126(one, 4896);
-		player.getPacketSender().sendFrame126(two, 4897);
-		player.getPacketSender().sendFrame126(three, 4898);
-		player.getPacketSender().sendChatInterface(4893);
-	}
-
-	public void sendItemChat4(String header, String one, String two,
-			String three, String four, int item, int zoom) {
-		player.getPacketSender().sendFrame246(4901, zoom, item);
-		player.getPacketSender().sendFrame126(header, 4902);
-		player.getPacketSender().sendFrame126(one, 4903);
-		player.getPacketSender().sendFrame126(two, 4904);
-		player.getPacketSender().sendFrame126(three, 4905);
-		player.getPacketSender().sendFrame126(four, 4906);
-		player.getPacketSender().sendChatInterface(4900);
-	}
+	
 }

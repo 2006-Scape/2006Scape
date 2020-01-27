@@ -7,9 +7,9 @@ import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.game.bots.BotHandler;
 import com.rebotted.game.content.combat.magic.SpellTeleport;
-import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.*;
+import com.rebotted.game.players.antimacro.AntiSpam;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
@@ -41,8 +41,46 @@ public class Commands implements PacketType {
     }
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
-        switch (playerCommand.toLowerCase())
-        {
+        switch (playerCommand.toLowerCase()) {
+        case "hideYell":
+        	player.hideYell =! player.hideYell;
+        	player.getPacketSender().sendMessage("Your yell visibility preferences have been updated.");
+        	break;
+        case "yell":
+        	int delay = 0;
+        	if (player.playerRights <= 1) {
+        		delay = 30000;
+        	}
+    		if (!AntiSpam.blockedWords(player, playerCommand.substring(5), true)) {
+    			return;
+    		}
+    		if (Connection.isMuted(player)) {
+    			player.getPacketSender().sendMessage("You are muted and can't speak.");
+    			return;
+    		}
+    		if (System.currentTimeMillis() - player.lastYell < delay) {
+    			player.getPacketSender().sendMessage("You must wait " + delay / 1000 + " seconds before yelling again.");
+    			return;
+    		}
+            for (int j = 0; j < PlayerHandler.players.length; j++) {
+                if (PlayerHandler.players[j] != null) {
+                    Client c2 = (Client) PlayerHandler.players[j];
+                    if (c2.hideYell) {
+						return;
+                    }
+                    if (player.playerRights == 0) {
+                    	 c2.getPacketSender().sendMessage("[Player]" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                    } else if (player.playerRights == 1) {
+                        c2.getPacketSender().sendMessage("@blu@[Moderator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                    } else if (player.playerRights == 2) {
+                        c2.getPacketSender().sendMessage("@gre@[Administator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                    } else if (player.playerRights == 3) {
+                        c2.getPacketSender().sendMessage("@red@[Developer] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                    }
+                    player.lastYell = System.currentTimeMillis();
+                }
+            }
+            break;
             case "claimvote":
                 if(!GameEngine.ersSecret.equals("")) {
                     final String playerName = player.playerName;
@@ -101,7 +139,7 @@ public class Commands implements PacketType {
             case "playershops":
                 int count = playerCommand.equalsIgnoreCase("players") ? PlayerHandler.getPlayerCount() : PlayerHandler.getPlayerShopCount();
                 if (count != 1) {
-                    player.getPacketSender().sendMessage("There are currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "players" : "player shops") + " online.");
+                    player.getPacketSender().sendMessage("There are currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "players" : "player shops") + " online (" + PlayerHandler.getNonPlayerCount() + " staff member online).");
                 } else {
                     player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online.");
                 }
@@ -361,20 +399,6 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Player Must Be Online.");
                 }
                 break;
-            case "yell":
-                for (int j = 0; j < PlayerHandler.players.length; j++) {
-                    if (PlayerHandler.players[j] != null) {
-                        Client c2 = (Client) PlayerHandler.players[j];
-                        if (player.playerRights == 1) {
-                            c2.getPacketSender().sendMessage("@blu@[Moderator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
-                        } else if (player.playerRights == 2) {
-                            c2.getPacketSender().sendMessage("@gre@[Administator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
-                        } else if (player.playerRights == 3) {
-                            c2.getPacketSender().sendMessage("@red@[Developer] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
-                        }
-                    }
-                }
-                break;
 
             case "mute":
                 try {
@@ -472,6 +496,23 @@ public class Commands implements PacketType {
     }
 
     public static void adminCommands(Player player, String playerCommand, String[] arguments) {
+        if (playerCommand.startsWith("getid")) {
+            String a[] = playerCommand.split(" ");
+            String itemName = "";
+            int itemCount = 0;
+            for (int i = 1; i < a.length; i++) 
+                    itemName = itemName + a[i]+ " ";
+            itemName = itemName.substring(0, itemName.length()-1);
+            player.getPacketSender().sendMessage("Searching: " + itemName);
+            for (int j = 0; j < GameEngine.itemHandler.ItemList.length; j++) {
+            	if (GameEngine.itemHandler.ItemList[j] != null)
+                    if (GameEngine.itemHandler.ItemList[j].itemName.replace("_", " ").toLowerCase().contains(itemName.toLowerCase())) {
+                    	 player.getPacketSender().sendMessage("@dre@" + GameEngine.itemHandler.ItemList[j].itemName.replace("_", " ")  + " - " + GameEngine.itemHandler.ItemList[j].itemId);
+                         itemCount++;
+                    }
+            }
+            player.getPacketSender().sendMessage(itemCount + " IDs found...");
+        }
         switch (playerCommand.toLowerCase()) {
             case "clearbank":
                 player.getItemAssistant().clearBank();

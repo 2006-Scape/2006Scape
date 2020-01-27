@@ -11234,15 +11234,14 @@ public class Game extends RSApplet {
 				// 15819 = Christmas Type
 				// 15812 = Security Type
 				// 15801 = Item Scam Type
-				// 15791 = Password Safety ?
+				// 15791 = Password Safety 
 				// 15774 = Good/Bad Password
-				// 15767 = Drama Type ????
-				int[] welcome = {17511, 15812, 15801, 15791, 15774, 15767};
+				// 15767 = Drama Type 
 				if (l7 == 15244) {
 					if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
-						openInterfaceID = welcome[random(5)];
+						openInterfaceID = 15819;
 					} else {
-						openInterfaceID = welcome[random(5)];
+						openInterfaceID = 15801;
 					}
 					fullScreenInterfaceId = 15244;
 				} else {

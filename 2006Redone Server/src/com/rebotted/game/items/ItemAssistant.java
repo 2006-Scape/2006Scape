@@ -3,6 +3,7 @@ package com.rebotted.game.items;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
+import com.rebotted.game.content.skills.runecrafting.Tiaras;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.MainFrameIDs;
@@ -48,40 +49,6 @@ public class ItemAssistant {
 				}
 			}
 		}
-	}
-
-	private final int[] TREE_SEEDS = { 5291, 5292, 5293, 5294, 5295, 5296, 5297,
-			5298, 5299, 5300, 5301, 5302, 5303, 5304, 5315, 5316, 5313, 5314 };
-
-	public void handleTreeSeeds(int itemId) {
-		c.getPacketSender().sendMessage("You search the nest...");
-		final int reward = TREE_SEEDS[Misc.random(TREE_SEEDS.length)];
-		addItem(reward, 1 + Misc.random(1));
-		deleteItem(itemId, 1);
-		addItem(5075, 1);
-		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
-	}
-
-	private final int[] SEEDS = { 5291, 5292, 5293, 5294, 5295, 5296, 5297, 298, 5299, 5300, 5301, 5302, 5303, 5304 };
-
-	public void handleNonTreeSeeds(int itemId) {
-		c.getPacketSender().sendMessage("You search the nest...");
-		final int reward = SEEDS[Misc.random(SEEDS.length)];
-		addItem(reward, 1 + Misc.random(1));
-		deleteItem(itemId, 1);
-		addItem(5075, 1);
-		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
-	}
-
-	public int[] RINGS = { 1635, 1637, 1639, 1641, 1643 };
-
-	public void handleRings(int itemId) {
-		c.getPacketSender().sendMessage("You search the nest...");
-		int reward = RINGS[Misc.random(RINGS.length)];
-		addItem(reward, 1);
-		deleteItem(itemId, 1);
-		addItem(5075, 1);
-		c.getPacketSender().sendMessage("You find a " + getItemName(reward) + ".");
 	}
 
 	public void updateInventory() {
@@ -1572,6 +1539,7 @@ public class ItemAssistant {
 			getBonus();
 			writeBonus();
 			c.getCombatAssistant().getPlayerAnimIndex();
+			Tiaras.handleTiara(c, wearID);
 			c.getPlayerAssistant().requestUpdates();
 			return true;
 		} else {
@@ -1661,7 +1629,7 @@ public class ItemAssistant {
 					c.flushOutStream();
 					c.updateRequired = true;
 					c.setAppearanceUpdateRequired(true);
-					Weight.calcWeight(c, wearID, "deleteitem");
+					//Weight.calcWeight(c, wearID, "deleteitem");
 				}
 			}
 		}
@@ -2500,6 +2468,7 @@ public class ItemAssistant {
 			c.playerItemsN[i] = 0;
 		}
 		resetItems(3214);
+		Weight.updateWeight(c);
 	}
 
 	public int freeSlots() {

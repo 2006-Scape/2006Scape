@@ -118,9 +118,17 @@ public class PlayerAssistant {
 		} else {
 			player.getPacketSender().sendFrame126("\\nYou currently have a bank pin set.\\nBank pins are coming soon!.", 15270);
 		}
-		player.getPacketSender().sendFrame126("Remember to vote daily to help " + GameConstants.SERVER_NAME + "", 15803);
-		player.getPacketSender().sendFrame126("Every vote counts! :)", 15804);
+		int random = Misc.random(3);
+		player.getPacketSender().sendFrame126(welcomeMessages[random][0], 15803);
+		player.getPacketSender().sendFrame126(welcomeMessages[random][1], 15804);
 	}
+	
+	private String[][] welcomeMessages = {
+			{"Remember to vote daily to help " + GameConstants.SERVER_NAME + "", "Every vote counts! :)"}, 
+			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/Nk9WQUK"},
+			{"Do you have any bugs that you would like to report?", "Report them on our discord or message a staff member. :)"},
+			{"Want to help the server grow?", "Remember to vote daily and invite your friends!"}
+		};
 	
 	public void showMap() {
 		int posisition = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
@@ -647,12 +655,12 @@ public class PlayerAssistant {
 	}
 
 	public void spiritTree() {
-		player.getDialogueHandler().sendOption3("The Tree Gnome Village", "The Gnome Stronghold", "Varrock");
+		player.getDialogueHandler().sendOption("The Tree Gnome Village", "The Gnome Stronghold", "Varrock");
 		player.dialogueAction = 53;
 	}
 
 	public void handleCanoe() {
-		player.getDialogueHandler().sendOption4("Travel the canoe to Barbarian Village.", "Travel the canoe to the Champions Guild.", "Travel the canoe to Lumbridge.", "Travel the canoe to Edgeville.");
+		player.getDialogueHandler().sendOption("Travel the canoe to Barbarian Village.", "Travel the canoe to the Champions Guild.", "Travel the canoe to Lumbridge.", "Travel the canoe to Edgeville.");
 		player.dialogueAction = 122;
 	}
 
@@ -660,7 +668,7 @@ public class PlayerAssistant {
 		int reqAmount = 10 - player.getItemAssistant().getItemCount(1963);
 		switch (player.getItemAssistant().getItemCount(1963)) {
 		case 0:
-			player.getDialogueHandler().sendPlayerChat1("I'll go collect " + reqAmount + " bannnas then come back...");
+			player.getDialogueHandler().sendPlayerChat("I'll go collect " + reqAmount + " bannnas then come back...");
 			break;
 		case 1:
 		case 2:
@@ -671,7 +679,7 @@ public class PlayerAssistant {
 		case 7:
 		case 8:
 		case 9:
-			player.getDialogueHandler().sendPlayerChat1(
+			player.getDialogueHandler().sendPlayerChat(
 					"I'll go collect " + reqAmount
 							+ " more bannnas then come back...");
 			break;
@@ -933,7 +941,7 @@ public class PlayerAssistant {
 	}
 
 	public void handleEmpty() {
-		player.getDialogueHandler().sendOption2("Yes, empty my inventory please.",
+		player.getDialogueHandler().sendOption("Yes, empty my inventory please.",
 				"No, don't empty my inventory.");
 		player.dialogueAction = 855;
 	}
@@ -1539,7 +1547,7 @@ public class PlayerAssistant {
 		} else if (player.tutorialProgress < 36 || player.isInTut()) {
 			player.getPlayerAssistant().movePlayer(3094, 3107, 0);
 			player.diedOnTut = true;
-			player.getDialogueHandler().sendStatement2(
+			player.getDialogueHandler().sendStatement(
 					"Oh dear you died! Go back to the step you",
 					"were on to continue Tutorial Island.");
 			player.getPacketSender().createArrow(3098, 3107, player.getH(),

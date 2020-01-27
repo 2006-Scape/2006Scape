@@ -8,7 +8,6 @@ import java.util.Scanner;
 import com.rebotted.GameEngine;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
-import com.rebotted.world.clip.Region;
 
 
 public class Doors {

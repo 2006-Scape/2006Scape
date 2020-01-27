@@ -64,17 +64,24 @@ public class Npc {
     	updateRequired = true;
 	}
 	
-	public boolean requestTransformTime(Player player, int itemId, int animation, final int currentId, final int newId, int transformTime, final int npcId) {
-		if (!player.getItemAssistant().playerHasItem(itemId)) {
-			player.getPacketSender().sendMessage("You need " + ItemAssistant.getItemName(itemId).toLowerCase() + " to do that.");
-			return false;
+	public void shearSheep(Player player, int itemNeeded, int itemGiven, int animation, final int currentId, final int newId, int transformTime) {
+		if (!player.getItemAssistant().playerHasItem(itemNeeded)) {
+			player.getPacketSender().sendMessage("You need " + ItemAssistant.getItemName(itemNeeded).toLowerCase() + " to do that.");
+			return;
 		}
-		if (NpcHandler.npcs[npcId].isTransformed)
-			return false;
-		if (animation > 0)
+		if (transformId == newId) {
+			player.getPacketSender().sendMessage("This sheep has already been shorn.");
+			return;
+		}
+		if (NpcHandler.npcs[npcId].isTransformed) {
+			return;
+		}
+		if (animation > 0) {
 			player.startAnimation(animation);
-		NpcHandler.npcs[npcId].isTransformed = true;
+		}
 		requestTransform(newId);
+		player.getItemAssistant().addItem(itemGiven, 1);
+		player.getPacketSender().sendMessage("You get some " + ItemAssistant.getItemName(itemGiven).toLowerCase() + ".");
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override
@@ -88,7 +95,6 @@ public class Npc {
 				NpcHandler.npcs[npcId].isTransformed = false;
 			}
 		}, transformTime);
-		return true;
 	}
 	
 	public void appendTransformUpdate(Stream str) {

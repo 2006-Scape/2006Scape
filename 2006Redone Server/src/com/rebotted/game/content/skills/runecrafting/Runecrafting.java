@@ -19,23 +19,37 @@ public class Runecrafting {
 		this.c = player;
 	}
 
-	public static void locate(Client c, int xPos, int yPos) {
+	public static void locate(Player c, int xPos, int yPos) {
 		String X = "";
 		String Y = "";
 		if (c.absX >= xPos) {
 			X = "west";
 		}
 		if (c.absY > yPos) {
-			Y = "South";
+			Y = "south";
 		}
 		if (c.absX < xPos) {
 			X = "east";
 		}
 		if (c.absY <= yPos) {
-			Y = "North";
+			Y = "north";
 		}
 		c.getPacketSender().sendMessage("You need to travel " + Y + "-" + X + ".");
 	}
+	
+	public final static int RC_DATA[][] = {
+			{ 1438, 5527, 2478}, // air
+			{ 1448, 5529, 2479 }, // mind
+			{ 1444, 5531, 2480 }, // water
+			{ 1440, 5535, 2481 }, // earth
+			{ 1442, 5537, 2482 }, // fire
+			{ 1446, 5533, 2483 }, // body
+			{ 1454, 5539, 2484 }, // cosmic
+			{ 1452, 5543, 2487 }, // chaos
+			{ 1462, 5541, 2486 }, // nature
+			{ 1458, 5545, 2485 }, // law
+			{ 1456, 5547, 2488 }, // death
+	};
 
 	private enum Altars {
 		AIR_ALTAR(2452, new int[] { 1438, 5527 }, new int[] { 2842, 4829 }),

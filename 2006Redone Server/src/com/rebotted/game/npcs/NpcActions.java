@@ -25,10 +25,6 @@ public class NpcActions {
 		c.rememberNpcIndex = c.npcClickIndex;
 		c.npcClickIndex = 0;
 		Shops.dialogueShop(c, npcType);
-		if (Pickpocket.isNPC(c, npcType)) {
-			Pickpocket.attemptPickpocket(c, npcType);
-			return;
-		}
 		if (Fishing.fishingNPC(c, npcType)) {
 			Fishing.fishingNPC(c, 1, npcType);
 		}
@@ -202,9 +198,8 @@ public class NpcActions {
 			break;
 
 		case 844:
-			if (c.runeMist < 4) {
-				c.getDialogueHandler().sendStatement(
-						"You need to beat rune mysteries first to do this.");
+			if (c.runeMist < 4 && c.playerRights <= 1) {
+				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
 				c.nextChat = 0;
 				return;
 			}
@@ -232,8 +227,7 @@ public class NpcActions {
 				c.getDialogueHandler().sendDialogues(3008, npcType);
 			}
 			if (c.tutorialProgress == 2) {
-				c.getDialogueHandler().sendNpcChat1("You should move on now.",
-						npcType, "Runescape Guide");
+				c.getDialogueHandler().sendNpcChat1("You should move on now.", npcType, "Runescape Guide");
 			}
 			break;
 
@@ -623,11 +617,6 @@ public class NpcActions {
 			break;
 
 		case 284:
-			if (c.playerLevel[14] < 14) {
-				c.getDialogueHandler().sendStatement(
-						"You don't have the requirements to do this quest.");
-				return;
-			}
 			if (c.doricQuest == 0) {
 				c.getDialogueHandler().sendDialogues(89, npcType);
 			} else if (c.doricQuest == 1) {
@@ -991,11 +980,14 @@ public class NpcActions {
 				c.getPacketSender().sendMessage("This is not your pet.");
 			}
 		}
-
 		switch (npcType) {
 		
+		case 3:
+			c.getDialogueHandler().sendDialogues(5, npcType);
+			break;
+			
 		 case 209:
-	        	c.getShopAssistant().openShop(144);
+	        c.getShopAssistant().openShop(144);
 	        break;
 	        
 	        
@@ -1013,12 +1005,12 @@ public class NpcActions {
 			c.nextChat = 0;
 		} else {
 			 if (c.getItemAssistant().playerHasItem(995, 1000)) {
-			//Sailing.startTravel(c, 17);	
-			c.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
-			c.getItemAssistant().deleteItem(995, 1000);
-			c.getDialogueHandler().sendStatement("You arrive safely.");
-			c.nextChat = 0;
-			 }
+				//Sailing.startTravel(c, 17);	
+				c.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
+				c.getItemAssistant().deleteItem(995, 1000);
+				c.getDialogueHandler().sendStatement("You arrive safely.");
+				c.nextChat = 0;
+			}
 		}
 		break;
 
@@ -1028,15 +1020,13 @@ public class NpcActions {
 			if (c.questPoints >= requiredQP) {
 				c.getShopAssistant().openShop(npcType);
 			} else {
-				c.getPacketSender().sendMessage(
-						"You need " + requiredQP + " quest points to open this shop.");
+				c.getPacketSender().sendMessage("You need " + requiredQP + " quest points to open this shop.");
 			}
 			break;
 
 		case 300:
-			if (c.runeMist < 4) {
-				c.getDialogueHandler().sendStatement(
-						"You need to beat rune mysteries first to do this.");
+			if (c.runeMist < 4 && c.playerRights <= 1) {
+				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
 				c.nextChat = 0;
 				return;
 			}
@@ -1078,9 +1068,8 @@ public class NpcActions {
 
 		case 844:
 		case 462:
-			if (c.runeMist < 4) {
-				c.getDialogueHandler().sendStatement(
-						"You need to beat rune mysteries first to do this.");
+			if (c.runeMist < 4 && c.playerRights <= 1) {
+				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
 				c.nextChat = 0;
 				return;
 			}
@@ -1128,10 +1117,6 @@ public class NpcActions {
 		c.clickNpcType = 0;
 		c.rememberNpcIndex = c.npcClickIndex;
 		c.npcClickIndex = 0;
-		if (Pickpocket.isNPC(c, npcType)) {
-			Pickpocket.attemptPickpocket(c, npcType);
-			return;
-		}
 		if (Pets.isCat(npcType)) {
 			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId) {
 				c.getDialogueHandler().sendDialogues(910, npcType);
@@ -1176,9 +1161,8 @@ public class NpcActions {
 			}
 			break;
 		case 553:
-			if (c.runeMist < 4) {
-				c.getDialogueHandler().sendStatement(
-						"You need to beat rune mysteries first to do this.");
+			if (c.runeMist < 4 && c.playerRights <= 1) {
+				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
 				return;
 			}
 			String type = c.playerMagicBook == 0 ? "modern" : "ancient";

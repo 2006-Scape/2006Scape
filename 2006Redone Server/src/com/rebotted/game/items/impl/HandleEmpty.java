@@ -19,9 +19,9 @@ public class HandleEmpty {
 		if (!itemName.contains("Ring") && !itemName.contains("necklace")) {
 		if (itemName.contains("(3)") || itemName.contains("(4)") || itemName.contains("(2)") || itemName.contains("(1)")  || itemName.contains("Weapon poison")) {
 			if (id != 1712 && id != 1710 && id != 1708 && id != 1706) {
-				c.getItemAssistant().deleteItem(id, c.getItemAssistant().getItemSlot(id), 1);
-				c.getItemAssistant().addItem(229, 1);
-				c.getPacketSender().sendMessage("You empty the vial.");
+					c.getItemAssistant().deleteItem(id, c.getItemAssistant().getItemSlot(id), 1);
+					c.getItemAssistant().addItem(229, 1);
+					c.getPacketSender().sendMessage("You empty the vial.");
 				}
 			}
 		}
@@ -36,6 +36,15 @@ public class HandleEmpty {
 			return 229;
 		case 1927: // Buckets
 		case 1929:
+		case 4687:
+		case 4286:
+		case 1784:
+		case 4693:
+		case 6712:
+		case 7471:
+		case 7622:
+		case 7624:
+		case 7626:
 			return 1925;
 		}
 		return -1;

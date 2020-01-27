@@ -12,7 +12,7 @@ public class Players implements MessageCreateListener {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::players")) {
             if (PlayerHandler.getPlayerCount() != 1) {
-                event.getChannel().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online.");
+                event.getChannel().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online (" + PlayerHandler.getNonPlayerCount() + " staff online).");
             } else {
                 event.getChannel().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
             }

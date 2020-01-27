@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.skills.core.Mining;
-import com.rebotted.game.content.skills.core.Woodcutting;
+import com.rebotted.game.content.skills.woodcutting.Woodcutting;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;

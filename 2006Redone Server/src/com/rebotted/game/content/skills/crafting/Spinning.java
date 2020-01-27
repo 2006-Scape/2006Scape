@@ -29,41 +29,36 @@ public class Spinning extends CraftingData {
 		c.isSpinning = true;
 	}
 
-	public static void spinItem(final Player c) {
-		c.getPacketSender().closeAllWindows();
+	public static void spinItem(final Player player) {
+		player.getPacketSender().closeAllWindows();
 		for (int[] element : BEFORE_AFTER) {
 			final int before = element[0];
 			final int after = element[1];
 			final int exp = element[2];
 			final int level = element[3];
-			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 				@Override
 				public void execute(CycleEventContainer container) {
-					if (c.isSpinning) {
-						if (c.getItemAssistant().playerHasItem(before)) {
-							if (c.playerLevel[c.playerCrafting] < level) {
-								c.getDialogueHandler().sendStatement(
+					if (player.isSpinning == true) {
+						if (player.getItemAssistant().playerHasItem(before)) {
+							if (player.playerLevel[player.playerCrafting] < level) {
+								player.getDialogueHandler().sendStatement(
 										"You need a crafting level of " + level
 												+ " to do this.");
 								return;
 							}
-							c.startAnimation(896);
-							int amount = c.getItemAssistant().getItemCount( before);
-							c.getItemAssistant().deleteItem(before, amount);
-							c.getItemAssistant().addItem(after, amount);
-							c.getPlayerAssistant().addSkillXP(exp * amount, c.playerCrafting);
-							c.getPacketSender().sendMessage("You spin the " + ItemAssistant.getItemName(before) + " into a " + ItemAssistant.getItemName(after) + ".");
-							c.doAmount--;
+							player.startAnimation(896);
+							player.getItemAssistant().deleteItem(before, 1);
+							player.getItemAssistant().addItem(after, 1);
+							player.getPlayerAssistant().addSkillXP(exp, player.playerCrafting);
+							player.getPacketSender().sendMessage("You spin the " + ItemAssistant.getItemName(before) + " into a " + ItemAssistant.getItemName(after) + ".");
+							player.doAmount--;
 						}
 
-						if (!c.getItemAssistant().playerHasItem(before)
-								|| c.isSpinning == false) {
+						if (player.doAmount <= 0 || player.isSpinning == false) {
 							container.stop();
-						}
-
-						if (c.doAmount <= 0) {
-							container.stop();
+							return;
 						}
 					}
 
@@ -71,9 +66,11 @@ public class Spinning extends CraftingData {
 
 				@Override
 				public void stop() {
-					c.isSpinning = false;
+					player.isSpinning = false;
+					player.startAnimation(65535);
+					return;
 				}
-			}, 2);
+			}, 3);
 		}
 	}
 }

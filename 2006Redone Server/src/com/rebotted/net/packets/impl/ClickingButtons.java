@@ -8,10 +8,10 @@ import com.rebotted.game.content.music.Music;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.content.random.PartyRoom;
-import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.randomevents.SandwhichLady;
 import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.content.skills.cooking.CookingTutorialIsland;
+import com.rebotted.game.content.skills.cooking.DairyChurn;
 import com.rebotted.game.content.skills.crafting.LeatherMaking;
 import com.rebotted.game.content.skills.crafting.Pottery;
 import com.rebotted.game.content.skills.crafting.Spinning;
@@ -56,6 +56,7 @@ public class ClickingButtons implements PacketType {
 		Climbing.handleLadderButtons(player, actionButtonId);
 		Specials.specialClicking(player, actionButtonId);
 		DialogueOptions.handleDialogueOptions(player, actionButtonId);
+		DairyChurn.churnItem(player, actionButtonId);
 		if (player.musicOn) {
 			player.getPlayList().handleButton(actionButtonId);
 		}

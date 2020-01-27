@@ -1,6 +1,6 @@
 package com.rebotted.game.objects.impl;
 
-import com.rebotted.game.content.skills.core.Woodcutting;
+import com.rebotted.game.content.skills.woodcutting.Woodcutting;
 import com.rebotted.game.players.Player;
 
 /**

@@ -3,7 +3,6 @@ package com.rebotted.game.content.consumables;
 import java.util.HashMap;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.items.impl.RareProtection;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 

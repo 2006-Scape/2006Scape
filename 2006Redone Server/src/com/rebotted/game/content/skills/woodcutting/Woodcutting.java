@@ -1,6 +1,5 @@
-package com.rebotted.game.content.skills.core;
+package com.rebotted.game.content.skills.woodcutting;
 
-import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
@@ -105,9 +104,9 @@ public class Woodcutting {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (p.isWoodcutting) {
-					if ((p.axeAnimation >= 0) && (p.axeAnimation < Axe_Settings.length))	{
+					if ((p.woodcuttingAxe >= 0) && (p.woodcuttingAxe < Axe_Settings.length))	{
 						try {
-							p.startAnimation(Axe_Settings[p.axeAnimation][3]);
+							p.startAnimation(Axe_Settings[p.woodcuttingAxe][3]);
 						} catch (ArrayIndexOutOfBoundsException exception) {
 							System.out.println("LOL this happend again: " + exception);
 						}
@@ -241,7 +240,7 @@ public class Woodcutting {
 			return;
 		}
 		int wcLevel = p.playerLevel[8];
-		p.axeAnimation = -1;
+		p.woodcuttingAxe = -1;
 		treeData tree = treeData.getTree(objectId);
 		p.turnPlayerTo(x, y);
 		if (tree.getLevelReq() > wcLevel) {
@@ -251,11 +250,11 @@ public class Woodcutting {
 		for (int i = 0; i < Axe_Settings.length; i++) {
 			if (p.getItemAssistant().playerHasItem(Axe_Settings[i][0]) || p.playerEquipment[p.playerWeapon] == Axe_Settings[i][0]) {
 				if (Axe_Settings[i][1] <= wcLevel) {
-					p.axeAnimation = i;
+					p.woodcuttingAxe = i;
 				}
 			}
 		}
-		if (p.axeAnimation == -1) {
+		if (p.woodcuttingAxe == -1) {
 			p.getPacketSender().sendMessage("You need an axe to cut this tree.");
 			return;
 		}
@@ -268,7 +267,7 @@ public class Woodcutting {
 				p.getPacketSender().sendMessage("You are already woodcutting!");
 				return;
 			}
-			p.startAnimation(Axe_Settings[p.axeAnimation][3]);
+			p.startAnimation(Axe_Settings[p.woodcuttingAxe][3]);
 			p.isWoodcutting = true;
 			p.getPacketSender().sendSound(SoundList.TREE_CUT_BEGIN, 100, 0);
 			repeatAnimation(p);
@@ -290,7 +289,7 @@ public class Woodcutting {
 
 				@Override
 				public void execute(CycleEventContainer container) {
-					if (p.axeAnimation <= -1)
+					if (p.woodcuttingAxe <= -1)
 					{
 						container.stop();
 						return;
@@ -304,7 +303,7 @@ public class Woodcutting {
 						return;
 					}
 					if (p.isWoodcutting) {
-						p.startAnimation(Axe_Settings[p.axeAnimation][3]);
+						p.startAnimation(Axe_Settings[p.woodcuttingAxe][3]);
 					}
 					if (p.getItemAssistant().freeSlots() < 1) {
 						p.getPacketSender().sendMessage("You have ran out of inventory slots.");
@@ -320,7 +319,7 @@ public class Woodcutting {
 						p.getDialogueHandler().sendDialogues(3014, 0);
 					}
 					if (p.isWoodcutting) {
-						birdNests(p);
+						BirdNest.birdNests(p);
 					}
 					if (p.isWoodcutting && p.tutorialProgress >= 36 && p.treeSpiritSpawned == false) {
 						RandomEventHandler.addRandom(p);
@@ -344,7 +343,7 @@ public class Woodcutting {
 					p.treeX = 0;
 					p.treeY = 0;
 				}
-			}, getTimer(tree, p.axeAnimation, wcLevel));
+			}, getTimer(tree, p.woodcuttingAxe, wcLevel));
 		}
 	}
 
@@ -362,17 +361,6 @@ public class Woodcutting {
 		} else {
 			return (int)timer;
 		}
-	}
-
-	public static void birdNests(Player p) {
-		if (Misc.random(200) == 69 && p.tutorialProgress >= 36) {
-			p.getPacketSender().sendMessage("A birds nest falls from the branches.");
-			dropNest(p);
-		}
-	}
-
-	public static void dropNest(Player p) {
-		GameEngine.itemHandler.createGroundItem(p, 5070 + Misc.random(4), p.getX(), p.getY(), 1, p.getId());
 	}
 
 	public static boolean playerTrees(Player player, int tree) {

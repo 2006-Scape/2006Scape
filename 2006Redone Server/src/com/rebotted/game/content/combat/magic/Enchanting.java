@@ -154,9 +154,8 @@ public class Enchanting {
 				ens.put(en.getSpell(), en);
 			}
 		}
-
 	}
-
+	
 	private boolean hasRunes(int spellID) {
 		EnchantSpell ens = EnchantSpell.forId(spellID);
 		if (ens.getReq3() == 0) {
@@ -230,7 +229,7 @@ public class Enchanting {
 						c.getPacketSender().sendFrame106(6);
 					} else {
 						c.getPacketSender().sendMessage(
-								"You can only enchant this jewelry using a level-"
+								"You can only enchant this jewelery using a level-"
 										+ enc.getELevel()
 										+ " enchantment spell!");
 					}
