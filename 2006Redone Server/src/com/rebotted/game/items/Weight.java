@@ -5,7 +5,7 @@ import com.rebotted.game.players.Player;
 /**
  * @author somedude, credits to Galkon for item weights
  */
-public class Weight extends ItemDefinitions {
+public class Weight extends ItemDefinition {
 
     /**
      * Calculates the weight when doing actions
