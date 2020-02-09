@@ -213,7 +213,14 @@ public class GameEngine {
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 		
-		
+		try {
+			while (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
+				// TODO
+				// Cleanup?
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		acceptor = null;
 		connectionHandler = null;
