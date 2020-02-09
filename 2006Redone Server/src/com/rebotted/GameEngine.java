@@ -159,8 +159,7 @@ public class GameEngine {
 		 * 300ms to execute, this scheduler will wait 300ms only before the next
 		 * tick.
 		 * 
-		 * Each tick, it will attempt to get a lock on the main server thread.
-		 * Without locking this runnable, multiple ticks could occur at once.
+		 * scheduleAtFixedRate() does not invoke concurrent Runnables.
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
 			public void run() {
