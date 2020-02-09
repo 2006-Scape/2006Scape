@@ -164,8 +164,6 @@ public class GameEngine {
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
 			public void run() {
-				if (lock.tryLock()) {
-					synchronized (lock) {
 						/**
 						 * Main Server Tick
 						 */
@@ -215,10 +213,6 @@ public class GameEngine {
 								scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 							}
 						}
-					}
-				} else {
-					System.out.println("Can't Keep up! Did the system time change or is the server overloaded?");
-				}
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 		
