@@ -5,7 +5,7 @@ public class GameConstants {
 	public final static boolean SERVER_DEBUG = false;
 
 	public final static String SERVER_NAME = "2006rebotted", SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
-	public final static double TEST_VERSION = 2.00;
+	public final static double TEST_VERSION = 2.1;
 	public static int BANK_SIZE = 352;
 	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE, CLIENT_VERSION = 999999,
 			WORLD = 1, IPS_ALLOWED = 250, CONNECTION_DELAY = 100,

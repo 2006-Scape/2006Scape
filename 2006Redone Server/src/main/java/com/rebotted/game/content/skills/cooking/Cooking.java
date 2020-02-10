@@ -14,18 +14,17 @@ import com.rebotted.util.Misc;
 
 public class Cooking extends SkillHandler {
 
-	private static SecureRandom cookingRandom = new SecureRandom(); // The
-																	// random
-																	// factor
+	private static SecureRandom cookingRandom = new SecureRandom(); // The random factor
 
 	private static enum CookingItems {
 		//raw, cooked, burnt, levelreq, exp, stopburn, stopburn w/gloves, name
-		SHRIMP(317, 315, 7954, 1, 30, 34, 30, "shrimp"), SARDINE(327, 325, 369,
-				1, 40, 38, 38, "sardine"), HERRING(345, 347, 357, 5, 50, 41,
-				41, "herring"), TROUT(335, 333, 343, 15, 70, 50, 50, "trout"), TUNA(
-				359, 361, 367, 30, 100, 64, 63, "tuna"), ANCHOVIES(321, 319,
-				323, 5, 45, 34, 34, "anchovies"), RAW_BEEF(2132, 2142, 2146, 1,
-				30, 33, 33, "raw beef"), 
+				SHRIMP(317, 315, 7954, 1, 30, 34, 30, "shrimp"), 
+				SARDINE(327, 325, 369, 1, 40, 38, 38, "sardine"), 
+				HERRING(345, 347, 357, 5, 50, 41, 41, "herring"), 
+				TROUT(335, 333, 343, 15, 70, 50, 50, "trout"), 
+				TUNA(359, 361, 367, 30, 100, 64, 63, "tuna"), 
+				ANCHOVIES(321, 319, 323, 5, 45, 34, 34, "anchovies"), 
+				RAW_BEEF(2132, 2142, 2146, 1, 30, 33, 33, "raw beef"), 
 				RAW_RAT(2134, 2142, 2146, 1, 30, 33, 33, "raw rat meat"), 
 				BURNT_MEAT(2142, 2146, 2146, 1, 1, 100, 100, "cooked meat"),
 				RAW_CHICKEN(2138, 2140, 2144, 1, 30, 33, 33, "raw chicken"), 
@@ -33,23 +32,20 @@ public class Cooking extends SkillHandler {
 				MACKERAL(353, 355, 357, 10, 60, 45, 45, "mackeral"), 
 				SALMON(331, 329, 343, 25, 90, 58, 55, "salmon"),
 				UNCOOKED_BERRY_PIE(2321, 2325, 2329, 10, 78, 50, 50, "uncooked pie"),
-				PIKE(
-				349, 351, 343, 20, 80, 59, 59, "pike"), KARAMBWAN(3142, 3144,
-				3146, 1, 80, 20, 20, "karambwan"), LOBSTER(377, 379, 381, 40,
-				120, 74, 68, "lobster"), SWORDFISH(371, 373, 375, 50, 140, 86,
-				81, "swordfish"), MONKFISH(7944, 7946, 7948, 62, 150, 92, 90,
-				"monkfish"), SHARK(383, 385, 387, 76, 210, 100, 94, "shark"), MANTA_RAY(
-				389, 391, 393, 91, 169, 100, 100, "manta ray"),
+				PIKE(349, 351, 343, 20, 80, 59, 59, "pike"), 
+				KARAMBWAN(3142, 3144, 3146, 1, 80, 20, 20, "karambwan"), 
+				LOBSTER(377, 379, 381, 40, 120, 74, 68, "lobster"), 
+				SWORDFISH(371, 373, 375, 50, 140, 86, 81, "swordfish"),
+				MONKFISH(7944, 7946, 7948, 62, 150, 92, 90,	"monkfish"), 
+				SHARK(383, 385, 387, 76, 210, 100, 94, "shark"), 
+				MANTA_RAY(389, 391, 393, 91, 169, 100, 100, "manta ray"),
 				SEAWEED(401, 1781, 1781, 1, 1, 1, 1, "sea weed"),
 				CURRY(2009, 2011, 2013, 60, 280, 74, 74, "curry");
 
-		int rawItem, cookedItem, burntItem, levelReq, xp, stopBurn,
-				stopBurnGloves;
+		int rawItem, cookedItem, burntItem, levelReq, xp, stopBurn, stopBurnGloves;
 		String name;
 
-		private CookingItems(int rawItem, int cookedItem, int burntItem,
-				int levelReq, int xp, int stopBurn, int stopBurnGloves,
-				String name) {
+		private CookingItems(int rawItem, int cookedItem, int burntItem, int levelReq, int xp, int stopBurn, int stopBurnGloves, String name) {
 			this.rawItem = rawItem;
 			this.cookedItem = cookedItem;
 			this.burntItem = burntItem;
@@ -102,76 +98,53 @@ public class Cooking extends SkillHandler {
 	}
 
 	public static void makeBreadOptions(Player c, int item) {
-		if (c.getItemAssistant().playerHasItem(1929)
-				&& c.getItemAssistant().playerHasItem(1933)
-				&& item == c.breadID) {
+		if (c.getItemAssistant().playerHasItem(1929) && c.getItemAssistant().playerHasItem(1933) && item == c.breadID) {
 			c.getItemAssistant().deleteItem(1929, 1);
 			c.getItemAssistant().deleteItem(1933, 1);
 			c.getItemAssistant().addItem(1925, 1);
 			c.getItemAssistant().addItem(1931, 1);
 			c.getItemAssistant().addItem(item, 1);
-			c.getPacketSender().sendMessage(
-					"You make the water and flour to make some "
-							+ ItemAssistant.getItemName(item) + ".");
+			c.getPacketSender().sendMessage("You mix the water and flour to make some " + ItemAssistant.getItemName(item) + ".");
 		}
 		c.getPacketSender().closeAllWindows();
 	}
 
-	public static void pastryCreation(Player c, int itemID1, int itemID2,
-			int giveItem, String message) {
-		if (c.getItemAssistant().playerHasItem(itemID1)
-				&& c.getItemAssistant().playerHasItem(itemID2)) {
+	public static void pastryCreation(Player c, int itemID1, int itemID2, int giveItem, String message) {
+		if (c.getItemAssistant().playerHasItem(itemID1) && c.getItemAssistant().playerHasItem(itemID2)) {
 			c.getItemAssistant().deleteItem(itemID1, 1);
 			c.getItemAssistant().deleteItem(itemID2, 1);
 			c.getItemAssistant().addItem(giveItem, 1);
 			if (message.equalsIgnoreCase("")) {
-				c.getPacketSender().sendMessage(
-						"You mix the two ingredients and get an "
-								+ ItemAssistant.getItemName(giveItem) + ".");
+				c.getPacketSender().sendMessage("You mix the two ingredients and get an " + ItemAssistant.getItemName(giveItem) + ".");
 			} else {
 				c.getPacketSender().sendMessage(message);
 			}
 		}
 	}
 
-	public static void cookingAddon(Player c, int itemID1, int itemID2,
-			int giveItem, int requiredLevel, int expGained) {
+	public static void cookingAddon(Player c, int itemID1, int itemID2, int giveItem, int requiredLevel, int expGained) {
 		if (c.playerLevel[7] >= requiredLevel) {
-			if (c.getItemAssistant().playerHasItem(itemID1)
-					&& c.getItemAssistant().playerHasItem(itemID2)) {
+			if (c.getItemAssistant().playerHasItem(itemID1) && c.getItemAssistant().playerHasItem(itemID2)) {
 				c.getItemAssistant().deleteItem(itemID1, 1);
 				c.getItemAssistant().deleteItem(itemID2, 1);
 				c.getItemAssistant().addItem(giveItem, 1);
 				c.getPlayerAssistant().addSkillXP(expGained, 7);
-				c.getPacketSender().sendMessage(
-						"You create a " + ItemAssistant.getItemName(giveItem)
-								+ ".");
+				c.getPacketSender().sendMessage("You create a " + ItemAssistant.getItemName(giveItem) + ".");
 			}
 		} else {
-			c.getPacketSender().sendMessage(
-					"You don't have the required level to make an "
-							+ ItemAssistant.getItemName(giveItem));
+			c.getPacketSender().sendMessage("You don't have the required level to make an " + ItemAssistant.getItemName(giveItem));
 		}
 	}
 
-	private static void setCooking(Player player) {
-		player.playerIsCooking = true;
-		player.stopPlayerSkill = true;
+	public static void setCooking(Player player, boolean isCooking) {
+		player.playerIsCooking = isCooking;
+		player.stopPlayerSkill = isCooking;
 	}
-
-	public static void resetCooking(Player player) {
-		player.playerIsCooking = false;
-		player.stopPlayerSkill = false;
-	}
-
+	
 	private static void viewCookInterface(Player c, int item) {
 		c.getPacketSender().sendChatInterface(1743);
 		c.getPacketSender().sendFrame246(13716, view190 ? 190 : 170, item);
 		c.getPacketSender().sendFrame126(getLine(c) + "" + ItemAssistant.getItemName(item) + "", 13717);
-	}
-
-	public static String getLine(Player c) {
-		return c.below459 ? "\\n\\n\\n\\n" : "\\n\\n\\n\\n\\n";
 	}
 
 	public static boolean startCooking(Player c, int itemId, int objectId) {
@@ -179,9 +152,7 @@ public class Cooking extends SkillHandler {
 		if (item != null) {
 			if (c.playerLevel[c.playerCooking] < item.getLevelReq()) {
 				c.getPacketSender().closeAllWindows();
-				c.getDialogueHandler().sendStatement(
-						"You need a Cooking level of " + item.getLevelReq()
-								+ " to cook this.");
+				c.getDialogueHandler().sendStatement("You need a Cooking level of " + item.getLevelReq() + " to cook this.");
 				c.nextChat = 0;
 				return false;
 			}
@@ -190,8 +161,7 @@ public class Cooking extends SkillHandler {
 				return false;
 			}
 			if (!COOKING) {
-				c.getPacketSender().sendMessage(
-						"This skill is currently disabled.");
+				c.getPacketSender().sendMessage("This skill is currently disabled.");
 				return false;
 			}
 			// save the id of the item and object for the cooking interface.
@@ -203,8 +173,7 @@ public class Cooking extends SkillHandler {
 		return false;
 	}
 
-	private static boolean getSuccess(Player c, int burnBonus, int levelReq,
-			int stopBurn) {
+	private static boolean getSuccess(Player c, int burnBonus, int levelReq, int stopBurn) {
 		if (c.playerLevel[c.playerCooking] >= stopBurn) {
 			return true;
 		}
@@ -224,7 +193,7 @@ public class Cooking extends SkillHandler {
 		CycleEventHandler.getSingleton().stopEvents(player, "cookingEvent".hashCode());
 		final CookingItems item = forId(itemId);
 		if (item != null) {
-			setCooking(player);
+			setCooking(player, true);
 			RandomEventHandler.addRandom(player);
 			player.getPacketSender().closeAllWindows();
 			player.doAmount = amount;
@@ -238,16 +207,13 @@ public class Cooking extends SkillHandler {
 				@Override
 				public void execute(CycleEventContainer container) {
 					if (!player.playerIsCooking) {
-						resetCooking(player);
+						setCooking(player, false);
 						container.stop();
 						return;
 					}
-					if (!player.getItemAssistant().playerHasItem(item.getRawItem(),
-							1)) {
-						player.getPacketSender().sendMessage(
-								"You have run out of " + item.getName()
-										+ " to cook.");
-						resetCooking(player);
+					if (!player.getItemAssistant().playerHasItem(item.getRawItem(), 1)) {
+						player.getPacketSender().sendMessage("You have run out of " + item.getName() + " to cook.");
+						setCooking(player, false);
 						container.stop();
 						return;
 					}
@@ -260,15 +226,11 @@ public class Cooking extends SkillHandler {
 					player.getItemAssistant().deleteItem(item.getRawItem(),
 							player.getItemAssistant().getItemSlot(itemId), 1);
 					if (!burn) {
-						player.getPacketSender().sendMessage(
-								"You successfully cook the "
-										+ item.getName().toLowerCase() + ".");
+						player.getPacketSender().sendMessage("You successfully cook the " + item.getName().toLowerCase() + ".");
 						if (GameConstants.SOUND) {
-							player.getPacketSender().sendSound(
-									SoundList.COOK_ITEM, 100, 0);
+							player.getPacketSender().sendSound(SoundList.COOK_ITEM, 100, 0);
 						}
-						player.getPlayerAssistant().addSkillXP(item.getXp(),
-								player.playerCooking);
+						player.getPlayerAssistant().addSkillXP(item.getXp(), player.playerCooking);
 						player.getItemAssistant().addItem(item.getCookedItem(), 1);
 					} else {
 						player.getPacketSender().sendMessage(
@@ -294,7 +256,7 @@ public class Cooking extends SkillHandler {
 							player.startAnimation(objectId == 2732 ? 897 : 896);
 						}
 					} else if (player.doAmount == 0) {
-						resetCooking(player);
+						setCooking(player, false);
 						container.stop();
 					}
 				}

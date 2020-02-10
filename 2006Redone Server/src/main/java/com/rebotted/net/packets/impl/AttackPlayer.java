@@ -10,77 +10,73 @@ import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.net.packets.PacketType;
 
-/**
- * Attack Player
- **/
 public class AttackPlayer implements PacketType {
 
 	public static final int ATTACK_PLAYER = 73, MAGE_PLAYER = 249;
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		c.endCurrentTask();
-		c.playerIndex = 0;
-		c.npcIndex = 0;
+	public void processPacket(Player player, int packetType, int packetSize) {
+		player.endCurrentTask();
+		player.playerIndex = 0;
+		player.npcIndex = 0;
 		switch (packetType) {
 
 		/**
 		 * Attack player
 		 **/
 		case ATTACK_PLAYER:
-			c.playerIndex = c.getInStream().readSignedWordBigEndian();
-			if (PlayerHandler.players[c.playerIndex] == null) {
+			player.playerIndex = player.getInStream().readSignedWordBigEndian();
+			if (PlayerHandler.players[player.playerIndex] == null) {
 				break;
 			}
 			
-			if (c.inDuelArena() && !c.duelingArena()) {
-				c.getChallengePlayer().processPacket(c, packetType, packetSize);
+			if (player.inDuelArena() && !player.duelingArena()) {
+				player.getChallengePlayer().processPacket(player, packetType, packetSize);
 			}
 
-			if (c.respawnTimer > 0) {
+			if (player.respawnTimer > 0) {
 				break;
 			}
 
-			if (c.autocastId > 0) {
-				c.autocasting = true;
+			if (player.autocastId > 0) {
+				player.autocasting = true;
 			}
 
-			if (!c.autocasting && c.spellId > 0) {
-				c.spellId = 0;
+			if (!player.autocasting && player.spellId > 0) {
+				player.spellId = 0;
 			}
-			c.mageFollow = false;
-			c.spellId = 0;
-			c.usingMagic = false;
+			player.mageFollow = false;
+			player.spellId = 0;
+			player.usingMagic = false;
 			boolean usingBow = false;
 			boolean usingOtherRangeWeapons = false;
 			boolean usingArrows = false;
-			boolean usingCross = c.playerEquipment[c.playerWeapon] == 9185;
+			boolean usingCross = player.playerEquipment[player.playerWeapon] == 9185;
 			for (int bowId : RangeData.BOWS) {
-				if (c.playerEquipment[c.playerWeapon] == bowId) {
+				if (player.playerEquipment[player.playerWeapon] == bowId) {
 					usingBow = true;
 					for (int arrowId : RangeData.ARROWS) {
-						if (c.playerEquipment[c.playerArrows] == arrowId) {
+						if (player.playerEquipment[player.playerArrows] == arrowId) {
 							usingArrows = true;
 						}
 					}
 				}
 			}
 			for (int otherRangeId : RangeData.OTHER_RANGE_WEAPONS) {
-				if (c.playerEquipment[c.playerWeapon] == otherRangeId) {
+				if (player.playerEquipment[player.playerWeapon] == otherRangeId) {
 					usingOtherRangeWeapons = true;
 				}
 			}
-			if (c.duelStatus == 5) {
-				if (c.duelCount > 0) {
-					c.getPacketSender().sendMessage(
-							"The duel hasn't started yet!");
-					c.playerIndex = 0;
+			if (player.duelStatus == 5) {
+				if (player.duelCount > 0) {
+					player.getPacketSender().sendMessage("The duel hasn't started yet!");
+					player.playerIndex = 0;
 					return;
 				}
-				if (c.duelRule[9]) {
+				if (player.duelRule[9]) {
 					boolean canUseWeapon = false;
 					for (int funWeapon : GameConstants.FUN_WEAPONS) {
-						if (c.playerEquipment[c.playerWeapon] == funWeapon) {
+						if (player.playerEquipment[player.playerWeapon] == funWeapon) {
 							canUseWeapon = true;
 						}
 					}
@@ -89,83 +85,57 @@ public class AttackPlayer implements PacketType {
 					}
 				}
 
-				if (c.duelRule[2] && (usingBow || usingOtherRangeWeapons)) {
-					c.getPacketSender().sendMessage(
-							"Range has been disabled in this duel!");
+				if (player.duelRule[2] && (usingBow || usingOtherRangeWeapons)) {
+					player.getPacketSender().sendMessage("Range has been disabled for this duel!");
 					return;
 				}
-				if (c.duelRule[3] && !usingBow && !usingOtherRangeWeapons) {
-					c.getPacketSender().sendMessage(
-							"Melee has been disabled in this duel!");
+				if (player.duelRule[3] && !usingBow && !usingOtherRangeWeapons) {
+					player.getPacketSender().sendMessage("Melee has been disabled for this duel!");
 					return;
 				}
 			}
 
-			if ((usingBow || c.autocasting)
-					&& c.goodDistance(c.getX(), c.getY(),
-							PlayerHandler.players[c.playerIndex].getX(),
-							PlayerHandler.players[c.playerIndex].getY(), 6)) {
-				c.usingBow = true;
-				c.stopMovement();
+			if ((usingBow || player.autocasting) && player.goodDistance(player.getX(), player.getY(), PlayerHandler.players[player.playerIndex].getX(), PlayerHandler.players[player.playerIndex].getY(), 6)) {
+				player.usingBow = true;
+				player.stopMovement();
 			}
 
-			if (usingOtherRangeWeapons
-					&& c.goodDistance(c.getX(), c.getY(),
-							PlayerHandler.players[c.playerIndex].getX(),
-							PlayerHandler.players[c.playerIndex].getY(), 3)) {
-				c.usingRangeWeapon = true;
-				c.stopMovement();
+			if (usingOtherRangeWeapons && player.goodDistance(player.getX(), player.getY(), PlayerHandler.players[player.playerIndex].getX(), PlayerHandler.players[player.playerIndex].getY(), 3)) {
+				player.usingRangeWeapon = true;
+				player.stopMovement();
 			}
 			if (!usingBow) {
-				c.usingBow = false;
+				player.usingBow = false;
 			}
 			if (!usingOtherRangeWeapons) {
-				c.usingRangeWeapon = false;
+				player.usingRangeWeapon = false;
 			}
 
-			if (!usingCross && !usingArrows && usingBow
-					&& c.playerEquipment[c.playerWeapon] < 4212
-					&& c.playerEquipment[c.playerWeapon] > 4223) {
-				c.getPacketSender().sendMessage(
-						"You have run out of arrows!");
+			if (!usingCross && !usingArrows && usingBow && player.playerEquipment[player.playerWeapon] < 4212 && player.playerEquipment[player.playerWeapon] > 4223) {
+				player.getPacketSender().sendMessage("You have run out of arrows!");
 				return;
 			}
-			if (RangeData.correctBowAndArrows(c) < c.playerEquipment[c.playerArrows]
+			if (RangeData.correctBowAndArrows(player) < player.playerEquipment[player.playerArrows]
 					&& CombatConstants.CORRECT_ARROWS
 					&& usingBow
-					&& !RangeData.usingCrystalBow(c)
-					&& c.playerEquipment[c.playerWeapon] != 9185) {
-				c.getPacketSender().sendMessage(
-						"You can't use "
-								+ ItemAssistant.getItemName(
-										c.playerEquipment[c.playerArrows])
-										.toLowerCase()
-								+ "s with a "
-								+ ItemAssistant.getItemName(
-										c.playerEquipment[c.playerWeapon])
-										.toLowerCase() + ".");
-				c.stopMovement();
-				c.getCombatAssistant().resetPlayerAttack();
+					&& !RangeData.usingCrystalBow(player)
+					&& player.playerEquipment[player.playerWeapon] != 9185) {
+				player.getPacketSender().sendMessage("You can't use " + ItemAssistant.getItemName(player.playerEquipment[player.playerArrows]).toLowerCase() + "s with a " + ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase() + ".");
+				player.stopMovement();
+				player.getCombatAssistant().resetPlayerAttack();
 				return;
 			}
-			if (c.playerEquipment[c.playerWeapon] == 9185
-					&& !c.getCombatAssistant().properBolts()) {
-				c.getPacketSender().sendMessage(
-						"You must use bolts with a crossbow.");
-				c.stopMovement();
-				c.getCombatAssistant().resetPlayerAttack();
+			if (player.playerEquipment[player.playerWeapon] == 9185 && !player.getCombatAssistant().properBolts()) {
+				player.getPacketSender().sendMessage("You must use bolts with a crossbow.");
+				player.stopMovement();
+				player.getCombatAssistant().resetPlayerAttack();
 				return;
 			}
-			if (c.getCombatAssistant().checkReqs()) {
-				c.followId = c.playerIndex;
-				if (!c.usingMagic && !usingBow && !usingOtherRangeWeapons) {
-					c.followDistance = 1;
-					c.getPlayerAssistant().followPlayer();
-				}
-				if (c.attackTimer <= 0) {
-					// c.getPacketDispatcher().sendMessage("Tried to attack...");
-					// c.getCombat().attackPlayer(c.playerIndex);
-					// c.attackTimer++;
+			if (player.getCombatAssistant().checkReqs()) {
+				player.followId = player.playerIndex;
+				if (!player.usingMagic && !usingBow && !usingOtherRangeWeapons) {
+					player.followDistance = 1;
+					player.getPlayerAssistant().followPlayer();
 				}
 			}
 			break;
@@ -174,135 +144,135 @@ public class AttackPlayer implements PacketType {
 		 * Attack player with magic
 		 **/
 		case MAGE_PLAYER:
-			if (!c.mageAllowed) {
-				c.mageAllowed = true;
+			if (!player.mageAllowed) {
+				player.mageAllowed = true;
 				break;
 			}
 
-			c.playerIndex = c.getInStream().readSignedWordA();
-			int castingSpellId = c.getInStream().readSignedWordBigEndian();
-			c.castingSpellId = castingSpellId;
-			c.usingMagic = false;
+			player.playerIndex = player.getInStream().readSignedWordA();
+			int castingSpellId = player.getInStream().readSignedWordBigEndian();
+			player.castingSpellId = castingSpellId;
+			player.usingMagic = false;
 
 			boolean teleother = CastOnOther.castOnOtherSpells(castingSpellId);
 
-			if (PlayerHandler.players[c.playerIndex] == null) {
+			if (PlayerHandler.players[player.playerIndex] == null) {
 				break;
 			}
 
-			if (c.respawnTimer > 0) {
+			if (player.respawnTimer > 0) {
 				break;
 			}
 
-			if (c.playerRights == 3) {
-				c.getPacketSender().sendMessage(
+			if (player.playerRights == 3) {
+				player.getPacketSender().sendMessage(
 						"Casting Spell id: " + castingSpellId + ".");
 			}
 
 			if (teleother) {
-				if (c.inTrade) {
-					c.getTrading().declineTrade(true);
+				if (player.inTrade) {
+					player.getTrading().declineTrade(true);
 				}
-				if (c.inWild()
-						&& c.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
-					c.getPacketSender().sendMessage(
+				if (player.inWild()
+						&& player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
+					player.getPacketSender().sendMessage(
 							"You can't teleport above level "
 									+ GameConstants.NO_TELEPORT_WILD_LEVEL
 									+ " in the wilderness.");
 					break;
 				}
-				if (c.duelStatus == 5) {
-					c.getPacketSender().sendMessage("You can't do that in a duel.");
-					c.usingMagic = false;
-					c.stopMovement();
-					c.getCombatAssistant().resetPlayerAttack();
+				if (player.duelStatus == 5) {
+					player.getPacketSender().sendMessage("You can't do that in a duel.");
+					player.usingMagic = false;
+					player.stopMovement();
+					player.getCombatAssistant().resetPlayerAttack();
 					return;
 				}
 			}
 
-			switch (c.castingSpellId) {
+			switch (player.castingSpellId) {
 			case 12425:
-				CastOnOther.teleOtherDistance(c, 0, c.playerIndex);
+				CastOnOther.teleOtherDistance(player, 0, player.playerIndex);
 				break;
 			case 12435:
-				CastOnOther.teleOtherDistance(c, 1, c.playerIndex);
+				CastOnOther.teleOtherDistance(player, 1, player.playerIndex);
 				break;
 			case 12455:
-				CastOnOther.teleOtherDistance(c, 2, c.playerIndex);
+				CastOnOther.teleOtherDistance(player, 2, player.playerIndex);
 				break;
 			}
 
 			if (teleother) {
-				c.stopMovement();
-				c.getCombatAssistant().resetPlayerAttack();
+				player.stopMovement();
+				player.getCombatAssistant().resetPlayerAttack();
 			}
 
 			for (int i = 0; i < MagicData.MAGIC_SPELLS.length; i++) {
 				if (castingSpellId == MagicData.MAGIC_SPELLS[i][0]) {
-					c.spellId = i;
-					c.usingMagic = true;
+					player.spellId = i;
+					player.usingMagic = true;
 					break;
 				}
 			}
 
-			if (c.autocasting) {
-				c.autocasting = false;
+			if (player.autocasting) {
+				player.autocasting = false;
 			}
 
 			if (!teleother) {
-				if (!c.getCombatAssistant().checkReqs()) {
+				if (!player.getCombatAssistant().checkReqs()) {
 					break;
 				}
 
-				if (c.duelStatus == 5) {
-					if (c.duelCount > 0) {
-						c.getPacketSender().sendMessage(
+				if (player.duelStatus == 5) {
+					if (player.duelCount > 0) {
+						player.getPacketSender().sendMessage(
 								"The duel hasn't started yet!");
-						c.playerIndex = 0;
+						player.playerIndex = 0;
 						return;
 					}
-					if (c.duelRule[4]) {
-						c.getPacketSender().sendMessage(
+					if (player.duelRule[4]) {
+						player.getPacketSender().sendMessage(
 								"Magic has been disabled in this duel!");
 						return;
 					}
-					if (MagicData.MAGIC_SPELLS[c.spellId][0] == 12445)
+					if (MagicData.MAGIC_SPELLS[player.spellId][0] == 12445)
 					{
-						c.getPacketSender().sendMessage(
+						player.getPacketSender().sendMessage(
 								"You can't do that in a duel.");
-						c.usingMagic = false;
-						c.stopMovement();
-						c.getCombatAssistant().resetPlayerAttack();
+						player.usingMagic = false;
+						player.stopMovement();
+						player.getCombatAssistant().resetPlayerAttack();
 						return;
 					}
 				}
 
-				for (int r = 0; r < c.REDUCE_SPELLS.length; r++) { // reducing
+				for (int r = 0; r < player.REDUCE_SPELLS.length; r++) { // reducing
 																	// spells,
 																	// confuse
 																	// etc
-					if (PlayerHandler.players[c.playerIndex].REDUCE_SPELLS[r] == MagicData.MAGIC_SPELLS[c.spellId][0]) {
+					if (PlayerHandler.players[player.playerIndex].REDUCE_SPELLS[r] == MagicData.MAGIC_SPELLS[player.spellId][0]) {
 						if (System.currentTimeMillis()
-								- PlayerHandler.players[c.playerIndex].reduceSpellDelay[r] < PlayerHandler.players[c.playerIndex].REDUCE_SPELL_TIME[r]) {
-							c.getPacketSender()
+								- PlayerHandler.players[player.playerIndex].reduceSpellDelay[r] < PlayerHandler.players[player.playerIndex].REDUCE_SPELL_TIME[r]) {
+							player.getPacketSender()
 									.sendMessage(
 											"That player is currently immune to this spell.");
-							c.usingMagic = false;
-							c.stopMovement();
-							c.getCombatAssistant().resetPlayerAttack();
+							player.usingMagic = false;
+							player.stopMovement();
+							player.getCombatAssistant().resetPlayerAttack();
 						}
 						break;
 					}
 				}
 
 				if (System.currentTimeMillis()
-						- PlayerHandler.players[c.playerIndex].teleBlockDelay < PlayerHandler.players[c.playerIndex].teleBlockLength
-						&& MagicData.MAGIC_SPELLS[c.spellId][0] == 12445) {
-					c.getPacketSender().sendMessage(
+						- PlayerHandler.players[player.playerIndex].teleBlockDelay < PlayerHandler.players[player.playerIndex].teleBlockLength
+						&& MagicData.MAGIC_SPELLS[player.spellId][0] == 12445) {
+					player.getPacketSender().sendMessage(
 							"That player is already affected by this spell.");
-					c.usingMagic = false;
-					c.stopMovement();
-					c.getCombatAssistant().resetPlayerAttack();
+					player.usingMagic = false;
+					player.stopMovement();
+					player.getCombatAssistant().resetPlayerAttack();
 				}
 			}
 			break;

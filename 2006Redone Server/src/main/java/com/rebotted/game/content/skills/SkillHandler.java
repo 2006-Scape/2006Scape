@@ -49,7 +49,7 @@ public class SkillHandler {
 		} else if (player.playerIsFletching) {// fletching
 			player.playerIsFletching = false;
 		} else if (player.playerIsCooking) {// cooking
-			Cooking.resetCooking(player);
+			Cooking.setCooking(player, false);
 		} else if (player.isSmithing) {// smithing
 			player.isSmithing = false;
 		} else if (isSkilling[12]) {// crafting
@@ -67,7 +67,7 @@ public class SkillHandler {
 		} else if (player.isPotCrafting) {// pot crafting
 			player.isPotCrafting = false;
 		} else if (player.playerIsCooking) {// cooking
-			Cooking.resetCooking(player);
+			Cooking.setCooking(player, false);
 		} else if (player.playerSkilling[13]) {// smelting
 			Smelting.resetSmelting(player);
 		}
@@ -82,7 +82,7 @@ public class SkillHandler {
 		} else if (player.playerIsFletching) {// fletching
 			player.playerIsFletching = false;
 		} else if (player.playerIsCooking) {// cooking
-			Cooking.resetCooking(player);
+			Cooking.setCooking(player, false);
 		} else if (player.isSmithing) {// smithing
 			player.isSmithing = false;
 		} else if (isSkilling[12]) {// crafting

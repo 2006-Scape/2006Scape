@@ -1,7 +1,6 @@
 package com.rebotted.game.content.combat.npcs;
 
 import com.rebotted.GameConstants;
-import com.rebotted.game.content.combat.CombatAssistant;
 import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.melee.MeleeData;
 import com.rebotted.game.content.minigames.FightCaves;
@@ -97,30 +96,31 @@ public class NpcCombat {
 
 	public static void attackPlayer(Player c, int i) {
 		if (NpcHandler.npcs[i] != null) {
-			if (NpcHandler.npcs[i].isDead) {
+			if (NpcHandler.npcs[i].absY == 3228 && c.absY == 3227
+				|| NpcHandler.npcs[i].absY == 3224 && c.absY == 3225
+				|| NpcHandler.npcs[i].absY == 3226 && c.absY == 3227
+				|| c.inDraynorBuilding() && (NpcHandler.npcs[i].npcType == 172 || NpcHandler.npcs[i].npcType == 174)
+				|| NpcHandler.npcs[i].inLesserNpc()
+				|| !c.npcCanAttack
+				|| NpcHandler.npcs[i].isDead) {
 				return;
 			}
-			if (c.npcCanAttack == false) {
+			if (NpcHandler.npcs[i].npcType == 1532
+					|| NpcHandler.npcs[i].npcType == 1534
+					|| NpcHandler.npcs[i].npcType == 6145
+					|| NpcHandler.npcs[i].npcType == 6144
+					|| NpcHandler.npcs[i].npcType == 6143
+					|| NpcHandler.npcs[i].npcType == 6142
+					|| NpcHandler.npcs[i].npcType == 752) {
 				return;
 			}
-			if (NpcHandler.npcs[i].inLesserNpc()) {
+			if (NpcHandler.npcs[i].npcType == 1401 && c.isInTut() || c.tutorialProgress < 36) {
 				return;
 			}
-			if (c.inDraynorBuilding()) {
-				if (NpcHandler.npcs[i].npcType == 172 || NpcHandler.npcs[i].npcType == 174) {
-					return;
-				}
-			}
-			if (NpcHandler.npcs[i].absY == 3228 && c.absY == 3227) {
+			if (NpcHandler.npcs[i].npcType == 9 && c.absX == 3180 && c.absY > 3433 && c.absY < 3447) {
 				return;
 			}
-			if (NpcHandler.npcs[i].absY == 3224 && c.absY == 3225) {
-				return;
-			}
-			if (NpcHandler.npcs[i].absY == 3226 && c.absY == 3227) {
-				return;
-			}
-			if (NpcHandler.npcs[i].absY == 3228 && c.absY == 3227) {
+			if (NpcHandler.npcs[i].npcType == 374 && c.absY == 3372 && c.absX > 2522 && c.absX < 2532) {
 				return;
 			}
 			if (NpcHandler.npcs[i].npcType > 2462 && NpcHandler.npcs[i].npcType < 2468) {
@@ -138,33 +138,11 @@ public class NpcCombat {
 					NpcHandler.npcs[i].forceChat("Bwaaaaaaauk bwuk bwuk");
 				}
 			}
-			if (NpcHandler.npcs[i].npcType == 1532
-					|| NpcHandler.npcs[i].npcType == 1534
-					|| NpcHandler.npcs[i].npcType == 6145
-					|| NpcHandler.npcs[i].npcType == 6144
-					|| NpcHandler.npcs[i].npcType == 6143
-					|| NpcHandler.npcs[i].npcType == 6142
-					|| NpcHandler.npcs[i].npcType == 752) {
-				return;
-			}
-			if (NpcHandler.npcs[i].npcType == 1401 && c.isInTut()
-					|| c.tutorialProgress < 36) {
-				return;
-			}
-			if (NpcHandler.npcs[i].npcType == 9 && c.absX == 3180
-					&& c.absY > 3433 && c.absY < 3447) {
-				return;
-			}
-			if (NpcHandler.npcs[i].npcType == 374 && c.absY == 3372 && c.absX > 2522 && c.absX < 2532) {
-				return;
-			}
 			if (!NpcHandler.npcs[i].inMulti() && NpcHandler.npcs[i].underAttackBy > 0 && NpcHandler.npcs[i].underAttackBy != c.playerId) {
 				NpcHandler.npcs[i].killerId = 0;
 				return;
 			}
-			if (!NpcHandler.npcs[i].inMulti()
-					&& (c.underAttackBy > 0 || c.underAttackBy2 > 0
-							&& c.underAttackBy2 != i)) {
+			if (!NpcHandler.npcs[i].inMulti() && (c.underAttackBy > 0 || c.underAttackBy2 > 0 && c.underAttackBy2 != i)) {
 				NpcHandler.npcs[i].killerId = 0;
 				return;
 			}
@@ -210,19 +188,13 @@ public class NpcCombat {
 						return;
 					}
 					if (NpcHandler.npcs[i].projectileId > 0) {
-						int nX = NpcHandler.npcs[i].getX()
-								+ NpcHandler.offset(i);
-						int nY = NpcHandler.npcs[i].getY()
-								+ NpcHandler.offset(i);
+						int nX = NpcHandler.npcs[i].getX() + NpcHandler.offset(i);
+						int nY = NpcHandler.npcs[i].getY() + NpcHandler.offset(i);
 						int pX = c.getX();
 						int pY = c.getY();
 						int offX = (nY - pY) * -1;
 						int offY = (nX - pX) * -1;
-						c.getPlayerAssistant().createPlayersProjectile(nX, nY,
-								offX, offY, 50,
-								NpcHandler.getProjectileSpeed(i),
-								NpcHandler.npcs[i].projectileId, 43, 31,
-								-c.getId() - 1, 65);
+						c.getPlayerAssistant().createPlayersProjectile(nX, nY, offX, offY, 50, NpcHandler.getProjectileSpeed(i), NpcHandler.npcs[i].projectileId, 43, 31, -c.getId() - 1, 65);
 					}
 					int random = Misc.random(10);
 					if (NpcHandler.npcs[i].npcType == 222 && (NpcHandler.npcs[i].killerId > 0 && NpcHandler.npcs[i].underAttack) && !NpcHandler.npcs[i].isDead && (NpcHandler.npcs[i].HP < NpcHandler.npcs[i].MaxHP + 1)) {
@@ -671,7 +643,7 @@ public class NpcCombat {
 					}
 				}
 				if (damage > 0) {
-					CombatAssistant.applyRecoilNPC(c, damage, i);
+					c.getCombatAssistant().applyRecoilNPC(c, damage, i);
 				}
 				if (c.playerLevel[3] - damage < 0) {
 					damage = c.playerLevel[3];

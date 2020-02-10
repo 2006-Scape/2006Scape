@@ -22,6 +22,7 @@ import com.rebotted.game.content.combat.magic.Enchanting;
 import com.rebotted.game.content.combat.prayer.PrayerData;
 import com.rebotted.game.content.combat.prayer.PrayerDrain;
 import com.rebotted.game.content.combat.range.DwarfCannon;
+import com.rebotted.game.content.combat.range.RangeData;
 import com.rebotted.game.content.consumables.Food;
 import com.rebotted.game.content.consumables.Potions;
 import com.rebotted.game.content.guilds.impl.RangersGuild;
@@ -745,7 +746,6 @@ public abstract class Player {
 		if (inDesert() && heightLevel == 0) {
 			DesertHeat.callHeat(this);
 		}
-		
 		if (playerEnergy < 100 && System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
 			playerEnergy += 1;
 			lastIncrease = System.currentTimeMillis();
@@ -756,7 +756,6 @@ public abstract class Player {
 			getPacketSender().sendConfig(173, 0);
 		}
 		getPlayerAssistant().writeEnergy();
-
 		if (System.currentTimeMillis() - specDelay > CombatConstants.INCREASE_SPECIAL_AMOUNT) {
 			specDelay = System.currentTimeMillis();
 			if (specAmount < 10) {
@@ -793,21 +792,19 @@ public abstract class Player {
 		if (System.currentTimeMillis() - singleCombatDelay2 > 3300) {
 			underAttackBy2 = 0;
 		}
-
+		
 		if (System.currentTimeMillis() - restoreStatsDelay > 60000) {
 			restoreStatsDelay = System.currentTimeMillis();
 			for (int level = 0; level < playerLevel.length; level++) {
 				if (playerLevel[level] < getLevelForXP(playerXP[level])) {
 					if (level != 5) { // prayer doesn't restore
 						playerLevel[level] += 1;
-						getPacketSender().setSkillLevel(level,
-								playerLevel[level], playerXP[level]);
+						getPacketSender().setSkillLevel(level, playerLevel[level], playerXP[level]);
 						getPlayerAssistant().refreshSkill(level);
 					}
 				} else if (playerLevel[level] > getLevelForXP(playerXP[level])) {
 					playerLevel[level] -= 1;
-					getPacketSender().setSkillLevel(level,
-							playerLevel[level], playerXP[level]);
+					getPacketSender().setSkillLevel(level, playerLevel[level], playerXP[level]);
 					getPlayerAssistant().refreshSkill(level);
 				}
 			}
@@ -857,9 +854,7 @@ public abstract class Player {
 				if (PlayerHandler.players[frozenBy] == null) {
 					freezeTimer = -1;
 					frozenBy = -1;
-				} else if (!goodDistance(absX, absY,
-						PlayerHandler.players[frozenBy].absX,
-						PlayerHandler.players[frozenBy].absY, 20)) {
+				} else if (!goodDistance(absX, absY, PlayerHandler.players[frozenBy].absX, PlayerHandler.players[frozenBy].absY, 20)) {
 					freezeTimer = -1;
 					frozenBy = -1;
 				}
@@ -932,12 +927,7 @@ public abstract class Player {
 	}
 
 	public void queueMessage(Packet arg1) {
-		// synchronized(queuedPackets) {
-		// if (arg1.getId() != 41)
 		queuedPackets.add(arg1);
-		// else
-		// processPacket(arg1);
-		// }
 	}
 
 	public synchronized boolean processQueuedPackets() {
@@ -953,7 +943,6 @@ public abstract class Player {
 		packetSize = p.getLength();
 		inStream.buffer = p.getData();
 		if (packetType > 0) {
-			// getPacketDispatcher().sendMessage("PacketType: " + packetType);
 			PacketHandler.processPacket(this, packetType, packetSize);
 		}
 		timeOutCounter = 0;
@@ -970,8 +959,6 @@ public abstract class Player {
 			packetSize = p.getLength();
 			inStream.buffer = p.getData();
 			if (packetType > 0) {
-				// getPacketDispatcher().sendMessage("PacketType: " +
-				// packetType);
 				PacketHandler.processPacket(this, packetType, packetSize);
 			}
 			timeOutCounter = 0;
@@ -1095,38 +1082,38 @@ public abstract class Player {
 	}
 
 	 public void trawlerFade(final int x, final int y, final int height) {
-	        if (System.currentTimeMillis() - lastAction > 5000) {
-	            lastAction = System.currentTimeMillis();
-	            resetWalkingQueue();
-	            CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
-	                int tStage = 5;
-	                public void execute(CycleEventContainer container) {
-	                    if (tStage == 5) {
-	                    	getPacketSender().showInterface(18460);
-	                        }
-	                        if (tStage == 4) {
-	                          getPlayerAssistant().movePlayer(x, y, height);
-	                          getPlayerAssistant().resetAnimationsToPrevious();
-	                          appearanceUpdateRequired = true;
-	                        }
-	                        if (tStage == 3) {
-	                          getPacketSender().showInterface(18452);
-	                        }
-	                        if (tStage == 1) {
-	                            container.stop();
-	                            return;
-	                        }
-	                        if (tStage > 0) {
-	                            tStage--;
-	                          }
-	                }
-	                public void stop() {
-	                    getPacketSender().closeAllWindows();
-	                    tStage = 0;
-	                }
-	            }, 1);
-	        }
-	    }
+        if (System.currentTimeMillis() - lastAction > 5000) {
+            lastAction = System.currentTimeMillis();
+            resetWalkingQueue();
+            CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
+                int tStage = 5;
+                public void execute(CycleEventContainer container) {
+                	if (tStage == 5) {
+                		getPacketSender().showInterface(18460);
+                    }
+                    if (tStage == 4) {
+                      getPlayerAssistant().movePlayer(x, y, height);
+                      getPlayerAssistant().resetAnimationsToPrevious();
+                      appearanceUpdateRequired = true;
+                    }
+                    if (tStage == 3) {
+                      getPacketSender().showInterface(18452);
+                    }
+                    if (tStage == 1) {
+                        container.stop();
+                        return;
+                    }
+                    if (tStage > 0) {
+                    	tStage--;
+                    }
+                }
+                public void stop() {
+                    getPacketSender().closeAllWindows();
+                    tStage = 0;
+                }
+            }, 1);
+        }
+    }
 
 	public void fade(final int x, final int y, final int height) {
         if (System.currentTimeMillis() - lastAction > 5000) {
@@ -1135,24 +1122,24 @@ public abstract class Player {
             CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
                 int tStage = 6;
                 public void execute(CycleEventContainer container) {
-                    if (tStage == 6) {
-                    	getPacketSender().showInterface(18460);
-                        }
-                        if (tStage == 5) {
-                          getPlayerAssistant().movePlayer(x, y, height);
-                          updateRequired = true;
-                          appearanceUpdateRequired = true;
-                        }
-                        if (tStage == 4) {
-                        	getPacketSender().showInterface(18452);
-                        }
-                        if (tStage == 1) {
-                            container.stop();
-                            return;
-                        }
-                        if (tStage > 0) {
-                            tStage--;
-                          }
+                	if (tStage == 6) {
+                		getPacketSender().showInterface(18460);
+                    }
+                    if (tStage == 5) {
+                      getPlayerAssistant().movePlayer(x, y, height);
+                      updateRequired = true;
+                      appearanceUpdateRequired = true;
+                    }
+                    if (tStage == 4) {
+                    	getPacketSender().showInterface(18452);
+                    }
+                    if (tStage == 1) {
+                        container.stop();
+                        return;
+                    }
+                    if (tStage > 0) {
+                        tStage--;
+                    }
                 }
                 public void stop() {
                 	getPacketSender().closeAllWindows();
@@ -1227,12 +1214,14 @@ public abstract class Player {
 
 
 	private Npc specialTarget = null;
+	
 	public void setSpecialTarget(Npc target) {
-			this.specialTarget = target;
-		}
-		public Npc getSpecialTarget() {
-			return specialTarget;
-		}
+		this.specialTarget = target;
+	}
+	
+	public Npc getSpecialTarget() {
+		return specialTarget;
+	}
 		
 	public int miningAxe = -1, woodcuttingAxe = -1;
 
@@ -1568,18 +1557,27 @@ public abstract class Player {
 			4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 2097152,
 			8388608, 16777216, 67108864, 134217728 };
 
+	
+	/**
+	 * Combat variables
+	 */
 	public boolean doubleHit, usingSpecial, usingRangeWeapon,
 			usingBow, usingMagic, castingMagic;
-	public int npcIndex, npcClickIndex, npcType, castingSpellId, oldSpellId,
+	public int castingSpellId, oldSpellId,
 			spellId, hitDelay;
 	public int specMaxHitIncrease, freezeDelay, freezeTimer = -6, killerId,
 			playerIndex, oldPlayerIndex, lastWeaponUsed, projectileStage,
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
-			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer;
+			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
+			bowSpecShot;
 	public boolean magicFailed, oldMagicFailed;
-	public int bowSpecShot, clickNpcType, clickObjectType, objectId, objectX,
-			objectY;
+	/**
+	 * End
+	 */
+	
+	public int clickNpcType, clickObjectType, objectId, objectX,
+			objectY, npcIndex, npcClickIndex, npcType;
 	public int pItemX, pItemY, pItemId;
 	public boolean isMoving, walkingToItem;
 	public boolean isShopping, updateShop;
@@ -2157,8 +2155,35 @@ public abstract class Player {
 		walkingQueueY[wQueueWritePtr] = y;
 		wQueueWritePtr = next;
 	}
+	
+	public boolean checkRangeDistance() {
+		return (usingRangeWeapon || usingBow);
+	}
+	
+	public int gatherRangeDistance(int distance) {
+		//dart (non long range)
+		if (usingRangeWeapon && RangeData.usingDart(this) && fightMode != 3) {
+			distance = 3;
+		//longbow (long range)
+		} else if (usingBow && fightMode == 3 && RangeData.usingLongbow(this)) {
+			distance = 10;
+		//longbow (non long range)
+		} else if (usingBow && fightMode != 3 && RangeData.usingLongbow(this)) {
+			distance = RangeData.usingCrystalBow(this) ? 10 : 8;
+		//dart, knife, throwing axe (long range)
+		} else if (usingRangeWeapon && fightMode == 3) {
+			distance = RangeData.usingDart(this) ? 5 : 6;
+		//short bow 
+		} else if (usingBow && !RangeData.usingLongbow(this)) {
+			distance = fightMode == 3 ? 7 : 9;
+		}
+		return distance;
+	}
 
 	public boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
+		if (checkRangeDistance()) {
+			distance = gatherRangeDistance(distance);
+		}
 		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
 	}
 
@@ -2168,8 +2193,7 @@ public abstract class Player {
 		}
 		int dir;
 		do {
-			dir = Misc.direction(currentX, currentY,
-					walkingQueueX[wQueueReadPtr], walkingQueueY[wQueueReadPtr]);
+			dir = Misc.direction(currentX, currentY, walkingQueueX[wQueueReadPtr], walkingQueueY[wQueueReadPtr]);
 			if (dir == -1) {
 				wQueueReadPtr = (wQueueReadPtr + 1) % walkingQueueSize;
 			} else if ((dir & 1) != 0) {

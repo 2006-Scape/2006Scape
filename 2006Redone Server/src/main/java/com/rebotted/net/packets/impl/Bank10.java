@@ -24,9 +24,6 @@ public class Bank10 implements PacketType {
 			JewelryMaking.mouldItem(player, removeId, 10);
 			break;
 
-		case 1688:
-			player.getPlayerAssistant().useOperate(removeId);
-			break;
 		case 3900:
 			player.getShopAssistant().buyItem(removeId, removeSlot, 10);
 			break;

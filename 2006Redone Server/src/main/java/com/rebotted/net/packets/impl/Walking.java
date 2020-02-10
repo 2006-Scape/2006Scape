@@ -34,7 +34,7 @@ public class Walking implements PacketType {
 			Fishing.resetFishing(player);
 		}
 		if (player.playerIsCooking) {// cooking
-			Cooking.resetCooking(player);
+			Cooking.setCooking(player, false);
 		}
 		if (player.playerSkilling[13]) {// smelting
 			Smelting.resetSmelting(player);

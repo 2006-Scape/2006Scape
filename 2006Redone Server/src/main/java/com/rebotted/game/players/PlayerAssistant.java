@@ -2319,19 +2319,6 @@ public class PlayerAssistant {
 		return count;
 	}
 
-	public void useOperate(int itemId) {
-		switch (itemId) {
-		case 11283:
-		case 11284:
-			if (player.playerIndex > 0) {
-				player.getCombatAssistant().handleDfs();
-			} else if (player.npcIndex > 0) {
-				player.getCombatAssistant().handleDfsNPC();
-			}
-			break;
-		}
-	}
-
 	public void getSpeared(int otherX, int otherY) {
 		int x = player.absX - otherX;
 		int y = player.absY - otherY;

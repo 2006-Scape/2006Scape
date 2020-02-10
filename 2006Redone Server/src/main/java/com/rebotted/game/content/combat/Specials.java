@@ -93,10 +93,7 @@ public class Specials {
 
 		public static HashMap<Integer, specialAttack> specialAttack = new HashMap<Integer, specialAttack>();
 
-		@SuppressWarnings("unused")
-		public static specialAttack getWeapon(int weapon) {
-			return specialAttack.get(weapon);
-		}
+	
 
 		static {
 			for (specialAttack SA : specialAttack.values()) {
@@ -105,9 +102,9 @@ public class Specials {
 		}
 	}
 
-	public void activateSpecial(int weapon, Client o, int i) {
+	public void activateSpecial(int weapon, Client other, int i) {
 		int equippedWeapon = player.playerEquipment[player.playerWeapon];
-		if (NpcHandler.npcs[i] == null && player.npcIndex > 0 || PlayerHandler.players[player.playerIndex] == null && player.playerIndex > 0) {
+		if ((NpcHandler.npcs[i] == null && player.npcIndex > 0) || (PlayerHandler.players[player.playerIndex] == null && player.playerIndex > 0)) {
 			return;
 		}
 		player.doubleHit = false;
@@ -129,8 +126,7 @@ public class Specials {
 			if (NpcHandler.npcs[player.npcIndex] == null && player.npcIndex > 0) {
 				return;
 			}
-			if (PlayerHandler.players[player.playerIndex] == null
-					&& player.playerIndex > 0) {
+			if (PlayerHandler.players[player.playerIndex] == null && player.playerIndex > 0) {
 				return;
 			}
 			if (equippedWeapon == SA.getWeapon()) {
@@ -218,8 +214,10 @@ public class Specials {
 					player.hitDelay = player.getCombatAssistant().getHitDelay();
 					player.doubleHit = SA.getDoubleHit();
 				} else {
-					if (o != null) {
-						o.gfx0(SA.getGfx1());
+					if (other != null) {
+						other.gfx0(SA.getGfx1());
+					} else if (NpcHandler.npcs[player.npcIndex] != null) {
+						NpcHandler.npcs[i].gfx0(SA.getGfx1());
 					}
 					player.startAnimation(SA.getAnim());
 					player.specDamage = SA.getSpecDamage();

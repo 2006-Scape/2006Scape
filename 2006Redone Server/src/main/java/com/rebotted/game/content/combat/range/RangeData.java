@@ -16,10 +16,6 @@ public class RangeData {
 			868, 869, 806, 807, 808, 809, 810, 811, 825, 826, 827, 828, 829,
 			830, 800, 801, 802, 803, 804, 805, 6522 };
 	
-	public static boolean usingDbow(Player c) {
-		return c.playerEquipment[c.playerWeapon] == 11235;
-	}
-	
 	public static boolean usingCrystalBow(Player c) {
 		return c.playerEquipment[c.playerWeapon] >= 4212
 				&& c.playerEquipment[c.playerWeapon] <= 4223;
@@ -53,34 +49,63 @@ public class RangeData {
 		}
 		return false;
 	}
+	
+	public static boolean usingDart(Player player) {
+		switch (player.playerEquipment[player.playerWeapon]) {
+		case 806:
+		case 807:
+		case 808:
+		case 809:
+		case 810:
+		case 811:
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean usingLongbow(Player player) {
+		if (usingCrystalBow(player)) {
+			return true;
+		}
+		switch (player.playerEquipment[player.playerWeapon]) {
+		case 839:
+		case 845:
+		case 847:
+		case 851:
+		case 855:
+		case 859:
+			return true;
+		}
+		return false;
+	}
+	
 
 	public static int correctBowAndArrows(Player c) {
 		if (usingBolts(c)) {
 			return -1;
 		}
 		switch (c.playerEquipment[c.playerWeapon]) {
-
-		case 839:
+		case 839://longbow
 		case 841:
 			return 882;
 
 		case 843:
-		case 845:
+		case 845://longbow
 			return 884;
 
-		case 847:
+		case 847://longbow
 		case 849:
 			return 886;
 
-		case 851:
+		case 851://longbow
 		case 853:
 			return 888;
 
-		case 855:
+		case 855://longbow
 		case 857:
 			return 890;
 
-		case 859:
+		case 859://longbow
 		case 861:
 			if (c.playerEquipment[c.playerArrows] == 892) {
 				return 892;
@@ -88,14 +113,12 @@ public class RangeData {
 				return 4172;
 			}
 
+		//karils
 		case 4734:
 		case 4935:
 		case 4936:
 		case 4937:
 			return 4740;
-
-		case 11235:
-			return 11212;
 		}
 		return -1;
 	}

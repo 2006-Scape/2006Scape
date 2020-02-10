@@ -21,7 +21,7 @@ public class Firemaking {
 		c.startAnimation(65535);
 		SkillHandler.lastSkillingAction = System.currentTimeMillis();
 		c.isFiremaking = false;
-		Cooking.resetCooking(c);
+		Cooking.setCooking(c, false);
 		logLit = false;
 	}
 	
@@ -145,7 +145,7 @@ public class Firemaking {
 					@Override
 					public void execute(CycleEventContainer container) {
 						if (c.playerIsCooking) {
-							Cooking.resetCooking(c);
+							Cooking.setCooking(c, false);
 						}
 						GameEngine.objectHandler.createAnObject(c, -1, x, y);
 						GameEngine.itemHandler.createGroundItem(c, 592, x, y, 1, c.getId());

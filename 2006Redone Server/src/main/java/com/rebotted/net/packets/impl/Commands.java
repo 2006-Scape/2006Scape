@@ -278,9 +278,9 @@ public class Commands implements PacketType {
                     "Add some snow in your mainscreen(works only in december)",
                 };
 
-
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendFrame126("", i);
+                for (int i = 8144; i < 8195; i++) 
+                	player.getPacketSender().sendFrame126("", i);
 
                 player.getPacketSender().sendFrame126("@dre@Commands", 8144);
 
@@ -292,7 +292,8 @@ public class Commands implements PacketType {
                 break;
             case "stuck":
                 player.getPlayerAssistant().startTeleport(SpellTeleport.LUMBRIDGE.getDestX(), SpellTeleport.LUMBRIDGE.getDestY(), 0, "modern");
-                player.getPacketSender().sendMessage("How did you manage that one... If it's bug related, please report on Github/Discord!");
+                player.getPacketSender().sendMessage("How did you manage that one...");
+                player.getPacketSender().sendMessage("If it's bug related, please report on Github/Discord!");
                 player.gfx100(80);
                 player.startAnimation(404);
                 break;
@@ -500,8 +501,9 @@ public class Commands implements PacketType {
             String a[] = playerCommand.split(" ");
             String itemName = "";
             int itemCount = 0;
-            for (int i = 1; i < a.length; i++) 
-                    itemName = itemName + a[i]+ " ";
+            for (int i = 1; i < a.length; i++) {
+            	itemName = itemName + a[i]+ " ";
+            }
             itemName = itemName.substring(0, itemName.length()-1);
             player.getPacketSender().sendMessage("Searching: " + itemName);
             for (int j = 0; j < GameEngine.itemHandler.ItemList.length; j++) {
