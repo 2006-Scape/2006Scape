@@ -207,8 +207,8 @@ public class GameEngine {
 						}
 						PlayerSave.saveGame((Client) p);
 						System.out.println("Saved game for " + p.playerName + ".");
-						scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 					}
+					scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 				}
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
