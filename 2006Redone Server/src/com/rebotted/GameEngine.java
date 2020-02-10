@@ -33,6 +33,7 @@ import com.rebotted.integrations.RegisteredAccsWebsite;
 import com.rebotted.integrations.SettingsLoader;
 import com.rebotted.integrations.discord.DiscordActivity;
 import com.rebotted.integrations.discord.JavaCord;
+import com.rebotted.internal.metrics.MetricsEngine;
 import com.rebotted.net.ConnectionHandler;
 import com.rebotted.net.ConnectionThrottleFilter;
 import com.rebotted.util.HostBlacklist;
@@ -170,6 +171,7 @@ public class GameEngine {
 					if (GameEngine.shutdownServer) {
 						scheduler.shutdown();
 					}
+					MetricsEngine.getInstance().count(this.getClass().getCanonicalName(), System.currentTimeMillis()); // start - PoC Have not tested this.getClass().getCanonicalName() 
 					itemHandler.process();
 					playerHandler.process();
 					npcHandler.process();
@@ -192,6 +194,7 @@ public class GameEngine {
 							lastMassSave = System.currentTimeMillis();
 						}
 					}
+					MetricsEngine.getInstance().count(this.getClass().getCanonicalName(), System.currentTimeMillis()); // stop - PoC Have not tested this.getClass().getCanonicalName()
 				} catch (Exception ex) {
 					ex.printStackTrace();
 					System.out.println("A fatal exception has been thrown!");
