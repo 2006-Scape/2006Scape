@@ -1,13 +1,11 @@
 package com.rebotted.world;
 
 import java.util.ArrayList;
-
 import com.rebotted.GameEngine;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.quests.QuestAssistant;
-import com.rebotted.game.globalworldobjects.DoubleGates;
 import com.rebotted.game.objects.Object;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.objects.impl.FlourMill;

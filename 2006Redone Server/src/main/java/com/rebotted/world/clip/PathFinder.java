@@ -1,8 +1,6 @@
 package com.rebotted.world.clip;
 
 import java.util.LinkedList;
-
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 

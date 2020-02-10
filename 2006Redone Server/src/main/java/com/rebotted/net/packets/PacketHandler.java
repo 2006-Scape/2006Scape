@@ -2,7 +2,6 @@ package com.rebotted.net.packets;
 
 import com.rebotted.GameConstants;
 import com.rebotted.game.dialogues.Dialogue;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.impl.AttackPlayer;
 import com.rebotted.net.packets.impl.Bank10;

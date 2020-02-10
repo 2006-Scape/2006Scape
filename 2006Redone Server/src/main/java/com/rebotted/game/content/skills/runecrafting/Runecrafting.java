@@ -3,7 +3,6 @@ package com.rebotted.game.content.skills.runecrafting;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
-import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 
 /**

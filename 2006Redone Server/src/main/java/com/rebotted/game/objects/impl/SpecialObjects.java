@@ -1,7 +1,6 @@
 package com.rebotted.game.objects.impl;
 
 import com.rebotted.GameEngine;
-import com.rebotted.game.content.traveling.DesertCactus;
 import com.rebotted.game.content.traveling.DesertHeat;
 import com.rebotted.game.players.Player;
 import com.rebotted.world.clip.Region;

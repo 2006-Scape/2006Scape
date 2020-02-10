@@ -123,7 +123,6 @@ public class ShopHandler {
 		String line = "";
 		String token = "";
 		String token2 = "";
-		String token2_2 = "";
 		String[] token3 = new String[(MAX_SHOP_ITEMS * 2)];
 		boolean EndOfFile = false;
 		BufferedReader characterfile = null;
