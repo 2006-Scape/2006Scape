@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import com.rebotted.GameConstants;
+import com.rebotted.console.commands.ListPlayers;
+import com.rebotted.console.commands.Stop;
 
 /**
  * 
@@ -20,6 +22,9 @@ public class CommandConsole implements Runnable {
 	private ArrayList<CommandProcessor> cmds = new ArrayList<CommandProcessor>();
 
 	private CommandConsole() {
+		cmds.add(new ListPlayers());
+		cmds.add(new Stop());
+
 		scanner = new Scanner(System.in);
 		cc = this;
 		self = new Thread(cc);
