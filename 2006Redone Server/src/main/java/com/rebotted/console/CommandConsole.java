@@ -40,19 +40,19 @@ public class CommandConsole implements Runnable {
 			try {
 				input = scanner.nextLine();
 				String[] splited = input.split("\\s+");
-				if (splited.length >= 1) {
-					if (splited[0].equalsIgnoreCase("help")) {
-						for (CommandProcessor cmd : cmds) {
-							System.out.println(cmd.help());
-						}
-					} else {
-						for (CommandProcessor cmd : cmds) {
-							if (cmd.command(splited)) {
-								break;
-							}
-						}
-						System.out
-								.println("Command not recognized. Try 'help'.");
+				if (splited.length == 0) {
+					System.out.println("Command not recognized. Try 'help'.");
+					break;
+				}
+				if (splited[0].equalsIgnoreCase("help")) {
+					for (CommandProcessor cmd : cmds) {
+						System.out.println(cmd.help());
+					}
+					break;
+				}
+				for (CommandProcessor cmd : cmds) {
+					if (cmd.command(splited)) {
+						break;
 					}
 				}
 			} catch (NoSuchElementException | NullPointerException e) {
