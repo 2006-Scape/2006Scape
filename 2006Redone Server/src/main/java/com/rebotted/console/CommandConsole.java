@@ -40,7 +40,7 @@ public class CommandConsole implements Runnable {
 			try {
 				input = scanner.nextLine();
 				String[] splited = input.split("\\s+");
-				if (splited.length == 0) {
+				if (splited[0].isEmpty()) {
 					System.out.println("Command not recognized. Try 'help'.");
 					continue;
 				}
