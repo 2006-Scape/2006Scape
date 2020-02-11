@@ -45,13 +45,15 @@ public class CommandConsole implements Runnable {
 						for (CommandProcessor cmd : cmds) {
 							System.out.println(cmd.help());
 						}
-					}
-					for (CommandProcessor cmd : cmds) {
-						if (cmd.command(splited)) {
-							break;
+					} else {
+						for (CommandProcessor cmd : cmds) {
+							if (cmd.command(splited)) {
+								break;
+							}
 						}
+						System.out
+								.println("Command not recognized. Try 'help'.");
 					}
-					System.out.println("Command not recognized. Try 'help'.");
 				}
 			} catch (NoSuchElementException | NullPointerException e) {
 			}

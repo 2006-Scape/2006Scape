@@ -13,6 +13,7 @@ import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
+import com.rebotted.console.CommandConsole;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.minigames.FightCaves;
 import com.rebotted.game.content.minigames.FightPits;
@@ -212,6 +213,8 @@ public class GameEngine {
 				}
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
+		
+		CommandConsole.getInstance();
 		
 		try {
 			while (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
