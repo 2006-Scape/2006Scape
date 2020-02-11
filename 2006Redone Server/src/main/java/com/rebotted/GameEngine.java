@@ -3,6 +3,11 @@ package com.rebotted;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
@@ -73,6 +78,8 @@ public class GameEngine {
 	public static FightCaves fightCaves = new FightCaves();
 	private static PestControl pestControl = new PestControl();
 	public static Trawler trawler = new Trawler();	
+	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+	private final static Lock lock = new ReentrantLock();
 
 	/**
 	 * Port and Cycle rate.
@@ -147,51 +154,74 @@ public class GameEngine {
 
 		/**
 		 * Main Server Tick
+		 * 
+		 * This scheduler will tick once every 600ms. If the previous tick takes
+		 * 300ms to execute, this scheduler will wait 300ms only before the next
+		 * tick.
+		 * 
+		 * scheduleAtFixedRate() does not invoke concurrent Runnables.
 		 */
-		try {
-			while (!GameEngine.shutdownServer) {
-					Thread.sleep(600);
-				itemHandler.process();
-				playerHandler.process();
-				npcHandler.process();
-				shopHandler.process();
-				objectManager.process();
-				CastleWars.process();
-				FightPits.process();
-				pestControl.process();
-				CycleEventHandler.getSingleton().process();
-				PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
-				RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
-				DiscordActivity.updateActivity();
-				if (System.currentTimeMillis() - lastMassSave > 300000) {
+		scheduler.scheduleAtFixedRate(new Runnable() {
+			public void run() {
+				/**
+				 * Main Server Tick
+				 */
+				try {
+					if (GameEngine.shutdownServer) {
+						scheduler.shutdown();
+					}
+					itemHandler.process();
+					playerHandler.process();
+					npcHandler.process();
+					shopHandler.process();
+					objectManager.process();
+					CastleWars.process();
+					FightPits.process();
+					pestControl.process();
+					CycleEventHandler.getSingleton().process();
+					PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
+					RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
+					DiscordActivity.updateActivity();
+					if (System.currentTimeMillis() - lastMassSave > 300000) {
+						for (Player p : PlayerHandler.players) {
+							if (p == null) {
+								continue;
+							}
+							PlayerSave.saveGame((Client) p);
+							System.out.println("Saved game for " + p.playerName + ".");
+							lastMassSave = System.currentTimeMillis();
+						}
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					System.out.println("A fatal exception has been thrown!");
 					for (Player p : PlayerHandler.players) {
 						if (p == null) {
 							continue;
 						}
+						if (p.inTrade) {
+							((Client) p).getTrading().declineTrade();
+						}
+						if (p.duelStatus == 6) {
+							((Client) p).getDueling().claimStakedItems();
+						}
 						PlayerSave.saveGame((Client) p);
-						System.out.println("Saved game for " + p.playerName
-								+ ".");
-						lastMassSave = System.currentTimeMillis();
-					   }
-                }
-            }
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("A fatal exception has been thrown!");
-			for (Player p : PlayerHandler.players) {
-				if (p == null) {
-					continue;
+						System.out.println("Saved game for " + p.playerName + ".");
+					}
+					scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 				}
-				if (p.inTrade) {
-					((Client)p).getTrading().declineTrade();
-	            }
-				if(p.duelStatus == 6) {
-					((Client)p).getDueling().claimStakedItems();
-				}
-				PlayerSave.saveGame((Client) p);
-				System.out.println("Saved game for " + p.playerName + ".");
 			}
+		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
+		
+		try {
+			while (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
+				// TODO
+				// Cleanup?
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
+		
 		acceptor = null;
 		connectionHandler = null;
 		sac = null;
