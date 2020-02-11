@@ -42,13 +42,13 @@ public class CommandConsole implements Runnable {
 				String[] splited = input.split("\\s+");
 				if (splited.length == 0) {
 					System.out.println("Command not recognized. Try 'help'.");
-					break;
+					continue;
 				}
 				if (splited[0].equalsIgnoreCase("help")) {
 					for (CommandProcessor cmd : cmds) {
 						System.out.println(cmd.help());
 					}
-					break;
+					continue;
 				}
 				for (CommandProcessor cmd : cmds) {
 					if (cmd.command(splited)) {
