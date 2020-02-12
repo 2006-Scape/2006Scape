@@ -20,11 +20,15 @@ Step 4: Open IntelliJ and click "File > New > New Project from Version Control"
 
 Step 5: Enter the URL of your forked Github repository, and hit "Clone" ([Image](https://i.imgur.com/5dtyoZU.png))
 
-Step 6: Start the FileServer ([Image](https://i.imgur.com/moNKg9u.png))
+Step 6: Right click gradle.build > Import Gradle Project ([Image](https://i.imgur.com/2dmC17b.png))
 
-Step 7: Start the GameEngine ([Image](https://i.imgur.com/RTbMxmv.png))
+Step 7: Select Auto-import ([Image](https://i.imgur.com/3zhowMG.png))
 
-Step 8: Start the Client ([Image](https://i.imgur.com/dHTiU0I.png))
+Step 7: Start the FileServer ([Image](https://i.imgur.com/moNKg9u.png))
+
+Step 8: Start the GameEngine ([Image](https://i.imgur.com/RTbMxmv.png))
+
+Step 9: Start the Client ([Image](https://i.imgur.com/dHTiU0I.png))
 
 ## How to get your code onto this project page
 
