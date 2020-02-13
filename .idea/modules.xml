@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2006Redone_Server.iml" filepath="$PROJECT_DIR$/.idea/modules/2006Redone_Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2006Redone_Server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/2006Redone_Server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2006Redone_Server.test.iml" filepath="$PROJECT_DIR$/.idea/modules/2006Redone_Server.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/2006rebotted.iml" filepath="$PROJECT_DIR$/.idea/2006rebotted.iml" />
     </modules>
   </component>

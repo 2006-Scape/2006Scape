@@ -29,7 +29,13 @@ import java.util.Date;
  */
 @SuppressWarnings("serial")
 public class Game extends RSApplet {
+	
 	private boolean graphicsEnabled = true;
+	
+	public static int random(final float range) {
+		return (int) (java.lang.Math.random() * (range + 1));
+	}
+    
 
 	public static String intToKOrMilLongName(int i) {
 		String s = String.valueOf(i);
@@ -393,7 +399,11 @@ public class Game extends RSApplet {
 					}
 					if (l == 0) {
 						if (i1 > 0 && i1 < 110) {
+							try {
 							textDrawingArea.method389(false, 4, 0, chatMessages[k], i1);
+							} catch (Exception e) {
+								
+							}
 						}
 						j++;
 					}
@@ -518,9 +528,9 @@ public class Game extends RSApplet {
 		}
 	}
 
-	public void processMenuClick() {
+	public boolean processMenuClick() {
 		if (activeInterfaceType != 0) {
-			return;
+			return false;
 		}
 		int j = super.clickMode3;
 		if (spellSelected == 1 && super.saveClickX >= 516 && super.saveClickY >= 160 && super.saveClickX <= 765 && super.saveClickY <= 205) {
@@ -610,7 +620,7 @@ public class Game extends RSApplet {
 						if (RSInterface.interfaceCache[j2].parentID == backDialogID) {
 							activeInterfaceType = 3;
 						}
-						return;
+						return true;
 					}
 				}
 			}
@@ -624,6 +634,7 @@ public class Game extends RSApplet {
 				determineMenuSize();
 			}
 		}
+		return false;
 	}
 
 	public void saveMidi(boolean flag, byte abyte0[]) {
@@ -3045,8 +3056,7 @@ public class Game extends RSApplet {
 			inputTaken = true;
 			super.clickMode3 = 0;
 		}
-		processMenuClick();
-		if (fullScreenBackDialogID == -1) {
+		if (!processMenuClick()) {
 			processMainScreenClick();
 			processTabClick();
 			processChatModeClick();
@@ -3449,6 +3459,10 @@ public class Game extends RSApplet {
 		if (l >= 2000) {
 			l -= 2000;
 		}
+		if (l == 696) {
+			minimapInt1 = 0;
+            anInt1184 = 120;
+        }
 		if (l == 582) {
 			NPC npc = npcArray[i1];
 			if (npc != null) {
@@ -4759,7 +4773,7 @@ public class Game extends RSApplet {
 					inputDialogState = 0;
 					inputTaken = true;
 				}
-			} else if (backDialogID == -1 && fullScreenBackDialogID == -1) {
+			} else {
 				if (j >= 32 && j <= 122 && inputString.length() < 80) {
 					inputString += (char) j;
 					inputTaken = true;
@@ -4790,18 +4804,6 @@ public class Game extends RSApplet {
 						}
 						if (inputString.equals("::dataon")) {
 							showInfo = !showInfo;
-						}
-						if (inputString.equals("::clip")) {
-							for (int k1 = 0; k1 < 4; k1++) {
-								for (int i2 = 1; i2 < 103; i2++) {
-									for (int k2 = 1; k2 < 103; k2++) {
-										aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
-									}
-
-								}
-
-							}
-
 						}
 					}
 					if (inputString.startsWith("::")) {
@@ -5353,6 +5355,16 @@ public class Game extends RSApplet {
 		chatNames[0] = s1;
 		chatMessages[0] = s;
 	}
+	
+	public void processMinimapActions() {
+        int x = super.mouseX;
+        int y = super.mouseY;
+        if (x >= 551 && x <= 577 && y >= 7 && y <= 40) {
+            menuActionName[1] = "Face North";
+            menuActionID[1] = 696;
+            menuActionRow = 2;
+        }
+	}
 
 	public void processTabClick() {
 		if (super.clickMode3 == 1) {
@@ -5391,11 +5403,11 @@ public class Game extends RSApplet {
 				tabID = 6;
 				tabAreaAltered = true;
 			}
-			if (super.saveClickX >= 540 && super.saveClickX <= 574 && super.saveClickY >= 466 && super.saveClickY < 502 && tabInterfaceIDs[7] != -1) {
+			/*if (super.saveClickX >= 540 && super.saveClickX <= 574 && super.saveClickY >= 466 && super.saveClickY < 502 && tabInterfaceIDs[7] != -1) {
 				needDrawTabArea = true;
 				tabID = 7;
 				tabAreaAltered = true;
-			}
+			}*/
 			if (super.saveClickX >= 572 && super.saveClickX <= 602 && super.saveClickY >= 466 && super.saveClickY < 503 && tabInterfaceIDs[8] != -1) {
 				needDrawTabArea = true;
 				tabID = 8;
@@ -5549,9 +5561,9 @@ public class Game extends RSApplet {
 		menuActionName[0] = "Cancel";
 		menuActionID[0] = 1107;
 		menuActionRow = 1;
-		if(fullScreenBackDialogID != -1) {
+		 if (fullScreenInterfaceId != -1) {
 			anInt886 = 0;
-			buildInterfaceMenu(0, RSInterface.interfaceCache[fullScreenBackDialogID], super.mouseX, 0, super.mouseY, 0);
+			buildInterfaceMenu(0, RSInterface.interfaceCache[fullScreenInterfaceId], super.mouseX, 0, super.mouseY, 0);
 			if (anInt886 != anInt1026) {
 				anInt1026 = anInt886;
 			}
@@ -5595,6 +5607,7 @@ public class Game extends RSApplet {
 			inputTaken = true;
 			anInt1039 = anInt886;
 		}
+		processMinimapActions();
 		boolean flag = false;
 		while (!flag) {
 			flag = true;
@@ -5771,7 +5784,6 @@ public class Game extends RSApplet {
 				backDialogID = -1;
 				openInterfaceID = -1;
 				invOverlayInterfaceID = -1;
-				fullScreenBackDialogID = -1;
 				fullScreenInterfaceId = -1;
 				anInt1018 = -1;
 				aBoolean1149 = false;
@@ -5978,7 +5990,6 @@ public class Game extends RSApplet {
 			}
 
 		}
-
 		int j3 = j2;
 		int k3 = j1;
 		anIntArrayArray901[j2][j1] = 99;
@@ -7475,9 +7486,9 @@ public class Game extends RSApplet {
 	}
 
 	public void drawGameScreen() {
-		if (fullScreenBackDialogID != -1 && (loadingStage == 2 || super.fullGameScreen != null)) {
+		if (fullScreenInterfaceId != -1 && (loadingStage == 2 || super.fullGameScreen != null)) {
 			if (loadingStage == 2) {
-				method119(anInt945, fullScreenBackDialogID);
+				method119(anInt945, fullScreenInterfaceId);
 				if (fullScreenInterfaceId != -1)
 					method119(anInt945, fullScreenInterfaceId);
 				anInt945 = 0;
@@ -7486,15 +7497,8 @@ public class Game extends RSApplet {
 				Texture.lineOffsets = gameScreenOffsets;
 				DrawingArea.setAllPixelsToZero();
 				welcomeScreenRaised = true;
-				RSInterface rSInterface = RSInterface.interfaceCache[fullScreenBackDialogID];
-				if (rSInterface.width == 512 && rSInterface.height == 334
-						&& rSInterface.type == 0) {
-					rSInterface.width = 765;
-					rSInterface.height = 503;
-				}
-				drawInterface(0, 0, rSInterface, 0);
-				if (fullScreenInterfaceId != -1) {
-					RSInterface class13_1 = RSInterface.interfaceCache[fullScreenInterfaceId];
+				if (openInterfaceID != -1) {
+					RSInterface class13_1 = RSInterface.interfaceCache[openInterfaceID];
 					if (class13_1.width == 512 && class13_1.height == 334
 							&& class13_1.type == 0) {
 						class13_1.width = 765;
@@ -7502,6 +7506,13 @@ public class Game extends RSApplet {
 					}
 					drawInterface(0, 0, class13_1, 0);
 				}
+				RSInterface rSInterface = RSInterface.interfaceCache[fullScreenInterfaceId];
+				if (rSInterface.width == 512 && rSInterface.height == 334
+						&& rSInterface.type == 0) {
+					rSInterface.width = 765;
+					rSInterface.height = 503;
+				}
+				drawInterface(0, 0, rSInterface, 0);
 				if (!menuOpen) {
 					processRightClick();
 					drawTooltip();
@@ -8477,10 +8488,12 @@ public class Game extends RSApplet {
 		if (anInt1055 == 1) {
 			multiOverlay.drawSprite(472, 296);
 		}
+		int k = 20;
+		int i1 = 0xffff00;
+		int x = baseX + (myPlayer.x - 6 >> 7);
+	    int y = baseY + (myPlayer.y - 6 >> 7);
 		if (fpsOn) {
 			char c = '\u01FB';
-			int k = 20;
-			int i1 = 0xffff00;
 			if (super.fps < 15) {
 				i1 = 0xff0000;
 			}
@@ -8495,6 +8508,20 @@ public class Game extends RSApplet {
 			aTextDrawingArea_1271.method380("Mem:" + j1 + "k", c, 0xffff00, k);
 			k += 15;
 		}
+	 if (showInfo) {
+            if (super.fps < 15)
+                i1 = 0xff0000;
+            aTextDrawingArea_1271.method385(0xffff00, "Fps:" + super.fps, 285, 5);
+            Runtime runtime = Runtime.getRuntime();
+            int j1 = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
+            i1 = 0xffff00;
+            if (j1 > 0x2000000 && lowMem)
+                i1 = 0xff0000;
+            k += 15;
+            aTextDrawingArea_1271.method385(0xffff00, "Mem:" + j1 + "k", 299, 5);
+            aTextDrawingArea_1271.method385(0xffff00, "Mouse X: " + super.mouseX + " , Mouse Y: " + super.mouseY, 314, 5);
+            aTextDrawingArea_1271.method385(0xffff00, "Coords: " + x + ", " + y, 329, 5);
+        }
 		if (anInt1104 != 0) {
 			int j = anInt1104 / 50;
 			int l = j / 60;
@@ -9512,13 +9539,13 @@ public class Game extends RSApplet {
 		if (loginScreenState == 3) {
 			chatTextDrawingArea.method382(0xffff00, c / 2, "Create a free account", c1 / 2 - 60, true);
 			int k = c1 / 2 - 35;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "To create a new account you need to", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "To create a new account just click", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "go back to the main " + ClientSettings.SERVER_NAME + " webpage", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "\"Cancel\" below, and click \"Existing User\".", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "and choose the red 'create account'", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "Log in with any credentials you want and an", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "button at the top right of that page.", k, true);
+			chatTextDrawingArea.method382(0xffffff, c / 2, "account will automatically be created for you.", k, true);
 			k += 15;
 			int j1 = c / 2;
 			int i2 = c1 / 2 + 50;
@@ -10876,10 +10903,6 @@ public class Game extends RSApplet {
 					backDialogID = -1;
 					inputTaken = true;
 				}
-				if (fullScreenBackDialogID != -1) {
-					fullScreenBackDialogID = -1;
-					welcomeScreenRaised = true;
-				}
 				if (fullScreenInterfaceId != -1) {
 					fullScreenInterfaceId = -1;
 				}
@@ -11011,10 +11034,6 @@ public class Game extends RSApplet {
 					backDialogID = -1;
 					inputTaken = true;
 				}
-				if (fullScreenBackDialogID != -1) {
-					fullScreenBackDialogID = -1;
-					welcomeScreenRaised = true;
-				}
 				if (fullScreenInterfaceId != -1) {
 					fullScreenInterfaceId = -1;
 				}
@@ -11075,9 +11094,6 @@ public class Game extends RSApplet {
 				}
 				if (backDialogID != -1) {
 					backDialogID = -1;
-				}
-				if (fullScreenBackDialogID != k15) {
-					fullScreenBackDialogID = k15;
 				}
 				if (fullScreenInterfaceId != k15) {
 					fullScreenInterfaceId = k9;
@@ -11210,61 +11226,30 @@ public class Game extends RSApplet {
 					backDialogID = -1;
 					inputTaken = true;
 				}
-				if (fullScreenBackDialogID != -1) {
-					fullScreenBackDialogID = -1;
-					welcomeScreenRaised = true;
-				}
-				if (fullScreenInterfaceId != -1) {
-					fullScreenInterfaceId = -1;
-				}
-				/*if (openInterfaceID != l7) {
-					openInterfaceID = l7;
-				}*/
 				if (inputDialogState != 0) {
 					inputDialogState = 0;
 					inputTaken = true;
 				}
-				/*
-        		 * 15244 = main Interface ID
-        		 * 17511 = Question Type
-        		 * 15819 = Christmas Type
-        		 * 15812 = Security Type
-        		 * 15801 = Item Scam Type
-        		 * 15791 = Password Safety
-        		 * 15774 = Good/Bad Password
-        		 * 15767 = Drama Type
-        		 */
-				
+				// 17511 = Question Type
+				// 15819 = Christmas Type
+				// 15812 = Security Type
+				// 15801 = Item Scam Type
+				// 15791 = Password Safety 
+				// 15774 = Good/Bad Password
+				// 15767 = Drama Type 
 				if (l7 == 15244) {
-					openInterfaceID = 15812;//secondary/bottom part
-            		fullScreenBackDialogID = 15244;
-				/*} else if (l7 == 17511) {
-        			openInterfaceID = 17511;
-            		fullScreenBackDialogID = 15244;
-        		} else if (l7 == 15819) {
-        			openInterfaceID = 15819;
-            		fullScreenBackDialogID = 15244;
-        		} else if (l7 == 15812) {
-        			openInterfaceID = 15812;
-            		fullScreenBackDialogID = 15244;
-        		} else if (l7 == 15801) {
-        			openInterfaceID = 15801;
-            		fullScreenBackDialogID = 15244;
-        		} else if (l7 == 15791) {
-        			openInterfaceID = 15791;
-            		fullScreenBackDialogID = 15244;
-        		} else if (l7 == 15774) {
-        			openInterfaceID = 15774;
-            		fullScreenBackDialogID = 15244;
-        		} else if (l7 == 15767) {
-        			openInterfaceID = 15767;
-            		fullScreenBackDialogID = 15244;*/
-        		} else {
-        			openInterfaceID = l7;
-        		}
+					if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
+						openInterfaceID = 15819;
+					} else {
+						openInterfaceID = 15801;
+					}
+					fullScreenInterfaceId = 15244;
+				} else {
+					openInterfaceID = l7;
+				}
 				aBoolean1149 = false;
 				pktType = -1;
-				return true;
+                return true;
 			}
 			if (pktType == 218) {
 				int i8 = inStream.method438();
@@ -11330,10 +11315,6 @@ public class Game extends RSApplet {
 					backDialogID = -1;
 					inputTaken = true;
 				}
-				if (fullScreenBackDialogID != -1) {
-					fullScreenBackDialogID = -1;
-					welcomeScreenRaised = true;
-				}
 				if (fullScreenInterfaceId != -1) {
 					fullScreenInterfaceId = -1;
 				}
@@ -11386,10 +11367,6 @@ public class Game extends RSApplet {
 					invOverlayInterfaceID = -1;
 					needDrawTabArea = true;
 					tabAreaAltered = true;
-				}
-				if (fullScreenBackDialogID != -1) {
-					fullScreenBackDialogID = -1;
-					welcomeScreenRaised = true;
 				}
 				if (fullScreenInterfaceId != -1) {
 					fullScreenInterfaceId = -1;
@@ -11523,10 +11500,6 @@ public class Game extends RSApplet {
 			inputTaken = true;
 			aBoolean1149 = false;
 		}
-		if (fullScreenBackDialogID != -1) {
-			fullScreenBackDialogID = -1;
-			welcomeScreenRaised = true;
-		}
 		if (fullScreenInterfaceId != -1) {
 			fullScreenInterfaceId = -1;
 		}
@@ -11536,7 +11509,7 @@ public class Game extends RSApplet {
 
 	public Game() {
 	    //Test if they're on 32-bit, warn them if they are
-		if (!System.getProperty("os.arch").contains("64"))
+		if (!System.getProperty("sun.arch.data.model").contains("64"))
 		{
 			JOptionPane.showMessageDialog(null, "You're running 32-bit java. This will definitely cause problems.\nYou can get the right Java 8 at AdoptOpenJDK.net", "You're running 32-bit Java!", JOptionPane.INFORMATION_MESSAGE);
 			System.out.println("Please upgrade to 64-bit java to avoid problems! (AdoptOpenJDK.net)");
@@ -11730,7 +11703,6 @@ public class Game extends RSApplet {
 	public static int anInt854;
 	public int anInt855;
 	public int openInterfaceID;
-	public int fullScreenBackDialogID = -1;
 	public int fullScreenInterfaceId = -1;
 	public int xCameraPos;
 	public int zCameraPos;
