@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 public final class Client {
 
 	public static void main(String[] args) {
-		ClientSettings.SERVER_IP = "2006rebotted.hopto.org";
+		ClientSettings.SERVER_IP = "127.0.0.1";
 		try {
 			Game game = new Game();
 			Game.nodeID = 10;
