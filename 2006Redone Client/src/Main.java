@@ -16,11 +16,11 @@ public final class Main {
 	 */
 
 	public static void main(String[] args) {
-		ClientSettings.SERVER_IP = "127.0.0.1";
+		ClientSettings.SERVER_IP = "server.redsparr0w.com";
 		if (args.length > 1)
 		{
 			System.out.println("Running local");
-			ClientSettings.SERVER_IP = "127.0.0.1";
+			ClientSettings.SERVER_IP = "server.redsparr0w.com";
 		}
 		try {
 			Game game = new Game();

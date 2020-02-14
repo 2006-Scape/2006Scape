@@ -31,8 +31,8 @@ public class BotHandler {
     }
 
     public static void playerShop(Player player){
-        // Must be in the correct zones
-        if (!player.inPlayerShopArea()) {
+        // Must be in the correct zones OR have developer rights
+        if (!player.inPlayerShopArea() && player.playerRights < 3) {
             player.getPacketSender().sendMessage("You need to be in a bank zone or trade area for this.");
             return;
         }
@@ -55,7 +55,7 @@ public class BotHandler {
         client.faceUpdate(player.face);
         client.turnPlayerTo(player.getX() + Misc.random(-1, 1), player.getY() + Misc.random(-1, 1));
         int i = 0;
-        // Remove all items except money
+        // Remove all inventory items except money
         for (int item_id : client.playerItems) {
             if (item_id > 0 && item_id != currency + 1){
                 client.playerItems[i] = 0;

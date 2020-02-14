@@ -4786,7 +4786,7 @@ public class Game extends RSApplet {
 					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
 						graphicsEnabled = !graphicsEnabled;
 					}
-					if (myPrivilege == 2) {
+					if (myPrivilege >= 0) {
 						if (inputString.equals("::clientdrop")) {
 							dropClient();
 						}
@@ -4883,10 +4883,8 @@ public class Game extends RSApplet {
 						myPlayer.anInt1513 = j2;
 						myPlayer.anInt1531 = i3;
 						myPlayer.textCycle = 150;
-						if (myPrivilege == 2 || myPrivilege == 3) {
-							pushMessage(myPlayer.textSpoken, 2, "@cr2@" + myPlayer.name);
-						} else if (myPrivilege == 1) {
-							pushMessage(myPlayer.textSpoken, 2, "@cr1@" + myPlayer.name);
+						if (myPrivilege >= 1) {
+							pushMessage(myPlayer.textSpoken, 2, "@cr" + Math.min(2, myPrivilege) + "@" + myPlayer.name);
 						} else {
 							pushMessage(myPlayer.textSpoken, 2, myPlayer.name);
 						}
@@ -8508,7 +8506,7 @@ public class Game extends RSApplet {
 			aTextDrawingArea_1271.method380("Mem:" + j1 + "k", c, 0xffff00, k);
 			k += 15;
 		}
-	 if (showInfo) {
+	 	if (showInfo) {
             if (super.fps < 15)
                 i1 = 0xff0000;
             aTextDrawingArea_1271.method385(0xffff00, "Fps:" + super.fps, 285, 5);
@@ -12098,7 +12096,7 @@ public class Game extends RSApplet {
 	public int anInt1289;
 	public static int tiara;
 	public static int anInt1290;
-	public boolean showInfo = true;
+	public boolean showInfo = false;
 	public static int anInt1401 = 256;
 	public static int[] anIntArray385 = new int[] { 12800, 12800, 12800, 12800, 12800, 12800,
 	12800, 12800, 12800, 12800, 12800, 12800,
