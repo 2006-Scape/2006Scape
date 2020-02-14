@@ -16,7 +16,7 @@ public final class Main {
 	 */
 
 	public static void main(String[] args) {
-		ClientSettings.SERVER_IP = "127.0.0.1";
+		ClientSettings.SERVER_IP = "2006rebotted.hopto.org";
 		if (args.length > 1)
 		{
 			System.out.println("Running local");
