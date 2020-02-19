@@ -44,6 +44,18 @@ import com.rebotted.game.content.skills.agility.WildernessAgility;
 import com.rebotted.game.content.skills.cooking.Potatoes;
 import com.rebotted.game.content.skills.core.Mining;
 import com.rebotted.game.content.skills.crafting.GlassBlowing;
+import com.rebotted.game.content.skills.farming.Allotments;
+import com.rebotted.game.content.skills.farming.Bushes;
+import com.rebotted.game.content.skills.farming.Compost;
+import com.rebotted.game.content.skills.farming.Flowers;
+import com.rebotted.game.content.skills.farming.FruitTree;
+import com.rebotted.game.content.skills.farming.Herbs;
+import com.rebotted.game.content.skills.farming.Hops;
+import com.rebotted.game.content.skills.farming.Seedling;
+import com.rebotted.game.content.skills.farming.SpecialPlantOne;
+import com.rebotted.game.content.skills.farming.SpecialPlantTwo;
+import com.rebotted.game.content.skills.farming.ToolLeprechaun;
+import com.rebotted.game.content.skills.farming.WoodTrees;
 import com.rebotted.game.content.skills.fletching.LogCuttingInterface;
 import com.rebotted.game.content.skills.runecrafting.Runecrafting;
 import com.rebotted.game.content.skills.slayer.Slayer;
@@ -56,7 +68,8 @@ import com.rebotted.game.globalworldobjects.DoubleGates;
 import com.rebotted.game.globalworldobjects.GateHandler;
 import com.rebotted.game.globalworldobjects.SingleGates;
 import com.rebotted.game.items.GameItem;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.Inventory;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.PotionMixing;
 import com.rebotted.game.items.impl.Teles;
@@ -80,6 +93,18 @@ import com.rebotted.world.ObjectManager;
 public abstract class Player {
 	
 	public byte buffer[] = null;
+	private Compost compost = new Compost(this);
+	private Allotments allotment = new Allotments(this);
+	private Flowers flower = new Flowers(this);
+	private Herbs herb = new Herbs(this);
+	private Hops hops = new Hops(this);
+	private Bushes bushes = new Bushes(this);
+	private Seedling seedling = new Seedling(this);
+	private WoodTrees trees = new WoodTrees(this);
+	private FruitTree fruitTrees = new FruitTree(this);
+	private SpecialPlantOne specialPlantOne = new SpecialPlantOne(this);
+	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
+	private ToolLeprechaun toolLeprechaun = new ToolLeprechaun(this);
 	public Stream inStream = null, outStream = null;
     public IoSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
@@ -135,6 +160,65 @@ public abstract class Player {
 	private SingleGates singleGates = new SingleGates();
 	private DoubleGates doubleGates = new DoubleGates();
 	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
+	
+	public boolean isPreaching() {
+		return preaching;
+	}
+
+	public void setPreaching(boolean preaching) {
+		this.preaching = preaching;
+	}
+	
+	public boolean preaching = false;
+	
+	public Compost getCompost() {
+		return compost;
+	}
+
+	public Allotments getAllotment() {
+		return allotment;
+	}
+
+	public Flowers getFlowers() {
+		return flower;
+	}
+
+	public Herbs getHerbs() {
+		return herb;
+	}
+
+	public Hops getHops() {
+		return hops;
+	}
+
+	public Bushes getBushes() {
+		return bushes;
+	}
+
+	public Seedling getSeedling() {
+		return seedling;
+	}
+
+	public WoodTrees getTrees() {
+		return trees;
+	}
+
+	public FruitTree getFruitTrees() {
+		return fruitTrees;
+	}
+
+	public SpecialPlantOne getSpecialPlantOne() {
+		return specialPlantOne;
+	}
+
+	public SpecialPlantTwo getSpecialPlantTwo() {
+		return specialPlantTwo;
+	}
+
+	public ToolLeprechaun getFarmingTools() {
+		return toolLeprechaun;
+	}
+	
 
 	public LogCuttingInterface getFletching() {
 		return fletching;
@@ -351,8 +435,31 @@ public abstract class Player {
 	public Food getFood() {
 		return food;
 	}
+	
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+	
+	private Inventory inventory = new Inventory(this);
+	
+	
+	private int tempInteger;
+	public boolean tempBoolean = false;
+	
+	public void setTempInteger(int tempInteger) {
+		this.tempInteger = tempInteger;
+	}
+
+	public int getTempInteger() {
+		return tempInteger;
+	}
 
 	public int totalShopItems;
+	
+	public boolean stopPlayer(boolean stop) {
+		return (stop ? stopPlayerPacket == true : stopPlayerPacket == false);
+	}
 
 	public boolean isSnowy;
 
@@ -1265,7 +1372,7 @@ public abstract class Player {
 			followId, skullTimer, nextChat = 0, talkingNpc = -1,
 			dialogueAction = 0, autocastId, followDistance, followId2,
 			barrageCount = 0, delayedDamage = 0, delayedDamage2 = 0,
-			pcPoints = 0, magePoints = 0, desertTreasure = 0,
+			pcPoints = 0, magePoints = 0, desertTreasure = 0, skillAmount,
 			lastArrowUsed = -1, autoRet = 1, pcDamage = 0, xInterfaceId = 0,
 			xRemoveId = 0, xRemoveSlot = 0, tzhaarToKill = 0, tzhaarKilled = 0,
 			waveId, frozenBy = 0, poisonDamage = 0, teleAction = 0,
@@ -2541,7 +2648,7 @@ public abstract class Player {
 			playerProps.writeByte(0);
 		}
 
-		if (!Item.isFullBody(playerEquipment[playerChest])) {
+		if (!ItemData.isFullBody(playerEquipment[playerChest])) {
 			playerProps.writeWord(0x100 + playerAppearance[3]);
 		} else {
 			playerProps.writeByte(0);
@@ -2553,8 +2660,8 @@ public abstract class Player {
 			playerProps.writeWord(0x100 + playerAppearance[5]);
 		}
 
-		if (!Item.isFullHelm(playerEquipment[playerHat])
-				&& !Item.isFullMask(playerEquipment[playerHat])) {
+		if (!ItemData.isFullHelm(playerEquipment[playerHat])
+				&& !ItemData.isFullMask(playerEquipment[playerHat])) {
 			playerProps.writeWord(0x100 + playerAppearance[1]);
 		} else {
 			playerProps.writeByte(0);
@@ -2573,7 +2680,7 @@ public abstract class Player {
 		}
 
 		if (playerAppearance[0] != 1
-				&& !Item.isFullMask(playerEquipment[playerHat])) {
+				&& !ItemData.isFullMask(playerEquipment[playerHat])) {
 			playerProps.writeWord(0x100 + playerAppearance[7]);
 		} else {
 			playerProps.writeByte(0);

@@ -2,7 +2,7 @@ package com.rebotted.game.shops;
 
 import com.rebotted.GameConstants;
 import com.rebotted.game.bots.BotHandler;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.ItemDefinition;
 import com.rebotted.game.players.Player;
@@ -443,7 +443,7 @@ public class ShopAssistant {
 		if (amount <= 0) {
 			return false;
 		}
-		if (Item.itemIsNote[itemID]) {
+		if (ItemData.itemIsNote[itemID]) {
 			itemID = player.getItemAssistant().getUnnotedItem(itemID);
 		}
 		for (int i = 0; i < ShopHandler.shopItems[player.shopId].length; i++) {

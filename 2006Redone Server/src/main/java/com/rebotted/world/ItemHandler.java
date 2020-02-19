@@ -169,7 +169,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 					}
 				}
 			}
-			if (!com.rebotted.game.items.Item.itemStackable[itemId] && itemAmount > 0) {
+			if (!com.rebotted.game.items.ItemData.itemStackable[itemId] && itemAmount > 0) {
 				for (int j = 0; j < itemAmount; j++) {
 					c.getPacketSender().createGroundItem(itemId, itemX, itemY, 1);
 					GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), 1, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);

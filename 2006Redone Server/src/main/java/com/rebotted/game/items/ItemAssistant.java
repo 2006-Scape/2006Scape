@@ -241,12 +241,12 @@ public class ItemAssistant {
 	public int getTotalCount(int itemID) {
 		int count = 0;
 		for (int j = 0; j < c.playerItems.length; j++) {
-			if (Item.itemIsNote[itemID + 1]) {
+			if (ItemData.itemIsNote[itemID + 1]) {
 				if (itemID + 2 == c.playerItems[j]) {
 					count += c.playerItemsN[j];
 				}
 			}
-			if (!Item.itemIsNote[itemID + 1]) {
+			if (!ItemData.itemIsNote[itemID + 1]) {
 				if (itemID + 1 == c.playerItems[j]) {
 					count += c.playerItemsN[j];
 				}
@@ -466,10 +466,10 @@ public class ItemAssistant {
 			return false;
 		}
 		if ((freeSlots() >= 1 || playerHasItem(item, 1))
-				&& Item.itemStackable[item] || freeSlots() > 0
-				&& !Item.itemStackable[item]) {
+				&& ItemData.itemStackable[item] || freeSlots() > 0
+				&& !ItemData.itemStackable[item]) {
 			for (int i = 0; i < c.playerItems.length; i++) {
-				if (c.playerItems[i] == item + 1 && Item.itemStackable[item]
+				if (c.playerItems[i] == item + 1 && ItemData.itemStackable[item]
 						&& c.playerItems[i] > 0) {
 					c.playerItems[i] = item + 1;
 					if (c.playerItemsN[i] + amount < GameConstants.MAXITEM_AMOUNT
@@ -1298,7 +1298,7 @@ public class ItemAssistant {
 		boolean canWearItem = true;
 		if (c.playerItems[slot] == wearID + 1) {
 			getRequirements(getItemName(wearID).toLowerCase(), wearID);
-			targetSlot = Item.targetSlots[wearID];
+			targetSlot = ItemData.targetSlots[wearID];
 
 			if (c.duelRule[11] && targetSlot == 0) {
 				c.getPacketSender().sendMessage("Wearing hats has been disabled in this duel!");
@@ -1447,7 +1447,7 @@ public class ItemAssistant {
 				int toEquipN = c.playerItemsN[slot];
 				int toRemove = c.playerEquipment[targetSlot];
 				int toRemoveN = c.playerEquipmentN[targetSlot];
-				if (toEquip == toRemove + 1 && Item.itemStackable[toRemove]) {
+				if (toEquip == toRemove + 1 && ItemData.itemStackable[toRemove]) {
 					deleteItem(toRemove, getItemSlot(toRemove), toEquipN);
 					c.playerEquipmentN[targetSlot] += toEquipN;
 				} else if (targetSlot != GameConstants.SHIELD && targetSlot != GameConstants.WEAPON) {
@@ -1781,11 +1781,11 @@ public class ItemAssistant {
 		if (c.playerItemsN[fromSlot] <= 0) {
 			return false;
 		}
-		if (!Item.itemIsNote[c.playerItems[fromSlot] - 1]) {
+		if (!ItemData.itemIsNote[c.playerItems[fromSlot] - 1]) {
 			if (c.playerItems[fromSlot] <= 0) {
 				return false;
 			}
-			if (Item.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
+			if (ItemData.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
@@ -1908,11 +1908,11 @@ public class ItemAssistant {
 					return false;
 				}
 			}
-		} else if (Item.itemIsNote[c.playerItems[fromSlot] - 1] && !Item.itemIsNote[c.playerItems[fromSlot] - 2]) {
+		} else if (ItemData.itemIsNote[c.playerItems[fromSlot] - 1] && !ItemData.itemIsNote[c.playerItems[fromSlot] - 2]) {
 			if (c.playerItems[fromSlot] <= 0) {
 				return false;
 			}
-			if (Item.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
+			if (ItemData.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
@@ -2084,7 +2084,7 @@ public class ItemAssistant {
 				if (!cantWithdrawCuzMaxStack)
 				{
 					if (!c.takeAsNote) {
-						if (Item.itemStackable[c.bankItems[fromSlot] - 1]) {
+						if (ItemData.itemStackable[c.bankItems[fromSlot] - 1]) {
 							if (c.bankItemsN[fromSlot] > amount) {
 								if (addItem(c.bankItems[fromSlot] - 1, amount)) {
 									c.bankItemsN[fromSlot] -= amount;
@@ -2116,7 +2116,7 @@ public class ItemAssistant {
 							resetBank();
 							resetItems(5064);
 						}
-					} else if (c.takeAsNote && Item.itemIsNote[c.bankItems[fromSlot]]) {
+					} else if (c.takeAsNote && ItemData.itemIsNote[c.bankItems[fromSlot]]) {
 						if (c.bankItemsN[fromSlot] > amount) {
 							if (addItem(c.bankItems[fromSlot], amount)) {
 								c.bankItemsN[fromSlot] -= amount;
@@ -2133,7 +2133,7 @@ public class ItemAssistant {
 						}
 					} else {
 						c.getPacketSender().sendMessage("This item can't be withdrawn as a note.");
-						if (Item.itemStackable[c.bankItems[fromSlot] - 1]) {
+						if (ItemData.itemStackable[c.bankItems[fromSlot] - 1]) {
 							if (c.bankItemsN[fromSlot] > amount) {
 								if (addItem(c.bankItems[fromSlot] - 1, amount)) {
 									c.bankItemsN[fromSlot] -= amount;
@@ -2186,7 +2186,7 @@ public class ItemAssistant {
 	}
 
 	public boolean isStackable(int itemID) {
-		return Item.itemStackable[itemID];
+		return ItemData.itemStackable[itemID];
 	}
 
 	/**

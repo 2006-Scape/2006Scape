@@ -1,6 +1,10 @@
 package com.rebotted;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -12,7 +16,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
-
 import com.rebotted.console.CommandConsole;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.minigames.FightCaves;
@@ -36,6 +39,8 @@ import com.rebotted.integrations.discord.DiscordActivity;
 import com.rebotted.integrations.discord.JavaCord;
 import com.rebotted.net.ConnectionHandler;
 import com.rebotted.net.ConnectionThrottleFilter;
+import com.rebotted.tick.Scheduler;
+import com.rebotted.tick.Tick;
 import com.rebotted.util.HostBlacklist;
 import com.rebotted.world.GlobalDropsHandler;
 import com.rebotted.world.ItemHandler;
@@ -54,6 +59,49 @@ import com.rebotted.world.clip.Region;
  * @author Integration Julian.
  */
 public class GameEngine {
+	
+
+	private static long minutesCounter;
+	
+	private static void startMinutesCounter() {
+		try {
+			minuteFile = new BufferedReader(new FileReader(
+					"./data/minutes.log"));
+			minutesCounter = Long.parseLong(minuteFile.readLine());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void setMinutesCounter(long minutesCounter) {
+		try {
+			BufferedWriter minuteCounter = new BufferedWriter(new FileWriter(
+					"./data/minutes.log"));
+			minuteCounter.write(Long.toString(minutesCounter));
+			minuteCounter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static long getMinutesCounter() {
+		long d = TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis()
+				- minutesCounter);
+		return d;
+	}
+
+	private static final Scheduler scheduler2 = new Scheduler();
+
+
+	public static Scheduler getScheduler() {
+		return scheduler2;
+	}
+
+	public static void schedule(Tick tick) {
+		getScheduler().schedule(tick);
+	}
+	
 
 
 	public static String ersSecret;
@@ -147,6 +195,8 @@ public class GameEngine {
 		GlobalDropsHandler.initialize();
 		Connection.initialize();
 		HostBlacklist.loadBlacklist();
+		startMinutesCounter();
+		setMinutesCounter(minutesCounter);
 
 		/**
 		 * Server Successfully Loaded
@@ -232,5 +282,7 @@ public class GameEngine {
 	}
 
 	public static boolean playerExecuted = false;
+	private static BufferedReader minuteFile;
+
 
 }

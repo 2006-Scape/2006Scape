@@ -6,7 +6,7 @@ public class GameItem {
         public boolean stackable = false;
  
         public GameItem(int id, int amount) {
-        	if (Item.itemStackable[id]) {
+        	if (ItemData.itemStackable[id]) {
         		stackable = true;
         	}
         	this.id = id;

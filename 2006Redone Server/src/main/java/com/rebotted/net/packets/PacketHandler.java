@@ -34,6 +34,7 @@ import com.rebotted.net.packets.impl.ItemOnObject;
 import com.rebotted.net.packets.impl.ItemOnPlayer;
 import com.rebotted.net.packets.impl.MagicOnFloorItems;
 import com.rebotted.net.packets.impl.MagicOnItems;
+import com.rebotted.net.packets.impl.MagicOnObject;
 import com.rebotted.net.packets.impl.MoveItems;
 import com.rebotted.net.packets.impl.PickupItem;
 import com.rebotted.net.packets.impl.PrivateMessaging;
@@ -112,6 +113,7 @@ public class PacketHandler {
 		packetId[43] = new Bank10();
 		packetId[129] = new BankAll();
 		packetId[101] = new ChangeAppearance();
+		packetId[35] = new MagicOnObject();
 		PrivateMessaging pm = new PrivateMessaging();
 		packetId[188] = pm;
 		packetId[126] = pm;

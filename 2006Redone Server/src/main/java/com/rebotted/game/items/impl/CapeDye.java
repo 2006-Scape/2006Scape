@@ -1,6 +1,6 @@
 package com.rebotted.game.items.impl;
 
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.players.Player;
 
@@ -47,10 +47,10 @@ public enum CapeDye {
 		};
 	
 		public static boolean blockDye(Player player, CapeDye dye, int itemUsed, int useWith) {
-			if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && Item.itemIsNote[useWith]) {
+			if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && ItemData.itemIsNote[useWith]) {
 				player.getPacketSender().sendMessage("You can't dye a noted cape.");
 				return true;
-			} else if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && useWith == dye.getReward() && !Item.itemIsNote[useWith]) {
+			} else if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && useWith == dye.getReward() && !ItemData.itemIsNote[useWith]) {
 				player.getPacketSender().sendMessage("That cape is already that color.");
 				return true;
 			} else if (itemUsed == dye.getItemUsed() && !ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape")) {
@@ -64,7 +64,7 @@ public enum CapeDye {
 			if (blockDye(player, cape, itemUsed, useWith)) {
 				return;
 			}
-			if (itemUsed == cape.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && !Item.itemIsNote[useWith] && useWith != cape.getReward()) {
+			if (itemUsed == cape.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && !ItemData.itemIsNote[useWith] && useWith != cape.getReward()) {
 				player.getItemAssistant().deleteItem(itemUsed, 1);
 				player.getItemAssistant().deleteItem(useWith, 1);
 				player.getItemAssistant().addItem(cape.getReward(), 1);

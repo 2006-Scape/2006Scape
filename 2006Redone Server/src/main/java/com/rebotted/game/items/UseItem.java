@@ -1,10 +1,12 @@
 package com.rebotted.game.items;
 
 import com.rebotted.game.content.skills.cooking.Cooking;
+import com.rebotted.game.content.skills.crafting.BattleStaffs;
 import com.rebotted.game.content.skills.crafting.GemCutting;
 import com.rebotted.game.content.skills.crafting.JewelryMaking;
 import com.rebotted.game.content.skills.crafting.LeatherMaking;
 import com.rebotted.game.content.skills.crafting.SoftClay;
+import com.rebotted.game.content.skills.farming.Farming;
 import com.rebotted.game.content.skills.firemaking.Firemaking;
 import com.rebotted.game.content.skills.fletching.ArrowMaking;
 import com.rebotted.game.content.skills.fletching.LogCutting;
@@ -46,6 +48,9 @@ public class UseItem {
 		}
 		if (itemId == Ectofuntus.BUCKET) {
 			Ectofuntus.fillBucketWithSlime(c, objectID);
+		}
+		if (Farming.prepareCrop(c, itemId, objectID, objectX, objectY)) {
+			return;
 		}
 		for (final EctofuntusData ectofuntus : EctofuntusData.values()) {
 			if (itemId == ectofuntus.getBoneId()) {
@@ -124,6 +129,7 @@ public class UseItem {
 				&& ItemAssistant.getItemName(useWith).contains("(")) {
 			player.getPotMixing().mixPotion2(itemUsed, useWith);
 		}
+		BattleStaffs.makeBattleStaff(player, itemUsed, useWith);
 		GrindingAction.init(player, itemUsed, useWith);
 		CapeDye.dyeItem(player, itemUsed, useWith);
 		GodPages.itemOnItemHandle(player, useWith, itemUsed);

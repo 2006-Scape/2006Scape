@@ -291,7 +291,11 @@ public class Commands implements PacketType {
                 player.getPacketSender().showInterface(8134);
                 break;
             case "stuck":
-                player.getPlayerAssistant().startTeleport(SpellTeleport.LUMBRIDGE.getDestX(), SpellTeleport.LUMBRIDGE.getDestY(), 0, "modern");
+            	if (player.getCombatAssistant().inCombat()) {
+            		player.getPacketSender().sendMessage("You cannot do that while in combat.");
+            		return;
+            	}
+                player.getPlayerAssistant().movePlayer(SpellTeleport.LUMBRIDGE.getDestX(), SpellTeleport.LUMBRIDGE.getDestY(), 0);
                 player.getPacketSender().sendMessage("How did you manage that one...");
                 player.getPacketSender().sendMessage("If it's bug related, please report on Github/Discord!");
                 player.gfx100(80);
@@ -497,24 +501,6 @@ public class Commands implements PacketType {
     }
 
     public static void adminCommands(Player player, String playerCommand, String[] arguments) {
-        if (playerCommand.startsWith("getid")) {
-            String a[] = playerCommand.split(" ");
-            String itemName = "";
-            int itemCount = 0;
-            for (int i = 1; i < a.length; i++) {
-            	itemName = itemName + a[i]+ " ";
-            }
-            itemName = itemName.substring(0, itemName.length()-1);
-            player.getPacketSender().sendMessage("Searching: " + itemName);
-            for (int j = 0; j < GameEngine.itemHandler.ItemList.length; j++) {
-            	if (GameEngine.itemHandler.ItemList[j] != null)
-                    if (GameEngine.itemHandler.ItemList[j].itemName.replace("_", " ").toLowerCase().contains(itemName.toLowerCase())) {
-                    	 player.getPacketSender().sendMessage("@dre@" + GameEngine.itemHandler.ItemList[j].itemName.replace("_", " ")  + " - " + GameEngine.itemHandler.ItemList[j].itemId);
-                         itemCount++;
-                    }
-            }
-            player.getPacketSender().sendMessage(itemCount + " IDs found...");
-        }
         switch (playerCommand.toLowerCase()) {
             case "clearbank":
                 player.getItemAssistant().clearBank();

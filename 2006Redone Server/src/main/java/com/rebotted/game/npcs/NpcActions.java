@@ -38,6 +38,28 @@ public class NpcActions {
 			}
 		}
 		switch (npcType) {
+		case 2324 :
+		case 2323 :
+		case 2326 :
+		case 2325 :
+		case 2337 :
+		case 2336 :
+		case 2335 :
+		case 2338 :
+		case 2334 :
+		case 2332 :
+		case 2333 :
+		case 2327 :
+		case 2343 :
+		case 2331 :
+		case 2344 :
+		case 2330 :
+		case 2340 :
+		case 2339 :
+		case 2341 :
+		case 2342 :
+			c.getDialogueHandler().sendDialogues(3530, npcType);
+			break;
 		  case 209:
 	        	c.getDialogueHandler().sendDialogues(3500, 209);
 	        break;
@@ -981,7 +1003,10 @@ public class NpcActions {
 			}
 		}
 		switch (npcType) {
-		
+		case 3021 :
+			c.getFarmingTools().loadInterfaces();
+			break;
+			
 		case 3:
 			c.getDialogueHandler().sendDialogues(5, npcType);
 			break;

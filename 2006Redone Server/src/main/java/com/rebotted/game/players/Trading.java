@@ -9,7 +9,7 @@ import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.items.GameItem;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.util.GameLogger;
 import com.rebotted.util.Misc;
@@ -149,7 +149,7 @@ public class Trading {
 			}
 			player.tradeConfirmed = false;
 			o.tradeConfirmed = false;
-			if (!Item.itemStackable[itemID]) {
+			if (!ItemData.itemStackable[itemID]) {
 				for (int a = 0; a < amount; a++) {
 					for (GameItem item : offeredItems) {
 						if (item.id == itemID) {
@@ -274,7 +274,7 @@ public class Trading {
 		}
 		player.tradeConfirmed = false;
 		o.tradeConfirmed = false;
-		if (!Item.itemStackable[itemID] && !Item.itemIsNote[itemID]) {
+		if (!ItemData.itemStackable[itemID] && !ItemData.itemIsNote[itemID]) {
 			for (int a = 0; a < amount && a < 28; a++) {
 				if (player.getItemAssistant().playerHasItem(itemID, 1)) {
 					offeredItems.add(new GameItem(itemID, 1));
@@ -306,7 +306,7 @@ public class Trading {
 			declineTrade();
 			return false;
 		}
-		if (Item.itemStackable[itemID] || Item.itemIsNote[itemID]) {
+		if (ItemData.itemStackable[itemID] || ItemData.itemIsNote[itemID]) {
 			boolean inTrade = false;
 			for (GameItem item : offeredItems) {
 				if (item.id == itemID) {
