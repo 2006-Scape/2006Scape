@@ -140,6 +140,7 @@ public class GameEngine {
 
 	public static void main(java.lang.String args[])
 			throws NullPointerException, IOException {
+		System.out.println("Starting game engine..");
 		if (GameConstants.SERVER_DEBUG) {
 			System.out.println("@@@@ DEBUG MODE IS ENABLED @@@@");
 		}
