@@ -90,10 +90,6 @@ public class PacketSender {
 			player.playerLevel[player.playerHitpoints] = 99;// check for abusers
 			player.getPlayerAssistant().refreshSkill(3);
 		}
-		if (player.playerLevel[player.playerFarming] > 1 && player.playerRights < 3) {
-			player.playerLevel[player.playerFarming] = 1;
-			player.getPlayerAssistant().refreshSkill(player.playerFarming);
-		}
 		if (player.tutorialProgress > 0 && player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
 			player.getPacketSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
 		}
