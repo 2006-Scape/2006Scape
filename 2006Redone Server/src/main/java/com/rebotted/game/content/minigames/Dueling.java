@@ -6,7 +6,7 @@ import com.rebotted.GameEngine;
 import com.rebotted.game.content.combat.prayer.PrayerDrain;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.items.GameItem;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.RareProtection;
 import com.rebotted.game.players.Client;
@@ -243,7 +243,7 @@ public class Dueling {
 			return false;
 		}
 		changeDuelStuff();
-		if (!Item.itemStackable[itemID]) {
+		if (!ItemData.itemStackable[itemID]) {
 			for (int a = 0; a < amount; a++) {
 				if (player.getItemAssistant().playerHasItem(itemID, 1)) {
 					stakedItems.add(new GameItem(itemID, 1));
@@ -260,7 +260,7 @@ public class Dueling {
 			player.getPacketSender().sendFrame126("", 6684);
 			o.getPacketSender().sendFrame126("", 6684);
 		}
-		if (Item.itemStackable[itemID] || Item.itemIsNote[itemID]) {
+		if (ItemData.itemStackable[itemID] || ItemData.itemIsNote[itemID]) {
 			boolean found = false;
 			for (GameItem item : stakedItems) {
 				if (item.id == itemID) {
@@ -314,7 +314,7 @@ public class Dueling {
 			o.getDueling().declineDuel();
 			return false;
 		}
-		if (Item.itemStackable[itemID]) {
+		if (ItemData.itemStackable[itemID]) {
 			if (player.getItemAssistant().freeSlots() - 1 < player.duelSpaceReq) {
 				player.getPacketSender().sendMessage(
 						"You have too many rules set to remove that item.");
@@ -324,7 +324,7 @@ public class Dueling {
 
 		changeDuelStuff();
 		boolean goodSpace = true;
-		if (!Item.itemStackable[itemID]) {
+		if (!ItemData.itemStackable[itemID]) {
 			for (int a = 0; a < amount; a++) {
 				for (GameItem item : stakedItems) {
 					if (item.id == itemID) {
@@ -423,7 +423,7 @@ public class Dueling {
 		}
 		String itemId = "";
 		for (GameItem item : stakedItems) {
-			if (Item.itemStackable[item.id] || Item.itemIsNote[item.id]) {
+			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
 				itemId += ItemAssistant.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
@@ -433,7 +433,7 @@ public class Dueling {
 		player.getPacketSender().sendFrame126(itemId, 6516);
 		itemId = "";
 		for (GameItem item : o.getDueling().stakedItems) {
-			if (Item.itemStackable[item.id] || Item.itemIsNote[item.id]) {
+			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
 				itemId += ItemAssistant.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
@@ -651,7 +651,7 @@ public class Dueling {
 	public void claimStakedItems() {
 		for (GameItem item : otherStakedItems) {
 			if (item.id > 0 && item.amount > 0) {
-				if (Item.itemStackable[item.id]) {
+				if (ItemData.itemStackable[item.id]) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
 						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
@@ -669,7 +669,7 @@ public class Dueling {
 		}
 		for (GameItem item : stakedItems) {
 			if (item.id > 0 && item.amount > 0) {
-				if (Item.itemStackable[item.id]) {
+				if (ItemData.itemStackable[item.id]) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
 						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
@@ -713,7 +713,7 @@ public class Dueling {
 			if (item.amount < 1) {
 				continue;
 			}
-			if (Item.itemStackable[item.id] || Item.itemIsNote[item.id]) {
+			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
 				player.getItemAssistant().addItem(item.id, item.amount);
 			} else {
 				player.getItemAssistant().addItem(item.id, 1);

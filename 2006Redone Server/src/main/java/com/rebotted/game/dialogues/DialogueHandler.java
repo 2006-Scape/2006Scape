@@ -7,6 +7,7 @@ import com.rebotted.game.content.quests.QuestRewards;
 import com.rebotted.game.content.randomevents.FreakyForester;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
+import com.rebotted.game.content.skills.farming.Farmers;
 import com.rebotted.game.content.skills.slayer.Slayer;
 import com.rebotted.game.content.traveling.Sailing;
 import com.rebotted.game.globalworldobjects.PassDoor;
@@ -24,9 +25,15 @@ public class DialogueHandler {
 	public DialogueHandler(Player player2) {
 		this.player = player2;
 	}
+	
+	public void endDialogue() {
+		player.nextChat = 0;
+		player.dialogueAction = 0;
+	}
 
 	public void sendDialogues(int dialogue, int npcId) {
 		int MOLE_SKIN = player.getItemAssistant().getItemCount(7418), MOLE_CLAW = player.getItemAssistant().getItemCount(7416);
+		Farmers.FarmersData farmersData = Farmers.FarmersData.forId(player.npcType);
 		player.talkingNpc = npcId;
 		switch (dialogue) {
 			case 0:
@@ -4079,7 +4086,7 @@ public class DialogueHandler {
 				break;
 
 			/*
-			 * case 1028: client.getDialogues().sendStatement(
+			 * case 1028: client.getDialogueHandlers().sendStatement(
 			 * "10 coins are removed from your inventory."); client.nextChat = 0;
 			 * break;
 			 */
@@ -6936,6 +6943,107 @@ public class DialogueHandler {
 				QuestRewards.blackKnightReward(player);
 				player.nextChat = 0;
 				break;
+				
+			case 3530://1
+				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hey, I am one of the master farmers of this world but", "you can call me " + NpcHandler.getNpcListName(player.npcType) + ". So, what do you need from me?");
+				if (farmersData.getFieldProtected() == "tree")
+					player.nextChat = 3531;
+				else
+					player.nextChat = 3532;
+				break;
+			case 3531://2
+				player.getDialogueHandler().sendOption("Would you chop my tree down for me?", "Could you take care of my crops for me?", "Can you give me any farming advice?", "Can you sell me something?", "That's all, thanks");
+				player.dialogueAction = 112;
+				break;
+			case 3532://3
+				player.getDialogueHandler().sendOption("Could you take care of my crops for me?", "Can you give me any farming advice?", "Can you sell me something?", "That's all, thanks");
+				player.dialogueAction = 113;
+				break;
+			case 3533://4
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Would you chop my tree down for me?");
+				player.nextChat = 3534;
+				break;
+			case 3534://5
+				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Sure, for only 200gp, I will chop it down for you");
+				player.nextChat = 3536;
+				break;
+			case 3535://6
+				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Sorry, but you have no tree growing in this patch.");
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3536://7
+				player.getDialogueHandler().sendOption("Sure, here you go", "Sorry, I am a little broke.");
+				player.dialogueAction = 114;
+				break;
+			case 3537://8
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Sure, Here you go");
+				player.nextChat = 3539;
+				break;
+			case 3538://9
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.ANNOYED, "Sorry, I am a little broke");
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3539://10
+				Farmers.chopDownTree(player, player.npcType);
+				break;
+			case 3540://11
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Could you take care of my crops for me?");
+				if (farmersData.getFieldProtected() == "allotment")
+					player.nextChat = 3541;
+				else
+					player.nextChat = 3543;
+				break;
+			case 3541://12
+				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.HAPPY_JOYFUL, "I Might, Which one were you thinking of?");
+				player.nextChat = 3542;
+				break;
+			case 3542://13
+				player.getDialogueHandler().sendOption(farmersData.getDialogueHandlerOptions());
+				player.dialogueAction = 115;
+				break;
+			case 3543://14
+				Farmers.protectPlant(player, -1, farmersData.getFieldProtected(), player.npcType, 1);
+				break;
+			case 3544://15
+				player.getDialogueHandler().sendOption("Sure, here you go.", "Sorry, I don't have those at the moment.");
+				player.dialogueAction = 116;
+				break;
+			case 3545://16
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Sure, here you go.");
+				player.nextChat = 3547;
+				break;
+			case 3546://17
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Sorry, I don't have those at the moment.");
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3547://18
+				Farmers.protectPlant(player, player.getTempInteger(), farmersData.getFieldProtected(), player.npcType, 2);
+				break;
+			case 3548://19
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Can you give me any farming advice?");
+				player.nextChat = 3549;
+				break;
+			case 3549://20
+				Farmers.sendFarmingAdvice(player);
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3550://21
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Can you sell me something?");
+				player.nextChat = 3551;
+				break;
+			case 3551://22
+				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.HAPPY_JOYFUL, "Sure, I have a bunch of tools for you to use.");
+				player.nextChat = 3552;
+				break;
+			case 3552://23
+				player.getDialogueHandler().endDialogue();
+				player.getPacketSender().closeAllWindows();
+				player.getShopAssistant().openShop(farmersData.getShopId());
+				break;
+			case 3553://24
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "That's all, thanks");
+				player.getDialogueHandler().endDialogue();
+				break;
 		}
 	}
 
@@ -7135,6 +7243,46 @@ public class DialogueHandler {
 	/*
 	 * Npc Chatting
 	 */
+	
+	public void sendNpcChat(int npcId, ChatEmotes e, String... line) {
+		String npcName = NpcHandler.getNpcListName(npcId).replaceAll("_", " ");
+		switch (line.length) {
+			case 1:
+				player.getPacketSender().sendDialogueAnimation(4883, getChatAnim(e));
+				player.getPacketSender().sendFrame126(npcName, 4884);
+				player.getPacketSender().sendFrame126(line[0], 4885);
+				player.getPacketSender().sendNPCDialogueHead(npcId, 4883);
+				player.getPacketSender().sendChatInterface(4882);
+			break;
+			case 2:
+				player.getPacketSender().sendDialogueAnimation(4888, getChatAnim(e));
+				player.getPacketSender().sendFrame126(npcName, 4889);
+				player.getPacketSender().sendFrame126(line[0], 4890);
+				player.getPacketSender().sendFrame126(line[1], 4891);
+				player.getPacketSender().sendNPCDialogueHead(npcId, 4888);
+				player.getPacketSender().sendChatInterface(4887);
+			break;
+			case 3:
+				player.getPacketSender().sendDialogueAnimation(4894, getChatAnim(e));
+				player.getPacketSender().sendFrame126(npcName, 4895);
+				player.getPacketSender().sendFrame126(line[0], 4896);
+				player.getPacketSender().sendFrame126(line[1], 4897);
+				player.getPacketSender().sendFrame126(line[2], 4898);
+				player.getPacketSender().sendNPCDialogueHead(npcId, 4894);
+				player.getPacketSender().sendChatInterface(4893);
+			break;
+			case 4:
+				player.getPacketSender().sendDialogueAnimation(4901, getChatAnim(e));
+				player.getPacketSender().sendFrame126(npcName, 4902);
+				player.getPacketSender().sendFrame126(line[0], 4903);
+				player.getPacketSender().sendFrame126(line[1], 4904);
+				player.getPacketSender().sendFrame126(line[2], 4905);
+				player.getPacketSender().sendFrame126(line[3], 4906);
+				player.getPacketSender().sendNPCDialogueHead(npcId, 4901);
+				player.getPacketSender().sendChatInterface(4900);
+			break;
+		}
+	}
 
 	public void sendNpcChat1(String s, int ChatNpc, String name) {
 		player.getPacketSender().sendDialogueAnimation(4883, 591);

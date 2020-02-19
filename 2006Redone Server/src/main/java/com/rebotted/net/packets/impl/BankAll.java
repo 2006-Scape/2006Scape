@@ -2,7 +2,7 @@ package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.content.random.PartyRoom;
 import com.rebotted.game.items.GameItem;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
@@ -61,7 +61,7 @@ public class BankAll implements PacketType {
 						"You can't store items while trading!");
 				return;
 			}
-			if (Item.itemStackable[removeId]) {
+			if (ItemData.itemStackable[removeId]) {
 				player.getItemAssistant().bankItem(player.playerItems[removeSlot],
 						removeSlot, player.playerItemsN[removeSlot]);
 			} else {
@@ -97,14 +97,14 @@ public class BankAll implements PacketType {
 
 		case 3322:
 			if (player.duelStatus <= 0) {
-				if (Item.itemStackable[removeId]) {
+				if (ItemData.itemStackable[removeId]) {
 					player.getTrading().tradeItem(removeId, removeSlot,
 							player.playerItemsN[removeSlot]);
 				} else {
 					player.getTrading().tradeItem(removeId, removeSlot, 28);
 				}
 			} else {
-				if (Item.itemStackable[removeId] || Item.itemIsNote[removeId]) {
+				if (ItemData.itemStackable[removeId] || ItemData.itemIsNote[removeId]) {
 					player.getDueling().stakeItem(removeId, removeSlot,
 							player.playerItemsN[removeSlot]);
 				} else {
@@ -115,7 +115,7 @@ public class BankAll implements PacketType {
 
 		case 3415:
 			if (player.duelStatus <= 0) {
-				if (Item.itemStackable[removeId]) {
+				if (ItemData.itemStackable[removeId]) {
 					for (GameItem item : player.getTrading().offeredItems) {
 						if (item.id == removeId) {
 							player.getTrading()
@@ -137,7 +137,7 @@ public class BankAll implements PacketType {
 			break;
 
 		case 6669:
-			if (Item.itemStackable[removeId] || Item.itemIsNote[removeId]) {
+			if (ItemData.itemStackable[removeId] || ItemData.itemIsNote[removeId]) {
 				for (GameItem item : player.getDueling().stakedItems) {
 					if (item.id == removeId) {
 						player.getDueling()

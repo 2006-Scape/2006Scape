@@ -28,6 +28,11 @@ public class ItemOnNpc implements PacketType {
 		}
 		player.faceNpc(i);
 		switch(npcId) {
+		case 3021:
+			if (player.getFarmingTools().noteItem(itemId)) {
+				return;
+			}
+			break;
 			case 43:
 				NpcHandler.npcs[i].shearSheep(player, 1735, 1737, 893, 43, 42, 50);
 				break;

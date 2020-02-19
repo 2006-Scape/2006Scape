@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
 
@@ -99,7 +99,7 @@ public class PartyRoom {
 	public static void accept(Player c) {
 		for (int x = 0; x < c.party.length; x++) {
 			if (c.partyN[x] > 0) {
-				if (Item.itemStackable[c.party[x]]) {
+				if (ItemData.itemStackable[c.party[x]]) {
 					int slot = arraySlot(roomItems, c.party[x]);
 					if (slot < 0) {
 						c.getPacketSender().sendMessage(

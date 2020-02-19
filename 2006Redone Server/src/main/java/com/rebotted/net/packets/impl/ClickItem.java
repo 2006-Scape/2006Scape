@@ -13,6 +13,7 @@ import com.rebotted.game.content.skills.woodcutting.BirdNest;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.ExperienceLamp;
 import com.rebotted.game.items.impl.Flowers;
+import com.rebotted.game.items.impl.GodBooks;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.GameLogger;
@@ -35,6 +36,7 @@ public class ClickItem implements PacketType {
 		if(!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
+		GodBooks.sendPreachOptions(player, itemId);
 		if (itemId == 6) {
 			player.getCannon().placeCannon();
 		}

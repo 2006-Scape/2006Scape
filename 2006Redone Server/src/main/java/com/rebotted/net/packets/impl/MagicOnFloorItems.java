@@ -5,7 +5,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.magic.MagicData;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
@@ -35,9 +35,9 @@ public class MagicOnFloorItems implements PacketType {
 
 		if ((c.getItemAssistant().freeSlots() >= 1 || c.getItemAssistant()
 				.playerHasItem(itemId, 1))
-				&& Item.itemStackable[itemId]
+				&& ItemData.itemStackable[itemId]
 				|| c.getItemAssistant().freeSlots() > 0
-				&& !Item.itemStackable[itemId]) {
+				&& !ItemData.itemStackable[itemId]) {
 			if (c.goodDistance(c.getX(), c.getY(), itemX, itemY, 12)) {
 				c.walkingToItem = true;
 				int offY = (c.getX() - itemX) * -1;

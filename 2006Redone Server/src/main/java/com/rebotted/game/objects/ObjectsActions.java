@@ -61,6 +61,10 @@ public class ObjectsActions {
 		player.faceUpdate(0);
 		player.clickObjectType = 0;
 		player.turnPlayerTo(objectX, objectY);
+		player.getCompost().handleObjectClick(objectType, objectX, objectY);
+		if (Farming.harvest(player, objectX, objectY)) {
+			return;
+		}
 		if (Webs.webs(player, objectType)) {
 			Webs.slashWeb(player, objectType, objectX, objectY);
 			return;
@@ -2567,6 +2571,9 @@ public class ObjectsActions {
 			Stalls.attemptStall(player, objectType, obX, obY);
 			return;
 		}
+		if (Farming.inspectObject(player, obX, obY)) {
+			return;
+		}
 		switch (objectType) {
 		case 6:
 			player.getCannon().loadCannon(obX, obY);
@@ -2870,8 +2877,6 @@ public class ObjectsActions {
 		if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
 		    return;
 		}
-		Farming.openGuide(player, player.objectId);
-//		switch (objectType) {
-//		}
+		Farming.guide(player, obX, obY);
 	}
 }

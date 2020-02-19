@@ -3,7 +3,7 @@ package com.rebotted.game.content.consumables;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.items.Item;
+import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.players.Player;
 
@@ -30,9 +30,9 @@ public class Potions {
 			c.getCombatAssistant().resetPlayerAttack();
 			c.attackTimer++;
 			c.getPacketSender().sendMessage(
-					"You drink some of your " + Item.getItemName(itemId) + ".");
+					"You drink some of your " + ItemData.getItemName(itemId) + ".");
 			c.startAnimation(829);
-			final String item = Item.getItemName(itemId);
+			final String item = ItemData.getItemName(itemId);
 			String m = "";
 			if (item.endsWith("(4)")) {
 				m = "You have 3 doses of potion left.";

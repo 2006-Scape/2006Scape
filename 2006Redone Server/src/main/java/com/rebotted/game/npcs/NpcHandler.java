@@ -479,8 +479,41 @@ public class NpcHandler {
 
 				if (npcs[i].npcType == 3782 && PestControl.gameStarted) {
 					if (Misc.random(10) == 4) {
-						npcs[i].forceChat(voidKnightTalk[Misc
-								.random3(voidKnightTalk.length)]);
+						npcs[i].forceChat(voidKnightTalk[Misc.random3(voidKnightTalk.length)]);
+					}
+				}
+				
+				if (npcs[i].npcType == 162) {
+					if (npcs[i].getX() == 2475 && npcs[i].getY() == 3438) {
+						npcs[i].forceChat("Okay get over that log, quick quick!");
+					} else if (npcs[i].getX() == 2471 && npcs[i].getY() == 3427) {
+						npcs[i].forceChat("Move it, move it, move it!");
+					} else if (npcs[i].getX() == 2476 && npcs[i].getY() == 3423) {
+						npcs[i].forceChat("That's it - straight up");
+					} else if (npcs[i].getX() == 2475 && npcs[i].getY() == 3421) {
+						if (Misc.random(1) == 0) {
+							npcs[i].forceChat("Terrorbirds could climb faster than that!");
+						} else {
+							npcs[i].forceChat("Come on scaredy cat, get across that rope!");
+						}
+					} else if (npcs[i].getX() == 2481 && npcs[i].getY() == 3424) {
+						npcs[i].forceChat("My Granny can move faster than you.");
+					}
+				}
+				
+				if (npcs[i].npcType == 43) {
+					if (Misc.random(20) == 4) {
+						npcs[i].forceChat("Baa!");
+					}
+				}
+				if (npcs[i].npcType == 81 || npcs[i].npcType == 397 || npcs[i].npcType == 1766 || npcs[i].npcType == 1767 || npcs[i].npcType == 1768) {
+					if (Misc.random(30) == 4) {
+						npcs[i].forceChat("Moo");
+					}
+				}
+				if (npcs[i].npcType == 45) {
+					if (Misc.random(30) == 6) {
+						npcs[i].forceChat("Quack!");
 					}
 				}
 

@@ -14,6 +14,41 @@ public class DialogueOptions {
 	
 	public static void handleDialogueOptions(Player player, int buttonId) {
 		switch (buttonId) {
+		case 9190:
+			switch (player.dialogueAction) {
+			case 112:
+				player.getDialogueHandler().sendDialogues(3533, player.npcType);//4
+				break;
+			}
+			break;
+		case 9191:
+			switch (player.dialogueAction) {
+			case 112:
+				player.getDialogueHandler().sendDialogues(3540, player.npcType);
+				break;
+			}
+			break;
+		case 9192:
+			switch (player.dialogueAction) {
+			case 112:
+				player.getDialogueHandler().sendDialogues(3548, player.npcType);
+				break;
+			}
+			break;
+		case 9193:
+			switch (player.dialogueAction) {
+			case 112:
+				player.getDialogueHandler().sendDialogues(3550, player.npcType);
+				break;
+			}
+			break;
+		case 9194:
+			switch (player.dialogueAction) {
+			case 112:
+				player.getDialogueHandler().sendDialogues(3553, player.npcType);
+				break;
+			}
+			break;
 		case 9157:// barrows tele to tunnels
 			if (player.dialogueAction == 1) {
 				int r = 4;
@@ -59,8 +94,7 @@ public class DialogueOptions {
 				player.getDialogueHandler().sendDialogues(361, player.npcType);
 				return;
 			} else if (player.dialogueAction == 50) {
-				player.getPlayerAssistant().startTeleport(2898, 3562, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(2898, 3562, 0, "modern");
 				Teles.necklaces(player);
 				return;
 			} else if (player.dialogueAction == 55) {
@@ -117,6 +151,12 @@ public class DialogueOptions {
 				return;
 			} else if (player.dialogueAction == 93) {
 				player.getDialogueHandler().sendDialogues(23, player.npcType);
+				return;
+			} else if (player.dialogueAction == 114) {
+				player.getDialogueHandler().sendDialogues(3537, player.npcType);
+				return;
+			} else if (player.dialogueAction == 116) {
+				player.getDialogueHandler().sendDialogues(3545, player.npcType);
 				return;
 			} else if (player.dialogueAction == 118) {
 				player.getDialogueHandler().sendDialogues(394, player.npcType);
@@ -321,6 +361,12 @@ public class DialogueOptions {
 			} else if (player.dialogueAction == 91) {
 				player.getDialogueHandler().sendDialogues(17, player.npcType);
 				return;
+			} else if (player.dialogueAction == 114) {
+				player.getDialogueHandler().sendDialogues(3538, player.npcType);
+				return;
+			} else if (player.dialogueAction == 116) {
+				player.getDialogueHandler().sendDialogues(3546, player.npcType);
+				return;
 			} else if (player.dialogueAction == 118) {
 				player.getDialogueHandler().sendDialogues(392, player.npcType);
 				return;
@@ -503,10 +549,12 @@ public class DialogueOptions {
 				player.getDialogueHandler().sendDialogues(378, player.npcType);
 			}
 			if (player.dialogueAction == 51) {
-				player.getPlayerAssistant().gloryTeleport(3088, 3500, 0,
-						"modern");
+				player.getPlayerAssistant().gloryTeleport(3088, 3500, 0, "modern");
+				Teles.necklaces(player);
 			}
-			Teles.necklaces(player);
+			if (player.dialogueAction == 113) {
+				player.getDialogueHandler().sendDialogues(3540, player.npcType);
+			}
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(52, player.npcType);
 			}
@@ -543,6 +591,9 @@ public class DialogueOptions {
 			if (player.dialogueAction == 2) {
 				player.getPlayerAssistant().startTeleport(2884, 3395, 0, "modern");
 			}
+			if (player.dialogueAction == 113) {
+				player.getDialogueHandler().sendDialogues(3548, player.npcType);
+			}
 			if (player.dialogueAction == 122 && player.objectId == 12163 || player.objectId == 12165 || player.objectId == 12166) {//champ
 				player.getPlayerAssistant().startTeleport(3203, 3343, 0, "modern");
 			} else if (player.objectId == 12164) {
@@ -571,8 +622,8 @@ public class DialogueOptions {
 			}
 			if (player.dialogueAction == 51) {
 				player.getPlayerAssistant().gloryTeleport(3293, 3174, 0, "modern");
+				Teles.necklaces(player);
 			}
-			Teles.necklaces(player);
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(64, player.npcType);
 			}
@@ -612,6 +663,9 @@ public class DialogueOptions {
 			if (player.dialogueAction == 69) {
 				player.getDialogueHandler().sendDialogues(500003, player.npcType);
 			}
+			if (player.dialogueAction == 113) {
+				player.getDialogueHandler().sendDialogues(3550, player.npcType);
+			}
 			if (player.dialogueAction == 122 && player.objectId == 12164 || player.objectId == 12165 || player.objectId == 12166) {//lumby
 				player.getPlayerAssistant().startTeleport(3243, 3237, 0, "modern");
 			} else if (player.objectId == 12163) {
@@ -640,8 +694,8 @@ public class DialogueOptions {
 			}
 			if (player.dialogueAction == 51) {
 				player.getPlayerAssistant().gloryTeleport(2911, 3152, 0, "modern");
+				Teles.necklaces(player);
 			}
-			Teles.necklaces(player);
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(65, player.npcType);
 			}
@@ -678,6 +732,9 @@ public class DialogueOptions {
 			if (player.dialogueAction == 2) {
 				player.getPlayerAssistant().startTeleport(2669, 3714, 0, "modern");
 			}
+			if (player.dialogueAction == 113) {
+				player.getDialogueHandler().sendDialogues(3553, player.npcType);
+			}
 			if (player.dialogueAction == 69) {
 				player.getDialogueHandler().sendDialogues(500004, player.npcType);
 			}
@@ -690,14 +747,12 @@ public class DialogueOptions {
 				}
 			}
 			if (player.dialogueAction == 3) {
-				player.getPlayerAssistant().startTeleport(2540, 4716, 0,
-						"modern");
+				player.getPlayerAssistant().startTeleport(2540, 4716, 0, "modern");
 			}
 			if (player.dialogueAction == 51) {
-				player.getPlayerAssistant().gloryTeleport(3103, 3249, 0,
-						"modern");
+				player.getPlayerAssistant().gloryTeleport(3103, 3249, 0, "modern");
+				Teles.necklaces(player);
 			}
-			Teles.necklaces(player);
 			if (player.dialogueAction == 52) {
 				player.getDialogueHandler().sendDialogues(63, player.npcType);
 			}

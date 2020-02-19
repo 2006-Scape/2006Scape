@@ -198,14 +198,6 @@ public class ItemOnObject implements PacketType {
 			player.getPlayerAssistant().movePlayer(2510, 3096, 0);
 		}
 
-		/*
-		 * if (itemId == 1779 && objectId == 2644) { int amount =
-		 * (c.getItemAssistant().getItemCount(1777)); int[] spin = {1777}; for
-		 * (int i : spin) { c.getItemAssistant().deleteItem(i,
-		 * c.getItemAssistant().getItemCount(i)); } c.startAnimation(883);
-		 * c.getItemAssistant().addItem(1777, amount); }
-		 */
-
 		if (Fillables.canFill(itemId, objectId) && player.getItemAssistant().playerHasItem(itemId)) {
 			int amount = player.getItemAssistant().getItemCount(itemId);
 			player.getItemAssistant().deleteItem(itemId, amount);

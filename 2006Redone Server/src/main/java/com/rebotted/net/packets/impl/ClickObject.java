@@ -404,12 +404,9 @@ public class ClickObject implements PacketType {
 			if (p.playerRights == 3) {
 				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 4, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
 			}
-
+			
 			p.getObjects().fourthClickObject(p.objectId, p.objectX, p.objectY);
 			break;
 		}
 	}
-
-
-
 }

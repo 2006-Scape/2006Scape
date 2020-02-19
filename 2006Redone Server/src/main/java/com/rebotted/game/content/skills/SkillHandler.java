@@ -1,5 +1,7 @@
 package com.rebotted.game.content.skills;
 
+import java.util.Random;
+
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.content.skills.core.Fishing;
@@ -28,6 +30,13 @@ public class SkillHandler {
 			RUNECRAFTING = true, THIEVING = true, WOODCUTTING = true,
 			PRAYER = true, FLETCHING = true, CRAFTING = true, MAGIC = true,
 			FARMING = false, SLAYER = true, SMITHING = true;
+	
+	public static final String[] skillNames = { "Attack", "Defence",
+			"Strength", "Hitpoints", "Range", "Prayer", "Magic", "Cooking",
+			"Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting",
+			"Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer",
+			"Farming", "Runecrafting" };
+
 
 	public static boolean isSkilling(Player player) {
 		if (player.playerSkilling[10] || player.playerStun || player.playerSkilling[12]
@@ -158,6 +167,16 @@ public class SkillHandler {
 			}
 		}
 	}
+	
+	public static boolean hasRequiredLevel(final Player player, int skillId,
+			int lvlReq, String event) {
+		if (player.playerLevel[skillId] < lvlReq) {
+			player.getPacketSender().sendMessage("You need at least " + lvlReq + " "
+					+ skillNames[skillId] + " to " + event + ".");
+			return false;
+		}
+		return true;
+	}
 
 	public static boolean hasRequiredLevel(final Player c, int id, int lvlReq,
 			String skill, String event) {
@@ -168,6 +187,15 @@ public class SkillHandler {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean skillCheck(int level, int levelRequired, int itemBonus) {
+		double chance = 0.0;
+		double baseChance = levelRequired < 11 ? 15 : levelRequired < 51 ? 10
+				: 5;// Math.pow(10d-levelRequired/10d, 2d)/2d;
+		chance = baseChance + ((level - levelRequired) / 2d)
+				+ (itemBonus / 10d);
+		return chance >= (new Random().nextDouble() * 100.0);
 	}
 
 	public static String getLine(Player c) {

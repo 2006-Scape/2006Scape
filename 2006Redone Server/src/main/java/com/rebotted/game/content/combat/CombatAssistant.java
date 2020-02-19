@@ -42,8 +42,8 @@ public class CombatAssistant {
 		player = player2;
 	}
 
-	public static boolean inCombat(Client c) {
-		return (c.underAttackBy > 0 || c.underAttackBy2 > 0);
+	public boolean inCombat() {
+		return (player.underAttackBy > 0 || player.underAttackBy2 > 0);
 	}
 
 	public void delayedHit(int i) { // npc hit delay

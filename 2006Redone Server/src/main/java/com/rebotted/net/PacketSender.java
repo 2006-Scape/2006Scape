@@ -8,6 +8,7 @@ import com.rebotted.game.content.combat.magic.MagicTeleports;
 import com.rebotted.game.content.quests.QuestAssistant;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.content.skills.runecrafting.Tiaras;
+import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.Weight;
 import com.rebotted.game.items.impl.LightSources;
@@ -25,6 +26,31 @@ public class PacketSender {
 	public PacketSender(Player player2) {
 		this.player = player2;
 	}
+	
+	public PacketSender sendUpdateItems(int frame, Item[] items) {
+		player.getOutStream().createFrameVarSizeWord(53);
+		player.getOutStream().writeWord(frame);
+		player.getOutStream().writeWord(items.length);
+		Item[] var6 = items;
+		for (int i = 0; i < items.length; i++) {
+			Item item = var6[i];
+			if (item == null) {
+				player.getOutStream().writeByte(0);
+				player.getOutStream().writeWordBigEndianA(0);
+			} else {
+				if (item.getCount() > 254) {
+					player.getOutStream().writeByte(255);
+					player.getOutStream().writeDWord_v2(item.getCount());
+				} else {
+					player.getOutStream().writeByte(item.getCount());
+				}
+
+				player.getOutStream().writeWordBigEndianA(item.getId());
+			}
+		}
+		return this;
+	}
+	
 	
 	public PacketSender loginPlayer() {
 		player.getPlayerAssistant().loginScreen();
