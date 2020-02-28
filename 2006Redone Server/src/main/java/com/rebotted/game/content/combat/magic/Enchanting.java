@@ -175,7 +175,7 @@ public class Enchanting {
 	}
 
 	private int[][] getRequiredRunes(EnchantSpell ens){
-		if (ens.getReq3() == 0) {
+		if (ens.getReq3() > 0) {
 			return new int[][] {
 					{ens.getReq1(),ens.getReqAmt1()},
 					{ens.getReq2(), ens.getReqAmt2()},
