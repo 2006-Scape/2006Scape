@@ -105,7 +105,7 @@ public class Enchanting {
 				reqAmtRune3;
 
 		private EnchantSpell(int spell, int reqRune1, int reqAmtRune1,
-				int reqRune2, int reqAmtRune2, int reqRune3, int reqAmtRune3) {
+							 int reqRune2, int reqAmtRune2, int reqRune3, int reqAmtRune3) {
 			this.spell = spell;
 			this.reqRune1 = reqRune1;
 			this.reqAmtRune1 = reqAmtRune1;
@@ -155,23 +155,6 @@ public class Enchanting {
 			}
 		}
 	}
-	
-	private boolean hasRunes(int spellID) {
-		EnchantSpell ens = EnchantSpell.forId(spellID);
-		if (ens.getReq3() == 0) {
-			return c.getItemAssistant().playerHasItem(ens.getReq1(),
-					ens.getReqAmt1())
-					&& c.getItemAssistant().playerHasItem(ens.getReq2(),
-							ens.getReqAmt2())
-					&& c.getItemAssistant().playerHasItem(ens.getReq3(),
-							ens.getReqAmt3());
-		} else {
-			return c.getItemAssistant().playerHasItem(ens.getReq1(),
-					ens.getReqAmt1())
-					&& c.getItemAssistant().playerHasItem(ens.getReq2(),
-							ens.getReqAmt2());
-		}
-	}
 
 	private int getEnchantmentLevel(int spellID) {
 		switch (spellID) {
@@ -191,6 +174,21 @@ public class Enchanting {
 		return 0;
 	}
 
+	private int[][] getRequiredRunes(EnchantSpell ens){
+		if (ens.getReq3() > 0) {
+			return new int[][] {
+					{ens.getReq1(),ens.getReqAmt1()},
+					{ens.getReq2(), ens.getReqAmt2()},
+					{ens.getReq3(), ens.getReqAmt3()}
+			};
+		} else {
+			return new int[][]{
+					{ens.getReq1(), ens.getReqAmt1()},
+					{ens.getReq2(), ens.getReqAmt2()}
+			};
+		}
+	}
+
 	public void enchantItem(int itemID, int spellID) {
 		Enchant enc = Enchant.forId(itemID);
 		EnchantSpell ens = EnchantSpell.forId(spellID);
@@ -200,32 +198,15 @@ public class Enchanting {
 		}
 		if (c.playerLevel[c.playerMagic] >= enc.getLevelReq()) {
 			if (c.getItemAssistant().playerHasItem(enc.getUnenchanted(), 1)) {
-				if (hasRunes(spellID)) {
+				if(CastRequirements.hasRunes(c, getRequiredRunes(ens))){
 					if (getEnchantmentLevel(spellID) == enc.getELevel()) {
 						c.getItemAssistant().deleteItem(enc.getUnenchanted(), 1);
 						c.getItemAssistant().addItem(enc.getEnchanted(), 1);
 						c.getPlayerAssistant().addSkillXP(enc.getXp(),
 								c.playerMagic);
-						c.getItemAssistant()
-								.deleteItem(
-										ens.getReq1(),
-										c.getItemAssistant().getItemSlot(
-												ens.getReq1()),
-										ens.getReqAmt1());
-						c.getItemAssistant()
-								.deleteItem(
-										ens.getReq2(),
-										c.getItemAssistant().getItemSlot(
-												ens.getReq2()),
-										ens.getReqAmt2());
+						CastRequirements.deleteRunes(c, getRequiredRunes(ens));
 						c.startAnimation(enc.getAnim());
 						c.gfx100(enc.getGFX());
-						if (ens.getReq3() != -1) {
-							c.getItemAssistant().deleteItem(
-									ens.getReq3(),
-									c.getItemAssistant().getItemSlot(
-											ens.getReq3()), ens.getReqAmt3());
-						}
 						c.getPacketSender().sendFrame106(6);
 					} else {
 						c.getPacketSender().sendMessage(
