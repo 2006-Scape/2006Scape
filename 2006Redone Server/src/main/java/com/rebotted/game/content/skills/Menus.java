@@ -20,10 +20,10 @@ public class Menus {
 		player.getPacketSender().sendItemOnInterface(8903, 150, i2);
 		player.getPacketSender().sendItemOnInterface(8904, 200, i3);
 		player.getPacketSender().sendItemOnInterface(8905, 250, i4);
-		player.getPacketSender().sendFrame126(s1, 8909);
-		player.getPacketSender().sendFrame126(s2, 8913);
-		player.getPacketSender().sendFrame126(s3, 8917);
-		player.getPacketSender().sendFrame126(s4, 8921);
+		player.getPacketSender().sendString(s1, 8909);
+		player.getPacketSender().sendString(s2, 8913);
+		player.getPacketSender().sendString(s3, 8917);
+		player.getPacketSender().sendString(s4, 8921);
 		player.getPacketSender().sendChatInterface(8899);
 	}
 

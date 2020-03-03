@@ -45,8 +45,8 @@ public class CastOnOther extends CastRequirements {
 		if (castOn != null) {
 			if (castOn.distanceToPoint(c.absX, c.absY) <= 15) {
 				if (c.heightLevel == castOn.heightLevel) {
-					castOn.getPacketSender().sendFrame126(location[type], 12560);
-					castOn.getPacketSender().sendFrame126(c.playerName, 12558);
+					castOn.getPacketSender().sendString(location[type], 12560);
+					castOn.getPacketSender().sendString(c.playerName, 12558);
 					castOn.getPacketSender().showInterface(12468);
 					castOn.teleotherType = type;
 				}

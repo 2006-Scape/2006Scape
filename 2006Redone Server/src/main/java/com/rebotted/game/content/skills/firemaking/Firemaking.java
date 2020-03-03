@@ -11,29 +11,28 @@ import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.objects.Object;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.Region;
 
 public class Firemaking {
-
-	public static boolean stopFiremaking = false, pickedUpFiremakingLog = false, logLit;
 	
 	public static void stopFiremaking(Player c) {
 		c.startAnimation(65535);
 		SkillHandler.lastSkillingAction = System.currentTimeMillis();
 		c.isFiremaking = false;
 		Cooking.setCooking(c, false);
-		logLit = false;
+		c.logLit = false;
 	}
 	
 	public static void attemptFire(final Player c, final int itemUsed, final int usedWith, final int x, final int y, final boolean groundObject) {
 		int firemakingItems[] = {590, 7329, 7330, 7331};
 		for (int i = 0; i < firemakingItems.length; i++) {
-		if (Firemaking.pickedUpFiremakingLog) {
+		if (c.pickedUpFiremakingLog) {
 			c.getPacketSender().sendMessage("You can't do that!");
-			Firemaking.pickedUpFiremakingLog = false;
+			c.pickedUpFiremakingLog = false;
 			return;
 		}
-		if (c.isFiremaking && logLit == false) {
+		if (c.isFiremaking && c.logLit == false) {
 			return;
 		}
 		if (!SkillHandler.FIREMAKING) {
@@ -47,7 +46,7 @@ public class Firemaking {
 					c.getPacketSender().sendMessage("You need a firemaking level of " + l.getLevel() + " to light " + ItemAssistant.getItemName(logId));
 					return;
 				}
-				if (c.inBank() || c.inLumbBuilding() || c.inDraynorBuilding()) {
+				if (Boundary.isIn(c, Boundary.BANK_AREA) || c.inLumbBuilding() || c.inDraynorBuilding()) {
 					c.getPacketSender().sendMessage("You cannot light a fire here.");
 					return;
 				}
@@ -56,7 +55,7 @@ public class Firemaking {
 					return;
 				}
 				c.isFiremaking = true;
-				logLit = false;
+				c.logLit = false;
 				boolean notInstant = System.currentTimeMillis() - SkillHandler.lastSkillingAction > 2500;
 				int cycle = 2;
 				if (notInstant) {
@@ -88,13 +87,13 @@ public class Firemaking {
 				}
 				c.startAnimation(733);
 				c.getPlayerAssistant().walkTo(walk ? -1 : 1, 0);
-				stopFiremaking = false;
+				c.stopFiremaking = false;
 				CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 
 					@Override
 					public void execute(CycleEventContainer container) {
-						if (stopFiremaking) {
-							stopFiremaking = false;
+						if (c.stopFiremaking) {
+							c.stopFiremaking = false;
 							return;
 						}
 						if (c.isWoodcutting || c.playerIsFletching || c.isFletching) {
@@ -121,7 +120,7 @@ public class Firemaking {
 										@Override
 										public void execute(CycleEventContainer container) {
 											c.turnPlayerTo(walk ? x + 1 : x - 1, y);
-											logLit = true;
+											c.logLit = true;
 											stopFiremaking(c);
 											container.stop();
 										}

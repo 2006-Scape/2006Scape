@@ -18,33 +18,33 @@ public class Pottery {
 
 	public static void showUnfire(Player c) {
 		c.getPacketSender().sendChatInterface(8938);
-		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
+		c.getPacketSender().sendString("What would you like to make?", 8879);
 		c.getPacketSender().sendFrame246(8941, 120, 1787); // first
 		c.getPacketSender().sendFrame246(8942, 150, 1789); // second
 		c.getPacketSender().sendFrame246(8943, 150, 1791); // third
 		c.getPacketSender().sendFrame246(8944, 120, 5352); // 4th
 		c.getPacketSender().sendFrame246(8945, 150, 4438); // 5th
-		c.getPacketSender().sendFrame126("Pot", 8949);
-		c.getPacketSender().sendFrame126("Pie Dish", 8953);
-		c.getPacketSender().sendFrame126("Bowl", 8957);
-		c.getPacketSender().sendFrame126("Plant pot", 8961);
-		c.getPacketSender().sendFrame126("Pot lid", 8965);
+		c.getPacketSender().sendString("Pot", 8949);
+		c.getPacketSender().sendString("Pie Dish", 8953);
+		c.getPacketSender().sendString("Bowl", 8957);
+		c.getPacketSender().sendString("Plant pot", 8961);
+		c.getPacketSender().sendString("Pot lid", 8965);
 		c.showedUnfire = true;
 	}
 
 	public static void showFire(Player c) {
 		c.getPacketSender().sendChatInterface(8938);
-		c.getPacketSender().sendFrame126("What would you like to make?", 8879);
+		c.getPacketSender().sendString("What would you like to make?", 8879);
 		c.getPacketSender().sendFrame246(8941, 120, 1931); // first
 		c.getPacketSender().sendFrame246(8942, 150, 2313); // second
 		c.getPacketSender().sendFrame246(8943, 150, 1923); // third
 		c.getPacketSender().sendFrame246(8944, 120, 5350); // 4th
 		c.getPacketSender().sendFrame246(8945, 150, 4440); // 5th
-		c.getPacketSender().sendFrame126("Pot", 8949);
-		c.getPacketSender().sendFrame126("Pie Dish", 8953);
-		c.getPacketSender().sendFrame126("Bowl", 8957);
-		c.getPacketSender().sendFrame126("Plant pot", 8961);
-		c.getPacketSender().sendFrame126("Pot lid", 8965);
+		c.getPacketSender().sendString("Pot", 8949);
+		c.getPacketSender().sendString("Pie Dish", 8953);
+		c.getPacketSender().sendString("Bowl", 8957);
+		c.getPacketSender().sendString("Plant pot", 8961);
+		c.getPacketSender().sendString("Pot lid", 8965);
 		c.showedFire = true;
 	}
 

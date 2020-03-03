@@ -2,8 +2,6 @@ package com.rebotted.game.players;
 
 import java.time.temporal.ValueRange;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import com.rebotted.GameConstants;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
@@ -11,6 +9,7 @@ import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.util.GameLogger;
 import com.rebotted.util.Misc;
 
@@ -99,12 +98,12 @@ public class Trading {
 		} else if (o.playerRights == 2) {
 			out = "@cr2@" + out;
 		}
-		player.getPacketSender().sendFrame126(
+		player.getPacketSender().sendString(
 				"Trading with: " + o.playerName + " who has @gre@"
 						+ o.getItemAssistant().freeSlots() + " free slots",
 				3417);
-		player.getPacketSender().sendFrame126("", 3431);
-		player.getPacketSender().sendFrame126(
+		player.getPacketSender().sendString("", 3431);
+		player.getPacketSender().sendString(
 				"Are you sure you want to make this trade?", 3535);
 		player.getPacketSender().sendFrame248(3323, 3321);
 	}
@@ -156,7 +155,7 @@ public class Trading {
 							if (!item.stackable) {
 								offeredItems.remove(item);
 								player.getItemAssistant().addItem(itemID, 1);
-								o.getPacketSender().sendFrame126(
+								o.getPacketSender().sendString(
 										"Trading with: "
 												+ player.playerName
 												+ " who has @gre@"
@@ -168,7 +167,7 @@ public class Trading {
 									item.amount -= amount;
 									player.getItemAssistant()
 											.addItem(itemID, amount);
-									o.getPacketSender().sendFrame126(
+									o.getPacketSender().sendString(
 											"Trading with: "
 													+ player.playerName
 													+ " who has @gre@"
@@ -180,7 +179,7 @@ public class Trading {
 									offeredItems.remove(item);
 									player.getItemAssistant()
 											.addItem(itemID, amount);
-									o.getPacketSender().sendFrame126(
+									o.getPacketSender().sendString(
 											"Trading with: "
 													+ player.playerName
 													+ " who has @gre@"
@@ -191,7 +190,7 @@ public class Trading {
 							}
 							break;
 						}
-						o.getPacketSender().sendFrame126(
+						o.getPacketSender().sendString(
 								"Trading with: " + player.playerName
 										+ " who has @gre@"
 										+ player.getItemAssistant().freeSlots()
@@ -201,8 +200,8 @@ public class Trading {
 						player.getItemAssistant().resetItems(3322);
 						resetTItems(3415);
 						o.getTrading().resetOTItems(3416);
-						player.getPacketSender().sendFrame126("", 3431);
-						o.getPacketSender().sendFrame126("", 3431);
+						player.getPacketSender().sendString("", 3431);
+						o.getPacketSender().sendString("", 3431);
 					}
 				}
 			}
@@ -213,7 +212,7 @@ public class Trading {
 						if (item.amount > amount) {
 							item.amount -= amount;
 							player.getItemAssistant().addItem(itemID, amount);
-							o.getPacketSender().sendFrame126(
+							o.getPacketSender().sendString(
 									"Trading with: " + player.playerName
 											+ " who has @gre@"
 											+ player.getItemAssistant().freeSlots()
@@ -222,7 +221,7 @@ public class Trading {
 							amount = item.amount;
 							offeredItems.remove(item);
 							player.getItemAssistant().addItem(itemID, amount);
-							o.getPacketSender().sendFrame126(
+							o.getPacketSender().sendString(
 									"Trading with: " + player.playerName
 											+ " who has @gre@"
 											+ player.getItemAssistant().freeSlots()
@@ -233,7 +232,7 @@ public class Trading {
 				}
 			}
 
-			o.getPacketSender().sendFrame126(
+			o.getPacketSender().sendString(
 					"Trading with: " + player.playerName + " who has @gre@"
 							+ player.getItemAssistant().freeSlots() + " free slots",
 					3417);
@@ -242,8 +241,8 @@ public class Trading {
 			player.getItemAssistant().resetItems(3322);
 			resetTItems(3415);
 			o.getTrading().resetOTItems(3416);
-			player.getPacketSender().sendFrame126("", 3431);
-			o.getPacketSender().sendFrame126("", 3431);
+			player.getPacketSender().sendString("", 3431);
+			o.getPacketSender().sendString("", 3431);
 		} catch (Exception e) {
 		}
 		return true;
@@ -265,10 +264,9 @@ public class Trading {
 			return false;
 		}
 
-		for (int i : GameConstants.ITEM_TRADEABLE) {
+		for (int i : ItemConstants.ITEM_TRADEABLE) {
 			if (i == itemID && player.playerRights < 3) {
-				player.getPacketSender().sendMessage(
-						"You can't trade this item.");
+				player.getPacketSender().sendMessage("You can't trade this item.");
 				return false;
 			}
 		}
@@ -280,24 +278,24 @@ public class Trading {
 					offeredItems.add(new GameItem(itemID, 1));
 					player.getItemAssistant().deleteItem(itemID,
 							player.getItemAssistant().getItemSlot(itemID), 1);
-					o.getPacketSender().sendFrame126(
+					o.getPacketSender().sendString(
 							"Trading with: " + player.playerName + " who has @gre@"
 									+ player.getItemAssistant().freeSlots()
 									+ " free slots", 3417);
 				}
 			}
-			o.getPacketSender().sendFrame126(
+			o.getPacketSender().sendString(
 					"Trading with: " + player.playerName + " who has @gre@"
 							+ player.getItemAssistant().freeSlots() + " free slots",
 					3417);
 			player.getItemAssistant().resetItems(3322);
 			resetTItems(3415);
 			o.getTrading().resetOTItems(3416);
-			player.getPacketSender().sendFrame126("", 3431);
-			o.getPacketSender().sendFrame126("", 3431);
+			player.getPacketSender().sendString("", 3431);
+			o.getPacketSender().sendString("", 3431);
 		}
-		if (player.getItemAssistant().getItemCount(itemID) < amount) {
-			amount = player.getItemAssistant().getItemCount(itemID);
+		if (player.getItemAssistant().getItemAmount(itemID) < amount) {
+			amount = player.getItemAssistant().getItemAmount(itemID);
 			if (amount == 0) {
 				return false;
 			}
@@ -313,7 +311,7 @@ public class Trading {
 					inTrade = true;
 					item.amount += amount;
 					player.getItemAssistant().deleteItem(itemID, amount);
-					o.getPacketSender().sendFrame126(
+					o.getPacketSender().sendString(
 							"Trading with: " + player.playerName + " who has @gre@"
 									+ player.getItemAssistant().freeSlots()
 									+ " free slots", 3417);
@@ -324,21 +322,21 @@ public class Trading {
 			if (!inTrade) {
 				offeredItems.add(new GameItem(itemID, amount));
 				player.getItemAssistant().deleteItem(itemID, amount);
-				o.getPacketSender().sendFrame126(
+				o.getPacketSender().sendString(
 						"Trading with: " + player.playerName + " who has @gre@"
 								+ player.getItemAssistant().freeSlots()
 								+ " free slots", 3417);
 			}
 		}
-		o.getPacketSender().sendFrame126(
+		o.getPacketSender().sendString(
 				"Trading with: " + player.playerName + " who has @gre@"
 						+ player.getItemAssistant().freeSlots() + " free slots",
 				3417);
 		player.getItemAssistant().resetItems(3322);
 		resetTItems(3415);
 		o.getTrading().resetOTItems(3416);
-		player.getPacketSender().sendFrame126("", 3431);
-		o.getPacketSender().sendFrame126("", 3431);
+		player.getPacketSender().sendString("", 3431);
+		o.getPacketSender().sendString("", 3431);
 		return true;
 	}
 
@@ -351,8 +349,7 @@ public class Trading {
 		player.acceptedTrade = false;
 		player.getPacketSender().closeAllWindows();
 		player.tradeResetNeeded = false;
-		player.getPacketSender().sendFrame126(
-				"Are you sure you want to make this trade?", 3535);
+		player.getPacketSender().sendString("Are you sure you want to make this trade?", 3535);
 	}
 
 	public void declineTrade() {
@@ -404,9 +401,7 @@ public class Trading {
 			player.getOutStream().writeWord(len);
 			for (GameItem item : o.getTrading().offeredItems) {
 				if (item.amount > 254) {
-					player.getOutStream().writeByte(255); // item's stack count. if
-														// over 254, write byte
-														// 255
+					player.getOutStream().writeByte(255); // item's stack count. if over 254, write byte 255
 					player.getOutStream().writeDWord_v2(item.amount);
 				} else {
 					player.getOutStream().writeByte(item.amount);
@@ -465,7 +460,7 @@ public class Trading {
 			}
 		}
 
-		player.getPacketSender().sendFrame126(SendTrade, 3557);
+		player.getPacketSender().sendString(SendTrade, 3557);
 		SendTrade = "Absolutely nothing!";
 		SendAmount = "";
 		Count = 0;
@@ -495,7 +490,7 @@ public class Trading {
 				Count++;
 			}
 		}
-		player.getPacketSender().sendFrame126(SendTrade, 3558);
+		player.getPacketSender().sendString(SendTrade, 3558);
 		// TODO: find out what 197 does eee 3213
 		player.getPacketSender().sendFrame248(3443, 197);
 	}
@@ -547,6 +542,7 @@ public class Trading {
 				}
 			}, 1);
 		} catch (Exception e) {
+			
 		}
 	}
 

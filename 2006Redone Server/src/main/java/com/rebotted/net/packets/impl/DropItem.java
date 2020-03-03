@@ -5,8 +5,8 @@ import com.rebotted.GameEngine;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.skills.SkillHandler;
-import com.rebotted.game.content.skills.firemaking.Firemaking;
 import com.rebotted.game.content.skills.firemaking.LogData;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.impl.RareProtection;
 import com.rebotted.game.npcs.impl.Pets;
 import com.rebotted.game.players.Player;
@@ -28,14 +28,13 @@ public class DropItem implements PacketType {
 		}
 		for (LogData logData : LogData.values()) {
 			if (itemId == logData.getLogId()) {
-				Firemaking.pickedUpFiremakingLog = false;
+				player.pickedUpFiremakingLog = false;
 			}
 		}
 		for (LogData logData : LogData.values()) {
 			if (itemId == logData.getLogId()) {
 				if (GameEngine.objectManager.objectExists(player.absX, player.absY)) {
-					player.getPacketSender().sendMessage(
-							"You cannot drop a log here.");
+					player.getPacketSender().sendMessage("You cannot drop a log here.");
 					return;
 				}
 			}
@@ -102,36 +101,22 @@ public class DropItem implements PacketType {
 				}
 			}
 		}
-
-		if (player.playerItemsN[slot] != 0 && itemId != -1
-				&& player.playerItems[slot] == itemId + 1) {
+		if (player.playerItemsN[slot] != 0 && itemId != -1 && player.playerItems[slot] == itemId + 1) {
 			if (droppable) {
-				for (int i = 0; i < GameConstants.DESTROYABLE_ITEMS.length; i++) { 
-					if (itemId == GameConstants.DESTROYABLE_ITEMS[i]) {
+				for (int i = 0; i < ItemConstants.DESTROYABLE_ITEMS.length; i++) { 
+					if (itemId == ItemConstants.DESTROYABLE_ITEMS[i]) {
 						player.droppedItem = itemId;
 						player.getItemAssistant().destroyInterface(itemId);
 						return;
 					}
 				}
-				if (player.underAttackBy > 0) {
-					if (player.getShopAssistant().getItemShopValue(itemId) > 1000) {
-						player.getPacketSender()
-								.sendMessage(
-										"You may not drop items worth more than 1000 while in combat.");
-						return;
-					}
-				}
-				GameEngine.itemHandler.createGroundItem(player, itemId, player.getX(),
-						player.getY(), player.playerItemsN[slot], player.getId());
-				player.getItemAssistant().deleteItem(itemId, slot,
-						player.playerItemsN[slot]);
+				GameEngine.itemHandler.createGroundItem(player, itemId, player.getX(), player.getY(), player.playerItemsN[slot], player.getId());
+				player.getItemAssistant().deleteItem(itemId, slot, player.playerItemsN[slot]);
 				if (GameConstants.SOUND) {
-					player.getPacketSender().sendSound(SoundList.ITEM_DROP, 100,
-							0);
+					player.getPacketSender().sendSound(SoundList.ITEM_DROP, 100, 0);
 				}
 			} else {
-				player.getPacketSender().sendMessage(
-						"This item cannot be dropped.");
+				player.getPacketSender().sendMessage("This item cannot be dropped.");
 			}
 		}
 	}

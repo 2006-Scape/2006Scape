@@ -37,14 +37,14 @@ public class JewelryMaking {
 						i, 4233, 1);
 			}
 			c.getPacketSender().sendFrame34(1643, 4, 4233, 1);
-			c.getPacketSender().sendFrame126("", 4230);
+			c.getPacketSender().sendString("", 4230);
 			c.getPacketSender().sendFrame246(4229, 0, -1);
 		} else {
 			c.getPacketSender().sendFrame246(4229, 120, 1592);
 			for (int i = 0; i < MOULD_INTERFACE_IDS[0].length; i++) {
 				c.getPacketSender().sendFrame34(-1, i, 4233, 1);
 			}
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					"You need a ring mould to craft rings.", 4230);
 		}
 		/* Necklace */
@@ -55,10 +55,10 @@ public class JewelryMaking {
 			}
 			c.getPacketSender().sendFrame34(1662, 4, 4239, 1);
 			c.getPacketSender().sendFrame246(4235, 0, -1);
-			c.getPacketSender().sendFrame126("", 4236);
+			c.getPacketSender().sendString("", 4236);
 		} else {
 			c.getPacketSender().sendFrame246(4235, 120, 1597);
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					"You need a necklace mould to craft necklaces", 4236);
 			for (int i = 0; i < MOULD_INTERFACE_IDS[1].length; i++) {
 				c.getPacketSender().sendFrame34(-1, i, 4239, 1);
@@ -72,10 +72,10 @@ public class JewelryMaking {
 			}
 			c.getPacketSender().sendFrame34(1681, 4, 4245, 1);
 			c.getPacketSender().sendFrame246(4241, 0, -1);
-			c.getPacketSender().sendFrame126("", 4242);
+			c.getPacketSender().sendString("", 4242);
 		} else {
 			c.getPacketSender().sendFrame246(4241, 120, 1595);
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					"You need an amulet mould to craft necklaces", 4242);
 			for (int i = 0; i < MOULD_INTERFACE_IDS[2].length; i++) {
 				c.getPacketSender().sendFrame34(-1, i, 4245, 1);

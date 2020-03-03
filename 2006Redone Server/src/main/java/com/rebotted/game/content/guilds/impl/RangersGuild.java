@@ -63,7 +63,7 @@ public class RangersGuild {
 								if (hitChance >= 10 && hitChance <= 20) {
 									playerScore += 10;
 									sendConfiguration(80 + Misc.random(10), -60 + Misc.random(90));
-									c.getPacketSender().sendFrame126(BLACK, 567);
+									c.getPacketSender().sendString(BLACK, 567);
 									c.getPlayerAssistant().addSkillXP(5, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -71,7 +71,7 @@ public class RangersGuild {
 								} else if (hitChance >= 20 && hitChance < 30) {
 									playerScore += 20;
 									sendConfiguration(-70 + Misc.random(10),10 - Misc.random(40));
-									c.getPacketSender().sendFrame126(BLUE,567);
+									c.getPacketSender().sendString(BLUE,567);
 									c.getPlayerAssistant().addSkillXP(10, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -79,7 +79,7 @@ public class RangersGuild {
 								} else if (hitChance >= 30 && hitChance < 50) {
 									playerScore += 30;
 									sendConfiguration(-30 - Misc.random(15),10 - Misc.random(25));
-									c.getPacketSender().sendFrame126(RED, 567);
+									c.getPacketSender().sendString(RED, 567);
 									c.getPlayerAssistant().addSkillXP(15, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -87,7 +87,7 @@ public class RangersGuild {
 								} else if (hitChance >= 50 && hitChance < 75) {
 									playerScore += 50;
 									sendConfiguration(5 - Misc.random(20),0 - Misc.random(20));
-									c.getPacketSender().sendFrame126(YELLOW, 567);
+									c.getPacketSender().sendString(YELLOW, 567);
 									c.getPlayerAssistant().addSkillXP(15, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -95,13 +95,13 @@ public class RangersGuild {
 								} else if (hitChance >= 75) {
 									playerScore += 100;
 									sendConfiguration(0, 0);
-									c.getPacketSender().sendFrame126(BULLSEYE, 567);
+									c.getPacketSender().sendString(BULLSEYE, 567);
 									c.getPlayerAssistant().addSkillXP(50, 4);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
 									//c.getPlayerAction().canWalk(true);
 								} else {
-									c.getPacketSender().sendFrame126(MISSED, 567);
+									c.getPacketSender().sendString(MISSED, 567);
 									sendConfiguration(1200, 1200);
 									c.getItemAssistant().deleteArrow();
 									//c.getPlayerAction().setAction(false);
@@ -142,7 +142,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564);
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566);
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446); 
 			break;
@@ -159,7 +159,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564); 
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551);
+			c.getPacketSender().sendString("" + playerScore, 551);
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446);
 			break;
@@ -176,7 +176,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564); 
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446); 
 			break;
@@ -193,7 +193,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564); 
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536);
 			c.getPacketSender().showInterface(446);
 			break;
@@ -210,7 +210,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564); 
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446); 
 			break;
@@ -227,7 +227,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564); 
 			c.getPacketSender().sendFrame70(1200, 1200, 565);
 			c.getPacketSender().sendFrame70(1200, 1200, 566); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551);
+			c.getPacketSender().sendString("" + playerScore, 551);
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446);
 			break;
@@ -244,7 +244,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564); 
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446); 
 			break;
@@ -261,7 +261,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(1200, 1200, 564);
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566);
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446); 
 			break;
@@ -278,7 +278,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(0, 0, 564); 
 			c.getPacketSender().sendFrame70(1200, 1200, 565); 
 			c.getPacketSender().sendFrame70(1200, 1200, 566); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446); 
 			break;
@@ -294,7 +294,7 @@ public class RangersGuild {
 			c.getPacketSender().sendFrame70(0, 0, 563); 
 			c.getPacketSender().sendFrame70(0, 0, 564); 
 			c.getPacketSender().sendFrame70(0, 0, 565); 
-			c.getPacketSender().sendFrame126("" + playerScore, 551); 
+			c.getPacketSender().sendString("" + playerScore, 551); 
 			c.getPacketSender().sendFrame70(xPos, yPos, 536); 
 			c.getPacketSender().showInterface(446); 
 			break;

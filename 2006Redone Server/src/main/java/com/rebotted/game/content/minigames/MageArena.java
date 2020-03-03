@@ -39,14 +39,14 @@ public class MageArena {
 		}
 
 		for (int i = 15950; i < interfaceText.length; i++) {
-			c.getPacketSender().sendFrame126(interfaceText[i - 15950], i);
+			c.getPacketSender().sendString(interfaceText[i - 15950], i);
 		}
 
-		c.getPacketSender().sendFrame126(Integer.toString(telePoints), 15955);
-		c.getPacketSender().sendFrame126(Integer.toString(enchantPoints),
+		c.getPacketSender().sendString(Integer.toString(telePoints), 15955);
+		c.getPacketSender().sendString(Integer.toString(enchantPoints),
 				15956);
-		c.getPacketSender().sendFrame126(Integer.toString(gravePoints), 15957);
-		c.getPacketSender().sendFrame126(Integer.toString(alchPoints), 15958);
+		c.getPacketSender().sendString(Integer.toString(gravePoints), 15957);
+		c.getPacketSender().sendString(Integer.toString(alchPoints), 15958);
 		c.getPacketSender().showInterface(15944);
 	}
 

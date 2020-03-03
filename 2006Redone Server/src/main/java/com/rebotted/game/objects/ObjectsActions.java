@@ -47,6 +47,7 @@ import com.rebotted.game.objects.impl.Webs;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.Position;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.Region;
 
 public class ObjectsActions {
@@ -1478,7 +1479,7 @@ public class ObjectsActions {
 			}
 			break;
 		case 14314:
-			if (player.inPcBoat()) {
+			if (Boundary.isIn(player, Boundary.PC_BOAT)) {
 				if (PestControl.waitingBoat.containsKey(player)) {
 					PestControl.leaveWaitingBoat(player);
 				} else {
@@ -2090,7 +2091,7 @@ public class ObjectsActions {
 		break;
 
 		case 9398:// deposit box
-			player.getPacketSender().sendFrame126("The Bank of " + GameConstants.SERVER_NAME + " - Deposit Box", 7421);
+			player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME + " - Deposit Box", 7421);
 			player.getPacketSender().sendFrame248(4465, 197);
 			player.getItemAssistant().resetItems(7423);
 			break;

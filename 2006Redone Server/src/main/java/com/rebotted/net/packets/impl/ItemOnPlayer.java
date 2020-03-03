@@ -22,7 +22,7 @@ public class ItemOnPlayer implements PacketType {
 		case 962:
 			Player o = (Player) PlayerHandler.players[playerId];
 			if (RareProtection.CRACKERS) {
-				int delete = c.getItemAssistant().getItemCount(962);
+				int delete = c.getItemAssistant().getItemAmount(962);
 				c.getItemAssistant().deleteItem(962, delete);
 				c.getPacketSender().sendMessage("You can't do that!");
 				return;

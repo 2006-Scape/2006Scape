@@ -1,11 +1,12 @@
 package com.rebotted.game.content.traveling;
 
-import com.rebotted.GameConstants;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 
 /**
  * Aug 12, 2017 : 1:51:21 AM
@@ -23,9 +24,9 @@ public class DesertHeat {
 	 */
 	private static final int ANIMATION = 829;
 	/**
-	 * Time player has if they don't have protection
+	 * Time player has if they don't have protection (90 seconds)
 	 */
-	private static int REGULAR_TIMER = 30000;
+	private static int REGULAR_TIMER = 90000;
 	/**
 	 * Integer to check if player has waterskins
 	 */
@@ -43,7 +44,7 @@ public class DesertHeat {
 	 * Desert clothes
 	 */
 	private static final int[][] CLOTHES = {
-			{1833, GameConstants.CHEST}, {1835, GameConstants.LEGS}, {1837, GameConstants.FEET}
+			{1833, ItemConstants.CHEST}, {1835, ItemConstants.LEGS}, {1837, ItemConstants.FEET}
 		};
 	
 	private static void doDamage(Player player) {
@@ -71,14 +72,23 @@ public class DesertHeat {
 		return REGULAR_TIMER + heat;
 	}
 
+	private static boolean preventHeat(Player player) {
+		return (Boundary.isIn(player, Boundary.NO_HEAT));
+	}
+
 	public static void callHeat(final Player player) {
-		if (!player.inDesert() || player.playerLevel[player.playerHitpoints] < 0) {
+		if (!Boundary.isIn(player, Boundary.DESERT) 
+			|| player.playerLevel[player.playerHitpoints] < 0 
+			|| preventHeat(player)) {
 			return;
 		}
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (!player.inDesert() || player.playerLevel[player.playerHitpoints] < 0 || player.disconnected) {
+				if (!Boundary.isIn(player, Boundary.DESERT) 
+					|| player.playerLevel[player.playerHitpoints] < 0 
+					|| player.disconnected 
+					|| preventHeat(player)) {
 					container.stop();
 					return;
 				}
@@ -120,19 +130,19 @@ public class DesertHeat {
 	
 	public static void showWarning(Player player) {
 		for (int i = 8144; i < 8195; i++) {
-			player.getPacketSender().sendFrame126("", i);
+			player.getPacketSender().sendString("", i);
 		}
-		player.getPacketSender().sendFrame126("@dre@DESERT WARNING", 8144);
-		player.getPacketSender().sendFrame126("", 8145);
-		player.getPacketSender().sendFrame126("The intense heat of the desert reduces your health.", 8147);
-		player.getPacketSender().sendFrame126("Bring 2-5 waterskins to avoid receiving any damage.", 8148);
-		player.getPacketSender().sendFrame126("", 8149);
-		player.getPacketSender().sendFrame126("Wearing desert robes will not prevent the damage, but", 8150);
-		player.getPacketSender().sendFrame126("will reduce it significantly.", 8151);
-		player.getPacketSender().sendFrame126("", 8152);
-		player.getPacketSender().sendFrame126("The waterskins however need to be re-filled. Bring a", 8153);
-		player.getPacketSender().sendFrame126("knife and cut healthy cacti to re-fill the waterskins.", 8154);
-		player.getPacketSender().sendFrame126("@red@Any water vessels will evaporate, such as jug of water.", 8155);
+		player.getPacketSender().sendString("@dre@DESERT WARNING", 8144);
+		player.getPacketSender().sendString("", 8145);
+		player.getPacketSender().sendString("The intense heat of the desert reduces your health.", 8147);
+		player.getPacketSender().sendString("Bring 2-5 waterskins to avoid receiving any damage.", 8148);
+		player.getPacketSender().sendString("", 8149);
+		player.getPacketSender().sendString("Wearing desert robes will not prevent the damage, but", 8150);
+		player.getPacketSender().sendString("will reduce it significantly.", 8151);
+		player.getPacketSender().sendString("", 8152);
+		player.getPacketSender().sendString("The waterskins however need to be re-filled. Bring a", 8153);
+		player.getPacketSender().sendString("knife and cut healthy cacti to re-fill the waterskins.", 8154);
+		player.getPacketSender().sendString("@red@Any water vessels will evaporate, such as jug of water.", 8155);
 		player.getPacketSender().showInterface(8134);
 	}
 }

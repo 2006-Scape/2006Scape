@@ -27,6 +27,7 @@ import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.PathFinder;
 
 /**
@@ -544,7 +545,7 @@ public class CombatAssistant {
 				player.getPacketSender().sendMessage("This monster is already in combat.");
 				return;
 			}
-			if ((player.underAttackBy > 0 || player.underAttackBy2 > 0) && player.underAttackBy2 != i && !player.inMulti()) {
+			if ((player.underAttackBy > 0 || player.underAttackBy2 > 0) && player.underAttackBy2 != i && !Boundary.isIn(player, Boundary.MULTI)) {
 				resetPlayerAttack();
 				player.getPacketSender().sendMessage("I am already under attack.");
 				return;
@@ -1418,7 +1419,7 @@ public class CombatAssistant {
 				PlayerHandler.players[i].updateRequired = true;
 				player.usingMagic = false;
 				player.castingMagic = false;
-				if (o.inMulti() && MagicSpells.multis(player)) {
+				if (Boundary.isIn(o, Boundary.MULTI) && MagicSpells.multis(player)) {
 					player.barrageCount = 0;
 					for (int j = 0; j < PlayerHandler.players.length; j++) {
 						if (PlayerHandler.players[j] != null) {
@@ -1717,7 +1718,7 @@ public class CombatAssistant {
 			}
 		}
 		if (CombatConstants.SINGLE_AND_MULTI_ZONES) {
-			if (!PlayerHandler.players[player.playerIndex].inMulti()) { // single single zones
+			if (!Boundary.isIn(PlayerHandler.players[player.playerIndex], Boundary.MULTI)) { // single single zones
 				if (PlayerHandler.players[player.playerIndex].underAttackBy != player.playerId && PlayerHandler.players[player.playerIndex].underAttackBy != 0) {
 					player.getPacketSender().sendMessage("That player is already in combat.");
 					player.stopMovement();

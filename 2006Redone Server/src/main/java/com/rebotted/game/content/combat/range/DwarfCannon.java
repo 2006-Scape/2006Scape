@@ -10,6 +10,7 @@ import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.Region;
 
 /**
@@ -390,7 +391,7 @@ public class DwarfCannon {
 		}
 		
 		public boolean noSetUpArea() {
-			return player.inBank() || player.inFightCaves();
+			return Boundary.isIn(player, Boundary.BANK_AREA) || player.inFightCaves();
 		}
 		
 		private int getHit() {
@@ -413,7 +414,7 @@ public class DwarfCannon {
 				if (damage > target.HP) {
 					damage = target.HP;
 				}
-				if (!player.inMulti()) {
+				if (!Boundary.isIn(player, Boundary.MULTI)) {
 					if (target.underAttackBy > 0 && target.underAttackBy != player.playerId) {
 						return;
 					}

@@ -83,21 +83,21 @@ public class SkillInterfaces {
 					"You can't open this while skilling!");
 			return;
 		}
-		c.getPacketSender().sendFrame126(title, 8716);
-		c.getPacketSender().sendFrame126(currentTab, 8849);
-		c.getPacketSender().sendFrame126(op1, 8846);
-		c.getPacketSender().sendFrame126(op2, 8823);
-		c.getPacketSender().sendFrame126(op3, 8824);
-		c.getPacketSender().sendFrame126(op4, 8827);
-		c.getPacketSender().sendFrame126(op5, 8837);
-		c.getPacketSender().sendFrame126(op6, 8840);
-		c.getPacketSender().sendFrame126(op7, 8843);
-		c.getPacketSender().sendFrame126(op8, 8859);
-		c.getPacketSender().sendFrame126(op9, 8862);
-		c.getPacketSender().sendFrame126(op10, 8865);
-		c.getPacketSender().sendFrame126(op11, 15303);
-		c.getPacketSender().sendFrame126(op12, 15306);
-		c.getPacketSender().sendFrame126(op13, 15309);
+		c.getPacketSender().sendString(title, 8716);
+		c.getPacketSender().sendString(currentTab, 8849);
+		c.getPacketSender().sendString(op1, 8846);
+		c.getPacketSender().sendString(op2, 8823);
+		c.getPacketSender().sendString(op3, 8824);
+		c.getPacketSender().sendString(op4, 8827);
+		c.getPacketSender().sendString(op5, 8837);
+		c.getPacketSender().sendString(op6, 8840);
+		c.getPacketSender().sendString(op7, 8843);
+		c.getPacketSender().sendString(op8, 8859);
+		c.getPacketSender().sendString(op9, 8862);
+		c.getPacketSender().sendString(op10, 8865);
+		c.getPacketSender().sendString(op11, 15303);
+		c.getPacketSender().sendString(op12, 15306);
+		c.getPacketSender().sendString(op13, 15309);
 		c.getPacketSender().showInterface(8714);
 	}
 
@@ -115,8 +115,8 @@ public class SkillInterfaces {
 		if (SkillHandler.isSkilling(c)) {
 			return;
 		}
-		c.getPacketSender().sendFrame126(lines, 8760 + lineCounter);
-		c.getPacketSender().sendFrame126(levels, 8720 + lineCounter);
+		c.getPacketSender().sendString(lines, 8760 + lineCounter);
+		c.getPacketSender().sendString(levels, 8720 + lineCounter);
 		item[0 + lineCounter] = ids;
 		writeInterfaceItem(item);
 	}
@@ -129,7 +129,7 @@ public class SkillInterfaces {
 			item[i] = 0;
 		}
 		for (int i = 8720; i < 8799; i++) {
-			c.getPacketSender().sendFrame126("", i);
+			c.getPacketSender().sendString("", i);
 		}
 	}
 

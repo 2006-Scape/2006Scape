@@ -160,8 +160,8 @@ public class FightPits {
 	 * @note Updates waiting room interfaces etc.
 	 */
 	public static boolean updateWaitingRoom(Player c) {
-		c.getPacketSender().sendFrame126("Next Game Begins In : " + gameStartTimer, 2805);
-		c.getPacketSender().sendFrame126("Champion: JalYt-Ket-" + pitsChampion, 2806);
+		c.getPacketSender().sendString("Next Game Begins In : " + gameStartTimer, 2805);
+		c.getPacketSender().sendString("Champion: JalYt-Ket-" + pitsChampion, 2806);
 		c.getPacketSender().sendConfig(560, 1);
 		c.getPacketSender().walkableInterface(2804);
 		return true;
@@ -171,8 +171,8 @@ public class FightPits {
 	 * @note Updates players in game interfaces etc.
 	 */
 	public static boolean updateGame(Player c) {
-		c.getPacketSender().sendFrame126("Foes Remaining: " + getListCount(PLAYING), 2805);
-		c.getPacketSender().sendFrame126("Champion: JalYt-Ket-" + pitsChampion, 2806);
+		c.getPacketSender().sendString("Foes Remaining: " + getListCount(PLAYING), 2805);
+		c.getPacketSender().sendString("Champion: JalYt-Ket-" + pitsChampion, 2806);
 		c.getPacketSender().sendConfig(560, 1);
 		c.getPacketSender().walkableInterface(2804);
 		return true;

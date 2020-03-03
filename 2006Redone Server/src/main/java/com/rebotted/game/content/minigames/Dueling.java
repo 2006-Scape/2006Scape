@@ -8,6 +8,7 @@ import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.impl.RareProtection;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
@@ -98,8 +99,8 @@ public class Dueling {
 		for (int i = 0; i < player.playerEquipment.length; i++) {
 			sendDuelEquipment(player.playerEquipment[i], player.playerEquipmentN[i], i);
 		}
-		player.getPacketSender().sendFrame126("Dueling with: " + o.playerName + " (level-" + o.combatLevel + ")", 6671);
-		player.getPacketSender().sendFrame126("", 6684);
+		player.getPacketSender().sendString("Dueling with: " + o.playerName + " (level-" + o.combatLevel + ")", 6671);
+		player.getPacketSender().sendString("", 6684);
 		player.getPacketSender().sendFrame248(6575, 3321);
 		player.getItemAssistant().resetItems(3322);
 	}
@@ -198,11 +199,9 @@ public class Dueling {
 	}
 
 	public boolean stakeItem(int itemID, int fromSlot, int amount) {
-
-		for (int i : GameConstants.ITEM_TRADEABLE) {
+		for (int i : ItemConstants.ITEM_TRADEABLE) {
 			if (i == itemID || itemID >= 6864 && itemID <= 6882) {
-				player.getPacketSender().sendMessage(
-						"You can't stake this item.");
+				player.getPacketSender().sendMessage("You can't stake that item.");
 				return false;
 			}
 		}
@@ -257,8 +256,8 @@ public class Dueling {
 			o.getItemAssistant().resetItems(3322);
 			refreshDuelScreen();
 			o.getDueling().refreshDuelScreen();
-			player.getPacketSender().sendFrame126("", 6684);
-			o.getPacketSender().sendFrame126("", 6684);
+			player.getPacketSender().sendString("", 6684);
+			o.getPacketSender().sendString("", 6684);
 		}
 		if (ItemData.itemStackable[itemID] || ItemData.itemIsNote[itemID]) {
 			boolean found = false;
@@ -282,8 +281,8 @@ public class Dueling {
 		o.getItemAssistant().resetItems(3322);
 		refreshDuelScreen();
 		o.getDueling().refreshDuelScreen();
-		player.getPacketSender().sendFrame126("", 6684);
-		o.getPacketSender().sendFrame126("", 6684);
+		player.getPacketSender().sendString("", 6684);
+		o.getPacketSender().sendString("", 6684);
 		return true;
 	}
 
@@ -363,7 +362,7 @@ public class Dueling {
 					o.getItemAssistant().resetItems(3322);
 					player.getDueling().refreshDuelScreen();
 					o.getDueling().refreshDuelScreen();
-					o.getPacketSender().sendFrame126("", 6684);
+					o.getPacketSender().sendString("", 6684);
 				}
 			}
 		}
@@ -392,7 +391,7 @@ public class Dueling {
 		o.getItemAssistant().resetItems(3322);
 		player.getDueling().refreshDuelScreen();
 		o.getDueling().refreshDuelScreen();
-		o.getPacketSender().sendFrame126("", 6684);
+		o.getPacketSender().sendString("", 6684);
 		if (!goodSpace) {
 			player.getPacketSender().sendMessage(
 					"You have too many rules set to remove that item.");
@@ -430,7 +429,7 @@ public class Dueling {
 				itemId += ItemAssistant.getItemName(item.id) + "\\n";
 			}
 		}
-		player.getPacketSender().sendFrame126(itemId, 6516);
+		player.getPacketSender().sendString(itemId, 6516);
 		itemId = "";
 		for (GameItem item : o.getDueling().stakedItems) {
 			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
@@ -440,20 +439,20 @@ public class Dueling {
 				itemId += ItemAssistant.getItemName(item.id) + "\\n";
 			}
 		}
-		player.getPacketSender().sendFrame126(itemId, 6517);
-		player.getPacketSender().sendFrame126("", 8242);
+		player.getPacketSender().sendString(itemId, 6517);
+		player.getPacketSender().sendString("", 8242);
 		for (int i = 8238; i <= 8253; i++) {
-			player.getPacketSender().sendFrame126("", i);
+			player.getPacketSender().sendString("", i);
 		}
-		player.getPacketSender().sendFrame126("Hitpoints will be restored.", 8250);
-		player.getPacketSender().sendFrame126("Boosted stats will be restored.",
+		player.getPacketSender().sendString("Hitpoints will be restored.", 8250);
+		player.getPacketSender().sendString("Boosted stats will be restored.",
 				8238);
 		if (player.duelRule[8]) {
-			player.getPacketSender().sendFrame126(
+			player.getPacketSender().sendString(
 					"There will be obstacles in the arena.", 8239);
 		}
-		player.getPacketSender().sendFrame126("", 8240);
-		player.getPacketSender().sendFrame126("", 8241);
+		player.getPacketSender().sendString("", 8240);
+		player.getPacketSender().sendString("", 8241);
 
 		String[] rulesOption = { "Players cannot forfeit!",
 				"Players cannot move.", "Players cannot use range.",
@@ -464,12 +463,12 @@ public class Dueling {
 		int lineNumber = 8242;
 		for (int i = 0; i < 8; i++) {
 			if (player.duelRule[i]) {
-				player.getPacketSender().sendFrame126("" + rulesOption[i],
+				player.getPacketSender().sendString("" + rulesOption[i],
 						lineNumber);
 				lineNumber++;
 			}
 		}
-		player.getPacketSender().sendFrame126("", 6571);
+		player.getPacketSender().sendString("", 6571);
 		player.getPacketSender().sendFrame248(6412, 197);
 		// c.getPA().showInterface(6412);
 	}
@@ -584,12 +583,12 @@ public class Dueling {
 	public void duelVictory() {
 		Client opponent = (Client) PlayerHandler.players[player.duelingWith];
 		if (opponent != null) {
-			player.getPacketSender().sendFrame126("" + opponent.combatLevel, 6839);
-			player.getPacketSender().sendFrame126(opponent.playerName, 6840);
+			player.getPacketSender().sendString("" + opponent.combatLevel, 6839);
+			player.getPacketSender().sendString(opponent.playerName, 6840);
 			opponent.duelStatus = 0;
 		} else {
-			player.getPacketSender().sendFrame126("", 6839);
-			player.getPacketSender().sendFrame126("", 6840);
+			player.getPacketSender().sendString("", 6839);
+			player.getPacketSender().sendString("", 6840);
 		}
 		PrayerDrain.resetPrayers(player);
 		for (int i = 0; i < 20; i++) {
@@ -759,8 +758,8 @@ public class Dueling {
 		}
 		o.duelStatus = 1;
 		player.duelStatus = 1;
-		o.getPacketSender().sendFrame126("", 6684);
-		player.getPacketSender().sendFrame126("", 6684);
+		o.getPacketSender().sendString("", 6684);
+		player.getPacketSender().sendString("", 6684);
 	}
 
 	public void selectRule(int i) { // rules

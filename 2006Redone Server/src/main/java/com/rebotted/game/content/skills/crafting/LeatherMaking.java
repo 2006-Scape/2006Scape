@@ -22,7 +22,7 @@ public class LeatherMaking extends CraftingData {
 				if (l.getLeather() == 1743) {
 					c.getPacketSender().sendChatInterface(4429);
 					c.getPacketSender().sendFrame246(1746, 200, 1131);
-					c.getPacketSender().sendFrame126(
+					c.getPacketSender().sendString(
 							ItemAssistant.getItemName(1131), 2799);
 					c.leatherType = leather;
 				}
@@ -34,7 +34,7 @@ public class LeatherMaking extends CraftingData {
 					c.getPacketSender().itemOnInterface(8944, 180, 6328);
 					c.getPacketSender().itemOnInterface(8945, 180, 6330);
 					for (int i = 0; i < name.length; i++) {
-						c.getPacketSender().sendFrame126(name[i], 8949 + i * 4);
+						c.getPacketSender().sendString(name[i], 8949 + i * 4);
 					}
 					c.leatherType = leather;
 					return;
@@ -51,7 +51,7 @@ public class LeatherMaking extends CraftingData {
 						.itemOnInterface(8884, 180, d.getChaps());
 				c.getPacketSender().itemOnInterface(8885, 180, d.getBody());
 				for (int i = 0; i < name.length; i++) {
-					c.getPacketSender().sendFrame126(name[i], 8889 + i * 4);
+					c.getPacketSender().sendString(name[i], 8889 + i * 4);
 				}
 				c.leatherType = leather;
 				return;

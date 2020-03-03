@@ -77,7 +77,7 @@ public class CookingTutorialIsland extends SkillHandler {
 	private static void viewCookInterface(Player c, int item) {
 		c.getPacketSender().sendChatInterface(1743);
 		c.getPacketSender().sendFrame246(13716, 190, item);
-		c.getPacketSender().sendFrame126(
+		c.getPacketSender().sendString(
 				"" + ItemAssistant.getItemName(item) + "", 13717);
 	}
 

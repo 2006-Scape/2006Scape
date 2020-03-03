@@ -20,11 +20,13 @@ import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.content.skills.smithing.Superheat;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.util.GameLogger;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.TileControl;
 import com.rebotted.world.clip.PathFinder;
 import com.rebotted.world.clip.Region;
@@ -38,14 +40,14 @@ public class PlayerAssistant {
 	}
 	
 	public boolean savePlayer() {
-		return (player.wildLevel < 20 && player.playerEquipment[GameConstants.RING] == 2570 && player.playerLevel[3] > 0 && player.playerLevel[3] <= player.getLevelForXP(player.playerXP[3]) / 10 && player.underAttackBy > 0);
+		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[3] > 0 && player.playerLevel[3] <= player.getLevelForXP(player.playerXP[3]) / 10 && player.underAttackBy > 0);
 	}
 	
 	public void handleROL() {
 		if (!savePlayer()) {
 			return;
 		}
-		player.getItemAssistant().deleteEquipment(2570, GameConstants.RING);
+		player.getItemAssistant().deleteEquipment(2570, ItemConstants.RING);
 		player.getPlayerAssistant().startTeleport(3222, 3218, 0, "modern");
 		player.getPacketSender().sendMessage("Your ring of life saves you.");
 	}
@@ -78,7 +80,6 @@ public class PlayerAssistant {
 		return player.playerRights < 2 || player.playerRights > 3;
 	}
 	
-	
 	public void handleObjectRegion(int objectId, int minX, int minY, int maxX, int maxY) {
 		for (int i = minX; i < maxX+1; i++) {
 			for (int j = minY; j < maxY+1; j++) {
@@ -93,7 +94,7 @@ public class PlayerAssistant {
 	
 	public void loginScreen() {
 		player.getPacketSender().showInterface(15244);
-		player.getPacketSender().sendFrame126("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
+		player.getPacketSender().sendString("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
 
 		if (player.playerLevel[15] < 3) {
@@ -103,24 +104,24 @@ public class PlayerAssistant {
 			player.getPlayerAssistant().refreshSkill(15);
 		}
 	        if (player.lastLoginDate <= 0) {
-	            player.getPacketSender().sendFrame126("This is your first time logging in!", 15258);
+	            player.getPacketSender().sendString("This is your first time logging in!", 15258);
 	        } else if (player.lastLoginDate == 1) {
-	           player.getPacketSender().sendFrame126("You last login @red@yesterday@bla@", 15258);
+	           player.getPacketSender().sendString("You last login @red@yesterday@bla@", 15258);
 	        } else {
-	        	player.getPacketSender().sendFrame126("You last login @red@" + (currentDay > 1 ? (currentDay + " @bla@days ago") : ("ealier today")) + " @bla@", 15258);
+	        	player.getPacketSender().sendString("You last login @red@" + (currentDay > 1 ? (currentDay + " @bla@days ago") : ("ealier today")) + " @bla@", 15258);
 	        }
-		player.getPacketSender().sendFrame126("" +GameConstants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
-		player.getPacketSender().sendFrame126("You have 0 unread messages\\nOn forums!", 15261);
-		player.getPacketSender().sendFrame126("You have @gre@unlimited@yel@ days of member credit.", 15262);
-		player.getPacketSender().sendFrame126("CLICK HERE TO PLAY", 15263);
+		player.getPacketSender().sendString("" +GameConstants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
+		player.getPacketSender().sendString("You have 0 unread messages\\nOn forums!", 15261);
+		player.getPacketSender().sendString("You have @gre@unlimited@yel@ days of member credit.", 15262);
+		player.getPacketSender().sendString("CLICK HERE TO PLAY", 15263);
 		if (!player.hasBankpin) {
-			player.getPacketSender().sendFrame126("You currently have no bank pin set!\\nWe strongly advise you to set\\n one.", 15270);
+			player.getPacketSender().sendString("You currently have no bank pin set!\\nWe strongly advise you to set\\n one.", 15270);
 		} else {
-			player.getPacketSender().sendFrame126("\\nYou currently have a bank pin set.\\nBank pins are coming soon!.", 15270);
+			player.getPacketSender().sendString("\\nYou currently have a bank pin set.\\nBank pins are coming soon!.", 15270);
 		}
 		int random = Misc.random(3);
-		player.getPacketSender().sendFrame126(welcomeMessages[random][0], 15803);
-		player.getPacketSender().sendFrame126(welcomeMessages[random][1], 15804);
+		player.getPacketSender().sendString(welcomeMessages[random][0], 15803);
+		player.getPacketSender().sendString(welcomeMessages[random][1], 15804);
 	}
 	
 	private String[][] welcomeMessages = {
@@ -136,134 +137,134 @@ public class PlayerAssistant {
 		player.getPacketSender().showInterface(5392);
 	}
 
-	    public ArrayList<GameItem> randomFish(int fish) {
-	        Random r = new Random();
-	        ArrayList<GameItem> toReturn = new ArrayList<GameItem>();
-	        boolean turtles = true;
-	        boolean mantas = true;
-	        boolean lobsters = true;
-	        boolean swordfish = true;
-	        int turt = 0;
-	        int manta = 0;
-	        int lobs = 0;
-	        int swordFish = 0;
-	        int junk = 0;
-	        int done = 0;
-	        while (done != fish) {
-	            done++;
-	            int random = r.nextInt(100);
-	            if (random >= 85 - GameEngine.trawler.chanceByLevel(player, 381)) {
-	                if (mantas) {
-	                    manta++;
-	                }
-	            } else if (random >= 70 - GameEngine.trawler.chanceByLevel(player,
-	                    381)) {
-	                if (turtles) {
-	                    turt++;
-	                }
-	            } else if (random >= 40) {
-	                if (swordfish) {
-	                    swordFish++;
-	                }
-	            } else if (random >= 5) {
-	                if (lobsters) {
-	                    lobs++;
-	                }
-	            } else {
-	                junk++;
-	            }
-	        }
-	        int xpToAdd = 0;
-	        if (manta > 0) {
-	            toReturn.add(new GameItem(389, manta));
-	            if (player.playerLevel[player.playerFishing] >= 81) {
-	                xpToAdd += (manta * 46);
-	            }
-	        }
-	        if (turt > 0) {
-	            toReturn.add(new GameItem(395, turt));
-	            if (player.playerLevel[player.playerFishing] >= 79) {
-	                xpToAdd += (manta * 38);
-	            }
-	        }
-	        if (lobs > 0) {
-	            toReturn.add(new GameItem(377, lobs));
-	            if (player.playerLevel[player.playerFishing] >= 40) {
-	                xpToAdd += (manta * 90);
-	            }
-	        }
-	        if (swordFish > 0) {
-	            toReturn.add(new GameItem(371, swordFish));
-	            if (player.playerLevel[player.playerFishing] >= 50) {
-	                xpToAdd += (manta * 100);
-	            }
-	        }
-	        if (junk > 0)
-	            toReturn.add(new GameItem(685, junk));
-	        player.getPlayerAssistant().addSkillXP(xpToAdd, player.playerFishing);
-	        return toReturn;
-	    }
-	    
-	    public void removeFishingTrawlerRewardItem(int slot, boolean all) {
-	        try {
-	            if (!all) {
-	                if (player.getItemAssistant().freeSlots() != 0) {
-	                    if (player.fishingTrawlerReward.get(slot).amount >= 1) {
-	                        player.getItemAssistant().addItem(
-	                                player.fishingTrawlerReward.get(slot).id, 1);
-	                        player.fishingTrawlerReward.get(slot).amount--;
-	                        if (player.fishingTrawlerReward.get(slot).amount <= 0) {
-	                            player.fishingTrawlerReward.remove(slot);
-	                            GameEngine.trawler.showReward(player);
-	                        } else {
-	                            GameEngine.trawler.updateRewardSlot(player, slot);
-	                        }
-	                    }
-	                } else {
-	                    player.getPacketSender().sendMessage("You don't have enough inventory space to withdraw that");
-	                }
-	            } else {
-	                int loop = player.fishingTrawlerReward.get(slot).amount;
-	                for (int j = 0; j < loop; j++) {
-	                    if (player.getItemAssistant().freeSlots() == 0) {
-	                        player.getPacketSender().sendMessage("You don't have enough inventory space to withdraw that");
-	                        GameEngine.trawler.updateRewardSlot(player, slot);
-	                        return;
-	                    }
-	                    player.getItemAssistant()
-	                            .addItem(player.fishingTrawlerReward.get(slot).id, 1);
-	                    player.fishingTrawlerReward.get(slot).amount--;
-	                    if (player.fishingTrawlerReward.get(slot).amount <= 0) {
-	                        player.fishingTrawlerReward.remove(slot);
-	                        GameEngine.trawler.showReward(player);
-	                        return;
-	                    }
-	                }
-	            }
-	        } catch (Exception e) {
+    public ArrayList<GameItem> randomFish(int fish) {
+        Random r = new Random();
+        ArrayList<GameItem> toReturn = new ArrayList<GameItem>();
+        boolean turtles = true;
+        boolean mantas = true;
+        boolean lobsters = true;
+        boolean swordfish = true;
+        int turt = 0;
+        int manta = 0;
+        int lobs = 0;
+        int swordFish = 0;
+        int junk = 0;
+        int done = 0;
+        while (done != fish) {
+            done++;
+            int random = r.nextInt(100);
+            if (random >= 85 - GameEngine.trawler.chanceByLevel(player, 381)) {
+                if (mantas) {
+                    manta++;
+                }
+            } else if (random >= 70 - GameEngine.trawler.chanceByLevel(player,
+                    381)) {
+                if (turtles) {
+                    turt++;
+                }
+            } else if (random >= 40) {
+                if (swordfish) {
+                    swordFish++;
+                }
+            } else if (random >= 5) {
+                if (lobsters) {
+                    lobs++;
+                }
+            } else {
+                junk++;
+            }
+        }
+        int xpToAdd = 0;
+        if (manta > 0) {
+            toReturn.add(new GameItem(389, manta));
+            if (player.playerLevel[player.playerFishing] >= 81) {
+                xpToAdd += (manta * 46);
+            }
+        }
+        if (turt > 0) {
+            toReturn.add(new GameItem(395, turt));
+            if (player.playerLevel[player.playerFishing] >= 79) {
+                xpToAdd += (manta * 38);
+            }
+        }
+        if (lobs > 0) {
+            toReturn.add(new GameItem(377, lobs));
+            if (player.playerLevel[player.playerFishing] >= 40) {
+                xpToAdd += (manta * 90);
+            }
+        }
+        if (swordFish > 0) {
+            toReturn.add(new GameItem(371, swordFish));
+            if (player.playerLevel[player.playerFishing] >= 50) {
+                xpToAdd += (manta * 100);
+            }
+        }
+        if (junk > 0)
+            toReturn.add(new GameItem(685, junk));
+        player.getPlayerAssistant().addSkillXP(xpToAdd, player.playerFishing);
+        return toReturn;
+    }
+    
+    public void removeFishingTrawlerRewardItem(int slot, boolean all) {
+        try {
+            if (!all) {
+                if (player.getItemAssistant().freeSlots() != 0) {
+                    if (player.fishingTrawlerReward.get(slot).amount >= 1) {
+                        player.getItemAssistant().addItem(
+                                player.fishingTrawlerReward.get(slot).id, 1);
+                        player.fishingTrawlerReward.get(slot).amount--;
+                        if (player.fishingTrawlerReward.get(slot).amount <= 0) {
+                            player.fishingTrawlerReward.remove(slot);
+                            GameEngine.trawler.showReward(player);
+                        } else {
+                            GameEngine.trawler.updateRewardSlot(player, slot);
+                        }
+                    }
+                } else {
+                    player.getPacketSender().sendMessage("You don't have enough inventory space to withdraw that");
+                }
+            } else {
+                int loop = player.fishingTrawlerReward.get(slot).amount;
+                for (int j = 0; j < loop; j++) {
+                    if (player.getItemAssistant().freeSlots() == 0) {
+                        player.getPacketSender().sendMessage("You don't have enough inventory space to withdraw that");
+                        GameEngine.trawler.updateRewardSlot(player, slot);
+                        return;
+                    }
+                    player.getItemAssistant()
+                            .addItem(player.fishingTrawlerReward.get(slot).id, 1);
+                    player.fishingTrawlerReward.get(slot).amount--;
+                    if (player.fishingTrawlerReward.get(slot).amount <= 0) {
+                        player.fishingTrawlerReward.remove(slot);
+                        GameEngine.trawler.showReward(player);
+                        return;
+                    }
+                }
+            }
+        } catch (Exception e) {
 
-	        }
-	    }
+        }
+    }
+    
+    public void removeAllSidebars() {
+    	for (int i = 0; i < 14; i++) {
+    		 player.getPacketSender().setSidebarInterface(i, -1);
+    	}
+    }
+    
+    public void resetAnimationsToPrevious() {
+        player.playerRunIndex = player.prevPrevPlayerRunIndex;
+        player.playerStandIndex = player.prevPlayerStandIndex;
+        player.playerWalkIndex = player.prevplayerWalkIndex;
+        player.playerTurnIndex = player.prevPlayerTurnIndex;
+        player.playerTurn90CWIndex = player.prevPlayerTurn90CWIndex;
+        player.playerTurn90CCWIndex = player.prevPlayerTurn90CCWIndex;
+        player.playerTurn180Index = player.prevPlayerTurn180Index;
+        requestUpdates();
+    }
 	    
-	    public void removeAllSidebars() {
-	    	for (int i = 0; i < 14; i++) {
-	    		 player.getPacketSender().setSidebarInterface(i, -1);
-	    	}
-	    }
-	    
-	    public void resetAnimationsToPrevious() {
-	        player.playerRunIndex = player.prevPrevPlayerRunIndex;
-	        player.playerStandIndex = player.prevPlayerStandIndex;
-	        player.playerWalkIndex = player.prevplayerWalkIndex;
-	        player.playerTurnIndex = player.prevPlayerTurnIndex;
-	        player.playerTurn90CWIndex = player.prevPlayerTurn90CWIndex;
-	        player.playerTurn90CCWIndex = player.prevPlayerTurn90CCWIndex;
-	        player.playerTurn180Index = player.prevPlayerTurn180Index;
-	        requestUpdates();
-	    }
-	    
-	public int backupItems[] = new int[GameConstants.BANK_SIZE];
-	public int backupItemsN[] = new int[GameConstants.BANK_SIZE];
+	public int backupItems[] = new int[ItemConstants.BANK_SIZE];
+	public int backupItemsN[] = new int[ItemConstants.BANK_SIZE];
 	public int backupInvItems[] = new int[28];
 	public int backupInvItemsN[] = new int[28];
 
@@ -277,7 +278,6 @@ public class PlayerAssistant {
 			c.playerItemsN[i] = o.playerItemsN[i];
 		}
 		c.getItemAssistant().updateInventory();
-
 		for (int i = 0; i < o.playerItems.length; i++) {
 			c.playerItemsN[i] = backupInvItemsN[i];
 			c.playerItems[i] = backupInvItems[i];
@@ -285,7 +285,7 @@ public class PlayerAssistant {
 	}
 
 	public void otherBank(Client c, Client o) {
-		if(o == c || o == null || c == null) {
+		if (o == c || o == null || c == null) {
 			return;
 		}
 
@@ -334,8 +334,7 @@ public class PlayerAssistant {
                                     player.getPacketSender().closeAllWindows();
                                     switch (occurrence) {
                                     case 0:
-                                            player.getDialogueHandler().sendStatement(
-                                                            "You arrive at Port Khazard.");
+                                            player.getDialogueHandler().sendStatement("You arrive at Port Khazard.");
                                             break;
                                     case 1:
                                             player.getPacketSender().sendMessage("You wash up onto the shore...");
@@ -352,14 +351,9 @@ public class PlayerAssistant {
 
 	public void sendSidebars() {
 		for (int i = 0; i < GameConstants.SIDEBARS.length; i++) {
-			player.getPacketSender().setSidebarInterface(i,
-					GameConstants.SIDEBARS[i]);
-			if (player.playerMagicBook == 0) {
-				player.getPacketSender().setSidebarInterface(6, 1151);
-			} else {
-				player.getPacketSender().setSidebarInterface(6, 12855);
-			}
+			player.getPacketSender().setSidebarInterface(i, GameConstants.SIDEBARS[i]);
 		}
+		player.getPacketSender().setSidebarInterface(6, player.playerMagicBook == 0 ? 1151 : 12855);
 	}
 
 	public boolean removeGloves() {
@@ -387,23 +381,6 @@ public class PlayerAssistant {
 	}
 
 	/**
-	 * Tutorial Island Interface Integer a = amount the bar fills Integer p =
-	 * represents percent # on interface Integer "a" represents amount %bar
-	 * fills From what i tested so far it goes like this:1=0%, 2=5%, 3=10%, so
-	 * and so fouth
-	 */
-
-	public void tutorialIslandInterface(int p, int a) {
-		player.getPacketSender().sendFrame20(406, a);
-		player.getPacketSender().sendFrame171(1, 12224);
-		player.getPacketSender().sendFrame171(1, 12225);
-		player.getPacketSender().sendFrame171(1, 12226);
-		player.getPacketSender().sendFrame171(1, 12227);
-		player.getPacketSender().sendFrame126("" + p + "%", 12224);
-		player.getPacketSender().walkableInterface(8680);
-	}
-
-	/**
 	 * Hides all Side Bars
 	 */
 
@@ -416,13 +393,9 @@ public class PlayerAssistant {
 
 	public void writeEnergy() {
 		if (player.playerEnergy >= 100) {
-			player.getPacketSender().sendFrame126("100%", 149);
+			player.getPacketSender().sendString("100%", 149);
 		} else { 
-			if (player.playerEnergy > 0 && player.playerEnergy < 100) {
-				player.getPacketSender().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
-			} else if (player.playerEnergy <= 0) {
-				player.getPacketSender().sendFrame126("0%", 149);
-			}	
+			player.getPacketSender().sendString(player.playerEnergy > 0 && player.playerEnergy < 100 ? (int) Math.ceil(player.playerEnergy) + "%" : "0%", 149);
 		}
 	}
 
@@ -449,16 +422,6 @@ public class PlayerAssistant {
 		}
 	}
 	
-	private static int[][] ALLOWED_COORDS = {
-		/*PLAYER X, PLAYER Y, OTHER X, OTHER Y*/
-		{0, 1, 2, 3}, 
-	};
-	
-	private static int[][] DISABLED_COORDS = {
-		/*PLAYER X, PLAYER Y, OTHER X, OTHER Y*/
-		{4, 5, 6, 7}, 
-	};
-
 	public static boolean pathBlocked(Client attacker, Client victim) {
 
 		double offsetX = Math.abs(attacker.absX - victim.absX);
@@ -524,20 +487,6 @@ public class PlayerAssistant {
 			path[next][3] = nextMoveX;
 			path[next][4] = nextMoveY;
 			next++;
-		}
-		/**
-		 * Projectile exceptions
-		 * @author Andrew
-		 */
-		for (int i = 0; i < ALLOWED_COORDS.length; i++) {
-			if (curX == ALLOWED_COORDS[i][0] && curY == ALLOWED_COORDS[i][1] && victim.absX == ALLOWED_COORDS[i][2] && victim.absY == ALLOWED_COORDS[i][3]) {
-				return true;
-			}
-		}
-		for (int i = 0; i < DISABLED_COORDS.length; i++) {
-			if (curX == DISABLED_COORDS[i][0] && curY == DISABLED_COORDS[i][1] && victim.absX == DISABLED_COORDS[i][2] && victim.absY == DISABLED_COORDS[i][3]) {
-				return false;
-			}
 		}
 		for (int i = 0; i < path.length; i++) {
 			if (!Region.getClipping(path[i][0], path[i][1], path[i][2], path[i][3], path[i][4])/* && !Region.blockedShot(path[i][0], path[i][1], path[i][2])*/) {
@@ -612,25 +561,6 @@ public class PlayerAssistant {
 			path[next][4] = nextMoveY;
 			next++;
 		}
-		/**
-		 * Projectile exceptions
-		 * @author Andrew
-		 */
-		for (int i = 0; i < ALLOWED_COORDS.length; i++) {
-			if (curX == ALLOWED_COORDS[i][0] && curY == ALLOWED_COORDS[i][1] && victim.absX == ALLOWED_COORDS[i][2] && victim.absY == ALLOWED_COORDS[i][3]) {
-				return true;
-			}
-		}
-		for (int i = 0; i < DISABLED_COORDS.length; i++) {
-			if (curX == DISABLED_COORDS[i][0] && curY == DISABLED_COORDS[i][1] && victim.absX == DISABLED_COORDS[i][2] && victim.absY == DISABLED_COORDS[i][3]) {
-				return false;
-			}
-		}
-		/*for (int i = 0; i < path.length; i++) {
-			if (!Region.blockedShot(path[i][0], path[i][1], path[i][2])) {
-				return true;
-			}
-		}*/
 		return false;
 	}
 
@@ -665,10 +595,10 @@ public class PlayerAssistant {
 	}
 
 	public boolean bananasCheck() {
-		int reqAmount = 10 - player.getItemAssistant().getItemCount(1963);
-		switch (player.getItemAssistant().getItemCount(1963)) {
+		int reqAmount = 10 - player.getItemAssistant().getItemAmount(1963);
+		switch (player.getItemAssistant().getItemAmount(1963)) {
 		case 0:
-			player.getDialogueHandler().sendPlayerChat("I'll go collect " + reqAmount + " bannnas then come back...");
+			player.getDialogueHandler().sendPlayerChat("I'll go collect " + reqAmount + " bananas then come back...");
 			break;
 		case 1:
 		case 2:
@@ -679,9 +609,7 @@ public class PlayerAssistant {
 		case 7:
 		case 8:
 		case 9:
-			player.getDialogueHandler().sendPlayerChat(
-					"I'll go collect " + reqAmount
-							+ " more bannnas then come back...");
+			player.getDialogueHandler().sendPlayerChat("I'll go collect " + reqAmount + " more bananas then come back...");
 			break;
 		}
 		return true;
@@ -692,8 +620,7 @@ public class PlayerAssistant {
 	 */
 
 	public void spellTeleport(int x, int y, int height) {
-		startTeleport(x, y, height, player.playerMagicBook == 1 ? "ancient"
-				: "modern");
+		startTeleport(x, y, height, player.playerMagicBook == 1 ? "ancient" : "modern");
 	}
 
 	public void startTeleport(int x, int y, int height, String teleportType) {
@@ -702,10 +629,7 @@ public class PlayerAssistant {
 			return;
 		}
 		if (player.inWild() && player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
-			player.getPacketSender().sendMessage(
-					"You can't teleport above level "
-							+ GameConstants.NO_TELEPORT_WILD_LEVEL
-							+ " in the wilderness.");
+			player.getPacketSender().sendMessage("You can't teleport above level " + GameConstants.NO_TELEPORT_WILD_LEVEL + " wilderness.");
 			return;
 		}
 		if (player.tutorialProgress < 36) {
@@ -721,13 +645,11 @@ public class PlayerAssistant {
 			}
 		}
 		if (player.inTrade) {
-			player.getPacketSender().sendMessage(
-					"You can't teleport while in trade.");
+			player.getPacketSender().sendMessage("You can't teleport while in trade.");
 			return;
 		}
 		if (player.duelStatus == 5) {
-			player.getPacketSender().sendMessage(
-					"You can't do that in a duel.");
+			player.getPacketSender().sendMessage("You can't teleport while in a duel.");
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
@@ -735,13 +657,11 @@ public class PlayerAssistant {
 			return;
 		}
 		if (System.currentTimeMillis() - player.teleBlockDelay < player.teleBlockLength) {
-			player.getPacketSender().sendMessage(
-					"You are teleblocked and can't teleport.");
+			player.getPacketSender().sendMessage("You are teleblocked and can't teleport.");
 			return;
 		}
 		if (SkillHandler.isSkilling(player)) {
-			player.getPacketSender().sendMessage(
-					"You can't teleport while skilling!");
+			player.getPacketSender().sendMessage("You can't teleport while skilling!");
 			return;
 		}
 		if (!player.isDead && player.teleTimer == 0
@@ -764,7 +684,6 @@ public class PlayerAssistant {
 				player.refresh = true;
 			}
 			player.teleHeight = height;
-			// client.resetShaking();
 			player.isTeleporting = true;
 			if (GameConstants.SOUND) {
 				player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 700);
@@ -841,7 +760,6 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
-			// client.resetShaking();
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
@@ -875,13 +793,11 @@ public class PlayerAssistant {
 			return;
 		}
 		if (!SkillHandler.MAGIC) {
-			player.getPacketSender().sendMessage(
-					"This feature is curently disabled.");
+			player.getPacketSender().sendMessage("This feature is curently disabled.");
 			return;
 		}
 		if (player.duelStatus == 5) {
-			player.getPacketSender().sendMessage(
-					"You can't teleport during a duel!");
+			player.getPacketSender().sendMessage("You can't teleport during a duel!");
 			return;
 		}
 		if (System.currentTimeMillis() - player.teleBlockDelay < player.teleBlockLength) {
@@ -893,8 +809,7 @@ public class PlayerAssistant {
 			player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
 		if (player.inWild() && player.wildLevel > 30) {
-			player.getPacketSender().sendMessage(
-					"You can't teleport above level 30 in the wilderness.");
+			player.getPacketSender().sendMessage("You can't teleport above level 30 wilderness.");
 			return;
 		}
 		if (!player.isDead && player.teleTimer == 0) {
@@ -905,7 +820,6 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
-			// client.resetShaking();
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
@@ -941,8 +855,7 @@ public class PlayerAssistant {
 	}
 
 	public void handleEmpty() {
-		player.getDialogueHandler().sendOption("Yes, empty my inventory please.",
-				"No, don't empty my inventory.");
+		player.getDialogueHandler().sendOption("Yes, empty my inventory please.", "No, don't empty my inventory.");
 		player.dialogueAction = 855;
 	}
 
@@ -1246,10 +1159,9 @@ public class PlayerAssistant {
 					break;
 				}
 				boolean canAlch = true;
-				for (int i : GameConstants.ITEM_UNALCHABLE) {
+				for (int i : ItemConstants.ITEM_UNALCHABLE) {
 					if (itemId == i) {
-						player.getPacketSender().sendMessage(
-								"You can't alch that item!");
+						player.getPacketSender().sendMessage("You can't alch that item!");
 						canAlch = false;
 						return;
 					}
@@ -1312,10 +1224,9 @@ public class PlayerAssistant {
 					break;
 				}
 				boolean canAlch = true;
-				for (int i : GameConstants.ITEM_UNALCHABLE) {
+				for (int i : ItemConstants.ITEM_UNALCHABLE) {
 					if (itemId == i) {
-						player.getPacketSender().sendMessage(
-								"You can't alch that item!");
+						player.getPacketSender().sendMessage("You can't alch that item!");
 						canAlch = false;
 						return;
 					}
@@ -1541,7 +1452,7 @@ public class PlayerAssistant {
 				player.getPlayerAssistant().movePlayer(2373 + Misc.random(3),
 						3131 - Misc.random(3), 1);
 			}
-		} else if (PestControl.isInGame(player) || player.inPcGame()) {
+		} else if (PestControl.isInGame(player) || Boundary.isIn(player, Boundary.PC_GAME)) {
 			player.getPlayerAssistant().movePlayer(2658, 2609, 0);
 			player.getDialogueHandler().sendDialogues(601, 3790);
 		} else if (player.tutorialProgress < 36 || player.isInTut()) {
@@ -1599,7 +1510,7 @@ public class PlayerAssistant {
 		player.getPacketSender().frame1();
 		resetTb();
 		player.playerEnergy = 100;
-		player.getPacketSender().sendFrame126((int) Math.ceil(player.playerEnergy) + "%", 149);
+		player.getPacketSender().sendString((int) Math.ceil(player.playerEnergy) + "%", 149);
 		player.isSkulled = false;
 		player.attackedPlayers.clear();
 		player.headIconPk = -1;
@@ -1694,26 +1605,6 @@ public class PlayerAssistant {
 		int otherX = PlayerHandler.players[player.followId].getX();
 		int otherY = PlayerHandler.players[player.followId].getY();
 
-		/*boolean sameSpot = player.absX == otherX && player.absY == otherY;
-		if (sameSpot)
-			stepAway();
-
-		boolean hallyDistance = player.goodDistance(otherX, otherY,
-				player.getX(), player.getY(), 2);
-
-		boolean rangeWeaponDistance = player.goodDistance(otherX, otherY,
-				player.getX(), player.getY(), 4);
-		boolean bowDistance = player.goodDistance(otherX, otherY,
-				player.getX(), player.getY(), 6);
-		boolean mageDistance = player.goodDistance(otherX, otherY,
-				player.getX(), player.getY(), 7);
-
-		boolean castingMagic = (player.usingMagic || player.mageFollow
-				|| player.autocasting || player.spellId > 0)
-				&& mageDistance;
-		boolean playerRanging = player.usingRangeWeapon && rangeWeaponDistance;
-		boolean playerBowOrCross = player.usingBow && bowDistance;*/
-
 		if (!player.goodDistance(otherX, otherY, player.getX(), player.getY(),
 				25)) {
 			player.followId = 0;
@@ -1724,79 +1615,8 @@ public class PlayerAssistant {
 		int[] follow = getFollowLocation(otherX, otherY);
 		player.faceUpdate(player.followId + 32768);
 		PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
-
-		/*if (!sameSpot) {
-			if (player.playerIndex > 0 && !player.usingSpecial
-					&& player.inWild()) {
-				if (player.usingSpecial && (playerRanging || playerBowOrCross)) {
-					player.stopMovement();
-					return;
-				}
-				if (castingMagic || playerRanging || playerBowOrCross) {
-					player.stopMovement();
-					return;
-				}
-				if (RangeData.usingHally(player) && hallyDistance) {
-					player.stopMovement();
-					return;
-				}
-			}
-		}
-		if (otherX == player.absX && otherY == player.absY) {
-			int r = Misc.random(3);
-			switch (r) {
-			case 0:
-				walkTo(0, -1);
-				break;
-			case 1:
-				walkTo(0, 1);
-				break;
-			case 2:
-				walkTo(1, 0);
-				break;
-			case 3:
-				walkTo(-1, 0);
-				break;
-			}
-		} else if (player.isRunning2) {
-			if (otherY > player.getY() && otherX == player.getX()) {
-				playerWalk(otherX, otherY - 1);
-			} else if (otherY < player.getY() && otherX == player.getX()) {
-				playerWalk(otherX, otherY + 1);
-			} else if (otherX > player.getX() && otherY == player.getY()) {
-				playerWalk(otherX - 1, otherY);
-			} else if (otherX < player.getX() && otherY == player.getY()) {
-				playerWalk(otherX + 1, otherY);
-			} else if (otherX < player.getX() && otherY < player.getY()) {
-				playerWalk(otherX + 1, otherY + 1);
-			} else if (otherX > player.getX() && otherY > player.getY()) {
-				playerWalk(otherX - 1, otherY - 1);
-			} else if (otherX < player.getX() && otherY > player.getY()) {
-				playerWalk(otherX + 1, otherY - 1);
-			} else if (otherX > player.getX() && otherY < player.getY()) {
-				playerWalk(otherX + 1, otherY - 1);
-			}
-		} else {
-			if (otherY > player.getY() && otherX == player.getX()) {
-				playerWalk(otherX, otherY - 1);
-			} else if (otherY < player.getY() && otherX == player.getX()) {
-				playerWalk(otherX, otherY + 1);
-			} else if (otherX > player.getX() && otherY == player.getY()) {
-				playerWalk(otherX - 1, otherY);
-			} else if (otherX < player.getX() && otherY == player.getY()) {
-				playerWalk(otherX + 1, otherY);
-			} else if (otherX < player.getX() && otherY < player.getY()) {
-				playerWalk(otherX + 1, otherY + 1);
-			} else if (otherX > player.getX() && otherY > player.getY()) {
-				playerWalk(otherX - 1, otherY - 1);
-			} else if (otherX < player.getX() && otherY > player.getY()) {
-				playerWalk(otherX + 1, otherY - 1);
-			} else if (otherX > player.getX() && otherY < player.getY()) {
-				playerWalk(otherX - 1, otherY + 1);
-			}
-		}
-		player.faceUpdate(player.followId + 32768);*/
 	}
+
 
 	public void followNpc() {
 		Npc npc = NpcHandler.npcs[player.followId2];
@@ -1815,42 +1635,6 @@ public class PlayerAssistant {
 		int[] follow = getFollowLocation(x, y);
 		player.faceUpdate(player.followId2);
         PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
-
-		/*if (otherX == player.absX && otherY == player.absY) {
-			int r = Misc.random(3);
-			switch (r) {
-			case 0:
-				walkTo(0, -1);
-				break;
-			case 1:
-				walkTo(0, 1);
-				break;
-			case 2:
-				walkTo(1, 0);
-				break;
-			case 3:
-				walkTo(-1, 0);
-				break;
-			}
-		} else {
-			if (otherY > player.getY() && otherX == player.getX()) {
-				playerWalk(otherX, otherY - 1);
-			} else if (otherY < player.getY() && otherX == player.getX()) {
-				playerWalk(otherX, otherY + 1);
-			} else if (otherX > player.getX() && otherY == player.getY()) {
-				playerWalk(otherX - 1, otherY);
-			} else if (otherX < player.getX() && otherY == player.getY()) {
-				playerWalk(otherX + 1, otherY);
-			} else if (otherX < player.getX() && otherY < player.getY()) {
-				playerWalk(otherX + 1, otherY + 1);
-			} else if (otherX > player.getX() && otherY > player.getY()) {
-				playerWalk(otherX - 1, otherY - 1);
-			} else if (otherX < player.getX() && otherY > player.getY()) {
-				playerWalk(otherX + 1, otherY - 1);
-			} else if (otherX > player.getX() && otherY < player.getY()) {
-				playerWalk(otherX - 1, otherY + 1);
-			}
-		}*/
 	}
 
 	public int getRunningMove(int i, int j) {
@@ -1915,9 +1699,6 @@ public class PlayerAssistant {
 		int yMove = 0;
 		if (xMove == 0) {
 			yMove = otherY - player.getY();
-			/*
-			 * if (!clipHor) { yMove = 0; } else if (!clipVer) { xMove = 0; }
-			 */
 		}
 
 		int k = player.getX() + xMove;
@@ -1930,7 +1711,6 @@ public class PlayerAssistant {
 			player.getNewWalkCmdX()[n] += k;
 			player.getNewWalkCmdY()[n] += l;
 		}
-
 	}
 
 	public void walkToCheck(int i, int j) {
@@ -1997,11 +1777,7 @@ public class PlayerAssistant {
 	}
 
 	public void sendAutoRetalitate() {
-		if (player.autoRet == 1) {
-			player.getPacketSender().sendConfig(172, 0);
-		} else if (player.autoRet == 0) {
-			player.getPacketSender().sendConfig(172, 1);
-		}
+		player.getPacketSender().sendConfig(172, player.autoRet == 1 ? 0 : 1);
 	}
 
 	public void firstTimeTutorial() {
@@ -2013,7 +1789,6 @@ public class PlayerAssistant {
 			player.tutorialProgress = 0;
 			player.isRunning2 = false;
 			player.autoRet = 1;
-			//resetStats();
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
 		} else if (player.tutorialProgress == 0 && !GameConstants.TUTORIAL_ISLAND) {
@@ -2035,16 +1810,8 @@ public class PlayerAssistant {
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
 			if (!player.hasBankpin) {
-				player.getPacketSender()
-						.sendMessage(
-								"You do not, have a bank pin it is highly recommended you set one.");
+				player.getPacketSender().sendMessage("You do not, have a bank pin it is highly recommended you set one.");
 			}
-		}
-	}
-
-	public void handleAlt(int id) {
-		if (!player.getItemAssistant().playerHasItem(id)) {
-			player.getItemAssistant().addItem(id, 1);
 		}
 	}
 
@@ -2058,8 +1825,8 @@ public class PlayerAssistant {
 
 	public void levelUp(int skill) {
 		SkillHandler.resetSkills(player);
-		player.getPacketSender().sendFrame126("Total Lvl: "+getTotalLevel(), 3984);
-		player.getPacketSender().sendFrame126("Combat Lvl: "+player.calculateCombatLevel()+"", 3983);
+		player.getPacketSender().sendString("Total Lvl: "+getTotalLevel(), 3984);
+		player.getPacketSender().sendString("Combat Lvl: "+player.calculateCombatLevel()+"", 3983);
 
 		Optional<SkillData> data = SkillData.getSkill(skill);
 		
@@ -2067,27 +1834,27 @@ public class PlayerAssistant {
 			return;
 					
 		player.getPacketSender().sendMessage("Congratulations, you've advanced a level in "+data.get().toString()+"!");
-		player.getPacketSender().sendFrame126("Congratulations, you've advanced a level in "+data.get().toString()+"!", data.get().getFrame2());
-		player.getPacketSender().sendFrame126("Your " +data.get().toString()+ " level is now " + getLevelForXP(player.playerXP[skill]) + ".", data.get().getFrame3());
+		player.getPacketSender().sendString("Congratulations, you've advanced a level in "+data.get().toString()+"!", data.get().getFrame2());
+		player.getPacketSender().sendString("Your " +data.get().toString()+ " level is now " + getLevelForXP(player.playerXP[skill]) + ".", data.get().getFrame3());
 		player.getPacketSender().sendChatInterface(data.get().getFrame1());
 		player.dialogueAction = 0;
 		player.nextChat = 0;
 	}
 
 	public void refreshSkill(int skill) {
-		player.getPacketSender().sendFrame126("Total Lvl: "+getTotalLevel(), 3984);
-		player.getPacketSender().sendFrame126("Combat Lvl: "+player.calculateCombatLevel()+"", 3983);
+		player.getPacketSender().sendString("Total Lvl: "+getTotalLevel(), 3984);
+		player.getPacketSender().sendString("Combat Lvl: "+player.calculateCombatLevel()+"", 3983);
 		Optional<SkillData> data = SkillData.getSkill(skill);
 
 		if(!data.isPresent())
 			return;
 
-		player.getPacketSender().sendFrame126("" + player.playerLevel[skill] + "", data.get().getFrame4());
-		player.getPacketSender().sendFrame126("" + getLevelForXP(player.playerXP[skill]) + "", data.get().getFrame5());
-		player.getPacketSender().sendFrame126("" + player.playerXP[skill] + "", data.get().getFrame6());
-		player.getPacketSender().sendFrame126("" + getXPForLevel(getLevelForXP(player.playerXP[skill]) + 1) + "", data.get().getFrame7());
+		player.getPacketSender().sendString("" + player.playerLevel[skill] + "", data.get().getFrame4());
+		player.getPacketSender().sendString("" + getLevelForXP(player.playerXP[skill]) + "", data.get().getFrame5());
+		player.getPacketSender().sendString("" + player.playerXP[skill] + "", data.get().getFrame6());
+		player.getPacketSender().sendString("" + getXPForLevel(getLevelForXP(player.playerXP[skill]) + 1) + "", data.get().getFrame7());
 		if (skill == 5) {
-			player.getPacketSender().sendFrame126("" + player.playerLevel[5] + "/" + getLevelForXP(player.playerXP[5]) + "", 687);// Prayer
+			player.getPacketSender().sendString("" + player.playerLevel[5] + "/" + getLevelForXP(player.playerXP[5]) + "", 687);// Prayer
 		}
 	}
 
@@ -2121,9 +1888,8 @@ public class PlayerAssistant {
 		return 0;
 	}
 
-	public boolean addSkillXP(int amount, int skill) {
-		if (amount + player.playerXP[skill] < 0
-				|| player.playerXP[skill] > 200000000) {
+	public boolean addSkillXP(double amount, int skill) {
+		if (amount + player.playerXP[skill] < 0 || player.playerXP[skill] > 200000000) {
 			if (player.playerXP[skill] > 200000000) {
 				player.playerXP[skill] = 200000000;
 			}
@@ -2136,34 +1902,6 @@ public class PlayerAssistant {
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
 		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
-			if (player.playerLevel[skill] < player
-					.getLevelForXP(player.playerXP[skill])
-					&& skill != 3
-					&& skill != 5) {
-				player.playerLevel[skill] = player
-						.getLevelForXP(player.playerXP[skill]);
-			}
-			levelUp(skill);
-			player.gfx100(199);
-			requestUpdates();
-		}
-		player.getPacketSender().setSkillLevel(skill,
-				player.playerLevel[skill], player.playerXP[skill]);
-		refreshSkill(skill);
-		return true;
-	}
-	
-	public boolean addNormalXpRate(int amount, int skill) {
-		if (amount + player.playerXP[skill] < 0 || player.playerXP[skill] > 200000000) {
-			if (player.playerXP[skill] > 200000000) {
-				player.playerXP[skill] = 200000000;
-			}
-			return false;
-		}
-		amount *= 1;
-		int oldLevel = getLevelForXP(player.playerXP[skill]);
-		player.playerXP[skill] += amount;
-		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
 			if (player.playerLevel[skill] < player.getLevelForXP(player.playerXP[skill]) && skill != 3 && skill != 5) {
 				player.playerLevel[skill] = player.getLevelForXP(player.playerXP[skill]);
 			}
@@ -2171,41 +1909,7 @@ public class PlayerAssistant {
 			player.gfx100(199);
 			requestUpdates();
 		}
-		player.getPacketSender().setSkillLevel(skill,
-				player.playerLevel[skill], player.playerXP[skill]);
-		refreshSkill(skill);
-		return true;
-	}
-
-	public boolean addSkillXP(double amount, int skill) {
-		if (amount + player.playerXP[skill] < 0
-				|| player.playerXP[skill] > 200000000) {
-			if (player.playerXP[skill] > 200000000) {
-				player.playerXP[skill] = 200000000;
-			}
-			return false;
-		}
-		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3
-				&& GameConstants.TUTORIAL_ISLAND) {
-			return false;
-		}
-		amount *= GameConstants.XP_RATE;
-		int oldLevel = getLevelForXP(player.playerXP[skill]);
-		player.playerXP[skill] += amount;
-		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
-			if (player.playerLevel[skill] < player
-					.getLevelForXP(player.playerXP[skill])
-					&& skill != 3
-					&& skill != 5) {
-				player.playerLevel[skill] = player
-						.getLevelForXP(player.playerXP[skill]);
-			}
-			levelUp(skill);
-			player.gfx100(199);
-			requestUpdates();
-		}
-		player.getPacketSender().setSkillLevel(skill,
-				player.playerLevel[skill], player.playerXP[skill]);
+		player.getPacketSender().setSkillLevel(skill, player.playerLevel[skill], player.playerXP[skill]);
 		refreshSkill(skill);
 		return true;
 	}
@@ -2219,34 +1923,6 @@ public class PlayerAssistant {
 		player.barrowsNpcs[5][1] = 0;
 		player.barrowsKillCount = 0;
 		player.randomCoffin = Misc.random(3) + 1;
-	}
-
-	public static int Barrows[] = { 4708, 4710, 4712, 4714, 4716, 4718, 4720,
-			4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747,
-			4749, 4751, 4753, 4755, 4757, 4759 };
-
-	public static final int[][] RUNES = { { 560, 1, 1 }, { 565, 1, 2 },
-			{ 562, 1, 3 }, { 558, 1, 4 } };
-
-	public static final int[] POTS = { 165, 147, 159 };
-
-	public int randomBarrows() {
-		return Barrows[(int) (Math.random() * Barrows.length)];
-	}
-
-	public void randomRunes() {
-		for (int[] element : RUNES) {
-			int item = element[0];
-			int amount = element[1];
-			int chance = element[2];
-			if (Misc.random(5) == chance) {
-				player.getItemAssistant().addItem(item, amount);
-			}
-		}
-	}
-
-	public int randomPots() {
-		return POTS[(int) (Math.random() * POTS.length)];
 	}
 
 	public int getNpcId(int id) {
@@ -2264,23 +1940,18 @@ public class PlayerAssistant {
 		player.getPacketSender().object(-1, x, x, 10, 10);
 	}
 
-	public void objectToRemove(int X, int Y) {
-		player.getPacketSender().object(-1, X, Y, 10, 10);
-	}
-
 	private void objectToRemove2(int X, int Y) {
 		player.getPacketSender().object(-1, X, Y, -1, 0);
 	}
 
 	public void removeObjects() {
-		objectToRemove(2638, 4688);
+		removeObject(2638, 4688);
 		objectToRemove2(2635, 4693);
 		objectToRemove2(2634, 4693);
 	}
 
 	public boolean inPitsWait() {
-		return player.getX() <= 2404 && player.getX() >= 2394
-				&& player.getY() <= 5175 && player.getY() >= 5169;
+		return player.getX() <= 2404 && player.getX() >= 2394 && player.getY() <= 5175 && player.getY() >= 5169;
 	}
 
 	public int antiFire() {
@@ -2288,9 +1959,7 @@ public class PlayerAssistant {
 		if (player.antiFirePot) {
 			toReturn++;
 		}
-		if (player.playerEquipment[player.playerShield] == 1540
-				|| player.playerEquipment[player.playerShield] == 11284
-				|| player.playerEquipment[player.playerShield] == 11283) {
+		if (player.playerEquipment[player.playerShield] == 1540 || player.playerEquipment[player.playerShield] == 11284 || player.playerEquipment[player.playerShield] == 11283) {
 			toReturn++;
 		}
 		return toReturn;
@@ -2301,8 +1970,7 @@ public class PlayerAssistant {
 				{ 2402, 5 }, { 746, 5 }, { 4151, 150 }, { 565, 100000 },
 				{ 560, 100000 }, { 555, 300000 } };
 		for (int[] element : itemsToCheck) {
-			if (element[1] < player.getItemAssistant()
-					.getTotalCount(element[0])) {
+			if (element[1] < player.getItemAssistant().getTotalCount(element[0])) {
 				return true;
 			}
 		}

@@ -116,42 +116,42 @@ public class SandwhichLady {
 
 	public static void openSandwhichLady(Player c) {
 		c.hasSandwhichLady = true;
-		c.getPacketSender().sendFrame126(" ", 16131);
+		c.getPacketSender().sendString(" ", 16131);
 		c.getPacketSender().showInterface(16135);
 		int randomMessage = Misc.random(6);
 		switch (randomMessage) {
 		case 0:
-			c.getPacketSender().sendFrame126("Please select the pie.",
+			c.getPacketSender().sendString("Please select the pie.",
 					16145);
 			itemType = 0;
 			break;
 		case 1:
-			c.getPacketSender().sendFrame126("Please select the kebab.",
+			c.getPacketSender().sendString("Please select the kebab.",
 					16145);
 			itemType = 1;
 			break;
 		case 2:
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					"Please select the chocolate.", 16145);
 			itemType = 2;
 			break;
 		case 3:
-			c.getPacketSender().sendFrame126("Please select the bagel.",
+			c.getPacketSender().sendString("Please select the bagel.",
 					16145);
 			itemType = 3;
 			break;
 		case 4:
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					"Please select the triangle sandwich.", 16145);
 			itemType = 4;
 			break;
 		case 5:
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					"Please select the square sandwich.", 16145);
 			itemType = 5;
 			break;
 		case 6:
-			c.getPacketSender().sendFrame126("Please select the bread.",
+			c.getPacketSender().sendString("Please select the bread.",
 					16145);
 			itemType = 6;
 			break;
