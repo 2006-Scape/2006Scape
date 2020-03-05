@@ -760,6 +760,15 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Sound could not be sent.");
                 }
                 break;
+            case"cameracutscene":
+                player.getPlayerAssistant().sendCameraCutscene(player.getX(), player.getY(),10,10, 10); //Test numbers
+                break;
+            case"camerashake":
+                player.getPlayerAssistant().sendCameraShake(1,9,1,9); //these are just test numbers
+                break;
+            case "camerareset":
+                player.getPlayerAssistant().sendCameraReset(); //Resets the camera to the normal player view
+                break;
             case "clicktotele":
             case "ctt": // alias
                 player.clickToTele = !player.clickToTele;
