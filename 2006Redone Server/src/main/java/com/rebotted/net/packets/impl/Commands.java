@@ -751,7 +751,7 @@ public class Commands implements PacketType {
             case "quicksong":
                 try{
                     if (arguments.length == 0) {
-                        player.getPacketSender().sendMessage("You must specify a quick song id: ::sendQuickSong id");
+                        player.getPacketSender().sendMessage("You must specify a quick song id: ::quicksong id");
                         return;
                     }
                     int song = Integer.parseInt(arguments[0]);
