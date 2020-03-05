@@ -2474,4 +2474,51 @@ public class PlayerAssistant {
 	public int totalGold() {
 		return player.getItemAssistant().getBankQuantity(996) + player.getItemAssistant().getItemAmount(995);
 	}
+
+	/**
+	 * anchors the camera to a specific view (for cutscenes)
+	 * @param x  The X Coordinate (Within the player's loaded area)
+	 * @param y The Y Coordinate (Within the player's loaded area)
+	 * @param height The Height of Camera (not relative to the game world height)
+	 * @param speed The Camera Speed (Speed at which the camera turns to where it should point?)
+	 * @param angle The Camera Angle
+	 */
+	public void sendCameraCutscene(int x, int y, int height, int speed, int angle) {
+		player.getOutStream().createFrame(177);
+		player.getOutStream().writeByte(x / 64); //
+		player.getOutStream().writeByte(y / 64); //
+		player.getOutStream().writeWord(height); //
+		player.getOutStream().writeByte(speed); //
+		player.getOutStream().writeByte(angle);
+	}
+
+	/**
+	 * Makes the player view shake (Cutscene use and other events like Barrows?)
+	 * @param i1
+	 * @param i2
+	 * @param i3
+	 * @param i4
+	 */
+	public void sendCameraShake(int i1, int i2, int i3, int i4)
+	{
+		player.getOutStream().createFrame(35); //Not sure of each specific integer, but some cannot be greater than 5 (maybe less)
+		player.getOutStream().writeByte(i1);
+		player.getOutStream().writeByte(i2);
+		player.getOutStream().writeByte(i3);
+		player.getOutStream().writeByte(i4);
+		player.updateRequired = true;
+		player.appearanceUpdateRequired = true;
+	}
+
+	/**
+	 * Resets the players camera from using sendCameraShake and sendCameraCutscene
+	 */
+	public void sendCameraReset() {
+		synchronized(player) {
+			if(player.getOutStream() != null && player != null) {
+				player.getOutStream().createFrame(107);
+				player.flushOutStream();
+			}
+		}
+	}
 }
