@@ -748,6 +748,18 @@ public class Commands implements PacketType {
 
     public static void developerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "quicksong":
+                try{
+                    if (arguments.length == 0) {
+                        player.getPacketSender().sendMessage("You must specify a quick song id: ::sendQuickSong id");
+                        return;
+                    }
+                    int song = Integer.parseInt(arguments[0]);
+                    player.getPacketSender().sendQuickSong(song, 2); //delay of 2 to repeat at least once before returning to regular music
+                }catch(Exception e) {
+                    player.getPacketSender().sendMessage("Sound could not be sent.");
+                }
+                break;
             case "clicktotele":
             case "ctt": // alias
                 player.clickToTele = !player.clickToTele;
