@@ -25,7 +25,6 @@ public class SoundList {
 	public static final int BONE_BURY = 380;
 	public static final int FIRE_LIGHT = 375, FIRE_SUCCESSFUL = 608, FIRST_ATTEMPT = 2584;
 	public static final int TREE_CUT_BEGIN = 471, TREE_CUTTING = 472, TREE_EMPTY = 473;
-	public static final int LEVEL_UP = 67;
 	public static final int FISHING = 289;// Cast out Net/Cage/Harpoon
 	public static final int START_FLY_FISHING = 377, FLY_FISHING = 378;
 	public static final int RUNECRAFTING = 481;
@@ -36,6 +35,55 @@ public class SoundList {
 	public static final int PESTLE_MOTAR = 373;
 	public static final int PROSPECTING = 431;
 	public static final int CUT_GEM = 464;
+
+	/**
+	 * Skill Level Up Sounds
+	 */
+	//Each are different lengths, so a songDelay in the sendQuickSong method would have to be changed per skill sound
+	//Some of these are level up sounds from 50-99, while some are only heard when unlocking certain items/armour
+	//Some might not be level up sounds
+	public static final int LEVEL_UP_RUNECRAFTING_UNKNOWN = 66;//?
+	public static final int LEVEL_UP_UNKNOWN = 67; //?
+	public static final int LEVEL_UP_COOKING = 68;
+	public static final int LEVEL_UP_UNKNOWN2 = 69;//?
+	public static final int LEVEL_UP_FIREMAKING = 71;
+	public static final int LEVEL_UP_RUNECRAFTING = 72;
+	public static final int LEVEL_UP_THIEVING = 73;
+	public static final int LEVEL_UP_RANGED = 74;
+	public static final int LEVEL_UP_FLETCHING = 77;
+	public static final int LEVEL_UP_SMITHING = 78; //? I can't hear this?
+	public static final int LEVEL_UP_PRAYER2 = 79;
+	public static final int LEVEL_UP_UNKNOWN5 = 80; //?
+	public static final int LEVEL_UP_UNKNOWN6 = 82; //?
+	public static final int LEVEL_UP_PRAYER = 83;
+	public static final int LEVEL_UP_ATTACK_UNKNOWN = 84; //?
+	public static final int LEVEL_UP_FISHING = 85;
+	public static final int LEVEL_UP_MAGIC_UNKNOWN = 86; //?
+	public static final int LEVEL_UP_MAGIC = 87;
+	public static final int LEVEL_UP_DEFENCE = 88;
+	public static final int LEVEL_UP_HERBLORE = 90;
+	public static final int LEVEL_UP_ATTACK = 91;
+	public static final int LEVEL_UP_WOODCUTTING = 92;
+	public static final int LEVEL_UP_UNKNOWN7 = 94; //?
+	public static final int LEVEL_UP_UNKNOWN8 = 95; //?
+	public static final int LEVEL_UP_FLETCHING_UNKNOWN = 96; //?
+	public static final int LEVEL_UP_FISHING_UNKNOWN = 98; //?
+	public static final int LEVEL_UP_MINING = 99;
+	public static final int LEVEL_UP_CRAFTING = 100;
+	public static final int LEVEL_UP_UNKNOWN9 = 101; //?
+	public static final int LEVEL_UP_MAGIC2 = 102;
+	public static final int LEVEL_UP_UNKNOWN10 = 103;//?
+	public static final int LEVEL_UP_UNKNOWN11 = 104;//?
+	public static final int LEVEL_UP_UNKNOWN12 = 105;//?
+	public static final int LEVEL_UP_STRENGTH = 107;
+	public static final int LEVEL_UP_UNKNOWN13 = 108;//?
+	public static final int LEVEL_UP_UNKNOWN14 = 109;//?
+
+	/**
+	 * Death Sound
+	 */
+
+	public static final int PLAYER_DEATH_SOUND = 75;
 
 	/**
 	 * Prayer
