@@ -32,7 +32,7 @@ public class DialogueHandler {
 	}
 
 	public void sendDialogues(int dialogue, int npcId) {
-		int MOLE_SKIN = player.getItemAssistant().getItemCount(7418), MOLE_CLAW = player.getItemAssistant().getItemCount(7416);
+		int MOLE_SKIN = player.getItemAssistant().getItemAmount(7418), MOLE_CLAW = player.getItemAssistant().getItemAmount(7416);
 		Farmers.FarmersData farmersData = Farmers.FarmersData.forId(player.npcType);
 		player.talkingNpc = npcId;
 		switch (dialogue) {
@@ -7049,27 +7049,27 @@ public class DialogueHandler {
 
 	public void chatboxText(String text, String text1, String text2,
 			String text3, String title) {
-		player.getPacketSender().sendFrame126(title, 6180);
-		player.getPacketSender().sendFrame126(text, 6181);
-		player.getPacketSender().sendFrame126(text1, 6182);
-		player.getPacketSender().sendFrame126(text2, 6183);
-		player.getPacketSender().sendFrame126(text3, 6184);
+		player.getPacketSender().sendString(title, 6180);
+		player.getPacketSender().sendString(text, 6181);
+		player.getPacketSender().sendString(text1, 6182);
+		player.getPacketSender().sendString(text2, 6183);
+		player.getPacketSender().sendString(text3, 6184);
 	}
 
 	public void clearChatBoxText(Player c) {
-		player.getPacketSender().sendFrame126("", 6180);
-		player.getPacketSender().sendFrame126("", 6181);
-		player.getPacketSender().sendFrame126("", 6182);
-		player.getPacketSender().sendFrame126("", 6183);
-		player.getPacketSender().sendFrame126("", 6184);
+		player.getPacketSender().sendString("", 6180);
+		player.getPacketSender().sendString("", 6181);
+		player.getPacketSender().sendString("", 6182);
+		player.getPacketSender().sendString("", 6183);
+		player.getPacketSender().sendString("", 6184);
 	}
 
 	public void sendStartInfo(String text, String text1, String text2, String text3, String title, boolean send) {
-		player.getPacketSender().sendFrame126(title, 6180);
-		player.getPacketSender().sendFrame126(text, 6181);
-		player.getPacketSender().sendFrame126(text1, 6182);
-		player.getPacketSender().sendFrame126(text2, 6183);
-		player.getPacketSender().sendFrame126(text3, 6184);
+		player.getPacketSender().sendString(title, 6180);
+		player.getPacketSender().sendString(text, 6181);
+		player.getPacketSender().sendString(text1, 6182);
+		player.getPacketSender().sendString(text2, 6183);
+		player.getPacketSender().sendString(text3, 6184);
 		player.getPacketSender().sendChatInterface(6179);
 	}
 	
@@ -7081,35 +7081,35 @@ public class DialogueHandler {
 		switch (line.length) {
 			case 1:
 				player.getPacketSender().sendDialogueAnimation(969, getChatAnim(ChatEmotes.DEFAULT));
-				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 970);
-				player.getPacketSender().sendFrame126(line[0], 971);
+				player.getPacketSender().sendString(Misc.capitalize(player.playerName), 970);
+				player.getPacketSender().sendString(line[0], 971);
 				player.getPacketSender().sendPlayerDialogueHead(969);
 				player.getPacketSender().sendChatInterface(968);
 			break;
 			case 2:
 				player.getPacketSender().sendDialogueAnimation(974, getChatAnim(ChatEmotes.DEFAULT));
-				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 975);
-				player.getPacketSender().sendFrame126(line[0], 976);
-				player.getPacketSender().sendFrame126(line[1], 977);
+				player.getPacketSender().sendString(Misc.capitalize(player.playerName), 975);
+				player.getPacketSender().sendString(line[0], 976);
+				player.getPacketSender().sendString(line[1], 977);
 				player.getPacketSender().sendPlayerDialogueHead(974);
 				player.getPacketSender().sendChatInterface(973);
 			break;
 			case 3:
 				player.getPacketSender().sendDialogueAnimation(980, getChatAnim(ChatEmotes.DEFAULT));
-				player.getPacketSender().sendFrame126(player.playerName, 981);
-				player.getPacketSender().sendFrame126(line[0], 982);
-				player.getPacketSender().sendFrame126(line[1], 983);
-				player.getPacketSender().sendFrame126(line[2], 984);
+				player.getPacketSender().sendString(player.playerName, 981);
+				player.getPacketSender().sendString(line[0], 982);
+				player.getPacketSender().sendString(line[1], 983);
+				player.getPacketSender().sendString(line[2], 984);
 				player.getPacketSender().sendPlayerDialogueHead(980);
 				player.getPacketSender().sendChatInterface(979);
 			break;
 			case 4:
 				player.getPacketSender().sendDialogueAnimation(987, getChatAnim(ChatEmotes.DEFAULT));
-				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 988);
-				player.getPacketSender().sendFrame126(line[0], 989);
-				player.getPacketSender().sendFrame126(line[1], 990);
-				player.getPacketSender().sendFrame126(line[2], 991);
-				player.getPacketSender().sendFrame126(line[3], 992);
+				player.getPacketSender().sendString(Misc.capitalize(player.playerName), 988);
+				player.getPacketSender().sendString(line[0], 989);
+				player.getPacketSender().sendString(line[1], 990);
+				player.getPacketSender().sendString(line[2], 991);
+				player.getPacketSender().sendString(line[3], 992);
 				player.getPacketSender().sendPlayerDialogueHead(987);
 				player.getPacketSender().sendChatInterface(986);
 			break;
@@ -7120,35 +7120,35 @@ public class DialogueHandler {
 		switch (line.length) {
 			case 1:
 				player.getPacketSender().sendDialogueAnimation(969, getChatAnim(e));
-				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 970);
-				player.getPacketSender().sendFrame126(line[0], 971);
+				player.getPacketSender().sendString(Misc.capitalize(player.playerName), 970);
+				player.getPacketSender().sendString(line[0], 971);
 				player.getPacketSender().sendPlayerDialogueHead(969);
 				player.getPacketSender().sendChatInterface(968);
 			break;
 			case 2:
 				player.getPacketSender().sendDialogueAnimation(974, getChatAnim(e));
-				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 975);
-				player.getPacketSender().sendFrame126(line[0], 976);
-				player.getPacketSender().sendFrame126(line[1], 977);
+				player.getPacketSender().sendString(Misc.capitalize(player.playerName), 975);
+				player.getPacketSender().sendString(line[0], 976);
+				player.getPacketSender().sendString(line[1], 977);
 				player.getPacketSender().sendPlayerDialogueHead(974);
 				player.getPacketSender().sendChatInterface(973);
 			break;
 			case 3:
 				player.getPacketSender().sendDialogueAnimation(980, getChatAnim(e));
-				player.getPacketSender().sendFrame126(player.playerName, 981);
-				player.getPacketSender().sendFrame126(line[0], 982);
-				player.getPacketSender().sendFrame126(line[1], 983);
-				player.getPacketSender().sendFrame126(line[2], 984);
+				player.getPacketSender().sendString(player.playerName, 981);
+				player.getPacketSender().sendString(line[0], 982);
+				player.getPacketSender().sendString(line[1], 983);
+				player.getPacketSender().sendString(line[2], 984);
 				player.getPacketSender().sendPlayerDialogueHead(980);
 				player.getPacketSender().sendChatInterface(979);
 			break;
 			case 4:
 				player.getPacketSender().sendDialogueAnimation(987, getChatAnim(e));
-				player.getPacketSender().sendFrame126(Misc.capitalize(player.playerName), 988);
-				player.getPacketSender().sendFrame126(line[0], 989);
-				player.getPacketSender().sendFrame126(line[1], 990);
-				player.getPacketSender().sendFrame126(line[2], 991);
-				player.getPacketSender().sendFrame126(line[3], 992);
+				player.getPacketSender().sendString(Misc.capitalize(player.playerName), 988);
+				player.getPacketSender().sendString(line[0], 989);
+				player.getPacketSender().sendString(line[1], 990);
+				player.getPacketSender().sendString(line[2], 991);
+				player.getPacketSender().sendString(line[3], 992);
 				player.getPacketSender().sendPlayerDialogueHead(987);
 				player.getPacketSender().sendChatInterface(986);
 			break;
@@ -7163,33 +7163,33 @@ public class DialogueHandler {
 	public void sendOption(String... line) {
 		switch (line.length) {
 			case 2:
-				player.getPacketSender().sendFrame126("Select an Option", 2460);
-				player.getPacketSender().sendFrame126(line[0], 2461);
-				player.getPacketSender().sendFrame126(line[1], 2462);
+				player.getPacketSender().sendString("Select an Option", 2460);
+				player.getPacketSender().sendString(line[0], 2461);
+				player.getPacketSender().sendString(line[1], 2462);
 				player.getPacketSender().sendChatInterface(2459);
 			break;
 			case 3:
-				player.getPacketSender().sendFrame126("Select an Option", 2470);
-				player.getPacketSender().sendFrame126(line[0], 2471);
-				player.getPacketSender().sendFrame126(line[1], 2472);
-				player.getPacketSender().sendFrame126(line[2], 2473);
+				player.getPacketSender().sendString("Select an Option", 2470);
+				player.getPacketSender().sendString(line[0], 2471);
+				player.getPacketSender().sendString(line[1], 2472);
+				player.getPacketSender().sendString(line[2], 2473);
 				player.getPacketSender().sendChatInterface(2469);
 			break;
 			case 4:
-				player.getPacketSender().sendFrame126("Select an Option", 2481);
-				player.getPacketSender().sendFrame126(line[0], 2482);
-				player.getPacketSender().sendFrame126(line[1], 2483);
-				player.getPacketSender().sendFrame126(line[2], 2484);
-				player.getPacketSender().sendFrame126(line[3], 2485);
+				player.getPacketSender().sendString("Select an Option", 2481);
+				player.getPacketSender().sendString(line[0], 2482);
+				player.getPacketSender().sendString(line[1], 2483);
+				player.getPacketSender().sendString(line[2], 2484);
+				player.getPacketSender().sendString(line[3], 2485);
 				player.getPacketSender().sendChatInterface(2480);
 			break;
 			case 5:
-				player.getPacketSender().sendFrame126("Select an Option", 2493);
-				player.getPacketSender().sendFrame126(line[0], 2494);
-				player.getPacketSender().sendFrame126(line[1], 2495);
-				player.getPacketSender().sendFrame126(line[2], 2496);
-				player.getPacketSender().sendFrame126(line[3], 2497);
-				player.getPacketSender().sendFrame126(line[4], 2498);
+				player.getPacketSender().sendString("Select an Option", 2493);
+				player.getPacketSender().sendString(line[0], 2494);
+				player.getPacketSender().sendString(line[1], 2495);
+				player.getPacketSender().sendString(line[2], 2496);
+				player.getPacketSender().sendString(line[3], 2497);
+				player.getPacketSender().sendString(line[4], 2498);
 				player.getPacketSender().sendChatInterface(2492);
 			break;
 		}
@@ -7203,29 +7203,29 @@ public class DialogueHandler {
 	public void sendStatement(String... line) {
 		switch (line.length) {
 			case 1:
-				player.getPacketSender().sendFrame126(line[0], 357);
-				player.getPacketSender().sendFrame126("Click here to continue", 358);
+				player.getPacketSender().sendString(line[0], 357);
+				player.getPacketSender().sendString("Click here to continue", 358);
 				player.getPacketSender().sendChatInterface(356);
 			break;
 			case 2:
-				player.getPacketSender().sendFrame126(line[0], 360);
-				player.getPacketSender().sendFrame126(line[1], 361);
-				player.getPacketSender().sendFrame126("Click here to continue", 362);
+				player.getPacketSender().sendString(line[0], 360);
+				player.getPacketSender().sendString(line[1], 361);
+				player.getPacketSender().sendString("Click here to continue", 362);
 				player.getPacketSender().sendChatInterface(359);
 			break;
 			case 3:
-				player.getPacketSender().sendFrame126(line[0], 364);
-				player.getPacketSender().sendFrame126(line[1], 365);
-				player.getPacketSender().sendFrame126(line[2], 366);
-				player.getPacketSender().sendFrame126("Click here to continue", 367);
+				player.getPacketSender().sendString(line[0], 364);
+				player.getPacketSender().sendString(line[1], 365);
+				player.getPacketSender().sendString(line[2], 366);
+				player.getPacketSender().sendString("Click here to continue", 367);
 				player.getPacketSender().sendChatInterface(363);
 			break;
 			case 4:
-				player.getPacketSender().sendFrame126(line[0], 369);
-				player.getPacketSender().sendFrame126(line[1], 370);
-				player.getPacketSender().sendFrame126(line[2], 371);
-				player.getPacketSender().sendFrame126(line[3], 372);
-				player.getPacketSender().sendFrame126("Click here to continue", 373);
+				player.getPacketSender().sendString(line[0], 369);
+				player.getPacketSender().sendString(line[1], 370);
+				player.getPacketSender().sendString(line[2], 371);
+				player.getPacketSender().sendString(line[3], 372);
+				player.getPacketSender().sendString("Click here to continue", 373);
 				player.getPacketSender().sendChatInterface(368);
 			break;
 		}
@@ -7233,9 +7233,9 @@ public class DialogueHandler {
 
 	public void itemMessage(String title, String message, int itemid, int size) {
 		player.getPacketSender().sendDialogueAnimation(4883, 591);
-		player.getPacketSender().sendFrame126(title, 4884);
-		player.getPacketSender().sendFrame126(message, 4885);
-		player.getPacketSender().sendFrame126("Click here to continue.", 4886);
+		player.getPacketSender().sendString(title, 4884);
+		player.getPacketSender().sendString(message, 4885);
+		player.getPacketSender().sendString("Click here to continue.", 4886);
 		player.getPacketSender().sendFrame246(4883, size, itemid);
 		player.getPacketSender().sendChatInterface(4882);
 	}
@@ -7249,35 +7249,35 @@ public class DialogueHandler {
 		switch (line.length) {
 			case 1:
 				player.getPacketSender().sendDialogueAnimation(4883, getChatAnim(e));
-				player.getPacketSender().sendFrame126(npcName, 4884);
-				player.getPacketSender().sendFrame126(line[0], 4885);
+				player.getPacketSender().sendString(npcName, 4884);
+				player.getPacketSender().sendString(line[0], 4885);
 				player.getPacketSender().sendNPCDialogueHead(npcId, 4883);
 				player.getPacketSender().sendChatInterface(4882);
 			break;
 			case 2:
 				player.getPacketSender().sendDialogueAnimation(4888, getChatAnim(e));
-				player.getPacketSender().sendFrame126(npcName, 4889);
-				player.getPacketSender().sendFrame126(line[0], 4890);
-				player.getPacketSender().sendFrame126(line[1], 4891);
+				player.getPacketSender().sendString(npcName, 4889);
+				player.getPacketSender().sendString(line[0], 4890);
+				player.getPacketSender().sendString(line[1], 4891);
 				player.getPacketSender().sendNPCDialogueHead(npcId, 4888);
 				player.getPacketSender().sendChatInterface(4887);
 			break;
 			case 3:
 				player.getPacketSender().sendDialogueAnimation(4894, getChatAnim(e));
-				player.getPacketSender().sendFrame126(npcName, 4895);
-				player.getPacketSender().sendFrame126(line[0], 4896);
-				player.getPacketSender().sendFrame126(line[1], 4897);
-				player.getPacketSender().sendFrame126(line[2], 4898);
+				player.getPacketSender().sendString(npcName, 4895);
+				player.getPacketSender().sendString(line[0], 4896);
+				player.getPacketSender().sendString(line[1], 4897);
+				player.getPacketSender().sendString(line[2], 4898);
 				player.getPacketSender().sendNPCDialogueHead(npcId, 4894);
 				player.getPacketSender().sendChatInterface(4893);
 			break;
 			case 4:
 				player.getPacketSender().sendDialogueAnimation(4901, getChatAnim(e));
-				player.getPacketSender().sendFrame126(npcName, 4902);
-				player.getPacketSender().sendFrame126(line[0], 4903);
-				player.getPacketSender().sendFrame126(line[1], 4904);
-				player.getPacketSender().sendFrame126(line[2], 4905);
-				player.getPacketSender().sendFrame126(line[3], 4906);
+				player.getPacketSender().sendString(npcName, 4902);
+				player.getPacketSender().sendString(line[0], 4903);
+				player.getPacketSender().sendString(line[1], 4904);
+				player.getPacketSender().sendString(line[2], 4905);
+				player.getPacketSender().sendString(line[3], 4906);
 				player.getPacketSender().sendNPCDialogueHead(npcId, 4901);
 				player.getPacketSender().sendChatInterface(4900);
 			break;
@@ -7286,17 +7286,17 @@ public class DialogueHandler {
 
 	public void sendNpcChat1(String s, int ChatNpc, String name) {
 		player.getPacketSender().sendDialogueAnimation(4883, 591);
-		player.getPacketSender().sendFrame126(name, 4884);
-		player.getPacketSender().sendFrame126(s, 4885);
+		player.getPacketSender().sendString(name, 4884);
+		player.getPacketSender().sendString(s, 4885);
 		player.getPacketSender().sendNPCDialogueHead(ChatNpc, 4883);
 		player.getPacketSender().sendChatInterface(4882);
 	}
 	
 	public void sendNpcChat2(String s, String s1, int ChatNpc, String name) {
 		player.getPacketSender().sendDialogueAnimation(4888, 591);
-		player.getPacketSender().sendFrame126(name, 4889);
-		player.getPacketSender().sendFrame126(s, 4890);
-		player.getPacketSender().sendFrame126(s1, 4891);
+		player.getPacketSender().sendString(name, 4889);
+		player.getPacketSender().sendString(s, 4890);
+		player.getPacketSender().sendString(s1, 4891);
 		player.getPacketSender().sendNPCDialogueHead(ChatNpc, 4888);
 		player.getPacketSender().sendChatInterface(4887);
 	}
@@ -7304,10 +7304,10 @@ public class DialogueHandler {
 	public void sendNpcChat3(String s, String s1, String s2, int ChatNpc,
 			String name) {
 		player.getPacketSender().sendDialogueAnimation(4894, 591);
-		player.getPacketSender().sendFrame126(name, 4895);
-		player.getPacketSender().sendFrame126(s, 4896);
-		player.getPacketSender().sendFrame126(s1, 4897);
-		player.getPacketSender().sendFrame126(s2, 4898);
+		player.getPacketSender().sendString(name, 4895);
+		player.getPacketSender().sendString(s, 4896);
+		player.getPacketSender().sendString(s1, 4897);
+		player.getPacketSender().sendString(s2, 4898);
 		player.getPacketSender().sendNPCDialogueHead(ChatNpc, 4894);
 		player.getPacketSender().sendChatInterface(4893);
 	}
@@ -7316,11 +7316,11 @@ public class DialogueHandler {
 	public void sendNpcChat4(String s, String s1, String s2, String s3,
 			int ChatNpc, String name) {
 		player.getPacketSender().sendDialogueAnimation(4901, 591);
-		player.getPacketSender().sendFrame126(name, 4902);
-		player.getPacketSender().sendFrame126(s, 4903);
-		player.getPacketSender().sendFrame126(s1, 4904);
-		player.getPacketSender().sendFrame126(s2, 4905);
-		player.getPacketSender().sendFrame126(s3, 4906);
+		player.getPacketSender().sendString(name, 4902);
+		player.getPacketSender().sendString(s, 4903);
+		player.getPacketSender().sendString(s1, 4904);
+		player.getPacketSender().sendString(s2, 4905);
+		player.getPacketSender().sendString(s3, 4906);
 		player.getPacketSender().sendNPCDialogueHead(ChatNpc, 4901);
 		player.getPacketSender().sendChatInterface(4900);
 	}
@@ -7331,11 +7331,11 @@ public class DialogueHandler {
 
 	public void sendStartInfo(String text, String text1, String text2,
 			String text3, String title) {
-		player.getPacketSender().sendFrame126(title, 6180);
-		player.getPacketSender().sendFrame126(text, 6181);
-		player.getPacketSender().sendFrame126(text1, 6182);
-		player.getPacketSender().sendFrame126(text2, 6183);
-		player.getPacketSender().sendFrame126(text3, 6184);
+		player.getPacketSender().sendString(title, 6180);
+		player.getPacketSender().sendString(text, 6181);
+		player.getPacketSender().sendString(text1, 6182);
+		player.getPacketSender().sendString(text2, 6183);
+		player.getPacketSender().sendString(text3, 6184);
 		player.getPacketSender().sendChatInterface(6179);
 	}
 
@@ -7345,7 +7345,7 @@ public class DialogueHandler {
 
 	public void itemMessage(String message1, int itemid, int size) {
 		player.getPacketSender().sendDialogueAnimation(307, 591);
-		player.getPacketSender().sendFrame126(message1, 308);
+		player.getPacketSender().sendString(message1, 308);
 		player.getPacketSender().sendFrame246(307, size, itemid);
 		player.getPacketSender().sendChatInterface(306);
 		player.nextChat = 0;
@@ -7355,32 +7355,32 @@ public class DialogueHandler {
 		switch (line.length) {
 			case 1:
 				player.getPacketSender().sendFrame246(4883, zoom, item);
-				player.getPacketSender().sendFrame126(header, 4884);
-				player.getPacketSender().sendFrame126(line[0], 4885);
+				player.getPacketSender().sendString(header, 4884);
+				player.getPacketSender().sendString(line[0], 4885);
 				player.getPacketSender().sendChatInterface(4882);
 			break;
 			case 2:
 				player.getPacketSender().sendFrame246(4888, zoom, item);
-				player.getPacketSender().sendFrame126(header, 4889);
-				player.getPacketSender().sendFrame126(line[0], 4890);
-				player.getPacketSender().sendFrame126(line[1], 4891);
+				player.getPacketSender().sendString(header, 4889);
+				player.getPacketSender().sendString(line[0], 4890);
+				player.getPacketSender().sendString(line[1], 4891);
 				player.getPacketSender().sendChatInterface(4887);
 			break;
 			case 3:
 				player.getPacketSender().sendFrame246(4894, zoom, item);
-				player.getPacketSender().sendFrame126(header, 4895);
-				player.getPacketSender().sendFrame126(line[0], 4896);
-				player.getPacketSender().sendFrame126(line[1], 4897);
-				player.getPacketSender().sendFrame126(line[2], 4898);
+				player.getPacketSender().sendString(header, 4895);
+				player.getPacketSender().sendString(line[0], 4896);
+				player.getPacketSender().sendString(line[1], 4897);
+				player.getPacketSender().sendString(line[2], 4898);
 				player.getPacketSender().sendChatInterface(4893);
 			break;
 			case 4:
 				player.getPacketSender().sendFrame246(4901, zoom, item);
-				player.getPacketSender().sendFrame126(header, 4902);
-				player.getPacketSender().sendFrame126(line[0], 4903);
-				player.getPacketSender().sendFrame126(line[1], 4904);
-				player.getPacketSender().sendFrame126(line[2], 4905);
-				player.getPacketSender().sendFrame126(line[3], 4906);
+				player.getPacketSender().sendString(header, 4902);
+				player.getPacketSender().sendString(line[0], 4903);
+				player.getPacketSender().sendString(line[1], 4904);
+				player.getPacketSender().sendString(line[2], 4905);
+				player.getPacketSender().sendString(line[3], 4906);
 				player.getPacketSender().sendChatInterface(4900);
 			break;
 		}

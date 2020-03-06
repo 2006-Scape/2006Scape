@@ -4,6 +4,7 @@ import com.rebotted.GameConstants;
 import com.rebotted.game.bots.BotHandler;
 import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.ItemDefinition;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
@@ -35,7 +36,7 @@ public class ShopAssistant {
 		player.isShopping = true;
 		player.shopId = ShopID;
 		player.getPacketSender().sendFrame248(3824, 3822);
-		player.getPacketSender().sendFrame126(ShopHandler.shopName[ShopID], 3901);
+		player.getPacketSender().sendString(ShopHandler.shopName[ShopID], 3901);
 	}
 
 	public void updatePlayerShop() {
@@ -274,7 +275,7 @@ public class ShopAssistant {
 	public void sellToShopPrice(int removeId, int removeSlot) {
 		int unNotedItemID = getUnNoted(removeId);
 		String itemName = ItemAssistant.getItemName(unNotedItemID);
-		for (int i : GameConstants.ITEM_SELLABLE) {
+		for (int i : ItemConstants.ITEM_SELLABLE) {
 			if (unNotedItemID == i) {
 				player.getPacketSender().sendMessage("You can't sell " + itemName + ".");
 				return;
@@ -334,7 +335,7 @@ public class ShopAssistant {
 	public boolean sellItem(int itemID, int fromSlot, int amount) {
 		int unNotedItemID = getUnNoted(itemID);
 		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-		for (int i : GameConstants.ITEM_SELLABLE) {
+		for (int i : ItemConstants.ITEM_SELLABLE) {
 			if (i == unNotedItemID) {
 				player.getPacketSender().sendMessage("You can't sell " + itemName + ".");
 				return false;

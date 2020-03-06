@@ -261,9 +261,9 @@ public class ToolLeprechaun {
 			if (index >= 5 && index <= 13) {
 				player.tempBoolean = true;
 			}
-			player.getPacketSender().sendFrame126("@gre@" + toolStoreData.getToolName(),
+			player.getPacketSender().sendString("@gre@" + toolStoreData.getToolName(),
 					toolStoreData.getToolFrameId());
-			player.getPacketSender().sendFrame126("@gre@" + count,
+			player.getPacketSender().sendString("@gre@" + count,
 					toolStoreData.getToolCountFrameId());
 		} else {
 			// watering can doses
@@ -277,9 +277,9 @@ public class ToolLeprechaun {
 				return;
 			}
 
-			player.getPacketSender().sendFrame126("" + toolStoreData.getToolName(),
+			player.getPacketSender().sendString("" + toolStoreData.getToolName(),
 					toolStoreData.getToolFrameId());
-			player.getPacketSender().sendFrame126("" + count,
+			player.getPacketSender().sendString("" + count,
 					toolStoreData.getToolCountFrameId());
 
 		}
@@ -305,12 +305,12 @@ public class ToolLeprechaun {
 			player.getPacketSender().sendMessage("You can't store any more of those.");
 			return;
 		}
-		if (player.getItemAssistant().getItemCount(itemId) <= 0) {
+		if (player.getItemAssistant().getItemAmount(itemId) <= 0) {
 			player.getPacketSender().sendMessage("You aren't carrying any of those.");
 			return;
 		}
-		if (player.getItemAssistant().getItemCount(itemId) < amount) {
-			finalAmount = player.getItemAssistant().getItemCount(itemId);
+		if (player.getItemAssistant().getItemAmount(itemId) < amount) {
+			finalAmount = player.getItemAssistant().getItemAmount(itemId);
 		}
 
 		player.getItemAssistant().deleteItem(itemId, finalAmount);

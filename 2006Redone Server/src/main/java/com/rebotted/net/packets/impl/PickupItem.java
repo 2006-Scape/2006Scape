@@ -7,7 +7,6 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.skills.SkillHandler;
-import com.rebotted.game.content.skills.firemaking.Firemaking;
 import com.rebotted.game.content.skills.firemaking.LogData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.impl.RareProtection;
@@ -61,13 +60,13 @@ public class PickupItem implements PacketType {
 		for (LogData logData : LogData.values()) {
 			if (player.isFiremaking && player.pItemId == logData.getLogId()) {
 				player.getPacketSender().sendMessage("You can't do that!");
-				Firemaking.stopFiremaking = true;
+				player.stopFiremaking = true;
 				return;
 			}
 		}
 		for (LogData logData : LogData.values()) {
 			if (player.pItemId == logData.getLogId()) {
-				Firemaking.pickedUpFiremakingLog = true;
+				player.pickedUpFiremakingLog = true;
 			}
 		}
 		SkillHandler.resetSkills(player);

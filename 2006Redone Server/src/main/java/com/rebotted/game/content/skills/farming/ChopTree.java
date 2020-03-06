@@ -4,8 +4,8 @@
  */
 package com.rebotted.game.content.skills.farming;
 
-import com.rebotted.GameConstants;
 import com.rebotted.game.content.skills.SkillConstants;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
@@ -214,7 +214,7 @@ public class ChopTree {
 
 	public static int getAxeIndex(Player player) {
 		for (int i = 0; i < axes.length; i++) {
-			if (player.playerEquipment[GameConstants.WEAPON] == (axes[i].getId())) {
+			if (player.playerEquipment[ItemConstants.WEAPON] == (axes[i].getId())) {
 				return i;
 			}
 		}

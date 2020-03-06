@@ -156,13 +156,13 @@ public class Commands implements PacketType {
 
 
                     // Clear all lines
-                    for (int i = 8144; i < 8195; i++) player.getPacketSender().sendFrame126("", i);
+                    for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
 
-                    player.getPacketSender().sendFrame126("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
+                    player.getPacketSender().sendString("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
 
                     int playersLineNumber = 8147;
                     for (String line : players){
-                        player.getPacketSender().sendFrame126(line, playersLineNumber++);
+                        player.getPacketSender().sendString(line, playersLineNumber++);
                     }
                     player.getPacketSender().showInterface(8134);
                     break;
@@ -280,13 +280,13 @@ public class Commands implements PacketType {
 
                 // Clear all lines
                 for (int i = 8144; i < 8195; i++) 
-                	player.getPacketSender().sendFrame126("", i);
+                	player.getPacketSender().sendString("", i);
 
-                player.getPacketSender().sendFrame126("@dre@Commands", 8144);
+                player.getPacketSender().sendString("@dre@Commands", 8144);
 
                 int commandsLineNumber = 8147;
                 for (String line : commands){
-                    player.getPacketSender().sendFrame126(line, commandsLineNumber++);
+                    player.getPacketSender().sendString(line, commandsLineNumber++);
                 }
                 player.getPacketSender().showInterface(8134);
                 break;
@@ -364,13 +364,13 @@ public class Commands implements PacketType {
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendFrame126("", i);
+                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
 
-                player.getPacketSender().sendFrame126("@dre@Highscores", 8144);
+                player.getPacketSender().sendString("@dre@Highscores", 8144);
 
                 int highscoresLineNumber = 8147;
                 for (String line : highscores){
-                    player.getPacketSender().sendFrame126(line, highscoresLineNumber++);
+                    player.getPacketSender().sendString(line, highscoresLineNumber++);
                 }
                 player.getPacketSender().showInterface(8134);
 

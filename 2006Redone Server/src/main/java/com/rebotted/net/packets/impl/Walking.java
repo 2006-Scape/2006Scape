@@ -136,7 +136,7 @@ public class Walking implements PacketType {
 		if (!player.wildernessWarning && player.wildLevel > 0) {
 			player.resetWalkingQueue();
 			player.wildernessWarning = true;
-			player.getPacketSender().sendFrame126("WARNING!", 6940);
+			player.getPacketSender().sendString("WARNING!", 6940);
 			player.getPacketSender().showInterface(1908);
 		}
 		if (player.openDuel && player.duelStatus <= 3) {

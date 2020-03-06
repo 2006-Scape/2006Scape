@@ -150,7 +150,7 @@ public class PlayList {
 			if (Songs.get(songID) == null) {
 				// player.sendMessage("This song has not yet been added to the playlist. - Song ID = "+songID);
 				if (auto) {
-					player.getPacketSender().sendFrame126("Song Unavailable!",
+					player.getPacketSender().sendString("Song Unavailable!",
 							4439);
 					updateList(4439);
 				}
@@ -164,12 +164,12 @@ public class PlayList {
 				// names[Songs.get(songID).arraySlot]);
 				unlocked[Songs.get(songID).arraySlot] = true;
 				updateList(Songs.get(songID).childId);
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 						names[Songs.get(songID).arraySlot], 4439);
 				updateList(4439);
 			} else {
 				if (auto) {
-					player.getPacketSender().sendFrame126(
+					player.getPacketSender().sendString(
 							names[Songs.get(songID).arraySlot], 4439);
 					updateList(4439);
 				}
@@ -216,7 +216,7 @@ public class PlayList {
 				playSong(songId);
 				// System.out.println("sending music to ActionSender packet - song id = "+songId);
 				player.getPacketSender().sendSong(songId);
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 						names[Songs.get(songId).arraySlot], 4439);
 				updateList(4439);
 			}

@@ -124,7 +124,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			if (player.playerLevel[6] < 15) {
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 								"You need a magic level of @blu@15 @bla@to cast bones to bananas",
 								357);
 				player.getPacketSender().sendChatInterface(356);
@@ -138,7 +138,7 @@ public class ClickingButtons implements PacketType {
 			if (!player.getItemAssistant().playerHasItem(561, 1)
 					|| !player.getItemAssistant().playerHasItem(555, 2)
 					|| !player.getItemAssistant().playerHasItem(557, 2)) {
-				player.getPacketSender().sendFrame126("You do not have the correct runes to cast this spell.", 357);
+				player.getPacketSender().sendString("You do not have the correct runes to cast this spell.", 357);
 				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
@@ -168,7 +168,7 @@ public class ClickingButtons implements PacketType {
 				return;
 			}
 			if (player.playerLevel[6] < 60) {
-				player.getPacketSender().sendFrame126("You need a magic level of @blu@60  @blu@ to cast bones to peaches.", 357);
+				player.getPacketSender().sendString("You need a magic level of @blu@60  @blu@ to cast bones to peaches.", 357);
 				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
@@ -180,7 +180,7 @@ public class ClickingButtons implements PacketType {
 			if (!player.getItemAssistant().playerHasItem(561, 2)
 					|| !player.getItemAssistant().playerHasItem(555, 4)
 					|| !player.getItemAssistant().playerHasItem(557, 4)) {
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 								"You do not have the correct runes to cast this spell.",
 								357);
 				player.getPacketSender().sendChatInterface(356);
@@ -595,8 +595,7 @@ public class ClickingButtons implements PacketType {
 			if (player.tutorialProgress < 36) {
 				CookingTutorialIsland.getAmount(player, 1);
 			} else {
-				Cooking.cookItem(player, player.cookingItem, 1,
-						player.cookingObject);
+				Cooking.cookItem(player, player.cookingItem, 1, player.cookingObject);
 			}
 			break;
 
@@ -604,8 +603,7 @@ public class ClickingButtons implements PacketType {
 			if (player.tutorialProgress < 36) {
 				CookingTutorialIsland.getAmount(player, 5);
 			} else {
-				Cooking.cookItem(player, player.cookingItem, 5,
-						player.cookingObject);
+				Cooking.cookItem(player, player.cookingItem, 5, player.cookingObject);
 			}
 			break;
 
@@ -613,7 +611,8 @@ public class ClickingButtons implements PacketType {
 			if (player.tutorialProgress < 36) {
 				CookingTutorialIsland.getAmount(player, 10);
 			} else {
-				Cooking.cookItem(player, player.cookingItem, 10, player.cookingObject);
+				player.playerIsCooking = true;
+				player.getOutStream().createFrame(27);
 			}
 			break;
 
@@ -621,8 +620,7 @@ public class ClickingButtons implements PacketType {
 			if (player.tutorialProgress < 36) {
 				CookingTutorialIsland.getAmount(player, 28);
 			} else {
-				Cooking.cookItem(player, player.cookingItem, 28,
-						player.cookingObject);
+				Cooking.cookItem(player, player.cookingItem, 28, player.cookingObject);
 			}
 			break;
 
@@ -1316,15 +1314,15 @@ public class ClickingButtons implements PacketType {
 				}
 				player.duelStatus = 2;
 				if (player.duelStatus == 2) {
-					player.getPacketSender().sendFrame126(
+					player.getPacketSender().sendString(
 							"Waiting for other player...", 6684);
-					opponent.getPacketSender().sendFrame126(
+					opponent.getPacketSender().sendString(
 							"Other player has accepted.", 6684);
 				}
 				if (opponent.duelStatus == 2) {
-					opponent.getPacketSender().sendFrame126(
+					opponent.getPacketSender().sendString(
 							"Waiting for other player...", 6684);
-					player.getPacketSender().sendFrame126(
+					player.getPacketSender().sendString(
 							"Other player has accepted.", 6684);
 				}
 
@@ -1363,9 +1361,9 @@ public class ClickingButtons implements PacketType {
 					player.duelDelay = System.currentTimeMillis();
 					o1.duelDelay = System.currentTimeMillis();
 				} else {
-					player.getPacketSender().sendFrame126(
+					player.getPacketSender().sendString(
 							"Waiting for other player...", 6571);
-					o1.getPacketSender().sendFrame126(
+					o1.getPacketSender().sendString(
 							"Other player has accepted.", 6571);
 				}
 			} else {
@@ -1606,9 +1604,9 @@ public class ClickingButtons implements PacketType {
 						"Trade declined as you disconnected.");
 				break;
 			}
-			player.getPacketSender().sendFrame126(
+			player.getPacketSender().sendString(
 					"Waiting for other player...", 3431);
-			ot.getPacketSender().sendFrame126("Other player has accepted.",
+			ot.getPacketSender().sendString("Other player has accepted.",
 					3431);
 			player.goodTrade = true;
 			ot.goodTrade = true;
@@ -1637,15 +1635,15 @@ public class ClickingButtons implements PacketType {
 												.freeSlots()) + " items.");
 						player.goodTrade = false;
 						ot.goodTrade = false;
-						player.getPacketSender().sendFrame126(
+						player.getPacketSender().sendString(
 								"Not enough inventory spaces.", 3431);
-						ot.getPacketSender().sendFrame126(
+						ot.getPacketSender().sendString(
 								"Not enough inventory spaces.", 3431);
 						break;
 					} else {
-						player.getPacketSender().sendFrame126(
+						player.getPacketSender().sendString(
 								"Waiting for other player...", 3431);
-						ot.getPacketSender().sendFrame126(
+						ot.getPacketSender().sendString(
 								"Other player has accepted.", 3431);
 						player.goodTrade = true;
 						ot.goodTrade = true;
@@ -1703,9 +1701,9 @@ public class ClickingButtons implements PacketType {
 					ot1.tradeStatus = 0;
 					break;
 				}
-				ot1.getPacketSender().sendFrame126(
+				ot1.getPacketSender().sendString(
 						"Other player has accepted.", 3535);
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 						"Waiting for other player...", 3535);
 			}
 

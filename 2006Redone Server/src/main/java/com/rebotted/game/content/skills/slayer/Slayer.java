@@ -478,18 +478,18 @@ public class Slayer {
 	}
 
 	public void updatePoints() {
-		c.getPacketSender().sendFrame126("Slayer Points: " + c.slayerPoints, 41011);
-		c.getPacketSender().sendFrame126("Slayer Points: " + c.slayerPoints, 41511);
-		c.getPacketSender().sendFrame126("Slayer Points: " + c.slayerPoints, 42011);
+		c.getPacketSender().sendString("Slayer Points: " + c.slayerPoints, 41011);
+		c.getPacketSender().sendString("Slayer Points: " + c.slayerPoints, 41511);
+		c.getPacketSender().sendString("Slayer Points: " + c.slayerPoints, 42011);
 	}
 
 	public void updateCurrentlyRemoved() {
 		int line[] = { 42014, 42015, 42016, 42017 };
 		for (int i = 0; i < c.removedTasks.length; i++) {
 			if (c.removedTasks[i] != -1) {
-				c.getPacketSender().sendFrame126(getTaskName(c.removedTasks[i]), line[i]);
+				c.getPacketSender().sendString(getTaskName(c.removedTasks[i]), line[i]);
 			} else {
-				c.getPacketSender().sendFrame126("", line[i]);
+				c.getPacketSender().sendString("", line[i]);
 			}
 		}
 	}

@@ -10,6 +10,7 @@ import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.content.skills.runecrafting.Tiaras;
 import com.rebotted.game.items.Item;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.Weight;
 import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.players.Client;
@@ -17,6 +18,7 @@ import com.rebotted.game.players.MainFrameIDs;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.Region;
 
 public class PacketSender {
@@ -163,7 +165,7 @@ public class PacketSender {
 		player.getItemAssistant().setEquipment(player.playerEquipment[player.playerWeapon], player.playerEquipmentN[player.playerWeapon], player.playerWeapon);
 		player.getCombatAssistant().getPlayerAnimIndex();
 		player.getPlayerAssistant().logIntoPM();
-		Tiaras.handleTiara(player, GameConstants.HAT);
+		Tiaras.handleTiara(player, ItemConstants.HAT);
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 		player.saveTimer = GameConstants.SAVE_TIMER;
 		player.saveCharacter = true;
@@ -302,7 +304,7 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame126(String s, int id) { //Seems to be about chat messsages
+	public PacketSender sendString(String s, int id) { //Seems to be about chat messsages
 		if(!player.checkPacket126Update(s, id)) {
 			return this;
 		}
@@ -577,7 +579,7 @@ public class PacketSender {
 			return this;
 		}
 
-		if (!player.inBankArea() && player.playerRights < 3) {
+		if (!Boundary.isIn(player, Boundary.BANK_AREA) && player.playerRights < 3) {
 			player.getPacketSender().sendMessage("You can't open a bank unless you're in a bank area!");
 			player.getPacketSender().sendMessage("If this is a bug, please report it! Your coords are [" + player.absX + "," + player.absY + "]");
 			player.getPacketSender().closeAllWindows();

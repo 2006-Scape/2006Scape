@@ -1,8 +1,8 @@
 package com.rebotted.game.content.combat.melee;
 
-import com.rebotted.GameConstants;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.players.Player;
 
 public class MeleeData {
@@ -91,7 +91,7 @@ public class MeleeData {
 	 **/
 
 	public static int getAttackDelay(Player c) {
-		String s = ItemAssistant.getItemName(c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
+		String s = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
 		if (c.usingMagic) {
 			switch (MagicData.MAGIC_SPELLS[c.spellId][0]) {
 			case 12871: // ice blitz
@@ -212,8 +212,7 @@ public class MeleeData {
 	 **/
 
 	public static void getPlayerAnimIndex(Player c) {
-		String weaponName = ItemAssistant.getItemName(
-				c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
+		String weaponName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
 		c.playerStandIndex = 0x328;
 		c.playerTurnIndex = 0x337;
 		c.playerWalkIndex = 0x333;
@@ -307,8 +306,7 @@ public class MeleeData {
 	 **/
 
 	public static int getWeaponAnimation(Player c) {
-		String weaponName = ItemAssistant.getItemName(
-				c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
+		String weaponName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
 		if (c.playerEquipment[c.playerWeapon] <= 0) {
 			switch (c.fightMode) {
 			case 0:
@@ -424,8 +422,7 @@ public class MeleeData {
 	 * How long it takes to hit your enemy
 	 **/
 	public static int getHitDelay(Player c) {
-		String weaponName = ItemAssistant.getItemName(
-				c.playerEquipment[GameConstants.WEAPON]).toLowerCase();
+		String weaponName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
 		if (c.usingMagic) {
 			switch (MagicData.MAGIC_SPELLS[c.spellId][0]) {
 			case 12891:

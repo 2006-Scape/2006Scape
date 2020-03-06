@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.rebotted.game.content.minigames.FightCaves;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.Region;
 
 public class NpcData {
@@ -85,7 +86,7 @@ public class NpcData {
 						|| FightCaves.isFightCaveNpc(i)) {
 					if (PlayerHandler.players[j].underAttackBy <= 0
 							&& PlayerHandler.players[j].underAttackBy2 <= 0
-							|| PlayerHandler.players[j].inMulti()) {
+							|| Boundary.isIn(PlayerHandler.players[j], Boundary.MULTI)) {
 						if (PlayerHandler.players[j].heightLevel == NpcHandler.npcs[i].heightLevel) {
 							players.add(j);
 						}

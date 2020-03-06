@@ -6,6 +6,7 @@ import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 
 public class MagicSpells extends MagicData {
 	
@@ -113,16 +114,12 @@ public class MagicSpells extends MagicData {
 		}
 
 		if (CombatConstants.SINGLE_AND_MULTI_ZONES) {
-			if (!PlayerHandler.players[i].inMulti()) { // single combat
-														// zones
-				if (PlayerHandler.players[i].underAttackBy != c.playerId
-						&& PlayerHandler.players[i].underAttackBy != 0) {
+			if (!Boundary.isIn(PlayerHandler.players[i], Boundary.MULTI)) { // single combat zones
+				if (PlayerHandler.players[i].underAttackBy != c.playerId && PlayerHandler.players[i].underAttackBy != 0) {
 					return false;
 				}
-				if (PlayerHandler.players[i].playerId != c.underAttackBy
-						&& c.underAttackBy != 0) {
-					c.getPacketSender().sendMessage(
-							"You are already in combat.");
+				if (PlayerHandler.players[i].playerId != c.underAttackBy && c.underAttackBy != 0) {
+					c.getPacketSender().sendMessage("You are already in combat.");
 					return false;
 				}
 			}

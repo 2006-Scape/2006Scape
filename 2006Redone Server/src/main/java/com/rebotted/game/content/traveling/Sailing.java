@@ -1,9 +1,9 @@
 package com.rebotted.game.content.traveling;
 
-import com.rebotted.GameConstants;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Player;
 
@@ -58,7 +58,7 @@ public class Sailing {
 	}
 
 	public static boolean searchForAlcohol(Player c) {
-		for (int element : GameConstants.ALCOHOL_RELATED_ITEMS) {
+		for (int element : ItemConstants.ALCOHOL_RELATED_ITEMS) {
 			if (c.getItemAssistant().playerHasItem(element, 1)) {
 				c.getDialogueHandler().sendNpcChat1("You can't bring intoxicating items to Asgarnia!", c.npcType, NpcHandler.getNpcListName(c.npcType));
 				c.nextChat = 0;
@@ -71,7 +71,7 @@ public class Sailing {
 	}
 
 	public static boolean quickSearch(Player c) {
-		for (int element : GameConstants.COMBAT_RELATED_ITEMS) {
+		for (int element : ItemConstants.COMBAT_RELATED_ITEMS) {
 			if (c.getItemAssistant().playerHasItem(element, 1) || c.getItemAssistant().playerHasEquipped(element)) {
 				c.getDialogueHandler().sendNpcChat2("Grr! I see you brought some illegal items! Get", "out of my sight immediately!", 657, NpcHandler.getNpcListName(c.npcType));
 				c.nextChat = 0;

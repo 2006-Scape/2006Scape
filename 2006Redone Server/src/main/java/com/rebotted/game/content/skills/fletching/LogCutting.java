@@ -293,9 +293,9 @@ public class LogCutting {
 	public static void wolfBoneArrow(Player c) {
 		if (c.getItemAssistant().playerHasItem(2859)
 				&& c.getItemAssistant().playerHasItem(1755)) {
-			final int amount = c.getItemAssistant().getItemCount(2859);
-			final int makeAmount = c.getItemAssistant().getItemCount(2859)
-					+ c.getItemAssistant().getItemCount(2859) * Misc.random(4);
+			final int amount = c.getItemAssistant().getItemAmount(2859);
+			final int makeAmount = c.getItemAssistant().getItemAmount(2859)
+					+ c.getItemAssistant().getItemAmount(2859) * Misc.random(4);
 			if (!c.getItemAssistant().playerHasItem(2859)) {
 				c.getDialogueHandler().sendStatement(
 						"You don't have any bones left to chisel.");
@@ -323,8 +323,8 @@ public class LogCutting {
 		}
 		if (c.getItemAssistant().playerHasItem(314)
 				&& c.getItemAssistant().playerHasItem(2864)) {
-			final int feather = c.getItemAssistant().getItemCount(314), arrowShaft = c
-					.getItemAssistant().getItemCount(2864);
+			final int feather = c.getItemAssistant().getItemAmount(314), arrowShaft = c
+					.getItemAssistant().getItemAmount(2864);
 			if (feather == arrowShaft * 4) {
 				c.startAnimation(1248);
 				c.getItemAssistant().deleteItem(314, feather * 4);
@@ -348,7 +348,7 @@ public class LogCutting {
 			c.nextChat = 0;
 			return;
 		}
-		final int wolfBoneArrow = c.getItemAssistant().getItemCount(2861), flightedArrow = c.getItemAssistant().getItemCount(2865);
+		final int wolfBoneArrow = c.getItemAssistant().getItemAmount(2861), flightedArrow = c.getItemAssistant().getItemAmount(2865);
 		if (c.getItemAssistant().playerHasItem(2861)
 				&& c.getItemAssistant().playerHasItem(2865)) {
 			if (wolfBoneArrow == flightedArrow) {
@@ -378,8 +378,8 @@ public class LogCutting {
 
 	public static void makeShafts(Player c) {
 		if (c.getItemAssistant().playerHasItem(2862) && c.getItemAssistant().playerHasItem(946)) {
-			final int amount = c.getItemAssistant().getItemCount(2862);
-			final int makeAmount = c.getItemAssistant().getItemCount(2862) + c.getItemAssistant().getItemCount(2862) * Misc.random(4);
+			final int amount = c.getItemAssistant().getItemAmount(2862);
+			final int makeAmount = c.getItemAssistant().getItemAmount(2862) + c.getItemAssistant().getItemAmount(2862) * Misc.random(4);
 			if (!c.getItemAssistant().playerHasItem(2862)) {
 				c.getDialogueHandler().sendStatement("You don't have any logs left to fletch.");
 				c.nextChat = 0;

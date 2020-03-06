@@ -18,7 +18,7 @@ public class RareProtection {
 		for (int element : RARE_ITEMS) {
 			if (c.wearId == element && (RARES || CRACKERS)) {
 				c.getPacketSender().sendMessage("You shouldn't have that item!");
-				int amountToDelete = c.getItemAssistant().getItemCount(element);
+				int amountToDelete = c.getItemAssistant().getItemAmount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}
@@ -29,7 +29,7 @@ public class RareProtection {
 		for (int element : RARE_ITEMS) {
 			if (player.getItemAssistant().playerHasItem(element) && (RARES || CRACKERS)) {
 				player.getPacketSender().sendMessage("You shouldn't have that item!");
-				int amountToDelete = player.getItemAssistant().getItemCount(element);
+				int amountToDelete = player.getItemAssistant().getItemAmount(element);
 				player.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}
@@ -51,7 +51,7 @@ public class RareProtection {
 		for (int element : RARE_ITEMS) {
 			if (c.getItemAssistant().playerHasItem(element)) {
 				c.getPacketSender().sendMessage("You can't have these items!");
-				int amountToDelete = c.getItemAssistant().getItemCount(element);
+				int amountToDelete = c.getItemAssistant().getItemAmount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}
@@ -63,7 +63,7 @@ public class RareProtection {
 		for (int element : EDIBLE_RARES) {
 			if (itemId == element && RARES) {
 				c.getPacketSender().sendMessage("You can't eat that item!");
-				int amountToDelete = c.getItemAssistant().getItemCount(element);
+				int amountToDelete = c.getItemAssistant().getItemAmount(element);
 				c.getItemAssistant().deleteItem(element, amountToDelete);
 				return false;
 			}

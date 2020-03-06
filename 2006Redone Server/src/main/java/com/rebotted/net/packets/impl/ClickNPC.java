@@ -6,7 +6,6 @@ import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.combat.CombatConstants;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.content.combat.range.RangeData;
-import com.rebotted.game.content.skills.thieving.Pickpocket;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Player;

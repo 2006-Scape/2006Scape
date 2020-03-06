@@ -38,7 +38,7 @@ public class FreakyForester {
 				client.getItemAssistant().addItem(995, 500);
 				client.getPacketSender().sendMessage("You have already beat the freaky forester event so you get 500 coins.");
 			}
-			int delete = client.getItemAssistant().getItemCount(6178);
+			int delete = client.getItemAssistant().getItemAmount(6178);
 			client.getItemAssistant().deleteItem(6178, delete);
 			client.randomActions = 0;
 		} else {
