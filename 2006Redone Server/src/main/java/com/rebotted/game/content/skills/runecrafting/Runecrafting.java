@@ -169,20 +169,20 @@ public class Runecrafting {
 	public void getMultiSupport(int obj) {
 		Altar_Data ad = forObj(obj);
 		if (ad != null) {
-			int amount = c.getItemAssistant().getItemCount(7936), amount2 = c.getItemAssistant().getItemCount(1436);
+			int amount = c.getItemAssistant().getItemAmount(7936), amount2 = c.getItemAssistant().getItemAmount(1436);
 			if (amount2 > 0 && amount > 0) {
-				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemCount(7936));
+				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemAmount(7936));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
 				c.getPlayerAssistant().addSkillXP(ad.xp * amount, c.playerRunecrafting);
-				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemCount(1436));
+				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemAmount(1436));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount2 * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
 				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, c.playerRunecrafting);
 			} else if (amount > 0) {
-				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemCount(7936));
+				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemAmount(7936));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
 				c.getPlayerAssistant().addSkillXP(ad.xp * amount, c.playerRunecrafting);
 			} else if (amount2 > 0) {
-				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemCount(1436));
+				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemAmount(1436));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount2 * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
 				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, c.playerRunecrafting);
 			} else {

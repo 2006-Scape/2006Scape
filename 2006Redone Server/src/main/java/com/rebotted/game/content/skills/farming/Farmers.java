@@ -240,15 +240,11 @@ public class Farmers {
 
 	public static void chopDownTree(Player player, int npcId) {
 		int index = WoodTrees.TreeFieldsData.forId(npcId).getTreeIndex();
-
-		if (player.getItemAssistant().getItemCount(995) < 200) {
-			player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "I am sorry, but you do not have enough money",
-					"to pay me to chop down this tree.");
-
+		if (player.getItemAssistant().getItemAmount(995) < 200) {
+			player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "I am sorry, but you do not have enough money", "to pay me to chop down this tree.");
 		} else {
 			player.getItemAssistant().deleteItem(995, 200);
-			player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, 	"There you go, I have chopped down your tree but I am ",
-					"keeping the logs and roots as compensation.");
+			player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "There you go, I have chopped down your tree but I am ", "keeping the logs and roots as compensation.");
 			player.getTrees().resetTrees(index);
 			player.getTrees().treeStages[index] = 3;
 			player.getTrees().treeTimer[index] = GameEngine.getMinutesCounter();

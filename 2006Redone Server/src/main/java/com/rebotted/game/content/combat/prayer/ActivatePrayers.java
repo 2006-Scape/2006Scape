@@ -268,12 +268,12 @@ public class ActivatePrayers {
 			} else {
 				player.getPacketSender().sendConfig(player.getPrayer().PRAYER_GLOW[i],
 						0);
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 						"You need a @blu@Prayer level of "
 								+ player.getPrayer().PRAYER_LEVEL_REQUIRED[i]
 								+ " to use " + player.getPrayer().PRAYER_NAME[i]
 								+ ".", 357);
-				player.getPacketSender().sendFrame126("Click here to continue", 358);
+				player.getPacketSender().sendString("Click here to continue", 358);
 				player.getPacketSender().sendChatInterface(356);
 			}
 		} else {

@@ -52,24 +52,17 @@ public class BankAll implements PacketType {
 				return;
 			}
 			if (player.inPartyRoom) {
-				PartyRoom.depositItem(player, removeId, player.getItemAssistant()
-						.itemAmount(player.playerItems[removeSlot]));
+				PartyRoom.depositItem(player, removeId, player.getItemAssistant().getItemAmount(player.playerItems[removeSlot]));
 				break;
 			}
 			if (player.inTrade) {
-				player.getPacketSender().sendMessage(
-						"You can't store items while trading!");
+				player.getPacketSender().sendMessage("You can't store items while trading!");
 				return;
 			}
 			if (ItemData.itemStackable[removeId]) {
-				player.getItemAssistant().bankItem(player.playerItems[removeSlot],
-						removeSlot, player.playerItemsN[removeSlot]);
+				player.getItemAssistant().bankItem(player.playerItems[removeSlot], removeSlot, player.playerItemsN[removeSlot]);
 			} else {
-				player.getItemAssistant().bankItem(
-						player.playerItems[removeSlot],
-						removeSlot,
-						player.getItemAssistant().itemAmount(
-								player.playerItems[removeSlot]));
+				player.getItemAssistant().bankItem(player.playerItems[removeSlot], removeSlot, player.getItemAssistant().getItemAmount(player.playerItems[removeSlot]));
 			}
 			break;
 

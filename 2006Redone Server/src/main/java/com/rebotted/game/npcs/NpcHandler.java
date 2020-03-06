@@ -26,6 +26,7 @@ import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.Region;
 
 // Facetypes: 1-Walk, 2-North, 3-South, 4-East, 5-West
@@ -226,7 +227,7 @@ public class NpcHandler {
 					return j;
 				}
 				if (goodDistance(PlayerHandler.players[j].absX, PlayerHandler.players[j].absY, npcs[i].absX, npcs[i].absY, 2 + distanceRequired(i) + followDistance(i)) || FightCaves.isFightCaveNpc(i)) {
-					if (PlayerHandler.players[j].underAttackBy <= 0 && PlayerHandler.players[j].underAttackBy2 <= 0 || PlayerHandler.players[j].inMulti()) {
+					if (PlayerHandler.players[j].underAttackBy <= 0 && PlayerHandler.players[j].underAttackBy2 <= 0 || Boundary.isIn(PlayerHandler.players[j], Boundary.MULTI)) {
 						if (PlayerHandler.players[j].heightLevel == npcs[i].heightLevel) {
 							return j;
 						}
@@ -339,7 +340,7 @@ public class NpcHandler {
 				for(int o = 0; o < c.barrowCrypt.length; o++){
 					if(npcs[i].npcType == c.barrowCrypt[o][0]) {
 						c.barrowsKillCount++;
-						c.getPacketSender().sendFrame126(""+c.barrowsKillCount, 4536);
+						c.getPacketSender().sendString(""+c.barrowsKillCount, 4536);
 					}
 				}
 			}

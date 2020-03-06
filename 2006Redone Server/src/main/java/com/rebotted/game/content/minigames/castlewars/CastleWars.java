@@ -67,7 +67,7 @@ public class CastleWars {
 	public static boolean deleteCastleWarsItems(Player c, int itemId) {
 		int[] items = { 4049, 4045, 4053, 4042, 4041, 4037, 4039, 4043 };
 		for (int item : items) {
-			int amount = c.getItemAssistant().getItemCount(item);
+			int amount = c.getItemAssistant().getItemAmount(item);
 			if (itemId == item && !isInCw(c)) {
 				c.getItemAssistant().deleteItem(item, amount);
 				c.getPacketSender().sendMessage("You shouldn't have " + ItemAssistant.getItemName(itemId) + " outside of castlewars!");
@@ -502,9 +502,9 @@ public class CastleWars {
 		while (iterator.hasNext()) {
 			Player player = iterator.next();
 			if (player != null) {
-				player.getPacketSender().sendFrame126("Next Game Begins In: " + (gameStartTimer * 3 + timeRemaining * 3) + " seconds.", 6570);
-				player.getPacketSender().sendFrame126("Zamorak Players: " + getZammyPlayers() + ".", 6572);
-				player.getPacketSender().sendFrame126("Saradomin Players: " + getSaraPlayers() + ".", 6664);
+				player.getPacketSender().sendString("Next Game Begins In: " + (gameStartTimer * 3 + timeRemaining * 3) + " seconds.", 6570);
+				player.getPacketSender().sendString("Zamorak Players: " + getZammyPlayers() + ".", 6572);
+				player.getPacketSender().sendString("Saradomin Players: " + getSaraPlayers() + ".", 6664);
 				player.getPacketSender().walkableInterface(6673);
 			}
 		}
@@ -523,11 +523,11 @@ public class CastleWars {
 					continue;
 				}
 				player.getPacketSender().walkableInterface(11146);
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 						"Zamorak = " + scores[1], 11147);
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 						scores[0] + " = Saradomin", 11148);
-				player.getPacketSender().sendFrame126(
+				player.getPacketSender().sendString(
 						timeRemaining * 3 + " secs", 11155);
 				config = 2097152 * saraFlag;
 				player.getPacketSender().sendFrame87(378, config);

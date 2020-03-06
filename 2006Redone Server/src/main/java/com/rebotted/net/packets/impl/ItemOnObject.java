@@ -29,6 +29,9 @@ public class ItemOnObject implements PacketType {
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
+		if (!player.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 3)) {
+			return;
+		}
 		if (player.playerRights == 3) {
 			player.getPacketSender().sendMessage(
 					"Object Id:" + objectId + " ObjectX: " + objectX
@@ -154,14 +157,14 @@ public class ItemOnObject implements PacketType {
 
 		if (itemId == 1710 || itemId == 1708 || itemId == 1706
 				|| itemId == 1704 && objectId == 2638) { // glory
-			int amount = player.getItemAssistant().getItemCount(1710)
-					+ player.getItemAssistant().getItemCount(1708)
-					+ player.getItemAssistant().getItemCount(1706)
-					+ player.getItemAssistant().getItemCount(1704);
+			int amount = player.getItemAssistant().getItemAmount(1710)
+					+ player.getItemAssistant().getItemAmount(1708)
+					+ player.getItemAssistant().getItemAmount(1706)
+					+ player.getItemAssistant().getItemAmount(1704);
 			int[] glories = { 1710, 1708, 1706, 1704 };
 			for (int i : glories) {
 				player.getItemAssistant().deleteItem(i,
-						player.getItemAssistant().getItemCount(i));
+						player.getItemAssistant().getItemAmount(i));
 			}
 			player.startAnimation(832);
 			player.getItemAssistant().addItem(1712, amount);
@@ -199,7 +202,7 @@ public class ItemOnObject implements PacketType {
 		}
 
 		if (Fillables.canFill(itemId, objectId) && player.getItemAssistant().playerHasItem(itemId)) {
-			int amount = player.getItemAssistant().getItemCount(itemId);
+			int amount = player.getItemAssistant().getItemAmount(itemId);
 			player.getItemAssistant().deleteItem(itemId, amount);
 			player.getItemAssistant().addItem(Fillables.counterpart(itemId), amount);
 			player.getPacketSender().sendMessage(Fillables.fillMessage(itemId, objectId));

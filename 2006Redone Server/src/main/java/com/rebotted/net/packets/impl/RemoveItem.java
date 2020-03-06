@@ -13,75 +13,75 @@ import com.rebotted.net.packets.PacketType;
 public class RemoveItem implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		int interfaceId = c.getInStream().readUnsignedWordA();
-		int removeSlot = c.getInStream().readUnsignedWordA();
-		int removeId = c.getInStream().readUnsignedWordA();
-		if (!RareProtection.removeItem(c, removeId)) {
+	public void processPacket(Player player, int packetType, int packetSize) {
+		int interfaceId = player.getInStream().readUnsignedWordA();
+		int removeSlot = player.getInStream().readUnsignedWordA();
+		int removeId = player.getInStream().readUnsignedWordA();
+		if (!RareProtection.removeItem(player, removeId)) {
 			return;
 		}
 
-		c.endCurrentTask();
+		player.endCurrentTask();
 
-		Weight.updateWeight(c);
+		Weight.updateWeight(player);
 
 		switch (interfaceId) {
 
 		case 4233:
 		case 4239:
 		case 4245:
-			JewelryMaking.mouldItem(c, removeId, 1);
+			JewelryMaking.mouldItem(player, removeId, 1);
 			break;
 
 		case 7423:
-			if (c.inTrade) {
-				c.getTrading().declineTrade(true);
+			if (player.inTrade) {
+				player.getTrading().declineTrade(true);
 				return;
 			}
-			c.getItemAssistant().bankItem(removeId, removeSlot, 1);
-			c.getItemAssistant().resetItems(7423);
+			player.getItemAssistant().bankItem(removeId, removeSlot, 1);
+			player.getItemAssistant().resetItems(7423);
 			break;
 
 		case 1688:
-			c.getItemAssistant().removeItem(removeId, removeSlot);
+			player.getItemAssistant().removeItem(removeId, removeSlot);
 			break;
 
 		case 5064:
-			if (c.inPartyRoom) {
-				PartyRoom.depositItem(c, removeId, 1);
+			if (player.inPartyRoom) {
+				PartyRoom.depositItem(player, removeId, 1);
 			} else {
-				c.getItemAssistant().bankItem(removeId, removeSlot, 1);
+				player.getItemAssistant().bankItem(removeId, removeSlot, 1);
 			}
 			break;
 
 		case 5382:
-			c.getItemAssistant().fromBank(removeId, removeSlot, 1);
+			player.getItemAssistant().fromBank(removeId, removeSlot, 1);
 			break;
 
 		case 3900:
-			c.getShopAssistant().buyFromShopPrice(removeId);
+			player.getShopAssistant().buyFromShopPrice(removeId);
 			break;
 
 		case 3823:
-			c.getShopAssistant().sellToShopPrice(removeId, removeSlot);
+			player.getShopAssistant().sellToShopPrice(removeId, removeSlot);
 			break;
 
 		case 3322:
-			if (c.duelStatus <= 0) {
-				c.getTrading().tradeItem(removeId, removeSlot, 1);
+			if (player.duelStatus <= 0) {
+				player.getTrading().tradeItem(removeId, removeSlot, 1);
 			} else {
-				c.getDueling().stakeItem(removeId, removeSlot, 1);
+				player.getDueling().stakeItem(removeId, removeSlot, 1);
 			}
 			break;
 
 		case 3415:
-			if (c.duelStatus <= 0) {
-				c.getTrading().fromTrade(removeId, removeSlot, 1);
+			if (player.duelStatus <= 0) {
+				player.getTrading().fromTrade(removeId, removeSlot, 1);
 			}
 			break;
 
 		case 6669:
-			c.getDueling().fromDuel(removeId, removeSlot, 1);
+			player.getDueling().fromDuel(removeId, removeSlot, 1);
 			break;
 
 		case 1119:
@@ -89,11 +89,11 @@ public class RemoveItem implements PacketType {
 		case 1121:
 		case 1122:
 		case 1123:
-			c.getSmithing().readInput(c.playerLevel[c.playerSmithing], Integer.toString(removeId), c, 1);
+			player.getSmithing().readInput(player, player.playerLevel[player.playerSmithing], removeId, 1);
 			break;
 
 		}
-		Weight.updateWeight(c);
+		Weight.updateWeight(player);
 	}
 
 }

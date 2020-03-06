@@ -48,26 +48,26 @@ public class BankPin {
 		int pinSendFrames[] = { 15075, 15080, 15110, 15171, 15076, 15176,
 				15104, 15082, 15079 };
 		for (int j = 0; j < 9; j++) {
-			client.getPacketSender().sendFrame126("", pinSendFrames[j]);
+			client.getPacketSender().sendString("", pinSendFrames[j]);
 		}
-		client.getPacketSender().sendFrame126("Welcome to our bank", 15038);
-		client.getPacketSender().sendFrame126("recovery system.", 15039);
-		client.getPacketSender().sendFrame126("Remember, it's important", 15040);
-		client.getPacketSender().sendFrame126("to change your recovery", 15041);
-		client.getPacketSender().sendFrame126("pin and password", 15042);
-		client.getPacketSender().sendFrame126("every 1-3 months", 15043);
+		client.getPacketSender().sendString("Welcome to our bank", 15038);
+		client.getPacketSender().sendString("recovery system.", 15039);
+		client.getPacketSender().sendString("Remember, it's important", 15040);
+		client.getPacketSender().sendString("to change your recovery", 15041);
+		client.getPacketSender().sendString("pin and password", 15042);
+		client.getPacketSender().sendString("every 1-3 months", 15043);
 		if (!client.hasBankpin) {
-			client.getPacketSender().sendFrame126("Set a Bank Pin", 15078);
-			client.getPacketSender().sendFrame126("No PIN Set", 15105);
+			client.getPacketSender().sendString("Set a Bank Pin", 15078);
+			client.getPacketSender().sendString("No PIN Set", 15105);
 		} else {
-			client.getPacketSender().sendFrame126("Delete your PIN", 15078);
+			client.getPacketSender().sendString("Delete your PIN", 15078);
 			if (client.requestPinDelete) {
-				client.getPacketSender().sendFrame126("Pending delete", 15105);
+				client.getPacketSender().sendString("Pending delete", 15105);
 			} else {
-				client.getPacketSender().sendFrame126("Has Bank PIN", 15105);
+				client.getPacketSender().sendString("Has Bank PIN", 15105);
 			}
 		}
-		client.getPacketSender().sendFrame126(recovery_Delay + " days", 15107);
+		client.getPacketSender().sendString(recovery_Delay + " days", 15107);
 	}
 
 	public void bankPinSettings() {
@@ -127,12 +127,12 @@ public class BankPin {
 			return;
 		}
 		randomizeNumbers();
-		client.getPacketSender().sendFrame126("First click the FIRST digit",
+		client.getPacketSender().sendString("First click the FIRST digit",
 				15313);
-		client.getPacketSender().sendFrame126("", 14923);
+		client.getPacketSender().sendString("", 14923);
 		int pinSendFrames[] = { 14913, 14914, 14915, 14916 };
 		for (int j = 0; j < 4; j++) {
-			client.getPacketSender().sendFrame126("?", pinSendFrames[j]);
+			client.getPacketSender().sendString("?", pinSendFrames[j]);
 		}
 		client.getPacketSender().showInterface(7424);
 		sendPins();
@@ -144,15 +144,15 @@ public class BankPin {
 			return;
 		}
 		for (int i = 0; i < getBankPins().length; i++) {
-			client.getPacketSender().sendFrame126("" + getBankPins()[i],
+			client.getPacketSender().sendString("" + getBankPins()[i],
 					stringIds[i]);
 		}
 	}
 
 	private void handleButtonOne(int button) {
-		client.getPacketSender().sendFrame126("Now click the SECOND digit",
+		client.getPacketSender().sendString("Now click the SECOND digit",
 				15313);
-		client.getPacketSender().sendFrame126("*", 14913);
+		client.getPacketSender().sendString("*", 14913);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				firstPin = getBankPins()[i];
@@ -163,9 +163,9 @@ public class BankPin {
 	}
 
 	private void handleButtonTwo(int button) {
-		client.getPacketSender().sendFrame126("Now click the THIRD digit",
+		client.getPacketSender().sendString("Now click the THIRD digit",
 				15313);
-		client.getPacketSender().sendFrame126("*", 14914);
+		client.getPacketSender().sendString("*", 14914);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				secondPin = getBankPins()[i];
@@ -176,9 +176,9 @@ public class BankPin {
 	}
 
 	private void handleButtonThree(int button) {
-		client.getPacketSender().sendFrame126("Now click the LAST digit",
+		client.getPacketSender().sendString("Now click the LAST digit",
 				15313);
-		client.getPacketSender().sendFrame126("*", 14915);
+		client.getPacketSender().sendString("*", 14915);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				thirdPin = getBankPins()[i];
@@ -197,7 +197,7 @@ public class BankPin {
 			client.getPacketSender().openUpBank();
 			return;
 		}
-		client.getPacketSender().sendFrame126("*", 14916);
+		client.getPacketSender().sendString("*", 14916);
 		for (int i = 0; i < getActionButtons().length; i++) {
 			if (getActionButtons()[i] == button) {
 				fourthPin = getBankPins()[i];

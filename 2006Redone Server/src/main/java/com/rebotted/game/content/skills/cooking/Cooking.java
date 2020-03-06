@@ -9,6 +9,7 @@ import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
 
@@ -144,7 +145,7 @@ public class Cooking extends SkillHandler {
 	private static void viewCookInterface(Player c, int item) {
 		c.getPacketSender().sendChatInterface(1743);
 		c.getPacketSender().sendFrame246(13716, view190 ? 190 : 170, item);
-		c.getPacketSender().sendFrame126(getLine(c) + "" + ItemAssistant.getItemName(item) + "", 13717);
+		c.getPacketSender().sendString(getLine(c) + "" + ItemAssistant.getItemName(item) + "", 13717);
 	}
 
 	public static boolean startCooking(Player c, int itemId, int objectId) {
@@ -218,7 +219,7 @@ public class Cooking extends SkillHandler {
 						return;
 					}
 					boolean burn;
-					if (player.playerEquipment[GameConstants.HANDS] == 775) {
+					if (player.playerEquipment[ItemConstants.HANDS] == 775) {
 						burn = !getSuccess(player, 3, item.getLevelReq(), item.getStopBurnGloves());
 					} else {
 						burn = !getSuccess(player, 3, item.getLevelReq(), item.getStopBurn());

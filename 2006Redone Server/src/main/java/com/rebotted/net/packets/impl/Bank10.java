@@ -86,7 +86,7 @@ public class Bank10 implements PacketType {
 		case 1121:
 		case 1122:
 		case 1123:
-			player.getSmithing().readInput(player.playerLevel[player.playerSmithing], Integer.toString(removeId), player, 10);
+			player.getSmithing().readInput(player, player.playerLevel[player.playerSmithing], removeId, 10);
 			break;
 
 		}

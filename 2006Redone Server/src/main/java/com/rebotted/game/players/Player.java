@@ -71,6 +71,7 @@ import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.Inventory;
 import com.rebotted.game.items.ItemData;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.impl.PotionMixing;
 import com.rebotted.game.items.impl.Teles;
 import com.rebotted.game.npcs.Npc;
@@ -88,6 +89,7 @@ import com.rebotted.net.packets.impl.ChallengePlayer;
 import com.rebotted.util.ISAACRandomGen;
 import com.rebotted.util.Misc;
 import com.rebotted.util.Stream;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.ObjectManager;
 
 public abstract class Player {
@@ -523,13 +525,13 @@ public abstract class Player {
 
 	public void puzzleBarrow() {
 		getPacketSender().sendFrame246(4545, 250, 6833);
-		getPacketSender().sendFrame126("1.", 4553);
+		getPacketSender().sendString("1.", 4553);
 		getPacketSender().sendFrame246(4546, 250, 6832);
-		getPacketSender().sendFrame126("2.", 4554);
+		getPacketSender().sendString("2.", 4554);
 		getPacketSender().sendFrame246(4547, 250, 6830);
-		getPacketSender().sendFrame126("3.", 4555);
+		getPacketSender().sendString("3.", 4555);
 		getPacketSender().sendFrame246(4548, 250, 6829);
-		getPacketSender().sendFrame126("4.", 4556);
+		getPacketSender().sendString("4.", 4556);
 		getPacketSender().sendFrame246(4550, 250, 3454);
 		getPacketSender().sendFrame246(4551, 250, 8746);
 		getPacketSender().sendFrame246(4552, 250, 6830);
@@ -776,16 +778,14 @@ public abstract class Player {
 			getPacketSender().walkableInterface(197);
 			isSnowy = false;
 			if (CombatConstants.SINGLE_AND_MULTI_ZONES) {
-				if (inMulti()) {
-					getPacketSender().sendFrame126("@yel@Level: " + wildLevel,
-							199);
+				if (Boundary.isIn(this, Boundary.MULTI)) {
+					getPacketSender().sendString("@yel@Level: " + wildLevel, 199);
 				} else {
-					getPacketSender().sendFrame126("@yel@Level: " + wildLevel,
-							199);
+					getPacketSender().sendString("@yel@Level: " + wildLevel, 199);
 				}
 			} else {
 				getPacketSender().multiWay(-1);
-				getPacketSender().sendFrame126("@yel@Level: " + wildLevel, 199);
+				getPacketSender().sendString("@yel@Level: " + wildLevel, 199);
 			}
 			getPacketSender().showOption(3, 0, "Attack", 1);
 		} else if (inDuelArena()) {
@@ -802,7 +802,7 @@ public abstract class Player {
         	getPacketSender().walkableInterface(11908);
 			isSnowy = false;
 		} else if (isInBarrows() || isInBarrows2()) {
-			getPacketSender().sendFrame126("Kill Count: " + barrowsKillCount, 4536);
+			getPacketSender().sendString("Kill Count: " + barrowsKillCount, 4536);
 			getPacketSender().walkableInterface(4535);
 			isSnowy = false;
 		} else if (inCw() || inPits) {
@@ -850,7 +850,7 @@ public abstract class Player {
 	}
 
 	public void process() {
-		if (inDesert() && heightLevel == 0) {
+		if (Boundary.isIn(this, Boundary.DESERT) && heightLevel == 0) {
 			DesertHeat.callHeat(this);
 		}
 		if (playerEnergy < 100 && System.currentTimeMillis() - lastIncrease >= getPlayerAssistant().raiseTimer()) {
@@ -917,12 +917,12 @@ public abstract class Player {
 			}
 		}
 
-		if (!hasMultiSign && inMulti()) {
+		if (!hasMultiSign && Boundary.isIn(this, Boundary.MULTI)) {
 			hasMultiSign = true;
 			getPacketSender().multiWay(1);
 		}
 
-		if (hasMultiSign && !inMulti()) {
+		if (hasMultiSign && !Boundary.isIn(this, Boundary.MULTI)) {
 			hasMultiSign = false;
 			getPacketSender().multiWay(-1);
 		}
@@ -1164,7 +1164,7 @@ public abstract class Player {
 	}
 
 	public void correctCoordinates() {
-		if (inPcGame()) {
+		if (Boundary.isIn(this, Boundary.PC_GAME)) {
 			getPlayerAssistant().movePlayer(2657, 2639, 0);
 		} else if (FightPitsArea()) {
 			getPlayerAssistant().movePlayer(2399, 5178, 0);
@@ -1571,35 +1571,6 @@ public abstract class Player {
 		}
 	}
 
-	public boolean inCWsaraBase() {
-		if (absX > 2422 && absX < 2432 && absY > 3071 && absY < 3081
-				&& heightLevel == 1) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean inCWzammyBase() {
-		if (absX > 2367 && absX < 2377 && absY > 3126 && absY < 3136
-				&& heightLevel == 1) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean saraTeam() {
-		return playerEquipment[GameConstants.CAPE] == 4041;
-	}
-
-	public boolean zammyTeam() {
-		return playerEquipment[GameConstants.CAPE] == 4042;
-	}
-
-	public boolean inCwSafe() {
-		return (isInAreaxxyy(2423, 2431, 3072, 3080) || isInAreaxxyy(2368, 2376, 3127, 3135))
-				&& heightLevel == 1;
-	}
-
 	public boolean inZammyWait() {
 		return isInAreaxxyy(2409, 2431, 9511, 9535);
 	}
@@ -1609,20 +1580,7 @@ public abstract class Player {
 	}
 
 	public boolean inCwGame() {
-		return isInAreaxxyy(2368, 2431, 9479, 9535) || isInAreaxxyy(2368, 2431, 3072, 3135)
-				&& !inSaraWait() && !inZammyWait();
-	}
-
-	public boolean inCwUnderground() {
-		return isInAreaxxyy(2368, 2431, 9479, 9535) && !inSaraWait() && !inZammyWait();
-	}
-
-	public boolean inZammyBase() {
-		return isInAreaxxyy(2368, 2384, 3118, 3135);
-	}
-
-	public boolean inSaraBase() {
-		return isInAreaxxyy(2414, 2431, 3072, 3088);
+		return isInAreaxxyy(2368, 2431, 9479, 9535) || isInAreaxxyy(2368, 2431, 3072, 3135) && !inSaraWait() && !inZammyWait();
 	}
 
 	public void gameInterface(int id) {
@@ -1633,7 +1591,6 @@ public abstract class Player {
 
 	public int gameInterface;
 	public int lastGame;
-
 
 	public int[][] barrowsNpcs = { { 2030, 0 }, // verac
 			{ 2029, 0 }, // toarg
@@ -1706,6 +1663,7 @@ public abstract class Player {
 
 	public boolean isMining;
 	public boolean hasThievedStall;
+	public boolean stopFiremaking = false, pickedUpFiremakingLog = false, logLit;
 
 	public boolean hasThievedStall() {
 		return hasThievedStall;
@@ -1808,44 +1766,6 @@ public abstract class Player {
 		return false;
 	}
 
-	public boolean inMulti() {
-		if (absX >= 3136
-				&& absX <= 3327
-				&& absY >= 3519
-				&& absY <= 3607// duel?
-				|| absX >= 2360
-				&& absX <= 2445
-				&& absY >= 5045
-				&& absY <= 5125
-				|| absX >= 3190
-				&& absX <= 3327
-				&& absY >= 3648
-				&& absY <= 3839// duel?
-				|| absX >= 3200 && absX <= 3390 && absY >= 3840 && absY <= 3967
-				|| absX >= 2992 && absX <= 3007 && absY >= 3912 && absY <= 3967
-				|| absX >= 2946 && absX <= 2959 && absY >= 3816 && absY <= 3831
-				|| absX >= 3008 && absX <= 3199 && absY >= 3856 && absY <= 3903
-				|| absX >= 3008 && absX <= 3071 && absY >= 3600 && absY <= 3711
-				|| absX >= 3072 && absX <= 3327 && absY >= 3608 && absY <= 3647
-				|| absX >= 2624
-				&& absX <= 2690
-				&& absY >= 2550
-				&& absY <= 2619
-				|| absX >= 2667
-				&& absX <= 2685
-				&& absY >= 3712
-				&& absY <= 3730 // rock
-								// crabs
-				|| absX >= 2371 && absX <= 2422 && absY >= 5062 && absY <= 5117
-				|| absX >= 2896 && absX <= 2927 && absY >= 3595 && absY <= 3630
-				|| absX >= 2892 && absX <= 2932 && absY >= 4435 && absY <= 4464
-				|| absX >= 2256 && absX <= 2287 && absY >= 4680 && absY <= 4711
-				|| inKqArea()) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean inKqArea() {
 		if (absX >= 3467  && absX <= 3506 && absY >= 9477 && absY <= 9513) {
 			return true;
@@ -1861,52 +1781,12 @@ public abstract class Player {
 			if (!wildernessWarning) {
 				resetWalkingQueue();
 				wildernessWarning = true;
-				getPacketSender().sendFrame126("WARNING!", 6940);
+				getPacketSender().sendString("WARNING!", 6940);
 				getPacketSender().showInterface(1908);
 			}
 			return true;
 		}
 		return false;
-	}
-
-	public boolean inBankArea() {
-        return isInArea(3205,3226,3214,3211) && heightLevel == 2|| //Lumbridge Bank
-				isInArea(3266,3171,3272,3162) || //Al Kharid Bank
-				isInArea(2436,5186,2453,5174) || //Tzhaar area
-                isInArea(2842,2957,2860,2950) || //Shilo Bank
-				isInArea(3492,3215,3456,3200) || //Burgh d rott
-				isInArea(3377,3275,3386,3266) || //Clan Wars
-				isInArea(3087,3248,3098,3239) || //Draynor
-				isInArea(3248,3423,3260,3414) || //Varrock East
-				isInArea(3183,3446,3193,3432) || //Varrock West
-				isInArea(3088,3501,3100,3486) || //Edgeville
-				isInArea(3009,3358,3020,3352) || //Falador East
-				isInArea(2942,3374,2950,3365) || //Falador West
-				isInArea(2839,3547,2844,3540) || //Warriors guild
-				isInArea(2804,3447,2815,3438) || //Catherby
-				isInArea(2718,3500,2733,3485) || //Seer's village
-				isInArea(2610,3338,2622,3326) || //North ardy
-				isInArea(2645,3288,2660,3281) || //South ardy
-				isInArea(2658,3165,2670,3158) || //Khazard
-				isInArea(2607,3098,2618,3087) || //Yanille
-				isInArea(2442,3084,2444,3081) || //Castle Wars
-				isInArea(2348,3168,2358,3159) || //Lleyta
-				isInArea(2324,3694,2334,3685) || //Piscatoris
-				isInArea(2527,3581,2539,3563) || //Barbarian Assault
-				isInArea(2448,3420,2442,3430) || //Tree Gnome Stronghold
-                isInArea(2453,3491,2440,3478) && heightLevel == 1 || //Grand Tree Area
-				isInArea(2843,2958,2816,2944) || //Shilo Village
-				isInArea(3113,3131,3131,3118) || //Tutorial Island
-				isInArea(3422,2895,3433,2885) || //Nardah
-				isInArea(3685,3473,3694,3461) || //Phasmatys
-                isInArea(2530,4725,2550,4705) || //Phasmatys
-				isInArea(2834, 10215, 2841, 10204) || // Keldagrim
-				isInArea(2379, 4453, 2386, 4462) || // Zanaris
-				isInArea(2582, 3423, 2591, 3417) || //Fishing Guild
-				isInArea(3509, 3483, 3516, 3476) || //Canifis
-				isInArea(3297, 3133, 3311, 3115) || //Shantay Pass
-                isInArea(3049, 4977, 3035, 4967) && heightLevel == 1 || //Rogues den
-				false;
 	}
 
 	public boolean inPlayerShopArea() {
@@ -1925,13 +1805,6 @@ public abstract class Player {
 				isInArea(2546, 3157, 2512, 3176) ||
 				isInArea(2451, 3408, 2425, 3437) ||
 				false;
-	}
-	
-	public boolean inDesert() {
-		if (tutorialProgress >= 0 && tutorialProgress <= 36) {
-			return false;
-		}
-		return (getX() >= 3137 && getX() <= 3321 && getY() >= 2880 && getY() <= 3115);
 	}
 
 	public boolean duelingArena() {
@@ -1963,24 +1836,11 @@ public abstract class Player {
 		return false;
 	}
 
-	public boolean inPcBoat() {
-		return absX >= 2660 && absX <= 2663 && absY >= 2638 && absY <= 2643;
-	}
-
-	public boolean inPcGame() {
-		return absX >= 2624 && absX <= 2690 && absY >= 2550 && absY <= 2619;
-	}
-
 	public boolean inDuelArena() {
 		if (absX > 3322 && absX < 3394 && absY > 3195 && absY < 3291 || absX > 3311 && absX < 3323 && absY > 3223 && absY < 3248) {
 			return true;
 		}
 		return false;
-	}
-
-	public boolean inBank() { // Area(top left X, bottom right X, bottom right Y, top left Y)
-		   return isInAreaxxyy(3090, 3099, 3487, 3500) || isInAreaxxyy(3089, 3090, 3492, 3498) || isInAreaxxyy(3249, 3258, 3413, 3428) || isInAreaxxyy(3180, 3191, 3432, 3448) || isInAreaxxyy(2945, 2948, 3365, 3374) ||
-			   isInAreaxxyy(2943, 2948, 3367, 3374) || isInAreaxxyy(2945, 2950, 3365, 3370) || isInAreaxxyy(3009, 3018, 3352, 3359) || isInAreaxxyy(3017, 3022, 3353, 3357);
 	}
 
 	public boolean inLumbBuilding() {
@@ -2032,10 +1892,10 @@ public abstract class Player {
 	public PlayerHandler handler = null;
 	public int playerItems[] = new int[28];
 	public int playerItemsN[] = new int[28];
-	public int bankItems[] = new int[GameConstants.BANK_SIZE];
-	public int bankItemsN[] = new int[GameConstants.BANK_SIZE];
+	public int bankItems[] = new int[ItemConstants.BANK_SIZE];
+	public int bankItemsN[] = new int[ItemConstants.BANK_SIZE];
 	// used for player owned shops
-	public int bankItemsV[] = new int[GameConstants.BANK_SIZE];
+	public int bankItemsV[] = new int[ItemConstants.BANK_SIZE];
 	public boolean bankNotes = false;
 	public boolean shouldSave = false;
 
@@ -2125,11 +1985,11 @@ public abstract class Player {
 				playerXP[i] = 0;
 			}
 		}
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			bankItems[i] = 0;
 		}
 
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			bankItemsN[i] = 0;
 		}
 

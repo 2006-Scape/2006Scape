@@ -9,12 +9,12 @@ public class Tanning extends CraftingData {
 		for (final tanningData t : tanningData.values()) {
 			c.getPacketSender().itemOnInterface(t.getItemFrame(), 250,
 					t.getLeatherId());
-			c.getPacketSender().sendFrame126(t.getName(), t.getNameFrame());
+			c.getPacketSender().sendString(t.getName(), t.getNameFrame());
 			if (c.getItemAssistant().playerHasItem(995, t.getPrice())) {
-				c.getPacketSender().sendFrame126(
+				c.getPacketSender().sendString(
 						"@gre@Price: " + t.getPrice(), t.getCostFrame());
 			} else {
-				c.getPacketSender().sendFrame126(
+				c.getPacketSender().sendString(
 						"@red@Price: " + t.getPrice(), t.getCostFrame());
 			}
 		}
@@ -23,12 +23,12 @@ public class Tanning extends CraftingData {
 	public static void tanHide(final Player player, final int buttonId) {
 		for (final tanningData t : tanningData.values()) {
 			if (buttonId == t.getButtonId(buttonId)) {
-				int amount = player.getItemAssistant().getItemCount(t.getHideId());
+				int amount = player.getItemAssistant().getItemAmount(t.getHideId());
 				if (amount > t.getAmount(buttonId)) {
 					amount = t.getAmount(buttonId);
 				}
 				int price = amount * t.getPrice();
-				int coins = player.getItemAssistant().getItemCount(995);
+				int coins = player.getItemAssistant().getItemAmount(995);
 				if (price > coins) {
 					price = coins - coins % t.getPrice();
 				}

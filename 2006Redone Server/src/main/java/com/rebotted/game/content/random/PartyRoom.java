@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
+import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.ItemData;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
@@ -156,7 +157,7 @@ public class PartyRoom {
 
 	public static void depositItem(Player player, int id, int amount) {
 		int slot = arraySlot(player.party, id);
-		for (int i : GameConstants.ITEM_TRADEABLE) {
+		for (int i : ItemConstants.ITEM_TRADEABLE) {
 			if (i == id) {
 				player.getPacketSender().sendMessage("You can't deposit this item.");
 				return;
@@ -170,13 +171,11 @@ public class PartyRoom {
 			amount = player.getItemAssistant().getItemAmount(id);
 		}
 		if (!player.getItemAssistant().playerHasItem(id, amount)) {
-			player.getPacketSender().sendMessage(
-					"You don't have that many items!");
+			player.getPacketSender().sendMessage("You don't have that many items!");
 			return;
 		}
 		if (slot == -1) {
-			player.getPacketSender().sendMessage(
-					"You cant deposit more than 8 items at once.");
+			player.getPacketSender().sendMessage("You cant deposit more than 8 items at once.");
 			return;
 		}
 		player.getItemAssistant().deleteItem(id, amount);

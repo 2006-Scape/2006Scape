@@ -269,7 +269,7 @@ public class ItemData {
 					case 7138:
 					case 548:
 					case 6185:
-						slot = GameConstants.LEGS;
+						slot = ItemConstants.LEGS;
 						break;
 					// Hats
 					case 4166:
@@ -295,7 +295,7 @@ public class ItemData {
 					case 5543:
 					case 5545:
 					case 5547:
-						slot = GameConstants.HAT;
+						slot = ItemConstants.HAT;
 						break;
 					// Cape
 					case 4304:
@@ -312,12 +312,12 @@ public class ItemData {
 					case 3789:
 					case 4514:
 					case 4516:
-						slot = GameConstants.CAPE;
+						slot = ItemConstants.CAPE;
 						break;
 					// Shield
 					case 7051:
 					case 7053:
-						slot = GameConstants.SHIELD;
+						slot = ItemConstants.SHIELD;
 						break;
 					// Chest
 					case 577:
@@ -340,7 +340,7 @@ public class ItemData {
 					case 7390:
 					case 7392:
 					case 6186:
-						slot = GameConstants.CHEST;
+						slot = ItemConstants.CHEST;
 						break;
 					// Amulet
 					case 3853:
@@ -354,11 +354,11 @@ public class ItemData {
 					case 4306:
 					case 3867:
 					case 1702:
-						slot = GameConstants.AMULET;
+						slot = ItemConstants.AMULET;
 						break;
 					// Hands
 					case 776:
-						slot = GameConstants.HANDS;
+						slot = ItemConstants.HANDS;
 						break;
 					default:
 						slot = c;

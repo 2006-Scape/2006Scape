@@ -247,9 +247,9 @@ public class Trawler extends GroupMinigame {
         public void playerUpdates() {
                 for (Player p : players) {
                         if (p != null) {
-                                p.asClient().getPacketSender().sendFrame126(net_ripped ? "@red@Ripped" : "@gre@Okay", 11935);
-                                p.getPacketSender().sendFrame126("" + fish_caught, 11937);
-                                p.getPacketSender().sendFrame126(game_time + " mins", 11938);
+                                p.asClient().getPacketSender().sendString(net_ripped ? "@red@Ripped" : "@gre@Okay", 11935);
+                                p.getPacketSender().sendString("" + fish_caught, 11937);
+                                p.getPacketSender().sendString(game_time + " mins", 11938);
                                 p.getPacketSender().sendFrame20(391, water_level);
                         } else {
                                 players_to_remove.add(p);
@@ -288,7 +288,7 @@ public class Trawler extends GroupMinigame {
                                 p.getPacketSender().showInterface(3281);
                                 p.getPacketSender().sendFrame20(75, 11);
                                 p.getPlayerAssistant().movePlayer(1885, 4825, 1);
-                                p.getPacketSender().sendFrame126("", 11936);
+                                p.getPacketSender().sendString("", 11936);
                         }
                 }
                 CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {

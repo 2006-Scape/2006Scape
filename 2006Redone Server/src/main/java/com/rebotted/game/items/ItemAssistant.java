@@ -10,6 +10,7 @@ import com.rebotted.game.players.MainFrameIDs;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 
 public class ItemAssistant {
 
@@ -65,7 +66,7 @@ public class ItemAssistant {
 				{ itemName, "14184" } };// make some kind of c.getItemInfo
 		c.getPacketSender().sendFrame34(itemId, 0, 14171, 1);
 		for (int i = 0; i < info.length; i++)
-			c.getPacketSender().sendFrame126(info[i][0], Integer.parseInt(info[i][1]));
+			c.getPacketSender().sendString(info[i][0], Integer.parseInt(info[i][1]));
 		c.getPacketSender().sendChatInterface(14170);
 	}
 
@@ -165,7 +166,7 @@ public class ItemAssistant {
 
 	public void addItemToBank(int itemId, int amount) {
 		itemId++;
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] <= 0 || c.bankItems[i] == itemId && c.bankItemsN[i] + amount < Integer.MAX_VALUE) {
 				c.bankItems[i] = itemId;
 				c.bankItemsN[i] += amount;
@@ -177,7 +178,7 @@ public class ItemAssistant {
 
 	public void removeItemFromBank(int itemId, int amount) {
 		itemId++;
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] == itemId) {
 				c.bankItemsN[i] -= amount;
 				if (c.bankItemsN[i] <= 0) {
@@ -209,16 +210,17 @@ public class ItemAssistant {
 			c.flushOutStream();
 		}
 	}
-
-	public int getItemCount(int itemID) {
-		int count = 0;
-		for (int j = 0; j < c.playerItems.length; j++) {
-			if (c.playerItems[j] == itemID + 1) {
-				count += c.playerItemsN[j];
+	
+	public int getItemAmount(int itemID) {
+		int itemCount = 0;
+		for (int i = 0; i < c.playerItems.length; i++) {
+			if (c.playerItems[i] - 1 == itemID) {
+				itemCount += c.playerItemsN[i];
 			}
 		}
-		return count;
+		return itemCount;
 	}
+
 
 	public void writeBonus() {
 		int offset = 0;
@@ -233,7 +235,7 @@ public class ItemAssistant {
 			if (i == 10) {
 				offset = 1;
 			}
-			c.getPacketSender().sendFrame126(send, 1675 + i + offset);
+			c.getPacketSender().sendString(send, 1675 + i + offset);
 		}
 
 	}
@@ -447,7 +449,7 @@ public class ItemAssistant {
 	}
 
 	public boolean tradeable(int itemId) {
-		for (int element : GameConstants.ITEM_TRADEABLE) {
+		for (int element : ItemConstants.ITEM_TRADEABLE) {
 			if (itemId == element) {
 				return false;
 			}
@@ -575,13 +577,13 @@ public class ItemAssistant {
 			c.getPacketSender().setSidebarInterface(0, 5855); // punch,
 			// kick,
 			// block
-			c.getPacketSender().sendFrame126(weaponName, 5857);
+			c.getPacketSender().sendString(weaponName, 5857);
 		} else if (weaponName.endsWith("whip")) {
 			c.getPacketSender().setSidebarInterface(0, 12290); // flick,
 			// lash,
 			// deflect
 			c.getPacketSender().sendFrame246(12291, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 12293);
+			c.getPacketSender().sendString(weaponName, 12293);
 		} else if (weaponName.endsWith("bow") || weaponName.endsWith("10")
 				|| weaponName.endsWith("full")
 				|| weaponName.startsWith("seercull")) {
@@ -589,7 +591,7 @@ public class ItemAssistant {
 			// rapid,
 			// longrange
 			c.getPacketSender().sendFrame246(1765, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 1767);
+			c.getPacketSender().sendString(weaponName, 1767);
 		} else if (weaponName.startsWith("Staff")
 				|| weaponName.endsWith("staff") || weaponName.endsWith("wand")) {
 			c.getPacketSender().setSidebarInterface(0, 328); // spike,
@@ -597,7 +599,7 @@ public class ItemAssistant {
 			// smash,
 			// block
 			c.getPacketSender().sendFrame246(329, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 331);
+			c.getPacketSender().sendString(weaponName, 331);
 		} else if (newWeapon.startsWith("dart")
 				|| newWeapon.startsWith("knife")
 				|| newWeapon.startsWith("javelin")
@@ -606,7 +608,7 @@ public class ItemAssistant {
 			// rapid,
 			// longrange
 			c.getPacketSender().sendFrame246(4447, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 4449);
+			c.getPacketSender().sendString(weaponName, 4449);
 		} else if (newWeapon.startsWith("dagger")
 				|| newWeapon.contains("sword")) {
 			c.getPacketSender().setSidebarInterface(0, 2276); // stab,
@@ -614,14 +616,14 @@ public class ItemAssistant {
 			// slash,
 			// block
 			c.getPacketSender().sendFrame246(2277, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 2279);
+			c.getPacketSender().sendString(weaponName, 2279);
 		} else if (newWeapon.startsWith("pickaxe")) {
 			c.getPacketSender().setSidebarInterface(0, 5570); // spike,
 			// impale,
 			// smash,
 			// block
 			c.getPacketSender().sendFrame246(5571, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 5573);
+			c.getPacketSender().sendString(weaponName, 5573);
 		} else if (newWeapon.startsWith("axe")
 				|| newWeapon.startsWith("battleaxe")) {
 			c.getPacketSender().setSidebarInterface(0, 1698); // chop,
@@ -629,43 +631,43 @@ public class ItemAssistant {
 			// smash,
 			// block
 			c.getPacketSender().sendFrame246(1699, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 1701);
+			c.getPacketSender().sendString(weaponName, 1701);
 		} else if (newWeapon.startsWith("halberd")) {
 			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
 			// swipe,
 			// fend
 			c.getPacketSender().sendFrame246(8461, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 8463);
+			c.getPacketSender().sendString(weaponName, 8463);
 		} else if (newWeapon.startsWith("Scythe")) {
 			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
 			// swipe,
 			// fend
 			c.getPacketSender().sendFrame246(8461, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 8463);
+			c.getPacketSender().sendString(weaponName, 8463);
 		} else if (newWeapon.startsWith("spear")) {
 			c.getPacketSender().setSidebarInterface(0, 4679); // lunge,
 			// swipe,
 			// pound,
 			// block
 			c.getPacketSender().sendFrame246(4680, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 4682);
+			c.getPacketSender().sendString(weaponName, 4682);
 		} else if (newWeapon.toLowerCase().contains("mace")) {
 			c.getPacketSender().setSidebarInterface(0, 3796);
 			c.getPacketSender().sendFrame246(3797, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 3799);
+			c.getPacketSender().sendString(weaponName, 3799);
 
 		} else if (c.playerEquipment[c.playerWeapon] == 4153) {
 			c.getPacketSender().setSidebarInterface(0, 425); // war hamer
 			// equip.
 			c.getPacketSender().sendFrame246(426, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 428);
+			c.getPacketSender().sendString(weaponName, 428);
 		} else {
 			c.getPacketSender().setSidebarInterface(0, 2423); // chop,
 			// slash,
 			// lunge,
 			// block
 			c.getPacketSender().sendFrame246(2424, 200, weapon);
-			c.getPacketSender().sendFrame126(weaponName, 2426);
+			c.getPacketSender().sendString(weaponName, 2426);
 		}
 
 	}
@@ -1216,7 +1218,7 @@ public class ItemAssistant {
 
 	public void updateSpecialBar() {
 		if (c.usingSpecial) {
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					""
 							+ (c.specAmount >= 2 ? "@yel@S P"
 							: "@bla@S P")
@@ -1245,7 +1247,7 @@ public class ItemAssistant {
 							+ (c.specAmount >= 10 ? "@yel@ K"
 							: "@bla@ K"), c.specBarId);
 		} else {
-			c.getPacketSender().sendFrame126(
+			c.getPacketSender().sendString(
 					"@bla@S P E C I A L  A T T A C K", c.specBarId);
 		}
 	}
@@ -1294,7 +1296,7 @@ public class ItemAssistant {
 			return false;
 		}
 
-		int targetSlot = GameConstants.HAT;
+		int targetSlot = ItemConstants.HAT;
 		boolean canWearItem = true;
 		if (c.playerItems[slot] == wearID + 1) {
 			getRequirements(getItemName(wearID).toLowerCase(), wearID);
@@ -1347,12 +1349,12 @@ public class ItemAssistant {
 
 			if (GameConstants.ITEM_REQUIREMENTS) {
 				// Check if slot is armor
-				if (targetSlot == GameConstants.FEET
-						|| targetSlot == GameConstants.LEGS
-						|| targetSlot == GameConstants.SHIELD
-						|| targetSlot == GameConstants.CHEST
-						|| targetSlot == GameConstants.HAT
-						|| targetSlot == GameConstants.HANDS) {
+				if (targetSlot == ItemConstants.FEET
+						|| targetSlot == ItemConstants.LEGS
+						|| targetSlot == ItemConstants.SHIELD
+						|| targetSlot == ItemConstants.CHEST
+						|| targetSlot == ItemConstants.HAT
+						|| targetSlot == ItemConstants.HANDS) {
 					if (c.defenceLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[1]) < c.defenceLevelReq) {
 							c.getPacketSender().sendMessage("You need a defence level of " + c.defenceLevelReq + " to wear this item.");
@@ -1385,7 +1387,7 @@ public class ItemAssistant {
 					}
 				}
 				// Weapon
-				if (targetSlot == GameConstants.WEAPON) {
+				if (targetSlot == ItemConstants.WEAPON) {
 					if (c.attackLevelReq > 0) {
 						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[0]) < c.attackLevelReq) {
 							c.getPacketSender().sendMessage("You need an attack level of " + c.attackLevelReq + " to wield this weapon.");
@@ -1430,13 +1432,13 @@ public class ItemAssistant {
 			}
 
 			if (CastleWars.isInCw(c) || CastleWars.isInCwWait(c)) {
-				if (targetSlot == GameConstants.CAPE || targetSlot == GameConstants.HAT) {
+				if (targetSlot == ItemConstants.CAPE || targetSlot == ItemConstants.HAT) {
 					c.getPacketSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
 					return false;
 				}
 			}
 
-			if (targetSlot == GameConstants.WEAPON) {
+			if (targetSlot == ItemConstants.WEAPON) {
 				c.autocasting = false;
 				c.autocastId = 0;
 				c.getPacketSender().sendConfig(108, 0);
@@ -1450,26 +1452,26 @@ public class ItemAssistant {
 				if (toEquip == toRemove + 1 && ItemData.itemStackable[toRemove]) {
 					deleteItem(toRemove, getItemSlot(toRemove), toEquipN);
 					c.playerEquipmentN[targetSlot] += toEquipN;
-				} else if (targetSlot != GameConstants.SHIELD && targetSlot != GameConstants.WEAPON) {
+				} else if (targetSlot != ItemConstants.SHIELD && targetSlot != ItemConstants.WEAPON) {
 					c.playerItems[slot] = toRemove + 1;
 					c.playerItemsN[slot] = toRemoveN;
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
-				} else if (targetSlot == GameConstants.SHIELD) {
-					boolean wearing2h = is2handed(getItemName(c.playerEquipment[GameConstants.WEAPON]).toLowerCase(), c.playerEquipment[GameConstants.WEAPON]);
+				} else if (targetSlot == ItemConstants.SHIELD) {
+					boolean wearing2h = is2handed(getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase(), c.playerEquipment[ItemConstants.WEAPON]);
 					if (wearing2h) {
 						// remove the weapon, add to inventory
 						toRemove = c.playerEquipment[c.playerWeapon];
 						toRemoveN = c.playerEquipmentN[c.playerWeapon];
 						c.playerEquipment[c.playerWeapon] = -1;
 						c.playerEquipmentN[c.playerWeapon] = 0;
-						updateSlot(GameConstants.WEAPON);
+						updateSlot(ItemConstants.WEAPON);
 					}
 					c.playerItems[slot] = toRemove + 1;
 					c.playerItemsN[slot] = toRemoveN;
 					c.playerEquipment[targetSlot] = toEquip - 1;
 					c.playerEquipmentN[targetSlot] = toEquipN;
-				} else if (targetSlot == GameConstants.WEAPON) {
+				} else if (targetSlot == ItemConstants.WEAPON) {
 					if (CastleWars.SARA_BANNER == toRemove || CastleWars.ZAMMY_BANNER == toRemove) { // alk
 						// update
 						CastleWars.dropFlag(c, toRemove);
@@ -1477,8 +1479,8 @@ public class ItemAssistant {
 						toRemoveN = 0;
 					}
 					boolean is2h = is2handed(getItemName(wearID).toLowerCase(), wearID);
-					boolean wearingShield = c.playerEquipment[GameConstants.SHIELD] > 0;
-					boolean wearingWeapon = c.playerEquipment[GameConstants.WEAPON] > 0;
+					boolean wearingShield = c.playerEquipment[ItemConstants.SHIELD] > 0;
+					boolean wearingWeapon = c.playerEquipment[ItemConstants.WEAPON] > 0;
 					if (is2h) {
 						if (wearingShield && wearingWeapon) {
 							if (freeSlots() > 0) {
@@ -1486,19 +1488,19 @@ public class ItemAssistant {
 								c.playerItemsN[slot] = toRemoveN;
 								c.playerEquipment[targetSlot] = toEquip - 1;
 								c.playerEquipmentN[targetSlot] = toEquipN;
-								removeItem(c.playerEquipment[GameConstants.SHIELD], GameConstants.SHIELD);
+								removeItem(c.playerEquipment[ItemConstants.SHIELD], ItemConstants.SHIELD);
 							} else {
 								c.getPacketSender().sendMessage("You do not have enough inventory space to do this.");
 								return false;
 							}
 						} else if (wearingShield && !wearingWeapon) {
-							c.playerItems[slot] = c.playerEquipment[GameConstants.SHIELD] + 1;
-							c.playerItemsN[slot] = c.playerEquipmentN[GameConstants.SHIELD];
+							c.playerItems[slot] = c.playerEquipment[ItemConstants.SHIELD] + 1;
+							c.playerItemsN[slot] = c.playerEquipmentN[ItemConstants.SHIELD];
 							c.playerEquipment[targetSlot] = toEquip - 1;
 							c.playerEquipmentN[targetSlot] = toEquipN;
-							c.playerEquipment[GameConstants.SHIELD] = -1;
-							c.playerEquipmentN[GameConstants.SHIELD] = 0;
-							updateSlot(GameConstants.SHIELD);
+							c.playerEquipment[ItemConstants.SHIELD] = -1;
+							c.playerEquipmentN[ItemConstants.SHIELD] = 0;
+							updateSlot(ItemConstants.SHIELD);
 						} else {
 							c.playerItems[slot] = toRemove + 1;
 							c.playerItemsN[slot] = toRemoveN;
@@ -1514,7 +1516,7 @@ public class ItemAssistant {
 				}
 			}
 			resetItems(3214);
-			if (targetSlot == GameConstants.WEAPON) {
+			if (targetSlot == ItemConstants.WEAPON) {
 				c.usingSpecial = false;
 				addSpecialBar(wearID);
 			}
@@ -1642,7 +1644,7 @@ public class ItemAssistant {
 	public void rearrangeBank() {
 		int totalItems = 0;
 		int highestSlot = 0;
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] != 0) {
 				totalItems++;
 				if (highestSlot <= i) {
@@ -1673,7 +1675,7 @@ public class ItemAssistant {
 		}
 
 		int totalItemsAfter = 0;
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] != 0) {
 				totalItemsAfter++;
 			}
@@ -1689,9 +1691,9 @@ public class ItemAssistant {
 		if (c.getOutStream() != null) {
 			c.getOutStream().createFrameVarSizeWord(53);
 			c.getOutStream().writeWord(5382); // bank
-			c.getOutStream().writeWord(GameConstants.BANK_SIZE);
+			c.getOutStream().writeWord(ItemConstants.BANK_SIZE);
 		}
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			if (c.getOutStream() != null) {
 				if (c.bankItemsN[i] > 254) {
 					c.getOutStream().writeByte(255);
@@ -1757,8 +1759,8 @@ public class ItemAssistant {
 			c.getPacketSender().sendMessage("You can't store items while trading!");
 			return false;
 		}
-		for (int i = 0; i < GameConstants.ITEM_BANKABLE.length; i++) {
-			if (itemID == GameConstants.ITEM_BANKABLE[i]) {
+		for (int i = 0; i < ItemConstants.ITEM_BANKABLE.length; i++) {
+			if (itemID == ItemConstants.ITEM_BANKABLE[i]) {
 				c.getPacketSender().sendMessage("You can't bank that item!");
 				return false;
 			}
@@ -1773,7 +1775,7 @@ public class ItemAssistant {
 			return false;
 		}
 
-		if (!(c.lastMainFrameInterface == MainFrameIDs.DEPOSIT_BOX || c.lastMainFrameInterface == MainFrameIDs.BANK || c.inBankArea())) { //Packet exploit prevention
+		if (!(c.lastMainFrameInterface == MainFrameIDs.DEPOSIT_BOX || c.lastMainFrameInterface == MainFrameIDs.BANK || Boundary.isIn(c, Boundary.BANK_AREA))) { //Packet exploit prevention
 			c.getPacketSender().sendMessage("You don't have a bank open! Report this ID to developers: " + c.lastMainFrameInterface);
 			return false;
 		}
@@ -1788,22 +1790,22 @@ public class ItemAssistant {
 			if (ItemData.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot]) {
 						if (c.playerItemsN[fromSlot] < amount) {
 							amount = c.playerItemsN[fromSlot];
 						}
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = GameConstants.BANK_SIZE + 1;
+						i = ItemConstants.BANK_SIZE + 1;
 					}
 				}
 
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = GameConstants.BANK_SIZE + 1;
+							i = ItemConstants.BANK_SIZE + 1;
 						}
 					}
 					c.bankItems[toBankSlot] = c.playerItems[fromSlot];
@@ -1841,18 +1843,18 @@ public class ItemAssistant {
 				itemID = c.playerItems[fromSlot];
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot]) {
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = GameConstants.BANK_SIZE + 1;
+						i = ItemConstants.BANK_SIZE + 1;
 					}
 				}
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = GameConstants.BANK_SIZE + 1;
+							i = ItemConstants.BANK_SIZE + 1;
 						}
 					}
 					int firstPossibleSlot = 0;
@@ -1915,22 +1917,22 @@ public class ItemAssistant {
 			if (ItemData.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot] - 1) {
 						if (c.playerItemsN[fromSlot] < amount) {
 							amount = c.playerItemsN[fromSlot];
 						}
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = GameConstants.BANK_SIZE + 1;
+						i = ItemConstants.BANK_SIZE + 1;
 					}
 				}
 
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = GameConstants.BANK_SIZE + 1;
+							i = ItemConstants.BANK_SIZE + 1;
 						}
 					}
 					c.bankItems[toBankSlot] = c.playerItems[fromSlot] - 1;
@@ -1964,18 +1966,18 @@ public class ItemAssistant {
 				itemID = c.playerItems[fromSlot];
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
-				for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 					if (c.bankItems[i] == c.playerItems[fromSlot] - 1) {
 						alreadyInBank = true;
 						toBankSlot = i;
-						i = GameConstants.BANK_SIZE + 1;
+						i = ItemConstants.BANK_SIZE + 1;
 					}
 				}
 				if (!alreadyInBank && freeBankSlots() > 0) {
-					for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 						if (c.bankItems[i] <= 0) {
 							toBankSlot = i;
-							i = GameConstants.BANK_SIZE + 1;
+							i = ItemConstants.BANK_SIZE + 1;
 						}
 					}
 					int firstPossibleSlot = 0;
@@ -2039,7 +2041,7 @@ public class ItemAssistant {
 
 	public int freeBankSlots() {
 		int freeS = 0;
-		for (int i = 0; i < GameConstants.BANK_SIZE; i++) {
+		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
 			if (c.bankItems[i] <= 0) {
 				freeS++;
 			}
@@ -2060,8 +2062,7 @@ public class ItemAssistant {
 
 	public void fromBank(int itemID, int fromSlot, int amount) {
 		boolean cantWithdrawCuzMaxStack = false;
-		if (!(c.lastMainFrameInterface == MainFrameIDs.BANK || c.inBankArea()))
-		{
+		if (!(c.lastMainFrameInterface == MainFrameIDs.BANK || Boundary.isIn(c, Boundary.BANK_AREA))) {
 			c.getPacketSender().sendMessage("Your bank isn't open!");
 			return;
 		}
@@ -2175,16 +2176,6 @@ public class ItemAssistant {
 		}
 	}
 
-	public int itemAmount(int itemID) {
-		int tempAmount = 0;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] == itemID) {
-				tempAmount += c.playerItemsN[i];
-			}
-		}
-		return tempAmount;
-	}
-
 	public boolean isStackable(int itemID) {
 		return ItemData.itemStackable[itemID];
 	}
@@ -2231,8 +2222,8 @@ public class ItemAssistant {
 		}
 
 		if (moveWindow == 5382 && from >= 0 && to >= 0
-				&& from < GameConstants.BANK_SIZE && to < GameConstants.BANK_SIZE
-				&& to < GameConstants.BANK_SIZE) {
+				&& from < ItemConstants.BANK_SIZE && to < ItemConstants.BANK_SIZE
+				&& to < ItemConstants.BANK_SIZE) {
 			if (insertMode) {
 				int tempFrom = from;
 				for (int tempTo = to; tempFrom != tempTo;)
@@ -2521,17 +2512,7 @@ public class ItemAssistant {
 		}
 		return -1;
 	}
-
-	public int getItemAmount(int ItemID) {
-		int itemCount = 0;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] - 1 == ItemID) {
-				itemCount += c.playerItemsN[i];
-			}
-		}
-		return itemCount;
-	}
-
+	
 	public boolean playerHasItem(int itemID, int amt, int slot) {
 		itemID++;
 		int found = 0;

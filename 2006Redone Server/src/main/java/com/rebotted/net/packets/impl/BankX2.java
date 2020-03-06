@@ -1,6 +1,7 @@
 package com.rebotted.net.packets.impl;
 
 import com.rebotted.game.content.random.PartyRoom;
+import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
 
@@ -19,10 +20,13 @@ public class BankX2 implements PacketType {
         if (Xamount == 0) {
             Xamount = 1;
         }
+        if (player.playerIsCooking && player.doAmount > 0) {
+			Cooking.cookItem(player, player.cookingItem, Xamount, player.cookingObject);
+		}
 		switch (player.xInterfaceId) {
 			case 5064:
 				if (player.inPartyRoom) {
-					PartyRoom.depositItem(player, player.xRemoveId, player.getItemAssistant().itemAmount(player.playerItems[player.xRemoveSlot]));
+					PartyRoom.depositItem(player, player.xRemoveId, player.getItemAssistant().getItemAmount(player.playerItems[player.xRemoveSlot]));
 					break;
 				}
 				if (player.inTrade) {
