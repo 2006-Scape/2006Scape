@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
-import com.rebotted.game.players.Location;
 import com.rebotted.game.players.Player;
+import com.rebotted.world.Boundary;
  
 public abstract class WaitingRoom {
        
@@ -15,7 +15,7 @@ public abstract class WaitingRoom {
         private int minutes_remaining;
         private boolean active;
        
-        public abstract Location getLocation();
+        public abstract Boundary getLocation();
         public abstract boolean startGame();
         public abstract void onStart();
         public abstract void onLeave(Player player);

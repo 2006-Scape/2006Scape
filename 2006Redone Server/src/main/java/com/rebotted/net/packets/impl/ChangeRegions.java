@@ -19,9 +19,9 @@ public class ChangeRegions implements PacketType {
 			Music.playMusic(c);
 		}
 		GameEngine.objectHandler.updateObjects(c);//testing
-		Doors.getSingleton().load();
 		GameEngine.itemHandler.reloadItems(c);
 		GameEngine.objectManager.loadObjects(c);
+		Doors.getSingleton().load();
 		GlobalDropsHandler.reset(c);
 		c.getPlayerAssistant().removeObjects();// testing
 		c.saveFile = true;

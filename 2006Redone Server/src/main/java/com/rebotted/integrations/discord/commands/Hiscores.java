@@ -9,7 +9,7 @@ public class Hiscores implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::hiscores") || message.getContent().equalsIgnoreCase("::highscores")) {
-            event.getChannel().sendMessage("https://2006rebotted.tk/hiscores.html");
+            event.getChannel().sendMessage("https://rsrebotted.com/hiscores.html");
         }
     }
 }

@@ -9,19 +9,23 @@ import com.rebotted.game.players.Player;
 public class Smithing {
 
 	private int addItem, xp, removeItem, removeAmount, makeTimes;
+	
+	private boolean hasItem(Player player, int type, String string) {
+		return (ItemAssistant.getItemName(type).contains(string));
+	}
 
 	public void readInput(Player player, int levelReq, int type, int amountToMake) {
-		if (ItemAssistant.getItemName(type).contains("Bronze")) {
+		if (hasItem(player, type, "Bronze")) {
 			 removeItem = 2349;
-		} else if (ItemAssistant.getItemName(type).contains("Iron")) {
+		} else if (hasItem(player, type, "Iron")) {
 			 removeItem = 2351;
-		} else if (ItemAssistant.getItemName(type).contains("Steel")) {
+		} else if (hasItem(player, type, "Steel")) {
 			 removeItem = 2353;
-		} else if (ItemAssistant.getItemName(type).contains("Mith")) {
+		} else if (hasItem(player, type, "Mith")) {
 			 removeItem = 2359;
-		} else if (ItemAssistant.getItemName(type).contains("Adam") || 	ItemAssistant.getItemName(type).contains("Addy")) {
+		} else if (hasItem(player, type, "Adam") || hasItem(player, type, "Addy")) {
 			 removeItem = 2361;
-		} else 	if (ItemAssistant.getItemName(type).contains("Rune") || ItemAssistant.getItemName(type).contains("Runite")) {
+		} else if (hasItem(player, type, "Rune") || hasItem(player, type, "Runite")) {
 			 removeItem = 2363;
 		}
 		checkBar(player, levelReq, amountToMake, type);
@@ -56,15 +60,8 @@ public class Smithing {
 					@Override
 					public void execute(CycleEventContainer container) {
 						if (player.doAmount <= 0 || !player.getItemAssistant().playerHasItem(removeItem, removeItem2) 
-								|| !player.isSmithing || player.isWoodcutting 
-								|| player.isCrafting || player.isMoving 
-								|| player.isMining || player.isBusy 
-								|| player.isShopping || player.isFletching 
-								|| player.isFiremaking || player.isSpinning 
-								|| player.isPotionMaking || player.playerIsFishing 
-								|| player.isBanking || player.isSmelting 
-								|| player.isTeleporting || player.isHarvesting 
-								|| player.playerIsCooking || player.isPotCrafting) {
+								|| !player.isSmithing || player.isBanking 
+								|| player.isSmelting) {
 							container.stop();
 						} else {
 							player.startAnimation(898);

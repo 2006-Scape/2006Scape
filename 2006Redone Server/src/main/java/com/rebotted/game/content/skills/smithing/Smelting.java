@@ -57,7 +57,12 @@ public class Smelting extends SkillHandler {
 	 */
 	public static void doAmount(Player c, int amount, int bartype) {
 		c.doAmount = amount;
-		smeltBar(c, bartype);
+		if (amount == 28) {
+			c.smeltingItem = bartype;
+			c.getOutStream().createFrame(27);
+		} else {
+			smeltBar(c, bartype);
+		}
 	}
 
 	/**
@@ -65,7 +70,7 @@ public class Smelting extends SkillHandler {
 	 * 
 	 * @param c
 	 */
-	private static void smeltBar(final Player c, int bartype) {
+	public static void smeltBar(final Player c, int bartype) {
 		for (int i = 0; i < data.length; i++) {
 			if (bartype == data[i][0]) {
 				// Check player has the correct smithing level

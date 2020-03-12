@@ -1,12 +1,12 @@
 package com.rebotted.game.content.minigames.trawler;
  
-import com.rebotted.game.players.Location;
 import com.rebotted.game.players.Player;
+import com.rebotted.world.Boundary;
  
 public class TrawlerWaitingRoom extends WaitingRoom {
  
         private Trawler trawler;
-        private Location boat = new Location(2668,2674,3165,3185);
+        private Boundary boat = new Boundary(2668,2674,3165,3185);
         //private Location boat = new Location(2808, 2811,3415,3425);
        
        
@@ -53,7 +53,7 @@ public class TrawlerWaitingRoom extends WaitingRoom {
                 }
         }
  
-        public Location getLocation() {
+        public Boundary getLocation() {
                 return boat;
         }
  

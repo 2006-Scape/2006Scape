@@ -720,16 +720,20 @@ public class NpcActions {
 		 * End of Quests
 		 */
 
+		case 2293:
+			if (c.absY >= 2939 && c.absY <= 2945) {
+				c.getDialogueHandler().sendDialogues(3565, npcType);
+			} else {
+				c.getDialogueHandler().sendDialogues(3570, npcType);
+			}
+			break;
+			
 		case 2294:
-			c.getDialogueHandler().sendDialogues(24, npcType);
+			c.getDialogueHandler().sendDialogues(3555, npcType);
 			break;
 
 		case 2296:
-			c.getDialogueHandler().sendDialogues(26, npcType);
-			break;
-
-		case 500:
-			c.getDialogueHandler().sendDialogues(21, npcType);
+			c.getDialogueHandler().sendDialogues(3559, npcType);
 			break;
 
 		case 659:

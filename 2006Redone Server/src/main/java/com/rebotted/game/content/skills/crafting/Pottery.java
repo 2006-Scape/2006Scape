@@ -74,24 +74,19 @@ public class Pottery {
 					c.startAnimation(unFire);
 					c.getItemAssistant().deleteItem(softClay, 1);
 					c.getItemAssistant().addItem(id, 1);
-					c.getPacketSender().sendMessage(
-							"You make the soft clay into a "
-									+ ItemAssistant.getItemName(id) + ".");
+					c.getPacketSender().sendMessage("You make the soft clay into a " + ItemAssistant.getItemName(id) + ".");
 					c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
 					c.doAmount--;
 				}
 
 				if (c.playerLevel[12] < level) {
 					container.stop();
-					c.getPacketSender().sendMessage(
-							"You need a crafting level of " + level
-									+ " to make this.");
+					c.getPacketSender().sendMessage("You need a crafting level of " + level + " to make this.");
 				}
 
 				if (!c.getItemAssistant().playerHasItem(softClay)) {
 					container.stop();
-					c.getPacketSender().sendMessage(
-							"You need soft clay to do this.");
+					c.getPacketSender().sendMessage("You need soft clay to do this.");
 				}
 
 				if (c.isPotCrafting == false) {
@@ -123,46 +118,31 @@ public class Pottery {
 			player.getItemAssistant().addItem(finishId, 1);
 			player.startAnimation(Fire);
 			player.getPacketSender().sendSound(469, 100, 0);
-			player.getPacketSender().sendMessage(
-					"You put a " + ItemAssistant.getItemName(startId)
-							+ " into the oven.");
-			player.getPacketSender().sendMessage(
-					"You retrieve the " + ItemAssistant.getItemName(finishId)
-							+ " from the oven.");
+			player.getPacketSender().sendMessage("You put a " + ItemAssistant.getItemName(startId) + " into the oven.");
+			player.getPacketSender().sendMessage("You retrieve the " + ItemAssistant.getItemName(finishId) + " from the oven.");
 			player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
 			player.doAmount--;
 		}
 
 		if (player.playerLevel[12] < level) {
-			player.getPacketSender().sendMessage(
-					"You need a crafting level of " + level + " to make this.");
+			player.getPacketSender().sendMessage("You need a crafting level of " + level + " to make this.");
 		}
 
-		if (!player.getItemAssistant().playerHasItem(startId)
-				&& player.playerLevel[12] >= level) {
-			player.getPacketSender().sendMessage(
-					"You need an " + ItemAssistant.getItemName(startId)
-							+ " to do this.");
+		if (!player.getItemAssistant().playerHasItem(startId) && player.playerLevel[12] >= level) {
+			player.getPacketSender().sendMessage("You need an " + ItemAssistant.getItemName(startId) + " to do this.");
 		}
 
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (player.getItemAssistant().playerHasItem(startId)
-						&& player.playerLevel[12] >= level
-						&& player.isPotCrafting && !(player.doAmount <= 0)) {
+				if (player.getItemAssistant().playerHasItem(startId) && player.playerLevel[12] >= level && player.isPotCrafting && !(player.doAmount <= 0)) {
 					player.getItemAssistant().deleteItem(startId, 1);
 					player.getItemAssistant().addItem(finishId, 1);
 					player.startAnimation(Fire);
 					player.getPacketSender().sendSound(469, 100, 0);
-					player.getPacketSender().sendMessage(
-							"You put a " + ItemAssistant.getItemName(startId)
-									+ " into the oven.");
-					player.getPacketSender().sendMessage(
-							"You retrieve the "
-									+ ItemAssistant.getItemName(finishId)
-									+ " from the oven.");
+					player.getPacketSender().sendMessage("You put a " + ItemAssistant.getItemName(startId) + " into the oven.");
+					player.getPacketSender().sendMessage("You retrieve the " + ItemAssistant.getItemName(finishId) + " from the oven.");
 					player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
 					player.doAmount--;
 				}

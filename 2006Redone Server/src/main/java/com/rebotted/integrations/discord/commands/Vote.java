@@ -8,7 +8,7 @@ public class Vote implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::vote")) {
-                event.getChannel().sendMessage("Visit https://2006rebotted.tk/vote.html then type \"::claimvote\" in-game to receive your reward!");
+                event.getChannel().sendMessage("Visit https://rsrebotted.com/vote.html then type \"::claimvote\" in-game to receive your reward!");
         }
     }
 }

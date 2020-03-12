@@ -10,6 +10,29 @@ import com.rebotted.world.clip.Region;
 
 public class Mining {
 	
+	/**
+	 * Andrew (Mr Extremez)
+	 */
+	private static final int[] RANDOM_GEMS = {1617, 1619, 1621, 1623};
+	private static final int[] GLORIES = {1706, 1708, 1710, 1712};
+	
+	public boolean giveGem(Player player) {
+		for (int i = 0; i < GLORIES.length; i++) {
+			if ((player.playerEquipment[player.playerAmulet] == GLORIES[i] && Misc.random(86) == 1) || Misc.random(256) == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void obtainGem(Player player) {
+		int reward = RANDOM_GEMS[(int)(RANDOM_GEMS.length * Math.random())];
+		if (giveGem(player)) {
+			player.getItemAssistant().addItem(reward, 1);
+			player.getPacketSender().sendMessage("You found an " + ItemAssistant.getItemName(reward) + ".");
+		}
+	}
+	
 	public final int[][] Pick_Settings = {
 		{1265, 1, 1, 625}, //Bronze
 		{1267, 1, 2, 626}, //Iron
@@ -56,7 +79,7 @@ public class Mining {
 		COPPER(new int[] { 3042, 2091, 2090, 9708, 9709, 9710, 11960, 14906, 14907 }, 1, 18, 1, 4, new int[] { 436 }),
 		TIN(new int[] { 2094, 2095, 3043, 9716, 9714, 11958, 11957, 11959, 11933, 11934, 11935, 14903, 14902 }, 1, 18, 1, 4, new int[] { 438 }),
 		BLURITE(new int[] { 10574, 10583, 10584, 2110 }, 10, 20, 1, 42, new int[] { 668 }),
-		IRON(new int[] { 2093, 2092, 9717, 9718, 9719, 11962, 11956, 11954, 14856, 14857, 14858, 14914, 14913 }, 15, 35, 2, 9, new int[] { 440 }),
+		IRON(new int[] { 450, 2093, 2092, 9717, 9718, 9719, 11962, 11956, 11954, 14856, 14857, 14858, 14914, 14913 }, 15, 35, 2, 9, new int[] { 440 }),
 		SILVER(new int[] { 2101, 11186, 11187, 11188, 2100 }, 20, 40, 3, 100, new int[] { 442 }),
 		COAL(new int[] { 2096, 2097, 11963, 11964, 14850, 14851, 14852, 11930, 11931, 11932 }, 30, 50, 4, 50, new int[] { 453 }),
 		GOLD(new int[] { 2099, 2098, 11183, 11184, 11185, 9720, 9722 }, 40,	65, 6, 100, new int[] { 444 }),
@@ -204,9 +227,13 @@ public class Mining {
 					return;
 				}
 				if (player.isMining) {
-					player.getItemAssistant().addItem(oreID, 1);
-					player.getPlayerAssistant().addSkillXP(rock.getXp(), player.playerMining);
-					player.getPacketSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(oreID).toLowerCase() + ".");
+					if (!giveGem(player)) {
+						player.getItemAssistant().addItem(oreID, 1);
+						player.getPlayerAssistant().addSkillXP(rock.getXp(), player.playerMining);
+						player.getPacketSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(oreID).toLowerCase() + ".");
+					} else {
+						obtainGem(player);
+					}
 				}
 				if (player.tutorialProgress == 17) {
 					if (rock != rockData.TIN) {
@@ -303,9 +330,7 @@ public class Mining {
 		            @Override
 		            public void execute(CycleEventContainer container) {
 					if (player.tutorialProgress == 15) {
-						player.getPacketSender().sendMessage(
-								"This rock contains "
-										+ itemName.toLowerCase() + ".");
+						player.getPacketSender().sendMessage("This rock contains " + itemName.toLowerCase() + ".");
 						player.getPacketSender().chatbox(6180);
 						player.getDialogueHandler()
 						.chatboxText(
@@ -320,9 +345,7 @@ public class Mining {
 						container.stop();
 						return;
 					} else if (player.tutorialProgress == 16) {
-						player.getPacketSender().sendMessage(
-								"This rock contains "
-										+ itemName.toLowerCase() + ".");
+						player.getPacketSender().sendMessage("This rock contains " + itemName.toLowerCase() + ".");
 						player.getPacketSender().chatbox(6180);
 						player.getDialogueHandler()
 						.chatboxText(
@@ -335,10 +358,8 @@ public class Mining {
 						container.stop();
 						return;
 					}
-					player.getPacketSender().sendMessage(
-							"This rock contains "
-									+ itemName.toLowerCase() + ".");
-					stop();
+					player.getPacketSender().sendMessage("This rock contains " + itemName.toLowerCase() + ".");
+					container.stop();
 				}
 
 					@Override
@@ -365,8 +386,8 @@ public class Mining {
 
 	public static void prospectNothing(final Player c) {
 		c.getPacketSender().sendMessage("You examine the rock for ores...");
-		   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-	            @Override
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+	          	@Override
 	            public void execute(CycleEventContainer container) {
 				c.getPacketSender().sendMessage("There is no ore left in this rock.");
 				container.stop();

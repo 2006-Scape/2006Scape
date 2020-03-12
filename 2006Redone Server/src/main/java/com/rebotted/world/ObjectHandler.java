@@ -72,6 +72,28 @@ public class ObjectHandler {
 		}
 		GameEngine.objectHandler.placeObject(OBJECT);
 	}
+	
+	public void createAnObject(Player player, int id, int x, int y, int h) {
+		Objects OBJECT = new Objects(id, x, y, h, 0, 10, 0);
+		if (id == -1) {
+			removeObject(OBJECT);
+		} else {
+			addObject(OBJECT);
+		}
+		GameEngine.objectHandler.placeObject(OBJECT);
+	}
+
+	
+	public void createAnObject(int id, int x, int y, int h, int face, int type) {
+		Objects OBJECT = new Objects(id, x, y, h, face, type, 0);
+		if (id == -1) {
+			removeObject(OBJECT);
+		} else {
+			addObject(OBJECT);
+		}
+		//Server.canLoadObjects = true;
+		GameEngine.objectHandler.placeObject(OBJECT);
+	}
 
 	public void createAnObject(int id, int x, int y) {
 		Objects OBJECT = new Objects(id, x, y, 0, 0, 10, 0);

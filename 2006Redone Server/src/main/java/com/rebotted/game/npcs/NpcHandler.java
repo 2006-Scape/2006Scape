@@ -873,7 +873,7 @@ public class NpcHandler {
 			}
 			break;
 		case 87:
-			if (c.isInTut() || c.tutorialProgress < 36) {
+			if (Boundary.isIn(c, Boundary.TUTORIAL) || c.tutorialProgress < 36) {
 				return false;
 			}
 			break;

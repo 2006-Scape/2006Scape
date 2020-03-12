@@ -16,8 +16,7 @@ public class PassDoor {
 	private static long doorDelay;
 	
 	public static boolean passThroughDoor(final Player player, final int objectType, int face1, final int face2, final int type, int x, int y, final int height) {
-		if (System.currentTimeMillis() - doorDelay < 1200) {
-			player.getPacketSender().sendMessage("You must wait longer to pass this door.");
+		if (System.currentTimeMillis() - doorDelay < 800) {
 			return false;
 		}
 
@@ -76,6 +75,10 @@ public class PassDoor {
 				passThroughDoor(player, objectType, 1, 2, 0, 1, 0, 2);
 			} else if (Position.checkPosition(player, 3108, 3162, 2)) {
 				passThroughDoor(player, objectType, 1, 2, 0, -1, 0, 2);
+			} else if (Position.checkPosition(player, 3109, 3162, 1)) {
+				passThroughDoor(player, objectType, 1, 2, 0, 1, 0, 1);
+			} else if (Position.checkPosition(player, 3110, 3162, 1)) {
+				passThroughDoor(player, objectType, 1, 2, 0, -1, 0, 1);
 			} else if (Position.checkPosition(player, 3109, 3159, 1)) {
 				passThroughDoor(player, objectType, 1, 2, 0, 1, 0, 1);
 			} else if (Position.checkPosition(player, 3110, 3159, 1)) {

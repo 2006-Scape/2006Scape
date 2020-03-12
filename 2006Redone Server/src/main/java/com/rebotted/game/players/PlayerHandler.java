@@ -263,7 +263,7 @@ public class PlayerHandler {
 
 		if (updateRunning && !updateAnnounced) {
 			updateAnnounced = true;
-			GameEngine.UpdateServer = true;
+			GameEngine.updateServer = true;
 		}
 		if (updateRunning
 				&& System.currentTimeMillis() - updateStartTime > updateSeconds * 1000) {

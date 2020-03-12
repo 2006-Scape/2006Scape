@@ -26,7 +26,6 @@ public class JavaCord {
                 //System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
                 api.addListener(new Commands());
                 api.addListener(new Forum());
-                api.addListener(new HeatMap());
                 api.addListener(new Hiscores());
                 api.addListener(new Issues());
                 api.addListener(new Online());

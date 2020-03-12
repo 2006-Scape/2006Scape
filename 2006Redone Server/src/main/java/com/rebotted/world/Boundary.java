@@ -281,7 +281,6 @@ public class Boundary {
 	
 	public static final Boundary ARDOUGNE_ZOO = new Boundary(2593, 2639, 3265, 3288);
 	public static final Boundary APE_ATOLL = new Boundary(2694, 2811, 2691, 2805);
-	public static final Boundary TUTORIAL_ISLAND = new Boundary(2625, 2687, 4670, 4735);
 	public static final Boundary BARROWS = new Boundary(3543, 3584, 3265, 3311);
 	public static final Boundary BARROWS_UNDERGROUND = new Boundary(3529, 3581, 9673, 9722);
 	public static final Boundary PC_BOAT = new Boundary(2660, 2663, 2638, 2643);

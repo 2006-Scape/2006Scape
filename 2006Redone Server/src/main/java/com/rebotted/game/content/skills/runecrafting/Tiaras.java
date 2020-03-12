@@ -15,9 +15,7 @@ public class Tiaras {
 				if (player.getItemAssistant().playerHasItem(5525)) {
 					player.getItemAssistant().deleteItem(5525, 1);
 					player.getItemAssistant().addItem(ruin[1], 1);
-					player.getPacketSender()
-							.sendMessage(
-									"You bind the power of the talisman into the tiara.");
+					player.getPacketSender().sendMessage("You bind the power of the talisman into the tiara.");
 				}
 				return true;
 			}

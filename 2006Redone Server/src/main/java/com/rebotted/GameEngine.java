@@ -109,7 +109,7 @@ public class GameEngine {
 	public static int[] cannonsY = new int [50];
 	public static String[] cannonsO = new String [50];
 	public static boolean sleeping;
-	public static boolean UpdateServer = false;
+	public static boolean updateServer = false;
 	public static long lastMassSave = System.currentTimeMillis();
 	private static IoAcceptor acceptor;
 	private static ConnectionHandler connectionHandler;

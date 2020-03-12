@@ -8,7 +8,7 @@ import com.rebotted.net.packets.impl.Bank10;
 import com.rebotted.net.packets.impl.Bank5;
 import com.rebotted.net.packets.impl.BankAll;
 import com.rebotted.net.packets.impl.BankX1;
-import com.rebotted.net.packets.impl.BankX2;
+import com.rebotted.net.packets.impl.InterfaceX;
 import com.rebotted.net.packets.impl.ChallengePlayer;
 import com.rebotted.net.packets.impl.ChangeAppearance;
 import com.rebotted.net.packets.impl.ChangeRegions;
@@ -122,7 +122,7 @@ public class PacketHandler {
 		packetId[95] = pm;
 		packetId[133] = pm;
 		packetId[135] = new BankX1();
-		packetId[208] = new BankX2();
+		packetId[208] = new InterfaceX();
 		Walking w = new Walking();
 		packetId[98] = w;
 		packetId[164] = w;

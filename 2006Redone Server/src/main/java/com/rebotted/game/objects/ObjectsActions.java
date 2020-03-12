@@ -38,10 +38,10 @@ import com.rebotted.game.objects.impl.BrimhavenVines;
 import com.rebotted.game.objects.impl.Climbing;
 import com.rebotted.game.objects.impl.FlourMill;
 import com.rebotted.game.objects.impl.Levers;
+import com.rebotted.game.objects.impl.OpenObject;
 import com.rebotted.game.objects.impl.OtherObjects;
 import com.rebotted.game.objects.impl.Pickable;
 import com.rebotted.game.objects.impl.Searching;
-import com.rebotted.game.objects.impl.SpecialObjects;
 import com.rebotted.game.objects.impl.UseOther;
 import com.rebotted.game.objects.impl.Webs;
 import com.rebotted.game.players.Player;
@@ -105,6 +105,7 @@ public class ObjectsActions {
 				ClimbOther.useOther(player, objectType);
 			}
 		}
+		OtherObjects.interactCurtain(player, objectType, objectX, objectY);
 		OtherObjects.searchSpecialObject(player, objectType);
 		Searching.searchObject(player, objectType);
 		Levers.pullLever(player, objectType);
@@ -113,6 +114,7 @@ public class ObjectsActions {
 		player.getDoubleGates().useDoubleGate(player, objectType);
 		PassDoor.processDoor(player, objectType);
 		AbyssalHandler.handleAbyssalTeleport(player, objectType);
+		OpenObject.interactObject(player, objectType, objectType == 399 ? true : false);
 		// if its a rock we can mine, mine it
 		if (Mining.rockExists(objectType))
 			player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
@@ -121,6 +123,13 @@ public class ObjectsActions {
 			return;
 		}
 		switch (objectType) {
+		case 6615:
+			if (player.absY == 2809) {
+				player.getPlayerAssistant().movePlayer(player.absX, 2810, 0);
+			} else if (player.absY == 2810) {
+				player.getPlayerAssistant().movePlayer(player.absX, 2809, 0);
+			}
+			break;
 		case 11163:
 			Ectofuntus.useBoneGrinder(player);
 		break;
@@ -792,15 +801,6 @@ public class ObjectsActions {
 			}
 			break;
 
-		case 1528:// curtain varrock pray altar
-			if (player.absY == 3390) {
-				player.getPlayerAssistant().movePlayer(player.absX,
-						player.absY + 1, 0);
-			} else if (player.absY == 3391) {
-				player.getPlayerAssistant().movePlayer(player.absX,
-						player.absY - 1, 0);
-			}
-			break;
 
 		case 95:
 		case 94:
@@ -1583,11 +1583,7 @@ public class ObjectsActions {
 			break;
 
 		case 4031:
-			SpecialObjects.initShantay(player, objectType);
-			break;
-
-		case 2693:
-			SpecialObjects.openShantayChest(player, objectType, objectX, objectY, "open");
+			OtherObjects.initShantay(player, objectType);
 			break;
 
 		case 2883:

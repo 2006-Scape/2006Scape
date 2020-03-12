@@ -87,7 +87,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("toadflax seed"), 1, UNCOMMON ),
 			new ItemDrop( i("wildblood seed"), 1, UNCOMMON ),
 			new ItemDrop( i("whiteberry seed"), 1, UNCOMMON ),
-			new ItemDrop( i("marentill seed"), 1, UNCOMMON ),
+			new ItemDrop( i("marrentill seed"), 1, UNCOMMON ),
 			new ItemDrop( i("ranarr seed"), 1, RARE ),
 			new ItemDrop( i("dwarf weed seed"), 1, RARE ),
 			new ItemDrop( i("lantadyme seed"), 1, RARE ),
@@ -138,7 +138,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( 161, 1, UNCOMMON ),
 			new ItemDrop( i("tokkul"), new int[]{100, 1900}, COMMON ),
 			new ItemDrop( i("lobster"), 1, UNCOMMON ),
-			new ItemDrop( i("chilli potato"), new int[]{1, 3}, UNCOMMON ),
+			new ItemDrop( i("chili potato"), new int[]{1, 3}, UNCOMMON ),
 			new ItemDrop( i("pure essence"), 5, VERY_RARE ),
 	};
 
@@ -193,7 +193,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("fire rune"), new int[]{10, 80}, COMMON ),
 			new ItemDrop( i("air rune"), new int[]{10, 80}, UNCOMMON ),
 			new ItemDrop( i("water rune"), new int[]{10, 80}, UNCOMMON ),
-			new ItemDrop( i("choas rune"), new int[]{5, 10}, UNCOMMON ),
+			new ItemDrop( i("chaos rune"), new int[]{5, 10}, UNCOMMON ),
 			new ItemDrop( i("nature rune"), new int[]{1, 8}, UNCOMMON ),
 			new ItemDrop( i("law rune"), new int[]{2, 5}, UNCOMMON ),
 			new ItemDrop( i("death rune"), new int[]{1, 6}, RARE ),
@@ -309,11 +309,11 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( 526, new int[]{1, 3}, COMMON ),
 			new ItemDrop( i("banana"), 1, UNCOMMON ),
 			new ItemDrop( i("limpwurt seed"), 1, COMMON ),
-			new ItemDrop( i("marentill seed"), 1, COMMON ),
+			new ItemDrop( i("marrentill seed"), 1, COMMON ),
 			new ItemDrop( i("tarromin seed"), 1, COMMON ),
 			new ItemDrop( i("harralander seed"), 1, UNCOMMON ),
-			new ItemDrop( i("strawberry sed"), 1, UNCOMMON ),
-			new ItemDrop( i("watermelon seeed"), 1, UNCOMMON ),
+			new ItemDrop( i("strawberry seed"), 1, UNCOMMON ),
+			new ItemDrop( i("watermelon seed"), 1, UNCOMMON ),
 			new ItemDrop( i("wildblood seed"), 1, UNCOMMON ),
 			new ItemDrop( i("toadflax seed"), 1, UNCOMMON ),
 			new ItemDrop( i("avantoe seed"), 1, UNCOMMON ),
@@ -427,7 +427,7 @@ public class NPCDrops extends NPCDropsHandler {
 	};
 
 	public static final ItemDrop[] jelly = {
-			new ItemDrop( i("choas rune"), 15, UNCOMMON ),
+			new ItemDrop( i("chaos rune"), 15, UNCOMMON ),
 			new ItemDrop( i("death rune"), 5, UNCOMMON ),
 			new ItemDrop( i("water rune"), new int[]{5, 21}, RARE ),
 			new ItemDrop( i("blood rune"), 7, RARE ),
@@ -631,7 +631,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( 4113, 1, RARE ),
 			new ItemDrop( i("law rune"), 3, COMMON ),
 			new ItemDrop( i("nature rune"), new int[]{15, 45}, UNCOMMON ),
-			new ItemDrop( i("poision ivy seed"), 1, COMMON ),
+			new ItemDrop( i("poison ivy seed"), 1, COMMON ),
 			new ItemDrop( i("cactus seed"), 1, COMMON ),
 			new ItemDrop( i("belladonna seed"), 1, COMMON ),
 			new ItemDrop( i("toadflax seed"), 1, COMMON ),
@@ -904,8 +904,8 @@ public class NPCDrops extends NPCDropsHandler {
 	};
 
 	public static final ItemDrop[] dagannothprime = {
-			new ItemDrop( i("dagganoth bones"), 1, ALWAYS ),
-			new ItemDrop( i("dagganoth hide"), 1, ALWAYS ),
+			new ItemDrop( i("dagannoth bones"), 1, ALWAYS ),
+			new ItemDrop( i("dagannoth hide"), 1, ALWAYS ),
 			new ItemDrop( i("air battlestaff"), 1, COMMON ),
 			new ItemDrop( i("earth battlestaff"), 1, COMMON ),
 			new ItemDrop( i("water battlestaff"), 1, COMMON ),
@@ -944,8 +944,8 @@ public class NPCDrops extends NPCDropsHandler {
 	};
 
 	public static final ItemDrop[] daggannothrex = {
-			new ItemDrop( i("dagganoth bones"), 1, ALWAYS ),
-			new ItemDrop( i("dagganoth hide"), 1, ALWAYS ),
+			new ItemDrop( i("dagannoth bones"), 1, ALWAYS ),
+			new ItemDrop( i("dagannoth hide"), 1, ALWAYS ),
 			new ItemDrop( i("fremennik blade"), 1, COMMON ),
 			new ItemDrop( i("mithril warhammer"), 1, COMMON ), // fremy
 			// blade
@@ -1253,7 +1253,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("tarromin seed"), 1, COMMON ),
 			new ItemDrop( i("harralander seed"), 1, COMMON ),
 			new ItemDrop( i("jangerberry seed"), 1, COMMON ),
-			new ItemDrop( i("marentill seed"), 1, COMMON ),
+			new ItemDrop( i("marrentill seed"), 1, COMMON ),
 			new ItemDrop( i("belladonna seed"), 1, UNCOMMON ),
 			new ItemDrop( i("limpwurt seed"), 1, UNCOMMON ),
 			new ItemDrop( i("toadflax seed"), 1, UNCOMMON ),
@@ -1345,7 +1345,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("steel axe"), 1, COMMON ),
 			new ItemDrop( i("steel battleaxe"), 1, COMMON ),
 			new ItemDrop( i("steel 2h sword"), 1, COMMON ),
-			new ItemDrop( i("mithril kitesiheld"), 1, UNCOMMON ),
+			new ItemDrop( i("mithril kiteshield"), 1, UNCOMMON ),
 			new ItemDrop( i("black 2h sword"), 1, UNCOMMON ),
 			new ItemDrop( i("rune full helm"), 1, RARE ),
 			new ItemDrop( i("adamant platelegs"), 1, RARE ),
@@ -1442,9 +1442,9 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("strawberry seed"), 1, COMMON ),
 			new ItemDrop( i("rune longsword"), 1, VERY_RARE ),
 			new ItemDrop( i("jangerberry seed"), 1, COMMON ),
-			new ItemDrop( i("marentill seed"), 1, UNCOMMON ),
+			new ItemDrop( i("marrentill seed"), 1, UNCOMMON ),
 			new ItemDrop( i("cadantine seed"), 1, UNCOMMON ),
-			new ItemDrop( i("bittecape mushroom spore"), 1, UNCOMMON ),
+			new ItemDrop( i("bittercap mushroom spore"), 1, UNCOMMON ),
 			new ItemDrop( i("irit seed"), 1, UNCOMMON ),
 			new ItemDrop( i("avantoe seed"), 1, UNCOMMON ),
 			new ItemDrop( i("dwarf weed seed"), 1, RARE ),
@@ -1506,7 +1506,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("water rune"), new int[]{20, 47}, COMMON ),
 			new ItemDrop( i("body rune"), new int[]{9, 24}, COMMON ),
 			new ItemDrop( i("mind rune"), new int[]{5, 7}, COMMON ),
-			new ItemDrop( i("choas rune"), new int[]{2, 5}, UNCOMMON ),
+			new ItemDrop( i("chaos rune"), new int[]{2, 5}, UNCOMMON ),
 			new ItemDrop( i("nature rune"), new int[]{4, 7}, UNCOMMON ),
 			new ItemDrop( i("law rune"), new int[]{2, 5}, RARE ),
 			new ItemDrop( i("blood rune"), new int[]{2, 5}, RARE ), // members
@@ -2291,7 +2291,7 @@ public class NPCDrops extends NPCDropsHandler {
 			new ItemDrop( i("snapdragon seed"), 1, UNCOMMON ),
 			new ItemDrop( i("jangerberry seed"), 1, UNCOMMON ),
 			new ItemDrop( i("limpwurt seed"), 1, UNCOMMON ),
-			new ItemDrop( i("marentill seed"), 1, UNCOMMON ),
+			new ItemDrop( i("marrentill seed"), 1, UNCOMMON ),
 			new ItemDrop( 5282, 1, UNCOMMON ),
 			new ItemDrop( i("ranarr seed"), 1, UNCOMMON ),
 			new ItemDrop( i("strawberry seed"), 1, UNCOMMON ),
