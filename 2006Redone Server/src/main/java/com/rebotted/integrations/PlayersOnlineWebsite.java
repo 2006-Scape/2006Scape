@@ -12,7 +12,7 @@ public class PlayersOnlineWebsite {
 
     private static void setWebsitePlayersOnline(int amount) throws IOException {
         URL url;
-        url = new URL("https://2006rebotted.tk/playersonline.php?pass=" + password + "&amount=" + amount);
+        url = new URL("https://rsrebotted.com/playersonline.php?pass=" + password + "&amount=" + amount);
         url.openStream().close();
     }
 

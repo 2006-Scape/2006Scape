@@ -10,7 +10,7 @@ public class RegisteredAccsWebsite {
 
     private static void setAccountsRegistered(int amount) throws IOException {
         URL url;
-        url = new URL("https://2006rebotted.tk/accountsregistered.php?pass=" + password + "&amount=" + amount);
+        url = new URL("https://rsrebotted.com/accountsregistered.php?pass=" + password + "&amount=" + amount);
         url.openStream().close();
     }
 

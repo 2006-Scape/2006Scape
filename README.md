@@ -32,7 +32,7 @@ Step 9: Start the Client ([Image](https://i.imgur.com/dHTiU0I.png))
 
 ## How to get your code onto this project page
 
-See this [forum post](https://2006rebotted.tk/forums/viewthread.php?forum=5&id=78).
+See this [forum post](https://rsrebotted.com/forums/viewthread.php?forum=5&id=78).
 
 ## Our 2.0 Client
 

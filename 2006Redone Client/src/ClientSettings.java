@@ -15,7 +15,7 @@ public class ClientSettings {
 	/**
 	 * The Servers Website
 	 */
-	public final static String SERVER_WEBSITE = "www.2006rebotted.tk";
+	public final static String SERVER_WEBSITE = "www.rsrebotted.com";
 	/**
 	 * The Servers Ip
 	 *
