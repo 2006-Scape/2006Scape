@@ -29,8 +29,7 @@ public class LogCutting {
 			player.getPacketSender().sendMessage("You need a fletching level of " + level + " to make this.");
 			return;
 		}
-		if (!player.playerIsFletching)
-		{
+		if (!player.playerIsFletching) {
 			player.playerIsFletching = true;
 			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				@Override
@@ -43,19 +42,14 @@ public class LogCutting {
 							|| player.playerIsCooking || player.isPotCrafting) {
 						container.stop();
 						return;
-					}
-					else
-					{
+					} else {
 						player.startAnimation(1248);
 						player.getItemAssistant().deleteItem(player.getFletching().log, 1);
-						if (product == 52)
-						{
+						if (product == 52) {
 							player.getItemAssistant().addItem(product, 15);
 							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(player.getFletching().log) + " into 15 " + ItemAssistant.getItemName(product) + "s.");
 
-						}
-						else
-						{
+						} else {
 							player.getItemAssistant().addItem(product, 1);
 							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(player.getFletching().log) + " into a " + ItemAssistant.getItemName(product) + ".");
 
@@ -291,14 +285,11 @@ public class LogCutting {
 	}
 
 	public static void wolfBoneArrow(Player c) {
-		if (c.getItemAssistant().playerHasItem(2859)
-				&& c.getItemAssistant().playerHasItem(1755)) {
+		if (c.getItemAssistant().playerHasItem(2859) && c.getItemAssistant().playerHasItem(1755)) {
 			final int amount = c.getItemAssistant().getItemAmount(2859);
-			final int makeAmount = c.getItemAssistant().getItemAmount(2859)
-					+ c.getItemAssistant().getItemAmount(2859) * Misc.random(4);
+			final int makeAmount = c.getItemAssistant().getItemAmount(2859) + c.getItemAssistant().getItemAmount(2859) * Misc.random(4);
 			if (!c.getItemAssistant().playerHasItem(2859)) {
-				c.getDialogueHandler().sendStatement(
-						"You don't have any bones left to chisel.");
+				c.getDialogueHandler().sendStatement("You don't have any bones left to chisel.");
 				c.nextChat = 0;
 				return;
 			}
@@ -321,10 +312,8 @@ public class LogCutting {
 			c.nextChat = 0;
 			return;
 		}
-		if (c.getItemAssistant().playerHasItem(314)
-				&& c.getItemAssistant().playerHasItem(2864)) {
-			final int feather = c.getItemAssistant().getItemAmount(314), arrowShaft = c
-					.getItemAssistant().getItemAmount(2864);
+		if (c.getItemAssistant().playerHasItem(314) && c.getItemAssistant().playerHasItem(2864)) {
+			final int feather = c.getItemAssistant().getItemAmount(314), arrowShaft = c.getItemAssistant().getItemAmount(2864);
 			if (feather == arrowShaft * 4) {
 				c.startAnimation(1248);
 				c.getItemAssistant().deleteItem(314, feather * 4);
@@ -349,8 +338,7 @@ public class LogCutting {
 			return;
 		}
 		final int wolfBoneArrow = c.getItemAssistant().getItemAmount(2861), flightedArrow = c.getItemAssistant().getItemAmount(2865);
-		if (c.getItemAssistant().playerHasItem(2861)
-				&& c.getItemAssistant().playerHasItem(2865)) {
+		if (c.getItemAssistant().playerHasItem(2861) && c.getItemAssistant().playerHasItem(2865)) {
 			if (wolfBoneArrow == flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);

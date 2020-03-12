@@ -58,8 +58,7 @@ public class JewelryMaking {
 			c.getPacketSender().sendString("", 4236);
 		} else {
 			c.getPacketSender().sendFrame246(4235, 120, 1597);
-			c.getPacketSender().sendString(
-					"You need a necklace mould to craft necklaces", 4236);
+			c.getPacketSender().sendString("You need a necklace mould to craft necklaces", 4236);
 			for (int i = 0; i < MOULD_INTERFACE_IDS[1].length; i++) {
 				c.getPacketSender().sendFrame34(-1, i, 4239, 1);
 			}
@@ -83,8 +82,7 @@ public class JewelryMaking {
 		}
 	}
 
-	public static void stringAmulet(final Player c, final int itemUsed,
-			final int usedWith) {
+	public static void stringAmulet(final Player c, final int itemUsed, final int usedWith) {
 		final int amuletId = itemUsed == 1759 ? usedWith : itemUsed;
 		for (final CraftingData.amuletData a : CraftingData.amuletData.values()) {
 			if (amuletId == a.getAmuletId()) {
@@ -138,17 +136,14 @@ public class JewelryMaking {
 			return;
 		}
 		if (player.playerLevel[player.playerCrafting] >= lvl) {
-			if (ItemAssistant.getItemName(itemAdd).toLowerCase()
-					.contains("gold")
+			if (ItemAssistant.getItemName(itemAdd).toLowerCase().contains("gold")
 					&& !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)
 					|| !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
-				player.getPacketSender().sendMessage(
-						"You need a Gold bar to make this.");
+				player.getPacketSender().sendMessage("You need a Gold bar to make this.");
 				return;
 			} else if (!player.getItemAssistant().playerHasItem(gem, 1)
 					&& player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
-				player.getPacketSender().sendMessage(
-						getRequiredMessage(ItemAssistant.getItemName(gem)));
+				player.getPacketSender().sendMessage(getRequiredMessage(ItemAssistant.getItemName(gem)));
 				return;
 			}
 			player.getPacketSender().closeAllWindows();
@@ -166,9 +161,7 @@ public class JewelryMaking {
 				done++;
 			}
 			if (done == 1) {
-				player.getPacketSender().sendMessage(
-						"You craft the gold to form a "
-								+ ItemAssistant.getItemName(itemAdd) + ".");
+				player.getPacketSender().sendMessage("You craft the gold to form a " + ItemAssistant.getItemName(itemAdd) + ".");
 			} else if (done > 1) {
 				player.getPacketSender().sendMessage(
 						"You craft the gold to form " + done
@@ -176,8 +169,7 @@ public class JewelryMaking {
 								+ "'s.");
 			}
 		} else {
-			player.getPacketSender().sendMessage(
-					"You need a Crafting level of " + lvl + " to craft this.");
+			player.getPacketSender().sendMessage("You need a Crafting level of " + lvl + " to craft this.");
 			return;
 		}
 	}

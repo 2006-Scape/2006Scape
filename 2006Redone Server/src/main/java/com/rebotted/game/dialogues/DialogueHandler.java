@@ -9,10 +9,11 @@ import com.rebotted.game.content.randomevents.RandomEventHandler;
 import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.content.skills.farming.Farmers;
 import com.rebotted.game.content.skills.slayer.Slayer;
+import com.rebotted.game.content.traveling.CarpetTravel;
 import com.rebotted.game.content.traveling.Sailing;
 import com.rebotted.game.globalworldobjects.PassDoor;
 import com.rebotted.game.npcs.NpcHandler;
-import com.rebotted.game.objects.impl.SpecialObjects;
+import com.rebotted.game.objects.impl.OtherObjects;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerAssistant;
 import com.rebotted.game.shops.Shops.Shop;
@@ -29,6 +30,14 @@ public class DialogueHandler {
 	public void endDialogue() {
 		player.nextChat = 0;
 		player.dialogueAction = 0;
+	}
+	
+	public void setOptionId(int id) {
+		player.dialogueAction = id;
+	}
+	
+	public void setNextDialogue(int id) {
+		player.nextChat = id;
 	}
 
 	public void sendDialogues(int dialogue, int npcId) {
@@ -209,73 +218,8 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 
-			case 24:
-				if (player.getItemAssistant().playerHasItem(995, 200)) {
-					sendNpcChat3("Hello Fair Traveler.",
-							"Can i interest you in a ride back to shantay",
-							"for 200 coins?", player.talkingNpc, "Rug Merchant");
-					player.nextChat = 25;
-				} else {
-					sendNpcChat1("You need 200 coins to travel my rug.",
-							player.talkingNpc, "Rug Merchant");
-					player.nextChat = 0;
-				}
-				break;
-
-			case 25:
-				sendPlayerChat("Yes please.");
-				player.getPlayerAssistant().startTeleport(3308, 3108, 0, "modern");
-				player.getItemAssistant().deleteItem(995, 200);
-				player.nextChat = 0;
-				break;
-
-			case 26:
-				if (player.getItemAssistant().playerHasItem(995, 200)) {
-					sendNpcChat2("Hello Fair Traveler.",
-							"Can i interest you in a ride for 200 coins?",
-							player.talkingNpc, "Rug Merchant");
-					player.nextChat = 27;
-				} else {
-					sendNpcChat1("You need 200 coins to travel my rug.",
-							player.talkingNpc, "Rug Merchant");
-					player.nextChat = 0;
-				}
-				break;
-
-			case 27:
-				sendOption("Pollnivneach (North)", "Bedabin Camp", "Uzer",
-						"Shantay Pass");
-				player.dialogueAction = 700;
-				break;
-
-			case 28:
-				sendPlayerChat("Pollnivneach please.");
-				player.getPlayerAssistant().startTeleport(3350, 3004, 0, "modern");
-				player.nextChat = 32;
-				break;
-			case 29:
-				sendPlayerChat("Bedabin Camp please.");
-				player.getPlayerAssistant().startTeleport(3180, 3043, 0, "modern");
-				player.nextChat = 32;
-				break;
-			case 30:
-				sendPlayerChat("Uzer please.");
-				player.getPlayerAssistant().startTeleport(3469, 3111, 0, "modern");
-				player.nextChat = 32;
-				break;
-			case 31:
-				sendPlayerChat("Shantay pass please.");
-				player.getPlayerAssistant().startTeleport(3308, 3108, 0, "modern");
-				player.nextChat = 32;
-				break;
-			case 32:
-				sendNpcChat1("Enjoy!", player.talkingNpc, "Rug Merchant");
-				player.getItemAssistant().deleteItem(995, 200);
-				player.nextChat = 0;
-				break;
 			case 33:
-				sendNpcChat1("The trip to karamja will cost you 30 coins.",
-						player.talkingNpc, "Sailor");
+				sendNpcChat1("The trip to karamja will cost you 30 coins.", player.talkingNpc, "Sailor");
 				player.nextChat = 34;
 				break;
 
@@ -4081,15 +4025,9 @@ public class DialogueHandler {
 			case 1027:
 				player.getDialogueHandler().sendStatement(
 						"10 coins are removed from your inventory.");
-				SpecialObjects.initKharid(player, player.objectId);
+				OtherObjects.initKharid(player, player.objectId);
 				player.nextChat = 0;
 				break;
-
-			/*
-			 * case 1028: client.getDialogueHandlers().sendStatement(
-			 * "10 coins are removed from your inventory."); client.nextChat = 0;
-			 * break;
-			 */
 
 			case 1033:
 				sendOption(
@@ -7044,6 +6982,111 @@ public class DialogueHandler {
 				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "That's all, thanks");
 				player.getDialogueHandler().endDialogue();
 				break;
+				
+			//24 - 32:
+			//=700
+			case 3555:
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hello Fair Traveler.",
+							"Can I interest you in a ride back to Shantay",
+							"for 200 coins?");
+					player.getDialogueHandler().setNextDialogue(3556);
+				break;
+				
+			case 3556:
+				player.getDialogueHandler().sendOption("Yes please", "No thanks");
+				player.getDialogueHandler().setOptionId(700);
+				break;
+
+			case 3557:
+				CarpetTravel.carpetTravel(player, 3308, 3108);
+				break;
+				
+			case 3558:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No thanks.");
+				player.getDialogueHandler().endDialogue();
+				break;
+
+			case 3559:
+				if (player.getItemAssistant().playerHasItem(995, 200)) {
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hello Fair Traveler.",
+							"Can I interest you in a ride for 200 coins?");
+					player.getDialogueHandler().setNextDialogue(3560);
+				} else {
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "You need 200 coins to travel my rug.");
+					player.getDialogueHandler().endDialogue();
+				}
+				break;
+			case 3560:
+				player.getDialogueHandler().sendOption("Pollnivneach (North)", "Bedabin Camp", "Uzer", "Shantay Pass");
+				player.getDialogueHandler().setOptionId(701);
+				break;
+			case 3561:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Pollnivneach please.");
+				CarpetTravel.carpetTravel(player, 3350, 3004);
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3562:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Bedabin Camp please.");
+				CarpetTravel.carpetTravel(player, 3180, 3043);
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3563:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Uzer please.");
+				CarpetTravel.carpetTravel(player, 3469, 3111);
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3564:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Shantay pass please.");
+				CarpetTravel.carpetTravel(player, 3309, 3109);
+				player.getDialogueHandler().endDialogue();
+				break;
+				
+			case 3565:
+				if (player.getItemAssistant().playerHasItem(995, 200)) {
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hello Fair Traveler.",
+							"Can I interest you in a ride for 200 coins?");
+					player.getDialogueHandler().setNextDialogue(3566);
+				} else {
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "You need 200 coins to travel my rug.");
+					player.getDialogueHandler().endDialogue();
+				}
+				break;
+			case 3566:
+				player.getDialogueHandler().sendOption("Sophanem", "Menaphos", "Nardah");
+				player.getDialogueHandler().setOptionId(702);
+				break;
+			case 3567:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Sophanem please.");
+				CarpetTravel.carpetTravel(player, 3284, 2813);
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3568:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Menaphos please.");
+				CarpetTravel.carpetTravel(player, 3246, 2813);
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3569:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Nardah please.");
+				CarpetTravel.carpetTravel(player, 3401, 2915);
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3570:
+				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hello Fair Traveler.",
+						"Can I interest you in a ride back to Pollnivneach",
+						"for 200 coins?");
+				player.getDialogueHandler().setNextDialogue(3571);
+			break;
+		case 3571:
+			player.getDialogueHandler().sendOption("Yes please", "No thanks");
+			player.getDialogueHandler().setOptionId(703);
+			break;
+		case 3572:
+			CarpetTravel.carpetTravel(player, 3347, 2944);
+			break;
+		case 3573:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No thanks.");
+			player.getDialogueHandler().endDialogue();
+			break;
 		}
 	}
 

@@ -462,6 +462,16 @@ public abstract class Player {
 	public boolean stopPlayer(boolean stop) {
 		return (stop ? stopPlayerPacket == true : stopPlayerPacket == false);
 	}
+	
+	public long objectDelay;
+	
+	public long getObjectDelay() {
+		return (objectDelay);
+	}
+	
+	public long setObjectDelay(long delay) {
+		return (objectDelay = delay);
+	}
 
 	public boolean isSnowy;
 
@@ -801,7 +811,7 @@ public abstract class Player {
         } else if(GameEngine.trawler.players.contains(this)) {
         	getPacketSender().walkableInterface(11908);
 			isSnowy = false;
-		} else if (isInBarrows() || isInBarrows2()) {
+		} else if (Boundary.isIn(this, Boundary.BARROWS) || Boundary.isIn(this, Boundary.BARROWS_UNDERGROUND)) {
 			getPacketSender().sendString("Kill Count: " + barrowsKillCount, 4536);
 			getPacketSender().walkableInterface(4535);
 			isSnowy = false;
@@ -1384,7 +1394,7 @@ public abstract class Player {
 			bankPin1, bankPin2, bankPin3, bankPin4, pinDeleteDateRequested,
 			rememberNpcIndex, ratsCaught, lastLoginDate, selectedSkill, newHerb,
 			newItem, newXp, doingHerb, herbAmount, treeX, treeY, lastH,
-			cookingItem, cookingObject, summonId, npcId2 = 0, leatherType = -1,
+			cookingItem, smeltingItem, cookingObject, summonId, npcId2 = 0, leatherType = -1,
 			weightCarried, teleotherType, rockX, rockY, itemUsing, tzKekTimer,
 			bananas, flourAmount, grain, questPoints, questStages,
 			teleGrabItem, teleGrabX, teleGrabY, duelCount, underAttackBy,
@@ -1571,16 +1581,8 @@ public abstract class Player {
 		}
 	}
 
-	public boolean inZammyWait() {
-		return isInAreaxxyy(2409, 2431, 9511, 9535);
-	}
-
-	public boolean inSaraWait() {
-		return isInAreaxxyy(2368, 2392, 9479, 9498);
-	}
-
 	public boolean inCwGame() {
-		return isInAreaxxyy(2368, 2431, 9479, 9535) || isInAreaxxyy(2368, 2431, 3072, 3135) && !inSaraWait() && !inZammyWait();
+		return isInAreaxxyy(2368, 2431, 9479, 9535) || isInAreaxxyy(2368, 2431, 3072, 3135) && !Boundary.isIn(this, Boundary.SARA_WAIT) && !Boundary.isIn(this, Boundary.ZAMMY_WAIT);
 	}
 
 	public void gameInterface(int id) {
@@ -1736,13 +1738,6 @@ public abstract class Player {
 		return false;
 	}
 
-	public boolean isInTut() {
-		if (absX >= 2625 && absX <= 2687 && absY >= 4670 && absY <= 4735) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean FightPitsArea() {
 		return absX >= 2378 && absX <= 2415 && absY >= 5133 && absY <= 5167
 				|| absX >= 2394 && absX <= 2404 && absY >= 5169 && absY <= 5174;
@@ -1822,39 +1817,11 @@ public abstract class Player {
         return false;
 	 }
 
-	public boolean isInBarrows() {
-		if(absX > 3543 && absX < 3584 && absY > 3265 && absY < 3311) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean isInBarrows2() {
-		if(absX > 3529 && absX < 3581 && absY > 9673 && absY < 9722) {
-			return true;
-		}
-		return false;
-	}
-
 	public boolean inDuelArena() {
 		if (absX > 3322 && absX < 3394 && absY > 3195 && absY < 3291 || absX > 3311 && absX < 3323 && absY > 3223 && absY < 3248) {
 			return true;
 		}
 		return false;
-	}
-
-	public boolean inLumbBuilding() {
-		return isInAreaxxyy(3205, 3216, 3209, 3228) || isInAreaxxyy(3229, 3233, 3206, 3208) || isInAreaxxyy(3228, 3233, 3201, 3205) || isInAreaxxyy(3230, 3237, 3195, 3198) || isInAreaxxyy(3238, 3229, 3209, 3211) ||
-			   isInAreaxxyy(3240, 3247, 3204, 3215) || isInAreaxxyy(3247, 3252, 3190, 3195) || isInAreaxxyy(3227, 3230, 3212, 3216) || isInAreaxxyy(3227, 3230, 3221, 3225) || isInAreaxxyy(3229, 3232, 3236, 3241) ||
-			   isInAreaxxyy(3209, 3213, 3243, 3250) || isInAreaxxyy(3222, 3229, 3252, 3257) || isInAreaxxyy(3184, 3192, 3270, 3275) || isInAreaxxyy(3222, 3224, 3292, 3294) || isInAreaxxyy(3225, 3230, 3287, 3228) ||
-			   isInAreaxxyy(3243, 3248, 3244, 3248) || isInAreaxxyy(3202, 3205, 3167, 3170) || isInAreaxxyy(3231, 3238, 3151, 3155) || isInAreaxxyy(3233, 3234, 3156, 3156) || isInAreaxxyy(3163, 3170, 3305, 3308) ||
-			   isInAreaxxyy(3165, 3168, 3303, 3310);
-	}
-
-     	public boolean inDraynorBuilding() {
-			return isInAreaxxyy(3097, 3102, 3277, 3281) || isInAreaxxyy(3088, 3092, 3273, 3276) || isInAreaxxyy(3096, 3102, 3266, 3270) || isInAreaxxyy(3089, 3095, 3265, 3268) || isInAreaxxyy(3083, 3088, 3256, 3261) ||
-				   isInAreaxxyy(3087, 3094, 3251, 3255) || isInAreaxxyy(3121, 3130, 3240, 3246) || isInAreaxxyy(3102, 3112, 3162, 3165) || isInAreaxxyy(3107, 3111, 3166, 3166) || isInAreaxxyy(3103, 3115, 3157, 3161) ||
-				   isInAreaxxyy(3105, 3114, 3156, 3156) || isInAreaxxyy(3105, 3113, 3155, 3155) || isInAreaxxyy(3106, 3112, 3154, 3154) || isInAreaxxyy(3092, 3097, 3240, 3246);
 	}
 
 	public boolean isInArea(final int x1, final int y1, final int x2, final int y2) {

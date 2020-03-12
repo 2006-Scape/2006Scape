@@ -13,8 +13,6 @@ public class Commands implements MessageCreateListener {
                     + System.lineSeparator() +
                     "::forum/::forums"
                     + System.lineSeparator() +
-                    "::heatmap"
-                    + System.lineSeparator() +
                     "::hiscores/::highscores"
                     + System.lineSeparator() +
                     "::issues/::bugs"

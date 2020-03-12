@@ -10,6 +10,7 @@ import com.rebotted.game.items.UseItem;
 import com.rebotted.game.items.impl.Fillables;
 import com.rebotted.game.players.Player;
 import com.rebotted.net.packets.PacketType;
+import com.rebotted.world.Boundary;
 import com.rebotted.world.clip.Region;
 
 public class ItemOnObject implements PacketType {
@@ -84,7 +85,7 @@ public class ItemOnObject implements PacketType {
 					&& player.absX < 2813 || player.absY > 3437 && player.absY < 3442) {
 				return;
 			}
-			if (player.tutorialProgress < 36 || player.isInTut()) {
+			if (player.tutorialProgress < 36 || Boundary.isIn(player, Boundary.TUTORIAL)) {
 				CookingTutorialIsland.cookThisFood(player, itemId, objectId);
 			} else {
 				Cooking.startCooking(player, itemId, objectId);

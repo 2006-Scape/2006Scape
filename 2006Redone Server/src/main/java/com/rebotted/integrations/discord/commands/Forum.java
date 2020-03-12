@@ -9,7 +9,7 @@ public class Forum implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::forum") || message.getContent().equalsIgnoreCase("::forums")) {
-            event.getChannel().sendMessage("https://2006rebotted.tk/forums/");
+            event.getChannel().sendMessage("https://rsrebotted.com/forums/index.php");
         }
     }
 }

@@ -80,7 +80,7 @@ public class ItemAssistant {
 
 	public void dropItem(int itemId) {
 		itemId = c.droppedItem;
-		GameEngine.itemHandler.createGroundItem(c, itemId, c.absX, c.absY, c.playerItemsN[getItemSlot(itemId)], c.getId());
+		GameEngine.itemHandler.createGroundItem(c, itemId, c.getX(), c.getY(), c.playerItemsN[getItemSlot(itemId)], c.getId());
 		deleteItem(itemId,getItemSlot(itemId), c.playerItemsN[getItemSlot(itemId)]);
 		c.getPacketSender().closeAllWindows();
 	}
@@ -89,11 +89,8 @@ public class ItemAssistant {
 		if (isStackable(item) && hasFreeSlots(1)) {
 			addItem(item, amount);
 		} else if (!hasFreeSlots(amount) && !isStackable(item)) {
-			GameEngine.itemHandler.createGroundItem(c, item, c.absX, c.absY,
-					amount, c.playerId);
-			c.getPacketSender()
-					.sendMessage(
-							"You have no inventory space, so the item(s) appear beneath you.");
+			GameEngine.itemHandler.createGroundItem(c, item, c.getX(), c.getY(), amount, c.playerId);
+			c.getPacketSender().sendMessage("You have no inventory space, so the item(s) appear beneath you.");
 		} else {
 			addItem(item, amount);
 		}
@@ -579,93 +576,63 @@ public class ItemAssistant {
 			// block
 			c.getPacketSender().sendString(weaponName, 5857);
 		} else if (weaponName.endsWith("whip")) {
-			c.getPacketSender().setSidebarInterface(0, 12290); // flick,
-			// lash,
-			// deflect
+			c.getPacketSender().setSidebarInterface(0, 12290); // flick, lash, deflect
 			c.getPacketSender().sendFrame246(12291, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 12293);
 		} else if (weaponName.endsWith("bow") || weaponName.endsWith("10")
 				|| weaponName.endsWith("full")
 				|| weaponName.startsWith("seercull")) {
-			c.getPacketSender().setSidebarInterface(0, 1764); // accurate,
-			// rapid,
-			// longrange
+			c.getPacketSender().setSidebarInterface(0, 1764); // accurate, rapid, longrange
 			c.getPacketSender().sendFrame246(1765, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 1767);
 		} else if (weaponName.startsWith("Staff")
 				|| weaponName.endsWith("staff") || weaponName.endsWith("wand")) {
-			c.getPacketSender().setSidebarInterface(0, 328); // spike,
-			// impale,
-			// smash,
-			// block
+			c.getPacketSender().setSidebarInterface(0, 328); // spike, impale, smash, block
 			c.getPacketSender().sendFrame246(329, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 331);
 		} else if (newWeapon.startsWith("dart")
 				|| newWeapon.startsWith("knife")
 				|| newWeapon.startsWith("javelin")
 				|| weaponName.equalsIgnoreCase("toktz-xil-ul")) {
-			c.getPacketSender().setSidebarInterface(0, 4446); // accurate,
-			// rapid,
-			// longrange
+			c.getPacketSender().setSidebarInterface(0, 4446); // accurate, rapid, longrange
 			c.getPacketSender().sendFrame246(4447, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 4449);
 		} else if (newWeapon.startsWith("dagger")
 				|| newWeapon.contains("sword")) {
-			c.getPacketSender().setSidebarInterface(0, 2276); // stab,
-			// lunge,
-			// slash,
-			// block
+			c.getPacketSender().setSidebarInterface(0, 2276); // stab, lunge, slash, block
 			c.getPacketSender().sendFrame246(2277, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 2279);
 		} else if (newWeapon.startsWith("pickaxe")) {
-			c.getPacketSender().setSidebarInterface(0, 5570); // spike,
-			// impale,
-			// smash,
-			// block
+			c.getPacketSender().setSidebarInterface(0, 5570); // spike, impale, smash, block
 			c.getPacketSender().sendFrame246(5571, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 5573);
 		} else if (newWeapon.startsWith("axe")
 				|| newWeapon.startsWith("battleaxe")) {
-			c.getPacketSender().setSidebarInterface(0, 1698); // chop,
-			// hack,
-			// smash,
-			// block
+			c.getPacketSender().setSidebarInterface(0, 1698); // chop, hack, smash, block
 			c.getPacketSender().sendFrame246(1699, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 1701);
 		} else if (newWeapon.startsWith("halberd")) {
-			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
-			// swipe,
-			// fend
+			c.getPacketSender().setSidebarInterface(0, 8460); // jab, swipe, fend
 			c.getPacketSender().sendFrame246(8461, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 8463);
 		} else if (newWeapon.startsWith("Scythe")) {
-			c.getPacketSender().setSidebarInterface(0, 8460); // jab,
-			// swipe,
-			// fend
+			c.getPacketSender().setSidebarInterface(0, 8460); // jab, swipe, fend
 			c.getPacketSender().sendFrame246(8461, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 8463);
 		} else if (newWeapon.startsWith("spear")) {
-			c.getPacketSender().setSidebarInterface(0, 4679); // lunge,
-			// swipe,
-			// pound,
-			// block
+			c.getPacketSender().setSidebarInterface(0, 4679); // lunge, swipe, pound, block
 			c.getPacketSender().sendFrame246(4680, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 4682);
 		} else if (newWeapon.toLowerCase().contains("mace")) {
 			c.getPacketSender().setSidebarInterface(0, 3796);
 			c.getPacketSender().sendFrame246(3797, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 3799);
-
 		} else if (c.playerEquipment[c.playerWeapon] == 4153) {
-			c.getPacketSender().setSidebarInterface(0, 425); // war hamer
-			// equip.
+			c.getPacketSender().setSidebarInterface(0, 425); // war hamer equip
 			c.getPacketSender().sendFrame246(426, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 428);
 		} else {
-			c.getPacketSender().setSidebarInterface(0, 2423); // chop,
-			// slash,
-			// lunge,
-			// block
+			c.getPacketSender().setSidebarInterface(0, 2423); // chop, slash, lung, block
 			c.getPacketSender().sendFrame246(2424, 200, weapon);
 			c.getPacketSender().sendString(weaponName, 2426);
 		}

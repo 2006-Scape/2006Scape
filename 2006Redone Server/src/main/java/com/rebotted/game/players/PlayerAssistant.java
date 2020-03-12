@@ -1151,7 +1151,7 @@ public class PlayerAssistant {
 		switch (spellId) {
 		case 1162: // low alch
 			if (player.inTrade) {
-				player.getPacketSender().sendMessage("You can't alch while in trade!");
+				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
 			}
 			if (System.currentTimeMillis() - player.alchDelay > 1000) {
@@ -1215,8 +1215,7 @@ public class PlayerAssistant {
 
 		case 1178: // high alch
 			if (player.inTrade) {
-				player.getPacketSender().sendMessage(
-						"You can't alch while in trade!");
+				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
 			}
 			if (System.currentTimeMillis() - player.alchDelay > 1000) {
@@ -1455,7 +1454,7 @@ public class PlayerAssistant {
 		} else if (PestControl.isInGame(player) || Boundary.isIn(player, Boundary.PC_GAME)) {
 			player.getPlayerAssistant().movePlayer(2658, 2609, 0);
 			player.getDialogueHandler().sendDialogues(601, 3790);
-		} else if (player.tutorialProgress < 36 || player.isInTut()) {
+		} else if (player.tutorialProgress < 36 || Boundary.isIn(player, Boundary.TUTORIAL)) {
 			player.getPlayerAssistant().movePlayer(3094, 3107, 0);
 			player.diedOnTut = true;
 			player.getDialogueHandler().sendStatement(

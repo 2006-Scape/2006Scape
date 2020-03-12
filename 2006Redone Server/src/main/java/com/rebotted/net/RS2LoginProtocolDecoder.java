@@ -217,7 +217,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 			returnCode = 7;
 		}
 
-		if (GameEngine.UpdateServer) {
+		if (GameEngine.updateServer) {
 			returnCode = 14;
 		}
 

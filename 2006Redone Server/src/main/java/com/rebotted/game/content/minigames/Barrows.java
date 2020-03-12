@@ -4,6 +4,7 @@ import com.rebotted.game.content.quests.QuestRewards;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 
 public class Barrows {
 	
@@ -106,7 +107,7 @@ public class Barrows {
 	 * Stair data
 	 */
 	public void useStairs() {
-		if (c.isInBarrows2()) {
+		if (Boundary.isIn(c, Boundary.BARROWS_UNDERGROUND)) {
 		switch(c.objectId) {
 		case 6703:
 			c.getPlayerAssistant().movePlayer(barrowData[0][5], barrowData[0][6], 0);
@@ -134,7 +135,7 @@ public class Barrows {
 	
 	
 	public void checkCoffins() {
-		if (c.isInBarrows2()) {
+		if (Boundary.isIn(c, Boundary.BARROWS_UNDERGROUND)) {
 			if (c.barrowsKillCount < 5) {
 				c.getPacketSender().sendMessage("You still have to kill the following brothers:");
 				if (c.barrowsNpcs[2][1] == 0) {
@@ -170,7 +171,7 @@ public class Barrows {
 	 * Grabs the reward based on random chance depending on what your killcount is.
 	 */
 	public void reward() {
-		if (c.isInBarrows2()) {
+		if (Boundary.isIn(c, Boundary.BARROWS_UNDERGROUND)) {
 		c.getItemAssistant().addItem(randomRunes(), Misc.random(150) + 100);
 		c.getItemAssistant().addItem(randomRunes(), Misc.random(150) + 100);
 		c.getItemAssistant().addItem(randomPots(), 1);
@@ -214,7 +215,7 @@ public class Barrows {
 	 * Using the chest.
 	 */
 	public void useChest() {
-	if (c.isInBarrows2()) {
+	if (Boundary.isIn(c, Boundary.BARROWS_UNDERGROUND)) {
 		if (!checkBarrows()) {
 			c.getPacketSender().sendMessage("You haven't killed all the brothers!");
 			return;

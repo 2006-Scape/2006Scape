@@ -13,6 +13,7 @@ import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.Misc;
+import com.rebotted.world.Boundary;
 
 public class NpcCombat {
 
@@ -99,7 +100,7 @@ public class NpcCombat {
 			if (NpcHandler.npcs[i].absY == 3228 && c.absY == 3227
 				|| NpcHandler.npcs[i].absY == 3224 && c.absY == 3225
 				|| NpcHandler.npcs[i].absY == 3226 && c.absY == 3227
-				|| c.inDraynorBuilding() && (NpcHandler.npcs[i].npcType == 172 || NpcHandler.npcs[i].npcType == 174)
+				|| Boundary.isIn(c, Boundary.DRAYNOR_BUILDING) && (NpcHandler.npcs[i].npcType == 172 || NpcHandler.npcs[i].npcType == 174)
 				|| NpcHandler.npcs[i].inLesserNpc()
 				|| !c.npcCanAttack
 				|| NpcHandler.npcs[i].isDead) {
@@ -114,7 +115,7 @@ public class NpcCombat {
 					|| NpcHandler.npcs[i].npcType == 752) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 1401 && c.isInTut() || c.tutorialProgress < 36) {
+			if (NpcHandler.npcs[i].npcType == 1401 && Boundary.isIn(c, Boundary.TUTORIAL) || c.tutorialProgress < 36) {
 				return;
 			}
 			if (NpcHandler.npcs[i].npcType == 9 && c.absX == 3180 && c.absY > 3433 && c.absY < 3447) {

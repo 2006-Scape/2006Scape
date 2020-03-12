@@ -46,7 +46,7 @@ public class Firemaking {
 					c.getPacketSender().sendMessage("You need a firemaking level of " + l.getLevel() + " to light " + ItemAssistant.getItemName(logId));
 					return;
 				}
-				if (Boundary.isIn(c, Boundary.BANK_AREA) || c.inLumbBuilding() || c.inDraynorBuilding()) {
+				if (Boundary.isIn(c, Boundary.BANK_AREA) || Boundary.isIn(c, Boundary.LUMB_BUILDING) || Boundary.isIn(c, Boundary.DRAYNOR_BUILDING)) {
 					c.getPacketSender().sendMessage("You cannot light a fire here.");
 					return;
 				}

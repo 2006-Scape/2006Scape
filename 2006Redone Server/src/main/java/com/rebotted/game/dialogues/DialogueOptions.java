@@ -14,6 +14,251 @@ public class DialogueOptions {
 	
 	public static void handleDialogueOptions(Player player, int buttonId) {
 		switch (buttonId) {
+		case 9167:
+			switch (player.dialogueAction) {
+			case 63:
+				player.getDialogueHandler().sendDialogues(166, player.npcType);
+				return;
+			case 64:
+				player.getDialogueHandler().sendDialogues(173, player.npcType);
+				return;
+			case 60:
+				player.getDialogueHandler().sendDialogues(277, player.npcType);
+				return;
+			case 61:
+				player.getDialogueHandler().sendDialogues(295, player.npcType);
+				return;
+			case 129:
+				player.getDialogueHandler().sendDialogues(231, player.npcType);
+				return;
+			case 58:
+				player.getDialogueHandler().sendDialogues(540, player.npcType);
+				return;
+			case 68:
+				player.getDialogueHandler().sendDialogues(39, player.npcType);
+				return;
+			case 124:
+				player.getDialogueHandler().sendDialogues(194, player.npcType);
+				return;
+			case 230:
+				player.getDialogueHandler().sendDialogues(1053, player.npcType);
+				return;
+			case 251:
+				player.getPacketSender().openUpBank();
+				player.nextChat = 0;
+				return;
+			case 144:
+				player.getDialogueHandler().sendDialogues(1314, player.npcType);
+				return;
+			case 502:
+				player.getDialogueHandler().sendDialogues(1026, player.npcType);
+				return;
+			case 1301: // first option haircut.
+				player.getDialogueHandler().sendDialogues(1302, 598);
+				return;
+			case 53:
+				if (player.objectId == 1293 || player.objectId == 1317) {
+					player.getPlayerAssistant().startTeleport(2542, 3169, 0, "modern");
+				} else {
+					player.getPacketSender().sendMessage("You can't teleport there, because you are already there!");
+					player.getPacketSender().closeAllWindows();
+				}
+				return;
+			case 159:
+				player.getDialogueHandler().sendDialogues(3161, player.npcType);
+				return;
+			case 167:
+				player.getDialogueHandler().sendDialogues(1343, player.npcType);
+				return;
+			case 222:
+				player.getDialogueHandler().sendDialogues(911, player.npcType);
+				player.dialogueAction = -1;
+				return;
+			case 182:
+				player.getDialogueHandler().sendNpcChat1("No, I was hoping someone could help me find it though.", player.talkingNpc, "Squire");
+				player.nextChat = 0;
+				return;
+			case 188:
+				player.getDialogueHandler().sendDialogues(3129, 945);
+				return;
+			case 185:
+				player.getDialogueHandler().sendDialogues(629, player.npcType);
+				return;
+			case 186: // Shield of Arrav
+				player.getDialogueHandler().sendDialogues(629, player.npcType);
+				return;
+			case 702:
+				player.getDialogueHandler().sendDialogues(3567, player.npcType);
+				return;
+			}
+			player.dialogueAction = 0;
+			player.getPacketSender().closeAllWindows();
+			break;
+
+		case 9168:
+			switch (player.dialogueAction) {
+			case 63:
+				player.getDialogueHandler().sendDialogues(167, player.npcType);
+				return;
+			case 64:
+				player.getDialogueHandler().sendDialogues(174, player.npcType);
+				return;
+			case 60:
+				player.getDialogueHandler().sendDialogues(279, player.npcType);
+				return;
+			case 61:
+				player.getDialogueHandler().sendDialogues(297, player.npcType);
+				return;
+			case 124:
+				player.getDialogueHandler().sendDialogues(192, player.npcType);
+				return;
+			case 126:
+				player.getDialogueHandler().sendDialogues(203, player.npcType);
+				return;
+			case 58:
+				player.getDialogueHandler().sendDialogues(538, player.npcType);
+				return;
+			case 68:
+				player.getDialogueHandler().sendDialogues(40, player.npcType);
+				return;
+			case 230:
+				player.getDialogueHandler().sendDialogues(1049, player.npcType);
+				break;
+			case 251:
+				player.getBankPin().bankPinSettings();
+				player.nextChat = 0;
+				return;
+			case 502:
+				player.getDialogueHandler().sendDialogues(1022, player.npcType);
+				return;
+			case 1301:
+				player.getDialogueHandler().sendDialogues(1308, 598);
+				return;
+			case 144:
+				player.getDialogueHandler().sendDialogues(1315, player.npcType);
+				return;
+			case 53:
+				if (player.objectId == 1294 || player.objectId == 1317) {
+					player.getPlayerAssistant().startTeleport(2461, 3444, 0,
+							"modern");
+				} else {
+					player.getPacketSender().sendMessage("You can't teleport there, because you are already there!");
+					player.getPacketSender().closeAllWindows();
+				}
+				return;
+			case 159:
+				player.getDialogueHandler().sendDialogues(3195, player.npcType);
+				return;
+			case 167:
+				player.getDialogueHandler().sendDialogues(1344, player.npcType);
+				return;
+			case 222:
+				player.getDialogueHandler().sendDialogues(912, player.npcType);
+				player.dialogueAction = -1;
+				return;
+			case 182:
+				player.getDialogueHandler().sendDialogues(615, player.npcType);
+				return;
+			case 188:
+				player.getDialogueHandler().sendDialogues(3130, 945);
+				return;
+			case 185:
+				player.getDialogueHandler().sendDialogues(628, player.npcType);
+				return;
+			case 186: // Shield of Arrav
+				player.getDialogueHandler().sendDialogues(628, player.npcType);
+				return;
+			case 702:
+				player.getDialogueHandler().sendDialogues(3568, player.npcType);
+				return;
+			}
+			player.dialogueAction = 0;
+			player.getPacketSender().closeAllWindows();
+			break;
+
+		case 9169:
+			switch (player.dialogueAction) {
+			case 63:
+				player.getDialogueHandler().sendDialogues(168, player.npcType);
+				return;
+			case 64:
+				player.getDialogueHandler().sendDialogues(175, player.npcType);
+				return;
+			case 60:
+				player.getDialogueHandler().sendDialogues(278, player.npcType);
+				return;
+			case 61:
+				player.getDialogueHandler().sendDialogues(296, player.npcType);
+				return;
+			case 53:
+				if (player.objectId == 1294 || player.objectId == 1293) {
+					player.getPlayerAssistant().startTeleport(3179, 3507, 0,
+							"modern");
+				} else {
+					player.getPacketSender().sendMessage("You can't teleport there, because you are already there!");
+					player.getPacketSender().closeAllWindows();
+				}
+				return;
+			case 129:
+				player.getDialogueHandler().sendDialogues(232, player.npcType);
+				return;
+			case 126:
+				player.getDialogueHandler().sendDialogues(204, player.npcType);
+				return;
+			case 144:
+				player.getDialogueHandler().sendDialogues(1316, player.npcType);
+				return;
+			case 124:
+				player.getDialogueHandler().sendDialogues(3193, 741);
+				return;
+			case 58:
+				player.getDialogueHandler().sendDialogues(539, player.npcType);
+				return;
+			case 68:
+				player.getDialogueHandler().sendDialogues(41, player.npcType);
+				return;
+			case 230:
+				player.getDialogueHandler().sendDialogues(1050, player.npcType);
+				break;
+			case 251:
+				player.getDialogueHandler().sendDialogues(1015, 494);
+				return;
+			case 502:
+				player.getDialogueHandler().sendDialogues(1025, player.npcType);
+				return;
+			case 1301:
+				player.getDialogueHandler().sendDialogues(1306, 598);
+				return;
+			case 222:
+				player.getDialogueHandler().sendDialogues(913, player.npcType);
+				player.dialogueAction = -1;
+				return;
+			case 167:
+				player.getDialogueHandler().sendDialogues(1342, player.npcType);
+				return;
+			case 159:
+				player.getDialogueHandler().sendDialogues(3160, player.npcType);
+				return;
+			case 182:
+				player.getDialogueHandler().sendNpcChat1("Of course he is angry...", player.talkingNpc, "Squire");
+				player.nextChat = 0;
+				return;
+			case 188:
+				player.getDialogueHandler().sendDialogues(3131, 945);
+				return;
+			case 185:
+				player.getDialogueHandler().sendDialogues(630, player.npcType);
+				return;
+			case 186: // Shield of Arrav
+				player.getDialogueHandler().sendDialogues(691, player.npcType);
+				return;
+			case 702:
+				player.getDialogueHandler().sendDialogues(3569, player.npcType);
+				return;
+			}
+			player.dialogueAction = 0;
+			player.getPacketSender().closeAllWindows();
+			break;
 		case 9190:
 			switch (player.dialogueAction) {
 			case 112:
@@ -307,6 +552,9 @@ public class DialogueOptions {
 				player.getPlayerAssistant().startTeleport(3313, 3234, 0, "modern");
 				Teles.necklaces(player);
 				return;
+			} else if (player.dialogueAction == 703) {
+				player.getDialogueHandler().sendDialogues(3572, player.npcType);
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -511,6 +759,12 @@ public class DialogueOptions {
 			} else if (player.dialogueAction == 189) {
 				player.getDialogueHandler().sendDialogues(3212, player.npcType);
 				return;
+			} else if (player.dialogueAction == 700) {
+				player.getDialogueHandler().sendDialogues(3558, player.npcType);
+				return;
+			} else if (player.dialogueAction == 703) {
+				player.getDialogueHandler().sendDialogues(3573, player.npcType);
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -524,8 +778,8 @@ public class DialogueOptions {
 				player.getPlayerAssistant().startTeleport(3112, 3410, 0, "modern");
 			} else if (player.objectId == 12165) {
 				if (player.dialogueAction == 122) {
-				player.getPacketSender().sendMessage("You can't take the canoe to barbarian village because you're already there!");
-				player.getPlayerAssistant().handleCanoe();
+					player.getPacketSender().sendMessage("You can't take the canoe to barbarian village because you're already there!");
+					player.getPlayerAssistant().handleCanoe();
 				}
 			}
 			if (player.dialogueAction == 4) {
@@ -582,8 +836,8 @@ public class DialogueOptions {
 			if (player.dialogueAction == 485) {
 				player.getRangersGuild().buyArrows();
 			}
-			if (player.dialogueAction == 700) {
-				player.getDialogueHandler().sendDialogues(28, player.npcType);
+			if (player.dialogueAction == 701) {
+				player.getDialogueHandler().sendDialogues(3561, player.npcType);
 			}
 			break;
 
@@ -651,8 +905,8 @@ public class DialogueOptions {
 			if (player.dialogueAction == 485) {
 				player.getRangersGuild().exchangePoints();
 			}
-			if (player.dialogueAction == 700) {
-				player.getDialogueHandler().sendDialogues(29, player.npcType);
+			if (player.dialogueAction == 701) {
+				player.getDialogueHandler().sendDialogues(3562, player.npcType);
 			}
 			break;
 
@@ -702,9 +956,6 @@ public class DialogueOptions {
 			if (player.dialogueAction == 1000) {
 				player.getDialogueHandler().sendDialogues(3523,player.npcType);
 			}
-			if (player.dialogueAction == 700) {
-				player.getDialogueHandler().sendDialogues(30, player.npcType);
-			}
 			if (player.dialogueAction == 228) {
 				player.getDialogueHandler().sendDialogues(1041, player.npcType);
 			}
@@ -725,6 +976,9 @@ public class DialogueOptions {
 			}
 			if (player.dialogueAction == 69) {
 				player.getDialogueHandler().sendDialogues(1003, player.npcType);
+			}
+			if (player.dialogueAction == 701) {
+				player.getDialogueHandler().sendDialogues(3563, player.npcType);
 			}
 			break;
 
@@ -759,9 +1013,6 @@ public class DialogueOptions {
 			if (player.dialogueAction == 1000) {
 				player.getDialogueHandler().sendDialogues(3523, player.npcType);
 			}
-			if (player.dialogueAction == 700) {
-				player.getDialogueHandler().sendDialogues(31, player.npcType);
-			}
 			if (player.dialogueAction == 69) {
 				player.getDialogueHandler().sendDialogues(1004, player.npcType);
 			}
@@ -783,8 +1034,8 @@ public class DialogueOptions {
 			if (player.dialogueAction == 485) {
 				player.getPacketSender().closeAllWindows();
 			}
-			if (player.dialogueAction == 700) {
-				player.getDialogueHandler().sendDialogues(28, player.npcType);
+			if (player.dialogueAction == 701) {
+				player.getDialogueHandler().sendDialogues(3564, player.npcType);
 			}
 			break;
 		}
