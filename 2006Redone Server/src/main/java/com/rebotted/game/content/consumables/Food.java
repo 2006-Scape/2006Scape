@@ -38,7 +38,7 @@ public class Food {
 				//MOONLIGHT_MEAD(2955, 4, "Moonlight mead", 1919, "Drink", false), 
 				MONKFISH(7946, 16, "Monkfish", 0,
 				"Food", false), SEA_TURTLE(397, 21, "Sea Turtle", 0, "Food",
-				false), CABBAGE(1965, 1, "Cabbage", 0, "Food", false), SPINACH(
+				false), CABBAGE(1965, 1, "Cabbage", 0, "Food", false), CABBAGE_SOUTH_OF_FALADOR(1967, 1, "Cabbage", 0, "Food", false), SPINACH(
 				1969, 2, "Spinach Roll", 0, "Food", false), CAKE(1891, 4,
 				"Cake", 1893, "Food", false), CAKE2(1893, 4, "2/3 Cake", 1895,
 				"Food", false), SLICE_OF_CAKE(1895, 4, "2/3 Cake", 0, "Food",
@@ -177,19 +177,27 @@ public class Food {
 				c.getItemAssistant().addItem(f.replaceWith(), 1);
 			}
 			if (f.getType().equalsIgnoreCase("Food")) {
-				c.getPacketSender().sendMessage(
-						"You eat the " + f.getName() + ".");
-			} else if (f.getType().equalsIgnoreCase("Drink")) {
-				c.getPacketSender().sendMessage(
-						"You drink the " + f.getName() + ".");
+				if (id == 1965) {
+					c.getPacketSender().sendMessage(
+							"You eat the cabbage. Yuck!");
+				}
+				else if (id == 1967){
+					c.getPacketSender().sendMessage(
+							"You eat the cabbage. It seems to taste nicer than normal.");
+				} else {
+					c.getPacketSender().sendMessage(
+							"You eat the " + f.getName() + ".");
+				}
 			}
-			if (id == 1965) {
-				c.getPacketSender().sendMessage(
-						"You eat the cabbage. Yuck!");
+			else if (f.getType().equalsIgnoreCase("Drink")) {
+				if (id == 2955) {
+					c.getPacketSender().sendMessage("It tastes like something just died in your mouth.");
+				} else {
+					c.getPacketSender().sendMessage(
+							"You drink the " + f.getName() + ".");
+				}
 			}
-			if (id == 2955) {
-				c.getPacketSender().sendMessage("It tastes like something just died in your mouth.");
-			}
+
 			if (f.getType().equalsIgnoreCase("Food")) {
 				c.getPacketSender().sendSound(SoundList.FOOD_EAT, 100, 0);
 			} else if (f.getType().equalsIgnoreCase("Drink")) {
