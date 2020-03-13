@@ -128,8 +128,8 @@ public class Inventory {
 	
 	public boolean ownsItem(String itemName) {
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.ItemList[i] != null) {
-				if (GameEngine.itemHandler.ItemList[i].itemName
+			if (GameEngine.itemHandler.itemList[i] != null) {
+				if (GameEngine.itemHandler.itemList[i].itemName
 						.equalsIgnoreCase(itemName)) {
 					return true;
 				}

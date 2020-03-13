@@ -18,16 +18,18 @@ public class InterfaceX implements PacketType {
         if (Xamount == 0) {
             Xamount = 1;
         }
-        if (player.playerIsCooking && player.doAmount > 0) {
-			Cooking.cookItem(player, player.cookingItem, Xamount, player.cookingObject);
-		}
-        if (player.isSmelting && player.doAmount > 0) {
-        	Smelting.smeltBar(player, player.smeltingItem);
+        if (!player.isBanking) {
+	        if (player.playerIsCooking && player.doAmount > 0) {
+				Cooking.cookItem(player, player.cookingItem, Xamount, player.cookingObject);
+			}
+	        if (player.isSmelting && player.doAmount > 0) {
+	        	Smelting.smeltBar(player, player.smeltingItem);
+	        }
         }
 		switch (player.xInterfaceId) {
 			case 5064:
 				if (player.inPartyRoom) {
-					PartyRoom.depositItem(player, player.xRemoveId, player.getItemAssistant().getItemAmount(player.playerItems[player.xRemoveSlot]));
+					PartyRoom.depositItem(player, player.xRemoveId, player.getItemAssistant().itemAmount(player.playerItems[player.xRemoveSlot]));
 					break;
 				}
 				if (player.inTrade) {

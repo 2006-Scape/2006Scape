@@ -5,6 +5,7 @@ import com.rebotted.GameEngine;
 import com.rebotted.game.content.consumables.Beverages;
 import com.rebotted.game.content.consumables.Kebabs;
 import com.rebotted.game.content.consumables.Beverages.beverageData;
+import com.rebotted.game.content.consumables.Food;
 import com.rebotted.game.content.minigames.TreasureTrails;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.skills.herblore.Herblore;
@@ -291,8 +292,8 @@ public class ClickItem implements PacketType {
 			}
 		}
 
-		if (player.getFood().isFood(itemId)) {
-			player.getFood().eat(itemId, itemSlot);
+		if (Food.isFood(itemId)) {
+			Food.eat(player, itemId, itemSlot);
 		}
 		if (Prayer.playerBones(player, itemId)) {
 			Prayer.buryBones(player, itemId, itemSlot);

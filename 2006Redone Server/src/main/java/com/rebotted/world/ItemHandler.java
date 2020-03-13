@@ -30,7 +30,7 @@ public class ItemHandler {
 
 	public ItemHandler() {
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			ItemList[i] = null;
+			itemList[i] = null;
 		}
 		loadItemList("item.cfg");
 	}
@@ -302,13 +302,13 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 	 * Item List
 	 **/
 
-	public ItemList ItemList[] = new ItemList[GameConstants.ITEM_LIMIT];
+	public ItemList itemList[] = new ItemList[GameConstants.ITEM_LIMIT];
 
 	public void newItemList(int ItemId, String ItemName, String ItemDescription, double ShopValue, double LowAlch, double HighAlch, int Bonuses[]) {
 		// first, search for a free slot
 		int slot = -1;
 		for (int i = 0; i < 11740; i++) {
-			if (ItemList[i] == null) {
+			if (itemList[i] == null) {
 				slot = i;
 				break;
 			}
@@ -324,7 +324,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 		newItemList.LowAlch = LowAlch;
 		newItemList.HighAlch = HighAlch;
 		newItemList.Bonuses = Bonuses;
-		ItemList[slot] = newItemList;
+		itemList[slot] = newItemList;
 	}
 
 	public void loadItemPrices(String filename) {
@@ -344,7 +344,7 @@ public int itemAmount(String name, int itemId, int itemX, int itemY) {
 	}
 
 	public ItemList getItemList(int i) {
-		for (com.rebotted.game.items.ItemList element : ItemList) {
+		for (com.rebotted.game.items.ItemList element : itemList) {
 			if (element != null) {
 				if (element.itemId == i) {
 					return element;

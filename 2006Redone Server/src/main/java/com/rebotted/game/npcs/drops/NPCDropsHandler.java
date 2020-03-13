@@ -227,7 +227,7 @@ public class NPCDropsHandler {
 	 * @return
 	 */
 	public static int getItemId(String itemName) {
-		for (ItemList i : GameEngine.itemHandler.ItemList) {
+		for (ItemList i : GameEngine.itemHandler.itemList) {
 			if (i != null) {
 				if (i.itemName.equalsIgnoreCase(itemName)) {
 					return i.itemId;

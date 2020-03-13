@@ -4023,8 +4023,7 @@ public class DialogueHandler {
 				break;
 
 			case 1027:
-				player.getDialogueHandler().sendStatement(
-						"10 coins are removed from your inventory.");
+				player.getDialogueHandler().sendStatement("10 coins are removed from your inventory.");
 				OtherObjects.initKharid(player, player.objectId);
 				player.nextChat = 0;
 				break;

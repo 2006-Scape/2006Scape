@@ -208,6 +208,7 @@ public class ItemAssistant {
 		}
 	}
 	
+	//for inv
 	public int getItemAmount(int itemID) {
 		int itemCount = 0;
 		for (int i = 0; i < c.playerItems.length; i++) {
@@ -216,6 +217,17 @@ public class ItemAssistant {
 			}
 		}
 		return itemCount;
+	}
+	
+	//for bank
+	public int itemAmount(int itemID) {
+		int tempAmount = 0;
+		for (int i = 0; i < c.playerItems.length; i++) {
+			if (c.playerItems[i] == itemID) {
+				tempAmount += c.playerItemsN[i];
+			}
+		}
+		return tempAmount;
 	}
 
 
@@ -540,10 +552,10 @@ public class ItemAssistant {
 		for (int element : c.playerEquipment) {
 			if (element > -1) {
 				for (int j = 0; j < GameConstants.ITEM_LIMIT; j++) {
-					if (GameEngine.itemHandler.ItemList[j] != null) {
-						if (GameEngine.itemHandler.ItemList[j].itemId == element) {
+					if (GameEngine.itemHandler.itemList[j] != null) {
+						if (GameEngine.itemHandler.itemList[j].itemId == element) {
 							for (int k = 0; k < c.playerBonus.length; k++) {
-								c.playerBonus[k] += GameEngine.itemHandler.ItemList[j].Bonuses[k];
+								c.playerBonus[k] += GameEngine.itemHandler.itemList[j].Bonuses[k];
 							}
 							break;
 						}
@@ -2035,22 +2047,17 @@ public class ItemAssistant {
 		}
 		if (amount > 0) {
 			if (c.bankItems[fromSlot] > 0) {
-				if (c.getItemAssistant().playerHasItem(itemID))
-				{
-					for (int i = 0; i <= 27;i++)
-					{
-						if (itemID == c.playerItems[i] || (itemID == 995 && c.playerItems[i] - 1 == 995))
-						{
-							if ((c.playerItemsN[i] + amount + 1) < -1)
-							{
+				if (c.getItemAssistant().playerHasItem(itemID)) {
+					for (int i = 0; i <= 27; i++) {
+						if (itemID == c.playerItems[i] || (itemID == 995 && c.playerItems[i] - 1 == 995)) {
+							if ((c.playerItemsN[i] + amount + 1) < -1) {
 								cantWithdrawCuzMaxStack = true;
 								break;
 							}
 						}
 					}
 				}
-				if (!cantWithdrawCuzMaxStack)
-				{
+				if (!cantWithdrawCuzMaxStack) {
 					if (!c.takeAsNote) {
 						if (ItemData.itemStackable[c.bankItems[fromSlot] - 1]) {
 							if (c.bankItemsN[fromSlot] > amount) {
@@ -2060,8 +2067,7 @@ public class ItemAssistant {
 									resetItems(5064);
 								}
 							} else {
-								if (addItem(c.bankItems[fromSlot] - 1,
-										c.bankItemsN[fromSlot])) {
+								if (addItem(c.bankItems[fromSlot] - 1, c.bankItemsN[fromSlot])) {
 									c.bankItems[fromSlot] = 0;
 									c.bankItemsN[fromSlot] = 0;
 									resetBank();
@@ -2109,8 +2115,7 @@ public class ItemAssistant {
 									resetItems(5064);
 								}
 							} else {
-								if (addItem(c.bankItems[fromSlot] - 1,
-										c.bankItemsN[fromSlot])) {
+								if (addItem(c.bankItems[fromSlot] - 1, c.bankItemsN[fromSlot])) {
 									c.bankItems[fromSlot] = 0;
 									c.bankItemsN[fromSlot] = 0;
 									resetBank();
@@ -2134,9 +2139,7 @@ public class ItemAssistant {
 							resetItems(5064);
 						}
 					}
-				}
-				else
-				{
+				} else {
 					c.getPacketSender().sendMessage("Can't withdraw more of that item!");
 				}
 			}
@@ -2450,9 +2453,9 @@ public class ItemAssistant {
 
 	public static String getItemName(int ItemID) {
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.ItemList[i] != null) {
-				if (GameEngine.itemHandler.ItemList[i].itemId == ItemID) {
-					return GameEngine.itemHandler.ItemList[i].itemName;
+			if (GameEngine.itemHandler.itemList[i] != null) {
+				if (GameEngine.itemHandler.itemList[i].itemId == ItemID) {
+					return GameEngine.itemHandler.itemList[i].itemName;
 				}
 			}
 		}
@@ -2461,10 +2464,10 @@ public class ItemAssistant {
 
 	public int getItemId(String itemName) {
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.ItemList[i] != null) {
-				if (GameEngine.itemHandler.ItemList[i].itemName
+			if (GameEngine.itemHandler.itemList[i] != null) {
+				if (GameEngine.itemHandler.itemList[i].itemName
 						.equalsIgnoreCase(itemName)) {
-					return GameEngine.itemHandler.ItemList[i].itemId;
+					return GameEngine.itemHandler.itemList[i].itemId;
 				}
 			}
 		}
@@ -2530,26 +2533,26 @@ public class ItemAssistant {
 	}
 
 	public int getUnnotedItem(int ItemID) {
-		int NewID = ItemID - 1;
+		int newId = ItemID - 1;
 		String NotedName = "";
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.ItemList[i] != null) {
-				if (GameEngine.itemHandler.ItemList[i].itemId == ItemID) {
-					NotedName = GameEngine.itemHandler.ItemList[i].itemName;
+			if (GameEngine.itemHandler.itemList[i] != null) {
+				if (GameEngine.itemHandler.itemList[i].itemId == ItemID) {
+					NotedName = GameEngine.itemHandler.itemList[i].itemName;
 				}
 			}
 		}
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.ItemList[i] != null) {
-				if (GameEngine.itemHandler.ItemList[i].itemName == NotedName) {
-					if (GameEngine.itemHandler.ItemList[i].itemDescription.startsWith("Swap this note at any bank for a") == false) {
-						NewID = GameEngine.itemHandler.ItemList[i].itemId;
+			if (GameEngine.itemHandler.itemList[i] != null) {
+				if (GameEngine.itemHandler.itemList[i].itemName == NotedName) {
+					if (GameEngine.itemHandler.itemList[i].itemDescription.startsWith("Swap this note at any bank for a") == false) {
+						newId = GameEngine.itemHandler.itemList[i].itemId;
 						break;
 					}
 				}
 			}
 		}
-		return NewID;
+		return newId;
 	}
 
 }

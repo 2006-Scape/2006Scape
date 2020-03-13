@@ -8,3 +8,9 @@
 [2020/01/03] 07:00 andrew5 used command: bank
 [2020/01/03] 07:00 andrew5 used command: bank
 [2020/01/03] 07:02 andrew5 used command: bank
+[2020/03/13] 04:15 andrew5 used command: bank
+[2020/03/13] 04:17 andrew5 used command: bank
+[2020/03/13] 04:21 andrew5 used command: bank
+[2020/03/13] 04:25 andrew5 used command: bank
+[2020/03/13] 04:25 andrew5 used command: bank
+[2020/03/13] 04:29 andrew5 used command: bank
