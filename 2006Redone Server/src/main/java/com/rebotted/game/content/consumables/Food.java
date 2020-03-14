@@ -185,6 +185,7 @@ public class Food {
 					player.getPacketSender().sendMessage("You drink the " + f.getName() + ".");
 				}
 			}
+
 			if (f.getType().equalsIgnoreCase("Food")) {
 				player.getPacketSender().sendSound(SoundList.FOOD_EAT, 100, 0);
 			} else if (f.getType().equalsIgnoreCase("Drink")) {
