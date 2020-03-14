@@ -120,7 +120,6 @@ public abstract class Player {
 	private final Queue<Packet> queuedPackets = new LinkedList<Packet>();
 	private final Potions potions = new Potions(this);
 	private final PotionMixing potionMixing = new PotionMixing(this);
-	private final Food food = new Food(this);
 	private final EmoteHandler emoteHandler = new EmoteHandler(this);
 	private final SkillInterfaces skillInterfaces = new SkillInterfaces(this);
 	private final Enchanting enchanting = new Enchanting(this);
@@ -433,11 +432,6 @@ public abstract class Player {
 	public PotionMixing getPotMixing() {
 		return potionMixing;
 	}
-
-	public Food getFood() {
-		return food;
-	}
-	
 
 	public Inventory getInventory() {
 		return inventory;

@@ -152,7 +152,7 @@ public class CombatSounds {
 	}
 
 	public static String getItemName(int ItemID) {
-		return GameEngine.itemHandler.ItemList[ItemID].itemName;
+		return GameEngine.itemHandler.itemList[ItemID].itemName;
 	}
 
 	public static int getMagicSound(Player c, int spellId) {

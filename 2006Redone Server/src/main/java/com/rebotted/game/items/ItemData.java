@@ -187,7 +187,7 @@ public class ItemData {
 	}
 
 	public static String getItemName(int id) {
-		for (ItemList element : GameEngine.itemHandler.ItemList) {
+		for (ItemList element : GameEngine.itemHandler.itemList) {
 			if (element != null) {
 				if (element.itemId == id) {
 					return element.itemName;
@@ -225,7 +225,12 @@ public class ItemData {
 		try {
 			FileInputStream dataIn = new FileInputStream(new File("./data/data/notes.dat"));
 			while ((c = dataIn.read()) != -1) {
-				itemIsNote[counter] = c == 0;
+				if (c == 0) {
+					itemIsNote[counter] = false;
+					itemIsNote[4611] = false;
+				} else {
+					itemIsNote[counter] = true;
+				}
 				counter++;
 			}
 			dataIn.close();

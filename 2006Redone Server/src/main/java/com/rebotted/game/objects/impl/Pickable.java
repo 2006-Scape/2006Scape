@@ -6,6 +6,7 @@ import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.players.Player;
+import com.rebotted.world.Boundary;
 
 /**
  * Pickables
@@ -18,7 +19,10 @@ public class Pickable {
 			{ 1161, 1965 }, // Cabbage
 			{ 2646, 1779 }, // Flax
 			{ 313, 1947 }, // Wheat
-			{ 5585, 1947 }, { 5584, 1947 }, { 5585, 1947 }, { 312, 1942 }, // Potato
+			{ 5585, 1947 }, // Wheat
+			{ 5584, 1947 }, // Wheat
+			{ 5585, 1947 }, // Wheat
+			{ 312, 1942 }, // Potato
 			{ 3366, 1957 }, // Onion
 	};
 
@@ -30,7 +34,11 @@ public class Pickable {
 			final int objectId = data[0];
 			int itemId = data[1];
 			if (objectType == objectId) {
-				player.getItemAssistant().addItem(itemId, 1);
+				if (objectType == 1161 && Boundary.isIn(player, Boundary.FALADOR)) {//Cabbage falador
+					player.getItemAssistant().addItem(1967, 1);
+				} else {
+					player.getItemAssistant().addItem(itemId, 1);
+				}
 				break;
 			}
 		}

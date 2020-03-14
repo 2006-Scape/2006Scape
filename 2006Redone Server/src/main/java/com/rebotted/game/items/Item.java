@@ -100,6 +100,6 @@ public class Item {
 	}
 
 	public ItemList getDefinition() {
-		return GameEngine.itemHandler.ItemList[id];
+		return GameEngine.itemHandler.itemList[id];
 	}
 }

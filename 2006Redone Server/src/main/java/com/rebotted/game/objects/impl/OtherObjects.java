@@ -48,7 +48,7 @@ public class OtherObjects {
 			return;
 		}
 		if (openKharid(player, objectId)) {
-			GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, -1);
+			//GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, -1);
 			final int[] coords = new int[2];
 			if (player.getX() == 3267) {
 				player.getPlayerAssistant().movePlayer(player.getX() + 1, player.getY(), 0);
