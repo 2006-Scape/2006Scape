@@ -225,12 +225,7 @@ public class ItemData {
 		try {
 			FileInputStream dataIn = new FileInputStream(new File("./data/data/notes.dat"));
 			while ((c = dataIn.read()) != -1) {
-				if (c == 0) {
-					itemIsNote[counter] = false;
-					itemIsNote[4611] = false;
-				} else {
-					itemIsNote[counter] = true;
-				}
+				itemIsNote[counter] = c == 0;
 				counter++;
 			}
 			dataIn.close();
