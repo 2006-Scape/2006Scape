@@ -58,8 +58,11 @@ public class Weight extends ItemDefinition {
             // Equiped items
             for (int element : player.playerEquipment) {
                 if (element > -1) {// equipment
-                    if (element == 88) player.weight -= 4.5;
-                    else calcWeight(player, element, "addItem");
+                    if (element == 88) {
+                    	player.weight -= 4.5;
+                    } else {
+                    	calcWeight(player, element, "addItem");
+                    }
                 }
             }
         }

@@ -163,8 +163,6 @@ public class Flowers {
 		player.getItemAssistant().addItem(flowerDecoder(object), 1);
 		player.getPacketSender().sendMessage("You receive a random flower.");
 		player.startAnimation(827);
-		// c.getPA().checkObjectSpawn(c,-1, c.getX()+1, c.getY(), 1, 10);
-		// c.getPA().object(c,-1, c.getX()+1, c.getY(), 1, 10);
 		GameEngine.objectHandler.createAnObject(player, -1, player.getX() + 1, player.getY(), player.getH(), 1);
 		player.turnPlayerTo(player.getX() + 1, player.getY());
 	}

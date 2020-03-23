@@ -92,8 +92,7 @@ public class Potatoes extends SkillHandler {
 			return false;
 		}
 		if (!COOKING) {
-			c.getPacketSender().sendMessage(
-					"This skill is currently disabled.");
+			c.getPacketSender().sendMessage("This skill is currently disabled.");
 			return false;
 		}
 		if (c.getItemAssistant().playerHasItem(potato.getIngredient(), 1)) {
@@ -102,13 +101,10 @@ public class Potatoes extends SkillHandler {
 				c.getItemAssistant().deleteItem(6703, 1);
 				c.getPacketSender().sendMessage("You put the topping on.");
 				c.getItemAssistant().addItem(potato.getNewPotatoID(), 1);
-				c.getPlayerAssistant().addSkillXP(
-						potato.getXP(), c.playerCooking);
+				c.getPlayerAssistant().addSkillXP(potato.getXP(), c.playerCooking);
 				RandomEventHandler.addRandom(c);
 			} else {
-				c.getPacketSender().sendMessage(
-						"You need a cooking level of " + potato.getReq()
-								+ " to make this potato.");
+				c.getPacketSender().sendMessage("You need a cooking level of " + potato.getReq() + " to make this potato.");
 			}
 		}
 		return false;

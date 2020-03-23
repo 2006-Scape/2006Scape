@@ -22,6 +22,7 @@ import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.impl.LightSources;
+import com.rebotted.game.items.impl.Greegree.MonkeyData;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.util.GameLogger;
@@ -664,6 +665,10 @@ public class PlayerAssistant {
 			player.getPacketSender().sendMessage("You can't teleport while skilling!");
 			return;
 		}
+		if (MonkeyData.isWearingGreegree(player)) {
+			player.getPacketSender().sendMessage("You can't teleport as a monkey.");
+			return;
+		}
 		if (!player.isDead && player.teleTimer == 0
 				&& player.respawnTimer == -6) {
 			if (player.playerIndex > 0 || player.npcIndex > 0) {
@@ -749,6 +754,10 @@ public class PlayerAssistant {
 					"You are teleblocked and can't teleport.");
 			return;
 		}
+		if (MonkeyData.isWearingGreegree(player)) {
+			player.getPacketSender().sendMessage("You can't teleport as a monkey.");
+			return;
+		}
 		if (GameConstants.SOUND) {
 			player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
@@ -782,6 +791,10 @@ public class PlayerAssistant {
 		}
 		if (player.inTrade) {
 			player.getPacketSender().sendMessage("You can't teleport while in trade!");
+			return;
+		}
+		if (MonkeyData.isWearingGreegree(player)) {
+			player.getPacketSender().sendMessage("You can't teleport as a monkey.");
 			return;
 		}
 		if (player.tutorialProgress < 36) {

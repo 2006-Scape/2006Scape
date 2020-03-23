@@ -28,8 +28,7 @@ public class Herblore extends SkillHandler {
 		for (int[] element : CLEAN_DATA) {
 			if (itemId == element[0]) {
 				if (c.playerLevel[15] < element[2]) {
-					c.getPacketSender().sendMessage("You cannot clean this herb.");
-					c.getPacketSender().sendMessage("You need a higher Herblore level.");
+					c.getPacketSender().sendMessage("You need a higher herblore level to clean this herb.");
 					return;
 				}
 				c.getItemAssistant().deleteItem(itemId, itemSlot, 1);

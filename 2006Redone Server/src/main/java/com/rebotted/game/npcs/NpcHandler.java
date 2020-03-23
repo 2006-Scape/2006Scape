@@ -527,8 +527,9 @@ public class NpcHandler {
 						if (npcs[i].npcType == FightCaves.YT_HURKOT) {
 							Player c = ((Client)PlayerHandler.players[npcs[i].spawnedBy]);
 							int ranHeal = Misc.random(10);
-							if (ranHeal == 10)
+							if (ranHeal == 10) {
 								FightCaves.healJad(c, i);
+							}
 						}
 						if (PlayerHandler.players[npcs[i].spawnedBy] != null) {
 							for (int o = 0; o < PlayerHandler.players[npcs[i].spawnedBy].barrowsNpcs.length; o++) {
@@ -558,8 +559,7 @@ public class NpcHandler {
 					npcs[i].underAttackBy = 0;
 				}
 
-				if ((npcs[i].killerId > 0 || npcs[i].underAttack)
-						&& !npcs[i].walkingHome && retaliates(npcs[i].npcType)) {
+				if ((npcs[i].killerId > 0 || npcs[i].underAttack) && !npcs[i].walkingHome && retaliates(npcs[i].npcType)) {
 					if (!npcs[i].isDead) {
 						int p = npcs[i].killerId;
 						if (PlayerHandler.players[p] != null) {
@@ -568,7 +568,7 @@ public class NpcHandler {
 							if (npcs[i] == null) {
 								continue;
 							}
-							stepAway(c,i);
+							stepAway(c, i);
 							if (npcs[i].attackTimer == 0) {
 								NpcCombat.attackPlayer(c, i);
 							}
@@ -1186,8 +1186,7 @@ public class NpcHandler {
 		int playerX = PlayerHandler.players[playerId].absX;
 		int playerY = PlayerHandler.players[playerId].absY;
 		npcs[i].randomWalk = false;
-		if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY,
-				distanceRequired(i))) {
+		if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, distanceRequired(i))) {
 			return;
 		}
 

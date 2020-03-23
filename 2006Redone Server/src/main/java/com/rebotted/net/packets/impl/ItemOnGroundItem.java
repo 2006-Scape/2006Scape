@@ -30,8 +30,7 @@ public class ItemOnGroundItem implements PacketType {
 		case 7331:
 		case 7330:
 		case 7329:
-			Firemaking.attemptFire(player, itemUsed, groundItem, gItemX, gItemY,
-					true);
+			Firemaking.attemptFire(player, itemUsed, groundItem, gItemX, gItemY, true);
 			break;
 
 		default:

@@ -9,7 +9,7 @@ import com.rebotted.game.players.Player;
  * @author Andrew (Mr Extremez)
  */
 	
-public enum CapeDye {
+public enum Dye {
 	
 		RED_CAPE(1763, 1007),
 		BLUE_CAPE(1767, 1021),
@@ -21,7 +21,7 @@ public enum CapeDye {
 		
 		int reward, itemUsed;
 		
-		private CapeDye(int itemUsed, int reward) {
+		private Dye(int itemUsed, int reward) {
 			this.itemUsed = itemUsed;
 			this.reward = reward;
 		}
@@ -46,7 +46,7 @@ public enum CapeDye {
 				{1763, 1767, 1773}
 		};
 	
-		public static boolean blockDye(Player player, CapeDye dye, int itemUsed, int useWith) {
+		public static boolean blockDye(Player player, Dye dye, int itemUsed, int useWith) {
 			if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && ItemData.itemIsNote[useWith]) {
 				player.getPacketSender().sendMessage("You can't dye a noted cape.");
 				return true;
@@ -60,7 +60,7 @@ public enum CapeDye {
 		}
 		
 	public static void dyeItem(Player player, int itemUsed, int useWith) {
-		for (CapeDye cape: CapeDye.values()) {
+		for (Dye cape: Dye.values()) {
 			if (blockDye(player, cape, itemUsed, useWith)) {
 				return;
 			}

@@ -109,31 +109,31 @@ public class FightCaves {
 			int wave = player.waveId +1;
 			if (player.waveId < 62 && player.waveId > -1) {
 				for (int j = 0; j < npcAmount; j++) {
-						int npc = WAVES[player.waveId][j];
-						int X = COORDINATES[j][0];
-						int Y = COORDINATES[j][1];
-						int H = player.heightLevel;
-						int hp = getHp(npc);
-						int max = getMax(npc);
-						int atk = getAtk(npc);
-						int def = getDef(npc);
-						NpcHandler.spawnNpc(player, npc, X, Y, H, 0, hp, max, atk, def, true, false);	
-					}
-				player.getPacketSender().sendMessage("You are now on wave @red@" + wave + "@bla@.");
-				} else if (player.waveId == 62) {
-					player.getDialogueHandler().sendDialogues(102, 2617);
-					int a = Misc.random(1);
-					int npc = WAVES[62][0];
-					int X = JAD_SPAWNS[a][0];
-					int Y = JAD_SPAWNS[a][1];
+					int npc = WAVES[player.waveId][j];
+					int X = COORDINATES[j][0];
+					int Y = COORDINATES[j][1];
 					int H = player.heightLevel;
 					int hp = getHp(npc);
 					int max = getMax(npc);
 					int atk = getAtk(npc);
 					int def = getDef(npc);
-					NpcHandler.spawnNpc(player, npc, X, Y, H, 0, hp, max, atk, def, true, false);
-					player.getPacketSender().sendMessage("You are now on wave @red@63@bla@.");
+					NpcHandler.spawnNpc(player, npc, X, Y, H, 0, hp, max, atk, def, true, false);	
 				}
+				player.getPacketSender().sendMessage("You are now on wave @red@" + wave + "@bla@.");
+			} else if (player.waveId == 62) {
+				player.getDialogueHandler().sendDialogues(102, 2617);
+				int a = Misc.random(1);
+				int npc = WAVES[62][0];
+				int X = JAD_SPAWNS[a][0];
+				int Y = JAD_SPAWNS[a][1];
+				int H = player.heightLevel;
+				int hp = getHp(npc);
+				int max = getMax(npc);
+				int atk = getAtk(npc);
+				int def = getDef(npc);
+				NpcHandler.spawnNpc(player, npc, X, Y, H, 0, hp, max, atk, def, true, false);
+				player.getPacketSender().sendMessage("You are now on wave @red@63@bla@.");
+			}
 			player.tzhaarToKill = npcAmount;
 			player.tzhaarKilled = 0;
 		}
@@ -156,14 +156,15 @@ public class FightCaves {
 	}
 	
 	public static void spawnHealers(Player c, int i, int amount) {
-		if (c.spawnedHealers < 4) {
+	if (c.spawnedHealers < 4) {
 		int hp = getHp(YT_HURKOT);
 		int max = getMax(YT_HURKOT);
 		int atk = getAtk(YT_HURKOT);
 		int def = getDef(YT_HURKOT);
-			for (int i1 = 0; i1 < amount; i1++) {
-				NpcHandler.spawnNpc(c, YT_HURKOT, HEALER_COORDS[i1][0], HEALER_COORDS[i1][1], c.heightLevel, 0, hp, max, atk, def, false, false);
-			}
+		for (int i1 = 0; i1 < amount; i1++) {
+			NpcHandler.spawnNpc(c, YT_HURKOT, HEALER_COORDS[i1][0], HEALER_COORDS[i1][1], c.heightLevel, 0, hp, max, atk, def, false, false);
+		}
+		c.tzhaarToKill += 4;
 		c.spawnedHealers = amount;
 		c.canHealersRespawn = false;
 		}
@@ -193,26 +194,20 @@ public class FightCaves {
 
 	public static void tzKekEffect(Client player, int i) {
 		if (NpcHandler.npcs[i].npcType == TZ_KEK) {
-
 			int x = NpcHandler.npcs[i].absX + 2;
 			int y = NpcHandler.npcs[i].absY + 2;
 			int x1 = NpcHandler.npcs[i].absX - 2;
 			int y1 = NpcHandler.npcs[i].absY - 2;
-
 			int hp = getHp(TZ_KEK_SPAWN);
 			int max = getMax(TZ_KEK_SPAWN);
 			int atk = getAtk(TZ_KEK_SPAWN);
 			int def = getDef(TZ_KEK_SPAWN);
-
 			if (player != null) {
 				if (player.tzKekTimer == 0) {
 					if (NpcHandler.npcs[i].isDead) {
-						NpcHandler.spawnNpc(player, TZ_KEK_SPAWN, x, y,
-								player.heightLevel, 0, hp, max, atk, def, true,
-								false);
-						NpcHandler.spawnNpc(player, TZ_KEK_SPAWN, x1, y1,
-								player.heightLevel, 0, hp, max, atk, def, true,
-								false);
+						NpcHandler.spawnNpc(player, TZ_KEK_SPAWN, x, y, player.heightLevel, 0, hp, max, atk, def, true, false);
+						NpcHandler.spawnNpc(player, TZ_KEK_SPAWN, x1, y1, player.heightLevel, 0, hp, max, atk, def, true, false);
+						player.tzhaarToKill += 2;
 					}
 				}
 			}

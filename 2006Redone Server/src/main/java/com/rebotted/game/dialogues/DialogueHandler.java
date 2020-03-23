@@ -556,7 +556,7 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 			case 104:
-				sendNpcChat1("Well done in the cave, here, take TokKul as reward.", 2617, "TzHaar-Mej-Jal");
+				sendNpcChat1("Well done in the cave, here, take TokKul as a reward.", 2617, "TzHaar-Mej-Jal");
 				player.nextChat = 0;
 				break;
 			case 145:
@@ -564,8 +564,7 @@ public class DialogueHandler {
 				player.nextChat = 146;
 				break;
 			case 146:
-				sendNpcChat1("Give me a quest what?", player.talkingNpc,
-						"Wizard Mizgog");
+				sendNpcChat1("Give me a quest what?", player.talkingNpc, "Wizard Mizgog");
 				player.nextChat = 147;
 				break;
 			case 147:
