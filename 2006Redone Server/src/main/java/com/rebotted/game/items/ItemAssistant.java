@@ -4,6 +4,8 @@ import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
 import com.rebotted.game.content.minigames.castlewars.CastleWars;
 import com.rebotted.game.content.skills.runecrafting.Tiaras;
+import com.rebotted.game.items.impl.Greegree;
+import com.rebotted.game.items.impl.Greegree.MonkeyData;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.MainFrameIDs;
@@ -14,10 +16,10 @@ import com.rebotted.world.Boundary;
 
 public class ItemAssistant {
 
-	private final Player c;
+	private final Player player;
 
-	public ItemAssistant(Player player) {
-		c = player;
+	public ItemAssistant(Player player2) {
+		player = player2;
 	}
 
 	private static int COMMON = Misc.random(5), UNCOMMON = Misc.random(25),
@@ -30,7 +32,7 @@ public class ItemAssistant {
 
 	public void addCasketRewards(int itemId) {
 		long clickTimer = 0;
-		c.getPacketSender().sendMessage("You search the casket...");
+		player.getPacketSender().sendMessage("You search the casket...");
 		for (int[] element : CASKET) {
 			int item = element[0];
 			int amount = element[1];
@@ -39,14 +41,14 @@ public class ItemAssistant {
 				addItem(item, amount);
 				deleteItem(itemId, 1);
 				clickTimer = System.currentTimeMillis();
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You find " + amount + " " + getItemName(item) + ".");
 			} else {
 				if (System.currentTimeMillis() - clickTimer > 1800) {
 					addItem(995, 100);
 					deleteItem(itemId, 1);
 					clickTimer = System.currentTimeMillis();
-					c.getPacketSender().sendMessage("You find 100 coins.");
+					player.getPacketSender().sendMessage("You find 100 coins.");
 				}
 			}
 		}
@@ -57,40 +59,40 @@ public class ItemAssistant {
 	}
 
 	public void destroyInterface(int itemId) {
-		itemId = c.droppedItem;
-		String itemName = getItemName(c.droppedItem);
+		itemId = player.droppedItem;
+		String itemName = getItemName(player.droppedItem);
 		String[][] info = {
 				{ "Are you sure you want to destroy this item?", "14174" },
 				{ "Yes.", "14175" }, { "No.", "14176" }, { "", "14177" },
 				{ "You probably won't be able to", "14182" }, { "get this item back once lost.", "14183" },
 				{ itemName, "14184" } };// make some kind of c.getItemInfo
-		c.getPacketSender().sendFrame34(itemId, 0, 14171, 1);
+		player.getPacketSender().sendFrame34(itemId, 0, 14171, 1);
 		for (int i = 0; i < info.length; i++)
-			c.getPacketSender().sendString(info[i][0], Integer.parseInt(info[i][1]));
-		c.getPacketSender().sendChatInterface(14170);
+			player.getPacketSender().sendString(info[i][0], Integer.parseInt(info[i][1]));
+		player.getPacketSender().sendChatInterface(14170);
 	}
 
 	public void destroyItem(int itemId) {
-		itemId = c.droppedItem;
+		itemId = player.droppedItem;
 		String itemName = getItemName(itemId);
-		deleteItem(itemId,getItemSlot(itemId), c.playerItemsN[getItemSlot(itemId)]);
-		c.getPacketSender().sendMessage("Your " + itemName + " vanishes as you destroy it.");
-		c.getPacketSender().closeAllWindows();
+		deleteItem(itemId,getItemSlot(itemId), player.playerItemsN[getItemSlot(itemId)]);
+		player.getPacketSender().sendMessage("Your " + itemName + " vanishes as you destroy it.");
+		player.getPacketSender().closeAllWindows();
 	}
 
 	public void dropItem(int itemId) {
-		itemId = c.droppedItem;
-		GameEngine.itemHandler.createGroundItem(c, itemId, c.getX(), c.getY(), c.playerItemsN[getItemSlot(itemId)], c.getId());
-		deleteItem(itemId,getItemSlot(itemId), c.playerItemsN[getItemSlot(itemId)]);
-		c.getPacketSender().closeAllWindows();
+		itemId = player.droppedItem;
+		GameEngine.itemHandler.createGroundItem(player, itemId, player.getX(), player.getY(), player.playerItemsN[getItemSlot(itemId)], player.getId());
+		deleteItem(itemId,getItemSlot(itemId), player.playerItemsN[getItemSlot(itemId)]);
+		player.getPacketSender().closeAllWindows();
 	}
 
 	public void addOrDropItem(int item, int amount) {
 		if (isStackable(item) && hasFreeSlots(1)) {
 			addItem(item, amount);
 		} else if (!hasFreeSlots(amount) && !isStackable(item)) {
-			GameEngine.itemHandler.createGroundItem(c, item, c.getX(), c.getY(), amount, c.playerId);
-			c.getPacketSender().sendMessage("You have no inventory space, so the item(s) appear beneath you.");
+			GameEngine.itemHandler.createGroundItem(player, item, player.getX(), player.getY(), amount, player.playerId);
+			player.getPacketSender().sendMessage("You have no inventory space, so the item(s) appear beneath you.");
 		} else {
 			addItem(item, amount);
 		}
@@ -149,7 +151,7 @@ public class ItemAssistant {
 
 	public boolean playerHasEquipped(int itemID) {
 		itemID++;
-		for (int element : c.playerEquipment) {
+		for (int element : player.playerEquipment) {
 			if (element == itemID) {
 				return true;
 			}
@@ -158,15 +160,15 @@ public class ItemAssistant {
 	}
 
 	public boolean playerHasEquipped(int slot, int itemID) {
-		return c.playerEquipment[slot] == itemID;
+		return player.playerEquipment[slot] == itemID;
 	}
 
 	public void addItemToBank(int itemId, int amount) {
 		itemId++;
 		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-			if (c.bankItems[i] <= 0 || c.bankItems[i] == itemId && c.bankItemsN[i] + amount < Integer.MAX_VALUE) {
-				c.bankItems[i] = itemId;
-				c.bankItemsN[i] += amount;
+			if (player.bankItems[i] <= 0 || player.bankItems[i] == itemId && player.bankItemsN[i] + amount < Integer.MAX_VALUE) {
+				player.bankItems[i] = itemId;
+				player.bankItemsN[i] += amount;
 				resetBank();
 				return;
 			}
@@ -176,11 +178,11 @@ public class ItemAssistant {
 	public void removeItemFromBank(int itemId, int amount) {
 		itemId++;
 		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-			if (c.bankItems[i] == itemId) {
-				c.bankItemsN[i] -= amount;
-				if (c.bankItemsN[i] <= 0) {
-					c.bankItems[i] = 0;
-					c.bankItemsN[i] = 0;
+			if (player.bankItems[i] == itemId) {
+				player.bankItemsN[i] -= amount;
+				if (player.bankItemsN[i] <= 0) {
+					player.bankItems[i] = 0;
+					player.bankItemsN[i] = 0;
 				}
 				resetBank();
 				rearrangeBank();
@@ -190,30 +192,30 @@ public class ItemAssistant {
 	}
 
 	public void resetItems(int WriteFrame) {
-		if (c.getOutStream() != null && c != null) {
-			c.getOutStream().createFrameVarSizeWord(53);
-			c.getOutStream().writeWord(WriteFrame);
-			c.getOutStream().writeWord(c.playerItems.length);
-			for (int i = 0; i < c.playerItems.length; i++) {
-				if (c.playerItemsN[i] > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord_v2(c.playerItemsN[i]);
+		if (player.getOutStream() != null && player != null) {
+			player.getOutStream().createFrameVarSizeWord(53);
+			player.getOutStream().writeWord(WriteFrame);
+			player.getOutStream().writeWord(player.playerItems.length);
+			for (int i = 0; i < player.playerItems.length; i++) {
+				if (player.playerItemsN[i] > 254) {
+					player.getOutStream().writeByte(255);
+					player.getOutStream().writeDWord_v2(player.playerItemsN[i]);
 				} else {
-					c.getOutStream().writeByte(c.playerItemsN[i]);
+					player.getOutStream().writeByte(player.playerItemsN[i]);
 				}
-				c.getOutStream().writeWordBigEndianA(c.playerItems[i]);
+				player.getOutStream().writeWordBigEndianA(player.playerItems[i]);
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
 		}
 	}
 	
 	//for inv
 	public int getItemAmount(int itemID) {
 		int itemCount = 0;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] - 1 == itemID) {
-				itemCount += c.playerItemsN[i];
+		for (int i = 0; i < player.playerItems.length; i++) {
+			if (player.playerItems[i] - 1 == itemID) {
+				itemCount += player.playerItemsN[i];
 			}
 		}
 		return itemCount;
@@ -222,9 +224,9 @@ public class ItemAssistant {
 	//for bank
 	public int itemAmount(int itemID) {
 		int tempAmount = 0;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] == itemID) {
-				tempAmount += c.playerItemsN[i];
+		for (int i = 0; i < player.playerItems.length; i++) {
+			if (player.playerItems[i] == itemID) {
+				tempAmount += player.playerItemsN[i];
 			}
 		}
 		return tempAmount;
@@ -234,38 +236,38 @@ public class ItemAssistant {
 	public void writeBonus() {
 		int offset = 0;
 		String send = "";
-		for (int i = 0; i < c.playerBonus.length; i++) {
-			if (c.playerBonus[i] >= 0) {
-				send = BONUS_NAMES[i] + ": +" + c.playerBonus[i];
+		for (int i = 0; i < player.playerBonus.length; i++) {
+			if (player.playerBonus[i] >= 0) {
+				send = BONUS_NAMES[i] + ": +" + player.playerBonus[i];
 			} else {
-				send = BONUS_NAMES[i] + ": -" + java.lang.Math.abs(c.playerBonus[i]);
+				send = BONUS_NAMES[i] + ": -" + java.lang.Math.abs(player.playerBonus[i]);
 			}
 
 			if (i == 10) {
 				offset = 1;
 			}
-			c.getPacketSender().sendString(send, 1675 + i + offset);
+			player.getPacketSender().sendString(send, 1675 + i + offset);
 		}
 
 	}
 
 	public int getTotalCount(int itemID) {
 		int count = 0;
-		for (int j = 0; j < c.playerItems.length; j++) {
+		for (int j = 0; j < player.playerItems.length; j++) {
 			if (ItemData.itemIsNote[itemID + 1]) {
-				if (itemID + 2 == c.playerItems[j]) {
-					count += c.playerItemsN[j];
+				if (itemID + 2 == player.playerItems[j]) {
+					count += player.playerItemsN[j];
 				}
 			}
 			if (!ItemData.itemIsNote[itemID + 1]) {
-				if (itemID + 1 == c.playerItems[j]) {
-					count += c.playerItemsN[j];
+				if (itemID + 1 == player.playerItems[j]) {
+					count += player.playerItemsN[j];
 				}
 			}
 		}
-		for (int j = 0; j < c.bankItems.length; j++) {
-			if (c.bankItems[j] == itemID + 1) {
-				count += c.bankItemsN[j];
+		for (int j = 0; j < player.bankItems.length; j++) {
+			if (player.bankItems[j] == itemID + 1) {
+				count += player.bankItemsN[j];
 			}
 		}
 		return count;
@@ -273,9 +275,9 @@ public class ItemAssistant {
 
 	public int getBankItemCount() {
 		int count = 0;
-		for (int j = 0; j < c.bankItems.length; j++) {
-			if (c.bankItems[j] > -1) {
-				count += c.bankItemsN[j];
+		for (int j = 0; j < player.bankItems.length; j++) {
+			if (player.bankItems[j] > -1) {
+				count += player.bankItemsN[j];
 			}
 		}
 		return count;
@@ -290,43 +292,43 @@ public class ItemAssistant {
 		int item = 0;
 		int slotId = 0;
 		boolean itemInInventory = false;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] - 1 > 0) {
-				int inventoryItemValue = c.getShopAssistant().getItemShopValue(
-						c.playerItems[i] - 1);
-				if (inventoryItemValue > value && !c.invSlot[i]) {
+		for (int i = 0; i < player.playerItems.length; i++) {
+			if (player.playerItems[i] - 1 > 0) {
+				int inventoryItemValue = player.getShopAssistant().getItemShopValue(
+						player.playerItems[i] - 1);
+				if (inventoryItemValue > value && !player.invSlot[i]) {
 					value = inventoryItemValue;
-					item = c.playerItems[i] - 1;
+					item = player.playerItems[i] - 1;
 					slotId = i;
 					itemInInventory = true;
 				}
 			}
 		}
-		for (int i1 = 0; i1 < c.playerEquipment.length; i1++) {
-			if (c.playerEquipment[i1] > 0) {
-				int equipmentItemValue = c.getShopAssistant().getItemShopValue(
-						c.playerEquipment[i1]);
-				if (equipmentItemValue > value && !c.equipSlot[i1]) {
+		for (int i1 = 0; i1 < player.playerEquipment.length; i1++) {
+			if (player.playerEquipment[i1] > 0) {
+				int equipmentItemValue = player.getShopAssistant().getItemShopValue(
+						player.playerEquipment[i1]);
+				if (equipmentItemValue > value && !player.equipSlot[i1]) {
 					value = equipmentItemValue;
-					item = c.playerEquipment[i1];
+					item = player.playerEquipment[i1];
 					slotId = i1;
 					itemInInventory = false;
 				}
 			}
 		}
 		if (itemInInventory) {
-			c.invSlot[slotId] = true;
+			player.invSlot[slotId] = true;
 			if (deleteItem) {
-				deleteItem(c.playerItems[slotId] - 1,
-						getItemSlot(c.playerItems[slotId] - 1), 1);
+				deleteItem(player.playerItems[slotId] - 1,
+						getItemSlot(player.playerItems[slotId] - 1), 1);
 			}
 		} else {
-			c.equipSlot[slotId] = true;
+			player.equipSlot[slotId] = true;
 			if (deleteItem) {
 				deleteEquipment(item, slotId);
 			}
 		}
-		c.itemKeptId[keepItem] = item;
+		player.itemKeptId[keepItem] = item;
 	}
 
 	/**
@@ -334,14 +336,14 @@ public class ItemAssistant {
 	 **/
 
 	public void resetKeepItems() {
-		for (int i = 0; i < c.itemKeptId.length; i++) {
-			c.itemKeptId[i] = -1;
+		for (int i = 0; i < player.itemKeptId.length; i++) {
+			player.itemKeptId[i] = -1;
 		}
-		for (int i1 = 0; i1 < c.invSlot.length; i1++) {
-			c.invSlot[i1] = false;
+		for (int i1 = 0; i1 < player.invSlot.length; i1++) {
+			player.invSlot[i1] = false;
 		}
-		for (int i2 = 0; i2 < c.equipSlot.length; i2++) {
-			c.equipSlot[i2] = false;
+		for (int i2 = 0; i2 < player.equipSlot.length; i2++) {
+			player.equipSlot[i2] = false;
 		}
 	}
 
@@ -350,11 +352,11 @@ public class ItemAssistant {
 	 **/
 
 	public void deleteAllItems() {
-		for (int i1 = 0; i1 < c.playerEquipment.length; i1++) {
-			deleteEquipment(c.playerEquipment[i1], i1);
+		for (int i1 = 0; i1 < player.playerEquipment.length; i1++) {
+			deleteEquipment(player.playerEquipment[i1], i1);
 		}
-		for (int i = 0; i < c.playerItems.length; i++) {
-			deleteItem(c.playerItems[i] - 1, getItemSlot(c.playerItems[i] - 1), c.playerItemsN[i]);
+		for (int i = 0; i < player.playerItems.length; i++) {
+			deleteItem(player.playerItems[i] - 1, getItemSlot(player.playerItems[i] - 1), player.playerItemsN[i]);
 		}
 	}
 
@@ -364,9 +366,9 @@ public class ItemAssistant {
 
 	public void clearBank() {
 		try {
-			for (int i = 0; i < c.bankItems[i]; i++) {
-				c.bankItems[i] = 0;
-				c.bankItemsN[i] = 0;
+			for (int i = 0; i < player.bankItems[i]; i++) {
+				player.bankItems[i] = 0;
+				player.bankItemsN[i] = 0;
 			}
 			resetTempItems();
 			resetBank();
@@ -380,55 +382,55 @@ public class ItemAssistant {
 	 **/
 
 	public void dropAllItems() {
-		Client o = (Client) PlayerHandler.players[c.killerId];
+		Client o = (Client) PlayerHandler.players[player.killerId];
 
-		for (int i = 0; i < c.playerItems.length; i++) {
+		for (int i = 0; i < player.playerItems.length; i++) {
 			if (o != null) {
-				if (tradeable(c.playerItems[i] - 1)) {
+				if (tradeable(player.playerItems[i] - 1)) {
 					GameEngine.itemHandler.createGroundItem(o,
-							c.playerItems[i] - 1, c.getX(), c.getY(),
-							c.playerItemsN[i], c.killerId);
+							player.playerItems[i] - 1, player.getX(), player.getY(),
+							player.playerItemsN[i], player.killerId);
 				} else {
-					if (specialCase(c.playerItems[i] - 1)) {
-						GameEngine.itemHandler.createGroundItem(o, 995, c.getX(),
-								c.getY(),
-								getUntradePrice(c.playerItems[i] - 1),
-								c.killerId);
+					if (specialCase(player.playerItems[i] - 1)) {
+						GameEngine.itemHandler.createGroundItem(o, 995, player.getX(),
+								player.getY(),
+								getUntradePrice(player.playerItems[i] - 1),
+								player.killerId);
 					}
-					GameEngine.itemHandler.createGroundItem(c,
-							c.playerItems[i] - 1, c.getX(), c.getY(),
-							c.playerItemsN[i], c.playerId);
+					GameEngine.itemHandler.createGroundItem(player,
+							player.playerItems[i] - 1, player.getX(), player.getY(),
+							player.playerItemsN[i], player.playerId);
 				}
 			} else {
-				GameEngine.itemHandler.createGroundItem(c, c.playerItems[i] - 1,
-						c.getX(), c.getY(), c.playerItemsN[i], c.playerId);
+				GameEngine.itemHandler.createGroundItem(player, player.playerItems[i] - 1,
+						player.getX(), player.getY(), player.playerItemsN[i], player.playerId);
 			}
 		}
-		for (int e = 0; e < c.playerEquipment.length; e++) {
+		for (int e = 0; e < player.playerEquipment.length; e++) {
 			if (o != null) {
-				if (tradeable(c.playerEquipment[e])) {
+				if (tradeable(player.playerEquipment[e])) {
 					GameEngine.itemHandler.createGroundItem(o,
-							c.playerEquipment[e], c.getX(), c.getY(),
-							c.playerEquipmentN[e], c.killerId);
+							player.playerEquipment[e], player.getX(), player.getY(),
+							player.playerEquipmentN[e], player.killerId);
 				} else {
-					if (specialCase(c.playerEquipment[e])) {
-						GameEngine.itemHandler.createGroundItem(o, 995, c.getX(),
-								c.getY(),
-								getUntradePrice(c.playerEquipment[e]),
-								c.killerId);
+					if (specialCase(player.playerEquipment[e])) {
+						GameEngine.itemHandler.createGroundItem(o, 995, player.getX(),
+								player.getY(),
+								getUntradePrice(player.playerEquipment[e]),
+								player.killerId);
 					}
-					GameEngine.itemHandler.createGroundItem(c,
-							c.playerEquipment[e], c.getX(), c.getY(),
-							c.playerEquipmentN[e], c.playerId);
+					GameEngine.itemHandler.createGroundItem(player,
+							player.playerEquipment[e], player.getX(), player.getY(),
+							player.playerEquipmentN[e], player.playerId);
 				}
 			} else {
-				GameEngine.itemHandler.createGroundItem(c, c.playerEquipment[e],
-						c.getX(), c.getY(), c.playerEquipmentN[e], c.playerId);
+				GameEngine.itemHandler.createGroundItem(player, player.playerEquipment[e],
+						player.getX(), player.getY(), player.playerEquipmentN[e], player.playerId);
 			}
 		}
 		if (o != null) {
-			GameEngine.itemHandler.createGroundItem(o, 526, c.getX(), c.getY(), 1,
-					c.killerId);
+			GameEngine.itemHandler.createGroundItem(o, 526, player.getX(), player.getY(), 1,
+					player.killerId);
 		}
 	}
 
@@ -479,57 +481,57 @@ public class ItemAssistant {
 		if ((freeSlots() >= 1 || playerHasItem(item, 1))
 				&& ItemData.itemStackable[item] || freeSlots() > 0
 				&& !ItemData.itemStackable[item]) {
-			for (int i = 0; i < c.playerItems.length; i++) {
-				if (c.playerItems[i] == item + 1 && ItemData.itemStackable[item]
-						&& c.playerItems[i] > 0) {
-					c.playerItems[i] = item + 1;
-					if (c.playerItemsN[i] + amount < GameConstants.MAXITEM_AMOUNT
-							&& c.playerItemsN[i] + amount > -1) {
-						c.playerItemsN[i] += amount;
+			for (int i = 0; i < player.playerItems.length; i++) {
+				if (player.playerItems[i] == item + 1 && ItemData.itemStackable[item]
+						&& player.playerItems[i] > 0) {
+					player.playerItems[i] = item + 1;
+					if (player.playerItemsN[i] + amount < GameConstants.MAXITEM_AMOUNT
+							&& player.playerItemsN[i] + amount > -1) {
+						player.playerItemsN[i] += amount;
 					} else {
-						c.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
+						player.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
 					}
-					if (c.getOutStream() != null && c != null) {
-						c.getOutStream().createFrameVarSizeWord(34);
-						c.getOutStream().writeWord(3214);
-						c.getOutStream().writeByte(i);
-						c.getOutStream().writeWord(c.playerItems[i]);
-						if (c.playerItemsN[i] > 254) {
-							c.getOutStream().writeByte(255);
-							c.getOutStream().writeDWord(c.playerItemsN[i]);
+					if (player.getOutStream() != null && player != null) {
+						player.getOutStream().createFrameVarSizeWord(34);
+						player.getOutStream().writeWord(3214);
+						player.getOutStream().writeByte(i);
+						player.getOutStream().writeWord(player.playerItems[i]);
+						if (player.playerItemsN[i] > 254) {
+							player.getOutStream().writeByte(255);
+							player.getOutStream().writeDWord(player.playerItemsN[i]);
 						} else {
-							c.getOutStream().writeByte(c.playerItemsN[i]);
+							player.getOutStream().writeByte(player.playerItemsN[i]);
 						}
-						c.getOutStream().endFrameVarSizeWord();
-						c.flushOutStream();
+						player.getOutStream().endFrameVarSizeWord();
+						player.flushOutStream();
 					}
 					i = 30;
-					Weight.calcWeight(c, item, "additem");
+					Weight.calcWeight(player, item, "additem");
 					return true;
 				}
 			}
-			for (int i = 0; i < c.playerItems.length; i++) {
-				if (c.playerItems[i] <= 0) {
-					c.playerItems[i] = item + 1;
+			for (int i = 0; i < player.playerItems.length; i++) {
+				if (player.playerItems[i] <= 0) {
+					player.playerItems[i] = item + 1;
 					if (amount < GameConstants.MAXITEM_AMOUNT && amount > -1) {
-						c.playerItemsN[i] = 1;
+						player.playerItemsN[i] = 1;
 						if (amount > 1) {
 							addItem(item, amount - 1);
 							return true;
 						}
 					} else {
-						c.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
+						player.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
 					}
 					resetItems(3214);
 					i = 30;
-					Weight.calcWeight(c, item, "additem");
+					Weight.calcWeight(player, item, "additem");
 					return true;
 				}
 			}
 			return false;
 		} else {
 			resetItems(3214);
-			c.getPacketSender().sendMessage("Not enough space in your inventory.");
+			player.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return false;
 		}
 	}
@@ -543,19 +545,19 @@ public class ItemAssistant {
 			"Prayer" };
 
 	public void resetBonus() {
-		for (int i = 0; i < c.playerBonus.length; i++) {
-			c.playerBonus[i] = 0;
+		for (int i = 0; i < player.playerBonus.length; i++) {
+			player.playerBonus[i] = 0;
 		}
 	}
 
 	public void getBonus() {
-		for (int element : c.playerEquipment) {
+		for (int element : player.playerEquipment) {
 			if (element > -1) {
 				for (int j = 0; j < GameConstants.ITEM_LIMIT; j++) {
 					if (GameEngine.itemHandler.itemList[j] != null) {
 						if (GameEngine.itemHandler.itemList[j].itemId == element) {
-							for (int k = 0; k < c.playerBonus.length; k++) {
-								c.playerBonus[k] += GameEngine.itemHandler.itemList[j].Bonuses[k];
+							for (int k = 0; k < player.playerBonus.length; k++) {
+								player.playerBonus[k] += GameEngine.itemHandler.itemList[j].Bonuses[k];
 							}
 							break;
 						}
@@ -583,70 +585,70 @@ public class ItemAssistant {
 		newWeapon = newWeapon.replaceAll("Crystal", "");
 		newWeapon = newWeapon.trim();
 		if (weaponName.equals("Unarmed")) {
-			c.getPacketSender().setSidebarInterface(0, 5855); // punch,
+			player.getPacketSender().setSidebarInterface(0, 5855); // punch,
 			// kick,
 			// block
-			c.getPacketSender().sendString(weaponName, 5857);
+			player.getPacketSender().sendString(weaponName, 5857);
 		} else if (weaponName.endsWith("whip")) {
-			c.getPacketSender().setSidebarInterface(0, 12290); // flick, lash, deflect
-			c.getPacketSender().sendFrame246(12291, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 12293);
+			player.getPacketSender().setSidebarInterface(0, 12290); // flick, lash, deflect
+			player.getPacketSender().sendFrame246(12291, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 12293);
 		} else if (weaponName.endsWith("bow") || weaponName.endsWith("10")
 				|| weaponName.endsWith("full")
 				|| weaponName.startsWith("seercull")) {
-			c.getPacketSender().setSidebarInterface(0, 1764); // accurate, rapid, longrange
-			c.getPacketSender().sendFrame246(1765, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 1767);
+			player.getPacketSender().setSidebarInterface(0, 1764); // accurate, rapid, longrange
+			player.getPacketSender().sendFrame246(1765, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 1767);
 		} else if (weaponName.startsWith("Staff")
 				|| weaponName.endsWith("staff") || weaponName.endsWith("wand")) {
-			c.getPacketSender().setSidebarInterface(0, 328); // spike, impale, smash, block
-			c.getPacketSender().sendFrame246(329, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 331);
+			player.getPacketSender().setSidebarInterface(0, 328); // spike, impale, smash, block
+			player.getPacketSender().sendFrame246(329, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 331);
 		} else if (newWeapon.startsWith("dart")
 				|| newWeapon.startsWith("knife")
 				|| newWeapon.startsWith("javelin")
 				|| weaponName.equalsIgnoreCase("toktz-xil-ul")) {
-			c.getPacketSender().setSidebarInterface(0, 4446); // accurate, rapid, longrange
-			c.getPacketSender().sendFrame246(4447, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 4449);
+			player.getPacketSender().setSidebarInterface(0, 4446); // accurate, rapid, longrange
+			player.getPacketSender().sendFrame246(4447, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 4449);
 		} else if (newWeapon.startsWith("dagger")
 				|| newWeapon.contains("sword")) {
-			c.getPacketSender().setSidebarInterface(0, 2276); // stab, lunge, slash, block
-			c.getPacketSender().sendFrame246(2277, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 2279);
+			player.getPacketSender().setSidebarInterface(0, 2276); // stab, lunge, slash, block
+			player.getPacketSender().sendFrame246(2277, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 2279);
 		} else if (newWeapon.startsWith("pickaxe")) {
-			c.getPacketSender().setSidebarInterface(0, 5570); // spike, impale, smash, block
-			c.getPacketSender().sendFrame246(5571, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 5573);
+			player.getPacketSender().setSidebarInterface(0, 5570); // spike, impale, smash, block
+			player.getPacketSender().sendFrame246(5571, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 5573);
 		} else if (newWeapon.startsWith("axe")
 				|| newWeapon.startsWith("battleaxe")) {
-			c.getPacketSender().setSidebarInterface(0, 1698); // chop, hack, smash, block
-			c.getPacketSender().sendFrame246(1699, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 1701);
+			player.getPacketSender().setSidebarInterface(0, 1698); // chop, hack, smash, block
+			player.getPacketSender().sendFrame246(1699, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 1701);
 		} else if (newWeapon.startsWith("halberd")) {
-			c.getPacketSender().setSidebarInterface(0, 8460); // jab, swipe, fend
-			c.getPacketSender().sendFrame246(8461, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 8463);
+			player.getPacketSender().setSidebarInterface(0, 8460); // jab, swipe, fend
+			player.getPacketSender().sendFrame246(8461, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 8463);
 		} else if (newWeapon.startsWith("Scythe")) {
-			c.getPacketSender().setSidebarInterface(0, 8460); // jab, swipe, fend
-			c.getPacketSender().sendFrame246(8461, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 8463);
+			player.getPacketSender().setSidebarInterface(0, 8460); // jab, swipe, fend
+			player.getPacketSender().sendFrame246(8461, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 8463);
 		} else if (newWeapon.startsWith("spear")) {
-			c.getPacketSender().setSidebarInterface(0, 4679); // lunge, swipe, pound, block
-			c.getPacketSender().sendFrame246(4680, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 4682);
+			player.getPacketSender().setSidebarInterface(0, 4679); // lunge, swipe, pound, block
+			player.getPacketSender().sendFrame246(4680, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 4682);
 		} else if (newWeapon.toLowerCase().contains("mace")) {
-			c.getPacketSender().setSidebarInterface(0, 3796);
-			c.getPacketSender().sendFrame246(3797, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 3799);
-		} else if (c.playerEquipment[c.playerWeapon] == 4153) {
-			c.getPacketSender().setSidebarInterface(0, 425); // war hamer equip
-			c.getPacketSender().sendFrame246(426, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 428);
+			player.getPacketSender().setSidebarInterface(0, 3796);
+			player.getPacketSender().sendFrame246(3797, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 3799);
+		} else if (player.playerEquipment[player.playerWeapon] == 4153) {
+			player.getPacketSender().setSidebarInterface(0, 425); // war hamer equip
+			player.getPacketSender().sendFrame246(426, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 428);
 		} else {
-			c.getPacketSender().setSidebarInterface(0, 2423); // chop, slash, lung, block
-			c.getPacketSender().sendFrame246(2424, 200, weapon);
-			c.getPacketSender().sendString(weaponName, 2426);
+			player.getPacketSender().setSidebarInterface(0, 2423); // chop, slash, lung, block
+			player.getPacketSender().sendFrame246(2424, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 2426);
 		}
 
 	}
@@ -656,55 +658,55 @@ public class ItemAssistant {
 	 **/
 
 	public void getRequirements(String itemName, int itemId) {
-		c.attackLevelReq = c.defenceLevelReq = c.strengthLevelReq = c.rangeLevelReq = c.magicLevelReq = c.agilityLevelReq = c.slayerLevelReq = 0;
+		player.attackLevelReq = player.defenceLevelReq = player.strengthLevelReq = player.rangeLevelReq = player.magicLevelReq = player.agilityLevelReq = player.slayerLevelReq = 0;
 		if (itemName.contains("mystic") || itemName.contains("nchanted")) {
 			if (itemName.contains("staff")) {
-				c.magicLevelReq = 20;
-				c.attackLevelReq = 40;
+				player.magicLevelReq = 20;
+				player.attackLevelReq = 40;
 			} else {
-				c.magicLevelReq = 20;
-				c.defenceLevelReq = 20;
+				player.magicLevelReq = 20;
+				player.defenceLevelReq = 20;
 			}
 		}
 		if (itemName.contains("infinity")) {
-			c.magicLevelReq = 50;
-			c.defenceLevelReq = 25;
+			player.magicLevelReq = 50;
+			player.defenceLevelReq = 25;
 		}
 		if (itemName.contains("splitbark")) {
-			c.magicLevelReq = 40;
-			c.defenceLevelReq = 40;
+			player.magicLevelReq = 40;
+			player.defenceLevelReq = 40;
 		}
 		if (itemName.contains("green d'hide")) {
-			c.rangeLevelReq = 40;
+			player.rangeLevelReq = 40;
 			if (itemName.contains("body")) {
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 			}
 		}
 		if (itemName.contains("blue d'hide")) {
-			c.rangeLevelReq = 50;
+			player.rangeLevelReq = 50;
 			if (itemName.contains("body")) {
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 			}
 			return;
 		}
 		if (itemName.contains("red d'hide")) {
-			c.rangeLevelReq = 60;
+			player.rangeLevelReq = 60;
 			if (itemName.contains("body")) {
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 			}
 			return;
 		}
 		if (itemName.contains("black d'hide")) {
 			if (itemName.contains("body")) {
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 			}
-			c.rangeLevelReq = 70;
+			player.rangeLevelReq = 70;
 		}
 		if (itemName.contains("bronze")) {
 			if (!itemName.contains("knife") && !itemName.contains("dart")
 					&& !itemName.contains("javelin")
 					&& !itemName.contains("thrownaxe")) {
-				c.attackLevelReq = c.defenceLevelReq = 1;
+				player.attackLevelReq = player.defenceLevelReq = 1;
 			}
 			return;
 		}
@@ -712,7 +714,7 @@ public class ItemAssistant {
 			if (!itemName.contains("knife") && !itemName.contains("dart")
 					&& !itemName.contains("javelin")
 					&& !itemName.contains("thrownaxe")) {
-				c.attackLevelReq = c.defenceLevelReq = 1;
+				player.attackLevelReq = player.defenceLevelReq = 1;
 			}
 			return;
 		}
@@ -720,7 +722,7 @@ public class ItemAssistant {
 			if (!itemName.contains("knife") && !itemName.contains("dart")
 					&& !itemName.contains("javelin")
 					&& !itemName.contains("thrownaxe")) {
-				c.attackLevelReq = c.defenceLevelReq = 5;
+				player.attackLevelReq = player.defenceLevelReq = 5;
 			}
 			return;
 		}
@@ -731,7 +733,7 @@ public class ItemAssistant {
 					&& !itemName.contains("javelin")
 					&& !itemName.contains("thrownaxe")
 					&& !itemName.contains("vamb") && !itemName.contains("chap") && !itemName.equalsIgnoreCase("Black robe")) {
-				c.attackLevelReq = c.defenceLevelReq = 10;
+				player.attackLevelReq = player.defenceLevelReq = 10;
 			}
 			return;
 		}
@@ -739,7 +741,7 @@ public class ItemAssistant {
 			if (!itemName.contains("knife") && !itemName.contains("dart")
 					&& !itemName.contains("javelin")
 					&& !itemName.contains("thrownaxe")) {
-				c.attackLevelReq = c.defenceLevelReq = 20;
+				player.attackLevelReq = player.defenceLevelReq = 20;
 			}
 			return;
 		}
@@ -747,7 +749,7 @@ public class ItemAssistant {
 			if (!itemName.contains("knife") && !itemName.contains("dart")
 					&& !itemName.contains("javelin")
 					&& !itemName.contains("thrownaxe")) {
-				c.attackLevelReq = c.defenceLevelReq = 30;
+				player.attackLevelReq = player.defenceLevelReq = 30;
 			}
 			return;
 		}
@@ -756,67 +758,67 @@ public class ItemAssistant {
 					&& !itemName.contains("javelin")
 					&& !itemName.contains("thrownaxe")
 					&& !itemName.contains("'bow")) {
-				c.attackLevelReq = c.defenceLevelReq = 40;
+				player.attackLevelReq = player.defenceLevelReq = 40;
 			}
 			return;
 		}
 		if (itemName.contains("dragon")) {
 			if (!itemName.contains("nti-") && !itemName.contains("fire")) {
-				c.attackLevelReq = c.defenceLevelReq = 60;
+				player.attackLevelReq = player.defenceLevelReq = 60;
 				return;
 			}
 		}
 		if (itemName.contains("crystal")) {
 			if (itemName.contains("shield")) {
-				c.defenceLevelReq = 70;
+				player.defenceLevelReq = 70;
 			} else {
-				c.rangeLevelReq = 70;
+				player.rangeLevelReq = 70;
 			}
 			return;
 		}
 		if (itemName.contains("ahrim")) {
 			if (itemName.contains("staff")) {
-				c.magicLevelReq = 70;
-				c.attackLevelReq = 70;
+				player.magicLevelReq = 70;
+				player.attackLevelReq = 70;
 			} else {
-				c.magicLevelReq = 70;
-				c.defenceLevelReq = 70;
+				player.magicLevelReq = 70;
+				player.defenceLevelReq = 70;
 			}
 		}
 		if (itemName.contains("karil")) {
 			if (itemName.contains("crossbow")) {
-				c.rangeLevelReq = 70;
+				player.rangeLevelReq = 70;
 			} else {
-				c.rangeLevelReq = 70;
-				c.defenceLevelReq = 70;
+				player.rangeLevelReq = 70;
+				player.defenceLevelReq = 70;
 			}
 		}
 		if (itemName.contains("godsword")) {
-			c.attackLevelReq = 75;
+			player.attackLevelReq = 75;
 		}
 		if (itemName.contains("3rd age") && !itemName.contains("amulet")) {
-			c.defenceLevelReq = 60;
+			player.defenceLevelReq = 60;
 		}
 		if (itemName.contains("Initiate")) {
-			c.defenceLevelReq = 20;
+			player.defenceLevelReq = 20;
 		}
 		if (itemName.contains("verac") || itemName.contains("guthan")
 				|| itemName.contains("dharok") || itemName.contains("torag")) {
 
 			if (itemName.contains("hammers")) {
-				c.attackLevelReq = 70;
-				c.strengthLevelReq = 70;
+				player.attackLevelReq = 70;
+				player.strengthLevelReq = 70;
 			} else if (itemName.contains("axe")) {
-				c.attackLevelReq = 70;
-				c.strengthLevelReq = 70;
+				player.attackLevelReq = 70;
+				player.strengthLevelReq = 70;
 			} else if (itemName.contains("warspear")) {
-				c.attackLevelReq = 70;
-				c.strengthLevelReq = 70;
+				player.attackLevelReq = 70;
+				player.strengthLevelReq = 70;
 			} else if (itemName.contains("flail")) {
-				c.attackLevelReq = 70;
-				c.strengthLevelReq = 70;
+				player.attackLevelReq = 70;
+				player.strengthLevelReq = 70;
 			} else {
-				c.defenceLevelReq = 70;
+				player.defenceLevelReq = 70;
 			}
 		}
 
@@ -827,138 +829,138 @@ public class ItemAssistant {
 			case 11663:
 			case 11664:
 			case 11665:
-				c.attackLevelReq = 42;
-				c.rangeLevelReq = 42;
-				c.strengthLevelReq = 42;
-				c.magicLevelReq = 42;
-				c.defenceLevelReq = 42;
+				player.attackLevelReq = 42;
+				player.rangeLevelReq = 42;
+				player.strengthLevelReq = 42;
+				player.magicLevelReq = 42;
+				player.defenceLevelReq = 42;
 				return;
 			case 10551:
 			case 2503:
 			case 2501:
 			case 2499:
 			case 1135:
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 				return;
 			case 1133:
-				c.defenceLevelReq = 20;
-				c.rangeLevelReq = 20;
+				player.defenceLevelReq = 20;
+				player.rangeLevelReq = 20;
 				return;
 			case 11235:
 			case 6522:
-				c.rangeLevelReq = 60;
+				player.rangeLevelReq = 60;
 				break;
 			case 1097:
-				c.rangeLevelReq = 20;
+				player.rangeLevelReq = 20;
 				break;
 			case 864:
 			case 863:
-				c.rangeLevelReq = 1;
+				player.rangeLevelReq = 1;
 				break;
 			case 865:
-				c.rangeLevelReq = 5;
+				player.rangeLevelReq = 5;
 				break;
 			case 866:
-				c.rangeLevelReq = 20;
+				player.rangeLevelReq = 20;
 				break;
 			case 867:
-				c.rangeLevelReq = 30;
+				player.rangeLevelReq = 30;
 				break;
 			case 868:
-				c.rangeLevelReq = 40;
+				player.rangeLevelReq = 40;
 				break;
 			case 6524:
-				c.defenceLevelReq = 60;
+				player.defenceLevelReq = 60;
 				break;
 			case 11284:
-				c.defenceLevelReq = 75;
+				player.defenceLevelReq = 75;
 				return;
 			case 6889:
 			case 6914:
-				c.magicLevelReq = 60;
+				player.magicLevelReq = 60;
 				break;
 			case 10828:
-				c.defenceLevelReq = 55;
+				player.defenceLevelReq = 55;
 				break;
 			case 11724:
 			case 11726:
 			case 11728:
-				c.defenceLevelReq = 65;
+				player.defenceLevelReq = 65;
 				break;
 			case 847:
 			case 849:
-				c.rangeLevelReq = 20;
+				player.rangeLevelReq = 20;
 				break;
 			case 843:
 			case 845:
-				c.rangeLevelReq = 5;
+				player.rangeLevelReq = 5;
 				break;
 			case 851:
 			case 853:
-				c.rangeLevelReq = 30;
+				player.rangeLevelReq = 30;
 				break;
 			case 855:
 			case 857:
-				c.rangeLevelReq = 40;
+				player.rangeLevelReq = 40;
 				break;
 			case 859:
 			case 861:
-				c.rangeLevelReq = 50;
+				player.rangeLevelReq = 50;
 				break;
 			case 3749:
 			case 3751:
 			case 3755:
 			case 3753:
-				c.defenceLevelReq = 45;
+				player.defenceLevelReq = 45;
 				break;
 
 			case 7462:
 			case 7461:
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 				break;
 			case 8846:
-				c.defenceLevelReq = 5;
+				player.defenceLevelReq = 5;
 				break;
 			case 8847:
-				c.defenceLevelReq = 10;
+				player.defenceLevelReq = 10;
 				break;
 			case 8848:
-				c.defenceLevelReq = 20;
+				player.defenceLevelReq = 20;
 				break;
 			case 8849:
-				c.defenceLevelReq = 30;
+				player.defenceLevelReq = 30;
 				break;
 			case 8850:
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 				break;
 
 			case 7460:
-				c.defenceLevelReq = 40;
+				player.defenceLevelReq = 40;
 				break;
 
 			case 837:
-				c.rangeLevelReq = 61;
+				player.rangeLevelReq = 61;
 				break;
 
 			case 4151: // if you don't want to use names
-				c.attackLevelReq = 70;
+				player.attackLevelReq = 70;
 				return;
 
 			case 6724: // seercull
-				c.rangeLevelReq = 60; // idk if that is correct
+				player.rangeLevelReq = 60; // idk if that is correct
 				return;
 			case 6523:
 			case 6525:
 			case 6527:
-				c.attackLevelReq = 60;
+				player.attackLevelReq = 60;
 				return;
 			case 6526:
-				c.attackLevelReq = 60;
-				c.magicLevelReq = 60;
+				player.attackLevelReq = 60;
+				player.magicLevelReq = 60;
 				return;
 			case 4156:
-				c.defenceLevelReq = 20;
-				c.slayerLevelReq = 25;
+				player.defenceLevelReq = 20;
+				player.slayerLevelReq = 25;
 				return;
 			case 1391:
 			case 1393:
@@ -966,43 +968,43 @@ public class ItemAssistant {
 			case 1397:
 			case 1399:
 			case 3053:
-				c.attackLevelReq = 30;
-				c.magicLevelReq = 30;
+				player.attackLevelReq = 30;
+				player.magicLevelReq = 30;
 				return;
 			case 4158:
-				c.slayerLevelReq = 55;
-				c.attackLevelReq = 50;
+				player.slayerLevelReq = 55;
+				player.attackLevelReq = 50;
 				return;
 			case 4153:
-				c.attackLevelReq = 50;
-				c.strengthLevelReq = 50;
+				player.attackLevelReq = 50;
+				player.strengthLevelReq = 50;
 				return;
 			case 6528:
-				c.strengthLevelReq = 60;
+				player.strengthLevelReq = 60;
 				return;
 			case 4161:
-				c.slayerLevelReq = 20;
+				player.slayerLevelReq = 20;
 				return;
 			case 4168:
-				c.slayerLevelReq = 60;
+				player.slayerLevelReq = 60;
 				return;
 			case 6696:
-				c.slayerLevelReq = 22;
+				player.slayerLevelReq = 22;
 				return;
 			case 8923:
-				c.slayerLevelReq = 35;
+				player.slayerLevelReq = 35;
 				return;
 			case 7159:
-				c.slayerLevelReq = 37;
+				player.slayerLevelReq = 37;
 				return;
 			case 6708:
-				c.slayerLevelReq = 42;
+				player.slayerLevelReq = 42;
 				return;
 			case 4170:
-				c.slayerLevelReq = 55;
+				player.slayerLevelReq = 55;
 				return;
 			case 4162:
-				c.slayerLevelReq = 75;
+				player.slayerLevelReq = 75;
 				return;
 			case 7421:
 			case 7422:
@@ -1016,7 +1018,7 @@ public class ItemAssistant {
 			case 7430:
 			case 7431:
 			case 7432:
-				c.slayerLevelReq = 57;
+				player.slayerLevelReq = 57;
 				return;
 			case 4212:
 			case 4214:
@@ -1029,32 +1031,32 @@ public class ItemAssistant {
 			case 4221:
 			case 4222:
 			case 4223:
-				c.agilityLevelReq = 50;
-				c.rangeLevelReq = 70;
+				player.agilityLevelReq = 50;
+				player.rangeLevelReq = 70;
 				return;
 			case 4150:
 			case 4160:
 			case 4172:
 			case 4174:
-				c.slayerLevelReq = 55;
+				player.slayerLevelReq = 55;
 				return;
 			case 1015:
-				c.defenceLevelReq = 1;
+				player.defenceLevelReq = 1;
 				return;
 			case 6664:
-				c.slayerLevelReq = 32;
+				player.slayerLevelReq = 32;
 				return;
 			case 4551:
-				c.defenceLevelReq = 5;
+				player.defenceLevelReq = 5;
 				return;
 			case 7051:
-				c.slayerLevelReq = 33;
+				player.slayerLevelReq = 33;
 				return;
 			case 4166:
-				c.slayerLevelReq = 15;
+				player.slayerLevelReq = 15;
 				return;
 			case 4164:
-				c.slayerLevelReq = 10;
+				player.slayerLevelReq = 10;
 				return;
 		}
 	}
@@ -1097,40 +1099,40 @@ public class ItemAssistant {
 		switch (weapon) {
 
 			case 4151: // whip
-				c.getPacketSender().sendFrame171(0, 12323);
-				specialAmount(weapon, c.specAmount, 12335);
+				player.getPacketSender().sendFrame171(0, 12323);
+				specialAmount(weapon, player.specAmount, 12335);
 				break;
 
 			case 859: // magic bows
 			case 861:
 			case 11235:
-				c.getPacketSender().sendFrame171(0, 7549);
-				specialAmount(weapon, c.specAmount, 7561);
+				player.getPacketSender().sendFrame171(0, 7549);
+				specialAmount(weapon, player.specAmount, 7561);
 				break;
 
 			case 4587: // dscimmy
-				c.getPacketSender().sendFrame171(0, 7599);
-				specialAmount(weapon, c.specAmount, 7611);
+				player.getPacketSender().sendFrame171(0, 7599);
+				specialAmount(weapon, player.specAmount, 7611);
 				break;
 
 			case 3204: // d hally
-				c.getPacketSender().sendFrame171(0, 8493);
-				specialAmount(weapon, c.specAmount, 8505);
+				player.getPacketSender().sendFrame171(0, 8493);
+				specialAmount(weapon, player.specAmount, 8505);
 				break;
 
 			case 1377: // d battleaxe
-				c.getPacketSender().sendFrame171(0, 7499);
-				specialAmount(weapon, c.specAmount, 7511);
+				player.getPacketSender().sendFrame171(0, 7499);
+				specialAmount(weapon, player.specAmount, 7511);
 				break;
 
 			case 4153: // gmaul
-				c.getPacketSender().sendFrame171(0, 7474);
-				specialAmount(weapon, c.specAmount, 7486);
+				player.getPacketSender().sendFrame171(0, 7474);
+				specialAmount(weapon, player.specAmount, 7486);
 				break;
 
 			case 1249: // dspear
-				c.getPacketSender().sendFrame171(0, 7674);
-				specialAmount(weapon, c.specAmount, 7686);
+				player.getPacketSender().sendFrame171(0, 7674);
+				specialAmount(weapon, player.specAmount, 7686);
 				break;
 
 			case 1215:// dragon dagger
@@ -1143,29 +1145,29 @@ public class ItemAssistant {
 			case 11700:
 			case 11730:
 			case 11696:
-				c.getPacketSender().sendFrame171(0, 7574);
-				specialAmount(weapon, c.specAmount, 7586);
+				player.getPacketSender().sendFrame171(0, 7574);
+				specialAmount(weapon, player.specAmount, 7586);
 				break;
 
 			case 1434: // dragon mace
-				c.getPacketSender().sendFrame171(0, 7624);
-				specialAmount(weapon, c.specAmount, 7636);
+				player.getPacketSender().sendFrame171(0, 7624);
+				specialAmount(weapon, player.specAmount, 7636);
 				break;
 
 			default:
-				c.getPacketSender().sendFrame171(1, 7624); // mace
+				player.getPacketSender().sendFrame171(1, 7624); // mace
 				// interface
-				c.getPacketSender().sendFrame171(1, 7474); // hammer, gmaul
-				c.getPacketSender().sendFrame171(1, 7499); // axe
-				c.getPacketSender().sendFrame171(1, 7549); // bow interface
-				c.getPacketSender().sendFrame171(1, 7574); // sword
+				player.getPacketSender().sendFrame171(1, 7474); // hammer, gmaul
+				player.getPacketSender().sendFrame171(1, 7499); // axe
+				player.getPacketSender().sendFrame171(1, 7549); // bow interface
+				player.getPacketSender().sendFrame171(1, 7574); // sword
 				// interface
-				c.getPacketSender().sendFrame171(1, 7599); // scimmy sword
+				player.getPacketSender().sendFrame171(1, 7599); // scimmy sword
 				// interface,
 				// for most
 				// swords
-				c.getPacketSender().sendFrame171(1, 8493);
-				c.getPacketSender().sendFrame171(1, 12323); // whip
+				player.getPacketSender().sendFrame171(1, 8493);
+				player.getPacketSender().sendFrame171(1, 12323); // whip
 				// interface
 				break;
 		}
@@ -1176,17 +1178,17 @@ public class ItemAssistant {
 	 **/
 
 	public void specialAmount(int weapon, double specAmount, int barId) {
-		c.specBarId = barId;
-		c.getPacketSender().sendFrame70(specAmount >= 10 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 9 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 8 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 7 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 6 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 5 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 4 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 3 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 2 ? 500 : 0, 0, --barId);
-		c.getPacketSender().sendFrame70(specAmount >= 1 ? 500 : 0, 0, --barId);
+		player.specBarId = barId;
+		player.getPacketSender().sendFrame70(specAmount >= 10 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 9 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 8 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 7 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 6 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 5 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 4 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 3 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 2 ? 500 : 0, 0, --barId);
+		player.getPacketSender().sendFrame70(specAmount >= 1 ? 500 : 0, 0, --barId);
 		updateSpecialBar();
 		sendWeapon(weapon, getItemName(weapon));
 	}
@@ -1196,38 +1198,38 @@ public class ItemAssistant {
 	 **/
 
 	public void updateSpecialBar() {
-		if (c.usingSpecial) {
-			c.getPacketSender().sendString(
+		if (player.usingSpecial) {
+			player.getPacketSender().sendString(
 					""
-							+ (c.specAmount >= 2 ? "@yel@S P"
+							+ (player.specAmount >= 2 ? "@yel@S P"
 							: "@bla@S P")
 							+ ""
-							+ (c.specAmount >= 3 ? "@yel@ E"
+							+ (player.specAmount >= 3 ? "@yel@ E"
 							: "@bla@ E")
 							+ ""
-							+ (c.specAmount >= 4 ? "@yel@ C I"
+							+ (player.specAmount >= 4 ? "@yel@ C I"
 							: "@bla@ C I")
 							+ ""
-							+ (c.specAmount >= 5 ? "@yel@ A L"
+							+ (player.specAmount >= 5 ? "@yel@ A L"
 							: "@bla@ A L")
 							+ ""
-							+ (c.specAmount >= 6 ? "@yel@  A"
+							+ (player.specAmount >= 6 ? "@yel@  A"
 							: "@bla@  A")
 							+ ""
-							+ (c.specAmount >= 7 ? "@yel@ T T"
+							+ (player.specAmount >= 7 ? "@yel@ T T"
 							: "@bla@ T T")
 							+ ""
-							+ (c.specAmount >= 8 ? "@yel@ A"
+							+ (player.specAmount >= 8 ? "@yel@ A"
 							: "@bla@ A")
 							+ ""
-							+ (c.specAmount >= 9 ? "@yel@ C"
+							+ (player.specAmount >= 9 ? "@yel@ C"
 							: "@bla@ C")
 							+ ""
-							+ (c.specAmount >= 10 ? "@yel@ K"
-							: "@bla@ K"), c.specBarId);
+							+ (player.specAmount >= 10 ? "@yel@ K"
+							: "@bla@ K"), player.specBarId);
 		} else {
-			c.getPacketSender().sendString(
-					"@bla@S P E C I A L  A T T A C K", c.specBarId);
+			player.getPacketSender().sendString(
+					"@bla@S P E C I A L  A T T A C K", player.specBarId);
 		}
 	}
 
@@ -1240,89 +1242,93 @@ public class ItemAssistant {
 		if (!playerHasItem(wearID, 1, slot)) {
 			return false;
 		}
-		if (c.tutorialProgress < 22) {
-			c.getPacketSender().sendMessage("You'll be told how to equip items later.");
+		boolean greegree = Greegree.attemptGreegree(player, wearID);
+		if (!greegree) {
+			return false;
+		}
+		if (player.tutorialProgress < 22) {
+			player.getPacketSender().sendMessage("You'll be told how to equip items later.");
 			return false;
 		}
 
-		if (c.tutorialProgress == 22) {
-			c.getPacketSender().chatbox(6180);
-			c.getDialogueHandler()
+		if (player.tutorialProgress == 22) {
+			player.getPacketSender().chatbox(6180);
+			player.getDialogueHandler()
 					.chatboxText(
 							"Clothes, armour, weapons and many other items are equipped",
 							"like this. You can unequip items by clicking on the item in the",
 							"worn inventory. You can close this window by clicking on the",
 							"small x. Speak to the Combat Instructor to continue.",
 							"You're now holding your dagger");
-			c.getPacketSender().chatbox(6179);
-			c.tutorialProgress = 23;
+			player.getPacketSender().chatbox(6179);
+			player.tutorialProgress = 23;
 			// c.setSidebarInterface(0, -1);// worn
 
-		} else if (c.tutorialProgress == 23) {
-			c.getPacketSender().chatbox(6180);
-			c.getDialogueHandler()
+		} else if (player.tutorialProgress == 23) {
+			player.getPacketSender().chatbox(6180);
+			player.getDialogueHandler()
 					.chatboxText(
 							"",
 							"Click on the flashing crossed swords icon to see the combat",
 							"interface.", "", "Combat interface");
-			c.getPacketSender().chatbox(6179);
-			c.getPacketSender().flashSideBarIcon(0);
+			player.getPacketSender().chatbox(6179);
+			player.getPacketSender().flashSideBarIcon(0);
 			// c.getPacketDispatcher().tutorialIslandInterface(50, 11);
 		}
 
-		int wearAmount = c.playerItemsN[slot];
+		int wearAmount = player.playerItemsN[slot];
 		if (wearAmount < 1) {
 			return false;
 		}
 
 		int targetSlot = ItemConstants.HAT;
 		boolean canWearItem = true;
-		if (c.playerItems[slot] == wearID + 1) {
+		if (player.playerItems[slot] == wearID + 1) {
 			getRequirements(getItemName(wearID).toLowerCase(), wearID);
 			targetSlot = ItemData.targetSlots[wearID];
 
-			if (c.duelRule[11] && targetSlot == 0) {
-				c.getPacketSender().sendMessage("Wearing hats has been disabled in this duel!");
+			if (player.duelRule[11] && targetSlot == 0) {
+				player.getPacketSender().sendMessage("Wearing hats has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[12] && targetSlot == 1) {
-				c.getPacketSender().sendMessage("Wearing capes has been disabled in this duel!");
+			if (player.duelRule[12] && targetSlot == 1) {
+				player.getPacketSender().sendMessage("Wearing capes has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[13] && targetSlot == 2) {
-				c.getPacketSender().sendMessage("Wearing amulets has been disabled in this duel!");
+			if (player.duelRule[13] && targetSlot == 2) {
+				player.getPacketSender().sendMessage("Wearing amulets has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[14] && targetSlot == 3) {
-				c.getPacketSender().sendMessage("Wielding weapons has been disabled in this duel!");
+			if (player.duelRule[14] && targetSlot == 3) {
+				player.getPacketSender().sendMessage("Wielding weapons has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[15] && targetSlot == 4) {
-				c.getPacketSender().sendMessage("Wearing bodies has been disabled in this duel!");
+			if (player.duelRule[15] && targetSlot == 4) {
+				player.getPacketSender().sendMessage("Wearing bodies has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[16] && targetSlot == 5 || c.duelRule[16] && is2handed(getItemName(wearID).toLowerCase(), wearID)) {
-				c.getPacketSender().sendMessage("Wearing shield has been disabled in this duel!");
+			if (player.duelRule[16] && targetSlot == 5 || player.duelRule[16] && is2handed(getItemName(wearID).toLowerCase(), wearID)) {
+				player.getPacketSender().sendMessage("Wearing shield has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[17] && targetSlot == 7) {
-				c.getPacketSender().sendMessage("Wearing legs has been disabled in this duel!");
+			if (player.duelRule[17] && targetSlot == 7) {
+				player.getPacketSender().sendMessage("Wearing legs has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[18] && targetSlot == 9) {
-				c.getPacketSender().sendMessage("Wearing gloves has been disabled in this duel!");
+			if (player.duelRule[18] && targetSlot == 9) {
+				player.getPacketSender().sendMessage("Wearing gloves has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[19] && targetSlot == 10) {
-				c.getPacketSender().sendMessage("Wearing boots has been disabled in this duel!");
+			if (player.duelRule[19] && targetSlot == 10) {
+				player.getPacketSender().sendMessage("Wearing boots has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[20] && targetSlot == 12) {
-				c.getPacketSender().sendMessage("Wearing rings has been disabled in this duel!");
+			if (player.duelRule[20] && targetSlot == 12) {
+				player.getPacketSender().sendMessage("Wearing rings has been disabled in this duel!");
 				return false;
 			}
-			if (c.duelRule[21] && targetSlot == 13) {
-				c.getPacketSender().sendMessage("Wearing arrows has been disabled in this duel!");
+			if (player.duelRule[21] && targetSlot == 13) {
+				player.getPacketSender().sendMessage("Wearing arrows has been disabled in this duel!");
 				return false;
 			}
 
@@ -1334,54 +1340,54 @@ public class ItemAssistant {
 						|| targetSlot == ItemConstants.CHEST
 						|| targetSlot == ItemConstants.HAT
 						|| targetSlot == ItemConstants.HANDS) {
-					if (c.defenceLevelReq > 0) {
-						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[1]) < c.defenceLevelReq) {
-							c.getPacketSender().sendMessage("You need a defence level of " + c.defenceLevelReq + " to wear this item.");
+					if (player.defenceLevelReq > 0) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[1]) < player.defenceLevelReq) {
+							player.getPacketSender().sendMessage("You need a defence level of " + player.defenceLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
-					if (c.rangeLevelReq > 0) {
-						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[4]) < c.rangeLevelReq) {
-							c.getPacketSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wear this item.");
+					if (player.rangeLevelReq > 0) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[4]) < player.rangeLevelReq) {
+							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
-					if (c.magicLevelReq > 0) {
-						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[6]) < c.magicLevelReq) {
-							c.getPacketSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wear this item.");
+					if (player.magicLevelReq > 0) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[6]) < player.magicLevelReq) {
+							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 				}
-				if (c.slayerLevelReq > 0) {
-					if (c.getPlayerAssistant().getLevelForXP(c.playerXP[18]) < c.slayerLevelReq) {
-						c.getPacketSender().sendMessage("You need a slayer level of " + c.slayerLevelReq + " to wear this item.");
+				if (player.slayerLevelReq > 0) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[18]) < player.slayerLevelReq) {
+						player.getPacketSender().sendMessage("You need a slayer level of " + player.slayerLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
-				if (c.agilityLevelReq > 0) {
-					if (c.getPlayerAssistant().getLevelForXP(c.playerXP[16]) < c.agilityLevelReq) {
-						c.getPacketSender().sendMessage("You need a agility level of " + c.agilityLevelReq + " to wear this item.");
+				if (player.agilityLevelReq > 0) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[16]) < player.agilityLevelReq) {
+						player.getPacketSender().sendMessage("You need a agility level of " + player.agilityLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
 				// Weapon
 				if (targetSlot == ItemConstants.WEAPON) {
-					if (c.attackLevelReq > 0) {
-						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[0]) < c.attackLevelReq) {
-							c.getPacketSender().sendMessage("You need an attack level of " + c.attackLevelReq + " to wield this weapon.");
+					if (player.attackLevelReq > 0) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[0]) < player.attackLevelReq) {
+							player.getPacketSender().sendMessage("You need an attack level of " + player.attackLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
-					if (c.rangeLevelReq > 0) {
-						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[4]) < c.rangeLevelReq) {
-							c.getPacketSender().sendMessage("You need a range level of " + c.rangeLevelReq + " to wield this weapon.");
+					if (player.rangeLevelReq > 0) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[4]) < player.rangeLevelReq) {
+							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
-					if (c.magicLevelReq > 0) {
-						if (c.getPlayerAssistant().getLevelForXP(c.playerXP[6]) < c.magicLevelReq) {
-							c.getPacketSender().sendMessage("You need a magic level of " + c.magicLevelReq + " to wield this weapon.");
+					if (player.magicLevelReq > 0) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[6]) < player.magicLevelReq) {
+							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
@@ -1389,7 +1395,7 @@ public class ItemAssistant {
 			}
 
 			if (wearID == 4079) {
-				c.startAnimation(1458);
+				player.startAnimation(1458);
 				return false;
 			}
 			switch (wearID) {
@@ -1399,8 +1405,8 @@ public class ItemAssistant {
 				case 5680:
 				case 5698:
 				case 1305:
-					if (c.spiritTree == false && c.playerRights != 3) {
-						c.getPacketSender().sendMessage("You need to beat the tree spirit to wield this weapon.");
+					if (player.spiritTree == false && player.playerRights != 3) {
+						player.getPacketSender().sendMessage("You need to beat the tree spirit to wield this weapon.");
 						canWearItem = false;
 					}
 			}
@@ -1410,118 +1416,120 @@ public class ItemAssistant {
 				return false;
 			}
 
-			if (CastleWars.isInCw(c) || CastleWars.isInCwWait(c)) {
+			if (CastleWars.isInCw(player) || CastleWars.isInCwWait(player)) {
 				if (targetSlot == ItemConstants.CAPE || targetSlot == ItemConstants.HAT) {
-					c.getPacketSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
+					player.getPacketSender().sendMessage("You can't wear your own capes or hats in a Castle Wars Game!");
 					return false;
 				}
 			}
 
 			if (targetSlot == ItemConstants.WEAPON) {
-				c.autocasting = false;
-				c.autocastId = 0;
-				c.getPacketSender().sendConfig(108, 0);
+				player.autocasting = false;
+				player.autocastId = 0;
+				player.getPacketSender().sendConfig(108, 0);
 			}
 
 			if (slot >= 0 && wearID >= 0) {
-				int toEquip = c.playerItems[slot];
-				int toEquipN = c.playerItemsN[slot];
-				int toRemove = c.playerEquipment[targetSlot];
-				int toRemoveN = c.playerEquipmentN[targetSlot];
+				int toEquip = player.playerItems[slot];
+				int toEquipN = player.playerItemsN[slot];
+				int toRemove = player.playerEquipment[targetSlot];
+				int toRemoveN = player.playerEquipmentN[targetSlot];
 				if (toEquip == toRemove + 1 && ItemData.itemStackable[toRemove]) {
 					deleteItem(toRemove, getItemSlot(toRemove), toEquipN);
-					c.playerEquipmentN[targetSlot] += toEquipN;
+					player.playerEquipmentN[targetSlot] += toEquipN;
 				} else if (targetSlot != ItemConstants.SHIELD && targetSlot != ItemConstants.WEAPON) {
-					c.playerItems[slot] = toRemove + 1;
-					c.playerItemsN[slot] = toRemoveN;
-					c.playerEquipment[targetSlot] = toEquip - 1;
-					c.playerEquipmentN[targetSlot] = toEquipN;
+					player.playerItems[slot] = toRemove + 1;
+					player.playerItemsN[slot] = toRemoveN;
+					player.playerEquipment[targetSlot] = toEquip - 1;
+					player.playerEquipmentN[targetSlot] = toEquipN;
 				} else if (targetSlot == ItemConstants.SHIELD) {
-					boolean wearing2h = is2handed(getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase(), c.playerEquipment[ItemConstants.WEAPON]);
+					boolean wearing2h = is2handed(getItemName(player.playerEquipment[ItemConstants.WEAPON]).toLowerCase(), player.playerEquipment[ItemConstants.WEAPON]);
 					if (wearing2h) {
 						// remove the weapon, add to inventory
-						toRemove = c.playerEquipment[c.playerWeapon];
-						toRemoveN = c.playerEquipmentN[c.playerWeapon];
-						c.playerEquipment[c.playerWeapon] = -1;
-						c.playerEquipmentN[c.playerWeapon] = 0;
+						toRemove = player.playerEquipment[player.playerWeapon];
+						toRemoveN = player.playerEquipmentN[player.playerWeapon];
+						player.playerEquipment[player.playerWeapon] = -1;
+						player.playerEquipmentN[player.playerWeapon] = 0;
 						updateSlot(ItemConstants.WEAPON);
 					}
-					c.playerItems[slot] = toRemove + 1;
-					c.playerItemsN[slot] = toRemoveN;
-					c.playerEquipment[targetSlot] = toEquip - 1;
-					c.playerEquipmentN[targetSlot] = toEquipN;
+					player.playerItems[slot] = toRemove + 1;
+					player.playerItemsN[slot] = toRemoveN;
+					player.playerEquipment[targetSlot] = toEquip - 1;
+					player.playerEquipmentN[targetSlot] = toEquipN;
 				} else if (targetSlot == ItemConstants.WEAPON) {
 					if (CastleWars.SARA_BANNER == toRemove || CastleWars.ZAMMY_BANNER == toRemove) { // alk
 						// update
-						CastleWars.dropFlag(c, toRemove);
+						CastleWars.dropFlag(player, toRemove);
 						toRemove = -1;
 						toRemoveN = 0;
 					}
 					boolean is2h = is2handed(getItemName(wearID).toLowerCase(), wearID);
-					boolean wearingShield = c.playerEquipment[ItemConstants.SHIELD] > 0;
-					boolean wearingWeapon = c.playerEquipment[ItemConstants.WEAPON] > 0;
+					boolean wearingShield = player.playerEquipment[ItemConstants.SHIELD] > 0;
+					boolean wearingWeapon = player.playerEquipment[ItemConstants.WEAPON] > 0;
 					if (is2h) {
 						if (wearingShield && wearingWeapon) {
 							if (freeSlots() > 0) {
-								c.playerItems[slot] = toRemove + 1;
-								c.playerItemsN[slot] = toRemoveN;
-								c.playerEquipment[targetSlot] = toEquip - 1;
-								c.playerEquipmentN[targetSlot] = toEquipN;
-								removeItem(c.playerEquipment[ItemConstants.SHIELD], ItemConstants.SHIELD);
+								player.playerItems[slot] = toRemove + 1;
+								player.playerItemsN[slot] = toRemoveN;
+								player.playerEquipment[targetSlot] = toEquip - 1;
+								player.playerEquipmentN[targetSlot] = toEquipN;
+								removeItem(player.playerEquipment[ItemConstants.SHIELD], ItemConstants.SHIELD);
 							} else {
-								c.getPacketSender().sendMessage("You do not have enough inventory space to do this.");
+								player.getPacketSender().sendMessage("You do not have enough inventory space to do this.");
 								return false;
 							}
 						} else if (wearingShield && !wearingWeapon) {
-							c.playerItems[slot] = c.playerEquipment[ItemConstants.SHIELD] + 1;
-							c.playerItemsN[slot] = c.playerEquipmentN[ItemConstants.SHIELD];
-							c.playerEquipment[targetSlot] = toEquip - 1;
-							c.playerEquipmentN[targetSlot] = toEquipN;
-							c.playerEquipment[ItemConstants.SHIELD] = -1;
-							c.playerEquipmentN[ItemConstants.SHIELD] = 0;
+							player.playerItems[slot] = player.playerEquipment[ItemConstants.SHIELD] + 1;
+							player.playerItemsN[slot] = player.playerEquipmentN[ItemConstants.SHIELD];
+							player.playerEquipment[targetSlot] = toEquip - 1;
+							player.playerEquipmentN[targetSlot] = toEquipN;
+							player.playerEquipment[ItemConstants.SHIELD] = -1;
+							player.playerEquipmentN[ItemConstants.SHIELD] = 0;
 							updateSlot(ItemConstants.SHIELD);
 						} else {
-							c.playerItems[slot] = toRemove + 1;
-							c.playerItemsN[slot] = toRemoveN;
-							c.playerEquipment[targetSlot] = toEquip - 1;
-							c.playerEquipmentN[targetSlot] = toEquipN;
+							player.playerItems[slot] = toRemove + 1;
+							player.playerItemsN[slot] = toRemoveN;
+							player.playerEquipment[targetSlot] = toEquip - 1;
+							player.playerEquipmentN[targetSlot] = toEquipN;
 						}
 					} else {
-						c.playerItems[slot] = toRemove + 1;
-						c.playerItemsN[slot] = toRemoveN;
-						c.playerEquipment[targetSlot] = toEquip - 1;
-						c.playerEquipmentN[targetSlot] = toEquipN;
+						player.playerItems[slot] = toRemove + 1;
+						player.playerItemsN[slot] = toRemoveN;
+						player.playerEquipment[targetSlot] = toEquip - 1;
+						player.playerEquipmentN[targetSlot] = toEquipN;
 					}
 				}
 			}
 			resetItems(3214);
 			if (targetSlot == ItemConstants.WEAPON) {
-				c.usingSpecial = false;
+				player.usingSpecial = false;
 				addSpecialBar(wearID);
 			}
-			if (c.getOutStream() != null && c != null) {
-				c.getOutStream().createFrameVarSizeWord(34);
-				c.getOutStream().writeWord(1688);
-				c.getOutStream().writeByte(targetSlot);
-				c.getOutStream().writeWord(wearID + 1);
+			if (player.getOutStream() != null && player != null) {
+				player.getOutStream().createFrameVarSizeWord(34);
+				player.getOutStream().writeWord(1688);
+				player.getOutStream().writeByte(targetSlot);
+				player.getOutStream().writeWord(wearID + 1);
 
-				if (c.playerEquipmentN[targetSlot] > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord(c.playerEquipmentN[targetSlot]);
+				if (player.playerEquipmentN[targetSlot] > 254) {
+					player.getOutStream().writeByte(255);
+					player.getOutStream().writeDWord(player.playerEquipmentN[targetSlot]);
 				} else {
-					c.getOutStream().writeByte(c.playerEquipmentN[targetSlot]);
+					player.getOutStream().writeByte(player.playerEquipmentN[targetSlot]);
 				}
 
-				c.getOutStream().endFrameVarSizeWord();
-				c.flushOutStream();
+				player.getOutStream().endFrameVarSizeWord();
+				player.flushOutStream();
 			}
-			sendWeapon(c.playerEquipment[c.playerWeapon], getItemName(c.playerEquipment[c.playerWeapon]));
+			sendWeapon(player.playerEquipment[player.playerWeapon], getItemName(player.playerEquipment[player.playerWeapon]));
 			resetBonus();
 			getBonus();
 			writeBonus();
-			c.getCombatAssistant().getPlayerAnimIndex();
-			Tiaras.handleTiara(c, wearID);
-			c.getPlayerAssistant().requestUpdates();
+			if (!MonkeyData.isWearingGreegree(player)) {
+				player.getCombatAssistant().getPlayerAnimIndex();
+			}
+			Tiaras.handleTiara(player, wearID);
+			player.getPlayerAssistant().requestUpdates();
 			return true;
 		} else {
 			return false;
@@ -1529,87 +1537,117 @@ public class ItemAssistant {
 	}
 
 	public void wearItem(int wearID, int wearAmount, int targetSlot) {
-		if (c.getOutStream() != null && c != null) {
-			c.getOutStream().createFrameVarSizeWord(34);
-			c.getOutStream().writeWord(1688);
-			c.getOutStream().writeByte(targetSlot);
-			c.getOutStream().writeWord(wearID + 1);
+		if (player.getOutStream() != null && player != null) {
+			player.getOutStream().createFrameVarSizeWord(34);
+			player.getOutStream().writeWord(1688);
+			player.getOutStream().writeByte(targetSlot);
+			player.getOutStream().writeWord(wearID + 1);
 
 			if (wearAmount > 254) {
-				c.getOutStream().writeByte(255);
-				c.getOutStream().writeDWord(wearAmount);
+				player.getOutStream().writeByte(255);
+				player.getOutStream().writeDWord(wearAmount);
 			} else {
-				c.getOutStream().writeByte(wearAmount);
+				player.getOutStream().writeByte(wearAmount);
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
-			c.playerEquipment[targetSlot] = wearID;
-			c.playerEquipmentN[targetSlot] = wearAmount;
-			c.getItemAssistant();
-			c.getItemAssistant()
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
+			player.playerEquipment[targetSlot] = wearID;
+			player.playerEquipmentN[targetSlot] = wearAmount;
+			player.getItemAssistant();
+			player.getItemAssistant()
 					.sendWeapon(
-							c.playerEquipment[c.playerWeapon],
+							player.playerEquipment[player.playerWeapon],
 							ItemAssistant
-									.getItemName(c.playerEquipment[c.playerWeapon]));
+									.getItemName(player.playerEquipment[player.playerWeapon]));
 			resetBonus();
 			getBonus();
 			writeBonus();
-			c.getCombatAssistant().getPlayerAnimIndex();
-			c.updateRequired = true;
-			c.setAppearanceUpdateRequired(true);
+			player.getCombatAssistant().getPlayerAnimIndex();
+			player.updateRequired = true;
+			player.setAppearanceUpdateRequired(true);
 		}
 	}
 
 	public void updateSlot(int slot) {
-		if (c.getOutStream() != null && c != null) {
-			c.getOutStream().createFrameVarSizeWord(34);
-			c.getOutStream().writeWord(1688);
-			c.getOutStream().writeByte(slot);
-			c.getOutStream().writeWord(c.playerEquipment[slot] + 1);
-			if (c.playerEquipmentN[slot] > 254) {
-				c.getOutStream().writeByte(255);
-				c.getOutStream().writeDWord(c.playerEquipmentN[slot]);
+		if (player.getOutStream() != null && player != null) {
+			player.getOutStream().createFrameVarSizeWord(34);
+			player.getOutStream().writeWord(1688);
+			player.getOutStream().writeByte(slot);
+			player.getOutStream().writeWord(player.playerEquipment[slot] + 1);
+			if (player.playerEquipmentN[slot] > 254) {
+				player.getOutStream().writeByte(255);
+				player.getOutStream().writeDWord(player.playerEquipmentN[slot]);
 			} else {
-				c.getOutStream().writeByte(c.playerEquipmentN[slot]);
+				player.getOutStream().writeByte(player.playerEquipmentN[slot]);
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
 		}
 
 	}
-
-	public void removeItem(int wearID, int slot) {
-		if (c.getOutStream() != null && c != null) {
-			if (c.playerEquipment[slot] > -1) {
-				if (c.playerEquipment[slot] == CastleWars.SARA_BANNER|| c.playerEquipment[slot] == CastleWars.ZAMMY_BANNER) {
-					CastleWars.dropFlag(c, c.playerEquipment[slot]);
-				}
-				if ((c.playerEquipment[slot] == CastleWars.SARA_CAPE || c.playerEquipment[slot] == CastleWars.ZAMMY_CAPE) && c.inCw()) {
-					c.getPacketSender().sendMessage("You cannot unequip your castle wars cape!");
-					return;
-				}
-				if (addItem(c.playerEquipment[slot], c.playerEquipmentN[slot])) {
-					if (c.playerEquipment[slot] == CastleWars.SARA_BANNER || c.playerEquipment[slot] == CastleWars.ZAMMY_BANNER) {
-						CastleWars.dropFlag(c, c.playerEquipment[slot]);
-						deleteItem(c.playerEquipment[slot], 1);
-					}
-					c.playerEquipment[slot] = -1;
-					c.playerEquipmentN[slot] = 0;
-					sendWeapon(c.playerEquipment[c.playerWeapon],
-							getItemName(c.playerEquipment[c.playerWeapon]));
+	
+	public void removeItem(int slot) {
+		if (player.getOutStream() != null && player != null) {
+			if (player.playerEquipment[slot] > -1) {
+				if (addItem(player.playerEquipment[slot], player.playerEquipmentN[slot])) {
+					player.playerEquipment[slot] = -1;
+					player.playerEquipmentN[slot] = 0;
+					sendWeapon(player.playerEquipment[ItemConstants.WEAPON],
+							getItemName(player.playerEquipment[ItemConstants.WEAPON]));
 					resetBonus();
 					getBonus();
 					writeBonus();
-					c.getCombatAssistant().getPlayerAnimIndex();
-					c.getOutStream().createFrame(34);
-					c.getOutStream().writeWord(6);
-					c.getOutStream().writeWord(1688);
-					c.getOutStream().writeByte(slot);
-					c.getOutStream().writeWord(0);
-					c.getOutStream().writeByte(0);
-					c.flushOutStream();
-					c.updateRequired = true;
-					c.setAppearanceUpdateRequired(true);
+					player.getCombatAssistant().getPlayerAnimIndex();
+					player.getOutStream().createFrame(34);
+					player.getOutStream().writeWord(6);
+					player.getOutStream().writeWord(1688);
+					player.getOutStream().writeByte(slot);
+					player.getOutStream().writeWord(0);
+					player.getOutStream().writeByte(0);
+					player.flushOutStream();
+					player.updateRequired = true;
+					player.setAppearanceUpdateRequired(true);
+				}
+			}
+		}
+	}
+
+	public void removeItem(int wearID, int slot) {
+		if (player.getOutStream() != null && player != null) {
+			if (player.playerEquipment[slot] > -1) {
+				if (player.playerEquipment[slot] == CastleWars.SARA_BANNER|| player.playerEquipment[slot] == CastleWars.ZAMMY_BANNER) {
+					CastleWars.dropFlag(player, player.playerEquipment[slot]);
+				}
+				if ((player.playerEquipment[slot] == CastleWars.SARA_CAPE || player.playerEquipment[slot] == CastleWars.ZAMMY_CAPE) && player.inCw()) {
+					player.getPacketSender().sendMessage("You cannot unequip your castle wars cape!");
+					return;
+				}
+				boolean greegree = Greegree.attemptRemove(player, slot);
+				if (!greegree) {
+					return;
+				}
+				if (addItem(player.playerEquipment[slot], player.playerEquipmentN[slot])) {
+					if (player.playerEquipment[slot] == CastleWars.SARA_BANNER || player.playerEquipment[slot] == CastleWars.ZAMMY_BANNER) {
+						CastleWars.dropFlag(player, player.playerEquipment[slot]);
+						deleteItem(player.playerEquipment[slot], 1);
+					}
+					player.playerEquipment[slot] = -1;
+					player.playerEquipmentN[slot] = 0;
+					sendWeapon(player.playerEquipment[player.playerWeapon],
+							getItemName(player.playerEquipment[player.playerWeapon]));
+					resetBonus();
+					getBonus();
+					writeBonus();
+					player.getCombatAssistant().getPlayerAnimIndex();
+					player.getOutStream().createFrame(34);
+					player.getOutStream().writeWord(6);
+					player.getOutStream().writeWord(1688);
+					player.getOutStream().writeByte(slot);
+					player.getOutStream().writeWord(0);
+					player.getOutStream().writeByte(0);
+					player.flushOutStream();
+					player.updateRequired = true;
+					player.setAppearanceUpdateRequired(true);
 					//Weight.calcWeight(c, wearID, "deleteitem");
 				}
 			}
@@ -1624,7 +1662,7 @@ public class ItemAssistant {
 		int totalItems = 0;
 		int highestSlot = 0;
 		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-			if (c.bankItems[i] != 0) {
+			if (player.bankItems[i] != 0) {
 				totalItems++;
 				if (highestSlot <= i) {
 					highestSlot = i;
@@ -1633,20 +1671,20 @@ public class ItemAssistant {
 		}
 
 		for (int i = 0; i <= highestSlot; i++) {
-			if (c.bankItems[i] == 0) {
+			if (player.bankItems[i] == 0) {
 				boolean stop = false;
 
 				for (int k = i; k <= highestSlot; k++) {
-					if (c.bankItems[k] != 0 && !stop) {
+					if (player.bankItems[k] != 0 && !stop) {
 						int spots = k - i;
 						for (int j = k; j <= highestSlot; j++) {
-							c.bankItems[j - spots] = c.bankItems[j];
-							c.bankItemsN[j - spots] = c.bankItemsN[j];
-							c.bankItemsV[j - spots] = c.bankItemsV[j];
+							player.bankItems[j - spots] = player.bankItems[j];
+							player.bankItemsN[j - spots] = player.bankItemsN[j];
+							player.bankItemsV[j - spots] = player.bankItemsV[j];
 							stop = true;
-							c.bankItems[j] = 0;
-							c.bankItemsN[j] = 0;
-							c.bankItemsV[j] = 0;
+							player.bankItems[j] = 0;
+							player.bankItemsN[j] = 0;
+							player.bankItemsV[j] = 0;
 						}
 					}
 				}
@@ -1655,124 +1693,124 @@ public class ItemAssistant {
 
 		int totalItemsAfter = 0;
 		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-			if (c.bankItems[i] != 0) {
+			if (player.bankItems[i] != 0) {
 				totalItemsAfter++;
 			}
 		}
 
 		if (totalItems != totalItemsAfter) {
-			if (!c.isBot)
-				c.disconnected = true;
+			if (!player.isBot)
+				player.disconnected = true;
 		}
 	}
 
 	public void resetBank() {
-		if (c.getOutStream() != null) {
-			c.getOutStream().createFrameVarSizeWord(53);
-			c.getOutStream().writeWord(5382); // bank
-			c.getOutStream().writeWord(ItemConstants.BANK_SIZE);
+		if (player.getOutStream() != null) {
+			player.getOutStream().createFrameVarSizeWord(53);
+			player.getOutStream().writeWord(5382); // bank
+			player.getOutStream().writeWord(ItemConstants.BANK_SIZE);
 		}
 		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-			if (c.getOutStream() != null) {
-				if (c.bankItemsN[i] > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord_v2(c.bankItemsN[i]);
+			if (player.getOutStream() != null) {
+				if (player.bankItemsN[i] > 254) {
+					player.getOutStream().writeByte(255);
+					player.getOutStream().writeDWord_v2(player.bankItemsN[i]);
 				} else {
-					c.getOutStream().writeByte(c.bankItemsN[i]);
+					player.getOutStream().writeByte(player.bankItemsN[i]);
 				}
 			}
-			if (c.bankItemsN[i] < 1) {
-				c.bankItems[i] = 0;
+			if (player.bankItemsN[i] < 1) {
+				player.bankItems[i] = 0;
 			}
-			if (c.bankItems[i] > GameConstants.ITEM_LIMIT || c.bankItems[i] < 0) {
-				c.bankItems[i] = GameConstants.ITEM_LIMIT;
+			if (player.bankItems[i] > GameConstants.ITEM_LIMIT || player.bankItems[i] < 0) {
+				player.bankItems[i] = GameConstants.ITEM_LIMIT;
 			}
-			if (c.getOutStream() != null) {
-				c.getOutStream().writeWordBigEndianA(c.bankItems[i]);
+			if (player.getOutStream() != null) {
+				player.getOutStream().writeWordBigEndianA(player.bankItems[i]);
 			}
 		}
 
-		if (c.getOutStream() != null) {
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
+		if (player.getOutStream() != null) {
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
 		}
 	}
 
 	public void resetTempItems() {
 		int itemCount = 0;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] > -1) {
+		for (int i = 0; i < player.playerItems.length; i++) {
+			if (player.playerItems[i] > -1) {
 				itemCount = i;
 			}
 		}
-		if (c.getOutStream() != null){
-			c.getOutStream().createFrameVarSizeWord(53);
-			c.getOutStream().writeWord(5064);
-			c.getOutStream().writeWord(itemCount + 1);
+		if (player.getOutStream() != null){
+			player.getOutStream().createFrameVarSizeWord(53);
+			player.getOutStream().writeWord(5064);
+			player.getOutStream().writeWord(itemCount + 1);
 		}
 		for (int i = 0; i < itemCount + 1; i++) {
 
-			if (c.getOutStream() != null) {
-				if (c.playerItemsN[i] > 254) {
-					c.getOutStream().writeByte(255);
-					c.getOutStream().writeDWord_v2(c.playerItemsN[i]);
+			if (player.getOutStream() != null) {
+				if (player.playerItemsN[i] > 254) {
+					player.getOutStream().writeByte(255);
+					player.getOutStream().writeDWord_v2(player.playerItemsN[i]);
 				} else {
-					c.getOutStream().writeByte(c.playerItemsN[i]);
+					player.getOutStream().writeByte(player.playerItemsN[i]);
 				}
 			}
-			if (c.playerItems[i] > GameConstants.ITEM_LIMIT || c.playerItems[i] < 0) {
-				c.playerItems[i] = GameConstants.ITEM_LIMIT;
+			if (player.playerItems[i] > GameConstants.ITEM_LIMIT || player.playerItems[i] < 0) {
+				player.playerItems[i] = GameConstants.ITEM_LIMIT;
 			}
-			if (c.getOutStream() != null) {
-				c.getOutStream().writeWordBigEndianA(c.playerItems[i]);
+			if (player.getOutStream() != null) {
+				player.getOutStream().writeWordBigEndianA(player.playerItems[i]);
 			}
 		}
-		if (c.getOutStream() != null) {
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
+		if (player.getOutStream() != null) {
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
 		}
 	}
 
 	public boolean bankItem(int itemID, int fromSlot, int amount) {
-		if (c.inTrade) {
-			c.getPacketSender().sendMessage("You can't store items while trading!");
+		if (player.inTrade) {
+			player.getPacketSender().sendMessage("You can't store items while trading!");
 			return false;
 		}
 		for (int i = 0; i < ItemConstants.ITEM_BANKABLE.length; i++) {
 			if (itemID == ItemConstants.ITEM_BANKABLE[i]) {
-				c.getPacketSender().sendMessage("You can't bank that item!");
+				player.getPacketSender().sendMessage("You can't bank that item!");
 				return false;
 			}
 		}
-		if (!CastleWars.deleteCastleWarsItems(c, itemID)) {
+		if (!CastleWars.deleteCastleWarsItems(player, itemID)) {
 			return false;
 		}
-		if (c.otherBank == true) {
-			c.getPacketSender().closeAllWindows();
-			c.getPacketSender().sendMessage("You can't bank while viewing someones bank!");
-			c.otherBank = false;
-			return false;
-		}
-
-		if (!(c.lastMainFrameInterface == MainFrameIDs.DEPOSIT_BOX || c.lastMainFrameInterface == MainFrameIDs.BANK || Boundary.isIn(c, Boundary.BANK_AREA))) { //Packet exploit prevention
-			c.getPacketSender().sendMessage("You don't have a bank open! Report this ID to developers: " + c.lastMainFrameInterface);
+		if (player.otherBank == true) {
+			player.getPacketSender().closeAllWindows();
+			player.getPacketSender().sendMessage("You can't bank while viewing someones bank!");
+			player.otherBank = false;
 			return false;
 		}
 
-		if (c.playerItemsN[fromSlot] <= 0) {
+		if (!(player.lastMainFrameInterface == MainFrameIDs.DEPOSIT_BOX || player.lastMainFrameInterface == MainFrameIDs.BANK || Boundary.isIn(player, Boundary.BANK_AREA))) { //Packet exploit prevention
+			player.getPacketSender().sendMessage("You don't have a bank open! Report this ID to developers: " + player.lastMainFrameInterface);
 			return false;
 		}
-		if (!ItemData.itemIsNote[c.playerItems[fromSlot] - 1]) {
-			if (c.playerItems[fromSlot] <= 0) {
+
+		if (player.playerItemsN[fromSlot] <= 0) {
+			return false;
+		}
+		if (!ItemData.itemIsNote[player.playerItems[fromSlot] - 1]) {
+			if (player.playerItems[fromSlot] <= 0) {
 				return false;
 			}
-			if (ItemData.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
+			if (ItemData.itemStackable[player.playerItems[fromSlot] - 1] || player.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-					if (c.bankItems[i] == c.playerItems[fromSlot]) {
-						if (c.playerItemsN[fromSlot] < amount) {
-							amount = c.playerItemsN[fromSlot];
+					if (player.bankItems[i] == player.playerItems[fromSlot]) {
+						if (player.playerItemsN[fromSlot] < amount) {
+							amount = player.playerItemsN[fromSlot];
 						}
 						alreadyInBank = true;
 						toBankSlot = i;
@@ -1782,48 +1820,48 @@ public class ItemAssistant {
 
 				if (!alreadyInBank && freeBankSlots() > 0) {
 					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-						if (c.bankItems[i] <= 0) {
+						if (player.bankItems[i] <= 0) {
 							toBankSlot = i;
 							i = ItemConstants.BANK_SIZE + 1;
 						}
 					}
-					c.bankItems[toBankSlot] = c.playerItems[fromSlot];
-					if (c.playerItemsN[fromSlot] < amount) {
-						amount = c.playerItemsN[fromSlot];
+					player.bankItems[toBankSlot] = player.playerItems[fromSlot];
+					if (player.playerItemsN[fromSlot] < amount) {
+						amount = player.playerItemsN[fromSlot];
 					}
-					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
-							&& c.bankItemsN[toBankSlot] + amount > -1) {
-						c.bankItemsN[toBankSlot] += amount;
+					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
+							&& player.bankItemsN[toBankSlot] + amount > -1) {
+						player.bankItemsN[toBankSlot] += amount;
 					} else {
-						c.getPacketSender().sendMessage("Bank full!");
+						player.getPacketSender().sendMessage("Bank full!");
 						return false;
 					}
-					deleteItem(c.playerItems[fromSlot] - 1, fromSlot, amount);
+					deleteItem(player.playerItems[fromSlot] - 1, fromSlot, amount);
 					resetTempItems();
 					resetBank();
 					return true;
 				} else if (alreadyInBank) {
-					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
-							&& c.bankItemsN[toBankSlot] + amount > -1) {
-						c.bankItemsN[toBankSlot] += amount;
+					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
+							&& player.bankItemsN[toBankSlot] + amount > -1) {
+						player.bankItemsN[toBankSlot] += amount;
 					} else {
-						c.getPacketSender().sendMessage("Bank full!");
+						player.getPacketSender().sendMessage("Bank full!");
 						return false;
 					}
-					deleteItem(c.playerItems[fromSlot] - 1, fromSlot, amount);
+					deleteItem(player.playerItems[fromSlot] - 1, fromSlot, amount);
 					resetTempItems();
 					resetBank();
 					return true;
 				} else {
-					c.getPacketSender().sendMessage("Your bank is full!");
+					player.getPacketSender().sendMessage("Your bank is full!");
 					return false;
 				}
 			} else {
-				itemID = c.playerItems[fromSlot];
+				itemID = player.playerItems[fromSlot];
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-					if (c.bankItems[i] == c.playerItems[fromSlot]) {
+					if (player.bankItems[i] == player.playerItems[fromSlot]) {
 						alreadyInBank = true;
 						toBankSlot = i;
 						i = ItemConstants.BANK_SIZE + 1;
@@ -1831,7 +1869,7 @@ public class ItemAssistant {
 				}
 				if (!alreadyInBank && freeBankSlots() > 0) {
 					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-						if (c.bankItems[i] <= 0) {
+						if (player.bankItems[i] <= 0) {
 							toBankSlot = i;
 							i = ItemConstants.BANK_SIZE + 1;
 						}
@@ -1840,17 +1878,17 @@ public class ItemAssistant {
 					boolean itemExists = false;
 					while (amount > 0) {
 						itemExists = false;
-						for (int i = firstPossibleSlot; i < c.playerItems.length; i++) {
-							if (c.playerItems[i] == itemID) {
+						for (int i = firstPossibleSlot; i < player.playerItems.length; i++) {
+							if (player.playerItems[i] == itemID) {
 								firstPossibleSlot = i;
 								itemExists = true;
 								i = 30;
 							}
 						}
 						if (itemExists) {
-							c.bankItems[toBankSlot] = c.playerItems[firstPossibleSlot];
-							c.bankItemsN[toBankSlot] += 1;
-							deleteItem(c.playerItems[firstPossibleSlot] - 1,
+							player.bankItems[toBankSlot] = player.playerItems[firstPossibleSlot];
+							player.bankItemsN[toBankSlot] += 1;
+							deleteItem(player.playerItems[firstPossibleSlot] - 1,
 									firstPossibleSlot, 1);
 							amount--;
 						} else {
@@ -1865,16 +1903,16 @@ public class ItemAssistant {
 					boolean itemExists = false;
 					while (amount > 0) {
 						itemExists = false;
-						for (int i = firstPossibleSlot; i < c.playerItems.length; i++) {
-							if (c.playerItems[i] == itemID) {
+						for (int i = firstPossibleSlot; i < player.playerItems.length; i++) {
+							if (player.playerItems[i] == itemID) {
 								firstPossibleSlot = i;
 								itemExists = true;
 								i = 30;
 							}
 						}
 						if (itemExists) {
-							c.bankItemsN[toBankSlot] += 1;
-							deleteItem(c.playerItems[firstPossibleSlot] - 1,
+							player.bankItemsN[toBankSlot] += 1;
+							deleteItem(player.playerItems[firstPossibleSlot] - 1,
 									firstPossibleSlot, 1);
 							amount--;
 						} else {
@@ -1885,21 +1923,21 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else {
-					c.getPacketSender().sendMessage("Bank full!");
+					player.getPacketSender().sendMessage("Bank full!");
 					return false;
 				}
 			}
-		} else if (ItemData.itemIsNote[c.playerItems[fromSlot] - 1] && !ItemData.itemIsNote[c.playerItems[fromSlot] - 2]) {
-			if (c.playerItems[fromSlot] <= 0) {
+		} else if (ItemData.itemIsNote[player.playerItems[fromSlot] - 1] && !ItemData.itemIsNote[player.playerItems[fromSlot] - 2]) {
+			if (player.playerItems[fromSlot] <= 0) {
 				return false;
 			}
-			if (ItemData.itemStackable[c.playerItems[fromSlot] - 1] || c.playerItemsN[fromSlot] > 1) {
+			if (ItemData.itemStackable[player.playerItems[fromSlot] - 1] || player.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-					if (c.bankItems[i] == c.playerItems[fromSlot] - 1) {
-						if (c.playerItemsN[fromSlot] < amount) {
-							amount = c.playerItemsN[fromSlot];
+					if (player.bankItems[i] == player.playerItems[fromSlot] - 1) {
+						if (player.playerItemsN[fromSlot] < amount) {
+							amount = player.playerItemsN[fromSlot];
 						}
 						alreadyInBank = true;
 						toBankSlot = i;
@@ -1909,44 +1947,44 @@ public class ItemAssistant {
 
 				if (!alreadyInBank && freeBankSlots() > 0) {
 					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-						if (c.bankItems[i] <= 0) {
+						if (player.bankItems[i] <= 0) {
 							toBankSlot = i;
 							i = ItemConstants.BANK_SIZE + 1;
 						}
 					}
-					c.bankItems[toBankSlot] = c.playerItems[fromSlot] - 1;
-					if (c.playerItemsN[fromSlot] < amount) {
-						amount = c.playerItemsN[fromSlot];
+					player.bankItems[toBankSlot] = player.playerItems[fromSlot] - 1;
+					if (player.playerItemsN[fromSlot] < amount) {
+						amount = player.playerItemsN[fromSlot];
 					}
-					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && c.bankItemsN[toBankSlot] + amount > -1) {
-						c.bankItemsN[toBankSlot] += amount;
+					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && player.bankItemsN[toBankSlot] + amount > -1) {
+						player.bankItemsN[toBankSlot] += amount;
 					} else {
 						return false;
 					}
-					deleteItem(c.playerItems[fromSlot] - 1, fromSlot, amount);
+					deleteItem(player.playerItems[fromSlot] - 1, fromSlot, amount);
 					resetTempItems();
 					resetBank();
 					return true;
 				} else if (alreadyInBank) {
-					if (c.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && c.bankItemsN[toBankSlot] + amount > -1) {
-						c.bankItemsN[toBankSlot] += amount;
+					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && player.bankItemsN[toBankSlot] + amount > -1) {
+						player.bankItemsN[toBankSlot] += amount;
 					} else {
 						return false;
 					}
-					deleteItem(c.playerItems[fromSlot] - 1, fromSlot, amount);
+					deleteItem(player.playerItems[fromSlot] - 1, fromSlot, amount);
 					resetTempItems();
 					resetBank();
 					return true;
 				} else {
-					c.getPacketSender().sendMessage("Bank full!");
+					player.getPacketSender().sendMessage("Bank full!");
 					return false;
 				}
 			} else {
-				itemID = c.playerItems[fromSlot];
+				itemID = player.playerItems[fromSlot];
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-					if (c.bankItems[i] == c.playerItems[fromSlot] - 1) {
+					if (player.bankItems[i] == player.playerItems[fromSlot] - 1) {
 						alreadyInBank = true;
 						toBankSlot = i;
 						i = ItemConstants.BANK_SIZE + 1;
@@ -1954,7 +1992,7 @@ public class ItemAssistant {
 				}
 				if (!alreadyInBank && freeBankSlots() > 0) {
 					for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-						if (c.bankItems[i] <= 0) {
+						if (player.bankItems[i] <= 0) {
 							toBankSlot = i;
 							i = ItemConstants.BANK_SIZE + 1;
 						}
@@ -1963,17 +2001,17 @@ public class ItemAssistant {
 					boolean itemExists = false;
 					while (amount > 0) {
 						itemExists = false;
-						for (int i = firstPossibleSlot; i < c.playerItems.length; i++) {
-							if (c.playerItems[i] == itemID) {
+						for (int i = firstPossibleSlot; i < player.playerItems.length; i++) {
+							if (player.playerItems[i] == itemID) {
 								firstPossibleSlot = i;
 								itemExists = true;
 								i = 30;
 							}
 						}
 						if (itemExists) {
-							c.bankItems[toBankSlot] = c.playerItems[firstPossibleSlot] - 1;
-							c.bankItemsN[toBankSlot] += 1;
-							deleteItem(c.playerItems[firstPossibleSlot] - 1,
+							player.bankItems[toBankSlot] = player.playerItems[firstPossibleSlot] - 1;
+							player.bankItemsN[toBankSlot] += 1;
+							deleteItem(player.playerItems[firstPossibleSlot] - 1,
 									firstPossibleSlot, 1);
 							amount--;
 						} else {
@@ -1988,16 +2026,16 @@ public class ItemAssistant {
 					boolean itemExists = false;
 					while (amount > 0) {
 						itemExists = false;
-						for (int i = firstPossibleSlot; i < c.playerItems.length; i++) {
-							if (c.playerItems[i] == itemID) {
+						for (int i = firstPossibleSlot; i < player.playerItems.length; i++) {
+							if (player.playerItems[i] == itemID) {
 								firstPossibleSlot = i;
 								itemExists = true;
 								i = 30;
 							}
 						}
 						if (itemExists) {
-							c.bankItemsN[toBankSlot] += 1;
-							deleteItem(c.playerItems[firstPossibleSlot] - 1,
+							player.bankItemsN[toBankSlot] += 1;
+							deleteItem(player.playerItems[firstPossibleSlot] - 1,
 									firstPossibleSlot, 1);
 							amount--;
 						} else {
@@ -2008,12 +2046,12 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else {
-					c.getPacketSender().sendMessage("Bank full!");
+					player.getPacketSender().sendMessage("Bank full!");
 					return false;
 				}
 			}
 		} else {
-			c.getPacketSender().sendMessage("Item not supported " + (c.playerItems[fromSlot] - 1));
+			player.getPacketSender().sendMessage("Item not supported " + (player.playerItems[fromSlot] - 1));
 			return false;
 		}
 	}
@@ -2021,7 +2059,7 @@ public class ItemAssistant {
 	public int freeBankSlots() {
 		int freeS = 0;
 		for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
-			if (c.bankItems[i] <= 0) {
+			if (player.bankItems[i] <= 0) {
 				freeS++;
 			}
 		}
@@ -2030,10 +2068,10 @@ public class ItemAssistant {
 
 	public int getBankQuantity(int itemID)
 	{
-		for (int i = 0; i < c.bankItems.length; i++) {
-			if (c.bankItems[i] == itemID)
+		for (int i = 0; i < player.bankItems.length; i++) {
+			if (player.bankItems[i] == itemID)
 			{
-				return c.bankItemsN[i];
+				return player.bankItemsN[i];
 			}
 		}
 		return 0;
@@ -2041,16 +2079,16 @@ public class ItemAssistant {
 
 	public void fromBank(int itemID, int fromSlot, int amount) {
 		boolean cantWithdrawCuzMaxStack = false;
-		if (!(c.lastMainFrameInterface == MainFrameIDs.BANK || Boundary.isIn(c, Boundary.BANK_AREA))) {
-			c.getPacketSender().sendMessage("Your bank isn't open!");
+		if (!(player.lastMainFrameInterface == MainFrameIDs.BANK || Boundary.isIn(player, Boundary.BANK_AREA))) {
+			player.getPacketSender().sendMessage("Your bank isn't open!");
 			return;
 		}
 		if (amount > 0) {
-			if (c.bankItems[fromSlot] > 0) {
-				if (c.getItemAssistant().playerHasItem(itemID)) {
+			if (player.bankItems[fromSlot] > 0) {
+				if (player.getItemAssistant().playerHasItem(itemID)) {
 					for (int i = 0; i <= 27; i++) {
-						if (itemID == c.playerItems[i] || (itemID == 995 && c.playerItems[i] - 1 == 995)) {
-							if ((c.playerItemsN[i] + amount + 1) < -1) {
+						if (itemID == player.playerItems[i] || (itemID == 995 && player.playerItems[i] - 1 == 995)) {
+							if ((player.playerItemsN[i] + amount + 1) < -1) {
 								cantWithdrawCuzMaxStack = true;
 								break;
 							}
@@ -2058,27 +2096,27 @@ public class ItemAssistant {
 					}
 				}
 				if (!cantWithdrawCuzMaxStack) {
-					if (!c.takeAsNote) {
-						if (ItemData.itemStackable[c.bankItems[fromSlot] - 1]) {
-							if (c.bankItemsN[fromSlot] > amount) {
-								if (addItem(c.bankItems[fromSlot] - 1, amount)) {
-									c.bankItemsN[fromSlot] -= amount;
+					if (!player.takeAsNote) {
+						if (ItemData.itemStackable[player.bankItems[fromSlot] - 1]) {
+							if (player.bankItemsN[fromSlot] > amount) {
+								if (addItem(player.bankItems[fromSlot] - 1, amount)) {
+									player.bankItemsN[fromSlot] -= amount;
 									resetBank();
 									resetItems(5064);
 								}
 							} else {
-								if (addItem(c.bankItems[fromSlot] - 1, c.bankItemsN[fromSlot])) {
-									c.bankItems[fromSlot] = 0;
-									c.bankItemsN[fromSlot] = 0;
+								if (addItem(player.bankItems[fromSlot] - 1, player.bankItemsN[fromSlot])) {
+									player.bankItems[fromSlot] = 0;
+									player.bankItemsN[fromSlot] = 0;
 									resetBank();
 									resetItems(5064);
 								}
 							}
 						} else {
 							while (amount > 0) {
-								if (c.bankItemsN[fromSlot] > 0) {
-									if (addItem(c.bankItems[fromSlot] - 1, 1)) {
-										c.bankItemsN[fromSlot] += -1;
+								if (player.bankItemsN[fromSlot] > 0) {
+									if (addItem(player.bankItems[fromSlot] - 1, 1)) {
+										player.bankItemsN[fromSlot] += -1;
 										amount--;
 									} else {
 										amount = 0;
@@ -2090,43 +2128,43 @@ public class ItemAssistant {
 							resetBank();
 							resetItems(5064);
 						}
-					} else if (c.takeAsNote && ItemData.itemIsNote[c.bankItems[fromSlot]]) {
-						if (c.bankItemsN[fromSlot] > amount) {
-							if (addItem(c.bankItems[fromSlot], amount)) {
-								c.bankItemsN[fromSlot] -= amount;
+					} else if (player.takeAsNote && ItemData.itemIsNote[player.bankItems[fromSlot]]) {
+						if (player.bankItemsN[fromSlot] > amount) {
+							if (addItem(player.bankItems[fromSlot], amount)) {
+								player.bankItemsN[fromSlot] -= amount;
 								resetBank();
 								resetItems(5064);
 							}
 						} else {
-							if (addItem(c.bankItems[fromSlot], c.bankItemsN[fromSlot])) {
-								c.bankItems[fromSlot] = 0;
-								c.bankItemsN[fromSlot] = 0;
+							if (addItem(player.bankItems[fromSlot], player.bankItemsN[fromSlot])) {
+								player.bankItems[fromSlot] = 0;
+								player.bankItemsN[fromSlot] = 0;
 								resetBank();
 								resetItems(5064);
 							}
 						}
 					} else {
-						c.getPacketSender().sendMessage("This item can't be withdrawn as a note.");
-						if (ItemData.itemStackable[c.bankItems[fromSlot] - 1]) {
-							if (c.bankItemsN[fromSlot] > amount) {
-								if (addItem(c.bankItems[fromSlot] - 1, amount)) {
-									c.bankItemsN[fromSlot] -= amount;
+						player.getPacketSender().sendMessage("This item can't be withdrawn as a note.");
+						if (ItemData.itemStackable[player.bankItems[fromSlot] - 1]) {
+							if (player.bankItemsN[fromSlot] > amount) {
+								if (addItem(player.bankItems[fromSlot] - 1, amount)) {
+									player.bankItemsN[fromSlot] -= amount;
 									resetBank();
 									resetItems(5064);
 								}
 							} else {
-								if (addItem(c.bankItems[fromSlot] - 1, c.bankItemsN[fromSlot])) {
-									c.bankItems[fromSlot] = 0;
-									c.bankItemsN[fromSlot] = 0;
+								if (addItem(player.bankItems[fromSlot] - 1, player.bankItemsN[fromSlot])) {
+									player.bankItems[fromSlot] = 0;
+									player.bankItemsN[fromSlot] = 0;
 									resetBank();
 									resetItems(5064);
 								}
 							}
 						} else {
 							while (amount > 0) {
-								if (c.bankItemsN[fromSlot] > 0) {
-									if (addItem(c.bankItems[fromSlot] - 1, 1)) {
-										c.bankItemsN[fromSlot] += -1;
+								if (player.bankItemsN[fromSlot] > 0) {
+									if (addItem(player.bankItems[fromSlot] - 1, 1)) {
+										player.bankItemsN[fromSlot] += -1;
 										amount--;
 									} else {
 										amount = 0;
@@ -2140,7 +2178,7 @@ public class ItemAssistant {
 						}
 					}
 				} else {
-					c.getPacketSender().sendMessage("Can't withdraw more of that item!");
+					player.getPacketSender().sendMessage("Can't withdraw more of that item!");
 				}
 			}
 		}
@@ -2155,24 +2193,24 @@ public class ItemAssistant {
 	 **/
 
 	public void setEquipment(int wearID, int amount, int targetSlot) {
-		if (c.getOutStream() != null) {
-			c.getOutStream().createFrameVarSizeWord(34);
-			c.getOutStream().writeWord(1688);
-			c.getOutStream().writeByte(targetSlot);
-			c.getOutStream().writeWord(wearID + 1);
+		if (player.getOutStream() != null) {
+			player.getOutStream().createFrameVarSizeWord(34);
+			player.getOutStream().writeWord(1688);
+			player.getOutStream().writeByte(targetSlot);
+			player.getOutStream().writeWord(wearID + 1);
 			if (amount > 254) {
-				c.getOutStream().writeByte(255);
-				c.getOutStream().writeDWord(amount);
+				player.getOutStream().writeByte(255);
+				player.getOutStream().writeDWord(amount);
 			} else {
-				c.getOutStream().writeByte(amount);
+				player.getOutStream().writeByte(amount);
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
 		}
-		c.playerEquipment[targetSlot] = wearID;
-		c.playerEquipmentN[targetSlot] = amount;
-		c.updateRequired = true;
-		c.setAppearanceUpdateRequired(true);
+		player.playerEquipment[targetSlot] = wearID;
+		player.playerEquipmentN[targetSlot] = amount;
+		player.updateRequired = true;
+		player.setAppearanceUpdateRequired(true);
 	}
 
 	/**
@@ -2183,12 +2221,12 @@ public class ItemAssistant {
 		if (moveWindow == 3214) {
 			int tempI;
 			int tempN;
-			tempI = c.playerItems[from];
-			tempN = c.playerItemsN[from];
-			c.playerItems[from] = c.playerItems[to];
-			c.playerItemsN[from] = c.playerItemsN[to];
-			c.playerItems[to] = tempI;
-			c.playerItemsN[to] = tempN;
+			tempI = player.playerItems[from];
+			tempN = player.playerItemsN[from];
+			player.playerItems[from] = player.playerItems[to];
+			player.playerItemsN[from] = player.playerItemsN[to];
+			player.playerItems[to] = tempI;
+			player.playerItemsN[to] = tempN;
 		}
 
 		if (moveWindow == 5382 && from >= 0 && to >= 0
@@ -2215,13 +2253,13 @@ public class ItemAssistant {
 		if (moveWindow == 5064) {
 			int tempI;
 			int tempN;
-			tempI = c.playerItems[from];
-			tempN = c.playerItemsN[from];
+			tempI = player.playerItems[from];
+			tempN = player.playerItemsN[from];
 
-			c.playerItems[from] = c.playerItems[to];
-			c.playerItemsN[from] = c.playerItemsN[to];
-			c.playerItems[to] = tempI;
-			c.playerItemsN[to] = tempN;
+			player.playerItems[from] = player.playerItems[to];
+			player.playerItemsN[from] = player.playerItemsN[to];
+			player.playerItems[to] = tempI;
+			player.playerItemsN[to] = tempN;
 			resetItems(3214);
 		}
 		resetTempItems();
@@ -2232,12 +2270,12 @@ public class ItemAssistant {
 	}
 
 	public void swapBankItem(int from, int to) {
-		int tempI = c.bankItems[from];
-		int tempN = c.bankItemsN[from];
-		c.bankItems[from] = c.bankItems[to];
-		c.bankItemsN[from] = c.bankItemsN[to];
-		c.bankItems[to] = tempI;
-		c.bankItemsN[to] = tempN;
+		int tempI = player.bankItems[from];
+		int tempN = player.bankItemsN[from];
+		player.bankItems[from] = player.bankItems[to];
+		player.bankItemsN[from] = player.bankItemsN[to];
+		player.bankItems[to] = tempI;
+		player.bankItemsN[to] = tempN;
 	}
 
 	/**
@@ -2245,33 +2283,33 @@ public class ItemAssistant {
 	 **/
 
 	public void deleteEquipment(int i, int j) {
-		if (PlayerHandler.players[c.playerId] == null) {
+		if (PlayerHandler.players[player.playerId] == null) {
 			return;
 		}
 		if (i < 0) {
 			return;
 		}
 
-		c.playerEquipment[j] = -1;
-		c.playerEquipmentN[j] = c.playerEquipmentN[j] - 1;
+		player.playerEquipment[j] = -1;
+		player.playerEquipmentN[j] = player.playerEquipmentN[j] - 1;
 
-		if (c.getOutStream() != null) {
-			c.getOutStream().createFrame(34);
-			c.getOutStream().writeWord(6);
-			c.getOutStream().writeWord(1688);
-			c.getOutStream().writeByte(j);
-			c.getOutStream().writeWord(0);
-			c.getOutStream().writeByte(0);
+		if (player.getOutStream() != null) {
+			player.getOutStream().createFrame(34);
+			player.getOutStream().writeWord(6);
+			player.getOutStream().writeWord(1688);
+			player.getOutStream().writeByte(j);
+			player.getOutStream().writeWord(0);
+			player.getOutStream().writeByte(0);
 		}
 		getBonus();
-		if (j == c.playerWeapon) {
+		if (j == player.playerWeapon) {
 			sendWeapon(-1, "Unarmed");
 		}
 		resetBonus();
 		getBonus();
 		writeBonus();
-		c.updateRequired = true;
-		c.setAppearanceUpdateRequired(true);
+		player.updateRequired = true;
+		player.setAppearanceUpdateRequired(true);
 	}
 
 	public void deleteItem(int id, int amount) {
@@ -2279,38 +2317,38 @@ public class ItemAssistant {
 			return;
 		}
 		id++;
-		for (int slot = 0; slot < c.playerItems.length; slot++) {
+		for (int slot = 0; slot < player.playerItems.length; slot++) {
 			if (amount <= 0) {
 				break;
 			}
-			if (c.playerItems[slot] == id) {
-				if (c.playerItemsN[slot] > amount) {
-					c.playerItemsN[slot] -= amount;
+			if (player.playerItems[slot] == id) {
+				if (player.playerItemsN[slot] > amount) {
+					player.playerItemsN[slot] -= amount;
 					break;
 				} else {
-					amount -= c.playerItemsN[slot];
-					c.playerItems[slot] = 0;
-					c.playerItemsN[slot] = 0;
+					amount -= player.playerItemsN[slot];
+					player.playerItems[slot] = 0;
+					player.playerItemsN[slot] = 0;
 				}
 			}
 		}
 		resetItems(3214);
-		Weight.calcWeight(c, id, "deleteitem");
+		Weight.calcWeight(player, id, "deleteitem");
 	}
 
 	public void deleteItem(int id, int slot, int amount) {
 		if (id <= 0 || slot < 0) {
 			return;
 		}
-		if (c.playerItems[slot] == id + 1) {
-			if (c.playerItemsN[slot] > amount) {
-				c.playerItemsN[slot] -= amount;
+		if (player.playerItems[slot] == id + 1) {
+			if (player.playerItemsN[slot] > amount) {
+				player.playerItemsN[slot] -= amount;
 			} else {
-				c.playerItemsN[slot] = 0;
-				c.playerItems[slot] = 0;
+				player.playerItemsN[slot] = 0;
+				player.playerItems[slot] = 0;
 			}
 			resetItems(3214);
-			Weight.calcWeight(c, id, "deleteitem");
+			Weight.calcWeight(player, id, "deleteitem");
 		}
 	}
 
@@ -2318,59 +2356,59 @@ public class ItemAssistant {
 	 * Delete Arrows
 	 **/
 	public void deleteArrow() {
-		if (c.playerEquipment[c.playerCape] == 10499 && Misc.random(5) != 1
-				&& c.playerEquipment[c.playerArrows] != 4740) {
+		if (player.playerEquipment[player.playerCape] == 10499 && Misc.random(5) != 1
+				&& player.playerEquipment[player.playerArrows] != 4740) {
 			return;
 		}
-		if (c.playerEquipmentN[c.playerArrows] == 1) {
+		if (player.playerEquipmentN[player.playerArrows] == 1) {
 			deleteEquipment(
-					c.playerEquipment[c.playerArrows], c.playerArrows);
+					player.playerEquipment[player.playerArrows], player.playerArrows);
 		}
-		if (c.playerEquipmentN[c.playerArrows] != 0) {
-			c.getOutStream().createFrameVarSizeWord(34);
-			c.getOutStream().writeWord(1688);
-			c.getOutStream().writeByte(c.playerArrows);
-			c.getOutStream().writeWord(c.playerEquipment[c.playerArrows] + 1);
-			if (c.playerEquipmentN[c.playerArrows] - 1 > 254) {
-				c.getOutStream().writeByte(255);
-				c.getOutStream().writeDWord(
-						c.playerEquipmentN[c.playerArrows] - 1);
+		if (player.playerEquipmentN[player.playerArrows] != 0) {
+			player.getOutStream().createFrameVarSizeWord(34);
+			player.getOutStream().writeWord(1688);
+			player.getOutStream().writeByte(player.playerArrows);
+			player.getOutStream().writeWord(player.playerEquipment[player.playerArrows] + 1);
+			if (player.playerEquipmentN[player.playerArrows] - 1 > 254) {
+				player.getOutStream().writeByte(255);
+				player.getOutStream().writeDWord(
+						player.playerEquipmentN[player.playerArrows] - 1);
 			} else {
-				c.getOutStream().writeByte(
-						c.playerEquipmentN[c.playerArrows] - 1);
+				player.getOutStream().writeByte(
+						player.playerEquipmentN[player.playerArrows] - 1);
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
-			c.playerEquipmentN[c.playerArrows] -= 1;
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
+			player.playerEquipmentN[player.playerArrows] -= 1;
 		}
-		c.updateRequired = true;
-		c.setAppearanceUpdateRequired(true);
+		player.updateRequired = true;
+		player.setAppearanceUpdateRequired(true);
 	}
 
 	public void deleteEquipment() {
-		if (c.playerEquipmentN[c.playerWeapon] == 1) {
+		if (player.playerEquipmentN[player.playerWeapon] == 1) {
 			deleteEquipment(
-					c.playerEquipment[c.playerWeapon], c.playerWeapon);
+					player.playerEquipment[player.playerWeapon], player.playerWeapon);
 		}
-		if (c.playerEquipmentN[c.playerWeapon] != 0) {
-			c.getOutStream().createFrameVarSizeWord(34);
-			c.getOutStream().writeWord(1688);
-			c.getOutStream().writeByte(c.playerWeapon);
-			c.getOutStream().writeWord(c.playerEquipment[c.playerWeapon] + 1);
-			if (c.playerEquipmentN[c.playerWeapon] - 1 > 254) {
-				c.getOutStream().writeByte(255);
-				c.getOutStream().writeDWord(
-						c.playerEquipmentN[c.playerWeapon] - 1);
+		if (player.playerEquipmentN[player.playerWeapon] != 0) {
+			player.getOutStream().createFrameVarSizeWord(34);
+			player.getOutStream().writeWord(1688);
+			player.getOutStream().writeByte(player.playerWeapon);
+			player.getOutStream().writeWord(player.playerEquipment[player.playerWeapon] + 1);
+			if (player.playerEquipmentN[player.playerWeapon] - 1 > 254) {
+				player.getOutStream().writeByte(255);
+				player.getOutStream().writeDWord(
+						player.playerEquipmentN[player.playerWeapon] - 1);
 			} else {
-				c.getOutStream().writeByte(
-						c.playerEquipmentN[c.playerWeapon] - 1);
+				player.getOutStream().writeByte(
+						player.playerEquipmentN[player.playerWeapon] - 1);
 			}
-			c.getOutStream().endFrameVarSizeWord();
-			c.flushOutStream();
-			c.playerEquipmentN[c.playerWeapon] -= 1;
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
+			player.playerEquipmentN[player.playerWeapon] -= 1;
 		}
-		c.updateRequired = true;
-		c.setAppearanceUpdateRequired(true);
+		player.updateRequired = true;
+		player.setAppearanceUpdateRequired(true);
 	}
 
 	/**
@@ -2378,63 +2416,63 @@ public class ItemAssistant {
 	 **/
 
 	public void dropArrowNpc() {
-		if (c.playerEquipment[c.playerCape] == 10499) {
+		if (player.playerEquipment[player.playerCape] == 10499) {
 			return;
 		}
-		int enemyX = NpcHandler.npcs[c.oldNpcIndex].getX();
-		int enemyY = NpcHandler.npcs[c.oldNpcIndex].getY();
+		int enemyX = NpcHandler.npcs[player.oldNpcIndex].getX();
+		int enemyY = NpcHandler.npcs[player.oldNpcIndex].getY();
 		if (Misc.random(10) >= 4) {
-			if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX, enemyY) == 0) {
-				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
-						enemyY, 1, c.getId());
-			} else if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX,
+			if (GameEngine.itemHandler.itemAmount(player.playerName, player.rangeItemUsed, enemyX, enemyY) == 0) {
+				GameEngine.itemHandler.createGroundItem(player, player.rangeItemUsed, enemyX,
+						enemyY, 1, player.getId());
+			} else if (GameEngine.itemHandler.itemAmount(player.playerName, player.rangeItemUsed, enemyX,
 					enemyY) != 0) {
-				int amount = GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed,
+				int amount = GameEngine.itemHandler.itemAmount(player.playerName, player.rangeItemUsed,
 						enemyX, enemyY);
-				GameEngine.itemHandler.removeGroundItem(c, c.rangeItemUsed, enemyX,
+				GameEngine.itemHandler.removeGroundItem(player, player.rangeItemUsed, enemyX,
 						enemyY, false);
-				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
-						enemyY, amount + 1, c.getId());
+				GameEngine.itemHandler.createGroundItem(player, player.rangeItemUsed, enemyX,
+						enemyY, amount + 1, player.getId());
 			}
 		}
 	}
 
 	public void dropArrowPlayer() {
-		int enemyX = PlayerHandler.players[c.oldPlayerIndex].getX();
-		int enemyY = PlayerHandler.players[c.oldPlayerIndex].getY();
-		if (c.playerEquipment[c.playerCape] == 10499) {
+		int enemyX = PlayerHandler.players[player.oldPlayerIndex].getX();
+		int enemyY = PlayerHandler.players[player.oldPlayerIndex].getY();
+		if (player.playerEquipment[player.playerCape] == 10499) {
 			return;
 		}
 		if (Misc.random(10) >= 4) {
-			if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX, enemyY) == 0) {
-				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
-						enemyY, 1, c.getId());
-			} else if (GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed, enemyX,
+			if (GameEngine.itemHandler.itemAmount(player.playerName, player.rangeItemUsed, enemyX, enemyY) == 0) {
+				GameEngine.itemHandler.createGroundItem(player, player.rangeItemUsed, enemyX,
+						enemyY, 1, player.getId());
+			} else if (GameEngine.itemHandler.itemAmount(player.playerName, player.rangeItemUsed, enemyX,
 					enemyY) != 0) {
-				int amount = GameEngine.itemHandler.itemAmount(c.playerName, c.rangeItemUsed,
+				int amount = GameEngine.itemHandler.itemAmount(player.playerName, player.rangeItemUsed,
 						enemyX, enemyY);
-				GameEngine.itemHandler.removeGroundItem(c, c.rangeItemUsed, enemyX,
+				GameEngine.itemHandler.removeGroundItem(player, player.rangeItemUsed, enemyX,
 						enemyY, false);
-				GameEngine.itemHandler.createGroundItem(c, c.rangeItemUsed, enemyX,
-						enemyY, amount + 1, c.getId());
+				GameEngine.itemHandler.createGroundItem(player, player.rangeItemUsed, enemyX,
+						enemyY, amount + 1, player.getId());
 			}
 		}
 	}
 
 	public void removeAllItems() {
-		for (int i = 0; i < c.playerItems.length; i++) {
-			c.playerItems[i] = 0;
+		for (int i = 0; i < player.playerItems.length; i++) {
+			player.playerItems[i] = 0;
 		}
-		for (int i = 0; i < c.playerItemsN.length; i++) {
-			c.playerItemsN[i] = 0;
+		for (int i = 0; i < player.playerItemsN.length; i++) {
+			player.playerItemsN[i] = 0;
 		}
 		resetItems(3214);
-		Weight.updateWeight(c);
+		Weight.updateWeight(player);
 	}
 
 	public int freeSlots() {
 		int freeS = 0;
-		for (int playerItem : c.playerItems) {
+		for (int playerItem : player.playerItems) {
 			if (playerItem <= 0) {
 				freeS++;
 			}
@@ -2443,7 +2481,7 @@ public class ItemAssistant {
 	}
 
 	public int findItem(int id, int[] items, int[] amounts) {
-		for (int i = 0; i < c.playerItems.length; i++) {
+		for (int i = 0; i < player.playerItems.length; i++) {
 			if (items[i] - 1 == id && amounts[i] > 0) {
 				return i;
 			}
@@ -2475,8 +2513,8 @@ public class ItemAssistant {
 	}
 
 	public int getItemSlot(int ItemID) {
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] - 1 == ItemID) {
+		for (int i = 0; i < player.playerItems.length; i++) {
+			if (player.playerItems[i] - 1 == ItemID) {
 				return i;
 			}
 		}
@@ -2486,10 +2524,10 @@ public class ItemAssistant {
 	public boolean playerHasItem(int itemID, int amt, int slot) {
 		itemID++;
 		int found = 0;
-		if (c.playerItems[slot] == itemID) {
-			for (int i = 0; i < c.playerItems.length; i++) {
-				if (c.playerItems[i] == itemID) {
-					if (c.playerItemsN[i] >= amt) {
+		if (player.playerItems[slot] == itemID) {
+			for (int i = 0; i < player.playerItems.length; i++) {
+				if (player.playerItems[i] == itemID) {
+					if (player.playerItemsN[i] >= amt) {
 						return true;
 					} else {
 						found++;
@@ -2506,7 +2544,7 @@ public class ItemAssistant {
 
 	public boolean playerHasItem(int itemID) {
 		itemID++;
-		for (int playerItem : c.playerItems) {
+		for (int playerItem : player.playerItems) {
 			if (playerItem == itemID) {
 				return true;
 			}
@@ -2517,9 +2555,9 @@ public class ItemAssistant {
 	public boolean playerHasItem(int itemID, int amt) {
 		itemID++;
 		int found = 0;
-		for (int i = 0; i < c.playerItems.length; i++) {
-			if (c.playerItems[i] == itemID) {
-				if (c.playerItemsN[i] >= amt) {
+		for (int i = 0; i < player.playerItems.length; i++) {
+			if (player.playerItems[i] == itemID) {
+				if (player.playerItemsN[i] >= amt) {
 					return true;
 				} else {
 					found++;

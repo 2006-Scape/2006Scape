@@ -4,6 +4,9 @@ import com.rebotted.game.content.skills.SkillHandler;
 import com.rebotted.game.content.skills.cooking.Cooking;
 import com.rebotted.game.content.skills.core.Fishing;
 import com.rebotted.game.content.skills.smithing.Smelting;
+import com.rebotted.game.items.ItemConstants;
+import com.rebotted.game.items.impl.Greegree;
+import com.rebotted.game.items.impl.Greegree.MonkeyData;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
@@ -17,9 +20,12 @@ public class Walking implements PacketType {
 	@Override
 	public void processPacket(Player player, int packetType, int packetSize) {
 		player.getDueling().checkDuelWalk();
-
 		if (player.playerIsBusy()) {
 			player.playerIsBusy = false;
+		}	
+		if (MonkeyData.isWearingGreegree(player) && !Greegree.canWear(player)) {
+			Greegree.resetAnimations(player);
+			player.getItemAssistant().removeItem(ItemConstants.WEAPON);
 		}
 		if (player.canChangeAppearance) { //|| c.performingAction) {
 			return;

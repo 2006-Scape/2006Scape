@@ -20,7 +20,7 @@ public class RestlessGhost {
 			client.getPacketSender().sendString("Restless Ghost", 8144);
 			client.getPacketSender().sendString("I can start this quest by speaking to Father Aereck in",	8147);
 			client.getPacketSender().sendString("Lumbridge", 8148);
-			client.getPacketSender().sendString("Minimum Requirments:", 8149);
+			client.getPacketSender().sendString("Minimum Requirements:", 8149);
 			client.getPacketSender().sendString("None.", 8150);
 		} else if (client.restGhost == 1) {
 			client.getPacketSender().sendString("Restless Ghost", 8144);

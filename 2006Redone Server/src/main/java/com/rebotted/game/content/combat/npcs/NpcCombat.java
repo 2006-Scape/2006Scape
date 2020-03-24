@@ -7,6 +7,7 @@ import com.rebotted.game.content.minigames.FightCaves;
 import com.rebotted.game.content.minigames.PestControl;
 import com.rebotted.game.content.music.sound.CombatSounds;
 import com.rebotted.game.content.music.sound.SoundList;
+import com.rebotted.game.items.impl.Greegree.MonkeyData;
 import com.rebotted.game.npcs.NpcData;
 import com.rebotted.game.npcs.NpcHandler;
 import com.rebotted.game.players.Client;
@@ -113,6 +114,9 @@ public class NpcCombat {
 					|| NpcHandler.npcs[i].npcType == 6143
 					|| NpcHandler.npcs[i].npcType == 6142
 					|| NpcHandler.npcs[i].npcType == 752) {
+				return;
+			}
+			if (Boundary.isIn(c, Boundary.APE_ATOLL) && MonkeyData.isWearingGreegree(c)) {
 				return;
 			}
 			if (NpcHandler.npcs[i].npcType == 1401 && Boundary.isIn(c, Boundary.TUTORIAL) || c.tutorialProgress < 36) {

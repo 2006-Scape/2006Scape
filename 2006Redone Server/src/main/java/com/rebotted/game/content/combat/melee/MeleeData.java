@@ -3,6 +3,7 @@ package com.rebotted.game.content.combat.melee;
 import com.rebotted.game.content.combat.magic.MagicData;
 import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.ItemConstants;
+import com.rebotted.game.items.impl.Greegree.MonkeyData;
 import com.rebotted.game.players.Player;
 
 public class MeleeData {
@@ -307,6 +308,9 @@ public class MeleeData {
 
 	public static int getWeaponAnimation(Player c) {
 		String weaponName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
+		MonkeyData data = MonkeyData.forId(c.playerEquipment[ItemConstants.WEAPON]);
+		if (data != null)
+			return data.getAttackAnim();
 		if (c.playerEquipment[c.playerWeapon] <= 0) {
 			switch (c.fightMode) {
 			case 0:
@@ -397,6 +401,9 @@ public class MeleeData {
 				&& c.playerEquipment[c.playerShield] <= 8850) {
 			return 4177;
 		}
+		MonkeyData data = MonkeyData.forId(c.playerEquipment[ItemConstants.WEAPON]);
+		if (data != null)
+			return data.getBlockAnim();
 		switch (c.playerEquipment[c.playerWeapon]) {
 		case 4755:
 			return 2063;

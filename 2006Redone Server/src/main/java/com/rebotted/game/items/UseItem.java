@@ -17,7 +17,7 @@ import com.rebotted.game.content.skills.herblore.Herblore;
 import com.rebotted.game.content.skills.prayer.Ectofuntus;
 import com.rebotted.game.content.skills.prayer.Ectofuntus.EctofuntusData;
 import com.rebotted.game.content.skills.runecrafting.Tiaras;
-import com.rebotted.game.items.impl.CapeDye;
+import com.rebotted.game.items.impl.Dye;
 import com.rebotted.game.items.impl.GodPages;
 import com.rebotted.game.items.impl.WeaponPoison;
 import com.rebotted.game.npcs.impl.MilkCow;
@@ -131,7 +131,14 @@ public class UseItem {
 		}
 		BattleStaffs.makeBattleStaff(player, itemUsed, useWith);
 		GrindingAction.init(player, itemUsed, useWith);
-		CapeDye.dyeItem(player, itemUsed, useWith);
+		Dye.dyeItem(player, itemUsed, useWith);
+		for (final int[] element : Dye.MAIL_DATA) {
+			if (itemUsed == element[0] && useWith == element[1] || itemUsed == element[1] && useWith == element[0]) {
+				player.getItemAssistant().deleteItem(element[0], 1);
+				player.getItemAssistant().deleteItem(element[1], 1);
+				player.getItemAssistant().addItem(element[2], 1);
+			}
+		}
 		GodPages.itemOnItemHandle(player, useWith, itemUsed);
 		if (Herblore.isIngredient(itemUsed) || Herblore.isIngredient(useWith)) {
 			Herblore.setupPotion(player, itemUsed, useWith);

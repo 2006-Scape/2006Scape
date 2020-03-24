@@ -23,7 +23,6 @@ import com.rebotted.game.content.combat.prayer.PrayerData;
 import com.rebotted.game.content.combat.prayer.PrayerDrain;
 import com.rebotted.game.content.combat.range.DwarfCannon;
 import com.rebotted.game.content.combat.range.RangeData;
-import com.rebotted.game.content.consumables.Food;
 import com.rebotted.game.content.consumables.Potions;
 import com.rebotted.game.content.guilds.impl.RangersGuild;
 import com.rebotted.game.content.minigames.Barrows;
@@ -74,6 +73,7 @@ import com.rebotted.game.items.ItemAssistant;
 import com.rebotted.game.items.ItemConstants;
 import com.rebotted.game.items.impl.PotionMixing;
 import com.rebotted.game.items.impl.Teles;
+import com.rebotted.game.items.impl.Greegree.MonkeyData;
 import com.rebotted.game.npcs.Npc;
 import com.rebotted.game.npcs.NpcActions;
 import com.rebotted.game.npcs.NpcHandler;
@@ -813,8 +813,7 @@ public abstract class Player {
 			getPacketSender().showOption(3, 0, "Attack", 1);
 		} else {
 			getPacketSender().sendMapState(0);
-			if (!isSnowy)
-			{
+			if (!isSnowy) {
 				getPacketSender().walkableInterface(-1);
 			}
 			getPacketSender().showOption(3, 0, "Null", 1);
@@ -1344,7 +1343,7 @@ public abstract class Player {
 			chatEffects = true, acceptAid = false, recievedMask,
 			nextDialogue = false, autocasting = false, usedSpecial = false,
 			mageFollow = false, dbowSpec = false, craftingLeather = false,
-			properLogout = false, secDbow = false,
+			properLogout = false, secDbow = false, isNpc,
 			addStarter = false, accountFlagged = false, inPartyRoom = false, msbSpec = false,
 			hasBankPin, enterdBankpin, firstPinEnter, requestPinDelete,
 			secondPinEnter, thirdPinEnter, fourthPinEnter, hasBankpin,
@@ -2635,7 +2634,7 @@ public abstract class Player {
 	 * Animations
 	 **/
 	public void startAnimation(int animId) {
-		if (wearing2h() && animId == 829) {
+		if (MonkeyData.isWearingGreegree(this) && !MonkeyData.isAnim(animId) || (wearing2h() && animId == 829)) {
 			return;
 		}
 		if (animId == -1) {
