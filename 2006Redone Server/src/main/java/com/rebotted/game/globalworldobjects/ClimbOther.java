@@ -3,7 +3,7 @@ package com.rebotted.game.globalworldobjects;
 import com.rebotted.game.objects.Object;
 import com.rebotted.game.objects.ObjectDefaults;
 import com.rebotted.game.players.Player;
-import com.rebotted.world.clip.ObjectDef;
+import com.rebotted.world.clip.ObjectDefinition;
 import com.rebotted.world.clip.Region;
 
 public class ClimbOther {
@@ -40,7 +40,7 @@ public class ClimbOther {
 	}
 	
 	public static void useOther(Player player, int objectType) {
-		final String objectName = ObjectDef.getObjectDef(objectType).name;
+		final String objectName = ObjectDefinition.getObjectDef(objectType).name;
 		if (System.currentTimeMillis() - player.climbDelay < 1800) {
 			return;
 		}

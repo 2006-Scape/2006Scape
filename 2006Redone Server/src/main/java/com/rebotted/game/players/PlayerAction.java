@@ -9,7 +9,9 @@ public class PlayerAction {
 	}
 
 	public boolean inAction = false;
+	
 	public boolean canWalk = true;
+	
 	public boolean canEat = true;
 
 	public boolean setAction(boolean action) {

@@ -868,8 +868,12 @@ public class PlayerAssistant {
 	}
 
 	public void handleEmpty() {
-		player.getDialogueHandler().sendOption("Yes, empty my inventory please.", "No, don't empty my inventory.");
-		player.dialogueAction = 855;
+		if (player.playerRights != 3) {
+			player.getDialogueHandler().sendOption("Yes, empty my inventory please.", "No, don't empty my inventory.");
+			player.dialogueAction = 855;
+		} else {
+			player.getItemAssistant().removeAllItems();
+		}
 	}
 
 	public void resetTzhaar() {
@@ -1416,8 +1420,7 @@ public class PlayerAssistant {
 				&& !PestControl.isInPcBoat(player) // Pest Control
 				&& player.tutorialProgress > 35 // Tutorial Island
 				&& FightPits.getState(player) == null // Fight Pits
-				&& !player.inFightCaves() // Fight Caves
-		) {
+				&& !player.inFightCaves()) { // Fight Caves
 			player.getItemAssistant().resetKeepItems();
 			// admin and bots do not lose/drop items
 			if (player.playerRights != 3 && !player.isBot) {
@@ -1454,7 +1457,7 @@ public class PlayerAssistant {
 		}
 		if (FightPits.getState(player) != null) {
 			FightPits.handleDeath(player);
-		} else if (player.fightPitsArea()) {
+		} else if (Boundary.isIn(player, Boundary.FIGHT_PITS)) {
 			player.getPlayerAssistant().movePlayer(2399, 5178, 0);
 		} else if (player.inCw()) {
 			if (CastleWars.getTeamNumber(player) == 1) {
@@ -2179,8 +2182,7 @@ public class PlayerAssistant {
 	 * @param i3
 	 * @param i4
 	 */
-	public void sendCameraShake(int i1, int i2, int i3, int i4)
-	{
+	public void sendCameraShake(int i1, int i2, int i3, int i4) {
 		player.getOutStream().createFrame(35); //Not sure of each specific integer, but some cannot be greater than 5 (maybe less)
 		player.getOutStream().writeByte(i1);
 		player.getOutStream().writeByte(i2);
@@ -2201,4 +2203,5 @@ public class PlayerAssistant {
 			}
 		}
 	}
+	
 }

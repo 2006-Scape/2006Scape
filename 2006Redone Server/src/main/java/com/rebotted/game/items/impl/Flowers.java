@@ -108,14 +108,11 @@ public class Flowers {
 	private static void moveOneStep(Player c) {
 		if (Region.getClipping(c.getX() - 1, c.getY(), c.heightLevel, -1, 0)) {
 			c.getPlayerAssistant().walkTo(-1, 0);
-		} else if (Region.getClipping(c.getX() + 1, c.getY(), c.heightLevel, 1,
-				0)) {
+		} else if (Region.getClipping(c.getX() + 1, c.getY(), c.heightLevel, 1, 0)) {
 			c.getPlayerAssistant().walkTo(1, 0);
-		} else if (Region.getClipping(c.getX(), c.getY() - 1, c.heightLevel, 0,
-				-1)) {
+		} else if (Region.getClipping(c.getX(), c.getY() - 1, c.heightLevel, 0, -1)) {
 			c.getPlayerAssistant().walkTo(0, -1);
-		} else if (Region.getClipping(c.getX(), c.getY() + 1, c.heightLevel, 0,
-				1)) {
+		} else if (Region.getClipping(c.getX(), c.getY() + 1, c.heightLevel, 0, 1)) {
 			c.getPlayerAssistant().walkTo(0, 1);
 		}
 	}

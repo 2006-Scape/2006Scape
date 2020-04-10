@@ -400,8 +400,7 @@ public class CombatAssistant {
 				return;
 			}
 
-			boolean projectile = player.usingBow || player.usingMagic || player.usingRangeWeapon;
-			if (projectile && !PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY)) {
+			if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY)) {
 				return;
 			}
 
@@ -460,8 +459,6 @@ public class CombatAssistant {
 	}
 
 	public void attackNpc(int i) {
-		// int equippedWeapon = c.playerEquipment[c.playerWeapon];
-		// final int npcId = NPCHandler.npcs[i].npcType;
 		if (NpcHandler.npcs[i] != null) {
             Npc npc = NpcHandler.npcs[i];
 			if (NpcHandler.npcs[i].isDead || NpcHandler.npcs[i].MaxHP <= 0) {
@@ -470,22 +467,6 @@ public class CombatAssistant {
 				player.npcIndex = 0;
 				return;
 			}
-			/*if (c.getY() == 3224 && NpcHandler.npcs[i].absY == 3225) {
-				resetPlayerAttack();
-				return;
-			}
-			if (c.getY() == 3226 && NpcHandler.npcs[i].absY == 3227) {
-				resetPlayerAttack();
-				return;
-			}
-			if (c.getY() == 3228 && NpcHandler.npcs[i].absY == 3227) {
-				resetPlayerAttack();
-				return;
-			}
-			if (c.getX() == 3252 && c.getY() > 3254 && c.getY() < 3272 || c.getY() == 3254 && c.getX() > 3252 && c.getX() < 3265) {
-				resetPlayerAttack();
-				return;
-			}*/
 			if (player.usingMagic && MagicData.MAGIC_SPELLS[player.spellId][0] == 1171) {
 				if (!NpcHandler.isUndead(i)) {
 					player.getPacketSender().sendMessage("This spell only affects skeletons, zombies, ghosts and shades.");
@@ -500,22 +481,6 @@ public class CombatAssistant {
 				return;
 			}
 			if (!SlayerRequirements.itemNeededSlayer(player, i) || !player.getSlayer().canAttackNpc(i)) {
-				return;
-			}
-			if (NpcHandler.npcs[i].npcType == 9) {
-			if (player.getX() == 3225 && player.getY() > 3459 && player.getY() < 3465 || player.getX() > 3222 && player.getX() < 3226 && player.getY() > 3456 && player.getY() < 3460 
-			|| player.getX() > 3213 && player.getX() < 3223 && player.getY() == 3457 || player.getX() > 3202 && player.getX() < 3212 && player.getY() == 3457 
-			|| player.getX() > 3199 && player.getX() < 3203 && player.getY() > 3456 && player.getY() < 3460 || player.getX() == 3200 && player.getY() > 3459 && player.getY() < 3467) {
-					resetPlayerAttack();
-					return;
-				}
-			}
-			if (player.getX() == 3180 && player.getY() > 3433 && player.getY() < 3447) {
-				resetPlayerAttack();
-				return;
-			}
-			if (player.getX() > 2837 && player.getX() < 2840 && player.getY() == 9772) {
-				resetPlayerAttack();
 				return;
 			}
 			if (NpcHandler.npcs[i].npcType == 757 && player.vampSlayer > 2) {
@@ -598,8 +563,7 @@ public class CombatAssistant {
 					player.getPacketSender().sendSound(SoundList.SHOOT_ARROW, 100, 0);
 				}
 
-				boolean projectile = player.usingBow || player.usingMagic || player.usingRangeWeapon;
-				if (projectile && !PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, npc.getX(), npc.getY())) {
+				if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, npc.getX(), npc.getY())) {
 					return;
 				}
 
@@ -896,8 +860,7 @@ public class CombatAssistant {
 					return;
 				}
 
-				boolean projectile = player.usingBow || player.usingMagic || player.usingRangeWeapon;
-				if (projectile && !PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, PlayerHandler.players[i].absX, PlayerHandler.players[i].absY)) {
+				if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, PlayerHandler.players[i].absX, PlayerHandler.players[i].absY)) {
 					return;
 				}
 

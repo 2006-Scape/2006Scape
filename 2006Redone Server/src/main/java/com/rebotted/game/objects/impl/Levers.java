@@ -4,7 +4,7 @@ import com.rebotted.event.CycleEvent;
 import com.rebotted.event.CycleEventContainer;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.players.Player;
-import com.rebotted.world.clip.ObjectDef;
+import com.rebotted.world.clip.ObjectDefinition;
 
 /**
  * Levers
@@ -22,7 +22,7 @@ public class Levers {
 	};
 
 	public static void pullLever(final Player player, int objectType) {
-		String objectName = ObjectDef.getObjectDef(objectType).name;
+		String objectName = ObjectDefinition.getObjectDef(objectType).name;
 		for (final int[] element : LEVERS) {
 			if (player.objectX == element[0] && player.objectY == element[1] && objectName.equalsIgnoreCase("Lever")) {
 				if (System.currentTimeMillis() - player.leverDelay > 3750) {

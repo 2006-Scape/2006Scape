@@ -30,8 +30,7 @@ public class NpcCombat {
 						NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 15)) {
 					if (NpcHandler.npcs[i].attackType == 2) {
 						if (!c.getPrayer().prayerActive[16]) {
-							if (Misc.random(500) + 200 > Misc.random(c
-									.getCombatAssistant().mageDef())) {
+							if (Misc.random(500) + 200 > Misc.random(c.getCombatAssistant().mageDef())) {
 								int dam = Misc.random(max);
 								c.dealDamage(dam);
 								c.handleHitMask(dam);

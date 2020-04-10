@@ -1,7 +1,7 @@
 package com.rebotted.game.objects;
 
 import com.rebotted.game.players.Player;
-import com.rebotted.world.clip.ObjectDef;
+import com.rebotted.world.clip.ObjectDefinition;
 
 /**
  * ObjectDefaults
@@ -17,7 +17,7 @@ public class ObjectDefaults {
 		WEST = 3;
 	
 	public static int getObjectType(Player player, int objectType) {
-		String objectName = ObjectDef.getObjectDef(objectType).name;
+		String objectName = ObjectDefinition.getObjectDef(objectType).name;
 		if (objectName.contains("Wardrobe") || objectName.contains("chest") || objectName.contains("Cupboard") || objectName.contains("Coffin")) {
 			return 10;
 		} else if (objectName.contains("Curtain")) {

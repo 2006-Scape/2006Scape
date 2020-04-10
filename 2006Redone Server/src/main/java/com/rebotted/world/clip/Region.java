@@ -580,40 +580,40 @@ public class Region {
 	}
 
 	public static void addObject(int objectId, int x, int y, int height, int type, int direction, boolean startUp) {
-		if (ObjectDef.getObjectDef(objectId) == null) {
+		if (ObjectDefinition.getObjectDef(objectId) == null) {
 		}
 		int xLength;
 		int yLength;
 		if (direction != 1 && direction != 3) {
-			xLength = ObjectDef.getObjectDef(objectId).xLength();
-			yLength = ObjectDef.getObjectDef(objectId).yLength();
+			xLength = ObjectDefinition.getObjectDef(objectId).xLength();
+			yLength = ObjectDefinition.getObjectDef(objectId).yLength();
 		} else {
-			xLength = ObjectDef.getObjectDef(objectId).yLength();
-			yLength = ObjectDef.getObjectDef(objectId).xLength();
+			xLength = ObjectDefinition.getObjectDef(objectId).yLength();
+			yLength = ObjectDefinition.getObjectDef(objectId).xLength();
 		}
 		if (type == 22) {
-			if (ObjectDef.getObjectDef(objectId).hasActions()
-					&& ObjectDef.getObjectDef(objectId).aBoolean767()) {
+			if (ObjectDefinition.getObjectDef(objectId).hasActions()
+					&& ObjectDefinition.getObjectDef(objectId).aBoolean767()) {
 				addClipping(x, y, height, 0x200000);
-				if (ObjectDef.getObjectDef(objectId).isUnshootable()) {
+				if (ObjectDefinition.getObjectDef(objectId).isUnshootable()) {
 					addProjectileClipping(x, y, height, 0x200000);
 				}
 			}
 		} else if (type >= 9) {
-			if (ObjectDef.getObjectDef(objectId).aBoolean767()) {
+			if (ObjectDefinition.getObjectDef(objectId).aBoolean767()) {
 				addClippingForSolidObject(x, y, height, xLength, yLength,
-						ObjectDef.getObjectDef(objectId).solid());
-				if (ObjectDef.getObjectDef(objectId).isUnshootable()) {
+						ObjectDefinition.getObjectDef(objectId).solid());
+				if (ObjectDefinition.getObjectDef(objectId).isUnshootable()) {
 					addProjectileClippingForSolidObject(x, y, height, xLength, yLength,
-							ObjectDef.getObjectDef(objectId).solid());
+							ObjectDefinition.getObjectDef(objectId).solid());
 				}
 			}
 		} else if (type >= 0 && type <= 3) {
-			if (ObjectDef.getObjectDef(objectId).aBoolean767()) {
+			if (ObjectDefinition.getObjectDef(objectId).aBoolean767()) {
 				addClippingForVariableObject(x, y, height, type, direction,
-						ObjectDef.getObjectDef(objectId).solid());
-				if (ObjectDef.getObjectDef(objectId).isUnshootable()) {
-					addProjectileClippingForVariableObject(x, y, height, type, direction, ObjectDef.getObjectDef(objectId).solid());
+						ObjectDefinition.getObjectDef(objectId).solid());
+				if (ObjectDefinition.getObjectDef(objectId).isUnshootable()) {
+					addProjectileClippingForVariableObject(x, y, height, type, direction, ObjectDefinition.getObjectDef(objectId).solid());
 				}
 			}
 		}
@@ -656,8 +656,7 @@ public class Region {
 		return 0;
 	}
 
-	public static boolean getClipping(int x, int y, int height, int moveTypeX,
-			int moveTypeY) {
+	public static boolean getClipping(int x, int y, int height, int moveTypeX, int moveTypeY) {
 		try {
 			if (height > 3) {
 				height = 0;

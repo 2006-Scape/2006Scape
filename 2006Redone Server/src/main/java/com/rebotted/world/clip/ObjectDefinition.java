@@ -1,8 +1,8 @@
 package com.rebotted.world.clip;
 
-public final class ObjectDef {
+public final class ObjectDefinition {
 
-	public static ObjectDef getObjectDef(int i) {
+	public static ObjectDefinition getObjectDef(int i) {
 		for (int j = 0; j < 20; j++) {
 			if (cache[j].type == i) {
 				return cache[j];
@@ -10,7 +10,7 @@ public final class ObjectDef {
 		}
 
 		cacheIndex = (cacheIndex + 1) % 20;
-		ObjectDef class46 = cache[cacheIndex];
+		ObjectDefinition class46 = cache[cacheIndex];
 		class46.type = i;
 		class46.setDefaults();
 		byte[] buffer = archive.get(i);
@@ -50,9 +50,9 @@ public final class ObjectDef {
 	public static void loadConfig() {
 		archive = new MemoryArchive(new ByteStream(getBuffer("loc.dat")),
 				new ByteStream(getBuffer("loc.idx")));
-		cache = new ObjectDef[20];
+		cache = new ObjectDefinition[20];
 		for (int k = 0; k < 20; k++) {
-			cache[k] = new ObjectDef();
+			cache[k] = new ObjectDefinition();
 		}
 		System.out.println("[ObjectDef] DONE LOADING OBJECT CONFIGURATION");
 	}
@@ -251,7 +251,7 @@ public final class ObjectDef {
 		}
 	}
 
-	private ObjectDef() {
+	private ObjectDefinition() {
 		type = -1;
 	}
 
@@ -308,7 +308,7 @@ public final class ObjectDef {
 	public boolean hasActions;
 	public boolean aBoolean779;
 	public int anInt781;
-	private static ObjectDef[] cache;
+	private static ObjectDefinition[] cache;
 	private int[] modifiedModelColors;
 	public String actions[];
 	private static MemoryArchive archive;

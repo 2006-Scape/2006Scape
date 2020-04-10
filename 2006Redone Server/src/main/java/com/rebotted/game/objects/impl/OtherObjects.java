@@ -8,7 +8,7 @@ import com.rebotted.game.content.traveling.DesertHeat;
 import com.rebotted.game.objects.ObjectDefaults;
 import com.rebotted.game.players.Player;
 import com.rebotted.util.Misc;
-import com.rebotted.world.clip.ObjectDef;
+import com.rebotted.world.clip.ObjectDefinition;
 import com.rebotted.world.clip.Region;
 
 public class OtherObjects {
@@ -117,7 +117,7 @@ public class OtherObjects {
 	}
 	
 	private static void handleSpecialObject(final Player player, final int objectType) {	
-		String objectName = ObjectDef.getObjectDef(objectType).name;
+		String objectName = ObjectDefinition.getObjectDef(objectType).name;
 		if (objectType == 160 && player.getX() == 3096) {
 			player.getPlayerAssistant().walkTo(0, 1);
 			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {	

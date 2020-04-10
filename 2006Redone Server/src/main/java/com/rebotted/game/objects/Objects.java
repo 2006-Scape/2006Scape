@@ -1,6 +1,6 @@
 package com.rebotted.game.objects;
 
-import com.rebotted.world.clip.ObjectDef;
+import com.rebotted.world.clip.ObjectDefinition;
 
 public class Objects {
 
@@ -39,7 +39,7 @@ public class Objects {
 	}
 
 	public int[] getObjectSize() {
-		ObjectDef def = ObjectDef.getObjectDef(objectId);
+		ObjectDefinition def = ObjectDefinition.getObjectDef(objectId);
 		if (def == null) {
 			return new int[] {1, 1};
 		}
