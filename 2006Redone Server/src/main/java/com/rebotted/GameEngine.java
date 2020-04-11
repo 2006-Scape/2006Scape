@@ -46,7 +46,7 @@ import com.rebotted.world.GlobalDropsHandler;
 import com.rebotted.world.ItemHandler;
 import com.rebotted.world.ObjectHandler;
 import com.rebotted.world.ObjectManager;
-import com.rebotted.world.clip.ObjectDef;
+import com.rebotted.world.clip.ObjectDefinition;
 import com.rebotted.world.clip.Region;
 
 /**
@@ -188,7 +188,7 @@ public class GameEngine {
 		/**
 		 * Initialise Handlers
 		 */
-		ObjectDef.loadConfig();
+		ObjectDefinition.loadConfig();
 		Region.load();
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();

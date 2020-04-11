@@ -5,7 +5,7 @@ import com.rebotted.game.content.music.sound.SoundList;
 import com.rebotted.game.objects.Objects;
 import com.rebotted.game.players.Player;
 import com.rebotted.world.ObjectManager;
-import com.rebotted.world.clip.ObjectDef;
+import com.rebotted.world.clip.ObjectDefinition;
 import com.rebotted.world.clip.Region;
 
 /**
@@ -19,7 +19,7 @@ public class GateHandler {
 		CLOSED = 0, PARTIAL_OPEN = 1, OPEN = 2;
 	
 	public boolean isGate(int objectId) {
-		String objectName = ObjectDef.getObjectDef(objectId).name;
+		String objectName = ObjectDefinition.getObjectDef(objectId).name;
 		try {
 			return objectName.equalsIgnoreCase("gate") || objectName.equalsIgnoreCase("Gate");
 		} catch (Exception e) {

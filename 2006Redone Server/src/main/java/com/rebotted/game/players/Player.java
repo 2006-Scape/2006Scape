@@ -170,7 +170,7 @@ public abstract class Player {
 		this.preaching = preaching;
 	}
 	
-	public boolean preaching = false;
+	public boolean preaching;
 	
 	public Compost getCompost() {
 		return compost;
@@ -441,7 +441,7 @@ public abstract class Player {
 	
 	
 	private int tempInteger;
-	public boolean tempBoolean = false;
+	public boolean tempBoolean;
 	
 	public void setTempInteger(int tempInteger) {
 		this.tempInteger = tempInteger;
@@ -735,7 +735,7 @@ public abstract class Player {
 
 
 	public int packetSize = 0, packetType = -1;
-	public boolean wildernessWarning = false;
+	public boolean wildernessWarning;
 	public int axeAnimation = -1;
 
 	public void antiFirePotion() {
@@ -753,7 +753,7 @@ public abstract class Player {
 		}, 200);
 	}
 
-	public boolean isBusy = false;
+	public boolean isBusy;
 
 	public boolean checkBusy() {
 		return isBusy;
@@ -1169,7 +1169,7 @@ public abstract class Player {
 	public void correctCoordinates() {
 		if (Boundary.isIn(this, Boundary.PC_GAME)) {
 			getPlayerAssistant().movePlayer(2657, 2639, 0);
-		} else if (FightPitsArea()) {
+		} else if (Boundary.isIn(this, Boundary.FIGHT_PITS)) {
 			getPlayerAssistant().movePlayer(2399, 5178, 0);
 		} else if (getX() == 0 && getY() == 0) {
 			getPlayerAssistant().movePlayer(3222, 3218, 0);
@@ -1296,7 +1296,7 @@ public abstract class Player {
 
 	public String slayerMaster;
 
-	public boolean lostCannon = false, refresh = false, isBot = false;
+	public boolean lostCannon, refresh, isBot;
 
 	public int CannonSetupStage;
 
@@ -1320,7 +1320,7 @@ public abstract class Player {
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
 			boneDelay, leverDelay = 0, searchObjectDelay = 0, clickDelay = 0;
 	
-	public boolean hideYell = false;
+	public boolean hideYell;
 
 
 	private Npc specialTarget = null;
@@ -1335,35 +1335,35 @@ public abstract class Player {
 		
 	public int miningAxe = -1, woodcuttingAxe = -1;
 
-	public boolean initialized = false, musicOn = true, luthas,
-			playerIsCooking, disconnected = false, ruleAgreeButton = false,
-			rebuildNPCList = false, isActive = false, isKicked = false,
-			isSkulled = false, friendUpdate = false, newPlayer = false,
-			hasMultiSign = false, saveCharacter = false, mouseButton = false,
-			chatEffects = true, acceptAid = false, recievedMask,
-			nextDialogue = false, autocasting = false, usedSpecial = false,
-			mageFollow = false, dbowSpec = false, craftingLeather = false,
-			properLogout = false, secDbow = false, isNpc,
-			addStarter = false, accountFlagged = false, inPartyRoom = false, msbSpec = false,
+	public boolean initialized, musicOn = true, luthas,
+			playerIsCooking, disconnected, ruleAgreeButton,
+			rebuildNPCList, isActive, isKicked,
+			isSkulled, friendUpdate, newPlayer,
+			hasMultiSign, saveCharacter, mouseButton,
+			chatEffects = true, acceptAid, recievedMask,
+			nextDialogue, autocasting, usedSpecial,
+			mageFollow, dbowSpec, craftingLeather,
+			properLogout, secDbow, isNpc,
+			addStarter, accountFlagged, inPartyRoom, msbSpec,
 			hasBankPin, enterdBankpin, firstPinEnter, requestPinDelete,
 			secondPinEnter, thirdPinEnter, fourthPinEnter, hasBankpin,
-			isBanking, isTeleporting = false, desertWarning,
-			isPotionMaking = false, isGrinding = false, hasStarter, isSpinning,
+			isBanking, isTeleporting, desertWarning,
+			isPotionMaking, isGrinding, hasStarter, isSpinning,
 			clickedSpinning, hasPaidBrim, playerStun, playerFletch, isWoodcutting, playerIsFiremaking,
-			hasNpc = false, playerIsFishing = false, isOperate, below459 = true,
-			splitChat, strongHold, village, needsNewTask = false,
-			canSpeak = true, ignoreFrog, ratdied2 = false,
-			fishingWhirlPool, lostDuel, diedOnTut = false, storing = false, rope, rope2,
+			hasNpc, playerIsFishing, isOperate, below459 = true,
+			splitChat, strongHold, village, needsNewTask,
+			canSpeak = true, ignoreFrog, ratdied2,
+			fishingWhirlPool, lostDuel, diedOnTut, storing, rope, rope2,
 			canWalkTutorial, closeTutorialInterface, isCrafting, showedUnfire,
 			showedFire, isPotCrafting, isFiremaking, playerIsFletching, milking,
-			stopPlayerPacket, spiritTree = false, isSmelting,
+			stopPlayerPacket, spiritTree, isSmelting,
 			isSmithing, hasPaid, canTeleport, magicCharge,
-			clickedVamp = false, allowFading, otherBank = false,
-			recievedReward = false, poison, golemSpawned = false, zombieSpawned = false, shadeSpawned = false,
-			treeSpiritSpawned = false, chickenSpawned = false, clickedTree = false, filter = true,
-			stopPlayer = false, npcCanAttack = true, gliderOpen = false, hasSandwhichLady = false,
-			isHarvesting, openDuel = false,  killedJad = false, canHealersRespawn = true, playerIsBusy = false, miningRock,
-			randomEventsEnabled = false, debugMode = false, clickToTele = false;
+			clickedVamp, allowFading, otherBank,
+			recievedReward, poison, golemSpawned, zombieSpawned, shadeSpawned,
+			treeSpiritSpawned, chickenSpawned, clickedTree, filter = true,
+			stopPlayer, npcCanAttack = true, gliderOpen, hasSandwhichLady,
+			isHarvesting, openDuel,  killedJad, canHealersRespawn = true, playerIsBusy, miningRock,
+			randomEventsEnabled, debugMode, clickToTele = false;
 
 	public int votePoints, saveDelay, playerKilled, gertCat, restGhost,
 			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest, blackKnight, shieldArrav,
@@ -1650,7 +1650,7 @@ public abstract class Player {
 	public boolean isRunning2 = true;
 	public boolean takeAsNote;
 	public int combatLevel;
-	public boolean saveFile = false;
+	public boolean saveFile;
 	public int playerAppearance[] = new int[13];
 	public int actionID;
 	public int wearItemTimer, wearId, wearSlot, interfaceId;
@@ -1658,7 +1658,7 @@ public abstract class Player {
 
 	public boolean isMining;
 	public boolean hasThievedStall;
-	public boolean stopFiremaking = false, pickedUpFiremakingLog = false, logLit;
+	public boolean stopFiremaking, pickedUpFiremakingLog, logLit;
 
 	public boolean hasThievedStall() {
 		return hasThievedStall;
@@ -1668,9 +1668,9 @@ public abstract class Player {
 		this.hasThievedStall = hasThievedStall;
 	}
 
-	public boolean antiFirePot = false;
+	public boolean antiFirePot;
 
-	public boolean underWater = false;
+	public boolean underWater;
     public boolean prevRunning2;
     public int prevPrevPlayerRunIndex;
     public int prevPlayerStandIndex;
@@ -1716,7 +1716,7 @@ public abstract class Player {
 	/**
 	 * Fight Pits
 	 */
-	public boolean inPits = false;
+	public boolean inPits;
 	public int pitsStatus = 0;
 
 	/**
@@ -1729,15 +1729,6 @@ public abstract class Player {
 			return true;
 		}
 		return false;
-	}
-
-	public boolean FightPitsArea() {
-		return absX >= 2378 && absX <= 2415 && absY >= 5133 && absY <= 5167
-				|| absX >= 2394 && absX <= 2404 && absY >= 5169 && absY <= 5174;
-	}
-
-	public boolean fightPitsArea() {
-		return absX >= 2378 && absX <= 2415 && absY >= 5133 && absY <= 5167;
 	}
 
 	public boolean inBarrows() {
