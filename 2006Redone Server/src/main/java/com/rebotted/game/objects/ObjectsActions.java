@@ -1515,8 +1515,6 @@ public class ObjectsActions {
 
 		case 3030:
 			if (player.tutorialProgress == 26) {
-				// client.getPacketDispatcher().tutorialIslandInterface(55,
-				// 12);
 				player.getDialogueHandler().sendDialogues(3078, -1);
 				player.getPlayerAssistant().movePlayer(3111, 3125, 0);
 				player.startAnimation(828);
@@ -1644,7 +1642,7 @@ public class ObjectsActions {
 			break;
 
 		case 9358:
-			player.getPlayerAssistant().movePlayer(2444, 5171, 0);
+			player.getPlayerAssistant().movePlayer(2480, 5175, 0);
 			break;
 
 		case 9359:

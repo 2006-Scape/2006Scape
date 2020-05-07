@@ -328,10 +328,11 @@ public class Specials {
 
 		case 29063:
 		if (player2.playerEquipment[player2.playerWeapon] == 1377) {
-			if (player2.getCombatAssistant().checkSpecAmount(1377)) {
+			if (player2.specAmount >= 5) {
 				player2.gfx0(246);
 				player2.forcedChat("Raarrrrrgggggghhhhhhh!");
 				player2.startAnimation(1056);
+				player2.specAmount -= 5;
 				player2.playerLevel[2] = player2.getLevelForXP(player2.playerXP[2]) + player2.getLevelForXP(player2.playerXP[2]) * 15 / 100;
 				player2.getPlayerAssistant().refreshSkill(2);
 				player2.getItemAssistant().updateSpecialBar();

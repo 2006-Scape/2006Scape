@@ -7,18 +7,18 @@ import com.rebotted.net.packets.PacketType;
 public class FollowPlayer implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		int followPlayer = c.getInStream().readUnsignedWordBigEndian();
+	public void processPacket(Player player, int packetType, int packetSize) {
+		int followPlayer = player.getInStream().readUnsignedWordBigEndian();
 		if (PlayerHandler.players[followPlayer] == null) {
 			return;
 		}
-		c.playerIndex = 0;
-		c.npcIndex = 0;
-		c.mageFollow = false;
-		c.usingBow = false;
-		c.usingRangeWeapon = false;
-		c.followDistance = 1;
-		c.followId = followPlayer;
-		c.endCurrentTask();
+		player.playerIndex = 0;
+		player.npcIndex = 0;
+		player.mageFollow = false;
+		player.usingBow = false;
+		player.usingRangeWeapon = false;
+		player.followDistance = 1;
+		player.followId = followPlayer;
+		player.endCurrentTask();
 	}
 }

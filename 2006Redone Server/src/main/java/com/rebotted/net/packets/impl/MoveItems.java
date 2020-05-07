@@ -9,25 +9,24 @@ import com.rebotted.net.packets.PacketType;
 public class MoveItems implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		int interfaceId = c.getInStream().readSignedWordBigEndianA();
-		boolean insertMode = c.getInStream().readSignedByteC() == 1;
-		int from = c.getInStream().readSignedWordBigEndianA();
-		int to = c.getInStream().readSignedWordBigEndian();
-		// c.sendMessage("junk: " + somejunk);
-		if (c.inTrade) {
-			c.getTrading().declineTrade();
+	public void processPacket(Player player, int packetType, int packetSize) {
+		int interfaceId = player.getInStream().readSignedWordBigEndianA();
+		boolean insertMode = player.getInStream().readSignedByteC() == 1;
+		int from = player.getInStream().readSignedWordBigEndianA();
+		int to = player.getInStream().readSignedWordBigEndian();
+		if (player.inTrade) {
+			player.getTrading().declineTrade();
 			return;
 		}
-		if (c.tradeStatus == 1) {
-			c.getTrading().declineTrade();
+		if (player.tradeStatus == 1) {
+			player.getTrading().declineTrade();
 			return;
 		}
-		if (c.duelStatus == 1) {
-			c.getDueling().declineDuel();
+		if (player.duelStatus == 1) {
+			player.getDueling().declineDuel();
 			return;
 		}
-		c.getItemAssistant().moveItems(from, to, interfaceId, insertMode);
-		c.endCurrentTask();
+		player.getItemAssistant().moveItems(from, to, interfaceId, insertMode);
+		player.endCurrentTask();
 	}
 }

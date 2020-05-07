@@ -16,64 +16,64 @@ import com.rebotted.net.packets.PacketType;
 public class MagicOnFloorItems implements PacketType {
 
 	@Override
-	public void processPacket(final Player c, int packetType, int packetSize) {
-		final int itemY = c.getInStream().readSignedWordBigEndian();
-		int itemId = c.getInStream().readUnsignedWord();
-		final int itemX = c.getInStream().readSignedWordBigEndian();
-		c.getInStream().readUnsignedWordA();
+	public void processPacket(final Player player, int packetType, int packetSize) {
+		final int itemY = player.getInStream().readSignedWordBigEndian();
+		int itemId = player.getInStream().readUnsignedWord();
+		final int itemX = player.getInStream().readSignedWordBigEndian();
+		player.getInStream().readUnsignedWordA();
 
 		if (!GameEngine.itemHandler.itemExists(itemId, itemX, itemY)) {
-			c.stopMovement();
+			player.stopMovement();
 			return;
 		}
-		c.usingMagic = true;
-		c.endCurrentTask();
-		if (!c.getCombatAssistant().checkMagicReqs(51)) {
-			c.stopMovement();
+		player.usingMagic = true;
+		player.endCurrentTask();
+		if (!player.getCombatAssistant().checkMagicReqs(51)) {
+			player.stopMovement();
 			return;
 		}
 
-		if ((c.getItemAssistant().freeSlots() >= 1 || c.getItemAssistant()
+		if ((player.getItemAssistant().freeSlots() >= 1 || player.getItemAssistant()
 				.playerHasItem(itemId, 1))
 				&& ItemData.itemStackable[itemId]
-				|| c.getItemAssistant().freeSlots() > 0
+				|| player.getItemAssistant().freeSlots() > 0
 				&& !ItemData.itemStackable[itemId]) {
-			if (c.goodDistance(c.getX(), c.getY(), itemX, itemY, 12)) {
-				c.walkingToItem = true;
-				int offY = (c.getX() - itemX) * -1;
-				int offX = (c.getY() - itemY) * -1;
-				c.teleGrabX = itemX;
-				c.teleGrabY = itemY;
-				c.teleGrabItem = itemId;
-				c.turnPlayerTo(itemX, itemY);
-				c.teleGrabDelay = System.currentTimeMillis();
-				c.startAnimation(MagicData.MAGIC_SPELLS[51][2]);
-				c.gfx100(MagicData.MAGIC_SPELLS[51][3]);
-				c.getPlayerAssistant().createPlayersStillGfx(144, itemX, itemY,
+			if (player.goodDistance(player.getX(), player.getY(), itemX, itemY, 12)) {
+				player.walkingToItem = true;
+				int offY = (player.getX() - itemX) * -1;
+				int offX = (player.getY() - itemY) * -1;
+				player.teleGrabX = itemX;
+				player.teleGrabY = itemY;
+				player.teleGrabItem = itemId;
+				player.turnPlayerTo(itemX, itemY);
+				player.teleGrabDelay = System.currentTimeMillis();
+				player.startAnimation(MagicData.MAGIC_SPELLS[51][2]);
+				player.gfx100(MagicData.MAGIC_SPELLS[51][3]);
+				player.getPlayerAssistant().createPlayersStillGfx(144, itemX, itemY,
 						0, 72);
-				c.getPlayerAssistant().createPlayersProjectile(c.getX(),
-						c.getY(), offX, offY, 50, 70,
+				player.getPlayerAssistant().createPlayersProjectile(player.getX(),
+						player.getY(), offX, offY, 50, 70,
 						MagicData.MAGIC_SPELLS[51][4], 50, 10, 0, 50);
-				c.getPlayerAssistant().addSkillXP(
+				player.getPlayerAssistant().addSkillXP(
 						MagicData.MAGIC_SPELLS[51][7], 6);
-				c.getPlayerAssistant().refreshSkill(6);
-				c.stopMovement();
-				   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				player.getPlayerAssistant().refreshSkill(6);
+				player.stopMovement();
+				   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			            @Override
 			            public void execute(CycleEventContainer container) {
-						if (!c.walkingToItem) {
+						if (!player.walkingToItem) {
 							stop();
 						}
-						if (System.currentTimeMillis() - c.teleGrabDelay > 1550
-								&& c.usingMagic) {
-							if (GameEngine.itemHandler.itemExists(c.teleGrabItem,
-									c.teleGrabX, c.teleGrabY)
-									&& c.goodDistance(c.getX(), c.getY(),
+						if (System.currentTimeMillis() - player.teleGrabDelay > 1550
+								&& player.usingMagic) {
+							if (GameEngine.itemHandler.itemExists(player.teleGrabItem,
+									player.teleGrabX, player.teleGrabY)
+									&& player.goodDistance(player.getX(), player.getY(),
 											itemX, itemY, 12)) {
-								GameEngine.itemHandler.removeGroundItem(c,
-										c.teleGrabItem, c.teleGrabX,
-										c.teleGrabY, true);
-								c.usingMagic = false;
+								GameEngine.itemHandler.removeGroundItem(player,
+										player.teleGrabItem, player.teleGrabX,
+										player.teleGrabY, true);
+								player.usingMagic = false;
 								container.stop();
 							}
 						}
@@ -81,34 +81,34 @@ public class MagicOnFloorItems implements PacketType {
 
 					@Override
 					public void stop() {
-						c.walkingToItem = false;
+						player.walkingToItem = false;
 					}
 				}, 1);
 			}
 		} else {
-			c.getPacketSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					"You don't have enough space in your inventory.");
-			c.stopMovement();
+			player.stopMovement();
 		}
 
-		if (c.goodDistance(c.getX(), c.getY(), itemX, itemY, 12)) {
-			int offY = (c.getX() - itemX) * -1;
-			int offX = (c.getY() - itemY) * -1;
-			c.teleGrabX = itemX;
-			c.teleGrabY = itemY;
-			c.teleGrabItem = itemId;
-			c.turnPlayerTo(itemX, itemY);
-			c.teleGrabDelay = System.currentTimeMillis();
-			c.startAnimation(MagicData.MAGIC_SPELLS[51][2]);
-			c.gfx100(MagicData.MAGIC_SPELLS[51][3]);
-			c.getPlayerAssistant().createPlayersStillGfx(144, itemX, itemY, 0,
+		if (player.goodDistance(player.getX(), player.getY(), itemX, itemY, 12)) {
+			int offY = (player.getX() - itemX) * -1;
+			int offX = (player.getY() - itemY) * -1;
+			player.teleGrabX = itemX;
+			player.teleGrabY = itemY;
+			player.teleGrabItem = itemId;
+			player.turnPlayerTo(itemX, itemY);
+			player.teleGrabDelay = System.currentTimeMillis();
+			player.startAnimation(MagicData.MAGIC_SPELLS[51][2]);
+			player.gfx100(MagicData.MAGIC_SPELLS[51][3]);
+			player.getPlayerAssistant().createPlayersStillGfx(144, itemX, itemY, 0,
 					72);
-			c.getPlayerAssistant().createPlayersProjectile(c.getX(), c.getY(),
+			player.getPlayerAssistant().createPlayersProjectile(player.getX(), player.getY(),
 					offX, offY, 50, 70, MagicData.MAGIC_SPELLS[51][4], 50, 10,
 					0, 50);
-			c.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], 6);
-			c.getPlayerAssistant().refreshSkill(6);
-			c.stopMovement();
+			player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], 6);
+			player.getPlayerAssistant().refreshSkill(6);
+			player.stopMovement();
 		}
 	}
 

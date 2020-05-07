@@ -13,22 +13,21 @@ public class BankX1 implements PacketType {
 	public int XremoveSlot, XinterfaceID, XremoveID, Xamount;
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		c.endCurrentTask();
+	public void processPacket(Player player, int packetType, int packetSize) {
+		player.endCurrentTask();
 		if (packetType == 135) {
-			c.xRemoveSlot = c.getInStream().readSignedWordBigEndian();
-			c.xInterfaceId = c.getInStream().readUnsignedWordA();
-			c.xRemoveId = c.getInStream().readSignedWordBigEndian();
-		}
-		else {
-			if (c.xInterfaceId == 7423) {
-				c.getItemAssistant().bankItem(c.xRemoveId, c.xRemoveSlot, Xamount);// Depo 1
-				c.getItemAssistant().resetItems(7423);
+			player.xRemoveSlot = player.getInStream().readSignedWordBigEndian();
+			player.xInterfaceId = player.getInStream().readUnsignedWordA();
+			player.xRemoveId = player.getInStream().readSignedWordBigEndian();
+		} else {
+			if (player.xInterfaceId == 7423) {
+				player.getItemAssistant().bankItem(player.xRemoveId, player.xRemoveSlot, Xamount);// Depo 1
+				player.getItemAssistant().resetItems(7423);
 			}
 		}
 		if (packetType == PART1) {
-			synchronized (c) {
-				c.getOutStream().createFrame(27);
+			synchronized (player) {
+				player.getOutStream().createFrame(27);
 			}
 		}
 

@@ -10,19 +10,19 @@ import com.rebotted.net.packets.PacketType;
 public class ChallengePlayer implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		switch (packetType) {
 		case 128:
-			int answerPlayer = c.getInStream().readUnsignedWord();
-		    if(PlayerHandler.players[answerPlayer] == null || answerPlayer == c.playerId)
+			int answerPlayer = player.getInStream().readUnsignedWord();
+		    if(PlayerHandler.players[answerPlayer] == null || answerPlayer == player.playerId)
                 return;
 
-			if (c.duelingArena() || c.duelStatus == 5) {
-				c.getPacketSender().sendMessage("You can't challenge inside the arena!");
+			if (player.duelingArena() || player.duelStatus == 5) {
+				player.getPacketSender().sendMessage("You can't challenge inside the arena!");
 				return;
 			}
-			if (c.inDuelArena()) {
-				c.getDueling().requestDuel(answerPlayer);
+			if (player.inDuelArena()) {
+				player.getDueling().requestDuel(answerPlayer);
 			}
 			break;
 		}

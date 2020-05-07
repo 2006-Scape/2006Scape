@@ -14,30 +14,34 @@ import com.rebotted.util.Misc;
 
 public class NpcActions {
 
-	private final Player c;
+	private final Player player;
 
-	public NpcActions(Player player) {
-		c = player;
+	public NpcActions(Player player2) {
+		player = player2;
 	}
 
 	public void firstClickNpc(int npcType) {
-		c.clickNpcType = 0;
-		c.rememberNpcIndex = c.npcClickIndex;
-		c.npcClickIndex = 0;
-		Shops.dialogueShop(c, npcType);
-		if (Fishing.fishingNPC(c, npcType)) {
-			Fishing.fishingNPC(c, 1, npcType);
+		player.clickNpcType = 0;
+		player.rememberNpcIndex = player.npcClickIndex;
+		player.npcClickIndex = 0;
+		Shops.dialogueShop(player, npcType);
+		if (Fishing.fishingNPC(player, npcType)) {
+			Fishing.fishingNPC(player, 1, npcType);
 		}
 		if (Pets.isCat(npcType)) {
-			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId) {
-				c.getSummon().pickUpPet(c, c.summonId);
-				c.hasNpc = false;
-				c.summonId = -1;
+			if (NpcHandler.npcs[player.rememberNpcIndex].spawnedBy == player.playerId) {
+				player.getSummon().pickUpPet(player, player.summonId);
+				player.hasNpc = false;
+				player.summonId = -1;
 			} else {
-				c.getPacketSender().sendMessage("This is not your pet.");
+				player.getPacketSender().sendMessage("This is not your pet.");
 			}
 		}
 		switch (npcType) {
+		case 389 : //thormac
+			player.getDialogueHandler().sendDialogues(3574, npcType);
+			break;
+			
 		case 2324 :
 		case 2323 :
 		case 2326 :
@@ -58,308 +62,308 @@ public class NpcActions {
 		case 2339 :
 		case 2341 :
 		case 2342 :
-			c.getDialogueHandler().sendDialogues(3530, npcType);
+			player.getDialogueHandler().sendDialogues(3530, npcType);
 			break;
 		  case 209:
-	        	c.getDialogueHandler().sendDialogues(3500, 209);
+	        	player.getDialogueHandler().sendDialogues(3500, 209);
 	        break;
 		
 		case 2238:
-			c.getDialogueHandler().sendDialogues(3214, npcType);
+			player.getDialogueHandler().sendDialogues(3214, npcType);
 		break;
 		
 		case 958:
-			c.getDialogueHandler().sendDialogues(3208, npcType);
+			player.getDialogueHandler().sendDialogues(3208, npcType);
 		break;
 
 		case 606://squire
-		if (c.knightS == 0) {
-			c.getDialogueHandler().sendDialogues(610, 606);
-		} else if (c.knightS == 4) {
-			c.getDialogueHandler().sendDialogues(654, 606);
-		} else if (c.knightS == 8) {
-			c.getDialogueHandler().sendDialogues(682, 606);
+		if (player.knightS == 0) {
+			player.getDialogueHandler().sendDialogues(610, 606);
+		} else if (player.knightS == 4) {
+			player.getDialogueHandler().sendDialogues(654, 606);
+		} else if (player.knightS == 8) {
+			player.getDialogueHandler().sendDialogues(682, 606);
 		}
 		break;
 		case 647://reldo
-		if (c.knightS == 1) {
-			c.getDialogueHandler().sendDialogues(626, 647);
+		if (player.knightS == 1) {
+			player.getDialogueHandler().sendDialogues(626, 647);
 		}
-        else if (c.shieldArrav == 0) {
-            c.getDialogueHandler().sendDialogues(690, 647);
+        else if (player.shieldArrav == 0) {
+            player.getDialogueHandler().sendDialogues(690, 647);
         }
-        else if (c.shieldArrav == 1) {
-            c.getDialogueHandler().sendDialogues(694, 647);
+        else if (player.shieldArrav == 1) {
+            player.getDialogueHandler().sendDialogues(694, 647);
         }
-        else if (c.shieldArrav == 2) {
-            c.getDialogueHandler().sendDialogues(697, 647);
+        else if (player.shieldArrav == 2) {
+            player.getDialogueHandler().sendDialogues(697, 647);
         }
 		break;
 		case 604://thurgo
-		if (c.knightS == 2) {
-			c.getDialogueHandler().sendDialogues(640, 604);
-		} else if (c.knightS == 3) {
-			c.getDialogueHandler().sendDialogues(648, 604);
-		} else if (c.knightS == 6) {
-			c.getDialogueHandler().sendDialogues(660, 604);
-		} else if (c.knightS == 7) {
-			c.getDialogueHandler().sendDialogues(669, 604);
-		} else if (c.knightS == 8) {
-			c.getDialogueHandler().sendDialogues(674, 604);
+		if (player.knightS == 2) {
+			player.getDialogueHandler().sendDialogues(640, 604);
+		} else if (player.knightS == 3) {
+			player.getDialogueHandler().sendDialogues(648, 604);
+		} else if (player.knightS == 6) {
+			player.getDialogueHandler().sendDialogues(660, 604);
+		} else if (player.knightS == 7) {
+			player.getDialogueHandler().sendDialogues(669, 604);
+		} else if (player.knightS == 8) {
+			player.getDialogueHandler().sendDialogues(674, 604);
 		}
 		break;
 		
 		case 693: //rang guild shots
-			c.getDialogueHandler().sendDialogues(3201, npcType);
+			player.getDialogueHandler().sendDialogues(3201, npcType);
 			break;
 		
 		case 694: //rang guild store
-			c.getShopAssistant().openShop(111);
+			player.getShopAssistant().openShop(111);
 			break;
 
 		case 1834:
-			c.getDialogueHandler().sendDialogues(1378, npcType);
+			player.getDialogueHandler().sendDialogues(1378, npcType);
 			break;
 
 		case 537:
 		case 536:
 			int requiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
-			if (c.questPoints >= requiredQP) {
-				c.getDialogueHandler().sendDialogues(1373, npcType);
+			if (player.questPoints >= requiredQP) {
+				player.getDialogueHandler().sendDialogues(1373, npcType);
 			} else {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You need " + requiredQP + " quest points to open this shop.");
 			}
 			break;
 
 		case 547: //Baraek
-			if (c.shieldArrav == 3) {
-				c.getDialogueHandler().sendDialogues(701, npcType);
+			if (player.shieldArrav == 3) {
+				player.getDialogueHandler().sendDialogues(701, npcType);
 			}
 			break;
 
 		case 599:
-			c.getDialogueHandler().sendDialogues(1369, npcType);
+			player.getDialogueHandler().sendDialogues(1369, npcType);
 			break;
 
 		case 644: //Straven
-			if (c.shieldArrav <= 4) {
-				c.getDialogueHandler().sendDialogues(711, npcType);
+			if (player.shieldArrav <= 4) {
+				player.getDialogueHandler().sendDialogues(711, npcType);
 			}
-			else if (c.shieldArrav == 5) {
-				c.getDialogueHandler().sendDialogues(730, npcType);
+			else if (player.shieldArrav == 5) {
+				player.getDialogueHandler().sendDialogues(730, npcType);
 			}
-			else if (c.shieldArrav > 5) {
-				c.getDialogueHandler().sendDialogues(741, npcType);
+			else if (player.shieldArrav > 5) {
+				player.getDialogueHandler().sendDialogues(741, npcType);
 			}
 			break;
 
 		case 646: //Curator Haig Halen
-			c.getDialogueHandler().sendDialogues(745, npcType);
+			player.getDialogueHandler().sendDialogues(745, npcType);
 			break;
 
 		case 648: //King Roald
-			if (c.shieldArrav == 7 && c.getItemAssistant().playerHasItem(769))
-				c.getDialogueHandler().sendDialogues(756, npcType);
+			if (player.shieldArrav == 7 && player.getItemAssistant().playerHasItem(769))
+				player.getDialogueHandler().sendDialogues(756, npcType);
 			break;
 
 		case 663:
-			c.getDialogueHandler().sendDialogues(3189, npcType);
+			player.getDialogueHandler().sendDialogues(3189, npcType);
 			break;
 
 		case 802:
-			c.getDialogueHandler().sendDialogues(1358, npcType);
+			player.getDialogueHandler().sendDialogues(1358, npcType);
 			break;
 
 		case 2205:
-			c.getDialogueHandler().sendDialogues(1353, npcType);
+			player.getDialogueHandler().sendDialogues(1353, npcType);
 			break;
 
 		case 3830:
-			c.getDialogueHandler().sendDialogues(1349, npcType);
+			player.getDialogueHandler().sendDialogues(1349, npcType);
 			break;
 
 		case 2270:
-			if (c.playerLevel[c.playerThieving] > 98) {
-				c.getShopAssistant().openShop(118);
-			} else if (c.playerLevel[c.playerThieving] > 49
-					&& c.playerLevel[c.playerAgility] > 49) {
-				c.getShopAssistant().openShop(118);
+			if (player.playerLevel[player.playerThieving] > 98) {
+				player.getShopAssistant().openShop(118);
+			} else if (player.playerLevel[player.playerThieving] > 49
+					&& player.playerLevel[player.playerAgility] > 49) {
+				player.getShopAssistant().openShop(118);
 			} else {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You don't have the required skills to open this shop");
 			}
 			break;
 
 		case 1071:
-			c.getDialogueHandler().sendDialogues(1345, npcType);
+			player.getDialogueHandler().sendDialogues(1345, npcType);
 			break;
 
 		case 666:
-			c.getDialogueHandler().sendDialogues(3183, npcType);
+			player.getDialogueHandler().sendDialogues(3183, npcType);
 			break;
 
 		case 510:
-			if (c.absY > 3209 && c.absY < 3215) {
-				c.getDialogueHandler().sendDialogues(3173, npcType);
+			if (player.absY > 3209 && player.absY < 3215) {
+				player.getDialogueHandler().sendDialogues(3173, npcType);
 			} else {
-				c.getDialogueHandler().sendDialogues(3178, npcType);
+				player.getDialogueHandler().sendDialogues(3178, npcType);
 			}
 			break;
 
 		case 1042:
-			c.getDialogueHandler().sendDialogues(3167, npcType);
+			player.getDialogueHandler().sendDialogues(3167, npcType);
 			break;
 
 		case 735:
-			c.getDialogueHandler().sendDialogues(3167, npcType);
+			player.getDialogueHandler().sendDialogues(3167, npcType);
 			break;
 
 		case 36:
-			c.getDialogueHandler().sendDialogues(3158, npcType);
+			player.getDialogueHandler().sendDialogues(3158, npcType);
 			break;
 
 		case 844:
-			if (c.runeMist < 4 && c.playerRights <= 1) {
-				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
-				c.nextChat = 0;
+			if (player.runeMist < 4 && player.playerRights <= 1) {
+				player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
+				player.nextChat = 0;
 				return;
 			}
-			c.getDialogueHandler().sendDialogues(3144, npcType);
+			player.getDialogueHandler().sendDialogues(3144, npcType);
 			break;
 
 		case 798:
-			c.getDialogueHandler().sendDialogues(3133, npcType);
+			player.getDialogueHandler().sendDialogues(3133, npcType);
 			break;
 
 		case 736:
 		case 3217:
 		case 3218:
-			c.getDialogueHandler().sendDialogues(3118, npcType);
+			player.getDialogueHandler().sendDialogues(3118, npcType);
 			break;
 
 		/*
 		 * tutorial island
 		 */
 		case 945:
-			if (c.tutorialProgress == 0) {
-				c.getDialogueHandler().sendDialogues(3001, npcType);
+			if (player.tutorialProgress == 0) {
+				player.getDialogueHandler().sendDialogues(3001, npcType);
 			}
-			if (c.tutorialProgress == 1) {
-				c.getDialogueHandler().sendDialogues(3008, npcType);
+			if (player.tutorialProgress == 1) {
+				player.getDialogueHandler().sendDialogues(3008, npcType);
 			}
-			if (c.tutorialProgress == 2) {
-				c.getDialogueHandler().sendNpcChat1("You should move on now.", npcType, "Runescape Guide");
+			if (player.tutorialProgress == 2) {
+				player.getDialogueHandler().sendNpcChat1("You should move on now.", npcType, "Runescape Guide");
 			}
 			break;
 
 		case 943:// survival
-			if (c.tutorialProgress == 2) {
-				c.getDialogueHandler().sendDialogues(3012, npcType);
+			if (player.tutorialProgress == 2) {
+				player.getDialogueHandler().sendDialogues(3012, npcType);
 			}
-			if (c.tutorialProgress == 5) {
-				c.getDialogueHandler().sendDialogues(3017, npcType);
+			if (player.tutorialProgress == 5) {
+				player.getDialogueHandler().sendDialogues(3017, npcType);
 			}
 			break;
 
 		case 942: // master chef
-			if (c.tutorialProgress == 7) {
-				c.getDialogueHandler().sendDialogues(3021, npcType);
+			if (player.tutorialProgress == 7) {
+				player.getDialogueHandler().sendDialogues(3021, npcType);
 			}
 			break;
 
 		case 949: // quest guide
-			if (c.tutorialProgress == 12) {
-				c.getDialogueHandler().sendDialogues(3043, npcType);
+			if (player.tutorialProgress == 12) {
+				player.getDialogueHandler().sendDialogues(3043, npcType);
 			}
-			if (c.tutorialProgress == 13) {
-				c.getDialogueHandler().sendDialogues(3045, npcType);
+			if (player.tutorialProgress == 13) {
+				player.getDialogueHandler().sendDialogues(3045, npcType);
 			}
 			break;
 		case 948: // mining tutor
-			if (c.tutorialProgress == 14) {
-				c.getDialogueHandler().sendDialogues(3052, npcType);
+			if (player.tutorialProgress == 14) {
+				player.getDialogueHandler().sendDialogues(3052, npcType);
 			}
-			if (c.tutorialProgress == 16) {
-				c.getDialogueHandler().sendDialogues(3056, npcType);
+			if (player.tutorialProgress == 16) {
+				player.getDialogueHandler().sendDialogues(3056, npcType);
 			}
-			if (c.tutorialProgress == 20) {
-				c.getDialogueHandler().sendDialogues(3063, npcType);
+			if (player.tutorialProgress == 20) {
+				player.getDialogueHandler().sendDialogues(3063, npcType);
 			}
 			break;
 		case 944: // Combat deud
-			if (c.tutorialProgress == 21) {
-				c.getDialogueHandler().sendDialogues(3067, npcType);
-			} else if (c.tutorialProgress == 23
-					&& !c.getItemAssistant().playerHasItem(1171)
-					&& !c.getItemAssistant().playerHasItem(1277)) {
-				c.getDialogueHandler().sendDialogues(3072, npcType);
-			} else if (c.getItemAssistant().playerHasItem(1171)
-					&& c.getItemAssistant().playerHasItem(1277) && c.tutorialProgress == 23) {
-				c.getPacketSender().sendMessage(
+			if (player.tutorialProgress == 21) {
+				player.getDialogueHandler().sendDialogues(3067, npcType);
+			} else if (player.tutorialProgress == 23
+					&& !player.getItemAssistant().playerHasItem(1171)
+					&& !player.getItemAssistant().playerHasItem(1277)) {
+				player.getDialogueHandler().sendDialogues(3072, npcType);
+			} else if (player.getItemAssistant().playerHasItem(1171)
+					&& player.getItemAssistant().playerHasItem(1277) && player.tutorialProgress == 23) {
+				player.getPacketSender().sendMessage(
 						"I already gave you a sword and shield.");
-				c.nextChat = 0;
-				c.getDialogueHandler()
+				player.nextChat = 0;
+				player.getDialogueHandler()
 						.chatboxText(
 								"In your worn inventory panel, right click on the dagger and",
 								"select the remove option from the drop down list. After you've",
 								"unequipped the dagger, wield the sword and shield. As you",
 								"pass the mouse over an item you will see its name.",
 								"Unequipping items");
-				PlayerAssistant.removeHintIcon(c);
-			} else if (c.tutorialProgress == 25) {
-				c.getDialogueHandler().sendDialogues(3074, npcType);
+				PlayerAssistant.removeHintIcon(player);
+			} else if (player.tutorialProgress == 25) {
+				player.getDialogueHandler().sendDialogues(3074, npcType);
 			}
 			break;
 
 		case 947: // fiancial dude
-			if (c.tutorialProgress == 27) {
-				c.getDialogueHandler().sendDialogues(3079, npcType);
+			if (player.tutorialProgress == 27) {
+				player.getDialogueHandler().sendDialogues(3079, npcType);
 			}
 			// c.getPacketDispatcher().createArrow(1, 7);
 			break;
 
 		case 954: // prayer dude
-			if (c.tutorialProgress == 28) {
-				c.getDialogueHandler().sendDialogues(3089, npcType);
+			if (player.tutorialProgress == 28) {
+				player.getDialogueHandler().sendDialogues(3089, npcType);
 			}
-			if (c.tutorialProgress == 29) {
-				c.getDialogueHandler().sendDialogues(3092, npcType);
+			if (player.tutorialProgress == 29) {
+				player.getDialogueHandler().sendDialogues(3092, npcType);
 			}
-			if (c.tutorialProgress == 31) {
-				c.getDialogueHandler().sendDialogues(3097, npcType);
+			if (player.tutorialProgress == 31) {
+				player.getDialogueHandler().sendDialogues(3097, npcType);
 			}
 			break;
 		case 946:// mage
-			if (c.tutorialProgress == 32) {
-				c.getDialogueHandler().sendDialogues(3105, npcType);
+			if (player.tutorialProgress == 32) {
+				player.getDialogueHandler().sendDialogues(3105, npcType);
 			}
-			if (c.tutorialProgress == 33) {
-				c.getDialogueHandler().sendDialogues(3108, npcType);
+			if (player.tutorialProgress == 33) {
+				player.getDialogueHandler().sendDialogues(3108, npcType);
 			}
-			if (c.tutorialProgress == 34) {
-				c.getDialogueHandler().sendDialogues(3110, npcType);
+			if (player.tutorialProgress == 34) {
+				player.getDialogueHandler().sendDialogues(3110, npcType);
 			}
-			if (c.tutorialProgress == 35) {
-				c.getDialogueHandler().sendDialogues(3112, npcType);
+			if (player.tutorialProgress == 35) {
+				player.getDialogueHandler().sendDialogues(3112, npcType);
 			}
 			break;
 
 		case 922:
-			c.getDialogueHandler().sendDialogues(1312, npcType);
+			player.getDialogueHandler().sendDialogues(1312, npcType);
 			break;
 
 		case 805:
-			c.getDialogueHandler().sendDialogues(1317, npcType);
+			player.getDialogueHandler().sendDialogues(1317, npcType);
 			break;
 
 		case 519:
-			c.getDialogueHandler().sendDialogues(15, npcType); // barrows fix
+			player.getDialogueHandler().sendDialogues(15, npcType); // barrows fix
 															// barrows
 			break;
 
 		case 598:
-			c.getDialogueHandler().sendDialogues(1300, npcType);
+			player.getDialogueHandler().sendDialogues(1300, npcType);
 			break;
 
 		case 70:
@@ -367,44 +371,44 @@ public class NpcActions {
 		case 1597:
 		case 1598:
 		case 1599:
-			c.getDialogueHandler().sendDialogues(1228, npcType);
-			c.SlayerMaster = npcType;
+			player.getDialogueHandler().sendDialogues(1228, npcType);
+			player.SlayerMaster = npcType;
 			break;
 
 		case 1595:
-			c.getDialogueHandler().sendDialogues(1036, npcType);
+			player.getDialogueHandler().sendDialogues(1036, npcType);
 			break;
 
 		case 170:
-			c.getDialogueHandler().sendDialogues(591, npcType);
+			player.getDialogueHandler().sendDialogues(591, npcType);
 			break;
 
 		case 925:
 		case 926:
-			c.getDialogueHandler().sendDialogues(1018, npcType);
+			player.getDialogueHandler().sendDialogues(1018, npcType);
 			break;
 
 		case 2728:
 		case 2729:
-			c.getDialogueHandler().sendDialogues(1011, npcType);
+			player.getDialogueHandler().sendDialogues(1011, npcType);
 			break;
 
 		case 376:
 		case 377:
 		case 378:
-			if (c.getItemAssistant().playerHasItem(995, 30)) {
-				c.getDialogueHandler().sendDialogues(33, npcType);
+			if (player.getItemAssistant().playerHasItem(995, 30)) {
+				player.getDialogueHandler().sendDialogues(33, npcType);
 			} else {
-				c.getDialogueHandler().sendStatement(
+				player.getDialogueHandler().sendStatement(
 						"You need 30 coins to travel on this ship.");
 			}
 			break;
 
 		case 380:
-			if (c.getItemAssistant().playerHasItem(995, 30)) {
-				c.getDialogueHandler().sendDialogues(584, npcType);
+			if (player.getItemAssistant().playerHasItem(995, 30)) {
+				player.getDialogueHandler().sendDialogues(584, npcType);
 			} else {
-				c.getDialogueHandler().sendStatement(
+				player.getDialogueHandler().sendStatement(
 						"You need 30 coins to travel on this ship.");
 			}
 			break;
@@ -414,305 +418,305 @@ public class NpcActions {
 		 */
 
 		case 557:
-			if (c.ptjob == 0) {
-				c.getDialogueHandler().sendDialogues(37, npcType);
-			} else if (c.ptjob == 1) {
-				c.getDialogueHandler().sendDialogues(47, npcType);
-			} else if (c.ptjob == 2) {
-				c.getDialogueHandler().sendDialogues(1000, npcType);
+			if (player.ptjob == 0) {
+				player.getDialogueHandler().sendDialogues(37, npcType);
+			} else if (player.ptjob == 1) {
+				player.getDialogueHandler().sendDialogues(47, npcType);
+			} else if (player.ptjob == 2) {
+				player.getDialogueHandler().sendDialogues(1000, npcType);
 			}
 			break;
 
 		case 375:
-			if (c.pirateTreasure == 0) {
-				c.getDialogueHandler().sendDialogues(554, npcType);
-			} else if (c.pirateTreasure == 1) {
-				c.getDialogueHandler().sendStatement(
+			if (player.pirateTreasure == 0) {
+				player.getDialogueHandler().sendDialogues(554, npcType);
+			} else if (player.pirateTreasure == 1) {
+				player.getDialogueHandler().sendStatement(
 						"Talk to lucas and help him transport the bannanas.");
-			} else if (c.pirateTreasure == 2) {
-				c.getDialogueHandler().sendDialogues(569, npcType);
-			} else if (c.pirateTreasure == 3) {
-				c.getDialogueHandler().sendDialogues(580, npcType);
+			} else if (player.pirateTreasure == 2) {
+				player.getDialogueHandler().sendDialogues(569, npcType);
+			} else if (player.pirateTreasure == 3) {
+				player.getDialogueHandler().sendDialogues(580, npcType);
 			} else {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"Arr! Thanks for me helping me.");
 			}
 			break;
 
 		case 307:
-			if (c.witchspot == 0) {
-				c.getDialogueHandler().sendDialogues(532, npcType);
-			} else if (c.witchspot == 1) {
-				c.getDialogueHandler().sendDialogues(546, npcType);
-			} else if (c.witchspot == 2) {
-				c.getDialogueHandler().sendDialogues(548, npcType);
-			} else if (c.witchspot == 3) {
-				c.getDialogueHandler().sendNpcChat1(
+			if (player.witchspot == 0) {
+				player.getDialogueHandler().sendDialogues(532, npcType);
+			} else if (player.witchspot == 1) {
+				player.getDialogueHandler().sendDialogues(546, npcType);
+			} else if (player.witchspot == 2) {
+				player.getDialogueHandler().sendDialogues(548, npcType);
+			} else if (player.witchspot == 3) {
+				player.getDialogueHandler().sendNpcChat1(
 						"Welcome back, thank you again for helping me.",
-						c.talkingNpc, "Hetty");
+						player.talkingNpc, "Hetty");
 			}
 			break;
 
 		case 755:// morgan
-			if (c.vampSlayer == 3) {
-				c.getDialogueHandler().sendDialogues(531, npcType);
-			} else if (c.vampSlayer == 4) {
-				c.getDialogueHandler().sendDialogues(529, npcType);
-			} else if (c.vampSlayer == 0) {
-				c.getDialogueHandler().sendDialogues(476, npcType);
+			if (player.vampSlayer == 3) {
+				player.getDialogueHandler().sendDialogues(531, npcType);
+			} else if (player.vampSlayer == 4) {
+				player.getDialogueHandler().sendDialogues(529, npcType);
+			} else if (player.vampSlayer == 0) {
+				player.getDialogueHandler().sendDialogues(476, npcType);
 			}
 			break;
 
 		case 743:// ned
-			if (c.vampSlayer == 0) {
-				c.getDialogueHandler().sendDialogues(211, npcType);
-			} else if (c.vampSlayer == 1) {
-				c.getDialogueHandler().sendStatement("I should go find harlow.");
-			} else if (c.vampSlayer > 1) {
-				c.getDialogueHandler().sendDialogues(1337, npcType);
+			if (player.vampSlayer == 0) {
+				player.getDialogueHandler().sendDialogues(211, npcType);
+			} else if (player.vampSlayer == 1) {
+				player.getDialogueHandler().sendStatement("I should go find harlow.");
+			} else if (player.vampSlayer > 1) {
+				player.getDialogueHandler().sendDialogues(1337, npcType);
 			}
 			break;
 
 		case 756:// harlow
-			if (c.vampSlayer == 1) {
-				c.getDialogueHandler().sendDialogues(498, npcType);
-			} else if (c.vampSlayer == 2) {
-				c.getDialogueHandler().sendDialogues(510, npcType);
-			} else if (c.vampSlayer == 3) {
-				c.getDialogueHandler().sendDialogues(531, npcType);
+			if (player.vampSlayer == 1) {
+				player.getDialogueHandler().sendDialogues(498, npcType);
+			} else if (player.vampSlayer == 2) {
+				player.getDialogueHandler().sendDialogues(510, npcType);
+			} else if (player.vampSlayer == 3) {
+				player.getDialogueHandler().sendDialogues(531, npcType);
 			} else {
-				c.getDialogueHandler().sendStatement("I'm not on this step yet.");
+				player.getDialogueHandler().sendStatement("I'm not on this step yet.");
 			}
 			break;
 
 		case 456:
-			if (c.restGhost == 0) {
-				c.getDialogueHandler().sendDialogues(338, 456);
+			if (player.restGhost == 0) {
+				player.getDialogueHandler().sendDialogues(338, 456);
 			}
 			break;
 
 		case 457:
-			if (c.restGhost == 2) {
-				c.getDialogueHandler().sendDialogues(371, npcType);
+			if (player.restGhost == 2) {
+				player.getDialogueHandler().sendDialogues(371, npcType);
 			}
 			break;
 
 		case 458:
-			if (c.restGhost == 1) {
-				c.getDialogueHandler().sendDialogues(352, npcType);
+			if (player.restGhost == 1) {
+				player.getDialogueHandler().sendDialogues(352, npcType);
 			}
 			break;
 
 		case 759:
-			if (c.getItemAssistant().playerHasItem(1927, 1) && c.gertCat == 2) {
-				c.getDialogueHandler().sendDialogues(319, npcType);
-				c.getItemAssistant().deleteItem(1927, 1);
-				c.getItemAssistant().addItem(1925, 1);
-				c.gertCat = 3;
-			} else if (c.getItemAssistant().playerHasItem(1552, 1)
-					&& c.gertCat == 3) {
-				c.getDialogueHandler().sendDialogues(323, npcType);
-				c.getItemAssistant().deleteItem(1552, 1);
-				c.gertCat = 4;
-			} else if (c.gertCat == 4) {
-				c.getDialogueHandler().sendStatement("Hiss!");
-				c.getDialogueHandler().sendDialogues(325, npcType);
-				c.gertCat = 5;
-			} else if (c.getItemAssistant().playerHasItem(1554, 1)
-					&& c.gertCat == 6) {
-				c.getItemAssistant().deleteItem(1554, 1);
-				c.getDialogueHandler().sendDialogues(326, npcType);
-				c.gertCat = 6;
-			} else if (c.gertCat == 2) {
-				c.getPacketSender().sendMessage("Hiss!");
-				c.getDialogueHandler().sendStatement("Fluffs hisses but clearly wants something - maybe she is thirsty?");
+			if (player.getItemAssistant().playerHasItem(1927, 1) && player.gertCat == 2) {
+				player.getDialogueHandler().sendDialogues(319, npcType);
+				player.getItemAssistant().deleteItem(1927, 1);
+				player.getItemAssistant().addItem(1925, 1);
+				player.gertCat = 3;
+			} else if (player.getItemAssistant().playerHasItem(1552, 1)
+					&& player.gertCat == 3) {
+				player.getDialogueHandler().sendDialogues(323, npcType);
+				player.getItemAssistant().deleteItem(1552, 1);
+				player.gertCat = 4;
+			} else if (player.gertCat == 4) {
+				player.getDialogueHandler().sendStatement("Hiss!");
+				player.getDialogueHandler().sendDialogues(325, npcType);
+				player.gertCat = 5;
+			} else if (player.getItemAssistant().playerHasItem(1554, 1)
+					&& player.gertCat == 6) {
+				player.getItemAssistant().deleteItem(1554, 1);
+				player.getDialogueHandler().sendDialogues(326, npcType);
+				player.gertCat = 6;
+			} else if (player.gertCat == 2) {
+				player.getPacketSender().sendMessage("Hiss!");
+				player.getDialogueHandler().sendStatement("Fluffs hisses but clearly wants something - maybe she is thirsty?");
 			}
 			break;
 
 		case 780:
-			if (c.playerLevel[10] < 4) {
-				c.getDialogueHandler().sendStatement(
+			if (player.playerLevel[10] < 4) {
+				player.getDialogueHandler().sendStatement(
 						"You don't have the requirements to do this quest.");
 				return;
 			}
-			if (c.gertCat == 0) {
-				c.getDialogueHandler().sendDialogues(269, npcType);
-			} else if (c.gertCat == 1) {
-				c.getDialogueHandler().sendDialogues(276, npcType);
-			} else if (c.gertCat == 6) {
-				c.getDialogueHandler().sendDialogues(328, npcType);
+			if (player.gertCat == 0) {
+				player.getDialogueHandler().sendDialogues(269, npcType);
+			} else if (player.gertCat == 1) {
+				player.getDialogueHandler().sendDialogues(276, npcType);
+			} else if (player.gertCat == 6) {
+				player.getDialogueHandler().sendDialogues(328, npcType);
 			} else {
-				c.getDialogueHandler()
+				player.getDialogueHandler()
 						.sendStatement("She has nothing to say to you.");
 			}
 			break;
 
 		case 783:
-			if (c.gertCat == 1) {
-				c.getDialogueHandler().sendDialogues(286, npcType);
-			} else if (c.gertCat == 2) {
-				c.getDialogueHandler().sendDialogues(314, npcType);
+			if (player.gertCat == 1) {
+				player.getDialogueHandler().sendDialogues(286, npcType);
+			} else if (player.gertCat == 2) {
+				player.getDialogueHandler().sendDialogues(314, npcType);
 			}
 			break;
 
 		case 639:
-			if (c.romeojuliet == 0) {
-				c.getDialogueHandler().sendDialogues(389, npcType);
-			} else if (c.romeojuliet == 1) {
-				c.getDialogueHandler().sendDialogues(408, npcType);
-			} else if (c.romeojuliet == 3) {
-				c.getDialogueHandler().sendDialogues(415, npcType);
-			} else if (c.romeojuliet == 4) {
-				c.getDialogueHandler().sendDialogues(424, npcType);
-			} else if (c.romeojuliet == 5) {
-				c.getDialogueHandler().sendDialogues(431, npcType);
-			} else if (c.romeojuliet == 6) {
-				c.getDialogueHandler().sendDialogues(443, npcType);
-			} else if (c.romeojuliet == 8) {
-				c.getDialogueHandler().sendDialogues(469, npcType);
-			} else if (c.romeojuliet == 9) {
-				c.getPacketSender().sendMessage("Thanks for helping me!");
+			if (player.romeojuliet == 0) {
+				player.getDialogueHandler().sendDialogues(389, npcType);
+			} else if (player.romeojuliet == 1) {
+				player.getDialogueHandler().sendDialogues(408, npcType);
+			} else if (player.romeojuliet == 3) {
+				player.getDialogueHandler().sendDialogues(415, npcType);
+			} else if (player.romeojuliet == 4) {
+				player.getDialogueHandler().sendDialogues(424, npcType);
+			} else if (player.romeojuliet == 5) {
+				player.getDialogueHandler().sendDialogues(431, npcType);
+			} else if (player.romeojuliet == 6) {
+				player.getDialogueHandler().sendDialogues(443, npcType);
+			} else if (player.romeojuliet == 8) {
+				player.getDialogueHandler().sendDialogues(469, npcType);
+			} else if (player.romeojuliet == 9) {
+				player.getPacketSender().sendMessage("Thanks for helping me!");
 			}
-			if (c.romeojuliet == 2
-					&& c.getItemAssistant().playerHasItem(755, 1)) {
-				c.getDialogueHandler().sendDialogues(415, npcType);
+			if (player.romeojuliet == 2
+					&& player.getItemAssistant().playerHasItem(755, 1)) {
+				player.getDialogueHandler().sendDialogues(415, npcType);
 			}
-			if (c.romeojuliet == 2
-					&& !c.getItemAssistant().playerHasItem(755, 1)) {
-				c.getDialogueHandler().sendDialogues(421, npcType);
+			if (player.romeojuliet == 2
+					&& !player.getItemAssistant().playerHasItem(755, 1)) {
+				player.getDialogueHandler().sendDialogues(421, npcType);
 			}
 			break;
 
 		case 276:
-			if (c.romeojuliet == 5) {
-				c.getDialogueHandler().sendDialogues(432, npcType);
+			if (player.romeojuliet == 5) {
+				player.getDialogueHandler().sendDialogues(432, npcType);
 			}
-			if (c.romeojuliet == 6
-					&& c.getItemAssistant().playerHasItem(300, 1)
-					&& c.getItemAssistant().playerHasItem(227, 1)
-					&& c.getItemAssistant().playerHasItem(526, 1)) {
-				c.getDialogueHandler().sendDialogues(448, npcType);
+			if (player.romeojuliet == 6
+					&& player.getItemAssistant().playerHasItem(300, 1)
+					&& player.getItemAssistant().playerHasItem(227, 1)
+					&& player.getItemAssistant().playerHasItem(526, 1)) {
+				player.getDialogueHandler().sendDialogues(448, npcType);
 			} else {
-				if (c.romeojuliet == 6) {
-					c.getDialogueHandler().sendDialogues(439, npcType);
+				if (player.romeojuliet == 6) {
+					player.getDialogueHandler().sendDialogues(439, npcType);
 				}
 			}
 			break;
 
 		case 637:
-			if (c.romeojuliet == 0) {
-				c.getDialogueHandler().sendDialogues(409, npcType);
-			} else if (c.romeojuliet == 1) {
-				c.getDialogueHandler().sendDialogues(410, npcType);
-			} else if (c.romeojuliet == 2) {
-				c.getDialogueHandler().sendDialogues(414, npcType);
-			} else if (c.romeojuliet == 7) {
-				c.getDialogueHandler().sendDialogues(457, npcType);
-			} else if (c.romeojuliet == 8) {
-				c.getDialogueHandler().sendDialogues(468, npcType);
+			if (player.romeojuliet == 0) {
+				player.getDialogueHandler().sendDialogues(409, npcType);
+			} else if (player.romeojuliet == 1) {
+				player.getDialogueHandler().sendDialogues(410, npcType);
+			} else if (player.romeojuliet == 2) {
+				player.getDialogueHandler().sendDialogues(414, npcType);
+			} else if (player.romeojuliet == 7) {
+				player.getDialogueHandler().sendDialogues(457, npcType);
+			} else if (player.romeojuliet == 8) {
+				player.getDialogueHandler().sendDialogues(468, npcType);
 			}
 			break;
 
 		case 741:
-			c.getDialogueHandler().sendDialogues(190, npcType);
+			player.getDialogueHandler().sendDialogues(190, npcType);
 			break;
 
 		case 553:
-			if (c.runeMist == 2) {
-				c.getDialogueHandler().sendDialogues(229, npcType);
-			} else if (c.runeMist == 3) {
-				c.getDialogueHandler().sendDialogues(237, npcType);
+			if (player.runeMist == 2) {
+				player.getDialogueHandler().sendDialogues(229, npcType);
+			} else if (player.runeMist == 3) {
+				player.getDialogueHandler().sendDialogues(237, npcType);
 			}
 			break;
 
 		case 300:
-			if (c.runeMist == 1) {
-				c.getDialogueHandler().sendDialogues(201, npcType);
-			} else if (c.runeMist == 2) {
-				c.getDialogueHandler().sendDialogues(213, npcType);
-			} else if (c.runeMist == 3) {
-				c.getDialogueHandler().sendDialogues(238, npcType);
-			} else if (c.runeMist > 3 || c.runeMist < 1) {
-				c.getPacketSender().sendMessage(
+			if (player.runeMist == 1) {
+				player.getDialogueHandler().sendDialogues(201, npcType);
+			} else if (player.runeMist == 2) {
+				player.getDialogueHandler().sendDialogues(213, npcType);
+			} else if (player.runeMist == 3) {
+				player.getDialogueHandler().sendDialogues(238, npcType);
+			} else if (player.runeMist > 3 || player.runeMist < 1) {
+				player.getPacketSender().sendMessage(
 						"He has nothing to say to you.");
 			}
 			break;
 
 		case 284:
-			if (c.doricQuest == 0) {
-				c.getDialogueHandler().sendDialogues(89, npcType);
-			} else if (c.doricQuest == 1) {
-				c.getDialogueHandler().sendDialogues(84, npcType);
-			} else if (c.doricQuest == 2) {
-				c.getDialogueHandler().sendDialogues(86, npcType);
-			} else if (c.doricQuest == 3) {
-				c.getDialogueHandler().sendDialogues(100, npcType);
+			if (player.doricQuest == 0) {
+				player.getDialogueHandler().sendDialogues(89, npcType);
+			} else if (player.doricQuest == 1) {
+				player.getDialogueHandler().sendDialogues(84, npcType);
+			} else if (player.doricQuest == 2) {
+				player.getDialogueHandler().sendDialogues(86, npcType);
+			} else if (player.doricQuest == 3) {
+				player.getDialogueHandler().sendDialogues(100, npcType);
 			}
 			break;
 
 		case 706:
-			if (c.impsC == 0) {
-				c.getDialogueHandler().sendDialogues(145, npcType);
-			} else if (c.impsC == 1) {
-				c.getDialogueHandler().sendDialogues(156, npcType);
+			if (player.impsC == 0) {
+				player.getDialogueHandler().sendDialogues(145, npcType);
+			} else if (player.impsC == 1) {
+				player.getDialogueHandler().sendDialogues(156, npcType);
 			}
-			if (c.impsC == 1 && c.getItemAssistant().playerHasItem(1470, 1)
-					&& c.getItemAssistant().playerHasItem(1472, 1)
-					&& c.getItemAssistant().playerHasItem(1474, 1)
-					&& c.getItemAssistant().playerHasItem(1476, 1)) {
-				c.getDialogueHandler().sendDialogues(158, npcType);
-			} else if (c.impsC == 1) {
-				c.getDialogueHandler().sendDialogues(157, npcType);
+			if (player.impsC == 1 && player.getItemAssistant().playerHasItem(1470, 1)
+					&& player.getItemAssistant().playerHasItem(1472, 1)
+					&& player.getItemAssistant().playerHasItem(1474, 1)
+					&& player.getItemAssistant().playerHasItem(1476, 1)) {
+				player.getDialogueHandler().sendDialogues(158, npcType);
+			} else if (player.impsC == 1) {
+				player.getDialogueHandler().sendDialogues(157, npcType);
 			}
 			break;
 
 		case 278:
-			if (c.cookAss == 0) {
-				c.getDialogueHandler().sendDialogues(50, npcType);
-			} else if (c.cookAss == 1) {
-				c.getDialogueHandler().sendDialogues(67, npcType);
-			} else if (c.cookAss == 2) {
-				c.getDialogueHandler().sendDialogues(69, npcType);
-			} else if (c.cookAss == 3) {
-				c.getDialogueHandler().sendDialogues(76, npcType);
+			if (player.cookAss == 0) {
+				player.getDialogueHandler().sendDialogues(50, npcType);
+			} else if (player.cookAss == 1) {
+				player.getDialogueHandler().sendDialogues(67, npcType);
+			} else if (player.cookAss == 2) {
+				player.getDialogueHandler().sendDialogues(69, npcType);
+			} else if (player.cookAss == 3) {
+				player.getDialogueHandler().sendDialogues(76, npcType);
 			}
 			break;
 
 		case 608:
-			if (c.blackKnight == 0 && c.questPoints >= 12) {
-				c.getDialogueHandler().sendDialogues(3902, npcType);
-			} else if (c.blackKnight == 1) {
-				c.getDialogueHandler().sendDialogues(3510, npcType);
-			}else if (c.blackKnight == 2) {
-				c.getDialogueHandler().sendDialogues(3502, npcType);
-			}else if (c.blackKnight == 3) {
-				c.getPacketSender().sendMessage(
+			if (player.blackKnight == 0 && player.questPoints >= 12) {
+				player.getDialogueHandler().sendDialogues(3902, npcType);
+			} else if (player.blackKnight == 1) {
+				player.getDialogueHandler().sendDialogues(3510, npcType);
+			}else if (player.blackKnight == 2) {
+				player.getDialogueHandler().sendDialogues(3502, npcType);
+			}else if (player.blackKnight == 3) {
+				player.getPacketSender().sendMessage(
 						"He has nothing to say to you.");
 			}
 			break;
 
 		case 758:
-			if (c.sheepShear == 0) {
-				c.getDialogueHandler().sendDialogues(164, npcType);
-			} else if (c.sheepShear == 1) {
-				c.getDialogueHandler().sendDialogues(185, 1);
+			if (player.sheepShear == 0) {
+				player.getDialogueHandler().sendDialogues(164, npcType);
+			} else if (player.sheepShear == 1) {
+				player.getDialogueHandler().sendDialogues(185, 1);
 			} else {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"He has nothing to say to you.");
 			}
 			break;
 
 		case 379:
-			if (c.bananas == 0 || c.luthas == false) {
-				c.getDialogueHandler().sendDialogues(8, npcType);
-			} else if (c.bananas > 0) {
-				c.getDialogueHandler().sendDialogues(4, npcType);
+			if (player.bananas == 0 || player.luthas == false) {
+				player.getDialogueHandler().sendDialogues(8, npcType);
+			} else if (player.bananas > 0) {
+				player.getDialogueHandler().sendDialogues(4, npcType);
 			} else {
-				c.getPacketSender()
+				player.getPacketSender()
 						.sendMessage(
 								"You may now talk to Luthas your bananna task has been reset.");
-				c.luthas = false;
-				c.bananas = 0;
+				player.luthas = false;
+				player.bananas = 0;
 			}
 			break;
 
@@ -721,43 +725,43 @@ public class NpcActions {
 		 */
 
 		case 2293:
-			if (c.absY >= 2939 && c.absY <= 2945) {
-				c.getDialogueHandler().sendDialogues(3565, npcType);
+			if (player.absY >= 2939 && player.absY <= 2945) {
+				player.getDialogueHandler().sendDialogues(3565, npcType);
 			} else {
-				c.getDialogueHandler().sendDialogues(3570, npcType);
+				player.getDialogueHandler().sendDialogues(3570, npcType);
 			}
 			break;
 			
 		case 2294:
-			c.getDialogueHandler().sendDialogues(3555, npcType);
+			player.getDialogueHandler().sendDialogues(3555, npcType);
 			break;
 
 		case 2296:
-			c.getDialogueHandler().sendDialogues(3559, npcType);
+			player.getDialogueHandler().sendDialogues(3559, npcType);
 			break;
 
 		case 659:
-			c.getDialogueHandler().sendDialogues(18, npcType);
+			player.getDialogueHandler().sendDialogues(18, npcType);
 			break;
 
 		case 2244:
-			c.getDialogueHandler().sendDialogues(14, npcType);
+			player.getDialogueHandler().sendDialogues(14, npcType);
 			break;
 
 		case 641:
-			c.getDialogueHandler().sendDialogues(11, npcType);
+			player.getDialogueHandler().sendDialogues(11, npcType);
 			break;
 
 		case 2458:
-			c.getDialogueHandler().sendDialogues(2, npcType);
+			player.getDialogueHandler().sendDialogues(2, npcType);
 			break;
 
 		case 731:
-			c.getDialogueHandler().sendDialogues(19, npcType);
+			player.getDialogueHandler().sendDialogues(19, npcType);
 			break;
 
 		case 732:
-			c.getDialogueHandler().sendDialogues(3150, npcType);
+			player.getDialogueHandler().sendDialogues(3150, npcType);
 			break;
 
 		/**
@@ -784,89 +788,89 @@ public class NpcActions {
 		case 2271: 
 		case 494: 
 		case 2619:
-			c.getDialogueHandler().sendDialogues(1013, npcType);
+			player.getDialogueHandler().sendDialogues(1013, npcType);
 		break;
 
 		case 1152:
-			c.getDialogueHandler().sendDialogues(16, npcType);
+			player.getDialogueHandler().sendDialogues(16, npcType);
 			break;
 
 		case 905:
-			c.getDialogueHandler().sendDialogues(5, npcType);
+			player.getDialogueHandler().sendDialogues(5, npcType);
 			break;
 
 		case 460:
-			c.getDialogueHandler().sendDialogues(3, npcType);
+			player.getDialogueHandler().sendDialogues(3, npcType);
 			break;
 
 		case 462:
-			c.getDialogueHandler().sendDialogues(3149, npcType);
+			player.getDialogueHandler().sendDialogues(3149, npcType);
 			break;
 
 		case 658:
-			Sailing.startTravel(c, 2);
+			Sailing.startTravel(player, 2);
 			break;
 			
 		case 2437:
 		case 2438:
-		if (!c.getItemAssistant().playerHasItem(995, 1000)) {
-			c.getDialogueHandler().sendStatement("You need 1000 coins to go here!");
-			c.nextChat = 0;
+		if (!player.getItemAssistant().playerHasItem(995, 1000)) {
+			player.getDialogueHandler().sendStatement("You need 1000 coins to go here!");
+			player.nextChat = 0;
 			return;
 		}
-		if (c.absX > 2619 && c.absX < 2622 && c.absY > 3680 && c.absY < 3689 && c.getItemAssistant().playerHasItem(995, 1000)) {
+		if (player.absX > 2619 && player.absX < 2622 && player.absY > 3680 && player.absY < 3689 && player.getItemAssistant().playerHasItem(995, 1000)) {
 			//Sailing.startTravel(c, 18);
-			c.getPlayerAssistant().startTeleport(2551, 3759, 0, "modern");
-			c.getItemAssistant().deleteItem(995, 1000);
-			c.getDialogueHandler().sendStatement("You arrive safely.");
-			c.nextChat = 0;
+			player.getPlayerAssistant().startTeleport(2551, 3759, 0, "modern");
+			player.getItemAssistant().deleteItem(995, 1000);
+			player.getDialogueHandler().sendStatement("You arrive safely.");
+			player.nextChat = 0;
 		} else {
-			 if (c.getItemAssistant().playerHasItem(995, 1000)) {
+			 if (player.getItemAssistant().playerHasItem(995, 1000)) {
 			//Sailing.startTravel(c, 17);	
-			c.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
-			c.getItemAssistant().deleteItem(995, 1000);
-			c.getDialogueHandler().sendStatement("You arrive safely.");
-			c.nextChat = 0;
+			player.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
+			player.getItemAssistant().deleteItem(995, 1000);
+			player.getDialogueHandler().sendStatement("You arrive safely.");
+			player.nextChat = 0;
 			 }
 		}
 		break;
 
 		case 381:
-			if (c.absY > 3230 && c.absY < 3236) {
-				Sailing.startTravel(c, 8);
+			if (player.absY > 3230 && player.absY < 3236) {
+				Sailing.startTravel(player, 8);
 			} else {
-				Sailing.startTravel(c, 7);
+				Sailing.startTravel(player, 7);
 			}
 			break;
 
 		case 804:
 		case 1041:
-			Tanning.sendTanningInterface(c);
+			Tanning.sendTanningInterface(player);
 			break;
 
 		case 657:
-			Sailing.startTravel(c, 1);
+			Sailing.startTravel(player, 1);
 			break;
 
 		case 8689:
-			if (System.currentTimeMillis() - c.buryDelay > 1500) {
-				if (c.getItemAssistant().playerHasItem(1925, 1)) {
-					c.turnPlayerTo(c.objectX, c.objectY);
-					c.startAnimation(2292);
-					c.getItemAssistant().addItem(1927, 1);
-					c.getItemAssistant().deleteItem(1925, 1);
-					c.buryDelay = System.currentTimeMillis();
+			if (System.currentTimeMillis() - player.buryDelay > 1500) {
+				if (player.getItemAssistant().playerHasItem(1925, 1)) {
+					player.turnPlayerTo(player.objectX, player.objectY);
+					player.startAnimation(2292);
+					player.getItemAssistant().addItem(1927, 1);
+					player.getItemAssistant().deleteItem(1925, 1);
+					player.buryDelay = System.currentTimeMillis();
 				} else {
-					c.getPacketSender().sendMessage(
+					player.getPacketSender().sendMessage(
 							"You need a bucket to milk a cow!");
 				}
 			}
 			break;
 
 		case 3789:
-			c.getPacketSender().sendMessage(
+			player.getPacketSender().sendMessage(
 					new StringBuilder().append("You currently have ")
-							.append(c.pcPoints).append(" pest control points.")
+							.append(player.pcPoints).append(" pest control points.")
 							.toString());
 			break;
 
@@ -987,58 +991,58 @@ public class NpcActions {
 	}
 
 	public void secondClickNpc(int npcType) {
-		String type = c.playerMagicBook == 0 ? "modern" : "ancient";
-		c.clickNpcType = 0;
-		c.rememberNpcIndex = c.npcClickIndex;
-		c.npcClickIndex = 0;
-		Shops.openShop(c, npcType);
-		if (Pickpocket.isNPC(c, npcType)) {
-			Pickpocket.attemptPickpocket(c, npcType);
+		String type = player.playerMagicBook == 0 ? "modern" : "ancient";
+		player.clickNpcType = 0;
+		player.rememberNpcIndex = player.npcClickIndex;
+		player.npcClickIndex = 0;
+		Shops.openShop(player, npcType);
+		if (Pickpocket.isNPC(player, npcType)) {
+			Pickpocket.attemptPickpocket(player, npcType);
 			return;
 		}
-		if (Fishing.fishingNPC(c, npcType)) {
-			Fishing.fishingNPC(c, 2, npcType);
+		if (Fishing.fishingNPC(player, npcType)) {
+			Fishing.fishingNPC(player, 2, npcType);
 		}
 		if (Pets.isCat(npcType)) {
-			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId) {
-				c.getDialogueHandler().sendDialogues(908, npcType);
+			if (NpcHandler.npcs[player.rememberNpcIndex].spawnedBy == player.playerId) {
+				player.getDialogueHandler().sendDialogues(908, npcType);
 			} else {
-				c.getPacketSender().sendMessage("This is not your pet.");
+				player.getPacketSender().sendMessage("This is not your pet.");
 			}
 		}
 		switch (npcType) {
 		case 3021 :
-			c.getFarmingTools().loadInterfaces();
+			player.getFarmingTools().loadInterfaces();
 			break;
 			
 		case 3:
-			c.getDialogueHandler().sendDialogues(5, npcType);
+			player.getDialogueHandler().sendDialogues(5, npcType);
 			break;
 			
 		 case 209:
-	        c.getShopAssistant().openShop(144);
+	        player.getShopAssistant().openShop(144);
 	        break;
 	        
 	        
 		case 2437:
 		case 2438:
-		if (!c.getItemAssistant().playerHasItem(995, 1000)) {
-			c.getDialogueHandler().sendStatement("You need 1000 coins to go here!");
+		if (!player.getItemAssistant().playerHasItem(995, 1000)) {
+			player.getDialogueHandler().sendStatement("You need 1000 coins to go here!");
 			return;
 		}
-		if (c.absX > 2619 && c.absX < 2622 && c.absY > 3680 && c.absY < 3689 && c.getItemAssistant().playerHasItem(995, 1000)) {
+		if (player.absX > 2619 && player.absX < 2622 && player.absY > 3680 && player.absY < 3689 && player.getItemAssistant().playerHasItem(995, 1000)) {
 			//Sailing.startTravel(c, 18);
-			c.getPlayerAssistant().startTeleport(2551, 3759, 0, "modern");
-			c.getItemAssistant().deleteItem(995, 1000);
-			c.getDialogueHandler().sendStatement("You arrive safely.");
-			c.nextChat = 0;
+			player.getPlayerAssistant().startTeleport(2551, 3759, 0, "modern");
+			player.getItemAssistant().deleteItem(995, 1000);
+			player.getDialogueHandler().sendStatement("You arrive safely.");
+			player.nextChat = 0;
 		} else {
-			 if (c.getItemAssistant().playerHasItem(995, 1000)) {
+			 if (player.getItemAssistant().playerHasItem(995, 1000)) {
 				//Sailing.startTravel(c, 17);	
-				c.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
-				c.getItemAssistant().deleteItem(995, 1000);
-				c.getDialogueHandler().sendStatement("You arrive safely.");
-				c.nextChat = 0;
+				player.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
+				player.getItemAssistant().deleteItem(995, 1000);
+				player.getDialogueHandler().sendStatement("You arrive safely.");
+				player.nextChat = 0;
 			}
 		}
 		break;
@@ -1046,71 +1050,71 @@ public class NpcActions {
 		case 537:
 		case 536:
 			int requiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
-			if (c.questPoints >= requiredQP) {
-				c.getShopAssistant().openShop(npcType);
+			if (player.questPoints >= requiredQP) {
+				player.getShopAssistant().openShop(npcType);
 			} else {
-				c.getPacketSender().sendMessage("You need " + requiredQP + " quest points to open this shop.");
+				player.getPacketSender().sendMessage("You need " + requiredQP + " quest points to open this shop.");
 			}
 			break;
 
 		case 300:
-			if (c.runeMist < 4 && c.playerRights <= 1) {
-				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
-				c.nextChat = 0;
+			if (player.runeMist < 4 && player.playerRights <= 1) {
+				player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
+				player.nextChat = 0;
 				return;
 			}
-			c.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
+			player.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
 			break;
 
 		case 557:
-			c.getShopAssistant().openShop(34);
+			player.getShopAssistant().openShop(34);
 			break;
 
 		case 804:
 		case 1041:
-			Tanning.sendTanningInterface(c);
+			Tanning.sendTanningInterface(player);
 			break;
 
 		case 2270:
-			if (c.playerLevel[c.playerThieving] > 98) {
-				c.getShopAssistant().openShop(118);
-			} else if (c.playerLevel[c.playerThieving] > 49
-					&& c.playerLevel[c.playerAgility] > 49) {
-				c.getShopAssistant().openShop(118);
+			if (player.playerLevel[player.playerThieving] > 98) {
+				player.getShopAssistant().openShop(118);
+			} else if (player.playerLevel[player.playerThieving] > 49
+					&& player.playerLevel[player.playerAgility] > 49) {
+				player.getShopAssistant().openShop(118);
 			} else {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You don't have the required skills to open this shop");
 			}
 			break;
 
 		case 1042:
-			if (c.getItemAssistant().playerHasItem(995, 5)) {
-				c.getItemAssistant().addItem(2955, 1);
-				c.getItemAssistant().deleteItem(995, 5);
+			if (player.getItemAssistant().playerHasItem(995, 5)) {
+				player.getItemAssistant().addItem(2955, 1);
+				player.getItemAssistant().deleteItem(995, 5);
 			} else {
-				c.getDialogueHandler().sendNpcChat1(
+				player.getDialogueHandler().sendNpcChat1(
 						"You need 5 coins to buy a moonlight mead.",
-						c.talkingNpc, "Roavar");
-				c.nextChat = 0;
+						player.talkingNpc, "Roavar");
+				player.nextChat = 0;
 			}
 			break;
 
 		case 844:
 		case 462:
-			if (c.runeMist < 4 && c.playerRights <= 1) {
-				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
-				c.nextChat = 0;
+			if (player.runeMist < 4 && player.playerRights <= 1) {
+				player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
+				player.nextChat = 0;
 				return;
 			}
-			c.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
+			player.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
 			break;
 
 		case 519:
-			c.getShopAssistant().openShop(8);
+			player.getShopAssistant().openShop(8);
 			break;
 
 		case 1595:
-			c.getDialogueHandler().sendDialogues(1053, npcType);
+			player.getDialogueHandler().sendDialogues(1053, npcType);
 			break;
 
 			/**
@@ -1137,20 +1141,20 @@ public class NpcActions {
 			case 2271: 
 			case 494: 
 			case 2619:
-				c.getPacketSender().openUpBank();
+				player.getPacketSender().openUpBank();
 			break;
 		}
 	}
 
 	public void thirdClickNpc(int npcType) {
-		c.clickNpcType = 0;
-		c.rememberNpcIndex = c.npcClickIndex;
-		c.npcClickIndex = 0;
+		player.clickNpcType = 0;
+		player.rememberNpcIndex = player.npcClickIndex;
+		player.npcClickIndex = 0;
 		if (Pets.isCat(npcType)) {
-			if (NpcHandler.npcs[c.rememberNpcIndex].spawnedBy == c.playerId) {
-				c.getDialogueHandler().sendDialogues(910, npcType);
+			if (NpcHandler.npcs[player.rememberNpcIndex].spawnedBy == player.playerId) {
+				player.getDialogueHandler().sendDialogues(910, npcType);
 			} else {
-				c.getPacketSender().sendMessage("This is not your pet.");
+				player.getPacketSender().sendMessage("This is not your pet.");
 			}
 		}
 		switch (npcType) {
@@ -1159,15 +1163,15 @@ public class NpcActions {
 		 * Banker
 		 */
 		case 3824:
-			c.getPacketSender().openUpBank();
+			player.getPacketSender().openUpBank();
 		break;
 		
 		case 958:
-			c.getShopAssistant().openShop(143);
+			player.getShopAssistant().openShop(143);
 		break;
 
 		case 1526:
-			c.getShopAssistant().openShop(ShopAssistant.CASTLE_SHOP);
+			player.getShopAssistant().openShop(ShopAssistant.CASTLE_SHOP);
 		break;
 		
 		case 70:
@@ -1175,39 +1179,39 @@ public class NpcActions {
 		case 1597:
 		case 1598:
 		case 1599:
-			c.getShopAssistant().openShop(109);
+			player.getShopAssistant().openShop(109);
 			break;
 
 		case 836:
-			if (c.getItemAssistant().playerHasItem(995, 5)) {
-				c.getPacketSender().sendMessage(
+			if (player.getItemAssistant().playerHasItem(995, 5)) {
+				player.getPacketSender().sendMessage(
 						"You buy a shantay pass quickly.");
-				c.getItemAssistant().deleteItem(995, 5);
-				c.getItemAssistant().addItem(1854, 1);
+				player.getItemAssistant().deleteItem(995, 5);
+				player.getItemAssistant().addItem(1854, 1);
 			} else {
-				c.getPacketSender().sendMessage(
+				player.getPacketSender().sendMessage(
 						"You need 5 coins to buy a pass.");
 			}
 			break;
 		case 553:
-			if (c.runeMist < 4 && c.playerRights <= 1) {
-				c.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
+			if (player.runeMist < 4 && player.playerRights <= 1) {
+				player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
 				return;
 			}
-			String type = c.playerMagicBook == 0 ? "modern" : "ancient";
-			c.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
+			String type = player.playerMagicBook == 0 ? "modern" : "ancient";
+			player.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
 			break;
 
 		case 2258:
-			if (c.playerLevel[20] < 35) {
-				c.getPacketSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
+			if (player.playerLevel[20] < 35) {
+				player.getPacketSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
 				return;
 			}
-			c.getPlayerAssistant().spellTeleport(3027, 4852, 0);
+			player.getPlayerAssistant().spellTeleport(3027, 4852, 0);
 			break;
 
 		default:
-			if (c.playerRights == 3) {
+			if (player.playerRights == 3) {
 				Misc.println("Third Click NPC : " + npcType);
 			}
 			break;

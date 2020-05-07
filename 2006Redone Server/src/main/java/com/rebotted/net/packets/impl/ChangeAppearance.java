@@ -35,18 +35,16 @@ public class ChangeAppearance implements PacketType {
 	};
 
 	@Override
-	public void processPacket(final Player client, final int packetType, final int packetSize) {
-		final int gender = client.getInStream().readSignedByte();
+	public void processPacket(final Player player, final int packetType, final int packetSize) {
+		final int gender = player.getInStream().readSignedByte();
 
 		if (gender != 0 && gender != 1) {
 			return;
 		}
 
-		final int[] apperances = new int[MALE_VALUES.length]; // apperance's
-																// value
-		// check
+		final int[] apperances = new int[MALE_VALUES.length]; // appearance values check
 		for (int i = 0; i < apperances.length; i++) {
-			int value = client.getInStream().readSignedByte();
+			int value = player.getInStream().readSignedByte();
 			if (value < (gender == 0 ? MALE_VALUES[i][0] : FEMALE_VALUES[i][0])
 					|| value > (gender == 0 ? MALE_VALUES[i][1]
 							: FEMALE_VALUES[i][1])) {
@@ -55,35 +53,34 @@ public class ChangeAppearance implements PacketType {
 			apperances[i] = value;
 		}
 
-		final int[] colors = new int[ALLOWED_COLORS.length]; // color value
-																// check
+		final int[] colors = new int[ALLOWED_COLORS.length]; // color value check
 		for (int i = 0; i < colors.length; i++) {
-			int value = client.getInStream().readSignedByte();
+			int value = player.getInStream().readSignedByte();
 			if (value < ALLOWED_COLORS[i][0] || value > ALLOWED_COLORS[i][1]) {
 				value = ALLOWED_COLORS[i][0];
 			}
 			colors[i] = value;
 		}
 
-		if (client.canChangeAppearance) {
-			client.playerAppearance[0] = gender; // gender
-			client.playerAppearance[1] = apperances[0]; // head
-			client.playerAppearance[2] = apperances[2]; // torso
-			client.playerAppearance[3] = apperances[3]; // arms
-			client.playerAppearance[4] = apperances[4]; // hands
-			client.playerAppearance[5] = apperances[5]; // legs
-			client.playerAppearance[6] = apperances[6]; // feet
-			client.playerAppearance[7] = apperances[1]; // beard
-			client.playerAppearance[8] = colors[0]; // hair colour
-			client.playerAppearance[9] = colors[1]; // torso colour
-			client.playerAppearance[10] = colors[2]; // legs colour
-			client.playerAppearance[11] = colors[3]; // feet colour
-			client.playerAppearance[12] = colors[4]; // skin colour
+		if (player.canChangeAppearance) {
+			player.playerAppearance[0] = gender; // gender
+			player.playerAppearance[1] = apperances[0]; // head
+			player.playerAppearance[2] = apperances[2]; // torso
+			player.playerAppearance[3] = apperances[3]; // arms
+			player.playerAppearance[4] = apperances[4]; // hands
+			player.playerAppearance[5] = apperances[5]; // legs
+			player.playerAppearance[6] = apperances[6]; // feet
+			player.playerAppearance[7] = apperances[1]; // beard
+			player.playerAppearance[8] = colors[0]; // hair colour
+			player.playerAppearance[9] = colors[1]; // torso colour
+			player.playerAppearance[10] = colors[2]; // legs colour
+			player.playerAppearance[11] = colors[3]; // feet colour
+			player.playerAppearance[12] = colors[4]; // skin colour
 
-			client.endCurrentTask();
-			client.getPacketSender().closeAllWindows();
-			client.getPlayerAssistant().requestUpdates();
-			client.canChangeAppearance = false;
+			player.endCurrentTask();
+			player.getPacketSender().closeAllWindows();
+			player.getPlayerAssistant().requestUpdates();
+			player.canChangeAppearance = false;
 		}
 	}
 

@@ -213,20 +213,27 @@ public class Pickpocket extends SkillHandler {
 		}
 		return false;
 	}
-
-	public static void attemptPickpocket(final Player player, final int npcId) {
+	
+	private static boolean canSteal(Player player, int npcId) {
 		if (System.currentTimeMillis() - player.lastThieve < 2000 || player.playerStun) {
-			return;
+			return false;
 		}
 		if (player.underAttackBy > 0 || player.underAttackBy2 > 0) {
 			player.getPacketSender().sendMessage("You can't pickpocket while in combat!");
-			return;
+			return false;
 		}
 		if (System.currentTimeMillis() - player.logoutDelay < 4000) {
-			return;
+			return false;
 		}
 		if (!THIEVING) {
 			player.getPacketSender().sendMessage("This skill is currently disabled.");
+			return false;
+		}
+		return true;
+	}
+
+	public static void attemptPickpocket(final Player player, final int npcId) {
+		if (!canSteal(player, npcId)) {
 			return;
 		}
 		for (final npcData n : npcData.values()) {
@@ -258,12 +265,12 @@ public class Pickpocket extends SkillHandler {
 								if (NpcHandler.npcs[i] != null) {
 									if (NpcHandler.npcs[i].npcType == npcId) {
 										if (player.goodDistance(player.absX, player.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 1) && player.heightLevel == NpcHandler.npcs[i].heightLevel) {
-												if (!NpcHandler.npcs[i].underAttack) {
-													NpcHandler.npcs[i].forceChat("What do you think you're doing?");
-													NpcHandler.npcs[i].facePlayer(player.playerId);
-												}
+											if (!NpcHandler.npcs[i].underAttack) {
+												NpcHandler.npcs[i].forceChat("What do you think you're doing?");
+												NpcHandler.npcs[i].facePlayer(player.playerId);
 											}
 										}
+									}
 								}
 							}
 							player.lastThieve = System.currentTimeMillis() + 5000;
@@ -314,4 +321,5 @@ public class Pickpocket extends SkillHandler {
 			}
 		}
 	}
+	
 }

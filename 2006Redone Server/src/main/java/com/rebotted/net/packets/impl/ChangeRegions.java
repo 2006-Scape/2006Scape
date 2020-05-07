@@ -14,21 +14,21 @@ import com.rebotted.world.GlobalDropsHandler;
 public class ChangeRegions implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		if (GameConstants.SOUND && c.musicOn) {
-			Music.playMusic(c);
+	public void processPacket(Player player, int packetType, int packetSize) {
+		if (GameConstants.SOUND && player.musicOn) {
+			Music.playMusic(player);
 		}
-		GameEngine.objectHandler.updateObjects(c);//testing
-		GameEngine.itemHandler.reloadItems(c);
-		GameEngine.objectManager.loadObjects(c);
+		GameEngine.objectHandler.updateObjects(player);//testing
+		GameEngine.itemHandler.reloadItems(player);
+		GameEngine.objectManager.loadObjects(player);
 		Doors.getSingleton().load();
-		GlobalDropsHandler.reset(c);
-		c.getPlayerAssistant().removeObjects();// testing
-		c.saveFile = true;
-		if (c.skullTimer > 0) {
-			c.isSkulled = true;
-			c.headIconPk = 0;
-			c.getPlayerAssistant().requestUpdates();
+		GlobalDropsHandler.reset(player);
+		player.getPlayerAssistant().removeObjects();// testing
+		player.saveFile = true;
+		if (player.skullTimer > 0) {
+			player.isSkulled = true;
+			player.headIconPk = 0;
+			player.getPlayerAssistant().requestUpdates();
 		}
 	}
 }

@@ -7085,6 +7085,21 @@ public class DialogueHandler {
 			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No thanks.");
 			player.getDialogueHandler().endDialogue();
 			break;
+		case 3574:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT, "Hello there, would you like me to enchant a battlestaff", "for 40k coins for you?");
+			break;
+		case 3575:
+			player.getDialogueHandler().sendOption("Yes.", "No thanks.");
+			player.dialogueAction = 3575;
+			break;
+		case 3576:
+			player.getDialogueHandler().endDialogue();
+			player.getPacketSender().showInterface(205);
+			break;
+		case 3577:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.HAPPY_JOYFUL, "No thanks.");
+			player.getDialogueHandler().endDialogue();
+			break;
 		}
 	}
 
