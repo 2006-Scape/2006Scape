@@ -6,9 +6,9 @@ import com.rebotted.net.packets.PacketType;
 public class Report implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
+	public void processPacket(Player player, int packetType, int packetSize) {
 		try {
-			ReportHandler.handleReport(c);
+			ReportHandler.handleReport(player);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1638,7 +1638,7 @@ public class PlayerAssistant {
 
 		int x = NpcHandler.npcs[player.followId2].getX();
 		int y = NpcHandler.npcs[player.followId2].getY();
-		if (!player.goodDistance(x, y, player.getX(), player.getY(),25)) {
+		if (!player.goodDistance(x, y, player.getX(), player.getY(), 25)) {
 			player.followId2 = 0;
 			resetFollow();
 			return;

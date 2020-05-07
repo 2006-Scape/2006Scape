@@ -213,61 +213,68 @@ public class Pickpocket extends SkillHandler {
 		}
 		return false;
 	}
-
-	public static void attemptPickpocket(final Player c, final int npcId) {
-		if (System.currentTimeMillis() - c.lastThieve < 2000 || c.playerStun) {
-			return;
+	
+	private static boolean canSteal(Player player, int npcId) {
+		if (System.currentTimeMillis() - player.lastThieve < 2000 || player.playerStun) {
+			return false;
 		}
-		if (c.underAttackBy > 0 || c.underAttackBy2 > 0) {
-			c.getPacketSender().sendMessage("You can't pickpocket while in combat!");
-			return;
+		if (player.underAttackBy > 0 || player.underAttackBy2 > 0) {
+			player.getPacketSender().sendMessage("You can't pickpocket while in combat!");
+			return false;
 		}
-		if (System.currentTimeMillis() - c.logoutDelay < 4000) {
-			return;
+		if (System.currentTimeMillis() - player.logoutDelay < 4000) {
+			return false;
 		}
 		if (!THIEVING) {
-			c.getPacketSender().sendMessage("This skill is currently disabled.");
+			player.getPacketSender().sendMessage("This skill is currently disabled.");
+			return false;
+		}
+		return true;
+	}
+
+	public static void attemptPickpocket(final Player player, final int npcId) {
+		if (!canSteal(player, npcId)) {
 			return;
 		}
 		for (final npcData n : npcData.values()) {
 			if (npcId == n.getNpc(npcId)) {
-				if (c.playerLevel[c.playerThieving] < n.getLevel()) {
-					c.getDialogueHandler().sendStatement("You need a Thieving level of " + n.getLevel() + " to pickpocket the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + ".");
+				if (player.playerLevel[player.playerThieving] < n.getLevel()) {
+					player.getDialogueHandler().sendStatement("You need a Thieving level of " + n.getLevel() + " to pickpocket the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + ".");
 					return;
 				}
-				c.getPacketSender().sendMessage("You attempt to pick the  " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
-				c.startAnimation(881);
-				if (Misc.random(c.playerLevel[17] + 5) < Misc.random(n.getLevel())) {
-					RandomEventHandler.addRandom(c);
-					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				player.getPacketSender().sendMessage("You attempt to pick the  " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
+				player.startAnimation(881);
+				if (Misc.random(player.playerLevel[17] + 5) < Misc.random(n.getLevel())) {
+					RandomEventHandler.addRandom(player);
+					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							if (c.disconnected) {
+							if (player.disconnected) {
 								container.stop();
 								return;
 							}
-							c.playerStun = true;
-							c.setHitDiff(n.getDamage());
-							c.setHitUpdateRequired(true);
-							c.playerLevel[3] -= n.getDamage();
-							c.getPlayerAssistant().refreshSkill(3);
-							c.gfx100(80);
-							c.startAnimation(404);
-							c.getPacketSender().sendSound(SoundList.STUNNED, 100, 0);
+							player.playerStun = true;
+							player.setHitDiff(n.getDamage());
+							player.setHitUpdateRequired(true);
+							player.playerLevel[3] -= n.getDamage();
+							player.getPlayerAssistant().refreshSkill(3);
+							player.gfx100(80);
+							player.startAnimation(404);
+							player.getPacketSender().sendSound(SoundList.STUNNED, 100, 0);
 							for (int i = 0; i < NpcHandler.MAX_NPCS; i++) {
 								if (NpcHandler.npcs[i] != null) {
 									if (NpcHandler.npcs[i].npcType == npcId) {
-										if (c.goodDistance(c.absX, c.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 1) && c.heightLevel == NpcHandler.npcs[i].heightLevel) {
-												if (!NpcHandler.npcs[i].underAttack) {
-													NpcHandler.npcs[i].forceChat("What do you think you're doing?");
-													NpcHandler.npcs[i].facePlayer(c.playerId);
-												}
+										if (player.goodDistance(player.absX, player.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 1) && player.heightLevel == NpcHandler.npcs[i].heightLevel) {
+											if (!NpcHandler.npcs[i].underAttack) {
+												NpcHandler.npcs[i].forceChat("What do you think you're doing?");
+												NpcHandler.npcs[i].facePlayer(player.playerId);
 											}
 										}
+									}
 								}
 							}
-							c.lastThieve = System.currentTimeMillis() + 5000;
-							c.getPacketSender().sendMessage("You fail to pick the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
+							player.lastThieve = System.currentTimeMillis() + 5000;
+							player.getPacketSender().sendMessage("You fail to pick the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
 							container.stop();
 						}
 						@Override
@@ -275,14 +282,14 @@ public class Pickpocket extends SkillHandler {
 							
 						}
 					}, 2);
-					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							if (c.disconnected) {
+							if (player.disconnected) {
 								container.stop();
 								return;
 							}
-							c.playerStun = false;
+							player.playerStun = false;
 							container.stop();
 						}
 
@@ -294,14 +301,14 @@ public class Pickpocket extends SkillHandler {
 				} else {
 					String message = "You pick the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.";
 					final String message2 = message;
-					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							c.getPacketSender().sendMessage(message2);
-							c.getPlayerAssistant().addSkillXP((int) n.getXp(),
-									c.playerThieving);
+							player.getPacketSender().sendMessage(message2);
+							player.getPlayerAssistant().addSkillXP((int) n.getXp(),
+									player.playerThieving);
 							int[] random = n.getPickPockets()[Misc.random(n.getPickPockets().length - 1)];
-							c.getItemAssistant().addItem(random[0], random[1] + (random.length > 2 ? Misc.random(random[2]) : 0));
+							player.getItemAssistant().addItem(random[0], random[1] + (random.length > 2 ? Misc.random(random[2]) : 0));
 							container.stop();
 						}
 						@Override
@@ -310,8 +317,9 @@ public class Pickpocket extends SkillHandler {
 						}
 					}, 2);
 				}
-				c.lastThieve = System.currentTimeMillis();
+				player.lastThieve = System.currentTimeMillis();
 			}
 		}
 	}
+	
 }

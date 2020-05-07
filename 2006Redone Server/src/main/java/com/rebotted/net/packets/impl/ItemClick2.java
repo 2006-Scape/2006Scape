@@ -12,23 +12,23 @@ import com.rebotted.net.packets.PacketType;
 public class ItemClick2 implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		int itemId = c.getInStream().readSignedWordA();
+	public void processPacket(Player player, int packetType, int packetSize) {
+		int itemId = player.getInStream().readSignedWordA();
 
-		if (!c.getItemAssistant().playerHasItem(itemId, 1)) {
+		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
 
-		c.endCurrentTask();
+		player.endCurrentTask();
 
-		if (HandleEmpty.canEmpty(c, itemId)) {
-			HandleEmpty.handleEmptyItem(c, itemId, HandleEmpty.filledToEmpty(c, itemId));
+		if (HandleEmpty.canEmpty(player, itemId)) {
+			HandleEmpty.handleEmptyItem(player, itemId, HandleEmpty.filledToEmpty(player, itemId));
 			return;
 		}
 
 		switch (itemId) {
 		case 4079:
-			c.startAnimation(1459);
+			player.startAnimation(1459);
 			break;
 		}
 

@@ -11,28 +11,28 @@ import com.rebotted.net.packets.PacketType;
 public class Trade implements PacketType {
 
 	@Override
-	public void processPacket(Player c, int packetType, int packetSize) {
-		int tradeId = c.getInStream().readSignedWordBigEndian();
-		c.getPlayerAssistant().resetFollow();
-		c.endCurrentTask();
-		if (c.disconnected) {
-			c.tradeStatus = 0;
+	public void processPacket(Player player, int packetType, int packetSize) {
+		int tradeId = player.getInStream().readSignedWordBigEndian();
+		player.getPlayerAssistant().resetFollow();
+		player.endCurrentTask();
+		if (player.disconnected) {
+			player.tradeStatus = 0;
 		}
-		if (c.duelingArena()) {
-			c.getPacketSender().sendMessage("You can't trade inside the arena!");
+		if (player.duelingArena()) {
+			player.getPacketSender().sendMessage("You can't trade inside the arena!");
 			return;
 		}
 	
-		if (c.playerRights == 2 && !GameConstants.ADMIN_CAN_TRADE) {
-			c.getPacketSender().sendMessage("Trading as an admin has been disabled.");
+		if (player.playerRights == 2 && !GameConstants.ADMIN_CAN_TRADE) {
+			player.getPacketSender().sendMessage("Trading as an admin has been disabled.");
 			return;
 		}
 
 	    if(tradeId < 1) {
             return;
 	    }
-	    if (tradeId != c.playerId) {
-            c.getTrading().requestTrade(tradeId);
+	    if (tradeId != player.playerId) {
+            player.getTrading().requestTrade(tradeId);
 		}
 	}
 

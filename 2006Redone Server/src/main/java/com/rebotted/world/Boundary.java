@@ -181,7 +181,7 @@ public class Boundary {
 	
 	public static final Boundary[] BANK_AREA = new Boundary[] {
 		new Boundary(3205, 3212, 3217, 3224, 2), //Lumbridge
-		new Boundary(3162, 3271, 3266, 3272),//Al Kharid
+		new Boundary(3161, 3173, 3269, 3272),//Al Kharid
 		new Boundary(2436, 2453, 5174, 5186),//TzHaar
 		new Boundary(2842, 2860, 2950, 2957),//Shilo
 		new Boundary(3456, 3492, 3200, 3215),//Burgh d rott
@@ -209,7 +209,7 @@ public class Boundary {
 		new Boundary(2834, 2841, 10204, 10215),//Keldagrim
 		new Boundary(2379, 2386, 4453, 4462),//Zanaris
 		new Boundary(2582, 2591, 3417, 3423),//Fishing Guild
-		new Boundary(3509, 3516, 3417, 3423),//Canifis
+		new Boundary(3509, 3515, 3475, 3483),//Canifis
 		new Boundary(3297, 3311, 3115, 3133),//Shantay Pass
 		new Boundary(3035, 3049, 4967, 4977, 1),//Rogues Den
 	};

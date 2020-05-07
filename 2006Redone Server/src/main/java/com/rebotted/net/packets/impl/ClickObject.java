@@ -113,53 +113,53 @@ public class ClickObject implements PacketType {
 		}
 	}
 
-	public void completeObjectClick(final Player p, int objectOption) {
-		p.turnPlayerTo(p.objectX, p.objectY);
+	public void completeObjectClick(final Player player, int objectOption) {
+		player.turnPlayerTo(player.objectX, player.objectY);
 
 		switch (objectOption) {
 		case 1:
-			if (p.playerRights == 3 || p.debugMode) {
-				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 1, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
+			if (player.playerRights == 3 || player.debugMode) {
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 1, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 
 			//todo: check if it's a door before fire handle
-			Doors.getSingleton().handleDoor(p, p.objectId, p.objectX, p.objectY, p.heightLevel);
+			Doors.getSingleton().handleDoor(player, player.objectId, player.objectX, player.objectY, player.heightLevel);
 
-			if (p.teleTimer > 0) {
-				p.getPacketSender().sendMessage("You cannot use objects while teleporting.");
+			if (player.teleTimer > 0) {
+				player.getPacketSender().sendMessage("You cannot use objects while teleporting.");
 				return;
 			}
-			if (Math.abs(p.getX() - p.objectX) > 25 || Math.abs(p.getY() - p.objectY) > 25) {
-				p.resetWalkingQueue();
+			if (Math.abs(player.getX() - player.objectX) > 25 || Math.abs(player.getY() - player.objectY) > 25) {
+				player.resetWalkingQueue();
 				break;
 			}
-			if (Woodcutting.playerTrees(p, p.objectId) && p.objectId != 1292) {
-				Woodcutting.startWoodcutting(p, p.objectId, p.objectX, p.objectY, p.clickObjectType);
+			if (Woodcutting.playerTrees(player, player.objectId) && player.objectId != 1292) {
+				Woodcutting.startWoodcutting(player, player.objectId, player.objectX, player.objectY, player.clickObjectType);
 			}
-			switch (p.objectId) {
+			switch (player.objectId) {
 			case 1292:
-				if (p.spiritTree == false && p.clickedTree) {
-					p.getPacketSender().sendMessage("You have already spawned a tree spirit.");
+				if (player.spiritTree == false && player.clickedTree) {
+					player.getPacketSender().sendMessage("You have already spawned a tree spirit.");
 					return;
 				}
-				if (p.spiritTree == false && p.clickedTree == false) {
-					p.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
-					NpcHandler.spawnNpc(p, 655, p.getX(), p.getY(), 0, 0, 225, 20, 80, 80, true, false);
-					p.clickedTree = true;
-				} else if (p.spiritTree) {
-					Woodcutting.startWoodcutting(p, p.objectId, p.objectX, p.objectY, p.clickObjectType);
+				if (player.spiritTree == false && player.clickedTree == false) {
+					player.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
+					NpcHandler.spawnNpc(player, 655, player.getX(), player.getY(), 0, 0, 225, 20, 80, 80, true, false);
+					player.clickedTree = true;
+				} else if (player.spiritTree) {
+					Woodcutting.startWoodcutting(player, player.objectId, player.objectX, player.objectY, player.clickObjectType);
 				}
 				break;
 
 			case 1294:
 			case 1293:
 			case 1317:
-				p.getPlayerAssistant().spiritTree();
+				player.getPlayerAssistant().spiritTree();
 				break;
 
 		      case 2164:
               case 2165:
-                  GameEngine.trawler.fixNet(p);
+                  GameEngine.trawler.fixNet(player);
                   break;
 
 			case 4462:
@@ -168,55 +168,55 @@ public class ClickObject implements PacketType {
 			case 4463:
 			case 4464:
 			case 4459:
-				if (!CastleWars.isInCw(p)) {
-					p.getPacketSender().sendMessage("You have to be in castle wars to use these objects.");
-					CastleWars.resetPlayer(p);
+				if (!CastleWars.isInCw(player)) {
+					player.getPacketSender().sendMessage("You have to be in castle wars to use these objects.");
+					CastleWars.resetPlayer(player);
 					return;
 				}
-				CastleWarObjects.handleObject(p, p.objectId, p.objectX, p.objectY);
+				CastleWarObjects.handleObject(player, player.objectId, player.objectX, player.objectY);
 			break;
 
 			case 2513:
-				p.getRangersGuild().fireAtTarget();
+				player.getRangersGuild().fireAtTarget();
 			break;
 
 	        case 8930:
-                p.fade(1975, 4409, 3);
+                player.fade(1975, 4409, 3);
             break;
             case 8929:
-                p.fade(2442, 10147, 0);
+                player.fade(2442, 10147, 0);
             break;
 
 			case 1568:
-				if (p.objectX == 2399 && p.objectY == 3099) {
-					p.getPacketSender()
+				if (player.objectX == 2399 && player.objectY == 3099) {
+					player.getPacketSender()
 							.object(9472, 2399, 3099, 0, 10);
 				}
-				if (p.objectX == 2400 && p.objectY == 3108) {
-					p.getPacketSender()
+				if (player.objectX == 2400 && player.objectY == 3108) {
+					player.getPacketSender()
 							.object(9472, 2400, 3108, 2, 10);
 				}
 				break;
 
 			case 4437:
-				if (p.getItemAssistant().playerHasItem(1265, 1)) {
-					p.getPacketSender().sendMessage(
+				if (player.getItemAssistant().playerHasItem(1265, 1)) {
+					player.getPacketSender().sendMessage(
 							"You start to break up the rocks...");
-					p.startAnimation(625);
-					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
+					player.startAnimation(625);
+					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							container.stop();
-							p.startAnimation(65535);
+							player.startAnimation(65535);
 						}
 
 						@Override
 						public void stop() {
-							p.getPacketSender().object(-1,
-									p.objectX, p.objectY, 0, 10);
-							p.getPacketSender().object(4438,
-									p.objectX, p.objectY, 0, 10);
-							p.getPacketSender().sendMessage(
+							player.getPacketSender().object(-1,
+									player.objectX, player.objectY, 0, 10);
+							player.getPacketSender().object(4438,
+									player.objectX, player.objectY, 0, 10);
+							player.getPacketSender().sendMessage(
 									"You break up the rocks.");
 						}
 					}, 3);
@@ -224,22 +224,22 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 4438:
-				if (p.getItemAssistant().playerHasItem(1265, 1)) {
-					p.getPacketSender().sendMessage(
+				if (player.getItemAssistant().playerHasItem(1265, 1)) {
+					player.getPacketSender().sendMessage(
 							"You start to break up the rocks...");
-					p.startAnimation(625);
-					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
+					player.startAnimation(625);
+					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							stop();
-							p.startAnimation(65535);
+							player.startAnimation(65535);
 						}
 
 						@Override
 						public void stop() {
-							p.getPacketSender().object(-1,
-									p.objectX, p.objectY, 0, 10);
-							p.getPacketSender().sendMessage(
+							player.getPacketSender().object(-1,
+									player.objectX, player.objectY, 0, 10);
+							player.getPacketSender().sendMessage(
 									"You break up the rocks.");
 						}
 					}, 3);
@@ -247,58 +247,58 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 4448:
-				if (p.getItemAssistant().playerHasItem(1265, 1)) {
-					p.getPacketSender().sendMessage(
+				if (player.getItemAssistant().playerHasItem(1265, 1)) {
+					player.getPacketSender().sendMessage(
 							"You start to mine the wall...");
-					p.startAnimation(625);
-					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
+					player.startAnimation(625);
+					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							stop();
-							p.startAnimation(65535);
-							p.getPacketSender().sendMessage(
+							player.startAnimation(65535);
+							player.getPacketSender().sendMessage(
 									"You collapse the cave wall.");
 						}
 
 						@Override
 						public void stop() {
-							if ((p.objectX == 2390 || p.objectX == 2393)
-									&& (p.objectY == 9503 || p.objectY == 9500)) { // east
+							if ((player.objectX == 2390 || player.objectX == 2393)
+									&& (player.objectY == 9503 || player.objectY == 9500)) { // east
 								// cave
 								// side
-								p.getPacketSender().object(-1, 2391,
+								player.getPacketSender().object(-1, 2391,
 										9501, 0, 10);
-								p.getPacketSender().object(4437, 2391,
+								player.getPacketSender().object(4437, 2391,
 										9501, 0, 10);
 								CastleWars.collapseCave(1);
 							}
-							if ((p.objectX == 2399 || p.objectX == 2402)
-									&& (p.objectY == 9511 || p.objectY == 9514)) { // north
+							if ((player.objectX == 2399 || player.objectX == 2402)
+									&& (player.objectY == 9511 || player.objectY == 9514)) { // north
 								// cave
 								// side
-								p.getPacketSender().object(-1, 2400,
+								player.getPacketSender().object(-1, 2400,
 										9512, 1, 10);
-								p.getPacketSender().object(4437, 2400,
+								player.getPacketSender().object(4437, 2400,
 										9512, 1, 10);
 								CastleWars.collapseCave(0);
 							}
-							if ((p.objectX == 2408 || p.objectX == 2411)
-									&& (p.objectY == 9502 || p.objectY == 9505)) { // west
+							if ((player.objectX == 2408 || player.objectX == 2411)
+									&& (player.objectY == 9502 || player.objectY == 9505)) { // west
 								// cave
 								// side
-								p.getPacketSender().object(-1, 2409,
+								player.getPacketSender().object(-1, 2409,
 										9503, 0, 10);
-								p.getPacketSender().object(4437, 2409,
+								player.getPacketSender().object(4437, 2409,
 										9503, 0, 10);
 								CastleWars.collapseCave(3);
 							}
-							if ((p.objectX == 2400 || p.objectX == 2403)
-									&& (p.objectY == 9496 || p.objectY == 9493)) { // south
+							if ((player.objectX == 2400 || player.objectX == 2403)
+									&& (player.objectY == 9496 || player.objectY == 9493)) { // south
 								// cave
 								// side
-								p.getPacketSender().object(-1, 2401,
+								player.getPacketSender().object(-1, 2401,
 										9494, 1, 10);
-								p.getPacketSender().object(4437, 2401,
+								player.getPacketSender().object(4437, 2401,
 										9494, 1, 10);
 								CastleWars.collapseCave(2);
 							}
@@ -308,31 +308,31 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 1733:
-				if (p.objectX == 3058 && p.objectY == 3376) {
-					p.getPlayerAssistant().movePlayer(3058, 9776, 0);
-				} else if (p.objectX == 2603 && p.objectY == 3078) {
+				if (player.objectX == 3058 && player.objectY == 3376) {
+					player.getPlayerAssistant().movePlayer(3058, 9776, 0);
+				} else if (player.objectX == 2603 && player.objectY == 3078) {
 				}
 				break;
 
 			case 55:
-				if (p.objectX == 3061 && p.objectY == 3374) {
-					p.getPlayerAssistant().movePlayer(3058, 9776, 0);
+				if (player.objectX == 3061 && player.objectY == 3374) {
+					player.getPlayerAssistant().movePlayer(3058, 9776, 0);
 				}
 				break;
 
 			case 9472:
-				if (p.objectX == 2399 && p.objectY == 3099) {
-					p.startAnimation(828);
-					p.stopMovement();
-					p.resetWalkingQueue();
-					p.getPlayerAssistant().requestUpdates();
-					p.getPacketSender().closeAllWindows();
-					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
+				if (player.objectX == 2399 && player.objectY == 3099) {
+					player.startAnimation(828);
+					player.stopMovement();
+					player.resetWalkingQueue();
+					player.getPlayerAssistant().requestUpdates();
+					player.getPacketSender().closeAllWindows();
+					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							container.stop();
-							p.startAnimation(65535);
-							p.getPlayerAssistant().movePlayer(2400, 9507,
+							player.startAnimation(65535);
+							player.getPlayerAssistant().movePlayer(2400, 9507,
 									0);
 						}
 
@@ -342,18 +342,18 @@ public class ClickObject implements PacketType {
 							}
 					}, 1);
 				}
-				if (p.objectX == 2400 && p.objectY == 3108) {
-					p.startAnimation(828);
-					p.stopMovement();
-					p.resetWalkingQueue();
-					p.getPlayerAssistant().requestUpdates();
-					p.getPacketSender().closeAllWindows();
-					   CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {
+				if (player.objectX == 2400 && player.objectY == 3108) {
+					player.startAnimation(828);
+					player.stopMovement();
+					player.resetWalkingQueue();
+					player.getPlayerAssistant().requestUpdates();
+					player.getPacketSender().closeAllWindows();
+					   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				            @Override
 				            public void execute(CycleEventContainer container) {
 							stop();
-							p.startAnimation(65535);
-							p.getPlayerAssistant().movePlayer(2399, 9500, 0);
+							player.startAnimation(65535);
+							player.getPlayerAssistant().movePlayer(2399, 9500, 0);
 						}
 
 						@Override
@@ -365,47 +365,47 @@ public class ClickObject implements PacketType {
 				break;
 
 			case 4387:
-				CastleWars.addToWaitRoom(p, 1); // saradomin
+				CastleWars.addToWaitRoom(player, 1); // saradomin
 				break;
 
 			case 4388:
-				CastleWars.addToWaitRoom(p, 2); // zamorak
+				CastleWars.addToWaitRoom(player, 2); // zamorak
 				break;
 
 			case 4408:
-				CastleWars.addToWaitRoom(p, 3); // guthix
+				CastleWars.addToWaitRoom(player, 3); // guthix
 				break;
 
 			case 4389: // sara
 			case 4390: // zammy waiting room portal
-				CastleWars.leaveWaitingRoom(p);
+				CastleWars.leaveWaitingRoom(player);
 				break;
 			}
-			p.getObjects().firstClickObject(p.objectId, p.objectX, p.objectY);
+			player.getObjects().firstClickObject(player.objectId, player.objectX, player.objectY);
 			break;
 
 		case 2:
-			if (p.playerRights == 3) {
-				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 2, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
+			if (player.playerRights == 3) {
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 2, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
-			p.getObjects().secondClickObject(p.objectId, p.objectX, p.objectY);
+			player.getObjects().secondClickObject(player.objectId, player.objectX, player.objectY);
 			break;
 
 		case 3: // 'F'
-			if (p.playerRights == 3) {
-				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 3, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
+			if (player.playerRights == 3) {
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 3, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 
-			p.getObjects().thirdClickObject(p.objectId, p.objectX, p.objectY);
+			player.getObjects().thirdClickObject(player.objectId, player.objectX, player.objectY);
 			break;
 			
 
 		case 4:
-			if (p.playerRights == 3) {
-				p.getPacketSender().sendMessage("ObjectId: " + p.objectId + " ObjectX: " + p.objectX + " ObjectY: " + p.objectY + " Objectclick = 4, Xoff: " + (p.getX() - p.objectX) + " Yoff: " + (p.getY() - p.objectY));
+			if (player.playerRights == 3) {
+				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 4, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 			
-			p.getObjects().fourthClickObject(p.objectId, p.objectX, p.objectY);
+			player.getObjects().fourthClickObject(player.objectId, player.objectX, player.objectY);
 			break;
 		}
 	}

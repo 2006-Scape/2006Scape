@@ -142,25 +142,21 @@ public class Region {
 
 	public static boolean canShoot(int x, int y, int z, int direction) {
 		if (direction == 0) {
-			return !projectileBlockedNorthWest(x, y, z) && !projectileBlockedNorth(x, y, z)
-					&& !projectileBlockedWest(x, y, z);
+			return !projectileBlockedNorthWest(x, y, z) && !projectileBlockedNorth(x, y, z) && !projectileBlockedWest(x, y, z);
 		} else if (direction == 1) {
 			return !projectileBlockedNorth(x, y, z);
 		} else if (direction == 2) {
-			return !projectileBlockedNorthEast(x, y, z) && !projectileBlockedNorth(x, y, z)
-					&& !projectileBlockedEast(x, y, z);
+			return !projectileBlockedNorthEast(x, y, z) && !projectileBlockedNorth(x, y, z)	&& !projectileBlockedEast(x, y, z);
 		} else if (direction == 3) {
 			return !projectileBlockedWest(x, y, z);
 		} else if (direction == 4) {
 			return !projectileBlockedEast(x, y, z);
 		} else if (direction == 5) {
-			return !projectileBlockedSouthWest(x, y, z) && !projectileBlockedSouth(x, y, z)
-					&& !projectileBlockedWest(x, y, z);
+			return !projectileBlockedSouthWest(x, y, z) && !projectileBlockedSouth(x, y, z)	&& !projectileBlockedWest(x, y, z);
 		} else if (direction == 6) {
 			return !projectileBlockedSouth(x, y, z);
 		} else if (direction == 7) {
-			return !projectileBlockedSouthEast(x, y, z) && !projectileBlockedSouth(x, y, z)
-					&& !projectileBlockedEast(x, y, z);
+			return !projectileBlockedSouthEast(x, y, z) && !projectileBlockedSouth(x, y, z) && !projectileBlockedEast(x, y, z);
 		}
 		return false;
 	}

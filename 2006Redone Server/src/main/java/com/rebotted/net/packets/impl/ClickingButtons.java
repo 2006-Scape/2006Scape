@@ -25,6 +25,7 @@ import com.rebotted.game.content.traveling.GnomeGlider;
 import com.rebotted.game.dialogues.DialogueOptions;
 import com.rebotted.game.items.GameItem;
 import com.rebotted.game.items.ItemAssistant;
+import com.rebotted.game.items.impl.EnchantStaff;
 import com.rebotted.game.items.impl.ExperienceLamp;
 import com.rebotted.game.items.impl.LightSources;
 import com.rebotted.game.objects.impl.Climbing;
@@ -57,6 +58,9 @@ public class ClickingButtons implements PacketType {
 		Specials.specialClicking(player, actionButtonId);
 		DialogueOptions.handleDialogueOptions(player, actionButtonId);
 		DairyChurn.churnItem(player, actionButtonId);
+		if (EnchantStaff.staffButtons(player, actionButtonId)) {
+			return;
+		}
 		if (player.musicOn) {
 			player.getPlayList().handleButton(actionButtonId);
 		}
@@ -69,16 +73,12 @@ public class ClickingButtons implements PacketType {
 		if (player.isDead) {
 			return;
 		}
-
 		if (player.playerRights == 3) {
-			player.getPacketSender().sendMessage(
-					player.playerName + " - actionbutton: " + actionButtonId);
+			player.getPacketSender().sendMessage(player.playerName + " - actionbutton: " + actionButtonId);
 		}
-		
 		if (player.isAutoButton(actionButtonId)) {
 			player.assignAutocast(actionButtonId);
 		}
-
 		switch (actionButtonId) {
 		
 
