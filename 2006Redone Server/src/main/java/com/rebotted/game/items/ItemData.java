@@ -312,6 +312,7 @@ public class ItemData {
 					case 3789:
 					case 4514:
 					case 4516:
+					case 6111:
 						slot = ItemConstants.CAPE;
 						break;
 					// Shield
