@@ -220,14 +220,14 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		clickX = i;
 		clickY = j;
 		clickTime = System.currentTimeMillis();
-		if (mouseevent.getButton() == 2) {
+		if (mouseevent.getButton() == MouseEvent.BUTTON2) {
 			mouseWheelDown = true;
 			mouseWheelX = mouseevent.getX();
 			mouseWheelY = mouseevent.getY();
 			return;
 		}
 
-		if (mouseevent.isMetaDown()) {
+		if (mouseevent.getButton() == MouseEvent.BUTTON3) {
 			clickMode1 = 2;
 			clickMode2 = 2;
 		} else {
