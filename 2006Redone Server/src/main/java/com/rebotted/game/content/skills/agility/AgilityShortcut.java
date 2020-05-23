@@ -227,7 +227,7 @@ public class AgilityShortcut {
 				handleAgility(player, 0, +2, 1, 3067, WALK,
 						"You jump over the broken fence.");
 			} else if (player.absY == 3494) {
-				handleAgility(player, -0, -2, 1, 3067, WALK,
+				handleAgility(player, 0, -2, 1, 3067, WALK,
 						"You jump over the broken fence.");
 			}
 			break;

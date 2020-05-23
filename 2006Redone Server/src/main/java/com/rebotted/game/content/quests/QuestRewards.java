@@ -42,9 +42,9 @@ public class QuestRewards {
 		questReward(player, "Gertrude's Cat", "1 Quest Point", "1,525 Cooking XP", "A kitten!", "Ability to raise cats", "A chocolate cake", "A bowl of stew", 1897);
 		QUEST_NAME = "Gertrude's Cat";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7360);
-		player.getItemAssistant().addItem(1897, 1);
-		player.getItemAssistant().addItem(2003, 1);
-		player.getItemAssistant().addItem(1560, 1);
+		player.getItemAssistant().addOrDropItem(1897, 1);
+		player.getItemAssistant().addOrDropItem(2003, 1);
+		player.getItemAssistant().addOrDropItem(1560, 1);
 		player.getPlayerAssistant().addSkillXP(1525, player.playerCooking);
 		player.questPoints++;
 		player.gertCat = 7;
@@ -54,7 +54,7 @@ public class QuestRewards {
 		questReward(c, "Pirate's Treasure", "2 Quest Points", "One-Eyed Hector's Treasure", "", "", "", "", 2714);
 		QUEST_NAME = "Pirate's Treasure";
 		c.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7341);
-		c.getItemAssistant().addItem(2714, 1);
+		c.getItemAssistant().addOrDropItem(2714, 1);
 		c.questPoints += 2;
 		c.pirateTreasure = 6;
 	}
@@ -98,7 +98,7 @@ public class QuestRewards {
 		questReward(player, "Rune Mysteries", "1 Quest Point", "Air Talisman", "", "", "", "", 1438);
 		QUEST_NAME = "Rune Mysteries";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7335);
-		player.getItemAssistant().addItem(1438, 1);
+		player.getItemAssistant().addOrDropItem(1438, 1);
 		player.questPoints++;
 		player.runeMist = 4;
 	}
@@ -107,7 +107,7 @@ public class QuestRewards {
 		questReward(player, "Sheep Shearer", "1 Quest Point", "150 Crafting Exp", "60 Coins", "", "", "", 995);
 		QUEST_NAME = "Sheep Shearer";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7344);
-		player.getItemAssistant().addItem(995, 60);
+		player.getItemAssistant().addOrDropItem(995, 60);
 		player.getPlayerAssistant().addSkillXP(150, player.playerCrafting);
 		player.questPoints++;
 		player.sheepShear = 2;
@@ -117,7 +117,7 @@ public class QuestRewards {
 		questReward(player, "Doric's Quest", "1 Quest Point", "1,300 Mining XP", "180 Coins", "", "", "", 995);
 		QUEST_NAME = "Doric's Quest";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7336);
-		player.getItemAssistant().addItem(995, 180);
+		player.getItemAssistant().addOrDropItem(995, 180);
 		player.getPlayerAssistant().addSkillXP(1300, player.playerMining);
 		player.questPoints++;
 		player.doricQuest = 3;
@@ -127,7 +127,7 @@ public class QuestRewards {
 		questReward(player, "Imp Catcher", "1 Quest Point", "875 Magic XP", "Amulet of Accuracy", "", "", "", 1478);
 		QUEST_NAME = "Imp Catcher";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7340);
-		player.getItemAssistant().addItem(1478, 1);
+		player.getItemAssistant().addOrDropItem(1478, 1);
 		player.getPlayerAssistant().addSkillXP(875, player.playerMagic);
 		player.questPoints++;
 		player.impsC = 2;
@@ -137,7 +137,7 @@ public class QuestRewards {
 		questReward(player, "Cook's Assistant", "1 Quest Point", "500 Coins", "300 Cooking XP", "", "", "", 326);
 		QUEST_NAME = "Cook's Assistant";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7333);
-		player.getItemAssistant().addItem(995, 500);
+		player.getItemAssistant().addOrDropItem(995, 500);
 		player.getPlayerAssistant().addSkillXP(300, player.playerCooking);
 		player.questPoints++;
 		player.cookAss = 3;
@@ -147,7 +147,7 @@ public class QuestRewards {
 		questReward(player, "Black Knights' Fortress", "3 Quest Points", "2,500 Coins", "", "", "", "", 0);
 		QUEST_NAME = "Black Knights' Fortress";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7332);
-		player.getItemAssistant().addItem(995, 2500);
+		player.getItemAssistant().addOrDropItem(995, 2500);
 		player.questPoints += 3;
 		player.blackKnight = 3;
 	}
@@ -156,7 +156,7 @@ public class QuestRewards {
 		questReward(player, "Shield of Arrav", "1 Quest Point", "1,200 Coins", "", "", "", "", 767);
 		QUEST_NAME = "Shield of Arrav";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7345);
-		player.getItemAssistant().addItem(995, 1200);
+		player.getItemAssistant().addOrDropItem(995, 1200);
 		player.questPoints++;
 		player.shieldArrav = 8;
 	}
