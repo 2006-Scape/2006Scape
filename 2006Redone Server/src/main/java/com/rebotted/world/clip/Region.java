@@ -1,11 +1,6 @@
 package com.rebotted.world.clip;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.zip.GZIPInputStream;
 
 import com.rebotted.game.objects.Objects;
 

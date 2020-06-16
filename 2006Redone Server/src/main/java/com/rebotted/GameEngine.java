@@ -16,7 +16,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
-import com.rebotted.console.CommandConsole;
 import com.rebotted.event.CycleEventHandler;
 import com.rebotted.game.content.minigames.FightCaves;
 import com.rebotted.game.content.minigames.FightPits;
@@ -47,7 +46,7 @@ import com.rebotted.world.ItemHandler;
 import com.rebotted.world.ObjectHandler;
 import com.rebotted.world.ObjectManager;
 import com.rebotted.world.clip.ObjectDefinition;
-import com.rebotted.world.clip.Region;
+import com.rebotted.world.clip.RegionFactory;
 
 /**
  * Server.java
@@ -189,7 +188,7 @@ public class GameEngine {
 		 * Initialise Handlers
 		 */
 		ObjectDefinition.loadConfig();
-		Region.load();
+		RegionFactory.load();
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();
 		ItemDefinition.read();
@@ -265,7 +264,11 @@ public class GameEngine {
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 		
-		CommandConsole.getInstance();
+		/*
+		 * I'd recommend disabling this until I can be bothered to implement it
+		 * properly.
+		 */
+		// CommandConsole.getInstance();
 		
 		try {
 			while (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
