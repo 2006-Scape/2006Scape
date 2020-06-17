@@ -1,28 +1,69 @@
 package com.rebotted.world.clip;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.zip.GZIPInputStream;
 
 import com.rebotted.game.objects.Objects;
 
 public class Region {
 	
 	private ArrayList<Objects> realObjects = new ArrayList<Objects>();
-	 
+	private final int id;
+	private final int[][][] clips = new int[4][][];
+	private final int[][][] projectileClips = new int[4][][];
+	private boolean members = false;
+
+	public Region(int id, boolean members) {
+		this.id = id;
+		this.members = members;
+	}
+
+	public int id() {
+		return id;
+	}
+
+	public boolean members() {
+		return members;
+	}
+
+	public static boolean isMembers(int x, int y) {
+		if (x >= 3272 && x <= 3320 && y >= 2752 && y <= 2809) {
+			return false;
+		}
+		if (x >= 2640 && x <= 2677 && y >= 2638 && y <= 2679) {
+			return false;
+		}
+		return getRegion(x, y).members();
+	}
+	
+	/**
+	 * Takes X Y coordinates, gives a region object
+	 * 
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 * @return Region object
+	 */
 	public static Region getRegion(int x, int y) {
-	    int regionX = x >> 3;
-	    int regionY = y >> 3;
-	    int regionId = (regionX / 8 << 8) + regionY / 8;
-	    for (Region region : regions) {
+	    int regionId = getRegionId(x,y);
+	    for (Region region : RegionFactory.getRegions()) {
 	        if (region.id() == regionId) {
 	            return region;
 	        }
 	    }
 	    return null;
+	}
+	
+	/**
+	 * Calculates regionId from X Y coordinates
+	 * 
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 * @return ID of target region
+	 */
+	public static int getRegionId(int x, int y) {
+	    int regionX = x >> 3;
+	    int regionY = y >> 3;
+	    int regionId = (regionX / 8 << 8) + regionY / 8;
+	    return regionId;
 	}
 
 	public static Objects getObject(int id, int x, int y, int z) {
@@ -71,12 +112,16 @@ public class Region {
 		clips[height][x - regionAbsX][y - regionAbsY] = 0;
 	}
 
-	public static void removeClipping(int x, int y, int height) {
-		final int regionX = x >> 3;
-		final int regionY = y >> 3;
-		final int regionId = ((regionX / 8) << 8) + (regionY / 8);
-		for (Region r : regions) {
-			if (r.id() == regionId) {
+	/**
+	 * Nothing calls this...
+	 * 
+	 * @param x
+	 * @param y
+	 * @param height
+	 */
+	public void removeClipping(int x, int y, int height) {
+		for (Region r : RegionFactory.getRegions()) {
+			if (r.id() == getRegionId(x,y)) {
 				r.removeClip(x, y, height);
 				break;
 			}
@@ -142,21 +187,25 @@ public class Region {
 
 	public static boolean canShoot(int x, int y, int z, int direction) {
 		if (direction == 0) {
-			return !projectileBlockedNorthWest(x, y, z) && !projectileBlockedNorth(x, y, z) && !projectileBlockedWest(x, y, z);
+			return !projectileBlockedNorthWest(x, y, z) && !projectileBlockedNorth(x, y, z)
+					&& !projectileBlockedWest(x, y, z);
 		} else if (direction == 1) {
 			return !projectileBlockedNorth(x, y, z);
 		} else if (direction == 2) {
-			return !projectileBlockedNorthEast(x, y, z) && !projectileBlockedNorth(x, y, z)	&& !projectileBlockedEast(x, y, z);
+			return !projectileBlockedNorthEast(x, y, z) && !projectileBlockedNorth(x, y, z)
+					&& !projectileBlockedEast(x, y, z);
 		} else if (direction == 3) {
 			return !projectileBlockedWest(x, y, z);
 		} else if (direction == 4) {
 			return !projectileBlockedEast(x, y, z);
 		} else if (direction == 5) {
-			return !projectileBlockedSouthWest(x, y, z) && !projectileBlockedSouth(x, y, z)	&& !projectileBlockedWest(x, y, z);
+			return !projectileBlockedSouthWest(x, y, z) && !projectileBlockedSouth(x, y, z)
+					&& !projectileBlockedWest(x, y, z);
 		} else if (direction == 6) {
 			return !projectileBlockedSouth(x, y, z);
 		} else if (direction == 7) {
-			return !projectileBlockedSouthEast(x, y, z) && !projectileBlockedSouth(x, y, z) && !projectileBlockedEast(x, y, z);
+			return !projectileBlockedSouthEast(x, y, z) && !projectileBlockedSouth(x, y, z)
+					&& !projectileBlockedEast(x, y, z);
 		}
 		return false;
 	}
@@ -285,12 +334,17 @@ public class Region {
 		return projectileClips[height][x - regionAbsX][y - regionAbsY];
 	}
 
+	/**
+	 * Adds clipping to whichever region matches provided XYZ.
+	 * 
+	 * @param x coordinate X
+	 * @param y coordinate Y
+	 * @param height coordinate Z
+	 * @param shift uuuuh shift?
+	 */
 	public static void addClipping(int x, int y, int height, int shift) {
-		int regionX = x >> 3;
-		int regionY = y >> 3;
-		int regionId = (regionX / 8 << 8) + regionY / 8;
-		for (Region r : regions) {
-			if (r.id() == regionId) {
+		for (Region r : RegionFactory.getRegions()) {
+			if (r.id() == getRegionId(x, y)) {
 				r.addClip(x, y, height, shift);
 				break;
 			}
@@ -298,53 +352,12 @@ public class Region {
 	}
 
 	private static void addProjectileClipping(int x, int y, int height, int shift) {
-		int regionX = x >> 3;
-		int regionY = y >> 3;
-		int regionId = (regionX / 8 << 8) + regionY / 8;
-		for (Region r : regions) {
-			if (r.id() == regionId) {
+		for (Region r : RegionFactory.getRegions()) {
+			if (r.id() == getRegionId(x,y)) {
 				r.addProjectileClip(x, y, height, shift);
 				break;
 			}
 		}
-	}
-
-
-	private static Region[] regions;
-	private final int id;
-	private final int[][][] clips = new int[4][][];
-	private final int[][][] projectileClips = new int[4][][];
-	private boolean members = false;
-
-	public Region(int id, boolean members) {
-		this.id = id;
-		this.members = members;
-	}
-
-	public int id() {
-		return id;
-	}
-
-	public boolean members() {
-		return members;
-	}
-
-	public static boolean isMembers(int x, int y, int height) {
-		if (x >= 3272 && x <= 3320 && y >= 2752 && y <= 2809) {
-			return false;
-		}
-		if (x >= 2640 && x <= 2677 && y >= 2638 && y <= 2679) {
-			return false;
-		}
-		int regionX = x >> 3;
-		int regionY = y >> 3;
-		int regionId = (regionX / 8 << 8) + regionY / 8;
-		for (Region r : regions) {
-			if (r.id() == regionId) {
-				return r.members();
-			}
-		}
-		return false;
 	}
 
 	private static void addClippingForVariableObject(int x, int y, int height,
@@ -575,6 +588,18 @@ public class Region {
 		}
 	}
 
+	/**
+	 * 
+	 * Adds object to region
+	 * 
+	 * @param objectId
+	 * @param x
+	 * @param y
+	 * @param height
+	 * @param type
+	 * @param direction
+	 * @param startUp
+	 */
 	public static void addObject(int objectId, int x, int y, int height, int type, int direction, boolean startUp) {
 		if (ObjectDefinition.getObjectDef(objectId) == null) {
 		}
@@ -624,13 +649,10 @@ public class Region {
 
 	public static int getClipping(int x, int y, int height) {
 		if (height > 3) {
-			height = 0;
+			height = 0; //this doesn't seem good
 		}
-		int regionX = x >> 3;
-		int regionY = y >> 3;
-		int regionId = (regionX / 8 << 8) + regionY / 8;
-		for (Region r : regions) {
-			if (r.id() == regionId) {
+		for (Region r : RegionFactory.getRegions()) {
+			if (r.id() == getRegionId(x,y)) {
 				return r.getClip(x, y, height);
 			}
 		}
@@ -641,18 +663,16 @@ public class Region {
 		if (height > 3) {
 			height = 0;
 		}
-		int regionX = x >> 3;
-		int regionY = y >> 3;
-		int regionId = (regionX / 8 << 8) + regionY / 8;
-		for (Region r : regions) {
-			if (r.id() == regionId) {
+		for (Region r : RegionFactory.getRegions()) {
+			if (r.id() == getRegionId(x,y)) {
 				return r.getProjectileClip(x, y, height);
 			}
 		}
 		return 0;
 	}
 
-	public static boolean getClipping(int x, int y, int height, int moveTypeX, int moveTypeY) {
+	public static boolean getClipping(int x, int y, int height, int moveTypeX,
+			int moveTypeY) {
 		try {
 			if (height > 3) {
 				height = 0;
@@ -692,151 +712,6 @@ public class Region {
 		} catch (Exception e) {
 			return true;
 		}
-	}
-
-	public static void load() {
-		try {
-			File f = new File("./data/world/map_index");
-			byte[] buffer = new byte[(int) f.length()];
-			DataInputStream dis = new DataInputStream(new FileInputStream(f));
-			dis.readFully(buffer);
-			dis.close();
-			ByteStream in = new ByteStream(buffer);
-			int size = in.length() / 7;
-			regions = new Region[size];
-			int[] regionIds = new int[size];
-			int[] mapGroundFileIds = new int[size];
-			int[] mapObjectsFileIds = new int[size];
-			boolean[] isMembers = new boolean[size];
-			for (int i = 0; i < size; i++) {
-				regionIds[i] = in.getUShort();
-				mapGroundFileIds[i] = in.getUShort();
-				mapObjectsFileIds[i] = in.getUShort();
-				isMembers[i] = in.getUByte() == 0;
-			}
-			for (int i = 0; i < size; i++) {
-				regions[i] = new Region(regionIds[i], isMembers[i]);
-			}
-			for (int i = 0; i < size; i++) {
-				byte[] file1 = getBuffer(new File("./data/world/map/"
-						+ mapObjectsFileIds[i] + ".gz"));
-				byte[] file2 = getBuffer(new File("./data/world/map/"
-						+ mapGroundFileIds[i] + ".gz"));
-				if (file1 == null || file2 == null) {
-					continue;
-				}
-				try {
-					loadMaps(regionIds[i], new ByteStream(file1),
-							new ByteStream(file2));
-				} catch (Exception e) {
-					System.out.println("Error loading map region: "
-							+ regionIds[i]);
-				}
-			}
-			System.out.println("[Region] DONE LOADING REGION CONFIGURATIONS");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static void loadMaps(int regionId, ByteStream str1, ByteStream str2) {
-		int absX = (regionId >> 8) * 64;
-		int absY = (regionId & 0xff) * 64;
-		int[][][] someArray = new int[4][64][64];
-		for (int i = 0; i < 4; i++) {
-			for (int i2 = 0; i2 < 64; i2++) {
-				for (int i3 = 0; i3 < 64; i3++) {
-					while (true) {
-						int v = str2.getUByte();
-						if (v == 0) {
-							break;
-						} else if (v == 1) {
-							str2.skip(1);
-							break;
-						} else if (v <= 49) {
-							str2.skip(1);
-						} else if (v <= 81) {
-							someArray[i][i2][i3] = v - 49;
-						}
-					}
-				}
-			}
-		}
-		for (int i = 0; i < 4; i++) {
-			for (int i2 = 0; i2 < 64; i2++) {
-				for (int i3 = 0; i3 < 64; i3++) {
-					if ((someArray[i][i2][i3] & 1) == 1) {
-						int height = i;
-						if ((someArray[1][i2][i3] & 2) == 2) {
-							height--;
-						}
-						if (height >= 0 && height <= 3) {
-							addClipping(absX + i2, absY + i3, height, 0x200000);
-						}
-					}
-				}
-			}
-		}
-		int objectId = -1;
-		int incr;
-		while ((incr = str1.getUSmart()) != 0) {
-			objectId += incr;
-			int location = 0;
-			int incr2;
-			while ((incr2 = str1.getUSmart()) != 0) {
-				location += incr2 - 1;
-				int localX = location >> 6 & 0x3f;
-				int localY = location & 0x3f;
-				int height = location >> 12;
-				int objectData = str1.getUByte();
-				int type = objectData >> 2;
-				int direction = objectData & 0x3;
-				if (localX < 0 || localX >= 64 || localY < 0 || localY >= 64) {
-					continue;
-				}
-				if ((someArray[1][localX][localY] & 2) == 2) {
-					height--;
-				}
-				if (height >= 0 && height <= 3) {
-					addObject(objectId, absX + localX, absY + localY, height,
-							type, direction, false);
-				}
-			}
-		}
-	}
-
-	public static byte[] getBuffer(File f) throws Exception {
-		if (!f.exists()) {
-			return null;
-		}
-		byte[] buffer = new byte[(int) f.length()];
-		DataInputStream dis = new DataInputStream(new FileInputStream(f));
-		dis.readFully(buffer);
-		dis.close();
-		byte[] gzipInputBuffer = new byte[999999];
-		int bufferlength = 0;
-		GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(
-				buffer));
-		do {
-			if (bufferlength == gzipInputBuffer.length) {
-				System.out
-						.println("Error inflating data.\nGZIP buffer overflow.");
-				break;
-			}
-			int readByte = gzip.read(gzipInputBuffer, bufferlength,
-					gzipInputBuffer.length - bufferlength);
-			if (readByte == -1) {
-				break;
-			}
-			bufferlength += readByte;
-		} while (true);
-		byte[] inflated = new byte[bufferlength];
-		System.arraycopy(gzipInputBuffer, 0, inflated, 0, bufferlength);
-		buffer = inflated;
-		if (buffer.length < 10) {
-			return null;
-		}
-		return buffer;
 	}
 
 }
