@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.rebotted.game.bots.BotHandler;
 import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
@@ -195,6 +196,7 @@ public class GameEngine {
 		GlobalDropsHandler.initialize();
 		Connection.initialize();
 		HostBlacklist.loadBlacklist();
+		BotHandler.loadPlayerShops();
 		startMinutesCounter();
 		setMinutesCounter(minutesCounter);
 
