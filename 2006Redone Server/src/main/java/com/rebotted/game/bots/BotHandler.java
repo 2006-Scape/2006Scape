@@ -3,6 +3,7 @@ package com.rebotted.game.bots;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +13,8 @@ import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.game.shops.ShopHandler;
 import com.rebotted.util.Misc;
+
+import static com.rebotted.game.players.PlayerSave.loadPlayerInfo;
 
 public class BotHandler {
 
@@ -39,7 +42,18 @@ public class BotHandler {
                 if (child.getName().startsWith("♥")) {
                     String playerName = child.getName().split("♥")[1];
                     playerName = playerName.substring(0, playerName.length() - 4);
-                    System.out.println("Loading " + playerName + " shop");
+
+                    Client determineIfLoad = new Client(null);
+                    determineIfLoad.playerName = playerName;
+
+                    loadPlayerInfo(determineIfLoad, playerName, "bot_password", false);
+                    System.out.println(Arrays.toString(determineIfLoad.bankItems));
+                    System.out.println("Bot [" + playerName + "] has totalLevel, bankItems[0]" + determineIfLoad.getPlayerAssistant().getTotalLevel() + ", " + determineIfLoad.bankItemsV[0]);
+                    if (determineIfLoad.getPlayerAssistant().getTotalLevel() < 50 || determineIfLoad.bankItems[0] == 0) {
+                        continue;
+                    }
+                    System.out.println("Loading bot " + playerName);
+
                     String shopName = getShopName(playerName);
                     Bot bot = connectBot(shopName, null, null, null);
                     Client playerShop = bot.getBotClient();
@@ -56,6 +70,7 @@ public class BotHandler {
         }
 
         player.getPacketSender().sendMessage("Shop commands- ::shop, ::withdrawshop, ::closeshop");
+        player.getPacketSender().sendMessage("Your shop will permanently stay if you're total level > 50!");
 
         Client playerShop = getPlayerShop(player.playerName);
 
@@ -81,9 +96,11 @@ public class BotHandler {
             i++;
         }
         // Set bot to same level as player
+        playerShop.combatLevel = player.combatLevel;
         i = 0;
         for (int level : player.playerLevel) {
             playerShop.playerLevel[i] = level;
+            playerShop.playerXP[i] = playerShop.getPlayerAssistant().getXPForLevel(level);
             playerShop.getPlayerAssistant().refreshSkill(i);
             i++;
         }

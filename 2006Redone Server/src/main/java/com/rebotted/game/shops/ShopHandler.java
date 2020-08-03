@@ -202,7 +202,7 @@ public class ShopHandler {
 
 	private static int getEmptyshop(){
 		for (int i = 0; i < MAX_SHOPS; i++) {
-			if (shopName[i] == "") return i;
+			if (shopName[i].equals("")) return i;
 		}
 		return -1;
 	}

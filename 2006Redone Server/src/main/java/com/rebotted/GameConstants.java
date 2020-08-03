@@ -10,7 +10,7 @@ public class GameConstants {
 	
 	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE, CLIENT_VERSION = 999999,
 			WORLD = 1, IPS_ALLOWED = 250, CONNECTION_DELAY = 100,
-			MESSAGE_DELAY = 6000, MAX_PLAYERS = 100, REQ_AMOUNT = 150;
+			MESSAGE_DELAY = 6000, MAX_PLAYERS = 200, REQ_AMOUNT = 150;
 	
 	public final static boolean SOUND = true,
 			GUILDS = true, WORLD_LIST_FIX = false,

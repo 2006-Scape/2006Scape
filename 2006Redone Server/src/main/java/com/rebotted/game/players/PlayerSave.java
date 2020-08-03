@@ -27,6 +27,9 @@ public class PlayerSave {
 		BufferedReader characterfile = null;
 		boolean File1 = false;
 
+		if (player.playerName == null) {
+			System.out.println("WARNING: called loadPlayerInfo with a Client who does not have a .playerName");
+		}
 		try {
 			characterfile = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/characters/" + player.playerName + ".txt"));
 			File1 = true;
@@ -424,6 +427,7 @@ public class PlayerSave {
 							player.bankItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
 							player.bankItemsN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
 							player.bankItemsV[Integer.parseInt(token3[0])] = token3.length > 3 ? Integer.parseInt(token3[3]) : 1;
+							System.out.println("Loaded somnething into player bank.");
 						}
 						break;
 					case 8:

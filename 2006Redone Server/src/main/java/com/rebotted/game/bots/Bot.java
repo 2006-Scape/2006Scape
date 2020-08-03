@@ -35,7 +35,12 @@ public class Bot {
 
         loadPlayerInfo(botClient, username, "bot_password", false);
 
+        System.out.println("x is " + x);
+        if (x == null) {
+            System.out.println("Bot should be at " + botClient.getX() + ", " + botClient.getY());
+        }
         if (x != null) {
+            System.out.println("Moving player to " + x + "," + y + "," + z);
             botClient.getPlayerAssistant().movePlayer(x, y, z);
         }
         new TradeChat().run();
