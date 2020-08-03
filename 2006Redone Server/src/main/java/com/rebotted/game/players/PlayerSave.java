@@ -27,6 +27,9 @@ public class PlayerSave {
 		BufferedReader characterfile = null;
 		boolean File1 = false;
 
+		if (player.playerName == null) {
+			System.out.println("WARNING: called loadPlayerInfo with a Client who does not have a .playerName");
+		}
 		try {
 			characterfile = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/data/characters/" + player.playerName + ".txt"));
 			File1 = true;
