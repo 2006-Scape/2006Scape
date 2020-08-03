@@ -15,7 +15,7 @@ public class Bot {
     private Client botClient;
     static Timer timer = new Timer();
 
-    public Bot(String username, int x, int y, int z) {
+    public Bot(String username, Integer x, Integer y, Integer z) {
         botClient = new Client(null);
         botClient.playerName = username;
 
@@ -33,9 +33,11 @@ public class Bot {
         botClient.npcCanAttack = false;
         GameEngine.playerHandler.newPlayerClient(botClient);
 
-        botClient.getPlayerAssistant().movePlayer(x, y, z);
-
         loadPlayerInfo(botClient, username, "bot_password", false);
+
+        if (x != null) {
+            botClient.getPlayerAssistant().movePlayer(x, y, z);
+        }
         new TradeChat().run();
     }
 
