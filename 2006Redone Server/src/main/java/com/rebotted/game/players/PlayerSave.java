@@ -427,7 +427,6 @@ public class PlayerSave {
 							player.bankItems[Integer.parseInt(token3[0])] = Integer.parseInt(token3[1]);
 							player.bankItemsN[Integer.parseInt(token3[0])] = Integer.parseInt(token3[2]);
 							player.bankItemsV[Integer.parseInt(token3[0])] = token3.length > 3 ? Integer.parseInt(token3[3]) : 1;
-							System.out.println("Loaded somnething into player bank.");
 						}
 						break;
 					case 8:
