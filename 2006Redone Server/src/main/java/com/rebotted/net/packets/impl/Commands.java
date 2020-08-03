@@ -1,7 +1,9 @@
 package com.rebotted.net.packets.impl;
 
 import static com.rebotted.util.GameLogger.writeLog;
+
 import java.util.Arrays;
+
 import com.rebotted.Connection;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
@@ -13,6 +15,7 @@ import com.rebotted.game.players.antimacro.AntiSpam;
 import com.rebotted.net.packets.PacketType;
 import com.rebotted.util.Misc;
 import com.rebotted.world.clip.Region;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -42,47 +45,47 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
-        case "hideYell":
-        	player.hideYell =! player.hideYell;
-        	player.getPacketSender().sendMessage("Your yell visibility preferences have been updated.");
-        	break;
-        case "yell":
-        	int delay = 0;
-        	if (player.playerRights <= 1) {
-        		delay = 30000;
-        	}
-    		if (!AntiSpam.blockedWords(player, playerCommand.substring(5), true)) {
-    			return;
-    		}
-    		if (Connection.isMuted(player)) {
-    			player.getPacketSender().sendMessage("You are muted and can't speak.");
-    			return;
-    		}
-    		if (System.currentTimeMillis() - player.lastYell < delay) {
-    			player.getPacketSender().sendMessage("You must wait " + delay / 1000 + " seconds before yelling again.");
-    			return;
-    		}
-            for (int j = 0; j < PlayerHandler.players.length; j++) {
-                if (PlayerHandler.players[j] != null) {
-                    Client c2 = (Client) PlayerHandler.players[j];
-                    if (c2.hideYell) {
-						return;
-                    }
-                    if (player.playerRights == 0) {
-                    	 c2.getPacketSender().sendMessage("[Player]" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
-                    } else if (player.playerRights == 1) {
-                        c2.getPacketSender().sendMessage("@blu@[Moderator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
-                    } else if (player.playerRights == 2) {
-                        c2.getPacketSender().sendMessage("@gre@[Administator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
-                    } else if (player.playerRights == 3) {
-                        c2.getPacketSender().sendMessage("@red@[Developer] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
-                    }
-                    player.lastYell = System.currentTimeMillis();
+            case "hideYell":
+                player.hideYell = !player.hideYell;
+                player.getPacketSender().sendMessage("Your yell visibility preferences have been updated.");
+                break;
+            case "yell":
+                int delay = 0;
+                if (player.playerRights <= 1) {
+                    delay = 30000;
                 }
-            }
-            break;
+                if (!AntiSpam.blockedWords(player, playerCommand.substring(5), true)) {
+                    return;
+                }
+                if (Connection.isMuted(player)) {
+                    player.getPacketSender().sendMessage("You are muted and can't speak.");
+                    return;
+                }
+                if (System.currentTimeMillis() - player.lastYell < delay) {
+                    player.getPacketSender().sendMessage("You must wait " + delay / 1000 + " seconds before yelling again.");
+                    return;
+                }
+                for (int j = 0; j < PlayerHandler.players.length; j++) {
+                    if (PlayerHandler.players[j] != null) {
+                        Client c2 = (Client) PlayerHandler.players[j];
+                        if (c2.hideYell) {
+                            return;
+                        }
+                        if (player.playerRights == 0) {
+                            c2.getPacketSender().sendMessage("[Player]" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                        } else if (player.playerRights == 1) {
+                            c2.getPacketSender().sendMessage("@blu@[Moderator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                        } else if (player.playerRights == 2) {
+                            c2.getPacketSender().sendMessage("@gre@[Administator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                        } else if (player.playerRights == 3) {
+                            c2.getPacketSender().sendMessage("@red@[Developer] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                        }
+                        player.lastYell = System.currentTimeMillis();
+                    }
+                }
+                break;
             case "claimvote":
-                if(!GameEngine.ersSecret.equals("")) {
+                if (!GameEngine.ersSecret.equals("")) {
                     final String playerName = player.playerName;
 
                     com.everythingrs.vote.Vote.service.execute(new Runnable() {
@@ -98,7 +101,7 @@ public class Commands implements PacketType {
                                 player.votePoints = (currentPoints + reward[0].give_amount);
                                 //player.getActionSender().sendMessage("Thank you for voting! You now have " + reward[0].vote_points + " vote points.");
                                 player.getPacketSender().sendMessage(
-                                    "Thank you for voting! You now have " + player.votePoints + " vote points.");
+                                        "Thank you for voting! You now have " + player.votePoints + " vote points.");
                             } catch (Exception e) {
                                 player.getPacketSender().sendMessage("Api Services are currently offline. Please check back shortly");
                                 e.printStackTrace();
@@ -143,31 +146,29 @@ public class Commands implements PacketType {
                 } else {
                     player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online.");
                 }
-                 if (player.playerRights > 0) {
-                    String[] players = new String[count];
+                String[] players = new String[count];
 
-                    int playerIndex = 0;
-                    for(Player _player : PlayerHandler.players) {
-                        if(_player != null) {
-                            if (playerCommand.equalsIgnoreCase("players") ? !_player.isBot : _player.isBot)
-                                players[playerIndex++] = _player.properName;
+                int playerIndex = 0;
+                for (Player _player : PlayerHandler.players) {
+                    if (_player != null) {
+                        if (playerCommand.equalsIgnoreCase("players") != _player.isBot) {
+                            players[playerIndex++] = _player.properName;
                         }
                     }
-
-
-                    // Clear all lines
-                    for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
-
-                    player.getPacketSender().sendString("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
-
-                    int playersLineNumber = 8147;
-                    for (String line : players){
-                        player.getPacketSender().sendString(line, playersLineNumber++);
-                    }
-                    player.getPacketSender().showInterface(8134);
-                    break;
-
                 }
+
+
+                // Clear all lines
+                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+
+                player.getPacketSender().sendString("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
+
+                int playersLineNumber = 8147;
+                for (String line : players) {
+                    player.getPacketSender().sendString(line, playersLineNumber++);
+                }
+                player.getPacketSender().showInterface(8134);
+
                 break;
             case "prayer":
                 player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[5]));
@@ -177,14 +178,11 @@ public class Commands implements PacketType {
                 break;
             case "snow":
                 Calendar date = new GregorianCalendar();
-                if ((date.get(Calendar.MONTH) + 1) == 12 && !player.inWild())
-                {
-                    if (player.isSnowy)
-                    {
+                if ((date.get(Calendar.MONTH) + 1) == 12 && !player.inWild()) {
+                    if (player.isSnowy) {
                         player.isSnowy = false;
                         player.getPacketSender().walkableInterface(-1);
-                    }
-                    else {
+                    } else {
                         player.isSnowy = true;
                         player.getPacketSender().walkableInterface(11877);
                         player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
@@ -241,60 +239,60 @@ public class Commands implements PacketType {
             case "commands":
             case "cmd":
                 String[] commands = new String[]{
-                    "::players",
-                    "Show a list of active players",
-                    "",
-                    "::changepassword",
-                    "Change your password",
-                    "",
-                    "::highscores",
-                    "Get a list of current highscores",
-                    "",
-                    "::loc, ::pos, ::coord",
-                    "Get your current world position",
-                    "",
-                    "::stuck",
-                    "Return to Lumbridge when stuck",
-                    "",
-                    "::randomtoggle",
-                    "Enable/Disable random events",
-                    "",
-                    "::debug",
-                    "Enable/Disable debug information",
-                    "",
-                    "::togglegfx",
-                    "Enable/Disable graphics rendering",
-                    "",
-                    "::shop",
-                    "Open/Move player owned shop to your location",
-                    "",
-                    "::closeshop(::cshop)",
-                    "Close your player owned shop",
-                    "",
-                    "::withdrawshop(::wshop)",
-                    "Withdraw profits from player owned shop",
-                    "",
-                    "::snow",
-                    "Add some snow in your mainscreen(works only in december)",
+                        "::players",
+                        "Show a list of active players",
+                        "",
+                        "::changepassword",
+                        "Change your password",
+                        "",
+                        "::highscores",
+                        "Get a list of current highscores",
+                        "",
+                        "::loc, ::pos, ::coord",
+                        "Get your current world position",
+                        "",
+                        "::stuck",
+                        "Return to Lumbridge when stuck",
+                        "",
+                        "::randomtoggle",
+                        "Enable/Disable random events",
+                        "",
+                        "::debug",
+                        "Enable/Disable debug information",
+                        "",
+                        "::togglegfx",
+                        "Enable/Disable graphics rendering",
+                        "",
+                        "::shop",
+                        "Open/Move player owned shop to your location",
+                        "",
+                        "::closeshop(::cshop)",
+                        "Close your player owned shop",
+                        "",
+                        "::withdrawshop(::wshop)",
+                        "Withdraw profits from player owned shop",
+                        "",
+                        "::snow",
+                        "Add some snow in your mainscreen(works only in december)",
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) 
-                	player.getPacketSender().sendString("", i);
+                for (int i = 8144; i < 8195; i++)
+                    player.getPacketSender().sendString("", i);
 
                 player.getPacketSender().sendString("@dre@Commands", 8144);
 
                 int commandsLineNumber = 8147;
-                for (String line : commands){
+                for (String line : commands) {
                     player.getPacketSender().sendString(line, commandsLineNumber++);
                 }
                 player.getPacketSender().showInterface(8134);
                 break;
             case "stuck":
-            	if (player.getCombatAssistant().inCombat()) {
-            		player.getPacketSender().sendMessage("You cannot do that while in combat.");
-            		return;
-            	}
+                if (player.getCombatAssistant().inCombat()) {
+                    player.getPacketSender().sendMessage("You cannot do that while in combat.");
+                    return;
+                }
                 player.getPlayerAssistant().movePlayer(SpellTeleport.LUMBRIDGE.getDestX(), SpellTeleport.LUMBRIDGE.getDestY(), 0);
                 player.getPacketSender().sendMessage("How did you manage that one...");
                 player.getPacketSender().sendMessage("If it's bug related, please report on Github/Discord!");
@@ -326,41 +324,41 @@ public class Commands implements PacketType {
                 }
                 HighscoresHandler hs = new HighscoresHandler();
                 String[] highscores = new String[]{
-                    "Top 10 Total Level:",
-                    hs.getRank(player, 0, "level"),
-                    hs.getRank(player, 1, "level"),
-                    hs.getRank(player, 2, "level"),
-                    hs.getRank(player, 3, "level"),
-                    hs.getRank(player, 4, "level"),
-                    hs.getRank(player, 5, "level"),
-                    hs.getRank(player, 6, "level"),
-                    hs.getRank(player, 7, "level"),
-                    hs.getRank(player, 8, "level"),
-                    hs.getRank(player, 9, "level"),
-                    "",
-                    "Top 10 Wealthiest Players:",
-                    hs.getRank(player, 0, "gold"),
-                    hs.getRank(player, 1, "gold"),
-                    hs.getRank(player, 2, "gold"),
-                    hs.getRank(player, 3, "gold"),
-                    hs.getRank(player, 4, "gold"),
-                    hs.getRank(player, 5, "gold"),
-                    hs.getRank(player, 6, "gold"),
-                    hs.getRank(player, 7, "gold"),
-                    hs.getRank(player, 8, "gold"),
-                    hs.getRank(player, 9, "gold"),
-                    "",
-                    "Top 10 Highest Total Damage:",
-                    hs.getRank(player, 0, "damage"),
-                    hs.getRank(player, 1, "damage"),
-                    hs.getRank(player, 2, "damage"),
-                    hs.getRank(player, 3, "damage"),
-                    hs.getRank(player, 4, "damage"),
-                    hs.getRank(player, 5, "damage"),
-                    hs.getRank(player, 6, "damage"),
-                    hs.getRank(player, 7, "damage"),
-                    hs.getRank(player, 8, "damage"),
-                    hs.getRank(player, 9, "damage"),
+                        "Top 10 Total Level:",
+                        hs.getRank(player, 0, "level"),
+                        hs.getRank(player, 1, "level"),
+                        hs.getRank(player, 2, "level"),
+                        hs.getRank(player, 3, "level"),
+                        hs.getRank(player, 4, "level"),
+                        hs.getRank(player, 5, "level"),
+                        hs.getRank(player, 6, "level"),
+                        hs.getRank(player, 7, "level"),
+                        hs.getRank(player, 8, "level"),
+                        hs.getRank(player, 9, "level"),
+                        "",
+                        "Top 10 Wealthiest Players:",
+                        hs.getRank(player, 0, "gold"),
+                        hs.getRank(player, 1, "gold"),
+                        hs.getRank(player, 2, "gold"),
+                        hs.getRank(player, 3, "gold"),
+                        hs.getRank(player, 4, "gold"),
+                        hs.getRank(player, 5, "gold"),
+                        hs.getRank(player, 6, "gold"),
+                        hs.getRank(player, 7, "gold"),
+                        hs.getRank(player, 8, "gold"),
+                        hs.getRank(player, 9, "gold"),
+                        "",
+                        "Top 10 Highest Total Damage:",
+                        hs.getRank(player, 0, "damage"),
+                        hs.getRank(player, 1, "damage"),
+                        hs.getRank(player, 2, "damage"),
+                        hs.getRank(player, 3, "damage"),
+                        hs.getRank(player, 4, "damage"),
+                        hs.getRank(player, 5, "damage"),
+                        hs.getRank(player, 6, "damage"),
+                        hs.getRank(player, 7, "damage"),
+                        hs.getRank(player, 8, "damage"),
+                        hs.getRank(player, 9, "damage"),
                 };
 
                 // Clear all lines
@@ -369,7 +367,7 @@ public class Commands implements PacketType {
                 player.getPacketSender().sendString("@dre@Highscores", 8144);
 
                 int highscoresLineNumber = 8147;
-                for (String line : highscores){
+                for (String line : highscores) {
                     player.getPacketSender().sendString(line, highscoresLineNumber++);
                 }
                 player.getPacketSender().showInterface(8134);
@@ -389,10 +387,10 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToKick = String.join(" ", arguments);
-                    for(Player player2 : PlayerHandler.players) {
-                        if(player2 != null) {
-                            if(player2.playerName.equalsIgnoreCase(playerToKick)) {
-                                Client c2 = (Client)player2;
+                    for (Player player2 : PlayerHandler.players) {
+                        if (player2 != null) {
+                            if (player2.playerName.equalsIgnoreCase(playerToKick)) {
+                                Client c2 = (Client) player2;
                                 player.getPacketSender().sendMessage("You have kicked " + playerToKick + ".");
                                 c2.disconnected = true;
                                 c2.logout(true);
@@ -400,7 +398,7 @@ public class Commands implements PacketType {
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Player Must Be Online.");
                 }
                 break;
@@ -489,7 +487,7 @@ public class Commands implements PacketType {
                         player.getPacketSender().sendMessage("You must specify the amount of time in seconds: ::update 300");
                         return;
                     }
-					PlayerHandler.updateSeconds = Integer.parseInt(arguments[0]);
+                    PlayerHandler.updateSeconds = Integer.parseInt(arguments[0]);
                     PlayerHandler.updateAnnounced = false;
                     PlayerHandler.updateRunning = true;
                     PlayerHandler.updateStartTime = System.currentTimeMillis();
@@ -512,17 +510,17 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToBan = String.join(" ", arguments);
-                    for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
-                        if(PlayerHandler.players[i] != null) {
-                            if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
+                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                        if (PlayerHandler.players[i] != null) {
+                            if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                 Connection.addIpToBanList(PlayerHandler.players[i].connectedFrom);
                                 Connection.addIpToFile(PlayerHandler.players[i].connectedFrom);
-                                player.getPacketSender().sendMessage("You have IP banned the user: "+PlayerHandler.players[i].playerName+" with the host: "+PlayerHandler.players[i].connectedFrom);
+                                player.getPacketSender().sendMessage("You have IP banned the user: " + PlayerHandler.players[i].playerName + " with the host: " + PlayerHandler.players[i].connectedFrom);
                                 PlayerHandler.players[i].disconnected = true;
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
@@ -535,14 +533,14 @@ public class Commands implements PacketType {
                     String playerToBan = String.join(" ", arguments);
                     Connection.addNameToBanList(playerToBan);
                     Connection.addNameToFile(playerToBan);
-                    for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
-                        if(PlayerHandler.players[i] != null) {
-                            if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
+                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                        if (PlayerHandler.players[i] != null) {
+                            if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                 PlayerHandler.players[i].disconnected = true;
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
@@ -555,7 +553,7 @@ public class Commands implements PacketType {
                     String playerToBan = String.join(" ", arguments);
                     Connection.removeNameFromBanList(playerToBan);
                     player.getPacketSender().sendMessage(playerToBan + " has been unbanned.");
-                } catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
@@ -697,7 +695,8 @@ public class Commands implements PacketType {
                     player.playerLevel[skill] = player.getPlayerAssistant().getLevelForXP(player.playerXP[skill]);
                     player.getPlayerAssistant().refreshSkill(skill);
                     player.getPlayerAssistant().levelUp(skill);
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
                 break;
             case "spellbook":
                 if (player.inWild()) {
@@ -729,11 +728,12 @@ public class Commands implements PacketType {
                         if (player.isBusy()) {
                             player.getPacketSender().closeAllWindows();
                         }
-                           // player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
+                        // player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
                     } else {
                         player.getPacketSender().sendMessage("No such item.");
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
                 break;
             case "master":
                 for (int i = 0; i < 25; i++) {
@@ -749,22 +749,22 @@ public class Commands implements PacketType {
     public static void developerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
             case "quicksong":
-                try{
+                try {
                     if (arguments.length == 0) {
                         player.getPacketSender().sendMessage("You must specify a quick song id: ::quicksong id");
                         return;
                     }
                     int song = Integer.parseInt(arguments[0]);
                     player.getPacketSender().sendQuickSong(song, 2); //delay of 2 to repeat at least once before returning to regular music
-                }catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Sound could not be sent.");
                 }
                 break;
-            case"cameracutscene":
-                player.getPlayerAssistant().sendCameraCutscene(player.getX(), player.getY(),10,10, 10); //Test numbers
+            case "cameracutscene":
+                player.getPlayerAssistant().sendCameraCutscene(player.getX(), player.getY(), 10, 10, 10); //Test numbers
                 break;
-            case"camerashake":
-                player.getPlayerAssistant().sendCameraShake(1,9,1,9); //these are just test numbers
+            case "camerashake":
+                player.getPlayerAssistant().sendCameraShake(1, 9, 1, 9); //these are just test numbers
                 break;
             case "camerareset":
                 player.getPlayerAssistant().sendCameraReset(); //Resets the camera to the normal player view
@@ -781,10 +781,10 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToAdmin = String.join(" ", arguments);
-                    for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
-                        if(PlayerHandler.players[i] != null) {
-                            if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
-                                Client c2 = (Client)PlayerHandler.players[i];
+                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                        if (PlayerHandler.players[i] != null) {
+                            if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
+                                Client c2 = (Client) PlayerHandler.players[i];
                                 player.getPacketSender().sendMessage("You have given " + playerToAdmin + " admin.");
                                 c2.playerRights = 2;
                                 c2.logout(true);
@@ -792,7 +792,7 @@ public class Commands implements PacketType {
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
@@ -803,10 +803,10 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToAdmin = String.join(" ", arguments);
-                    for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
-                        if(PlayerHandler.players[i] != null) {
-                            if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
-                                Client c2 = (Client)PlayerHandler.players[i];
+                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                        if (PlayerHandler.players[i] != null) {
+                            if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
+                                Client c2 = (Client) PlayerHandler.players[i];
                                 player.getPacketSender().sendMessage("You have demoted " + playerToAdmin + ".");
                                 c2.playerRights = 0;
                                 c2.logout(true);
@@ -814,7 +814,7 @@ public class Commands implements PacketType {
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
@@ -825,10 +825,10 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToMod = String.join(" ", arguments);
-                    for(int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
-                        if(PlayerHandler.players[i] != null) {
-                            if(PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToMod)) {
-                                Client c2 = (Client)PlayerHandler.players[i];
+                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                        if (PlayerHandler.players[i] != null) {
+                            if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToMod)) {
+                                Client c2 = (Client) PlayerHandler.players[i];
                                 player.getPacketSender().sendMessage("You have given " + playerToMod + " mod.");
                                 c2.playerRights = 1;
                                 c2.logout(true);
@@ -836,7 +836,7 @@ public class Commands implements PacketType {
                             }
                         }
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
@@ -863,9 +863,9 @@ public class Commands implements PacketType {
                         return;
                     }
                     int newNPC = Integer.parseInt(arguments[0]),
-                        maxHit = NpcHandler.getNpcListCombat(newNPC) / 10,
-                        attack = NpcHandler.getNpcListCombat(newNPC),
-                        defence = NpcHandler.getNpcListCombat(newNPC);
+                            maxHit = NpcHandler.getNpcListCombat(newNPC) / 10,
+                            attack = NpcHandler.getNpcListCombat(newNPC),
+                            defence = NpcHandler.getNpcListCombat(newNPC);
                     boolean attackPlayer = NpcHandler.getNpcListCombat(newNPC) > 0;
                     if (newNPC > 0) {
                         NpcHandler.spawnNpc(player, newNPC, player.absX, player.absY, player.heightLevel, 0, NpcHandler.getNpcListHP(newNPC), maxHit, attack, defence, attackPlayer, false);
@@ -874,7 +874,8 @@ public class Commands implements PacketType {
                     } else {
                         player.getPacketSender().sendMessage("Npc " + newNPC + " does not exist.");
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
                 break;
             case "cantattack":
                 player.npcCanAttack = !player.npcCanAttack;
@@ -892,7 +893,8 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("You must specify an ID: ::tutprog 10");
                     return;
                 }
-                player.tutorialProgress = Integer.parseInt(arguments[0]);;
+                player.tutorialProgress = Integer.parseInt(arguments[0]);
+                ;
                 break;
             case "song":
                 if (arguments.length == 0) {
@@ -908,11 +910,11 @@ public class Commands implements PacketType {
                 break;
             case "runes":
                 final int amount = 10000;
-                final int[][] RUNES = { { 554, amount }, { 555, amount },
-                    { 556, amount }, { 557, amount }, { 558, amount },
-                    { 559, amount }, { 560, amount }, { 561, amount },
-                    { 562, amount }, { 563, amount }, { 564, amount },
-                    { 565, amount }, { 566, amount }, { 1963, 1 }, };
+                final int[][] RUNES = {{554, amount}, {555, amount},
+                        {556, amount}, {557, amount}, {558, amount},
+                        {559, amount}, {560, amount}, {561, amount},
+                        {562, amount}, {563, amount}, {564, amount},
+                        {565, amount}, {566, amount}, {1963, 1},};
                 for (int[] element : RUNES) {
                     int item = element[0];
                     int amountToRecieve = element[1];
