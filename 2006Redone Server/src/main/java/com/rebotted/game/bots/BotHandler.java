@@ -43,16 +43,16 @@ public class BotHandler {
                     String playerName = child.getName().split("♥")[1];
                     playerName = playerName.substring(0, playerName.length() - 4);
 
-                    Client determineIfLoad = new Client(null);
-                    determineIfLoad.playerName = getShopName(playerName);
+                    Client determineIfLoadBasedOnShop = new Client(null);
+                    determineIfLoadBasedOnShop.playerName = getShopName(playerName);
+                    Client determineIfLoadBasedOnLevel = new Client(null); //supports legacy bots who's levels didn't update, rip
+                    determineIfLoadBasedOnLevel.playerName = playerName;
 
-                    loadPlayerInfo(determineIfLoad, getShopName(playerName), "bot_password", false);
-                    System.out.println(Arrays.toString(determineIfLoad.bankItemsN));
-                    System.out.println("Bot [" + playerName + "] has totalLevel, bankItems[0]" + determineIfLoad.getPlayerAssistant().getTotalLevel() + ", " + determineIfLoad.bankItemsN[0]);
-                    if (determineIfLoad.getPlayerAssistant().getTotalLevel() < 50 || determineIfLoad.bankItemsN[0] == 0) {
+                    loadPlayerInfo(determineIfLoadBasedOnShop, getShopName(playerName), "bot_password", false);
+                    loadPlayerInfo(determineIfLoadBasedOnLevel, playerName, "bot_password", false);
+                    if (determineIfLoadBasedOnLevel.getPlayerAssistant().getTotalLevel() < 50 || determineIfLoadBasedOnShop.bankItemsN[0] == 0) {
                         continue;
                     }
-                    System.out.println("Loading bot " + playerName);
 
                     String shopName = getShopName(playerName);
                     Bot bot = connectBot(shopName, null, null, null);
