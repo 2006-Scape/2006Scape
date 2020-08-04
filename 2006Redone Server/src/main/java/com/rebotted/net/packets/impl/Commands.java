@@ -926,6 +926,4 @@ public class Commands implements PacketType {
                 break;
         }
     }
-
-
 }
