@@ -26,7 +26,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>com.rebotted.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
