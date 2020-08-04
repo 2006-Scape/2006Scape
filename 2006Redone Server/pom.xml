@@ -7,6 +7,7 @@
     <groupId>com.rebotted</groupId>
     <artifactId>server</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
 
     <repositories>
         <repository>
@@ -164,6 +165,15 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -10,6 +10,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>file_server</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
 
     <repositories>
         <repository>
@@ -65,7 +67,7 @@
         </dependency>
         <dependency>
             <groupId>javac</groupId>
-            <artifactId>javac++</artifactId>
+            <artifactId>javac</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/javac++.jar</systemPath>
@@ -101,6 +103,15 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
