@@ -1167,11 +1167,11 @@ public class ClickingButtons implements PacketType {
 				player.getDialogueHandler().sendDialogues(3041, 0);
 			}
 			player.getPacketSender().sendConfig(173, 1);
-			player.isRunning2 = true;
+			player.isRunning = true;
 			break;
 
 		case 152:
-			player.isRunning2 = false;
+			player.isRunning = false;
 			player.getPacketSender().sendConfig(173, 0);
 			break;
 
