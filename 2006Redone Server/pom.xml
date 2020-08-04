@@ -138,7 +138,7 @@
             <artifactId>api</artifactId>
             <version>3.0.5</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/com.everythingrs/api/3.0.5/everythingrs-api.jar</systemPath>
+            <systemPath>${project.basedir}/libs/everythingrs-api.jar</systemPath>
         </dependency>
     </dependencies>
 
