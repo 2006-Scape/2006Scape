@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+
+import com.everythingrs.hiscores.Hiscores;
 import org.apache.mina.common.IoSession;
 import com.rebotted.GameConstants;
 import com.rebotted.GameEngine;
@@ -639,7 +641,7 @@ public abstract class Player {
 		if(GameEngine.ersSecret  != null && !GameEngine.ersSecret.equals("") && this.playerRights < 2) {
 			boolean debugMessage = false;
 			System.out.println("Updating highscores for " + this.playerName + "!");
-			com.everythingrs.hiscores.Hiscores.update(GameEngine.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
+			Hiscores.update(GameEngine.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
 		} else {
 			System.out.println("EverythingRS API Disabled, highscores not saved!");
 		}
