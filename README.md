@@ -8,27 +8,17 @@
 ### Parabot client (recommended): https://www.parabot.org/community/
 ### Rune-Server project thread: [Project thread](https://www.rune-server.ee/runescape-development/rs2-server/projects/686444-2006rebotted-remake-server-will-allow-supply-creatable-bots.html)
 
-# How to Develop for 2006rebotted
+# Installation + Running (Developers)
 
-Step 1: Register a GitHub account
+1. Import Project in IntelliJ
 
-Step 2: Install IntelliJ Community Edition: https://www.jetbrains.com/idea/download/
+2. Hit File > Project Settings > Set SDK to Java 8 (Download [Java 8 SDK](https://adoptopenjdk.net/?variant=openjdk8) if you don't have one already)
 
-Step 3: Fork this repository ([Image](https://i.imgur.com/PoMTxZj.png))
+2. Navigate to `2006Redone file_server` > `src` > `main` > `java` > `org.apollo.jagcached`, right click FileServer and hit Run [Image](https://i.imgur.com/tsg9q1Z.png)
 
-Step 4: Open IntelliJ and click "File > New > New Project from Version Control"
+3. Navigate to `2006Redone Server` > `src` > `main` > `java` > `com.rebotted`, right click GameEngine and hit Run [Image](https://i.imgur.com/HHooeVu.png)
 
-Step 5: Enter the URL of your forked Github repository, and hit "Clone" ([Image](https://i.imgur.com/5dtyoZU.png))
-
-Step 6: Right click gradle.build > Import Gradle Project ([Image](https://i.imgur.com/2dmC17b.png))
-
-Step 7: Select Auto-import ([Image](https://i.imgur.com/3zhowMG.png))
-
-Step 7: Start the FileServer ([Image](https://i.imgur.com/moNKg9u.png))
-
-Step 8: Start the GameEngine ([Image](https://i.imgur.com/RTbMxmv.png))
-
-Step 9: Start the Client ([Image](https://i.imgur.com/dHTiU0I.png))
+4. Navigate to `2006Redone Server` > `src` > `main` > `java`, right click Client and hit Run [Image](https://i.imgur.com/gSmqGLn.png)
 
 ## How to get your code onto this project page
 

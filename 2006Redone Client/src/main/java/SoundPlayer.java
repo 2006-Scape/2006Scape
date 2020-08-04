@@ -5,7 +5,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.FloatControl;
 
-import sun.audio.AudioPlayer;
+import sun.audio.AudioPlayer; //Note! If you see a compile error here, make sure you set your JDK to Java 8!
 
 public class SoundPlayer implements Runnable {
 
