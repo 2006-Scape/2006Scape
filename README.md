@@ -20,6 +20,10 @@
 
 4. Navigate to `2006Redone Server` > `src` > `main` > `java`, right click Client and hit Run [Image](https://i.imgur.com/gSmqGLn.png)
 
+*Advanced*
+
+To compile any module from the command line, run `mvn clean install compile package`
+
 ## How to get your code onto this project page
 
 See this [forum post](https://rsrebotted.com/forums/viewthread.php?forum=5&id=78).
