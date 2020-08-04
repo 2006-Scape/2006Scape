@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: 2006rebotted
-Implementation-Version: 0.1.0
-Main-Class: com.rebotted.GameEngine
-
