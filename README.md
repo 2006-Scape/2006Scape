@@ -22,7 +22,7 @@
 
 *Advanced*
 
-To compile any module from the command line, run `mvn clean install compile package`
+To compile any module from the command line, run `mvn clean install`
 
 ## How to get your code onto this project page
 
