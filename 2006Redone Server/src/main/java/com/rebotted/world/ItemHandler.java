@@ -473,13 +473,6 @@ public class ItemHandler {
                     object.put("bonuses", array2);
 
                     array.put(object);
-
-                    newItemList(Integer.parseInt(token3[0]),
-                            token3[1].replaceAll("_", " "),
-                            token3[2].replaceAll("_", " "),
-                            Double.parseDouble(token3[4]),
-                            Double.parseDouble(token3[4]),
-                            Double.parseDouble(token3[6]), Bonuses);
                 }
             } else {
                 if (line.equals("[ENDOFITEMLIST]")) {
