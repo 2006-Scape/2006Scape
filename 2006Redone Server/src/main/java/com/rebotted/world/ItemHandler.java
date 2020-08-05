@@ -399,7 +399,7 @@ public class ItemHandler {
         }
     }
 
-    public boolean loadItemList(String FileName) {
+    public boolean readCfgWriteJson(String FileName) {
         String         line          = "";
         String         token         = "";
         String         token2        = "";
