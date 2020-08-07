@@ -1,5 +1,7 @@
 package com.rebotted.world;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rebotted.GameConstants;
 import com.rebotted.game.items.GroundItem;
 import com.rebotted.game.items.ItemAssistant;
@@ -8,12 +10,13 @@ import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
 import com.rebotted.util.GameLogger;
+import com.rebotted.util.ItemData;
 import com.rebotted.util.Misc;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -356,46 +359,24 @@ public class ItemHandler {
     }
 
     public void loadItemListJson() {
+        Gson gson = new Gson();
+
         try {
-            BufferedReader itemsFile = new BufferedReader(new FileReader("./data/cfg/items.json"));
+            Type collectionType = new TypeToken<ItemData[]>() {
+            }.getType();
+            ItemData[] data = gson.fromJson(new FileReader("./data/cfg/items.json"), collectionType);
 
-            JSONTokener tokener = new JSONTokener(itemsFile);
-            JSONArray   array   = new JSONArray(tokener);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject item        = array.getJSONObject(i);
-                JSONArray  valuesArray = item.getJSONArray("values");
-                JSONObject values      = valuesArray.getJSONObject(0);
-
-                JSONArray  bonusesArray  = item.getJSONArray("bonuses");
-                JSONObject bonuses       = bonusesArray.getJSONObject(0);
-                int[]      bonusesOutput = new int[12];
-                bonusesOutput[0] = bonuses.getInt("attackStab");
-                bonusesOutput[1] = bonuses.getInt("attackSlash");
-                bonusesOutput[2] = bonuses.getInt("attackCrush");
-                bonusesOutput[3] = bonuses.getInt("attackMagic");
-                bonusesOutput[4] = bonuses.getInt("attackRange");
-                bonusesOutput[5] = bonuses.getInt("defenceStab");
-                bonusesOutput[6] = bonuses.getInt("defenceSlash");
-                bonusesOutput[7] = bonuses.getInt("defenceCrush");
-                bonusesOutput[8] = bonuses.getInt("defenceMagic");
-                bonusesOutput[9] = bonuses.getInt("defenceRange");
-                bonusesOutput[10] = bonuses.getInt("strengthBonus");
-                bonusesOutput[11] = bonuses.getInt("prayerBonus");
-
-                newItemList(item.getInt("id"),
-                        item.getString("name"),
-                        item.getString("examine"),
-                        values.getInt("shopValue"),
-                        values.getInt("lowAlch"),
-                        values.getInt("highAlch"),
-                        bonusesOutput);
+            for (ItemData item : data) {
+                newItemList(item.getId(),
+                        item.getName(),
+                        item.getExamine(),
+                        item.getValues().getShopValue(),
+                        item.getValues().getLowAlch(),
+                        item.getValues().getHighAlch(),
+                        item.getBonuses().getBonuses());
             }
-
-            itemsFile.close();
         } catch (FileNotFoundException fileex) {
             Misc.println("items.json: file not found.");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -447,7 +428,7 @@ public class ItemHandler {
                     object.put("name", token3[1].replaceAll("_", " "));
                     object.put("examine", token3[2].replaceAll("_", " "));
 
-                    JSONArray  array1   = new JSONArray();
+                    JSONArray  array1  = new JSONArray();
                     JSONObject object1 = new JSONObject();
                     object1.put("shopValue", token3[4]);
                     object1.put("lowAlch", token3[5]);
@@ -477,7 +458,7 @@ public class ItemHandler {
             } else {
                 if (line.equals("[ENDOFITEMLIST]")) {
                     try {
-                        FileWriter fileWriter = new FileWriter("test.json");
+                        FileWriter fileWriter = new FileWriter("item-dump.json");
                         fileWriter.write(array.toString());
                         characterfile.close();
                     } catch (IOException e) {
