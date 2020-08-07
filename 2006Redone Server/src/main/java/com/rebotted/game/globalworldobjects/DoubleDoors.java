@@ -412,7 +412,6 @@ public class DoubleDoors {
 				object.put("face", f);
 
 				array.put(object);
-                //doors.add(new DoubleDoors(id, x, y, z, f, isOpenDoor(id) ? 1 : 0));
             }
         } finally {
             scanner.close();

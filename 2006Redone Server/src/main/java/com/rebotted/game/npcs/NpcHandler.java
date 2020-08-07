@@ -1437,7 +1437,7 @@ public class NpcHandler {
         try {
             Type collectionType = new TypeToken<NpcSpawn[]>() {
             }.getType();
-            NpcSpawn[] data = gson.fromJson(new FileReader("F:\\Java Projects\\2006rebotted server files\\2006Redone Server\\data\\cfg\\spawns.json"), collectionType);
+            NpcSpawn[] data = gson.fromJson(new FileReader("./data/cfg/spawns.json"), collectionType);
 
             for (NpcSpawn spawn : data) {
                 newNPC(spawn.getId(),
@@ -1504,15 +1504,6 @@ public class NpcHandler {
                     object.put("strength", Integer.parseInt(token3[7]));
 
                     array.put(object);
-                    /*newNPC(Integer.parseInt(token3[0]),// npc
-                            Integer.parseInt(token3[1]),// x
-                            Integer.parseInt(token3[2]),// y
-                            Integer.parseInt(token3[3]),// height
-                            Integer.parseInt(token3[4]),// walk
-                            getNpcListHP(Integer.parseInt(token3[0])),// health
-                            Integer.parseInt(token3[5]),// maxhit
-                            Integer.parseInt(token3[6]),// attack
-                            Integer.parseInt(token3[7]));// str*/
 
                 }
             } else {

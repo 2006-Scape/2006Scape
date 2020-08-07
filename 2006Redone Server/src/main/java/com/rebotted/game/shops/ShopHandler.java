@@ -202,24 +202,6 @@ public class ShopHandler {
                     object.put("items", array1);
 
                     array.put(object);
-
-					/*int shopID = Integer.parseInt(token3[0]);
-					shopName[shopID] = token3[1].replaceAll("_", " ");
-					shopSModifier[shopID] = Integer.parseInt(token3[2]);
-					shopBModifier[shopID] = Integer.parseInt(token3[3]);
-					for (int i = 0; i < ((token3.length - 4) / 2); i++) {
-						int itemID = Integer.parseInt(token3[(4 + (i * 2))]);
-						int itemAmount = Integer.parseInt(token3[(5 + (i * 2))]);
-						if (itemID > 0) {
-							shopItems[shopID][i] = itemID + 1;
-							shopItemsN[shopID][i] = itemAmount;
-							shopItemsSN[shopID][i] = itemAmount;
-							shopItemsStandard[shopID]++;
-						} else {
-							break;
-						}
-					}
-					totalshops++;*/
                 }
             } else {
                 if (line.equalsIgnoreCase("[ENDOFSHOPLIST]")) {
