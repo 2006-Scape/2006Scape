@@ -1,11 +1,17 @@
 package com.rebotted.util;
 
 public class DoorData {
+    private final int        id;
+    private final Location[] locations;
+    private final int        face;
+    private final int        type;
 
-    private int id;
-    private Location[] locations;
-    private int face;
-    private int type;
+    public DoorData(int id, Location[] locations, int face, int type) {
+        this.id = id;
+        this.locations = locations;
+        this.face = face;
+        this.type = type;
+    }
 
     public int getId() {
         return id;

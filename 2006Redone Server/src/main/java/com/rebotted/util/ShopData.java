@@ -1,11 +1,22 @@
 package com.rebotted.util;
 
+/**
+ * @author SandroC
+ */
 public class ShopData {
-    int id;
-    String name;
-    int         sellModifier;
-    int         buyModifier;
-    ShopItems[] items;
+    private final int    id;
+    private final String name;
+    private final int    sellModifier;
+    private final int    buyModifier;
+    private final ShopItems[] items;
+
+    public ShopData(int id, String name, int sellModifier, int buyModifier, ShopItems[] items) {
+        this.id = id;
+        this.name = name;
+        this.sellModifier = sellModifier;
+        this.buyModifier = buyModifier;
+        this.items = items;
+    }
 
     public int getId() {
         return id;

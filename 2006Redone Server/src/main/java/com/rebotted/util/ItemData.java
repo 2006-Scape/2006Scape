@@ -1,11 +1,19 @@
 package com.rebotted.util;
 
 public class ItemData {
-    int     id;
-    String  name;
-    String  examine;
-    Values[]  values;
-    Bonuses[] bonuses;
+    private final int    id;
+    private final String name;
+    private final String examine;
+    private final Values[] values;
+    private final Bonuses[] bonuses;
+
+    public ItemData(int id, String name, String examine, Values[] values, Bonuses[] bonuses) {
+        this.id = id;
+        this.name = name;
+        this.examine = examine;
+        this.values = values;
+        this.bonuses = bonuses;
+    }
 
     public int getId() {
         return id;

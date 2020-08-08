@@ -212,7 +212,7 @@ public class GlobalDropsHandler {
         }
         spawnedDrops.clear();
         globalDrops.clear();
-        writeGlobalDropsDump();
+        initialize();
         for (GlobalDrop drop : globalDrops) {
             if (!drop.isTaken() && !drop.isSpawned() && !itemExists(drop.getId(), drop.getX(), drop.getY(), true) && c.distanceToPoint(drop.getX(), drop.getY()) <= 60) {
                 c.getPacketSender().createGroundItem(drop.getId(), drop.getX(), drop.getY(), drop.getAmount(), drop.getHeight());

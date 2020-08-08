@@ -23,7 +23,6 @@ import com.rebotted.game.npcs.impl.Pets;
 import com.rebotted.game.players.Client;
 import com.rebotted.game.players.Player;
 import com.rebotted.game.players.PlayerHandler;
-import com.rebotted.util.ItemData;
 import com.rebotted.util.Misc;
 import com.rebotted.util.NpcSpawn;
 import com.rebotted.world.Boundary;
@@ -148,10 +147,9 @@ public class NpcHandler {
         for (int i = 0; i < maxListedNPCs; i++) {
             NpcList[i] = null;
         }
-        //writeJson("F:\\Java Projects\\2006rebotted server files\\2006Redone Server\\data\\cfg\\npc.cfg");
         loadNPCList();
         loadSpawnList();
-        //writeAutoSpawn("F:\\Java Projects\\2006rebotted server files\\2006Redone Server\\data\\cfg\\spawn-config.cfg");
+        NPCDropsHandler.loadItemDropData();
         try {
             NPCDefinition.init();
         } catch (Exception e) {
@@ -1036,7 +1034,7 @@ public class NpcHandler {
                 // These npcs shouldn't have drops
                 return;
             }
-            for (ItemDrop possible_drop : NPCDropsHandler.NPC_DROPS(getNpcListName(npcs[i].npcType).toLowerCase().replace(" ", "_"), npcs[i].npcType)) {
+            for (ItemDrop possible_drop : NPCDropsHandler.getNpcDrops(getNpcListName(npcs[i].npcType).toLowerCase().replace(" ", "_"), npcs[i].npcType)) {
                 if (Misc.random(possible_drop.getChance()) == 0) {
                     int amt = possible_drop.getAmount();
                     GameEngine.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY, amt, c.playerId);
