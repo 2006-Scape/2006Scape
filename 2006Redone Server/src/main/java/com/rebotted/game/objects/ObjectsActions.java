@@ -114,7 +114,7 @@ public class ObjectsActions {
         player.getDoubleGates().useDoubleGate(player, objectType);
         PassDoor.processDoor(player, objectType);
         AbyssalHandler.handleAbyssalTeleport(player, objectType);
-        OpenObject.interactObject(player, objectType, objectType == 399);
+        OpenObject.interactObject(player, objectType);
         // if its a rock we can mine, mine it
         if (Mining.rockExists(objectType))
             player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
@@ -2843,6 +2843,7 @@ public class ObjectsActions {
             Stalls.attemptStall(player, objectType, obX, obY);
             return;
         }
+        OpenObject.interactObject(player, objectType);
         switch (objectType) {
             case 6:
                 player.getCannon().pickup(obX, obY);

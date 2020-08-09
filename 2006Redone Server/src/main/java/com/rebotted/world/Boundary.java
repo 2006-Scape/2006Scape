@@ -181,7 +181,7 @@ public class Boundary {
 	
 	public static final Boundary[] BANK_AREA = new Boundary[] {
 		new Boundary(3205, 3212, 3217, 3224, 2), //Lumbridge
-		new Boundary(3161, 3173, 3269, 3272),//Al Kharid
+		new Boundary(3264, 3273, 3160, 3174),//Al Kharid
 		new Boundary(2436, 2453, 5174, 5186),//TzHaar
 		new Boundary(2842, 2860, 2950, 2957),//Shilo
 		new Boundary(3456, 3492, 3200, 3215),//Burgh d rott

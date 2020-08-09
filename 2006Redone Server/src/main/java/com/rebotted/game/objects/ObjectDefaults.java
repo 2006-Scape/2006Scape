@@ -117,7 +117,14 @@ public class ObjectDefaults {
 						return face = WEST;
 					}
 				case 3194:
-					return face = (player.objectX == 3381) ? EAST : NORTH;
+					switch (player.objectX) {
+						case 3381:
+							return face = EAST;
+						case 3309:
+							return face = WEST;
+						default:
+							return face = NORTH;
+					}
 				case 348:
 				case 349:
 					if (player.objectX == 2971) {
