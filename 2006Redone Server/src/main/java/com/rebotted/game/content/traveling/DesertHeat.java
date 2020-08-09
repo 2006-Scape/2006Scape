@@ -119,7 +119,7 @@ public class DesertHeat {
 		if (waterskin == -1) {//empty waterskin
 			return false;
 		}
-		if (waterskin > 0) {
+		if (waterskin >= 0) {
 		    player.getItemAssistant().deleteItem(WATERSKINS[waterskin][1], 1);
 		    player.getItemAssistant().addItem(WATERSKINS[waterskin][0], 1);
 			player.startAnimation(ANIMATION);
