@@ -2,6 +2,8 @@ package com.rebotted.game.npcs.drops;
 
 import com.rebotted.util.Misc;
 
+import java.util.Arrays;
+
 public class ItemDrop {
     public int item_id, chance;
     public int[] amounts;
@@ -28,5 +30,14 @@ public class ItemDrop {
 
     public int getAmount(){
         return Misc.random(this.amounts[0], this.amounts[1]);
+    }
+
+    @Override
+    public String toString() {
+        return "ItemDrop{" +
+                "item_id=" + item_id +
+                ", chance=" + chance +
+                ", amounts=" + Arrays.toString(amounts) +
+                '}';
     }
 }
