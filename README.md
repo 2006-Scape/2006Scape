@@ -28,10 +28,6 @@ To compile any module from the command line, run `mvn clean install`
 
 See this [forum post](https://rsrebotted.com/forums/viewthread.php?forum=5&id=78).
 
-## Our 2.0 Client
-
-We're working on a new client, rather than the one in the `Client/` directory. The reason for this is refactoring the client breaks Parabot, and the new client is much more refactored and in a better place to expand. You can find our new client repo [Here](https://github.com/dginovker/2006rebottedClient)!
-
 ## Using Parabot with your local server:
 - **1:** Download the latest `localhost_2006rebotted.jar` from [here](https://github.com/dginovker/2006rebotted/releases) (or, if testing server changes, compile it yourself like [this](https://i.imgur.com/uDrF0gl.png))
 - **2:** Download the latest `Provider-version.jar` file from [here](http://v3.bdn.parabot.org/api/bot/download/default-provider?nightly=false)
@@ -65,4 +61,6 @@ java -jar Client-2.8.1.jar -login username password -loadlocal -v -clearcache
   - If more than 2 arguments are passed in (can be anything), the client runs locally
 - `2006Redone file_server` contains the file server code that is *required* to be running before a client can connect to a server. It must be running locally before a client can connect. `src` is the Sources directory
 
-- `CompiledServer/` contains the compiled class code and artifacts.
+## Building from command line
+
+Run `mvn -B clean install`
