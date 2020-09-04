@@ -28,7 +28,7 @@ public class NpcAggressive {
 				}
 			}
 			return false;
-		} catch (NullPointerException) {
+		} catch (NullPointerException TODO_better_fix) {
 			return false;
 		}
 	}
