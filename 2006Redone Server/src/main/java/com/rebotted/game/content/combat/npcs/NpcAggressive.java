@@ -20,12 +20,16 @@ public class NpcAggressive {
 	};
 
 	public static boolean isAggressive(int i) {
-		boolean aggressive = NpcHandler.npcs[i].inWild() || PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || FightCaves.isFightCaveNpc(i);
-		for (int element : AGGRESSIVE_MONSTERS) {
-			if (NpcHandler.npcs[i].npcType == element || aggressive) {
-				return true;
+		try {
+			boolean aggressive = NpcHandler.npcs[i].inWild() || PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || FightCaves.isFightCaveNpc(i);
+			for (int element : AGGRESSIVE_MONSTERS) {
+				if (NpcHandler.npcs[i].npcType == element || aggressive) {
+					return true;
+				}
 			}
+			return false;
+		} catch (NullPointerException) {
+			return false;
 		}
-		return false;
 	}
 }
