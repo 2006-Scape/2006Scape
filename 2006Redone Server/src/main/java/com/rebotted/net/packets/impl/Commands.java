@@ -54,7 +54,7 @@ public class Commands implements PacketType {
                 if (player.playerRights <= 1) {
                     delay = 30000;
                 }
-                if (!AntiSpam.blockedWords(player, playerCommand.substring(5), true)) {
+                if (!AntiSpam.blockedWords(player, arguments[0].substring(5), true)) {
                     return;
                 }
                 if (Connection.isMuted(player)) {
