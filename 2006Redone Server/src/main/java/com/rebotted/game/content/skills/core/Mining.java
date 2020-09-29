@@ -37,8 +37,8 @@ public class Mining {
 		{1265, 1, 1, 625}, //Bronze
 		{1267, 1, 2, 626}, //Iron
 		{1269, 6, 3, 627}, //Steel
-		{1271, 31, 5, 629}, //Addy
-		{1273, 21, 4, 628}, //Mithril
+		{1273, 21, 4, 629}, //Mithril
+		{1271, 31, 5, 628}, //Addy
 		{1275, 41, 6, 624}, //Rune
 	};
 
@@ -158,6 +158,7 @@ public class Mining {
 			public void execute(CycleEventContainer container) {
 				if (c.isMining) {
 					c.startAnimation(Pick_Settings[c.miningAxe][3]);
+					c.getPacketSender().sendSound(432, 100, 0);
 				} else {
 					container.stop();
 				}
@@ -202,6 +203,7 @@ public class Mining {
 		}
 
 		player.startAnimation(Pick_Settings[player.miningAxe][3]);
+		player.getPacketSender().sendSound(432, 100, 0);
 		player.isMining = true;
 		repeatAnimation(player);
 		player.rockX = objectX;
