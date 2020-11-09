@@ -5180,18 +5180,6 @@ public class Game extends RSApplet {
 				class9.disabledText = "";
 			}
 		}
-		if (j == 660) {
-			int k1 = anInt1170 - anInt1215;
-			String s1;
-			if (k1 <= 0)
-				s1 = "earlier today";
-			else if (k1 == 1)
-				s1 = "yesterday";
-			else
-				s1 = k1 + " days ago";
-			class9.disabledText = "You last logged in @red@" + s1
-					+ "@bla@ from: @red@" + Signlink.dns;
-		}
 		if (j == 661)
 			if (anInt1034 == 0)
 				class9.disabledText = "\\nYou have not yet set any recovery questions.\\nIt is @lre@strongly@yel@ recommended that you do so.\\n\\nIf you don't you will be @lre@unable to recover your\\n@lre@password@yel@ if you forget it, or it is stolen.";
@@ -5212,41 +5200,12 @@ public class Game extends RSApplet {
 						+ method104(anInt1034)
 						+ "\\n\\nIf you do not remember making this request\\ncancel it immediately, and change your password.";
 			}
-		if (j == 662) {
-			String s;
-			if (anInt1273 == 0)
-				s = "@yel@0 unread messages";
-			else if (anInt1273 == 1)
-				s = "@gre@1 unread message";
-			else
-				s = "@gre@" + anInt1273 + " unread messages";
-			class9.disabledText = "You have " + s + "\\nin your message centre.";
-		}
 		if (j == 663)
 			if (anInt1083 <= 0 || anInt1083 > anInt1170 + 10)
 				class9.disabledText = "Last password change:\\n@gre@Never changed";
 			else
 				class9.disabledText = "Last password change:\\n@gre@"
 						+ method104(anInt1083);
-		if (j == 665)
-			if (anInt992 > 2 && !isMembers)
-				class9.disabledText = "This is a non-members\\nworld. To enjoy your\\nmembers benefits we\\nrecommend you play on a\\nmembers world instead.";
-			else if (anInt992 > 2)
-				class9.disabledText = "\\n\\nYou have @gre@" + anInt992
-						+ "@yel@ days of\\nmember credit remaining.";
-			else if (anInt992 > 0)
-				class9.disabledText = "You have @gre@"
-						+ anInt992
-						+ "@yel@ days of\\nmember credit remaining.\\n\\n@lre@Credit low! Renew now\\n@lre@to avoid losing members.";
-			else
-				class9.disabledText = "You are not a member.\\n\\nChoose to subscribe and\\nyou'll get loads of extra\\nbenefits and features.";
-		if (j == 667)
-			if (anInt992 > 2 && !isMembers)
-				class9.disabledText = "To switch to a members-only world:\\n1) Logout and return to the world selection page.\\n2) Choose one of the members world with a gold star next to it's name.\\n\\nIf you prefer you can continue to use this world,\\nbut members only features will be unavailable here.";
-			else if (anInt992 > 0)
-				class9.disabledText = "To extend or cancel a subscription:\\n1) Logout and return to the frontpage of this website.\\n2)Choose the relevant option from the 'membership' section.\\n\\nNote: If you are a credit card subscriber a top-up payment will\\nautomatically be taken when 3 days credit remain.\\n(unless you cancel your subscription, which can be done at any time.)";
-			else
-				class9.disabledText = "To start a subscripton:\\n1) Logout and return to the frontpage of this website.\\n2) Choose 'Start a new subscription'";
 		if (j == 668) {
 			if (anInt1034 > anInt1170) {
 				class9.disabledText = "To cancel this request:\\n1) Logout and return to the frontpage of this website.\\n2) Choose 'Cancel recovery questions'.";

@@ -91,6 +91,9 @@ public class PlayerSave {
 							case "character-rights":
 								player.playerRights = Integer.parseInt(token2);
 								break;
+							case "last-ip":
+								player.lastConnectedFrom = token2;
+								break;
 							case "isBot":
 								player.isBot = Boolean.parseBoolean(token2);
 								break;
@@ -558,6 +561,8 @@ public class PlayerSave {
 			characterfile.write("character-posy = " + player.absY);
 			characterfile.newLine();
 			characterfile.write("character-rights = " + player.playerRights);
+			characterfile.newLine();
+			characterfile.write("last-ip = " + player.connectedFrom);
 			characterfile.newLine();
 			characterfile.write("isBot = " + player.isBot);
 			characterfile.newLine();
