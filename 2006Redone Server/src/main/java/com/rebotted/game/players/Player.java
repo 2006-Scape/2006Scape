@@ -97,6 +97,7 @@ import com.rebotted.world.ObjectManager;
 public abstract class Player {
 	
 	public byte buffer[] = null;
+	public String lastConnectedFrom;
 	private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
 	private Flowers flower = new Flowers(this);
