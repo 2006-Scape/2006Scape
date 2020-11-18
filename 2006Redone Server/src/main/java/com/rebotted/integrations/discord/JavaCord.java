@@ -22,28 +22,33 @@ public class JavaCord {
     public static void init() throws IOException {
         if (token != null && !token.equals("")) { //If the token was loaded by loadSettings:
             new DiscordApiBuilder().setToken(token).login().thenAccept(api -> {
-                JavaCord.api = api;
-                //System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
-                api.addListener(new Commands());
-                api.addListener(new Forum());
-                api.addListener(new Hiscores());
-                api.addListener(new Issues());
-                api.addListener(new Online());
-                api.addListener(new Players());
-                api.addListener(new Vote());
-                api.addListener(new Website());
-                api.addMessageCreateListener(event -> {
+                try {
+                    JavaCord.api = api;
+                    //System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
+                    api.addListener(new Commands());
+                    api.addListener(new Forum());
+                    api.addListener(new Hiscores());
+                    api.addListener(new Issues());
+                    api.addListener(new Online());
+                    api.addListener(new Players());
+                    api.addListener(new Vote());
+                    api.addListener(new Website());
+                    api.addMessageCreateListener(event -> {
 
-                    if (event.getMessageContent().startsWith("::movehome")) {
-                        if (event.getMessageAuthor().isServerAdmin()) {
-                            System.out.println("perms");
-                        } else {
-                            event.getChannel().sendMessage("You do not have permission to preform this command");
+                        if (event.getMessageContent().startsWith("::movehome")) {
+                            if (event.getMessageAuthor().isServerAdmin()) {
+                                System.out.println("perms");
+                            } else {
+                                event.getChannel().sendMessage("You do not have permission to preform this command");
+                            }
                         }
-                    }
-                });
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             })
-                    // Log any exceptions that happened
+                    // Log exceptions (might not work now that we try(catch)
                     .exceptionally(ExceptionLogger.get());
         } else {
             System.out.println("Discord Token Not Set So Bot Not Loaded");
