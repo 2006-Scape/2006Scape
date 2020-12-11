@@ -1852,6 +1852,7 @@ public class PlayerAssistant {
 		player.getPacketSender().sendString("Congratulations, you've advanced a level in "+data.get().toString()+"!", data.get().getFrame2());
 		player.getPacketSender().sendString("Your " +data.get().toString()+ " level is now " + getLevelForXP(player.playerXP[skill]) + ".", data.get().getFrame3());
 		player.getPacketSender().sendChatInterface(data.get().getFrame1());
+		player.getPacketSender().sendQuickSong(69, 1);
 		player.dialogueAction = 0;
 		player.nextChat = 0;
 	}
