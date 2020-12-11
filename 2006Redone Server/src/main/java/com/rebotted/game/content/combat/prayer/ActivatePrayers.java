@@ -256,12 +256,19 @@ public class ActivatePrayers {
 						player.getPacketSender().sendConfig(
 								player.getPrayer().PRAYER_GLOW[i], 1);
 						player.headIcon = player.getPrayer().PRAYER_HEAD_ICONS[i];
+						if (i == 16)
+							player.getPacketSender().sendSound(SoundList.PROTECT_MAGIC, 100, 0);
+						else if (i == 17)
+							player.getPacketSender().sendSound(SoundList.PROTECT_RANGE, 100, 0);
+						else if (i == 18)
+							player.getPacketSender().sendSound(SoundList.PROTECT_MELEE, 100, 0);
 						player.getPlayerAssistant().requestUpdates();
 					} else {
 						player.getPrayer().prayerActive[i] = false;
 						player.getPacketSender().sendConfig(
 								player.getPrayer().PRAYER_GLOW[i], 0);
 						player.headIcon = -1;
+						player.getPacketSender().sendSound(SoundList.NO_PRAY, 100, 0);
 						player.getPlayerAssistant().requestUpdates();
 					}
 				}
