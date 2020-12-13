@@ -74,6 +74,8 @@ public class Barrows {
 	 * Spade digging data
 	 */
 	public void spadeDigging() {
+		c.getPacketSender().sendSound(380, 100, 0);
+		c.startAnimation(830);
 		if(c.inArea(spadeData[0][0], spadeData[0][1], spadeData[0][2], spadeData[0][3])) {
 			c.getPlayerAssistant().movePlayer(spadeData[0][4], spadeData[0][5], 3);
 		} else if(c.inArea(spadeData[1][0], spadeData[1][1], spadeData[1][2], spadeData[1][3])) {
