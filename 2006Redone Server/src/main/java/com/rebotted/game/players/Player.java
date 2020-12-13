@@ -1369,7 +1369,7 @@ public abstract class Player {
 			randomEventsEnabled, debugMode, clickToTele = false;
 
 	public int votePoints, saveDelay, playerKilled, gertCat, restGhost,
-			romeojuliet, runeMist, vampSlayer, cookAss, doricQuest, blackKnight, shieldArrav,
+			romeojuliet, runeMist, lostCity, vampSlayer, cookAss, doricQuest, blackKnight, shieldArrav,
 			sheepShear, impsC, randomActions,
 			totalPlayerDamageDealt, killedBy, lastChatId = 1, privateChat,
 			dialogueId, randomCoffin, newLocation, specEffect,
