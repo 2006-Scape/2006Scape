@@ -160,4 +160,12 @@ public class QuestRewards {
 		player.questPoints++;
 		player.shieldArrav = 8;
 	}
+	
+	public static void lostCityReward(Player player) {
+		questReward(player, "Lost City", "3 Quest Points", "Access to Zanaris", "", "", "", "", 0);
+		QUEST_NAME = "Lost City";
+		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7367);
+		player.questPoints += 3;
+		player.lostCity = 3;
+	}
 }
