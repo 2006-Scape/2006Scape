@@ -23579,4 +23579,48 @@
     "walk": 1,
     "height": 0
   }
+    ,
+    {
+    "maxHit": 7,
+    "strength": 25,
+    "attack": 20,
+    "x": 3148,
+    "y": 3206,
+    "id": 652,
+    "walk": 1,
+    "height": 0
+  }
+  ,
+    {
+    "maxHit": 7,
+    "strength": 25,
+    "attack": 20,
+    "x": 3150,
+    "y": 3204,
+    "id": 651,
+    "walk": 1,
+    "height": 0
+  }
+  ,
+    {
+    "maxHit": 7,
+    "strength": 25,
+    "attack": 20,
+    "x": 3153,
+    "y": 3204,
+    "id": 650,
+    "walk": 1,
+    "height": 0
+  }
+  ,
+    {
+    "maxHit": 7,
+    "strength": 25,
+    "attack": 20,
+    "x": 3148,
+    "y": 3209,
+    "id": 649,
+    "walk": 1,
+    "height": 0
+  }
 ]
