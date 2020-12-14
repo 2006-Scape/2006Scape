@@ -14,6 +14,7 @@ import com.rebotted.game.content.quests.impl.SheepShearer;
 import com.rebotted.game.content.quests.impl.ShieldArrav;
 import com.rebotted.game.content.quests.impl.VampyreSlayer;
 import com.rebotted.game.content.quests.impl.WitchsPotion;
+import com.rebotted.game.content.quests.impl.LostCity;
 import com.rebotted.game.players.Player;
 
 /**
@@ -23,7 +24,7 @@ import com.rebotted.game.players.Player;
 
 public class QuestAssistant {
 
-	public static final int MAXIMUM_QUESTPOINTS = 23;
+	public static final int MAXIMUM_QUESTPOINTS = 26;
 
 	public static void sendStages(Player player) {
 		player.getPacketSender().sendString("QP: " + player.questPoints + " ", 3985);
@@ -132,6 +133,13 @@ public class QuestAssistant {
 		} else {
 			player.getPacketSender().sendString("@yel@Shield of Arrav", 7345);
 		}
+		if (player.lostCity == 0) {
+			player.getPacketSender().sendString("Lost City", 7367);
+		} else if (player.lostCity == 3) {
+			player.getPacketSender().sendString("@gre@Lost City", 7367);
+		} else {
+			player.getPacketSender().sendString("@yel@Lost City", 7367);
+		}
 	}
 
 	public enum Quests {
@@ -192,7 +200,7 @@ public class QuestAssistant {
 		SEARCH_OF_MYREQUE(46131, 11907, "In Search of the Myreque", false), 
 		JUNGLE_POTION(28197, 7365, "Jungle Potion", false), 
 		LEGENDS_QUEST(28198, 7366, "Legends Quest", false), 
-		LOST_CITY(28199, 7367, "Lost City", false), 
+		LOST_CITY(28199, 7367, "Lost City", true), 
 		LOST_TRIBE(52077, 13389, "The Lost Tribe", false), 
 		MAKING_HISTORY(60127, 15487, "Making History", false), 
 		MONKEY_MADNESS(43124, 11132, "Monkey Madness", false), 
@@ -309,7 +317,7 @@ public class QuestAssistant {
 			break;
 		case 28178:
 			KnightsSword.showInformation(player);
-		break;
+			break;
 		case 28179:
 			VampyreSlayer.showInformation(player);
 			break;
@@ -322,6 +330,10 @@ public class QuestAssistant {
 		case 28164:
 			BlackKnightsFortress.showInformation(player);
 			break;
+		case 28199:
+			LostCity.showInformation(player);
+			break;
+
 
 		default:
 			if (Quests.forButton(buttonId) != null) {
