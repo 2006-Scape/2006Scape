@@ -1363,7 +1363,7 @@ public abstract class Player {
 			isSmithing, hasPaid, canTeleport, magicCharge,
 			clickedVamp, allowFading, otherBank,
 			recievedReward, poison, golemSpawned, zombieSpawned, shadeSpawned,
-			treeSpiritSpawned, chickenSpawned, clickedTree, filter = true,
+			treeSpiritSpawned,leprechaunSpawned, chickenSpawned, clickedTree, filter = true,
 			stopPlayer, npcCanAttack = true, gliderOpen, hasSandwhichLady,
 			isHarvesting, openDuel,  killedJad, canHealersRespawn = true, playerIsBusy, miningRock,
 			randomEventsEnabled, debugMode, clickToTele = false;
