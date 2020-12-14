@@ -137,17 +137,45 @@ public class ClickObject implements PacketType {
 				Woodcutting.startWoodcutting(player, player.objectId, player.objectX, player.objectY, player.clickObjectType);
 			}
 			switch (player.objectId) {
-			case 1292:
-				if (player.spiritTree == false && player.clickedTree) {
-					player.getPacketSender().sendMessage("You have already spawned a tree spirit.");
+			case 1292: //lostCity 1
+				if (player.spiritTree == false && player.clickedTree && player.lostCity < 2)
+				{
+					player.getPacketSender().sendMessage("Nothing interesting happens.");
+					return;
+				}
+				if (player.spiritTree == false && player.clickedTree && player.lostCity == 2) {
+					player.getPacketSender().sendMessage("You're too busy fighting the tree spirit!'");
 					return;
 				}
 				if (player.spiritTree == false && player.clickedTree == false) {
-					player.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears.");
-					NpcHandler.spawnNpc(player, 655, player.getX(), player.getY(), 0, 0, 225, 20, 80, 80, true, false);
+					player.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears !");
+					player.getPacketSender().sendSound(300, 100, 1);
+					NpcHandler.spawnNpc(player, 655, player.getX(), player.getY(), 0, 0, 225, 20, 80, 80, true, true);
 					player.clickedTree = true;
-				} else if (player.spiritTree) {
+				} else if (player.spiritTree && player.lostCity >= 2) {
 					Woodcutting.startWoodcutting(player, player.objectId, player.objectX, player.objectY, player.clickObjectType);
+				}
+				break;
+			case 2409://lostCity 2
+				if (player.lostCity != 1)
+				{
+					player.getPacketSender().sendMessage("Nothing interesting happens.");
+					return;
+				}
+				else if (player.lostCity == 1 && player.leprechaunSpawned == false) {
+					player.getPacketSender().sendMessage("A leprechaun falls out of the tree!");
+					player.getPacketSender().sendSound(300, 100, 1);
+					NpcHandler.spawnNpc(player, 654, player.getX(), player.getY(), 0, 1, 1, 0, 0, 0, false, true);
+					player.leprechaunSpawned = true;
+					return;
+				}
+				else if (player.lostCity == 1 && player.leprechaunSpawned == true) {
+					player.getPacketSender().sendMessage("The leprechaun is already out of the tree!");
+					return;
+				}
+				else if (player.lostCity >= 2 && player.leprechaunSpawned == false) {
+					player.getPacketSender().sendMessage("The leprechaun doesn't appear to be there anymore.");
+					return;
 				}
 				break;
 
