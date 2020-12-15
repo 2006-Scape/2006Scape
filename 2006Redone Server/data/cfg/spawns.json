@@ -23622,5 +23622,145 @@
     "id": 649,
     "walk": 1,
     "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2925,
+    "y": 3486,
+    "id": 455,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2896,
+    "y": 3428,
+    "id": 454,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2891,
+    "y": 3433,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2926,
+    "y": 3480,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2928,
+    "y": 3484,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2921,
+    "y": 3485,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2923,
+    "y": 3483,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2901,
+    "y": 3440,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2894,
+    "y": 3446,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2886,
+    "y": 3414,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2912,
+    "y": 3450,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2885,
+    "y": 3431,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2884,
+    "y": 3435,
+    "id": 14,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 3,
+    "strength": 5,
+    "attack": 5,
+    "x": 2930,
+    "y": 3486,
+    "id": 14,
+    "walk": 1,
+    "height": 0
   }
 ]
