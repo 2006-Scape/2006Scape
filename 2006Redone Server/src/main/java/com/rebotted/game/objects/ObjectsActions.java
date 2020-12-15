@@ -1897,6 +1897,12 @@ public class ObjectsActions {
                 if (player.playerEquipment[player.playerWeapon] == 772) {
                     player.getPlayerAssistant().startTeleport(2452, 4470, 0, "modern");
                     player.getPacketSender().sendMessage("You are suddenly teleported away.");
+                    if (player.lostCity == 2 || player.lostCity == 1)
+                    {
+                        player.getPacketSender().sendMessage("You have found the Lost City of Zanaris!");
+                        QuestRewards.lostCityReward(player);
+                    }
+
                 }
                 break;
 
