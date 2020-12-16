@@ -284,6 +284,9 @@ public class PlayerSave {
 							case "witchspot":
 								player.witchspot = Integer.parseInt(token2);
 								break;
+							case "lostCity":
+								player.lostCity = Integer.parseInt(token2);
+								break;
 							case "restGhost":
 								player.restGhost = Integer.parseInt(token2);
 								break;
@@ -719,6 +722,8 @@ public class PlayerSave {
 			characterfile.write("romeo-juliet = " + player.romeojuliet);
 			characterfile.newLine();
 			characterfile.write("gertCat = " + player.gertCat);
+			characterfile.newLine();
+			characterfile.write("lostCity = " + player.lostCity);
 			characterfile.newLine();
 			characterfile.write("cw-games = " + player.cwGames);
 			characterfile.newLine();
