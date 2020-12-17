@@ -90,6 +90,9 @@ public class DialogueOptions {
 			case 702:
 				player.getDialogueHandler().sendDialogues(3567, player.npcType);
 				return;
+			case 7555: //lostCity 1
+				player.getDialogueHandler().sendDialogues(3701, player.npcType);
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -170,6 +173,9 @@ public class DialogueOptions {
 				return;
 			case 702:
 				player.getDialogueHandler().sendDialogues(3568, player.npcType);
+				return;
+			case 7555:
+				player.getDialogueHandler().sendDialogues(3597, player.npcType);
 				return;
 			}
 			player.dialogueAction = 0;
@@ -254,6 +260,9 @@ public class DialogueOptions {
 				return;
 			case 702:
 				player.getDialogueHandler().sendDialogues(3569, player.npcType);
+				return;
+			case 7555:
+				player.getDialogueHandler().sendDialogues(3599, player.npcType);
 				return;
 			}
 			player.dialogueAction = 0;
@@ -559,6 +568,26 @@ public class DialogueOptions {
 				player.getDialogueHandler().sendDialogues(3577, player.npcType);
 				return;
 			}
+			else if (player.dialogueAction == 7556)
+			{
+				player.getDialogueHandler().sendDialogues(3710, player.npcType);
+				return;
+			}
+			else if (player.dialogueAction == 7557)
+			{
+				player.getDialogueHandler().sendDialogues(3586, player.npcType);
+				return;
+			}
+			else if (player.dialogueAction == 7558)
+			{
+				player.getDialogueHandler().sendDialogues(3586, player.npcType);
+				return;
+			}
+			else if (player.dialogueAction == 7559)
+			{
+				player.getDialogueHandler().sendDialogues(3864, player.npcType);
+				return;
+			}	
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
 			break;
@@ -770,6 +799,19 @@ public class DialogueOptions {
 				return;
 			} else if (player.dialogueAction == 3575) {
 				player.getDialogueHandler().sendDialogues(3576, player.npcType);
+				return;
+			} else if (player.dialogueAction == 7556)
+			{
+				player.getDialogueHandler().sendDialogues(3702, player.npcType);
+				return;
+			} else if (player.dialogueAction == 7557)
+			{
+				player.getDialogueHandler().sendDialogues(3704, player.npcType);
+				return;
+			}
+			else if (player.dialogueAction == 7559)
+			{
+				player.getDialogueHandler().sendDialogues(3865, player.npcType);
 				return;
 			}
 			player.dialogueAction = 0;
