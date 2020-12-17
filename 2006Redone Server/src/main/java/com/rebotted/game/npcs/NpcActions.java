@@ -145,6 +145,21 @@ public class NpcActions {
 		case 599:
 			player.getDialogueHandler().sendDialogues(1369, npcType);
 			break;
+		case 649:
+			player.getDialogueHandler().sendDialogues(3840, npcType);
+			break;
+		case 650:
+			player.getDialogueHandler().sendDialogues(3578, npcType);
+			break;
+		case 651:
+			player.getDialogueHandler().sendDialogues(3840, npcType);
+			break;
+		case 652:
+			player.getDialogueHandler().sendDialogues(3840, npcType);
+			break;
+		case 654:
+			player.getDialogueHandler().sendDialogues(3848, npcType);
+			break;		
 
 		case 644: //Straven
 			if (player.shieldArrav <= 4) {
