@@ -2426,79 +2426,84 @@ public abstract class Player {
 		playerProps.writeByte(headIcon);
 		playerProps.writeByte(headIconPk);
 
-		if (playerEquipment[playerHat] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerHat]);
-		} else {
-			playerProps.writeByte(0);
-		}
-
-		if (playerEquipment[playerCape] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerCape]);
-		} else {
-			playerProps.writeByte(0);
-		}
-
-		if (playerEquipment[playerAmulet] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerAmulet]);
-		} else {
-			playerProps.writeByte(0);
-		}
-
-		if (playerEquipment[playerWeapon] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerWeapon]);
-		} else {
-			playerProps.writeByte(0);
-		}
-
-		if (playerEquipment[playerChest] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerChest]);
-		} else {
-			playerProps.writeWord(0x100 + playerAppearance[2]);
-		}
-
-		if (playerEquipment[playerShield] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerShield]);
-		} else {
-			playerProps.writeByte(0);
-		}
-
-		if (!ItemData.isFullBody(playerEquipment[playerChest])) {
-			playerProps.writeWord(0x100 + playerAppearance[3]);
-		} else {
-			playerProps.writeByte(0);
-		}
-
-		if (playerEquipment[playerLegs] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerLegs]);
-		} else {
-			playerProps.writeWord(0x100 + playerAppearance[5]);
-		}
-
-		if (!ItemData.isFullHelm(playerEquipment[playerHat])
-				&& !ItemData.isFullMask(playerEquipment[playerHat])) {
-			playerProps.writeWord(0x100 + playerAppearance[1]);
-		} else {
-			playerProps.writeByte(0);
-		}
-
-		if (playerEquipment[playerHands] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerHands]);
-		} else {
-			playerProps.writeWord(0x100 + playerAppearance[4]);
-		}
-
-		if (playerEquipment[playerFeet] > 1) {
-			playerProps.writeWord(0x200 + playerEquipment[playerFeet]);
-		} else {
-			playerProps.writeWord(0x100 + playerAppearance[6]);
-		}
-
-		if (playerAppearance[0] != 1
-				&& !ItemData.isFullMask(playerEquipment[playerHat])) {
-			playerProps.writeWord(0x100 + playerAppearance[7]);
-		} else {
-			playerProps.writeByte(0);
-		}
+		if(!isNpc) {
+			if (playerEquipment[ItemConstants.HAT] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.HAT]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+			if (playerEquipment[ItemConstants.CAPE] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.CAPE]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+			if (playerEquipment[ItemConstants.AMULET] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.AMULET]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+			if (playerEquipment[ItemConstants.WEAPON] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.WEAPON]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+			if (playerEquipment[ItemConstants.CHEST] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.CHEST]);
+			} else {
+				playerProps.writeWord(0x100 + playerAppearance[2]);
+			}
+	
+			if (playerEquipment[ItemConstants.SHIELD] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.SHIELD]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+			if (!ItemData.isFullBody(playerEquipment[ItemConstants.CHEST])) {
+				playerProps.writeWord(0x100 + playerAppearance[3]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+			if (playerEquipment[ItemConstants.LEGS] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.LEGS]);
+			} else {
+				playerProps.writeWord(0x100 + playerAppearance[5]);
+			}
+	
+			if (!ItemData.isFullHelm(playerEquipment[ItemConstants.HAT])
+					&& !ItemData.isFullMask(playerEquipment[ItemConstants.HAT])) {
+				playerProps.writeWord(0x100 + playerAppearance[1]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+			if (playerEquipment[ItemConstants.HANDS] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.HANDS]);
+			} else {
+				playerProps.writeWord(0x100 + playerAppearance[4]);
+			}
+	
+			if (playerEquipment[ItemConstants.FEET] > 1) {
+				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.FEET]);
+			} else {
+				playerProps.writeWord(0x100 + playerAppearance[6]);
+			}
+	
+			if (playerAppearance[0] != 1 && !ItemData.isFullMask(playerEquipment[ItemConstants.HAT])) {
+				playerProps.writeWord(0x100 + playerAppearance[7]);
+			} else {
+				playerProps.writeByte(0);
+			}
+	
+	    } else {//send npc data
+	          playerProps.writeWord(-1);//Tells client that were being a npc
+	          playerProps.writeWord(npcId2);//send NpcID
+	    }
 
 		playerProps.writeByte(playerAppearance[8]);
 		playerProps.writeByte(playerAppearance[9]);
