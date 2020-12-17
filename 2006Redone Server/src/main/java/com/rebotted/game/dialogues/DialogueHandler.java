@@ -7100,6 +7100,302 @@ public class DialogueHandler {
 			player.getDialogueHandler().sendPlayerChat(ChatEmotes.HAPPY_JOYFUL, "No thanks.");
 			player.getDialogueHandler().endDialogue();
 			break;
+		case 3578:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT, "Hello there traveller.");
+			if (player.lostCity >= 1)
+			{
+				player.nextChat = 3593;
+			}
+			else
+			{
+				player.nextChat = 3579;
+			}
+			break;
+		case 3579:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "What are you camped out here for?");
+			player.nextChat = 3580;
+			break;
+		case 3580:
+			player.getDialogueHandler().sendNpcChat2("We're looking for Zanaris...GAH! I mean we're not.",
+					"here for any particular reason at all.", player.talkingNpc, "Warrior");
+			player.nextChat = 3581;
+			break;
+		case 3581:
+			player.getDialogueHandler().sendOption("Who's Zanaris?", "What's Zanaris?", "What makes you think it's out here?");
+			player.dialogueAction = 7555;
+			break;
+		case 3582:
+			player.getDialogueHandler().sendNpcChat3("Ahahahaha! Zanaris isn't a person! It's a magical hidden",
+					"city filled with treasures and rich.. uh, nothing. It's", "nothing.", player.talkingNpc, "Warrior");
+			player.nextChat = 3583;
+			break;
+		case 3583:
+			player.getDialogueHandler().sendOption("If it's hidden how are you planning to find it?", "There's no such thing!");
+			player.dialogueAction = (7556);
+			break;
+		case 3584:
+			player.getDialogueHandler().sendNpcChat3("Well, we don't want to tell anyone else about that,",
+						"because we don't want anyone else sharing in all that", "glory and treasure.", player.talkingNpc, "Warrior");
+			player.nextChat = 3585;
+			break;
+		case 3585:
+			player.getDialogueHandler().sendOption("Looks like you don't know either.", "Please tell me.");
+			player.dialogueAction = (7557);
+			break;
+		case 3586:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Well, it looks to me like YOU don't know EITHER!");
+			player.nextChat = 3800;
+			break;
+		case 3587:
+			player.getDialogueHandler().sendNpcChat2("GAH! I didn't mean to tell you that! Look, just forget I",
+					"said anything okay?", player.talkingNpc, "Warrior");
+			player.nextChat = 3589;
+			break;
+		case 3589:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "So a leprechaun knows where Zanaris is eh?");
+			player.nextChat = 3590;
+			break;
+		case 3590:
+			player.getDialogueHandler().sendNpcChat3("Ye- uh, no. No, not at all. And even if he did - which",
+					"he doesn't - he DEFINITELY ISN'T hiding in some", "tree around here. Nope, definitely not. Honestly.", player.talkingNpc, "Warrior");
+			player.nextChat = 3591;
+			break;
+		case 3591:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Thanks for the help!");
+			if (player.lostCity == 0)
+				player.lostCity = 1;
+			player.nextChat = 3592;
+			break;
+		case 3592:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DISTRESSED, "Help? What help? I didn't help! Please don't say I did, I'll get in trouble!");
+			player.nextChat = 3593;
+			break;
+		case 3593:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "So let me get this straight:");
+			player.nextChat = 3594;
+			break;
+		case 3594:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "I need to search the trees around here for a leprechaun...");
+			player.nextChat = 3711;
+			break;
+		case 3711:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "...And then when I find him...");
+			player.nextChat = 3712;
+			break;
+		case 3712:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "He will tell me where this 'Zanaris' is?");
+			player.nextChat = 3595;
+			break;
+		case 3595:
+			player.getDialogueHandler().sendNpcChat3("What? How did you know that? Uh... I mean,",
+					"no, no you're very wrong. Very wrong, and not right at all,", "and I definitely didn't tell you about that at all.", player.talkingNpc, "Warrior");
+			player.getDialogueHandler().endDialogue();
+			break;
+		case 3596:
+			player.getDialogueHandler().endDialogue();
+			break;
+		case 3597:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "What's Zanaris?");
+			player.nextChat = 3598;
+			break;
+		case 3598:
+			player.getDialogueHandler().sendNpcChat2("I don't think we want other people competing with",
+						" us to find it. Forget I said anything.", player.talkingNpc, "Warrior");
+			player.nextChat = 3596;
+			break;
+		case 3599:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "What makes you think it's out here?");
+			player.nextChat = 3700;
+			break;
+		case 3700:
+			player.getDialogueHandler().sendNpcChat2("Don't you know of the legends that tell of the magical city, hidden",
+					" in the swam... Uh, no, you're right, we're wasting our time here.", player.talkingNpc, "Warrior");
+			player.nextChat = 3583;
+			break;
+		case 3701:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Who's Zanaris?");
+			player.nextChat = 3582;
+			break;
+		case 3702:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "There's no such thing!");
+			player.nextChat = 3703;
+			break;
+		case 3703:
+			player.getDialogueHandler().sendNpcChat2("When we've found Zanaris you'll... GAH!",
+					"I mean, we're not here for any particular reason at all.", player.talkingNpc, "Warrior");
+			player.nextChat = 3581;
+			break;
+		case 3704:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Please tell me.");
+			player.nextChat = 3705;
+			break;
+		case 3705:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.ANGRY1, "No.");
+			player.nextChat = 3706;
+			break;
+		case 3706:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.MORE_SAD, "Please?");
+			player.nextChat = 3707;
+			break;
+		case 3707:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.ANGRY2, "No!");
+			player.nextChat = 3708;
+			break;
+		case 3708:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.MORE_SAD, "PLEEEEEEEEEEEEEEEEEEEEEEASE???");
+			player.nextChat = 3709;
+			break;
+		case 3709:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.ANGRY3, "NO!");
+			player.getDialogueHandler().endDialogue();
+			player.nextChat = 3596;
+			break;
+		case 3710:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "If it's hidden, how are you planning to find it?");
+			player.nextChat = 3584;
+			break;
+		case 3800:
+			player.getDialogueHandler().sendNpcChat2(" Of course we know! We just haven't figured out which",
+					"tree the stupid leprechaun's hiding in yet!", player.talkingNpc, "Warrior");
+			player.nextChat = 3587;
+			break;
+		case 3840:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Why are you guys standing here?");
+			if (player.talkingNpc == 649)
+			{
+				player.nextChat = 3842;
+			}
+			else if (player.talkingNpc == 651)
+			{
+				player.nextChat = 3841;
+			}
+			else
+			{
+				player.nextChat = 3846;
+			}
+			break;
+		case 3841:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.ANGRY1, "None of your business. Get lost.");
+			player.getDialogueHandler().endDialogue();
+			break;
+		case 3842:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.ANNOYED, "(ahem)... 'Guys'?.");
+			player.getDialogueHandler().endDialogue();
+			player.nextChat = 3843;
+			break;
+		case 3843:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Um... yeah, sorry about that.");
+			player.nextChat = 3844;
+			break;
+		case 3844:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Why are you all standing around out here?");
+			player.nextChat = 3845;
+			break;
+		case 3845:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT, "Well, that's really none of your business.");
+			player.getDialogueHandler().endDialogue();
+			break;
+		case 3846:
+			player.getDialogueHandler().sendNpcChat2("Hahaha, you dare talk to a mighty wizard such as myself?",
+						"I bet you can't even cast Air Strike yet, amateur!", player.talkingNpc, "Wizard");
+			player.nextChat = 3847;
+			break;
+		case 3847:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.ANNOYED, "...You're an idiot.");
+			player.getDialogueHandler().endDialogue();
+			break;
+		case 3848:
+			player.getDialogueHandler().sendNpcChat3("Ah, yer big elephant! Yer've caught me!",
+					"What would an elephant like yer", "be wanting wid ol' Shamus, then?", player.talkingNpc, "Shamus");
+
+			if (player.lostCity == 0)
+			{
+				player.nextChat = 3849;
+			}
+			else
+			{
+				player.nextChat = 3851;
+			}
+			break;
+		case 3849:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "I'm not sure.");
+			player.nextChat = 3850;
+			break;
+		case 3850:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.ANNOYED, "Well, you'll have to be catchin' me again when yer are, elephant!");
+			player.getDialogueHandler().endDialogue();
+			break;
+		case 3851:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "I want to find Zanaris.");
+			player.nextChat = 3852;
+			break;
+		case 3852:
+			player.getDialogueHandler().sendNpcChat2("Zanaris, is it now? Well, well, well... You'll be needing ",
+					"that funny little shed out there in the swamp, so you will.", player.talkingNpc, "Shamus");
+			player.nextChat = 3853;
+			break;
+		case 3853:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Shed? I thought Zanaris was a city.");
+			player.nextChat = 3854;
+			break;
+		case 3854:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT,
+						"Aye, that it is!");
+			player.nextChat = 3856;
+			break;
+		case 3855:
+			player.getDialogueHandler().sendOption("How does it fit in a shed, then?", "I've been in that shed and I didn't see a city.");
+			player.dialogueAction = 7558;
+			break;
+		case 3856:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "How does it fit in a shed, then?");
+			player.nextChat = 3857;
+			break;
+		case 3857:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "I've been in that shed and didn't see a city.");
+			player.nextChat = 3858;
+			break;
+		case 3858:
+			player.getDialogueHandler().sendNpcChat3("Oh, was I forgetting to say? Ya need to be",
+					"carrying a dramen staff to be getting there!"," Otherwise, yer'll just be ending up in the shed..", player.talkingNpc, "Shamus");
+			player.nextChat = 3859;
+			break;
+		case 3859:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Where could I get such a staff?");
+			player.nextChat = 3860;
+			break;
+		case 3860:
+			player.getDialogueHandler().sendNpcChat3("Dramen staves are crafted from branches of the dramen tree, so they are.",
+					"I hear there's a dramen tree in a cave over on the","island of Entrana...", player.talkingNpc, "Shamus");
+			player.nextChat = 3861;
+			if (player.lostCity != 3)
+				player.lostCity = 2;
+			break;
+		case 3861:
+			player.getDialogueHandler().sendNpcChat3("There would probably be a good place for an elephant",
+					"like yer to look, I reckon. The monks are" ,"running a ship from Port Sarim to Entrana, so I hear.", player.talkingNpc, "Shamus");
+			player.nextChat = 3862;
+			break;
+		case 3862:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT, "Did yer need a teleport over to Port Sarim?");
+			player.nextChat = 3863;
+			break;
+		case 3863:
+			player.getDialogueHandler().sendOption("Yes, please, a teleport would be useful.", "No thanks, I'll get there on my own.");
+			player.dialogueAction = 7559;
+			break;
+		case 3864:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Yes, please, a teleport would be useful.");
+			player.getPlayerAssistant().startTeleport(3023, 3208, 0, "modern");
+			break;
+		case 3865:
+			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No thanks, I'll get there on my own.");
+			player.nextChat = 3866;
+			break;
+		case 3866:
+			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT, "Fine, have it yer way. I'm off!");
+			player.getDialogueHandler().endDialogue();
+			break;
 		}
 	}
 
