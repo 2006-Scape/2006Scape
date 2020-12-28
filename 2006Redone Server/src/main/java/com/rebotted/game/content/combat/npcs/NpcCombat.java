@@ -664,6 +664,10 @@ public class NpcCombat {
 					c.playerLevel[3] -= damage;
 					c.getPlayerAssistant().refreshSkill(3);
 					FightCaves.tzKihEffect(c, i, damage);
+					if (damage > 0)
+					{
+						c.getPacketSender().sendSound(822 + Misc.random(2), 100, 0);
+					}
 					c.updateRequired = true;
 				}
 			}
