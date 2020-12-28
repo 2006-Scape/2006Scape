@@ -228,19 +228,13 @@ public class CombatSounds {
 	}
 
 	public static int getWeaponSounds(Player c) {
+		if (c.playerEquipment[c.playerWeapon] <= 0) {
+			return 417;
+			}
 		if (c.playerEquipment[c.playerWeapon] >= 1) {
 			String wep = getItemName(c.playerEquipment[c.playerWeapon])
 					.toLowerCase();
-			if (c.playerEquipment[c.playerWeapon] <= 0) {
-				switch (c.fightMode) {
-				case 0:
-					return 416;
-				case 2:
-					return 417;
-				case 1:
-					return 418;
-				}
-			}
+
 
 			if (c.playerEquipment[c.playerWeapon] == 4718) {// Dharok's
 															// Greataxe
