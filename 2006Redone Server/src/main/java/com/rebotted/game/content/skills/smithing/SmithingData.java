@@ -40,7 +40,7 @@ public enum SmithingData {
     IRON_SCIM(1323, 25, 20, 2),
     IRON_LONG(1293, 50, 21, 2),
     IRON_KNIFE(863, 25, 22, 1),
-    IRON_FULL(1153, 50, 22, 1),
+    IRON_FULL(1153, 50, 22, 2),
     IRON_SQ(1175, 50, 23, 2),
     IRON_HAMMER(1335, 38, 24, 3),
     IRON_BATTLEAXE(1363, 75, 25, 3),
