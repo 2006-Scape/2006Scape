@@ -91,7 +91,9 @@ public class Food {
 		FILED_RATION(7934, 9, "Field Ration", 0, "Food", false),
 		STEW(2003, 11, "Stew", 1923, "Food", false), 
 		CURRY(2011, 19, "Curry", 1923, "Drink", false),
-		BANDAGES(4049, 3, "Bandages", 0, "Food", false);
+		BANDAGES(4049, 3, "Bandages", 0, "Food", false),
+                TOMATO(1982, 2, "Tomato", 0, "Food", false),
+                CHEESE(1985, 2, "Cheese", 0, "Food", false);                
 
 		private int id;
 		private int heal;
