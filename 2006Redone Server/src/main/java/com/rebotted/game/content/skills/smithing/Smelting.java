@@ -124,7 +124,7 @@ public class Smelting extends SkillHandler {
 							c.getItemAssistant().deleteItem(c.playerSkillProp[13][4], c.playerSkillProp[13][5]);
 						}
 
-						if (c.playerSkillProp[13][3] == IRON && c.playerSkillProp[13][4] == -1) {
+						if (c.playerSkillProp[13][3] == IRON && c.playerSkillProp[13][4] == -1 && c.isSmelting) {
 							// Ring of forging
 							if (c.playerEquipment[c.playerRing] == 2568) {
 								c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
@@ -140,11 +140,11 @@ public class Smelting extends SkillHandler {
 									c.getPacketSender().sendMessage("You failed to smelt the iron bar.");
 								}
 							}
-						} else if (c.playerSkillProp[13][3] == GOLD && c.playerEquipment[c.playerHands] == 776) {
+						} else if (c.playerSkillProp[13][3] == GOLD && c.playerEquipment[c.playerHands] == 776 && c.isSmelting) {
 							c.getPacketSender().sendMessage("You receive a " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
 							c.getPlayerAssistant().addSkillXP(56.2,	c.playerSmithing);
 							c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
-						} else {
+						} else if (c.isSmelting){
 							c.getPacketSender().sendMessage("You receive a " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
 							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 							c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
