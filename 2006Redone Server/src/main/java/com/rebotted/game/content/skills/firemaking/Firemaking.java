@@ -77,6 +77,7 @@ public class Firemaking {
 				} else {
 					if (groundObject == false) {
 						c.getItemAssistant().deleteItem(logId, c.getItemAssistant().getItemSlot(logId), 1);
+						GameEngine.itemHandler.createGroundItem(c, logId, c.absX, c.absY, 1, c.playerId);
 					}
 				}
 				final boolean walk;
@@ -131,6 +132,9 @@ public class Firemaking {
 									}, 2);
 							container.stop();
 						} else {
+							c.isFiremaking = false;
+							stopFiremaking(c);
+							container.stop();
 							return;
 						}
 					}
