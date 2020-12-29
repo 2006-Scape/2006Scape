@@ -54,6 +54,8 @@ public class CombatSounds {
 				|| npc.contains("monk")) {
 			return 417;
 		}
+		if (npc.contains("guard"))
+			return 403;
 		return Misc.random(6) > 3 ? 398 : 394;
 	}
 
@@ -97,7 +99,7 @@ public class CombatSounds {
 		if (npc.contains("man") && !npc.contains("woman")) {
 			return 816;
 		}
-		if (npc.contains("monk")) {
+		if (npc.contains("monk") || npc.contains("guard") {
 			return 816;
 		}
 		if (!npc.contains("man") && npc.contains("woman")) {
