@@ -190,6 +190,10 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 		if (name.length() > 12) {
 			returnCode = 8;
 		}
+                
+                if (pass.length() == 0) {
+                        returnCode = 4;
+                }
 
 		Client cl = new Client(session, -1);
 		cl.playerName = name;
