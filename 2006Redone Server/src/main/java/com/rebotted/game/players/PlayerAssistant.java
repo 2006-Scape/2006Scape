@@ -1380,7 +1380,6 @@ public class PlayerAssistant {
 			o.cwKills += 1;
 		} else if (player.duelStatus <= 4) {
 			player.getDueling().stakedItems.clear();
-			player.getPacketSender().sendMessage("Oh dear you are dead!");
 		} else if (player.duelStatus != 6) {
 			Client duelOpponent = (Client) PlayerHandler.players[player.duelingWith];
 			player.getDueling().stakedItems.clear();
@@ -1519,6 +1518,8 @@ public class PlayerAssistant {
 			player.lostDuel = false;
 		}
 		PlayerSave.saveGame(player);
+		player.getPacketSender().sendMessage("Oh dear, you are dead!");
+		player.getPacketSender().sendQuickSong(75, 1);
 		player.getCombatAssistant().resetPlayerAttack();
 		resetAnimation();
 		player.startAnimation(65535);
