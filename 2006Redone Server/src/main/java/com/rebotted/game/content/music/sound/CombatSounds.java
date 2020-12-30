@@ -54,7 +54,7 @@ public class CombatSounds {
 			return 1155;
 		}
 		if (npc.contains("man") || npc.contains("woman")
-				|| npc.contains("monk") || npc.contains("thief)) {
+				|| npc.contains("monk") || npc.contains("thief")) {
 			return 417;
 		}
 		if (npc.contains("guard") || npc.contains("farmer"))
