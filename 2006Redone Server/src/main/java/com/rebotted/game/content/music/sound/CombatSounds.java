@@ -21,6 +21,9 @@ public class CombatSounds {
 		if (npc.contains("cow")) {
 			return 4;
 		}
+		if (npc.contains("chicken")){
+			return 26;
+		}
 		if (npc.contains("imp")) {
 			return 11;
 		}
@@ -51,10 +54,10 @@ public class CombatSounds {
 			return 1155;
 		}
 		if (npc.contains("man") || npc.contains("woman")
-				|| npc.contains("monk")) {
+				|| npc.contains("monk") || npc.contains("thief)) {
 			return 417;
 		}
-		if (npc.contains("guard"))
+		if (npc.contains("guard") || npc.contains("farmer"))
 			return 403;
 		return Misc.random(6) > 3 ? 398 : 394;
 	}
@@ -66,6 +69,9 @@ public class CombatSounds {
 		}
 		if (npc.contains("cow")) {
 			return 5;
+		}
+		if (npc.contains("chicken")){
+			return 24;
 		}
 		if (npc.contains("imp")) {
 			return 11;
@@ -99,7 +105,7 @@ public class CombatSounds {
 		if (npc.contains("man") && !npc.contains("woman")) {
 			return 816;
 		}
-		if (npc.contains("monk") || npc.contains("guard")) {
+		if (npc.contains("monk") || npc.contains("guard") || npc.contains("farmer") || npc.contains("thief") || npc.contains("druid")){
 			return 816;
 		}
 		if (!npc.contains("man") && npc.contains("woman")) {
@@ -115,6 +121,9 @@ public class CombatSounds {
 		}
 		if (npc.contains("cow")) {
 			return 3;
+		}
+		if (npc.contains("chicken")){
+			return 25;
 		}
 		if (npc.contains("imp")) {
 			return 9;
@@ -349,6 +358,33 @@ public class CombatSounds {
 			if (wep.contains("javelin")) {
 				return 364;
 			}
+			if (c.playerEquipment[c.playerWeapon] == 1205 //Daggers
+			    || c.playerEquipment[c.playerWeapon] == 1203
+			    || c.playerEquipment[c.playerWeapon] == 1207
+			    || c.playerEquipment[c.playerWeapon] == 1209
+			    || c.playerEquipment[c.playerWeapon] == 1211
+			    || c.playerEquipment[c.playerWeapon] == 1213) {
+				if (c.fightMode == 0)
+					return 403;
+				else
+					return 396;
+			}
+
+			if (c.playerEquipment[c.playerWeapon] == 1215) //Dragon Dagger
+				return 403;
+
+			if (c.playerEquipment[c.playerWeapon] == 1277 //Swords
+			|| c.playerEquipment[c.playerWeapon] == 1279
+			|| c.playerEquipment[c.playerWeapon] == 1281
+			|| c.playerEquipment[c.playerWeapon] == 1283
+			|| c.playerEquipment[c.playerWeapon] == 1285
+			|| c.playerEquipment[c.playerWeapon] == 1287
+			|| c.playerEquipment[c.playerWeapon] == 1289) {
+				if (c.fightMode == 0)
+					return 403;
+				else
+					return 396;
+			}
 
 			if (c.playerEquipment[c.playerWeapon] == 9110) {
 				return 401;
@@ -382,7 +418,7 @@ public class CombatSounds {
 		if (id == 4151) {// whip
 			return 1081;
 		} else if (id == 5698 || id == 1231 || id == 1215 || id == 5680) {// dds
-			return 793;
+			return 385;
 		} else if (id == 1434) {// Mace
 			return 387;
 		} else if (id == 3204) {// halberd
