@@ -318,7 +318,7 @@ public class MeleeData {
 			case 2:
 				return 423;
 			case 1:
-				return 451;
+				return 422;
 			}
 		}
 		if (weaponName.contains("knife") || weaponName.contains("dart")
@@ -405,6 +405,9 @@ public class MeleeData {
 		if (data != null)
 			return data.getBlockAnim();
 		switch (c.playerEquipment[c.playerWeapon]) {
+		case -1:
+		case 0:
+			return 424;
 		case 4755:
 			return 2063;
 
