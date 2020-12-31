@@ -1380,7 +1380,6 @@ public class PlayerAssistant {
 			o.cwKills += 1;
 		} else if (player.duelStatus <= 4) {
 			player.getDueling().stakedItems.clear();
-			player.getPacketSender().sendMessage("Oh dear you are dead!");
 		} else if (player.duelStatus != 6) {
 			Client duelOpponent = (Client) PlayerHandler.players[player.duelingWith];
 			player.getDueling().stakedItems.clear();
@@ -1519,6 +1518,8 @@ public class PlayerAssistant {
 			player.lostDuel = false;
 		}
 		PlayerSave.saveGame(player);
+		player.getPacketSender().sendMessage("Oh dear, you are dead!");
+		player.getPacketSender().sendQuickSong(75, 1);
 		player.getCombatAssistant().resetPlayerAttack();
 		resetAnimation();
 		player.startAnimation(65535);
@@ -1852,10 +1853,108 @@ public class PlayerAssistant {
 		player.getPacketSender().sendString("Congratulations, you've advanced a level in "+data.get().toString()+"!", data.get().getFrame2());
 		player.getPacketSender().sendString("Your " +data.get().toString()+ " level is now " + getLevelForXP(player.playerXP[skill]) + ".", data.get().getFrame3());
 		player.getPacketSender().sendChatInterface(data.get().getFrame1());
-		player.getPacketSender().sendQuickSong(69, 1);
 		player.gfx0(199);
 		player.dialogueAction = 0;
 		player.nextChat = 0;
+		String levelType= "";
+		levelType = data.get().toString();
+		switch(levelType)
+		{
+			case "Cooking":
+				if (getLevelForXP(player.playerXP[skill]) % 10 == 0) //Play a milestone cooking sound
+				{
+					player.getPacketSender().sendQuickSong(89, 1);
+				}
+				else if(getLevelForXP(player.playerXP[skill]) == 99)
+				{
+					player.getPacketSender().sendQuickSong(68, 1);
+				}
+				else {
+					player.getPacketSender().sendQuickSong(68, 1);
+				}
+				break;
+			case "Fishing":
+				player.getPacketSender().sendQuickSong(89, 1);
+				break;
+			case "Attack":
+				if (getLevelForXP(player.playerXP[skill]) % 10 == 0) //Play a milestone attack sound
+				{
+					player.getPacketSender().sendQuickSong(84, 1);
+				}
+				else if(getLevelForXP(player.playerXP[skill]) == 99)
+				{
+					player.getPacketSender().sendQuickSong(105, 1);
+				}
+				else {
+					player.getPacketSender().sendQuickSong(91, 1);
+				}
+				break;
+			case "Strength":
+				player.getPacketSender().sendQuickSong(107, 0);
+				break;
+			case "Defence":
+				player.getPacketSender().sendQuickSong(88, 0);
+				break;
+			case "Herblore":
+				player.getPacketSender().sendQuickSong(90, 1);
+				break;
+			case "Prayer":
+				player.getPacketSender().sendQuickSong(83, 1);
+				break;
+			case "Mining":
+				player.getPacketSender().sendQuickSong(99, 1);
+				break;
+			case "Magic":
+				if (getLevelForXP(player.playerXP[skill]) % 10 == 0) //Play a milestone magic sound
+				{
+					player.getPacketSender().sendQuickSong(86, 1);
+				}
+				else if(getLevelForXP(player.playerXP[skill]) == 99)
+				{
+					player.getPacketSender().sendQuickSong(102, 1);
+				}
+				else {
+					player.getPacketSender().sendQuickSong(87, 1);
+					}
+
+				break;
+			case "Ranged":
+				player.getPacketSender().sendQuickSong(74, 1);
+				break;
+			case "Woodcutting":
+				player.getPacketSender().sendQuickSong(92, 1);
+				break;
+			case "Fletching":
+				player.getPacketSender().sendQuickSong(77, 1);
+				break;
+			case "Firemaking":
+				player.getPacketSender().sendQuickSong(71, 1);
+				break;
+			case "Smithing":
+				player.getPacketSender().sendQuickSong(103, 1);
+				break;
+			case "Hitpoints":
+				player.getPacketSender().sendQuickSong(94, 1);
+				break;
+			case "Runecrafting":
+				player.getPacketSender().sendQuickSong(72, 1);
+				break;
+			case "Crafting":
+				player.getPacketSender().sendQuickSong(100, 1);
+				break;
+			case "Thieving":
+				player.getPacketSender().sendQuickSong(73, 1);
+				break;
+			case "Agility":
+				player.getPacketSender().sendQuickSong(95, 1);
+				break;
+			case "Farming":
+				player.getPacketSender().sendQuickSong(101, 1);
+				break;
+			case "Slayer":
+				player.getPacketSender().sendQuickSong(109, 1);
+				break;
+		}
 	}
 
 	public void refreshSkill(int skill) {

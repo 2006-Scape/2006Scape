@@ -595,6 +595,19 @@ public class Commands implements PacketType {
                 player.startAnimation(animationID);
                 player.getPlayerAssistant().requestUpdates();
                 break;
+            case "playnpc":    
+            case "pnpc":
+                int newNPC = Integer.parseInt(arguments[0]);
+                if (newNPC <= 10000 && newNPC >= 0) {
+                    player.npcId2 = newNPC;
+                    player.getPacketSender().sendMessage("Playing NPC#" + player.npcId2);
+                    player.isNpc = true;
+                    player.updateRequired = true;
+                    player.appearanceUpdateRequired = true;
+                } else {
+                    player.getPacketSender().sendMessage("You must specify an id: ::pnpc id");
+                }
+                break;    
             case "mypos":
                 player.getPacketSender().sendMessage("X: " + player.absX);
                 player.getPacketSender().sendMessage("Y: " + player.absY);
