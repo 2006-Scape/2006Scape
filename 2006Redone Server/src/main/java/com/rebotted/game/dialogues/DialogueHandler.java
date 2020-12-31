@@ -41,8 +41,6 @@ public class DialogueHandler {
 	}
 
 	public void sendDialogues(int dialogue, int npcId) {
-		int MOLE_SKIN = player.getItemAssistant().getItemAmount(7418), MOLE_CLAW = player.getItemAssistant().getItemAmount(7416);
-		Farmers.FarmersData farmersData = Farmers.FarmersData.forId(player.npcType);
 		player.talkingNpc = npcId;
 		switch (dialogue) {
 			case 0:
@@ -4967,6 +4965,16 @@ public class DialogueHandler {
 				player.canWalkTutorial = true;
 				player.nextChat = 0;
 				break;
+			default:
+				sendDialogues2(dialogue, npcId); // Used to prevent Java error where method is too long
+		}
+	}
+
+	public void sendDialogues2(int dialogue, int npcId) {
+		int MOLE_SKIN = player.getItemAssistant().getItemAmount(7418), MOLE_CLAW = player.getItemAssistant().getItemAmount(7416);
+		Farmers.FarmersData farmersData = Farmers.FarmersData.forId(player.npcType);
+		player.talkingNpc = npcId;
+		switch (dialogue) {
 			/*
 			 * RS guide section
 			 */
@@ -5024,7 +5032,7 @@ public class DialogueHandler {
 			case 3007: // Player controls
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						
+
 						"Please click on the flashing wrench icon found at the bottom",
 						"right of your screen. This will display your player controls.",
 						"", "", "Player controls");
@@ -5048,7 +5056,7 @@ public class DialogueHandler {
 				player.getPacketSender().chatbox(6180);
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						
+
 						"You can interact with many items of scenery by simply clicking",
 						"on them. Right clicking will also give more options. Feel free to",
 						"try it with the things in this room, then click on the door",
@@ -5063,7 +5071,7 @@ public class DialogueHandler {
 			case 3011: // door handling
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						
+
 						"Follow the path to find the next instructor. Clicking on the",
 						"ground will walk you to that point. Talk to the Survival Expert by",
 						"the pond to the continue the tutorial. Remember you can rotate",
@@ -5095,7 +5103,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(1351, 1);
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"Click on the flashing backpack icons to the right hand side of",
 						"the main window to view your inventory. Your inventory is a list",
 						"of everything you have on your backpack.", "",
@@ -5114,7 +5122,7 @@ public class DialogueHandler {
 			case 3015: // firemaking time
 				player.getPacketSender().closeAllWindows();
 				chatboxText(
-						
+
 						"Well done! You managed to cut some logs from the tree! Next,",
 						"use the tinderbox in your inventory to light the logs.",
 						"First click on the tinderbox to use it.",
@@ -5128,7 +5136,7 @@ public class DialogueHandler {
 			case 3016: // firemaking done skill tab flashing now.
 				// client.getPacketSender().closeAllWindows();
 				chatboxText(
-						
+
 						"Click on the flashing bar graph icon near the inventory button",
 						"to see your skill stats.", "", "",
 						"You gained some experience.");
@@ -5156,7 +5164,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(303, 1);
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"Click on the sparkling fishing spot indicated by the flashing",
 						"arrow. Remember, you can check your inventory by clicking the",
 						"backpack icon.", "", "Catch some Shrimp");
@@ -5168,7 +5176,7 @@ public class DialogueHandler {
 			case 3019: // Cooking the shrimp
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"Now you have caught some shrimp let's cook it. First light a",
 						"fire, chop down a tree and then use the tinderbox on the logs.",
 						"If you've lost your axe or tinderbox, Brynna will give you",
@@ -5185,7 +5193,7 @@ public class DialogueHandler {
 				// // 15 percent
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"Talk to the chef indicated. He will teach you the more advanced",
 						"aspects of Cooking such as combining ingredients. He will also",
 						"teach you about your music player menu as well.", "",
@@ -5223,7 +5231,7 @@ public class DialogueHandler {
 				break;
 
 			case 3025:
-				sendItemChat(1933, 150, 
+				sendItemChat(1933, 150,
 						"",
 						"The Cooking Guide gives you a @blu@bucket of water@bla@ and a",
 						"@blu@pot of flour!");
@@ -5231,7 +5239,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(1929, 1);
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"This is the base for many of the meals. To make dough we must",
 						"mix flour and water. First right click the bucket of water and",
 						"select use, then left click on the pot of flour.", "",
@@ -5243,7 +5251,7 @@ public class DialogueHandler {
 			case 3026: // cooking dough
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"Now you have made dough, you can cook it. To cook the dough",
 						"use it with the range shown by the arrow. If you lose your",
 						"dough, talk to Leo - he will give you more ingredients.",
@@ -5258,7 +5266,7 @@ public class DialogueHandler {
 			case 3037: // new tutorial prog
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"Well done! Your first loaf of bread. As you gain experience in",
 						"Cooking you will be able to make other things like pies, cakes",
 						"and even kebabs. Now you've got the hang of cooking, let's",
@@ -5277,7 +5285,7 @@ public class DialogueHandler {
 			case 3038: // Emotes
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"",
 						"Now, how about showing some feelings? You will see a flashing",
 						"icon in the shape of a person. Click on that to access your",
@@ -5308,7 +5316,7 @@ public class DialogueHandler {
 			case 3040:
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"In this menu you will see many options. At the bottom in the",
 						"middle is a button with the symbol of a running shoe. You can",
 						"turn this button on or off to select run or walk. Give it a go,",
@@ -5319,7 +5327,7 @@ public class DialogueHandler {
 			case 3041: // clicked on run
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"Now that you have the run button turned on, follow the path",
 						"until you come to the end. You may notice that the numbers on",
 						"the button goes down. This is your run energy. If your run",
@@ -5419,7 +5427,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"",
 						"It's time to enter some caves. Click on the ladder to go down to",
 						"the next area.", "", "Moving on");
@@ -5438,7 +5446,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"Next let's get you a weapon or more to the point, you can",
 						"make your first weapon yourself. Don't panic, the Mining",
 						"Instructor will help you. Talk to him and he'll tell you all about it.",
@@ -5475,7 +5483,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"To prospect a mineable rock, just right click it and select the",
 						"'prospect rock' option. This will tell you the type of ore you can",
 						"mine from it. Try it now on one of the rocks indicated.",
@@ -5517,7 +5525,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(1265, 1);
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"It's quite simple really. All you need to do is right click on the",
 						"rock and select 'mine'. You can only mine when you have a",
 						"pickaxe. So give a try: first mine one tin ore.", "",
@@ -5534,7 +5542,7 @@ public class DialogueHandler {
 				player.tutorialProgress = 19;
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"You should now have both some copper and tin ore. So let's",
 						"smelt them to make a bronze bar. To do this, right click on",
 						"either tin or copper ore and select use, then left click on the",
@@ -5615,7 +5623,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"",
 						"You now have access to a new interface. Click on the flashing",
 						"icon of a man the one to the right of your backpack icon.",
@@ -5643,7 +5651,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(1277, 1);
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"In your worn inventory panel, right click on the dagger and",
 						"select the remove option from the drop down list. After you've",
 						"unequipped the dagger, wield the sword and shield. As you",
@@ -5686,7 +5694,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(882, 50);
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"Now you have a bow and some arrows. Before you can use",
 						"them you'll need to equip them. Remember: to attack, right",
 						"click on the monster and select attack.", "",
@@ -5704,7 +5712,7 @@ public class DialogueHandler {
 			case 3078: // fresh
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"Follow the path and you will come to the front of the building.",
 						"This is the Bank of " + GameConstants.SERVER_NAME
 								+ ", where you can store all your",
@@ -5863,7 +5871,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"You should now see another new icon. Click on the flashing",
 						"icon to open your friends list.", "", "", "Friends list");
 				player.getPacketSender().chatbox(6179);
@@ -5929,7 +5937,7 @@ public class DialogueHandler {
 				sendPlayerChat("Okay thanks. I'll bear that in mind.");
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"You're almost finished on tutorial island. Pass through the",
 						"door to find the path leading to your final instructor.",
 						"", "", "Your final instructor!");
@@ -5962,7 +5970,7 @@ public class DialogueHandler {
 				player.getPacketSender().closeAllWindows();
 				player.getPacketSender().chatbox(6180);
 				chatboxText(
-						
+
 						"",
 						"Open up the Magic menu by clicking on the flashing icon next",
 						"to the Prayer button you just learned about.", "",
@@ -5990,7 +5998,7 @@ public class DialogueHandler {
 				player.getItemAssistant().addOrDropItem(556, 5);
 				player.nextChat = 0;
 				chatboxText(
-						
+
 						"Now you have runes you should see the Wind Strike icon at the",
 						"top left corner of the Magic interface - second in from the",
 						"left. Walk over to the caged chickens, click the Wind Strike icon",
@@ -6788,7 +6796,7 @@ public class DialogueHandler {
 					if (player.getItemAssistant().freeSlots() >= 4) {
 						sendNpcChat1("Here is your cannon, try not to lose it again.", player.talkingNpc, "Nulodion");
 						for (int i = 0; i < 4; i++) {
-						player.getItemAssistant().addItem(player.getCannon().ITEM_PARTS[i], 1);
+							player.getItemAssistant().addItem(player.getCannon().ITEM_PARTS[i], 1);
 						}
 						player.lostCannon = false;
 						player.nextChat = 0;
@@ -6879,7 +6887,7 @@ public class DialogueHandler {
 				QuestRewards.blackKnightReward(player);
 				player.nextChat = 0;
 				break;
-				
+
 			case 3530://1
 				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hey, I am one of the master farmers of this world but", "you can call me " + NpcHandler.getNpcListName(player.npcType) + ". So, what do you need from me?");
 				if (farmersData.getFieldProtected() == "tree")
@@ -6980,16 +6988,16 @@ public class DialogueHandler {
 				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "That's all, thanks");
 				player.getDialogueHandler().endDialogue();
 				break;
-				
+
 			//24 - 32:
 			//=700
 			case 3555:
-					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hello Fair Traveler.",
-							"Can I interest you in a ride back to Shantay",
-							"for 200 coins?");
-					player.getDialogueHandler().setNextDialogue(3556);
+				player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hello Fair Traveler.",
+						"Can I interest you in a ride back to Shantay",
+						"for 200 coins?");
+				player.getDialogueHandler().setNextDialogue(3556);
 				break;
-				
+
 			case 3556:
 				player.getDialogueHandler().sendOption("Yes please", "No thanks");
 				player.getDialogueHandler().setOptionId(700);
@@ -6998,7 +7006,7 @@ public class DialogueHandler {
 			case 3557:
 				CarpetTravel.carpetTravel(player, 3308, 3108);
 				break;
-				
+
 			case 3558:
 				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No thanks.");
 				player.getDialogueHandler().endDialogue();
@@ -7038,7 +7046,7 @@ public class DialogueHandler {
 				CarpetTravel.carpetTravel(player, 3309, 3109);
 				player.getDialogueHandler().endDialogue();
 				break;
-				
+
 			case 3565:
 				if (player.getItemAssistant().playerHasItem(995, 200)) {
 					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.DEFAULT, "Hello Fair Traveler.",
@@ -7073,36 +7081,35 @@ public class DialogueHandler {
 						"Can I interest you in a ride back to Pollnivneach",
 						"for 200 coins?");
 				player.getDialogueHandler().setNextDialogue(3571);
-			break;
-		case 3571:
-			player.getDialogueHandler().sendOption("Yes please", "No thanks");
-			player.getDialogueHandler().setOptionId(703);
-			break;
-		case 3572:
-			CarpetTravel.carpetTravel(player, 3347, 2944);
-			break;
-		case 3573:
-			player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No thanks.");
-			player.getDialogueHandler().endDialogue();
-			break;
-		case 3574:
-			player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT, "Hello there, would you like me to enchant a battlestaff", "for 40k coins for you?");
-			break;
-		case 3575:
-			player.getDialogueHandler().sendOption("Yes.", "No thanks.");
-			player.dialogueAction = 3575;
-			break;
-		case 3576:
-			player.getDialogueHandler().endDialogue();
-			player.getPacketSender().showInterface(205);
-			break;
-		case 3577:
-			player.getDialogueHandler().sendPlayerChat(ChatEmotes.HAPPY_JOYFUL, "No thanks.");
-			player.getDialogueHandler().endDialogue();
-			break;
+				break;
+			case 3571:
+				player.getDialogueHandler().sendOption("Yes please", "No thanks");
+				player.getDialogueHandler().setOptionId(703);
+				break;
+			case 3572:
+				CarpetTravel.carpetTravel(player, 3347, 2944);
+				break;
+			case 3573:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No thanks.");
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3574:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DEFAULT, "Hello there, would you like me to enchant a battlestaff", "for 40k coins for you?");
+				break;
+			case 3575:
+				player.getDialogueHandler().sendOption("Yes.", "No thanks.");
+				player.dialogueAction = 3575;
+				break;
+			case 3576:
+				player.getDialogueHandler().endDialogue();
+				player.getPacketSender().showInterface(205);
+				break;
+			case 3577:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.HAPPY_JOYFUL, "No thanks.");
+				player.getDialogueHandler().endDialogue();
+				break;
 		}
 	}
-
 	public void chatboxText(String text, String text1, String text2,
 			String text3, String title) {
 		player.getPacketSender().sendString(title, 6180);
