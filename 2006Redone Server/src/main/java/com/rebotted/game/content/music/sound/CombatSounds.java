@@ -57,6 +57,10 @@ public class CombatSounds {
 				|| npc.contains("monk") || npc.contains("thief")) {
 			return 417;
 		}
+		if (npc.contains("wizard"))
+		{
+			return 1002;
+		}
 		if (npc.contains("guard") || npc.contains("farmer"))
 			return 403;
 		return Misc.random(6) > 3 ? 398 : 394;
@@ -105,7 +109,7 @@ public class CombatSounds {
 		if (npc.contains("man") && !npc.contains("woman")) {
 			return 816;
 		}
-		if (npc.contains("monk") || npc.contains("guard") || npc.contains("farmer") || npc.contains("thief") || npc.contains("druid")){
+		if (npc.contains("monk") || npc.contains("guard") || npc.contains("farmer") || npc.contains("thief") || npc.contains("druid") || npc.contains("wizard")){
 			return 816;
 		}
 		if (!npc.contains("man") && npc.contains("woman")) {
