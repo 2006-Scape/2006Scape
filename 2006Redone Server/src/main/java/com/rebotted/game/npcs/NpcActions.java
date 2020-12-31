@@ -380,6 +380,10 @@ public class NpcActions {
 		case 598:
 			player.getDialogueHandler().sendDialogues(1300, npcType);
 			break;
+				
+		case 216:
+			player.getDialogueHandler().sendDialogues(3867, npcType);
+			break;		
 
 		case 70:
 		case 1596:
