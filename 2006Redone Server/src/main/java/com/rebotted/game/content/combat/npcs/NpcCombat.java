@@ -273,10 +273,15 @@ public class NpcCombat {
 		case 2607:
 			NpcHandler.npcs[i].attackType = 1;
 		case 2591:
+			NpcHandler.npcs[i].attackType = 2;
+			break;	
 		case 172:
 		case 174:
+			NpcHandler.npcs[i].gfx100(96); // Dark Wizards use earth strike
+			NpcHandler.npcs[i].projectileId = 97; 
+			NpcHandler.npcs[i].endGfx = 98;
 			NpcHandler.npcs[i].attackType = 2;
-		break;
+			break;
 		case 3068:
 		if(Misc.random(10) > 7) {
 			NpcHandler.npcs[i].projectileId = 393; //red
