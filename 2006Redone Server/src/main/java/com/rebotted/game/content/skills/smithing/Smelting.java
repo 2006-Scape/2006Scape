@@ -127,14 +127,14 @@ public class Smelting extends SkillHandler {
 						if (c.playerSkillProp[13][3] == IRON && c.playerSkillProp[13][4] == -1 && c.isSmelting) {
 							// Ring of forging
 							if (c.playerEquipment[c.playerRing] == 2568) {
-								c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 								c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
+								c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 								c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
 
 							} else {
 								if (Misc.random(100) >= 50) {
-									c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 									c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
+									c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 									c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
 								} else {
 									c.getPacketSender().sendMessage("You failed to smelt the iron bar.");
@@ -142,12 +142,12 @@ public class Smelting extends SkillHandler {
 							}
 						} else if (c.playerSkillProp[13][3] == GOLD && c.playerEquipment[c.playerHands] == 776 && c.isSmelting) {
 							c.getPacketSender().sendMessage("You receive a " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
-							c.getPlayerAssistant().addSkillXP(56.2,	c.playerSmithing);
 							c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
+							c.getPlayerAssistant().addSkillXP(56.2,	c.playerSmithing);
 						} else if (c.isSmelting){
 							c.getPacketSender().sendMessage("You receive a " + ItemAssistant.getItemName(c.playerSkillProp[13][6]).toLowerCase() + ".");
-							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 							c.getItemAssistant().addItem(c.playerSkillProp[13][6], 1);// item
+							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[13][2], c.playerSmithing);
 						}
 
 						////////////////////// CHECKING //////////////////////
