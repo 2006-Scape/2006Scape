@@ -17,20 +17,19 @@ public class Mining {
 	private static final int[] GLORIES = {1706, 1708, 1710, 1712};
 	
 	public boolean giveGem(Player player) {
+		int chance = 256;
 		for (int i = 0; i < GLORIES.length; i++) {
-			if ((player.playerEquipment[player.playerAmulet] == GLORIES[i] && Misc.random(86) == 1) || Misc.random(256) == 1) {
-				return true;
+			if (player.playerEquipment[player.playerAmulet] == GLORIES[i]) {
+				chance = 86;
 			}
 		}
-		return false;
+		return Misc.random(chance) == 1;
 	}
-	
+
 	public void obtainGem(Player player) {
 		int reward = RANDOM_GEMS[(int)(RANDOM_GEMS.length * Math.random())];
-		if (giveGem(player)) {
-			player.getItemAssistant().addItem(reward, 1);
-			player.getPacketSender().sendMessage("You found an " + ItemAssistant.getItemName(reward) + ".");
-		}
+		player.getItemAssistant().addItem(reward, 1);
+		player.getPacketSender().sendMessage("You found an " + ItemAssistant.getItemName(reward) + ".");
 	}
 	
 	public final int[][] Pick_Settings = {
