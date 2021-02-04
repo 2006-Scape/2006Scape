@@ -63,8 +63,8 @@ public class SkillHandler {
 			player.isSmithing = false;
 		} else if (isSkilling[12]) {// crafting
 			isSkilling[12] = false;
-		} else if (player.isSmelting) {
-			player.isSmelting = false;
+		} else if (player.isSmelting || player.playerSkilling[13]) {// smelting
+			Smelting.resetSmelting(player);
 		} else if (player.isCrafting) {
 			player.isCrafting = false;
 		} else if (player.isPotionMaking) {// herblore
@@ -77,8 +77,6 @@ public class SkillHandler {
 			player.isPotCrafting = false;
 		} else if (player.playerIsCooking) {// cooking
 			Cooking.setCooking(player, false);
-		} else if (player.playerSkilling[13]) {// smelting
-			Smelting.resetSmelting(player);
 		}
 	}
 
@@ -96,8 +94,8 @@ public class SkillHandler {
 			player.isSmithing = false;
 		} else if (isSkilling[12]) {// crafting
 			isSkilling[12] = false;
-		} else if (player.isSmelting) {
-			player.isSmelting = false;
+		} else if (player.isSmelting || player.playerSkilling[13]) {// smelting
+			Smelting.resetSmelting(player);
 		} else if (player.isCrafting) {
 			player.isCrafting = false;
 		} else if (player.isPotionMaking) {// herblore
