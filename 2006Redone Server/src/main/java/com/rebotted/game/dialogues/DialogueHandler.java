@@ -40,7 +40,7 @@ public class DialogueHandler {
 		player.nextChat = id;
 	}
 
-	public void (int dialogue, int npcId) {
+	public void sendDialogues(int dialogue, int npcId) {
 		player.talkingNpc = npcId;
 		switch (dialogue) {
 			case 0:
