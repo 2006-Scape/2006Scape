@@ -38,6 +38,20 @@ public class NpcActions {
 			}
 		}
 		switch (npcType) {
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:	//1-3 Man, 4-6 Woman - We are playing random dialogues here
+			if (Misc.random(10) <= 5)
+			{
+				player.getDialogueHandler().sendDialogues(3869, npcType);
+			}
+			else {
+				player.getDialogueHandler().sendDialogues(3872, npcType);
+			}
+			break;
 		case 389 : //thormac
 			player.getDialogueHandler().sendDialogues(3574, npcType);
 			break;
