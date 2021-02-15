@@ -7400,6 +7400,28 @@ public class DialogueHandler {
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Enjoy your stay here. May it be spiritually uplifting!");
 				player.getDialogueHandler().endDialogue();
 				break;	
+			case 3869:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Hello, how's it going?");
+				player.nextChat = 3870;
+				break;
+			case 3870:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "I'm fine how are you?");
+				player.nextChat = 3871;
+				break;
+			case 3871:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Very well thank you.");
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 3872:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Hello, how's it going?");
+				player.nextChat = 3873;
+				break;
+			case 3873:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Hello there! Nice weather we've been having.");
+				player.getDialogueHandler().endDialogue();
+				break;
+				
+				
 		}
 	}
 	public void chatboxText(String text, String text1, String text2,
