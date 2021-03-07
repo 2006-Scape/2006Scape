@@ -1,4 +1,4 @@
-# 2006rebotted - an open source, actively developed emulation server. Pull requests welcome! ![Gameplay Image](https://i.imgur.com/WHnQz2W.png)
+# 2006Scape - an open source, actively developed emulation server. Pull requests welcome! ![Gameplay Image](https://i.imgur.com/WHnQz2W.png)
 
 ## Discord Link: https://discord.gg/hZ6VfWG
 
@@ -14,11 +14,11 @@
 
 2. Hit File > Project Settings > Set SDK to Java 8 (Download [Java 8 SDK](https://adoptopenjdk.net/?variant=openjdk8) if you don't have one already)
 
-2. Navigate to `2006Redone file_server` > `src` > `main` > `java` > `org.apollo.jagcached`, right click FileServer and hit Run [Image](https://i.imgur.com/tsg9q1Z.png)
+2. Navigate to `2006Scape file_server` > `src` > `main` > `java` > `org.apollo.jagcached`, right click FileServer and hit Run [Image](https://i.imgur.com/tsg9q1Z.png)
 
-3. Navigate to `2006Redone Server` > `src` > `main` > `java` > `com.rebotted`, right click GameEngine and hit Run [Image](https://i.imgur.com/HHooeVu.png)
+3. Navigate to `2006Scape Server` > `src` > `main` > `java` > `com.rebotted`, right click GameEngine and hit Run [Image](https://i.imgur.com/HHooeVu.png)
 
-4. Navigate to `2006Redone Server` > `src` > `main` > `java`, right click Client and hit Run [Image](https://i.imgur.com/gSmqGLn.png)
+4. Navigate to `2006Scape Server` > `src` > `main` > `java`, right click Client and hit Run [Image](https://i.imgur.com/gSmqGLn.png)
 
 *Advanced*
 
