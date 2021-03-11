@@ -4,7 +4,7 @@
 
 ## How to Play
 
-### Client (non-bottable download): https://github.com/dginovker/2006rebotted/releases/
+### Client (non-bottable download): https://github.com/2006-Scape/2006Scape/releases/
 ### Parabot client (recommended): https://www.parabot.org/community/
 ### Rune-Server project thread: [Project thread](https://www.rune-server.ee/runescape-development/rs2-server/projects/686444-2006rebotted-remake-server-will-allow-supply-creatable-bots.html)
 
@@ -16,7 +16,7 @@
 
 2. Navigate to `2006Scape file_server` > `src` > `main` > `java` > `org.apollo.jagcached`, right click FileServer and hit Run [Image](https://i.imgur.com/tsg9q1Z.png)
 
-3. Navigate to `2006Scape Server` > `src` > `main` > `java` > `com.rebotted`, right click GameEngine and hit Run [Image](https://i.imgur.com/HHooeVu.png)
+3. Navigate to `2006Scape Server` > `src` > `main` > `java` > `com.rs2`, right click GameEngine and hit Run [Image](https://i.imgur.com/HHooeVu.png)
 
 4. Navigate to `2006Scape Server` > `src` > `main` > `java`, right click Client and hit Run [Image](https://i.imgur.com/gSmqGLn.png)
 
@@ -24,12 +24,8 @@
 
 To compile any module from the command line, run `mvn clean install`
 
-## How to get your code onto this project page
-
-See this [forum post](https://rsrebotted.com/forums/viewthread.php?forum=5&id=78).
-
 ## Using Parabot with your local server:
-- **1:** Download the latest `localhost_2006rebotted.jar` from [here](https://github.com/dginovker/2006rebotted/releases) (or, if testing server changes, compile it yourself like [this](https://i.imgur.com/uDrF0gl.png))
+- **1:** Download the latest `localhost_2006Scape.jar` from [here](https://github.com/2006-Scape/2006Scape/releases) (or, if testing server changes, compile it yourself like [this](https://i.imgur.com/uDrF0gl.png))
 - **2:** Download the latest `Provider-version.jar` file from [here](http://v3.bdn.parabot.org/api/bot/download/default-provider?nightly=false)
 - **3:** Create a file called `localhost.json` in `{user}\Documents\Parabot\servers`
 - **4:** Put the following in the file
@@ -41,7 +37,7 @@ See this [forum post](https://rsrebotted.com/forums/viewthread.php?forum=5&id=78
     "client-class": "LocalGame",
     "locations":{
         "provider": "pathToYourJar/Provider-1.21.5.jar",
-        "server": "pathToYourJar/localhost_2006rebotted.jar",
+        "server": "pathToYourJar/localhost_2006Scape.jar",
         "hooks": "http://bdn.parabot.org/data/hooks/carmeuses/2006rebotted_hooks.xml"
     }
 }
@@ -56,10 +52,10 @@ java -jar Client-2.8.1.jar -login username password -loadlocal -v -clearcache
 
 ### Server source layout
 
-- `2006Redone Server` contains all the server code; mark `src` as the Sources directory
-- `2006Redone Client` contains all the client code; likewise mark `src`
+- `2006Scape Server` contains all the server code; mark `src` as the Sources directory
+- `2006Scape Client` contains all the client code; likewise mark `src`
   - If more than 2 arguments are passed in (can be anything), the client runs locally
-- `2006Redone file_server` contains the file server code that is *required* to be running before a client can connect to a server. It must be running locally before a client can connect. `src` is the Sources directory
+- `2006Scape file_server` contains the file server code that is *required* to be running before a client can connect to a server. It must be running locally before a client can connect. `src` is the Sources directory
 
 ## Building from command line
 

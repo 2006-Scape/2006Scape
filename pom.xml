@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.rebotted</groupId>
-    <artifactId>2006redone</artifactId>
+    <groupId>com.rs2</groupId>
+    <artifactId>2006Scape</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
 
     <modules>
-        <module>2006Redone Client</module>
-        <module>2006Redone file_server</module>
-        <module>2006Redone Server</module>
+        <module>2006Scape Client</module>
+        <module>2006Scape file_server</module>
+        <module>2006Scape Server</module>
     </modules>
 
 </project>
