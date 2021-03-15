@@ -233,7 +233,9 @@ public class GameEngine {
 					pestControl.process();
 					CycleEventHandler.getSingleton().process();
 					PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
+					if(GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION) {
 					RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
+					}
 					DiscordActivity.updateActivity();
 					if (System.currentTimeMillis() - lastMassSave > 300000) {
 						for (Player p : PlayerHandler.players) {
