@@ -525,7 +525,22 @@ public class NpcHandler {
                         npcs[i].forceChat("Quack!");
                     }
                 }
-
+		    if (npcs[i].npcType == 1685)
+		    {
+			    if (Misc.random(25) == 7) {
+				    int rand = Misc.random(25);
+				    if (rand <= 5)
+					    npcs[i].forceChat("Down with Necrovarus!!");
+				    else if (rand <= 10)
+					    npcs[i].forceChat("United we conquer - divided we fall!!");
+				    else if (rand <= 15)
+					    npcs[i].forceChat("We shall overcome!!");
+				    else if (rand <= 20)
+					    npcs[i].forceChat("Let Necrovarus know we want out!!");
+				    else
+					    npcs[i].forceChat("Don't stay silent - victory in numbers!!");
+			    }
+		    }    
                 if (npcs[i].spawnedBy > 0) {
                     if (PlayerHandler.players[npcs[i].spawnedBy] == null
                             || PlayerHandler.players[npcs[i].spawnedBy].heightLevel != npcs[i].heightLevel

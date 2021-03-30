@@ -23852,5 +23852,175 @@
     "id": 309,
     "walk": 0,
     "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3703,
+    "y": 3487,
+    "id": 1705,
+    "walk": 0,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3689,
+    "y": 3494,
+    "id": 1688,
+    "walk": 0,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3674,
+    "y": 3492,
+    "id": 1694,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3692,
+    "y": 3497,
+    "id": 1703,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3690,
+    "y": 3504,
+    "id": 1703,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3690,
+    "y": 3509,
+    "id": 1703,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3687,
+    "y": 3464,
+    "id": 1702,
+    "walk": 0,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3681,
+    "y": 3494,
+    "id": 1700,
+    "walk": 0,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3661,
+    "y": 3500,
+    "id": 1685,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3662,
+    "y": 3498,
+    "id": 1697,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3666,
+    "y": 3473,
+    "id": 1697,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3659,
+    "y": 3494,
+    "id": 1697,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3677,
+    "y": 3496,
+    "id": 3155,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3659,
+    "y": 3518,
+    "id": 1686,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3661,
+    "y": 3519,
+    "id": 1686,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3661,
+    "y": 3508,
+    "id": 1706,
+    "walk": 0,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3658,
+    "y": 3508,
+    "id": 1706,
+    "walk": 0,
+    "height": 0
   }
 ]
