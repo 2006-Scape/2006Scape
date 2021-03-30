@@ -693,6 +693,76 @@ public class ObjectsActions {
                         "You leave the icy cavern.");
                 player.getPlayerAssistant().movePlayer(3056, 9562, 0);
                 break;
+			
+            case 5259:
+                if (player.absY == 3507)
+                {
+                    player.getPacketSender().sendMessage(
+                            "You pass through the energy barrier.");
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY + 2, 0);
+                }
+                else if (player.absY == 3509)
+                {
+
+                    player.getPacketSender().sendMessage(
+                            "You pass through the energy barrier.");
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
+                }
+		break;
+			
+            case 5262:
+                if (player.heightLevel == 0)
+                {
+                    player.getPlayerAssistant().movePlayer(3687, 9888, 1);
+                }
+                else if (player.heightLevel == 1)
+                {
+                    player.getPlayerAssistant().movePlayer(3671, 9887, 2);
+                }
+                else
+                    {
+                        player.getPlayerAssistant().movePlayer(3692, 9887, 3);
+                    }
+
+                break;
+            case 5263:
+                if (player.heightLevel == 3)
+                {
+                    player.getPlayerAssistant().movePlayer(3688, 9887, 2);
+                }
+                else if (player.heightLevel == 2)
+                    {
+                        player.getPlayerAssistant().movePlayer(3675, 9888, 1);
+                    }
+                else
+                    {
+                        player.getPlayerAssistant().movePlayer(3683, 9888, 0);
+                    }
+
+                break;
+            case 5264:
+                player.getPlayerAssistant().movePlayer(3654, 3519, 0);
+                break;
+            case 5267:
+                player.getPlayerAssistant().movePlayer(3669, 9888, 3);
+                break;
+            case 5280:
+                player.getPlayerAssistant().movePlayer(3666, 3522, 1);
+                break;
+            case 5281:
+                player.getPlayerAssistant().movePlayer(3666, 3517, 0);
+                break;
+            case 5282: // Ectofuntus Worship
+                if (player.getItemAssistant().playerHasItem(4286) && player.getItemAssistant().playerHasItem(4255));
+                {
+                    player.startAnimation(1651);
+                    player.getPacketSender().sendMessage("You put some ectoplasm and bonemeal into the Ectofuntus, and worship it.");
+                    player.getPlayerAssistant().addSkillXP(18, player.playerPrayer);
+                    player.getItemAssistant().deleteItem(4286, 1);
+                    player.getItemAssistant().deleteItem(4255, 1);
+                }
+
+                break;	
 
             case 12982:
                 if (player.absY == 3278) {
