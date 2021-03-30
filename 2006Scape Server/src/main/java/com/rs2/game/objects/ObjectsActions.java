@@ -753,16 +753,21 @@ public class ObjectsActions {
                 player.getPlayerAssistant().movePlayer(3666, 3517, 0);
                 break;
             case 5282: // Ectofuntus Worship
-                if (player.getItemAssistant().playerHasItem(4286) && player.getItemAssistant().playerHasItem(4255));
-                {
+                if (player.getItemAssistant().playerHasItem(4286) && player.getItemAssistant().playerHasItem(4255))
+                    {
                     player.startAnimation(1651);
                     player.getPacketSender().sendMessage("You put some ectoplasm and bonemeal into the Ectofuntus, and worship it.");
-                    player.getPlayerAssistant().addSkillXP(18, player.playerPrayer);
                     player.getItemAssistant().deleteItem(4286, 1);
                     player.getItemAssistant().deleteItem(4255, 1);
-                }
-
-                break;	
+                    player.getItemAssistant().addItem(1925, 1);
+                    player.getItemAssistant().addItem(1931, 1);
+                    player.getPlayerAssistant().addSkillXP(18, player.playerPrayer);
+                 }
+                else
+                    {
+                        player.getPacketSender().sendMessage("You'll need ectoplasm and bonemeal to worship the Ectofuntus.");
+                    }
+                break;
 
             case 12982:
                 if (player.absY == 3278) {
