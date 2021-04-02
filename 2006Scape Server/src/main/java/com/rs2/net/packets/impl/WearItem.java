@@ -1,9 +1,11 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.GameConstants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
+import com.rs2.util.Misc;
 
 /**
  * Wear Item
@@ -51,6 +53,25 @@ public class WearItem implements PacketType {
 		}
 		if (player.wearSlot == player.playerHat) {
 			player.getPacketSender().setConfig(491, 0);
+		}
+
+		if(player.wearId == 6583 || player.wearId == 7927) {
+			for (int i = 0; i < GameConstants.SIDEBARS.length; i++) {
+				player.getPacketSender().setSidebarInterface(i, 6014);
+			}
+			switch(player.wearId) {
+				case 6583:
+					player.getPacketSender().sendMessage("As you put on the ring you turn into an rock!");
+					player.npcId2 = 2626;
+					break;
+				case 7927:
+					player.getPacketSender().sendMessage("As you put on the ring you turn into an egg!");
+					player.npcId2 = 3689 + Misc.random(5);
+					break;
+			}
+			player.isNpc = true;
+			player.updateRequired = true;
+			player.setAppearanceUpdateRequired(true);
 		}
 
 		player.getPlayerAssistant().handleTiara();

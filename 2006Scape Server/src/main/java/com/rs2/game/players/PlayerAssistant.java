@@ -2259,6 +2259,20 @@ public class PlayerAssistant {
 		return player.getItemAssistant().getBankQuantity(996) + player.getItemAssistant().getItemAmount(995);
 	}
 
+	public void unMorphPlayer() {
+		sendSidebars();
+		player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]));
+		if (player.playerEquipment[player.playerRing] == 6583 || player.playerEquipment[player.playerRing] == 7927) {
+			int ring = player.playerEquipment[player.playerRing];
+			player.getItemAssistant().deleteEquipment(ring, player.playerRing);
+			player.getItemAssistant().addItem(ring, 1);
+		}
+		player.wearId = 0;
+		player.isNpc = false;
+		player.updateRequired = true;
+		player.appearanceUpdateRequired = true;
+	}
+
 	/**
 	 * anchors the camera to a specific view (for cutscenes)
 	 * @param x  The X Coordinate (Within the player's loaded area)

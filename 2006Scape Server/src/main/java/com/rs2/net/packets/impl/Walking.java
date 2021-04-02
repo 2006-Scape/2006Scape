@@ -163,6 +163,11 @@ public class Walking implements PacketType {
 			return;
 		}
 
+		if (player.wearId == 6583 || player.wearId == 7927) {
+			player.getPlayerAssistant().unMorphPlayer();
+			player.getPacketSender().sendMessage("You Can't Move While Being Morphed");
+		}
+
 		player.endCurrentTask();
 
 		if (packetType == 248) {

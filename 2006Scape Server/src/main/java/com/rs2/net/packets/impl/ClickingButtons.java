@@ -80,7 +80,9 @@ public class ClickingButtons implements PacketType {
 			player.assignAutocast(actionButtonId);
 		}
 		switch (actionButtonId) {
-		
+			case 23132:
+				player.getPlayerAssistant().unMorphPlayer();
+			break;
 
 		case 55096:
 			player.getPacketSender().closeAllWindows();
