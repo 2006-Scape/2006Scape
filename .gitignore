@@ -5,3 +5,4 @@
 **/.idea/*
 */*.jar
 *.iml
+.DS_Store
