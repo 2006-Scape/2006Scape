@@ -7420,8 +7420,102 @@ public class DialogueHandler {
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Hello there! Nice weather we've been having.");
 				player.getDialogueHandler().endDialogue();
 				break;
-				
-				
+				//holiday events (easter)
+			case 6000:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DISTRESSED, "Oh dear... What am I going to do?");
+				player.nextChat = 6001;
+				break;
+			case 6001:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "What's wrong?");
+				player.nextChat = 6002;
+				break;
+			case 6002:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.ALMOST_CRYING, "It's terrible! What a disaster...");
+				player.nextChat = 6003;
+				break;
+			case 6003:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Is there any way I can help?");
+				player.nextChat = 6004;
+				break;
+			case 6004:
+				player.getDialogueHandler().sendStatement("The Easter Bunny is completely ignoring you.");
+				player.nextChat = 6005;
+				break;
+			case 6005:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DISTRESSED, "Well maybe if I... No, that wouldn't work.");
+				player.nextChat = 6006;
+				break;
+			case 6006:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.ANNOYED, "Hey! Just tell me what's wrong.");
+				player.nextChat = 6007;
+				break;
+			case 6007:
+				player.getDialogueHandler().sendNpcChat3("Oh, hi there. You see, I was counting my eggs when", "suddenly,I dropped one! Then as I reached down to get it", "I dropped another one!", player.talkingNpc, "Eater Bunny");
+				player.nextChat = 6008;
+				break;
+			case 6008:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.NEARLY_CRYING, "At this point I've dropped nearly all my easter eggs!");
+				player.nextChat = 6009;
+				break;
+			case 6009:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "I'll help you find your eggs.");
+				player.nextChat = 6010;
+				break;
+			case 6010:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "You would do that? Oh, thank you!");
+				player.nextChat = 6011;
+				break;
+			case 6011:
+				player.getDialogueHandler().sendNpcChat2("Some of them have fallen in holes and in small areas.","I would suggest you use something to scoop them up.", player.talkingNpc, "Easter Bunny");
+				player.nextChat = 6012;
+				break;
+			case 6012:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "You mean... Like a spade?");
+				player.nextChat = 6013;
+				break;
+			case 6013:
+				player.getDialogueHandler().sendNpcChat2("Yes! That should do the job! Come back when you find", "at least 3 easter eggs.", player.talkingNpc, "Easter Bunny");
+				player.easterEvent++;
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 6014:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Have you found the easter eggs yet?");
+				player.nextChat = 6015;
+				break;
+			case 6015:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "No, not yet.");
+				player.nextChat = 6016;
+				break;
+			case 6016:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Hurry! We need to deliver those eggs!");
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 6017:
+				player.getDialogueHandler().sendPlayerChat(ChatEmotes.HAPPY_JOYFUL, "I have your easter eggs!");
+				player.nextChat = 6018;
+				break;
+			case 6018:
+				player.getDialogueHandler().sendStatement("You hand the Easter Bunny the easter eggs.");
+				player.nextChat = 6019;
+				break;
+			case 6019:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Oh, thank you!! Thank you!!");
+				player.nextChat = 6020;
+				break;
+			case 6020:
+				player.getDialogueHandler().sendStatement("The Easter Bunny hands you an Easter Ring.");
+				player.nextChat = 6021;
+				break;
+			case 6021:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "You've saved the spirit of easter!");
+				player.getInventory().add(7927);
+				player.easterEvent++;
+				player.getDialogueHandler().endDialogue();
+				break;
+			case 6022:
+				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Thank you again traveller. Happy Easter!");
+				player.getDialogueHandler().endDialogue();
+				break;
 		}
 	}
 	public void chatboxText(String text, String text1, String text2,

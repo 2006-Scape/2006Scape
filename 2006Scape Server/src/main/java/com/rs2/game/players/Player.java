@@ -1389,7 +1389,7 @@ public abstract class Player {
 			deletePinDate = -1, firstPin, secondPin, thirdPin, fourthPin,
 			bankPin1, bankPin2, bankPin3, bankPin4, pinDeleteDateRequested,
 			rememberNpcIndex, ratsCaught, lastLoginDate, selectedSkill, newHerb,
-			newItem, newXp, doingHerb, herbAmount, treeX, treeY, lastH,
+			newItem, newXp, doingHerb, herbAmount, treeX, treeY, lastH, easterEvent, ectoTokens,
 			cookingItem, smeltingItem, cookingObject, summonId, npcId2 = 0, leatherType = -1,
 			weightCarried, teleotherType, rockX, rockY, itemUsing, tzKekTimer,
 			bananas, flourAmount, grain, questPoints, questStages,

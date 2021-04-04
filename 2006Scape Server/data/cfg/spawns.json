@@ -24022,5 +24022,65 @@
     "id": 1706,
     "walk": 0,
     "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2981,
+    "y": 3286,
+    "id": 1835,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2978,
+    "y": 3282,
+    "id": 1320,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2982,
+    "y": 3282,
+    "id": 1320,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2978,
+    "y": 3277,
+    "id": 1320,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2987,
+    "y": 3280,
+    "id": 1320,
+    "walk": 1,
+    "height": 0
+  },
+    {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2984,
+    "y": 3277,
+    "id": 1320,
+    "walk": 1,
+    "height": 0
   }
 ]
