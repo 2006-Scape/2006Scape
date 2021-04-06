@@ -9,12 +9,11 @@ import java.util.Map;
 import java.util.Queue;
 
 import com.everythingrs.hiscores.Hiscores;
+import com.rs2.event.*;
+import com.rs2.plugin.PluginService;
 import org.apache.mina.common.IoSession;
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
-import com.rs2.event.CycleEvent;
-import com.rs2.event.CycleEventContainer;
-import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.BankPin;
 import com.rs2.game.content.EmoteHandler;
 import com.rs2.game.content.combat.CombatAssistant;
@@ -164,7 +163,7 @@ public abstract class Player {
 	private SingleGates singleGates = new SingleGates();
 	private DoubleGates doubleGates = new DoubleGates();
 	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
-	
+
 	public boolean isPreaching() {
 		return preaching;
 	}
@@ -736,6 +735,68 @@ public abstract class Player {
 		}
 	}
 
+	/**
+	 * This worlds event provider.
+	 */
+	private static final UniversalEventProvider eventProvider = new UniversalEventProvider();
+
+	/**
+	 * The service for plugins.
+	 */
+	private static final PluginService pluginService = new PluginService();
+
+	/**
+	 * Posts an event to this worlds event provider.
+	 *
+	 * @param player
+	 *            The player to post the event for.
+	 * @param event
+	 *            The event to post.
+	 */
+	public <E extends Event> void post(Player player, E event) {
+		eventProvider.post(player, event);
+	}
+
+	/**
+	 * Posts an event to this world's event provider.
+	 *
+	 * @param event
+	 *            The event to post.
+	 */
+	public <E extends Event> void post(E event) {
+		post(this, event);
+	}
+
+	/**
+	 * Provides an event subscriber to this worlds event provider.
+	 *
+	 * @param subscriber
+	 *            The event subscriber.
+	 */
+	public static <E extends Event> void provideSubscriber(EventSubscriber<E> subscriber) {
+		eventProvider.provideSubscriber(subscriber);
+	}
+
+	/**
+	 * Deprives an event subscriber to this worlds event provider.
+	 *
+	 * @param subscriber
+	 *            The event subscriber.
+	 */
+	public <E extends Event> void depriveSubscriber(EventSubscriber<E> subscriber) {
+		eventProvider.depriveSubscriber(subscriber);
+	}
+
+	/**
+	 * Gets the service for plugins.
+	 */
+	public static PluginService getPluginService() {
+		return pluginService;
+	}
+
+	public UniversalEventProvider getSubscribers() {
+		return eventProvider;
+	}
 
 	public int packetSize = 0, packetType = -1;
 	public boolean wildernessWarning;

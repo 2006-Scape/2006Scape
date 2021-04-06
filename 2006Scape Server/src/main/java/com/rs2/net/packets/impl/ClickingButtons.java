@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.event.impl.ButtonActionEvent;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.Specials;
 import com.rs2.game.content.combat.magic.*;
@@ -79,6 +80,8 @@ public class ClickingButtons implements PacketType {
 		if (player.isAutoButton(actionButtonId)) {
 			player.assignAutocast(actionButtonId);
 		}
+		player.post(new ButtonActionEvent(actionButtonId));
+
 		switch (actionButtonId) {
 			case 23132:
 				player.getPlayerAssistant().unMorphPlayer();
@@ -1175,10 +1178,6 @@ public class ClickingButtons implements PacketType {
 		case 152:
 			player.isRunning2 = false;
 			player.getPacketSender().sendConfig(173, 0);
-			break;
-
-		case 9154:
-			player.logout();
 			break;
 
 		case 21010:
