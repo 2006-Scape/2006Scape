@@ -139,6 +139,27 @@ public class NpcActions {
 			player.getDialogueHandler().sendDialogues(1378, npcType);
 			break;
 
+		case 1835:
+			if (player.easterEvent == 0)
+				player.getDialogueHandler().sendDialogues(6000, npcType);
+			else if (player.easterEvent == 1)
+			{
+				int easter1 = player.getInventory().getItemAmount(7928);
+				int easter2 = player.getInventory().getItemAmount(7929);
+				int easter3 = player.getInventory().getItemAmount(7930);
+				int easter4 = (easter1 + easter2 + easter3);
+				if (easter4 >= 3)
+					player.getDialogueHandler().sendDialogues(6017, npcType);
+				else {
+					player.getDialogueHandler().sendDialogues(6014, npcType);
+				}
+			}
+			else
+				{
+					player.getDialogueHandler().sendDialogues(6022, npcType);
+				}
+			break;
+
 		case 537:
 		case 536:
 			int requiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
