@@ -18,5 +18,15 @@
       "Vult-R"
     ],
     "version": 1.0
+  },
+  {
+    "name": "Npc Third Click",
+    "description": "The plugin for handling the third option of an npc.",
+    "group": "click",
+    "base": "plugin.click.npc.NpcThirdClick",
+    "authors": [
+      "Vult-R"
+    ],
+    "version": 1.0
   }
 ]
