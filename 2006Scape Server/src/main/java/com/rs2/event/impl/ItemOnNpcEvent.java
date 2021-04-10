@@ -6,21 +6,28 @@ import com.rs2.game.npcs.Npc;
 
 public final class ItemOnNpcEvent implements Event {
 	
-	private final Item item;
+	private final int item;
 	
-	private final Npc npc;
+	private final int npc;
+
+	private final int clicked;
 	
-	public ItemOnNpcEvent(Item item, Npc npc) {
+	public ItemOnNpcEvent(int item, int npc, int clicked) {
 		this.item = item;
 		this.npc = npc;
+		this.clicked = clicked;
 	}
 
-	public Item getItem() {
+	public int getItem() {
 		return item;
 	}
 
-	public Npc getNpc() {
+	public int getNpc() {
 		return npc;
+	}
+
+	public int getNpcClicked() {
+		return clicked;
 	}
 
 }
