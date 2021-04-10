@@ -1051,10 +1051,6 @@ public class NpcActions {
 			player.getFarmingTools().loadInterfaces();
 			break;
 			
-		case 3:
-			player.getDialogueHandler().sendDialogues(5, npcType);
-			break;
-			
 		 /*case 209:
 	        player.getShopAssistant().openShop(144);
 	        break;*/
