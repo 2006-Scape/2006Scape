@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Npc First Click",
+    "description": "The plugin for handling the first option of an npc.",
+    "group": "click",
+    "base": "plugin.click.npc.NpcFirstClick",
+    "authors": [
+      "Vult-R"
+    ],
+    "version": 1.0
+  }
+]
