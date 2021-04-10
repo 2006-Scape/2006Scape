@@ -1,5 +1,6 @@
 package com.rs2.game.items;
 
+import com.rs2.event.impl.ItemOnItemEvent;
 import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.crafting.BattleStaffs;
 import com.rs2.game.content.skills.crafting.GemCutting;
@@ -119,6 +120,8 @@ public class UseItem {
 	}
 
 	public static void itemOnItem(Player player, int itemUsed, int useWith) {
+		player.post(new ItemOnItemEvent(itemUsed, useWith));
+		player.post(new ItemOnItemEvent(useWith, itemUsed));
 		LogCuttingInterface.handleItemOnItem(player, itemUsed, useWith);
 		ArrowMaking.makeArrow(player, itemUsed, useWith);
 		Stringing.StringBow(player, itemUsed, useWith);
@@ -215,11 +218,11 @@ public class UseItem {
 			player.getItemAssistant().deleteItem(327, 1);
 			player.getItemAssistant().addItem(1552, 1);
 		}
-		if (itemUsed == 38 && useWith == 590 || useWith == 38
+		/*f (itemUsed == 38 && useWith == 590 || useWith == 38
 				&& itemUsed == 590) {//
 			player.getItemAssistant().addItem(32, 1);
 			player.getItemAssistant().deleteItem(38, 1);
-		}
+		}*/
 		if (itemUsed == 36 && useWith == 590 || useWith == 36
 				&& itemUsed == 590) {
 			player.getItemAssistant().addItem(33, 1);

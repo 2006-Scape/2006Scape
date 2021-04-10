@@ -5,20 +5,20 @@ import com.rs2.game.items.Item;
 
 public final class ItemOnItemEvent implements Event {
 	
-	private final Item used;
+	private final int used;
 	
-	private final Item with;	
+	private final int with;
 	
-	public ItemOnItemEvent(Item used, Item with) {		
+	public ItemOnItemEvent(int used, int with) {
 		this.used = used;
 		this.with = with;
 	}
 
-	public Item getUsed() {
+	public int getUsed() {
 		return used;
 	}
 
-	public Item getUsedWith() {
+	public int getUsedWith() {
 		return with;
 	}	
 
