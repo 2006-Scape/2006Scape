@@ -2,6 +2,7 @@ package com.rs2.net.packets.impl;
 
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
+import com.rs2.event.impl.ItemFirstClickEvent;
 import com.rs2.game.content.consumables.Beverages;
 import com.rs2.game.content.consumables.Kebabs;
 import com.rs2.game.content.consumables.Beverages.beverageData;
@@ -37,6 +38,7 @@ public class ClickItem implements PacketType {
 		if(!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
+		player.post(new ItemFirstClickEvent(itemId));
 		GodBooks.sendPreachOptions(player, itemId);
 		if (itemId == 6) {
 			player.getCannon().placeCannon();
@@ -76,9 +78,6 @@ public class ClickItem implements PacketType {
 			return;
 		}
 		switch (itemId) {
-		case 4079:
-			player.startAnimation(1457);
-			break;
 		case 407:
 			if (Misc.random(1) == 0) {
 				player.getItemAssistant().addItem(409, 1);

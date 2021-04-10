@@ -6,21 +6,14 @@ import com.rs2.game.items.Item;
 
 public final class ItemFirstClickEvent implements Event {
 	
-	private final Item item;
+	private final int item;
 	
-	private final int widgetId;
-	
-	public ItemFirstClickEvent(Item item, int widgetId) {
+	public ItemFirstClickEvent(int item) {
 		this.item = item;
-		this.widgetId = widgetId;
 	}
 
-	public Item getItem() {
+	public int getItem() {
 		return item;
 	}
-	
-	public int getWidgetId() {
-		return widgetId;
-	}	
 
 }
