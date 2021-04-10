@@ -5,13 +5,13 @@ import com.rs2.game.npcs.Npc;
 
 public final class NpcSecondClickEvent implements Event {
 	
-	private final Npc npc;
+	private final int npc;
 	
-	public NpcSecondClickEvent(Npc npc) {
+	public NpcSecondClickEvent(int npc) {
 		this.npc = npc;
 	}
 
-	public Npc getNpc() {
+	public int getNpc() {
 		return npc;
 	}	
 

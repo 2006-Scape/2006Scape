@@ -1036,10 +1036,6 @@ public class NpcActions {
 		player.rememberNpcIndex = player.npcClickIndex;
 		player.npcClickIndex = 0;
 		Shops.openShop(player, npcType);
-		if (Pickpocket.isNPC(player, npcType)) {
-			Pickpocket.attemptPickpocket(player, npcType);
-			return;
-		}
 		if (Fishing.fishingNPC(player, npcType)) {
 			Fishing.fishingNPC(player, 2, npcType);
 		}
@@ -1059,9 +1055,9 @@ public class NpcActions {
 			player.getDialogueHandler().sendDialogues(5, npcType);
 			break;
 			
-		 case 209:
+		 /*case 209:
 	        player.getShopAssistant().openShop(144);
-	        break;
+	        break;*/
 	        
 	        
 		case 2437:
