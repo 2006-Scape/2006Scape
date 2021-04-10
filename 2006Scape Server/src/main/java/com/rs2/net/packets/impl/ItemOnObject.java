@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.event.impl.ItemOnObjectEvent;
 import com.rs2.game.content.combat.range.DwarfCannon;
 import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.cooking.CookingTutorialIsland;
@@ -38,6 +39,7 @@ public class ItemOnObject implements PacketType {
 					"Object Id:" + objectId + " ObjectX: " + objectX
 							+ " ObjectY: " + objectY + ".");
 		}
+		player.post(new ItemOnObjectEvent(itemId, objectId));
 		switch (objectId) {
 		case 3044:
 			if (itemId == 438 || itemId == 436) {
@@ -200,15 +202,6 @@ public class ItemOnObject implements PacketType {
 
 		if (objectId == 2327 && player.absX == 2511 && player.absY == 3092) {
 			player.getPlayerAssistant().movePlayer(2510, 3096, 0);
-		}
-
-		if (Fillables.canFill(itemId, objectId) && player.getItemAssistant().playerHasItem(itemId)) {
-			int amount = player.getItemAssistant().getItemAmount(itemId);
-			player.getItemAssistant().deleteItem(itemId, amount);
-			player.getItemAssistant().addItem(Fillables.counterpart(itemId), amount);
-			player.getPacketSender().sendMessage(Fillables.fillMessage(itemId, objectId));
-			player.startAnimation(832);
-			return;
 		}
 
 		UseItem.itemOnObject(player, objectId, objectX, objectY, itemId);

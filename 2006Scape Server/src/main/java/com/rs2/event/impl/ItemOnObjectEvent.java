@@ -6,20 +6,20 @@ import com.rs2.world.GameObject;
 
 public final class ItemOnObjectEvent implements Event {
 	
-	private final Item item;
+	private final int item;
 	
-	private final GameObject gameObject;
+	private final int gameObject;
 	
-	public ItemOnObjectEvent(Item item, GameObject gameObject) {
+	public ItemOnObjectEvent(int item, int gameObject) {
 		this.item = item;
 		this.gameObject = gameObject;
 	}
 
-	public Item getItem() {
+	public int getItem() {
 		return item;
 	}
 
-	public GameObject getGameObject() {
+	public int getGameObject() {
 		return gameObject;
 	}
 
