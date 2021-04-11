@@ -115,10 +115,7 @@ public class ObjectsActions {
         PassDoor.processDoor(player, objectType);
         AbyssalHandler.handleAbyssalTeleport(player, objectType);
         OpenObject.interactObject(player, objectType);
-        // if its a rock we can mine, mine it
-        if (Mining.rockExists(objectType))
-            player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
-        if (Stalls.isObject(objectType)) {
+         if (Stalls.isObject(objectType)) {
             Stalls.attemptStall(player, objectType, objectX, objectY);
             return;
         }

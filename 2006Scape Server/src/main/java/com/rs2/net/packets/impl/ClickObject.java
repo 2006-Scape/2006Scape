@@ -5,6 +5,7 @@ import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.event.impl.ObjectFirstClickEvent;
 import com.rs2.game.content.minigames.castlewars.CastleWarObjects;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.skills.woodcutting.Woodcutting;
@@ -410,6 +411,7 @@ public class ClickObject implements PacketType {
 				break;
 			}
 			player.getObjects().firstClickObject(player.objectId, player.objectX, player.objectY);
+			player.post(new ObjectFirstClickEvent(player.objectId));
 			break;
 
 		case 2:
