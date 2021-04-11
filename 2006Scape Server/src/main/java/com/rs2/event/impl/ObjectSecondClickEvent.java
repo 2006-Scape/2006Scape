@@ -6,13 +6,13 @@ import com.rs2.world.GameObject;
 
 public final class ObjectSecondClickEvent implements Event {
 
-	private final GameObject gameObject;
+	private final int gameObject;
 	
-	public ObjectSecondClickEvent(GameObject gameObject) {		
+	public ObjectSecondClickEvent(int gameObject) {
 		this.gameObject = gameObject;
 	}
 
-	public GameObject getGameObject() {
+	public int getGameObject() {
 		return gameObject;
 	}
 	

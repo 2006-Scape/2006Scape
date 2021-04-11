@@ -6,6 +6,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.event.impl.ObjectFirstClickEvent;
+import com.rs2.event.impl.ObjectSecondClickEvent;
 import com.rs2.game.content.minigames.castlewars.CastleWarObjects;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.skills.woodcutting.Woodcutting;
@@ -419,6 +420,7 @@ public class ClickObject implements PacketType {
 				player.getPacketSender().sendMessage("ObjectId: " + player.objectId + " ObjectX: " + player.objectX + " ObjectY: " + player.objectY + " Objectclick = 2, Xoff: " + (player.getX() - player.objectX) + " Yoff: " + (player.getY() - player.objectY));
 			}
 			player.getObjects().secondClickObject(player.objectId, player.objectX, player.objectY);
+			player.post(new ObjectSecondClickEvent(player.objectId));
 			break;
 
 		case 3: // 'F'

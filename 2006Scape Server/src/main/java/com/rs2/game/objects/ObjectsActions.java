@@ -2652,10 +2652,6 @@ public class ObjectsActions {
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
             return;
         }
-        if (Stalls.isObject(objectType)) {
-            Stalls.attemptStall(player, objectType, obX, obY);
-            return;
-        }
         if (Farming.inspectObject(player, obX, obY)) {
             return;
         }
