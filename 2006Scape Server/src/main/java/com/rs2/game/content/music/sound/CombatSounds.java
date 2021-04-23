@@ -163,7 +163,14 @@ public class CombatSounds {
 	}
 
 	public static String GetNpcName(int NpcID) {
-		return NpcHandler.NpcList[NpcID].npcName;
+		for (int i = 0; i < NpcHandler.NpcList.length; i++) {
+            if (NpcHandler.NpcList[i] != null) {
+                if (NpcHandler.NpcList[i].npcId == NpcID) {
+                    return NpcHandler.NpcList[i].npcName;
+                }
+            }
+        }
+		return "";
 	}
 
 	public static String getItemName(int ItemID) {
