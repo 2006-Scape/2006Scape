@@ -91,9 +91,66 @@ public class Food {
 		FILED_RATION(7934, 9, "Field Ration", 0, "Food", false),
 		STEW(2003, 11, "Stew", 1923, "Food", false), 
 		CURRY(2011, 19, "Curry", 1923, "Drink", false),
+		SPICY_SAUCE(7072, 2, "Spicy sauce", 1923, "Food", false),
+		CHILLI_CON_CARNE(7062, 5, "Chilli con carne", 1923, "Food", false),
+		SCRAMBLED_EGG(7078, 5, "Scrambled egg", 1923, "Food", false),
+		EGG_AND_TOMATO(7064, 8, "Egg and tomato", 1923, "Food", false),
+		FRIED_ONIONS(7085, 5, "Fried onions", 1923, "Food", false),
+		FRIED_MUSHROOMS(7082, 5, "Fried mushrooms", 1923, "Food", false),
+		MUSHROOM_AND_ONION(7066, 11, "Mushroom and onion", 1923, "Food", false),
+		TUNA_AND_CORN(7068, 13, "Tuna and corn", 1923, "Food", false),
+		BANANA_STEW(4016, 11, "Banana stew", 1923, "Food", false),
+		TOAD_CRUNCHIES(2217, 8, "Toad crunchies", 0, "Food", false),
+		SPICY_CRUNCHIES(2213, 7, "Spicy crunchies", 0, "Food", false),
+		WORM_CRUNCHIES(2205, 8, "Worm crunchies", 0, "Food", false),
+		CHOCCHIP_CRUNCHIES(2209, 7, "Chocchip crunchies", 0, "Food", false),
+		FRUIT_BATTA(2277, 11, "Fruit batta", 0, "Food", false),
+		TOAD_BATTA(2255, 11, "Toad batta", 0, "Food", false),
+		WORM_BATTA(2253, 11, "Worm batta", 0, "Food", false),
+		VEGETABLE_BATTA(2281, 11, "Vegetable batta", 0, "Food", false),
+		CHEESE_TOMATO_BATTA(2259, 11, "Cheese+tom batta", 0, "Food", false),
+		WORM_HOLE(2191, 12, "Worm hole", 0, "Food", false),
+		VEG_BALL(2195, 12, "Veg ball", 0, "Food", false),
+		TANGLED_TOADS_LEGS(2187, 15, "Tangled toad's legs", 0, "Food", false),
+		CHOCOLATE_BOMB(2185, 15, "Chocolate bomb", 0, "Food", false),
+		PRE_TOAD_CRUNCH(2243, 7, "Premade t'd crunch", 0, "Food", false),
+		PRE_SPICE_CRUNCH(2241, 7, "Premade s'y crunch", 0, "Food", false),
+		PRE_WORM_CRUNCH(2237, 8, "Premade w'm crun'", 0, "Food", false),
+		PRE_CHOC_CRUNCH(2239, 7, "Premade ch' crunch", 0, "Food", false),
+		PRE_FRUIT_BATTA(2225, 11, "Premade fr't batta", 0, "Food", false),
+		PRE_TOAD_BATTA(2221, 11, "Premade t'd batta", 0, "Food", false),
+		PRE_WORM_BATTA(2219, 11, "Premade w'm batta", 0, "Food", false),
+		PRE_VEG_BATTA(2227, 11, "Premade veg batta", 0, "Food", false),
+		PRE_CHEESETOM_BATTA(2223, 11, "Premade c+t batta", 0, "Food", false),
+		PRE_WORM_HOLE(2233, 12, "Premade worm hole", 0, "Food", false),
+		PRE_VEG_BALL(2235, 12, "Premade veg ball", 0, "Food", false),
+		PRE_TOADS_LEGS(2231, 15, "Premade ttl", 0, "Food", false),
+		PRE_CHOC_BOMB(2229, 15, "Premade choc bomb", 0, "Food", false),
+		FRUIT_BLAST(2084, 9, "Fruit blast", 2026, "Drink", false),
+		PINE_PUNCH(2048, 9, "Pineapple punch", 2026, "Drink", false),
+		PRE_FRUIT_BLAST(2034, 9, "Premade fr' blast", 2026, "Drink", false),
+		PRE_PINE_PUNCH(2036, 9, "Premade p' punch", 2026, "Drink", false),
+		RABBIT(3228, 5, "Cooked rabbit", 0, "Food", false),
+		UGTHANKI_MEAT(1861, 3, "Ugthanki meat", 0, "Food", false),
+		ROAST_BIRD_MEAT(9980, 6, "Roast bird meat", 0, "Food", false),
+		THIN_SNAIL(3369, 5, "Thin snail meat", 0, "Food", false),
+		SPIDER_ON_STICK(6297, 7, "Spider on stick", 0, "Food", false),
+		SPIDER_ON_SHAFT(6299, 7, "Spider on shaft", 0, "Food", false),
+		ROAST_RABBIT(7223, 7, "Roast rabbit", 0, "Food", false),
+		LEAN_SNAIL(3371, 8, "Lean snail meat", 0, "Food", false),
+		ROAST_BEAST_MEAT(9988, 8, "Roast beast meat", 0, "Food", false),
+		FAT_SNAIL(3373, 9, "Fat snail meat", 0, "Food", false),
+		SLIMY_EEL(3381, 8, "Cooked slimy eel", 0, "Food", false),
+		COOKED_CHOMPY(2878, 10, "Cooked chompy", 0, "Food", false),
+		COOKED_FISHCAKE(7530, 11, "Cooked fishcake", 0, "Food", false),
+		RAINBOW_FISH(10136, 11, "Rainbow fish", 0, "Food", false),
+		CAVE_EEL(5003, 9, "Cave eel", 0, "Food", false),
+		COOKED_JUBBLY(7568, 15, "Cooked jubbly", 0, "Food", false),
+		LAVA_EEL(2149, 11, "Lava eel", 0, "Food", false),
+		CHOCOLATEY_MILK(1977, 4, "Chocolatey milk", 1925, "Drink", false),
 		BANDAGES(4049, 3, "Bandages", 0, "Food", false),
-                TOMATO(1982, 2, "Tomato", 0, "Food", false),
-                CHEESE(1985, 2, "Cheese", 0, "Food", false);                
+		TOMATO(1982, 2, "Tomato", 0, "Food", false),
+        CHEESE(1985, 2, "Cheese", 0, "Food", false);                
 
 		private int id;
 		private int heal;
@@ -177,8 +234,11 @@ public class Food {
 					player.getPacketSender().sendMessage("You eat the cabbage. Yuck!");
 				} else if (id == 1967){
 					player.getPacketSender().sendMessage("You eat the cabbage. It seems to taste nicer than normal.");
+				} else if (id == 2185){
+					player.getPacketSender().sendMessage("You pour over an obscene amount of cream and dust with chocolate dust. Mmmm.");					
 				} else {
 					player.getPacketSender().sendMessage("You eat the " + f.getName() + ".");
+					player.getPacketSender().sendMessage("It heals some health.");
 				}
 			} else if (f.getType().equalsIgnoreCase("Drink")) {
 				if (id == 2955) {
