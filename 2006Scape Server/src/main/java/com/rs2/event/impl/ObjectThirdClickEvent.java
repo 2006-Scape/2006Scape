@@ -5,13 +5,13 @@ import com.rs2.world.GameObject;
 
 public final class ObjectThirdClickEvent implements Event {
 
-	private final GameObject gameObject;
+	private final int gameObject;
 	
-	public ObjectThirdClickEvent(GameObject gameObject) {		
+	public ObjectThirdClickEvent(int gameObject) {
 		this.gameObject = gameObject;
 	}
 
-	public GameObject getGameObject() {
+	public int getGameObject() {
 		return gameObject;
 	}
 	
