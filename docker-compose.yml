@@ -13,7 +13,6 @@ services:
   rsps-2006scape-file-server:
     image: openjdk:8-alpine
     container_name: rsps-2006scape-file-server
-    #command: ["java", "-cp", "\"target/classes:libs/*:\"", "org.apollo.jagcached.FileServer"]
     command: ["java", "-jar", "target/file_server-1.0-jar-with-dependencies.jar"]
     volumes:
       - ./2006Scape file_server:/usr/src/fileserver
@@ -26,7 +25,6 @@ services:
   rsps-2006scape-server:
     image: openjdk:8-alpine
     container_name: rsps-2006scape-server
-    #command: ["java", "-cp", "\"target/classes:libs/*:\"", "org.apollo.jagcached.FileServer"]
     command: ["java", "-jar", "target/server-1.0-jar-with-dependencies.jar"]
     volumes:
       - ./2006Scape Server:/usr/src/server
