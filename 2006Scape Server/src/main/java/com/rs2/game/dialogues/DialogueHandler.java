@@ -7519,10 +7519,11 @@ public class DialogueHandler {
 				player.getDialogueHandler().endDialogue();
 				break;
 			case 10000:
+				int coins = BotHandler.checkCoins(player);
 				sendOption(
-					"Summon Shop", // 9178
+					player.inPlayerShopArea() ? "Summon Shop" : "@red@Summon Shop", // 9178
 					"Close Shop", // 9179
-					"Withdraw Money (" + Bot.formatSellPrice(BotHandler.checkCoins(player)) + ")" // 9180
+					coins > 0 ? "Withdraw Money (" + Bot.formatSellPrice(coins) + ")" : "@red@Withdraw Money (0 gp)"// 9180
 				);
 				player.dialogueAction = 10000;
 				break;
