@@ -1,5 +1,7 @@
 package com.rs2.game.dialogues;
 
+import com.rs2.game.bots.Bot;
+import com.rs2.game.bots.BotHandler;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.items.impl.Flowers;
 import com.rs2.game.items.impl.Teles;
@@ -93,6 +95,14 @@ public class DialogueOptions {
 			case 7555: //lostCity 1
 				player.getDialogueHandler().sendDialogues(3701, player.npcType);
 				return;
+			case 10000: // Shop
+				if (!player.inPlayerShopArea()) {
+					player.getDialogueHandler().sendStatement("You need to be in a bank zone or trade area for this.");
+					return;
+				}
+				player.getDialogueHandler().sendStatement("You summoned your shop!");
+				BotHandler.playerShop(player);
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -176,6 +186,10 @@ public class DialogueOptions {
 				return;
 			case 7555:
 				player.getDialogueHandler().sendDialogues(3597, player.npcType);
+				return;
+			case 10000:
+				player.getDialogueHandler().sendStatement("You close your shop!");
+				BotHandler.closeShop(player);
 				return;
 			}
 			player.dialogueAction = 0;
@@ -263,6 +277,10 @@ public class DialogueOptions {
 				return;
 			case 7555:
 				player.getDialogueHandler().sendDialogues(3599, player.npcType);
+				return;
+			case 10000:
+				player.getDialogueHandler().sendStatement("You withdraw " + Bot.formatSellPrice(BotHandler.checkCoins(player)) + " from your shop!");
+				BotHandler.takeCoins(player);
 				return;
 			}
 			player.dialogueAction = 0;

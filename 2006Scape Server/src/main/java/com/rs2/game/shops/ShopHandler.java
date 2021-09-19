@@ -94,17 +94,6 @@ public class ShopHandler {
                     shopItemsDelay[i][j]++;
                 }
             }
-            if (DidUpdate) {
-                for (int k = 1; k < PlayerHandler.players.length; k++) {
-                    if (PlayerHandler.players[k] != null) {
-                        if (PlayerHandler.players[k].isShopping && PlayerHandler.players[k].shopId == i) {
-                            PlayerHandler.players[k].updateShop = true;
-                            PlayerHandler.players[k].updateShop(i);
-                        }
-                    }
-                }
-                DidUpdate = false;
-            }
         }
     }
 
@@ -263,6 +252,15 @@ public class ShopHandler {
                     shopItemsN[shop_id][j] = shopItemsN[shop_id][next];
                     shopItemsDelay[shop_id][j] = shopItemsDelay[shop_id][next];
                     ResetItem(shop_id, next);
+                }
+            }
+        }
+
+        for (int k = 1; k < PlayerHandler.players.length; k++) {
+            if (PlayerHandler.players[k] != null) {
+                if (PlayerHandler.players[k].isShopping && PlayerHandler.players[k].shopId == shop_id) {
+                    PlayerHandler.players[k].updateShop = true;
+                    PlayerHandler.players[k].updateShop(shop_id);
                 }
             }
         }

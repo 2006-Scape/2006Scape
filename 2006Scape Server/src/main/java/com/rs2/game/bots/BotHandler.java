@@ -176,6 +176,15 @@ public class BotHandler {
         shop.getItemAssistant().addItem(currency, amount);
     }
 
+    public static int checkCoins(Player player) {
+        Client shop = getPlayerShop(player.playerName);
+        if (shop == null) return 0;
+        if (!shop.getItemAssistant().playerHasItem(currency)) {
+            return 0;
+        }
+        return shop.getItemAssistant().getItemAmount(currency);
+    }
+
     public static void takeCoins(Player player) {
         if (!player.getItemAssistant().playerHasItem(currency) && player.getItemAssistant().freeSlots() <= 0) {
             player.getPacketSender().sendMessage("You don't have enough space in your inventory.");

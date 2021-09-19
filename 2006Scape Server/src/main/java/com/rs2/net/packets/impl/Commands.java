@@ -45,7 +45,7 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
-            case "hideYell":
+            case "hideyell":
                 player.hideYell = !player.hideYell;
                 player.getPacketSender().sendMessage("Your yell visibility preferences have been updated.");
                 break;
@@ -173,9 +173,6 @@ public class Commands implements PacketType {
             case "prayer":
                 player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[5]));
                 break;
-            case "shop":
-                BotHandler.playerShop(player);
-                break;
             case "snow":
                 Calendar date = new GregorianCalendar();
                 if ((date.get(Calendar.MONTH) + 1) == 12 && !player.inWild()) {
@@ -188,6 +185,9 @@ public class Commands implements PacketType {
                         player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
                     }
                 }
+                break;
+            case "shop":
+                player.getDialogueHandler().sendDialogues(10000, 0);
                 break;
             case "withdrawshop":
                 player.getPacketSender().sendMessage("Shorter version: ::wshop");

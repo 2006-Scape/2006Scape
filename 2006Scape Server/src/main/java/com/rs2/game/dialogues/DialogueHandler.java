@@ -2,6 +2,8 @@ package com.rs2.game.dialogues;
 
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
+import com.rs2.game.bots.Bot;
+import com.rs2.game.bots.BotHandler;
 import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.quests.QuestRewards;
 import com.rs2.game.content.randomevents.FreakyForester;
@@ -7515,6 +7517,14 @@ public class DialogueHandler {
 			case 6022:
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Thank you again traveller. Happy Easter!");
 				player.getDialogueHandler().endDialogue();
+				break;
+			case 10000:
+				sendOption(
+					"Summon Shop", // 9178
+					"Close Shop", // 9179
+					"Withdraw Money (" + Bot.formatSellPrice(BotHandler.checkCoins(player)) + ")" // 9180
+				);
+				player.dialogueAction = 10000;
 				break;
 		}
 	}
