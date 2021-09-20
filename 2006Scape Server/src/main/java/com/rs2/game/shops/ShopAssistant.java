@@ -526,8 +526,8 @@ public class ShopAssistant {
 			int value = 0;
 			int currency = 995;
 			// player owned shop
-			boolean showIsOwnedByThisPlayer = ShopHandler.playerOwnsStore(player.shopId, player);
-			if (showIsOwnedByThisPlayer) { // PLayers own shop, no cost
+			boolean shopIsOwnedByThisPlayer = ShopHandler.playerOwnsStore(player.shopId, player);
+			if (shopIsOwnedByThisPlayer) { // PLayers own shop, no cost
 				value = 0;
 				currency = -1;
 			} else if (isPlayerShop) { // Shop owned by another player
@@ -573,7 +573,7 @@ public class ShopAssistant {
 			}
 
 			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-			if (!showIsOwnedByThisPlayer) {
+			if (!shopIsOwnedByThisPlayer) {
 				player.getItemAssistant().deleteItem(currency, totalValue);
 				player.getPacketSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );
 				// If it is a player owned shop, we need to give them the coins

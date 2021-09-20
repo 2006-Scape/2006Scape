@@ -84,7 +84,7 @@ public class Bot {
         botClient.setChatTextUpdateRequired(true);
     }
 
-    private String formatSellPrice(int price) {
+    public static String formatSellPrice(int price) {
         DecimalFormat df = new DecimalFormat("#.##");
         if (price >= 1e9) {
             return df.format(Math.floor(price / 1e8) / 10) + "b";

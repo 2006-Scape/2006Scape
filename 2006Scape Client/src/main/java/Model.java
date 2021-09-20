@@ -113,7 +113,7 @@ public final class Model extends Animable {
 		if (aClass21Array1661 == null) {
 			return null;
 		}
-		Class21 class21 = aClass21Array1661[j];
+		Class21 class21 = aClass21Array1661.length < j  ? null : aClass21Array1661[j];
 		if (class21 == null) {
 			aOnDemandFetcherParent_1662.method548(j);
 			return null;

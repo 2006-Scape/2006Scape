@@ -2526,6 +2526,10 @@ public abstract class Player {
 	}
 
 	public int calculateCombatLevel() {
+		// Show the bots as level 0 combat
+		if (isBot) {
+			return 0;
+		}
 		int j = getLevelForXP(playerXP[playerAttack]);
 		int k = getLevelForXP(playerXP[playerDefence]);
 		int l = getLevelForXP(playerXP[playerStrength]);
