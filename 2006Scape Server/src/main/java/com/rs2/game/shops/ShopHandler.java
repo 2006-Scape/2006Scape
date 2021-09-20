@@ -232,6 +232,20 @@ public class ShopHandler {
         totalshops++;
     }
 
+    public static void closePlayerShop(Client player) {
+        for (int id = getEmptyshop(); id >= 0; id--) {
+			if (shopName[id].equals(player.properName + "'s Store")) {
+                for (int i = 0; i < MAX_SHOP_ITEMS; i++) {
+                    shopItems[id][i] = 0;
+                    shopItemsN[id][i] = 0;
+                    shopItemsSN[id][i] = 0;
+                    shopItemsDelay[id][i] = 0;
+                }
+                refreshshop(id);
+			}
+        }
+    }
+
     private static int getEmptyshop() {
         for (int i = 0; i < MAX_SHOPS; i++) {
 			if (shopName[i].equals("")) {

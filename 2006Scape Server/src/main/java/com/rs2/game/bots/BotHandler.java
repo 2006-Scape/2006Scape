@@ -151,6 +151,7 @@ public class BotHandler {
     public static void closeShop(Player player) {
         Client shop = getPlayerShop(player.playerName);
         if (shop == null) return;
+        ShopHandler.closePlayerShop(shop);
         shop.getPlayerAssistant().movePlayer(0, 0, 0);
         new Thread(() -> {
             try {
