@@ -1500,7 +1500,11 @@ public class Game extends RSApplet {
 						// Show player names
 						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
 						aTextDrawingArea_1270.method385(0xffffff, player.name, spriteDrawY + 5, spriteDrawX - player.name.length() * 3);
-						// skullIcons[0].drawSprite(spriteDrawX - 12, spriteDrawY - l);
+						if (player.privelage >= 1) {
+							npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
+							int icon = Math.max(0, Math.min(1, player.privelage - 1));
+							modIcons[icon].method361( spriteDrawX - player.name.length() * 3 - 16, spriteDrawY - 7);
+						}
 					}
 					if (player.headIcon >= 0) {
 						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
@@ -10946,6 +10950,7 @@ public class Game extends RSApplet {
 				}
 				if (!flag5 && anInt1251 == 0) {
 					try {
+						// Direct message
 						String s9 = TextInput.method525(pktSize - 13, inStream);
 						if (l21 == 2 || l21 == 3) {
 							pushMessage(s9, 7, "@cr2@" + TextClass.fixName(TextClass.nameForLong(l5)));

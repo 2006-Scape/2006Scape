@@ -133,8 +133,8 @@ public class PlayerAssistant {
 		};
 	
 	public void showMap() {
-		int posisition = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
-		player.getPacketSender().sendConfig(106, posisition);
+		int position = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
+		player.getPacketSender().sendConfig(106, position);
 		player.getPacketSender().showInterface(5392);
 	}
 
