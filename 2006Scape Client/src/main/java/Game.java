@@ -497,7 +497,6 @@ public class Game extends RSApplet {
 
 	public void init() {
 		try {
-			nodeID = 1;
 			portOff = 0;
 			setHighMem();
 			isMembers = true;
@@ -5081,9 +5080,9 @@ public class Game extends RSApplet {
 			if (friendsNodeIDs[j] == 0) {
 				class9.disabledText = "@red@Offline";
 			} else if (friendsNodeIDs[j] == nodeID) {
-				class9.disabledText = "@gre@World-1";
+				class9.disabledText = "@gre@World-" + (friendsNodeIDs[j] - 9);
 			} else {
-				class9.disabledText = "@red@Offline";
+				class9.disabledText = "@yel@World-" + (friendsNodeIDs[j] - 9);
 			}
 			class9.atActionType = 1;
 			return;
@@ -11804,7 +11803,7 @@ public class Game extends RSApplet {
 	public boolean aBoolean954;
 	public long[] friendsListAsLongs;
 	public int currentSong;
-	public static int nodeID = 1;
+	public static int nodeID = 10;
 	static int portOff;
 	public static boolean isMembers = true;
 	public static boolean lowMem;
