@@ -1467,6 +1467,28 @@ public class Game extends RSApplet {
 
 	public void updateEntities() {
 		try {
+			// Draw item info
+			for (int k5 = 0; k5 < 104; k5++) {
+				for (int l5 = 0; l5 < 104; l5++) {
+					NodeList class19 = groundArray[plane][k5][l5];
+					if (class19 != null) {
+						int offset = 0;
+						for (Item item = (Item) class19.reverseGetFirst(); item != null; item = (Item) class19.reverseGetNext()) {
+							ItemDef itemDef = ItemDef.forID(item.ID);
+							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
+							int color = 0xffffff;
+							if (itemDef.value > 100000) {
+								color = 0x00ff00;
+							} else if (itemDef.value > 10000) {
+								color = 0xffff00;
+							}
+							aTextDrawingArea_1270.method385(color, itemDef.name + " (" +  intToKOrMil(itemDef.value) + " gp)", spriteDrawY - offset, spriteDrawX - (itemDef.name.length() * 3));
+							offset += 10;
+						}
+					}
+				}
+			}
+			// Entity stuff
 			int anInt974 = 0;
 			for (int j = -1; j < playerCount + npcCount; j++) {
 				Object obj;
@@ -5746,9 +5768,7 @@ public class Game extends RSApplet {
 						for (int k3 = 0; k3 < 104; k3++) {
 							groundArray[l2][i3][k3] = null;
 						}
-
 					}
-
 				}
 
 				aClass19_1179 = new NodeList();
@@ -9094,7 +9114,6 @@ public class Game extends RSApplet {
 					markMinimap(mapDotItem, l, j3);
 				}
 			}
-
 		}
 
 		for (int i6 = 0; i6 < npcCount; i6++) {
