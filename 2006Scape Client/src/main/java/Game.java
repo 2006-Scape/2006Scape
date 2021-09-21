@@ -6350,7 +6350,11 @@ public class Game extends RSApplet {
 		}
 		String s;
 		if (player.skill == 0) {
-			s = player.name + combatDiffColor(myPlayer.combatLevel, player.combatLevel) + " (level-" + player.combatLevel + ")";
+			if (player.combatLevel > 0) {
+				s = player.name + combatDiffColor(myPlayer.combatLevel, player.combatLevel) + " (level-" + player.combatLevel + ")";
+			} else {
+				s = player.name + " @cya@(store)";
+			}
 		} else {
 			s = player.name + " (skill-" + player.skill + ")";
 		}
