@@ -616,7 +616,6 @@ public class Commands implements PacketType {
             case "bank":
                 player.getPacketSender().openUpBank();
                 break;
-            case "xteletome":
             case "teletome":
                 try {
                     if (arguments.length == 0) {
@@ -637,7 +636,6 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Player is not online.");
                 }
                 break;
-            case "xteleto":
             case "teleto":
                 if (arguments.length == 0) {
                     player.getPacketSender().sendMessage("You must specify a player name: ::teleto playername");
