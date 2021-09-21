@@ -127,7 +127,7 @@ public class PlayerAssistant {
 	
 	private String[][] welcomeMessages = {
 			{"Remember to vote daily to help " + GameConstants.SERVER_NAME + "", "Every vote counts! :)"}, 
-			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/Nk9WQUK"},
+			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/hZ6VfWG"},
 			{"Do you have any bugs that you would like to report?", "Report them on our discord or message a staff member. :)"},
 			{"Want to help the server grow?", "Remember to vote daily and invite your friends!"}
 		};
@@ -1819,7 +1819,7 @@ public class PlayerAssistant {
 			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source and pull requests are welcome!");
 			player.getPacketSender().sendMessage("Source code: github.com/2006-Scape/2006Scape");
-			player.getPacketSender().sendMessage("Discord: discord.gg/4zrA2Wy");
+			player.getPacketSender().sendMessage("Discord: https://discord.gg/hZ6VfWG");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
 			player.autoRet = 1;
