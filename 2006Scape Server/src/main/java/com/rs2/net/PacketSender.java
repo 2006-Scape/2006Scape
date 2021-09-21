@@ -169,7 +169,7 @@ public class PacketSender {
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 		player.saveTimer = GameConstants.SAVE_TIMER;
 		player.saveCharacter = true;
-		Misc.println("[REGISTERED]: " + player.playerName + "");
+		Misc.println((player.isBot ? "[BOT-REGISTERED]" : "[REGISTERED]") + ": " + player.playerName + " (level-" + player.calculateCombatLevel() + ")");
 		player.handler.updatePlayer(player, player.outStream);
 		player.handler.updateNPC(player, player.outStream);
 		player.flushOutStream();
