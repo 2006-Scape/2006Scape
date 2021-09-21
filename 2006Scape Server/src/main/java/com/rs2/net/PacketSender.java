@@ -146,7 +146,7 @@ public class PacketSender {
 		player.getPacketSender().sendFrame107(); // reset screen
 		player.getPacketSender().setChatOptions(0, 0, 0); // reset private messaging options
 		player.correctCoordinates();
-		player.getPacketSender().showOption(4, 0, "Trade With", 3);
+		player.getPacketSender().showOption(4, 0, "Trade with", 3);
 		player.getPacketSender().showOption(5, 0, "Follow", 4);
 		player.getItemAssistant().resetItems(3214);
 		player.getItemAssistant().resetBonus();
