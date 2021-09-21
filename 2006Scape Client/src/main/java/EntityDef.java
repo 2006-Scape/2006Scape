@@ -25,7 +25,7 @@ public final class EntityDef {
 				break;
 				
 			case 945:
-				entityDef.name = "2006Scape Guide"; 
+				entityDef.name = ClientSettings.SERVER_NAME + " Guide"; 
 				break;
 		}
 		return entityDef;
