@@ -497,7 +497,7 @@ public class Game extends RSApplet {
 
 	public void init() {
 		try {
-			nodeID = 10;
+			nodeID = 1;
 			portOff = 0;
 			setHighMem();
 			isMembers = true;
@@ -11804,7 +11804,7 @@ public class Game extends RSApplet {
 	public boolean aBoolean954;
 	public long[] friendsListAsLongs;
 	public int currentSong;
-	public static int nodeID = 10;
+	public static int nodeID = 1;
 	static int portOff;
 	public static boolean isMembers = true;
 	public static boolean lowMem;

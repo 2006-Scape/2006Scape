@@ -23,7 +23,7 @@ public final class Main {
 		}
 		try {
 			Game game = new Game();
-			Game.nodeID = 10;
+			Game.nodeID = 1;
 			Game.portOff = 0;
 			Game.setHighMem();
 			Game.isMembers = true;

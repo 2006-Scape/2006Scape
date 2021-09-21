@@ -7,7 +7,7 @@ public final class Client {
 		ClientSettings.SERVER_IP = "127.0.0.1";
 		try {
 			Game game = new Game();
-			Game.nodeID = 10;
+			Game.nodeID = 1;
 			Game.portOff = 0;
 			Game.setHighMem();
 			Game.isMembers = true;
