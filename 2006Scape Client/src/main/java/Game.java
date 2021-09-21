@@ -9137,23 +9137,25 @@ public class Game extends RSApplet {
 				int j1 = player.x / 32 - myPlayer.x / 32;
 				int l3 = player.y / 32 - myPlayer.y / 32;
 				boolean flag1 = false;
+				boolean flag2 = false;
 				long l6 = TextClass.longForName(player.name);
+
+				if (myPlayer.team != 0 && player.team != 0 && myPlayer.team == player.team || player.combatLevel == 0) {
+					flag1 = true;
+				}
+
 				for (int k6 = 0; k6 < friendsCount; k6++) {
 					if (l6 != friendsListAsLongs[k6] || friendsNodeIDs[k6] == 0) {
 						continue;
 					}
-					flag1 = true;
+					flag2 = true;
 					break;
 				}
 
-				boolean flag2 = false;
-				if (myPlayer.team != 0 && player.team != 0 && myPlayer.team == player.team) {
-					flag2 = true;
-				}
 				if (flag1) {
-					markMinimap(mapDotFriend, j1, l3);
-				} else if (flag2) {
 					markMinimap(mapDotTeam, j1, l3);
+				} else if (flag2) {
+					markMinimap(mapDotFriend, j1, l3);
 				} else {
 					markMinimap(mapDotPlayer, j1, l3);
 				}
