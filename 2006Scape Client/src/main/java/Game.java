@@ -1316,12 +1316,10 @@ public class Game extends RSApplet {
 				inputTaken = true;
 				stream.createFrame(95);
 				stream.writeWordBigEndian(publicChatMode);
-				//stream.writeWordBigEndian(publicChatMode);
 				stream.writeWordBigEndian(privateChatMode);
 				stream.writeWordBigEndian(tradeMode);
 			}
 			if (super.saveClickX >= 135 && super.saveClickX <= 235 && super.saveClickY >= 467 && super.saveClickY <= 499) {
-				//publicChatMode = (publicChatMode + 1) % 3;
 				privateChatMode = (privateChatMode + 1) % 3;
 				aBoolean1233 = true;
 				inputTaken = true;
@@ -1494,6 +1492,16 @@ public class Game extends RSApplet {
 				if (j < playerCount) {
 					int l = 30;
 					Player player = (Player) obj;
+					if (player.combatLevel == 0) {
+						// Show shops
+						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
+						ItemDef.getSprite(995, 1000, 0xffff00).drawSprite(spriteDrawX - 16, spriteDrawY - l);
+					} else {
+						// Show player names
+						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
+						aTextDrawingArea_1270.method385(0xffffff, player.name, spriteDrawY + 5, spriteDrawX - player.name.length() * 3);
+						// skullIcons[0].drawSprite(spriteDrawX - 12, spriteDrawY - l);
+					}
 					if (player.headIcon >= 0) {
 						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
 						if (spriteDrawX > -1) {
@@ -1528,6 +1536,7 @@ public class Game extends RSApplet {
 						}
 					}
 				}
+				// Chat messages sent
 				if (((Entity) obj).textSpoken != null && (j >= playerCount || publicChatMode == 0 || publicChatMode == 3 || publicChatMode == 1 && isFriendOrSelf(((Player) obj).name))) {
 					npcScreenPos(((Entity) obj), ((Entity) obj).height);
 					if (spriteDrawX > -1 && anInt974 < anInt975) {
@@ -1551,6 +1560,7 @@ public class Game extends RSApplet {
 						}
 					}
 				}
+				// HP markers for player?
 				if (((Entity) obj).loopCycleStatus > loopCycle) {
 					try {
 						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
@@ -1565,6 +1575,7 @@ public class Game extends RSApplet {
 					} catch (Exception e) {
 					}
 				}
+				// Hit markers
 				for (int j1 = 0; j1 < 4; j1++) {
 					if (((Entity) obj).hitsLoopCycle[j1] > loopCycle) {
 						npcScreenPos(((Entity) obj), ((Entity) obj).height / 2);
@@ -1587,6 +1598,7 @@ public class Game extends RSApplet {
 					}
 				}
 			}
+			// Hit markers
 			for (int k = 0; k < anInt974; k++) {
 				int k1 = anIntArray976[k];
 				int l1 = anIntArray977[k];
@@ -5360,11 +5372,12 @@ public class Game extends RSApplet {
 				tabID = 6;
 				tabAreaAltered = true;
 			}
-			/*if (super.saveClickX >= 540 && super.saveClickX <= 574 && super.saveClickY >= 466 && super.saveClickY < 502 && tabInterfaceIDs[7] != -1) {
-				needDrawTabArea = true;
-				tabID = 7;
-				tabAreaAltered = true;
-			}*/
+			if (super.saveClickX >= 540 && super.saveClickX <= 574 && super.saveClickY >= 466 && super.saveClickY < 502 && tabInterfaceIDs[7] != -1) {
+				/* Unused tab bottom left */
+				// needDrawTabArea = true;
+				// tabID = 7;
+				// tabAreaAltered = true;
+			}
 			if (super.saveClickX >= 572 && super.saveClickX <= 602 && super.saveClickY >= 466 && super.saveClickY < 503 && tabInterfaceIDs[8] != -1) {
 				needDrawTabArea = true;
 				tabID = 8;
@@ -7841,6 +7854,7 @@ public class Game extends RSApplet {
 												k6 = 0;
 												j7 = 0;
 											}
+											// Draw item being moved
 											class30_sub2_sub1_sub1_2.drawSprite1(k5 + k6, j6 + j7);
 											if (j6 + j7 < DrawingArea.topY && class9.scrollPosition > 0) {
 												int i10 = anInt945 * (DrawingArea.topY - j6 - j7) / 3;
@@ -7865,11 +7879,14 @@ public class Game extends RSApplet {
 												anInt1088 -= j10;
 											}
 										} else if (atInventoryInterfaceType != 0 && atInventoryIndex == i3 && atInventoryInterface == component.id) {
+											// Using item? wear/unequip etc
 											class30_sub2_sub1_sub1_2.drawSprite1(k5, j6);
 										} else {
+											// Draw item in inventory/equipment etc
 											class30_sub2_sub1_sub1_2.drawSprite(k5, j6);
 										}
 										if (class30_sub2_sub1_sub1_2.trimWidth == 33 || component.invStackSizes[i3] != 1) {
+											// Draw item amounts
 											int k10 = component.invStackSizes[i3];
 											aTextDrawingArea_1270.method385(0, intToKOrMil(k10), j6 + 10 + j7, k5 + 1 + k6);
 											aTextDrawingArea_1270.method385(0xffff00, intToKOrMil(k10), j6 + 9 + j7, k5 + k6);
@@ -7879,6 +7896,7 @@ public class Game extends RSApplet {
 							} else if (component.sprites != null && i3 < 20) {
 								Sprite class30_sub2_sub1_sub1_1 = component.sprites[i3];
 								if (class30_sub2_sub1_sub1_1 != null) {
+									// Empty slots in equipment
 									class30_sub2_sub1_sub1_1.drawSprite(k5, j6);
 								}
 							}
@@ -11364,6 +11382,8 @@ public class Game extends RSApplet {
 		return true;
 	}
 
+	public int zoom = 600;
+
 	public void method146() {
 		anInt1265++;
 		method47(true);
@@ -11381,7 +11401,8 @@ public class Game extends RSApplet {
 				i = anIntArray1203[4] + 128;
 			}
 			int k = minimapInt1 + anInt896 & 0x7ff;
-			setCameraPos(600 + i * 3, i, anInt1014, method42(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+			// Camera zoom control
+			setCameraPos(zoom + i * 3, i, anInt1014, method42(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
 		}
 		int j;
 		if (!aBoolean1160) {
@@ -12179,6 +12200,12 @@ public class Game extends RSApplet {
 				needDrawTabArea = true;
 				tabID = 10;
 				tabAreaAltered = true;
+				break;
+			case KeyEvent.VK_PAGE_UP:
+				zoom = Math.max(0, zoom - 100);
+				break;
+			case KeyEvent.VK_PAGE_DOWN:
+				zoom = Math.min(2000, zoom + 100);
 				break;
 
 		}
