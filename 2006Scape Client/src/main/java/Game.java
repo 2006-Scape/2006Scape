@@ -7123,7 +7123,7 @@ public class Game extends RSApplet {
 		// }
 		try {
 			// if (super.gameFrame != null) {
-			return new URL("http://" + server + ":" + (80 + portOff));
+			return new URL("http://" + server + ":" + (8080 + portOff));
 			// }
 		} catch (Exception _ex) {
 		}
