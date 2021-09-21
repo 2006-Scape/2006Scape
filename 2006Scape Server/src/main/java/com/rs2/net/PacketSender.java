@@ -101,7 +101,7 @@ public class PacketSender {
 			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 			player.getPacketSender().sendMessage("Source code at github.com/2006-Scape/2006Scape");
-			player.getPacketSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+			player.getPacketSender().sendMessage("Join our Discord: https://discord.gg/hZ6VfWG");
 			/*if (!hasBankpin) { //Kind of annoying. Maybe add Random % 10 or something.
 				getActionSender().sendMessage("You do not have a bank pin it is highly recommended you set one.");
 			}*/
