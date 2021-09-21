@@ -1472,7 +1472,7 @@ public class Game extends RSApplet {
 				for (int l5 = 0; l5 < 104; l5++) {
 					NodeList class19 = groundArray[plane][k5][l5];
 					if (class19 != null) {
-						int offset = 0;
+						int offset = 5;
 						for (Item item = (Item) class19.reverseGetFirst(); item != null; item = (Item) class19.reverseGetNext()) {
 							ItemDef itemDef = ItemDef.forID(item.ID);
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
@@ -1482,7 +1482,8 @@ public class Game extends RSApplet {
 							} else if (itemDef.value > 10000) {
 								color = 0xffff00;
 							}
-							aTextDrawingArea_1270.method385(color, itemDef.name + " (" +  intToKOrMil(itemDef.value) + " gp)", spriteDrawY - offset, spriteDrawX - (itemDef.name.length() * 3));
+							String text = itemDef.name + " (" +  intToKOrMil(itemDef.value) + " gp)";
+							aTextDrawingArea_1270.method385(color, text, spriteDrawY - offset, spriteDrawX - (aTextDrawingArea_1270.getTextWidth(text) / 2));
 							offset += 10;
 						}
 					}
@@ -1517,11 +1518,12 @@ public class Game extends RSApplet {
 					if (player.combatLevel == 0) {
 						// Show shops
 						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
-						ItemDef.getSprite(995, 1000, 0xffff00).drawSprite(spriteDrawX - 16, spriteDrawY - l);
+						// ItemDef.getSprite(995, 1000, 0xffff00).drawSprite(spriteDrawX - 16, spriteDrawY - l);
+						aTextDrawingArea_1270.method385(0x00ffff, "[SHOP]", spriteDrawY + 5, spriteDrawX - (aTextDrawingArea_1270.getTextWidth("[SHOP]") / 2));
 					} else {
 						// Show player names
 						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
-						aTextDrawingArea_1270.method385(0xffffff, player.name, spriteDrawY + 5, spriteDrawX - player.name.length() * 3);
+						aTextDrawingArea_1270.method385(0xffffff, player.name, spriteDrawY + 5, spriteDrawX - (aTextDrawingArea_1270.getTextWidth(player.name) / 2));
 						if (player.privelage >= 1) {
 							npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
 							int icon = Math.max(0, Math.min(1, player.privelage - 1));
