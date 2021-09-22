@@ -3721,6 +3721,7 @@ public class Game extends RSApplet {
 			String s1 = menuActionName[i];
 			int l1 = s1.indexOf("@whi@");
 			if (l1 != -1) {
+				// Accept trade/duel from player
 				s1 = s1.substring(l1 + 5).trim();
 				String s7 = TextClass.fixName(TextClass.nameForLong(TextClass.longForName(s1)));
 				boolean flag9 = false;
@@ -8509,31 +8510,31 @@ public class Game extends RSApplet {
 			if (j1 > 0x2000000 && lowMem) {
 				i1 = 0xff0000;
 			}
-			aTextDrawingArea_1271.method380("Mem:" + j1 + "k", c, 0xffff00, k);
+			aTextDrawingArea_1271.method380("Mem: " + (j1 / 1024) + "mb", c, 0xffff00, k);
 			k += 15;
 		}
 	 	if (showInfo) {
-            if (super.fps < 15)
-                i1 = 0xff0000;
-            aTextDrawingArea_1271.method385(0xffff00, "Fps:" + super.fps, 285, 5);
-            Runtime runtime = Runtime.getRuntime();
-            int j1 = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
-            i1 = 0xffff00;
-            if (j1 > 0x2000000 && lowMem)
-                i1 = 0xff0000;
-            k += 15;
-            aTextDrawingArea_1271.method385(0xffff00, "Mem:" + j1 + "k", 299, 5);
-            aTextDrawingArea_1271.method385(0xffff00, "Mouse X: " + super.mouseX + " , Mouse Y: " + super.mouseY, 314, 5);
-            aTextDrawingArea_1271.method385(0xffff00, "Coords: " + x + ", " + y, 329, 5);
-        }
+			if (super.fps < 15)
+				i1 = 0xff0000;
+			aTextDrawingArea_1271.method385(0xffff00, "Fps: " + super.fps, 285, 5);
+			Runtime runtime = Runtime.getRuntime();
+			int j1 = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
+			i1 = 0xffff00;
+			if (j1 > 0x2000000 && lowMem)
+				i1 = 0xff0000;
+			k += 15;
+			aTextDrawingArea_1271.method385(0xffff00, "Mem: " + (j1 / 1024) + "mb", 299, 5);
+			aTextDrawingArea_1271.method385(0xffff00, "Mouse X: " + super.mouseX + " , Mouse Y: " + super.mouseY, 314, 5);
+			aTextDrawingArea_1271.method385(0xffff00, "Coords: " + x + ", " + y, 329, 5);
+		}
 		if (anInt1104 != 0) {
-			int j = anInt1104 / 50;
-			int l = j / 60;
-			j %= 60;
-			if (j < 10) {
-				aTextDrawingArea_1271.method385(0xffff00, "System update in: " + l + ":0" + j, 329, 4);
+			int seconds = anInt1104 / 50;
+			int minutes = seconds / 60;
+			seconds %= 60;
+			if (seconds < 10) {
+				aTextDrawingArea_1271.method385(0xffff00, "System update in: " + minutes + ":0" + seconds, 329, 4);
 			} else {
-				aTextDrawingArea_1271.method385(0xffff00, "System update in: " + l + ":" + j, 329, 4);
+				aTextDrawingArea_1271.method385(0xffff00, "System update in: " + minutes + ":" + seconds, 329, 4);
 			}
 			anInt849++;
 			if (anInt849 > 75) {
@@ -9100,6 +9101,7 @@ public class Game extends RSApplet {
 		int l2 = 464 - myPlayer.y / 32;
 		aClass30_Sub2_Sub1_Sub1_1263.method352(151, i, anIntArray1229, 256 + minimapInt3, anIntArray1052, l2, 5, 25, 146, j);
 		compass.method352(33, minimapInt1, anIntArray1057, 256, anIntArray968, 25, 0, 0, 33, 25);
+		// Minimap icons (shops, quest etc)
 		for (int j5 = 0; j5 < anInt1071; j5++) {
 			int k = anIntArray1072[j5] * 4 + 2 - myPlayer.x / 32;
 			int i3 = anIntArray1073[j5] * 4 + 2 - myPlayer.y / 32;
@@ -9191,6 +9193,7 @@ public class Game extends RSApplet {
 			int l4 = destY * 4 + 2 - myPlayer.y / 32;
 			markMinimap(mapFlag, j2, l4);
 		}
+		// Draw player square on mini map
 		DrawingArea.method336(3, 78, 0xffffff, 3, 97);
 		aRSImageProducer_1165.initDrawingArea();
 		Texture.lineOffsets = chatBoxAreaOffsets;
