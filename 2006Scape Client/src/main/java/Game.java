@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
@@ -4894,10 +4895,38 @@ public class Game extends RSApplet {
 				if (j >= 32 && j <= 122 && inputString.length() < 80) {
 					inputString += (char) j;
 					inputTaken = true;
+					if (inputString.startsWith("::search")) {
+						String[] args = inputString.split(" ");
+						inputDialogState = 3;
+						int searchType = 1;
+						String searchString = "dragon";
+						try {
+							searchType = Integer.parseInt(args[1]);
+							searchString = inputString.substring(inputString.indexOf(args[1]) + args[1].length() + 1);
+						} catch (Exception e) {
+							searchType = 1;
+							searchString = "dragon";
+						}
+						definitionSearch(searchString, searchType);
+					}
 				}
 				if (j == 8 && inputString.length() > 0) {
 					inputString = inputString.substring(0, inputString.length() - 1);
 					inputTaken = true;
+					if (inputString.startsWith("::search")) {
+						String[] args = inputString.split(" ");
+						inputDialogState = 3;
+						int searchType = 1;
+						String searchString = "dragon";
+						try {
+							searchType = Integer.parseInt(args[1]);
+							searchString = inputString.substring(inputString.indexOf(args[1]) + args[1].length() + 1);
+						} catch (Exception e) {
+							searchType = 1;
+							searchString = "dragon";
+						}
+						definitionSearch(searchString, searchType);
+					}
 				}
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
 					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
@@ -12424,4 +12453,87 @@ public class Game extends RSApplet {
 		// need to remove 4 for some reason
 		return levels - 4;
 	}
+
+	
+	public void definitionSearch(String name, int type) {
+		int amount = 0;
+		int definitionResultsTotal = 0;
+		int definitionResultIDs[] = new int[100];
+		String definitionResults[] = new String[100];
+		String sType = "";
+		if (type == 1) {
+			amount = ItemDef.totalItems;
+			sType = "Item";
+		} else if (type == 2) {
+			amount = EntityDef.totalNPCs;
+			sType = "NPC";
+		} else if (type == 3) {
+			amount = ObjectDef.totalObjects;
+			sType = "Object";
+		} else {
+			amount = ItemDef.totalItems;
+			sType = "Item";
+		}
+		for (int line = 0; line < 100; line++) {
+			pushMessage("", 0, "");
+		}
+        if (name == null || name.length() == 0) {
+            definitionResultsTotal = 0;
+            return;
+        }
+        String search = name;
+        String parts[] = new String[100];
+        int found = 0;
+        do {
+            int regex = search.indexOf(" ");
+            if (regex == -1) {
+                break;
+            }
+            String part = search.substring(0, regex).trim();
+            if (part.length() > 0) {
+                parts[found++] = part.toLowerCase();
+            }
+            search = search.substring(regex + 1);
+        } while (true);
+		search = search.trim();
+		if (search.length() > 0) {
+			parts[found++] = search.toLowerCase();
+        }
+        definitionResultsTotal = 0;
+        label0: for (int definition = 0; definition < amount; definition++) {
+			String result = "";
+			if (type == 1) {
+				ItemDef item = ItemDef.forID(definition);
+				if (item.certTemplateID != -1 || item.name == null) {
+					continue;
+				}
+				result = item.name + "@bla@ - " + new String(item.description, StandardCharsets.UTF_8);
+			} else if (type == 2) {
+				EntityDef npc = EntityDef.forID(definition);
+				if (npc.name == null) {
+					continue;
+				}
+				result = npc.name.toLowerCase();
+			} else if (type == 3) {
+				ObjectDef object = ObjectDef.forID(definition);
+				if (object.name == null) {
+					continue;
+				}
+				result = object.name.toLowerCase();
+			}
+            for (int index = 0; index < found; index++) {
+                if (result.indexOf(parts[index]) == -1) {
+                    continue label0;
+                }
+            }
+			pushMessage("@whi@[" + definition + "] @blu@" + result + "", 0, "");
+            definitionResults[definitionResultsTotal] = result;
+            definitionResultIDs[definitionResultsTotal] = definition;
+            definitionResultsTotal++;
+            if (definitionResultsTotal >= definitionResults.length) {
+                return;
+            }
+        }
+		pushMessage("@blu@" + sType + " @bla@search results for @blu@" + name + "@bla@ displayed above, @blu@" + definitionResultsTotal + "@bla@ results.", 0, "");
+    }
 }

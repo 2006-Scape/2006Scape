@@ -2372,7 +2372,7 @@ public final class ItemDef {
 	private int[] originalModelColors;
 	public boolean membersObject;
 	private int anInt162;
-	private int certTemplateID;
+	public int certTemplateID;
 	private int anInt164;
 	private int anInt165;
 	private int anInt166;
@@ -2405,7 +2405,7 @@ public final class ItemDef {
 	private int anInt197;
 	public int modelRotation2;
 	private int anInt200;
-	private int[] stackAmounts;
+	public int[] stackAmounts;
 	public int team;
 	public static int totalItems;
 	private int anInt204;
