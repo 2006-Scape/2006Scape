@@ -1476,11 +1476,13 @@ public class Game extends RSApplet {
 							ItemDef itemDef = ItemDef.forID(item.ID);
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
 							// only show ground items if worth more than x (1k default)
-							if (itemDef.value > customSettingMinItemValue) {
+							if (itemDef.value >= customSettingMinItemValue) {
 								int color = 0xffffff;
-								if (itemDef.value > 1e5) {
+								if (itemDef.value >= 1e5) {
 									color = 0x00ff00;
-								} else if (itemDef.value > 1e4) {
+								} else if (itemDef.value >= 1e4) {
+									color = 0x0000ff;
+								} else if (itemDef.value >= 1e3) {
 									color = 0xffff00;
 								}
 								String text = itemDef.name + " (" +  intToKOrMil(itemDef.value) + " gp)";
