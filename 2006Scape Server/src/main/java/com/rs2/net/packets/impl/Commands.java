@@ -481,6 +481,15 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
+            case "mem":
+                Runtime runtime = Runtime.getRuntime();
+                int totalMemK = (int) (runtime.totalMemory() / 1024L);
+                int freeMemK = (int) (runtime.freeMemory() / 1024L);
+                int usedMemK = (int) totalMemK - freeMemK;
+                player.getPacketSender().sendMessage("Total memory: " + (totalMemK / 1024) + "MB");
+                player.getPacketSender().sendMessage("Used memory: " + (usedMemK / 1024) + "MB");
+                player.getPacketSender().sendMessage("Free memory: " + (freeMemK / 1024) + "MB");
+                break;
             case "update":
                 try {
                     if (arguments.length == 0) {
