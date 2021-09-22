@@ -604,7 +604,7 @@ public class Dueling {
 	            player.headIconPk = -1;
 	            player.getPlayerAssistant().requestUpdates();
 	        }
-		player.getPlayerAssistant().refreshSkill(3);
+		player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 		duelRewardInterface();
 		player.getPacketSender().showInterface(6733);
 		player.getPacketSender().sendMessage("You have won the duel!");

@@ -318,7 +318,7 @@ public class ObjectsActions {
                 //if (c.objectX == 2675 && c.objectY == 3170) {
                 //c.getDH().sendDialogues(79, 0);
                 //} else {
-                if (player.playerLevel[player.playerFishing] <= 50) {
+                if (player.playerLevel[GameConstants.FISHING] <= 50) {
                     player.getPacketSender().sendMessage("You need a fishing level of 50 or higher to play Fishing Trawler.");
                     return;
                 }
@@ -437,16 +437,16 @@ public class ObjectsActions {
 
             case 2112:
                 if (player.absY == 9756
-                        && player.playerLevel[player.playerMining] >= 60) {
+                        && player.playerLevel[GameConstants.MINING] >= 60) {
                     player.getPlayerAssistant().movePlayer(3046, 9757, 0);
                     player.getPacketSender()
                             .sendMessage("You enter the guild.");
                 } else if (player.absY == 9757
-                        && player.playerLevel[player.playerMining] >= 60) {
+                        && player.playerLevel[GameConstants.MINING] >= 60) {
                     player.getPlayerAssistant().movePlayer(3046, 9756, 0);
                     player.getPacketSender()
                             .sendMessage("You enter the guild.");
-                } else if (player.playerLevel[player.playerMining] < 60) {
+                } else if (player.playerLevel[GameConstants.MINING] < 60) {
                     player.getPacketSender().sendMessage(
                             "You need 60 mining to enter this guild");
                 }
@@ -677,7 +677,7 @@ public class ObjectsActions {
                 break;
 
             case 10596:
-                if (player.playerLevel[player.playerSlayer] < 72) {
+                if (player.playerLevel[GameConstants.SLAYER] < 72) {
                     player.getPacketSender().sendMessage(
                             "You need 72 slayer to enter.");
                     return;
@@ -761,7 +761,7 @@ public class ObjectsActions {
                     player.getItemAssistant().deleteItem(4255, 1);
                     player.getItemAssistant().addItem(1925, 1);
                     player.getItemAssistant().addItem(1931, 1);
-                    player.getPlayerAssistant().addSkillXP(18, player.playerPrayer);
+                    player.getPlayerAssistant().addSkillXP(18, GameConstants.PRAYER);
                  }
                 else
                     {
@@ -801,14 +801,14 @@ public class ObjectsActions {
 
             case 2634:
                 if (player.absX == 2837
-                        && player.playerLevel[player.playerMining] >= 50) {
+                        && player.playerLevel[GameConstants.MINING] >= 50) {
                     player.getPlayerAssistant().movePlayer(player.absX + 3,
                             player.absY, 0);
                 } else if (player.absX == 2840
-                        && player.playerLevel[player.playerMining] >= 50) {
+                        && player.playerLevel[GameConstants.MINING] >= 50) {
                     player.getPlayerAssistant().movePlayer(player.absX - 3,
                             player.absY, 0);
-                } else if (player.playerLevel[player.playerMining] < 50) {
+                } else if (player.playerLevel[GameConstants.MINING] < 50) {
                     player.getDialogueHandler().sendStatement("You need 50 mining to pass to this rock slide.");
                     player.nextChat = 0;
                     return;
@@ -1415,7 +1415,7 @@ public class ObjectsActions {
                 break;
 
             case 9295:
-                if (player.playerLevel[player.playerAgility] < 51) {
+                if (player.playerLevel[GameConstants.AGILITY] < 51) {
                     player.getPacketSender().sendMessage(
                             "You need 51 agility to use this shortcut.");
                     return;
@@ -1527,7 +1527,7 @@ public class ObjectsActions {
                 break;
 
             case 2287:
-                if (player.playerLevel[16] < 35) {
+                if (player.playerLevel[GameConstants.AGILITY] < 35) {
                     player.getPacketSender().sendMessage(
                             "You need 35 agility to enter here!");
                     return;
@@ -1679,21 +1679,21 @@ public class ObjectsActions {
 
             case 2320:
                 long clickTimer = 0;
-                if (player.absY <= 9963 && player.playerLevel[player.playerAgility] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
+                if (player.absY <= 9963 && player.playerLevel[GameConstants.AGILITY] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
                     player.getPlayerAssistant().movePlayer(3120, 9970, 0);
                     player.startAnimation(744);
                     player.turnPlayerTo(player.objectX, player.objectY);
                     player.getPacketSender().sendMessage("You swing on the monkey bars.");
-                    player.getPlayerAssistant().addSkillXP(25, player.playerAgility);
+                    player.getPlayerAssistant().addSkillXP(25, GameConstants.AGILITY);
                     clickTimer = System.currentTimeMillis();
-                } else if (player.absY <= 9970 && player.playerLevel[player.playerAgility] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
+                } else if (player.absY <= 9970 && player.playerLevel[GameConstants.AGILITY] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
                     player.getPlayerAssistant().movePlayer(3120, 9963, 0);
                     player.startAnimation(744);
                     player.turnPlayerTo(player.objectX, player.objectY);
                     player.getPacketSender().sendMessage("You swing on the monkey bars.");
-                    player.getPlayerAssistant().addSkillXP(25, player.playerAgility);
+                    player.getPlayerAssistant().addSkillXP(25, GameConstants.AGILITY);
                     clickTimer = System.currentTimeMillis();
-                } else if (player.playerLevel[player.playerAgility] < 15) {
+                } else if (player.playerLevel[GameConstants.AGILITY] < 15) {
                     player.getPacketSender().sendMessage("You need 15 agility to use these monkey bars.");
                 } else {
                     player.getPacketSender().sendMessage("You can't do the monkey bars here.");
@@ -1904,7 +1904,7 @@ public class ObjectsActions {
                     player.getItemAssistant().addItem(2130, 1);
                     player.getItemAssistant().deleteItem(1927, 1);
                     player.getPlayerAssistant()
-                            .addSkillXP(18, player.playerCooking);
+                            .addSkillXP(18, GameConstants.COOKING);
                 } else {
                     player.getPacketSender().sendMessage(
                             "You need a bucket of milk to do this.");
@@ -2553,14 +2553,14 @@ public class ObjectsActions {
             case 10638:
             case 411:
             case 412:
-                if (player.playerLevel[5] < player.getPlayerAssistant()
-                        .getLevelForXP(player.playerXP[5])) {
+                if (player.playerLevel[GameConstants.PRAYER] < player.getPlayerAssistant()
+                        .getLevelForXP(player.playerXP[GameConstants.PRAYER])) {
                     player.startAnimation(645);
-                    player.playerLevel[5] = player.getPlayerAssistant()
-                            .getLevelForXP(player.playerXP[5]);
+                    player.playerLevel[GameConstants.PRAYER] = player.getPlayerAssistant()
+                            .getLevelForXP(player.playerXP[GameConstants.PRAYER]);
                     player.getPacketSender().sendMessage(
                             "You recharge your prayer points.");
-                    player.getPlayerAssistant().refreshSkill(5);
+                    player.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
                 } else {
                     player.getPacketSender().sendMessage(
                             "You already have full prayer points.");
@@ -2573,14 +2573,14 @@ public class ObjectsActions {
                             "You can't use this in the wilderness.");
                     return;
                 }
-                if (player.playerLevel[5] < player.getPlayerAssistant()
-                        .getLevelForXP(player.playerXP[5])) {
+                if (player.playerLevel[GameConstants.PRAYER] < player.getPlayerAssistant()
+                        .getLevelForXP(player.playerXP[GameConstants.PRAYER])) {
                     player.startAnimation(645);
-                    player.playerLevel[5] = player.getPlayerAssistant()
-                            .getLevelForXP(player.playerXP[5]) + 2;
+                    player.playerLevel[GameConstants.PRAYER] = player.getPlayerAssistant()
+                            .getLevelForXP(player.playerXP[GameConstants.PRAYER]) + 2;
                     player.getPacketSender().sendMessage(
                             "You recharge your prayer points.");
-                    player.getPlayerAssistant().refreshSkill(5);
+                    player.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
                 } else {
                     player.getPacketSender().sendMessage(
                             "You already have full prayer points.");

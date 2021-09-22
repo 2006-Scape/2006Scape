@@ -1,5 +1,6 @@
 package com.rs2.game.content.combat.range;
 
+import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -79,7 +80,7 @@ public class DwarfCannon {
 						player.getItemAssistant().deleteItem(2353, 1);
 						player.getItemAssistant().addItem(2, 4);
 						player.getPacketSender().sendMessage("You make some cannonballs.");
-						player.getPlayerAssistant().addSkillXP(26, player.playerSmithing);
+						player.getPlayerAssistant().addSkillXP(26, GameConstants.SMITHING);
 						player.getPacketSender().sendSound(352, 100, 0);
 					}
 				}
@@ -432,7 +433,7 @@ public class DwarfCannon {
 				target.hitUpdateRequired2 = true;
 				target.updateRequired = true;
 				myBalls -= 1;
-				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE, player.playerRanged);
+				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE, GameConstants.RANGED);
 			}
 		}
 		
@@ -503,7 +504,7 @@ public class DwarfCannon {
 		}
 
 		public boolean canAttackSlayer(int i){
-			return player.playerLevel[player.playerSlayer] >= player.getSlayer().getRequiredLevel(NpcHandler.npcs[i].npcType);
+			return player.playerLevel[GameConstants.SLAYER] >= player.getSlayer().getRequiredLevel(NpcHandler.npcs[i].npcType);
 		}
 		
 		private void cannonProjectile(Npc n) {

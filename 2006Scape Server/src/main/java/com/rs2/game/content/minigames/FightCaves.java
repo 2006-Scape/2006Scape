@@ -1,5 +1,6 @@
 package com.rs2.game.content.minigames;
 
+import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -184,9 +185,9 @@ public class FightCaves {
 	public static void tzKihEffect(Client player, int i, int damage) {
 		if (NpcHandler.npcs[i].npcType == TZ_KIH) {
 			if (player != null) {
-				if (player.playerLevel[5] > 0) {
-					player.playerLevel[5] -= 1 + damage;
-					player.getPlayerAssistant().refreshSkill(5);
+				if (player.playerLevel[GameConstants.PRAYER] > 0) {
+					player.playerLevel[GameConstants.PRAYER] -= 1 + damage;
+					player.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
 				}
 			}
 		}

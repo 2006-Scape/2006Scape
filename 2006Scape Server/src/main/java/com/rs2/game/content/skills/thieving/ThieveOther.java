@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.thieving;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -33,7 +34,7 @@ public class ThieveOther {
 	}
 	
 	public static void stealFromChest(Player client, int level, int exp, int reward, int amount) {
-		if (client.playerLevel[client.playerThieving] < level) {
+		if (client.playerLevel[GameConstants.THIEVING] < level) {
 			client.getPacketSender().sendMessage("You need " + level + " thieving to thieve this chest.");
 			return;
 		}
@@ -42,7 +43,7 @@ public class ThieveOther {
 			return;
 		}
 		client.getItemAssistant().addItem(reward, amount);
-		client.getPlayerAssistant().addSkillXP(exp, client.playerThieving);
+		client.getPlayerAssistant().addSkillXP(exp, GameConstants.THIEVING);
 		client.getPacketSender().sendMessage("You steal " + ItemAssistant.getItemName(reward) + " from the chest.");
 	}
 	
@@ -51,7 +52,7 @@ public class ThieveOther {
 			client.getPacketSender().sendMessage("You need a lock pick to do that.");
 			return;
 		}
-		if (client.playerLevel[client.playerThieving] < level) {
+		if (client.playerLevel[GameConstants.THIEVING] < level) {
 			client.getPacketSender().sendMessage("You need " + level + " thieving to thieve this chest.");
 			return;
 		}
@@ -75,7 +76,7 @@ public class ThieveOther {
 				}
 				client.getPlayerAssistant().movePlayer(x, y, client.heightLevel);
 				client.getPacketSender().sendMessage("You manage to pick the lock.");
-				client.getPlayerAssistant().addSkillXP(exp, client.playerThieving);
+				client.getPlayerAssistant().addSkillXP(exp, GameConstants.THIEVING);
 				container.stop();
 			}
 			@Override

@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.fletching;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -25,7 +26,7 @@ public class LogCutting {
 	public static void cutLog(final Player player, final int product, final int level, final double xp, int amount) {
 		player.doAmount = amount;
 		player.getPacketSender().closeAllWindows();
-		if (player.playerLevel[9] < level) {
+		if (player.playerLevel[GameConstants.FLETCHING] < level) {
 			player.getPacketSender().sendMessage("You need a fletching level of " + level + " to make this.");
 			return;
 		}
@@ -54,7 +55,7 @@ public class LogCutting {
 							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(player.getFletching().log) + " into a " + ItemAssistant.getItemName(product) + ".");
 
 						}
-						player.getPlayerAssistant().addSkillXP(xp, player.playerFletching);
+						player.getPlayerAssistant().addSkillXP(xp, GameConstants.FLETCHING);
 						player.doAmount--;
 						player.getPacketSender().sendSound(CUT_SOUND, 100, 0);
 					}
@@ -296,13 +297,13 @@ public class LogCutting {
 			c.startAnimation(1248);
 			c.getItemAssistant().deleteItem(2859, amount);
 			c.getItemAssistant().addItem(2861, makeAmount);
-			c.getPlayerAssistant().addSkillXP(3 * amount, c.playerFletching);
+			c.getPlayerAssistant().addSkillXP(3 * amount, GameConstants.FLETCHING);
 			c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2859) + " into " + ItemAssistant.getItemName(2861) + ".");
 		}
 	}
 
 	public static void flightedArrow(Player c) {// to do
-		if (c.playerLevel[c.playerFletching] < 5) {
+		if (c.playerLevel[GameConstants.FLETCHING] < 5) {
 			c.getDialogueHandler().sendStatement("You need 5 fletching to fletch this.");
 			c.nextChat = 0;
 			return;
@@ -327,7 +328,7 @@ public class LogCutting {
 	}
 
 	public static void ogreArrow(Player c) {
-		if (c.playerLevel[c.playerFletching] < 5) {
+		if (c.playerLevel[GameConstants.FLETCHING] < 5) {
 			c.getDialogueHandler().sendStatement("You need 5 fletching to fletch this.");
 			c.nextChat = 0;
 			return;
@@ -342,21 +343,21 @@ public class LogCutting {
 			if (wolfBoneArrow == flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
-				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, c.playerFletching);
+				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, GameConstants.FLETCHING);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
 				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow > flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, flightedArrow);
-				c.getPlayerAssistant().addSkillXP(1 * flightedArrow, c.playerFletching);
+				c.getPlayerAssistant().addSkillXP(1 * flightedArrow, GameConstants.FLETCHING);
 				c.getItemAssistant().deleteItem(2861, flightedArrow);
 				c.getItemAssistant().deleteItem(2865, flightedArrow);
 				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow < flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
-				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, c.playerFletching);
+				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, GameConstants.FLETCHING);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
 				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
@@ -376,7 +377,7 @@ public class LogCutting {
 			c.startAnimation(1248);
 			c.getItemAssistant().deleteItem(2862, amount);
 			c.getItemAssistant().addItem(2864, makeAmount);
-			c.getPlayerAssistant().addSkillXP(2 * amount, c.playerFletching);
+			c.getPlayerAssistant().addSkillXP(2 * amount, GameConstants.FLETCHING);
 			c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2862) + " (s) into " + ItemAssistant.getItemName(2864) + "(s).");
 		}
 	}

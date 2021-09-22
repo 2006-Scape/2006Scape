@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.items.Weight;
@@ -89,7 +90,7 @@ public class RemoveItem implements PacketType {
 		case 1121:
 		case 1122:
 		case 1123:
-			player.getSmithing().readInput(player, player.playerLevel[player.playerSmithing], removeId, 1);
+			player.getSmithing().readInput(player, player.playerLevel[GameConstants.SMITHING], removeId, 1);
 			break;
 
 		}

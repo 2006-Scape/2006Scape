@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.agility;
 
+import com.rs2.GameConstants;
 import com.rs2.game.players.Player;
 
 public class GnomeAgility {
@@ -26,14 +27,14 @@ public class GnomeAgility {
 			} else if (c.absX == 2474 && c.absY > 3429 && c.absY < 3436) {
 				c.getPlayerAssistant().movePlayer(2474, 3429, 0);
 			}
-			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
 			c.getAgility().resetAgilityProgress();
 			c.getAgility().agilityProgress[0] = true;
 			return true;
 
 		case NET1_OBJECT:
 			c.getAgility().climbUp(c.getX(), c.getY() - 2, 1);
-			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
 			if (c.getAgility().agilityProgress[0]) {
 				c.getAgility().agilityProgress[1] = true;
 			}
@@ -41,7 +42,7 @@ public class GnomeAgility {
 
 		case TREE_OBJECT:
 			c.getAgility().climbUp(c.getX(), c.getY() - 3, 2);
-			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
 			if (c.getAgility().agilityProgress[1]) {
 				c.getAgility().agilityProgress[2] = true;
 			}
@@ -57,7 +58,7 @@ public class GnomeAgility {
 																			// cheat
 			c.getPlayerAssistant().movePlayer(2483, 3420, 2);
 			}
-			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
 			if (c.getAgility().agilityProgress[2]) {
 				c.getAgility().agilityProgress[3] = true;
 			}
@@ -65,7 +66,7 @@ public class GnomeAgility {
 
 		case TREE_BRANCH_OBJECT:
 			c.getAgility().climbDown(c.getX(), c.getY(), 0);
-			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
 			if (c.getAgility().agilityProgress[3]) {
 				c.getAgility().agilityProgress[4] = true;
 			}
@@ -77,7 +78,7 @@ public class GnomeAgility {
 			}
 			if (c.getY() == 3425 && System.currentTimeMillis() - clickTimer > 1800) {
 				c.getAgility().climbUp(c.getX(), c.getY() + 2, 0);
-				c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
+				c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
 				clickTimer = System.currentTimeMillis();
 				if (c.getAgility().agilityProgress[4]) {
 					c.getAgility().agilityProgress[5] = true;
@@ -89,12 +90,12 @@ public class GnomeAgility {
 			if (c.getAgility().hotSpot(2484, 3430)) {
 				c.getAgility().walk(0, 7, c.getAgility().getAnimation(objectId), 748);
 				if (c.getAgility().agilityProgress[5]) {
-					c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), c.playerAgility);
+					c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
 					c.getAgility().lapBonus = 1400 / 30;
 					c.getAgility().lapFinished();
 				} else {
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), c.playerAgility);
+							c.getAgility().getXp(objectId), GameConstants.AGILITY);
 				}
 				c.getAgility().resetAgilityProgress();
 			} else if (c.absY > 3430 && c.absY < 3436 && System.currentTimeMillis() - clickTimer > 1800) {
@@ -107,12 +108,12 @@ public class GnomeAgility {
 				c.getAgility().walk(0, 7, c.getAgility().getAnimation(objectId), 748);
 				if (c.getAgility().agilityProgress[5]) {
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), c.playerAgility);
+							c.getAgility().getXp(objectId), GameConstants.AGILITY);
 					c.getAgility().lapBonus = 1400 / 30;
 					c.getAgility().lapFinished();
 				} else {
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), c.playerAgility);
+							c.getAgility().getXp(objectId), GameConstants.AGILITY);
 				}
 				c.getAgility().resetAgilityProgress();
 			} else if (c.absY > 3430 && c.absY < 3436) {

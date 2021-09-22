@@ -1341,32 +1341,32 @@ public class ItemAssistant {
 						|| targetSlot == ItemConstants.HAT
 						|| targetSlot == ItemConstants.HANDS) {
 					if (player.defenceLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[1]) < player.defenceLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.DEFENCE]) < player.defenceLevelReq) {
 							player.getPacketSender().sendMessage("You need a defence level of " + player.defenceLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (player.rangeLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[4]) < player.rangeLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.RANGED]) < player.rangeLevelReq) {
 							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (player.magicLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[6]) < player.magicLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) < player.magicLevelReq) {
 							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 				}
 				if (player.slayerLevelReq > 0) {
-					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[18]) < player.slayerLevelReq) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.SLAYER]) < player.slayerLevelReq) {
 						player.getPacketSender().sendMessage("You need a slayer level of " + player.slayerLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
 				if (player.agilityLevelReq > 0) {
-					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[16]) < player.agilityLevelReq) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.AGILITY]) < player.agilityLevelReq) {
 						player.getPacketSender().sendMessage("You need a agility level of " + player.agilityLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
@@ -1374,19 +1374,19 @@ public class ItemAssistant {
 				// Weapon
 				if (targetSlot == ItemConstants.WEAPON) {
 					if (player.attackLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[0]) < player.attackLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.ATTACK]) < player.attackLevelReq) {
 							player.getPacketSender().sendMessage("You need an attack level of " + player.attackLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (player.rangeLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[4]) < player.rangeLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.RANGED]) < player.rangeLevelReq) {
 							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (player.magicLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[6]) < player.magicLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) < player.magicLevelReq) {
 							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}

@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.crafting;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -68,7 +69,7 @@ public class LeatherMaking extends CraftingData {
 		for (final leatherData l : leatherData.values()) {
 			if (buttonId == l.getButtonId(buttonId)) {
 				if (player.leatherType == l.getLeather()) {
-					if (player.playerLevel[12] < l.getLevel()) {
+					if (player.playerLevel[GameConstants.CRAFTING] < l.getLevel()) {
 						player.getPacketSender().sendMessage(
 								"You need a crafting level of " + l.getLevel()
 										+ " to make this.");

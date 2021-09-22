@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -56,7 +57,7 @@ public class MagicOnFloorItems implements PacketType {
 						MagicData.MAGIC_SPELLS[51][4], 50, 10, 0, 50);
 				player.getPlayerAssistant().addSkillXP(
 						MagicData.MAGIC_SPELLS[51][7], 6);
-				player.getPlayerAssistant().refreshSkill(6);
+				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 				player.stopMovement();
 				   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			            @Override
@@ -107,7 +108,7 @@ public class MagicOnFloorItems implements PacketType {
 					offX, offY, 50, 70, MagicData.MAGIC_SPELLS[51][4], 50, 10,
 					0, 50);
 			player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], 6);
-			player.getPlayerAssistant().refreshSkill(6);
+			player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 			player.stopMovement();
 		}
 	}

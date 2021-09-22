@@ -1,5 +1,6 @@
 package com.rs2.game.content.combat.melee;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
@@ -16,21 +17,21 @@ public class MeleeData {
 	}
 
 	public static int calculateMeleeAttack(Player c) {
-		int attackLevel = c.playerLevel[0];
+		int attackLevel = c.playerLevel[GameConstants.ATTACK];
 		// 2, 5, 11, 18, 19
 		if (c.getPrayer().prayerActive[2]) {
-			attackLevel += c.getLevelForXP(c.playerXP[c.playerAttack]) * 0.05;
+			attackLevel += c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * 0.05;
 		} else if (c.getPrayer().prayerActive[7]) {
-			attackLevel += c.getLevelForXP(c.playerXP[c.playerAttack]) * 0.1;
+			attackLevel += c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * 0.1;
 		} else if (c.getPrayer().prayerActive[15]) {
-			attackLevel += c.getLevelForXP(c.playerXP[c.playerAttack]) * 0.15;
+			attackLevel += c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * 0.15;
 		} else if (c.getPrayer().prayerActive[24]) {
-			attackLevel += c.getLevelForXP(c.playerXP[c.playerAttack]) * 0.15;
+			attackLevel += c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * 0.15;
 		} else if (c.getPrayer().prayerActive[25]) {
-			attackLevel += c.getLevelForXP(c.playerXP[c.playerAttack]) * 0.2;
+			attackLevel += c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * 0.2;
 		}
 		if (fullVoidMelee(c)) {
-			attackLevel += c.getLevelForXP(c.playerXP[c.playerAttack]) * 0.1;
+			attackLevel += c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * 0.1;
 		}
 		attackLevel *= c.specAccuracy;
 		// c.sendMessage("Attack: " + (attackLevel +
@@ -58,18 +59,18 @@ public class MeleeData {
 	}
 
 	public static int calculateMeleeDefence(Player c) {
-		int defenceLevel = c.playerLevel[1];
+		int defenceLevel = c.playerLevel[GameConstants.DEFENCE];
 		int i = c.playerBonus[bestMeleeDef(c)];
 		if (c.getPrayer().prayerActive[0]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[c.playerDefence]) * 0.05;
+			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.05;
 		} else if (c.getPrayer().prayerActive[5]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[c.playerDefence]) * 0.1;
+			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.1;
 		} else if (c.getPrayer().prayerActive[13]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[c.playerDefence]) * 0.15;
+			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.15;
 		} else if (c.getPrayer().prayerActive[24]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[c.playerDefence]) * 0.2;
+			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.2;
 		} else if (c.getPrayer().prayerActive[25]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[c.playerDefence]) * 0.25;
+			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.25;
 		}
 		return (int) (defenceLevel + defenceLevel * 0.15 + (i + i * 0.05));
 	}

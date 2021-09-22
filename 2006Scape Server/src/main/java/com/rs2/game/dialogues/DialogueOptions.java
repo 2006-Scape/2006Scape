@@ -1,5 +1,6 @@
 package com.rs2.game.dialogues;
 
+import com.rs2.GameConstants;
 import com.rs2.game.bots.Bot;
 import com.rs2.game.bots.BotHandler;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
@@ -566,7 +567,7 @@ public class DialogueOptions {
 				player.getItemAssistant().addItem(1953, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1931, 1);
-				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
+				player.getPlayerAssistant().addSkillXP(1, GameConstants.COOKING);
 				player.nextChat = 0;
 			} else if (player.dialogueAction == 3205) {
 				player.getItemAssistant().deleteItem(1933, 1);
@@ -574,7 +575,7 @@ public class DialogueOptions {
 				player.getItemAssistant().addItem(1953, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1935, 1);
-				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
+				player.getPlayerAssistant().addSkillXP(1, GameConstants.COOKING);
 				player.nextChat = 0;
 			} else if (player.dialogueAction == 189) {
 				player.getDialogueHandler().sendDialogues(3210, player.npcType);
@@ -796,7 +797,7 @@ public class DialogueOptions {
 				player.getItemAssistant().addItem(2307, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1931, 1);
-				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
+				player.getPlayerAssistant().addSkillXP(1, GameConstants.COOKING);
 				player.nextChat = 0;
 			} else if (player.dialogueAction == 3205) {
 				player.getItemAssistant().deleteItem(1933, 1);
@@ -804,7 +805,7 @@ public class DialogueOptions {
 				player.getItemAssistant().addItem(1953, 1);
 				player.getItemAssistant().addItem(1925, 1);
 				player.getItemAssistant().addItem(1935, 1);
-				player.getPlayerAssistant().addSkillXP(1, player.playerCooking);
+				player.getPlayerAssistant().addSkillXP(1, GameConstants.COOKING);
 				player.nextChat = 0;
 			} else if (player.dialogueAction == 189) {
 				player.getDialogueHandler().sendDialogues(3212, player.npcType);
