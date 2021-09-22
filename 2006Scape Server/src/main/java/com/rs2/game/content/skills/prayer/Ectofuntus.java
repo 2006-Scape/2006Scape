@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.prayer;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -166,7 +167,7 @@ public class Ectofuntus {
 					public void execute(CycleEventContainer container) {
 						player.getItemAssistant().deleteItem(ectofuntus.getBonemealId(), 1);
 						player.startAnimation(WORSHIP);
-						player.getPlayerAssistant().addSkillXP(ectofuntus.getWorshipExperience(), player.playerPrayer);
+						player.getPlayerAssistant().addSkillXP(ectofuntus.getWorshipExperience(), GameConstants.PRAYER);
 						player.getPacketSender().sendMessage("You pray to the ectofuntus.");
 						container.stop();
 					}

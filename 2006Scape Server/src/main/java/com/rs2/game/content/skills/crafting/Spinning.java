@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.crafting;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -42,14 +43,14 @@ public class Spinning extends CraftingData {
 				public void execute(CycleEventContainer container) {
 					if (player.isSpinning == true) {
 						if (player.getItemAssistant().playerHasItem(before)) {
-							if (player.playerLevel[player.playerCrafting] < level) {
+							if (player.playerLevel[GameConstants.CRAFTING] < level) {
 								player.getDialogueHandler().sendStatement("You need a crafting level of " + level + " to do this.");
 								return;
 							}
 							player.startAnimation(896);
 							player.getItemAssistant().deleteItem(before, 1);
 							player.getItemAssistant().addItem(after, 1);
-							player.getPlayerAssistant().addSkillXP(exp, player.playerCrafting);
+							player.getPlayerAssistant().addSkillXP(exp, GameConstants.CRAFTING);
 							player.getPacketSender().sendMessage("You spin the " + ItemAssistant.getItemName(before) + " into a " + ItemAssistant.getItemName(after) + ".");
 							player.doAmount--;
 						}

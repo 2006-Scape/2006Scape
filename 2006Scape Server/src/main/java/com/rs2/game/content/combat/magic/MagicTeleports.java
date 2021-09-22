@@ -1,5 +1,6 @@
 package com.rs2.game.content.combat.magic;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.players.Player;
 
@@ -28,7 +29,7 @@ public class MagicTeleports {
 			player.getPacketSender().sendMessage("You can't teleport above level 20 wilderness.");
 			return;
 		}
-		if (player.playerLevel[player.playerMagic] < teleport.getRequiredLevel()) {
+		if (player.playerLevel[GameConstants.MAGIC] < teleport.getRequiredLevel()) {
 			player.getPacketSender().sendMessage("You need a magic level of " + teleport.getRequiredLevel() + " to cast this spell.");
 			return;
 		}
@@ -39,6 +40,6 @@ public class MagicTeleports {
 		RandomEventHandler.addRandom(player);
 		CastRequirements.deleteRunes(player, teleport.getRequiredRunes());
 		player.getPlayerAssistant().startTeleport(teleport.getDestX(), teleport.getDestY(), teleport.getDestZ(), teleport.getType());
-		player.getPlayerAssistant().addSkillXP(teleport.getExperienceGained(), player.playerMagic);
+		player.getPlayerAssistant().addSkillXP(teleport.getExperienceGained(), GameConstants.MAGIC);
 	}
 }

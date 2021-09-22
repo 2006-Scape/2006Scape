@@ -171,7 +171,7 @@ public class Commands implements PacketType {
 
                 break;
             case "prayer":
-                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[5]));
+                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[GameConstants.PRAYER]));
                 break;
             case "snow":
                 Calendar date = new GregorianCalendar();
@@ -690,11 +690,11 @@ public class Commands implements PacketType {
                 break;
             case "hp":
                 player.getPacketSender().sendMessage("You attributed yourself 999,999 hitpoints.");
-                player.playerLevel[3] = 999999;
+                player.playerLevel[GameConstants.HITPOINTS] = 999999;
                 break;
             case "pray":
                 player.getPacketSender().sendMessage("You attributed yourself 999,999 prayer points.");
-                player.playerLevel[5] = 999999;
+                player.playerLevel[GameConstants.PRAYER] = 999999;
                 break;
             case "setlevel":
             case "level":

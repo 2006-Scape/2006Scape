@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.crafting;
 
+import com.rs2.GameConstants;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 
@@ -135,7 +136,7 @@ public class JewelryMaking {
 		if (!isRing && !isNeck && !isAmulet) {
 			return;
 		}
-		if (player.playerLevel[player.playerCrafting] >= lvl) {
+		if (player.playerLevel[GameConstants.CRAFTING] >= lvl) {
 			if (ItemAssistant.getItemName(itemAdd).toLowerCase().contains("gold")
 					&& !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)
 					|| !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
@@ -156,8 +157,8 @@ public class JewelryMaking {
 				player.getItemAssistant().deleteItem(gem, 1);
 				player.getItemAssistant().deleteItem(GOLD_BAR, 1);
 				player.getItemAssistant().addItem(itemAdd, 1);
-				player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
-				player.getPlayerAssistant().refreshSkill(player.playerCrafting);
+				player.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
+				player.getPlayerAssistant().refreshSkill(GameConstants.CRAFTING);
 				done++;
 			}
 			if (done == 1) {

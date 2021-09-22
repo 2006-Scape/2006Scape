@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.woodcutting;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -126,7 +127,7 @@ public class Woodcutting {
 
 	public static void handleCanoe(final Player player, final int objectId) {
 		Boolean gotAxe = false;
-		if (player.playerLevel[player.playerWoodcutting] < 12) {
+		if (player.playerLevel[GameConstants.WOODCUTTING] < 12) {
 			player.getPacketSender().sendMessage("You need a woodcutting level of at least 12 to use the canoe station.");
 			return;
 		}
@@ -147,7 +148,7 @@ public class Woodcutting {
 			int type = axes[0];
 			int level = axes[1];
 			int anim = axes[3];
-			if (player.playerLevel[player.playerWoodcutting] >= level && player.getItemAssistant().playerHasItem(type) || player.playerLevel[player.playerWoodcutting] >= level && player.playerEquipment[player.playerWeapon] == type) {
+			if (player.playerLevel[GameConstants.WOODCUTTING] >= level && player.getItemAssistant().playerHasItem(type) || player.playerLevel[GameConstants.WOODCUTTING] >= level && player.playerEquipment[player.playerWeapon] == type) {
 				player.turnPlayerTo(player.objectX, player.objectY);
 				player.startAnimation(anim);
 				CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -239,7 +240,7 @@ public class Woodcutting {
 			p.getPacketSender().sendMessage("This skill is currently disabled.");
 			return;
 		}
-		int wcLevel = p.playerLevel[8];
+		int wcLevel = p.playerLevel[GameConstants.WOODCUTTING];
 		p.woodcuttingAxe = -1;
 		treeData tree = treeData.getTree(objectId);
 		p.turnPlayerTo(x, y);

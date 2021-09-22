@@ -1,5 +1,6 @@
 package com.rs2.game.content.quests;
 
+import com.rs2.GameConstants;
 import com.rs2.game.players.Player;
 
 /**
@@ -33,7 +34,7 @@ public class QuestRewards {
 		questReward(player, "Knight's Sword Quest", "1 Quest Point", "12,725 Smithing XP", "", "", "", "", 0);
 		QUEST_NAME = "The Knight's Sword";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7346);
-		player.getPlayerAssistant().addSkillXP(12725, player.playerSmithing);
+		player.getPlayerAssistant().addSkillXP(12725, GameConstants.SMITHING);
 		player.questPoints ++;
 		player.knightS = 9;
 	}
@@ -45,7 +46,7 @@ public class QuestRewards {
 		player.getItemAssistant().addOrDropItem(1897, 1);
 		player.getItemAssistant().addOrDropItem(2003, 1);
 		player.getItemAssistant().addOrDropItem(1560, 1);
-		player.getPlayerAssistant().addSkillXP(1525, player.playerCooking);
+		player.getPlayerAssistant().addSkillXP(1525, GameConstants.COOKING);
 		player.questPoints++;
 		player.gertCat = 7;
 	}
@@ -63,7 +64,7 @@ public class QuestRewards {
 		questReward(client, "Witch's Potion", "1 Quest Point", "325 Magic XP", "", "", "", "", 325);
 		QUEST_NAME = "Witch's Potion";
 		client.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7348);
-		client.getPlayerAssistant().addSkillXP(325, client.playerMagic);
+		client.getPlayerAssistant().addSkillXP(325, GameConstants.MAGIC);
 		client.questPoints++;
 		client.witchspot = 3;
 	}
@@ -80,7 +81,7 @@ public class QuestRewards {
 		questReward(client, "Restless Ghost", "1 Quest Point", "125 Prayer XP", "", "", "", "", 0);
 		QUEST_NAME = "Restless Ghost";
 		client.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7337);
-		client.getPlayerAssistant().addSkillXP(125, client.playerPrayer);
+		client.getPlayerAssistant().addSkillXP(125, GameConstants.PRAYER);
 		client.questPoints++;
 		client.restGhost = 5;
 	}
@@ -89,7 +90,7 @@ public class QuestRewards {
 		questReward(player, "Vampyre Slayer", "3 Quest Points", "4,825 Attack XP", "", "", "", "", 0);
 		QUEST_NAME = "Vampyre Slayer";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7347);
-		player.getPlayerAssistant().addSkillXP(4825, player.playerAttack);
+		player.getPlayerAssistant().addSkillXP(4825, GameConstants.ATTACK);
 		player.questPoints += 3;
 		player.vampSlayer = 5;
 	}
@@ -108,7 +109,7 @@ public class QuestRewards {
 		QUEST_NAME = "Sheep Shearer";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7344);
 		player.getItemAssistant().addOrDropItem(995, 60);
-		player.getPlayerAssistant().addSkillXP(150, player.playerCrafting);
+		player.getPlayerAssistant().addSkillXP(150, GameConstants.CRAFTING);
 		player.questPoints++;
 		player.sheepShear = 2;
 	}
@@ -118,7 +119,7 @@ public class QuestRewards {
 		QUEST_NAME = "Doric's Quest";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7336);
 		player.getItemAssistant().addOrDropItem(995, 180);
-		player.getPlayerAssistant().addSkillXP(1300, player.playerMining);
+		player.getPlayerAssistant().addSkillXP(1300, GameConstants.MINING);
 		player.questPoints++;
 		player.doricQuest = 3;
 	}
@@ -128,7 +129,7 @@ public class QuestRewards {
 		QUEST_NAME = "Imp Catcher";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7340);
 		player.getItemAssistant().addOrDropItem(1478, 1);
-		player.getPlayerAssistant().addSkillXP(875, player.playerMagic);
+		player.getPlayerAssistant().addSkillXP(875, GameConstants.MAGIC);
 		player.questPoints++;
 		player.impsC = 2;
 	}
@@ -138,7 +139,7 @@ public class QuestRewards {
 		QUEST_NAME = "Cook's Assistant";
 		player.getPacketSender().sendString("@gre@" + QUEST_NAME + "", 7333);
 		player.getItemAssistant().addOrDropItem(995, 500);
-		player.getPlayerAssistant().addSkillXP(300, player.playerCooking);
+		player.getPlayerAssistant().addSkillXP(300, GameConstants.COOKING);
 		player.questPoints++;
 		player.cookAss = 3;
 	}

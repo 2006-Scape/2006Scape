@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.smithing;
 
+import com.rs2.GameConstants;
 import com.rs2.game.players.Player;
 
 public class SmithingInterface {
@@ -666,7 +667,7 @@ public class SmithingInterface {
 	}
 
 	private String GetForlvl(int i, Player c) {
-		if (c.playerLevel[13] >= i) {
+		if (c.playerLevel[GameConstants.SMITHING] >= i) {
 			return "@whi@";
 		}
 

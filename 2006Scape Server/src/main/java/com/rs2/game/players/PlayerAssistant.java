@@ -41,7 +41,7 @@ public class PlayerAssistant {
 	}
 	
 	public boolean savePlayer() {
-		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[3] > 0 && player.playerLevel[3] <= player.getLevelForXP(player.playerXP[3]) / 10 && player.underAttackBy > 0);
+		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[GameConstants.HITPOINTS] > 0 && player.playerLevel[GameConstants.HITPOINTS] <= player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) / 10 && player.underAttackBy > 0);
 	}
 	
 	public void handleROL() {
@@ -98,11 +98,11 @@ public class PlayerAssistant {
 		player.getPacketSender().sendString("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
 
-		if (player.playerLevel[15] < 3) {
+		if (player.playerLevel[GameConstants.HERBLORE] < 3) {
 
-			player.playerLevel[15] = 3;
-			player.playerXP[15] = 175;
-			player.getPlayerAssistant().refreshSkill(15);
+			player.playerLevel[GameConstants.HERBLORE] = 3;
+			player.playerXP[GameConstants.HERBLORE] = 175;
+			player.getPlayerAssistant().refreshSkill(GameConstants.HERBLORE);
 		}
 	        if (player.lastLoginDate <= 0) {
 	            player.getPacketSender().sendString("This is your first time logging in!", 15258);
@@ -178,31 +178,31 @@ public class PlayerAssistant {
         int xpToAdd = 0;
         if (manta > 0) {
             toReturn.add(new GameItem(389, manta));
-            if (player.playerLevel[player.playerFishing] >= 81) {
+            if (player.playerLevel[GameConstants.FISHING] >= 81) {
                 xpToAdd += (manta * 46);
             }
         }
         if (turt > 0) {
             toReturn.add(new GameItem(395, turt));
-            if (player.playerLevel[player.playerFishing] >= 79) {
+            if (player.playerLevel[GameConstants.FISHING] >= 79) {
                 xpToAdd += (manta * 38);
             }
         }
         if (lobs > 0) {
             toReturn.add(new GameItem(377, lobs));
-            if (player.playerLevel[player.playerFishing] >= 40) {
+            if (player.playerLevel[GameConstants.FISHING] >= 40) {
                 xpToAdd += (manta * 90);
             }
         }
         if (swordFish > 0) {
             toReturn.add(new GameItem(371, swordFish));
-            if (player.playerLevel[player.playerFishing] >= 50) {
+            if (player.playerLevel[GameConstants.FISHING] >= 50) {
                 xpToAdd += (manta * 100);
             }
         }
         if (junk > 0)
             toReturn.add(new GameItem(685, junk));
-        player.getPlayerAssistant().addSkillXP(xpToAdd, player.playerFishing);
+        player.getPlayerAssistant().addSkillXP(xpToAdd, GameConstants.FISHING);
         return toReturn;
     }
     
@@ -402,7 +402,7 @@ public class PlayerAssistant {
 
 	public int raiseTimer() {
 		// calculations from https://oldschool.runescape.wiki/w/Energy
-		double seconds  = 60 / (8 + Math.floor(player.playerLevel[player.playerAgility] / 6));
+		double seconds  = 60 / (8 + Math.floor(player.playerLevel[GameConstants.AGILITY] / 6));
 		return (int) Math.floor(seconds * 1000);
 	}
 
@@ -1392,8 +1392,8 @@ public class PlayerAssistant {
 			player.clickedVamp = false;
 		} else if (player.isWoodcutting) {
 			player.isWoodcutting = false;
-		} else if (player.playerSkilling[10]) {
-			player.playerSkilling[10] = false;
+		} else if (player.playerSkilling[GameConstants.FISHING]) {
+			player.playerSkilling[GameConstants.FISHING] = false;
 		} else if(player.clickedTree) {
 				player.clickedTree = false;
 		}
@@ -1614,7 +1614,7 @@ public class PlayerAssistant {
 		if (player.freezeTimer > 0) {
 			return;
 		}
-		if (player.isDead || player.playerLevel[3] <= 0) {
+		if (player.isDead || player.playerLevel[GameConstants.HITPOINTS] <= 0) {
 			return;
 		}
 
@@ -1970,7 +1970,7 @@ public class PlayerAssistant {
 		player.getPacketSender().sendString("" + player.playerXP[skill] + "", data.get().getFrame6());
 		player.getPacketSender().sendString("" + getXPForLevel(getLevelForXP(player.playerXP[skill]) + 1) + "", data.get().getFrame7());
 		if (skill == 5) {
-			player.getPacketSender().sendString("" + player.playerLevel[5] + "/" + getLevelForXP(player.playerXP[5]) + "", 687);// Prayer
+			player.getPacketSender().sendString("" + player.playerLevel[GameConstants.PRAYER] + "/" + getLevelForXP(player.playerXP[GameConstants.PRAYER]) + "", 687);// Prayer
 		}
 	}
 
