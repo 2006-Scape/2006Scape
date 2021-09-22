@@ -11168,6 +11168,9 @@ public class Game extends RSApplet {
 			if (pktType == 126) {
 				String s1 = inStream.readString();
 				int k13 = inStream.method435();
+				if (k13 == 4016) {
+					myPlayer.currentHealth = Integer.parseInt(s1);
+				}
 				RSInterface.interfaceCache[k13].disabledText = s1;
 				if (RSInterface.interfaceCache[k13].parentID == tabInterfaceIDs[tabID]) {
 					needDrawTabArea = true;
