@@ -54,7 +54,7 @@ public class GameConstants {
 	
 	public static double XP_RATE = 10;
 	
-	public final static int SAVE_TIMER = 60; // save every x seconds
+	public final static int SAVE_TIMER = 120; // save every x seconds
 	
 	public final static int NPC_RANDOM_WALK_DISTANCE = 5;
 	
