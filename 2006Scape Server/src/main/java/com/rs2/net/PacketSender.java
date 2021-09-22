@@ -503,8 +503,6 @@ public class PacketSender {
 		if (player.getOutStream() != null && player != null) {
 			if (world != 0) {
 				world += 9;
-			} else if (!GameConstants.WORLD_LIST_FIX) {
-				world += 1;
 			}
 			player.getOutStream().createFrame(50);
 			player.getOutStream().writeQWord(playerName);

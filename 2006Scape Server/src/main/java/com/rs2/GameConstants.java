@@ -15,8 +15,7 @@ public class GameConstants {
 			MESSAGE_DELAY = 6000, MAX_PLAYERS = 200, REQ_AMOUNT = 150;
 	
 	public final static boolean SOUND = true,
-			GUILDS = true, WORLD_LIST_FIX = false,
-			PARTY_ROOM_DISABLED = true,
+			GUILDS = true, PARTY_ROOM_DISABLED = true,
 			PRINT_OBJECT_ID = false, EXPERIMENTS = false;
 	
 	public static int[] SIDEBARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151,
