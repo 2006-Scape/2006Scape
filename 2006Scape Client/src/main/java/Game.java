@@ -11682,25 +11682,25 @@ public class Game extends RSApplet {
 			Graphics g = super.graphics;
 			int debugX = 372;
 			int debugY = 249;
-			int debugWidth = 140;
 			int debugItems = 4;
+			int debugWidth = 140;
+			int debugHeight = 25 + (debugItems * 15);
+			int fill = 0x5d5447;
+			int fill2 = Color.BLACK.hashCode();
+			int opacity = 140;
 	
-			Color c2 = new Color(0f,.749f,1.0f);
-			DrawingArea.fillArea(c2.hashCode(), debugY, debugWidth, 20, 76, debugX);
-			Color c = new Color(.686f,.933f,.933f,.3f);
-			DrawingArea.fillArea(c.hashCode(), debugY + 20, debugWidth, 5 + (debugItems * 15), 76, debugX);
-	
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Debug Info", debugY += 15);
+			DrawingArea.fillArea(fill, debugY, debugWidth, debugHeight, opacity, debugX);
+			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
+			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
+			chatTextDrawingArea.method385(Color.WHITE.darker().hashCode(), "Debug Info", debugY += 14, debugX + 3);
 
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", Font.BOLD, 11));
-			
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Fps: " + super.fps, debugY += 18);
+			// Draw items
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Fps: @yel@" + super.fps, debugY += 18);
 			Runtime runtime = Runtime.getRuntime();
 			int memKB = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Mem: " + (memKB / 1024) + "mb", debugY += 15);
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Mouse: " + super.mouseX + ", " + super.mouseY, debugY += 15);
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Coords: " + (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY += 15);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Memory: @yel@" + (memKB / 1024) + "mb", debugY += 15);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Mouse: @yel@" + super.mouseX + ", " + super.mouseY, debugY += 15);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Coords: @yel@" + (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY += 15);
 		}
 		
 		if (customSettingShowExperiencePerHour) {
