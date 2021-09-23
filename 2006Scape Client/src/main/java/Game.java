@@ -477,7 +477,7 @@ public class Game extends RSApplet {
 			if (anInt1211 < 78) {
 				anInt1211 = 78;
 			}
-			method30(77, anInt1211 - anInt1089 - 77, 0, 463, anInt1211);
+			drawScrollThumb(77, anInt1211 - anInt1089 - 77, 0, 463, anInt1211);
 			String s;
 			if (myPlayer != null && myPlayer.name != null) {
 				s = myPlayer.name;
@@ -486,7 +486,7 @@ public class Game extends RSApplet {
 			}
 			textDrawingArea.method385(0, s + ":", 90, 4);
 			textDrawingArea.method385(255, inputString + "*", 90, 6 + textDrawingArea.getTextWidth(s + ": "));
-			DrawingArea.method339(77, 0, 479, 0);
+			DrawingArea.drawHorizontalLine(77, 0, 479, 0);
 		}
 		if (menuOpen && menuScreenArea == 2) {
 			drawMenu();
@@ -1261,7 +1261,7 @@ public class Game extends RSApplet {
 		}
 	}
 
-	public void method30(int j, int k, int l, int i1, int j1) {
+	public void drawScrollThumb(int j, int k, int l, int i1, int j1) {
 		scrollBar1.method361(i1, l);
 		scrollBar2.method361(i1, l + j - 16);
 		DrawingArea.fillArea(j - 32, l + 16, anInt1002, 16, i1);
@@ -1271,14 +1271,14 @@ public class Game extends RSApplet {
 		}
 		int l1 = (j - 32 - k1) * k / (j1 - j);
 		DrawingArea.fillArea(k1, l + 16 + l1, anInt1063, 16, i1);
-		DrawingArea.method341(l + 16 + l1, anInt902, k1, i1);
-		DrawingArea.method341(l + 16 + l1, anInt902, k1, i1 + 1);
-		DrawingArea.method339(l + 16 + l1, anInt902, 16, i1);
-		DrawingArea.method339(l + 17 + l1, anInt902, 16, i1);
-		DrawingArea.method341(l + 16 + l1, anInt927, k1, i1 + 15);
-		DrawingArea.method341(l + 17 + l1, anInt927, k1 - 1, i1 + 14);
-		DrawingArea.method339(l + 15 + l1 + k1, anInt927, 16, i1);
-		DrawingArea.method339(l + 14 + l1 + k1, anInt927, 15, i1 + 1);
+		DrawingArea.drawVerticalLine(l + 16 + l1, anInt902, k1, i1);
+		DrawingArea.drawVerticalLine(l + 16 + l1, anInt902, k1, i1 + 1);
+		DrawingArea.drawHorizontalLine(l + 16 + l1, anInt902, 16, i1);
+		DrawingArea.drawHorizontalLine(l + 17 + l1, anInt902, 16, i1);
+		DrawingArea.drawVerticalLine(l + 16 + l1, anInt927, k1, i1 + 15);
+		DrawingArea.drawVerticalLine(l + 17 + l1, anInt927, k1 - 1, i1 + 14);
+		DrawingArea.drawHorizontalLine(l + 15 + l1 + k1, anInt927, 16, i1);
+		DrawingArea.drawHorizontalLine(l + 14 + l1 + k1, anInt927, 15, i1 + 1);
 	}
 
 	public void updateNPCs(Stream stream, int i) {
@@ -8043,7 +8043,7 @@ public class Game extends RSApplet {
 				}
 				drawInterface(component.scrollPosition, k2, component, l2);
 				if (component.scrollMax > component.height) {
-					method30(component.height, component.scrollPosition, l2, k2 + component.width, component.scrollMax);
+					drawScrollThumb(component.height, component.scrollPosition, l2, k2 + component.width, component.scrollMax);
 				}
 			} else if (component.type != 1) {
 				if (component.type == 2) {

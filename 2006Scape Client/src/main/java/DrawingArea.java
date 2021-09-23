@@ -111,11 +111,11 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	public static void fillPixels(int i1, int k, int l, int i, int j) {
-		method339(i1, l, j, i);
-		method339(i1 + k - 1, l, j, i);
-		method341(i1, l, k, i);
-		method341(i1, l, k, i + j - 1);
+	public static void fillPixels(int _y, int _height, int _color, int _x, int _width) {
+		drawHorizontalLine(_y, _color, _width, _x);
+		drawHorizontalLine(_y + _height - 1, _color, _width, _x);
+		drawVerticalLine(_y, _color, _height, _x);
+		drawVerticalLine(_y, _color, _height, _x + _width - 1);
 	}
 
 	public static void drawFrameRounded(int _y, int _height, int _opacity, int _color, int _width, int _x) {
@@ -127,7 +127,7 @@ public class DrawingArea extends NodeSub {
 		}
 	}
 
-	public static void method339(int i, int j, int k, int l) {
+	public static void drawHorizontalLine(int i, int j, int k, int l) {
 		if (i < topY || i >= bottomY) {
 			return;
 		}
@@ -145,23 +145,23 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	private static void drawHorizontalLine(int i, int j, int k, int l, int i1) {
-		if (k < topY || k >= bottomY) {
+	private static void drawHorizontalLine(int _color, int _width, int _y, int _opacity, int _x) {
+		if (_y < topY || _y >= bottomY) {
 			return;
 		}
-		if (i1 < topX) {
-			j -= topX - i1;
-			i1 = topX;
+		if (_x < topX) {
+			_width -= topX - _x;
+			_x = topX;
 		}
-		if (i1 + j > bottomX) {
-			j = bottomX - i1;
+		if (_x + _width > bottomX) {
+			_width = bottomX - _x;
 		}
-		int j1 = 256 - l;
-		int k1 = (i >> 16 & 0xff) * l;
-		int l1 = (i >> 8 & 0xff) * l;
-		int i2 = (i & 0xff) * l;
-		int i3 = i1 + k * width;
-		for (int j3 = 0; j3 < j; j3++) {
+		int j1 = 256 - _opacity;
+		int k1 = (_color >> 16 & 0xff) * _opacity;
+		int l1 = (_color >> 8 & 0xff) * _opacity;
+		int i2 = (_color & 0xff) * _opacity;
+		int i3 = _x + _y * width;
+		for (int j3 = 0; j3 < _width; j3++) {
 			int j2 = (pixels[i3] >> 16 & 0xff) * j1;
 			int k2 = (pixels[i3] >> 8 & 0xff) * j1;
 			int l2 = (pixels[i3] & 0xff) * j1;
@@ -171,20 +171,20 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	public static void method341(int i, int j, int k, int l) {
-		if (l < topX || l >= bottomX) {
+	public static void drawVerticalLine(int _y, int _color, int _height, int _x) {
+		if (_x < topX || _x >= bottomX) {
 			return;
 		}
-		if (i < topY) {
-			k -= topY - i;
-			i = topY;
+		if (_y < topY) {
+			_height -= topY - _y;
+			_y = topY;
 		}
-		if (i + k > bottomY) {
-			k = bottomY - i;
+		if (_y + _height > bottomY) {
+			_height = bottomY - _y;
 		}
-		int j1 = l + i * width;
-		for (int k1 = 0; k1 < k; k1++) {
-			pixels[j1 + k1 * width] = j;
+		int j1 = _x + _y * width;
+		for (int k1 = 0; k1 < _height; k1++) {
+			pixels[j1 + k1 * width] = _color;
 		}
 
 	}

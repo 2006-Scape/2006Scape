@@ -210,7 +210,7 @@ public final class TextDrawingArea extends DrawingArea {
 			}
 		}
 		if (aBoolean1499) {
-			DrawingArea.method339(k + (int) (anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
+			DrawingArea.drawHorizontalLine(k + (int) (anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
 		}
 	}
 
