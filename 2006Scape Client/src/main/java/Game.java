@@ -5573,35 +5573,39 @@ public class Game extends RSApplet {
 				tabID = 13;
 				tabAreaAltered = true;
 			}
-			// Handle our custom tab
-			if (tabID == 7 && super.saveClickX >= 575 && super.saveClickX <= 720 && super.saveClickY >= 210 && super.saveClickY <= 465) {
-				int startY = 217;
-				if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
-					customSettingVisiblePlayerShops = !customSettingVisiblePlayerShops;
-				}
-				startY += 50;
-				if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
-					customSettingVisiblePlayerNames = !customSettingVisiblePlayerNames;
-				}
-				startY += 50;
-				if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
-					inputTaken = true;
-					inputDialogState = 0;
-					messagePromptRaised = true;
-					promptInput = "";
-					aString1121 = "Enter minimum item value";
-					customTabAction = 1;
-				}
-				startY += 50;
-				if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
-					customSettingShowExperiencePerHour= !customSettingShowExperiencePerHour;
-					customSettingShowExperiencePerHourStart = System.currentTimeMillis();
-					customSettingShowExperiencePerHourStartExp = calculateTotalExp();
-					customSettingShowExperiencePerHourStartLevels = calculateTotalLevels();
-				}
-				startY += 50;
-				if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
-					showInfo= !showInfo;
+			if (invOverlayInterfaceID == -1) {
+				if (tabInterfaceIDs[tabID] != -1) {
+					// Handle our custom tab
+					if (tabID == 7 && super.saveClickX >= 575 && super.saveClickX <= 720 && super.saveClickY >= 210 && super.saveClickY <= 465) {
+						int startY = 217;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+							customSettingVisiblePlayerShops = !customSettingVisiblePlayerShops;
+						}
+						startY += 50;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+							customSettingVisiblePlayerNames = !customSettingVisiblePlayerNames;
+						}
+						startY += 50;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+							inputTaken = true;
+							inputDialogState = 0;
+							messagePromptRaised = true;
+							promptInput = "";
+							aString1121 = "Enter minimum item value";
+							customTabAction = 1;
+						}
+						startY += 50;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+							customSettingShowExperiencePerHour= !customSettingShowExperiencePerHour;
+							customSettingShowExperiencePerHourStart = System.currentTimeMillis();
+							customSettingShowExperiencePerHourStartExp = calculateTotalExp();
+							customSettingShowExperiencePerHourStartLevels = calculateTotalLevels();
+						}
+						startY += 50;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+							showInfo= !showInfo;
+						}
+					}
 				}
 			}
 			if (anInt1054 == tabID) {
