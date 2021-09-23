@@ -1782,38 +1782,39 @@ public class Game extends RSApplet {
 		aRSImageProducer_1163.initDrawingArea();
 		Texture.lineOffsets = tabAreaOffsets;
 		invBack.method361(0, 0);
-		if (tabID == 7) {
-			try {
-				aBackground_967 = new Background(titleStreamLoader, "titlebutton", 0);
+		if (invOverlayInterfaceID == -1) {
+			if (tabInterfaceIDs[tabID] != -1) {
+				if (tabID == 7) {
+					try {
+						aBackground_967 = new Background(titleStreamLoader, "titlebutton", 0);
 
-				int centerX = 95;
-				int currentY = 10;
-				int textMiddle = 25;
-				int textTop = 18;
-				int textBottom = 32;
+						int centerX = 95;
+						int currentY = 10;
+						int textMiddle = 25;
+						int textTop = 18;
+						int textBottom = 32;
 
-				aBackground_967.method361(centerX - 73, currentY);
-				chatTextDrawingArea.method382(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
-				chatTextDrawingArea.method382(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "player shops", currentY + textBottom, true);
+						aBackground_967.method361(centerX - 73, currentY);
+						chatTextDrawingArea.method382(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
+						chatTextDrawingArea.method382(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "player shops", currentY + textBottom, true);
 
-				aBackground_967.method361(centerX - 73, currentY += 50);
-				chatTextDrawingArea.method382(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
-				chatTextDrawingArea.method382(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "player names", currentY + textBottom, true);
-				
-				aBackground_967.method361(centerX - 73, currentY += 50);
-				chatTextDrawingArea.method382(0x00ff00, centerX, "item drops visible", currentY + textTop, true);
-				chatTextDrawingArea.method382(0xffffff, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
+						aBackground_967.method361(centerX - 73, currentY += 50);
+						chatTextDrawingArea.method382(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
+						chatTextDrawingArea.method382(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "player names", currentY + textBottom, true);
+						
+						aBackground_967.method361(centerX - 73, currentY += 50);
+						chatTextDrawingArea.method382(0x00ff00, centerX, "item drops visible", currentY + textTop, true);
+						chatTextDrawingArea.method382(0xffffff, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
 
-				aBackground_967.method361(centerX - 73, currentY += 50);
-				chatTextDrawingArea.method382(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
+						aBackground_967.method361(centerX - 73, currentY += 50);
+						chatTextDrawingArea.method382(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
 
-				aBackground_967.method361(centerX - 73, currentY += 50);
-				chatTextDrawingArea.method382(showInfo ? 0x00ff00 : 0xff0000, centerX, "debug info", currentY + textMiddle, true);
+						aBackground_967.method361(centerX - 73, currentY += 50);
+						chatTextDrawingArea.method382(showInfo ? 0x00ff00 : 0xff0000, centerX, "debug info", currentY + textMiddle, true);
 
-				skullIcons[0].drawSprite(150, 230);
-			} catch (Exception e) {
-				System.out.println("[new tab] something went wrong...");
-				//TODO: handle exception
+						skullIcons[0].drawSprite(150, 230);
+					} catch (Exception e) { }
+				}
 			}
 		}
 		if (invOverlayInterfaceID != -1) {
