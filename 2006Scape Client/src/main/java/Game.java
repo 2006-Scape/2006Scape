@@ -945,11 +945,11 @@ public class Game extends RSApplet {
 			worldController.method295(plane, i, j);
 			return;
 		}
-		int k = 0xfa0a1f01;
+		long k = Long.MIN_VALUE;
 		Object obj = null;
 		for (Item item = (Item) class19.reverseGetFirst(); item != null; item = (Item) class19.reverseGetNext()) {
 			ItemDef itemDef = ItemDef.forID(item.ID);
-			int l = itemDef.value;
+			long l = itemDef.value;
 			if (itemDef.stackable) {
 				l *= item.amount + 1;
 				// notifyItemSpawn(item, i + baseX, j + baseY);
