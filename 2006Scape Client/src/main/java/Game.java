@@ -4295,18 +4295,17 @@ public class Game extends RSApplet {
 		if (l == 1125) {
 			ItemDef itemDef = ItemDef.forID(i1);
 			RSInterface class9_4 = RSInterface.interfaceCache[k];
-			String s5;
-			if (class9_4 != null && class9_4.invStackSizes[j] >= 0x186a0) {
+			if (class9_4 != null && class9_4.invStackSizes[j] >= 1e5) {
 				DecimalFormatSymbols separator = new DecimalFormatSymbols();
 				separator.setGroupingSeparator(',');
 				DecimalFormat formatter = new DecimalFormat("#,###,###,###", separator);
-				s5 = formatter.format(class9_4.invStackSizes[j]) + " x " + itemDef.name;
-			} else if (itemDef.description != null) {
-				s5 = new String(itemDef.description);
-			} else {
-				s5 = "It's a " + itemDef.name + ".";
+				pushMessage(formatter.format(class9_4.invStackSizes[j]) + " x " + itemDef.name, 0, "");
 			}
-			pushMessage(s5, 0, "");
+			if (itemDef.description != null) {
+				pushMessage(new String(itemDef.description) + " (" + intToKOrMil(itemDef.value) + "gp ea)", 0, "");
+			} else {
+				pushMessage("It's a " + itemDef.name + ".", 0, "");
+			}
 		}
 		if (l == 169) {
 			stream.createFrame(185);
