@@ -11677,34 +11677,30 @@ public class Game extends RSApplet {
 		method37(k2);
 		// Allow stuff inside the tabs to work
 		draw3dScreen();
-		// Show overlays on main screen
-		aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
 		
 		if (showInfo) {
 			Graphics g = super.graphics;
-			int debugX = 385;
-			int debugY = 253;
+			int debugX = 372;
+			int debugY = 249;
+			int debugWidth = 140;
 			int debugItems = 4;
 	
-			Color c2=new Color(0f,.749f,1.0f,.3f);
-			g.setColor(c2);
-			g.fillRect(debugX, debugY, 130, 20);
+			Color c2 = new Color(0f,.749f,1.0f);
+			DrawingArea.fillArea(c2.hashCode(), debugY, debugWidth, 20, 76, debugX);
+			Color c = new Color(.686f,.933f,.933f,.3f);
+			DrawingArea.fillArea(c.hashCode(), debugY + 20, debugWidth, 5 + (debugItems * 15), 76, debugX);
 	
-			Color c=new Color(.686f,.933f,.933f,.3f);
-			g.setColor(c);
-			g.fillRect(debugX, debugY + 20, 130, 5 + (debugItems * 15));
-	
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Debug Info", debugY += 15);
+
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", Font.BOLD, 14));
-			g.drawString("Debug Info", debugX + 8, debugY += 15);
 			g.setFont(new Font("Arial", Font.BOLD, 11));
 			
-			g.drawString("Fps: " + super.fps, debugX + 10, debugY += 17);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Fps: " + super.fps, debugY += 18);
 			Runtime runtime = Runtime.getRuntime();
 			int memKB = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
-			g.drawString("Mem: " + (memKB / 1024) + "mb", debugX + 10, debugY += 15);
-			g.drawString("Mouse: " + super.mouseX + ", " + super.mouseY, debugX + 10, debugY += 15);
-			g.drawString("Coords: " + (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugX + 10, debugY += 15);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Mem: " + (memKB / 1024) + "mb", debugY += 15);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Mouse: " + super.mouseX + ", " + super.mouseY, debugY += 15);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Coords: " + (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY += 15);
 		}
 		
 		if (customSettingShowExperiencePerHour) {
@@ -11734,6 +11730,10 @@ public class Game extends RSApplet {
 			g.drawString("Experience p/h: " + intToKOrMil((int) expPerHour), debugX + 10, debugY += 17);
 			g.drawString("Levels gained: " + (calculateTotalLevels() - customSettingShowExperiencePerHourStartLevels), debugX + 10, debugY += 15);
 		}
+
+		// Draw main screen
+		aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
+
 		// g.drawString("Status: " + Variables.getStatus(), 360, 270);
 		// if (SCRIPT_TIMER == null) return;
 		// g.drawString("Items(P/H): " + Methods.formatNumber(Variables.items_gained) + "(" + Methods.formatNumber(SCRIPT_TIMER.getPerHour(Variables.items_gained)) + ")", 360, 290);
