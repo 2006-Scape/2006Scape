@@ -1476,6 +1476,7 @@ public class Game extends RSApplet {
 						for (Item item = (Item) class19.reverseGetFirst(); item != null; item = (Item) class19.reverseGetNext()) {
 							ItemDef itemDef = ItemDef.forID(item.ID);
 							long totalValue = Math.max(1, item.amount) * Math.max(1, itemDef.value);
+							totalValue = totalValue > 0 ? totalValue : Integer.MAX_VALUE;
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
 							// only show ground items if worth more than x (1k default)
 							if (totalValue >= customSettingMinItemValue) {
@@ -2123,17 +2124,25 @@ public class Game extends RSApplet {
 		}
 	}
 
-	public static String intToShortLetter(long j) {
-		if (j >= 1e13) {
-			return (int) (j / 1e12) + "Z";
-		} else if (j >= 1e10) {
-			return (int) (j / 1e9) + "B";
-		} else if (j >= 1e7) {
-			return (int) (j / 1e6) + "M";
-		} else if (j >= 1e4) {
-			return (int) (j / 1e3) + "K";
+	public static String intToShortLetter(long number) {
+		DecimalFormat nf = new DecimalFormat("0.0");
+		double i = number;
+		if (i >= 1e9) { // 1B
+				return nf.format((i / 1e9)) + "B";
 		}
-		return String.valueOf(j);
+		if (i >= 1e7) { // 1K
+				return (int) (i / 1e6) + "M";
+		}
+		if (i >= 1e6) { // 1M
+				return nf.format((i / 1e6)) + "M";
+		}
+		if (i >= 1e4) { // 1K
+				return (int) (i / 1e3) + "K";
+		}
+		if (i >= 1e3) { // 1K
+				return nf.format((i / 1e3)) + "K";
+		}
+		return "" + number;
 	}
 
 	public void resetLogout() {
