@@ -12521,16 +12521,16 @@ public class Game extends RSApplet {
 				if (npc.name == null) {
 					continue;
 				}
-				result = npc.name.toLowerCase();
+				result = npc.name;
 			} else if (type == 3) {
 				ObjectDef object = ObjectDef.forID(definition);
 				if (object.name == null) {
 					continue;
 				}
-				result = object.name.toLowerCase();
+				result = object.name;
 			}
             for (int index = 0; index < found; index++) {
-                if (result.indexOf(parts[index]) == -1) {
+                if (!result.toLowerCase().contains(parts[index])) {
                     continue label0;
                 }
             }
