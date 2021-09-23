@@ -4757,7 +4757,7 @@ public class Game extends RSApplet {
 				break;
 			}
 			if (customTabAction == 1) {
-				if (j >= 48 && j <= 57 && promptInput.length() < 10) {
+				if (j >= 48 && j <= 57 && promptInput.length() < 10 && !promptInput.toLowerCase().contains("k") && !promptInput.toLowerCase().contains("m") && !promptInput.toLowerCase().contains("b")) {
 					promptInput += (char) j;
 					inputTaken = true;
 				}
@@ -4847,7 +4847,7 @@ public class Game extends RSApplet {
 					}
 				}
 			} else if (inputDialogState == 1) {
-				if (j >= 48 && j <= 57 && amountOrNameInput.length() < 10) {
+				if (j >= 48 && j <= 57 && amountOrNameInput.length() < 10 && !amountOrNameInput.toLowerCase().contains("k") && !amountOrNameInput.toLowerCase().contains("m") && !amountOrNameInput.toLowerCase().contains("b")) {
 					amountOrNameInput += (char) j;
 					inputTaken = true;
 				}
