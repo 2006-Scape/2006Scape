@@ -951,7 +951,7 @@ public class Game extends RSApplet {
 			ItemDef itemDef = ItemDef.forID(item.ID);
 			int l = itemDef.value;
 			if (itemDef.stackable) {
-				l *= item.anInt1559 + 1;
+				l *= item.amount + 1;
 				// notifyItemSpawn(item, i + baseX, j + baseY);
 			}
 
@@ -1475,18 +1475,26 @@ public class Game extends RSApplet {
 						int offset = 5;
 						for (Item item = (Item) class19.reverseGetFirst(); item != null; item = (Item) class19.reverseGetNext()) {
 							ItemDef itemDef = ItemDef.forID(item.ID);
+							int totalValue = Math.max(1, item.amount) * Math.max(1, itemDef.value);
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
 							// only show ground items if worth more than x (1k default)
-							if (itemDef.value >= customSettingMinItemValue) {
+							if (totalValue >= customSettingMinItemValue) {
 								int color = 0xffffff;
-								if (itemDef.value >= 1e5) {
+								if (totalValue >= 1e5) {
 									color = 0x00ff00;
-								} else if (itemDef.value >= 1e4) {
-									color = 0x0000ff;
-								} else if (itemDef.value >= 1e3) {
+								} else if (totalValue >= 1e4) {
+									color = 0x00ffff;
+								} else if (totalValue >= 1e3) {
 									color = 0xffff00;
 								}
-								String text = itemDef.name + " (" +  intToKOrMil(itemDef.value) + " gp)";
+								String text = "";
+								if (item.amount > 1) {
+									DecimalFormatSymbols separator = new DecimalFormatSymbols();
+									separator.setGroupingSeparator(',');
+									DecimalFormat formatter = new DecimalFormat("#,###,###,###", separator);
+									text += formatter.format(item.amount) + " x ";
+								}
+								text += itemDef.name + " (" +  intToKOrMil(totalValue) + " gp)";
 								aTextDrawingArea_1270.method385(color, text, spriteDrawY - offset, spriteDrawX - (aTextDrawingArea_1270.getTextWidth(text) / 2));
 								offset += 10;
 							}
@@ -9751,10 +9759,10 @@ public class Game extends RSApplet {
 				NodeList class19_1 = groundArray[plane][j3][i6];
 				if (class19_1 != null) {
 					for (Item class30_sub2_sub4_sub2_3 = (Item) class19_1.reverseGetFirst(); class30_sub2_sub4_sub2_3 != null; class30_sub2_sub4_sub2_3 = (Item) class19_1.reverseGetNext()) {
-						if (class30_sub2_sub4_sub2_3.ID != (l8 & 0x7fff) || class30_sub2_sub4_sub2_3.anInt1559 != k11) {
+						if (class30_sub2_sub4_sub2_3.ID != (l8 & 0x7fff) || class30_sub2_sub4_sub2_3.amount != k11) {
 							continue;
 						}
-						class30_sub2_sub4_sub2_3.anInt1559 = l13;
+						class30_sub2_sub4_sub2_3.amount = l13;
 						break;
 					}
 
@@ -9788,7 +9796,7 @@ public class Game extends RSApplet {
 			if (k6 >= 0 && j9 >= 0 && k6 < 104 && j9 < 104 && i12 != unknownInt10) {
 				Item class30_sub2_sub4_sub2_2 = new Item();
 				class30_sub2_sub4_sub2_2.ID = i1;
-				class30_sub2_sub4_sub2_2.anInt1559 = j14;
+				class30_sub2_sub4_sub2_2.amount = j14;
 				if (groundArray[plane][k6][j9] == null) {
 					groundArray[plane][k6][j9] = new NodeList();
 				}
@@ -9976,15 +9984,15 @@ public class Game extends RSApplet {
 			return;
 		}
 		if (j == 44) {
-			int k2 = stream.method436();
-			int j5 = stream.readUnsignedWord();
+			int itemID = stream.method436();
+			int itemAmount = stream.readUnsignedWord();
 			int i8 = stream.readUnsignedByte();
 			int l10 = anInt1268 + (i8 >> 4 & 7);
 			int i13 = anInt1269 + (i8 & 7);
 			if (l10 >= 0 && i13 >= 0 && l10 < 104 && i13 < 104) {
 				Item class30_sub2_sub4_sub2_1 = new Item();
-				class30_sub2_sub4_sub2_1.ID = k2;
-				class30_sub2_sub4_sub2_1.anInt1559 = j5;
+				class30_sub2_sub4_sub2_1.ID = itemID;
+				class30_sub2_sub4_sub2_1.amount = itemAmount;
 				if (groundArray[plane][l10][i13] == null) {
 					groundArray[plane][l10][i13] = new NodeList();
 				}
