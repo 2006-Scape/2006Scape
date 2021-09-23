@@ -85,12 +85,12 @@ public class PacketSender {
 		if (player.questPoints > QuestAssistant.MAXIMUM_QUESTPOINTS || player.playerRights > 2) {
 			player.questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for abusers
 		}
-		if (player.playerHitpoints < 0) {
+		if (GameConstants.HITPOINTS < 0) {
 			player.isDead = true;
 		}
-		if (player.playerLevel[player.playerHitpoints] > 99) {
-			player.playerLevel[player.playerHitpoints] = 99;// check for abusers
-			player.getPlayerAssistant().refreshSkill(3);
+		if (player.playerLevel[GameConstants.HITPOINTS] > 99) {
+			player.playerLevel[GameConstants.HITPOINTS] = 99;// check for abusers
+			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 		}
 		if (player.tutorialProgress > 0 && player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
 			player.getPacketSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");

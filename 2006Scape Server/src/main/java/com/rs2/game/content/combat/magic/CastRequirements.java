@@ -1,5 +1,6 @@
 package com.rs2.game.content.combat.magic;
 
+import com.rs2.GameConstants;
 import com.rs2.game.players.Player;
 
 public class CastRequirements {
@@ -41,7 +42,7 @@ public class CastRequirements {
 	}
 
 	public static boolean hasRequiredLevel(Player c, int i) {
-		return c.playerLevel[6] >= i;
+		return c.playerLevel[GameConstants.MAGIC] >= i;
 	}
 
 	public static final int FIRE = 554,

@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.core.Fishing;
@@ -36,13 +37,13 @@ public class Walking implements PacketType {
 		if (player.isTeleporting) {
 			player.isTeleporting = false;
 		}
-		if (player.playerSkilling[10]) {// fishing
+		if (player.playerSkilling[GameConstants.FISHING]) {// fishing
 			Fishing.resetFishing(player);
 		}
 		if (player.playerIsCooking) {// cooking
 			Cooking.setCooking(player, false);
 		}
-		if (player.playerSkilling[13]) {// smelting
+		if (player.playerSkilling[GameConstants.SMITHING]) {// smelting
 			Smelting.resetSmelting(player);
 		}
 		if (player.playerStun) {

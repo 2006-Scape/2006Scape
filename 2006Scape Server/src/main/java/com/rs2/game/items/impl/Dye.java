@@ -1,6 +1,7 @@
 package com.rs2.game.items.impl;
 
 import com.rs2.game.items.ItemData;
+import com.rs2.GameConstants;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 
@@ -68,7 +69,7 @@ public enum Dye {
 				player.getItemAssistant().deleteItem(itemUsed, 1);
 				player.getItemAssistant().deleteItem(useWith, 1);
 				player.getItemAssistant().addItem(cape.getReward(), 1);
-				player.getPlayerAssistant().addSkillXP(2.5, player.playerCrafting);
+				player.getPlayerAssistant().addSkillXP(2.5, GameConstants.CRAFTING);
 			}
 		}
 	}

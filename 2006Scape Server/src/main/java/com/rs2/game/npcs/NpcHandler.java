@@ -787,8 +787,8 @@ public class NpcHandler {
                         }
                         if (npcs[i].npcType > 3726 && npcs[i].npcType < 3732) {
                             int damage = 10 + Misc.random(10);
-                            player.playerLevel[player.playerHitpoints] = player.getPlayerAssistant().getLevelForXP(player.playerXP[player.playerHitpoints]) - damage;
-                            player.getPlayerAssistant().refreshSkill(player.playerHitpoints);
+                            player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) - damage;
+                            player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
                             player.handleHitMask(damage);
                         }
                         if (npcs[i].npcType == 655) {
@@ -1390,9 +1390,9 @@ public class NpcHandler {
                 || npcs[i].npcType == 1160) {
             if (damage > 0) {
                 if (c != null) {
-                    if (c.playerLevel[5] > 0) {
-                        c.playerLevel[5]--;
-                        c.getPlayerAssistant().refreshSkill(5);
+                    if (c.playerLevel[GameConstants.PRAYER] > 0) {
+                        c.playerLevel[GameConstants.PRAYER]--;
+                        c.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
                         c.getPlayerAssistant().appendPoison(12);
                     }
                 }

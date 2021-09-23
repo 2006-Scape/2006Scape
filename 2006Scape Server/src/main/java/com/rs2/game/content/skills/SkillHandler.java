@@ -2,6 +2,7 @@ package com.rs2.game.content.skills;
 
 import java.util.Random;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.core.Fishing;
@@ -39,13 +40,13 @@ public class SkillHandler {
 
 
 	public static boolean isSkilling(Player player) {
-		if (player.playerSkilling[10] || player.playerStun || player.playerSkilling[12]
+		if (player.playerSkilling[GameConstants.FISHING] || player.playerStun || player.playerSkilling[GameConstants.CRAFTING]
 				|| player.playerIsFletching || player.isFletching || player.playerIsCooking
 				|| player.isMining || player.isWoodcutting || player.isSmithing
 				|| player.isSmelting || player.isSpinning || player.isPotionMaking
 				|| player.isPotCrafting || player.isFiremaking
-				|| player.playerSkilling[player.playerHerblore]
-				|| player.playerSkilling[13]) {
+				|| player.playerSkilling[GameConstants.HERBLORE]
+				|| player.playerSkilling[GameConstants.SMITHING]) {
 			return true;
 		}
 		return false;
@@ -63,7 +64,7 @@ public class SkillHandler {
 			player.isSmithing = false;
 		} else if (isSkilling[12]) {// crafting
 			isSkilling[12] = false;
-		} else if (player.isSmelting || player.playerSkilling[13]) {// smelting
+		} else if (player.isSmelting || player.playerSkilling[GameConstants.SMITHING]) {// smelting
 			Smelting.resetSmelting(player);
 		} else if (player.isCrafting) {
 			player.isCrafting = false;
@@ -82,7 +83,7 @@ public class SkillHandler {
 
 	public static void resetSkills(Player player) {// call when walking, dropping,
 												// picking up, leveling up
-		if (player.playerSkilling[10]) {// fishing
+		if (player.playerSkilling[GameConstants.FISHING]) {// fishing
 			Fishing.resetFishing(player);
 		} else if (player.isMining) {// mining
 			Mining.resetMining(player);
@@ -94,7 +95,7 @@ public class SkillHandler {
 			player.isSmithing = false;
 		} else if (isSkilling[12]) {// crafting
 			isSkilling[12] = false;
-		} else if (player.isSmelting || player.playerSkilling[13]) {// smelting
+		} else if (player.isSmelting || player.playerSkilling[GameConstants.SMITHING]) {// smelting
 			Smelting.resetSmelting(player);
 		} else if (player.isCrafting) {
 			player.isCrafting = false;

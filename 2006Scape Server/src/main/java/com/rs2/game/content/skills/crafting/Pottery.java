@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.crafting;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -54,14 +55,14 @@ public class Pottery {
 		c.doAmount = amount;
 		c.isPotCrafting = true;
 		if (c.getItemAssistant().playerHasItem(softClay)
-				&& c.playerLevel[12] >= level && c.isPotCrafting) {
+				&& c.playerLevel[GameConstants.CRAFTING] >= level && c.isPotCrafting) {
 			c.startAnimation(unFire);
 			c.getItemAssistant().deleteItem(softClay, 1);
 			c.getItemAssistant().addItem(id, 1);
 			c.getPacketSender().sendMessage(
 					"You make the soft clay into a "
 							+ ItemAssistant.getItemName(id) + ".");
-			c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
+			c.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 			c.doAmount--;
 		}
 		CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
@@ -69,17 +70,17 @@ public class Pottery {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (c.getItemAssistant().playerHasItem(softClay)
-						&& c.playerLevel[12] >= level && !(c.doAmount <= 0)
+						&& c.playerLevel[GameConstants.CRAFTING] >= level && !(c.doAmount <= 0)
 						&& c.isPotCrafting) {
 					c.startAnimation(unFire);
 					c.getItemAssistant().deleteItem(softClay, 1);
 					c.getItemAssistant().addItem(id, 1);
 					c.getPacketSender().sendMessage("You make the soft clay into a " + ItemAssistant.getItemName(id) + ".");
-					c.getPlayerAssistant().addSkillXP(xp, c.playerCrafting);
+					c.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 					c.doAmount--;
 				}
 
-				if (c.playerLevel[12] < level) {
+				if (c.playerLevel[GameConstants.CRAFTING] < level) {
 					container.stop();
 					c.getPacketSender().sendMessage("You need a crafting level of " + level + " to make this.");
 				}
@@ -113,22 +114,22 @@ public class Pottery {
 		player.doAmount = amount;
 		player.isPotCrafting = true;
 		if (player.getItemAssistant().playerHasItem(startId)
-				&& player.playerLevel[12] >= level && player.isPotCrafting) {
+				&& player.playerLevel[GameConstants.CRAFTING] >= level && player.isPotCrafting) {
 			player.getItemAssistant().deleteItem(startId, 1);
 			player.getItemAssistant().addItem(finishId, 1);
 			player.startAnimation(Fire);
 			player.getPacketSender().sendSound(469, 100, 0);
 			player.getPacketSender().sendMessage("You put a " + ItemAssistant.getItemName(startId) + " into the oven.");
 			player.getPacketSender().sendMessage("You retrieve the " + ItemAssistant.getItemName(finishId) + " from the oven.");
-			player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
+			player.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 			player.doAmount--;
 		}
 
-		if (player.playerLevel[12] < level) {
+		if (player.playerLevel[GameConstants.CRAFTING] < level) {
 			player.getPacketSender().sendMessage("You need a crafting level of " + level + " to make this.");
 		}
 
-		if (!player.getItemAssistant().playerHasItem(startId) && player.playerLevel[12] >= level) {
+		if (!player.getItemAssistant().playerHasItem(startId) && player.playerLevel[GameConstants.CRAFTING] >= level) {
 			player.getPacketSender().sendMessage("You need an " + ItemAssistant.getItemName(startId) + " to do this.");
 		}
 
@@ -136,20 +137,20 @@ public class Pottery {
 
 			@Override
 			public void execute(CycleEventContainer container) {
-				if (player.getItemAssistant().playerHasItem(startId) && player.playerLevel[12] >= level && player.isPotCrafting && !(player.doAmount <= 0)) {
+				if (player.getItemAssistant().playerHasItem(startId) && player.playerLevel[GameConstants.CRAFTING] >= level && player.isPotCrafting && !(player.doAmount <= 0)) {
 					player.getItemAssistant().deleteItem(startId, 1);
 					player.getItemAssistant().addItem(finishId, 1);
 					player.startAnimation(Fire);
 					player.getPacketSender().sendSound(469, 100, 0);
 					player.getPacketSender().sendMessage("You put a " + ItemAssistant.getItemName(startId) + " into the oven.");
 					player.getPacketSender().sendMessage("You retrieve the " + ItemAssistant.getItemName(finishId) + " from the oven.");
-					player.getPlayerAssistant().addSkillXP(xp, player.playerCrafting);
+					player.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 					player.doAmount--;
 				}
 
 				if (player.isPotCrafting == false
 						|| !player.getItemAssistant().playerHasItem(startId)
-						|| player.playerLevel[12] < level) {
+						|| player.playerLevel[GameConstants.CRAFTING] < level) {
 					container.stop();
 				}
 
