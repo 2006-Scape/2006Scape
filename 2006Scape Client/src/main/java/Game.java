@@ -3667,7 +3667,6 @@ public class Game extends RSApplet {
 		}
 		if (l == 315) {
 			RSInterface class9 = RSInterface.interfaceCache[k];
-			System.out.println("iinterface" + k);
 			boolean flag8 = true;
 			if (class9.anInt214 > 0) {
 				flag8 = promptUserForInput(class9);
@@ -11694,8 +11693,11 @@ public class Game extends RSApplet {
 			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
 			chatTextDrawingArea.method385(Color.WHITE.darker().hashCode(), "Debug Info", debugY += 14, debugX + 3);
 
+			// Bump Y value
+			debugY += 3;
+
 			// Draw items
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Fps: @yel@" + super.fps, debugY += 18);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Fps: @yel@" + super.fps, debugY += 15);
 			Runtime runtime = Runtime.getRuntime();
 			int memKB = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
 			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Memory: @yel@" + (memKB / 1024) + "mb", debugY += 15);
@@ -11708,27 +11710,28 @@ public class Game extends RSApplet {
 			int debugX = 385;
 			int debugY = 0;
 			int debugItems = 2;
+			int debugWidth = 140;
+			int debugHeight = 25 + (debugItems * 15);
+			int fill = 0x5d5447;
+			int fill2 = Color.BLACK.hashCode();
+			int opacity = 140;
 	
-			Color c2=new Color(0f,.749f,1.0f,.3f);
-			g.setColor(c2);
-			g.fillRect(debugX, debugY, 130, 20);
-	
-			Color c=new Color(.686f,.933f,.933f,.3f);
-			g.setColor(c);
-			g.fillRect(debugX, debugY + 20, 130, 5 + (debugItems * 15));
-	
-			g.setColor(Color.WHITE);
-			g.setFont(new Font("Arial", Font.BOLD, 14));
-			g.drawString("Experience Info", debugX + 8, debugY += 15);
-			g.setFont(new Font("Arial", Font.BOLD, 11));
+			DrawingArea.fillArea(fill, debugY, debugWidth, debugHeight, opacity, debugX);
+			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
+			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
+			chatTextDrawingArea.method385(Color.WHITE.darker().hashCode(), "Experience Info", debugY += 14, debugX + 3);
+
+			// Bump Y value
+			debugY += 3;
 			
 			// Calculate exp/h
 			long currentExpGained = calculateTotalExp();
 			long expGained = currentExpGained - customSettingShowExperiencePerHourStartExp;
 			long expPerHour = (long) ((expGained * 3600000D) / (System.currentTimeMillis() - customSettingShowExperiencePerHourStart));
 
-			g.drawString("Experience p/h: " + intToKOrMil((int) expPerHour), debugX + 10, debugY += 17);
-			g.drawString("Levels gained: " + (calculateTotalLevels() - customSettingShowExperiencePerHourStartLevels), debugX + 10, debugY += 15);
+			// Draw items
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Exp p/h: @yel@" + intToKOrMil((int) expPerHour), debugY += 15);
+			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Levels gained: @yel@" + (calculateTotalLevels() - customSettingShowExperiencePerHourStartLevels), debugY += 15);
 		}
 
 		// Draw main screen
