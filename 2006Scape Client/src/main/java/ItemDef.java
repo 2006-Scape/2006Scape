@@ -2103,7 +2103,7 @@ public final class ItemDef {
 		int j3 = DrawingArea.bottomY;
 		Texture.aBoolean1464 = false;
 		DrawingArea.initDrawingArea(32, 32, sprite2.pixels);
-		DrawingArea.method336(32, 0, 0, 32, 0);
+		DrawingArea.drawFrameSquared(32, 0, 0, 32, 0);
 		Texture.method364();
 		int k3 = itemDef.modelZoom;
 		if (k == -1) {

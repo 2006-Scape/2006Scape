@@ -50,7 +50,7 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	public static void method335(int i, int j, int k, int l, int i1, int k1) {
+	public static void fillArea(int i, int j, int k, int l, int i1, int k1) {
 		if (k1 < topX) {
 			k -= topX - k1;
 			k1 = topX;
@@ -84,7 +84,7 @@ public class DrawingArea extends NodeSub {
 		}
 	}
 
-	public static void method336(int i, int j, int l, int i1, int k) {
+	public static void drawFrameSquared(int i, int j, int l, int i1, int k) {
 		if (k < topX) {
 			i1 -= topX - k;
 			k = topX;
@@ -118,12 +118,12 @@ public class DrawingArea extends NodeSub {
 		method341(i1, l, k, i + j - 1);
 	}
 
-	public static void method338(int i, int j, int k, int l, int i1, int j1) {
-		method340(l, i1, i, k, j1);
-		method340(l, i1, i + j - 1, k, j1);
-		if (j >= 3) {
-			method342(l, j1, k, i + 1, j - 2);
-			method342(l, j1 + i1 - 1, k, i + 1, j - 2);
+	public static void drawFrameRounded(int yPos, int height, int opacity, int color, int width, int xPos) {
+		drawHorizontalLine(color, width, yPos, opacity, xPos);
+		drawHorizontalLine(color, width, yPos + height - 1, opacity, xPos);
+		if (height >= 3) {
+			drawVerticalLine(color, xPos, opacity, yPos + 1, height - 2);
+			drawVerticalLine(color, xPos + width - 1, opacity, yPos + 1, height - 2);
 		}
 	}
 
@@ -145,7 +145,7 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	private static void method340(int i, int j, int k, int l, int i1) {
+	private static void drawHorizontalLine(int i, int j, int k, int l, int i1) {
 		if (k < topY || k >= bottomY) {
 			return;
 		}
@@ -189,7 +189,7 @@ public class DrawingArea extends NodeSub {
 
 	}
 
-	private static void method342(int i, int j, int k, int l, int i1) {
+	private static void drawVerticalLine(int i, int j, int k, int l, int i1) {
 		if (j < topX || j >= bottomX) {
 			return;
 		}
