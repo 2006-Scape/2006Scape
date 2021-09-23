@@ -12331,7 +12331,7 @@ public class Game extends RSApplet {
 	public static int anInt116;
 	public static boolean aBoolean995;
 	public static int anInt139;
-	public static int musicVolume = 255;
+	public static int musicVolume = 0;
 	public int[] gameScreenOffsets;
 	public int anInt1170;
 	public int anInt1215;
