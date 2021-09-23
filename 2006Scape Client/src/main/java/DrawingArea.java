@@ -84,7 +84,7 @@ public class DrawingArea extends NodeSub {
 		}
 	}
 
-	public static void drawFrameSquared(int i, int j, int l, int i1, int k) {
+	public static void fillArea(int i, int j, int l, int i1, int k) {
 		if (k < topX) {
 			i1 -= topX - k;
 			k = topX;

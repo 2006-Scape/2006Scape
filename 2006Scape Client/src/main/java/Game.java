@@ -1264,13 +1264,13 @@ public class Game extends RSApplet {
 	public void method30(int j, int k, int l, int i1, int j1) {
 		scrollBar1.method361(i1, l);
 		scrollBar2.method361(i1, l + j - 16);
-		DrawingArea.drawFrameSquared(j - 32, l + 16, anInt1002, 16, i1);
+		DrawingArea.fillArea(j - 32, l + 16, anInt1002, 16, i1);
 		int k1 = (j - 32) * j / j1;
 		if (k1 < 8) {
 			k1 = 8;
 		}
 		int l1 = (j - 32 - k1) * k / (j1 - j);
-		DrawingArea.drawFrameSquared(k1, l + 16 + l1, anInt1063, 16, i1);
+		DrawingArea.fillArea(k1, l + 16 + l1, anInt1063, 16, i1);
 		DrawingArea.method341(l + 16 + l1, anInt902, k1, i1);
 		DrawingArea.method341(l + 16 + l1, anInt902, k1, i1 + 1);
 		DrawingArea.method339(l + 16 + l1, anInt902, 16, i1);
@@ -1613,8 +1613,8 @@ public class Game extends RSApplet {
 							if (i1 > 30) {
 								i1 = 30;
 							}
-							DrawingArea.drawFrameSquared(5, spriteDrawY - 3, 0x00ff00, i1, spriteDrawX - 15);
-							DrawingArea.drawFrameSquared(5, spriteDrawY - 3, 0xff0000, 30 - i1, spriteDrawX - 15 + i1);
+							DrawingArea.fillArea(5, spriteDrawY - 3, 0x00ff00, i1, spriteDrawX - 15);
+							DrawingArea.fillArea(5, spriteDrawY - 3, 0xff0000, 30 - i1, spriteDrawX - 15 + i1);
 						}
 					} catch (Exception e) {
 					}
@@ -2023,10 +2023,27 @@ public class Game extends RSApplet {
 		int menuH = anInt952;
 		int fill = 0x5d5447;
 
-		DrawingArea.drawFrameSquared(menuH, yPos, fill, menuW, xPos);
-		DrawingArea.drawFrameSquared(16, yPos + 1, 0, menuW - 2, xPos + 1);
+		DrawingArea.fillArea(menuH, yPos, fill, menuW, xPos);
+		DrawingArea.fillArea(16, yPos + 1, 0, menuW - 2, xPos + 1);
 		DrawingArea.fillPixels(yPos + 18, menuH - 19, 0, xPos + 1, menuW - 2);
 		chatTextDrawingArea.method385(fill, "Choose Option", yPos + 14, xPos + 3);
+
+		// //Border
+		// DrawingArea.drawFrameRounded(yPos + 2, menuH - 4, 250, 0x706a5e, menuW, xPos);
+		// DrawingArea.drawFrameRounded(yPos + 1, menuH - 2, 250, 0x706a5e, menuW - 2, xPos + 1);
+		// DrawingArea.drawFrameRounded(yPos, menuH, 250, 0x706a5e, menuW - 4, xPos + 2);
+		// //Border
+		// DrawingArea.drawFrameRounded(yPos + 1, menuH - 2, 250, 0x2d2822, menuW - 6, xPos + 3);
+		// DrawingArea.drawFrameRounded(yPos + 2, menuH - 4, 250, 0x2d2822, menuW - 4, xPos + 2);
+		// DrawingArea.drawFrameRounded(yPos + 3, menuH - 6, 250, 0x2d2822, menuW - 2, xPos + 1);
+		// //Border
+		// DrawingArea.drawFrameRounded(yPos + 19, menuH - 22, 250, 0x524a3d, menuW - 4, xPos + 2);
+		// DrawingArea.drawFrameRounded(yPos + 20, menuH - 22, 250, 0x524a3d, menuW - 6, xPos + 3);
+		// //Menu Fill
+		// DrawingArea.fillArea(fill, yPos + 20, menuW - 6, menuH - 23, 170, xPos + 3);
+		// //Menu Header
+		// DrawingArea.fillArea(0x2a251e, yPos + 2, menuW - 6, 17, 170, xPos + 3);
+		// chatTextDrawingArea.method385(0xc6b895, "Choose Option", yPos + 14, xPos + 3);
 
 		int mX = super.mouseX;
 		int mY = super.mouseY;
@@ -3296,8 +3313,8 @@ public class Game extends RSApplet {
 		int j = c1 / 2 - 18 - byte1;
 		DrawingArea.fillPixels(j, 34, 0x8c1111, c / 2 - 152, 304);
 		DrawingArea.fillPixels(j + 1, 32, 0, c / 2 - 151, 302);
-		DrawingArea.drawFrameSquared(30, j + 2, 0x8c1111, i * 3, c / 2 - 150);
-		DrawingArea.drawFrameSquared(30, j + 2, 0, 300 - i * 3, c / 2 - 150 + i * 3);
+		DrawingArea.fillArea(30, j + 2, 0x8c1111, i * 3, c / 2 - 150);
+		DrawingArea.fillArea(30, j + 2, 0, 300 - i * 3, c / 2 - 150 + i * 3);
 		chatTextDrawingArea.drawText(0xffffff, s, c1 / 2 + 5 - byte1, c / 2);
 		aRSImageProducer_1109.drawGraphics(171, super.graphics, 202);
 		if (welcomeScreenRaised) {
@@ -3543,7 +3560,7 @@ public class Game extends RSApplet {
 			int k = 251;
 			char c = '\u012C';
 			byte byte0 = 50;
-			DrawingArea.drawFrameSquared(byte0, k - 5 - byte0 / 2, 0, c, 383 - c / 2);
+			DrawingArea.fillArea(byte0, k - 5 - byte0 / 2, 0, c, 383 - c / 2);
 			DrawingArea.fillPixels(k - 5 - byte0 / 2, byte0, 0xffffff, 383 - c / 2, c);
 			if (s != null)
 				k -= 7;
@@ -8133,7 +8150,7 @@ public class Game extends RSApplet {
 					}
 					if (component.aByte254 == 0) {
 						if (component.aBoolean227) {
-							DrawingArea.drawFrameSquared(component.height, l2, 0x2a251e, component.width, k2);
+							DrawingArea.fillArea(component.height, l2, 0x2a251e, component.width, k2);
 						} else {
 							DrawingArea.fillPixels(l2, component.height, color, k2, component.width);
 						}
@@ -9363,7 +9380,7 @@ public class Game extends RSApplet {
 			markMinimap(mapFlag, j2, l4);
 		}
 		// Draw player square on mini map
-		DrawingArea.drawFrameSquared(3, 78, 0xffffff, 3, 97);
+		DrawingArea.fillArea(3, 78, 0xffffff, 3, 97);
 		aRSImageProducer_1165.initDrawingArea();
 		Texture.lineOffsets = chatBoxAreaOffsets;
 	}
