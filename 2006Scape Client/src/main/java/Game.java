@@ -1475,7 +1475,7 @@ public class Game extends RSApplet {
 						int offset = 5;
 						for (Item item = (Item) class19.reverseGetFirst(); item != null; item = (Item) class19.reverseGetNext()) {
 							ItemDef itemDef = ItemDef.forID(item.ID);
-							int totalValue = Math.max(1, item.amount) * Math.max(1, itemDef.value);
+							long totalValue = Math.max(1, item.amount) * Math.max(1, itemDef.value);
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
 							// only show ground items if worth more than x (1k default)
 							if (totalValue >= customSettingMinItemValue) {
@@ -1494,7 +1494,7 @@ public class Game extends RSApplet {
 									DecimalFormat formatter = new DecimalFormat("#,###,###,###", separator);
 									text += formatter.format(item.amount) + " x ";
 								}
-								text += itemDef.name + " (" +  intToKOrMil(totalValue) + " gp)";
+								text += itemDef.name + " (" +  intToShortLetter(totalValue) + " gp)";
 								aTextDrawingArea_1270.method385(color, text, spriteDrawY - offset, spriteDrawX - (aTextDrawingArea_1270.getTextWidth(text) / 2));
 								offset += 10;
 							}
@@ -2121,6 +2121,19 @@ public class Game extends RSApplet {
 		} else {
 			return j / 0xf4240 + "M";
 		}
+	}
+
+	public static String intToShortLetter(long j) {
+		if (j >= 1e13) {
+			return (int) (j / 1e12) + "Z";
+		} else if (j >= 1e10) {
+			return (int) (j / 1e9) + "B";
+		} else if (j >= 1e7) {
+			return (int) (j / 1e6) + "M";
+		} else if (j >= 1e4) {
+			return (int) (j / 1e3) + "K";
+		}
+		return String.valueOf(j);
 	}
 
 	public void resetLogout() {
