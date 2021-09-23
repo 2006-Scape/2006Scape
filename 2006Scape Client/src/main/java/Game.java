@@ -4787,9 +4787,10 @@ public class Game extends RSApplet {
 						drawTabArea();
 					}
 				} catch (NumberFormatException nfe) {
-						inputDialogState = 0;
-						inputTaken = true;
-						pushMessage("Please enter a lower amount.", 0, "");
+					customTabAction = 0;
+					inputTaken = true;
+					messagePromptRaised = false;
+					pushMessage("Please enter a lower amount.", 0, "");
 				}
 			} else if (openInterfaceID != -1 && openInterfaceID == reportAbuseInterfaceID) {
 				if (j == 8 && reportAbuseInput.length() > 0) {
