@@ -4861,28 +4861,28 @@ public class Game extends RSApplet {
 					inputTaken = true;
 				}
 				try {
-				if (j == 13 || j == 10) {
-					if (amountOrNameInput.length() > 0) {
-						if (amountOrNameInput.toLowerCase().contains("k")) {
-							amountOrNameInput = amountOrNameInput.replaceAll("k", "000");
-						} else if (amountOrNameInput.toLowerCase().contains("m")) {
-							amountOrNameInput = amountOrNameInput.replaceAll("m", "000000");
-						} else if (amountOrNameInput.toLowerCase().contains("b")) {
-							amountOrNameInput = amountOrNameInput.replaceAll("b", "000000000");
+					if (j == 13 || j == 10) {
+						if (amountOrNameInput.length() > 0) {
+							if (amountOrNameInput.toLowerCase().contains("k")) {
+								amountOrNameInput = amountOrNameInput.replaceAll("k", "000");
+							} else if (amountOrNameInput.toLowerCase().contains("m")) {
+								amountOrNameInput = amountOrNameInput.replaceAll("m", "000000");
+							} else if (amountOrNameInput.toLowerCase().contains("b")) {
+								amountOrNameInput = amountOrNameInput.replaceAll("b", "000000000");
+							}
+							int amount = 0;
+							amount = Integer.parseInt(amountOrNameInput);
+							stream.createFrame(208);
+							stream.writeDWord(amount);
 						}
-						int amount = 0;
-						amount = Integer.parseInt(amountOrNameInput);
-						stream.createFrame(208);
-						stream.writeDWord(amount);
+						inputDialogState = 0;
+						inputTaken = true;
 					}
+				} catch (NumberFormatException nfe) {
 					inputDialogState = 0;
 					inputTaken = true;
+					pushMessage("Please enter a lower amount.", 0, "");
 				}
-			} catch (NumberFormatException nfe) {
-			    inputDialogState = 0;
-			    inputTaken = true;
-			    pushMessage("Please enter a lower amount.", 0, "");
-			}
 			} else if (inputDialogState == 2) {
 				if (j >= 32 && j <= 122 && amountOrNameInput.length() < 12) {
 					amountOrNameInput += (char) j;
