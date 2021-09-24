@@ -1478,7 +1478,7 @@ public class Game extends RSApplet {
 							long totalValue = Math.max(1, item.amount) * Math.max(1, itemDef.value);
 							totalValue = totalValue > 0 ? totalValue : Integer.MAX_VALUE;
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
-							// only show ground items if worth more than x (1k default)
+							// only show ground items names if worth more than x (1k default)
 							if (totalValue >= customSettingMinItemValue) {
 								int color = 0xffffff;
 								if (totalValue >= 1e5) {
@@ -11455,7 +11455,7 @@ public class Game extends RSApplet {
 				}
 				aBoolean1149 = false;
 				pktType = -1;
-                return true;
+				return true;
 			}
 			if (pktType == 218) {
 				int i8 = inStream.method438();
