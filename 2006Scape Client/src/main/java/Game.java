@@ -7896,6 +7896,9 @@ public class Game extends RSApplet {
 						redStone1_4.method361(229, 0);
 					}
 				}
+				if (tabInterfaceIDs[7] != -1 && (anInt1054 != 7 || loopCycle % 20 < 10)) {
+					sideIcons[10].method361(47, 2);
+				}
 				if (tabInterfaceIDs[8] != -1 && (anInt1054 != 8 || loopCycle % 20 < 10)) {
 					sideIcons[7].method361(74, 2);
 				}
