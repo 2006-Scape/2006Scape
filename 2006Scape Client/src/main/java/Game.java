@@ -12574,6 +12574,7 @@ public class Game extends RSApplet {
             definitionResultsTotal = 0;
             return;
         }
+
         String search = name;
         String parts[] = new String[100];
         int found = 0;
@@ -12619,6 +12620,7 @@ public class Game extends RSApplet {
                     continue label0;
                 }
             }
+			
 			pushMessage("@whi@[" + definition + "] @blu@" + result + "", 0, "");
             definitionResults[definitionResultsTotal] = result;
             definitionResultIDs[definitionResultsTotal] = definition;
@@ -12627,6 +12629,26 @@ public class Game extends RSApplet {
                 return;
             }
         }
+
+		if (type == 1) {
+			// Open bank interface
+			needDrawTabArea = true;
+			int interfaceID = 5382;
+			RSInterface class9_1 = RSInterface.interfaceCache[interfaceID];
+			openInterface(5292);
+
+			int itemCount = 0;
+			for (int ID : definitionResultIDs) {
+				if (ID > 0) {
+					class9_1.inv[itemCount] = ID + 1; // Sets item ID;
+					class9_1.invStackSizes[itemCount++] = 1; // Sets item amoounts
+				}
+			}
+			while (itemCount < class9_1.inv.length) {
+				class9_1.inv[itemCount] = 0;
+				class9_1.invStackSizes[itemCount++] = 0;
+			}
+		}
 		pushMessage("@blu@" + sType + " @bla@search results for @blu@" + name + "@bla@ displayed above, @blu@" + definitionResultsTotal + "@bla@ results.", 0, "");
     }
 
