@@ -1170,15 +1170,7 @@ public class PacketSender {
 		if (player.heightLevel != height) {
 			return this;
 		}
-		player.getOutStream().createFrame(85);
-		player.getOutStream().writeByteC(itemY - 8 * player.mapRegionY);
-		player.getOutStream().writeByteC(itemX - 8 * player.mapRegionX);
-		player.getOutStream().createFrame(44);
-		player.getOutStream().writeWordBigEndianA(itemID);
-		player.getOutStream().writeWord(itemAmount);
-		player.getOutStream().writeByte(0);
-		player.flushOutStream();
-		return this;
+		return createGroundItem(itemID, itemX, itemY, itemAmount);
 	}
 
 
