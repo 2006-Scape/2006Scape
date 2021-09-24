@@ -1811,6 +1811,7 @@ public class Game extends RSApplet {
 						chatTextDrawingArea.textCenterShadow(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
 						
 						aBackground_967.method361(centerX - 73, currentY += 50);
+						chatTextDrawingArea.textCenterShadow(showInfo ? 0x00ff00 : 0xff0000, centerX, "debug info", currentY + textMiddle, true);
 
 						skullIcons[0].drawSprite(150, 230);
 					} catch (Exception e) { }
