@@ -4990,6 +4990,29 @@ public class Game extends RSApplet {
 						if (inputString.equals("::lag")) {
 							printDebug();
 						}
+						if (inputString.startsWith("::int")) {
+							String[] args = inputString.split(" ");
+							int interfaceID = 1;
+							try {
+								interfaceID = Integer.parseInt(args[1]);
+							} catch (Exception e) {
+								interfaceID = 1;
+							}
+							openInterface(interfaceID);
+							inputString = "";
+							inputTaken = true;
+							return;
+						}
+						if (inputString.equals("::mg")) {
+							if (tabInterfaceIDs[6] == 12855)
+								openSideInterface(6, 1151);
+							else
+								openSideInterface(6, 12855);
+							inputString = "";
+							inputTaken = true;
+							return;
+						}
+						
 						if (inputString.equals("::prefetchmusic")) {
 							for (int j1 = 0; j1 < onDemandFetcher.getVersionCount(2); j1++) {
 								onDemandFetcher.method563((byte) 1, 2, j1);
@@ -12606,4 +12629,41 @@ public class Game extends RSApplet {
         }
 		pushMessage("@blu@" + sType + " @bla@search results for @blu@" + name + "@bla@ displayed above, @blu@" + definitionResultsTotal + "@bla@ results.", 0, "");
     }
+
+	public void openInterface(int interfaceID) {
+		method60(interfaceID);
+		if (invOverlayInterfaceID != -1) {
+			invOverlayInterfaceID = -1;
+			needDrawTabArea = true;
+			tabAreaAltered = true;
+		}
+		if (backDialogID != -1) {
+			backDialogID = -1;
+			inputTaken = true;
+		}
+		if (inputDialogState != 0) {
+			inputDialogState = 0;
+			inputTaken = true;
+		}
+		if (interfaceID == 15244) {
+			if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
+				openInterfaceID = 15819;
+			} else {
+				openInterfaceID = 15801;
+			}
+			fullScreenInterfaceId = 15244;
+		} else {
+			openInterfaceID = interfaceID;
+		}
+		aBoolean1149 = false;
+	}
+
+	public void openSideInterface(int tab, int interfaceID) {
+		if (interfaceID == 0x00ffff) {
+			interfaceID = -1;
+		}
+		tabInterfaceIDs[tab] = interfaceID;
+		needDrawTabArea = true;
+		tabAreaAltered = true;
+	}
 }
