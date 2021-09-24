@@ -11609,7 +11609,7 @@ public class Game extends RSApplet {
 		return true;
 	}
 
-	public int zoom = 600;
+	public int zoom = 3;
 
 	public void method146() {
 		anInt1265++;
@@ -11629,7 +11629,7 @@ public class Game extends RSApplet {
 			}
 			int k = minimapInt1 + anInt896 & 0x7ff;
 			// Camera zoom control
-			setCameraPos(zoom + i * 3, i, anInt1014, method42(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+			setCameraPos(600 + i * zoom, i, anInt1014, method42(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
 		}
 		int j;
 		if (!aBoolean1160) {
@@ -12492,10 +12492,12 @@ public class Game extends RSApplet {
 				tabAreaAltered = true;
 				break;
 			case KeyEvent.VK_PAGE_UP:
-				zoom = Math.max(0, zoom - 100);
+				if (zoom > -1)
+					zoom--;
 				break;
 			case KeyEvent.VK_PAGE_DOWN:
-				zoom = Math.min(2000, zoom + 100);
+				if (zoom < 15)
+					zoom++;
 				break;
 
 		}
