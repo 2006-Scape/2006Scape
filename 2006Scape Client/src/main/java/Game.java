@@ -2920,7 +2920,7 @@ public class Game extends RSApplet {
 
 	public void method60(int i) {
 		RSInterface class9 = RSInterface.interfaceCache[i];
-		if (class9.children == null)
+		if (class9 == null || class9.children == null)
 			return;
 		for (int element : class9.children) {
 			if (element == -1) {
@@ -8983,7 +8983,7 @@ public class Game extends RSApplet {
 	public boolean method119(int i, int j) {
 		boolean flag1 = false;
 		RSInterface class9 = RSInterface.interfaceCache[j];
-		if (class9.children == null)
+		if (class9 == null || class9.children == null)
 			return flag1;
 		for (int element : class9.children) {
 			if (element == -1) {
