@@ -401,7 +401,7 @@ public class Game extends RSApplet {
 					if (l == 0) {
 						if (i1 > 0 && i1 < 110) {
 							try {
-							textDrawingArea.method389(false, 4, 0, chatMessages[k], i1);
+							textDrawingArea.textLeftShadow(false, 4, 0, chatMessages[k], i1);
 							} catch (Exception e) {
 								
 							}
@@ -1796,22 +1796,21 @@ public class Game extends RSApplet {
 						int textBottom = 32;
 
 						aBackground_967.method361(centerX - 73, currentY);
-						chatTextDrawingArea.method382(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
-						chatTextDrawingArea.method382(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "player shops", currentY + textBottom, true);
+						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
+						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "player shops", currentY + textBottom, true);
 
 						aBackground_967.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.method382(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
-						chatTextDrawingArea.method382(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "player names", currentY + textBottom, true);
+						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
+						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "player names", currentY + textBottom, true);
 						
 						aBackground_967.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.method382(0x00ff00, centerX, "item drops visible", currentY + textTop, true);
-						chatTextDrawingArea.method382(0xffffff, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
+						chatTextDrawingArea.textCenterShadow(0x00ff00, centerX, "item drops visible", currentY + textTop, true);
+						chatTextDrawingArea.textCenterShadow(0xffffff, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
 
 						aBackground_967.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.method382(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
-
+						chatTextDrawingArea.textCenterShadow(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
+						
 						aBackground_967.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.method382(showInfo ? 0x00ff00 : 0xff0000, centerX, "debug info", currentY + textMiddle, true);
 
 						skullIcons[0].drawSprite(150, 230);
 					} catch (Exception e) { }
@@ -2065,7 +2064,7 @@ public class Game extends RSApplet {
 			if (mX > xPos && mX < xPos + menuW && mY > yPosItem - 13 && mY < yPosItem + 3) {
 				colorItem = 0xffff00;
 			}
-			chatTextDrawingArea.method389(true, xPos + 3, colorItem, menuActionName[rowItem], yPosItem);
+			chatTextDrawingArea.textLeftShadow(true, xPos + 3, colorItem, menuActionName[rowItem], yPosItem);
 		}
 
 	}
@@ -7923,40 +7922,40 @@ public class Game extends RSApplet {
 			aBoolean1233 = false;
 			aRSImageProducer_1123.initDrawingArea();
 			backBase1.method361(0, 0);
-			aTextDrawingArea_1271.method382(0xffffff, 55, "Public chat", 28, true);
+			aTextDrawingArea_1271.textCenterShadow(0xffffff, 55, "Public chat", 28, true);
 			if (publicChatMode == 0) {
-				aTextDrawingArea_1271.method382(0x00ff00, 55, "On", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0x00ff00, 55, "On", 41, true);
 			}
 			if (publicChatMode == 1) {
-				aTextDrawingArea_1271.method382(0xffff00, 55, "Friends", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0xffff00, 55, "Friends", 41, true);
 			}
 			if (publicChatMode == 2) {
-				aTextDrawingArea_1271.method382(0xff0000, 55, "Off", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0xff0000, 55, "Off", 41, true);
 			}
 			if (publicChatMode == 3) {
-				aTextDrawingArea_1271.method382(0x00ffff, 55, "Hide", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0x00ffff, 55, "Hide", 41, true);
 			}
-			aTextDrawingArea_1271.method382(0xffffff, 184, "Private chat", 28, true);
+			aTextDrawingArea_1271.textCenterShadow(0xffffff, 184, "Private chat", 28, true);
 			if (privateChatMode == 0) {
-				aTextDrawingArea_1271.method382(0x00ff00, 184, "On", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0x00ff00, 184, "On", 41, true);
 			}
 			if (privateChatMode == 1) {
-				aTextDrawingArea_1271.method382(0xffff00, 184, "Friends", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0xffff00, 184, "Friends", 41, true);
 			}
 			if (privateChatMode == 2) {
-				aTextDrawingArea_1271.method382(0xff0000, 184, "Off", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0xff0000, 184, "Off", 41, true);
 			}
-			aTextDrawingArea_1271.method382(0xffffff, 324, "Trade/compete", 28, true);
+			aTextDrawingArea_1271.textCenterShadow(0xffffff, 324, "Trade/compete", 28, true);
 			if (tradeMode == 0) {
-				aTextDrawingArea_1271.method382(0x00ff00, 324, "On", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0x00ff00, 324, "On", 41, true);
 			}
 			if (tradeMode == 1) {
-				aTextDrawingArea_1271.method382(0xffff00, 324, "Friends", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0xffff00, 324, "Friends", 41, true);
 			}
 			if (tradeMode == 2) {
-				aTextDrawingArea_1271.method382(0xff0000, 324, "Off", 41, true);
+				aTextDrawingArea_1271.textCenterShadow(0xff0000, 324, "Off", 41, true);
 			}
-			aTextDrawingArea_1271.method382(0xffffff, 458, "Report abuse", 33, true);
+			aTextDrawingArea_1271.textCenterShadow(0xffffff, 458, "Report abuse", 33, true);
 			aRSImageProducer_1123.drawGraphics(453, super.graphics, 0);
 			aRSImageProducer_1165.initDrawingArea();
 			Texture.lineOffsets = chatBoxAreaOffsets;
@@ -8240,9 +8239,9 @@ public class Game extends RSApplet {
 							s = "";
 						}
 						if (component.aBoolean223) {
-							textDrawingArea.method382(i4, k2 + component.width / 2, s1, l6, component.aBoolean268);
+							textDrawingArea.textCenterShadow(i4, k2 + component.width / 2, s1, l6, component.aBoolean268);
 						} else {
-							textDrawingArea.method389(component.aBoolean268, k2, i4, s1, l6);
+							textDrawingArea.textLeftShadow(component.aBoolean268, k2, i4, s1, l6);
 						}
 					}
 
@@ -8296,9 +8295,9 @@ public class Game extends RSApplet {
 								int i9 = k2 + i6 * (115 + component.invSpritePadX);
 								int k9 = l2 + j5 * (12 + component.invSpritePadY);
 								if (component.aBoolean223) {
-									textDrawingArea_1.method382(component.textColor, i9 + component.width / 2, s2, k9, component.aBoolean268);
+									textDrawingArea_1.textCenterShadow(component.textColor, i9 + component.width / 2, s2, k9, component.aBoolean268);
 								} else {
-									textDrawingArea_1.method389(component.aBoolean268, i9, component.textColor, s2, k9);
+									textDrawingArea_1.textLeftShadow(component.aBoolean268, i9, component.textColor, s2, k9);
 								}
 							}
 							k4++;
@@ -9693,57 +9692,57 @@ public class Game extends RSApplet {
 		char c1 = '\310';
 		if (loginScreenState == 0) {
 			int i = c1 / 2 + 80;
-			aTextDrawingArea_1270.method382(0x75a9a9, c / 2, onDemandFetcher.statusString, i, true);
+			aTextDrawingArea_1270.textCenterShadow(0x75a9a9, c / 2, onDemandFetcher.statusString, i, true);
 			i = c1 / 2 - 20;
-			chatTextDrawingArea.method382(0xffff00, c / 2, "Welcome to " + ClientSettings.SERVER_NAME + "", i, true);
+			chatTextDrawingArea.textCenterShadow(0xffff00, c / 2, "Welcome to " + ClientSettings.SERVER_NAME + "", i, true);
 			i += 30;
 			int l = c / 2 - 80;
 			int k1 = c1 / 2 + 20;
 			aBackground_967.method361(l - 73, k1 - 20);
-			chatTextDrawingArea.method382(0xffffff, l, "New User", k1 + 5, true);
+			chatTextDrawingArea.textCenterShadow(0xffffff, l, "New User", k1 + 5, true);
 			l = c / 2 + 80;
 			aBackground_967.method361(l - 73, k1 - 20);
-			chatTextDrawingArea.method382(0xffffff, l, "Existing User", k1 + 5, true);
+			chatTextDrawingArea.textCenterShadow(0xffffff, l, "Existing User", k1 + 5, true);
 		}
 		if (loginScreenState == 2) {
 			int j = c1 / 2 - 40;
 			if (loginMessage1.length() > 0) {
-				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage1, j - 15, true);
-				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage2, j, true);
+				chatTextDrawingArea.textCenterShadow(0xffff00, c / 2, loginMessage1, j - 15, true);
+				chatTextDrawingArea.textCenterShadow(0xffff00, c / 2, loginMessage2, j, true);
 				j += 30;
 			} else {
-				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage2, j - 7, true);
+				chatTextDrawingArea.textCenterShadow(0xffff00, c / 2, loginMessage2, j - 7, true);
 				j += 30;
 			}
-			chatTextDrawingArea.method389(true, c / 2 - 90, 0xffffff, "Username: " + myUsername + (loginScreenCursorPos == 0 & loopCycle % 40 < 20 ? "@yel@|" : ""), j);
+			chatTextDrawingArea.textLeftShadow(true, c / 2 - 90, 0xffffff, "Username: " + myUsername + (loginScreenCursorPos == 0 & loopCycle % 40 < 20 ? "@yel@|" : ""), j);
 			j += 15;
-			chatTextDrawingArea.method389(true, c / 2 - 88, 0xffffff, "Password: " + TextClass.passwordAsterisks(myPassword) + (loginScreenCursorPos == 1 & loopCycle % 40 < 20 ? "@yel@|" : ""), j);
+			chatTextDrawingArea.textLeftShadow(true, c / 2 - 88, 0xffffff, "Password: " + TextClass.passwordAsterisks(myPassword) + (loginScreenCursorPos == 1 & loopCycle % 40 < 20 ? "@yel@|" : ""), j);
 			j += 15;
 			if (!flag) {
 				int i1 = c / 2 - 80;
 				int l1 = c1 / 2 + 50;
 				aBackground_967.method361(i1 - 73, l1 - 20);
-				chatTextDrawingArea.method382(0xffffff, i1, "Login", l1 + 5, true);
+				chatTextDrawingArea.textCenterShadow(0xffffff, i1, "Login", l1 + 5, true);
 				i1 = c / 2 + 80;
 				aBackground_967.method361(i1 - 73, l1 - 20);
-				chatTextDrawingArea.method382(0xffffff, i1, "Cancel", l1 + 5, true);
+				chatTextDrawingArea.textCenterShadow(0xffffff, i1, "Cancel", l1 + 5, true);
 			}
 		}
 		if (loginScreenState == 3) {
-			chatTextDrawingArea.method382(0xffff00, c / 2, "Create a free account", c1 / 2 - 60, true);
+			chatTextDrawingArea.textCenterShadow(0xffff00, c / 2, "Create a free account", c1 / 2 - 60, true);
 			int k = c1 / 2 - 35;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "To create a new account just click", k, true);
+			chatTextDrawingArea.textCenterShadow(0xffffff, c / 2, "To create a new account just click", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "\"Cancel\" below, and click \"Existing User\".", k, true);
+			chatTextDrawingArea.textCenterShadow(0xffffff, c / 2, "\"Cancel\" below, and click \"Existing User\".", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "Log in with any credentials you want and an", k, true);
+			chatTextDrawingArea.textCenterShadow(0xffffff, c / 2, "Log in with any credentials you want and an", k, true);
 			k += 15;
-			chatTextDrawingArea.method382(0xffffff, c / 2, "account will automatically be created for you.", k, true);
+			chatTextDrawingArea.textCenterShadow(0xffffff, c / 2, "account will automatically be created for you.", k, true);
 			k += 15;
 			int j1 = c / 2;
 			int i2 = c1 / 2 + 50;
 			aBackground_967.method361(j1 - 73, i2 - 20);
-			chatTextDrawingArea.method382(0xffffff, j1, "Cancel", i2 + 5, true);
+			chatTextDrawingArea.textCenterShadow(0xffffff, j1, "Cancel", i2 + 5, true);
 		}
 		aRSImageProducer_1109.drawGraphics(171, super.graphics, 202);
 		if (welcomeScreenRaised) {
@@ -10533,15 +10532,19 @@ public class Game extends RSApplet {
 			}
 			if (pktType == 134) {
 				needDrawTabArea = true;
-				int k1 = inStream.readUnsignedByte();
-				int i10 = inStream.method439();
-				int l15 = inStream.readUnsignedByte();
-				currentExp[k1] = i10;
-				currentStats[k1] = l15;
-				maxStats[k1] = 1;
+				int skillID = inStream.readUnsignedByte();
+				int experience = inStream.method439();
+				int level = inStream.readUnsignedByte();
+				currentExp[skillID] = experience;
+				currentStats[skillID] = level;
+				maxStats[skillID] = 1;
+				// Fix for current health not updating
+				if (skillID == 3) {
+					myPlayer.currentHealth = level;
+				}
 				for (int k20 = 0; k20 < 98; k20++) {
-					if (i10 >= anIntArray1019[k20]) {
-						maxStats[k1] = k20 + 2;
+					if (experience >= anIntArray1019[k20]) {
+						maxStats[skillID] = k20 + 2;
 					}
 				}
 
@@ -11250,9 +11253,11 @@ public class Game extends RSApplet {
 			if (pktType == 126) {
 				String s1 = inStream.readString();
 				int k13 = inStream.method435();
-				if (k13 == 4016) {
-					myPlayer.currentHealth = Integer.parseInt(s1);
-				}
+				// Update current player health (fix for refresh skill not including this)
+				// if (k13 == 4016) {
+				// 	myPlayer.currentHealth = Integer.parseInt(s1);
+				// 	currentStats[3] = Integer.parseInt(s1);
+				// }
 				RSInterface.interfaceCache[k13].disabledText = s1;
 				if (RSInterface.interfaceCache[k13].parentID == tabInterfaceIDs[tabID]) {
 					needDrawTabArea = true;
@@ -11676,10 +11681,8 @@ public class Game extends RSApplet {
 		method37(k2);
 		// Allow stuff inside the tabs to work
 		draw3dScreen();
-		
 		if (showInfo) {
-			Graphics g = super.graphics;
-			int debugX = 372;
+			int debugX = 0;
 			int debugY = 249;
 			int debugItems = 4;
 			int debugWidth = 140;
@@ -11692,22 +11695,26 @@ public class Game extends RSApplet {
 			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
 			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
 			chatTextDrawingArea.method385(Color.WHITE.darker().hashCode(), "Debug Info", debugY += 14, debugX + 3);
+			chatTextDrawingArea.method385(Color.YELLOW.hashCode(), super.fps + "fps", debugY, debugX + debugWidth - chatTextDrawingArea.getTextWidth(super.fps + "fps") - 3);
 
 			// Bump Y value
 			debugY += 3;
-
+			
 			// Draw items
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Fps: @yel@" + super.fps, debugY += 15);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Health:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + currentStats[3], debugY);
 			Runtime runtime = Runtime.getRuntime();
 			int memKB = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Memory: @yel@" + (memKB / 1024) + "mb", debugY += 15);
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Mouse: @yel@" + super.mouseX + ", " + super.mouseY, debugY += 15);
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Coords: @yel@" + (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY += 15);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Memory:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), (memKB / 1024) + "mb", debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Mouse:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), super.mouseX + ", " + super.mouseY, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Coords:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY);
 		}
 		
 		if (customSettingShowExperiencePerHour) {
-			Graphics g = super.graphics;
-			int debugX = 385;
+			int debugX = 372;
 			int debugY = 0;
 			int debugItems = 2;
 			int debugWidth = 140;
@@ -11730,18 +11737,14 @@ public class Game extends RSApplet {
 			long expPerHour = (long) ((expGained * 3600000D) / (System.currentTimeMillis() - customSettingShowExperiencePerHourStart));
 
 			// Draw items
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Exp p/h: @yel@" + intToKOrMil((int) expPerHour), debugY += 15);
-			chatTextDrawingArea.method389(true, debugX + 4, Color.WHITE.hashCode(), "Levels gained: @yel@" + (calculateTotalLevels() - customSettingShowExperiencePerHourStartLevels), debugY += 15);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Exp per hour:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), intToKOrMil((int) expPerHour), debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Levels gained:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + (calculateTotalLevels() - customSettingShowExperiencePerHourStartLevels), debugY);
 		}
 
 		// Draw main screen
 		aRSImageProducer_1165.drawGraphics(4, super.graphics, 4);
-
-		// g.drawString("Status: " + Variables.getStatus(), 360, 270);
-		// if (SCRIPT_TIMER == null) return;
-		// g.drawString("Items(P/H): " + Methods.formatNumber(Variables.items_gained) + "(" + Methods.formatNumber(SCRIPT_TIMER.getPerHour(Variables.items_gained)) + ")", 360, 290);
-		// g.drawString("EXP(P/H): " + Methods.formatNumber((int) Variables.exp_gained) + "(" + Methods.formatNumber(SCRIPT_TIMER.getPerHour((int) Variables.exp_gained)) + ")", 360, 310);
-		// g.drawString("Runtime: " + SCRIPT_TIMER.toString(), 360, 330);
 
 		if(graphicsEnabled) {
 			xCameraPos = l;
