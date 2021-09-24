@@ -1972,6 +1972,8 @@ public class PlayerAssistant {
 		if (skill == 5) {
 			player.getPacketSender().sendString("" + player.playerLevel[GameConstants.PRAYER] + "/" + getLevelForXP(player.playerXP[GameConstants.PRAYER]) + "", 687);// Prayer
 		}
+		// Update skill data
+		player.getPacketSender().setSkillLevel(skill, player.playerLevel[skill], player.playerXP[skill]);
 	}
 
 	public int getXPForLevel(int level) {
