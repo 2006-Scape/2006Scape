@@ -583,9 +583,24 @@ public class Commands implements PacketType {
                 if (arguments.length == 0) {
                     player.getPacketSender().sendMessage("You must specify an id: ::interface id");
                     return;
+                } else if (arguments.length == 1) {
+                    int interface1 = Integer.parseInt(arguments[0]);
+                    player.getPacketSender().showInterface(interface1);
+                    return;
+                } else if (arguments.length == 2) {
+                    int interface1 = Integer.parseInt(arguments[0]);
+                    int interface2 = Integer.parseInt(arguments[1]);
+                    player.getPacketSender().sendFrame248(interface1, interface2);
+                    return;
+                } else if (arguments.length == 2) {
+                    int interface1 = Integer.parseInt(arguments[0]);
+                    int interface2 = Integer.parseInt(arguments[1]);
+                    int interface3 = Integer.parseInt(arguments[2]);
+                    player.getPacketSender().sendFrame246(interface1, interface2, interface3);
+                    return;
+                } else {
+                    player.getPacketSender().sendMessage("Too many IDs specified, maximum of 3");
                 }
-                int interfaceID = Integer.parseInt(arguments[0]);
-                player.getPacketSender().showInterface(interfaceID);
                 break;
             case "gfx":
                 if (arguments.length == 0) {
