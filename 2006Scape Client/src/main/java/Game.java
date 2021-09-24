@@ -11718,11 +11718,11 @@ public class Game extends RSApplet {
 		}
 		
 		if (customSettingShowExperiencePerHour) {
-			int debugX = 372;
-			int debugY = 0;
 			int debugItems = 2;
 			int debugWidth = 140;
 			int debugHeight = 25 + (debugItems * 15);
+			int debugX = 511 - debugWidth;
+			int debugY = 0;
 			int fill = 0x5d5447;
 			int fill2 = Color.BLACK.hashCode();
 			int opacity = 140;
