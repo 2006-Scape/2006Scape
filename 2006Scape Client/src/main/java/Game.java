@@ -11285,10 +11285,10 @@ public class Game extends RSApplet {
 				String s1 = inStream.readString();
 				int k13 = inStream.method435();
 				// Update current player health (fix for refresh skill not including this)
-				// if (k13 == 4016) {
-				// 	myPlayer.currentHealth = Integer.parseInt(s1);
-				// 	currentStats[3] = Integer.parseInt(s1);
-				// }
+				if (k13 == 4016) {
+					myPlayer.currentHealth = Integer.parseInt(s1);
+					currentStats[3] = Integer.parseInt(s1);
+				}
 				RSInterface.interfaceCache[k13].disabledText = s1;
 				if (RSInterface.interfaceCache[k13].parentID == tabInterfaceIDs[tabID]) {
 					needDrawTabArea = true;
