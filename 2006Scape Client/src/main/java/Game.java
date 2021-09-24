@@ -5922,8 +5922,8 @@ public class Game extends RSApplet {
 				inStream.currentOffset = 0;
 				pktType = -1;
 				anInt841 = -1;
-				anInt842 = -1;
-				anInt843 = -1;
+				prevPktType = -1;
+				prevPktType2 = -1;
 				pktSize = 0;
 				anInt1009 = 0;
 				anInt1104 = 0;
@@ -6079,8 +6079,8 @@ public class Game extends RSApplet {
 				inStream.currentOffset = 0;
 				pktType = -1;
 				anInt841 = -1;
-				anInt842 = -1;
-				anInt843 = -1;
+				prevPktType = -1;
+				prevPktType2 = -1;
 				pktSize = 0;
 				anInt1009 = 0;
 				anInt1104 = 0;
@@ -10035,13 +10035,13 @@ public class Game extends RSApplet {
 			int l10 = anInt1268 + (i8 >> 4 & 7);
 			int i13 = anInt1269 + (i8 & 7);
 			if (l10 >= 0 && i13 >= 0 && l10 < 104 && i13 < 104) {
-				Item class30_sub2_sub4_sub2_1 = new Item();
-				class30_sub2_sub4_sub2_1.ID = itemID;
-				class30_sub2_sub4_sub2_1.amount = itemAmount;
+				Item gItem = new Item();
+				gItem.ID = itemID;
+				gItem.amount = itemAmount;
 				if (groundArray[plane][l10][i13] == null) {
 					groundArray[plane][l10][i13] = new NodeList();
 				}
-				groundArray[plane][l10][i13].insertHead(class30_sub2_sub4_sub2_1);
+				groundArray[plane][l10][i13].insertHead(gItem);
 				spawnGroundItem(l10, i13);
 			}
 			return;
@@ -10418,8 +10418,8 @@ public class Game extends RSApplet {
 			inStream.currentOffset = 0;
 			socketStream.flushInputStream(inStream.buffer, pktSize);
 			anInt1009 = 0;
-			anInt843 = anInt842;
-			anInt842 = anInt841;
+			prevPktType2 = prevPktType;
+			prevPktType = anInt841;
 			anInt841 = pktType;
 			if (pktType == 81) {
 				updatePlayers(pktSize, inStream);
@@ -11579,7 +11579,7 @@ public class Game extends RSApplet {
 				pktType = -1;
 				return true;
 			}
-			String s2 = "T1 - " + pktType + "," + pktSize + " - " + anInt842 + "," + anInt843 + " - ";
+			String s2 = "T1 - " + pktType + "," + pktSize + " - " + prevPktType + "," + prevPktType2 + " - ";
 			for (int j15 = 0; j15 < pktSize && j15 < 50; j15++) {
 				s2 = s2 + inStream.buffer[j15] + ",";
 			}
@@ -11588,7 +11588,7 @@ public class Game extends RSApplet {
 		} catch (IOException _ex) {
 			dropClient();
 		} catch (Exception exception) {
-			String s2 = "T2 - " + pktType + "," + anInt842 + "," + anInt843 + " - " + pktSize + "," + (baseX + myPlayer.smallX[0]) + "," + (baseY + myPlayer.smallY[0]) + " - ";
+			String s2 = "T2 - " + pktType + "," + prevPktType + "," + prevPktType2 + " - " + pktSize + "," + (baseX + myPlayer.smallX[0]) + "," + (baseY + myPlayer.smallY[0]) + " - ";
 			for (int j15 = 0; j15 < pktSize && j15 < 50; j15++) {
 				s2 = s2 + inStream.buffer[j15] + ",";
 			}
@@ -11953,8 +11953,8 @@ public class Game extends RSApplet {
 	public int anInt839;
 	public int[] anIntArray840;
 	public int anInt841;
-	public int anInt842;
-	public int anInt843;
+	public int prevPktType;
+	public int prevPktType2;
 	public String aString844;
 	public int publicChatMode;
 	public int privateChatMode;
