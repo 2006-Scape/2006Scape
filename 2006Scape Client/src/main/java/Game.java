@@ -5025,12 +5025,26 @@ public class Game extends RSApplet {
 							inputTaken = true;
 							return;
 						}
-						
 						if (inputString.equals("::prefetchmusic")) {
 							for (int j1 = 0; j1 < onDemandFetcher.getVersionCount(2); j1++) {
 								onDemandFetcher.method563((byte) 1, 2, j1);
 							}
-
+						}
+						if (inputString.startsWith("::dd")) {
+							String[] args = inputString.split(" ");
+							int  distance = 25;
+							try {
+								distance = Math.max(10, Math.min(100, Integer.parseInt(args[1])));
+							} catch (Exception e) {
+								distance = 25;
+							}
+							WorldController.drawDistance = distance;
+							if (zoom > (WorldController.drawDistance / 3))
+								zoom = WorldController.drawDistance / 3;
+							inputString = "";
+							inputTaken = true;
+							return;
+						}
 						}
 						if (inputString.equals("::dataon")) {
 							showInfo = !showInfo;
@@ -9051,8 +9065,8 @@ public class Game extends RSApplet {
 	public int method120() {
 		int j = 3;
 		if (yCameraCurve < 310) {
-			int k = xCameraPos >> 7;
-			int l = yCameraPos >> 7;
+			int k = Math.max(0, Math.min(103, xCameraPos >> 7));
+			int l = Math.max(0, Math.min(103, yCameraPos >> 7));
 			int i1 = myPlayer.x >> 7;
 			int j1 = myPlayer.y >> 7;
 			if ((byteGroundArray[plane][k][l] & 4) != 0) {
@@ -11662,7 +11676,7 @@ public class Game extends RSApplet {
 		return true;
 	}
 
-	public int zoom = 3;
+	public static int zoom = 3;
 
 	public void method146() {
 		anInt1265++;
@@ -11682,7 +11696,7 @@ public class Game extends RSApplet {
 			}
 			int k = minimapInt1 + anInt896 & 0x7ff;
 			// Camera zoom control
-			setCameraPos(600 + i * zoom, i, anInt1014, method42(plane, myPlayer.y, myPlayer.x) - 50, k, anInt1015);
+			setCameraPos(600 + i * zoom, i, anInt1014, method42(plane, myPlayer.y, myPlayer.x) - 70, k, anInt1015);
 		}
 		int j;
 		if (!aBoolean1160) {
@@ -11752,7 +11766,7 @@ public class Game extends RSApplet {
 			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
 			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
 			chatTextDrawingArea.method385(Color.WHITE.darker().hashCode(), "Debug Info", debugY += 14, debugX + 3);
-			chatTextDrawingArea.method385(Color.YELLOW.hashCode(), super.fps + "fps", debugY, debugX + debugWidth - chatTextDrawingArea.getTextWidth(super.fps + "fps") - 3);
+			chatTextDrawingArea.method385(super.fps > 40 ? Color.YELLOW.hashCode() : super.fps > 25 ? Color.ORANGE.hashCode() : Color.RED.hashCode(), super.fps + "fps", debugY, debugX + debugWidth - chatTextDrawingArea.getTextWidth(super.fps + "fps") - 3);
 
 			// Bump Y value
 			debugY += 3;
@@ -12548,7 +12562,7 @@ public class Game extends RSApplet {
 					zoom--;
 				break;
 			case KeyEvent.VK_PAGE_DOWN:
-				if (zoom < 15)
+				if (zoom < (WorldController.drawDistance / 3))
 					zoom++;
 				break;
 
@@ -12729,7 +12743,7 @@ public class Game extends RSApplet {
 				if (zoom > -1)
 					zoom--;
 			} else {
-				if (zoom < 15)
+				if (zoom < (WorldController.drawDistance / 3))
 					zoom++;
 			}
 		}
