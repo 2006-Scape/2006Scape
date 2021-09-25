@@ -1216,7 +1216,7 @@ public class Game extends RSApplet {
 											}
 
 										}
-										if (class9_1.actions != null) {
+										if (class9_1.actions != null && !(RSInterface.interfaceCache[5383].disabledText.startsWith("Search") && class9_1.parentID == 5292)) {
 											for (int j4 = 4; j4 >= 0; j4--) {
 												if (class9_1.actions[j4] != null) {
 													menuActionName[menuActionRow] = class9_1.actions[j4] + " @lre@" + itemDef.name;
@@ -4943,6 +4943,7 @@ public class Game extends RSApplet {
 					inputTaken = true;
 				}
 			} else {
+				// typing characters
 				if (j >= 32 && j <= 122 && inputString.length() < 80) {
 					inputString += (char) j;
 					inputTaken = true;
@@ -4950,17 +4951,23 @@ public class Game extends RSApplet {
 						String[] args = inputString.split(" ");
 						inputDialogState = 3;
 						int searchType = 1;
-						String searchString = "dragon";
+						String searchString = "";
+						if (args.length < 2) {
+							return;
+						}
 						try {
 							searchType = Integer.parseInt(args[1]);
-							searchString = inputString.substring(inputString.indexOf(args[1]) + args[1].length() + 1);
+							if (args.length >= 3) {
+								searchString = inputString.substring(inputString.indexOf(args[1]) + args[1].length() + 1);
+							}
 						} catch (Exception e) {
 							searchType = 1;
-							searchString = "dragon";
+							searchString = inputString.substring(args[0].length() + 1);
 						}
 						definitionSearch(searchString, searchType);
 					}
 				}
+				// deleting characters
 				if (j == 8 && inputString.length() > 0) {
 					inputString = inputString.substring(0, inputString.length() - 1);
 					inputTaken = true;
@@ -4968,13 +4975,18 @@ public class Game extends RSApplet {
 						String[] args = inputString.split(" ");
 						inputDialogState = 3;
 						int searchType = 1;
-						String searchString = "dragon";
+						String searchString = "";
+						if (args.length < 2) {
+							return;
+						}
 						try {
 							searchType = Integer.parseInt(args[1]);
-							searchString = inputString.substring(inputString.indexOf(args[1]) + args[1].length() + 1);
+							if (args.length >= 3) {
+								searchString = inputString.substring(inputString.indexOf(args[1]) + args[1].length() + 1);
+							}
 						} catch (Exception e) {
 							searchType = 1;
-							searchString = "dragon";
+							searchString = inputString.substring(args[0].length() + 1);
 						}
 						definitionSearch(searchString, searchType);
 					}
@@ -11282,15 +11294,15 @@ public class Game extends RSApplet {
 				return true;
 			}
 			if (pktType == 126) {
-				String s1 = inStream.readString();
-				int k13 = inStream.method435();
+				String message = inStream.readString();
+				int interfaceID = inStream.method435();
 				// Update current player health (fix for refresh skill not including this)
-				if (k13 == 4016) {
-					myPlayer.currentHealth = Integer.parseInt(s1);
-					currentStats[3] = Integer.parseInt(s1);
+				if (interfaceID == 4016) {
+					myPlayer.currentHealth = Integer.parseInt(message);
+					currentStats[3] = Integer.parseInt(message);
 				}
-				RSInterface.interfaceCache[k13].disabledText = s1;
-				if (RSInterface.interfaceCache[k13].parentID == tabInterfaceIDs[tabID]) {
+				RSInterface.interfaceCache[interfaceID].disabledText = message;
+				if (RSInterface.interfaceCache[interfaceID].parentID == tabInterfaceIDs[tabID]) {
 					needDrawTabArea = true;
 				}
 				pktType = -1;
@@ -12551,8 +12563,8 @@ public class Game extends RSApplet {
 	public void definitionSearch(String name, int type) {
 		int amount = 0;
 		int definitionResultsTotal = 0;
-		int definitionResultIDs[] = new int[100];
-		String definitionResults[] = new String[100];
+		int definitionResultIDs[] = new int[352];
+		String definitionResults[] = new String[352];
 		String sType = "";
 		if (type == 1) {
 			amount = ItemDef.totalItems;
@@ -12564,6 +12576,7 @@ public class Game extends RSApplet {
 			amount = ObjectDef.totalObjects;
 			sType = "Object";
 		} else {
+			type = 1;
 			amount = ItemDef.totalItems;
 			sType = "Item";
 		}
@@ -12626,7 +12639,7 @@ public class Game extends RSApplet {
             definitionResultIDs[definitionResultsTotal] = definition;
             definitionResultsTotal++;
             if (definitionResultsTotal >= definitionResults.length) {
-                return;
+                break;
             }
         }
 
@@ -12635,11 +12648,12 @@ public class Game extends RSApplet {
 			needDrawTabArea = true;
 			int interfaceID = 5382;
 			RSInterface class9_1 = RSInterface.interfaceCache[interfaceID];
-			openInterface(5292);
+			openInterface(5292); // Bank interface
+			RSInterface.interfaceCache[5383].disabledText = "Search results for @yel@" + name; // The Bank of Text
 
 			int itemCount = 0;
 			for (int ID : definitionResultIDs) {
-				if (ID > 0) {
+				if (ID > 0 && itemCount < class9_1.inv.length) {
 					class9_1.inv[itemCount] = ID + 1; // Sets item ID;
 					class9_1.invStackSizes[itemCount++] = 1; // Sets item amoounts
 				}
@@ -12649,7 +12663,7 @@ public class Game extends RSApplet {
 				class9_1.invStackSizes[itemCount++] = 0;
 			}
 		}
-		pushMessage("@blu@" + sType + " @bla@search results for @blu@" + name + "@bla@ displayed above, @blu@" + definitionResultsTotal + "@bla@ results.", 0, "");
+		pushMessage("@blu@" + sType + " @bla@search results for @blu@" + name + "@bla@ displayed above (@blu@" + definitionResultsTotal + "@bla@ results).", 0, "");
     }
 
 	public void openInterface(int interfaceID) {
