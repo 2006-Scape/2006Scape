@@ -2481,6 +2481,18 @@ public class ItemAssistant {
 		return freeS;
 	}
 
+	public int freeSlots(int itemID, int amount) {
+		int freeS = 0;
+		for (int i = 0; i < player.playerItems.length; i ++) {
+			int _id = player.playerItems[i];
+			int _amt = player.playerItemsN[i];
+			if (_id <= 0 || (_id == itemID && isStackable(_id) && _amt + amount <= Integer.MAX_VALUE)) {
+				freeS++;
+			}
+		}
+		return freeS;
+	}
+
 	public int findItem(int id, int[] items, int[] amounts) {
 		for (int i = 0; i < player.playerItems.length; i++) {
 			if (items[i] - 1 == id && amounts[i] > 0) {
