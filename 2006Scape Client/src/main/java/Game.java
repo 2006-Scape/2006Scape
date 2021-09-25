@@ -1531,7 +1531,7 @@ public class Game extends RSApplet {
 					int l = 30;
 					Player player = (Player) obj;
 					if (player.combatLevel == 0) {
-						if (customSettingVisiblePlayerShops) {
+						if (customSettingVisiblePlayerNames) {
 							// Show shops
 							npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
 							// ItemDef.getSprite(995, 1000, 0xffff00).drawSprite(spriteDrawX - 16, spriteDrawY - l);
@@ -1797,16 +1797,16 @@ public class Game extends RSApplet {
 						int textBottom = 32;
 
 						aBackground_967.method361(centerX - 73, currentY);
-						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
-						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerShops ? 0x00ff00 : 0xff0000, centerX, "player shops", currentY + textBottom, true);
-
-						aBackground_967.method361(centerX - 73, currentY += 50);
 						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
 						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "player names", currentY + textBottom, true);
 						
 						aBackground_967.method361(centerX - 73, currentY += 50);
 						chatTextDrawingArea.textCenterShadow(0x00ff00, centerX, "item drops visible", currentY + textTop, true);
 						chatTextDrawingArea.textCenterShadow(0xffffff, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
+						
+						aBackground_967.method361(centerX - 73, currentY += 50);
+						chatTextDrawingArea.textCenterShadow(0x00ff00, centerX, "draw distance", currentY + textTop, true);
+						chatTextDrawingArea.textCenterShadow(0xffffff, centerX, WorldController.drawDistance + " tiles", currentY + textBottom, true);
 
 						aBackground_967.method361(centerX - 73, currentY += 50);
 						chatTextDrawingArea.textCenterShadow(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
@@ -4799,7 +4799,7 @@ public class Game extends RSApplet {
 			if (j == -1) {
 				break;
 			}
-			if (customTabAction == 1) {
+			if (customTabAction == 1 || customTabAction == 2) {
 				if (j >= 48 && j <= 57 && promptInput.length() < 10 && !promptInput.toLowerCase().contains("k") && !promptInput.toLowerCase().contains("m") && !promptInput.toLowerCase().contains("b")) {
 					promptInput += (char) j;
 					inputTaken = true;
@@ -4822,7 +4822,13 @@ public class Game extends RSApplet {
 							} else if (promptInput.toLowerCase().contains("b")) {
 								promptInput = promptInput.replaceAll("b", "000000000");
 							}
-							customSettingMinItemValue = Integer.parseInt(promptInput);
+							if (customTabAction == 1) {
+								customSettingMinItemValue = Integer.parseInt(promptInput);
+							}
+							if (customTabAction == 2) {
+								WorldController.drawDistance = Math.max(10, Math.min(100, Integer.parseInt(promptInput)));
+								zoom = Math.min(zoom, WorldController.drawDistance / 3);
+							}
 						}
 						customTabAction = 0;
 						inputTaken = true;
@@ -5567,7 +5573,6 @@ public class Game extends RSApplet {
 	}
 
 	int customTabAction = 0;
-	boolean customSettingVisiblePlayerShops = true;
 	boolean customSettingVisiblePlayerNames = true;
 	int customSettingMinItemValue = 1000;
 	boolean customSettingShowExperiencePerHour = false;
@@ -5654,10 +5659,6 @@ public class Game extends RSApplet {
 					if (tabID == 7 && super.saveClickX >= 575 && super.saveClickX <= 720 && super.saveClickY >= 210 && super.saveClickY <= 465) {
 						int startY = 217;
 						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
-							customSettingVisiblePlayerShops = !customSettingVisiblePlayerShops;
-						}
-						startY += 50;
-						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
 							customSettingVisiblePlayerNames = !customSettingVisiblePlayerNames;
 						}
 						startY += 50;
@@ -5668,6 +5669,15 @@ public class Game extends RSApplet {
 							promptInput = "";
 							aString1121 = "Enter minimum item value";
 							customTabAction = 1;
+						}
+						startY += 50;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+							inputTaken = true;
+							inputDialogState = 0;
+							messagePromptRaised = true;
+							promptInput = "";
+							aString1121 = "Enter new draw distance";
+							customTabAction = 2;
 						}
 						startY += 50;
 						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {

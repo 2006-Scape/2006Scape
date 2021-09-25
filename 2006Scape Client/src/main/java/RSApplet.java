@@ -300,6 +300,9 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	}
 
 	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {}
+
+	@Override
 	public void keyPressed(KeyEvent keyevent) {
 		idleTime = 0;
 		int i = keyevent.getKeyCode();
