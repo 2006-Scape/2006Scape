@@ -8754,14 +8754,50 @@ public class Game extends RSApplet {
 			k += 15;
 		}
 		if (anInt1104 != 0) {
+			String message = "";
 			int seconds = anInt1104 / 50;
 			int minutes = seconds / 60;
+			int hours = minutes / 60;
 			seconds %= 60;
-			if (seconds < 10) {
-				aTextDrawingArea_1271.method385(0xffff00, "System update in: " + minutes + ":0" + seconds, 329, 4);
-			} else {
-				aTextDrawingArea_1271.method385(0xffff00, "System update in: " + minutes + ":" + seconds, 329, 4);
+			minutes %= 60;
+			if (hours > 0) {
+				if (hours < 10)
+					message += "0";
+				message += hours + ":";
 			}
+			if (minutes > 0) {
+				if (minutes < 10)
+					message += "0";
+				message += minutes + ":";
+			}
+			if (seconds < 10)
+				message += "0";
+			message += seconds + "";
+
+			// Draw the menu
+			int debugItems = 1;
+			int debugWidth = chatTextDrawingArea.getTextWidth("System update in: 00:00") + 10; //140;
+			int debugHeight = 25 + (debugItems * 15);
+			int debugX = 511 - debugWidth;
+			int debugY = 334 - debugHeight;
+			int fill = 0x5d5447;
+			int fill2 = Color.BLACK.hashCode();
+			int opacity = 140;
+	
+			DrawingArea.fillArea(fill, debugY, debugWidth, debugHeight, opacity, debugX);
+			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
+			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
+			chatTextDrawingArea.method385(Color.WHITE.darker().hashCode(), "Notification", debugY += 14, debugX + 3);
+			// chatTextDrawingArea.method385(Color.YELLOW.hashCode(), message, debugY, debugX + debugWidth - chatTextDrawingArea.getTextWidth(super.fps + "fps") - 3);
+
+			// Bump Y value
+			debugY += 3;
+			
+			// Draw items
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "System update in:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), message, debugY);
+
+			// Not sure what this is for
 			anInt849++;
 			if (anInt849 > 75) {
 				anInt849 = 0;
