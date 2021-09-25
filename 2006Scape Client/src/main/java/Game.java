@@ -5032,9 +5032,6 @@ public class Game extends RSApplet {
 							}
 
 						}
-						if (inputString.equals("::fps")) {
-							fpsOn = !fpsOn;
-						}
 						if (inputString.equals("::dataon")) {
 							showInfo = !showInfo;
 						}
@@ -8733,26 +8730,6 @@ public class Game extends RSApplet {
 		if (anInt1055 == 1) {
 			multiOverlay.drawSprite(472, 296);
 		}
-		int k = 20;
-		int i1 = 0xffff00;
-		int x = baseX + (myPlayer.x - 6 >> 7);
-		int y = baseY + (myPlayer.y - 6 >> 7);
-		if (fpsOn) {
-			char c = '\u01FB';
-			if (super.fps < 15) {
-				i1 = 0xff0000;
-			}
-			aTextDrawingArea_1271.method380("Fps: " + super.fps, c, i1, k);
-			k += 15;
-			Runtime runtime = Runtime.getRuntime();
-			int j1 = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
-			i1 = 0xffff00;
-			if (j1 > 0x2000000 && lowMem) {
-				i1 = 0xff0000;
-			}
-			aTextDrawingArea_1271.method380("Mem: " + (j1 / 1024) + "mb", c, 0xffff00, k);
-			k += 15;
-		}
 		if (anInt1104 != 0) {
 			String message = "";
 			int seconds = anInt1104 / 50;
@@ -12323,7 +12300,6 @@ public class Game extends RSApplet {
 	public boolean needDrawTabArea;
 	public int unreadMessages;
 	public static int anInt1155;
-	public static boolean fpsOn;
 	public boolean loggedIn;
 	public boolean canMute;
 	public boolean aBoolean1159;
