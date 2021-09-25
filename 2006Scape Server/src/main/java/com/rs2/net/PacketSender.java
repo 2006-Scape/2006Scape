@@ -304,8 +304,12 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendString(String s, int id) { //Seems to be about chat messsages
-		if(!player.checkPacket126Update(s, id)) {
+	public PacketSender sendString(String s, int id) { // Update string in interfaces etc
+		return sendString(s, id, false);
+	}
+
+	public PacketSender sendString(String s, int id, boolean forceSend) { // Update string in interfaces etc
+		if(!forceSend && !player.checkPacket126Update(s, id)) {
 			return this;
 		}
 		if (player.getOutStream() != null && player != null) {
@@ -624,6 +628,7 @@ public class PacketSender {
 			player.lastMainFrameInterface = MainFrameIDs.BANK; //Setting it to 5292, since I *think* that's what interface got opened
 			player.getOutStream().writeWord(5063);
 			player.flushOutStream();
+			player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
 			player.isBanking = true;
 		}
 		return this;

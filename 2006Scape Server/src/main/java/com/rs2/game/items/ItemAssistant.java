@@ -1705,6 +1705,7 @@ public class ItemAssistant {
 	}
 
 	public void resetBank() {
+		player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
 		if (player.getOutStream() != null) {
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(5382); // bank
