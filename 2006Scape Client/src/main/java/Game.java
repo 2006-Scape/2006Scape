@@ -12580,9 +12580,11 @@ public class Game extends RSApplet {
 			type = 1;
 			amount = ItemDef.totalItems;
 			sType = "Item";
-		}
-		for (int line = 0; line < 100; line++) {
-			pushMessage("", 0, "");
+		}	
+		if (type != 1) {
+			for (int line = 0; line < 100; line++) {
+				pushMessage("", 0, "");
+			}
 		}
         if (name == null || name.length() == 0) {
             definitionResultsTotal = 0;
@@ -12635,7 +12637,9 @@ public class Game extends RSApplet {
                 }
             }
 			
-			pushMessage("@whi@[" + definition + "] @blu@" + result + "", 0, "");
+			if (type != 1) {
+				pushMessage("@whi@[" + definition + "] @blu@" + result + "", 0, "");
+			}
             definitionResults[definitionResultsTotal] = result;
             definitionResultIDs[definitionResultsTotal] = definition;
             definitionResultsTotal++;
@@ -12663,8 +12667,9 @@ public class Game extends RSApplet {
 				class9_1.inv[itemCount] = 0;
 				class9_1.invStackSizes[itemCount++] = 0;
 			}
+		} else {
+			pushMessage("@blu@" + sType + " @bla@search results for @blu@" + name + "@bla@ displayed above (@blu@" + definitionResultsTotal + "@bla@ results).", 0, "");
 		}
-		pushMessage("@blu@" + sType + " @bla@search results for @blu@" + name + "@bla@ displayed above (@blu@" + definitionResultsTotal + "@bla@ results).", 0, "");
     }
 
 	public void openInterface(int interfaceID) {
