@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.applet.AppletContext;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelEvent;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -12701,5 +12702,19 @@ public class Game extends RSApplet {
 		tabInterfaceIDs[tab] = interfaceID;
 		needDrawTabArea = true;
 		tabAreaAltered = true;
+	}
+
+	public final void mouseWheelMoved(MouseWheelEvent e) {
+		int notches = e.getWheelRotation();
+		// If mouse over main game screen, without anything else opened
+		if (openInterfaceID == -1 && mouseX < 515 && mouseY < 340) {
+			if (notches < 0) {
+				if (zoom > -1)
+					zoom--;
+			} else {
+				if (zoom < 15)
+					zoom++;
+			}
+		}
 	}
 }
