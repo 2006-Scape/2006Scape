@@ -5045,7 +5045,6 @@ public class Game extends RSApplet {
 							inputTaken = true;
 							return;
 						}
-						}
 						if (inputString.equals("::dataon")) {
 							showInfo = !showInfo;
 						}
@@ -8779,7 +8778,6 @@ public class Game extends RSApplet {
 			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
 			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
 			chatTextDrawingArea.method385(Color.WHITE.darker().hashCode(), "Notification", debugY += 14, debugX + 3);
-			// chatTextDrawingArea.method385(Color.YELLOW.hashCode(), message, debugY, debugX + debugWidth - chatTextDrawingArea.getTextWidth(super.fps + "fps") - 3);
 
 			// Bump Y value
 			debugY += 3;
