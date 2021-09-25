@@ -30,29 +30,48 @@ public class PacketSender {
 	}
 	
 	public PacketSender sendUpdateItems(int frame, Item[] items) {
-		player.getOutStream().createFrameVarSizeWord(53);
-		player.getOutStream().writeWord(frame);
-		player.getOutStream().writeWord(items.length);
-		Item[] var6 = items;
+		if (player.getOutStream() != null) {
+			player.getOutStream().createFrameVarSizeWord(53);
+			player.getOutStream().writeWord(frame);
+			player.getOutStream().writeWord(items.length);
+		}
+
 		for (int i = 0; i < items.length; i++) {
-			Item item = var6[i];
-			if (item == null) {
-				player.getOutStream().writeByte(0);
-				player.getOutStream().writeWordBigEndianA(0);
-			} else {
+			Item item = items[i];
+			if (player.getOutStream() != null) {
 				if (item.getCount() > 254) {
 					player.getOutStream().writeByte(255);
 					player.getOutStream().writeDWord_v2(item.getCount());
 				} else {
 					player.getOutStream().writeByte(item.getCount());
 				}
-
-				player.getOutStream().writeWordBigEndianA(item.getId());
 			}
+			int id = item.getId() + 1;
+			if (item.getCount() < 1) {
+				id = 0;
+			}
+			if (id > GameConstants.ITEM_LIMIT || id < 0) {
+				id = GameConstants.ITEM_LIMIT;
+			}
+			if (player.getOutStream() != null) {
+				player.getOutStream().writeWordBigEndianA(id);
+			}
+		}
+
+		if (player.getOutStream() != null) {
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
 		}
 		return this;
 	}
 	
+	public PacketSender sendUpdateItems(int frame, int[] itemIDs, int[] itemAmounts) {
+		Item[] items = new Item[itemIDs.length];
+		for(int i = 0; i < itemIDs.length; i++) {
+			items[i] = new Item(itemIDs[i], itemAmounts[i]);
+		}
+		return sendUpdateItems(frame, items);
+	}
 	
 	public PacketSender loginPlayer() {
 		player.getPlayerAssistant().loginScreen();
@@ -623,10 +642,7 @@ public class PacketSender {
 			player.getItemAssistant().rearrangeBank();
 			player.getItemAssistant().resetBank();
 			player.getItemAssistant().resetTempItems();
-			player.getOutStream().createFrame(248);
-			player.getOutStream().writeWordA(5292);
-			player.lastMainFrameInterface = MainFrameIDs.BANK; //Setting it to 5292, since I *think* that's what interface got opened
-			player.getOutStream().writeWord(5063);
+			sendFrame248(5292, 5063);
 			player.flushOutStream();
 			player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
 			player.isBanking = true;

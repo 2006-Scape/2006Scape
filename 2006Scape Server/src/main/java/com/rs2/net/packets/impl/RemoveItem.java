@@ -7,6 +7,7 @@ import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
+import com.rs2.world.Boundary;
 
 /**
  * Remove Item
@@ -28,6 +29,13 @@ public class RemoveItem implements PacketType {
 
 		switch (interfaceId) {
 
+		case 2274:
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
+				PartyRoom.withdrawItem(player, removeSlot, 1);
+				return;
+			}
+			break;
+
 		case 4233:
 		case 4239:
 		case 4245:
@@ -48,7 +56,7 @@ public class RemoveItem implements PacketType {
 			break;
 
 		case 5064:
-			if (player.inPartyRoom) {
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
 				PartyRoom.depositItem(player, removeId, 1);
 			} else {
 				player.getItemAssistant().bankItem(removeId, removeSlot, 1);

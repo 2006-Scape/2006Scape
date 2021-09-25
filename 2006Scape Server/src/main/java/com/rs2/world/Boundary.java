@@ -287,5 +287,6 @@ public class Boundary {
 	public static final Boundary FIGHT_CAVES = new Boundary(2360, 2445, 5045, 5125);
 	public static final Boundary PIRATE_HOUSE = new Boundary(3038, 3044, 3949, 3959);
 	public static final Boundary[] FIGHT_PITS = new Boundary[] { new Boundary(2378, 3415, 5133, 5167), new Boundary(2394, 2404, 5169, 5174) };
+	public static final Boundary PARTY_ROOM = new Boundary(2727, 3460, 2746, 3479);
 
 }
