@@ -14,7 +14,7 @@ import com.rs2.game.players.PlayerHandler;
 public class Boundary {
 
 
-	int minX, minY, highX, highY;
+	int minX, highX, minY, highY;
 	int height;
 
 	/**
@@ -29,11 +29,11 @@ public class Boundary {
 	 *            The north-east y coordinate
 	 */
 	public Boundary(int minX, int highX, int minY, int highY) {
-		this.minX = minX;
-		this.minY = minY;
-		this.highX = highX;
-		this.highY = highY;
-		height = -1;
+		this.minX = Math.min(minX, highX);
+		this.highX = Math.max(minX, highX);
+		this.minY = Math.min(minY, highY);
+		this.highY = Math.max(minY, highY);
+		this.height = -1;
 	}
 
 	/**
@@ -50,10 +50,10 @@ public class Boundary {
 	 *            The height of the boundary
 	 */
 	public Boundary(int minX, int highX, int minY, int highY, int height) {
-		this.minX = minX;
-		this.minY = minY;
-		this.highX = highX;
-		this.highY = highY;
+		this.minX = Math.min(minX, highX);
+		this.highX = Math.max(minX, highX);
+		this.minY = Math.min(minY, highY);
+		this.highY = Math.max(minY, highY);
 		this.height = height;
 	}
 	
@@ -301,7 +301,7 @@ public class Boundary {
 	public static final Boundary FIGHT_CAVES = new Boundary(2360, 2445, 5045, 5125);
 	public static final Boundary PIRATE_HOUSE = new Boundary(3038, 3044, 3949, 3959);
 	public static final Boundary[] FIGHT_PITS = new Boundary[] { new Boundary(2378, 3415, 5133, 5167), new Boundary(2394, 2404, 5169, 5174) };
-	public static final Boundary PARTY_ROOM = new Boundary(2727, 3460, 2746, 3479);
-	public static final Boundary PARTY_ROOM_TABLE = new Boundary(2735, 3468, 2740, 3468);
+	public static final Boundary PARTY_ROOM = new Boundary(2727, 2746, 3460, 3479);
+	public static final Boundary PARTY_ROOM_TABLE = new Boundary(2735, 2740, 3467, 3468);
 
 }
