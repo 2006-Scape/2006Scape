@@ -75,12 +75,12 @@ public final class TextDrawingArea extends DrawingArea {
 		}
 	}
 
-	public void method380(String s, int i, int j, int k) {
-		method385(j, s, k, i - method384(s));
+	public void textRight(int i, String s, int k, int l) {
+		textLeft(i, s, k, l - method384(s));
 	}
 
-	public void drawText(int i, String s, int k, int l) {
-		method385(i, s, k, l - method384(s) / 2);
+	public void textCenter(int i, String s, int k, int l) {
+		textLeft(i, s, k, l - method384(s) / 2);
 	}
 
 	public void textCenterShadow(int _color, int _x, String s, int _y, boolean _shadow) {
@@ -118,7 +118,7 @@ public final class TextDrawingArea extends DrawingArea {
 		return j;
 	}
 
-	public void method385(int i, String s, int j, int l) {
+	public void textLeft(int i, String s, int j, int l) {
 		if (s == null) {
 			return;
 		}
