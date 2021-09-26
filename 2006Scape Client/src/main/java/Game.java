@@ -4408,7 +4408,7 @@ public class Game extends RSApplet {
 			ItemDef itemDef_1 = ItemDef.forID(i1);
 			String s6;
 			if (itemDef_1.description != null) {
-				s6 = new String(itemDef_1.description) + " (" + itemDef_1.value + "gp ea)";
+				s6 = new String(itemDef_1.description) + " (" + intToKOrMil(itemDef_1.value) + "gp ea)";
 			} else {
 				s6 = "It's a " + itemDef_1.name + ".";
 			}
