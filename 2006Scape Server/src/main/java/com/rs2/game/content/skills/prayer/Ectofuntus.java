@@ -175,12 +175,19 @@ public class Ectofuntus {
 				CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
+						if (player.isMoving || !player.getItemAssistant().playerHasItem(ectofuntus.getBonemealId()) || !player.getItemAssistant().playerHasItem(BUCKET_OF_SLIME)) {
+							container.stop();
+							return;
+						}
 						player.getItemAssistant().replaceItem(ectofuntus.getBonemealId(), 1931);
 						player.getItemAssistant().replaceItem(BUCKET_OF_SLIME, 1925);// Bucket
 						player.startAnimation(WORSHIP);
 						player.getPlayerAssistant().addSkillXP(ectofuntus.getWorshipExperience(), GameConstants.PRAYER);
 						player.getPacketSender().sendMessage("You pray to the ectofuntus.");
-						container.stop();
+						player.ectofuntusWorshipped++;
+						if (player.isMoving || !player.getItemAssistant().playerHasItem(ectofuntus.getBonemealId()) || !player.getItemAssistant().playerHasItem(BUCKET_OF_SLIME)) {
+							container.stop();
+						}
 					}
 
 					@Override
