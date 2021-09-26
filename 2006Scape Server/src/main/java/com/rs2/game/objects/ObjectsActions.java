@@ -91,8 +91,8 @@ public class ObjectsActions {
         if (player.getWerewolfAgility().werewolfCourse(objectType)) {
             return;
         }
-        if (objectType >= 115 && objectType <= 121) {
-            Balloons.popBalloon(player, objectX, objectY);
+        if (Boundary.isIn(player, Boundary.PARTY_ROOM) && objectType >= 115 && objectType <= 122) {
+            PartyRoom.popBalloon(player, objectX, objectY);
             return;
         }
         if (objectType >= 5103 && objectType <= 5107) {

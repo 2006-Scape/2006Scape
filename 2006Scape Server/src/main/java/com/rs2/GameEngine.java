@@ -231,6 +231,7 @@ public class GameEngine {
 					CastleWars.process();
 					FightPits.process();
 					pestControl.process();
+					objectHandler.process();
 					CycleEventHandler.getSingleton().process();
 					PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 					if(GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION) {

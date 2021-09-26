@@ -9,15 +9,17 @@ import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.ItemData;
 import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
+import com.rs2.game.players.PlayerHandler;
 
 public class PartyRoom {
-
+	static int mainInterfaceID = 2156;
 	static Random r = new Random();
-	static int[] roomItems = new int[50];
-	static int[] roomItemsN = new int[50];
+	static int[] roomItems = new int[216];
+	static int[] roomItemsN = new int[216];
+	static Balloons[][] balloons = new Balloons[15][14];
+	static Point corner = new Point(2730, 3462);
 	static long lastAnnouncment;
 	static int announcmentFrequency = 1; // announcment frequency in mins
-	static ArrayList<Point> coords = new ArrayList<Point>();
 
 	public static int getAmount() {
 		int amount = 0;
@@ -42,42 +44,56 @@ public class PartyRoom {
 		if (amount < 1) {
 			return;
 		}
-		for (int x = 0; x < roomItems.length; x++) {
-			if (roomItemsN[x] > 0) {
-				Balloons b = null;
+		for (int i = 0; i < roomItems.length; i++) {
+			if (roomItemsN[i] > 0) {
+				int x = r.nextInt(balloons.length);
+				int y = r.nextInt(balloons[0].length);
 				do {
-					b = Balloons.getBalloon(roomItems[x], roomItemsN[x]);
+					x = r.nextInt(balloons.length);
+					y = r.nextInt(balloons[0].length);
 					trys++;
-				} while (coords.contains(Balloons.getCoords()) && trys < 100);
-				GameEngine.objectHandler.addObject(b);
-				GameEngine.objectHandler.placeObject(b);
+				} while (balloons[x][y] != null && trys < 100);
+				balloons[x][y] = Balloons.getBalloon(corner.x + x, corner.y + y, roomItems[i], roomItemsN[i]);
+				GameEngine.objectHandler.addObject(balloons[x][y]);
+				GameEngine.objectHandler.placeObject(balloons[x][y]);
 			}
-			if (trys > 100) {
+			if (trys >= 100) {
 				break;
 			}
-			roomItems[x] = 0;
-			roomItemsN[x] = 0;
+			roomItems[i] = 0;
+			roomItemsN[i] = 0;
 		}
-		trys = 0;
-		for (int x = 0; x < amount * 2; x++) {
-			Objects o;
+		for (int i = 0; i < amount * 2; i++) {
+			int x = r.nextInt(balloons.length);
+			int y = r.nextInt(balloons[0].length);
 			do {
-				o = Balloons.getEmpty();
-			} while (coords.contains(new Point(o.objectX, o.objectY))
-					&& trys < 100);
-			if (trys > 100) {
+				x = r.nextInt(balloons.length);
+				y = r.nextInt(balloons[0].length);
+				trys++;
+			} while (balloons[x][y] != null && trys < 100);
+			balloons[x][y] = Balloons.getEmpty(corner.x + x, corner.y + y);
+			GameEngine.objectHandler.addObject(balloons[x][y]);
+			GameEngine.objectHandler.placeObject(balloons[x][y]);
+			if (trys >= 100) {
 				break;
 			}
-			GameEngine.objectHandler.addObject(o);
-			GameEngine.objectHandler.placeObject(o);
 		}
-		coords.clear();
 	}
 
-	public static int arraySlot(int[] array, int target) {
+	public static void popBalloon(Player player, int x, int y) {
+		x = x - corner.x;
+		y = y - corner.y;
+		Balloons balloon = balloons[x][y];
+		if (balloon != null) {
+			balloon.popBalloon(player);
+		}
+		balloons[x][y] = null;
+	}
+
+	public static int arraySlot(int[] array, int itemID) {
 		int spare = -1;
 		for (int x = 0; x < array.length; x++) {
-			if (array[x] == target) {
+			if (array[x] == itemID && ItemData.itemStackable[itemID]) {
 				return x;
 			} else if (spare == -1 && array[x] <= 0) {
 				spare = x;
@@ -90,8 +106,8 @@ public class PartyRoom {
 		if (!GameConstants.PARTY_ROOM_DISABLED) {
 			updateGlobal(player);
 			updateDeposit(player);
-			player.getItemAssistant().resetItems(5064);
-			player.getPacketSender().sendFrame248(2156, 5063);
+			player.getItemAssistant().resetItems(5064); // Player inventory
+			player.getPacketSender().sendFrame248(mainInterfaceID, 5063); // Party Drop Chest interface, Deposit interface
 		} else {
 			player.getPacketSender().sendMessage("The partyroom has been disabled.");
 		}
@@ -103,8 +119,7 @@ public class PartyRoom {
 				if (ItemData.itemStackable[c.party[x]]) {
 					int slot = arraySlot(roomItems, c.party[x]);
 					if (slot < 0) {
-						c.getPacketSender().sendMessage(
-								"Theres not enough space left in the chest.");
+						c.getPacketSender().sendMessage("Theres not enough space left in the chest.");
 						break;
 					}
 					if (roomItems[slot] != c.party[x]) {
@@ -118,11 +133,9 @@ public class PartyRoom {
 				} else {
 					int left = c.partyN[x];
 					for (int y = 0; y < left; y++) {
-						int slot = arraySlot(roomItems, -2);
+						int slot = arraySlot(roomItems, c.party[x]);
 						if (slot < 0) {
-							c.getPacketSender()
-									.sendMessage(
-											"Theres not enough space left in the chest.");
+							c.getPacketSender().sendMessage("Theres not enough space left in the chest.");
 							break;
 						}
 						roomItems[slot] = c.party[x];
@@ -136,14 +149,19 @@ public class PartyRoom {
 			}
 		}
 		updateDeposit(c);
-		updateGlobal(c);
+		updateAll();
 	}
 
-	// public static void updateAll() {
-	// for (int x = 0; x < PlayerHandler.getPlayers().length; x++) {
-	// updateGlobal((Client) PlayerHandler.getPlayers()[x]);
-	// }
-	// }
+	public static void updateAll() {
+		for (Player p : PlayerHandler.players) {
+			if (p == null) {
+				continue;
+			}
+			if (p.lastMainFrameInterface == mainInterfaceID) {
+				updateGlobal(p);
+			}
+		}
+	}
 
 	public static void fix(Player c) {
 		for (int x = 0; x < 8; x++) {
@@ -156,7 +174,6 @@ public class PartyRoom {
 	}
 
 	public static void depositItem(Player player, int id, int amount) {
-		int slot = arraySlot(player.party, id);
 		for (int i : ItemConstants.ITEM_TRADEABLE) {
 			if (i == id) {
 				player.getPacketSender().sendMessage("You can't deposit this item.");
@@ -167,57 +184,66 @@ public class PartyRoom {
 				return;
 			}
 		}
-		if (player.getItemAssistant().getItemAmount(id) < amount) {
-			amount = player.getItemAssistant().getItemAmount(id);
-		}
+
+		amount = Math.min(player.getItemAssistant().getItemAmount(id), amount);
+
 		if (!player.getItemAssistant().playerHasItem(id, amount)) {
 			player.getPacketSender().sendMessage("You don't have that many items!");
 			return;
 		}
-		if (slot == -1) {
-			player.getPacketSender().sendMessage("You cant deposit more than 8 items at once.");
-			return;
-		}
-		player.getItemAssistant().deleteItem(id, amount);
-		if (player.party[slot] != id) {
-			player.party[slot] = id;
-			player.partyN[slot] = amount;
+
+		if (player.getItemAssistant().isStackable(id)) {
+			int slot = arraySlot(player.party, id);
+			if (slot == -1) {
+				player.getPacketSender().sendMessage("You can only deposit up to 8 items at once.");
+				return;
+			}
+
+			player.getItemAssistant().deleteItem(id, amount);
+			if (player.party[slot] != id) {
+				player.party[slot] = id;
+				player.partyN[slot] = amount;
+			} else {
+				player.party[slot] = id;
+				player.partyN[slot] += amount;
+			}
 		} else {
-			player.party[slot] = id;
-			player.partyN[slot] += amount;
+			for (int i = 0; i < amount; i ++) {
+				int slot = arraySlot(player.party, id);
+				if (slot == -1) {
+					player.getPacketSender().sendMessage("You can only deposit up to 8 items at once.");
+					updateDeposit(player);
+					return;
+				}
+	
+				player.getItemAssistant().deleteItem(id, 1);
+				player.party[slot] = id;
+				player.partyN[slot] = 1;
+			}
 		}
 		updateDeposit(player);
 	}
 
-	public static void withdrawItem(Player c, int slot) {
-		if (c.party[slot] >= 0 && c.getItemAssistant().freeSlots() > 0) {
-			c.getItemAssistant().addItem(c.party[slot], c.partyN[slot]);
-			c.party[slot] = 0;
-			c.partyN[slot] = 0;
+	public static void withdrawItem(Player c, int slot, int amount) {
+		int itemID = c.party[slot];
+		amount = Math.min(c.partyN[slot], amount);
+		if (c.party[slot] >= 0 && c.getItemAssistant().freeSlots(itemID, amount) > 0) {
+			c.getItemAssistant().addItem(c.party[slot], amount);
+			c.partyN[slot] -= amount;
+			if (c.partyN[slot] <= 0) {
+				c.party[slot] = 0;
+			}
 		}
 		updateDeposit(c);
-		updateGlobal(c);
 	}
 
 	public static void updateDeposit(Player player) {
 		player.getItemAssistant().resetItems(5064);
-		for (int x = 0; x < 8; x++) {
-			if (player.partyN[x] <= 0) {
-				itemOnInterface(player, 2274, x, -1, 0);
-			} else {
-				itemOnInterface(player, 2274, x, player.party[x], player.partyN[x]);
-			}
-		}
+		player.getPacketSender().sendUpdateItems(2274, player.party, player.partyN);
 	}
 
 	public static void updateGlobal(Player player) {
-		for (int x = 0; x < roomItems.length; x++) {
-			if (roomItemsN[x] <= 0) {
-				itemOnInterface(player, 2273, x, -1, 0);
-			} else {
-				itemOnInterface(player, 2273, x, roomItems[x], roomItemsN[x]);
-			}
-		}
+		player.getPacketSender().sendUpdateItems(2273, roomItems, roomItemsN);
 	}
 
 	public static void itemOnInterface(Player player, int frame, int slot, int id, int amount) {

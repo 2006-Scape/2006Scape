@@ -165,7 +165,7 @@ public class ItemHandler {
                 c.getPacketSender().sendMessage("The cape vanishes as it touches the ground.");
                 return;
             }
-            if (itemId > 4705 && itemId < 4760) {
+            if (itemId >= 4708 && itemId <= 4759) {
                 for (int[] brokenBarrow : brokenBarrows) {
                     if (brokenBarrow[0] == itemId) {
                         itemId = brokenBarrow[1];

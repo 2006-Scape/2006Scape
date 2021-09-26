@@ -16,7 +16,7 @@ public class GameConstants {
 	
 	public final static boolean SOUND = true,
 			GUILDS = true,
-			PARTY_ROOM_DISABLED = true,
+			PARTY_ROOM_DISABLED = false,
 			PRINT_OBJECT_ID = false, EXPERIMENTS = false;
 	
 	public static int[] SIDEBARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151,
