@@ -1535,12 +1535,12 @@ public class Game extends RSApplet {
 							// Show shops
 							npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
 							// ItemDef.getSprite(995, 1000, 0xffff00).drawSprite(spriteDrawX - 16, spriteDrawY - l);
-							aTextDrawingArea_1270.method385(0x00ffff, "[SHOP]", spriteDrawY + 5, spriteDrawX - (aTextDrawingArea_1270.getTextWidth("[SHOP]") / 2));
+							aTextDrawingArea_1270.method385(0x00ffff, "[SHOP]", spriteDrawY - 5, spriteDrawX - (aTextDrawingArea_1270.getTextWidth("[SHOP]") / 2));
 						}
 					} else if (customSettingVisiblePlayerNames) {
 						// Show player names
 						npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
-						aTextDrawingArea_1270.method385(0xffffff, player.name, spriteDrawY + 5, spriteDrawX - (aTextDrawingArea_1270.getTextWidth(player.name) / 2));
+						aTextDrawingArea_1270.method385(0xffffff, player.name, spriteDrawY - 5, spriteDrawX - (aTextDrawingArea_1270.getTextWidth(player.name) / 2));
 						if (player.privelage >= 1) {
 							npcScreenPos(((Entity) obj), ((Entity) obj).height + 15);
 							int icon = Math.max(0, Math.min(1, player.privelage - 1));
