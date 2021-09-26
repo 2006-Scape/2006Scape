@@ -1481,13 +1481,13 @@ public class Game extends RSApplet {
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
 							// only show ground items names if worth more than x (1k default)
 							if (totalValue >= customSettingMinItemValue) {
-								int color = 0xffffff;
+								int color = Color.WHITE.hashCode();
 								if (totalValue >= 1e5) {
-									color = 0x00ff00;
+									color = Color.GREEN.hashCode();
 								} else if (totalValue >= 1e4) {
-									color = 0x00ffff;
+									color = Color.CYAN.hashCode();
 								} else if (totalValue >= 1e3) {
-									color = 0xffff00;
+									color = Color.YELLOW.hashCode();
 								}
 								String text = "";
 								if (item.amount > 1) {
