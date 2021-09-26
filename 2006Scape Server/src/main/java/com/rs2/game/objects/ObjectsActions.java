@@ -969,6 +969,8 @@ public class ObjectsActions {
             case 9326:
             case 9321:
             case 993:
+            case 9307:
+            case 9308:
                 AgilityShortcut.processAgilityShortcut(player);
                 break;
 
