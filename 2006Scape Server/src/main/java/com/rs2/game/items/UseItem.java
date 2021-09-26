@@ -62,12 +62,6 @@ public class UseItem {
 			return;
 		}
 		switch (objectID) {
-		// case 5282:
-		// System.out.println(objectX + "text" + objectY);
-		// if (itemId == 4252) {
-		// 	c.getItemAssistant().replaceItem(4252, 4251);
-		// }
-		// break;
 		case 733:
 		if (itemId == 946) {
 			Webs.slashWeb(c, objectID, objectX, objectY);
