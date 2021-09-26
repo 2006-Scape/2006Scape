@@ -123,6 +123,14 @@ public class ObjectsActions {
             return;
         }
         switch (objectType) {
+            case 6969: // Swamp Boaty
+                if (player.objectX == 3523 && player.objectY == 3284)
+                    player.getPlayerAssistant().movePlayer(3499, 3380, 0);
+                break;
+            case 6970: // Swamp Boaty
+                if (player.objectX == 3498 && player.objectY == 3377)
+                    player.getPlayerAssistant().movePlayer(3522, 3284, 0);
+                break;
             case 6615:
                 if (player.absY == 2809) {
                     player.getPlayerAssistant().movePlayer(player.absX, 2810, 0);
