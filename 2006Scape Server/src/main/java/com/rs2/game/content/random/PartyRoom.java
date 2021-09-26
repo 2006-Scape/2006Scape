@@ -10,6 +10,7 @@ import com.rs2.game.items.ItemData;
 import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
+import com.rs2.world.Boundary;
 
 public class PartyRoom {
 	static int mainInterfaceID = 2156;
@@ -48,35 +49,45 @@ public class PartyRoom {
 			if (roomItemsN[i] > 0) {
 				int x = r.nextInt(balloons.length);
 				int y = r.nextInt(balloons[0].length);
-				do {
+
+				// If already balloons there, or on the table, retry
+				while ((balloons[x][y] != null || Boundary.isIn(corner.x + x, corner.y + y, Boundary.PARTY_ROOM_TABLE)) && trys < 100) {
 					x = r.nextInt(balloons.length);
 					y = r.nextInt(balloons[0].length);
 					trys++;
-				} while (balloons[x][y] != null && trys < 100);
+				}
+
+				if (trys >= 100) {
+					break;
+				}
+
 				balloons[x][y] = Balloons.getBalloon(corner.x + x, corner.y + y, roomItems[i], roomItemsN[i]);
 				GameEngine.objectHandler.addObject(balloons[x][y]);
 				GameEngine.objectHandler.placeObject(balloons[x][y]);
+
+				roomItems[i] = 0;
+				roomItemsN[i] = 0;
 			}
-			if (trys >= 100) {
-				break;
-			}
-			roomItems[i] = 0;
-			roomItemsN[i] = 0;
 		}
+		trys = 0;
 		for (int i = 0; i < amount * 2; i++) {
 			int x = r.nextInt(balloons.length);
 			int y = r.nextInt(balloons[0].length);
-			do {
+
+			// If already balloons there, or on the table, retry
+			while ((balloons[x][y] != null || Boundary.isIn(corner.x + x, corner.y + y, Boundary.PARTY_ROOM_TABLE)) && trys < 100) {
 				x = r.nextInt(balloons.length);
 				y = r.nextInt(balloons[0].length);
 				trys++;
-			} while (balloons[x][y] != null && trys < 100);
-			balloons[x][y] = Balloons.getEmpty(corner.x + x, corner.y + y);
-			GameEngine.objectHandler.addObject(balloons[x][y]);
-			GameEngine.objectHandler.placeObject(balloons[x][y]);
+			}
+
 			if (trys >= 100) {
 				break;
 			}
+
+			balloons[x][y] = Balloons.getEmpty(corner.x + x, corner.y + y);
+			GameEngine.objectHandler.addObject(balloons[x][y]);
+			GameEngine.objectHandler.placeObject(balloons[x][y]);
 		}
 	}
 
@@ -109,7 +120,7 @@ public class PartyRoom {
 			player.getItemAssistant().resetItems(5064); // Player inventory
 			player.getPacketSender().sendFrame248(mainInterfaceID, 5063); // Party Drop Chest interface, Deposit interface
 		} else {
-			player.getPacketSender().sendMessage("The partyroom has been disabled.");
+			player.getPacketSender().sendMessage("The partyroom is currently disabled.");
 		}
 	}
 

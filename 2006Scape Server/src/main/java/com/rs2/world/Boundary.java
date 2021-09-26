@@ -98,6 +98,20 @@ public class Boundary {
 
 	/**
 	 * 
+	 * @param x
+	 *            The x position
+	 * @param y
+	 *            The y position
+	 * @param boundaries
+	 *            The boundary object
+	 * @return
+	 */
+	public static boolean isIn(int x, int y, Boundary boundaries) {
+		return x >= boundaries.minX && x <= boundaries.highX && y >= boundaries.minY && y <= boundaries.highY;
+	}
+
+	/**
+	 * 
 	 * @param npc
 	 *            The npc object
 	 * @param boundaries
@@ -288,5 +302,6 @@ public class Boundary {
 	public static final Boundary PIRATE_HOUSE = new Boundary(3038, 3044, 3949, 3959);
 	public static final Boundary[] FIGHT_PITS = new Boundary[] { new Boundary(2378, 3415, 5133, 5167), new Boundary(2394, 2404, 5169, 5174) };
 	public static final Boundary PARTY_ROOM = new Boundary(2727, 3460, 2746, 3479);
+	public static final Boundary PARTY_ROOM_TABLE = new Boundary(2735, 3468, 2740, 3468);
 
 }
