@@ -28,10 +28,19 @@ public class ItemOnObject implements PacketType {
 		player.objectX = objectX;
 		player.objectY = objectY;
 		player.endCurrentTask();
+		int distance = 3;
+		switch (objectId) {
+			case 5282:
+				distance = 5;
+				break;
+			default:
+				distance = 3;
+				break;
+		}
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
-		if (!player.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 3)) {
+		if (!player.goodDistance(player.objectX, player.objectY, player.absX, player.absY, distance)) {
 			return;
 		}
 		if (player.playerRights == 3) {

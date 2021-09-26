@@ -38,6 +38,8 @@ public class Fillables {
 			return 1823;
 		case 6667:
 			return 6668;
+		case 4252:
+			return 4251;
 		}
 		return -1;
 	}
@@ -70,6 +72,8 @@ public class Fillables {
 			return "waterskin";
 		case 6667:
 			return "fishbowl";
+		case 4252:
+			return "ectophial";
 		}
 		return "There was a problem with your current action, please report this to Mod Andrew.";
 	}
@@ -108,6 +112,8 @@ public class Fillables {
 		case 6232:
 		case 2864:
 			return "fountain";
+		case 5282:
+			return "ectofuntus";
 		}
 		return "Error";
 	}

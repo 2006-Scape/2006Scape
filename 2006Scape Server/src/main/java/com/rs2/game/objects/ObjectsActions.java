@@ -12,7 +12,6 @@ import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWarObjects;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.quests.QuestRewards;
-import com.rs2.game.content.random.Balloons;
 import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.randomevents.FreakyForester;
 import com.rs2.game.content.skills.agility.AgilityShortcut;
@@ -761,20 +760,7 @@ public class ObjectsActions {
                 player.getPlayerAssistant().movePlayer(3666, 3517, 0);
                 break;
             case 5282: // Ectofuntus Worship
-                if (player.getItemAssistant().playerHasItem(4286) && player.getItemAssistant().playerHasItem(4255))
-                    {
-                    player.startAnimation(1651);
-                    player.getPacketSender().sendMessage("You put some ectoplasm and bonemeal into the Ectofuntus, and worship it.");
-                    player.getItemAssistant().deleteItem(4286, 1);
-                    player.getItemAssistant().deleteItem(4255, 1);
-                    player.getItemAssistant().addItem(1925, 1);
-                    player.getItemAssistant().addItem(1931, 1);
-                    player.getPlayerAssistant().addSkillXP(18, GameConstants.PRAYER);
-                 }
-                else
-                    {
-                        player.getPacketSender().sendMessage("You'll need ectoplasm and bonemeal to worship the Ectofuntus.");
-                    }
+                Ectofuntus.handleEctofuntus(player);
                 break;
 
             case 12982:

@@ -2083,6 +2083,12 @@ public abstract class Player {
 		if (checkRangeDistance()) {
 			distance = gatherRangeDistance(distance);
 		}
+
+		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
+	}
+
+	public boolean goodObjectDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
+		System.out.println((objectX-playerX) + " - " + (objectY-playerY) + " - " + distance);
 		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
 	}
 

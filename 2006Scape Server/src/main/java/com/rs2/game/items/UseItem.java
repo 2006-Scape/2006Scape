@@ -35,11 +35,11 @@ import com.rs2.util.Misc;
 public class UseItem {
 
 	public static void itemOnObject(Player c, int objectID, int objectX, int objectY, int itemId) {
-		final int goodPosXType1 = objectX - 5;
-		final int goodPosXType2 = objectX + 5;
-		final int goodPosYType1 = objectY - 5;
-		final int goodPosYType2 = objectY + 5;
-		if (c.absX >= goodPosXType1 && c.absX <= goodPosXType2 && c.absY >= goodPosYType1 && c.absY <= goodPosYType2) {
+		final int minX = objectX - 5;
+		final int maxX = objectX + 5;
+		final int minY = objectY - 5;
+		final int maxY = objectY + 5;
+		if (c.absX >= minX && c.absX <= maxX && c.absY >= minY && c.absY <= maxY) {
 			c.turnPlayerTo(objectX, objectY);
 		} else {
 			c.getPlayerAssistant().playerWalk(objectX, objectY);
@@ -62,6 +62,12 @@ public class UseItem {
 			return;
 		}
 		switch (objectID) {
+		// case 5282:
+		// System.out.println(objectX + "text" + objectY);
+		// if (itemId == 4252) {
+		// 	c.getItemAssistant().replaceItem(4252, 4251);
+		// }
+		// break;
 		case 733:
 		if (itemId == 946) {
 			Webs.slashWeb(c, objectID, objectX, objectY);

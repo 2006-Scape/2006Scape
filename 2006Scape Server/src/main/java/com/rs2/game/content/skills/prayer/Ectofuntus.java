@@ -18,13 +18,35 @@ public class Ectofuntus {
 	 * Data storage for ectofuntus
 	 */
 	public enum EctofuntusData {
-		BONES(526, 4255, 18), BIG_BONES(532, 4257, 60), BABYDRAGON_BONES(534,
-				4260, 120), DRAGON_BONES(536, 4261, 288), DAGANNOTH_BONES(6729,
-				6728, 500);
+		BONES(526, 4255, 18),
+		BURNT_BONES(528, 4258, 18),
+		WOLF_BONES(2859, 4262, 18),
+		BAT_BONES(530, 4256, 21.2),
+		BIG_BONES(532, 4257, 60),
+		JOGRE_BONES(3125, 4271, 60),
+		BURNT_JOGRE_BONES(3127, 4259, 60),
+		BABY_DRAGON_BONES(534, 4260, 120),
+		DRAGON_BONES(536, 4261, 288),
+		SMALL_NINJA_MONKEY_BONES(3179, 4263, 20),
+		MEDIUM_NINJA_MONKEY_BONES(3180, 4264, 20),
+		SMALL_ZOMBIE_MONKEY_BONES(3183, 4268, 20),
+		LARGE_ZOMBIE_MONKEY_BONES(3181, 4269, 20),
+		GORILLA_MONKEY_BONES(3182, 4265, 20),
+		BEARDED_GORILLA_MONKEY_BONES(3182, 4266, 20),
+		MONKEY_BONES(3185, 4267, 20),
+		SKELETON_BONES(2530, 4270, 20),
+		ZOGRE_BONES(4812, 4852, 90),
+		FAYRG_BONES(4830, 4853, 336),
+		RAURG_BONES(4832, 4854, 384),
+		OURG_BONES(4834, 4855, 560),
+		SHAIKAHAN_BONES(3123, 5615, 100),
+		DAGANNOTH_BONES(6729, 6728, 500),
+		WYVERN_BONES(6812, 6810, 200);
 
-		int boneId, bonemealId, worshipExperience;
+		int boneId, bonemealId;
+		double worshipExperience;
 
-		EctofuntusData(int boneId, int bonemealId, int worshipExperience) {
+		EctofuntusData(int boneId, int bonemealId, double worshipExperience) {
 			this.boneId = boneId;
 			this.bonemealId = bonemealId;
 			this.worshipExperience = worshipExperience;
@@ -38,7 +60,7 @@ public class Ectofuntus {
 			return bonemealId;
 		}
 
-		public int getWorshipExperience() {
+		public double getWorshipExperience() {
 			return worshipExperience;
 		}
 	}
@@ -158,14 +180,17 @@ public class Ectofuntus {
 	 * @param objectId
 	 * @param itemId
 	 */
-	public static void handleEctofuntus(Player player, int objectId) {
+	public static void handleEctofuntus(Player player) {
 		player.turnPlayerTo(3660, 3520);
+		boolean worshipped = false;
 		for (final EctofuntusData ectofuntus : EctofuntusData.values()) {
-			if (objectId == ECTOFUNTUS && player.getItemAssistant().playerHasItem(ectofuntus.getBonemealId()) && player.getItemAssistant().playerHasItem(BUCKET_OF_SLIME)) {
+			if (!worshipped && player.getItemAssistant().playerHasItem(ectofuntus.getBonemealId()) && player.getItemAssistant().playerHasItem(BUCKET_OF_SLIME)) {
+				worshipped = true;
 				CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 					@Override
 					public void execute(CycleEventContainer container) {
-						player.getItemAssistant().deleteItem(ectofuntus.getBonemealId(), 1);
+						player.getItemAssistant().replaceItem(ectofuntus.getBonemealId(), 1931);
+						player.getItemAssistant().replaceItem(BUCKET_OF_SLIME, 1925);// Bucket
 						player.startAnimation(WORSHIP);
 						player.getPlayerAssistant().addSkillXP(ectofuntus.getWorshipExperience(), GameConstants.PRAYER);
 						player.getPacketSender().sendMessage("You pray to the ectofuntus.");
@@ -179,6 +204,10 @@ public class Ectofuntus {
 					}
 				}, 3);
 			}
+		}
+
+		if (!worshipped) {
+			player.getPacketSender().sendMessage("You'll need ectoplasm and bonemeal to worship the Ectofuntus.");
 		}
 	}
 

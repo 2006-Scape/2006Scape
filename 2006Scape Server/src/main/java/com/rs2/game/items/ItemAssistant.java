@@ -103,9 +103,13 @@ public class ItemAssistant {
 	}
 
 	public void replaceItem(int itemToReplace, int replaceWith) {
-		if(playerHasItem(itemToReplace)) {
-			deleteItem(itemToReplace, 1);
-			addItem(replaceWith, 1);
+		replaceItem(itemToReplace, replaceWith, 1);
+	}
+
+	public void replaceItem(int itemToReplace, int replaceWith, int amount) {
+		if(playerHasItem(itemToReplace, amount)) {
+			deleteItem(itemToReplace, amount);
+			addItem(replaceWith, amount);
 		}
 	}
 

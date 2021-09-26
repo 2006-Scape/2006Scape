@@ -76,6 +76,10 @@ public class ClickItem implements PacketType {
 			return;
 		}
 		switch (itemId) {
+		case 4251:
+			player.getPlayerAssistant().movePlayer(3661, 3526, 0);
+			player.getItemAssistant().replaceItem(4251, 4252);
+			break;
 		case 4079:
 			player.startAnimation(1457);
 			break;
