@@ -14,6 +14,7 @@ import com.rs2.game.content.skills.slayer.Slayer;
 import com.rs2.game.content.traveling.CarpetTravel;
 import com.rs2.game.content.traveling.Sailing;
 import com.rs2.game.globalworldobjects.PassDoor;
+import com.rs2.game.items.ItemConstants;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.objects.impl.OtherObjects;
 import com.rs2.game.players.Player;
@@ -4909,6 +4910,30 @@ public class DialogueHandler {
 
 			case 1381:
 				sendPlayerChat("No thank you.");
+				player.nextChat = 0;
+				break;
+
+			case 1390:
+				if (player.getItemAssistant().playerHasEquipped(ItemConstants.AMULET, 552)) {
+					sendPlayerChat("Can I have the tokens I have earned?");
+					player.nextChat = 1391;
+				} else {
+					sendNpcChat1("Wooooo. Oooooh!", player.talkingNpc, "Ghost disciple");
+					player.nextChat = 0;
+				}
+				break;
+
+			case 1391:
+				int amount = player.ectofuntusWorshipped * 5;
+				if (amount <= 0) {
+					sendNpcChat1("You haven't earned any tokens yet.", player.talkingNpc, "Ghost disciple");
+				} else if (player.getItemAssistant().freeSlots(4278, amount) <= 0) {
+					sendNpcChat1("You don't have enough space in your inventory.", player.talkingNpc, "Ghost disciple");
+				} else {
+					sendNpcChat1("Certainly, mortal. Here's " + amount + " ecto-tokens.", player.talkingNpc, "Ghost disciple");
+					player.getItemAssistant().addItem(4278, amount);
+					player.ectofuntusWorshipped = 0;
+				}
 				player.nextChat = 0;
 				break;
 

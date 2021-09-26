@@ -1632,7 +1632,7 @@ public abstract class Player {
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
-			bowSpecShot;
+			bowSpecShot, ectofuntusWorshipped;
 	public boolean magicFailed, oldMagicFailed;
 	/**
 	 * End

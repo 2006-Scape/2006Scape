@@ -56,6 +56,9 @@ public class NpcActions {
 		case 389 : //thormac
 			player.getDialogueHandler().sendDialogues(3574, npcType);
 			break;
+		case 1686 : // Ghost Desciple
+			player.getDialogueHandler().sendDialogues(1390, npcType);
+			break;
 			
 		case 2324 :
 		case 2323 :

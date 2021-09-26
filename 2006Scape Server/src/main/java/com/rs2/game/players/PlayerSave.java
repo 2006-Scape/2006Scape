@@ -409,6 +409,9 @@ public class PlayerSave {
 							case "fightMode":
 								player.fightMode = Integer.parseInt(token2);
 								break;
+							case "ectofuntusWorshipped":
+								player.ectofuntusWorshipped = Integer.parseInt(token2);
+								break;
 						}
 						break;
 					case 3:
@@ -776,6 +779,8 @@ public class PlayerSave {
 			characterfile.write("isRunning = " + player.isRunning2);
 			characterfile.newLine();
 			characterfile.write("fightMode = " + player.fightMode);
+			characterfile.newLine();
+			characterfile.write("ectofuntusWorshipped = " + player.ectofuntusWorshipped);
 			characterfile.newLine();
 			String voidStatus = "";
 			for (int voidS : player.voidStatus){
