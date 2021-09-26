@@ -4408,7 +4408,7 @@ public class Game extends RSApplet {
 			ItemDef itemDef_1 = ItemDef.forID(i1);
 			String s6;
 			if (itemDef_1.description != null) {
-				s6 = new String(itemDef_1.description);
+				s6 = new String(itemDef_1.description) + " (" + itemDef_1.value + "gp ea)";
 			} else {
 				s6 = "It's a " + itemDef_1.name + ".";
 			}
@@ -5287,7 +5287,7 @@ public class Game extends RSApplet {
 				class9.atActionType = 0;
 				return;
 			}
-			if (friendsNodeIDs[j] == 0) {
+			if (friendsNodeIDs[j] - 9 <= 0) {
 				class9.disabledText = "@red@Offline";
 			} else if (friendsNodeIDs[j] == nodeID) {
 				class9.disabledText = "@gre@World-" + (friendsNodeIDs[j] - 9);
