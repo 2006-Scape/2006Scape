@@ -4,6 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 
 /**
@@ -66,21 +67,6 @@ public class Ectofuntus {
 	}
 
 	/**
-	 * Get the name of the bone used
-	 * 
-	 * @param boneId
-	 * @return
-	 */
-	public static String getBoneName(int boneId) {
-		for (EctofuntusData ectofuntus : EctofuntusData.values()) {
-			if (ectofuntus.boneId == boneId) {
-				return ectofuntus.name().replaceAll("_", " ").toLowerCase();
-			}
-		}
-		return "";
-	}
-
-	/**
 	 * Put bones in the loader
 	 * 
 	 * @param objectId
@@ -102,7 +88,7 @@ public class Ectofuntus {
 						player.getItemAssistant().deleteItem(ectofuntus.getBoneId(), 1);
 						player.ectofuntusBoneCrusherState = "Loaded";
 						player.ectofuntusBoneUsed = ectofuntus.getBoneId();
-						player.getPacketSender().sendMessage("You load the " + getBoneName(ectofuntus.getBoneId()) + " into the loader.");
+						player.getPacketSender().sendMessage("You load the " + ItemAssistant.getItemName(ectofuntus.getBoneId()) + " into the loader.");
 						container.stop();
 					}
 

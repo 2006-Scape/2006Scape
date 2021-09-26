@@ -29,6 +29,7 @@ import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.globalworldobjects.ClimbOther;
 import com.rs2.game.globalworldobjects.PassDoor;
 import com.rs2.game.globalworldobjects.ClimbOther.ClimbData;
+import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.MilkCow;
@@ -2759,6 +2760,18 @@ public class ObjectsActions {
             case 14747:
             case 12537:
                 Climbing.climbUp(player);
+                break;
+            
+            case 11163:
+                if (player.ectofuntusBoneCrusherState.equals("Empty")) {
+                    player.getPacketSender().sendMessage("You need to load some bones.");
+                } else if (player.ectofuntusBoneCrusherState.equals("Loaded")) {
+                    player.getPacketSender().sendMessage(ItemAssistant.getItemName(player.ectofuntusBoneUsed) + " loaded and ready to be grinded.");
+                } else if (player.ectofuntusBoneCrusherState.equals("Bin")) {
+                    player.getPacketSender().sendMessage("Bonemeal is ready to be collected from the bin.");
+                } else {
+                    player.getPacketSender().sendMessage("Ghostly forces are playing with the machinery.");
+                }
                 break;
 
             case 14921:
