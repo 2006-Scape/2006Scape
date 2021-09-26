@@ -40,33 +40,38 @@ public class PartyRoom {
 	}
 
 	public static void dropAll() {
+		int maxTry = 150;
 		int trys = 0;
 		int amount = getAmount();
 		if (amount < 1) {
 			return;
 		}
 		for (int i = 0; i < roomItems.length; i++) {
-			if (roomItemsN[i] > 0) {
+			int split = r.nextInt(4);
+			while (roomItemsN[i] > 0) {
 				int x = r.nextInt(balloons.length);
 				int y = r.nextInt(balloons[0].length);
-
+				int amt = split > 0 ? Math.max(1, (int) (Math.random() * roomItemsN[i])) : roomItemsN[i];
 				// If already balloons there, or on the table, retry
-				while ((balloons[x][y] != null || Boundary.isIn(corner.x + x, corner.y + y, Boundary.PARTY_ROOM_TABLE)) && trys < 100) {
+				while ((balloons[x][y] != null || Boundary.isIn(corner.x + x, corner.y + y, Boundary.PARTY_ROOM_TABLE)) && trys < maxTry) {
 					x = r.nextInt(balloons.length);
 					y = r.nextInt(balloons[0].length);
 					trys++;
 				}
 
-				if (trys >= 100) {
+				if (trys >= maxTry) {
 					break;
 				}
 
-				balloons[x][y] = Balloons.getBalloon(corner.x + x, corner.y + y, roomItems[i], roomItemsN[i]);
+				balloons[x][y] = Balloons.getBalloon(corner.x + x, corner.y + y, roomItems[i], amt);
 				GameEngine.objectHandler.addObject(balloons[x][y]);
 				GameEngine.objectHandler.placeObject(balloons[x][y]);
 
-				roomItems[i] = 0;
-				roomItemsN[i] = 0;
+				roomItemsN[i] -= amt;
+				if (roomItemsN[i] <= 0) {
+					roomItems[i] = 0;
+				}
+				split--;
 			}
 		}
 		trys = 0;
@@ -75,13 +80,13 @@ public class PartyRoom {
 			int y = r.nextInt(balloons[0].length);
 
 			// If already balloons there, or on the table, retry
-			while ((balloons[x][y] != null || Boundary.isIn(corner.x + x, corner.y + y, Boundary.PARTY_ROOM_TABLE)) && trys < 100) {
+			while ((balloons[x][y] != null || Boundary.isIn(corner.x + x, corner.y + y, Boundary.PARTY_ROOM_TABLE)) && trys < maxTry) {
 				x = r.nextInt(balloons.length);
 				y = r.nextInt(balloons[0].length);
 				trys++;
 			}
 
-			if (trys >= 100) {
+			if (trys >= maxTry) {
 				break;
 			}
 
