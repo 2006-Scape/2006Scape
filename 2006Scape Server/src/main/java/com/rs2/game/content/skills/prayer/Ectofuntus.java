@@ -239,23 +239,23 @@ public class Ectofuntus {
 	/**
 	 * item constants
 	 */
-	private final static int POT = 1931;
+	public final static int POT = 1931;
 	public final static int BUCKET = 1925;
-	private final static int BUCKET_OF_SLIME = 4286;
+	public final static int BUCKET_OF_SLIME = 4286;
 
 	/**
 	 * object constants
 	 */
-	private final static int ECTOFUNTUS = 5282;
-	private final static int LOADER = 11162;
-	private final static int[] SLIME = { 5461, 5462 };
+	public final static int ECTOFUNTUS = 5282;
+	public final static int LOADER = 11162;
+	public final static int[] SLIME = { 5461, 5462 };
 	
 	/**
 	 * animation constants
 	 */
-	private final static int WORSHIP = 1651;
-	private final static int WHEEL = 1648;
-	private final static int BONES = 1649;
-	private final static int BUCKET_FILL = 895;
+	public final static int WORSHIP = 1651;
+	public final static int WHEEL = 1648;
+	public final static int BONES = 1649;
+	public final static int BUCKET_FILL = 895;
 
 }

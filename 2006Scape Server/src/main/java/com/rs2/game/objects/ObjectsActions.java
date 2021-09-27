@@ -760,7 +760,7 @@ public class ObjectsActions {
             case 5281:
                 player.getPlayerAssistant().movePlayer(3666, 3517, 0);
                 break;
-            case 5282: // Ectofuntus Worship
+            case Ectofuntus.ECTOFUNTUS: // Ectofuntus Worship
                 Ectofuntus.handleEctofuntus(player);
                 break;
 

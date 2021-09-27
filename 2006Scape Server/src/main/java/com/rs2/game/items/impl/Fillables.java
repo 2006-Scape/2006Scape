@@ -1,5 +1,7 @@
 package com.rs2.game.items.impl;
 
+import com.rs2.game.content.skills.prayer.Ectofuntus;
+
 public class Fillables {
 
 	public static boolean canFill(int id, int oid) {
@@ -112,7 +114,7 @@ public class Fillables {
 		case 6232:
 		case 2864:
 			return "fountain";
-		case 5282:
+		case Ectofuntus.ECTOFUNTUS:
 			return "ectofuntus";
 		}
 		return "Error";
