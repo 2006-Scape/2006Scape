@@ -1788,7 +1788,7 @@ public class Game extends RSApplet {
 			if (tabInterfaceIDs[tabID] != -1) {
 				if (tabID == 7) {
 					try {
-						aBackground_967 = new Background(titleStreamLoader, "titlebutton", 0);
+						Background button = new Background(titleStreamLoader, "backleft1", 0);
 
 						int centerX = 95;
 						int currentY = 10;
@@ -1796,22 +1796,22 @@ public class Game extends RSApplet {
 						int textTop = 18;
 						int textBottom = 32;
 
-						aBackground_967.method361(centerX - 73, currentY);
+						button.method361(centerX - 73, currentY);
 						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
 						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "player names", currentY + textBottom, true);
 						
-						aBackground_967.method361(centerX - 73, currentY += 50);
+						button.method361(centerX - 73, currentY += 50);
 						chatTextDrawingArea.textCenterShadow(0x00ff00, centerX, "item drops visible", currentY + textTop, true);
 						chatTextDrawingArea.textCenterShadow(0xffffff, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
 						
-						aBackground_967.method361(centerX - 73, currentY += 50);
+						button.method361(centerX - 73, currentY += 50);
 						chatTextDrawingArea.textCenterShadow(0x00ff00, centerX, "draw distance", currentY + textTop, true);
 						chatTextDrawingArea.textCenterShadow(0xffffff, centerX, WorldController.drawDistance + " tiles", currentY + textBottom, true);
 
-						aBackground_967.method361(centerX - 73, currentY += 50);
+						button.method361(centerX - 73, currentY += 50);
 						chatTextDrawingArea.textCenterShadow(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
 						
-						aBackground_967.method361(centerX - 73, currentY += 50);
+						button.method361(centerX - 73, currentY += 50);
 						chatTextDrawingArea.textCenterShadow(showInfo ? 0x00ff00 : 0xff0000, centerX, "debug info", currentY + textMiddle, true);
 					} catch (Exception e) { }
 				}
