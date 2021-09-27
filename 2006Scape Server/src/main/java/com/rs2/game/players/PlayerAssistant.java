@@ -1019,7 +1019,7 @@ public class PlayerAssistant {
 		for (Player p : PlayerHandler.players) {
 			if (p != null && p.isActive) {
 				Client o = (Client) p;
-				o.getPlayerAssistant().updatePM(player.playerId, 1);
+				o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
 			}
 		}
 		boolean pmLoaded = false;
@@ -1037,7 +1037,7 @@ public class PlayerAssistant {
 								&& o.getPlayerAssistant()
 										.isInPM(Misc
 												.playerNameToInt64(player.playerName))) {
-							player.getPacketSender().loadPM(friend, 1);
+							player.getPacketSender().loadPM(friend, GameConstants.WORLD);
 							pmLoaded = true;
 						}
 						break;
@@ -1052,7 +1052,7 @@ public class PlayerAssistant {
 				Player p = PlayerHandler.players[i1];
 				if (p != null && p.isActive) {
 					Client o = (Client) p;
-					o.getPlayerAssistant().updatePM(player.playerId, 1);
+					o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
 				}
 			}
 		}
