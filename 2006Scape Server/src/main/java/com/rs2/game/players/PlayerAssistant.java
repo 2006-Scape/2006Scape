@@ -1028,7 +1028,7 @@ public class PlayerAssistant {
 			if (friend != 0) {
 				for (int i2 = 1; i2 < PlayerHandler.players.length; i2++) {
 					Player p = PlayerHandler.players[i2];
-					if (p != null && p.isActive
+					if (p != null && !p.isBot && p.isActive
 							&& Misc.playerNameToInt64(p.playerName) == friend) {
 						Client o = (Client) p;
 						if (player.playerRights >= 2
