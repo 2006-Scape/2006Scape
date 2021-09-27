@@ -40,8 +40,7 @@ public class GemCutting extends CraftingData {
 			            public void execute(CycleEventContainer container) {
 						if (Misc.random(2) == 0 && itemUsed > 1624 && itemUsed < 1630 || usedWith > 1624 && usedWith < 1630 && Misc.random(2) == 0) {
 							player.getPacketSender().sendMessage("You fail to cut the gem.");
-							player.getItemAssistant().addItem(1633, 1);
-							player.getItemAssistant().deleteItem(itemId, 1);
+							player.getItemAssistant().replaceItem(itemId, 1633);
 							player.getPlayerAssistant().addSkillXP(1, 12);
 						}
 						if (player.isCrafting) {
