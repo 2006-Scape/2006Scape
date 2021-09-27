@@ -1788,7 +1788,7 @@ public class Game extends RSApplet {
 			if (tabInterfaceIDs[tabID] != -1) {
 				if (tabID == 7) {
 					try {
-						Background button = new Background(titleStreamLoader, "backleft1", 0);
+						Background button = new Background(titleStreamLoader, "titlebutton", 0);
 
 						int centerX = 95;
 						int currentY = 10;
