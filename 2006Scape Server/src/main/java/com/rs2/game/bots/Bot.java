@@ -17,14 +17,13 @@ public class Bot {
 
     public Bot(String username, Integer x, Integer y, Integer z) {
         botClient = new Client(null);
-        botClient.playerName = username;
 
         botClient.playerName = username;
         botClient.playerName2 = botClient.playerName;
-        // TODO: randomize the bot passwords
-        botClient.playerPass = "bot_password";
-
         botClient.properName = Character.toUpperCase(username.charAt(1)) + username.substring(2);
+        // TODO: randomize the bot passwords
+        botClient.playerPass = generatePassword(10);
+
 
         botClient.saveFile = true;
         botClient.saveCharacter = true;
@@ -33,9 +32,11 @@ public class Bot {
         botClient.npcCanAttack = false;
         botClient.canWalkTutorial = true;
         botClient.tutorialProgress = 36;
+        botClient.privateChat = 2;
         GameEngine.playerHandler.newPlayerClient(botClient);
 
-        loadPlayerInfo(botClient, username, "bot_password", false);
+        // password doesn't matter as it's not doing a real login
+        loadPlayerInfo(botClient, username, botClient.playerPass, false);
 
         if (x != null) {
             botClient.getPlayerAssistant().movePlayer(x, y, z);
@@ -95,5 +96,18 @@ public class Bot {
         } else {
             return price + "gp";
         }
+    }
+
+    public String generatePassword(int targetStringLength) {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int) 
+              (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        return buffer.toString();
     }
 }
