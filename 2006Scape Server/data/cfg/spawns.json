@@ -23853,7 +23853,7 @@
     "walk": 0,
     "height": 0
   },
-    {
+  {
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
@@ -23863,7 +23863,17 @@
     "walk": 0,
     "height": 0
   },
-    {
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3792,
+    "y": 3560,
+    "id": 1704,
+    "walk": 0,
+    "height": 0
+  },
+  {
     "maxHit": 0,
     "strength": 0,
     "attack": 0,

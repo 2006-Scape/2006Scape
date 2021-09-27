@@ -59,6 +59,10 @@ public class NpcActions {
 		case 1686 : // Ghost Desciple
 			player.getDialogueHandler().sendDialogues(1390, npcType);
 			break;
+		case 1704 : // Ghost Captain
+		case 1705 : // Ghost Captain
+			player.getDialogueHandler().sendDialogues(1400, npcType);
+			break;
 			
 		case 2324 :
 		case 2323 :

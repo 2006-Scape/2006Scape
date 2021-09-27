@@ -561,6 +561,16 @@ public class DialogueOptions {
 			} else if (player.dialogueAction == 184) {
 				player.getDialogueHandler().sendDialogues(624, player.npcType);
 				return;
+			} else if (player.dialogueAction == 185) {
+				if (player.talkingNpc == 1704) {
+					player.getPlayerAssistant().movePlayer(3702, 3487, 0);
+				} else if (player.getItemAssistant().playerHasItem(4278, 25)) {
+					// if player has enough ecto tokens
+					player.getItemAssistant().deleteItem(4278, 25);
+					player.getPlayerAssistant().movePlayer(3791, 3560, 0);
+				} else {
+					player.getDialogueHandler().sendDialogues(1402, player.npcType);
+				}
 			} else if (player.dialogueAction == 3204) {
 				player.getItemAssistant().deleteItem(1929, 1);
 				player.getItemAssistant().deleteItem(1933, 1);

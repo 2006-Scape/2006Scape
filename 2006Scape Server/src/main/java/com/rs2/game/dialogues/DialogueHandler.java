@@ -4937,6 +4937,32 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 
+			case 1400:
+				if (!player.getItemAssistant().playerHasEquipped(ItemConstants.AMULET, 552)) {
+					sendNpcChat1("Wooooo. Oooooh!", player.talkingNpc, "Ghost Captain");
+					player.nextChat = 0;
+				} else {
+					if (player.talkingNpc == 1704) {
+						sendNpcChat1("Would you like a ride to Port Phasmatys?", player.talkingNpc, "Ghost Captain");
+					} else {
+						sendNpcChat1("Would you like a ride to Dragontooth Island?", player.talkingNpc, "Ghost Captain");
+					}
+					player.nextChat = 1401;
+				}
+				break;
+
+			case 1401:
+				sendOption(
+						"Yes please." + (player.talkingNpc == 1705 ? " (25 Ecto-tokens)" : ""),
+						"No thanks.");
+				player.dialogueAction = 185;
+				break;
+
+			case 1402:
+				sendNpcChat1("You don't have enough Ecto-tokens.", player.talkingNpc, "Ghost Captain");
+				player.nextChat = 0;
+				break;
+
 			case 2995:
 				player.canWalkTutorial = false;
 				sendStatement(
