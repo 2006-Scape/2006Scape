@@ -1780,6 +1780,26 @@ public class Game extends RSApplet {
 		}
 	}
 
+	public void drawButton(boolean enabled, int x, int y, int width) {
+		StreamLoader streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4], 40);
+		// All these sprites are 30x30
+		Sprite buttonLeft = new Sprite(streamLoader_2, "miscgraphics", enabled ? 7 : 4);
+		Sprite buttonRight = new Sprite(streamLoader_2, "miscgraphics", enabled ? 8 : 6);
+		int curWidth = 30;
+		buttonLeft.drawSprite(x, y);
+		while ((curWidth + 26) < width) {
+			buttonRight.drawSprite(x + curWidth, y);
+			curWidth += 26;
+		}
+		buttonRight.drawSprite(x + width - 30, y);
+	}
+
+	public void drawCheckbox(boolean enabled, int x, int y) {
+		StreamLoader streamLoader_2 = streamLoaderForName(4, "2d graphics", "media", expectedCRCs[4], 40);
+		Sprite checkboxUnchecked = new Sprite(streamLoader_2, "miscgraphics", 10);
+		Sprite checkboxChecked = new Sprite(streamLoader_2, "miscgraphics", 11);
+	}
+
 	public void drawTabArea() {
 		aRSImageProducer_1163.initDrawingArea();
 		Texture.lineOffsets = tabAreaOffsets;
@@ -1788,31 +1808,30 @@ public class Game extends RSApplet {
 			if (tabInterfaceIDs[tabID] != -1) {
 				if (tabID == 7) {
 					try {
-						Background button = new Background(titleStreamLoader, "titlebutton", 0);
-
 						int centerX = 95;
 						int currentY = 10;
-						int textMiddle = 25;
-						int textTop = 18;
-						int textBottom = 32;
+						int textMiddle = 22;
+						int textTop = 14;
+						int textBottom = 29;
 
-						button.method361(centerX - 73, currentY);
-						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "always visible", currentY + textTop, true);
-						chatTextDrawingArea.textCenterShadow(customSettingVisiblePlayerNames ? 0x00ff00 : 0xff0000, centerX, "player names", currentY + textBottom, true);
+						drawButton(customSettingVisiblePlayerNames, centerX - 73, currentY, 146);
+						// buttonLeftDisabled.drawSprite(centerX - 73, currentY);
+						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "always visible", currentY + textTop, true);
+						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "player names", currentY + textBottom, true);
 						
-						button.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.textCenterShadow(0x00ff00, centerX, "item drops visible", currentY + textTop, true);
-						chatTextDrawingArea.textCenterShadow(0xffffff, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
+						drawButton(true, centerX - 73, currentY += 40, 146);
+						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "item drops visible", currentY + textTop, true);
+						aTextDrawingArea_1271.textCenterShadow(Color.WHITE.hashCode(), centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
 						
-						button.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.textCenterShadow(0x00ff00, centerX, "draw distance", currentY + textTop, true);
-						chatTextDrawingArea.textCenterShadow(0xffffff, centerX, WorldController.drawDistance + " tiles", currentY + textBottom, true);
+						drawButton(true, centerX - 73, currentY += 40, 146);
+						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "draw distance", currentY + textTop, true);
+						aTextDrawingArea_1271.textCenterShadow(Color.WHITE.hashCode(), centerX, WorldController.drawDistance + " tiles", currentY + textBottom, true);
 
-						button.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.textCenterShadow(customSettingShowExperiencePerHour ? 0x00ff00 : 0xff0000, centerX, "experience info", currentY + textMiddle, true);
+						drawButton(customSettingShowExperiencePerHour, centerX - 73, currentY += 40, 146);
+						aTextDrawingArea_1271.textCenterShadow(customSettingShowExperiencePerHour ? Color.YELLOW.hashCode() : Color.YELLOW.hashCode(), centerX, "show exp info", currentY + textMiddle, true);
 						
-						button.method361(centerX - 73, currentY += 50);
-						chatTextDrawingArea.textCenterShadow(showInfo ? 0x00ff00 : 0xff0000, centerX, "debug info", currentY + textMiddle, true);
+						drawButton(showInfo, centerX - 73, currentY += 40, 146);
+						aTextDrawingArea_1271.textCenterShadow(showInfo ? Color.YELLOW.hashCode() : Color.YELLOW.hashCode(), centerX, "show debug info", currentY + textMiddle, true);
 					} catch (Exception e) { }
 				}
 			}
@@ -5655,12 +5674,12 @@ public class Game extends RSApplet {
 				if (tabInterfaceIDs[tabID] != -1) {
 					// Handle our custom tab
 					if (tabID == 7 && super.saveClickX >= 575 && super.saveClickX <= 720 && super.saveClickY >= 210 && super.saveClickY <= 465) {
-						int startY = 217;
-						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+						int startY = 217 + 3;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
 							customSettingVisiblePlayerNames = !customSettingVisiblePlayerNames;
 						}
-						startY += 50;
-						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+						startY += 40;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
 							inputTaken = true;
 							inputDialogState = 0;
 							messagePromptRaised = true;
@@ -5668,8 +5687,8 @@ public class Game extends RSApplet {
 							aString1121 = "Enter minimum item value";
 							customTabAction = 1;
 						}
-						startY += 50;
-						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+						startY += 40;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
 							inputTaken = true;
 							inputDialogState = 0;
 							messagePromptRaised = true;
@@ -5677,15 +5696,15 @@ public class Game extends RSApplet {
 							aString1121 = "Enter new draw distance";
 							customTabAction = 2;
 						}
-						startY += 50;
-						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+						startY += 40;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
 							customSettingShowExperiencePerHour= !customSettingShowExperiencePerHour;
 							customSettingShowExperiencePerHourStart = System.currentTimeMillis();
 							customSettingShowExperiencePerHourStartExp = calculateTotalExp();
 							customSettingShowExperiencePerHourStartLevels = calculateTotalLevels();
 						}
-						startY += 50;
-						if (super.saveClickY >= startY && super.saveClickY <= (startY + 40)) {
+						startY += 40;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
 							showInfo= !showInfo;
 						}
 					}
