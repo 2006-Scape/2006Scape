@@ -2641,6 +2641,50 @@ public class ObjectsActions {
                 if (player.getItemAssistant().hasFreeSlots(1))
                     player.getItemAssistant().addItem(2413, 1);
                 break;
+            case 11209:
+                player.getPlayerAssistant().movePlayer(3712, 3496, 1);
+                break;
+            case 11210:
+                player.getPlayerAssistant().movePlayer(3709, 3496, 0);
+                break;
+            case 11211:
+                player.getPlayerAssistant().movePlayer(3684, 2950, 1);
+                break;
+            case 11212:
+                player.getPlayerAssistant().movePlayer(3684, 2953, 0);
+                break;
+            case 11289:
+                if (objectX == 3686 && objectY == 2946)
+                    player.getPlayerAssistant().movePlayer(3687, 2946, 2);
+                if (objectX == 3686 && objectY == 2950)
+                    player.getPlayerAssistant().movePlayer(3687, 2950, 2);
+                if (objectX == 3712 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3712, 3493, 2);
+                if (objectX == 3716 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3716, 3493, 2);
+                break;
+            case 11290:
+                if (objectX == 3686 && objectY == 2946)
+                    player.getPlayerAssistant().movePlayer(3685, 2946, 1);
+                if (objectX == 3686 && objectY == 2950)
+                    player.getPlayerAssistant().movePlayer(3685, 2950, 1);
+                if (objectX == 3712 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3712, 3495, 1);
+                if (objectX == 3716 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3716, 3495, 1);
+                break;
+            case 11308:
+                if (objectX == 3714 && objectY == 3502)
+                    player.getPlayerAssistant().movePlayer(3714, 3503, 1);
+                if (objectX == 3678 && objectY == 2948)
+                    player.getPlayerAssistant().movePlayer(3677, 2948, 1);
+                break;
+            case 11309:
+                if (objectX == 3714 && objectY == 3502)
+                    player.getPlayerAssistant().movePlayer(3714, 3503, 0);
+                if (objectX == 3678 && objectY == 2948)
+                    player.getPlayerAssistant().movePlayer(3677, 2948, 0);
+                break;
 
         }
     }

@@ -4963,6 +4963,22 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 
+			case 1410:
+				if (player.talkingNpc == 3157) {
+					sendNpcChat1("Would you like a ride to Port Phasmatys?", player.talkingNpc, "Bill Teach");
+				} else {
+					sendNpcChat1("Would you like a ride to Mos Le'Harmless?", player.talkingNpc, "Bill Teach");
+				}
+				player.nextChat = 1411;
+				break;
+
+			case 1411:
+				sendOption(
+						"Yes please.",
+						"No thanks.");
+				player.dialogueAction = 186;
+				break;
+
 			case 2995:
 				player.canWalkTutorial = false;
 				sendStatement(

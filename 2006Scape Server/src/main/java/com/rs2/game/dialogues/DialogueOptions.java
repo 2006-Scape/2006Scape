@@ -571,6 +571,12 @@ public class DialogueOptions {
 				} else {
 					player.getDialogueHandler().sendDialogues(1402, player.npcType);
 				}
+			} else if (player.dialogueAction == 186) {
+				if (player.talkingNpc == 3157) {
+					player.getPlayerAssistant().movePlayer(3714, 3499, 1);
+				} else {
+					player.getPlayerAssistant().movePlayer(3683, 2948, 1);
+				}
 			} else if (player.dialogueAction == 3204) {
 				player.getItemAssistant().deleteItem(1929, 1);
 				player.getItemAssistant().deleteItem(1933, 1);

@@ -93,6 +93,11 @@ public class NpcActions {
 		case 2238:
 			player.getDialogueHandler().sendDialogues(3214, npcType);
 		break;
+
+		case 3156 : // Bill Teach
+		case 3157 : // Bill Teach
+			player.getDialogueHandler().sendDialogues(1410, npcType);
+			break;
 		
 		case 958:
 			player.getDialogueHandler().sendDialogues(3208, npcType);
