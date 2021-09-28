@@ -7,3 +7,8 @@
 *.iml
 .DS_Store
 2006Scape Server/data/logs
+*.class
+*.project
+2006Scape Client/bin/
+*.prefs
+*.classpath

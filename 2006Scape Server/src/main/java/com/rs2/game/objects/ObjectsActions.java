@@ -12,7 +12,6 @@ import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWarObjects;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.quests.QuestRewards;
-import com.rs2.game.content.random.Balloons;
 import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.randomevents.FreakyForester;
 import com.rs2.game.content.skills.agility.AgilityShortcut;
@@ -30,6 +29,7 @@ import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.globalworldobjects.ClimbOther;
 import com.rs2.game.globalworldobjects.PassDoor;
 import com.rs2.game.globalworldobjects.ClimbOther.ClimbData;
+import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.MilkCow;
@@ -91,8 +91,8 @@ public class ObjectsActions {
         if (player.getWerewolfAgility().werewolfCourse(objectType)) {
             return;
         }
-        if (objectType >= 115 && objectType <= 121) {
-            Balloons.popBalloon(player, objectX, objectY);
+        if (Boundary.isIn(player, Boundary.PARTY_ROOM) && objectType >= 115 && objectType <= 122) {
+            PartyRoom.popBalloon(player, objectX, objectY);
             return;
         }
         if (objectType >= 5103 && objectType <= 5107) {
@@ -123,6 +123,14 @@ public class ObjectsActions {
             return;
         }
         switch (objectType) {
+            case 6969: // Swamp Boaty
+                if (player.objectX == 3523 && player.objectY == 3284)
+                    player.getPlayerAssistant().movePlayer(3499, 3380, 0);
+                break;
+            case 6970: // Swamp Boaty
+                if (player.objectX == 3498 && player.objectY == 3377)
+                    player.getPlayerAssistant().movePlayer(3522, 3284, 0);
+                break;
             case 6615:
                 if (player.absY == 2809) {
                     player.getPlayerAssistant().movePlayer(player.absX, 2810, 0);
@@ -130,11 +138,11 @@ public class ObjectsActions {
                     player.getPlayerAssistant().movePlayer(player.absX, 2809, 0);
                 }
                 break;
-            case 11163:
+            case Ectofuntus.GRINDER:
                 Ectofuntus.useBoneGrinder(player);
                 break;
 
-            case 11164:
+            case Ectofuntus.BIN:
                 Ectofuntus.emptyBin(player);
                 break;
             case 6:
@@ -752,21 +760,8 @@ public class ObjectsActions {
             case 5281:
                 player.getPlayerAssistant().movePlayer(3666, 3517, 0);
                 break;
-            case 5282: // Ectofuntus Worship
-                if (player.getItemAssistant().playerHasItem(4286) && player.getItemAssistant().playerHasItem(4255))
-                    {
-                    player.startAnimation(1651);
-                    player.getPacketSender().sendMessage("You put some ectoplasm and bonemeal into the Ectofuntus, and worship it.");
-                    player.getItemAssistant().deleteItem(4286, 1);
-                    player.getItemAssistant().deleteItem(4255, 1);
-                    player.getItemAssistant().addItem(1925, 1);
-                    player.getItemAssistant().addItem(1931, 1);
-                    player.getPlayerAssistant().addSkillXP(18, GameConstants.PRAYER);
-                 }
-                else
-                    {
-                        player.getPacketSender().sendMessage("You'll need ectoplasm and bonemeal to worship the Ectofuntus.");
-                    }
+            case Ectofuntus.ECTOFUNTUS: // Ectofuntus Worship
+                Ectofuntus.handleEctofuntus(player);
                 break;
 
             case 12982:
@@ -961,6 +956,8 @@ public class ObjectsActions {
             case 9326:
             case 9321:
             case 993:
+            case 9307:
+            case 9308:
                 AgilityShortcut.processAgilityShortcut(player);
                 break;
 
@@ -2644,6 +2641,50 @@ public class ObjectsActions {
                 if (player.getItemAssistant().hasFreeSlots(1))
                     player.getItemAssistant().addItem(2413, 1);
                 break;
+            case 11209:
+                player.getPlayerAssistant().movePlayer(3712, 3496, 1);
+                break;
+            case 11210:
+                player.getPlayerAssistant().movePlayer(3709, 3496, 0);
+                break;
+            case 11211:
+                player.getPlayerAssistant().movePlayer(3684, 2950, 1);
+                break;
+            case 11212:
+                player.getPlayerAssistant().movePlayer(3684, 2953, 0);
+                break;
+            case 11289:
+                if (objectX == 3686 && objectY == 2946)
+                    player.getPlayerAssistant().movePlayer(3687, 2946, 2);
+                if (objectX == 3686 && objectY == 2950)
+                    player.getPlayerAssistant().movePlayer(3687, 2950, 2);
+                if (objectX == 3712 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3712, 3493, 2);
+                if (objectX == 3716 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3716, 3493, 2);
+                break;
+            case 11290:
+                if (objectX == 3686 && objectY == 2946)
+                    player.getPlayerAssistant().movePlayer(3685, 2946, 1);
+                if (objectX == 3686 && objectY == 2950)
+                    player.getPlayerAssistant().movePlayer(3685, 2950, 1);
+                if (objectX == 3712 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3712, 3495, 1);
+                if (objectX == 3716 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3716, 3495, 1);
+                break;
+            case 11308:
+                if (objectX == 3714 && objectY == 3502)
+                    player.getPlayerAssistant().movePlayer(3714, 3503, 1);
+                if (objectX == 3678 && objectY == 2948)
+                    player.getPlayerAssistant().movePlayer(3677, 2948, 1);
+                break;
+            case 11309:
+                if (objectX == 3714 && objectY == 3502)
+                    player.getPlayerAssistant().movePlayer(3714, 3503, 0);
+                if (objectX == 3678 && objectY == 2948)
+                    player.getPlayerAssistant().movePlayer(3677, 2948, 0);
+                break;
 
         }
     }
@@ -2763,6 +2804,18 @@ public class ObjectsActions {
             case 14747:
             case 12537:
                 Climbing.climbUp(player);
+                break;
+            
+            case Ectofuntus.GRINDER:
+                if (player.ectofuntusBoneCrusherState.equals("Empty")) {
+                    player.getPacketSender().sendMessage("You need to load some bones.");
+                } else if (player.ectofuntusBoneCrusherState.equals("Loaded")) {
+                    player.getPacketSender().sendMessage(ItemAssistant.getItemName(player.ectofuntusBoneUsed) + " loaded and ready to be grinded.");
+                } else if (player.ectofuntusBoneCrusherState.equals("Bin")) {
+                    player.getPacketSender().sendMessage("Bonemeal is ready to be collected from the bin.");
+                } else {
+                    player.getPacketSender().sendMessage("Ghostly forces are playing with the machinery.");
+                }
                 break;
 
             case 14921:

@@ -69451,7 +69451,7 @@
  <npcDefinition>
    <id>3157</id>
    <name>Bill Teach</name>
-   <examine>It's an NPC.</examine>
+   <examine>Bill Teach the pirate.</examine>
    <combat>0</combat>
    <size>1</size>
    <attackable>false</attackable>

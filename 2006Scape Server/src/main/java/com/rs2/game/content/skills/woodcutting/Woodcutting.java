@@ -37,7 +37,7 @@ public class Woodcutting {
 		MAGIC(new int[] {1306}, 7401, 75, 250, 1513, 150, 3),
 		EVERGREEN(new int[] {1319, 1318, 1315, 1316, 1332}, 1341, 1, 25, 1511, 11, 100),
 		ACHEY(new int[] {2023}, 3371, 1, 25, 1511, 11, 100),
-		DRAMEN(new int[] {1292}, 1341, 1, 25, 771, 45, 100);
+		DRAMEN(new int[] {1292}, 1341, 36, 0, 771, 45, 100);
 		
 		private int[] treeId;
 		private int stumpId, levelReq, xpRecieved, logRecieved, respawnTime, cutChance;

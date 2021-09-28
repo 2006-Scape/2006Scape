@@ -103,9 +103,13 @@ public class ItemAssistant {
 	}
 
 	public void replaceItem(int itemToReplace, int replaceWith) {
-		if(playerHasItem(itemToReplace)) {
-			deleteItem(itemToReplace, 1);
-			addItem(replaceWith, 1);
+		replaceItem(itemToReplace, replaceWith, 1);
+	}
+
+	public void replaceItem(int itemToReplace, int replaceWith, int amount) {
+		if(playerHasItem(itemToReplace, amount)) {
+			deleteItem(itemToReplace, amount);
+			addItem(replaceWith, amount);
 		}
 	}
 
@@ -1705,6 +1709,7 @@ public class ItemAssistant {
 	}
 
 	public void resetBank() {
+		player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
 		if (player.getOutStream() != null) {
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(5382); // bank
@@ -2474,6 +2479,18 @@ public class ItemAssistant {
 		int freeS = 0;
 		for (int playerItem : player.playerItems) {
 			if (playerItem <= 0) {
+				freeS++;
+			}
+		}
+		return freeS;
+	}
+
+	public int freeSlots(int itemID, int amount) {
+		int freeS = 0;
+		for (int i = 0; i < player.playerItems.length; i ++) {
+			int _id = player.playerItems[i];
+			int _amt = player.playerItemsN[i];
+			if (_id <= 0 || (_id == itemID && isStackable(_id) && _amt + amount <= Integer.MAX_VALUE)) {
 				freeS++;
 			}
 		}

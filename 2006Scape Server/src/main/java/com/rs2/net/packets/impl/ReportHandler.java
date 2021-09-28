@@ -133,9 +133,8 @@ public class ReportHandler {
 					.format(new Date()));
 			String day = new SimpleDateFormat("dd").format(new Date());
 			bw = new BufferedWriter(new FileWriter(
-					"data/Reportabuses/"
-							+ file + " month;" + month + " day;" + day
-							+ " ms-id;" + time + ".txt", true));
+					"data/logs/reports/"
+							+ file + ".txt", true));
 			bw.write(data);
 			bw.newLine();
 			bw.write(text);

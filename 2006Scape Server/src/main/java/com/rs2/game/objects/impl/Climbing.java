@@ -422,7 +422,7 @@ public class Climbing {
 			case 1738:
 				if (client.objectX == 2728 && client.objectY == 3460
 						&& client.heightLevel == 0) {
-					client.getPlayerAssistant().movePlayer(2749, 3462, 1);
+					client.getPlayerAssistant().movePlayer(2729, 3462, 1);
 					client.resetWalkingQueue();
 				} else if (client.objectX == 2746 && client.objectY == 3460
 						&& client.heightLevel == 0) {

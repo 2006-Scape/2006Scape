@@ -11,12 +11,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 @SuppressWarnings("serial")
-public class RSApplet extends Applet implements Runnable, MouseListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+public class RSApplet extends Applet implements Runnable, MouseListener, MouseWheelListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
 	public static boolean ctrlDown = false;
 	public static boolean shiftDown = false;
@@ -45,6 +47,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	public void run() {
 		getGameComponent().addMouseListener(this);
 		getGameComponent().addMouseMotionListener(this);
+		getGameComponent().addMouseWheelListener(this);
 		getGameComponent().addKeyListener(this);
 		getGameComponent().addFocusListener(this);
 		if (gameFrame != null) {
@@ -295,6 +298,9 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		mouseX = i;
 		mouseY = j;
 	}
+
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {}
 
 	@Override
 	public void keyPressed(KeyEvent keyevent) {

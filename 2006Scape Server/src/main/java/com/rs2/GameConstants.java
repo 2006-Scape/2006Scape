@@ -15,8 +15,8 @@ public class GameConstants {
 			MESSAGE_DELAY = 6000, MAX_PLAYERS = 200, REQ_AMOUNT = 150;
 	
 	public final static boolean SOUND = true,
-			GUILDS = true, WORLD_LIST_FIX = false,
-			PARTY_ROOM_DISABLED = true,
+			GUILDS = true,
+			PARTY_ROOM_DISABLED = false,
 			PRINT_OBJECT_ID = false, EXPERIMENTS = false;
 	
 	public static int[] SIDEBARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151,
@@ -24,7 +24,7 @@ public class GameConstants {
 	
 	public static boolean TUTORIAL_ISLAND = false, 
 			MEMBERS_ONLY = false, sendServerPackets = false, 
-			CLUES_ENABLED = false;
+			CLUES_ENABLED = true;
 
 	public final static int[] FUN_WEAPONS = { 2460, 2461, 2462, 2463, 2464,
 			2465, 2466, 2467, 2468, 2469, 2470, 2471, 2471, 2473, 2474, 2475,
@@ -52,7 +52,7 @@ public class GameConstants {
 	
 	public final static int CASTLE_WARS_Y = 3087;
 	
-	public static double XP_RATE = 1;
+	public static double XP_RATE = 10;
 	
 	public final static int SAVE_TIMER = 120; // save every x seconds
 	

@@ -908,17 +908,17 @@ public abstract class Player {
 		
 		if (System.currentTimeMillis() - restoreStatsDelay > 60000) {
 			restoreStatsDelay = System.currentTimeMillis();
-			for (int level = 0; level < playerLevel.length; level++) {
-				if (playerLevel[level] < getLevelForXP(playerXP[level])) {
-					if (level != 5) { // prayer doesn't restore
-						playerLevel[level] += 1;
-						getPacketSender().setSkillLevel(level, playerLevel[level], playerXP[level]);
-						getPlayerAssistant().refreshSkill(level);
+			for (int skill = 0; skill < playerLevel.length; skill++) {
+				if (playerLevel[skill] < getLevelForXP(playerXP[skill])) {
+					if (skill != 5) { // prayer doesn't restore
+						playerLevel[skill] += 1;
+						getPacketSender().setSkillLevel(skill, playerLevel[skill], playerXP[skill]);
+						getPlayerAssistant().refreshSkill(skill);
 					}
-				} else if (playerLevel[level] > getLevelForXP(playerXP[level])) {
-					playerLevel[level] -= 1;
-					getPacketSender().setSkillLevel(level, playerLevel[level], playerXP[level]);
-					getPlayerAssistant().refreshSkill(level);
+				} else if (playerLevel[skill] > getLevelForXP(playerXP[skill])) {
+					playerLevel[skill] -= 1;
+					getPacketSender().setSkillLevel(skill, playerLevel[skill], playerXP[skill]);
+					getPlayerAssistant().refreshSkill(skill);
 				}
 			}
 		}
@@ -1632,7 +1632,7 @@ public abstract class Player {
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
-			bowSpecShot;
+			bowSpecShot, ectofuntusWorshipped;
 	public boolean magicFailed, oldMagicFailed;
 	/**
 	 * End
@@ -2083,6 +2083,11 @@ public abstract class Player {
 		if (checkRangeDistance()) {
 			distance = gatherRangeDistance(distance);
 		}
+
+		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
+	}
+
+	public boolean goodObjectDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
 		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
 	}
 

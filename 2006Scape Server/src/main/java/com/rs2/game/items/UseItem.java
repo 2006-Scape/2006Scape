@@ -35,11 +35,11 @@ import com.rs2.util.Misc;
 public class UseItem {
 
 	public static void itemOnObject(Player c, int objectID, int objectX, int objectY, int itemId) {
-		final int goodPosXType1 = objectX - 5;
-		final int goodPosXType2 = objectX + 5;
-		final int goodPosYType1 = objectY - 5;
-		final int goodPosYType2 = objectY + 5;
-		if (c.absX >= goodPosXType1 && c.absX <= goodPosXType2 && c.absY >= goodPosYType1 && c.absY <= goodPosYType2) {
+		final int minX = objectX - 5;
+		final int maxX = objectX + 5;
+		final int minY = objectY - 5;
+		final int maxY = objectY + 5;
+		if (c.absX >= minX && c.absX <= maxX && c.absY >= minY && c.absY <= maxY) {
 			c.turnPlayerTo(objectX, objectY);
 		} else {
 			c.getPlayerAssistant().playerWalk(objectX, objectY);

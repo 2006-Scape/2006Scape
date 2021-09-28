@@ -404,17 +404,17 @@ public final class Signlink implements Runnable {
 	public static boolean reporterror = true;
 	public static String errorname = "";
 	public static Midi midii = new Midi();
-    private static int savelen;
-    private static String saveReq = null;
-    private static byte savebuf[] = null;
-    public static boolean play;
-    private static int midiPos;
-    public static String midi = null;
-    public static int midiVolume;
-    public static int midifade;
-    private static boolean waveplay;
-    private static int wavepos;
-    public static String wave = null;
-    public static int wavevol;
+	private static int savelen;
+	private static String saveReq = null;
+	private static byte savebuf[] = null;
+	public static boolean play;
+	private static int midiPos;
+	public static String midi = null;
+	public static int midiVolume;
+	public static int midifade;
+	private static boolean waveplay;
+	private static int wavepos;
+	public static String wave = null;
+	public static int wavevol;
 
 }

@@ -5,6 +5,7 @@ import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
+import com.rs2.world.Boundary;
 
 /**
  * Bank 5 Items
@@ -19,6 +20,12 @@ public class Bank5 implements PacketType {
 		player.endCurrentTask();
 		switch (interfaceId) {
 
+		case 2274:
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
+				PartyRoom.withdrawItem(player, removeSlot, 5);
+				return;
+			}
+			break;
 		case 4233:
 		case 4239:
 		case 4245:
@@ -50,7 +57,7 @@ public class Bank5 implements PacketType {
 			if(!player.getItemAssistant().playerHasItem(removeId)) {
 				return;
 			}
-			if (player.inPartyRoom) {
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
 				PartyRoom.depositItem(player, removeId, 5);
 				break;
 			}

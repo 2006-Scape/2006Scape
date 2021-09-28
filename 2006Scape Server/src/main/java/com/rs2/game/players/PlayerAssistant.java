@@ -127,14 +127,14 @@ public class PlayerAssistant {
 	
 	private String[][] welcomeMessages = {
 			{"Remember to vote daily to help " + GameConstants.SERVER_NAME + "", "Every vote counts! :)"}, 
-			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/Nk9WQUK"},
+			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/hZ6VfWG"},
 			{"Do you have any bugs that you would like to report?", "Report them on our discord or message a staff member. :)"},
 			{"Want to help the server grow?", "Remember to vote daily and invite your friends!"}
 		};
 	
 	public void showMap() {
-		int posisition = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
-		player.getPacketSender().sendConfig(106, posisition);
+		int position = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
+		player.getPacketSender().sendConfig(106, position);
 		player.getPacketSender().showInterface(5392);
 	}
 
@@ -1019,7 +1019,7 @@ public class PlayerAssistant {
 		for (Player p : PlayerHandler.players) {
 			if (p != null && p.isActive) {
 				Client o = (Client) p;
-				o.getPlayerAssistant().updatePM(player.playerId, 1);
+				o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
 			}
 		}
 		boolean pmLoaded = false;
@@ -1028,7 +1028,7 @@ public class PlayerAssistant {
 			if (friend != 0) {
 				for (int i2 = 1; i2 < PlayerHandler.players.length; i2++) {
 					Player p = PlayerHandler.players[i2];
-					if (p != null && p.isActive
+					if (p != null && !p.isBot && p.isActive
 							&& Misc.playerNameToInt64(p.playerName) == friend) {
 						Client o = (Client) p;
 						if (player.playerRights >= 2
@@ -1037,7 +1037,7 @@ public class PlayerAssistant {
 								&& o.getPlayerAssistant()
 										.isInPM(Misc
 												.playerNameToInt64(player.playerName))) {
-							player.getPacketSender().loadPM(friend, 1);
+							player.getPacketSender().loadPM(friend, GameConstants.WORLD);
 							pmLoaded = true;
 						}
 						break;
@@ -1052,7 +1052,7 @@ public class PlayerAssistant {
 				Player p = PlayerHandler.players[i1];
 				if (p != null && p.isActive) {
 					Client o = (Client) p;
-					o.getPlayerAssistant().updatePM(player.playerId, 1);
+					o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
 				}
 			}
 		}
@@ -1819,7 +1819,7 @@ public class PlayerAssistant {
 			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source and pull requests are welcome!");
 			player.getPacketSender().sendMessage("Source code: github.com/2006-Scape/2006Scape");
-			player.getPacketSender().sendMessage("Discord: discord.gg/4zrA2Wy");
+			player.getPacketSender().sendMessage("Discord: https://discord.gg/hZ6VfWG");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
 			player.autoRet = 1;
@@ -1972,6 +1972,8 @@ public class PlayerAssistant {
 		if (skill == 5) {
 			player.getPacketSender().sendString("" + player.playerLevel[GameConstants.PRAYER] + "/" + getLevelForXP(player.playerXP[GameConstants.PRAYER]) + "", 687);// Prayer
 		}
+		// Update skill data
+		player.getPacketSender().setSkillLevel(skill, player.playerLevel[skill], player.playerXP[skill]);
 	}
 
 	public int getXPForLevel(int level) {

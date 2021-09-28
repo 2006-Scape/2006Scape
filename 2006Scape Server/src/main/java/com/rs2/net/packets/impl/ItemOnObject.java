@@ -7,6 +7,7 @@ import com.rs2.game.content.skills.cooking.CookingTutorialIsland;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.content.skills.crafting.Pottery;
 import com.rs2.game.content.skills.crafting.Spinning;
+import com.rs2.game.content.skills.prayer.Ectofuntus;
 import com.rs2.game.items.UseItem;
 import com.rs2.game.items.impl.Fillables;
 import com.rs2.game.players.Player;
@@ -28,10 +29,19 @@ public class ItemOnObject implements PacketType {
 		player.objectX = objectX;
 		player.objectY = objectY;
 		player.endCurrentTask();
+		int distance = 3;
+		switch (objectId) {
+			case Ectofuntus.ECTOFUNTUS:
+				distance = 5;
+				break;
+			default:
+				distance = 3;
+				break;
+		}
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
-		if (!player.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 3)) {
+		if (!player.goodDistance(player.objectX, player.objectY, player.absX, player.absY, distance)) {
 			return;
 		}
 		if (player.playerRights == 3) {
