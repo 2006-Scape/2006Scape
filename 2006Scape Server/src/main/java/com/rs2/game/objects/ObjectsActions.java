@@ -138,11 +138,11 @@ public class ObjectsActions {
                     player.getPlayerAssistant().movePlayer(player.absX, 2809, 0);
                 }
                 break;
-            case 11163:
+            case Ectofuntus.GRINDER:
                 Ectofuntus.useBoneGrinder(player);
                 break;
 
-            case 11164:
+            case Ectofuntus.BIN:
                 Ectofuntus.emptyBin(player);
                 break;
             case 6:
@@ -2762,7 +2762,7 @@ public class ObjectsActions {
                 Climbing.climbUp(player);
                 break;
             
-            case 11163:
+            case Ectofuntus.GRINDER:
                 if (player.ectofuntusBoneCrusherState.equals("Empty")) {
                     player.getPacketSender().sendMessage("You need to load some bones.");
                 } else if (player.ectofuntusBoneCrusherState.equals("Loaded")) {

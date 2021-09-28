@@ -248,6 +248,8 @@ public class Ectofuntus {
 	 */
 	public final static int ECTOFUNTUS = 5282;
 	public final static int LOADER = 11162;
+	public final static int GRINDER = 11163;
+	public final static int BIN = 11164;
 	public final static int[] SLIME = { 5461, 5462 };
 	
 	/**
