@@ -97,11 +97,12 @@ public class Enchanting {
 	}
 
 	private enum EnchantSpell {
-
-		SAPPHIRE(1155, 555, 1, 564, 1, -1, 0), EMERALD(1165, 556, 3, 564, 1,
-				-1, 0), RUBY(1176, 554, 5, 564, 1, -1, 0), DIAMOND(1180, 557,
-				10, 564, 1, -1, 0), DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1), ONYX(
-				6003, 557, 20, 554, 20, 564, 1);
+		SAPPHIRE(1155, 555, 1, 564, 1, -1, 0), 
+		EMERALD(1165, 556, 3, 564, 1, -1, 0),
+		RUBY(1176, 554, 5, 564, 1, -1, 0),
+		DIAMOND(1180, 557, 10, 564, 1, -1, 0),
+		DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1),
+		ONYX(6003, 557, 20, 554, 20, 564, 1);
 
 		int spell, reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3,
 				reqAmtRune3;
@@ -195,7 +196,6 @@ public class Enchanting {
 		Enchant enc = Enchant.forId(itemID);
 		EnchantSpell ens = EnchantSpell.forId(spellID);
 		if (enc == null || ens == null) {
-
 			return;
 		}
 		if (c.playerLevel[GameConstants.MAGIC] >= enc.getLevelReq()) {
