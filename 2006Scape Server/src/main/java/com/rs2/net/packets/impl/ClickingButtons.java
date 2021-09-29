@@ -175,9 +175,13 @@ public class ClickingButtons implements PacketType {
 				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
+			if (!player.unlockedBonesToPeaches) {
+				player.getPacketSender().sendString("You haven't unlocked this spell yet.", 357);
+				player.getPacketSender().sendChatInterface(356);
+				return;
+			}
 			if (!player.getItemAssistant().playerHasItem(526, 1)) {
-				player.getPacketSender().sendMessage(
-						"You don't have any bones!");
+				player.getPacketSender().sendMessage("You don't have any bones!");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(561, 2)

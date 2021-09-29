@@ -100,7 +100,7 @@ public class Bank5 implements PacketType {
 			break;
 
 		case 15948: // Mage Training Arena Shop
-			player.getMageArena().sendItemValue(removeId);
+			player.getMageArena().buyItem(removeId);
 			break;
 		}
 	}

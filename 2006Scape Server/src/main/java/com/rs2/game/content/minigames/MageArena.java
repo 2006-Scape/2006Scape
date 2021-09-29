@@ -19,11 +19,6 @@ public class MageArena {
 		this.player = c;
 	}
 
-	private final int telePoints = 0;
-	private final int enchantPoints = 0;
-	private final int gravePoints = 0;
-	private final int alchPoints = 0;
-
 	private final int[] shopItems = {
 		6908, 6910, 6912, 6914, 6916, 6918,
 		6920, 6922, 6924, 6889, 6926, 1391,
@@ -52,10 +47,10 @@ public class MageArena {
 			player.getPacketSender().sendString(interfaceText[i - 15950], i);
 		}
 
-		player.getPacketSender().sendString(Integer.toString(telePoints), 15955);
-		player.getPacketSender().sendString(Integer.toString(enchantPoints), 15956);
-		player.getPacketSender().sendString(Integer.toString(gravePoints), 15957);
-		player.getPacketSender().sendString(Integer.toString(alchPoints), 15958);
+		player.getPacketSender().sendString(Integer.toString(player.telekineticPoints), 15955);
+		player.getPacketSender().sendString(Integer.toString(player.enchantmentPoints), 15956);
+		player.getPacketSender().sendString(Integer.toString(player.graveyardPoints), 15957);
+		player.getPacketSender().sendString(Integer.toString(player.alchemyPoints), 15958);
 		player.getPacketSender().showInterface(15944);
 	}
 
@@ -271,6 +266,39 @@ public class MageArena {
 		player.getPacketSender().sendMessage(
 				"" + getEnchVal(itemId) + " Enchantment points, and "
 						+ getTelVal(itemId) + " Telekinetic points.");
+	}
+
+	public void buyItem(int itemId) {
+		// If player already unlocked bones to peaches spell
+		if (itemId == 6926 && player.unlockedBonesToPeaches) {
+			player.getPacketSender().sendMessage("You've already unlocked this spell.");
+			return;
+		}
+
+		int graveValue = getGraveValue(itemId);
+		int alchValue = getAlchVal(itemId);
+		int enchantValue = getEnchVal(itemId);
+		int teleValue = getTelVal(itemId);
+
+		if (
+			graveValue > player.graveyardPoints ||
+			alchValue > player.alchemyPoints ||
+			enchantValue > player.enchantmentPoints ||
+			teleValue > player.telekineticPoints
+		) {
+			player.getPacketSender().sendMessage("You don't have enough points to buy that.");
+			return;
+		}
+
+		player.graveyardPoints -= graveValue;
+		player.alchemyPoints -= alchValue;
+		player.enchantmentPoints -= enchantValue;
+		player.telekineticPoints -= teleValue;
+		if (itemId == 6926) {
+			player.unlockedBonesToPeaches = true;
+		} else {
+			player.getItemAssistant().addItem(itemId, 1);
+		}
 	}
 
 }

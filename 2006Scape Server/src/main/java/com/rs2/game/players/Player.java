@@ -1630,7 +1630,7 @@ public abstract class Player {
 	 * Combat variables
 	 */
 	public boolean doubleHit, usingSpecial, usingRangeWeapon,
-			usingBow, usingMagic, castingMagic;
+			usingBow, usingMagic, castingMagic, unlockedBonesToPeaches;
 	public int castingSpellId, oldSpellId,
 			spellId, hitDelay;
 	public int specMaxHitIncrease, freezeDelay, freezeTimer = -6, killerId,
@@ -1638,7 +1638,7 @@ public abstract class Player {
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
-			bowSpecShot, ectofuntusWorshipped;
+			bowSpecShot, ectofuntusWorshipped, graveyardPoints, alchemyPoints, enchantmentPoints, telekineticPoints;
 	public boolean magicFailed, oldMagicFailed;
 	/**
 	 * End
