@@ -716,7 +716,7 @@ public class ObjectsActions {
                             "You pass through the energy barrier.");
                     player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
                 }
-		break;
+		        break;
 			
             case 5262:
                 if (player.heightLevel == 0)
@@ -2628,6 +2628,25 @@ public class ObjectsActions {
                 } else {
                     player.getPlayerAssistant().walkTo(0, -1);
                 }
+                break;
+			
+            case 10721:
+                if (player.absY == 3298)
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY + 2, 0);
+                else if (player.absY == 3300)
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
+                break;
+            case 10771:
+                player.getPlayerAssistant().movePlayer(3369, 3307, 1);
+                break;
+            case 10773:
+                player.getPlayerAssistant().movePlayer(3366, 3306, 0);
+                break;
+            case 10775:
+                player.getPlayerAssistant().movePlayer(3357, 3307, 1);
+                break;
+            case 10776:
+                player.getPlayerAssistant().movePlayer(3360, 3306, 0);
                 break;
             case 2873:
                 if (player.getItemAssistant().hasFreeSlots(1))
