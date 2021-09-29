@@ -14,7 +14,6 @@ import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.players.Client;
-import com.rs2.game.players.MainFrameIDs;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;

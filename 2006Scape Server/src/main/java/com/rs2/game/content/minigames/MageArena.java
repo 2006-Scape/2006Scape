@@ -28,6 +28,10 @@ public class MageArena {
 			6922, 6924, 6889, 6926, 1391, 4695, 4696, 4698, 4697, 4694, 4699,
 			564, 561, 560, 563, 565, 6891 };
 
+	private final int[] shopItemsN = { 100, 100, 100, 100, 100, 100, 100,
+		100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
+		100, 100, 100, 100, 100, 100 };
+
 	private final String[] interfaceText = { "Magic Training Arena Shop",
 			"Telekinetic Pizazz Points", "Enchantment Pizazz Points",
 			"Graveyard Pizazz Points", "Alchemist Pizazz Points" };
@@ -35,7 +39,7 @@ public class MageArena {
 	public void openShop() {
 
 		for (int i = 0; i < shopItems.length; i++) {
-			player.getPacketSender().sendFrame34(15948, shopItems[i], i, 100);
+			player.getPacketSender().sendUpdateItems(15948, shopItems, shopItemsN);
 		}
 
 		for (int i = 15950; i < interfaceText.length; i++) {
