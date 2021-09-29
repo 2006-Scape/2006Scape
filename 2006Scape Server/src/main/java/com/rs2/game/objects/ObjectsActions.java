@@ -2648,6 +2648,25 @@ public class ObjectsActions {
             case 10776:
                 player.getPlayerAssistant().movePlayer(3360, 3306, 0);
                 break;
+            case 10778:
+			    player.getDialogueHandler().sendStatement("This area is currently closed.");
+                // player.getPlayerAssistant().startTeleport2(3336, 9718, 0); // Telekinetic floor 0
+                break;
+            case 10779:
+                player.getDialogueHandler().sendStatement("This area is currently closed.");
+                // player.getPlayerAssistant().startTeleport2(3363, 9639, 0); // Enchantment training
+                break;
+            case 10780:
+                player.getDialogueHandler().sendStatement("This area is currently closed.");
+                // player.getPlayerAssistant().startTeleport2(3365, 9624, 2); // Alchemy training
+                break;
+            case 10781:
+                player.getDialogueHandler().sendStatement("This area is currently closed.");
+                // player.getPlayerAssistant().startTeleport2(3364, 9639, 1); // Graveyard training
+                break;
+            case 10782: // Leave mage training rooms
+                player.getPlayerAssistant().startTeleport2(3363, 3318, 0);
+                break;
             case 2873:
                 if (player.getItemAssistant().hasFreeSlots(1))
                     player.getItemAssistant().addItem(2412, 1);
