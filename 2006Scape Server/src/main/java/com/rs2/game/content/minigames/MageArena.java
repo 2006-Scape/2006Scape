@@ -286,7 +286,7 @@ public class MageArena {
 			enchantValue > player.enchantmentPoints ||
 			teleValue > player.telekineticPoints
 		) {
-			player.getPacketSender().sendMessage("You don't have enough points to buy that.");
+			player.getPacketSender().sendMessage("You don't have enough Pizazz Points to buy that.");
 			return;
 		}
 
