@@ -24,13 +24,19 @@ public class MageArena {
 	private final int gravePoints = 0;
 	private final int alchPoints = 0;
 
-	private final int[] shopItems = { 6908, 6910, 6912, 6914, 6916, 6918, 6920,
-			6922, 6924, 6889, 6926, 1391, 4695, 4696, 4698, 4697, 4694, 4699,
-			564, 561, 560, 563, 565, 6891 };
+	private final int[] shopItems = {
+		6908, 6910, 6912, 6914, 6916, 6918,
+		6920, 6922, 6924, 6889, 6926, 1391,
+		4695, 4696, 4698, 4697, 4694, 4699,
+		564, 561, 560, 563, 565, 6891
+	};
 
-	private final int[] shopItemsN = { 100, 100, 100, 100, 100, 100, 100,
-		100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
-		100, 100, 100, 100, 100, 100 };
+	private final int[] shopItemsN = {
+		100, 100, 100, 100, 100, 100,
+		100, 100, 100, 100, 100, 100,
+		100, 100, 100, 100, 100, 100,
+		100, 100, 100, 100, 100, 100
+	};
 
 	private final String[] interfaceText = { "Magic Training Arena Shop",
 			"Telekinetic Pizazz Points", "Enchantment Pizazz Points",
@@ -257,7 +263,7 @@ public class MageArena {
 		}
 	}
 
-	public void sendMessage(int itemId) {
+	public void sendItemValue(int itemId) {
 		player.getPacketSender().sendMessage(
 				ItemAssistant.getItemName(itemId) + " costs "
 						+ getGraveValue(itemId) + " Graveyard points, "
