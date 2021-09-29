@@ -5021,6 +5021,11 @@ public class Game extends RSApplet {
 						graphicsEnabled = !graphicsEnabled;
 					}
 					if (myPrivilege >= 0) {
+						if(inputString.equals("::noclip"))
+						for(int k1 = 0; k1 < 4; k1++)
+							for(int i2 = 1; i2 < 103; i2++)
+								for(int k2 = 1; k2 < 103; k2++)
+									aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
 						if (inputString.equals("::clientdrop")) {
 							dropClient();
 						}
