@@ -30,6 +30,7 @@ import com.rs2.game.content.guilds.impl.RangersGuild;
 import com.rs2.game.content.minigames.Barrows;
 import com.rs2.game.content.minigames.Dueling;
 import com.rs2.game.content.minigames.FightPits;
+import com.rs2.game.content.minigames.MageArena;
 import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.music.PlayList;
@@ -114,6 +115,7 @@ public abstract class Player {
     public IoSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
+	private final MageArena mageArena = new MageArena(this);
 	private final Trading trading = new Trading(this);
 	private final Dueling duel = new Dueling(this);
 	private final PlayerAssistant playerAssistant = new PlayerAssistant(this);
@@ -400,6 +402,10 @@ public abstract class Player {
 		return shopAssistant;
 	}
 
+	public MageArena getMageArena() {
+		return mageArena;
+	}
+	
 	public Trading getTrading() {
 		return trading;
 	}

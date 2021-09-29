@@ -6,17 +6,17 @@
 package com.rs2.game.content.minigames;
 
 import com.rs2.game.items.ItemAssistant;
-import com.rs2.game.players.Client;
+import com.rs2.game.players.Player;
 
 /**
  * @author D
  */
 public class MageArena {
 
-	private final Client c;
+	private final Player player;
 
-	public MageArena(Client c) {
-		this.c = c;
+	public MageArena(Player c) {
+		this.player = c;
 	}
 
 	private final int telePoints = 0;
@@ -35,19 +35,18 @@ public class MageArena {
 	public void openShop() {
 
 		for (int i = 0; i < shopItems.length; i++) {
-			c.getPacketSender().sendFrame34(15948, shopItems[i], i, 100);
+			player.getPacketSender().sendFrame34(15948, shopItems[i], i, 100);
 		}
 
 		for (int i = 15950; i < interfaceText.length; i++) {
-			c.getPacketSender().sendString(interfaceText[i - 15950], i);
+			player.getPacketSender().sendString(interfaceText[i - 15950], i);
 		}
 
-		c.getPacketSender().sendString(Integer.toString(telePoints), 15955);
-		c.getPacketSender().sendString(Integer.toString(enchantPoints),
-				15956);
-		c.getPacketSender().sendString(Integer.toString(gravePoints), 15957);
-		c.getPacketSender().sendString(Integer.toString(alchPoints), 15958);
-		c.getPacketSender().showInterface(15944);
+		player.getPacketSender().sendString(Integer.toString(telePoints), 15955);
+		player.getPacketSender().sendString(Integer.toString(enchantPoints), 15956);
+		player.getPacketSender().sendString(Integer.toString(gravePoints), 15957);
+		player.getPacketSender().sendString(Integer.toString(alchPoints), 15958);
+		player.getPacketSender().showInterface(15944);
 	}
 
 	public int getTelVal(int itemId) {
@@ -255,11 +254,11 @@ public class MageArena {
 	}
 
 	public void sendMessage(int itemId) {
-		c.getPacketSender().sendMessage(
+		player.getPacketSender().sendMessage(
 				ItemAssistant.getItemName(itemId) + " costs "
 						+ getGraveValue(itemId) + " Graveyard points, "
 						+ getAlchVal(itemId) + " Alchemy points,");
-		c.getPacketSender().sendMessage(
+		player.getPacketSender().sendMessage(
 				"" + getEnchVal(itemId) + " Enchantment points, and "
 						+ getTelVal(itemId) + " Telekinetic points.");
 	}
