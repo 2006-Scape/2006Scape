@@ -198,33 +198,31 @@ public class Enchanting {
 		if (enc == null || ens == null) {
 			return;
 		}
-		if (c.playerLevel[GameConstants.MAGIC] >= enc.getLevelReq()) {
-			if (c.getItemAssistant().playerHasItem(enc.getUnenchanted(), 1)) {
-				if(CastRequirements.hasRunes(c, getRequiredRunes(ens))){
-					if (getEnchantmentLevel(spellID) == enc.getELevel()) {
-						c.getItemAssistant().deleteItem(enc.getUnenchanted(), 1);
-						c.getItemAssistant().addItem(enc.getEnchanted(), 1);
-						c.getPlayerAssistant().addSkillXP(enc.getXp(),
-								GameConstants.MAGIC);
-						CastRequirements.deleteRunes(c, getRequiredRunes(ens));
-						c.startAnimation(enc.getAnim());
-						c.gfx100(enc.getGFX());
-						c.getPacketSender().sendFrame106(6);
-					} else {
-						c.getPacketSender().sendMessage(
-								"You can only enchant this jewelery using a level-"
-										+ enc.getELevel()
-										+ " enchantment spell!");
-					}
-				} else {
-					c.getPacketSender().sendMessage(
-							"You do not have enough runes to cast this spell.");
-				}
-			}
-		} else {
+		if (c.playerLevel[GameConstants.MAGIC] < enc.getLevelReq()) {
 			c.getPacketSender().sendMessage(
-					"You need a magic level of at least " + enc.getLevelReq()
-							+ " to cast this spell.");
+				"You need a magic level of at least "
+				+ enc.getLevelReq() + " to cast this spell.");
+			return;
 		}
+		if (!c.getItemAssistant().playerHasItem(enc.getUnenchanted(), 1)) {
+			return;
+		}
+		if(!CastRequirements.hasRunes(c, getRequiredRunes(ens))){
+			c.getPacketSender().sendMessage("You do not have enough runes to cast this spell.");
+			return;
+		}
+		if (getEnchantmentLevel(spellID) != enc.getELevel()) {
+			c.getPacketSender().sendMessage(
+				"You can only enchant this jewelery using a level-"
+				+ enc.getELevel() + " enchantment spell!");
+			return;
+		}
+		// Everything is fine, Enchant the item
+		c.getItemAssistant().replaceItem(enc.getUnenchanted(), enc.getEnchanted());
+		c.getPlayerAssistant().addSkillXP(enc.getXp(), GameConstants.MAGIC);
+		CastRequirements.deleteRunes(c, getRequiredRunes(ens));
+		c.startAnimation(enc.getAnim());
+		c.gfx100(enc.getGFX());
+		c.getPacketSender().sendFrame106(6);
 	}
 }
