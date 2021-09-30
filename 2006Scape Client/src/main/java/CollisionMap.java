@@ -525,6 +525,8 @@ final class CollisionMap {
 		return false;
 	}
 
+	// Something to do with moving to objects/npcs etc when clicked on
+	// Maybe checking distance?
 	public boolean method221(int i, int j, int k, int l, int i1, int j1, int k1) {
 		int l1 = j + j1 - 1;
 		int i2 = i + l - 1;

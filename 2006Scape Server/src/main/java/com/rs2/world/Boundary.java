@@ -110,6 +110,15 @@ public class Boundary {
 		return x >= boundaries.minX && x <= boundaries.highX && y >= boundaries.minY && y <= boundaries.highY;
 	}
 
+	public static boolean isIn(int x, int y, int h, Boundary boundaries) {
+		if (boundaries.height >= 0) {
+			if (h != boundaries.height) {
+				return false;
+			}
+		}
+		return x >= boundaries.minX && x <= boundaries.highX && y >= boundaries.minY && y <= boundaries.highY;
+	}
+
 	/**
 	 * 
 	 * @param npc
@@ -303,5 +312,7 @@ public class Boundary {
 	public static final Boundary[] FIGHT_PITS = new Boundary[] { new Boundary(2378, 3415, 5133, 5167), new Boundary(2394, 2404, 5169, 5174) };
 	public static final Boundary PARTY_ROOM = new Boundary(2727, 2746, 3460, 3479);
 	public static final Boundary PARTY_ROOM_TABLE = new Boundary(2735, 2740, 3467, 3468);
+	public static final Boundary MAGE_TRAINING_ARENA = new Boundary(3330, 3388, 9614, 9727);
+	public static final Boundary MAGE_TRAINING_ARENA_ALCHEMY = new Boundary(3350, 3379, 9616, 9655, 2);
 
 }

@@ -31,6 +31,7 @@ import com.rs2.game.content.minigames.Dueling;
 import com.rs2.game.content.minigames.FightPits;
 import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
+import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.music.PlayList;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.SkillInterfaces;
@@ -113,6 +114,7 @@ public abstract class Player {
     public IoSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
+	private final MageTrainingArena mageArena = new MageTrainingArena(this);
 	private final Trading trading = new Trading(this);
 	private final Dueling duel = new Dueling(this);
 	private final PlayerAssistant playerAssistant = new PlayerAssistant(this);
@@ -399,6 +401,10 @@ public abstract class Player {
 		return shopAssistant;
 	}
 
+	public MageTrainingArena getMageTrainingArena() {
+		return mageArena;
+	}
+	
 	public Trading getTrading() {
 		return trading;
 	}
@@ -875,6 +881,8 @@ public abstract class Player {
 			isSnowy = false;
 		} else if (inCw() || inPits) {
 			getPacketSender().showOption(3, 0, "Attack", 1);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ALCHEMY)) {
+			getPacketSender().walkableInterface(15892);
 		} else {
 			getPacketSender().sendMapState(0);
 			if (!isSnowy) {
@@ -1685,7 +1693,7 @@ public abstract class Player {
 	 * Combat variables
 	 */
 	public boolean doubleHit, usingSpecial, usingRangeWeapon,
-			usingBow, usingMagic, castingMagic;
+			usingBow, usingMagic, castingMagic, unlockedBonesToPeaches;
 	public int castingSpellId, oldSpellId,
 			spellId, hitDelay;
 	public int specMaxHitIncrease, freezeDelay, freezeTimer = -6, killerId,
@@ -1693,7 +1701,7 @@ public abstract class Player {
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
-			bowSpecShot, ectofuntusWorshipped;
+			bowSpecShot, ectofuntusWorshipped, graveyardPoints, alchemyPoints, enchantmentPoints, telekineticPoints;
 	public boolean magicFailed, oldMagicFailed;
 	/**
 	 * End
@@ -2206,13 +2214,18 @@ public abstract class Player {
 				mapRegionX = (teleportToX >> 3) - 6;
 				mapRegionY = (teleportToY >> 3) - 6;
 			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ALCHEMY) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ALCHEMY)) {
+				// remove any alchemy training items
+				getMageTrainingArena().alchemy.clearItems();
+			}
 			currentX = teleportToX - 8 * mapRegionX;
 			currentY = teleportToY - 8 * mapRegionY;
 			absX = teleportToX;
 			absY = teleportToY;
+			heightLevel = teleHeight >= 0 ? teleHeight : heightLevel >= 0 ? heightLevel : 0;
 			resetWalkingQueue();
 
-			teleportToX = teleportToY = -1;
+			teleportToX = teleportToY = teleHeight = -1;
 			didTeleport = true;
 			updateWalkEntities();
 		} else {

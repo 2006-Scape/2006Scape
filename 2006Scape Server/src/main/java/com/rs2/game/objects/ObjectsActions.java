@@ -713,7 +713,7 @@ public class ObjectsActions {
                             "You pass through the energy barrier.");
                     player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
                 }
-		break;
+		        break;
 			
             case 5262:
                 if (player.heightLevel == 0)
@@ -2626,6 +2626,54 @@ public class ObjectsActions {
                     player.getPlayerAssistant().walkTo(0, -1);
                 }
                 break;
+			
+            case 10721:
+                if (player.absY == 3298)
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY + 2, 0);
+                else if (player.absY == 3300)
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
+                break;
+            case 10734: // Coin Collector
+                player.getMageTrainingArena().alchemy.collectCoins();
+                break;
+            case 10771:
+                player.getPlayerAssistant().movePlayer(3369, 3307, 1);
+                break;
+            case 10773:
+                player.getPlayerAssistant().movePlayer(3366, 3306, 0);
+                break;
+            case 10775:
+                player.getPlayerAssistant().movePlayer(3357, 3307, 1);
+                break;
+            case 10776:
+                player.getPlayerAssistant().movePlayer(3360, 3306, 0);
+                break;
+            case 10778:
+                // TODO: Require Pizazz progress hat equiped
+			    player.getDialogueHandler().sendStatement("This area is currently closed.");
+                // player.getPlayerAssistant().startTeleport2(3336, 9718, 0); // Telekinetic floor 0
+                break;
+            case 10779:
+                // TODO: Require Pizazz progress hat equiped
+                player.getDialogueHandler().sendStatement("This area is currently closed.");
+                // player.getPlayerAssistant().startTeleport2(3363, 9639, 0); // Enchantment training
+                break;
+            case 10780:
+                // TODO: Require Pizazz progress hat equiped
+                if (player.getItemAssistant().playerHasItem(995)) {
+                    player.getDialogueHandler().sendStatement("You cannot bring coins with you.");
+                    return;
+                }
+                player.getPlayerAssistant().startTeleport2(3365, 9624, 2); // Alchemy training
+                break;
+            case 10781:
+                // TODO: Require Pizazz progress hat equiped
+                player.getDialogueHandler().sendStatement("This area is currently closed.");
+                // player.getPlayerAssistant().startTeleport2(3364, 9639, 1); // Graveyard training
+                break;
+            case 10782: // Leave mage training rooms
+                player.getPlayerAssistant().startTeleport2(3363, 3318, 0);
+                break;
             case 2873:
                 if (player.getItemAssistant().hasFreeSlots(1))
                     player.getItemAssistant().addItem(2412, 1);
@@ -2681,6 +2729,16 @@ public class ObjectsActions {
                     player.getPlayerAssistant().movePlayer(3714, 3503, 0);
                 if (objectX == 3678 && objectY == 2948)
                     player.getPlayerAssistant().movePlayer(3677, 2948, 0);
+                break;
+            case 10783:
+            case 10785:
+            case 10787:
+            case 10789:
+            case 10791:
+            case 10793:
+            case 10795:
+            case 10797:
+                player.getMageTrainingArena().alchemy.searchCupboard(objectType);
                 break;
 
         }

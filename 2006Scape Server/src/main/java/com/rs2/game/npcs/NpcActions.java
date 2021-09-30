@@ -1,6 +1,7 @@
 package com.rs2.game.npcs;
 
 import com.rs2.GameConstants;
+import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.skills.core.Fishing;
 import com.rs2.game.content.skills.crafting.Tanning;
@@ -1060,7 +1061,7 @@ public class NpcActions {
 			}
 		}
 		switch (npcType) {
-		case 3021 :
+		case 3021:
 			player.getFarmingTools().loadInterfaces();
 			break;
 			
@@ -1254,6 +1255,9 @@ public class NpcActions {
 			}
 			player.getPlayerAssistant().spellTeleport(3027, 4852, 0);
 			break;
+
+		case 3103: // Mage arena point shop
+			player.getMageTrainingArena().openShop();
 
 		default:
 			if (player.playerRights == 3) {
