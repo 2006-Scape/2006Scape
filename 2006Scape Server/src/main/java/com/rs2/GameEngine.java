@@ -22,6 +22,7 @@ import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.content.minigames.FightPits;
 import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
+import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.minigames.trawler.Trawler;
 import com.rs2.game.globalworldobjects.Doors;
 import com.rs2.game.globalworldobjects.DoubleDoors;
@@ -232,6 +233,7 @@ public class GameEngine {
 					FightPits.process();
 					pestControl.process();
 					objectHandler.process();
+					MageTrainingArena.process();
 					CycleEventHandler.getSingleton().process();
 					PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 					if(GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION) {

@@ -12,10 +12,13 @@ import com.rs2.game.players.Player;
  * @author RedSparr0w
  */
 public class MageTrainingArena {
+	public static void process() {
+		Alchemy.process();
+	}
 
 	private final Player player;
-	private Enchanting enchanting;
-	private Alchemy alchemy;
+	public final Enchanting enchanting;
+	public final Alchemy alchemy;
 
 	public MageTrainingArena(Player c) {
 		this.player = c;

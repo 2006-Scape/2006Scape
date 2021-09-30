@@ -2727,6 +2727,16 @@ public class ObjectsActions {
                 if (objectX == 3678 && objectY == 2948)
                     player.getPlayerAssistant().movePlayer(3677, 2948, 0);
                 break;
+            case 10783:
+            case 10785:
+            case 10787:
+            case 10789:
+            case 10791:
+            case 10793:
+            case 10795:
+            case 10797:
+                player.getMageTrainingArena().alchemy.searchCupboard(objectType);
+                break;
 
         }
     }

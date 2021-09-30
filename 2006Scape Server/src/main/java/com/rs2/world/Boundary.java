@@ -304,5 +304,6 @@ public class Boundary {
 	public static final Boundary PARTY_ROOM = new Boundary(2727, 2746, 3460, 3479);
 	public static final Boundary PARTY_ROOM_TABLE = new Boundary(2735, 2740, 3467, 3468);
 	public static final Boundary MAGE_TRAINING_ARENA = new Boundary(3330, 3388, 9614, 9727);
+	public static final Boundary MAGE_TRAINING_ARENA_ALCHEMY = new Boundary(3350, 3379, 9616, 9655, 2);
 
 }
