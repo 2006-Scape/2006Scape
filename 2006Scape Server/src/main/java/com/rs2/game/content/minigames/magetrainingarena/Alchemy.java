@@ -2,6 +2,7 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.util.Random;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.npcs.NpcHandler;
@@ -61,6 +62,21 @@ public class Alchemy {
         player.getPacketSender().sendShowTab(6);
         player.getPlayerAssistant().refreshSkill(6);
     }
+
+    public void collectCoins() {
+        int coins = player.getItemAssistant().getItemAmount(995);
+        if (coins < 100) {
+			player.getPacketSender().sendMessage("You need to deposit at least 100 coins.");
+            return;
+        }
+        int points = (int) Math.floor(coins / 100);
+        int bonusExp = points * 2;
+        int toBank = points * 10;
+        player.getPacketSender().sendMessage("Coins: " + coins + ", Points: " + points + ", Banked: " + toBank);
+        
+        player.getPlayerAssistant().addSkillXP(bonusExp, GameConstants.MAGIC);
+    }
+
     /* ITEMS */
     // 6893 - Leather boots
     // 6894 - Adamant Kiteshield

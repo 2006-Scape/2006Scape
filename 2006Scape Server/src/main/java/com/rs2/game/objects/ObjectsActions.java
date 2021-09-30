@@ -2636,6 +2636,9 @@ public class ObjectsActions {
                 else if (player.absY == 3300)
                     player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
                 break;
+            case 10734: // Coin Collector
+                player.getMageTrainingArena().alchemy.collectCoins();
+                break;
             case 10771:
                 player.getPlayerAssistant().movePlayer(3369, 3307, 1);
                 break;
