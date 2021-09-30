@@ -1165,57 +1165,59 @@ public class PlayerAssistant {
 				|| itemId == 995) {
 			return;
 		}
+		boolean canAlch = true;
 		switch (spellId) {
 		case 1162: // low alch
-			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
-				player.getMageTrainingArena().alchItem(itemId, spellId);
-				return;
-			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
 			}
-			if (System.currentTimeMillis() - player.alchDelay > 1000) {
-				if (!player.getCombatAssistant().checkMagicReqs(49)) {
-					break;
+			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
+				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(49)) {
+				return;
+			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
+				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
+			canAlch = true;
+			for (int i : ItemConstants.ITEM_UNALCHABLE) {
+				if (itemId == i) {
+					player.getPacketSender().sendMessage("You can't alch that item!");
+					canAlch = false;
+					return;
 				}
-				boolean canAlch = true;
-				for (int i : ItemConstants.ITEM_UNALCHABLE) {
-					if (itemId == i) {
-						player.getPacketSender().sendMessage("You can't alch that item!");
-						canAlch = false;
-						return;
-					}
+			}
+			if (canAlch) {
+				int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.4);
+				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+				if (player.getPlayerAssistant().isPlayer()) {
+					GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast Low Alchemy on " + itemName + " for " + GameLogger.formatCurrency(value) + " coins");
 				}
-				if (canAlch) {
-					int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.4);
-					String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-					if (player.getPlayerAssistant().isPlayer()) {
-						GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast Low Alchemy on " + itemName + " for " + GameLogger.formatCurrency(value) + " coins");
-					}
-					player.getItemAssistant().deleteItem(itemId, slot, 1);
-					//855 - 858
-					if (itemId > 854 && itemId < 857) {
-						player.getItemAssistant().addItem(995, 512);
-					} else if (itemId > 856 && itemId < 859) {
-						player.getItemAssistant().addItem(995, 320);
-					} else if (itemId > 860 && itemId < 863) {
-						player.getItemAssistant().addItem(995, 640);
-					} else if (itemId > 858 && itemId < 861) {
-						player.getItemAssistant().addItem(995, 1024);
-					} else {
-						player.getItemAssistant().addItem(995, value);
-					}
-					player.startAnimation(MagicData.MAGIC_SPELLS[49][2]);
-					player.gfx100(MagicData.MAGIC_SPELLS[49][3]);
-					player.alchDelay = System.currentTimeMillis();
-					player.getPacketSender().sendFrame106(6);
-					addSkillXP(31, 6);
-					player.getPacketSender().sendSound(
-							SoundList.LOW_ALCHEMY, 100, 0);
-					RandomEventHandler.addRandom(player);
-					refreshSkill(6);
+				player.getItemAssistant().deleteItem(itemId, slot, 1);
+				//855 - 858
+				if (itemId > 854 && itemId < 857) {
+					player.getItemAssistant().addItem(995, 512);
+				} else if (itemId > 856 && itemId < 859) {
+					player.getItemAssistant().addItem(995, 320);
+				} else if (itemId > 860 && itemId < 863) {
+					player.getItemAssistant().addItem(995, 640);
+				} else if (itemId > 858 && itemId < 861) {
+					player.getItemAssistant().addItem(995, 1024);
+				} else {
+					player.getItemAssistant().addItem(995, value);
 				}
+				player.startAnimation(MagicData.MAGIC_SPELLS[49][2]);
+				player.gfx100(MagicData.MAGIC_SPELLS[49][3]);
+				player.alchDelay = System.currentTimeMillis();
+				player.getPacketSender().sendFrame106(6);
+				addSkillXP(31, 6);
+				player.getPacketSender().sendSound(
+						SoundList.LOW_ALCHEMY, 100, 0);
+				RandomEventHandler.addRandom(player);
+				refreshSkill(6);
 			}
 			break;
 
@@ -1239,54 +1241,55 @@ public class PlayerAssistant {
 			break;
 
 		case 1178: // high alch
-			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
-				player.getMageTrainingArena().alchItem(itemId, spellId);
-				return;
-			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
 			}
-			if (System.currentTimeMillis() - player.alchDelay > 1000) {
-				if (!player.getCombatAssistant().checkMagicReqs(50)) {
-					break;
+			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
+				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(50)) {
+				break;
+			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
+				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
+			canAlch = true;
+			for (int i : ItemConstants.ITEM_UNALCHABLE) {
+				if (itemId == i) {
+					player.getPacketSender().sendMessage("You can't alch that item!");
+					canAlch = false;
+					return;
 				}
-				boolean canAlch = true;
-				for (int i : ItemConstants.ITEM_UNALCHABLE) {
-					if (itemId == i) {
-						player.getPacketSender().sendMessage("You can't alch that item!");
-						canAlch = false;
-						return;
-					}
+			}
+			if (canAlch) {
+				int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.75);
+				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+				if (player.getPlayerAssistant().isPlayer()) {
+					GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast High Alchemy on " + itemName + " for" + GameLogger.formatCurrency(value) + " coins");
 				}
-				if (canAlch) {
-					int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.75);
-					String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-					if (player.getPlayerAssistant().isPlayer()) {
-						GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast High Alchemy on " + itemName + " for" + GameLogger.formatCurrency(value) + " coins");
-					}
-					player.getItemAssistant().deleteItem(itemId, slot, 1);
-					if (itemId > 854 && itemId < 857) {
-						player.getItemAssistant().addItem(995, 768);
-					} else if (itemId > 856 && itemId < 859) {
-						player.getItemAssistant().addItem(995, 480);
-					} else if (itemId > 858 && itemId < 861) {
-						player.getItemAssistant().addItem(995, 1536);
-					} else if (itemId > 860 && itemId < 863) {
-						player.getItemAssistant().addItem(995, 960);
-					} else {
-						player.getItemAssistant().addItem(995, (int) (player.getShopAssistant().getItemShopValue(itemId) * .75));
-					}
-					player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
-					player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
-					player.alchDelay = System.currentTimeMillis();
-					player.getPacketSender().sendFrame106(6);
-					RandomEventHandler.addRandom(player);
-					addSkillXP(65, 6);
-					player.getPacketSender().sendSound(
-							SoundList.HIGH_ALCHEMY, 100, 0);
-					refreshSkill(6);
+				player.getItemAssistant().deleteItem(itemId, slot, 1);
+				if (itemId > 854 && itemId < 857) {
+					player.getItemAssistant().addItem(995, 768);
+				} else if (itemId > 856 && itemId < 859) {
+					player.getItemAssistant().addItem(995, 480);
+				} else if (itemId > 858 && itemId < 861) {
+					player.getItemAssistant().addItem(995, 1536);
+				} else if (itemId > 860 && itemId < 863) {
+					player.getItemAssistant().addItem(995, 960);
+				} else {
+					player.getItemAssistant().addItem(995, (int) (player.getShopAssistant().getItemShopValue(itemId) * .75));
 				}
+				player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
+				player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
+				player.alchDelay = System.currentTimeMillis();
+				player.getPacketSender().sendFrame106(6);
+				RandomEventHandler.addRandom(player);
+				addSkillXP(65, 6);
+				player.getPacketSender().sendSound(
+						SoundList.HIGH_ALCHEMY, 100, 0);
+				refreshSkill(6);
 			}
 			break;
 		}

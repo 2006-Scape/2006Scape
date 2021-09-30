@@ -2,6 +2,8 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.util.Random;
 
+import com.rs2.game.content.combat.magic.MagicData;
+import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -18,12 +20,47 @@ public class Alchemy {
     public void searchCupboard(int objectID) {
         int index = (objectID - firstCupboard) / 2;
         int item = Alchemy.items[(index + offset) % Alchemy.items.length];
-        player.getItemAssistant().addItem(item, 1);
+        if (item < 0) {
+			player.getPacketSender().sendMessage("The cupboard is empty.");
+        } else {
+            player.getItemAssistant().addItem(item, 1);
+        }
     }
 
 	public void alchItem(int itemID, int spellID) {
-	}
-
+        if (System.currentTimeMillis() - player.alchDelay <= 1000) {
+            return;
+        }
+        int index = -1;
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == itemID) {
+                index = i;
+            }
+        }
+        // Item not found, player trying to alch a different item
+        if (index < 0) {
+			player.getPacketSender().sendMessage("You cannot alch that item while here.");
+            return;
+        }
+        int value = values[(index + valueOffset) % values.length];
+        player.getItemAssistant().deleteItem(itemID, 1);
+        player.getItemAssistant().addItem(995, value);
+        player.alchDelay = System.currentTimeMillis();
+        if (spellID == 1162) {
+            player.startAnimation(MagicData.MAGIC_SPELLS[49][2]);
+            player.gfx100(MagicData.MAGIC_SPELLS[49][3]);
+            player.getPlayerAssistant().addSkillXP(31, 6);
+            player.getPacketSender().sendSound(SoundList.LOW_ALCHEMY, 100, 0);
+        } else if (spellID == 1178) {
+            player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
+            player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
+            player.alchDelay = System.currentTimeMillis();
+            player.getPlayerAssistant().addSkillXP(65, 6);
+            player.getPacketSender().sendSound(SoundList.HIGH_ALCHEMY, 100, 0);
+        }
+        player.getPacketSender().sendFrame106(6);
+        player.getPlayerAssistant().refreshSkill(6);
+    }
     /* ITEMS */
     // 6893 - Leather boots
     // 6894 - Adamant Kiteshield
