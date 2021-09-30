@@ -1168,6 +1168,7 @@ public class PlayerAssistant {
 		boolean canAlch = true;
 		switch (spellId) {
 		case 1162: // low alch
+			player.getPacketSender().sendShowTab(6);
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
@@ -1241,6 +1242,7 @@ public class PlayerAssistant {
 			break;
 
 		case 1178: // high alch
+			player.getPacketSender().sendShowTab(6);
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
