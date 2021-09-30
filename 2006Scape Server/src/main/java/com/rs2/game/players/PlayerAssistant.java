@@ -1167,6 +1167,10 @@ public class PlayerAssistant {
 		}
 		switch (spellId) {
 		case 1162: // low alch
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
+				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
@@ -1235,6 +1239,10 @@ public class PlayerAssistant {
 			break;
 
 		case 1178: // high alch
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
+				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
