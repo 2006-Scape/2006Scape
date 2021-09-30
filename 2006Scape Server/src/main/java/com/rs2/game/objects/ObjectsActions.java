@@ -2660,8 +2660,11 @@ public class ObjectsActions {
                 break;
             case 10780:
                 // TODO: Require Pizazz progress hat equiped
-                player.getDialogueHandler().sendStatement("This area is currently closed.");
-                // player.getPlayerAssistant().startTeleport2(3365, 9624, 2); // Alchemy training
+                if (player.getItemAssistant().playerHasItem(995)) {
+                    player.getDialogueHandler().sendStatement("You cannot bring coins with you.");
+                    return;
+                }
+                player.getPlayerAssistant().startTeleport2(3365, 9624, 2); // Alchemy training
                 break;
             case 10781:
                 // TODO: Require Pizazz progress hat equiped
