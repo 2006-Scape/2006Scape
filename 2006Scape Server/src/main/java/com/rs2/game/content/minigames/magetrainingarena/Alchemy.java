@@ -2,6 +2,7 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.util.Random;
 
+import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.world.Boundary;
@@ -58,6 +59,17 @@ public class Alchemy {
         ticks = 0;
         offset = random.nextInt(items.length);
         valueOffset = random.nextInt(values.length);
+		for (int i = 0; i < NpcHandler.MAX_NPCS; i ++) {
+			if (NpcHandler.npcs[i] != null && NpcHandler.npcs[i].npcType == 3099) {
+                NpcHandler.npcs[i].forceChat("Items are changing!");
+            }
+		}
+        for (Player p : PlayerHandler.players) {
+            if (p == null) {
+                continue;
+            }
+            updateInterface(p);
+        }
 	}
 
     public static void updateInterface(Player player) {
