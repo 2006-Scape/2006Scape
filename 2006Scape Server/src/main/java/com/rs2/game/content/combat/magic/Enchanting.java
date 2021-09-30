@@ -223,6 +223,6 @@ public class Enchanting {
 		CastRequirements.deleteRunes(c, getRequiredRunes(ens));
 		c.startAnimation(enc.getAnim());
 		c.gfx100(enc.getGFX());
-		c.getPacketSender().sendFrame106(6);
+		c.getPacketSender().sendShowTab(6);
 	}
 }

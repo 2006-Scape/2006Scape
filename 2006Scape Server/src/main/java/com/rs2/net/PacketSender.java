@@ -429,7 +429,8 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame106(int sideIcon) { //Something to do with magic
+	// Show a certain tab
+	public PacketSender sendShowTab(int sideIcon) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(106);
 			player.getOutStream().writeByteC(sideIcon);

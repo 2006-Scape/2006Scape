@@ -1212,7 +1212,7 @@ public class PlayerAssistant {
 				player.startAnimation(MagicData.MAGIC_SPELLS[49][2]);
 				player.gfx100(MagicData.MAGIC_SPELLS[49][3]);
 				player.alchDelay = System.currentTimeMillis();
-				player.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendShowTab(6);
 				addSkillXP(31, 6);
 				player.getPacketSender().sendSound(
 						SoundList.LOW_ALCHEMY, 100, 0);
@@ -1284,7 +1284,7 @@ public class PlayerAssistant {
 				player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
 				player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
 				player.alchDelay = System.currentTimeMillis();
-				player.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendShowTab(6);
 				RandomEventHandler.addRandom(player);
 				addSkillXP(65, 6);
 				player.getPacketSender().sendSound(

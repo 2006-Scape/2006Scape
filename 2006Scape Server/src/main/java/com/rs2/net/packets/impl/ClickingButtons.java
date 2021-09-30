@@ -153,7 +153,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(141);
-				player.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendShowTab(6);
 				player.getPacketSender().sendSound(
 						SoundList.BONES_TO_BANNAS, 100, 0);
 				player.boneDelay = System.currentTimeMillis();
@@ -201,7 +201,7 @@ public class ClickingButtons implements PacketType {
 				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(311);
-				player.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendShowTab(6);
 				player.boneDelay = System.currentTimeMillis();
 				do {
 					player.getItemAssistant().deleteItem(526, 1);

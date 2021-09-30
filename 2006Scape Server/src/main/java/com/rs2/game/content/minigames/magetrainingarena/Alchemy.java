@@ -58,7 +58,7 @@ public class Alchemy {
             player.getPlayerAssistant().addSkillXP(65, 6);
             player.getPacketSender().sendSound(SoundList.HIGH_ALCHEMY, 100, 0);
         }
-        player.getPacketSender().sendFrame106(6);
+        player.getPacketSender().sendShowTab(6);
         player.getPlayerAssistant().refreshSkill(6);
     }
     /* ITEMS */
