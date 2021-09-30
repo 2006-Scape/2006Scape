@@ -79,6 +79,13 @@ public class Alchemy {
         player.getPlayerAssistant().addSkillXP(bonusExp, GameConstants.MAGIC);
     }
 
+    public void clearItems() {
+        for (int item: items) {
+            player.getItemAssistant().deleteItem(item, Integer.MAX_VALUE);
+        }
+        player.getItemAssistant().deleteItem(995, Integer.MAX_VALUE);
+    }
+
     /* ITEMS */
     // 6893 - Leather boots
     // 6894 - Adamant Kiteshield

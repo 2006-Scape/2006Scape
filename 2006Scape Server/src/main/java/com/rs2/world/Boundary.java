@@ -110,6 +110,15 @@ public class Boundary {
 		return x >= boundaries.minX && x <= boundaries.highX && y >= boundaries.minY && y <= boundaries.highY;
 	}
 
+	public static boolean isIn(int x, int y, int h, Boundary boundaries) {
+		if (boundaries.height >= 0) {
+			if (h != boundaries.height) {
+				return false;
+			}
+		}
+		return x >= boundaries.minX && x <= boundaries.highX && y >= boundaries.minY && y <= boundaries.highY;
+	}
+
 	/**
 	 * 
 	 * @param npc

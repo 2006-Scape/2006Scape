@@ -845,7 +845,6 @@ public class PlayerAssistant {
 	public void processTeleport() {
 		player.teleportToX = player.teleX;
 		player.teleportToY = player.teleY;
-		player.heightLevel = player.teleHeight;
 		if (player.teleEndAnimation > 0) {
 			player.startAnimation(player.teleEndAnimation);
 		}
@@ -859,7 +858,7 @@ public class PlayerAssistant {
 		if(player.heightLevel != h) {
 			player.refresh = true;
 		}
-		player.heightLevel = h;
+		player.teleHeight = h;
 		player.getPlayerAssistant().requestUpdates();
 	}
 

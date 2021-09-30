@@ -81,6 +81,7 @@ public class PlayerSave {
 						switch (token) {
 							case "character-height":
 								player.heightLevel = Integer.parseInt(token2);
+								player.teleHeight = Integer.parseInt(token2);
 								break;
 							case "character-posx":
 								player.teleportToX = Integer.parseInt(token2) <= 0 ? player.lastX : Integer.parseInt(token2);

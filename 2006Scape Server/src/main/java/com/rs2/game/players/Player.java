@@ -2153,13 +2153,18 @@ public abstract class Player {
 				mapRegionX = (teleportToX >> 3) - 6;
 				mapRegionY = (teleportToY >> 3) - 6;
 			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ALCHEMY) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ALCHEMY)) {
+				// remove any alchemy training items
+				getMageTrainingArena().alchemy.clearItems();
+			}
 			currentX = teleportToX - 8 * mapRegionX;
 			currentY = teleportToY - 8 * mapRegionY;
 			absX = teleportToX;
 			absY = teleportToY;
+			heightLevel = teleHeight >= 0 ? teleHeight : heightLevel >= 0 ? heightLevel : 0;
 			resetWalkingQueue();
 
-			teleportToX = teleportToY = -1;
+			teleportToX = teleportToY = teleHeight = -1;
 			didTeleport = true;
 			updateWalkEntities();
 		} else {
