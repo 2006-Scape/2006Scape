@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.smithing;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -34,7 +35,7 @@ public class Smithing {
 	private void checkBar(Player player, int level, int amountToMake, int type) {
     	SmithingData item = SmithingData.forId(type);
 		if (item != null) {
-			if (player.playerLevel[player.playerSmithing] >= item.getLvl()) {
+			if (player.playerLevel[GameConstants.SMITHING] >= item.getLvl()) {
 				if (type == item.getId()) {
 					addItem = item.getId();
 					removeAmount = item.getAmount();
@@ -91,7 +92,7 @@ public class Smithing {
 							} else {
 								player.getItemAssistant().addItem(addItem, 1);
 							}
-							player.getPlayerAssistant().addSkillXP(XP, player.playerSmithing);
+							player.getPlayerAssistant().addSkillXP(XP, GameConstants.SMITHING);
 							player.doAmount--;
 						}
 					}

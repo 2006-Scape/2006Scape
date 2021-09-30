@@ -131,12 +131,12 @@ public class Stalls {
 					}
 				}
 				// Thieving level too low
-				if (p.playerLevel[p.playerThieving] < s.getLevel()) {
+				if (p.playerLevel[GameConstants.THIEVING] < s.getLevel()) {
 					p.getDialogueHandler().sendStatement("You must have a thieving level of " + s.getLevel() + " to steal from this stall.");
 					return;
 				}
 				// Failed, was caught red handed
-				if(Misc.random(4) == 1 && p.playerLevel[p.playerThieving] < 99) {
+				if(Misc.random(4) == 1 && p.playerLevel[GameConstants.THIEVING] < 99) {
 					failGuards(p);
 					return;
 				}
@@ -144,7 +144,7 @@ public class Stalls {
 				RandomEventHandler.addRandom(p);
 				int respawnTime = getRespawnTime(s.getObject());
 				GameEngine.objectHandler.createAnObject(p, 634, x, y, 0, getSpecialFace(p, s));
-				p.getPlayerAssistant().addSkillXP((int) s.getXp(), p.playerThieving);
+				p.getPlayerAssistant().addSkillXP((int) s.getXp(), GameConstants.THIEVING);
 				int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
 				s.respawnTime = System.currentTimeMillis() + (respawnTime * GameConstants.CYCLE_TIME);
 				p.getPacketSender().sendMessage("You steal a " + ItemAssistant.getItemName(random[0]) + " from the stall.");

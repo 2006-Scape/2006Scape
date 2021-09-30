@@ -2,6 +2,8 @@ package com.rs2.game.content.combat.magic;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.rs2.GameConstants;
 import com.rs2.game.players.Player;
 
 public class Enchanting {
@@ -196,14 +198,14 @@ public class Enchanting {
 
 			return;
 		}
-		if (c.playerLevel[c.playerMagic] >= enc.getLevelReq()) {
+		if (c.playerLevel[GameConstants.MAGIC] >= enc.getLevelReq()) {
 			if (c.getItemAssistant().playerHasItem(enc.getUnenchanted(), 1)) {
 				if(CastRequirements.hasRunes(c, getRequiredRunes(ens))){
 					if (getEnchantmentLevel(spellID) == enc.getELevel()) {
 						c.getItemAssistant().deleteItem(enc.getUnenchanted(), 1);
 						c.getItemAssistant().addItem(enc.getEnchanted(), 1);
 						c.getPlayerAssistant().addSkillXP(enc.getXp(),
-								c.playerMagic);
+								GameConstants.MAGIC);
 						CastRequirements.deleteRunes(c, getRequiredRunes(ens));
 						c.startAnimation(enc.getAnim());
 						c.gfx100(enc.getGFX());

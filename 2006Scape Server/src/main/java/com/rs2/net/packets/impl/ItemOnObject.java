@@ -1,12 +1,14 @@
 package com.rs2.net.packets.impl;
 
 import com.rs2.event.impl.ItemOnObjectEvent;
+import com.rs2.GameConstants;
 import com.rs2.game.content.combat.range.DwarfCannon;
 import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.cooking.CookingTutorialIsland;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.content.skills.crafting.Pottery;
 import com.rs2.game.content.skills.crafting.Spinning;
+import com.rs2.game.content.skills.prayer.Ectofuntus;
 import com.rs2.game.items.UseItem;
 import com.rs2.game.items.impl.Fillables;
 import com.rs2.game.players.Player;
@@ -28,10 +30,19 @@ public class ItemOnObject implements PacketType {
 		player.objectX = objectX;
 		player.objectY = objectY;
 		player.endCurrentTask();
+		int distance = 3;
+		switch (objectId) {
+			case Ectofuntus.ECTOFUNTUS:
+				distance = 5;
+				break;
+			default:
+				distance = 3;
+				break;
+		}
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
-		if (!player.goodDistance(player.objectX, player.objectY, player.absX, player.absY, 3)) {
+		if (!player.goodDistance(player.objectX, player.objectY, player.absX, player.absY, distance)) {
 			return;
 		}
 		if (player.playerRights == 3) {
@@ -151,7 +162,7 @@ public class ItemOnObject implements PacketType {
 				player.startAnimation(883);
 				player.getItemAssistant().addItem(2130, 1);
 				player.getItemAssistant().deleteItem(1927, 1);
-				player.getPlayerAssistant().addSkillXP(18, player.playerCooking);
+				player.getPlayerAssistant().addSkillXP(18, GameConstants.COOKING);
 			} else {
 				player.getPacketSender().sendMessage("You need a bucket of milk to do this.");
 			}

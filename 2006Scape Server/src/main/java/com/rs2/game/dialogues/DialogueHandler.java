@@ -2,6 +2,8 @@ package com.rs2.game.dialogues;
 
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
+import com.rs2.game.bots.Bot;
+import com.rs2.game.bots.BotHandler;
 import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.quests.QuestRewards;
 import com.rs2.game.content.randomevents.FreakyForester;
@@ -12,6 +14,7 @@ import com.rs2.game.content.skills.slayer.Slayer;
 import com.rs2.game.content.traveling.CarpetTravel;
 import com.rs2.game.content.traveling.Sailing;
 import com.rs2.game.globalworldobjects.PassDoor;
+import com.rs2.game.items.ItemConstants;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.objects.impl.OtherObjects;
 import com.rs2.game.players.Player;
@@ -4910,6 +4913,72 @@ public class DialogueHandler {
 				player.nextChat = 0;
 				break;
 
+			case 1390:
+				if (player.getItemAssistant().playerHasEquipped(ItemConstants.AMULET, 552)) {
+					sendPlayerChat("Can I have the tokens I have earned?");
+					player.nextChat = 1391;
+				} else {
+					sendNpcChat1("Wooooo. Oooooh!", player.talkingNpc, "Ghost disciple");
+					player.nextChat = 0;
+				}
+				break;
+
+			case 1391:
+				int amount = player.ectofuntusWorshipped * 5;
+				if (amount <= 0) {
+					sendNpcChat1("You haven't earned any tokens yet.", player.talkingNpc, "Ghost disciple");
+				} else if (player.getItemAssistant().freeSlots(4278, amount) <= 0) {
+					sendNpcChat1("You don't have enough space in your inventory.", player.talkingNpc, "Ghost disciple");
+				} else {
+					sendNpcChat1("Certainly, mortal. Here's " + amount + " ecto-tokens.", player.talkingNpc, "Ghost disciple");
+					player.getItemAssistant().addItem(4278, amount);
+					player.ectofuntusWorshipped = 0;
+				}
+				player.nextChat = 0;
+				break;
+
+			case 1400:
+				if (!player.getItemAssistant().playerHasEquipped(ItemConstants.AMULET, 552)) {
+					sendNpcChat1("Wooooo. Oooooh!", player.talkingNpc, "Ghost Captain");
+					player.nextChat = 0;
+				} else {
+					if (player.talkingNpc == 1704) {
+						sendNpcChat1("Would you like a ride to Port Phasmatys?", player.talkingNpc, "Ghost Captain");
+					} else {
+						sendNpcChat1("Would you like a ride to Dragontooth Island?", player.talkingNpc, "Ghost Captain");
+					}
+					player.nextChat = 1401;
+				}
+				break;
+
+			case 1401:
+				sendOption(
+						"Yes please." + (player.talkingNpc == 1705 ? " (25 Ecto-tokens)" : ""),
+						"No thanks.");
+				player.dialogueAction = 185;
+				break;
+
+			case 1402:
+				sendNpcChat1("You don't have enough Ecto-tokens.", player.talkingNpc, "Ghost Captain");
+				player.nextChat = 0;
+				break;
+
+			case 1410:
+				if (player.talkingNpc == 3157) {
+					sendNpcChat1("Would you like a ride to Port Phasmatys?", player.talkingNpc, "Bill Teach");
+				} else {
+					sendNpcChat1("Would you like a ride to Mos Le'Harmless?", player.talkingNpc, "Bill Teach");
+				}
+				player.nextChat = 1411;
+				break;
+
+			case 1411:
+				sendOption(
+						"Yes please.",
+						"No thanks.");
+				player.dialogueAction = 186;
+				break;
+
 			case 2995:
 				player.canWalkTutorial = false;
 				sendStatement(
@@ -7515,6 +7584,15 @@ public class DialogueHandler {
 			case 6022:
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Thank you again traveller. Happy Easter!");
 				player.getDialogueHandler().endDialogue();
+				break;
+			case 10000:
+				int coins = BotHandler.checkCoins(player);
+				sendOption(
+					player.inPlayerShopArea() ? "Summon Shop" : "@red@Summon Shop", // 9178
+					"Close Shop", // 9179
+					coins > 0 ? "Withdraw Money (" + Bot.formatSellPrice(coins) + ")" : "@red@Withdraw Money (0 gp)"// 9180
+				);
+				player.dialogueAction = 10000;
 				break;
 		}
 	}

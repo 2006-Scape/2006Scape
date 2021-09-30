@@ -1,5 +1,6 @@
 package com.rs2.game.content.combat.magic;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.players.Client;
@@ -30,19 +31,19 @@ public class MagicSpells extends MagicData {
 					if (c2.getPrayer().prayerActive[12]) {
 						damage *= (int) .60;
 					}
-					if (c2.playerLevel[3] - damage < 0) {
-						damage = c2.playerLevel[3];
+					if (c2.playerLevel[GameConstants.HITPOINTS] - damage < 0) {
+						damage = c2.playerLevel[GameConstants.HITPOINTS];
 					}
 					c.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[c.oldSpellId][7] + damage * CombatConstants.MAGIC_EXP_RATE, 6);
 					c.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[c.oldSpellId][7] + damage / 3, 3);
 					// Server.playerHandler.players[playerId].setHitDiff(damage);
 					// Server.playerHandler.players[playerId].setHitUpdateRequired(true);
 					PlayerHandler.players[playerId].handleHitMask(damage);
-					// Server.playerHandler.players[playerId].playerLevel[3] -=
+					// Server.playerHandler.players[playerId].playerLevel[GameConstants.HITPOINTS] -=
 					// damage;
 					PlayerHandler.players[playerId].dealDamage(damage);
 					PlayerHandler.players[playerId].damageTaken[c.playerId] += damage;
-					c2.getPlayerAssistant().refreshSkill(3);
+					c2.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 					c.totalPlayerDamageDealt += damage;
 					multiSpellEffect(c, playerId, damage);
 				} else {
@@ -62,21 +63,21 @@ public class MagicSpells extends MagicData {
 					- PlayerHandler.players[playerId].reduceStat > 35000) {
 				PlayerHandler.players[playerId].reduceStat = System
 						.currentTimeMillis();
-				PlayerHandler.players[playerId].playerLevel[0] -= PlayerHandler.players[playerId]
-						.getLevelForXP(PlayerHandler.players[playerId].playerXP[0]) * 10 / 100;
+				PlayerHandler.players[playerId].playerLevel[GameConstants.ATTACK] -= PlayerHandler.players[playerId]
+						.getLevelForXP(PlayerHandler.players[playerId].playerXP[GameConstants.ATTACK]) * 10 / 100;
 			}
 			break;
 		case 12919: // blood spells
 		case 12929:
 			int heal = damage / 4;
-			if (c.playerLevel[3] + heal >= c.getPlayerAssistant()
-					.getLevelForXP(c.playerXP[3])) {
-				c.playerLevel[3] = c.getPlayerAssistant().getLevelForXP(
-						c.playerXP[3]);
+			if (c.playerLevel[GameConstants.HITPOINTS] + heal >= c.getPlayerAssistant()
+					.getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
+				c.playerLevel[GameConstants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(
+						c.playerXP[GameConstants.HITPOINTS]);
 			} else {
-				c.playerLevel[3] += heal;
+				c.playerLevel[GameConstants.HITPOINTS] += heal;
 			}
-			c.getPlayerAssistant().refreshSkill(3);
+			c.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 			break;
 		case 12891:
 		case 12881:

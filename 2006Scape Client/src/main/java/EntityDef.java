@@ -25,7 +25,7 @@ public final class EntityDef {
 				break;
 				
 			case 945:
-				entityDef.name = "2006Scape Guide"; 
+				entityDef.name = ClientSettings.SERVER_NAME + " Guide"; 
 				break;
 		}
 		return entityDef;
@@ -92,10 +92,12 @@ public final class EntityDef {
 		}
 	}
 
+	public static int totalNPCs;
+
 	public static void unpackConfig(StreamLoader streamLoader) {
 		stream = new Stream(streamLoader.getDataForName("npc.dat"));
 		Stream stream2 = new Stream(streamLoader.getDataForName("npc.idx"));
-		int totalNPCs = stream2.readUnsignedWord();
+		totalNPCs = stream2.readUnsignedWord();
 		streamIndices = new int[totalNPCs];
 		int i = 2;
 		for (int j = 0; j < totalNPCs; j++) {

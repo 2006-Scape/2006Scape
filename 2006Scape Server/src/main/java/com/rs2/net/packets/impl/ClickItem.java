@@ -78,18 +78,21 @@ public class ClickItem implements PacketType {
 			return;
 		}
 		switch (itemId) {
+		case 4251:
+			player.getPlayerAssistant().movePlayer(3661, 3526, 0);
+			player.getItemAssistant().replaceItem(4251, 4252);
+			break;
+		case 4079:
+			player.startAnimation(1457);
+			break;
 		case 407:
-			if (Misc.random(1) == 0) {
-				player.getItemAssistant().addItem(409, 1);
-				player.getItemAssistant().deleteItem(407, 1);
+			int rand = Misc.random(1, 5);
+			if (rand <= 2) {
+				player.getItemAssistant().replaceItem(407, 409);
+			} else if (rand <= 4) {
+				player.getItemAssistant().replaceItem(407, 411);
 			} else {
-				if (Misc.random(1) == 0) {
-					player.getItemAssistant().addItem(411, 1);
-					player.getItemAssistant().deleteItem(409, 1);
-				} else if (Misc.random(1) == 1) {
-					player.getItemAssistant().addItem(413, 1);
-					player.getItemAssistant().deleteItem(407, 1);
-				}
+				player.getItemAssistant().replaceItem(407, 413);
 			}
 		break;
 		

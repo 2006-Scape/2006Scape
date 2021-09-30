@@ -45,7 +45,7 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
-            case "hideYell":
+            case "hideyell":
                 player.hideYell = !player.hideYell;
                 player.getPacketSender().sendMessage("Your yell visibility preferences have been updated.");
                 break;
@@ -171,10 +171,7 @@ public class Commands implements PacketType {
 
                 break;
             case "prayer":
-                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[5]));
-                break;
-            case "shop":
-                BotHandler.playerShop(player);
+                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[GameConstants.PRAYER]));
                 break;
             case "snow":
                 Calendar date = new GregorianCalendar();
@@ -188,6 +185,9 @@ public class Commands implements PacketType {
                         player.getPacketSender().sendMessage("Happy Holidays! Type ::snow to disable/enable! (Auto-disabling in certain area)");
                     }
                 }
+                break;
+            case "shop":
+                player.getDialogueHandler().sendDialogues(10000, 0);
                 break;
             case "withdrawshop":
                 player.getPacketSender().sendMessage("Shorter version: ::wshop");
@@ -481,6 +481,15 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Player Must Be Offline.");
                 }
                 break;
+            case "mem":
+                Runtime runtime = Runtime.getRuntime();
+                int totalMemK = (int) (runtime.totalMemory() / 1024L);
+                int freeMemK = (int) (runtime.freeMemory() / 1024L);
+                int usedMemK = (int) totalMemK - freeMemK;
+                player.getPacketSender().sendMessage("Total memory: " + (totalMemK / 1024) + "MB");
+                player.getPacketSender().sendMessage("Used memory: " + (usedMemK / 1024) + "MB");
+                player.getPacketSender().sendMessage("Free memory: " + (freeMemK / 1024) + "MB");
+                break;
             case "update":
                 try {
                     if (arguments.length == 0) {
@@ -574,9 +583,24 @@ public class Commands implements PacketType {
                 if (arguments.length == 0) {
                     player.getPacketSender().sendMessage("You must specify an id: ::interface id");
                     return;
+                } else if (arguments.length == 1) {
+                    int interface1 = Integer.parseInt(arguments[0]);
+                    player.getPacketSender().showInterface(interface1);
+                    return;
+                } else if (arguments.length == 2) {
+                    int interface1 = Integer.parseInt(arguments[0]);
+                    int interface2 = Integer.parseInt(arguments[1]);
+                    player.getPacketSender().sendFrame248(interface1, interface2);
+                    return;
+                } else if (arguments.length == 2) {
+                    int interface1 = Integer.parseInt(arguments[0]);
+                    int interface2 = Integer.parseInt(arguments[1]);
+                    int interface3 = Integer.parseInt(arguments[2]);
+                    player.getPacketSender().sendFrame246(interface1, interface2, interface3);
+                    return;
+                } else {
+                    player.getPacketSender().sendMessage("Too many IDs specified, maximum of 3");
                 }
-                int interfaceID = Integer.parseInt(arguments[0]);
-                player.getPacketSender().showInterface(interfaceID);
                 break;
             case "gfx":
                 if (arguments.length == 0) {
@@ -616,7 +640,6 @@ public class Commands implements PacketType {
             case "bank":
                 player.getPacketSender().openUpBank();
                 break;
-            case "xteletome":
             case "teletome":
                 try {
                     if (arguments.length == 0) {
@@ -637,7 +660,6 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Player is not online.");
                 }
                 break;
-            case "xteleto":
             case "teleto":
                 if (arguments.length == 0) {
                     player.getPacketSender().sendMessage("You must specify a player name: ::teleto playername");
@@ -683,11 +705,11 @@ public class Commands implements PacketType {
                 break;
             case "hp":
                 player.getPacketSender().sendMessage("You attributed yourself 999,999 hitpoints.");
-                player.playerLevel[3] = 999999;
+                player.playerLevel[GameConstants.HITPOINTS] = 999999;
                 break;
             case "pray":
                 player.getPacketSender().sendMessage("You attributed yourself 999,999 prayer points.");
-                player.playerLevel[5] = 999999;
+                player.playerLevel[GameConstants.PRAYER] = 999999;
                 break;
             case "setlevel":
             case "level":

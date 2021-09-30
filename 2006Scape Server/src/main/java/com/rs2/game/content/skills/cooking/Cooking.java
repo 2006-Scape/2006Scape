@@ -124,7 +124,7 @@ public class Cooking extends SkillHandler {
 	}
 
 	public static void cookingAddon(Player c, int itemID1, int itemID2, int giveItem, int requiredLevel, int expGained) {
-		if (c.playerLevel[7] >= requiredLevel) {
+		if (c.playerLevel[GameConstants.COOKING] >= requiredLevel) {
 			if (c.getItemAssistant().playerHasItem(itemID1) && c.getItemAssistant().playerHasItem(itemID2)) {
 				c.getItemAssistant().deleteItem(itemID1, 1);
 				c.getItemAssistant().deleteItem(itemID2, 1);
@@ -151,7 +151,7 @@ public class Cooking extends SkillHandler {
 	public static boolean startCooking(Player c, int itemId, int objectId) {
 		CookingItems item = forId(itemId);
 		if (item != null) {
-			if (c.playerLevel[c.playerCooking] < item.getLevelReq()) {
+			if (c.playerLevel[GameConstants.COOKING] < item.getLevelReq()) {
 				c.getPacketSender().closeAllWindows();
 				c.getDialogueHandler().sendStatement("You need a Cooking level of " + item.getLevelReq() + " to cook this.");
 				c.nextChat = 0;
@@ -175,11 +175,11 @@ public class Cooking extends SkillHandler {
 	}
 
 	private static boolean getSuccess(Player c, int burnBonus, int levelReq, int stopBurn) {
-		if (c.playerLevel[c.playerCooking] >= stopBurn) {
+		if (c.playerLevel[GameConstants.COOKING] >= stopBurn) {
 			return true;
 		}
 		double burn_chance = 55.0 - burnBonus;
-		double cook_level = c.playerLevel[c.playerCooking];
+		double cook_level = c.playerLevel[GameConstants.COOKING];
 		double lev_needed = levelReq;
 		double burn_stop = stopBurn;
 		double multi_a = burn_stop - lev_needed;
@@ -231,7 +231,7 @@ public class Cooking extends SkillHandler {
 						if (GameConstants.SOUND) {
 							player.getPacketSender().sendSound(SoundList.COOK_ITEM, 100, 0);
 						}
-						player.getPlayerAssistant().addSkillXP(item.getXp(), player.playerCooking);
+						player.getPlayerAssistant().addSkillXP(item.getXp(), GameConstants.COOKING);
 						player.getItemAssistant().addItem(item.getCookedItem(), 1);
 					} else {
 						player.getPacketSender().sendMessage(

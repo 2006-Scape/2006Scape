@@ -1,9 +1,11 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
+import com.rs2.world.Boundary;
 
 /**
  * Bank 10 Items
@@ -17,6 +19,13 @@ public class Bank10 implements PacketType {
 		int removeSlot = player.getInStream().readUnsignedWordA();
 		player.endCurrentTask();
 		switch (interfaceId) {
+
+		case 2274:
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
+				PartyRoom.withdrawItem(player, removeSlot, 10);
+				return;
+			}
+			break;
 
 		case 4233:
 		case 4239:
@@ -48,7 +57,7 @@ public class Bank10 implements PacketType {
 			if(!player.getItemAssistant().playerHasItem(removeId)) {
 				return;
 			}
-			if (player.inPartyRoom) {
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
 				PartyRoom.depositItem(player, removeId, 10);
 				break;
 			}
@@ -86,7 +95,7 @@ public class Bank10 implements PacketType {
 		case 1121:
 		case 1122:
 		case 1123:
-			player.getSmithing().readInput(player, player.playerLevel[player.playerSmithing], removeId, 10);
+			player.getSmithing().readInput(player, player.playerLevel[GameConstants.SMITHING], removeId, 10);
 			break;
 
 		}

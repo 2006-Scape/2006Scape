@@ -83,10 +83,12 @@ public final class ObjectDef {
 		stream = null;
 	}
 
+	public static int totalObjects;
+
 	public static void unpackConfig(StreamLoader streamLoader) {
 		stream = new Stream(streamLoader.getDataForName("loc.dat"));
 		Stream stream = new Stream(streamLoader.getDataForName("loc.idx"));
-		int totalObjects = stream.readUnsignedWord();
+		totalObjects = stream.readUnsignedWord();
 		streamIndices = new int[totalObjects];
 		int i = 2;
 		for (int j = 0; j < totalObjects; j++) {

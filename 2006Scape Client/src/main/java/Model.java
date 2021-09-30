@@ -113,7 +113,7 @@ public final class Model extends Animable {
 		if (aClass21Array1661 == null) {
 			return null;
 		}
-		Class21 class21 = aClass21Array1661[j];
+		Class21 class21 = aClass21Array1661.length < j  ? null : aClass21Array1661[j];
 		if (class21 == null) {
 			aOnDemandFetcherParent_1662.method548(j);
 			return null;
@@ -1335,7 +1335,10 @@ public final class Model extends Animable {
 		int k2 = k1 * j + j2 * k >> 16;
 		int l2 = anInt1650 * k >> 16;
 		int i3 = k2 + l2;
-		if (i3 <= 50 || k2 >= 3500) {
+		// Check distance of model to camera for rendering (default 3500)
+		int distance = WorldController.drawDistance * 256;
+		distance *= 1 + (Game.zoom / 10);
+		if (i3 <= 50 || k2 >= distance) {
 			return;
 		}
 		int j3 = l1 * l + j1 * i1 >> 16;

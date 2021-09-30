@@ -94,17 +94,6 @@ public class ShopHandler {
                     shopItemsDelay[i][j]++;
                 }
             }
-            if (DidUpdate) {
-                for (int k = 1; k < PlayerHandler.players.length; k++) {
-                    if (PlayerHandler.players[k] != null) {
-                        if (PlayerHandler.players[k].isShopping && PlayerHandler.players[k].shopId == i) {
-                            PlayerHandler.players[k].updateShop = true;
-                            PlayerHandler.players[k].updateShop(i);
-                        }
-                    }
-                }
-                DidUpdate = false;
-            }
         }
     }
 
@@ -243,6 +232,20 @@ public class ShopHandler {
         totalshops++;
     }
 
+    public static void closePlayerShop(Client player) {
+        for (int id = getEmptyshop(); id >= 0; id--) {
+			if (shopName[id].equals(player.properName + "'s Store")) {
+                for (int i = 0; i < MAX_SHOP_ITEMS; i++) {
+                    shopItems[id][i] = 0;
+                    shopItemsN[id][i] = 0;
+                    shopItemsSN[id][i] = 0;
+                    shopItemsDelay[id][i] = 0;
+                }
+                refreshshop(id);
+			}
+        }
+    }
+
     private static int getEmptyshop() {
         for (int i = 0; i < MAX_SHOPS; i++) {
 			if (shopName[i].equals("")) {
@@ -263,6 +266,15 @@ public class ShopHandler {
                     shopItemsN[shop_id][j] = shopItemsN[shop_id][next];
                     shopItemsDelay[shop_id][j] = shopItemsDelay[shop_id][next];
                     ResetItem(shop_id, next);
+                }
+            }
+        }
+
+        for (int k = 1; k < PlayerHandler.players.length; k++) {
+            if (PlayerHandler.players[k] != null) {
+                if (PlayerHandler.players[k].isShopping && PlayerHandler.players[k].shopId == shop_id) {
+                    PlayerHandler.players[k].updateShop = true;
+                    PlayerHandler.players[k].updateShop(shop_id);
                 }
             }
         }

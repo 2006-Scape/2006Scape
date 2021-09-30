@@ -1,5 +1,6 @@
 package com.rs2.game.objects.impl;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -369,10 +370,10 @@ public class Climbing {
 				break;
 
 			case 2408:
-				if (client.playerLevel[5] > 0) {
-					client.playerLevel[5] = 0;
+				if (client.playerLevel[GameConstants.PRAYER] > 0) {
+					client.playerLevel[GameConstants.PRAYER] = 0;
 				}
-				client.getPlayerAssistant().refreshSkill(5);
+				client.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
 				client.getPacketSender().sendMessage(
 						"Your prayer is drained as you enter the dungeon.");
 				client.getPlayerAssistant().movePlayer(2823, 9771, 0);
@@ -421,7 +422,7 @@ public class Climbing {
 			case 1738:
 				if (client.objectX == 2728 && client.objectY == 3460
 						&& client.heightLevel == 0) {
-					client.getPlayerAssistant().movePlayer(2749, 3462, 1);
+					client.getPlayerAssistant().movePlayer(2729, 3462, 1);
 					client.resetWalkingQueue();
 				} else if (client.objectX == 2746 && client.objectY == 3460
 						&& client.heightLevel == 0) {
@@ -442,7 +443,7 @@ public class Climbing {
 				} else if (client.objectX == 3258 && client.objectY == 3487) {
 					client.getPlayerAssistant().movePlayer(3257, 3487, 1);
 					client.resetWalkingQueue();
-				} else if (client.objectX == 3144 && client.objectY == 3447 && client.playerLevel[client.playerCooking] > 31 && client.playerEquipment[client.playerHat] == 1949) {
+				} else if (client.objectX == 3144 && client.objectY == 3447 && client.playerLevel[GameConstants.COOKING] > 31 && client.playerEquipment[client.playerHat] == 1949) {
 					client.getPlayerAssistant().movePlayer(3143, 3448, 1);
 					client.resetWalkingQueue();
 				} else if (client.objectX == 3010 && client.objectY == 3515) {
@@ -574,7 +575,7 @@ public class Climbing {
 							"You go down the trapdoor.");
 					client.startAnimation(827);
 					client.getPlayerAssistant().addSkillXP(.5,
-							client.playerThieving);
+							GameConstants.THIEVING);
 					client.getPacketSender().closeAllWindows();
 				} else if (!client.getItemAssistant().playerHasItem(1523, 1)
 						&& Misc.random(5) < 2) {
@@ -583,7 +584,7 @@ public class Climbing {
 							"You go down the trapdoor.");
 					client.startAnimation(827);
 					client.getPlayerAssistant().addSkillXP(.5,
-							client.playerThieving);
+							GameConstants.THIEVING);
 					client.getPacketSender().closeAllWindows();
 					client.resetWalkingQueue();
 				} else if (client.getItemAssistant().playerHasItem(1523, 1)
@@ -593,9 +594,9 @@ public class Climbing {
 					client.getPacketSender()
 							.sendMessage(
 									"Your thieving has been drained, your fingers feel numb.");
-					client.playerLevel[17] = client.getPlayerAssistant()
-							.getLevelForXP(client.playerXP[17]) - 1;
-					client.getPlayerAssistant().refreshSkill(17);
+					client.playerLevel[GameConstants.THIEVING] = client.getPlayerAssistant()
+							.getLevelForXP(client.playerXP[GameConstants.THIEVING]) - 1;
+					client.getPlayerAssistant().refreshSkill(GameConstants.THIEVING);
 					client.getItemAssistant().deleteItem(1523, 1);
 				} else if (!client.getItemAssistant().playerHasItem(1523, 1)
 						&& Misc.random(5) > 2) {
@@ -604,9 +605,9 @@ public class Climbing {
 					client.getPacketSender()
 							.sendMessage(
 									"Your thieving has been drained, your fingers feel numb.");
-					client.playerLevel[17] = client.getPlayerAssistant()
-							.getLevelForXP(client.playerXP[17]) - 1;
-					client.getPlayerAssistant().refreshSkill(17);
+					client.playerLevel[GameConstants.THIEVING] = client.getPlayerAssistant()
+							.getLevelForXP(client.playerXP[GameConstants.THIEVING]) - 1;
+					client.getPlayerAssistant().refreshSkill(GameConstants.THIEVING);
 				}
 				break;
 

@@ -23,7 +23,7 @@ public class ClientSettings {
 	 * on localhost (Assuming you're running Client and LocalGame respectively)
 	 *
 	 */
-	public static String SERVER_IP = "127.0.0.1";
+	public static String SERVER_IP = "www.2006Scape.org";
 	/**
 	 * The Npc Bits for the Server
 	 */
