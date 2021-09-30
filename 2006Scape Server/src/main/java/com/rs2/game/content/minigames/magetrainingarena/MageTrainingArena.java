@@ -9,16 +9,18 @@ import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 
 /**
- * @author D
+ * @author RedSparr0w
  */
 public class MageTrainingArena {
 
 	private final Player player;
 	private Enchanting enchanting;
+	private Alchemy alchemy;
 
 	public MageTrainingArena(Player c) {
 		this.player = c;
 		this.enchanting = new Enchanting(c);
+		this.alchemy = new Alchemy(c);
 	}
 
 	private final int[] shopItems = {
@@ -305,5 +307,9 @@ public class MageTrainingArena {
 
 	public void enchantItem(int itemID, int spellID) {
 		enchanting.enchantItem(itemID, spellID);
+	}
+
+	public void alchItem(int itemID, int spellID) {
+		alchemy.alchItem(itemID, spellID);
 	}
 }
