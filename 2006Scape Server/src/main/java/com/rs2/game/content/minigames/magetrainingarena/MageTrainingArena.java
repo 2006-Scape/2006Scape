@@ -61,218 +61,188 @@ public class MageTrainingArena {
 		player.getPacketSender().showInterface(15944);
 	}
 
-	public int getTelVal(int itemId) {
-
+	public int getTelekineticPointValue(int itemId) {
 		switch (itemId) {
-		case 6922:
-			return 175;
-		case 6918:
-			return 350;
-		case 6916:
-			return 400;
-		case 6924:
-			return 450;
-		case 6920:
-			return 120;
-		case 1391:
-			return 1;
-		case 6908:
-			return 30;
-		case 6910:
-			return 60;
-		case 6912:
-			return 60;
-		case 6914:
-			return 150;
-		case 6889:
-			return 500;
-		case 6926:
-			return 200;
-
-		case 4695:
-		case 4694:
-		case 4696:
-		case 4697:
-		case 4698:
-		case 4699:
-			return 1;
-
-		case 564:
-		case 561:
-			return 0;
-
-		case 560:
-		case 563:
-		case 565:
-			return 2;
-
-		default:
-			return 1;
-
+			case 564:
+			case 561:
+				return 0;
+			case 1391:
+			case 4695:
+			case 4694:
+			case 4696:
+			case 4697:
+			case 4698:
+			case 4699:
+				return 1;
+			case 560:
+			case 563:
+			case 565:
+				return 2;
+			case 6908:
+				return 30;
+			case 6910:
+			case 6912:
+				return 60;
+			case 6920:
+				return 120;
+			case 6914:
+				return 150;
+			case 6922:
+				return 175;
+			case 6926:
+				return 200;
+			case 6918:
+				return 350;
+			case 6916:
+				return 400;
+			case 6924:
+				return 450;
+			case 6889:
+				return 500;
+			default:
+				return 1;
 		}
 	}
 
-	public int getAlchVal(int itemId) {
-
+	public int getAlchemyPointValue(int itemId) {
 		switch (itemId) {
-		case 6922:
-			return 225;
-		case 6918:
-			return 400;
-		case 6916:
-			return 450;
-		case 6924:
-			return 500;
-		case 6920:
-			return 120;
-		case 1391:
-			return 2;
-		case 6908:
-			return 30;
-		case 6910:
-			return 60;
-		case 6912:
-			return 200;
-		case 6914:
-			return 240;
-		case 6889:
-			return 550;
-		case 6926:
-			return 300;
-
-		case 4695:
-		case 4694:
-		case 4696:
-		case 4697:
-		case 4698:
-		case 4699:
-			return 1;
-
-		case 564:
-		case 561:
-			return 1;
-
-		case 560:
-		case 563:
-		case 565:
-			return 2;
-
-		default:
-			return 1;
-
+			case 4695:
+			case 4694:
+			case 4696:
+			case 4697:
+			case 4698:
+			case 4699:
+			case 564:
+			case 561:
+				return 1;
+			case 560:
+			case 563:
+			case 565:
+			case 1391:
+				return 2;
+			case 6908:
+				return 30;
+			case 6910:
+				return 60;
+			case 6920:
+				return 120;
+			case 6912:
+				return 200;
+			case 6922:
+				return 225;
+			case 6914:
+				return 240;
+			case 6926:
+				return 300;
+			case 6918:
+				return 400;
+			case 6916:
+				return 450;
+			case 6924:
+				return 500;
+			case 6889:
+				return 550;
+			default:
+				return 1;
 		}
 	}
 
-	public int getEnchVal(int itemId) {
-
+	public int getEnchantmentPointValue(int itemId) {
 		switch (itemId) {
-		case 6922:
-			return 1300;
-		case 6918:
-			return 3000;
-		case 6916:
-			return 4000;
-		case 6924:
-			return 5000;
-		case 6920:
-			return 1200;
-		case 1391:
-			return 20;
-		case 6908:
-			return 300;
-		case 6910:
-			return 600;
-		case 6912:
-			return 1500;
-		case 6914:
-			return 2400;
-		case 6889:
-			return 6000;
-		case 6926:
-			return 2000;
-
-		case 4695:
-		case 4694:
-		case 4696:
-		case 4697:
-		case 4698:
-		case 4699:
-			return 15;
-
-		case 564:
-		case 561:
-			return 5;
-
-		case 560:
-		case 563:
-		case 565:
-			return 25;
-
-		default:
-			return 1;
-
+			case 564:
+			case 561:
+				return 5;
+			case 4695:
+			case 4694:
+			case 4696:
+			case 4697:
+			case 4698:
+			case 4699:
+				return 15;
+			case 1391:
+				return 20;
+			case 560:
+			case 563:
+			case 565:
+				return 25;
+			case 6908:
+				return 300;
+			case 6910:
+				return 600;
+			case 6920:
+				return 1200;
+			case 6922:
+				return 1300;
+			case 6912:
+				return 1500;
+			case 6926:
+				return 2000;
+			case 6914:
+				return 2400;
+			case 6918:
+				return 3000;
+			case 6916:
+				return 4000;
+			case 6924:
+				return 5000;
+			case 6889:
+				return 6000;
+			default:
+				return 1;
 		}
 	}
 
-	public int getGraveValue(int itemId) {
-
+	public int getGraveyardPointValue(int itemId) {
 		switch (itemId) {
-		case 6922:
-			return 175;
-		case 6918:
-			return 350;
-		case 6916:
-			return 400;
-		case 6924:
-			return 450;
-		case 6920:
-			return 120;
-		case 1391:
-			return 2;
-		case 6908:
-			return 30;
-		case 6910:
-			return 60;
-		case 6912:
-			return 150;
-		case 6914:
-			return 240;
-		case 6889:
-			return 500;
-		case 6926:
-			return 200;
-
-		case 4695:
-		case 4694:
-		case 4696:
-		case 4697:
-		case 4698:
-		case 4699:
-			return 1;
-
-		case 564:
-		case 561:
-			return 1;
-
-		case 560:
-		case 563:
-		case 565:
-			return 2;
-
-		default:
-			return 1;
-
+			case 4695:
+			case 4694:
+			case 4696:
+			case 4697:
+			case 4698:
+			case 4699:
+			case 564:
+			case 561:
+				return 1;
+			case 560:
+			case 563:
+			case 565:
+			case 1391:
+				return 2;
+			case 6908:
+				return 30;
+			case 6910:
+				return 60;
+			case 6920:
+				return 120;
+			case 6912:
+				return 150;
+			case 6922:
+				return 175;
+			case 6926:
+				return 200;
+			case 6914:
+				return 240;
+			case 6918:
+				return 350;
+			case 6916:
+				return 400;
+			case 6924:
+				return 450;
+			case 6889:
+				return 500;
+			default:
+				return 1;
 		}
 	}
 
 	public void sendItemValue(int itemId) {
 		player.getPacketSender().sendMessage(
 				ItemAssistant.getItemName(itemId) + " costs "
-						+ getGraveValue(itemId) + " Graveyard points, "
-						+ getAlchVal(itemId) + " Alchemy points,");
+						+ getGraveyardPointValue(itemId) + " Graveyard points, "
+						+ getAlchemyPointValue(itemId) + " Alchemy points,");
 		player.getPacketSender().sendMessage(
-				"" + getEnchVal(itemId) + " Enchantment points, and "
-						+ getTelVal(itemId) + " Telekinetic points.");
+				"" + getEnchantmentPointValue(itemId) + " Enchantment points, and "
+						+ getTelekineticPointValue(itemId) + " Telekinetic points.");
 	}
 
 	public void buyItem(int itemId) {
@@ -282,10 +252,10 @@ public class MageTrainingArena {
 			return;
 		}
 
-		int graveValue = getGraveValue(itemId);
-		int alchValue = getAlchVal(itemId);
-		int enchantValue = getEnchVal(itemId);
-		int teleValue = getTelVal(itemId);
+		int graveValue = getGraveyardPointValue(itemId);
+		int alchValue = getAlchemyPointValue(itemId);
+		int enchantValue = getEnchantmentPointValue(itemId);
+		int teleValue = getTelekineticPointValue(itemId);
 
 		if (
 			graveValue > player.graveyardPoints ||
