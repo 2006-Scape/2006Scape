@@ -81,6 +81,7 @@ public class PlayerSave {
 						switch (token) {
 							case "character-height":
 								player.heightLevel = Integer.parseInt(token2);
+								player.teleHeight = Integer.parseInt(token2);
 								break;
 							case "character-posx":
 								player.teleportToX = Integer.parseInt(token2) <= 0 ? player.lastX : Integer.parseInt(token2);
@@ -411,6 +412,21 @@ public class PlayerSave {
 								break;
 							case "ectofuntusWorshipped":
 								player.ectofuntusWorshipped = Integer.parseInt(token2);
+								break;
+							case "graveyard-points":
+								player.graveyardPoints = Integer.parseInt(token2);
+								break;
+							case "alchemy-points":
+								player.alchemyPoints = Integer.parseInt(token2);
+								break;
+							case "enchantment-points":
+								player.enchantmentPoints = Integer.parseInt(token2);
+								break;
+							case "telekinetic-points":
+								player.telekineticPoints = Integer.parseInt(token2);
+								break;
+							case "unlocked-bones-to-peaches":
+								player.unlockedBonesToPeaches = Boolean.parseBoolean(token2);
 								break;
 						}
 						break;
@@ -781,6 +797,16 @@ public class PlayerSave {
 			characterfile.write("fightMode = " + player.fightMode);
 			characterfile.newLine();
 			characterfile.write("ectofuntusWorshipped = " + player.ectofuntusWorshipped);
+			characterfile.newLine();
+			characterfile.write("graveyard-points = " + player.graveyardPoints);
+			characterfile.newLine();
+			characterfile.write("alchemy-points = " + player.alchemyPoints);
+			characterfile.newLine();
+			characterfile.write("enchantment-points = " + player.enchantmentPoints);
+			characterfile.newLine();
+			characterfile.write("telekinetic-points = " + player.telekineticPoints);
+			characterfile.newLine();
+			characterfile.write("unlocked-bones-to-peaches = " + player.unlockedBonesToPeaches);
 			characterfile.newLine();
 			String voidStatus = "";
 			for (int voidS : player.voidStatus){

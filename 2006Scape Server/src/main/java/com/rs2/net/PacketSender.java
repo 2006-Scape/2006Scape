@@ -14,7 +14,6 @@ import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.players.Client;
-import com.rs2.game.players.MainFrameIDs;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
@@ -430,7 +429,8 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame106(int sideIcon) { //Something to do with magic
+	// Show a certain tab
+	public PacketSender sendShowTab(int sideIcon) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(106);
 			player.getOutStream().writeByteC(sideIcon);

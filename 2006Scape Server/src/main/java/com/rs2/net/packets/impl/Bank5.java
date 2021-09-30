@@ -98,6 +98,10 @@ public class Bank5 implements PacketType {
 		case 1123:
 			player.getSmithing().readInput(player, player.playerLevel[GameConstants.SMITHING], removeId, 5);
 			break;
+
+		case 15948: // Mage Training Arena Shop
+			player.getMageTrainingArena().buyItem(removeId);
+			break;
 		}
 	}
 

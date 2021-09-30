@@ -10,23 +10,23 @@ public class MagicRequirements {
 	public static boolean wearingStaff(Player player, int runeId) {
 		int wep = player.playerEquipment[player.playerWeapon];
 		switch (runeId) {
-		case 554:
-			if (wep == 1387 || wep == 1393 || wep == 3053) {
+		case 554: // Fire runes
+			if (wep == 1387 || wep == 1393 || wep == 1401 || wep == 3053 || wep == 3054) {
 				return true;
 			}
 			break;
-		case 555:
-			if (wep == 1383 || wep == 1395 || wep == 6562) {
+		case 555: // Water runes
+			if (wep == 1383 || wep == 1395 || wep == 1403 || wep == 6562 || wep == 6563) {
 				return true;
 			}
 			break;
-		case 556:
-			if (wep == 1381 || wep == 1397) {
+		case 556: // Air runes
+			if (wep == 1381 || wep == 1397 || wep == 1405) {
 				return true;
 			}
 			break;
-		case 557:
-			if (wep == 1385 || wep == 1399 || wep == 3053 || wep == 6562) {
+		case 557: // Earth runes
+			if (wep == 1385 || wep == 1399 || wep == 3053 || wep == 3054 || wep == 6562 || wep == 6563) {
 				return true;
 			}
 			break;
@@ -35,26 +35,15 @@ public class MagicRequirements {
 	}
 
 	public static boolean checkMagicReqs(Player c, int spell) {
+		int[] spellData = MagicData.MAGIC_SPELLS[spell];
 		if (c.usingMagic && MagicTeleports.RUNES_REQUIRED) { // check for runes
-			if (!c.getItemAssistant().playerHasItem(
-					MagicData.MAGIC_SPELLS[spell][8],
-					MagicData.MAGIC_SPELLS[spell][9])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][8])
-					|| !c.getItemAssistant().playerHasItem(
-							MagicData.MAGIC_SPELLS[spell][10],
-							MagicData.MAGIC_SPELLS[spell][11])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][10])
-					|| !c.getItemAssistant().playerHasItem(
-							MagicData.MAGIC_SPELLS[spell][12],
-							MagicData.MAGIC_SPELLS[spell][13])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][12])
-					|| !c.getItemAssistant().playerHasItem(
-							MagicData.MAGIC_SPELLS[spell][14],
-							MagicData.MAGIC_SPELLS[spell][15])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][14])) {
-				c.getPacketSender()
-						.sendMessage(
-								"You don't have the required runes to cast this spell.");
+			if (
+				!c.getItemAssistant().playerHasItem(spellData[8], spellData[9]) && !wearingStaff(c, spellData[8])
+				|| !c.getItemAssistant().playerHasItem(spellData[10], spellData[11]) && !wearingStaff(c, spellData[10])
+				|| !c.getItemAssistant().playerHasItem(spellData[12], spellData[13]) && !wearingStaff(c, spellData[12])
+				|| !c.getItemAssistant().playerHasItem(spellData[14], spellData[15]) && !wearingStaff(c, spellData[14])
+			) {
+				c.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return false;
 			}
 		}

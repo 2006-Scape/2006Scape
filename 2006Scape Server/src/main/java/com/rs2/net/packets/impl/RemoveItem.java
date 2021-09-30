@@ -101,6 +101,9 @@ public class RemoveItem implements PacketType {
 			player.getSmithing().readInput(player, player.playerLevel[GameConstants.SMITHING], removeId, 1);
 			break;
 
+		case 15948: // Mage Training Arena Shop
+			player.getMageTrainingArena().sendItemValue(removeId);
+			break;
 		}
 		Weight.updateWeight(player);
 	}

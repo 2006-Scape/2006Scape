@@ -1246,6 +1246,9 @@ public class ItemAssistant {
 		if (!playerHasItem(wearID, 1, slot)) {
 			return false;
 		}
+		if (slot < 0) {
+			return false;
+		}
 		boolean greegree = Greegree.attemptGreegree(player, wearID);
 		if (!greegree) {
 			return false;

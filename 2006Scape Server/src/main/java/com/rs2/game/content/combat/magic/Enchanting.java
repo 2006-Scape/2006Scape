@@ -97,11 +97,12 @@ public class Enchanting {
 	}
 
 	private enum EnchantSpell {
-
-		SAPPHIRE(1155, 555, 1, 564, 1, -1, 0), EMERALD(1165, 556, 3, 564, 1,
-				-1, 0), RUBY(1176, 554, 5, 564, 1, -1, 0), DIAMOND(1180, 557,
-				10, 564, 1, -1, 0), DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1), ONYX(
-				6003, 557, 20, 554, 20, 564, 1);
+		SAPPHIRE(1155, 555, 1, 564, 1, -1, 0), 
+		EMERALD(1165, 556, 3, 564, 1, -1, 0),
+		RUBY(1176, 554, 5, 564, 1, -1, 0),
+		DIAMOND(1180, 557, 10, 564, 1, -1, 0),
+		DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1),
+		ONYX(6003, 557, 20, 554, 20, 564, 1);
 
 		int spell, reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3,
 				reqAmtRune3;
@@ -195,36 +196,33 @@ public class Enchanting {
 		Enchant enc = Enchant.forId(itemID);
 		EnchantSpell ens = EnchantSpell.forId(spellID);
 		if (enc == null || ens == null) {
-
 			return;
 		}
-		if (c.playerLevel[GameConstants.MAGIC] >= enc.getLevelReq()) {
-			if (c.getItemAssistant().playerHasItem(enc.getUnenchanted(), 1)) {
-				if(CastRequirements.hasRunes(c, getRequiredRunes(ens))){
-					if (getEnchantmentLevel(spellID) == enc.getELevel()) {
-						c.getItemAssistant().deleteItem(enc.getUnenchanted(), 1);
-						c.getItemAssistant().addItem(enc.getEnchanted(), 1);
-						c.getPlayerAssistant().addSkillXP(enc.getXp(),
-								GameConstants.MAGIC);
-						CastRequirements.deleteRunes(c, getRequiredRunes(ens));
-						c.startAnimation(enc.getAnim());
-						c.gfx100(enc.getGFX());
-						c.getPacketSender().sendFrame106(6);
-					} else {
-						c.getPacketSender().sendMessage(
-								"You can only enchant this jewelery using a level-"
-										+ enc.getELevel()
-										+ " enchantment spell!");
-					}
-				} else {
-					c.getPacketSender().sendMessage(
-							"You do not have enough runes to cast this spell.");
-				}
-			}
-		} else {
+		if (c.playerLevel[GameConstants.MAGIC] < enc.getLevelReq()) {
 			c.getPacketSender().sendMessage(
-					"You need a magic level of at least " + enc.getLevelReq()
-							+ " to cast this spell.");
+				"You need a magic level of at least "
+				+ enc.getLevelReq() + " to cast this spell.");
+			return;
 		}
+		if (!c.getItemAssistant().playerHasItem(enc.getUnenchanted(), 1)) {
+			return;
+		}
+		if(!CastRequirements.hasRunes(c, getRequiredRunes(ens))){
+			c.getPacketSender().sendMessage("You do not have enough runes to cast this spell.");
+			return;
+		}
+		if (getEnchantmentLevel(spellID) != enc.getELevel()) {
+			c.getPacketSender().sendMessage(
+				"You can only enchant this jewelery using a level-"
+				+ enc.getELevel() + " enchantment spell!");
+			return;
+		}
+		// Everything is fine, Enchant the item
+		c.getItemAssistant().replaceItem(enc.getUnenchanted(), enc.getEnchanted());
+		c.getPlayerAssistant().addSkillXP(enc.getXp(), GameConstants.MAGIC);
+		CastRequirements.deleteRunes(c, getRequiredRunes(ens));
+		c.startAnimation(enc.getAnim());
+		c.gfx100(enc.getGFX());
+		c.getPacketSender().sendShowTab(6);
 	}
 }

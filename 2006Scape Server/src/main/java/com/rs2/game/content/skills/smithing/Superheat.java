@@ -63,7 +63,7 @@ public class Superheat {
 				if (itemID != 444) {
 					player.getPlayerAssistant().addSkillXP(smelt[7], GameConstants.SMITHING);
 				}
-				player.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendShowTab(6);
 				return true;
 			}
 		}
