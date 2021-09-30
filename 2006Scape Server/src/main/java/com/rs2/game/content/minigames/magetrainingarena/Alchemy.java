@@ -2,9 +2,6 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.util.Random;
 
-import com.rs2.event.CycleEvent;
-import com.rs2.event.CycleEventContainer;
-import com.rs2.event.CycleEventHandler;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.world.Boundary;
@@ -18,6 +15,9 @@ public class Alchemy {
 	}
 
     public void searchCupboard(int objectID) {
+        int index = (objectID - firstCupboard) / 2;
+        int item = Alchemy.items[(index + offset) % Alchemy.items.length];
+        player.getItemAssistant().addItem(item, 1);
     }
 
 	public void alchItem(int itemID, int spellID) {
@@ -64,6 +64,11 @@ public class Alchemy {
         if (!Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_ALCHEMY)) {
             return;
         }
+        int startInterface = 15902;
+        for (int i = 0; i < values.length; i++) {
+            player.getPacketSender().sendString("" + values[(i + valueOffset) % values.length], startInterface + i);
+        }
+        player.getPacketSender().sendString("" + player.alchemyPoints, 15896);
         player.getPacketSender().walkableInterface(15892);
     }
 }
