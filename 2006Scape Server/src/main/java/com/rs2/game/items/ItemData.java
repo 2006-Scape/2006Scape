@@ -363,6 +363,13 @@ public class ItemData {
 					case 776:
 						slot = ItemConstants.HANDS;
 						break;
+					case 6893:
+					case 6894:
+					case 6895:
+					case 6896:
+					case 6897:
+						slot = -1;
+						break;
 					default:
 						slot = c;
 				}
