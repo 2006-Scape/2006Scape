@@ -102,7 +102,7 @@ public class RemoveItem implements PacketType {
 			break;
 
 		case 15948: // Mage Training Arena Shop
-			player.getMageArena().sendItemValue(removeId);
+			player.getMageTrainingArena().sendItemValue(removeId);
 			break;
 		}
 		Weight.updateWeight(player);

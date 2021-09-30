@@ -3,7 +3,7 @@
  * the editor.
  */
 
-package com.rs2.game.content.minigames;
+package com.rs2.game.content.minigames.magetrainingarena;
 
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
@@ -11,12 +11,14 @@ import com.rs2.game.players.Player;
 /**
  * @author D
  */
-public class MageArena {
+public class MageTrainingArena {
 
 	private final Player player;
+	private Enchanting enchanting;
 
-	public MageArena(Player c) {
+	public MageTrainingArena(Player c) {
 		this.player = c;
+		this.enchanting = new Enchanting(c);
 	}
 
 	private final int[] shopItems = {
@@ -301,4 +303,7 @@ public class MageArena {
 		}
 	}
 
+	public void enchantItem(int itemID, int spellID) {
+		enchanting.enchantItem(itemID, spellID);
+	}
 }

@@ -227,6 +227,13 @@ public final class RSInterface {
 					}
 				}
 			}
+			if (rsInterface.id == 8885) {
+				System.out.println("=====================");
+				System.out.println(rsInterface.id);
+				System.out.println(rsInterface.parentID);
+				System.out.println(rsInterface.disabledText);
+				System.out.println(rsInterface.type);
+			}
 		}
 		aMRUNodes_238 = null;
 	}
