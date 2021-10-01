@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 public final class Client {
 
 	public static void main(String[] args) {
-		ClientSettings.SERVER_IP = "127.0.0.1";
+		ClientSettings.SERVER_IP = args.length > 0 ? args[0] : "127.0.0.1";
 		try {
 			Game game = new Game();
 			Game.nodeID = 10;
@@ -13,6 +13,8 @@ public final class Client {
 			Game.isMembers = true;
 			Signlink.storeid = 32;
 			Signlink.startpriv(InetAddress.getLocalHost());
+			game.myUsername = args.length > 1 ? args[1] : "";
+			game.myPassword = args.length > 2 ? args[2] : "";
 			game.createClientFrame(503, 765);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

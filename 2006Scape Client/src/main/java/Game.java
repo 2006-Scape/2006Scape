@@ -7274,6 +7274,9 @@ public class Game extends RSApplet {
 			Animable_Sub5.clientInstance = this;
 			ObjectDef.clientInstance = this;
 			EntityDef.clientInstance = this;
+			
+			if (myUsername != "" && myPassword != "")
+				login(myUsername, myPassword, false);
 			return;
 		} catch (Exception exception) {
 			Signlink.reporterror("loaderror " + aString1049 + " " + anInt1079);
