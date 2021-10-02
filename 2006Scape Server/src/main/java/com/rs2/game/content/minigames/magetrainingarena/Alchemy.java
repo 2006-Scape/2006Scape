@@ -72,7 +72,6 @@ public class Alchemy {
         int points = (int) Math.floor(coins / 100);
         int bonusExp = coins * 2;
         int toBank = points * 10;
-        player.getPacketSender().sendMessage("Coins: " + coins + ", Points: " + points + ", Banked: " + toBank + ", EXP: " + bonusExp);
         player.getItemAssistant().deleteItem(995, coins);
         player.alchemyPoints += points;
         player.getItemAssistant().addItemToBank(995, toBank);
