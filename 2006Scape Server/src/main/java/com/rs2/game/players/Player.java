@@ -822,6 +822,8 @@ public abstract class Player {
 			getPacketSender().showOption(3, 0, "Attack", 1);
 		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ALCHEMY)) {
 			getPacketSender().walkableInterface(15892);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
+			getPacketSender().walkableInterface(15917);
 		} else {
 			getPacketSender().sendMapState(0);
 			if (!isSnowy) {

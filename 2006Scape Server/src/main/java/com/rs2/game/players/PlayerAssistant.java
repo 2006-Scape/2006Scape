@@ -1233,6 +1233,7 @@ public class PlayerAssistant {
 		case 1180: // Lvl-4 enchant diamond
 		case 1187: // Lvl-5 enchant dragonstone
 		case 6003: // Lvl-6 enchant onyx
+			player.getPacketSender().sendShowTab(6);
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().enchantItem(itemId, spellId);
 			} else {

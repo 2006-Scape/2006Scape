@@ -16,42 +16,35 @@ public class Enchanting {
 
 	public enum Enchant {
 
-		SAPPHIRERING(1637, 2550, 7, 18, 719, 114, 1), SAPPHIREAMULET(1694,
-				1727, 7, 18, 719, 114, 1), SAPPHIRENECKLACE(1656, 3853, 7, 18,
-				719, 114, 1),
+		SAPPHIRERING(1637, 2550, 1),
+		SAPPHIREAMULET(1694, 1727, 1),
+		SAPPHIRENECKLACE(1656, 3853, 1),
 
-		EMERALDRING(1639, 2552, 27, 37, 719, 114, 2), EMERALDAMULET(1696, 1729,
-				27, 37, 719, 114, 2), EMERALDNECKLACE(1658, 5521, 27, 37, 719,
-				114, 2),
+		EMERALDRING(1639, 2552, 2),
+		EMERALDAMULET(1696, 1729, 2),
+		EMERALDNECKLACE(1658, 5521, 2),
 
-		RUBYRING(1641, 2568, 47, 59, 720, 115, 3), RUBYAMULET(1698, 1725, 47,
-				59, 720, 115, 3),
+		RUBYRING(1641, 2568, 3),
+		RUBYAMULET(1698, 1725, 3),
 		// RUBYNECKLACE(1660, 11194, 47, 59, 720, 115, 3),
 
-		DIAMONDRING(1643, 2570, 57, 67, 720, 115, 4), DIAMONDAMULET(1700, 1731,
-				57, 67, 720, 115, 4),
+		DIAMONDRING(1643, 2570, 4),
+		DIAMONDAMULET(1700, 1731, 4),
 		// DIAMONDNECKLACE(1662, 11090, 57, 67, 720, 115, 4),
 
-		DRAGONSTONERING(1645, 2572, 68, 78, 721, 116, 5), 
-		DRAGONSTONEAMULET(1702, 1704, 68, 78, 721, 116, 5),
+		DRAGONSTONERING(1645, 2572, 5), 
+		DRAGONSTONEAMULET(1702, 1704, 5),
 		// DRAGONSTONENECKLACE(1664, 11105, 68, 78, 721, 116, 5),
 
-		ONYXRING(6575, 6583, 87, 97, 721, 452, 6), ONYXAMULET(6581, 6585, 87,
-				97, 721, 452, 6);
-
+		ONYXRING(6575, 6583, 6),
+		ONYXAMULET(6581, 6585, 6);
 		// ONYXNECKLACE(6577, 11128, 87, 97, 721, 452, 6)
 
-		int unenchanted, enchanted, levelReq, xpGiven, anim, gfx,
-				reqEnchantmentLevel;
+		int unenchanted, enchanted, reqEnchantmentLevel;
 
-		private Enchant(int unenchanted, int enchanted, int levelReq,
-				int xpGiven, int anim, int gfx, int reqEnchantmentLevel) {
+		private Enchant(int unenchanted, int enchanted, int reqEnchantmentLevel) {
 			this.unenchanted = unenchanted;
 			this.enchanted = enchanted;
-			this.levelReq = levelReq;
-			this.xpGiven = xpGiven;
-			this.anim = anim;
-			this.gfx = gfx;
 			this.reqEnchantmentLevel = reqEnchantmentLevel;
 		}
 
@@ -61,22 +54,6 @@ public class Enchanting {
 
 		public int getEnchanted() {
 			return enchanted;
-		}
-
-		public int getLevelReq() {
-			return levelReq;
-		}
-
-		public int getXp() {
-			return xpGiven;
-		}
-
-		public int getAnim() {
-			return anim;
-		}
-
-		public int getGFX() {
-			return gfx;
 		}
 
 		public int getELevel() {
@@ -96,20 +73,34 @@ public class Enchanting {
 		}
 	}
 
-	private enum EnchantSpell {
-		SAPPHIRE(1155, 555, 1, 564, 1, -1, 0), 
-		EMERALD(1165, 556, 3, 564, 1, -1, 0),
-		RUBY(1176, 554, 5, 564, 1, -1, 0),
-		DIAMOND(1180, 557, 10, 564, 1, -1, 0),
-		DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1),
-		ONYX(6003, 557, 20, 554, 20, 564, 1);
+	public static enum EnchantSpell {
+		SAPPHIRE(1155, 7, 18, 719, 114, 1,
+			555, 1, 564, 1, -1, 0), 
+		EMERALD(1165, 27, 37, 719, 114, 2,
+			556, 3, 564, 1, -1, 0),
+		RUBY(1176, 47, 59, 720, 115, 3,
+			554, 5, 564, 1, -1, 0),
+		DIAMOND(1180, 57, 67, 720, 115, 4,
+			557, 10, 564, 1, -1, 0),
+		DRAGONSTONE(1187, 68, 78, 721, 116, 5,
+			555, 15, 557, 15, 564, 1),
+		ONYX(6003, 87, 97, 721, 452, 6,
+			557, 20, 554, 20, 564, 1);
 
-		int spell, reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3,
-				reqAmtRune3;
+		int spell, levelReq, xp, anim, gfx, enchantmentLevel;
+		int reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3, reqAmtRune3;
 
-		private EnchantSpell(int spell, int reqRune1, int reqAmtRune1,
-							 int reqRune2, int reqAmtRune2, int reqRune3, int reqAmtRune3) {
+		private EnchantSpell(int spell, int levelReq, int xp, int anim, int gfx, int enchantmentLevel,
+			int reqRune1, int reqAmtRune1,
+			int reqRune2, int reqAmtRune2,
+			int reqRune3, int reqAmtRune3
+		) {
 			this.spell = spell;
+			this.levelReq = levelReq;
+			this.xp = xp;
+			this.anim = anim;
+			this.gfx = gfx;
+			this.enchantmentLevel = enchantmentLevel;
 			this.reqRune1 = reqRune1;
 			this.reqAmtRune1 = reqAmtRune1;
 			this.reqRune2 = reqRune2;
@@ -120,6 +111,26 @@ public class Enchanting {
 
 		public int getSpell() {
 			return spell;
+		}
+
+		public int getLevelReq() {
+			return levelReq;
+		}
+
+		public int getXp() {
+			return xp;
+		}
+
+		public int getAnim() {
+			return anim;
+		}
+
+		public int getGFX() {
+			return gfx;
+		}
+
+		public int getELevel() {
+			return enchantmentLevel;
 		}
 
 		public int getReq1() {
@@ -177,7 +188,7 @@ public class Enchanting {
 		return 0;
 	}
 
-	private int[][] getRequiredRunes(EnchantSpell ens){
+	public int[][] getRequiredRunes(EnchantSpell ens){
 		if (ens.getReq3() > 0) {
 			return new int[][] {
 					{ens.getReq1(),ens.getReqAmt1()},
@@ -198,10 +209,10 @@ public class Enchanting {
 		if (enc == null || ens == null) {
 			return;
 		}
-		if (c.playerLevel[GameConstants.MAGIC] < enc.getLevelReq()) {
+		if (c.playerLevel[GameConstants.MAGIC] < ens.getLevelReq()) {
 			c.getPacketSender().sendMessage(
 				"You need a magic level of at least "
-				+ enc.getLevelReq() + " to cast this spell.");
+				+ ens.getLevelReq() + " to cast this spell.");
 			return;
 		}
 		if (!c.getItemAssistant().playerHasItem(enc.getUnenchanted(), 1)) {
@@ -219,10 +230,10 @@ public class Enchanting {
 		}
 		// Everything is fine, Enchant the item
 		c.getItemAssistant().replaceItem(enc.getUnenchanted(), enc.getEnchanted());
-		c.getPlayerAssistant().addSkillXP(enc.getXp(), GameConstants.MAGIC);
+		c.getPlayerAssistant().addSkillXP(ens.getXp(), GameConstants.MAGIC);
 		CastRequirements.deleteRunes(c, getRequiredRunes(ens));
-		c.startAnimation(enc.getAnim());
-		c.gfx100(enc.getGFX());
+		c.startAnimation(ens.getAnim());
+		c.gfx100(ens.getGFX());
 		c.getPacketSender().sendShowTab(6);
 	}
 }
