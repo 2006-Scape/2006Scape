@@ -52,7 +52,7 @@ public class GameConstants {
 	
 	public final static int CASTLE_WARS_Y = 3087;
 	
-	public static double XP_RATE = 10;
+	public static double XP_RATE = 1;
 	
 	public final static int SAVE_TIMER = 120; // save every x seconds
 	
