@@ -30,7 +30,9 @@ public class ArrowMaking {
 				49, 7.5), ADAMANT_BRUTAL_ARROW(4823, 53, 4798, 62, 10.1), RUNE_BRUTAL_ARROW(
 				4824, 53, 4803, 77, 12.5),
 
-		PEARL_BOLT(46, 877, 880, 41, 3.2);
+		OPAL_BOLT(45, 877, 879, 11, 1.6),
+		PEARL_BOLT(46, 877, 880, 41, 3.2),
+		BARBED_BOLT(47, 877, 881, 51, 4.5);
 
 		public int item1, item2, product, level;
 		public double xp;
