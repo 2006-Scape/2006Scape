@@ -1175,11 +1175,11 @@ public class PlayerAssistant {
 			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
 				return;
 			}
-			if (!player.getCombatAssistant().checkMagicReqs(49)) {
-				return;
-			}
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(49)) {
 				return;
 			}
 			canAlch = true;
@@ -1233,6 +1233,7 @@ public class PlayerAssistant {
 		case 1180: // Lvl-4 enchant diamond
 		case 1187: // Lvl-5 enchant dragonstone
 		case 6003: // Lvl-6 enchant onyx
+			player.getPacketSender().sendShowTab(6);
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().enchantItem(itemId, spellId);
 			} else {
@@ -1249,12 +1250,12 @@ public class PlayerAssistant {
 			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
 				return;
 			}
-			if (!player.getCombatAssistant().checkMagicReqs(50)) {
-				break;
-			}
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().alchItem(itemId, spellId);
 				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(50)) {
+				break;
 			}
 			canAlch = true;
 			for (int i : ItemConstants.ITEM_UNALCHABLE) {

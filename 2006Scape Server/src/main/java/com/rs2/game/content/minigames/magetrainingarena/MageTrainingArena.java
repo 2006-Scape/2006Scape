@@ -14,6 +14,7 @@ import com.rs2.game.players.Player;
 public class MageTrainingArena {
 	public static void process() {
 		Alchemy.process();
+		Enchanting.process();
 	}
 
 	private final Player player;

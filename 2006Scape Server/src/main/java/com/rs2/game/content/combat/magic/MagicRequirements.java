@@ -35,8 +35,12 @@ public class MagicRequirements {
 	}
 
 	public static boolean checkMagicReqs(Player c, int spell) {
+		return checkMagicReqs(c, spell, true);
+	}
+
+	public static boolean checkMagicReqs(Player c, int spell, boolean runesRequired) {
 		int[] spellData = MagicData.MAGIC_SPELLS[spell];
-		if (c.usingMagic && MagicTeleports.RUNES_REQUIRED) { // check for runes
+		if (c.usingMagic && runesRequired) { // check for runes
 			if (
 				!c.getItemAssistant().playerHasItem(spellData[8], spellData[9]) && !wearingStaff(c, spellData[8])
 				|| !c.getItemAssistant().playerHasItem(spellData[10], spellData[11]) && !wearingStaff(c, spellData[10])
@@ -77,7 +81,7 @@ public class MagicRequirements {
 		}
 
 		int staffRequired = getStaffNeeded(c);
-		if (c.usingMagic && staffRequired > 0 && MagicTeleports.RUNES_REQUIRED) { // staff
+		if (c.usingMagic && staffRequired > 0 && runesRequired) { // staff
 																			// required
 			if (c.playerEquipment[c.playerWeapon] != staffRequired) {
 				c.getPacketSender()
@@ -90,7 +94,7 @@ public class MagicRequirements {
 			}
 		}
 
-		if (c.usingMagic && MagicTeleports.MAGIC_LEVEL_REQUIRED) { // check magic level
+		if (c.usingMagic) { // check magic level
 			if (c.playerLevel[GameConstants.MAGIC] < MagicData.MAGIC_SPELLS[spell][1]) {
 				c.getPacketSender().sendMessage(
 						"You need to have a magic level of "
@@ -99,7 +103,7 @@ public class MagicRequirements {
 				return false;
 			}
 		}
-		if (c.usingMagic && MagicTeleports.RUNES_REQUIRED) {
+		if (c.usingMagic && runesRequired) {
 			if (MagicData.MAGIC_SPELLS[spell][8] > 0) { // deleting runes
 				if (!wearingStaff(c, MagicData.MAGIC_SPELLS[spell][8])) {
 					c.getItemAssistant().deleteItem(

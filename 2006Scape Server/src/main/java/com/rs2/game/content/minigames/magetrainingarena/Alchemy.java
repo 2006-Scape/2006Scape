@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.rs2.GameConstants;
 import com.rs2.game.content.combat.magic.MagicData;
+import com.rs2.game.content.combat.magic.MagicRequirements;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
@@ -43,6 +44,10 @@ public class Alchemy {
 			player.getPacketSender().sendMessage("You cannot alch that item while here.");
             return;
         }
+        // Check player has requirements for this spell
+        if (!MagicRequirements.checkMagicReqs(player, spellID == 1162 ? 49 : 50, index != freeAlch)) {
+            return;
+        }
         int value = values[(index + valueOffset) % values.length];
         player.getItemAssistant().deleteItem(itemID, 1);
         player.getItemAssistant().addItem(995, value);
@@ -55,7 +60,6 @@ public class Alchemy {
         } else if (spellID == 1178) {
             player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
             player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
-            player.alchDelay = System.currentTimeMillis();
             player.getPlayerAssistant().addSkillXP(65, 6);
             player.getPacketSender().sendSound(SoundList.HIGH_ALCHEMY, 100, 0);
         }
@@ -72,7 +76,6 @@ public class Alchemy {
         int points = (int) Math.floor(coins / 100);
         int bonusExp = coins * 2;
         int toBank = points * 10;
-        player.getPacketSender().sendMessage("Coins: " + coins + ", Points: " + points + ", Banked: " + toBank + ", EXP: " + bonusExp);
         player.getItemAssistant().deleteItem(995, coins);
         player.alchemyPoints += points;
         player.getItemAssistant().addItemToBank(995, toBank);
@@ -98,6 +101,7 @@ public class Alchemy {
     public static int ticks = 0;
     public static int offset = 0;
     public static int valueOffset = 0;
+    public static int freeAlch = 0;
     public static int firstCupboard = 10783;
     private static Random random = new Random();
 
@@ -115,22 +119,23 @@ public class Alchemy {
             }
             updateInterface(p);
         }
-        if (++ticks < 71) {
-            return;
-        }
-        ticks = 0;
-        offset = random.nextInt(items.length);
-        valueOffset = random.nextInt(values.length);
-		for (int i = 0; i < NpcHandler.MAX_NPCS; i ++) {
-			if (NpcHandler.npcs[i] != null && NpcHandler.npcs[i].npcType == 3099) {
-                NpcHandler.npcs[i].forceChat("Items are changing!");
+        // Every 71 ticks, randomize the order and such
+        if (++ticks % 71 == 0) {
+            offset = random.nextInt(items.length);
+            valueOffset = random.nextInt(values.length);
+            // 1 in 4 chance of an item being free to alch
+            freeAlch = random.nextInt(values.length * 4);
+            for (int i = 0; i < NpcHandler.MAX_NPCS; i ++) {
+                if (NpcHandler.npcs[i] != null && NpcHandler.npcs[i].npcType == 3099) {
+                    NpcHandler.npcs[i].forceChat("Items are changing!");
+                }
             }
-		}
-        for (Player p : PlayerHandler.players) {
-            if (p == null) {
-                continue;
+            for (Player p : PlayerHandler.players) {
+                if (p == null) {
+                    continue;
+                }
+                updateInterface(p);
             }
-            updateInterface(p);
         }
 	}
 
@@ -141,6 +146,8 @@ public class Alchemy {
         int startInterface = 15902;
         for (int i = 0; i < values.length; i++) {
             player.getPacketSender().sendString("" + values[(i + valueOffset) % values.length], startInterface + i);
+            // Hide the arrow if that item isn't free to alch
+            player.getPacketSender().sendHideInterfaceLayer(15907 + i, freeAlch != i);
         }
         player.getPacketSender().sendString("" + player.alchemyPoints, 15896);
         player.getPacketSender().walkableInterface(15892);

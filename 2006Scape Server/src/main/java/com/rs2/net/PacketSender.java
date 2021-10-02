@@ -393,12 +393,12 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame171(int MainFrame, int SubFrame) { //Special attack bar?
+	public PacketSender sendHideInterfaceLayer(int MainFrame, boolean hidden) { //Special attack bar?
 		// synchronized(c) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(171);
-			player.getOutStream().writeByte(MainFrame);
-			player.getOutStream().writeWord(SubFrame);
+			player.getOutStream().writeByte(hidden ? 1 : 0);
+			player.getOutStream().writeWord(MainFrame);
 			player.flushOutStream();
 		}
 		return this;
