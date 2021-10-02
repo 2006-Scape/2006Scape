@@ -1175,11 +1175,11 @@ public class PlayerAssistant {
 			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
 				return;
 			}
-			if (!player.getCombatAssistant().checkMagicReqs(49)) {
-				return;
-			}
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(49)) {
 				return;
 			}
 			canAlch = true;
@@ -1249,12 +1249,12 @@ public class PlayerAssistant {
 			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
 				return;
 			}
-			if (!player.getCombatAssistant().checkMagicReqs(50)) {
-				break;
-			}
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().alchItem(itemId, spellId);
 				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(50)) {
+				break;
 			}
 			canAlch = true;
 			for (int i : ItemConstants.ITEM_UNALCHABLE) {
