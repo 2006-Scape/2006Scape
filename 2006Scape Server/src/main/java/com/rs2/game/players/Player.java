@@ -2159,6 +2159,10 @@ public abstract class Player {
 				// remove any alchemy training items
 				getMageTrainingArena().alchemy.clearItems();
 			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
+				// remove any alchemy training items
+				getMageTrainingArena().enchanting.clearItems();
+			}
 			currentX = teleportToX - 8 * mapRegionX;
 			currentY = teleportToY - 8 * mapRegionY;
 			absX = teleportToX;

@@ -74,6 +74,14 @@ public class Enchanting {
         player.getPacketSender().sendMessage((20 - orbsDeposited) + " more Orbs until your next reward.");
 	}
 
+    public void clearItems() {
+        for (int item: items) {
+            player.getItemAssistant().deleteItem(item, Integer.MAX_VALUE);
+        }
+        player.getItemAssistant().deleteItem(6902, Integer.MAX_VALUE);
+        player.getItemAssistant().deleteItem(6903, Integer.MAX_VALUE);
+    }
+
     /* ITEMS */
     // 6898 - Green Cylinder
     // 6899 - Yellow Cube
