@@ -15,6 +15,7 @@ import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
 import com.rs2.world.Boundary;
 import com.rs2.world.GlobalDropsHandler;
+import com.rs2.world.clip.PathFinder;
 
 /**
  * Pickup Item
@@ -30,6 +31,10 @@ public class PickupItem implements PacketType {
 		// Cannot pickup the telekinetic guardian statue
 		if (player.pItemId == 6888) {
 			// TODO: Move camera to observe the current maze
+			return;
+		}
+		if (!PathFinder.getPathFinder().accessible(player.getX(), player.getY(), player.heightLevel, player.pItemX, player.pItemY)) {
+			player.getPacketSender().sendMessage("You can't reach this item.");
 			return;
 		}
 		if (player.getItemAssistant().freeSlots(player.pItemId, 1) <= 0) {

@@ -10,6 +10,7 @@ import com.rs2.game.items.ItemData;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.GlobalDropsHandler;
+import com.rs2.world.clip.PathFinder;
 
 /**
  * Magic on floor items
@@ -36,6 +37,10 @@ public class MagicOnFloorItems implements PacketType {
 			return;
 		}
 		if (!player.goodDistance(player.getX(), player.getY(), itemX, itemY, 12)) {
+			return;
+		}
+		if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, itemX, itemY)) {
+			player.getPacketSender().sendMessage("You can't see this item.");
 			return;
 		}
 
