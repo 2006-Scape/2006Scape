@@ -13,6 +13,11 @@ public class ItemClick2OnGroundItem implements PacketType {
 		final int itemY = player.getInStream().readSignedWordBigEndianA();
 		final int itemId = player.getInStream().readUnsignedWordA();
 		System.out.println("ItemClick2OnGroundItem - " + player.playerName + " - " + itemId + " - " + itemX + " - " + itemY);
+		// Reset position for the telekinetic guardian statue
+		if (itemId == 6888) {
+			// TODO: Reset the statue back to the default position
+			return;
+		}
 		if (player.absX != itemX || player.absY != itemY) {
 			player.getPacketSender().sendMessage("You can't do that there!");
 			return;
