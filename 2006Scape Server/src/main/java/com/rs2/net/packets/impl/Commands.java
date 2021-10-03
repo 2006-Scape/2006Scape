@@ -800,6 +800,13 @@ public class Commands implements PacketType {
                 if (arguments.length < 5) {
                     return;
                 }
+                player.getPlayerAssistant().sendCameraCutscene(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]), Integer.parseInt(arguments[3]), Integer.parseInt(arguments[4])); //Test numbers
+                break;
+            case "ccs2":
+            case "cameracutscene2":
+                if (arguments.length < 5) {
+                    return;
+                }
                 player.getPlayerAssistant().sendCameraCutscene2(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]), Integer.parseInt(arguments[3]), Integer.parseInt(arguments[4])); //Test numbers
                 break;
             case "camerashake":
