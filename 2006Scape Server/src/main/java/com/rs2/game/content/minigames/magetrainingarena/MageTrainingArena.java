@@ -15,16 +15,19 @@ public class MageTrainingArena {
 	public static void process() {
 		Alchemy.process();
 		Enchanting.process();
+		Telekinetic.process();
 	}
 
-	private final Player player;
-	public final Enchanting enchanting;
-	public final Alchemy alchemy;
+	private Player player;
+	public Enchanting enchanting;
+	public Alchemy alchemy;
+	public Telekinetic telekinetic;
 
 	public MageTrainingArena(Player c) {
 		this.player = c;
 		this.enchanting = new Enchanting(c);
 		this.alchemy = new Alchemy(c);
+		this.telekinetic = new Telekinetic(c);
 	}
 
 	private final int[] shopItems = {
