@@ -34,11 +34,7 @@ public class MagicOnFloorItems implements PacketType {
 			return;
 		}
 
-		if ((player.getItemAssistant().freeSlots() >= 1 || player.getItemAssistant()
-				.playerHasItem(itemId, 1))
-				&& ItemData.itemStackable[itemId]
-				|| player.getItemAssistant().freeSlots() > 0
-				&& !ItemData.itemStackable[itemId]) {
+		if (player.getItemAssistant().freeSlots(itemId, 1) >= 1) {
 			if (player.goodDistance(player.getX(), player.getY(), itemX, itemY, 12)) {
 				player.walkingToItem = true;
 				int offY = (player.getX() - itemX) * -1;
