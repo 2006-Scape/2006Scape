@@ -2302,8 +2302,25 @@ public class PlayerAssistant {
 	 */
 	public void sendCameraCutscene(int x, int y, int height, int speed, int angle) {
 		player.getOutStream().createFrame(177);
-		player.getOutStream().writeByte(x / 64); //
-		player.getOutStream().writeByte(y / 64); //
+		player.getOutStream().writeByte(x); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeByte(y); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeWord(height); //
+		player.getOutStream().writeByte(speed); //
+		player.getOutStream().writeByte(angle);
+	}
+
+	/**
+	 * anchors the camera to a specific view (for cutscenes)
+	 * @param x  The X Coordinate (Within the player's loaded area)
+	 * @param y The Y Coordinate (Within the player's loaded area)
+	 * @param height The Height of Camera (not relative to the game world height)
+	 * @param speed The Camera Speed (Speed at which the camera turns to where it should point?)
+	 * @param angle The Camera Angle
+	 */
+	public void sendCameraCutscene2(int x, int y, int height, int speed, int angle) {
+		player.getOutStream().createFrame(166);
+		player.getOutStream().writeByte(x); //
+		player.getOutStream().writeByte(y); //
 		player.getOutStream().writeWord(height); //
 		player.getOutStream().writeByte(speed); //
 		player.getOutStream().writeByte(angle);
