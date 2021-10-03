@@ -21,10 +21,10 @@ public class Boundary {
 	 * 
 	 * @param minX
 	 *            The south-west x coordinate
-	 * @param minY
-	 *            The south-west y coordinate
 	 * @param highX
 	 *            The north-east x coordinate
+	 * @param minY
+	 *            The south-west y coordinate
 	 * @param highY
 	 *            The north-east y coordinate
 	 */
@@ -40,10 +40,10 @@ public class Boundary {
 	 * 
 	 * @param minX
 	 *            The south-west x coordinate
-	 * @param minY
-	 *            The south-west y coordinate
 	 * @param highX
 	 *            The north-east x coordinate
+	 * @param minY
+	 *            The south-west y coordinate
 	 * @param highY
 	 *            The north-east y coordinate
 	 * @param height
@@ -301,6 +301,8 @@ public class Boundary {
 			   new Boundary(3087, 3094, 3251, 3255), new Boundary(3121, 3130, 3240, 3246), new Boundary(3102, 3112, 3162, 3165), new Boundary(3107, 3111, 3166, 3166), new Boundary(3103, 3115, 3157, 3161),
 			   new Boundary(3105, 3114, 3156, 3156), new Boundary(3105, 3113, 3155, 3155), new Boundary(3106, 3112, 3154, 3154), new Boundary(3092, 3097, 3240, 3246) };
 	
+	public static final Boundary VARROCK_BANK_BASEMENT = new Boundary(3186, 3197, 9817, 9824, 0);
+	public static final Boundary MAGE_TOWER_CAGE = new Boundary(3108, 3112, 3156, 3158, 2);
 	public static final Boundary ARDOUGNE_ZOO = new Boundary(2593, 2639, 3265, 3288);
 	public static final Boundary APE_ATOLL = new Boundary(2694, 2811, 2691, 2805);
 	public static final Boundary BARROWS = new Boundary(3543, 3584, 3265, 3311);

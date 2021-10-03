@@ -13,6 +13,7 @@ import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
+import com.rs2.world.Boundary;
 import com.rs2.world.GlobalDropsHandler;
 
 /**
@@ -31,13 +32,9 @@ public class PickupItem implements PacketType {
 			// TODO: Move camera to observe the current maze
 			return;
 		}
-		if (player.getItemAssistant().freeSlots() < 1)
-		{
-			if (!(player.getItemAssistant().playerHasItem(player.pItemId) && player.getItemAssistant().isStackable(player.pItemId)))
-			{
-				player.getPacketSender().sendMessage("Not enough space in your inventory.");
-				return;
-			}
+		if (player.getItemAssistant().freeSlots(player.pItemId, 1) <= 0) {
+			player.getPacketSender().sendMessage("Not enough space in your inventory.");
+			return;
 		}
 		if (Math.abs(player.getX() - player.pItemX) > 25 || Math.abs(player.getY() - player.pItemY) > 25) {
 			player.resetWalkingQueue();
@@ -58,7 +55,8 @@ public class PickupItem implements PacketType {
 		if (!RareProtection.removeItemOtherActions(player, player.pItemId)) {
 			return;
 		}
-		if (player.pItemY > 9817 && player.pItemY < 9825 && player.pItemX > 3186 && player.pItemX < 3197 || player.pItemX > 3107 && player.pItemX < 3113 && player.pItemY > 3155 && player.pItemY < 3159 && player.heightLevel == 2) {
+		if (Boundary.isIn(player.pItemX, player.pItemY, player.heightLevel, Boundary.VARROCK_BANK_BASEMENT)
+			|| Boundary.isIn(player.pItemX, player.pItemY, player.heightLevel, Boundary.MAGE_TOWER_CAGE)) {
 			player.getPacketSender().sendMessage("You can't pick up these items!");
 			return;
 		}
@@ -76,35 +74,30 @@ public class PickupItem implements PacketType {
 		}
 		SkillHandler.resetSkills(player);
 		player.getCombatAssistant().resetPlayerAttack();
-			player.walkingToItem = true;
-			player.soundDone = false;
-			   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
-		            @Override
-		            public void execute(CycleEventContainer container) {
-					if (!player.walkingToItem) {
-						container.stop();
-					}
-					if ((player.getX() == player.pItemX && player.getY() == player.pItemY
-							|| player.getX() - 1 == player.pItemX && player.getY() == player.pItemY
-							|| player.getY() - 1 == player.pItemY && player.getX() == player.pItemX
-							|| player.getX() + 1 == player.pItemX && player.getY() == player.pItemY
-							|| player.getY() + 1 == player.pItemY && player.getX() == player.pItemX
-						||player.getX() == player.pItemX && player.getY() == player.pItemY) && player.walkingToItem) {
-						container.stop();
-					}
+		player.walkingToItem = true;
+		player.soundDone = false;
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				if (!player.walkingToItem) {
+					container.stop();
 				}
+				if (player.goodDistance(player.getX(), player.getY(), player.pItemX, player.pItemY, 1) && player.walkingToItem) {
+					container.stop();
+				}
+			}
 
-					@Override
-					public void stop() {
-						player.walkingToItem = false;
-						GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX, player.pItemY, true);
-						GlobalDropsHandler.pickup(player, player.pItemId, player.pItemX, player.pItemY);
-						if (!player.soundDone)
-						{
-							player.soundDone = true;
-							player.getPacketSender().sendSound(SoundList.ITEM_PICKUP, 100, 0);
-						}
-					}
-				}, 1);
+			@Override
+			public void stop() {
+				player.walkingToItem = false;
+				GameEngine.itemHandler.removeGroundItem(player, player.pItemId, player.pItemX, player.pItemY, true);
+				GlobalDropsHandler.pickup(player, player.pItemId, player.pItemX, player.pItemY);
+				if (!player.soundDone)
+				{
+					player.soundDone = true;
+					player.getPacketSender().sendSound(SoundList.ITEM_PICKUP, 100, 0);
+				}
+			}
+		}, 1);
 	}
 }
