@@ -12599,6 +12599,11 @@ public class Game extends RSApplet {
 				if (zoom < (WorldController.drawDistance / 3))
 					zoom++;
 				break;
+			case KeyEvent.VK_V:
+				if (keyevent.isControlDown()) {
+					inputString += getClipBoard();
+					inputTaken = true;
+				}
 
 		}
 	}
@@ -12781,5 +12786,18 @@ public class Game extends RSApplet {
 					zoom++;
 			}
 		}
+	}
+
+	public String getClipBoard(){
+		try {
+			return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+		} catch (HeadlessException e) {
+			e.printStackTrace();            
+		} catch (UnsupportedFlavorException e) {
+			e.printStackTrace();            
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 }
