@@ -41,24 +41,7 @@ public class MagicOnFloorItems implements PacketType {
 		}
 
 		if (itemId == 6888 && player.goodDistance(player.getX(), player.getY(), itemX, itemY, 20)) {
-			System.out.println("test");
-			int offY = (player.getX() - itemX) * -1;
-			int offX = (player.getY() - itemY) * -1;
-			player.teleGrabX = itemX;
-			player.teleGrabY = itemY;
-			player.teleGrabItem = itemId;
-			player.turnPlayerTo(itemX, itemY);
-			player.teleGrabDelay = System.currentTimeMillis();
-			player.startAnimation(MagicData.MAGIC_SPELLS[51][2]);
-			player.gfx100(MagicData.MAGIC_SPELLS[51][3]);
-			player.getPlayerAssistant().createPlayersStillGfx(144, itemX, itemY, 0,
-					72);
-			player.getPlayerAssistant().createPlayersProjectile(player.getX(), player.getY(),
-					offX, offY, 50, 70, MagicData.MAGIC_SPELLS[51][4], 50, 10,
-					0, 50);
-			player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], 6);
-			player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
-			player.stopMovement();
+			player.getMageTrainingArena().telekinetic.moveStatue(itemX, itemY);
 			return;
 		}
 		
