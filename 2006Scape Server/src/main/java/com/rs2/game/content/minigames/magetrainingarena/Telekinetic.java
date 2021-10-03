@@ -46,9 +46,8 @@ public class Telekinetic {
             }
             updateInterface(p);
         }
-        
-        spawnStatue();
 	}
+
 
     public static void updateInterface(Player player) {
         if (!Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
