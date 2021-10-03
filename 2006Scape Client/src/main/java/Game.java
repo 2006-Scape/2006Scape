@@ -6,6 +6,7 @@
 import javax.swing.*;
 import java.applet.AppletContext;
 import java.awt.*;
+import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.ByteArrayInputStream;
