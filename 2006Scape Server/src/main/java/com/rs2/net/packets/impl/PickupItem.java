@@ -26,6 +26,11 @@ public class PickupItem implements PacketType {
 		player.pItemY = player.getInStream().readSignedWordBigEndian();
 		player.pItemId = player.getInStream().readUnsignedWord();
 		player.pItemX = player.getInStream().readSignedWordBigEndian();
+		// Cannot pickup the telekinetic guardian statue
+		if (player.pItemId == 6888) {
+			// TODO: Move camera to observe the current maze
+			return;
+		}
 		if (player.getItemAssistant().freeSlots() < 1)
 		{
 			if (!(player.getItemAssistant().playerHasItem(player.pItemId) && player.getItemAssistant().isStackable(player.pItemId)))
