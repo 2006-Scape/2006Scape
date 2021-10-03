@@ -12603,6 +12603,9 @@ public class Game extends RSApplet {
 			case KeyEvent.VK_V:
 				if (keyevent.isControlDown()) {
 					inputString += getClipBoard();
+					if (inputString.length() > 80) {
+						inputString = inputString.substring(0, 80);
+					}
 					inputTaken = true;
 				}
 
@@ -12790,8 +12793,9 @@ public class Game extends RSApplet {
 	}
 
 	public String getClipBoard(){
+		String myString = "";
 		try {
-			return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+			myString = (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
 		} catch (HeadlessException e) {
 			e.printStackTrace();            
 		} catch (UnsupportedFlavorException e) {
@@ -12799,6 +12803,15 @@ public class Game extends RSApplet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "";
+
+		String output = "";
+		for(int i = 0; i < myString.length(); i++) {
+			int j = (int) myString.charAt(i);
+			if (j >= 32 && j <= 122) {
+				output += (char) j;
+			}
+		}
+
+		return output;
 	}
 }
