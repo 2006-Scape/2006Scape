@@ -81,6 +81,9 @@ public class ItemHandler {
                 return true;
             }
         }
+        if (GlobalDropsHandler.itemExists(itemId, itemX, itemY, true)) {
+            return true;
+        }
         return false;
     }
 
