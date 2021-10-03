@@ -33,10 +33,11 @@ public class PickupItem implements PacketType {
 			// TODO: Move camera to observe the current maze
 			return;
 		}
-		if (!PathFinder.getPathFinder().accessible(player.getX(), player.getY(), player.heightLevel, player.pItemX, player.pItemY)) {
-			player.getPacketSender().sendMessage("You can't reach this item.");
-			return;
-		}
+		// Disabled for now, doesn't detect open doors etc
+		// if (!PathFinder.getPathFinder().accessible(player.getX(), player.getY(), player.heightLevel, player.pItemX, player.pItemY)) {
+		// 	player.getPacketSender().sendMessage("You can't reach this item.");
+		// 	return;
+		// }
 		if (player.getItemAssistant().freeSlots(player.pItemId, 1) <= 0) {
 			player.getPacketSender().sendMessage("Not enough space in your inventory.");
 			return;
