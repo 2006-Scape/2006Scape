@@ -13,7 +13,7 @@ import com.rs2.world.Boundary;
 
 public class Alchemy {
 
-	private final Player player;
+	private Player player;
 
 	public Alchemy(Player c) {
 		this.player = c;
