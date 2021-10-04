@@ -58,11 +58,7 @@ public class ItemHandler {
 
     public int itemAmount(String name, int itemId, int itemX, int itemY) {
         for (GroundItem i : items) {
-            if (i.hideTicks >= 1 && i.getName().equalsIgnoreCase(name)) {
-                if (i.getItemId() == itemId && i.getItemX() == itemX && i.getItemY() == itemY) {
-                    return i.getItemAmount();
-                }
-            } else if (i.hideTicks < 1) {
+            if (i.getName().equalsIgnoreCase(name)) {
                 if (i.getItemId() == itemId && i.getItemX() == itemX && i.getItemY() == itemY) {
                     return i.getItemAmount();
                 }
@@ -76,8 +72,7 @@ public class ItemHandler {
      **/
     public boolean itemExists(int itemId, int itemX, int itemY) {
         for (GroundItem i : items) {
-            if (i.getItemId() == itemId && i.getItemX() == itemX
-                    && i.getItemY() == itemY) {
+            if (i.getItemId() == itemId && i.getItemX() == itemX && i.getItemY() == itemY) {
                 return true;
             }
         }
@@ -87,17 +82,32 @@ public class ItemHandler {
         return false;
     }
 
+    public void moveItem(GroundItem item, int itemX, int itemY) {
+        if (items.remove(item)) {
+            int oldX = item.itemX;
+            int oldY = item.itemY;
+            item.itemX = itemX;
+            item.itemY = itemY;
+            items.add(item);
+            for (Player p: PlayerHandler.players) {
+                if (p == null) continue;
+                p.getPacketSender().removeGroundItem(item.itemId, oldX, oldY, item.itemAmount);
+                reloadItems(p);
+            }
+        }
+    }
+
     /**
      * Reloads any items if you enter a new region
      **/
     public void reloadItems(Player c) {
         for (GroundItem i : items) {
             if (c != null) {
-                if (c.getItemAssistant().tradeable(i.getItemId())
-                        || i.getName().equalsIgnoreCase(c.playerName)) {
-                    if (c.distanceToPoint(i.getItemX(), i.getItemY()) <= 60) {
-                        if (i.hideTicks > 0
-                                && i.getName().equalsIgnoreCase(c.playerName)) {
+                // If it's a players item or tradeable
+                if (c.getItemAssistant().tradeable(i.getItemId()) || i.getName().equalsIgnoreCase(c.playerName)) {
+                    // Make sure item on the same height and within 60 blocks
+                    if (c.getH() == i.getItemH() && c.distanceToPoint(i.getItemX(), i.getItemY()) <= 60) {
+                        if (i.hideTicks > 0  && i.getName().equalsIgnoreCase(c.playerName)) {
                             c.getPacketSender().removeGroundItem(
                                     i.getItemId(), i.getItemX(), i.getItemY(),
                                     i.getItemAmount());
@@ -178,7 +188,6 @@ public class ItemHandler {
             }
             if (!com.rs2.game.items.ItemData.itemStackable[itemId] && itemAmount > 0) {
                 for (int j = 0; j < itemAmount; j++) {
-                    c.getPacketSender().createGroundItem(itemId, itemX, itemY, 1);
                     GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), 1, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
                     addItem(item);
                     String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
@@ -189,7 +198,6 @@ public class ItemHandler {
                     }
                 }
             } else {
-                c.getPacketSender().createGroundItem(itemId, itemX, itemY, itemAmount);
                 GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), itemAmount, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
                 addItem(item);
                 String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
@@ -199,6 +207,7 @@ public class ItemHandler {
                     }
                 }
             }
+            reloadItems(c);
         }
     }
 
@@ -218,7 +227,7 @@ public class ItemHandler {
                                 && person.playerId != i.getItemController()) {
                             continue;
                         }
-                        if (person.distanceToPoint(i.getItemX(), i.getItemY()) <= 60) {
+                        if (person.getH() == i.getItemH() && person.distanceToPoint(i.getItemX(), i.getItemY()) <= 60) {
                             person.getPacketSender().createGroundItem(
                                     i.getItemId(), i.getItemX(), i.getItemY(),
                                     i.getItemAmount());
@@ -299,8 +308,7 @@ public class ItemHandler {
                 Client person = (Client) p;
                 if (person != null) {
                     if (person.distanceToPoint(itemX, itemY) <= 60) {
-                        person.getPacketSender().removeGroundItem(itemId,
-                                itemX, itemY, itemAmount);
+                        person.getPacketSender().removeGroundItem(itemId, itemX, itemY, itemAmount);
                     }
                 }
             }

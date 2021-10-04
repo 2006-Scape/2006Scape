@@ -2,7 +2,7 @@ package com.rs2.game.items;
 
 public class GroundItem {
 
-	public int itemId, itemX, itemY, itemAmount, itemController, hideTicks, removeTicks;
+	public int itemId, itemX, itemY, itemH, itemAmount, itemController, hideTicks, removeTicks;
 	
 	public String ownerName;
 
@@ -11,6 +11,7 @@ public class GroundItem {
 		itemId = id;
 		itemX = x;
 		itemY = y;
+		itemH = h;
 		itemAmount = amount;
 		itemController = controller;
 		this.hideTicks = hideTicks;
@@ -27,6 +28,10 @@ public class GroundItem {
 
 	public int getItemY() {
 		return itemY;
+	}
+
+	public int getItemH() {
+		return itemH;
 	}
 
 	public int getItemAmount() {
