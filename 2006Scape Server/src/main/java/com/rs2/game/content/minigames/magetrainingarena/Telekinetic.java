@@ -198,7 +198,6 @@ public class Telekinetic {
         if (maze == null) {
             return;
         }
-        System.out.println("reset statue " + maze.startX);
         
         // reset statue to start position
         GameEngine.itemHandler.moveItem(maze.statue, maze.startX, maze.startY);
@@ -211,6 +210,8 @@ public class Telekinetic {
 
     /* INTERFACES */
     // 15962 - Main interface
+    // 15966 - Pizazz points
+    // 15968 - Mazes solved
 
     public static int ticks = 0;
 
@@ -234,6 +235,7 @@ public class Telekinetic {
         if (!Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_TELEKINETIC)) {
             return;
         }
-        // TODO: Send current points, total mazes solved
+        player.getPacketSender().sendString("" + player.telekineticPoints, 15966);
+        player.getPacketSender().sendString("" + player.telekineticMazesSolved, 15968);
     }
 }
