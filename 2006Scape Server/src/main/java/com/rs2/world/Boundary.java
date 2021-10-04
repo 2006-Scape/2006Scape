@@ -14,8 +14,7 @@ import com.rs2.game.players.PlayerHandler;
 public class Boundary {
 
 
-	int minX, highX, minY, highY;
-	int height;
+	public int minX, highX, minY, highY, height;
 
 	/**
 	 * 
