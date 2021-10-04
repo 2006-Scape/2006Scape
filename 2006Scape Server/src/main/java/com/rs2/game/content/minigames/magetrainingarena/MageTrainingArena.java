@@ -16,18 +16,21 @@ public class MageTrainingArena {
 		Alchemy.process();
 		Enchanting.process();
 		Telekinetic.process();
+		Graveyard.process();
 	}
 
 	private Player player;
 	public Enchanting enchanting;
 	public Alchemy alchemy;
 	public Telekinetic telekinetic;
+	public Graveyard graveyard;
 
 	public MageTrainingArena(Player c) {
 		this.player = c;
 		this.enchanting = new Enchanting(c);
 		this.alchemy = new Alchemy(c);
 		this.telekinetic = new Telekinetic(c);
+		this.graveyard = new Graveyard(c);
 	}
 
 	private final int[] shopItems = {
