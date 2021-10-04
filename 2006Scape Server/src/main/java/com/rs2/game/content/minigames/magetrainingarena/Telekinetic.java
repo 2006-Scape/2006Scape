@@ -191,6 +191,10 @@ public class Telekinetic {
         if (maze == null) {
             return;
         }
+
+        player.getPacketSender().sendMessage("You observe the statue...");
+        // TODO: Figure out how to get this working correctly
+        // not sure exactly where the camera is supposed to be facing etc
     }
 
     public void resetStatue(int itemX, int itemY) {
