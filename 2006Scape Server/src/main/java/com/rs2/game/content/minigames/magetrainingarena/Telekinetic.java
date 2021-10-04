@@ -200,8 +200,8 @@ public class Telekinetic {
         }
         if (!observingStatue) {
             observingStatue = true;
-            player.getPlayerAssistant().sendCameraCutscene(player.getLocalX(), player.getLocalY(), 200, 10, 0);
-            player.getPlayerAssistant().sendCameraCutscene2(player.getLocalX(), player.getLocalY() - 8, 2400, 10, 0);
+            player.getPlayerAssistant().sendCameraCutscene((maze.minX + 5) - 8 * player.getMapRegionX(), (maze.minY - 1) - 8 * player.getMapRegionY(), 10, 25, 0);
+            player.getPlayerAssistant().sendCameraCutscene2((maze.minX + 5) - 8 * player.getMapRegionX(), (maze.minY + 5) - 8 * player.getMapRegionY() - 8, 2400, 25, 0);
             player.getPacketSender().sendMessage("You overlook the maze..");
             player.getPacketSender().sendMessage("Click the statue again to leave this view.");
         } else {
