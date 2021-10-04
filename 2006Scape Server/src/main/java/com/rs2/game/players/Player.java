@@ -1644,7 +1644,7 @@ public abstract class Player {
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
-			bowSpecShot, ectofuntusWorshipped, graveyardPoints, alchemyPoints, enchantmentPoints, telekineticPoints;
+			bowSpecShot, ectofuntusWorshipped, graveyardPoints, alchemyPoints, enchantmentPoints, telekineticPoints, telekineticMazesSolved;
 	public boolean magicFailed, oldMagicFailed;
 	/**
 	 * End

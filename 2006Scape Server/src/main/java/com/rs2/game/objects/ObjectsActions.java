@@ -2653,8 +2653,7 @@ public class ObjectsActions {
                 break;
             case 10778:
                 // TODO: Require Pizazz progress hat equiped
-			    player.getDialogueHandler().sendStatement("This area is currently closed.");
-                // player.getPlayerAssistant().startTeleport2(3336, 9718, 0); // Telekinetic floor 0
+                player.getMageTrainingArena().telekinetic.goToMaze();
                 break;
             case 10779:
                 // TODO: Require Pizazz progress hat equiped

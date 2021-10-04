@@ -1,6 +1,8 @@
 package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.awt.Point;
+import java.util.Random;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
@@ -111,6 +113,7 @@ public class Telekinetic {
     }
 
 	private Player player;
+    private Random random = new Random();
 
 	public Telekinetic(Player c) {
 		this.player = c;
@@ -129,7 +132,7 @@ public class Telekinetic {
         player.gfx100(MagicData.MAGIC_SPELLS[51][3]);
         player.getPlayerAssistant().createPlayersStillGfx(144, itemX, itemY, 0, 72);
         player.getPlayerAssistant().createPlayersProjectile(player.getX(), player.getY(), offX, offY, 50, 70, MagicData.MAGIC_SPELLS[51][4], 50, 10, 0, 50);
-        player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], 6);
+        player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], GameConstants.MAGIC);
         player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
         player.stopMovement();
 
@@ -150,7 +153,20 @@ public class Telekinetic {
 					if (GameEngine.itemHandler.itemExists(6888, itemX, itemY)) {
                         GameEngine.itemHandler.moveItem(maze.statue, newPosition.x, newPosition.y);
 
-                        // TODO: Figure out if on end tile, reset statue, award points, move player to a different maze
+                        if (newPosition.x == maze.endX && newPosition.y == maze.endY) {
+                            player.telekineticPoints += 2;
+                            player.telekineticMazesSolved++;
+
+                            // Every 5 solves, give the player 8 extra points, 10 law runes, 1000 magic experience
+                            if (player.telekineticMazesSolved % 5 == 0) {
+                                player.telekineticPoints += 8;
+                                player.getItemAssistant().addOrDropItem(563, 10);
+                                player.getPlayerAssistant().addSkillXP(1000, GameConstants.MAGIC);
+                                player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+                            }
+                            resetStatue(newPosition.x, newPosition.y);
+                            goToMaze();
+                        }
 					}
 					stop();
 				}
@@ -164,6 +180,12 @@ public class Telekinetic {
 		}, 1);
 	}
 
+    public void goToMaze() {
+        int r = random.nextInt(Maze.values().length);
+        Maze maze = Maze.values()[r];
+        player.getPlayerAssistant().startTeleport2(maze.minX - 1, maze.minY - 1, maze.height);
+    }
+
     public void observeStatue(int itemX, int itemY) {
         Maze maze = Maze.getMaze(itemX, itemY, player.heightLevel);
         if (maze == null) {
@@ -176,12 +198,10 @@ public class Telekinetic {
         if (maze == null) {
             return;
         }
+        System.out.println("reset statue " + maze.startX);
         
-        // remove the current statue
-        GameEngine.itemHandler.removeGlobalItem(maze.statue, 6888, itemX, itemY, 1);
-        maze.statue.itemX = maze.startX;
-        maze.statue.itemY = maze.startY;
-        GameEngine.itemHandler.createGlobalItem(maze.statue);
+        // reset statue to start position
+        GameEngine.itemHandler.moveItem(maze.statue, maze.startX, maze.startY);
     }
 
     /* ITEMS */
@@ -214,5 +234,6 @@ public class Telekinetic {
         if (!Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_TELEKINETIC)) {
             return;
         }
+        // TODO: Send current points, total mazes solved
     }
 }
