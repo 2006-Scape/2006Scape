@@ -1,11 +1,13 @@
 package com.rs2.game.content.minigames.magetrainingarena;
 
+import java.awt.Point;
 import com.rs2.GameConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.items.GroundItem;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.world.Boundary;
+import com.rs2.world.clip.Region;
 
 public class Telekinetic {
 
@@ -41,18 +43,63 @@ public class Telekinetic {
             3346, 9718,
             3345, 9718);
 
-        public int minX, minY, height, startX, startY, endX, endY;
-        public Boundary mazeArea;
+        public int minX, maxX, minY, maxY, height, startX, startY, endX, endY;
+        public Boundary mazeArea, mazeUp, mazeRight, mazeDown, mazeLeft;
 
         private Maze(int minX, int minY, int height, int startX, int startY, int endX, int endY) {
             this.minX = minX;
+            this.maxX = minX + 9;
             this.minY = minY;
+            this.maxY = minY + 9;
             this.height = height;
             this.startX = startX;
             this.startY = startY;
             this.endX = endX;
             this.endY = endY;
-            this.mazeArea = new Boundary(minX, minX + 9, minY, minY + 9, height);
+            this.mazeArea = new Boundary(minX, maxX, minY, maxY, height);
+            this.mazeUp = new Boundary(minX, maxX, maxY + 1, maxY + 2, height);
+            this.mazeRight = new Boundary(maxX + 1, maxX + 2, minY, maxY, height);
+            this.mazeDown = new Boundary(minX, maxX, minY - 2, minY - 1, height);
+            this.mazeLeft = new Boundary(minX - 2, minX - 1, minY, maxY, height);
+        }
+
+        public static Maze getMaze(int x, int y) {
+            for (Maze maze : values()){
+                if (Boundary.isIn(x, y, maze.mazeArea)) {
+                    return maze;
+                }
+            }
+            return null;
+        }
+
+        public Point calcDirection(Player player) {
+            if (Boundary.isIn(player, mazeUp)) {
+                return new Point(0, 1);
+            }
+            if (Boundary.isIn(player, mazeRight)) {
+                return new Point(1, 0);
+            }
+            if (Boundary.isIn(player, mazeDown)) {
+                return new Point(0, -1);
+            }
+            if (Boundary.isIn(player, mazeLeft)) {
+                return new Point(-1, 0);
+            }
+            return new Point(0, 0);
+        }
+
+        public Point getNewPos(int curX, int curY, int dirX, int dirY) {
+            if (dirX != 0) {
+                while(curX >= minX && curX <= maxX && Region.getClipping(curX + dirX, curY, this.height, dirX, dirY)) {
+                    curX += dirX;
+                }
+            }
+            if (dirY != 0) {
+                while(curY >= minY && curY <= maxY && Region.getClipping(curX, curY + dirY, this.height, dirX, dirY)) {
+                    curY += dirY;
+                }
+            }
+            return new Point(curX, curY);
         }
     }
 
@@ -78,12 +125,28 @@ public class Telekinetic {
         player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], 6);
         player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
         player.stopMovement();
+
+        Maze maze = Maze.getMaze(itemX, itemY);
+        if (maze == null) {
+            return;
+        }
+
+        Point direction = maze.calcDirection(player);
+        Point newPosition = maze.getNewPos(itemX, itemY, direction.x, direction.y);
 	}
 
-	public void deposit() {
-	}
+    public void observeStatue(int itemX, int itemY) {
+        Maze maze = Maze.getMaze(itemX, itemY);
+        if (maze == null) {
+            return;
+        }
+    }
 
-    public void clearItems() {
+    public void resetStatue(int itemX, int itemY) {
+        Maze maze = Maze.getMaze(itemX, itemY);
+        if (maze == null) {
+            return;
+        }
     }
 
     /* ITEMS */

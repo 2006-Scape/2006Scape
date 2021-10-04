@@ -15,7 +15,7 @@ public class ItemClick2OnGroundItem implements PacketType {
 		System.out.println("ItemClick2OnGroundItem - " + player.playerName + " - " + itemId + " - " + itemX + " - " + itemY);
 		// Reset position for the telekinetic guardian statue
 		if (itemId == 6888) {
-			// TODO: Reset the statue back to the default position
+			player.getMageTrainingArena().telekinetic.resetStatue(itemX, itemY);
 			return;
 		}
 		if (player.absX != itemX || player.absY != itemY) {
