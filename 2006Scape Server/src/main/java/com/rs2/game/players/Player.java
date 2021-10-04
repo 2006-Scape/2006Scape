@@ -2162,14 +2162,17 @@ public abstract class Player {
 				getMageTrainingArena().alchemy.clearItems();
 			}
 			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
-				// remove any alchemy training items
+				// remove any enchanting training items
 				getMageTrainingArena().enchanting.clearItems();
 			}
 			currentX = teleportToX - 8 * mapRegionX;
 			currentY = teleportToY - 8 * mapRegionY;
 			absX = teleportToX;
 			absY = teleportToY;
-			heightLevel = teleHeight >= 0 ? teleHeight : heightLevel >= 0 ? heightLevel : 0;
+			int newHeight = teleHeight >= 0 ? teleHeight : heightLevel >= 0 ? heightLevel : 0;
+			if (heightLevel != newHeight)
+				GameEngine.itemHandler.reloadItems(this);
+			heightLevel = newHeight;
 			resetWalkingQueue();
 
 			teleportToX = teleportToY = teleHeight = -1;
