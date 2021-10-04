@@ -2,6 +2,10 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.awt.Point;
 import com.rs2.GameConstants;
+import com.rs2.GameEngine;
+import com.rs2.event.CycleEvent;
+import com.rs2.event.CycleEventContainer;
+import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.items.GroundItem;
 import com.rs2.game.players.Player;
@@ -111,7 +115,7 @@ public class Telekinetic {
 
 	public void moveStatue(int itemX, int itemY) {
         // Play animation, Award XP
-        // TODO: take runes
+        player.walkingToItem = true;
         int offY = (player.getX() - itemX) * -1;
         int offX = (player.getY() - itemY) * -1;
         player.teleGrabX = itemX;
@@ -133,6 +137,31 @@ public class Telekinetic {
 
         Point direction = maze.calcDirection(player);
         Point newPosition = maze.getNewPos(itemX, itemY, direction.x, direction.y);
+        GroundItem item = new GroundItem(6888, newPosition.x, newPosition.y, maze.height, 1, -1, 0, "Global");
+
+        System.out.println("test");
+        
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+				if (!player.walkingToItem) {
+					container.stop();
+				} else if (System.currentTimeMillis() - player.teleGrabDelay > 1550) {
+					if (GameEngine.itemHandler.itemExists(6888, itemX, itemY)) {
+                        GameEngine.itemHandler.removeGroundItem(player, 6888, itemX, itemY, false);
+                        GameEngine.itemHandler.createGlobalItem(item);
+                        // TODO: Figure out if on end tile, reset statue, award points, move player to a different maze
+					}
+					stop();
+				}
+			}
+
+			@Override
+			public void stop() {
+                player.usingMagic = false;
+				player.walkingToItem = false;
+			}
+		}, 1);
 	}
 
     public void observeStatue(int itemX, int itemY) {
@@ -155,6 +184,7 @@ public class Telekinetic {
     /* OBJECTS */
 
     /* INTERFACES */
+    // 15962 - Main interface
 
     public static int ticks = 0;
 

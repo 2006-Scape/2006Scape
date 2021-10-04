@@ -206,6 +206,9 @@ public class ItemHandler {
      * Shows items for everyone who is within 60 squares
      **/
     public void createGlobalItem(GroundItem i) {
+        if (!itemExists(i.getItemId(), i.getItemX(), i.getItemY())) {
+            addItem(i);
+        }
         for (Player p : PlayerHandler.players) {
             if (p != null) {
                 Client person = (Client) p;
