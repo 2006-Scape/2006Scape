@@ -6,7 +6,6 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.combat.magic.MagicData;
-import com.rs2.game.items.ItemData;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.GlobalDropsHandler;
