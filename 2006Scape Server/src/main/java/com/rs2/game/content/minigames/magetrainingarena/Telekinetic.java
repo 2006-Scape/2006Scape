@@ -199,7 +199,7 @@ public class Telekinetic {
 
 
     public static void updateInterface(Player player) {
-        if (!Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
+        if (!Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_TELEKINETIC)) {
             return;
         }
     }

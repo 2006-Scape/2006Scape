@@ -824,6 +824,8 @@ public abstract class Player {
 			getPacketSender().walkableInterface(15892);
 		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
 			getPacketSender().walkableInterface(15917);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_TELEKINETIC)) {
+			getPacketSender().walkableInterface(15962);
 		} else {
 			getPacketSender().sendMapState(0);
 			if (!isSnowy) {
