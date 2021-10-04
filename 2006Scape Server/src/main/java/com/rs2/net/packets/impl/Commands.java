@@ -118,6 +118,7 @@ public class Commands implements PacketType {
             case "pos":
             case "loc":
                 player.getPacketSender().sendMessage("Your coords are [" + player.absX + ", " + player.absY + ", " + player.heightLevel + "]");
+                player.getPacketSender().sendMessage("local coord are [" + player.getLocalX() + ", " + player.getLocalY() + "]");
                 break;
             case "energy":
                 player.getPacketSender().sendMessage(String.format("Run energy: %d", (int) player.playerEnergy));

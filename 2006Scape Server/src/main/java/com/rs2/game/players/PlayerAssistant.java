@@ -2302,8 +2302,8 @@ public class PlayerAssistant {
 	 */
 	public void sendCameraCutscene(int x, int y, int height, int speed, int angle) {
 		player.getOutStream().createFrame(177);
-		player.getOutStream().writeByte(x / 64); // divided by 64 apparently allows real world coords
-		player.getOutStream().writeByte(y / 64); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeByte(x); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeByte(y); // divided by 64 apparently allows real world coords
 		player.getOutStream().writeWord(height); //
 		player.getOutStream().writeByte(speed); //
 		player.getOutStream().writeByte(angle);

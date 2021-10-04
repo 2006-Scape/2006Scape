@@ -9178,12 +9178,14 @@ public class Game extends RSApplet {
 	}
 
 	public int method121() {
-		int j = method42(plane, yCameraPos, xCameraPos);
-		if (j - zCameraPos < 800 && (byteGroundArray[plane][xCameraPos >> 7][yCameraPos >> 7] & 4) != 0) {
-			return plane;
-		} else {
-			return 3;
-		}
+		// Hide other planes when using fixed camera
+		return plane;
+		// int j = method42(plane, yCameraPos, xCameraPos);
+		// if (j - zCameraPos < 800 && (byteGroundArray[plane][xCameraPos >> 7][yCameraPos >> 7] & 4) != 0) {
+		// 	return plane;
+		// } else {
+		// 	return 3;
+		// }
 	}
 
 	public void delIgnore(long l) {

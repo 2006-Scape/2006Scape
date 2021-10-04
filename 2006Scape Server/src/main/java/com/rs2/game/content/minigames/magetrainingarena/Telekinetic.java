@@ -114,6 +114,7 @@ public class Telekinetic {
 
 	private Player player;
     private Random random = new Random();
+    private boolean observingStatue = false;
 
 	public Telekinetic(Player c) {
 		this.player = c;
@@ -164,7 +165,13 @@ public class Telekinetic {
                                 player.getPlayerAssistant().addSkillXP(1000, GameConstants.MAGIC);
                                 player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
                             }
+
                             resetStatue(newPosition.x, newPosition.y);
+                            
+                            if (observingStatue) {
+                                observingStatue = false;
+                                player.getPlayerAssistant().sendCameraReset();
+                            }
                             goToMaze();
                         }
 					}
@@ -191,8 +198,16 @@ public class Telekinetic {
         if (maze == null) {
             return;
         }
-
-        player.getPacketSender().sendMessage("You observe the statue...");
+        if (!observingStatue) {
+            observingStatue = true;
+            player.getPlayerAssistant().sendCameraCutscene(player.getLocalX(), player.getLocalY(), 200, 10, 0);
+            player.getPlayerAssistant().sendCameraCutscene2(player.getLocalX(), player.getLocalY() - 8, 2400, 10, 0);
+            player.getPacketSender().sendMessage("You overlook the maze..");
+            player.getPacketSender().sendMessage("Click the statue again to leave this view.");
+        } else {
+            observingStatue = false;
+            player.getPlayerAssistant().sendCameraReset();
+        }
         // TODO: Figure out how to get this working correctly
         // not sure exactly where the camera is supposed to be facing etc
     }
