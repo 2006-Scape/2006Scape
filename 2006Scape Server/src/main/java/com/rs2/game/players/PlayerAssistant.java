@@ -769,6 +769,9 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
+			if (player.heightLevel != height) {
+				player.refresh = true;
+			}
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
@@ -833,6 +836,9 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
+			if (player.heightLevel != height) {
+				player.refresh = true;
+			}
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
