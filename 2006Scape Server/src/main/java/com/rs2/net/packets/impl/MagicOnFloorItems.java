@@ -77,17 +77,15 @@ public class MagicOnFloorItems implements PacketType {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (!player.walkingToItem) {
-					stop();
+					container.stop();
 				}
-				if (player.usingMagic
-					&& System.currentTimeMillis() - player.teleGrabDelay > 1550
-					&& GameEngine.itemHandler.itemExists(player.teleGrabItem, player.teleGrabX, player.teleGrabY)
-					&& player.goodDistance(player.getX(), player.getY(), itemX, itemY, 12)
-				) {
-					GameEngine.itemHandler.removeGroundItem(player, player.teleGrabItem, player.teleGrabX, player.teleGrabY, true);
-					GlobalDropsHandler.pickup(player, player.teleGrabItem, player.teleGrabX, player.teleGrabY);
-					player.usingMagic = false;
-					stop();
+				if (System.currentTimeMillis() - player.teleGrabDelay > 1550) {
+					if (GameEngine.itemHandler.itemExists(player.teleGrabItem, player.teleGrabX, player.teleGrabY)) {
+						GameEngine.itemHandler.removeGroundItem(player, player.teleGrabItem, player.teleGrabX, player.teleGrabY, true);
+						GlobalDropsHandler.pickup(player, player.teleGrabItem, player.teleGrabX, player.teleGrabY);
+						player.usingMagic = false;
+					}
+					container.stop();
 				}
 			}
 
