@@ -191,6 +191,17 @@ public class Telekinetic {
         int r = random.nextInt(Maze.values().length);
         Maze maze = Maze.values()[r];
         player.getPlayerAssistant().startTeleport2(maze.minX - 1, maze.minY - 1, maze.height);
+        
+		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
+			@Override
+			public void execute(CycleEventContainer container) {
+                GameEngine.itemHandler.reloadItems(player);
+                container.stop();
+			}
+
+			@Override
+			public void stop() {}
+		}, 8);
     }
 
     public void observeStatue(int itemX, int itemY) {
