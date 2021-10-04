@@ -27,6 +27,7 @@ public class MagicOnFloorItems implements PacketType {
 		player.stopMovement();
 
 		if (!GameEngine.itemHandler.itemExists(itemId, itemX, itemY)) {
+			player.getPacketSender().sendMessage("This item no longer exist.");
 			return;
 		}
 		if (System.currentTimeMillis() - player.teleGrabDelay <= 1550) {
@@ -44,8 +45,8 @@ public class MagicOnFloorItems implements PacketType {
 			return;
 		}
 
-		player.usingMagic = true;
 		player.endCurrentTask();
+		player.usingMagic = true;
 		if (!player.getCombatAssistant().checkMagicReqs(51)) {
 			return;
 		}
@@ -94,6 +95,6 @@ public class MagicOnFloorItems implements PacketType {
 			public void stop() {
 				player.walkingToItem = false;
 			}
-		}, 50);
+		}, 1);
 	}
 }
