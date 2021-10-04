@@ -686,16 +686,16 @@ public class Commands implements PacketType {
                     player.getPlayerAssistant().movePlayer(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]));
                 break;
             case "up":
+                player.getPacketSender().sendMessage("You are now on height level " + (player.heightLevel + 1) + ".");
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel + 1);
-                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 break;
             case "up2":
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY - 6400, player.heightLevel);
                 player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 break;
             case "down":
+                player.getPacketSender().sendMessage("You are now on height level " + (player.heightLevel - 1) + ".");
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel - 1);
-                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 break;
             case "down2":
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY + 6400, player.heightLevel);
