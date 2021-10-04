@@ -49,6 +49,8 @@ public class Telekinetic {
 
         public int minX, maxX, minY, maxY, height, startX, startY, endX, endY;
         public Boundary mazeArea, mazeUp, mazeRight, mazeDown, mazeLeft;
+        public GroundItem statue;
+        public boolean initialized = false;
 
         private Maze(int minX, int minY, int height, int startX, int startY, int endX, int endY) {
             this.minX = minX;
@@ -65,11 +67,12 @@ public class Telekinetic {
             this.mazeRight = new Boundary(maxX + 1, maxX + 2, minY, maxY, height);
             this.mazeDown = new Boundary(minX, maxX, minY - 2, minY - 1, height);
             this.mazeLeft = new Boundary(minX - 2, minX - 1, minY, maxY, height);
+            this.statue = new GroundItem(6888, startX, startY, height, 1, -1, 0, "");
         }
 
-        public static Maze getMaze(int x, int y) {
+        public static Maze getMaze(int x, int y, int h) {
             for (Maze maze : values()){
-                if (Boundary.isIn(x, y, maze.mazeArea)) {
+                if (Boundary.isIn(x, y, h, maze.mazeArea)) {
                     return maze;
                 }
             }
@@ -130,16 +133,13 @@ public class Telekinetic {
         player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
         player.stopMovement();
 
-        Maze maze = Maze.getMaze(itemX, itemY);
+        Maze maze = Maze.getMaze(itemX, itemY, player.heightLevel);
         if (maze == null) {
             return;
         }
 
         Point direction = maze.calcDirection(player);
         Point newPosition = maze.getNewPos(itemX, itemY, direction.x, direction.y);
-        GroundItem item = new GroundItem(6888, newPosition.x, newPosition.y, maze.height, 1, -1, 0, "Global");
-
-        System.out.println("test");
         
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 			@Override
@@ -148,8 +148,8 @@ public class Telekinetic {
 					container.stop();
 				} else if (System.currentTimeMillis() - player.teleGrabDelay > 1550) {
 					if (GameEngine.itemHandler.itemExists(6888, itemX, itemY)) {
-                        GameEngine.itemHandler.removeGroundItem(player, 6888, itemX, itemY, false);
-                        GameEngine.itemHandler.createGlobalItem(item);
+                        GameEngine.itemHandler.moveItem(maze.statue, newPosition.x, newPosition.y);
+
                         // TODO: Figure out if on end tile, reset statue, award points, move player to a different maze
 					}
 					stop();
@@ -165,17 +165,23 @@ public class Telekinetic {
 	}
 
     public void observeStatue(int itemX, int itemY) {
-        Maze maze = Maze.getMaze(itemX, itemY);
+        Maze maze = Maze.getMaze(itemX, itemY, player.heightLevel);
         if (maze == null) {
             return;
         }
     }
 
     public void resetStatue(int itemX, int itemY) {
-        Maze maze = Maze.getMaze(itemX, itemY);
+        Maze maze = Maze.getMaze(itemX, itemY, player.heightLevel);
         if (maze == null) {
             return;
         }
+        
+        // remove the current statue
+        GameEngine.itemHandler.removeGlobalItem(maze.statue, 6888, itemX, itemY, 1);
+        maze.statue.itemX = maze.startX;
+        maze.statue.itemY = maze.startY;
+        GameEngine.itemHandler.createGlobalItem(maze.statue);
     }
 
     /* ITEMS */
@@ -189,6 +195,12 @@ public class Telekinetic {
     public static int ticks = 0;
 
 	public static void process() {
+        for (Maze maze: Maze.values()) {
+            if (!maze.initialized) {
+                maze.initialized = true;
+                GameEngine.itemHandler.createGlobalItem(maze.statue);
+            }
+        }
         for (Player p : PlayerHandler.players) {
             if (p == null) {
                 continue;
