@@ -2636,8 +2636,17 @@ public class ObjectsActions {
                 else if (player.absY == 3300)
                     player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
                 break;
+            case 10725: // Bone Pile
+            case 10726: // Bone Pile
+            case 10727: // Bone Pile
+            case 10728: // Bone Pile
+                player.getMageTrainingArena().graveyard.searchBonePile(objectType);
+                break;
             case 10734: // Coin Collector
                 player.getMageTrainingArena().alchemy.collectCoins();
+                break;
+            case 10735: // Food Chute
+                player.getMageTrainingArena().graveyard.depositFood();
                 break;
             case 10771:
                 player.getPlayerAssistant().movePlayer(3369, 3307, 1);
@@ -2669,8 +2678,7 @@ public class ObjectsActions {
                 break;
             case 10781:
                 // TODO: Require Pizazz progress hat equiped
-                player.getDialogueHandler().sendStatement("This area is currently closed.");
-                // player.getPlayerAssistant().startTeleport2(3364, 9639, 1); // Graveyard training
+                player.getPlayerAssistant().startTeleport2(3364, 9639, 1); // Graveyard training
                 break;
             case 10782: // Leave mage training rooms
                 player.getPlayerAssistant().startTeleport2(3363, 3318, 0);

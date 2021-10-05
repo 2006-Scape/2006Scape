@@ -826,6 +826,8 @@ public abstract class Player {
 			getPacketSender().walkableInterface(15917);
 		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_TELEKINETIC)) {
 			getPacketSender().walkableInterface(15962);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+			getPacketSender().walkableInterface(15931);
 		} else {
 			getPacketSender().sendMapState(0);
 			if (!isSnowy) {
@@ -2164,6 +2166,10 @@ public abstract class Player {
 			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
 				// remove any enchanting training items
 				getMageTrainingArena().enchanting.clearItems();
+			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+				// remove any enchanting training items
+				getMageTrainingArena().graveyard.clearItems();
 			}
 			currentX = teleportToX - 8 * mapRegionX;
 			currentY = teleportToY - 8 * mapRegionY;
