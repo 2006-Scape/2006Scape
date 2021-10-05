@@ -63,8 +63,8 @@ public class MageTrainingArena {
 
 		player.getPacketSender().sendString(Integer.toString(player.telekineticPoints), 15955);
 		player.getPacketSender().sendString(Integer.toString(player.enchantmentPoints), 15956);
-		player.getPacketSender().sendString(Integer.toString(player.graveyardPoints), 15957);
-		player.getPacketSender().sendString(Integer.toString(player.alchemyPoints), 15958);
+		player.getPacketSender().sendString(Integer.toString(player.alchemyPoints), 15957);
+		player.getPacketSender().sendString(Integer.toString(player.graveyardPoints), 15958);
 		player.getPacketSender().showInterface(15944);
 	}
 
