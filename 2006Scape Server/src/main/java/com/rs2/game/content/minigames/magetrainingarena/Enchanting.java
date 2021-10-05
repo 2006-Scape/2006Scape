@@ -14,7 +14,7 @@ import com.rs2.world.Boundary;
 public class Enchanting {
     // TODO: Add dragonstone drops occasionally, double points when enchanted
 
-	private final Player player;
+	private Player player;
     private int itemsEnchanted = 0;
     private int orbsDeposited = 0;
 

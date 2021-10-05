@@ -146,9 +146,9 @@ public class GlobalDropsHandler {
         return null;
     }
 
-    public static boolean itemExists(int a, int b, int c, boolean yes) {
+    public static boolean itemExists(int itemID, int itemX, int itemY, boolean yes) {
         for (GlobalDrop drop : spawnedDrops) {
-            if (drop.getId() == a && drop.getX() == b && drop.getY() == c) {
+            if (drop.getId() == itemID && drop.getX() == itemX && drop.getY() == itemY) {
                 return true;
             }
         }
@@ -159,12 +159,12 @@ public class GlobalDropsHandler {
      * Pick up an item at the given location
      *
      * @param player the Player
-     * @param a       item id
-     * @param b       cord x
-     * @param c       cord y
+     * @param itemID       item id
+     * @param itemX       cord x
+     * @param itemY       cord y
      */
-    public static void pickup(Player player, int a, int b, int c) {
-        GlobalDrop drop = itemExists(a, b, c);
+    public static void pickup(Player player, int itemID, int itemX, int itemY) {
+        GlobalDrop drop = itemExists(itemID, itemX, itemY);
         if (drop == null) {
             return;
         }

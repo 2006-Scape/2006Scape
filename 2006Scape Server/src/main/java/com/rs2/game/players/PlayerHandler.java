@@ -399,6 +399,7 @@ public class PlayerHandler {
 		
 		if (plr.refresh) {
 			GlobalDropsHandler.reset((Client)plr);
+			GameEngine.itemHandler.reloadItems(plr);
 			plr.refresh = false;
 		}
 	}

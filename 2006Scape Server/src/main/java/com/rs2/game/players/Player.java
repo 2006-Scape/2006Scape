@@ -824,6 +824,10 @@ public abstract class Player {
 			getPacketSender().walkableInterface(15892);
 		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
 			getPacketSender().walkableInterface(15917);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_TELEKINETIC)) {
+			getPacketSender().walkableInterface(15962);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+			getPacketSender().walkableInterface(15931);
 		} else {
 			getPacketSender().sendMapState(0);
 			if (!isSnowy) {
@@ -1642,7 +1646,7 @@ public abstract class Player {
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
-			bowSpecShot, ectofuntusWorshipped, graveyardPoints, alchemyPoints, enchantmentPoints, telekineticPoints;
+			bowSpecShot, ectofuntusWorshipped, graveyardPoints, alchemyPoints, enchantmentPoints, telekineticPoints, telekineticMazesSolved;
 	public boolean magicFailed, oldMagicFailed;
 	/**
 	 * End
@@ -2160,14 +2164,21 @@ public abstract class Player {
 				getMageTrainingArena().alchemy.clearItems();
 			}
 			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
-				// remove any alchemy training items
+				// remove any enchanting training items
 				getMageTrainingArena().enchanting.clearItems();
+			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+				// remove any enchanting training items
+				getMageTrainingArena().graveyard.clearItems();
 			}
 			currentX = teleportToX - 8 * mapRegionX;
 			currentY = teleportToY - 8 * mapRegionY;
 			absX = teleportToX;
 			absY = teleportToY;
-			heightLevel = teleHeight >= 0 ? teleHeight : heightLevel >= 0 ? heightLevel : 0;
+			int newHeight = teleHeight >= 0 ? teleHeight : heightLevel >= 0 ? heightLevel : 0;
+			if (heightLevel != newHeight)
+				GameEngine.itemHandler.reloadItems(this);
+			heightLevel = newHeight;
 			resetWalkingQueue();
 
 			teleportToX = teleportToY = teleHeight = -1;

@@ -425,6 +425,9 @@ public class PlayerSave {
 							case "telekinetic-points":
 								player.telekineticPoints = Integer.parseInt(token2);
 								break;
+							case "telekinetic-mazes-solved":
+								player.telekineticMazesSolved = Integer.parseInt(token2);
+								break;
 							case "unlocked-bones-to-peaches":
 								player.unlockedBonesToPeaches = Boolean.parseBoolean(token2);
 								break;
@@ -805,6 +808,8 @@ public class PlayerSave {
 			characterfile.write("enchantment-points = " + player.enchantmentPoints);
 			characterfile.newLine();
 			characterfile.write("telekinetic-points = " + player.telekineticPoints);
+			characterfile.newLine();
+			characterfile.write("telekinetic-mazes-solved = " + player.telekineticMazesSolved);
 			characterfile.newLine();
 			characterfile.write("unlocked-bones-to-peaches = " + player.unlockedBonesToPeaches);
 			characterfile.newLine();

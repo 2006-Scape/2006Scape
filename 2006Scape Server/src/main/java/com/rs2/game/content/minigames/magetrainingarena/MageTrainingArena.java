@@ -15,16 +15,22 @@ public class MageTrainingArena {
 	public static void process() {
 		Alchemy.process();
 		Enchanting.process();
+		Telekinetic.process();
+		Graveyard.process();
 	}
 
-	private final Player player;
-	public final Enchanting enchanting;
-	public final Alchemy alchemy;
+	private Player player;
+	public Enchanting enchanting;
+	public Alchemy alchemy;
+	public Telekinetic telekinetic;
+	public Graveyard graveyard;
 
 	public MageTrainingArena(Player c) {
 		this.player = c;
 		this.enchanting = new Enchanting(c);
 		this.alchemy = new Alchemy(c);
+		this.telekinetic = new Telekinetic(c);
+		this.graveyard = new Graveyard(c);
 	}
 
 	private final int[] shopItems = {
@@ -277,6 +283,8 @@ public class MageTrainingArena {
 		} else {
 			player.getItemAssistant().addItem(itemId, 1);
 		}
+		// Update point amounts
+		openShop();
 	}
 
 	public void enchantItem(int itemID, int spellID) {
