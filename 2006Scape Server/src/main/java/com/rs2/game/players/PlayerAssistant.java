@@ -769,6 +769,9 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
+			if (player.heightLevel != height) {
+				player.refresh = true;
+			}
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
@@ -833,6 +836,9 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
+			if (player.heightLevel != height) {
+				player.refresh = true;
+			}
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
@@ -1175,11 +1181,11 @@ public class PlayerAssistant {
 			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
 				return;
 			}
-			if (!player.getCombatAssistant().checkMagicReqs(49)) {
-				return;
-			}
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(49)) {
 				return;
 			}
 			canAlch = true;
@@ -1233,6 +1239,7 @@ public class PlayerAssistant {
 		case 1180: // Lvl-4 enchant diamond
 		case 1187: // Lvl-5 enchant dragonstone
 		case 6003: // Lvl-6 enchant onyx
+			player.getPacketSender().sendShowTab(6);
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().enchantItem(itemId, spellId);
 			} else {
@@ -1249,12 +1256,12 @@ public class PlayerAssistant {
 			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
 				return;
 			}
-			if (!player.getCombatAssistant().checkMagicReqs(50)) {
-				break;
-			}
 			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
 				player.getMageTrainingArena().alchItem(itemId, spellId);
 				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(50)) {
+				break;
 			}
 			canAlch = true;
 			for (int i : ItemConstants.ITEM_UNALCHABLE) {
@@ -2301,8 +2308,25 @@ public class PlayerAssistant {
 	 */
 	public void sendCameraCutscene(int x, int y, int height, int speed, int angle) {
 		player.getOutStream().createFrame(177);
-		player.getOutStream().writeByte(x / 64); //
-		player.getOutStream().writeByte(y / 64); //
+		player.getOutStream().writeByte(x); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeByte(y); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeWord(height); //
+		player.getOutStream().writeByte(speed); //
+		player.getOutStream().writeByte(angle);
+	}
+
+	/**
+	 * anchors the camera to a specific view (for cutscenes)
+	 * @param x  The X Coordinate (Within the player's loaded area)
+	 * @param y The Y Coordinate (Within the player's loaded area)
+	 * @param height The Height of Camera (not relative to the game world height)
+	 * @param speed The Camera Speed (Speed at which the camera turns to where it should point?)
+	 * @param angle The Camera Angle
+	 */
+	public void sendCameraCutscene2(int x, int y, int height, int speed, int angle) {
+		player.getOutStream().createFrame(166);
+		player.getOutStream().writeByte(x); //
+		player.getOutStream().writeByte(y); //
 		player.getOutStream().writeWord(height); //
 		player.getOutStream().writeByte(speed); //
 		player.getOutStream().writeByte(angle);

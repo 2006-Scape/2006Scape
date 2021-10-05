@@ -36,6 +36,7 @@ import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
+import com.rs2.world.Boundary;
 
 /**
  * Clicking most buttons
@@ -124,6 +125,9 @@ public class ClickingButtons implements PacketType {
 
 
 		case 4135:
+			if (System.currentTimeMillis() - player.boneDelay < 2000) {
+				return;
+			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage(
 						"You can't do this in trade!");
@@ -136,9 +140,12 @@ public class ClickingButtons implements PacketType {
 				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+				player.getMageTrainingArena().graveyard.bonesToFood(52);
+				return;
+			}
 			if (!player.getItemAssistant().playerHasItem(526, 1)) {
-				player.getPacketSender().sendMessage(
-						"You don't have any bones!");
+				player.getPacketSender().sendMessage("You don't have any bones!");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(561, 1)
@@ -152,22 +159,23 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().deleteItem(561, 1);
 				player.getItemAssistant().deleteItem(557, 2);
 				player.getItemAssistant().deleteItem(555, 2);
-				player.getPlayerAssistant().addSkillXP(40, 6);
+				player.getPlayerAssistant().addSkillXP(25, 6);
 				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(141);
 				player.getPacketSender().sendShowTab(6);
-				player.getPacketSender().sendSound(
-						SoundList.BONES_TO_BANNAS, 100, 0);
+				player.getPacketSender().sendSound(SoundList.BONES_TO_BANNAS, 100, 0);
 				player.boneDelay = System.currentTimeMillis();
 				do {
-					player.getItemAssistant().deleteItem(526, 1);
-					player.getItemAssistant().addItem(1963, 1);
+					player.getItemAssistant().replaceItem(526, 1963);
 				} while (player.getItemAssistant().playerHasItem(526, 1));
 			}
 			break;
 
 		case 62005:
+			if (System.currentTimeMillis() - player.boneDelay < 2000) {
+				return;
+			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage(
 						"You can't do this in trade!");
@@ -181,6 +189,10 @@ public class ClickingButtons implements PacketType {
 			if (!player.unlockedBonesToPeaches) {
 				player.getPacketSender().sendString("You haven't unlocked this spell yet.", 357);
 				player.getPacketSender().sendChatInterface(356);
+				return;
+			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+				player.getMageTrainingArena().graveyard.bonesToFood(53);
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(526, 1)) {
@@ -200,15 +212,14 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().deleteItem(561, 2);
 				player.getItemAssistant().deleteItem(557, 4);
 				player.getItemAssistant().deleteItem(555, 4);
-				player.getPlayerAssistant().addSkillXP(40, 6);
+				player.getPlayerAssistant().addSkillXP(35.5, 6);
 				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(311);
 				player.getPacketSender().sendShowTab(6);
 				player.boneDelay = System.currentTimeMillis();
 				do {
-					player.getItemAssistant().deleteItem(526, 1);
-					player.getItemAssistant().addItem(6883, 1);
+					player.getItemAssistant().replaceItem(526, 6883);
 				} while (player.getItemAssistant().playerHasItem(526, 1));
 			}
 			break;

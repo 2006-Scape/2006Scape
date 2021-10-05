@@ -6,6 +6,7 @@
 import javax.swing.*;
 import java.applet.AppletContext;
 import java.awt.*;
+import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.ByteArrayInputStream;
@@ -7274,6 +7275,9 @@ public class Game extends RSApplet {
 			Animable_Sub5.clientInstance = this;
 			ObjectDef.clientInstance = this;
 			EntityDef.clientInstance = this;
+			
+			if (myUsername != "" && myPassword != "")
+				login(myUsername, myPassword, false);
 			return;
 		} catch (Exception exception) {
 			Signlink.reporterror("loaderror " + aString1049 + " " + anInt1079);
@@ -9174,12 +9178,14 @@ public class Game extends RSApplet {
 	}
 
 	public int method121() {
-		int j = method42(plane, yCameraPos, xCameraPos);
-		if (j - zCameraPos < 800 && (byteGroundArray[plane][xCameraPos >> 7][yCameraPos >> 7] & 4) != 0) {
-			return plane;
-		} else {
-			return 3;
-		}
+		// Hide other planes when using fixed camera
+		return plane;
+		// int j = method42(plane, yCameraPos, xCameraPos);
+		// if (j - zCameraPos < 800 && (byteGroundArray[plane][xCameraPos >> 7][yCameraPos >> 7] & 4) != 0) {
+		// 	return plane;
+		// } else {
+		// 	return 3;
+		// }
 	}
 
 	public void delIgnore(long l) {
@@ -12596,6 +12602,14 @@ public class Game extends RSApplet {
 				if (zoom < (WorldController.drawDistance / 3))
 					zoom++;
 				break;
+			case KeyEvent.VK_V:
+				if (keyevent.isControlDown()) {
+					inputString += getClipBoard();
+					if (inputString.length() > 80) {
+						inputString = inputString.substring(0, 80);
+					}
+					inputTaken = true;
+				}
 
 		}
 	}
@@ -12778,5 +12792,28 @@ public class Game extends RSApplet {
 					zoom++;
 			}
 		}
+	}
+
+	public String getClipBoard(){
+		String myString = "";
+		try {
+			myString = (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+		} catch (HeadlessException e) {
+			e.printStackTrace();            
+		} catch (UnsupportedFlavorException e) {
+			e.printStackTrace();            
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		String output = "";
+		for(int i = 0; i < myString.length(); i++) {
+			int j = (int) myString.charAt(i);
+			if (j >= 32 && j <= 122) {
+				output += (char) j;
+			}
+		}
+
+		return output;
 	}
 }

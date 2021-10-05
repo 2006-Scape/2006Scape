@@ -19,8 +19,6 @@ public class MagicTeleports {
 		player.getPacketSender().sendString("Level 78: Dareeyak Teleport", 13071);
 	}
 
-	public static final boolean MAGIC_LEVEL_REQUIRED = true, RUNES_REQUIRED = true;
-
 	public static void handleSpellTeleport(Player player, SpellTeleport teleport) {
 		if (player.teleTimer > 0) {
 			return;

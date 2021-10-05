@@ -118,6 +118,7 @@ public class Commands implements PacketType {
             case "pos":
             case "loc":
                 player.getPacketSender().sendMessage("Your coords are [" + player.absX + ", " + player.absY + ", " + player.heightLevel + "]");
+                player.getPacketSender().sendMessage("local coord are [" + player.getLocalX() + ", " + player.getLocalY() + "]");
                 break;
             case "energy":
                 player.getPacketSender().sendMessage(String.format("Run energy: %d", (int) player.playerEnergy));
@@ -685,16 +686,16 @@ public class Commands implements PacketType {
                     player.getPlayerAssistant().movePlayer(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]));
                 break;
             case "up":
+                player.getPacketSender().sendMessage("You are now on height level " + (player.heightLevel + 1) + ".");
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel + 1);
-                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 break;
             case "up2":
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY - 6400, player.heightLevel);
                 player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 break;
             case "down":
+                player.getPacketSender().sendMessage("You are now on height level " + (player.heightLevel - 1) + ".");
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY, player.heightLevel - 1);
-                player.getPacketSender().sendMessage("You are now on height level " + player.heightLevel + ".");
                 break;
             case "down2":
                 player.getPlayerAssistant().movePlayer(player.absX, player.absY + 6400, player.heightLevel);
@@ -795,12 +796,24 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Sound could not be sent.");
                 }
                 break;
+            case "ccs":
             case "cameracutscene":
-                player.getPlayerAssistant().sendCameraCutscene(player.getX(), player.getY(), 10, 10, 10); //Test numbers
+                if (arguments.length < 5) {
+                    return;
+                }
+                player.getPlayerAssistant().sendCameraCutscene(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]), Integer.parseInt(arguments[3]), Integer.parseInt(arguments[4])); //Test numbers
+                break;
+            case "ccs2":
+            case "cameracutscene2":
+                if (arguments.length < 5) {
+                    return;
+                }
+                player.getPlayerAssistant().sendCameraCutscene2(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]), Integer.parseInt(arguments[3]), Integer.parseInt(arguments[4])); //Test numbers
                 break;
             case "camerashake":
                 player.getPlayerAssistant().sendCameraShake(1, 9, 1, 9); //these are just test numbers
                 break;
+            case "cr":
             case "camerareset":
                 player.getPlayerAssistant().sendCameraReset(); //Resets the camera to the normal player view
                 break;

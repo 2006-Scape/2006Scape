@@ -14,6 +14,7 @@ import com.rs2.game.content.skills.fletching.ArrowMaking;
 import com.rs2.game.content.skills.fletching.LogCutting;
 import com.rs2.game.content.skills.fletching.LogCuttingInterface;
 import com.rs2.game.content.skills.fletching.Stringing;
+import com.rs2.game.content.skills.fletching.TipMaking;
 import com.rs2.game.content.skills.herblore.GrindingAction;
 import com.rs2.game.content.skills.herblore.Herblore;
 import com.rs2.game.content.skills.prayer.Ectofuntus;
@@ -126,6 +127,7 @@ public class UseItem {
 		LogCuttingInterface.handleItemOnItem(player, itemUsed, useWith);
 		ArrowMaking.makeArrow(player, itemUsed, useWith);
 		Stringing.StringBow(player, itemUsed, useWith);
+		TipMaking.makeTips(player, itemUsed, useWith);
 		WeaponPoison.execute(player, itemUsed, useWith);
 		player.getGlassBlowing().ItemOnItem(itemUsed, useWith);
 		//CapeDye.execute(c, itemUsed, useWith);
@@ -384,14 +386,8 @@ public class UseItem {
 			}
 		}
 
-		switch (itemUsed) {
-
-		default:
-			if (player.playerRights == 3) {
-				Misc.println("Player used Item id: " + itemUsed
-						+ " with Item id: " + useWith);
-			}
-			break;
+		if (player.playerRights == 3) {
+			Misc.println("Player used Item id: " + itemUsed + " with Item id: " + useWith);
 		}
 	}
 

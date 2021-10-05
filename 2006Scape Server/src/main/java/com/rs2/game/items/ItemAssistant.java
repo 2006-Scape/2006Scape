@@ -1103,39 +1103,39 @@ public class ItemAssistant {
 		switch (weapon) {
 
 			case 4151: // whip
-				player.getPacketSender().sendFrame171(0, 12323);
+				player.getPacketSender().sendHideInterfaceLayer(12323, false);
 				specialAmount(weapon, player.specAmount, 12335);
 				break;
 
 			case 859: // magic bows
 			case 861:
 			case 11235:
-				player.getPacketSender().sendFrame171(0, 7549);
+				player.getPacketSender().sendHideInterfaceLayer(7549, false);
 				specialAmount(weapon, player.specAmount, 7561);
 				break;
 
 			case 4587: // dscimmy
-				player.getPacketSender().sendFrame171(0, 7599);
+				player.getPacketSender().sendHideInterfaceLayer(7599, false);
 				specialAmount(weapon, player.specAmount, 7611);
 				break;
 
 			case 3204: // d hally
-				player.getPacketSender().sendFrame171(0, 8493);
+				player.getPacketSender().sendHideInterfaceLayer(8493, false);
 				specialAmount(weapon, player.specAmount, 8505);
 				break;
 
 			case 1377: // d battleaxe
-				player.getPacketSender().sendFrame171(0, 7499);
+				player.getPacketSender().sendHideInterfaceLayer(7499, false);
 				specialAmount(weapon, player.specAmount, 7511);
 				break;
 
 			case 4153: // gmaul
-				player.getPacketSender().sendFrame171(0, 7474);
+				player.getPacketSender().sendHideInterfaceLayer(7474, false);
 				specialAmount(weapon, player.specAmount, 7486);
 				break;
 
 			case 1249: // dspear
-				player.getPacketSender().sendFrame171(0, 7674);
+				player.getPacketSender().sendHideInterfaceLayer(7674, false);
 				specialAmount(weapon, player.specAmount, 7686);
 				break;
 
@@ -1149,29 +1149,29 @@ public class ItemAssistant {
 			case 11700:
 			case 11730:
 			case 11696:
-				player.getPacketSender().sendFrame171(0, 7574);
+				player.getPacketSender().sendHideInterfaceLayer(7574, false);
 				specialAmount(weapon, player.specAmount, 7586);
 				break;
 
 			case 1434: // dragon mace
-				player.getPacketSender().sendFrame171(0, 7624);
+				player.getPacketSender().sendHideInterfaceLayer(7624, false);
 				specialAmount(weapon, player.specAmount, 7636);
 				break;
 
 			default:
-				player.getPacketSender().sendFrame171(1, 7624); // mace
+				player.getPacketSender().sendHideInterfaceLayer(7624, true); // mace
 				// interface
-				player.getPacketSender().sendFrame171(1, 7474); // hammer, gmaul
-				player.getPacketSender().sendFrame171(1, 7499); // axe
-				player.getPacketSender().sendFrame171(1, 7549); // bow interface
-				player.getPacketSender().sendFrame171(1, 7574); // sword
+				player.getPacketSender().sendHideInterfaceLayer(7474, true); // hammer, gmaul
+				player.getPacketSender().sendHideInterfaceLayer(7499, true); // axe
+				player.getPacketSender().sendHideInterfaceLayer(7549, true); // bow interface
+				player.getPacketSender().sendHideInterfaceLayer(7574, true); // sword
 				// interface
-				player.getPacketSender().sendFrame171(1, 7599); // scimmy sword
+				player.getPacketSender().sendHideInterfaceLayer(7599, true); // scimmy sword
 				// interface,
 				// for most
 				// swords
-				player.getPacketSender().sendFrame171(1, 8493);
-				player.getPacketSender().sendFrame171(1, 12323); // whip
+				player.getPacketSender().sendHideInterfaceLayer(8493, true);
+				player.getPacketSender().sendHideInterfaceLayer(12323, true); // whip
 				// interface
 				break;
 		}
