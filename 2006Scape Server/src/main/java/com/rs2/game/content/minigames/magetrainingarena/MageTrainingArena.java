@@ -283,6 +283,7 @@ public class MageTrainingArena {
 		} else {
 			player.getItemAssistant().addItem(itemId, 1);
 		}
+		openShop();
 	}
 
 	public void enchantItem(int itemID, int spellID) {
