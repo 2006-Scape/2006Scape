@@ -283,6 +283,7 @@ public class MageTrainingArena {
 		} else {
 			player.getItemAssistant().addItem(itemId, 1);
 		}
+		// Update point amounts
 		openShop();
 	}
 
