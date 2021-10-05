@@ -474,6 +474,7 @@ public class ItemHandler {
                     try {
                         FileWriter fileWriter = new FileWriter("item-dump.json");
                         fileWriter.write(array.toString());
+                        fileWriter.close();
                         characterfile.close();
                     } catch (IOException e) {
                     }
