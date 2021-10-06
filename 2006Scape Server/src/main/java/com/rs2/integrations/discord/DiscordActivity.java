@@ -4,6 +4,7 @@ import com.rs2.game.players.PlayerHandler;
 
 public class DiscordActivity {
 
+    public static Boolean playerCount = false;
     private static int count = 50;
 
     public static void updateActivity() {

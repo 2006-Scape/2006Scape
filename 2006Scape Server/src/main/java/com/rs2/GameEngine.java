@@ -239,7 +239,9 @@ public class GameEngine {
 					if(GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION) {
 					RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
 					}
-					DiscordActivity.updateActivity();
+					if(DiscordActivity.playerCount) {
+						DiscordActivity.updateActivity();
+					}
 					if (System.currentTimeMillis() - lastMassSave > 300000) {
 						for (Player p : PlayerHandler.players) {
 							if (p == null) {
