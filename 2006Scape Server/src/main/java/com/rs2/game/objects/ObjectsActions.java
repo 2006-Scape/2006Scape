@@ -3084,6 +3084,5 @@ public class ObjectsActions {
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
             return;
         }
-        Farming.guide(player, obX, obY);
     }
 }

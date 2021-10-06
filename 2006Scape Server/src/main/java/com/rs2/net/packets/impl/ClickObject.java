@@ -6,6 +6,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.event.impl.ObjectFirstClickEvent;
+import com.rs2.event.impl.ObjectFourthClickEvent;
 import com.rs2.event.impl.ObjectSecondClickEvent;
 import com.rs2.event.impl.ObjectThirdClickEvent;
 import com.rs2.game.content.minigames.castlewars.CastleWarObjects;
@@ -440,6 +441,7 @@ public class ClickObject implements PacketType {
 			}
 			
 			player.getObjects().fourthClickObject(player.objectId, player.objectX, player.objectY);
+			player.post(new ObjectFourthClickEvent(player.objectId));
 			break;
 		}
 	}
