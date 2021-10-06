@@ -109,15 +109,19 @@ public class Graveyard {
                 if (!Boundary.isIn(p, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
                     return;
                 }
-                // TODO: Find falling bones animation/gfx ID
-                if (random.nextInt(1) == 0) {
-                    p.dealDamage(2);
-                    p.handleHitMask(2);
-                }
+                applyDamage(p);
                 updateInterface(p);
             }
         }
 	}
+
+    public static void applyDamage(Player player) {
+        if (random.nextInt(1) == 0) {
+            player.gfx0(520);
+            player.dealDamage(2);
+            player.handleHitMask(2);
+        }
+    }
 
     public static void updateInterface(Player player) {
         if (!Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {

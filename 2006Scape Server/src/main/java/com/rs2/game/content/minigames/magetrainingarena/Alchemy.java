@@ -13,7 +13,8 @@ import com.rs2.world.Boundary;
 
 public class Alchemy {
 
-	private Player player;
+    private Player player;
+    private boolean warned = false;
 
 	public Alchemy(Player c) {
 		this.player = c;
@@ -41,7 +42,7 @@ public class Alchemy {
         }
         // Item not found, player trying to alch a different item
         if (index < 0) {
-			player.getPacketSender().sendMessage("You cannot alch that item while here.");
+            player.getPacketSender().sendMessage("@red@You cannot alch that item while here.");
             return;
         }
         // Check player has requirements for this spell
@@ -65,12 +66,25 @@ public class Alchemy {
         }
         player.getPacketSender().sendShowTab(6);
         player.getPlayerAssistant().refreshSkill(6);
+
+        int coins = player.getItemAssistant().getItemAmount(995);
+        System.out.println(warned + ": " + coins);
+
+        if (!warned && coins >= 10000) {
+            player.getPacketSender().sendMessage("@red@You can only deposit up to 12,000 coins at a time.");
+            player.getPacketSender().sendMessage("@red@If you try to deposit more than 12,000 coins you won't recieve any rewards.");
+            warned = true;
+        }
     }
 
     public void collectCoins() {
         int coins = player.getItemAssistant().getItemAmount(995);
         if (coins < 100) {
-			player.getPacketSender().sendMessage("You need to deposit at least 100 coins.");
+			player.getPacketSender().sendMessage("@red@You need to deposit at least 100 coins.");
+            return;
+        }
+        if (coins > 12000) {
+			player.getPacketSender().sendMessage("@red@We cannot allow you to deposit that many coins.");
             return;
         }
         int points = (int) Math.floor(coins / 100);
@@ -80,6 +94,7 @@ public class Alchemy {
         player.alchemyPoints += points;
         player.getItemAssistant().addItemToBank(995, toBank);
         player.getPlayerAssistant().addSkillXP(bonusExp, GameConstants.MAGIC);
+        warned = false;
     }
 
     public void clearItems() {
