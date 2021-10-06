@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.event.impl.MagicOnItemEvent;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
 
@@ -21,6 +22,7 @@ public class MagicOnItems implements PacketType {
 		}
 		player.usingMagic = true;
 		player.getPlayerAssistant().magicOnItems(slot, itemId, spellId);
+		player.post(new MagicOnItemEvent(itemId, slot, spellId));
 		player.usingMagic = false;
 
 	}

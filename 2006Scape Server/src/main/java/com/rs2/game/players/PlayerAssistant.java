@@ -1227,12 +1227,6 @@ public class PlayerAssistant {
 			}
 			break;
 
-		case 1173:
-			if (!Superheat.superHeatItem(player, itemId)) {
-				return;
-			}
-			break;
-
 		case 1155: // Lvl-1 enchant sapphire
 		case 1165: // Lvl-2 enchant emerald
 		case 1176: // Lvl-3 enchant ruby
