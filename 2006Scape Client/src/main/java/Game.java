@@ -6849,8 +6849,10 @@ public class Game extends RSApplet {
 			}
 			catch(IOException _ex)
 			{
-				s = "Connection problem -- Make sure FileServer is running!!";
-				expectedCRCs[8] = 0;
+				s = "FileServer Connection problem";
+				// Check if we already have cache files, if so then allow the client to load anyway
+				String cacheDir = Signlink.findcachedir();
+				expectedCRCs[8] = new File(cacheDir + "main_file_cache.dat").length() > 0 ? 1 : 0;
 			}
 			catch(Exception _ex)
 			{
@@ -6870,7 +6872,7 @@ public class Game extends RSApplet {
 						l = 10;
 					} else
 					{
-						drawLoadingText(10, s + " - Will retry in " + l + " secs.");
+						drawLoadingText(10, s + " - retry in " + l + " secs.");
 					}
 					try
 					{
