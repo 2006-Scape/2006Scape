@@ -63,8 +63,8 @@ public class MageTrainingArena {
 
 		player.getPacketSender().sendString(Integer.toString(player.telekineticPoints), 15955);
 		player.getPacketSender().sendString(Integer.toString(player.enchantmentPoints), 15956);
-		player.getPacketSender().sendString(Integer.toString(player.graveyardPoints), 15957);
-		player.getPacketSender().sendString(Integer.toString(player.alchemyPoints), 15958);
+		player.getPacketSender().sendString(Integer.toString(player.alchemyPoints), 15957);
+		player.getPacketSender().sendString(Integer.toString(player.graveyardPoints), 15958);
 		player.getPacketSender().showInterface(15944);
 	}
 
@@ -245,11 +245,11 @@ public class MageTrainingArena {
 	public void sendItemValue(int itemId) {
 		player.getPacketSender().sendMessage(
 				ItemAssistant.getItemName(itemId) + " costs "
-						+ getGraveyardPointValue(itemId) + " Graveyard points, "
-						+ getAlchemyPointValue(itemId) + " Alchemy points,");
+				+ getTelekineticPointValue(itemId) + " Telekinetic points, "
+				+ getGraveyardPointValue(itemId) + " Graveyard points,");
 		player.getPacketSender().sendMessage(
-				"" + getEnchantmentPointValue(itemId) + " Enchantment points, and "
-						+ getTelekineticPointValue(itemId) + " Telekinetic points.");
+				getEnchantmentPointValue(itemId) + " Enchantment points and "
+				+ getAlchemyPointValue(itemId) + " Alchemist points.");
 	}
 
 	public void buyItem(int itemId) {
