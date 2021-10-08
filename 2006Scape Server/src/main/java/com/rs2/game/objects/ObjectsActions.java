@@ -115,10 +115,7 @@ public class ObjectsActions {
         PassDoor.processDoor(player, objectType);
         AbyssalHandler.handleAbyssalTeleport(player, objectType);
         OpenObject.interactObject(player, objectType);
-        // if its a rock we can mine, mine it
-        if (Mining.rockExists(objectType))
-            player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
-        if (Stalls.isObject(objectType)) {
+         if (Stalls.isObject(objectType)) {
             Stalls.attemptStall(player, objectType, objectX, objectY);
             return;
         }
@@ -2775,10 +2772,6 @@ public class ObjectsActions {
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
             return;
         }
-        if (Stalls.isObject(objectType)) {
-            Stalls.attemptStall(player, objectType, obX, obY);
-            return;
-        }
         if (Farming.inspectObject(player, obX, obY)) {
             return;
         }
@@ -3052,10 +3045,6 @@ public class ObjectsActions {
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
             return;
         }
-        if (Stalls.isObject(objectType)) {
-            Stalls.attemptStall(player, objectType, obX, obY);
-            return;
-        }
         OpenObject.interactObject(player, objectType);
         switch (objectType) {
             case 6:
@@ -3072,9 +3061,6 @@ public class ObjectsActions {
                 if (player.objectX == 2506 && player.objectY == 3640) {
                     Climbing.climbDown(player);
                 }
-                break;
-            case 10177:
-                player.getPlayerAssistant().movePlayer(1798, 4407, 3);
                 break;
             case 11890:
                 Climbing.handleClimbing(player);
@@ -3098,6 +3084,5 @@ public class ObjectsActions {
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
             return;
         }
-        Farming.guide(player, obX, obY);
     }
 }

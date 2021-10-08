@@ -3,6 +3,9 @@ package com.rs2.net.packets.impl;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.event.impl.NpcFirstClickEvent;
+import com.rs2.event.impl.NpcSecondClickEvent;
+import com.rs2.event.impl.NpcThirdClickEvent;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.range.RangeData;
@@ -229,6 +232,7 @@ public class ClickNPC implements PacketType {
 		case FIRST_CLICK:
 			player.npcClickIndex = player.inStream.readSignedWordBigEndian();
 			player.npcType = NpcHandler.npcs[player.npcClickIndex].npcType;
+
 			if (player.goodDistance(NpcHandler.npcs[player.npcClickIndex].getX(),
 					NpcHandler.npcs[player.npcClickIndex].getY(), player.getX(),
 					player.getY(), 2)) {
@@ -236,6 +240,7 @@ public class ClickNPC implements PacketType {
 						NpcHandler.npcs[player.npcClickIndex].getY());
 				NpcHandler.npcs[player.npcClickIndex].facePlayer(player.playerId);
 				player.getNpcs().firstClickNpc(player.npcType);
+				player.post(new NpcFirstClickEvent(player.npcType));
 			} else {
 				player.clickNpcType = 1;
 				   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -252,6 +257,7 @@ public class ClickNPC implements PacketType {
 								NpcHandler.npcs[player.npcClickIndex]
 										.facePlayer(player.playerId);
 								player.getNpcs().firstClickNpc(player.npcType);
+								player.post(new NpcFirstClickEvent(player.npcType));
 								container.stop();
 							}
 						}
@@ -277,6 +283,7 @@ public class ClickNPC implements PacketType {
 						NpcHandler.npcs[player.npcClickIndex].getY());
 				NpcHandler.npcs[player.npcClickIndex].facePlayer(player.playerId);
 				player.getNpcs().secondClickNpc(player.npcType);
+				player.post(new NpcSecondClickEvent(player.npcType));
 			} else {
 				player.clickNpcType = 2;
 				   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -293,6 +300,7 @@ public class ClickNPC implements PacketType {
 								NpcHandler.npcs[player.npcClickIndex]
 										.facePlayer(player.playerId);
 								player.getNpcs().secondClickNpc(player.npcType);
+								player.post(new NpcSecondClickEvent(player.npcType));
 								container.stop();
 							}
 						}
@@ -319,6 +327,7 @@ public class ClickNPC implements PacketType {
 						NpcHandler.npcs[player.npcClickIndex].getY());
 				NpcHandler.npcs[player.npcClickIndex].facePlayer(player.playerId);
 				player.getNpcs().thirdClickNpc(player.npcType);
+				player.post(new NpcThirdClickEvent(player.npcType));
 			} else {
 				player.clickNpcType = 3;
 				   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -335,6 +344,7 @@ public class ClickNPC implements PacketType {
 								NpcHandler.npcs[player.npcClickIndex]
 										.facePlayer(player.playerId);
 								player.getNpcs().thirdClickNpc(player.npcType);
+								player.post(new NpcThirdClickEvent(player.npcType));
 								container.stop();
 							}
 						}

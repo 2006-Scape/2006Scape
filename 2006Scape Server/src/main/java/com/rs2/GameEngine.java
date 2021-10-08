@@ -202,6 +202,11 @@ public class GameEngine {
 		setMinutesCounter(minutesCounter);
 
 		/**
+		 * Load Plugins
+		 */
+		Player.getPluginService().load();
+
+		/**
 		 * Server Successfully Loaded
 		 */
 		System.out.println("Server listening on port " + serverlistenerPort);

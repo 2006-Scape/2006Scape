@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.event.impl.ItemThirdClickEvent;
 import com.rs2.game.content.skills.runecrafting.Runecrafting;
 import com.rs2.game.items.impl.HandleEmpty;
 import com.rs2.game.items.impl.Teles;
@@ -23,6 +24,7 @@ public class ItemClick3 implements PacketType {
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}
+		player.post(new ItemThirdClickEvent(itemId));
 		if (HandleEmpty.canEmpty(player, itemId)) {
 			HandleEmpty.handleEmptyItem(player, itemId, HandleEmpty.filledToEmpty(player, itemId));
 			return;
@@ -51,9 +53,6 @@ public class ItemClick3 implements PacketType {
 			break;
 		case 1448:// Mind Talisman
 			Runecrafting.locate(player, 2982, 3514);
-			break;
-		case 4079:
-			player.startAnimation(1460);
 			break;
 			
 		case 2552:

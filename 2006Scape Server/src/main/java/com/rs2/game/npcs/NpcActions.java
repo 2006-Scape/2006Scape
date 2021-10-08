@@ -40,20 +40,6 @@ public class NpcActions {
 			}
 		}
 		switch (npcType) {
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:	//1-3 Man, 4-6 Woman - We are playing random dialogues here
-			if (Misc.random(10) <= 5)
-			{
-				player.getDialogueHandler().sendDialogues(3869, npcType);
-			}
-			else {
-				player.getDialogueHandler().sendDialogues(3872, npcType);
-			}
-			break;		
 		case 389 : //thormac
 			player.getDialogueHandler().sendDialogues(3574, npcType);
 			break;
@@ -1064,10 +1050,6 @@ public class NpcActions {
 		player.rememberNpcIndex = player.npcClickIndex;
 		player.npcClickIndex = 0;
 		Shops.openShop(player, npcType);
-		if (Pickpocket.isNPC(player, npcType)) {
-			Pickpocket.attemptPickpocket(player, npcType);
-			return;
-		}
 		if (Fishing.fishingNPC(player, npcType)) {
 			Fishing.fishingNPC(player, 2, npcType);
 		}
@@ -1083,13 +1065,9 @@ public class NpcActions {
 			player.getFarmingTools().loadInterfaces();
 			break;
 			
-		case 3:
-			player.getDialogueHandler().sendDialogues(5, npcType);
-			break;
-			
-		 case 209:
+		 /*case 209:
 	        player.getShopAssistant().openShop(144);
-	        break;
+	        break;*/
 	        
 	        
 		case 2437:
