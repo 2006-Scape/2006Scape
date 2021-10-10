@@ -1183,19 +1183,6 @@ public class ClickingButtons implements PacketType {
 			player.usingMagic = false;
 			break;
 
-		case 153:
-			if (player.tutorialProgress == 11) {
-				player.getDialogueHandler().sendDialogues(3041, 0);
-			}
-			player.getPacketSender().sendConfig(173, 1);
-			player.isRunning2 = true;
-			break;
-
-		case 152:
-			player.isRunning2 = false;
-			player.getPacketSender().sendConfig(173, 0);
-			break;
-
 		case 21010:
 			if (player.isBanking) {	
 				player.takeAsNote = true;
