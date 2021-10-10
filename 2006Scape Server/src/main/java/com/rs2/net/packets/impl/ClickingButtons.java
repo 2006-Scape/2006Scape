@@ -592,22 +592,6 @@ public class ClickingButtons implements PacketType {
 			break;
 		/** End of Hairdresser buttons */
 
-		case 3166:
-		case 3165:
-		case 3164:
-		case 3163:
-				Music.playMusic(player);
-				player.musicOn = true;
-			break;
-
-		case 3162:
-			if (player.musicOn) {
-				player.musicOn = false;
-			} else {
-				player.getPacketSender().sendMessage("Your music is already turned off.");
-			}
-			break;
-
 		case 8198:
 			PartyRoom.accept(player);
 			break;
@@ -1487,17 +1471,6 @@ public class ClickingButtons implements PacketType {
 				player.getPacketSender().sendConfig(170, 0);
 			}
 			break;
-		case 3189:
-			if (player.splitChat == false) {
-				player.getPacketSender().sendConfig(502, 1);
-				player.getPacketSender().sendConfig(287, 1);
-				player.splitChat = true;
-			} else if (player.splitChat) {
-				player.getPacketSender().sendConfig(502, 0);
-				player.getPacketSender().sendConfig(287, 0);
-				player.splitChat = false;
-			}
-			break;
 		case 74180:
 			if (!player.chatEffects) {
 				player.chatEffects = true;
@@ -1530,26 +1503,6 @@ public class ClickingButtons implements PacketType {
 				player.getPacketSender().sendConfig(504, 0);
 				player.getPacketSender().sendConfig(173, 0);
 			}
-			break;
-			
-		//case 74201:// brightness1
-		case 3138:
-			LightSources.brightness1(player);
-			break;
-
-		//case 74203:// brightness2
-		case 3140:
-			LightSources.brightness2(player);
-			break;
-
-		//case 74204:// brightness3
-		case 3142:
-			LightSources.brightness3(player);
-			break;
-
-		//case 74205:// brightness4
-		case 3144:
-			LightSources.brightness4(player);
 			break;
 
 		case 74206:// area1

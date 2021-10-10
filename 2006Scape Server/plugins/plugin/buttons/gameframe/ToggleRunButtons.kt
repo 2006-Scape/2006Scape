@@ -1,4 +1,4 @@
-package plugin.buttons.gameframe.emote
+package plugin.buttons.gameframe
 
 import com.rs2.event.SubscribesTo
 import com.rs2.event.impl.ButtonActionEvent
@@ -28,5 +28,7 @@ class ToggleRunButtons : ButtonClick() {
             }
         }
     }
-
+    override fun test(event: ButtonActionEvent): Boolean {
+            return event.button == 152 || event.button == 153
+    }
 }
