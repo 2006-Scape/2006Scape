@@ -1,17 +1,12 @@
 package com.rs2.plugin;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.lang.reflect.Modifier;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.rs2.event.EventSubscriber;
 import com.rs2.game.players.Player;
 import com.rs2.util.LoggerUtils;
@@ -32,20 +27,15 @@ public final class PluginService {
 	 * The list of subscribers registered to the server.
 	 */
 	private static final List<EventSubscriber<?>> subscribers = new ArrayList<>();
-	
-	/**
-	 * The single instance of gson to deserialize the plugin meta data.
-	 */	
-	private static final Gson gson = new GsonBuilder().create();	
 
 	/**
 	 * Loads the plugins.
 	 */
 	public void load() {
 		try {
-			Collection<PluginMetaData[]> plugins = findPlugins();
-			
-			plugins.stream().forEach($it -> register($it));			
+			Collection<EventSubscriber<?>> plugins = findPlugins();
+
+			plugins.stream().forEach(it -> register(it));
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "A problem was encountered while trying to load plugins.", e);
 		}
@@ -55,10 +45,9 @@ public final class PluginService {
 	/**
 	 * Finds plugins in a given directory.
 	 *
-	 * @throws IOException
 	 */
-	private Collection<PluginMetaData[]> findPlugins() throws IOException {
-		return findPlugins(new File("./plugins/"));
+	private Collection<EventSubscriber<?>> findPlugins() throws IOException {
+		return findPlugins(new File("./plugins"));
 	}
 	
 	/**
@@ -67,64 +56,51 @@ public final class PluginService {
 	 * @param dir
 	 * 		The directory to check for plugins.
 	 * 
-	 * @throws IOException
-	 * 
 	 * @return The collection of plugin data.
 	 */
-	private Collection<PluginMetaData[]> findPlugins(File dir) throws IOException {		
-		Collection<PluginMetaData[]> plugins = new ArrayList<>();
-		for(File file : dir.listFiles()) {			
-			if (file.isDirectory()) {
-				
-				File json = new File(file, "plugins.json");
-				
-				if (json.exists()) {
-					PluginMetaData[] meta = gson.fromJson(new FileReader(json), PluginMetaData[].class);
-					
-					plugins.add(meta);
-				} else {
-					plugins.addAll(findPlugins(file));
+	private Collection<EventSubscriber<?>> findPlugins(File dir) {
+		Collection<EventSubscriber<?>> plugins = new ArrayList<>();
+		for (File file : Objects.requireNonNull(dir.listFiles())) {
+			String base = file.getPath();
+
+			base = base.replace("\\", ".");
+
+			base = base.replace("..plugins.", "");
+
+			base = base.replace(".kt", "");
+
+			base = base.replace(".java", "");
+
+			if (!file.isDirectory()) {
+				try {
+					Class<?> clazz = Class.forName(base);
+
+					if (EventSubscriber.class.isAssignableFrom(clazz) && !Modifier.isInterface(clazz.getModifiers()) && !Modifier.isAbstract(clazz.getModifiers())) {
+						final EventSubscriber<?> sub = (EventSubscriber<?>) clazz.newInstance();
+
+						plugins.add(sub);
+					}
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+					e.printStackTrace();
 				}
-				
+
+			} else {
+				plugins.addAll(findPlugins(file));
 			}
+
 		}
 		return Collections.unmodifiableCollection(plugins);
 	}
 	
 	/**
 	 * Assigns a plugin to a subscriber
-	 * 
-	 * @param metas
-	 *		The meta deta for each plugin.
 	 */
-	private void register(PluginMetaData[] metas) {
-		for(PluginMetaData meta : metas) {
-			String base = meta.getBase();
+	private void register(EventSubscriber<?> subscriber) {
 
-			Class<?> clazz;
+		Player.provideSubscriber(subscriber);
 
-			try {
+		subscribers.add(subscriber);
 
-				clazz = Class.forName(base);
-
-			} catch (Exception ex) {
-				logger.warning(base + " could not be found.");
-				continue;
-			}
-
-			if (EventSubscriber.class.isAssignableFrom(clazz)) {
-				try {
-					final EventSubscriber<?> subscriber = (EventSubscriber<?>) clazz.newInstance();
-
-					Player.provideSubscriber(subscriber);
-
-					subscribers.add(subscriber);
-				} catch (Exception ex) {
-					logger.warning(base + " could not be created.");
-					continue;
-				}
-			}
-		}
 	}
 
 	/**

@@ -939,6 +939,7 @@ public abstract class Player {
 			lastIncrease = System.currentTimeMillis();
 		}
 		if (playerEnergy <= 0 && isRunning2) {
+			isRunning = false;
 			isRunning2 = false;
 			getPacketSender().sendConfig(504, 0);
 			getPacketSender().sendConfig(173, 0);

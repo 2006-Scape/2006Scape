@@ -14,7 +14,7 @@ class LogoutButton : ButtonClick() {
 	}
 
 	override fun test(event: ButtonActionEvent): Boolean {
-		return event.button == 9154;
+		return event.button == 9154
 	}
 
 }
