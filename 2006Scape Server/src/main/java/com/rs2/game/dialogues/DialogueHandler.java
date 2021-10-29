@@ -8,7 +8,6 @@ import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.quests.QuestRewards;
 import com.rs2.game.content.randomevents.FreakyForester;
 import com.rs2.game.content.randomevents.RandomEventHandler;
-import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.content.skills.farming.Farmers;
 import com.rs2.game.content.skills.slayer.Slayer;
 import com.rs2.game.content.traveling.CarpetTravel;
@@ -22,6 +21,12 @@ import com.rs2.game.players.PlayerAssistant;
 import com.rs2.game.shops.Shops.Shop;
 import com.rs2.util.Misc;
 
+/**
+ * Handles Dialogues between NPCs and Players
+ * @Deprecated Consider using {@link AstraeusDialogueFactory} instead to implement dialogues.
+ *
+ */
+@Deprecated
 public class DialogueHandler {
 
 	private final Player player;
@@ -3942,32 +3947,9 @@ public class DialogueHandler {
 						"Tzhaar-Mej-Tal");
 				player.nextChat = 0;
 				break;
-
-			/** Bank Settings **/
-			case 1013:
-				if (SkillHandler.isSkilling(player)) {
-					return;
-				}
-				sendNpcChat1("Good day. How may I help you?", player.talkingNpc, "Banker");
-				player.nextChat = 1014;
-				break;
-			case 1014:// bank open done, this place done, settings done, to do
-				// delete pin
-				sendOption("I'd like to access my bank account, please.", "I'd like to check my my P I N settings.", "What is this place?");
-				player.dialogueAction = 251;
-				break;
-			/** What is this place? **/
-			case 1015:
-				sendPlayerChat("What is this place?");
-				player.nextChat = 1016;
-				break;
-			case 1016:
-				sendNpcChat2("This is the bank of " + GameConstants.SERVER_NAME + ".", "We have many branches in many towns.", player.talkingNpc, "Banker");
-				player.nextChat = 0;
-				break;
 			/**
-			 * Note on P I N. In order to check your "Pin Settings. You must have
-			 * enter your Bank Pin first
+			 * BANK P I N Setting
+			 * Note on P I N. In order to check your P I N Settings. You must enter your Bank Pin first
 			 **/
 			/** I don't know option for Bank Pin **/
 			case 1017:
@@ -7468,28 +7450,8 @@ public class DialogueHandler {
 			case 3868:
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Enjoy your stay here. May it be spiritually uplifting!");
 				player.getDialogueHandler().endDialogue();
-				break;	
-			case 3869:
-				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Hello, how's it going?");
-				player.nextChat = 3870;
 				break;
-			case 3870:
-				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "I'm fine how are you?");
-				player.nextChat = 3871;
-				break;
-			case 3871:
-				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Very well thank you.");
-				player.getDialogueHandler().endDialogue();
-				break;
-			case 3872:
-				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Hello, how's it going?");
-				player.nextChat = 3873;
-				break;
-			case 3873:
-				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Hello there! Nice weather we've been having.");
-				player.getDialogueHandler().endDialogue();
-				break;
-				//holiday events (easter)
+			//holiday events (easter)
 			case 6000:
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DISTRESSED, "Oh dear... What am I going to do?");
 				player.nextChat = 6001;

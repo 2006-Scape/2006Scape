@@ -4,7 +4,12 @@ package com.rs2.game.dialogues;
  * ChatEmotes.java
  * @author Andrew (Mr Extremez)
  */
-
+/**
+ * Contains a List of Chat Head Emotes NPCs and Players can use during Dialogues
+ * @Deprecated Consider using {@link AstraeusExpression} instead to add Chat Head Animations to Dialogues.
+ *
+ */
+@Deprecated
 public enum ChatEmotes {
 	
 		HAPPY_JOYFUL(588),
