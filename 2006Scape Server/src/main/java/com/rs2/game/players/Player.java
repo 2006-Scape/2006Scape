@@ -1,19 +1,9 @@
 package com.rs2.game.players;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-
 import com.everythingrs.hiscores.Hiscores;
-import com.rs2.event.*;
-import com.rs2.plugin.PluginService;
-import org.apache.mina.common.IoSession;
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
+import com.rs2.event.*;
 import com.rs2.game.content.BankPin;
 import com.rs2.game.content.EmoteHandler;
 import com.rs2.game.content.combat.CombatAssistant;
@@ -35,28 +25,11 @@ import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.music.PlayList;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.SkillInterfaces;
-import com.rs2.game.content.skills.agility.Agility;
-import com.rs2.game.content.skills.agility.ApeAtollAgility;
-import com.rs2.game.content.skills.agility.BarbarianAgility;
-import com.rs2.game.content.skills.agility.GnomeAgility;
-import com.rs2.game.content.skills.agility.PyramidAgility;
-import com.rs2.game.content.skills.agility.WerewolfAgility;
-import com.rs2.game.content.skills.agility.WildernessAgility;
+import com.rs2.game.content.skills.agility.*;
 import com.rs2.game.content.skills.cooking.Potatoes;
 import com.rs2.game.content.skills.core.Mining;
 import com.rs2.game.content.skills.crafting.GlassBlowing;
-import com.rs2.game.content.skills.farming.Allotments;
-import com.rs2.game.content.skills.farming.Bushes;
-import com.rs2.game.content.skills.farming.Compost;
-import com.rs2.game.content.skills.farming.Flowers;
-import com.rs2.game.content.skills.farming.FruitTree;
-import com.rs2.game.content.skills.farming.Herbs;
-import com.rs2.game.content.skills.farming.Hops;
-import com.rs2.game.content.skills.farming.Seedling;
-import com.rs2.game.content.skills.farming.SpecialPlantOne;
-import com.rs2.game.content.skills.farming.SpecialPlantTwo;
-import com.rs2.game.content.skills.farming.ToolLeprechaun;
-import com.rs2.game.content.skills.farming.WoodTrees;
+import com.rs2.game.content.skills.farming.*;
 import com.rs2.game.content.skills.fletching.LogCuttingInterface;
 import com.rs2.game.content.skills.runecrafting.Runecrafting;
 import com.rs2.game.content.skills.slayer.Slayer;
@@ -64,18 +37,17 @@ import com.rs2.game.content.skills.smithing.Smithing;
 import com.rs2.game.content.skills.smithing.SmithingInterface;
 import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.content.traveling.DesertHeat;
+import com.rs2.game.dialogues.AstraeusDialogue;
+import com.rs2.game.dialogues.AstraeusDialogueFactory;
+import com.rs2.game.dialogues.AstraeusOptionDialogue;
 import com.rs2.game.dialogues.DialogueHandler;
 import com.rs2.game.globalworldobjects.DoubleGates;
 import com.rs2.game.globalworldobjects.GateHandler;
 import com.rs2.game.globalworldobjects.SingleGates;
-import com.rs2.game.items.GameItem;
-import com.rs2.game.items.Inventory;
-import com.rs2.game.items.ItemData;
-import com.rs2.game.items.ItemAssistant;
-import com.rs2.game.items.ItemConstants;
+import com.rs2.game.items.*;
+import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.items.impl.PotionMixing;
 import com.rs2.game.items.impl.Teles;
-import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcActions;
 import com.rs2.game.npcs.NpcHandler;
@@ -88,11 +60,15 @@ import com.rs2.net.PacketSender;
 import com.rs2.net.StaticPacketBuilder;
 import com.rs2.net.packets.PacketHandler;
 import com.rs2.net.packets.impl.ChallengePlayer;
+import com.rs2.plugin.PluginService;
 import com.rs2.util.ISAACRandomGen;
 import com.rs2.util.Misc;
 import com.rs2.util.Stream;
 import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
+import org.apache.mina.common.IoSession;
+
+import java.util.*;
 
 public abstract class Player {
 	
@@ -142,6 +118,14 @@ public abstract class Player {
 	private final Slayer slayer = new Slayer(this);
 	private final PacketSender packetSender = new PacketSender(this);
 	private final DialogueHandler dialogues = new DialogueHandler(this);
+
+	private final AstraeusDialogueFactory dialogueFactory = new AstraeusDialogueFactory(this);
+
+	private Optional<AstraeusDialogue> dialogue = Optional.empty();
+
+	private Optional<AstraeusOptionDialogue> optionDialogue = Optional.empty();
+
+
 	private final GnomeAgility gnomeStrongHold = new GnomeAgility(this);
 	private final WildernessAgility wildernessAgility = new WildernessAgility(this);
 	private final BarbarianAgility barbarianAgility = new BarbarianAgility(this);
@@ -494,6 +478,26 @@ public abstract class Player {
 	}
 
 	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
+
+	public AstraeusDialogueFactory getDialogueFactory() {
+		return this.dialogueFactory;
+	}
+
+	public Optional<AstraeusDialogue> getDialogue() {
+		return this.dialogue;
+	}
+
+	public Optional<AstraeusOptionDialogue> getOptionDialogue() {
+		return this.optionDialogue;
+	}
+
+	public void setDialogue(Optional<AstraeusDialogue> dialogue) {
+		this.dialogue = dialogue;
+	}
+
+	public void setOptionDialogue(Optional<AstraeusOptionDialogue> optionDialogue) {
+		this.optionDialogue = optionDialogue;
+	}
 
 	public class TinterfaceText {
 		public int id;
