@@ -1,12 +1,12 @@
 package com.rs2.game.dialogues;
 
 /**
- * The {@link AstraeusChainable} implementation that represents a dialogue with a single statement; which
+ * The {@link ChainablePlugin} implementation that represents a dialogue with a single statement; which
  * has no models on the dialogue.
  *
  * @author Vult-R
  */
-public class AstraeusStatementDialogue implements AstraeusChainable {
+public class StatementDialoguePlugin implements ChainablePlugin {
 
     /**
      * The text for this dialogue.
@@ -14,17 +14,17 @@ public class AstraeusStatementDialogue implements AstraeusChainable {
     private final String[] lines;
 
     /**
-     * Creates a new {@link AstraeusStatementDialogue}.
+     * Creates a new {@link StatementDialoguePlugin}.
      *
      * @param lines The text for this dialogue.
      */
-    public AstraeusStatementDialogue(String... lines) {
+    public StatementDialoguePlugin(String... lines) {
         this.lines = lines;
     }
 
 
     @Override
-    public void accept(AstraeusDialogueFactory factory) {
+    public void accept(DialogueFactoryPlugin factory) {
         factory.sendStatement(this);
     }
 
@@ -35,15 +35,15 @@ public class AstraeusStatementDialogue implements AstraeusChainable {
 
     public boolean equals(final Object o) {
         if (o == this) return true;
-        if (!(o instanceof AstraeusStatementDialogue)) return false;
-        final AstraeusStatementDialogue other = (AstraeusStatementDialogue) o;
+        if (!(o instanceof StatementDialoguePlugin)) return false;
+        final StatementDialoguePlugin other = (StatementDialoguePlugin) o;
         if (!other.canEqual((Object) this)) return false;
         if (!java.util.Arrays.deepEquals(this.getLines(), other.getLines())) return false;
         return true;
     }
 
     protected boolean canEqual(final Object other) {
-        return other instanceof AstraeusStatementDialogue;
+        return other instanceof StatementDialoguePlugin;
     }
 
     public int hashCode() {

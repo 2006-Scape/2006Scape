@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableList;
  *
  * @author Vult-R
  */
-public abstract class AstraeusDialogue {
+public abstract class DialoguePlugin {
 
     /**
      * The action buttons responsible for dialogues.
@@ -21,7 +21,7 @@ public abstract class AstraeusDialogue {
      *
      * @param factory The factory for this dialogue.
      */
-    public abstract void sendDialogues(AstraeusDialogueFactory factory);
+    public abstract void sendDialogues(DialogueFactoryPlugin factory);
 
     /**
      * Checks if the button triggered is an optional dialogue button.

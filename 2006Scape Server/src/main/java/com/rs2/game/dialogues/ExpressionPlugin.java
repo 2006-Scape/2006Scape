@@ -21,7 +21,7 @@ package com.rs2.game.dialogues;
  *
  * @author Vult-R
  */
-public enum AstraeusExpression {
+public enum ExpressionPlugin {
     HAPPY(588),
     ANXIOUS(589),
     CALM_TALK(590),
@@ -59,11 +59,11 @@ public enum AstraeusExpression {
     private final int id;
 
     /**
-     * Creates a new {@link AstraeusExpression}.
+     * Creates a new {@link ExpressionPlugin}.
      *
      * @param expression The id for this expression.
      */
-    private AstraeusExpression(int expression) {
+    private ExpressionPlugin(int expression) {
         this.id = expression;
     }
 

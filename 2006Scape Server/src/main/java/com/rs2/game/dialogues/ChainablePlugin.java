@@ -9,6 +9,6 @@ import java.util.function.Consumer;
  *
  * @author Vult-R
  */
-public interface AstraeusChainable extends Consumer<AstraeusDialogueFactory> {
+public interface ChainablePlugin extends Consumer<DialogueFactoryPlugin> {
 
 }

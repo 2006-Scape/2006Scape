@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@link AstraeusChainable} implementation that represents a dialogue in which options are given to the
+ * The {@link ChainablePlugin} implementation that represents a dialogue in which options are given to the
  * player.
  *
  * @author Vult-R
  */
-public final class AstraeusOptionDialogue implements AstraeusChainable {
+public final class OptionDialoguePlugin implements ChainablePlugin {
 
     /**
      * The text for this dialogue.
@@ -22,7 +22,7 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
     private final List<Runnable> actions = new ArrayList<>();
 
     /**
-     * Creates a new {@link AstraeusOptionDialogue}.
+     * Creates a new {@link OptionDialoguePlugin}.
      *
      * @param option1 The text for the first option.
      *
@@ -32,14 +32,14 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
      *
      * @param action2 The action for the second action.
      */
-    public AstraeusOptionDialogue(String option1, Runnable action1, String option2, Runnable action2) {
+    public OptionDialoguePlugin(String option1, Runnable action1, String option2, Runnable action2) {
         lines = new String[] {option1, option2};
         actions.add(action1);
         actions.add(action2);
     }
 
     /**
-     * Creates a new {@link AstraeusOptionDialogue}.
+     * Creates a new {@link OptionDialoguePlugin}.
      *
      * @param option1 The text for the first option.
      *
@@ -53,8 +53,8 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
      *
      * @param action3 The action for the third action.
      */
-    public AstraeusOptionDialogue(String option1, Runnable action1, String option2, Runnable action2,
-                          String option3, Runnable action3) {
+    public OptionDialoguePlugin(String option1, Runnable action1, String option2, Runnable action2,
+                                String option3, Runnable action3) {
         lines = new String[] {option1, option2, option3};
         actions.add(action1);
         actions.add(action2);
@@ -62,7 +62,7 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
     }
 
     /**
-     * Creates a new {@link AstraeusOptionDialogue}.
+     * Creates a new {@link OptionDialoguePlugin}.
      *
      * @param option1 The text for the first option.
      *
@@ -80,8 +80,8 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
      *
      * @param action4 The action for the four action.
      */
-    public AstraeusOptionDialogue(String option1, Runnable action1, String option2, Runnable action2,
-                          String option3, Runnable action3, String option4, Runnable action4) {
+    public OptionDialoguePlugin(String option1, Runnable action1, String option2, Runnable action2,
+                                String option3, Runnable action3, String option4, Runnable action4) {
         lines = new String[] {option1, option2, option3, option4};
         actions.add(action1);
         actions.add(action2);
@@ -90,7 +90,7 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
     }
 
     /**
-     * Creates a new {@link AstraeusOptionDialogue}.
+     * Creates a new {@link OptionDialoguePlugin}.
      *
      * @param option1 The text for the first option.
      *
@@ -112,9 +112,9 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
      *
      * @param action5 The action for the fifth action.
      */
-    public AstraeusOptionDialogue(String option1, Runnable action1, String option2, Runnable action2,
-                          String option3, Runnable action3, String option4, Runnable action4, String option5,
-                          Runnable action5) {
+    public OptionDialoguePlugin(String option1, Runnable action1, String option2, Runnable action2,
+                                String option3, Runnable action3, String option4, Runnable action4, String option5,
+                                Runnable action5) {
         lines = new String[] {option1, option2, option3, option4, option5};
         actions.add(action1);
         actions.add(action2);
@@ -124,7 +124,7 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
     }
 
     @Override
-    public void accept(AstraeusDialogueFactory factory) {
+    public void accept(DialogueFactoryPlugin factory) {
         factory.sendOption(this);
     }
 
@@ -139,8 +139,8 @@ public final class AstraeusOptionDialogue implements AstraeusChainable {
 
     public boolean equals(final Object o) {
         if (o == this) return true;
-        if (!(o instanceof AstraeusOptionDialogue)) return false;
-        final AstraeusOptionDialogue other = (AstraeusOptionDialogue) o;
+        if (!(o instanceof OptionDialoguePlugin)) return false;
+        final OptionDialoguePlugin other = (OptionDialoguePlugin) o;
         if (!java.util.Arrays.deepEquals(this.getLines(), other.getLines())) return false;
         final Object this$actions = this.getActions();
         final Object other$actions = other.getActions();

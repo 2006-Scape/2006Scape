@@ -37,9 +37,9 @@ import com.rs2.game.content.skills.smithing.Smithing;
 import com.rs2.game.content.skills.smithing.SmithingInterface;
 import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.content.traveling.DesertHeat;
-import com.rs2.game.dialogues.AstraeusDialogue;
-import com.rs2.game.dialogues.AstraeusDialogueFactory;
-import com.rs2.game.dialogues.AstraeusOptionDialogue;
+import com.rs2.game.dialogues.DialoguePlugin;
+import com.rs2.game.dialogues.DialogueFactoryPlugin;
+import com.rs2.game.dialogues.OptionDialoguePlugin;
 import com.rs2.game.dialogues.DialogueHandler;
 import com.rs2.game.globalworldobjects.DoubleGates;
 import com.rs2.game.globalworldobjects.GateHandler;
@@ -119,11 +119,11 @@ public abstract class Player {
 	private final PacketSender packetSender = new PacketSender(this);
 	private final DialogueHandler dialogues = new DialogueHandler(this);
 
-	private final AstraeusDialogueFactory dialogueFactory = new AstraeusDialogueFactory(this);
+	private final DialogueFactoryPlugin dialogueFactory = new DialogueFactoryPlugin(this);
 
-	private Optional<AstraeusDialogue> dialogue = Optional.empty();
+	private Optional<DialoguePlugin> dialogue = Optional.empty();
 
-	private Optional<AstraeusOptionDialogue> optionDialogue = Optional.empty();
+	private Optional<OptionDialoguePlugin> optionDialogue = Optional.empty();
 
 
 	private final GnomeAgility gnomeStrongHold = new GnomeAgility(this);
@@ -479,23 +479,23 @@ public abstract class Player {
 
 	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
 
-	public AstraeusDialogueFactory getDialogueFactory() {
+	public DialogueFactoryPlugin getDialogueFactory() {
 		return this.dialogueFactory;
 	}
 
-	public Optional<AstraeusDialogue> getDialogue() {
+	public Optional<DialoguePlugin> getDialogue() {
 		return this.dialogue;
 	}
 
-	public Optional<AstraeusOptionDialogue> getOptionDialogue() {
+	public Optional<OptionDialoguePlugin> getOptionDialogue() {
 		return this.optionDialogue;
 	}
 
-	public void setDialogue(Optional<AstraeusDialogue> dialogue) {
+	public void setDialogue(Optional<DialoguePlugin> dialogue) {
 		this.dialogue = dialogue;
 	}
 
-	public void setOptionDialogue(Optional<AstraeusOptionDialogue> optionDialogue) {
+	public void setOptionDialogue(Optional<OptionDialoguePlugin> optionDialogue) {
 		this.optionDialogue = optionDialogue;
 	}
 

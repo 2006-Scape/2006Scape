@@ -23,7 +23,7 @@ import com.rs2.util.Misc;
 
 /**
  * Handles Dialogues between NPCs and Players
- * @Deprecated Consider using {@link AstraeusDialogueFactory} instead to implement dialogues.
+ * @Deprecated Consider using {@link DialogueFactoryPlugin} instead to implement dialogues.
  *
  */
 @Deprecated

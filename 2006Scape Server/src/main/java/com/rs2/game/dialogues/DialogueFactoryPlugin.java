@@ -17,17 +17,17 @@ import java.util.logging.Logger;
  *
  * Ported by Qweqker
  */
-public final class AstraeusDialogueFactory {
+public final class DialogueFactoryPlugin {
 
     /**
      * The single logger for this class.
      */
-    private static final Logger logger = LoggerUtils.getLogger(AstraeusDialogueFactory.class);
+    private static final Logger logger = LoggerUtils.getLogger(DialogueFactoryPlugin.class);
 
     /**
      * The queue of dialogues in this factory.
      */
-    private final Queue<AstraeusChainable> chain = new ArrayDeque<>();
+    private final Queue<ChainablePlugin> chain = new ArrayDeque<>();
 
     /**
      * The approximate maximum characters that can be fit onto a dialogue line in the interface
@@ -60,11 +60,11 @@ public final class AstraeusDialogueFactory {
     private Optional<Runnable> nextAction = Optional.empty();
 
     /**
-     * Creates a new {@link AstraeusDialogueFactory}.
+     * Creates a new {@link DialogueFactoryPlugin}.
      *
      * @param player The player who owns this factory.
      */
-    public AstraeusDialogueFactory(Player player) {
+    public DialogueFactoryPlugin(Player player) {
         this.player = player;
     }
 
@@ -73,7 +73,7 @@ public final class AstraeusDialogueFactory {
      *
      * @param dialogue The dialogue to sent.
      */
-    public final AstraeusDialogueFactory sendDialogue(AstraeusDialogue dialogue) {
+    public final DialogueFactoryPlugin sendDialogue(DialoguePlugin dialogue) {
 
         clear(); // Clear dialogue queue before starting new one. Hacky, but it works for this base
 
@@ -89,7 +89,7 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory onAction(Runnable action) {
+    public final DialogueFactoryPlugin onAction(Runnable action) {
         setNextAction(Optional.of(action));
         return this;
     }
@@ -99,9 +99,9 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public AstraeusDialogueFactory onNext() {
+    public DialogueFactoryPlugin onNext() {
         if (getChain().peek() != null) {
-            AstraeusChainable chain = getChain().poll();
+            ChainablePlugin chain = getChain().poll();
 
             chain.accept(this);
         } else {
@@ -117,7 +117,7 @@ public final class AstraeusDialogueFactory {
      *
      * @param option The option to execute.
      */
-    public final void executeOption(int type, Optional<AstraeusOptionDialogue> option) {
+    public final void executeOption(int type, Optional<OptionDialoguePlugin> option) {
         option.ifPresent($it -> $it.getActions().get(type).run());
         execute();
     }
@@ -140,7 +140,7 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    private final AstraeusDialogueFactory append(AstraeusChainable chain) {
+    private final DialogueFactoryPlugin append(ChainablePlugin chain) {
         this.chain.add(chain);
         return this;
     }
@@ -150,16 +150,16 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory execute() {
+    public final DialogueFactoryPlugin execute() {
         // check to see if there are anymore dialogues.
         if (getChain().peek() != null) {
 
             // there is so, grab the next dialogue.
-            AstraeusChainable entry = getChain().poll();
+            ChainablePlugin entry = getChain().poll();
 
             // is this an option dialogue?
-            if (entry instanceof AstraeusOptionDialogue) {
-                AstraeusOptionDialogue option = (AstraeusOptionDialogue) entry;
+            if (entry instanceof OptionDialoguePlugin) {
+                OptionDialoguePlugin option = (OptionDialoguePlugin) entry;
                 player.setOptionDialogue(Optional.of(option));
             }
             setActive(true);
@@ -188,16 +188,16 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory executeNoClose() {
+    public final DialogueFactoryPlugin executeNoClose() {
         // check to see if there are anymore dialogues.
         if (getChain().peek() != null) {
 
             // there is so, grab the next dialogue.
-            AstraeusChainable entry = getChain().poll();
+            ChainablePlugin entry = getChain().poll();
 
             // is this an option dialogue?
-            if (entry instanceof AstraeusOptionDialogue) {
-                AstraeusOptionDialogue option = (AstraeusOptionDialogue) entry;
+            if (entry instanceof OptionDialoguePlugin) {
+                OptionDialoguePlugin option = (OptionDialoguePlugin) entry;
                 player.setOptionDialogue(Optional.of(option));
             }
             setActive(true);
@@ -238,18 +238,18 @@ public final class AstraeusDialogueFactory {
     }
 
     /**
-     * Appends a {@link AstraeusPlayerDialogue} to the current dialogue chain.
+     * Appends a {@link PlayerDialoguePlugin} to the current dialogue chain.
      *
      * @param lines The dialogue of the player talking.
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory sendPlayerChat(String... lines) {
-        return append(new AstraeusPlayerDialogue(lines));
+    public final DialogueFactoryPlugin sendPlayerChat(String... lines) {
+        return append(new PlayerDialoguePlugin(lines));
     }
 
     /**
-     * Appends a {@link AstraeusPlayerDialogue} to the current dialogue chain.
+     * Appends a {@link PlayerDialoguePlugin} to the current dialogue chain.
      *
      * @param lines The dialogue of the player talking.
      *
@@ -257,8 +257,8 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory sendPlayerChat(AstraeusExpression expression, String... lines) {
-        return append(new AstraeusPlayerDialogue(expression, lines));
+    public final DialogueFactoryPlugin sendPlayerChat(ExpressionPlugin expression, String... lines) {
+        return append(new PlayerDialoguePlugin(expression, lines));
     }
 
     /**
@@ -268,8 +268,8 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    final AstraeusDialogueFactory sendPlayerChat(AstraeusPlayerDialogue dialogue) {
-        AstraeusExpression expression = dialogue.getExpression();
+    final DialogueFactoryPlugin sendPlayerChat(PlayerDialoguePlugin dialogue) {
+        ExpressionPlugin expression = dialogue.getExpression();
         String[] lines = dialogue.getLines();
 
         validateLength(lines);
@@ -328,12 +328,12 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory sendNPCChat(String... lines) {
-        return append(new AstraeusNPCDialogue(lines));
+    public final DialogueFactoryPlugin sendNPCChat(String... lines) {
+        return append(new NPCDialogue(lines));
     }
 
     /**
-     * Appends an {@link AstraeusNPCDialogue} to the current dialogue chain.
+     * Appends an {@link NPCDialogue} to the current dialogue chain.
      *
      * @param expression The expression of this npc.
      *
@@ -341,12 +341,12 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory sendNPCChat(AstraeusExpression expression, String... lines) {
-        return append(new AstraeusNPCDialogue(expression, lines));
+    public final DialogueFactoryPlugin sendNPCChat(ExpressionPlugin expression, String... lines) {
+        return append(new NPCDialogue(expression, lines));
     }
 
     /**
-     * Appends an {@link AstraeusNPCDialogue} to the current dialogue chain.
+     * Appends an {@link NPCDialogue} to the current dialogue chain.
      *
      * @param id The id of this npc.
      *
@@ -354,12 +354,12 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory sendNPCChat(int id, String... lines) {
-        return append(new AstraeusNPCDialogue(id, AstraeusExpression.DEFAULT, lines));
+    public final DialogueFactoryPlugin sendNPCChat(int id, String... lines) {
+        return append(new NPCDialogue(id, ExpressionPlugin.DEFAULT, lines));
     }
 
     /**
-     * Appends an {@link AstraeusNPCDialogue} to the current dialogue chain.
+     * Appends an {@link NPCDialogue} to the current dialogue chain.
      *
      * @param id The id of this npc.
      *
@@ -369,8 +369,8 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory sendNPCChat(int id, AstraeusExpression expression, String... lines) {
-        return append(new AstraeusNPCDialogue(id, expression, lines));
+    public final DialogueFactoryPlugin sendNPCChat(int id, ExpressionPlugin expression, String... lines) {
+        return append(new NPCDialogue(id, expression, lines));
     }
 
     /**
@@ -380,8 +380,8 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    final AstraeusDialogueFactory sendNPCChat(AstraeusNPCDialogue dialogue) {
-        AstraeusExpression expression = dialogue.getExpression();
+    final DialogueFactoryPlugin sendNPCChat(NPCDialogue dialogue) {
+        ExpressionPlugin expression = dialogue.getExpression();
         String[] lines = dialogue.getLines();
         validateLength(lines);
         lines = splitLines(lines);
@@ -440,7 +440,7 @@ public final class AstraeusDialogueFactory {
     }
 
     /**
-     * Appends the {@link AstraeusOptionDialogue} onto the current dialogue chain.
+     * Appends the {@link OptionDialoguePlugin} onto the current dialogue chain.
      *
      * @param option1 The text for the first option.
      *
@@ -450,13 +450,13 @@ public final class AstraeusDialogueFactory {
      *
      * @param action2 The action for the second action.
      */
-    public final AstraeusDialogueFactory sendOption(String option1, Runnable action1, String option2,
-                                            Runnable action2) {
-        return append(new AstraeusOptionDialogue(option1, action1, option2, action2));
+    public final DialogueFactoryPlugin sendOption(String option1, Runnable action1, String option2,
+                                                  Runnable action2) {
+        return append(new OptionDialoguePlugin(option1, action1, option2, action2));
     }
 
     /**
-     * Appends the {@link AstraeusOptionDialogue} onto the current dialogue chain.
+     * Appends the {@link OptionDialoguePlugin} onto the current dialogue chain.
      *
      * @param option1 The text for the first option.
      *
@@ -470,13 +470,13 @@ public final class AstraeusDialogueFactory {
      *
      * @param action3 The action for the third action.
      */
-    public final AstraeusDialogueFactory sendOption(String option1, Runnable action1, String option2,
-                                            Runnable action2, String option3, Runnable action3) {
-        return append(new AstraeusOptionDialogue(option1, action1, option2, action2, option3, action3));
+    public final DialogueFactoryPlugin sendOption(String option1, Runnable action1, String option2,
+                                                  Runnable action2, String option3, Runnable action3) {
+        return append(new OptionDialoguePlugin(option1, action1, option2, action2, option3, action3));
     }
 
     /**
-     * Appends the {@link AstraeusOptionDialogue} onto the current dialogue chain.
+     * Appends the {@link OptionDialoguePlugin} onto the current dialogue chain.
      *
      * @param option1 The text for the first option.
      *
@@ -494,14 +494,14 @@ public final class AstraeusDialogueFactory {
      *
      * @param action4 The action for the four action.
      */
-    public final AstraeusDialogueFactory sendOption(String option1, Runnable action1, String option2,
-                                            Runnable action2, String option3, Runnable action3, String option4, Runnable action4) {
+    public final DialogueFactoryPlugin sendOption(String option1, Runnable action1, String option2,
+                                                  Runnable action2, String option3, Runnable action3, String option4, Runnable action4) {
         return append(
-                new AstraeusOptionDialogue(option1, action1, option2, action2, option3, action3, option4, action4));
+                new OptionDialoguePlugin(option1, action1, option2, action2, option3, action3, option4, action4));
     }
 
     /**
-     * Appends the {@link AstraeusOptionDialogue} onto the current dialogue chain.
+     * Appends the {@link OptionDialoguePlugin} onto the current dialogue chain.
      *
      * @param option1 The text for the first option.
      *
@@ -523,10 +523,10 @@ public final class AstraeusDialogueFactory {
      *
      * @param action5 The action for the fifth action.
      */
-    public final AstraeusDialogueFactory sendOption(String option1, Runnable action1, String option2,
-                                            Runnable action2, String option3, Runnable action3, String option4, Runnable action4,
-                                            String option5, Runnable action5) {
-        return append(new AstraeusOptionDialogue(option1, action1, option2, action2, option3, action3, option4,
+    public final DialogueFactoryPlugin sendOption(String option1, Runnable action1, String option2,
+                                                  Runnable action2, String option3, Runnable action3, String option4, Runnable action4,
+                                                  String option5, Runnable action5) {
+        return append(new OptionDialoguePlugin(option1, action1, option2, action2, option3, action3, option4,
                 action4, option5, action5));
     }
 
@@ -537,7 +537,7 @@ public final class AstraeusDialogueFactory {
      *
      * @return The instance of this factory.
      */
-    final AstraeusDialogueFactory sendOption(AstraeusOptionDialogue dialogue) {
+    final DialogueFactoryPlugin sendOption(OptionDialoguePlugin dialogue) {
         String[] options = dialogue.getLines();
         validateLength(options);
 
@@ -580,14 +580,14 @@ public final class AstraeusDialogueFactory {
     }
 
     /**
-     * Appends a {@link AstraeusStatementDialogue} to the current dialogue chain.
+     * Appends a {@link StatementDialoguePlugin} to the current dialogue chain.
      *
      * @param lines The text for this statement.
      *
      * @return The instance of this factory.
      */
-    public final AstraeusDialogueFactory sendStatement(String... lines) {
-        append(new AstraeusStatementDialogue(lines));
+    public final DialogueFactoryPlugin sendStatement(String... lines) {
+        append(new StatementDialoguePlugin(lines));
         return this;
     }
 
@@ -596,7 +596,7 @@ public final class AstraeusDialogueFactory {
      *
      * @param dialogue The statement dialogue.
      */
-    final AstraeusDialogueFactory sendStatement(AstraeusStatementDialogue dialogue) {
+    final DialogueFactoryPlugin sendStatement(StatementDialoguePlugin dialogue) {
         String[] lines = dialogue.getLines();
         validateLength(lines);
         lines = splitLines(lines);
@@ -713,7 +713,7 @@ public final class AstraeusDialogueFactory {
     }
 
     // Delombok'd Code Below
-    public Queue<AstraeusChainable> getChain() {
+    public Queue<ChainablePlugin> getChain() {
         return this.chain;
     }
 

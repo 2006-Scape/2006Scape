@@ -14,7 +14,7 @@ import com.rs2.game.players.Player;
  */
 /**
  * Handles Dialogue Options between NPCs and Players
- * @Deprecated Consider using {@link AstraeusDialogueFactory} instead to implement dialogues.
+ * @Deprecated Consider using {@link DialogueFactoryPlugin} instead to implement dialogues.
  *
  */
 @Deprecated
@@ -22,14 +22,6 @@ public class DialogueOptions {
 	
 	public static void handleDialogueOptions(Player player, int buttonId) {
 		switch (buttonId) {
-
-			/*
-			 * TODO: Remove Astraeus Option Dialogue execution from this file. Astraeus Option Dialogue Options
-			 *  currently executes from here, even though there is a specific DialogueButtons kotlin file
-			 *  available. Expect to see flickering when using Astraeus Dialogues with options, as the previous
-			 *  system operates before it executes the new system. You may also see a delay because it has to
-			 *  loop through all the other option dialogue code to get to the execute.
-			 */
 
 			/*
 			 *	TWO OPTIONS
@@ -332,8 +324,6 @@ public class DialogueOptions {
 				player.dialogueAction = 0;
 				player.getPacketSender().closeAllWindows();
 
-				// For Astraeus Dialogues, has to come after the dialogue action and close all windows
-				player.getDialogueFactory().executeOption(1, player.getOptionDialogue());
 				break;
 
 			// Second
@@ -558,8 +548,6 @@ public class DialogueOptions {
 				player.dialogueAction = 0;
 				player.getPacketSender().closeAllWindows();
 
-				// For Astraeus Dialogues, has to come after the dialogue action and close all windows
-				player.getDialogueFactory().executeOption(1, player.getOptionDialogue());
 				break;
 
 			/*
@@ -654,8 +642,6 @@ public class DialogueOptions {
 				player.dialogueAction = 0;
 				player.getPacketSender().closeAllWindows();
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(0, player.getOptionDialogue());
 				break;
 
 			// Second
@@ -741,9 +727,6 @@ public class DialogueOptions {
 				}
 				player.dialogueAction = 0;
 				player.getPacketSender().closeAllWindows();
-
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(1, player.getOptionDialogue());
 				break;
 
 			// Third
@@ -833,9 +816,6 @@ public class DialogueOptions {
 				}
 				player.dialogueAction = 0;
 				player.getPacketSender().closeAllWindows();
-
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(2, player.getOptionDialogue());
 				break;
 
 			/*
@@ -913,8 +893,6 @@ public class DialogueOptions {
 					player.getDialogueHandler().sendDialogues(3561, player.npcType);
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(0, player.getOptionDialogue());
 				break;
 
 			// Second
@@ -986,8 +964,6 @@ public class DialogueOptions {
 					player.getDialogueHandler().sendDialogues(3562, player.npcType);
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(1, player.getOptionDialogue());
 				break;
 
 			// Third
@@ -1062,8 +1038,6 @@ public class DialogueOptions {
 					player.getDialogueHandler().sendDialogues(3563, player.npcType);
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(2, player.getOptionDialogue());
 				break;
 
 			// Fourth
@@ -1123,8 +1097,6 @@ public class DialogueOptions {
 					player.getDialogueHandler().sendDialogues(3564, player.npcType);
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(3, player.getOptionDialogue());
 				break;
 
 
@@ -1140,8 +1112,6 @@ public class DialogueOptions {
 						break;
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(0, player.getOptionDialogue());
 				break;
 
 			// Second
@@ -1151,8 +1121,7 @@ public class DialogueOptions {
 						player.getDialogueHandler().sendDialogues(3540, player.npcType);
 						break;
 				}
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(1, player.getOptionDialogue());
+
 				break;
 
 			// Third
@@ -1163,8 +1132,6 @@ public class DialogueOptions {
 						break;
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(2, player.getOptionDialogue());
 				break;
 
 			// Fourth
@@ -1175,8 +1142,6 @@ public class DialogueOptions {
 						break;
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(3, player.getOptionDialogue());
 				break;
 
 			// Fifth
@@ -1187,8 +1152,6 @@ public class DialogueOptions {
 						break;
 				}
 
-				// For Astraeus Dialogues
-				player.getDialogueFactory().executeOption(4, player.getOptionDialogue());
 				break;
 		}
 	}

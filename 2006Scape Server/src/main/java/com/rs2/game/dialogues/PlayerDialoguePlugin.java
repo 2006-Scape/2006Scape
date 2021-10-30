@@ -1,16 +1,16 @@
 package com.rs2.game.dialogues;
 
 /**
- * A {@link AstraeusChainable} implementation that represents a player talking.
+ * A {@link ChainablePlugin} implementation that represents a player talking.
  *
  * @author Vult-R
  */
-public class AstraeusPlayerDialogue implements AstraeusChainable {
+public class PlayerDialoguePlugin implements ChainablePlugin {
 
     /**
      * The expression of this player.
      */
-    private final AstraeusExpression expression;
+    private final ExpressionPlugin expression;
 
     /**
      * The text for this dialogue.
@@ -18,32 +18,32 @@ public class AstraeusPlayerDialogue implements AstraeusChainable {
     private final String[] lines;
 
     /**
-     * Creates a new {@link AstraeusPlayerDialogue} with a default expression of {@code DEFAULT}.
+     * Creates a new {@link PlayerDialoguePlugin} with a default expression of {@code DEFAULT}.
      *
      * @param lines The text for this dialogue.
      */
-    public AstraeusPlayerDialogue(String... lines) {
-        this(AstraeusExpression.DEFAULT, lines);
+    public PlayerDialoguePlugin(String... lines) {
+        this(ExpressionPlugin.DEFAULT, lines);
     }
 
     /**
-     * Creates a new {@link AstraeusPlayerDialogue}.
+     * Creates a new {@link PlayerDialoguePlugin}.
      *
      * @param expression The expression for this dialogue.
      *
      * @param lines The text for this dialogue.
      */
-    public AstraeusPlayerDialogue(AstraeusExpression expression, String... lines) {
+    public PlayerDialoguePlugin(ExpressionPlugin expression, String... lines) {
         this.expression = expression;
         this.lines = lines;
     }
 
     @Override
-    public void accept(AstraeusDialogueFactory factory) {
+    public void accept(DialogueFactoryPlugin factory) {
         factory.sendPlayerChat(this);
     }
 
-    public AstraeusExpression getExpression() {
+    public ExpressionPlugin getExpression() {
         return this.expression;
     }
 
@@ -54,8 +54,8 @@ public class AstraeusPlayerDialogue implements AstraeusChainable {
 
     public boolean equals(final Object o) {
         if (o == this) return true;
-        if (!(o instanceof AstraeusPlayerDialogue)) return false;
-        final AstraeusPlayerDialogue other = (AstraeusPlayerDialogue) o;
+        if (!(o instanceof PlayerDialoguePlugin)) return false;
+        final PlayerDialoguePlugin other = (PlayerDialoguePlugin) o;
         if (!other.canEqual((Object) this)) return false;
         final Object this$expression = this.getExpression();
         final Object other$expression = other.getExpression();
@@ -66,7 +66,7 @@ public class AstraeusPlayerDialogue implements AstraeusChainable {
     }
 
     protected boolean canEqual(final Object other) {
-        return other instanceof AstraeusPlayerDialogue;
+        return other instanceof PlayerDialoguePlugin;
     }
 
     public int hashCode() {
@@ -79,6 +79,6 @@ public class AstraeusPlayerDialogue implements AstraeusChainable {
     }
 
     public String toString() {
-        return "AstraeusPlayerDialogue(expression=" + this.getExpression() + ", lines=" + java.util.Arrays.deepToString(this.getLines()) + ")";
+        return "PlayerDialoguePlugin(expression=" + this.getExpression() + ", lines=" + java.util.Arrays.deepToString(this.getLines()) + ")";
     }
 }

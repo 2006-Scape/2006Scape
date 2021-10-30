@@ -1,15 +1,16 @@
-package plugins.plugin.buttons
+package plugin.buttons
 
 import com.rs2.event.SubscribesTo
 import com.rs2.event.impl.ButtonActionEvent
-import plugin.buttons.ButtonClick
-import com.rs2.game.dialogues.AstraeusDialogue
+import com.rs2.game.dialogues.DialoguePlugin
 import com.rs2.game.players.Player
+import plugin.buttons.ButtonClick
 
 @SubscribesTo(ButtonActionEvent::class)
 class DialogueOptionButtons : ButtonClick() {
 
     override fun execute(player: Player, event: ButtonActionEvent) {
+
         when (event.button) {
 
             // First Option (Option Interfaces 2, 3, 4, and 5)
@@ -35,6 +36,6 @@ class DialogueOptionButtons : ButtonClick() {
     }
 
     override fun test(event: ButtonActionEvent): Boolean {
-        return AstraeusDialogue.isDialogueButton(event.button)
+        return DialoguePlugin.isDialogueButton(event.button)
     }
 }

@@ -2,11 +2,11 @@ package com.rs2.game.dialogues;
 
 
 /**
- * The {@link AstraeusChainable} implementation that represents dialogue in which an NPC is talking.
+ * The {@link ChainablePlugin} implementation that represents dialogue in which an NPC is talking.
  *
  * @author Vult-R
  */
-public final class AstraeusNPCDialogue implements AstraeusChainable {
+public final class NPCDialogue implements ChainablePlugin {
 
     /**
      * The id of this npc.
@@ -16,7 +16,7 @@ public final class AstraeusNPCDialogue implements AstraeusChainable {
     /**
      * The expression of this NPC.
      */
-    private final AstraeusExpression expression;
+    private final ExpressionPlugin expression;
 
     /**
      * The text for this dialogue.
@@ -24,39 +24,39 @@ public final class AstraeusNPCDialogue implements AstraeusChainable {
     private final String[] lines;
 
     /**
-     * Creates a new {@link AstraeusNPCDialogue}
+     * Creates a new {@link NPCDialogue}
      *
      * @param lines The text for this dialogue.
      */
-    public AstraeusNPCDialogue(String... lines) {
-        this(AstraeusExpression.DEFAULT, lines);
+    public NPCDialogue(String... lines) {
+        this(ExpressionPlugin.DEFAULT, lines);
     }
 
     /**
-     * Creates a new {@link AstraeusNPCDialogue}
+     * Creates a new {@link NPCDialogue}
      *
      * @param expression The expression of this npc.
      *
      * @param lines The text for this dialogue.
      */
-    public AstraeusNPCDialogue(AstraeusExpression expression, String... lines) {
+    public NPCDialogue(ExpressionPlugin expression, String... lines) {
         this.expression = expression;
         this.lines = lines;
     }
 
     /**
-     * Creates a new {@link AstraeusNPCDialogue}
+     * Creates a new {@link NPCDialogue}
      *
      * @param id The id of this npc.
      *
      * @param lines The text for this dialogue.
      */
-    public AstraeusNPCDialogue(int id, String... lines) {
-        this(id, AstraeusExpression.DEFAULT, lines);
+    public NPCDialogue(int id, String... lines) {
+        this(id, ExpressionPlugin.DEFAULT, lines);
     }
 
     /**
-     * Creates a new {@link AstraeusNPCDialogue}
+     * Creates a new {@link NPCDialogue}
      *
      * @param id The id of this npc.
      *
@@ -64,14 +64,14 @@ public final class AstraeusNPCDialogue implements AstraeusChainable {
      *
      * @param lines The text for this dialogue.
      */
-    public AstraeusNPCDialogue(int id, AstraeusExpression expression, String... lines) {
+    public NPCDialogue(int id, ExpressionPlugin expression, String... lines) {
         this.id = id;
         this.expression = expression;
         this.lines = lines;
     }
 
     @Override
-    public void accept(AstraeusDialogueFactory factory) {
+    public void accept(DialogueFactoryPlugin factory) {
         factory.sendNPCChat(this);
     }
 
@@ -79,7 +79,7 @@ public final class AstraeusNPCDialogue implements AstraeusChainable {
         return this.id;
     }
 
-    public AstraeusExpression getExpression() {
+    public ExpressionPlugin getExpression() {
         return this.expression;
     }
 
@@ -94,8 +94,8 @@ public final class AstraeusNPCDialogue implements AstraeusChainable {
 
     public boolean equals(final Object o) {
         if (o == this) return true;
-        if (!(o instanceof AstraeusNPCDialogue)) return false;
-        final AstraeusNPCDialogue other = (AstraeusNPCDialogue) o;
+        if (!(o instanceof NPCDialogue)) return false;
+        final NPCDialogue other = (NPCDialogue) o;
         if (this.getId() != other.getId()) return false;
         final Object this$expression = this.getExpression();
         final Object other$expression = other.getExpression();

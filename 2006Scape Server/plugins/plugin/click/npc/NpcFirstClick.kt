@@ -7,8 +7,8 @@ import com.rs2.event.impl.NpcFirstClickEvent
 import com.rs2.game.content.skills.SkillHandler
 import com.rs2.game.players.Player
 import com.rs2.util.Misc
-import plugin.dialogue.BankerDialogue
-import plugin.dialogue.ManWomanDialogue
+import plugin.npc.banker.BankerDialogue
+import plugin.npc.manwoman.ManWomanDialogue
 
 
 @SubscribesTo(NpcFirstClickEvent::class)
@@ -30,11 +30,6 @@ class NpcFirstClick : EventSubscriber<NpcFirstClickEvent> {
 				if (!SkillHandler.isSkilling(player)) {
 					player.dialogueFactory.sendDialogue(BankerDialogue())
 				}
-
-			else -> if (player.playerRights == 3) {
-				player.packetSender.sendMessage("NPC Dialogue may not be implemented yet.")
-				player.packetSender.sendMessage("If a dialogue was written, check if it is initialized in NpcFirstClick.kt")
-			}
 		}
 	}
 }

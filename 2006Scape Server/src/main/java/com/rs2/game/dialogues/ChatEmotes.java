@@ -6,7 +6,7 @@ package com.rs2.game.dialogues;
  */
 /**
  * Contains a List of Chat Head Emotes NPCs and Players can use during Dialogues
- * @Deprecated Consider using {@link AstraeusExpression} instead to add Chat Head Animations to Dialogues.
+ * @Deprecated Consider using {@link ExpressionPlugin} instead to add Chat Head Animations to Dialogues.
  *
  */
 @Deprecated
