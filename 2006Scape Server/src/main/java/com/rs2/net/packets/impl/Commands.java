@@ -47,7 +47,7 @@ public class Commands implements PacketType {
         switch (playerCommand.toLowerCase()) {
             case "hideyell":
                 player.hideYell = !player.hideYell;
-                player.getPacketSender().sendMessage("Your yell visibility preferences have been updated.");
+                player.getPacketSender().sendMessage("Your yell visibility preferences have been updated: " + (player.hideYell ? "hidden" : "visible"));
                 break;
             case "yell":
                 int delay = 0;
