@@ -52,9 +52,9 @@ public class Commands implements PacketType {
             case "yell":
                 int delay = 0;
                 if (player.playerRights <= 1) {
-                    delay = 30000;
+                    delay = 10000;
                 }
-                if (!AntiSpam.blockedWords(player, arguments[0].substring(5), true)) {
+                if (!AntiSpam.blockedWords(player, String.join(" ", arguments), true)) {
                     return;
                 }
                 if (Connection.isMuted(player)) {
