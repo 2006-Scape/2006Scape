@@ -1806,7 +1806,7 @@ public class CombatAssistant {
 	}
 
 	public boolean checkMagicReqs(int spell) {
-		return MagicRequirements.checkMagicReqs(player, spell);
+		return MagicRequirements.checkMagicReqs(player, spell, player.usingMagic);
 	}
 
 	public int calculateRangeDefence() {
