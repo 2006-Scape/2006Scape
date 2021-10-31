@@ -52,7 +52,7 @@ public final class PluginService {
 	
 	/**
 	 * Finds plugins in a specified directory.
-	 * 
+	 *
 	 * @param dir
 	 * 		The directory to check for plugins.
 	 * 
@@ -65,11 +65,16 @@ public final class PluginService {
 
 			base = base.replace("\\", ".");
 
+			base = base.replace("/", ".");
+
 			base = base.replace("..plugins.", "");
 
 			base = base.replace(".kt", "");
 
 			base = base.replace(".java", "");
+
+			System.out.println(base);
+			System.out.println(dir.getName());
 
 			if (!file.isDirectory()) {
 				try {
