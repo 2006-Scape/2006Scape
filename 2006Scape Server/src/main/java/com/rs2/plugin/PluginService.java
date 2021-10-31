@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.rs2.GameConstants;
 import com.rs2.event.EventSubscriber;
 import com.rs2.game.players.Player;
 import com.rs2.util.LoggerUtils;
@@ -73,8 +74,9 @@ public final class PluginService {
 
 			base = base.replace(".java", "");
 
-			System.out.println(base);
-			System.out.println(dir.getName());
+			if (GameConstants.SERVER_DEBUG) {
+				System.out.println(base);
+			}
 
 			if (!file.isDirectory()) {
 				try {
