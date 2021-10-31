@@ -102,23 +102,26 @@ public class ItemHandler {
      **/
     public void reloadItems(Player c) {
         for (GroundItem i : items) {
-            if (c != null) {
+            if (c != null && i != null) {
+                if (c.getH() == i.getItemH() && c.distanceToPoint(i.getItemX(), i.getItemY()) <= 120) {
+                    c.getPacketSender().removeGroundItem(
+                            i.getItemId(), i.getItemX(), i.getItemY(),
+                            i.getItemAmount());
+                }
+            }
+        }
+        for (GroundItem i : items) {
+            if (c != null && i != null) {
                 // If it's a players item or tradeable
                 if (c.getItemAssistant().tradeable(i.getItemId()) || i.getName().equalsIgnoreCase(c.playerName)) {
                     // Make sure item on the same height and within 60 blocks
                     if (c.getH() == i.getItemH() && c.distanceToPoint(i.getItemX(), i.getItemY()) <= 60) {
                         if (i.hideTicks > 0  && i.getName().equalsIgnoreCase(c.playerName)) {
-                            c.getPacketSender().removeGroundItem(
-                                    i.getItemId(), i.getItemX(), i.getItemY(),
-                                    i.getItemAmount());
                             c.getPacketSender().createGroundItem(
                                     i.getItemId(), i.getItemX(), i.getItemY(),
                                     i.getItemAmount());
                         }
                         if (i.hideTicks == 0) {
-                            c.getPacketSender().removeGroundItem(
-                                    i.getItemId(), i.getItemX(), i.getItemY(),
-                                    i.getItemAmount());
                             c.getPacketSender().createGroundItem(
                                     i.getItemId(), i.getItemX(), i.getItemY(),
                                     i.getItemAmount());
