@@ -13,7 +13,7 @@ class ManWomanDialogue(private val randomDialogue: Int) : DialoguePlugin() {
     override fun sendDialogues(factory: DialogueFactoryPlugin) {
 
         // Since Man and Woman NPCs provide a random dialogue every interaction, use a switch statement
-        // There are 23 dialogues, but a random number is rolled between 0 and 22 in the NpcFirstClick.kt file
+        // There are 23 dialogues, but a random number is rolled between 0 and 22 in the FirstClick.kt file
         // as part of the calling process
         when(randomDialogue) {
             0 ->
