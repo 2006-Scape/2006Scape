@@ -5,27 +5,33 @@ import java.util.ArrayList;
 
 public class Misc {
 
+
+	/*
+	 * String Functions
+	 */
+
+	public static final char playerNameXlateTable[] = { '_', 'a', 'b', 'c',
+			'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+			'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2',
+			'3', '4', '5', '6', '7', '8', '9', '[', ']', '/', '-', ' '
+	};
+
+	public static char xlateTable[] = { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n',
+			's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b',
+			'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6',
+			'7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-',
+			'&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"',
+			'[', ']'
+	};
+
 	public static String formatPlayerName(String str) {
 		str = ucFirst(str);
 		str.replace("_", " ");
 		return str;
 	}
 
-	public static int random(final float range) {
-		return (int) (java.lang.Math.random() * (range + 1));
-	}
-
-	// return a random number from 0 → range - 1
-	public static int randomMinusOne(int range) {
-		return (int) Math.random() * range;
-	}
-
-	public static double distance(int x1, int y1, int x2, int y2 ) {
-		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-	}
-
-	public static boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
-		return objectX - playerX <= distance && objectX - playerX >= -distance && objectY - playerY <= distance && objectY - playerY >= -distance;
+	public static String format(int num) {
+		return NumberFormat.getInstance().format(num);
 	}
 
 	public static String longToReportPlayerName(long l) {
@@ -37,14 +43,6 @@ public class Misc {
 			ac[11 - i++] = Misc.playerNameXlateTable[(int) (l1 - l * 37L)];
 		}
 		return new String(ac, 12 - i, i);
-	}
-
-	public static int random3(int range) {
-		return (int) (java.lang.Math.random() * range);
-	}
-
-	public static int randomNumber(int range) {
-		return (int) (Math.random() * range);
 	}
 
 	public static String longToPlayerName(long l) {
@@ -60,11 +58,6 @@ public class Misc {
 		return new String(ac, 12 - i, i);
 	}
 
-	public static final char playerNameXlateTable[] = { '_', 'a', 'b', 'c',
-			'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-			'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2',
-			'3', '4', '5', '6', '7', '8', '9', '[', ']', '/', '-', ' ' };
-
 	public static String longToPlayerName2(long l) {
 		int i = 0;
 		char ac[] = new char[99];
@@ -74,10 +67,6 @@ public class Misc {
 			ac[11 - i++] = playerNameXlateTable[(int) (l1 - l * 37L)];
 		}
 		return new String(ac, 12 - i, i);
-	}
-
-	public static String format(int num) {
-		return NumberFormat.getInstance().format(num);
 	}
 
 	public static String ucFirst(String str) {
@@ -124,63 +113,6 @@ public class Misc {
 		}
 		return temp.toUpperCase().trim();
 	}
-
-	public static int hexToInt(byte data[], int offset, int len) {
-		int temp = 0;
-		int i = 1000;
-		for (int cntr = 0; cntr < len; cntr++) {
-			int num = (data[offset + cntr] & 0xFF) * i;
-			temp += num;
-			if (i > 1) {
-				i = i / 1000;
-			}
-		}
-		return temp;
-	}
-
-	public static int random2(int range) {
-		return (int) (java.lang.Math.random() * range + 1);
-	}
-
-	// return a random number from 0 → range (including range)
-	public static int random(int range) {
-		return (int) (java.lang.Math.random() * (++range));
-	}
-
-	// return a random number between & including the min/max values
-	public static int random(int min, int max) {
-		++max;
-		return (int) Math.floor(Math.random() * (max - min)) + min;
-	}
-
-	public static int randomArrayItem(int[] arr) {
-		return arr[(int) Math.floor(Math.random() * arr.length)];
-	}
-
-	public static int randomArrayListItem(ArrayList<Integer> arr) {
-		int index = (int) Math.floor(Math.random() * arr.size());
-		return arr.get(index);
-	}
-
-	public static long playerNameToInt64(String s) {
-		long l = 0L;
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			l *= 37L;
-			if (c >= 'A' && c <= 'Z') {
-				l += 1 + c - 65;
-			} else if (c >= 'a' && c <= 'z') {
-				l += 1 + c - 97;
-			} else if (c >= '0' && c <= '9') {
-				l += 27 + c - 48;
-			}
-		}
-		while (l % 37L == 0L && l != 0L) {
-			l /= 37L;
-		}
-		return l;
-	}
-
 	private static char decodeBuf[] = new char[4096];
 
 	public static String textUnpack(byte packedData[], int size) {
@@ -258,12 +190,126 @@ public class Misc {
 		}
 	}
 
-	public static char xlateTable[] = { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n',
-			's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b',
-			'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6',
-			'7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-',
-			'&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"',
-			'[', ']' };
+	public static String capitalize(String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (i == 0) {
+				s = String.format("%s%s", Character.toUpperCase(s.charAt(0)),
+						s.substring(1));
+			}
+			if (!Character.isLetterOrDigit(s.charAt(i))) {
+				if (i + 1 < s.length()) {
+					s = String.format("%s%s%s", s.subSequence(0, i + 1), Character.toUpperCase(s.charAt(i + 1)), s.substring(i + 2));
+				}
+			}
+		}
+		return s;
+	}
+
+
+
+
+	/*
+	 * Number Functions
+	 */
+
+	public static int hexToInt(byte data[], int offset, int len) {
+		int temp = 0;
+		int i = 1000;
+		for (int cntr = 0; cntr < len; cntr++) {
+			int num = (data[offset + cntr] & 0xFF) * i;
+			temp += num;
+			if (i > 1) {
+				i = i / 1000;
+			}
+		}
+		return temp;
+	}
+
+	public static long playerNameToInt64(String s) {
+		long l = 0L;
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			l *= 37L;
+			if (c >= 'A' && c <= 'Z') {
+				l += 1 + c - 65;
+			} else if (c >= 'a' && c <= 'z') {
+				l += 1 + c - 97;
+			} else if (c >= '0' && c <= '9') {
+				l += 27 + c - 48;
+			}
+		}
+		while (l % 37L == 0L && l != 0L) {
+			l /= 37L;
+		}
+		return l;
+	}
+
+
+
+
+	/*
+	 * Random Number Generator Functions
+	 */
+
+	// return a random number from 0 → range (including range)
+	public static int random(int range) {
+		return (int) (java.lang.Math.random() * (++range));
+	}
+
+	// return a random number between & including the min/max values
+	public static int random(int min, int max) {
+		++max;
+		return (int) Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	public static int random(final float range) {
+		return (int) (java.lang.Math.random() * (range + 1));
+	}
+
+	public static int random2(int range) {
+		return (int) (java.lang.Math.random() * range + 1);
+	}
+
+	public static int random3(int range) {
+		return (int) (java.lang.Math.random() * range);
+	}
+
+	public static int randomNumber(int range) {
+		return (int) (Math.random() * range);
+	}
+
+	// return a random number from 0 → range - 1
+	public static int randomMinusOne(int range) {
+		return (int) Math.random() * range;
+	}
+
+	public static int randomArrayItem(int[] arr) {
+		return arr[(int) Math.floor(Math.random() * arr.length)];
+	}
+
+	public static int randomArrayListItem(ArrayList<Integer> arr) {
+		int index = (int) Math.floor(Math.random() * arr.size());
+		return arr.get(index);
+	}
+
+
+
+
+	/*
+	 * Positioning Functions
+	 */
+
+	public static byte directionDeltaX[] = new byte[] { 0, 1, 1, 1, 0, -1, -1, -1 };
+	public static byte directionDeltaY[] = new byte[] { 1, 1, 0, -1, -1, -1, 0,	1 };
+	public static byte xlateDirectionToClient[] = new byte[] { 1, 2, 4, 7, 6, 5, 3, 0 };
+
+	public static double distance(int x1, int y1, int x2, int y2 ) {
+		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+	}
+
+	public static boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
+		return objectX - playerX <= distance && objectX - playerX >= -distance && objectY - playerY <= distance && objectY - playerY >= -distance;
+	}
 
 	public static int[] delta(int x1, int y1, int x2, int y2) {
 		return new int[] {x2 - x1, y2 - y1};
@@ -295,25 +341,5 @@ public class Misc {
 		 * directionDeltaX.length; j++) { if (changeX == directionDeltaX[j] &&
 		 * changeY == directionDeltaY[j]) return j; } return -1;
 		 */
-	}
-
-	public static byte directionDeltaX[] = new byte[] { 0, 1, 1, 1, 0, -1, -1, -1 };
-	public static byte directionDeltaY[] = new byte[] { 1, 1, 0, -1, -1, -1, 0,	1 };
-	public static byte xlateDirectionToClient[] = new byte[] { 1, 2, 4, 7, 6,
-			5, 3, 0 };
-
-	public static String capitalize(String s) {
-		for (int i = 0; i < s.length(); i++) {
-			if (i == 0) {
-				s = String.format("%s%s", Character.toUpperCase(s.charAt(0)),
-						s.substring(1));
-			}
-			if (!Character.isLetterOrDigit(s.charAt(i))) {
-				if (i + 1 < s.length()) {
-					s = String.format("%s%s%s", s.subSequence(0, i + 1), Character.toUpperCase(s.charAt(i + 1)), s.substring(i + 2));
-				}
-			}
-		}
-		return s;
 	}
 }
