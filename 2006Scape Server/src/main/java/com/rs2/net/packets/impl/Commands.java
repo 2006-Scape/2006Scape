@@ -45,16 +45,18 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "toggleyell":
+            case "tglyell":
             case "hideyell":
                 player.hideYell = !player.hideYell;
-                player.getPacketSender().sendMessage("Your yell visibility preferences have been updated.");
+                player.getPacketSender().sendMessage("Your yell visibility preferences have been updated: " + (player.hideYell ? "hidden" : "visible"));
                 break;
             case "yell":
                 int delay = 0;
                 if (player.playerRights <= 1) {
-                    delay = 30000;
+                    delay = 10000;
                 }
-                if (!AntiSpam.blockedWords(player, arguments[0].substring(5), true)) {
+                if (!AntiSpam.blockedWords(player, String.join(" ", arguments), true)) {
                     return;
                 }
                 if (Connection.isMuted(player)) {
@@ -69,17 +71,20 @@ public class Commands implements PacketType {
                     if (PlayerHandler.players[j] != null) {
                         Client c2 = (Client) PlayerHandler.players[j];
                         if (c2.hideYell) {
-                            return;
+                            continue;
                         }
+                        String msg = "";
                         if (player.playerRights == 0) {
-                            c2.getPacketSender().sendMessage("[Player]" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                            msg = "@bla@[Player] ";
                         } else if (player.playerRights == 1) {
-                            c2.getPacketSender().sendMessage("@blu@[Moderator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                            msg = "@blu@[Moderator] ";
                         } else if (player.playerRights == 2) {
-                            c2.getPacketSender().sendMessage("@gre@[Administator] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                            msg = "@gre@[Administator] ";
                         } else if (player.playerRights == 3) {
-                            c2.getPacketSender().sendMessage("@red@[Developer] @bla@" + Misc.optimizeText(player.playerName) + ": " + Misc.optimizeText(String.join(" ", arguments)) + "");
+                            msg = "@red@[Developer] ";
                         }
+                        msg += "@bla@" + Misc.optimizeText(player.playerName) + ": @blu@" + Misc.optimizeText(String.join(" ", arguments));
+                        c2.getPacketSender().sendMessage(msg);
                         player.lastYell = System.currentTimeMillis();
                     }
                 }
