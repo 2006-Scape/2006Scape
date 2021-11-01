@@ -25,6 +25,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.zip.CRC32;
 
 /**
  * NOTICE: IF YOU CHANGE ANYTHING IN GAME.JAVA, PLEASE COPY-PASTE THE WHOLE CLASS OVER TO LOCALGAME.JAVA
@@ -3429,11 +3430,12 @@ public class Game extends RSApplet {
 			}
 		} catch (Exception _ex) {
 		}
-		if (abyte0 != null) {
-			// aCRC32_930.reset();
-			// aCRC32_930.update(abyte0);
-			// int i1 = (int)aCRC32_930.getValue();
-			// if(i1 != j)
+		if(abyte0 != null && ClientSettings.CHECK_CRC) {
+			aCRC32_930.reset();
+			aCRC32_930.update(abyte0);
+			int i1 = (int)aCRC32_930.getValue();
+			if(i1 != j)
+				abyte0 = null;
 		}
 		if (abyte0 != null) {
 			StreamLoader streamLoader = new StreamLoader(abyte0);
@@ -3480,12 +3482,20 @@ public class Game extends RSApplet {
 				} catch (Exception _ex) {
 					decompressors[0] = null;
 				}
-				/*
-				 * if(abyte0 != null) { aCRC32_930.reset();
-				 * aCRC32_930.update(abyte0); int i3 =
-				 * (int)aCRC32_930.getValue(); if(i3 != j) { abyte0 = null;
-				 * j1++; s2 = "Checksum error: " + i3; } }
-				 */
+
+				if(abyte0 != null && ClientSettings.CHECK_CRC)
+				{
+					aCRC32_930.reset();
+					aCRC32_930.update(abyte0);
+					int i3 = (int)aCRC32_930.getValue();
+					if(i3 != j)
+					{
+						abyte0 = null;
+						j1++;
+						s2 = "Checksum error: " + i3;
+					}
+				}
+
 			} catch (IOException ioexception) {
 				if (s2.equals("Unknown error")) {
 					s2 = "Connection error";
@@ -12046,8 +12056,9 @@ public class Game extends RSApplet {
 		bigX = new int[4000];
 		bigY = new int[4000];
 		anInt1289 = -1;
+		aCRC32_930 = new CRC32();
 	}
-
+	public CRC32 aCRC32_930;
 	public static String server;
 	public int ignoreCount;
 	public long aLong824;

@@ -6,8 +6,8 @@ import java.math.BigInteger;
  */
 
 public class ClientSettings {
-	
-	public static String SNOW_MONTH = ".12";
+
+    public static String SNOW_MONTH = ".12";
 	/**
 	 * The Servers Name
 	 */
@@ -29,6 +29,12 @@ public class ClientSettings {
 	 * World 2 Will Connect On Port 43598
 	 */
 	public static int SERVER_WORLD = 1;
+
+	/**
+	 * Enables/Disables FileServer CRC Checking For Cache Updates
+	 */
+	public static final boolean CHECK_CRC = true;
+
 	/**
 	 * The Npc Bits for the Server
 	 */
