@@ -49,6 +49,7 @@ import com.rs2.world.ObjectHandler;
 import com.rs2.world.ObjectManager;
 import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
+import org.apollo.jagcached.FileServer;
 
 /**
  * Server.java
@@ -164,6 +165,18 @@ public class GameEngine {
 		 * Starting Up Server
 		 */
 		System.out.println("Launching " + GameConstants.SERVER_NAME + "...");
+
+		/**
+		 * Starts The File Server If Enabled In GameConstants
+		 */
+		if(GameConstants.FILE_SERVER) {
+			FileServer fs = new FileServer();
+			try {
+				fs.start();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		/**
 		 * Start Integration Services

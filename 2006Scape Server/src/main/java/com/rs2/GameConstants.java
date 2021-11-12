@@ -3,6 +3,7 @@ package com.rs2;
 public class GameConstants {
 
 	public final static boolean SERVER_DEBUG = false;
+	public final static boolean FILE_SERVER = true;
 
 	public final static String SERVER_NAME = "2006Scape", SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
 	
