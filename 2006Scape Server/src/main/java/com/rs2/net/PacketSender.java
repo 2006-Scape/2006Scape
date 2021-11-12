@@ -116,7 +116,7 @@ public class PacketSender {
 		if (player.tutorialProgress > 35) {
 			player.getPlayerAssistant().sendSidebars();
 			Weight.updateWeight(player);
-			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + " World: " + GameConstants.SERVER_WORLD  + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 			player.getPacketSender().sendMessage("Source code at github.com/2006-Scape/2006Scape");
 			player.getPacketSender().sendMessage("Join our Discord: https://discord.gg/hZ6VfWG");

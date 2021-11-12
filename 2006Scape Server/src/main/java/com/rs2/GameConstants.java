@@ -5,7 +5,7 @@ public class GameConstants {
 	public final static boolean SERVER_DEBUG = false;
 
 	public final static String SERVER_NAME = "2006Scape", SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
-	
+	public final static int SERVER_WORLD = 1;
 	public final static String WEBSITE_LINK = "https://2006Scape.org";
 	public final static boolean WEBSITE_TOTAL_CHARACTERS_INTEGRATION = false;
 	public final static double TEST_VERSION = 2.3;

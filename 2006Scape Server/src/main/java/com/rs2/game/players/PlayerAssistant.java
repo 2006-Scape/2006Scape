@@ -95,7 +95,7 @@ public class PlayerAssistant {
 	
 	public void loginScreen() {
 		player.getPacketSender().showInterface(15244);
-		player.getPacketSender().sendString("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
+		player.getPacketSender().sendString("Welcome to " + GameConstants.SERVER_NAME + "             World: " + GameConstants.SERVER_WORLD + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
 
 		if (player.playerLevel[GameConstants.HERBLORE] < 3) {
@@ -1833,7 +1833,7 @@ public class PlayerAssistant {
 			player.getItemAssistant().clearBank();
 			player.getPlayerAssistant().addStarter();
 			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
-			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + " World: " + GameConstants.SERVER_WORLD + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source and pull requests are welcome!");
 			player.getPacketSender().sendMessage("Source code: github.com/2006-Scape/2006Scape");
 			player.getPacketSender().sendMessage("Discord: https://discord.gg/hZ6VfWG");

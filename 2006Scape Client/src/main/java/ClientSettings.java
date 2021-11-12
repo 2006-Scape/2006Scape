@@ -18,12 +18,17 @@ public class ClientSettings {
 	public final static String SERVER_WEBSITE = "www.2006Scape.org";
 	/**
 	 * The Servers Ip
-	 *
 	 * You don't have to change this, the client will automatically connect to the server
 	 * on localhost (Assuming you're running Client and LocalGame respectively)
-	 *
 	 */
 	public static String SERVER_IP = "www.2006Scape.org";
+	/**
+	 * The Servers World
+	 * This Determines The Port The Server Will Connect On
+	 * World 1 Will Connect On Port 43594
+	 * World 2 Will Connect On Port 43597
+	 */
+	public final static int SERVER_WORLD = 1;
 	/**
 	 * The Npc Bits for the Server
 	 */
