@@ -135,7 +135,7 @@ public class GameEngine {
 	 * Port and Cycle rate.
 	 */
 	static {
-		serverlistenerPort = (GameConstants.SERVER_WORLD == 1) ? 43594 : 43597;
+		serverlistenerPort = (GameConstants.WORLD == 1) ? 43594 : 43595 + GameConstants.WORLD;
 		shutdownServer = false;
 	}
 
