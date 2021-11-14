@@ -5927,7 +5927,7 @@ public class Game extends RSApplet {
 				loginMessage2 = "Connecting to server...";
 				drawLoginScreen(true);
 			}
-			socketStream = new RSSocket(this, openSocket((ClientSettings.SERVER_WORLD == 1) ? 43594 : 43595 + ClientSettings.SERVER_WORLD + portOff));
+			socketStream = new RSSocket(this, openSocket((ClientSettings.SERVER_WORLD == 1) ? 43594 : 43596 + ClientSettings.SERVER_WORLD + portOff));
 			long l = TextClass.longForName(s);
 			int i = (int) (l >> 16 & 31L);
 			stream.currentOffset = 0;
