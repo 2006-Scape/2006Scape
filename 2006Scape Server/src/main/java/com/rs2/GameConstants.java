@@ -2,17 +2,18 @@ package com.rs2;
 
 public class GameConstants {
 
-	public final static boolean SERVER_DEBUG = false;
-	public final static boolean FILE_SERVER = true;
+	public static String SERVER_NAME = "2006Scape";
+	public static boolean FILE_SERVER = true, SERVER_DEBUG = false;
+	public static int WORLD = 1;
 
-	public final static String SERVER_NAME = "2006Scape", SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
+	public final static String SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
 	
 	public final static String WEBSITE_LINK = "https://2006Scape.org";
 	public final static boolean WEBSITE_TOTAL_CHARACTERS_INTEGRATION = false;
 	public final static double TEST_VERSION = 2.3;
 	
 	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE, CLIENT_VERSION = 999999,
-			WORLD = 1, IPS_ALLOWED = 250, CONNECTION_DELAY = 100,
+			IPS_ALLOWED = 250, CONNECTION_DELAY = 100,
 			MESSAGE_DELAY = 6000, MAX_PLAYERS = 200, REQ_AMOUNT = 150;
 	
 	public final static boolean SOUND = true,
