@@ -198,6 +198,7 @@ public class GameEngine {
 		/**
 		 * Start Integration Services
          **/
+		ConfigLoader.loadSecrets();
 		JavaCord.init();
 
 		/**

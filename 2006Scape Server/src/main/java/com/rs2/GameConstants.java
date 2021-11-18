@@ -3,7 +3,7 @@ package com.rs2;
 public class GameConstants {
 
 	public static String SERVER_NAME = "2006Scape";
-	public static boolean FILE_SERVER = true, SERVER_DEBUG = false;
+	public static boolean FILE_SERVER = false, SERVER_DEBUG = false;
 	public static int WORLD = 1;
 
 	public final static String SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
@@ -36,11 +36,11 @@ public class GameConstants {
 	
 	public final static boolean ADMIN_DROP_ITEMS = false;
 	
-	public final static boolean ADMIN_CAN_SELL_ITEMS = false;
+	public static boolean ADMIN_CAN_SELL_ITEMS = false;
 	
-	public final static int RESPAWN_X = 3222; // when dead respawn here
+	public static int RESPAWN_X = 3222; // when dead respawn here
 	
-	public final static int RESPAWN_Y = 3218;
+	public static int RESPAWN_Y = 3218;
 	
 	public final static int DUELING_RESPAWN_X = 3362;
 	
@@ -48,7 +48,7 @@ public class GameConstants {
 	
 	public final static int NO_TELEPORT_WILD_LEVEL = 20;
 	
-	public final static boolean ITEM_REQUIREMENTS = true;
+	public static boolean ITEM_REQUIREMENTS = true;
 	
 	public final static int CASTLE_WARS_X = 2439;
 	

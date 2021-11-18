@@ -1,0 +1,13 @@
+{
+  "server_name": "2006Scape",
+  "server_debug": false,
+  "file_server": true,
+  "world_id": 1,
+  "tutorial_island": false,
+  "admin_can_trade": false,
+  "admin_can_sell": false,
+  "respawn_x": 3222,
+  "respawn_y": 3218,
+  "item_requirements": true,
+  "xp_rate": 1.0
+}
