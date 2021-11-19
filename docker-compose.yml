@@ -17,9 +17,7 @@ services:
     volumes:
       - ./2006Scape Server:/usr/src/server
     working_dir: /usr/src/server
-    ports:
+    ports: # You will need to open other ports if your world ID is not 1 (43597 for world 2)
       - 43594:43594 # Server
-      - 43594:43594/udp # Server
-      - 8080:8080 # File Server
       - 43595-43596:43595-43596 # File Server
     restart: unless-stopped
