@@ -10,26 +10,16 @@ services:
     working_dir: /usr/src/2006scape
     restart: "no"
 
-  rsps-2006scape-file-server:
-    image: openjdk:8-alpine
-    container_name: rsps-2006scape-file-server
-    command: ["java", "-jar", "target/file_server-1.0-jar-with-dependencies.jar"]
-    volumes:
-      - ./2006Scape file_server:/usr/src/fileserver
-    working_dir: /usr/src/fileserver
-    ports:
-      - 8080:8080 # web panel
-      - 43595-43596:43595-43596 # File Server
-    restart: unless-stopped
-
   rsps-2006scape-server:
     image: openjdk:8-alpine
     container_name: rsps-2006scape-server
-    command: ["java", "-jar", "target/server-1.0-jar-with-dependencies.jar"]
+    command: ["java", "-jar", "target/server-1.0-jar-with-dependencies.jar", "-c", "ServerConfig.json"]
     volumes:
       - ./2006Scape Server:/usr/src/server
     working_dir: /usr/src/server
     ports:
       - 43594:43594 # Server
       - 43594:43594/udp # Server
+      - 8080:8080 # File Server
+      - 43595-43596:43595-43596 # File Server
     restart: unless-stopped
