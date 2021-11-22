@@ -17,26 +17,42 @@ public class ConfigLoader {
 
             if(obj.has("server_name"))
             GameConstants.SERVER_NAME = obj.getString("server_name");
+            if(obj.has("website_link"))
+            GameConstants.WEBSITE_LINK = obj.getString("website_link");
             if(obj.has("debug"))
             GameConstants.SERVER_DEBUG = obj.getBoolean("debug");
             if(obj.has("file_server"))
             GameConstants.FILE_SERVER = obj.getBoolean("file_server");
             if(obj.has("world_id"))
             GameConstants.WORLD = obj.getInt("world_id");
-            if(obj.has("tutorial_island"))
-            GameConstants.TUTORIAL_ISLAND = obj.getBoolean("tutorial_island");
+            if(obj.has("members_only"))
+            GameConstants.MEMBERS_ONLY = obj.getBoolean("members_only");
+            if(obj.has("tutorial_island_enabled"))
+            GameConstants.TUTORIAL_ISLAND = obj.getBoolean("tutorial_island_enabled");
+            if(obj.has("party_room_enabled"))
+            GameConstants.PARTY_ROOM_DISABLED = !obj.getBoolean("party_room_enabled");
+            if(obj.has("clues_enabled"))
+            GameConstants.CLUES_ENABLED = !obj.getBoolean("clues_enabled");
             if(obj.has("admin_can_trade"))
             GameConstants.ADMIN_CAN_TRADE = obj.getBoolean("admin_can_trade");
+            if(obj.has("admin_can_drop_items"))
+            GameConstants.ADMIN_DROP_ITEMS = obj.getBoolean("admin_can_drop_items");
             if(obj.has("admin_can_sell"))
             GameConstants.ADMIN_CAN_SELL_ITEMS = obj.getBoolean("admin_can_sell");
             if(obj.has("respawn_x"))
             GameConstants.RESPAWN_X = obj.getInt("respawn_x");
             if(obj.has("respawn_y"))
             GameConstants.RESPAWN_Y = obj.getInt("respawn_y");
+            if(obj.has("save_timer"))
+            GameConstants.SAVE_TIMER = obj.getInt("save_timer");
+            if(obj.has("timeout"))
+            GameConstants.TIMEOUT = obj.getInt("timeout");
             if(obj.has("item_requirements"))
             GameConstants.ITEM_REQUIREMENTS = obj.getBoolean("item_requirements");
             if(obj.has("xp_rate"))
             GameConstants.XP_RATE = obj.getDouble("xp_rate");
+            if(obj.has("max_players"))
+            GameConstants.MAX_PLAYERS = obj.getInt("max_players");
     }
 
     private static void initialize() {
