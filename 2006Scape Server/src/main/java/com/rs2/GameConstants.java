@@ -1,5 +1,7 @@
 package com.rs2;
 
+import com.rs2.game.players.Player;
+
 public class GameConstants {
 
 	/**
@@ -31,7 +33,7 @@ public class GameConstants {
 	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
 			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
 			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false;
-	public static double XP_RATE = 1;
+	public static double XP_RATE = 1 * Player.xpRate;
 
 
 	/**

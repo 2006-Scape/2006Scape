@@ -98,7 +98,8 @@ public abstract class Player {
 	
 	public byte buffer[] = null;
 	public String lastConnectedFrom;
-	private Compost compost = new Compost(this);
+    public static int xpRate;
+    private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
 	private Flowers flower = new Flowers(this);
 	private Herbs herb = new Herbs(this);
@@ -166,6 +167,10 @@ public abstract class Player {
 	private DoubleGates doubleGates = new DoubleGates();
 	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
 
+	public int getXPRate() { return xpRate; }
+
+	public void setXPRate(int xpRate) { this.xpRate = xpRate; }
+
 	public boolean isPreaching() {
 		return preaching;
 	}
@@ -173,9 +178,9 @@ public abstract class Player {
 	public void setPreaching(boolean preaching) {
 		this.preaching = preaching;
 	}
-	
+
 	public boolean preaching;
-	
+
 	public Compost getCompost() {
 		return compost;
 	}
@@ -223,12 +228,12 @@ public abstract class Player {
 	public ToolLeprechaun getFarmingTools() {
 		return toolLeprechaun;
 	}
-	
+
 
 	public LogCuttingInterface getFletching() {
 		return fletching;
 	}
-	
+
 	public SingleGates getSingleGates() {
 		return singleGates;
 	}
@@ -404,7 +409,7 @@ public abstract class Player {
 	public MageTrainingArena getMageTrainingArena() {
 		return mageArena;
 	}
-	
+
 	public Trading getTrading() {
 		return trading;
 	}
@@ -444,13 +449,13 @@ public abstract class Player {
 	public Inventory getInventory() {
 		return inventory;
 	}
-	
+
 	private Inventory inventory = new Inventory(this);
-	
-	
+
+
 	private int tempInteger;
 	public boolean tempBoolean;
-	
+
 	public void setTempInteger(int tempInteger) {
 		this.tempInteger = tempInteger;
 	}
@@ -460,17 +465,17 @@ public abstract class Player {
 	}
 
 	public int totalShopItems;
-	
+
 	public boolean stopPlayer(boolean stop) {
 		return (stop ? stopPlayerPacket == true : stopPlayerPacket == false);
 	}
-	
+
 	public long objectDelay;
-	
+
 	public long getObjectDelay() {
 		return (objectDelay);
 	}
-	
+
 	public long setObjectDelay(long delay) {
 		return (objectDelay = delay);
 	}
@@ -981,7 +986,7 @@ public abstract class Player {
 		if (System.currentTimeMillis() - singleCombatDelay2 > 3300) {
 			underAttackBy2 = 0;
 		}
-		
+
 		if (System.currentTimeMillis() - restoreStatsDelay > 60000) {
 			restoreStatsDelay = System.currentTimeMillis();
 			for (int skill = 0; skill < playerLevel.length; skill++) {
@@ -1398,20 +1403,20 @@ public abstract class Player {
 			restoreStatsDelay, logoutDelay, buryDelay, foodDelay, potDelay,
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
 			boneDelay, leverDelay = 0, searchObjectDelay = 0, clickDelay = 0;
-	
+
 	public boolean hideYell;
 
 
 	private Npc specialTarget = null;
-	
+
 	public void setSpecialTarget(Npc target) {
 		this.specialTarget = target;
 	}
-	
+
 	public Npc getSpecialTarget() {
 		return specialTarget;
 	}
-		
+
 	public int miningAxe = -1, woodcuttingAxe = -1;
 
 	public boolean initialized, musicOn = true, luthas,
@@ -1695,7 +1700,7 @@ public abstract class Player {
 			4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 2097152,
 			8388608, 16777216, 67108864, 134217728 };
 
-	
+
 	/**
 	 * Combat variables
 	 */
@@ -1713,7 +1718,7 @@ public abstract class Player {
 	/**
 	 * End
 	 */
-	
+
 	public int clickNpcType, clickObjectType, objectId, objectX,
 			objectY, npcIndex, npcClickIndex, npcType;
 	public int pItemX, pItemY, pItemId;
@@ -2130,11 +2135,11 @@ public abstract class Player {
 		walkingQueueY[wQueueWritePtr] = y;
 		wQueueWritePtr = next;
 	}
-	
+
 	public boolean checkRangeDistance() {
 		return (usingRangeWeapon || usingBow);
 	}
-	
+
 	public int gatherRangeDistance(int distance) {
 		//dart (non long range)
 		if (usingRangeWeapon && RangeData.usingDart(this) && fightMode != 3) {
@@ -2148,7 +2153,7 @@ public abstract class Player {
 		//dart, knife, throwing axe (long range)
 		} else if (usingRangeWeapon && fightMode == 3) {
 			distance = RangeData.usingDart(this) ? 5 : 6;
-		//short bow 
+		//short bow
 		} else if (usingBow && !RangeData.usingLongbow(this)) {
 			distance = fightMode == 3 ? 7 : 9;
 		}
@@ -2507,74 +2512,74 @@ public abstract class Player {
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.CAPE] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.CAPE]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.AMULET] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.AMULET]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.WEAPON] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.WEAPON]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.CHEST] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.CHEST]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[2]);
 			}
-	
+
 			if (playerEquipment[ItemConstants.SHIELD] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.SHIELD]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (!ItemData.isFullBody(playerEquipment[ItemConstants.CHEST])) {
 				playerProps.writeWord(0x100 + playerAppearance[3]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.LEGS] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.LEGS]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[5]);
 			}
-	
+
 			if (!ItemData.isFullHelm(playerEquipment[ItemConstants.HAT])
 					&& !ItemData.isFullMask(playerEquipment[ItemConstants.HAT])) {
 				playerProps.writeWord(0x100 + playerAppearance[1]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.HANDS] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.HANDS]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[4]);
 			}
-	
+
 			if (playerEquipment[ItemConstants.FEET] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.FEET]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[6]);
 			}
-	
+
 			if (playerAppearance[0] != 1 && !ItemData.isFullMask(playerEquipment[ItemConstants.HAT])) {
 				playerProps.writeWord(0x100 + playerAppearance[7]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 	    } else {//send npc data
 	          playerProps.writeWord(-1);//Tells client that were being a npc
 	          playerProps.writeWord(npcId2);//send NpcID
