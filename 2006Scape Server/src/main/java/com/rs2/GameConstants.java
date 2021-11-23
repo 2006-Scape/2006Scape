@@ -2,43 +2,60 @@ package com.rs2;
 
 public class GameConstants {
 
-	public final static boolean SERVER_DEBUG = false;
+	/**
+	 * The Variables Below Can Be Also Changed On Server Startup By Using The ConfigLoader
+	 *
+	 * SERVER_NAME Sets The Name The Server Will Use
+	 * WEBSITE_LINK Defines The Server Website Links
+	 * WORLD Sets The Servers World ID
+	 * MAX_PLAYERS Sets The Maximum Amount Of Players Allow To Be Logged In At Once
+	 * TIMEOUT Sets The Amount Of Time Before A Player Timeouts From A Bad Connection
+	 * SAVE_TIMER Sets In Seconds How Often The Server Shouls Auto-Save All Characters
+	 * RESPAWN_X Sets The X Coordinate That You Will Respawn At After Death
+	 * RESPAWN_Y Sets The Y Coordinate That You Will Respawn At After Death
+	 * FILE_SERVER Sets Whether The FileServer Should Run With The Server
+	 * SERVER_DEBUG Sets Whether The Server Should Start In Debug Mode
+	 * MEMBERS_ONLY Sets Whether The World Is Members Only
+	 * TUTORIAL_ISLAND Sets Enables/Disables Tutorial Island For Players On First Login
+	 * PARTY_ROOM_DISABLED Enables/Disables The Party Room Should Be Disabled
+	 * CLUES_ENABLED Enables/Disables Clue Scrolls
+	 * ITEM_REQUIREMENTS Enables/Disables Item Requirements for All Players
+	 * ADMIN_CAN_TRADE Defines Whether Admins Can Trade
+	 * ADMIN_DROP_ITEMS Defines Whether Admins Can Drop Items
+	 * ADMIN_CAN_SELL_ITEMS Defines Whether Admins Can Sell Items
+	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills
+	 */
+	public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
+	public static int WORLD = 1, MAX_PLAYERS = 200, TIMEOUT = 60, SAVE_TIMER = 120,
+			RESPAWN_X = 3222, RESPAWN_Y = 3218;
+	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
+			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
+			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false;
+	public static double XP_RATE = 1;
 
-	public final static String SERVER_NAME = "2006Scape", SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
-	
-	public final static String WEBSITE_LINK = "https://2006Scape.org";
+
+	/**
+	 * The Variables Below Should Only Be Changed If You Understand What You Are Doing
+	 */
+
+	public final static String SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
 	public final static boolean WEBSITE_TOTAL_CHARACTERS_INTEGRATION = false;
 	public final static double TEST_VERSION = 2.3;
 	
 	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE, CLIENT_VERSION = 999999,
-			WORLD = 1, IPS_ALLOWED = 250, CONNECTION_DELAY = 100,
-			MESSAGE_DELAY = 6000, MAX_PLAYERS = 200, REQ_AMOUNT = 150;
+			IPS_ALLOWED = 250, CONNECTION_DELAY = 100,
+			MESSAGE_DELAY = 6000, REQ_AMOUNT = 150;
 	
-	public final static boolean SOUND = true,
-			GUILDS = true,
-			PARTY_ROOM_DISABLED = false,
+	public final static boolean sendServerPackets = false, SOUND = true, GUILDS = true,
 			PRINT_OBJECT_ID = false, EXPERIMENTS = false;
 	
 	public static int[] SIDEBARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151,
 			18128, 5065, 5715, 2449, 904, 147, 962 };
-	
-	public static boolean TUTORIAL_ISLAND = false, 
-			MEMBERS_ONLY = false, sendServerPackets = false, 
-			CLUES_ENABLED = true;
 
 	public final static int[] FUN_WEAPONS = { 2460, 2461, 2462, 2463, 2464,
 			2465, 2466, 2467, 2468, 2469, 2470, 2471, 2471, 2473, 2474, 2475,
 			2476, 2477 }; // fun weapons for dueling
 
-	public static boolean ADMIN_CAN_TRADE = false; // can admins trade?
-	
-	public final static boolean ADMIN_DROP_ITEMS = false;
-	
-	public final static boolean ADMIN_CAN_SELL_ITEMS = false;
-	
-	public final static int RESPAWN_X = 3222; // when dead respawn here
-	
-	public final static int RESPAWN_Y = 3218;
 	
 	public final static int DUELING_RESPAWN_X = 3362;
 	
@@ -46,15 +63,9 @@ public class GameConstants {
 	
 	public final static int NO_TELEPORT_WILD_LEVEL = 20;
 	
-	public final static boolean ITEM_REQUIREMENTS = true;
-	
 	public final static int CASTLE_WARS_X = 2439;
 	
 	public final static int CASTLE_WARS_Y = 3087;
-	
-	public static double XP_RATE = 1;
-	
-	public final static int SAVE_TIMER = 120; // save every x seconds
 	
 	public final static int NPC_RANDOM_WALK_DISTANCE = 5;
 	
@@ -68,8 +79,6 @@ public class GameConstants {
 		"shade", "skeleton", "skeleton brute", "skeleton thug", "skeleton warload", "summoned zombie",
 		"skorge", "tortured soul", "undead chicken", "undead cow", "undead one", "undead troll", "zombie", "zombie rat", "zogre"
 	};
-	
-	public final static int TIMEOUT = 60;
 	
 	public final static int CYCLE_TIME = 600;
 	

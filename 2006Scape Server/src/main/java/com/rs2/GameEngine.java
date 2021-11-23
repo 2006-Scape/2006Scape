@@ -35,7 +35,6 @@ import com.rs2.game.players.PlayerSave;
 import com.rs2.game.shops.ShopHandler;
 import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
-import com.rs2.integrations.SettingsLoader;
 import com.rs2.integrations.discord.DiscordActivity;
 import com.rs2.integrations.discord.JavaCord;
 import com.rs2.net.ConnectionHandler;
@@ -49,6 +48,7 @@ import com.rs2.world.ObjectHandler;
 import com.rs2.world.ObjectManager;
 import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
+import org.apollo.jagcached.FileServer;
 
 /**
  * Server.java
@@ -141,6 +141,24 @@ public class GameEngine {
 
 	public static void main(java.lang.String[] args)
 			throws NullPointerException, IOException {
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
+				switch(args[i]) {
+					case "-c":
+					case "-config":
+						try {
+							//TODO Load A Default Config File When Arg Not Used
+							System.out.println("Loading External Config..");
+							ConfigLoader.loadSettings(args[++i]);
+							System.out.println("Loaded Config File " + args[i]);
+						} catch (IOException e) {
+							System.out.println("Config File Not Found");
+						}
+						break;
+				}
+			}
+		}
+
 		System.out.println("Starting game engine..");
 		if (GameConstants.SERVER_DEBUG) {
 			System.out.println("@@@@ DEBUG MODE IS ENABLED @@@@");
@@ -163,12 +181,24 @@ public class GameEngine {
 		/**
 		 * Starting Up Server
 		 */
-		System.out.println("Launching " + GameConstants.SERVER_NAME + "...");
+		System.out.println("Launching " + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD + "...");
+
+		/**
+		 * Starts The File Server If Enabled In GameConstants
+		 */
+		if(GameConstants.FILE_SERVER) {
+			FileServer fs = new FileServer();
+			try {
+				fs.start();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		/**
 		 * Start Integration Services
          **/
-        SettingsLoader.loadSettings();
+		ConfigLoader.loadSecrets();
 		JavaCord.init();
 
 		/**
