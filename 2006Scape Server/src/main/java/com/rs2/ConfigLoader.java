@@ -32,7 +32,7 @@ public class ConfigLoader {
             if(obj.has("party_room_enabled"))
             GameConstants.PARTY_ROOM_DISABLED = !obj.getBoolean("party_room_enabled");
             if(obj.has("clues_enabled"))
-            GameConstants.CLUES_ENABLED = !obj.getBoolean("clues_enabled");
+            GameConstants.CLUES_ENABLED = obj.getBoolean("clues_enabled");
             if(obj.has("admin_can_trade"))
             GameConstants.ADMIN_CAN_TRADE = obj.getBoolean("admin_can_trade");
             if(obj.has("admin_can_drop_items"))
