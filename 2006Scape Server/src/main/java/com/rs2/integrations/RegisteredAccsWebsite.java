@@ -7,7 +7,7 @@ import java.net.URL;
 import com.rs2.GameConstants;
 
 public class RegisteredAccsWebsite {
-    static String password;
+    public static String password;
     private static boolean hasntwarned = true;
 
     private static void setAccountsRegistered(int amount) throws IOException {
