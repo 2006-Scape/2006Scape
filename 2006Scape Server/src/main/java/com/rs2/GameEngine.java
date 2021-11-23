@@ -131,11 +131,7 @@ public class GameEngine {
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private final static Lock lock = new ReentrantLock();
 
-	/**
-	 * Port and Cycle rate.
-	 */
 	static {
-		serverlistenerPort = (GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD;
 		shutdownServer = false;
 	}
 
@@ -158,6 +154,7 @@ public class GameEngine {
 				}
 			}
 		}
+		serverlistenerPort = (GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD;
 
 		System.out.println("Starting game engine..");
 		if (GameConstants.SERVER_DEBUG) {
