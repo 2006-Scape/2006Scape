@@ -28,7 +28,7 @@ public class ClientSettings {
 	 * World 1 Will Connect On Port 43594
 	 * World 2 Will Connect On Port 43597
 	 */
-	public final static int SERVER_WORLD = 1;
+	public static int SERVER_WORLD = 1;
 	/**
 	 * The Npc Bits for the Server
 	 */

@@ -45,6 +45,10 @@ public final class Main {
 						case "-password":
 							game.myPassword = args[++i];
 							break;
+						case "-w":
+						case "-world":
+							ClientSettings.SERVER_WORLD = Integer.parseInt(args[++i]);
+							break;
 					}
 				}
 			}
