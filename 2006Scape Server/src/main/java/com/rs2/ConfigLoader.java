@@ -25,6 +25,8 @@ public class ConfigLoader {
             GameConstants.FILE_SERVER = obj.getBoolean("file_server");
             if(obj.has("world_id"))
             GameConstants.WORLD = obj.getInt("world_id");
+            if(obj.has("bot_world"))
+            GameConstants.BOT_WORLD = obj.getBoolean("bot_world");
             if(obj.has("members_only"))
             GameConstants.MEMBERS_ONLY = obj.getBoolean("members_only");
             if(obj.has("tutorial_island_enabled"))

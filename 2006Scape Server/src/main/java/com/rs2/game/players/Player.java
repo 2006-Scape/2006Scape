@@ -98,7 +98,7 @@ public abstract class Player {
 	
 	public byte buffer[] = null;
 	public String lastConnectedFrom;
-    public static int xpRate;
+    public static int xpRate = 1;
     private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
 	private Flowers flower = new Flowers(this);

@@ -32,8 +32,8 @@ public class GameConstants {
 			RESPAWN_X = 3222, RESPAWN_Y = 3218;
 	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
 			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
-			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false;
-	public static double XP_RATE = 1 * Player.xpRate;
+			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, BOT_WORLD = true;
+	public static double XP_RATE = Player.xpRate;
 
 
 	/**

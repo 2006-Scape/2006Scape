@@ -618,11 +618,30 @@ public class DialogueOptions {
 				player.getDialogueHandler().sendDialogues(3586, player.npcType);
 				return;
 			}
-			else if (player.dialogueAction == 7559)
-			{
+			else if (player.dialogueAction == 7559) {
 				player.getDialogueHandler().sendDialogues(3864, player.npcType);
 				return;
-			}	
+			} else if (player.dialogueAction == 10004) {
+				if(!player.closeTutorialInterface) {
+					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+					player.getPacketSender().sendMessage("::xprate");
+					player.getPacketSender().showInterface(3559);
+					player.canChangeAppearance = true;
+					player.closeTutorialInterface = true;
+					player.nextChat = 0;
+					player.dialogueAction = 0;
+				} else if (player.getXPRate() != 10) {
+					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+					player.getPacketSender().sendMessage("::xprate");
+					player.dialogueAction = 0;
+					player.getPacketSender().closeAllWindows();
+				} else {
+					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate());
+					player.dialogueAction = 0;
+					player.getPacketSender().closeAllWindows();
+				}
+				return;
+			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
 			break;
@@ -848,6 +867,9 @@ public class DialogueOptions {
 			{
 				player.getDialogueHandler().sendDialogues(3865, player.npcType);
 				return;
+			} else if (player.dialogueAction == 10004) {
+				player.getDialogueHandler().sendDialogues(10002, 2244);
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -922,6 +944,10 @@ public class DialogueOptions {
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3561, player.npcType);
 			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(1);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
+			}
 			break;
 
 		case 9179:
@@ -990,6 +1016,10 @@ public class DialogueOptions {
 			}
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3562, player.npcType);
+			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(2);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
 			}
 			break;
 
@@ -1063,6 +1093,10 @@ public class DialogueOptions {
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3563, player.npcType);
 			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(5);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
+			}
 			break;
 
 		case 9181:
@@ -1119,6 +1153,10 @@ public class DialogueOptions {
 			}
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3564, player.npcType);
+			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(10);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
 			}
 			break;
 		}

@@ -45,6 +45,18 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "xprate":
+            case "XPRate":
+                if(player.getXPRate() == 0 || player.playerRights == 3) {
+                    player.getDialogueHandler().sendDialogues(10001, 2244);
+                    return;
+                } else if (player.getXPRate() == 10) {
+                    player.getPacketSender().sendMessage("You Already Have The Highest XP Rate");
+                    return;
+                } else {
+                    player.getDialogueHandler().sendDialogues(10001, 2244);
+                }
+                break;
             case "toggleyell":
             case "tglyell":
             case "hideyell":

@@ -6137,10 +6137,14 @@ public class DialogueHandler {
 				break;
 
 			case 3116:
-				player.getPacketSender().showInterface(3559);
-				player.canChangeAppearance = true;
-				player.closeTutorialInterface = true;
-				player.nextChat = 0;
+				if(!GameConstants.BOT_WORLD) {
+					player.getDialogueHandler().sendDialogues(10001, -1);
+				} else {
+					player.getPacketSender().showInterface(3559);
+					player.canChangeAppearance = true;
+					player.closeTutorialInterface = true;
+					player.nextChat = 0;
+				}
 				break;
 
 			case 3117:
@@ -7593,6 +7597,22 @@ public class DialogueHandler {
 					coins > 0 ? "Withdraw Money (" + Bot.formatSellPrice(coins) + ")" : "@red@Withdraw Money (0 gp)"// 9180
 				);
 				player.dialogueAction = 10000;
+				break;
+			case 10001:
+				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Please Select The XP Rate You'd Like.", "This Can Be Increased But Not Decreased Later On.");
+				player.nextChat = 10002;
+				break;
+			case 10002:
+				sendOption("x1", "x2", "x5", "x10");
+				player.dialogueAction = 10002;
+				break;
+			case 10003:
+				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Are You Sure x" + player.getXPRate() + " Is The XP Rate You'd Like?");
+				player.nextChat = 10004;
+				break;
+			case 10004:
+				sendOption("Yes", "No");
+				player.dialogueAction = 10004;
 				break;
 		}
 	}
