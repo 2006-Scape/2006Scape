@@ -20,6 +20,7 @@ import java.io.IOException;
 public class JavaCord {
 
     public static String serverName = GameConstants.SERVER_NAME;
+    public static String commandPrefix = "::w" + GameConstants.WORLD;
     public static String token;
     public static DiscordApi api = null;
 
@@ -42,9 +43,9 @@ public class JavaCord {
                     }
                     api.addMessageCreateListener(event -> {
 
-                        if (event.getMessageContent().startsWith("::w" + GameConstants.WORLD + " kick")) {
+                        if (event.getMessageContent().startsWith(commandPrefix + " kick")) {
                             if (event.getMessageAuthor().isServerAdmin()) {
-                                String playerToKick = event.getMessageContent().replace("::w" + GameConstants.WORLD + " kick ", "");
+                                String playerToKick = event.getMessageContent().replace( commandPrefix + " kick ", "");
                                 for (Player player2 : PlayerHandler.players) {
                                     if (player2 != null) {
                                         if (player2.playerName.equalsIgnoreCase(playerToKick)) {

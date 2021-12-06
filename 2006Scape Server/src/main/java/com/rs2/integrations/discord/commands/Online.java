@@ -11,7 +11,7 @@ public class Online implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " online")) {
+        if (message.getContent().equalsIgnoreCase(JavaCord.commandPrefix + " online")) {
             event.getChannel().sendMessage(":tada: " + JavaCord.serverName + " World:" + GameConstants.WORLD + " is Online! :tada:");
         }
     }
