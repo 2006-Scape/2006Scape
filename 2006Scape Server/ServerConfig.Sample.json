@@ -4,7 +4,7 @@
   "server_debug": false,
   "file_server": true,
   "world_id": 1,
-  "bot_world": true,
+  "variable_xp_rate": false,
   "members_only": false,
   "tutorial_island_enabled": false,
   "party_room_enabled": true,

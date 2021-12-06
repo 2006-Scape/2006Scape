@@ -46,22 +46,25 @@ public class Commands implements PacketType {
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
             case "xprate":
-            case "XPRate":
-                if(player.getXPRate() == 0/* || player.playerRights == 3*/) {
-                    player.getDialogueHandler().sendDialogues(10001, 2244);
-                    return;
-                } else if (player.getXPRate() == 1) {
-                    player.getDialogueHandler().sendDialogues(10005, 2244);
-                    return;
-                } else if (player.getXPRate() == 2) {
-                    player.getDialogueHandler().sendDialogues(10006, 2244);
-                    return;
-                } else if (player.getXPRate() == 5) {
-                    player.getDialogueHandler().sendDialogues(10007, 2244);
-                    return;
-                } else if (player.getXPRate() == 10) {
-                    player.getPacketSender().sendMessage("You Already Have The Highest XP Rate");
-                    return;
+                if(GameConstants.VARIABLE_XP_RATE) {
+                    if (player.getXPRate() == 0 || player.playerRights >= 2) {
+                        player.getDialogueHandler().sendDialogues(10001, 2244);
+                        return;
+                    } else if (player.getXPRate() == 1) {
+                        player.getDialogueHandler().sendDialogues(10005, 2244);
+                        return;
+                    } else if (player.getXPRate() == 2) {
+                        player.getDialogueHandler().sendDialogues(10006, 2244);
+                        return;
+                    } else if (player.getXPRate() == 5) {
+                        player.getDialogueHandler().sendDialogues(10007, 2244);
+                        return;
+                    } else if (player.getXPRate() == 10) {
+                        player.getPacketSender().sendMessage("You already have the highest XP rate.");
+                        return;
+                    }
+                } else {
+                    player.getPacketSender().sendMessage("You can't use this command in this world.");
                 }
                 break;
             case "toggleyell":

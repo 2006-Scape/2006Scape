@@ -106,7 +106,7 @@ public class DialogueOptions {
 				return;
 				case 10005:
 					player.setXPRate(2);
-					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 					player.getPacketSender().sendMessage("::xprate");
 					return;
 			}
@@ -199,7 +199,7 @@ public class DialogueOptions {
 				return;
 			case 10005:
 				player.setXPRate(5);
-				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 				player.getPacketSender().sendMessage("::xprate");
 				return;
 			}
@@ -295,7 +295,7 @@ public class DialogueOptions {
 				return;
 			case 10005:
 				player.setXPRate(10);
-				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 				player.getPacketSender().sendMessage("::xprate");
 				return;
 			}
@@ -638,25 +638,25 @@ public class DialogueOptions {
 				return;
 			} else if (player.dialogueAction == 10004) {
 				if(!player.closeTutorialInterface) {
-					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 					player.getPacketSender().sendMessage("::xprate");
 					player.getPacketSender().showInterface(3559);
 					player.canChangeAppearance = true;
 					player.closeTutorialInterface = true;
 				} else if (player.getXPRate() != 10) {
-					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 					player.getPacketSender().sendMessage("::xprate");
 				} else {
-					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate());
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 				}
 				return;
 			} else if(player.dialogueAction == 10006) {
 				player.setXPRate(5);
-				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 				player.getPacketSender().sendMessage("::xprate");
 			} else if(player.dialogueAction == 10007) {
 				player.setXPRate(10);
-				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 				player.getPacketSender().sendMessage("::xprate");
 			}
 			player.dialogueAction = 0;
@@ -889,7 +889,7 @@ public class DialogueOptions {
 				return;
 			} else if(player.dialogueAction == 10006) {
 				player.setXPRate(10);
-				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
 				player.getPacketSender().sendMessage("::xprate");
 			}
 			player.dialogueAction = 0;

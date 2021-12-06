@@ -6137,7 +6137,7 @@ public class DialogueHandler {
 				break;
 
 			case 3116:
-				if(!GameConstants.BOT_WORLD) {
+				if(GameConstants.VARIABLE_XP_RATE) {
 					player.getDialogueHandler().sendDialogues(10001, -1);
 				} else {
 					player.getPacketSender().showInterface(3559);
@@ -7599,7 +7599,7 @@ public class DialogueHandler {
 				player.dialogueAction = 10000;
 				break;
 			case 10001:
-				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Please Select The XP Rate You'd Like.", "This Can Be Increased But Not Decreased Later On.");
+				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Please select the XP rate you'd like.", "this can  be increased but not decreased later on.");
 				player.nextChat = 10002;
 				break;
 			case 10002:
@@ -7607,7 +7607,7 @@ public class DialogueHandler {
 				player.dialogueAction = 10002;
 				break;
 			case 10003:
-				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Are You Sure x" + player.getXPRate() + " Is The XP Rate You'd Like?");
+				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Are you sure x" + player.getXPRate() + "is the XP rate you'd like?");
 				player.nextChat = 10004;
 				break;
 			case 10004:

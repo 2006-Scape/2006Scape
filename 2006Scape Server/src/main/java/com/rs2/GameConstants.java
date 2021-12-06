@@ -25,6 +25,7 @@ public class GameConstants {
 	 * ADMIN_CAN_TRADE Defines Whether Admins Can Trade
 	 * ADMIN_DROP_ITEMS Defines Whether Admins Can Drop Items
 	 * ADMIN_CAN_SELL_ITEMS Defines Whether Admins Can Sell Items
+	 * VARIABLE_XP_RATE Allows Players To Choose An XP Rate(x1,x2,x5,x10)
 	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills
 	 */
 	public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
@@ -32,7 +33,7 @@ public class GameConstants {
 			RESPAWN_X = 3222, RESPAWN_Y = 3218;
 	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
 			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
-			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, BOT_WORLD = true;
+			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = true;
 	public static double XP_RATE = Player.xpRate;
 
 
