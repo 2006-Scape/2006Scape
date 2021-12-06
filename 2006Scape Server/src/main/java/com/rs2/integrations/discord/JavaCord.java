@@ -1,6 +1,9 @@
 package com.rs2.integrations.discord;
 
 import com.rs2.GameConstants;
+import com.rs2.game.players.Client;
+import com.rs2.game.players.Player;
+import com.rs2.game.players.PlayerHandler;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.TextChannel;
@@ -39,12 +42,22 @@ public class JavaCord {
                     }
                     api.addMessageCreateListener(event -> {
 
-                        if (event.getMessageContent().startsWith("::w" + GameConstants.WORLD + " movehome")) {
+                        if (event.getMessageContent().startsWith("::w" + GameConstants.WORLD + " kick")) {
                             if (event.getMessageAuthor().isServerAdmin()) {
-                                System.out.println("perms");
-                                event.getChannel().sendMessage("perms");
+                                String playerToKick = event.getMessageContent().replace("::w" + GameConstants.WORLD + " kick ", "");
+                                for (Player player2 : PlayerHandler.players) {
+                                    if (player2 != null) {
+                                        if (player2.playerName.equalsIgnoreCase(playerToKick)) {
+                                            Client c2 = (Client) player2;
+                                            event.getChannel().sendMessage("You have kicked " + playerToKick + ".");
+                                            c2.disconnected = true;
+                                            c2.logout(true);
+                                            break;
+                                        }
+                                    }
+                                }
                             } else {
-                                event.getChannel().sendMessage("You do not have permission to preform this command");
+                                event.getChannel().sendMessage("You do not have permission to perform this command");
                             }
                         }
                     });

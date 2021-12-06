@@ -73,7 +73,7 @@ public class ConfigLoader {
     }
 
     public static void loadSecrets() throws IOException {
-        if (!new File("data/Secrets.json").exists()) {
+        if (!new File("data/secrets.json").exists()) {
             initialize();
             System.out.println("Please open \"data/secrets.json\" file and enter your discord token bot there!");
             System.out.println("Please open \"data/secrets.json\" file and enter your Website Password there!");
