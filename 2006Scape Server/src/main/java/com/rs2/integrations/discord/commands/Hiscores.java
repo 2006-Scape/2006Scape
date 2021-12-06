@@ -10,7 +10,7 @@ public class Hiscores implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase("::hiscores") || message.getContent().equalsIgnoreCase("::highscores")) {
+        if (message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " hiscores") || message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " highscores")) {
             event.getChannel().sendMessage(GameConstants.WEBSITE_LINK + "/hiscores.html");
         }
     }

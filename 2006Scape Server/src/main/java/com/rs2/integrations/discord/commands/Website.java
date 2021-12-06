@@ -10,7 +10,7 @@ public class Website implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase("::website") || message.getContent().equalsIgnoreCase("::site")) {
+        if (message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " website") || message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " site")) {
             event.getChannel().sendMessage(GameConstants.WEBSITE_LINK);
         }
     }

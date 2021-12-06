@@ -39,7 +39,7 @@ public class JavaCord {
                     }
                     api.addMessageCreateListener(event -> {
 
-                        if (event.getMessageContent().startsWith("::movehome")) {
+                        if (event.getMessageContent().startsWith("::w" + GameConstants.WORLD + " movehome")) {
                             if (event.getMessageAuthor().isServerAdmin()) {
                                 System.out.println("perms");
                                 event.getChannel().sendMessage("perms");

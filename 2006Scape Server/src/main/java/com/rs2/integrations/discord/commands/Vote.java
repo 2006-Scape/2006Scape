@@ -10,7 +10,7 @@ public class Vote implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase("::vote")) {
+        if (message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " vote")) {
                 event.getChannel().sendMessage("Visit " + GameConstants.WEBSITE_LINK + "/vote.html then type \"::claimvote\" in-game to receive your reward!");
         }
     }

@@ -10,7 +10,7 @@ public class Forum implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase("::forum") || message.getContent().equalsIgnoreCase("::forums")) {
+        if (message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " forum") || message.getContent().equalsIgnoreCase("::w" + GameConstants.WORLD + " forums")) {
             event.getChannel().sendMessage(GameConstants.WEBSITE_LINK + "/forums/index.php");
         }
     }

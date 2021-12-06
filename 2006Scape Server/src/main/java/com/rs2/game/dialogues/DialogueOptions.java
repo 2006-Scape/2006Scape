@@ -104,6 +104,11 @@ public class DialogueOptions {
 				player.getDialogueHandler().sendStatement("You summoned your shop!");
 				BotHandler.playerShop(player);
 				return;
+				case 10005:
+					player.setXPRate(2);
+					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+					player.getPacketSender().sendMessage("::xprate");
+					return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -191,6 +196,11 @@ public class DialogueOptions {
 			case 10000:
 				player.getDialogueHandler().sendStatement("You close your shop!");
 				BotHandler.closeShop(player);
+				return;
+			case 10005:
+				player.setXPRate(5);
+				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("::xprate");
 				return;
 			}
 			player.dialogueAction = 0;
@@ -282,6 +292,11 @@ public class DialogueOptions {
 			case 10000:
 				player.getDialogueHandler().sendStatement("You withdraw " + Bot.formatSellPrice(BotHandler.checkCoins(player)) + " from your shop!");
 				BotHandler.takeCoins(player);
+				return;
+			case 10005:
+				player.setXPRate(10);
+				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("::xprate");
 				return;
 			}
 			player.dialogueAction = 0;
@@ -628,19 +643,21 @@ public class DialogueOptions {
 					player.getPacketSender().showInterface(3559);
 					player.canChangeAppearance = true;
 					player.closeTutorialInterface = true;
-					player.nextChat = 0;
-					player.dialogueAction = 0;
 				} else if (player.getXPRate() != 10) {
 					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
 					player.getPacketSender().sendMessage("::xprate");
-					player.dialogueAction = 0;
-					player.getPacketSender().closeAllWindows();
 				} else {
 					player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate());
-					player.dialogueAction = 0;
-					player.getPacketSender().closeAllWindows();
 				}
 				return;
+			} else if(player.dialogueAction == 10006) {
+				player.setXPRate(5);
+				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("::xprate");
+			} else if(player.dialogueAction == 10007) {
+				player.setXPRate(10);
+				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("::xprate");
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -870,6 +887,10 @@ public class DialogueOptions {
 			} else if (player.dialogueAction == 10004) {
 				player.getDialogueHandler().sendDialogues(10002, 2244);
 				return;
+			} else if(player.dialogueAction == 10006) {
+				player.setXPRate(10);
+				player.getPacketSender().sendMessage("Your XP Rate Is Now Set To x" + player.getXPRate() + " You Can Increase Your Rate In The Future By Using");
+				player.getPacketSender().sendMessage("::xprate");
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();

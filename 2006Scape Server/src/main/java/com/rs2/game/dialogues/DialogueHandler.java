@@ -7614,6 +7614,18 @@ public class DialogueHandler {
 				sendOption("Yes", "No");
 				player.dialogueAction = 10004;
 				break;
+			case 10005:
+				sendOption("x2", "x5", "x10");
+				player.dialogueAction = 10005;
+				break;
+			case 10006:
+				sendOption("x5", "x10");
+				player.dialogueAction = 10006;
+				break;
+			case 10007:
+				sendOption("x10", "Don't Change");
+				player.dialogueAction = 10007;
+				break;
 		}
 	}
 	public void chatboxText(String text, String text1, String text2,
