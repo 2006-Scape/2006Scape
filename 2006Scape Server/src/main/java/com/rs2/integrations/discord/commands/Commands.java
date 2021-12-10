@@ -1,6 +1,5 @@
 package com.rs2.integrations.discord.commands;
 
-import com.rs2.GameConstants;
 import com.rs2.integrations.discord.JavaCord;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -20,8 +19,6 @@ public class Commands implements MessageCreateListener {
                     JavaCord.commandPrefix + " issues/" + JavaCord.commandPrefix + " bugs"
                     + System.lineSeparator() +
                     JavaCord.commandPrefix + " online"
-                    + System.lineSeparator() +
-                    JavaCord.commandPrefix + " players"
                     + System.lineSeparator() +
                     JavaCord.commandPrefix + " vote"
                     + System.lineSeparator() +

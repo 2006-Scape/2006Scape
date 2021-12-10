@@ -279,9 +279,6 @@ public class Commands implements PacketType {
                         "::loc, ::pos, ::coord",
                         "Get your current world position",
                         "",
-                        "::stuck",
-                        "Return to Lumbridge when stuck",
-                        "",
                         "::randomtoggle",
                         "Enable/Disable random events",
                         "",
@@ -315,17 +312,6 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendString(line, commandsLineNumber++);
                 }
                 player.getPacketSender().showInterface(8134);
-                break;
-            case "stuck":
-                if (player.getCombatAssistant().inCombat()) {
-                    player.getPacketSender().sendMessage("You cannot do that while in combat.");
-                    return;
-                }
-                player.getPlayerAssistant().movePlayer(SpellTeleport.LUMBRIDGE.getDestX(), SpellTeleport.LUMBRIDGE.getDestY(), 0);
-                player.getPacketSender().sendMessage("How did you manage that one...");
-                player.getPacketSender().sendMessage("If it's bug related, please report on Github/Discord!");
-                player.gfx100(80);
-                player.startAnimation(404);
                 break;
             case "randomtoggle":
             case "togglerandom":

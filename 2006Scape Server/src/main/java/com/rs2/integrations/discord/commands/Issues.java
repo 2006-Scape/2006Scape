@@ -1,6 +1,5 @@
 package com.rs2.integrations.discord.commands;
 
-import com.rs2.GameConstants;
 import com.rs2.integrations.discord.JavaCord;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
