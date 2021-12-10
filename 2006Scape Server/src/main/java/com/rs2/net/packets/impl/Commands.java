@@ -299,6 +299,7 @@ public class Commands implements PacketType {
                         "",
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
+                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
                 };
 
                 // Clear all lines
