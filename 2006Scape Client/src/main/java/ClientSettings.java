@@ -26,7 +26,7 @@ public class ClientSettings {
 	 * The Servers World
 	 * This Determines The Port The Server Will Connect On
 	 * World 1 Will Connect On Port 43594
-	 * World 2 Will Connect On Port 43597
+	 * World 2 Will Connect On Port 43598
 	 */
 	public static int SERVER_WORLD = 1;
 	/**
