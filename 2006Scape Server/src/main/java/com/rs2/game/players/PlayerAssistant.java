@@ -2033,8 +2033,11 @@ public class PlayerAssistant {
 		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && GameConstants.TUTORIAL_ISLAND) {
 			return false;
 		}
-
-		amount *= GameConstants.XP_RATE * player.getXPRate();
+		if (GameConstants.VARIABLE_XP_RATE){
+			amount *= player.getXPRate();
+		} else {
+			amount *= GameConstants.XP_RATE;
+		}
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
 		if (oldLevel < getLevelForXP(player.playerXP[skill])) {

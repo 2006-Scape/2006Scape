@@ -26,7 +26,7 @@ public class GameConstants {
 	 * ADMIN_DROP_ITEMS Defines Whether Admins Can Drop Items
 	 * ADMIN_CAN_SELL_ITEMS Defines Whether Admins Can Sell Items
 	 * VARIABLE_XP_RATE Allows Players To Choose An XP Rate(x1,x2,x5,x10)
-	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills
+	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills If VARIABLE_XP_RATES is false
 	 */
 	public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
 	public static int WORLD = 1, MAX_PLAYERS = 200, TIMEOUT = 60, SAVE_TIMER = 120,
