@@ -44,6 +44,12 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "myxprate":
+            case "checkxprate":
+                if(GameConstants.VARIABLE_XP_RATE) {
+                    player.getPacketSender().sendMessage("Your current XP rate is x" + player.getXPRate());
+                    break;
+                }
             case "xprate":
                 if(GameConstants.VARIABLE_XP_RATE) {
                     if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[0]) {
@@ -299,6 +305,7 @@ public class Commands implements PacketType {
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
                         (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
+                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::checkxprate(::myxprate)\\n" + "Displays the players currently set XP rate.." : ""),
                 };
 
                 // Clear all lines

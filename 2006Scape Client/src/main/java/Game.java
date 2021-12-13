@@ -5021,12 +5021,12 @@ public class Game extends RSApplet {
 					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
 						graphicsEnabled = !graphicsEnabled;
 					}
-					if (myPrivilege >= 0) {
-						if(inputString.equals("::noclip"))
-						for(int k1 = 0; k1 < 4; k1++)
-							for(int i2 = 1; i2 < 103; i2++)
-								for(int k2 = 1; k2 < 103; k2++)
-									aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
+					if (myPrivilege >= 2) {
+						if (inputString.equals("::noclip"))
+							for (int k1 = 0; k1 < 4; k1++)
+								for (int i2 = 1; i2 < 103; i2++)
+									for (int k2 = 1; k2 < 103; k2++)
+										aClass11Array1230[k1].anIntArrayArray294[i2][k2] = 0;
 						if (inputString.equals("::clientdrop")) {
 							dropClient();
 						}
@@ -5060,6 +5060,7 @@ public class Game extends RSApplet {
 								onDemandFetcher.method563((byte) 1, 2, j1);
 							}
 						}
+					}
 						if (inputString.startsWith("::dd")) {
 							String[] args = inputString.split(" ");
 							int  distance = 25;
@@ -5078,7 +5079,6 @@ public class Game extends RSApplet {
 						if (inputString.equals("::dataon")) {
 							showInfo = !showInfo;
 						}
-					}
 					if (inputString.startsWith("::")) {
 						stream.createFrame(103);
 						stream.writeWordBigEndian(inputString.length() - 1);
