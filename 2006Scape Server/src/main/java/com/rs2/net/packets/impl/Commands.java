@@ -8,7 +8,6 @@ import com.rs2.Connection;
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.bots.BotHandler;
-import com.rs2.game.content.combat.magic.SpellTeleport;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
@@ -47,20 +46,20 @@ public class Commands implements PacketType {
         switch (playerCommand.toLowerCase()) {
             case "xprate":
                 if(GameConstants.VARIABLE_XP_RATE) {
-                    if (player.getXPRate() == 0 || player.playerRights >= 2) {
-                        player.getDialogueHandler().sendDialogues(10001, 2244);
-                        return;
-                    } else if (player.getXPRate() == 1) {
+                    if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[0]) {
                         player.getDialogueHandler().sendDialogues(10005, 2244);
                         return;
-                    } else if (player.getXPRate() == 2) {
+                    } else if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[1]) {
                         player.getDialogueHandler().sendDialogues(10006, 2244);
                         return;
-                    } else if (player.getXPRate() == 5) {
+                    } else if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[2]) {
                         player.getDialogueHandler().sendDialogues(10007, 2244);
                         return;
-                    } else if (player.getXPRate() == 10) {
+                    } else if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[3]) {
                         player.getPacketSender().sendMessage("You already have the highest XP rate.");
+                        return;
+                    } else {
+                        player.getDialogueHandler().sendDialogues(10001, 2244);
                         return;
                     }
                 } else {
