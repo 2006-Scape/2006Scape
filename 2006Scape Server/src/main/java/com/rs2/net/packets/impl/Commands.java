@@ -46,22 +46,22 @@ public class Commands implements PacketType {
         switch (playerCommand.toLowerCase()) {
             case "myxprate":
             case "checkxprate":
-                if(GameConstants.VARIABLE_XP_RATES) {
+                if(GameConstants.VARIABLE_XP_RATE) {
                     player.getPacketSender().sendMessage("Your current XP rate is x" + player.getXPRate());
                     break;
                 }
             case "xprate":
-                if(GameConstants.VARIABLE_XP_RATES) {
-                    if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[0]) {
+                if(GameConstants.VARIABLE_XP_RATE) {
+                    if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[0]) {
                         player.getDialogueHandler().sendDialogues(10005, 2244);
                         return;
-                    } else if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[1]) {
+                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[1]) {
                         player.getDialogueHandler().sendDialogues(10006, 2244);
                         return;
-                    } else if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[2]) {
+                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[2]) {
                         player.getDialogueHandler().sendDialogues(10007, 2244);
                         return;
-                    } else if (player.getXPRate() == GameConstants.PLAYER_XP_RATES[3]) {
+                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[3]) {
                         player.getPacketSender().sendMessage("You already have the highest XP rate.");
                         return;
                     } else {
@@ -304,8 +304,8 @@ public class Commands implements PacketType {
                         "",
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
-                        (GameConstants.VARIABLE_XP_RATES ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
-                        (GameConstants.VARIABLE_XP_RATES ? "\\n" + "::checkxprate(::myxprate)\\n" + "Displays the players currently set XP rate." : ""),
+                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
+                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::checkxprate(::myxprate)\\n" + "Displays the players currently set XP rate." : ""),
                 };
 
                 // Clear all lines

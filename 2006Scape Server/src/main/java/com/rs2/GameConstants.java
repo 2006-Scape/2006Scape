@@ -18,7 +18,7 @@ public class GameConstants {
 	 * FILE_SERVER Sets Whether The FileServer Should Run With The Server
 	 * SERVER_DEBUG Sets Whether The Server Should Start In Debug Mode
 	 * MEMBERS_ONLY Sets Whether The World Is Members Only
-	 * TUTORIAL_ISLAND Sets Enables/Disables Tutorial Island For Players On First Login
+	 * TUTORIAL_ISLAND Enables/Disables Tutorial Island For Players On First Login
 	 * PARTY_ROOM_DISABLED Enables/Disables The Party Room Should Be Disabled
 	 * CLUES_ENABLED Enables/Disables Clue Scrolls
 	 * ITEM_REQUIREMENTS Enables/Disables Item Requirements for All Players
@@ -26,7 +26,7 @@ public class GameConstants {
 	 * ADMIN_DROP_ITEMS Defines Whether Admins Can Drop Items
 	 * ADMIN_CAN_SELL_ITEMS Defines Whether Admins Can Sell Items
 	 * VARIABLE_XP_RATES Allows Players To Choose An XP Rate Set In PLAYER_XP_RATES
-	 * PLAYER_XP_RATES Defines The XP Rates That Should Be Available To Players When VARIABLE_XP_RATES is true(Array Must Contain Four Entries)
+	 * VARIABLE_XP_RATE Defines The XP Rates That Should Be Available To Players When VARIABLE_XP_RATES is true(Array Must Contain Four Entries)
 	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills If VARIABLE_XP_RATES is false
 	 */
 	public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
@@ -34,8 +34,8 @@ public class GameConstants {
 			RESPAWN_X = 3222, RESPAWN_Y = 3218;
 	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
 			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
-			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATES = true;
-	public static int[] PLAYER_XP_RATES = new int[] {1, 2, 5, 10};
+			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = false;
+	public static int[] VARIABLE_XP_RATES = new int[] {1, 2, 5, 10};
 	public static double XP_RATE = 1.0;
 
 

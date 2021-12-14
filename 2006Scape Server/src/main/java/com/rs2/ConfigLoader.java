@@ -50,16 +50,16 @@ public class ConfigLoader {
             GameConstants.TIMEOUT = obj.getInt("timeout");
             if(obj.has("item_requirements"))
             GameConstants.ITEM_REQUIREMENTS = obj.getBoolean("item_requirements");
-            if(obj.has("variable_xp_rates"))
-            GameConstants.VARIABLE_XP_RATES = obj.getBoolean("variable_xp_rates");
+            if(obj.has("variable_xp_rate"))
+            GameConstants.VARIABLE_XP_RATE = obj.getBoolean("variable_xp_rate");
             if(obj.has("xp_rate"))
             GameConstants.XP_RATE = obj.getDouble("xp_rate");
             if(obj.has("max_players"))
             GameConstants.MAX_PLAYERS = obj.getInt("max_players");
-            if (obj.has("player_xp_rates")) {
-                JSONArray rates = obj.optJSONArray("player_xp_rates");
+            if (obj.has("variable_xp_rates")) {
+                JSONArray rates = obj.optJSONArray("variable_xp_rates");
                 for (int i = 0; i < rates.length(); ++i) {
-                    GameConstants.PLAYER_XP_RATES[i] = rates.optInt(i);
+                    GameConstants.VARIABLE_XP_RATES[i] = rates.optInt(i);
                 }
             }
     }
@@ -97,7 +97,7 @@ public class ConfigLoader {
                 JavaCord.token = obj.getString("bot-token");
             if(obj.has("websitepass"))
                 PlayersOnlineWebsite.password = obj.getString("websitepass");
-            RegisteredAccsWebsite.password = obj.getString("websitepass");
+                RegisteredAccsWebsite.password = obj.getString("websitepass");
             if(obj.has("erssecret"))
                 GameEngine.ersSecret = obj.getString("erssecret");
 

@@ -6137,7 +6137,7 @@ public class DialogueHandler {
 				break;
 
 			case 3116:
-				if(GameConstants.VARIABLE_XP_RATES) {
+				if(GameConstants.VARIABLE_XP_RATE) {
 					player.getDialogueHandler().sendDialogues(10001, -1);
 				} else {
 					player.getPacketSender().showInterface(3559);
@@ -7603,7 +7603,7 @@ public class DialogueHandler {
 				player.nextChat = 10002;
 				break;
 			case 10002:
-				sendOption("x" + GameConstants.PLAYER_XP_RATES[0], "x" + GameConstants.PLAYER_XP_RATES[1], "x" + GameConstants.PLAYER_XP_RATES[2], "x" + GameConstants.PLAYER_XP_RATES[3]);
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[0], "x" + GameConstants.VARIABLE_XP_RATES[1], "x" + GameConstants.VARIABLE_XP_RATES[2], "x" + GameConstants.VARIABLE_XP_RATES[3]);
 				player.dialogueAction = 10002;
 				break;
 			case 10003:
@@ -7615,15 +7615,15 @@ public class DialogueHandler {
 				player.dialogueAction = 10004;
 				break;
 			case 10005:
-				sendOption("x" + GameConstants.PLAYER_XP_RATES[1], "x" + GameConstants.PLAYER_XP_RATES[2], "x" + GameConstants.PLAYER_XP_RATES[3]);
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[1], "x" + GameConstants.VARIABLE_XP_RATES[2], "x" + GameConstants.VARIABLE_XP_RATES[3]);
 				player.dialogueAction = 10005;
 				break;
 			case 10006:
-				sendOption("x" + GameConstants.PLAYER_XP_RATES[2], "x" + GameConstants.PLAYER_XP_RATES[3]);
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[2], "x" + GameConstants.VARIABLE_XP_RATES[3]);
 				player.dialogueAction = 10006;
 				break;
 			case 10007:
-				sendOption("x" + GameConstants.PLAYER_XP_RATES[3], "Don't Change");
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[3], "Don't Change");
 				player.dialogueAction = 10007;
 				break;
 		}
