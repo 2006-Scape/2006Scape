@@ -33,7 +33,7 @@ public class ClientSettings {
 	/**
 	 * Enables/Disables FileServer CRC Checking For Cache Updates
 	 */
-	public static final boolean CHECK_CRC = true;
+	public static boolean CHECK_CRC = true;
 
 	/**
 	 * The Npc Bits for the Server
