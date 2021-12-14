@@ -17,7 +17,6 @@ import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillData;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.content.skills.smithing.Superheat;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
@@ -2033,7 +2032,7 @@ public class PlayerAssistant {
 		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && GameConstants.TUTORIAL_ISLAND) {
 			return false;
 		}
-		if (GameConstants.VARIABLE_XP_RATE){
+		if (GameConstants.VARIABLE_XP_RATES){
 			amount *= player.getXPRate();
 		} else {
 			amount *= GameConstants.XP_RATE;

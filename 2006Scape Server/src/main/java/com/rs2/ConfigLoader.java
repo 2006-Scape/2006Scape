@@ -3,6 +3,7 @@ package com.rs2;
 import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
 import com.rs2.integrations.discord.JavaCord;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -25,8 +26,6 @@ public class ConfigLoader {
             GameConstants.FILE_SERVER = obj.getBoolean("file_server");
             if(obj.has("world_id"))
             GameConstants.WORLD = obj.getInt("world_id");
-            if(obj.has("variable_xp_rate"))
-            GameConstants.VARIABLE_XP_RATE = obj.getBoolean("variable_xp_rate");
             if(obj.has("members_only"))
             GameConstants.MEMBERS_ONLY = obj.getBoolean("members_only");
             if(obj.has("tutorial_island_enabled"))
@@ -51,10 +50,18 @@ public class ConfigLoader {
             GameConstants.TIMEOUT = obj.getInt("timeout");
             if(obj.has("item_requirements"))
             GameConstants.ITEM_REQUIREMENTS = obj.getBoolean("item_requirements");
+            if(obj.has("variable_xp_rates"))
+            GameConstants.VARIABLE_XP_RATES = obj.getBoolean("variable_xp_rates");
             if(obj.has("xp_rate"))
             GameConstants.XP_RATE = obj.getDouble("xp_rate");
             if(obj.has("max_players"))
             GameConstants.MAX_PLAYERS = obj.getInt("max_players");
+            if (obj.has("player_xp_rates")) {
+                JSONArray rates = obj.optJSONArray("player_xp_rates");
+                for (int i = 0; i < rates.length(); ++i) {
+                    GameConstants.PLAYER_XP_RATES[i] = rates.optInt(i);
+                }
+            }
     }
 
     private static void initialize() {

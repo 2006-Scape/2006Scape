@@ -25,16 +25,16 @@ public class GameConstants {
 	 * ADMIN_CAN_TRADE Defines Whether Admins Can Trade
 	 * ADMIN_DROP_ITEMS Defines Whether Admins Can Drop Items
 	 * ADMIN_CAN_SELL_ITEMS Defines Whether Admins Can Sell Items
-	 * VARIABLE_XP_RATE Allows Players To Choose An XP Rate(x1,x2,x5,x10)
-	 * PLAYER_XP_RATES Defines The XP Rates That Should Be Available To Players When VARIABLE_XP_RATE is true
-	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills If VARIABLE_XP_RATE is false
+	 * VARIABLE_XP_RATES Allows Players To Choose An XP Rate Set In PLAYER_XP_RATES
+	 * PLAYER_XP_RATES Defines The XP Rates That Should Be Available To Players When VARIABLE_XP_RATES is true(Array Must Contain Four Entries)
+	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills If VARIABLE_XP_RATES is false
 	 */
 	public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
 	public static int WORLD = 1, MAX_PLAYERS = 200, TIMEOUT = 60, SAVE_TIMER = 120,
 			RESPAWN_X = 3222, RESPAWN_Y = 3218;
 	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
 			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
-			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = true;
+			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATES = true;
 	public static int[] PLAYER_XP_RATES = new int[] {1, 2, 5, 10};
 	public static double XP_RATE = 1.0;
 

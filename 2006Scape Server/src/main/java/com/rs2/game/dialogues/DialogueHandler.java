@@ -6137,7 +6137,7 @@ public class DialogueHandler {
 				break;
 
 			case 3116:
-				if(GameConstants.VARIABLE_XP_RATE) {
+				if(GameConstants.VARIABLE_XP_RATES) {
 					player.getDialogueHandler().sendDialogues(10001, -1);
 				} else {
 					player.getPacketSender().showInterface(3559);
