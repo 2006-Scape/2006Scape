@@ -32,6 +32,7 @@ public class ClientSettings {
 
 	/**
 	 * Enables/Disables FileServer CRC Checking For Cache Updates
+	 * FileServer Must Be Running Before Starting The Client If This Is True
 	 */
 	public static boolean CHECK_CRC = true;
 
