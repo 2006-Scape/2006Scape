@@ -25,8 +25,8 @@ public class GameConstants {
 	 * ADMIN_CAN_TRADE Defines Whether Admins Can Trade
 	 * ADMIN_DROP_ITEMS Defines Whether Admins Can Drop Items
 	 * ADMIN_CAN_SELL_ITEMS Defines Whether Admins Can Sell Items
-	 * VARIABLE_XP_RATES Allows Players To Choose An XP Rate Set In PLAYER_XP_RATES
-	 * VARIABLE_XP_RATE Defines The XP Rates That Should Be Available To Players When VARIABLE_XP_RATES is true(Array Must Contain Four Entries)
+	 * VARIABLE_XP_RATE Allows Players To Choose An XP Rate Set In VARIABLE_XP_RATES
+	 * VARIABLE_XP_RATES Defines The XP Rates That Should Be Available To Players When VARIABLE_XP_RATES is true(Array Must Contain Four Entries)
 	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills If VARIABLE_XP_RATES is false
 	 */
 	public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
