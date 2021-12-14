@@ -18,5 +18,6 @@
   "save_timer": 120,
   "timeout": 60,
   "item_requirements": true,
-  "max_players": 200
+  "max_players": 200,
+  "website_total_characters_integration": false
 }

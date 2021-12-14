@@ -1,7 +1,5 @@
 package com.rs2;
 
-import com.rs2.game.players.Player;
-
 public class GameConstants {
 
 	/**
@@ -34,25 +32,19 @@ public class GameConstants {
 			RESPAWN_X = 3222, RESPAWN_Y = 3218;
 	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
 			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
-			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = false;
+			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = false,
+			WEBSITE_TOTAL_CHARACTERS_INTEGRATION = false;
 	public static int[] VARIABLE_XP_RATES = new int[] {1, 2, 5, 10};
-	public static double XP_RATE = 1.0;
+	public static double TEST_VERSION = 2.3, XP_RATE = 1.0;
 
 
 	/**
 	 * The Variables Below Should Only Be Changed If You Understand What You Are Doing
 	 */
-
-	public final static String SERVER_VERSION = "Server Stage v " + GameConstants.TEST_VERSION + ".";
-	public final static boolean WEBSITE_TOTAL_CHARACTERS_INTEGRATION = false;
-	public final static double TEST_VERSION = 2.3;
+	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE,
+			IPS_ALLOWED = 250, CONNECTION_DELAY = 100;
 	
-	public final static int ITEM_LIMIT = 15000, MAXITEM_AMOUNT = Integer.MAX_VALUE, CLIENT_VERSION = 999999,
-			IPS_ALLOWED = 250, CONNECTION_DELAY = 100,
-			MESSAGE_DELAY = 6000, REQ_AMOUNT = 150;
-	
-	public final static boolean sendServerPackets = false, SOUND = true, GUILDS = true,
-			PRINT_OBJECT_ID = false, EXPERIMENTS = false;
+	public final static boolean sendServerPackets = false, SOUND = true, GUILDS = true;
 	
 	public static int[] SIDEBARS = { 2423, 3917, 638, 3213, 1644, 5608, 1151,
 			18128, 5065, 5715, 2449, 904, 147, 962 };
@@ -67,10 +59,6 @@ public class GameConstants {
 	public final static int DUELING_RESPAWN_Y = 3263;
 	
 	public final static int NO_TELEPORT_WILD_LEVEL = 20;
-	
-	public final static int CASTLE_WARS_X = 2439;
-	
-	public final static int CASTLE_WARS_Y = 3087;
 	
 	public final static int NPC_RANDOM_WALK_DISTANCE = 5;
 	

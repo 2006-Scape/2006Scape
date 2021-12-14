@@ -18,6 +18,8 @@ public class ConfigLoader {
 
             if(obj.has("server_name"))
             GameConstants.SERVER_NAME = obj.getString("server_name");
+            if(obj.has("server_test_version"))
+            GameConstants.TEST_VERSION = obj.getDouble("server_test_version");
             if(obj.has("website_link"))
             GameConstants.WEBSITE_LINK = obj.getString("website_link");
             if(obj.has("debug"))
@@ -62,6 +64,8 @@ public class ConfigLoader {
                     GameConstants.VARIABLE_XP_RATES[i] = rates.optInt(i);
                 }
             }
+            if(obj.has("website_total_characters_integration"))
+            GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION = obj.getBoolean("website_total_characters_integration");
     }
 
     private static void initialize() {
