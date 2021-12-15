@@ -393,9 +393,6 @@ public class DialogueOptions {
 			} else if (player.dialogueAction == 56) {
 				player.getDialogueHandler().sendDialogues(96, player.npcType);
 				return;
-			} else if (player.dialogueAction == 57) {
-				player.getDialogueHandler().sendDialogues(57, player.npcType);
-				return;
 			} else if (player.dialogueAction == 3222) {
 				player.getBarrows().checkCoffins();
 				player.getPacketSender().closeAllWindows();
@@ -692,9 +689,6 @@ public class DialogueOptions {
 			} else if (player.dialogueAction == 74) {
 				player.getDialogueHandler().sendDialogues(535, player.npcType);
 				return;
-			} else if (player.dialogueAction == 57) {
-				player.getDialogueHandler().sendDialogues(58, player.npcType);
-				return;
 			} else if (player.dialogueAction == 62) {
 				player.getDialogueHandler().sendDialogues(309, player.npcType);
 				return;
@@ -944,9 +938,6 @@ public class DialogueOptions {
 			if (player.dialogueAction == 113) {
 				player.getDialogueHandler().sendDialogues(3540, player.npcType);
 			}
-			if (player.dialogueAction == 52) {
-				player.getDialogueHandler().sendDialogues(52, player.npcType);
-			}
 			if (player.dialogueAction == 1000) {
 				player.getDialogueHandler().sendDialogues(3524,player.npcType);
 			}
@@ -1016,9 +1007,6 @@ public class DialogueOptions {
 			if (player.dialogueAction == 51) {
 				player.getPlayerAssistant().gloryTeleport(3293, 3174, 0, "modern");
 				Teles.necklaces(player);
-			}
-			if (player.dialogueAction == 52) {
-				player.getDialogueHandler().sendDialogues(64, player.npcType);
 			}
 			if (player.dialogueAction == 1000) {
 				player.getDialogueHandler().sendDialogues(3523, player.npcType);
@@ -1093,9 +1081,6 @@ public class DialogueOptions {
 				player.getPlayerAssistant().gloryTeleport(2911, 3152, 0, "modern");
 				Teles.necklaces(player);
 			}
-			if (player.dialogueAction == 52) {
-				player.getDialogueHandler().sendDialogues(65, player.npcType);
-			}
 			if (player.dialogueAction == 1000) {
 				player.getDialogueHandler().sendDialogues(3523,player.npcType);
 			}
@@ -1153,9 +1138,6 @@ public class DialogueOptions {
 			if (player.dialogueAction == 51) {
 				player.getPlayerAssistant().gloryTeleport(3103, 3249, 0, "modern");
 				Teles.necklaces(player);
-			}
-			if (player.dialogueAction == 52) {
-				player.getDialogueHandler().sendDialogues(63, player.npcType);
 			}
 			if (player.dialogueAction == 1000) {
 				player.getDialogueHandler().sendDialogues(3523, player.npcType);

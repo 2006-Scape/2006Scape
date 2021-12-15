@@ -16,11 +16,11 @@ public class DialoguePacket implements PacketType {
 			 to the new system. Expect to see flickering in some Astraeus Dialogues as the old
 			 dialogue handler activates before it.
 		 */
-		if (player.nextChat > 0) {
+		/*if (player.nextChat > 0) {
 			player.getDialogueHandler().sendDialogues(player.nextChat, player.talkingNpc);
 		} else {
 			player.getDialogueHandler().sendDialogues(0, -1);
-		}
+		}*/
 
 		// New Dialogue System
 		player.getDialogueFactory().execute();

@@ -670,7 +670,9 @@ public final class DialogueFactoryPlugin {
     private final String[] splitLines(String... text) {
 
         if(text.length > 1){
-            logger.log(Level.INFO, "Detected more than 1 Dialogue line. Assuming Dialogues have been split already.");
+            if(GameConstants.SERVER_DEBUG) {
+                logger.log(Level.INFO, "Detected more than 1 Dialogue line. Assuming Dialogues have been split already.");
+            }
             return text;
         }
         int characters = text[0].length();
