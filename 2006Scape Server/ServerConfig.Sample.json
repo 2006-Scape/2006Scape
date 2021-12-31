@@ -4,6 +4,9 @@
   "server_debug": false,
   "file_server": true,
   "world_id": 1,
+  "xp_rate": 1.0,
+  "variable_xp_rate": false,
+  "variable_xp_rates": [1, 2, 5, 10],
   "members_only": false,
   "tutorial_island_enabled": false,
   "party_room_enabled": true,
@@ -15,6 +18,6 @@
   "save_timer": 120,
   "timeout": 60,
   "item_requirements": true,
-  "xp_rate": 1.0,
-  "max_players": 200
+  "max_players": 200,
+  "website_total_characters_integration": false
 }

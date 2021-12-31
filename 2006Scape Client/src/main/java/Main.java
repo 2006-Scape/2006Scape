@@ -8,10 +8,7 @@ public final class Main {
 	DEAR DEVELOPER!
 
 	If you want to run the client locally, the easiest way to do that is run the class "Client.java" instead!
-
 	If you REALLY want to use this class, add program arguments "-s localhost".
-	But seriously, Client.java is just a copy-paste of this class and does it locally. Use that instead!
-
 	 */
 
 	public static void main(String[] args) {
@@ -24,6 +21,16 @@ public final class Main {
 						case "-server":
 						case "-ip":
 							ClientSettings.SERVER_IP = args[++i];
+							break;
+						case "-no-crc":
+						case "-no-cache-crc":
+							ClientSettings.CHECK_CRC = false;
+							break;
+						case "-dev"	:
+						case "-local":
+						case "-offline":
+							ClientSettings.SERVER_IP = "localhost";
+							ClientSettings.CHECK_CRC = false;
 							break;
 					}
 				}
@@ -44,6 +51,10 @@ public final class Main {
 						case "-pass":
 						case "-password":
 							game.myPassword = args[++i];
+							break;
+						case "-w":
+						case "-world":
+							ClientSettings.SERVER_WORLD = Integer.parseInt(args[++i]);
 							break;
 					}
 				}

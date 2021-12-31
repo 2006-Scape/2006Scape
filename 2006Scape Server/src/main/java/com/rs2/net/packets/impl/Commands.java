@@ -8,7 +8,6 @@ import com.rs2.Connection;
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.bots.BotHandler;
-import com.rs2.game.content.combat.magic.SpellTeleport;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
@@ -45,6 +44,34 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "myxprate":
+            case "checkxprate":
+                if(GameConstants.VARIABLE_XP_RATE) {
+                    player.getPacketSender().sendMessage("Your current XP rate is x" + player.getXPRate());
+                    break;
+                }
+            case "xprate":
+                if(GameConstants.VARIABLE_XP_RATE) {
+                    if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[0]) {
+                        player.getDialogueHandler().sendDialogues(10005, 2244);
+                        return;
+                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[1]) {
+                        player.getDialogueHandler().sendDialogues(10006, 2244);
+                        return;
+                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[2]) {
+                        player.getDialogueHandler().sendDialogues(10007, 2244);
+                        return;
+                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[3]) {
+                        player.getPacketSender().sendMessage("You already have the highest XP rate.");
+                        return;
+                    } else {
+                        player.getDialogueHandler().sendDialogues(10001, 2244);
+                        return;
+                    }
+                } else {
+                    player.getPacketSender().sendMessage("You can't use this command in this world.");
+                }
+                break;
             case "toggleyell":
             case "tglyell":
             case "hideyell":
@@ -257,9 +284,6 @@ public class Commands implements PacketType {
                         "::loc, ::pos, ::coord",
                         "Get your current world position",
                         "",
-                        "::stuck",
-                        "Return to Lumbridge when stuck",
-                        "",
                         "::randomtoggle",
                         "Enable/Disable random events",
                         "",
@@ -280,6 +304,8 @@ public class Commands implements PacketType {
                         "",
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
+                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
+                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::checkxprate(::myxprate)\\n" + "Displays the players currently set XP rate." : ""),
                 };
 
                 // Clear all lines
@@ -293,17 +319,6 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendString(line, commandsLineNumber++);
                 }
                 player.getPacketSender().showInterface(8134);
-                break;
-            case "stuck":
-                if (player.getCombatAssistant().inCombat()) {
-                    player.getPacketSender().sendMessage("You cannot do that while in combat.");
-                    return;
-                }
-                player.getPlayerAssistant().movePlayer(SpellTeleport.LUMBRIDGE.getDestX(), SpellTeleport.LUMBRIDGE.getDestY(), 0);
-                player.getPacketSender().sendMessage("How did you manage that one...");
-                player.getPacketSender().sendMessage("If it's bug related, please report on Github/Discord!");
-                player.gfx100(80);
-                player.startAnimation(404);
                 break;
             case "randomtoggle":
             case "togglerandom":

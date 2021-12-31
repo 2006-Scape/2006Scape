@@ -12,7 +12,7 @@ public class RegisteredAccsWebsite {
 
     private static void setAccountsRegistered(int amount) throws IOException {
         URL url;
-        url = new URL(GameConstants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount);
+        url = new URL(GameConstants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount + "&world=" + GameConstants.WORLD);
         url.openStream().close();
     }
 

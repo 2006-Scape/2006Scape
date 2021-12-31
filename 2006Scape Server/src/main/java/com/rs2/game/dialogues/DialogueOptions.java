@@ -104,6 +104,12 @@ public class DialogueOptions {
 				player.getDialogueHandler().sendStatement("You summoned your shop!");
 				BotHandler.playerShop(player);
 				return;
+				case 10005:
+					player.setXPRate(GameConstants.VARIABLE_XP_RATES[1]);
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
+					player.getPacketSender().sendMessage("::xprate");
+					player.getPacketSender().closeAllWindows();
+					return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -191,6 +197,12 @@ public class DialogueOptions {
 			case 10000:
 				player.getDialogueHandler().sendStatement("You close your shop!");
 				BotHandler.closeShop(player);
+				return;
+			case 10005:
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[2]);
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
+				player.getPacketSender().sendMessage("::xprate");
+				player.getPacketSender().closeAllWindows();
 				return;
 			}
 			player.dialogueAction = 0;
@@ -282,6 +294,11 @@ public class DialogueOptions {
 			case 10000:
 				player.getDialogueHandler().sendStatement("You withdraw " + Bot.formatSellPrice(BotHandler.checkCoins(player)) + " from your shop!");
 				BotHandler.takeCoins(player);
+				return;
+			case 10005:
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[3]);
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you now have the highest XP rate.");
+				player.getPacketSender().closeAllWindows();
 				return;
 			}
 			player.dialogueAction = 0;
@@ -618,11 +635,37 @@ public class DialogueOptions {
 				player.getDialogueHandler().sendDialogues(3586, player.npcType);
 				return;
 			}
-			else if (player.dialogueAction == 7559)
-			{
+			else if (player.dialogueAction == 7559) {
 				player.getDialogueHandler().sendDialogues(3864, player.npcType);
 				return;
-			}	
+			} else if (player.dialogueAction == 10004) {
+				if(!player.closeTutorialInterface) {
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
+					player.getPacketSender().sendMessage("::xprate");
+					player.getPacketSender().showInterface(3559);
+					player.canChangeAppearance = true;
+					player.closeTutorialInterface = true;
+					return;
+				} else if (player.getXPRate() !=  + GameConstants.VARIABLE_XP_RATES[3]) {
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
+					player.getPacketSender().sendMessage("::xprate");
+					return;
+				} else {
+					player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you now have the highest XP rate.");
+					return;
+				}
+			} else if(player.dialogueAction == 10006) {
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[2]);
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you can increase your rate in the future by using");
+				player.getPacketSender().sendMessage("::xprate");
+				player.getPacketSender().closeAllWindows();
+				return;
+			} else if(player.dialogueAction == 10007) {
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[3]);
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + " you now have the highest XP rate.");
+				player.getPacketSender().closeAllWindows();
+				return;
+			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
 			break;
@@ -848,6 +891,15 @@ public class DialogueOptions {
 			{
 				player.getDialogueHandler().sendDialogues(3865, player.npcType);
 				return;
+			} else if (player.dialogueAction == 10004) {
+				player.getDialogueHandler().sendDialogues(10002, 2244);
+				return;
+			} else if(player.dialogueAction == 10006) {
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[3]);
+				player.getPacketSender().sendMessage("Your XP rate is now set to x" + player.getXPRate() + "  you now have the highest XP rate.");
+				player.getPacketSender().sendMessage("::xprate");
+				player.getPacketSender().closeAllWindows();
+				return;
 			}
 			player.dialogueAction = 0;
 			player.getPacketSender().closeAllWindows();
@@ -922,6 +974,10 @@ public class DialogueOptions {
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3561, player.npcType);
 			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[0]);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
+			}
 			break;
 
 		case 9179:
@@ -990,6 +1046,10 @@ public class DialogueOptions {
 			}
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3562, player.npcType);
+			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[1]);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
 			}
 			break;
 
@@ -1063,6 +1123,10 @@ public class DialogueOptions {
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3563, player.npcType);
 			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[2]);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
+			}
 			break;
 
 		case 9181:
@@ -1119,6 +1183,10 @@ public class DialogueOptions {
 			}
 			if (player.dialogueAction == 701) {
 				player.getDialogueHandler().sendDialogues(3564, player.npcType);
+			}
+			if (player.dialogueAction == 10002) {
+				player.setXPRate(GameConstants.VARIABLE_XP_RATES[3]);
+				player.getDialogueHandler().sendDialogues(10003, player.npcType);
 			}
 			break;
 		}

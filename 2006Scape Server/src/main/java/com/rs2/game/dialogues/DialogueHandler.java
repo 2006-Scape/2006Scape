@@ -6137,10 +6137,14 @@ public class DialogueHandler {
 				break;
 
 			case 3116:
-				player.getPacketSender().showInterface(3559);
-				player.canChangeAppearance = true;
-				player.closeTutorialInterface = true;
-				player.nextChat = 0;
+				if(GameConstants.VARIABLE_XP_RATE) {
+					player.getDialogueHandler().sendDialogues(10001, -1);
+				} else {
+					player.getPacketSender().showInterface(3559);
+					player.canChangeAppearance = true;
+					player.closeTutorialInterface = true;
+					player.nextChat = 0;
+				}
 				break;
 
 			case 3117:
@@ -7593,6 +7597,34 @@ public class DialogueHandler {
 					coins > 0 ? "Withdraw Money (" + Bot.formatSellPrice(coins) + ")" : "@red@Withdraw Money (0 gp)"// 9180
 				);
 				player.dialogueAction = 10000;
+				break;
+			case 10001:
+				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Please select the XP rate you'd like.", "this can be increased, but not decreased later on.");
+				player.nextChat = 10002;
+				break;
+			case 10002:
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[0], "x" + GameConstants.VARIABLE_XP_RATES[1], "x" + GameConstants.VARIABLE_XP_RATES[2], "x" + GameConstants.VARIABLE_XP_RATES[3]);
+				player.dialogueAction = 10002;
+				break;
+			case 10003:
+				sendNpcChat(2244, ChatEmotes.HAPPY_JOYFUL, "Are you sure x" + player.getXPRate() + " is the XP rate you'd like?");
+				player.nextChat = 10004;
+				break;
+			case 10004:
+				sendOption("Yes", "No");
+				player.dialogueAction = 10004;
+				break;
+			case 10005:
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[1], "x" + GameConstants.VARIABLE_XP_RATES[2], "x" + GameConstants.VARIABLE_XP_RATES[3]);
+				player.dialogueAction = 10005;
+				break;
+			case 10006:
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[2], "x" + GameConstants.VARIABLE_XP_RATES[3]);
+				player.dialogueAction = 10006;
+				break;
+			case 10007:
+				sendOption("x" + GameConstants.VARIABLE_XP_RATES[3], "Don't Change");
+				player.dialogueAction = 10007;
 				break;
 		}
 	}

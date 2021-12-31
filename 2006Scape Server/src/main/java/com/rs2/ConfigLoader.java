@@ -3,6 +3,7 @@ package com.rs2;
 import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
 import com.rs2.integrations.discord.JavaCord;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -17,6 +18,8 @@ public class ConfigLoader {
 
             if(obj.has("server_name"))
             GameConstants.SERVER_NAME = obj.getString("server_name");
+            if(obj.has("server_test_version"))
+            GameConstants.TEST_VERSION = obj.getDouble("server_test_version");
             if(obj.has("website_link"))
             GameConstants.WEBSITE_LINK = obj.getString("website_link");
             if(obj.has("debug"))
@@ -49,10 +52,20 @@ public class ConfigLoader {
             GameConstants.TIMEOUT = obj.getInt("timeout");
             if(obj.has("item_requirements"))
             GameConstants.ITEM_REQUIREMENTS = obj.getBoolean("item_requirements");
+            if(obj.has("variable_xp_rate"))
+            GameConstants.VARIABLE_XP_RATE = obj.getBoolean("variable_xp_rate");
             if(obj.has("xp_rate"))
             GameConstants.XP_RATE = obj.getDouble("xp_rate");
             if(obj.has("max_players"))
             GameConstants.MAX_PLAYERS = obj.getInt("max_players");
+            if (obj.has("variable_xp_rates")) {
+                JSONArray rates = obj.optJSONArray("variable_xp_rates");
+                for (int i = 0; i < rates.length(); ++i) {
+                    GameConstants.VARIABLE_XP_RATES[i] = rates.optInt(i);
+                }
+            }
+            if(obj.has("website_total_characters_integration"))
+            GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION = obj.getBoolean("website_total_characters_integration");
     }
 
     private static void initialize() {
@@ -71,7 +84,7 @@ public class ConfigLoader {
     }
 
     public static void loadSecrets() throws IOException {
-        if (!new File("data/Secrets.json").exists()) {
+        if (!new File("data/secrets.json").exists()) {
             initialize();
             System.out.println("Please open \"data/secrets.json\" file and enter your discord token bot there!");
             System.out.println("Please open \"data/secrets.json\" file and enter your Website Password there!");
@@ -88,7 +101,7 @@ public class ConfigLoader {
                 JavaCord.token = obj.getString("bot-token");
             if(obj.has("websitepass"))
                 PlayersOnlineWebsite.password = obj.getString("websitepass");
-            RegisteredAccsWebsite.password = obj.getString("websitepass");
+                RegisteredAccsWebsite.password = obj.getString("websitepass");
             if(obj.has("erssecret"))
                 GameEngine.ersSecret = obj.getString("erssecret");
 

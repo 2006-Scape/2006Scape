@@ -13,7 +13,7 @@ public class PlayersOnlineWebsite {
 
     private static void setWebsitePlayersOnline(int amount) throws IOException {
         URL url;
-        url = new URL(GameConstants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount);
+        url = new URL(GameConstants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount + "&world=" + GameConstants.WORLD);
         url.openStream().close();
     }
 

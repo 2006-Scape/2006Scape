@@ -1,5 +1,6 @@
 package com.rs2.integrations.discord.commands;
 
+import com.rs2.integrations.discord.JavaCord;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
@@ -8,22 +9,20 @@ public class Commands implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase("::commands")) {
+        if (message.getContent().equalsIgnoreCase(JavaCord.commandPrefix + " commands")) {
             event.getChannel().sendMessage("```fix"
                     + System.lineSeparator() +
-                    "::forum/::forums"
+                    JavaCord.commandPrefix + " forum/" + JavaCord.commandPrefix + " forums"
                     + System.lineSeparator() +
-                    "::hiscores/::highscores"
+                    JavaCord.commandPrefix + " hiscores/" + JavaCord.commandPrefix + " highscores"
                     + System.lineSeparator() +
-                    "::issues/::bugs"
+                    JavaCord.commandPrefix + " issues/" + JavaCord.commandPrefix + " bugs"
                     + System.lineSeparator() +
-                    "::online"
+                    JavaCord.commandPrefix + " online"
                     + System.lineSeparator() +
-                    "::players"
+                    JavaCord.commandPrefix + " vote"
                     + System.lineSeparator() +
-                    "::vote"
-                    + System.lineSeparator() +
-                    "::website/::site"
+                    JavaCord.commandPrefix + " website/" + JavaCord.commandPrefix + " site"
                     + "```");
         }
     }
