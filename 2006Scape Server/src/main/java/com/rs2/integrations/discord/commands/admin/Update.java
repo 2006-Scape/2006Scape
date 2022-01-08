@@ -8,17 +8,17 @@ import org.javacord.api.listener.message.MessageCreateListener;
 public class Update implements MessageCreateListener {
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
-        if(event.getMessageAuthor().isServerAdmin()) {
-            String seconds = event.getMessageContent().replace(JavaCord.commandPrefix + " update ", "");
-            if (event.getMessageContent().startsWith(JavaCord.commandPrefix + " update")) {
+        String seconds = event.getMessageContent().replace(JavaCord.commandPrefix + " update ", "");
+        if (event.getMessageContent().startsWith(JavaCord.commandPrefix + " update")) {
+            if (event.getMessageAuthor().isServerAdmin()) {
                 PlayerHandler.updateSeconds = Integer.parseInt(seconds);
                 PlayerHandler.updateAnnounced = false;
                 PlayerHandler.updateRunning = true;
                 PlayerHandler.updateStartTime = System.currentTimeMillis();
                 event.getChannel().sendMessage("Server update will begin in " + seconds + " seconds.");
+            } else {
+                event.getChannel().sendMessage("You do not have permission to perform this command");
             }
-        } else {
-            event.getChannel().sendMessage("You do not have permission to perform this command");
         }
     }
 }
