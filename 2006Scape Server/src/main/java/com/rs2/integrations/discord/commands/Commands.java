@@ -12,17 +12,17 @@ public class Commands implements MessageCreateListener {
         if (message.getContent().equalsIgnoreCase(JavaCord.commandPrefix + " commands")) {
             event.getChannel().sendMessage("```fix"
                     + System.lineSeparator() +
-                    JavaCord.commandPrefix + " forum/" + JavaCord.commandPrefix + " forums"
+                    "::forum/::forums"
                     + System.lineSeparator() +
                     JavaCord.commandPrefix + " hiscores/" + JavaCord.commandPrefix + " highscores"
                     + System.lineSeparator() +
-                    JavaCord.commandPrefix + " issues/" + JavaCord.commandPrefix + " bugs"
+                    "::issues/::bugs"
                     + System.lineSeparator() +
                     JavaCord.commandPrefix + " online"
                     + System.lineSeparator() +
-                    JavaCord.commandPrefix + " vote"
+                    "::vote"
                     + System.lineSeparator() +
-                    JavaCord.commandPrefix + " website/" + JavaCord.commandPrefix + " site"
+                    "::website/::site"
                     + "```");
         }
     }

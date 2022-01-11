@@ -2,6 +2,7 @@ package com.rs2.integrations.discord;
 
 import com.rs2.GameConstants;
 import com.rs2.integrations.discord.commands.*;
+import com.rs2.integrations.discord.commands.admin.AdminCommands;
 import com.rs2.integrations.discord.commands.admin.GameKick;
 import com.rs2.integrations.discord.commands.admin.MoveHome;
 import com.rs2.integrations.discord.commands.admin.Update;
@@ -39,6 +40,7 @@ public class JavaCord {
                     api.addListener(new Vote());
                     api.addListener(new Website());
                     //Admin Commands
+                    api.addListener(new AdminCommands());
                     api.addListener(new GameKick());
                     api.addListener(new MoveHome());
                     api.addListener(new Update());

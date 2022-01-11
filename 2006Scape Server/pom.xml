@@ -134,13 +134,13 @@
         <dependency>
             <groupId>org.javacord</groupId>
             <artifactId>javacord-api</artifactId>
-            <version>3.1.1</version>
+            <version>3.3.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.javacord/javacord-core -->
         <dependency>
             <groupId>org.javacord</groupId>
             <artifactId>javacord-core</artifactId>
-            <version>3.1.1</version>
+            <version>3.3.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
