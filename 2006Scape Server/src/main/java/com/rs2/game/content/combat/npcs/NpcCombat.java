@@ -508,8 +508,7 @@ public class NpcCombat {
 				NpcHandler.npcs[i].projectileId = 448;
 			} else if (r3 == 1) {
 				NpcHandler.npcs[i].attackType = 1;
-				NpcHandler.npcs[i].endGfx = 451;
-				NpcHandler.npcs[i].projectileId = -1;
+				NpcHandler.npcs[i].projectileId = 451;
 			} else if (r3 == 2) {
 				NpcHandler.npcs[i].attackType = 0;
 				NpcHandler.npcs[i].projectileId = -1;
