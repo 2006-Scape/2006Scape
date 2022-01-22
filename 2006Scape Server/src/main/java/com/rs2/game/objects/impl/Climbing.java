@@ -229,6 +229,8 @@ public class Climbing {
 				} else if (client.objectX == 2603 && client.objectY == 3078) {
 					client.getPlayerAssistant().feature("using this staircase");
 					client.resetWalkingQueue();
+				} else if (client.objectX == 3058 && client.objectY == 3376) {
+				    client.resetWalkingQueue();
 				} else if (client.absX != 3186) {
 					client.getPlayerAssistant().movePlayer(client.absX,
 							client.absY + 6393, 0);
