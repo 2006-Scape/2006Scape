@@ -2,10 +2,7 @@ package com.rs2.integrations.discord;
 
 import com.rs2.GameConstants;
 import com.rs2.integrations.discord.commands.*;
-import com.rs2.integrations.discord.commands.admin.AdminCommands;
-import com.rs2.integrations.discord.commands.admin.GameKick;
-import com.rs2.integrations.discord.commands.admin.MoveHome;
-import com.rs2.integrations.discord.commands.admin.Update;
+import com.rs2.integrations.discord.commands.admin.*;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.TextChannel;
@@ -44,6 +41,10 @@ public class JavaCord {
                     api.addListener(new GameKick());
                     api.addListener(new MoveHome());
                     api.addListener(new Update());
+                    api.addListener(new Pin());
+                    api.addListener(new Purge());
+                    //api.addListener(new Link());
+                    //api.addListener(new WelcomeMessage());
                     if(!DiscordActivity.playerCount) {
                         api.updateActivity(GameConstants.WEBSITE_LINK);
                     }

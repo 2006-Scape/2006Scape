@@ -10,7 +10,12 @@ public class AdminCommands implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase(JavaCord.commandPrefix + " admincommands")) {
+            if (event.getMessageAuthor().isServerAdmin()) {
             event.getChannel().sendMessage("```fix"
+                    + System.lineSeparator() +
+                    "::pin/::unpin(Pins/Un-Pins The Replied Mesage)"
+                    + System.lineSeparator() +
+                    "::purge(Purges The Specified Amount Of Messages From Discord Channel)"
                     + System.lineSeparator() +
                     JavaCord.commandPrefix + " gamekick(Kicks The Specified Player From The GameServer)"
                     + System.lineSeparator() +
@@ -18,6 +23,9 @@ public class AdminCommands implements MessageCreateListener {
                     + System.lineSeparator() +
                     JavaCord.commandPrefix + " update(Triggers A GameServer Update In The Specified Amount Of Seconds)"
                     + "```");
+            } else {
+                event.getChannel().sendMessage("You do not have permission to perform this command");
+            }
         }
     }
 }
