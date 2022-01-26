@@ -99,6 +99,7 @@ public abstract class Player {
 	public byte buffer[] = null;
 	public String lastConnectedFrom;
     public static int xpRate = 1;
+    public String discordCode;
     private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
 	private Flowers flower = new Flowers(this);
@@ -170,6 +171,10 @@ public abstract class Player {
 	public int getXPRate() { return xpRate; }
 
 	public void setXPRate(int xpRate) { this.xpRate = xpRate; }
+
+	public String getDiscordCode() { return discordCode; }
+
+	public void setDiscordCode(String code) { this.discordCode = code; }
 
 	public boolean isPreaching() {
 		return preaching;
