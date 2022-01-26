@@ -14,6 +14,8 @@ public class Commands implements MessageCreateListener {
                     + System.lineSeparator() +
                     "::forum/::forums"
                     + System.lineSeparator() +
+                    JavaCord.commandPrefix + " gamekick(if account id linked)"
+                    + System.lineSeparator() +
                     JavaCord.commandPrefix + " hiscores/" + JavaCord.commandPrefix + " highscores"
                     + System.lineSeparator() +
                     "::issues/::bugs"

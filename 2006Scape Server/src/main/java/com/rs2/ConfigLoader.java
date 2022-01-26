@@ -64,8 +64,8 @@ public class ConfigLoader {
                     GameConstants.VARIABLE_XP_RATES[i] = rates.optInt(i);
                 }
             }
-            if(obj.has("website_total_characters_integration"))
-            GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION = obj.getBoolean("website_total_characters_integration");
+            if(obj.has("website_integration"))
+            GameConstants.WEBSITE_INTEGRATION = obj.getBoolean("website_integration");
     }
 
     private static void initialize() {

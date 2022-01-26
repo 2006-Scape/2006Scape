@@ -26,6 +26,7 @@ public class GameConstants {
 	 * VARIABLE_XP_RATE Allows Players To Choose An XP Rate Set In VARIABLE_XP_RATES
 	 * VARIABLE_XP_RATES Defines The XP Rates That Should Be Available To Players When VARIABLE_XP_RATES is true(Array Must Contain Four Entries)
 	 * XP_RATE Sets The XP Rate Multiplier For All Players/Skills If VARIABLE_XP_RATES is false
+	 * WEBSITE_INTEGRATION Enables/Disables Website Features(Total Accounts Registered & Players Online)
 	 */
 	public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
 	public static int WORLD = 1, MAX_PLAYERS = 200, TIMEOUT = 60, SAVE_TIMER = 120,
@@ -33,7 +34,7 @@ public class GameConstants {
 	public static boolean FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
 			PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
 			ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = false,
-			WEBSITE_TOTAL_CHARACTERS_INTEGRATION = false;
+			WEBSITE_INTEGRATION = false;
 	public static int[] VARIABLE_XP_RATES = new int[] {1, 2, 5, 10};
 	public static double TEST_VERSION = 2.3, XP_RATE = 1.0;
 
