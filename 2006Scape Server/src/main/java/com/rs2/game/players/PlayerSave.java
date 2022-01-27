@@ -433,6 +433,9 @@ public class PlayerSave {
 							case "unlocked-bones-to-peaches":
 								player.unlockedBonesToPeaches = Boolean.parseBoolean(token2);
 								break;
+							case "discord-user-id":
+								player.discordCode = token2;
+								break;
 						}
 						break;
 					case 3:
@@ -822,6 +825,8 @@ public class PlayerSave {
 				voidStatus += voidS + "\t";
 			}
 			characterfile.write("void = " + voidStatus.trim());
+			characterfile.newLine();
+			characterfile.write("discord-user-id = " + player.discordCode);
 			characterfile.newLine();
 			characterfile.newLine();
 

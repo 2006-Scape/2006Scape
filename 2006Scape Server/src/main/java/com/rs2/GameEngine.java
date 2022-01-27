@@ -52,7 +52,7 @@ import org.apollo.jagcached.FileServer;
 
 /**
  * Server.java
- * 
+ *
  * @author Sanity
  * @author Graham
  * @author Blake
@@ -60,10 +60,10 @@ import org.apollo.jagcached.FileServer;
  * @author Integration Julian.
  */
 public class GameEngine {
-	
+
 
 	private static long minutesCounter;
-	
+
 	private static void startMinutesCounter() {
 		try {
 			minuteFile = new BufferedReader(new FileReader(
@@ -102,13 +102,12 @@ public class GameEngine {
 	public static void schedule(Tick tick) {
 		getScheduler().schedule(tick);
 	}
-	
 
 
 	public static String ersSecret;
-	public static int[] cannonsX = new int [50];
-	public static int[] cannonsY = new int [50];
-	public static String[] cannonsO = new String [50];
+	public static int[] cannonsX = new int[50];
+	public static int[] cannonsY = new int[50];
+	public static String[] cannonsO = new String[50];
 	public static boolean sleeping;
 	public static boolean updateServer = false;
 	public static long lastMassSave = System.currentTimeMillis();
@@ -127,7 +126,7 @@ public class GameEngine {
 	public static ObjectManager objectManager = new ObjectManager();
 	public static FightCaves fightCaves = new FightCaves();
 	private static PestControl pestControl = new PestControl();
-	public static Trawler trawler = new Trawler();	
+	public static Trawler trawler = new Trawler();
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private final static Lock lock = new ReentrantLock();
 
@@ -138,12 +137,11 @@ public class GameEngine {
 	public static void main(java.lang.String[] args)
 			throws NullPointerException, IOException {
 		for (int i = 0; i < args.length; i++) {
-			if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
-				switch(args[i]) {
+			if (args[i].startsWith("-") && (i + 1) < args.length && !args[i + 1].startsWith("-")) {
+				switch (args[i]) {
 					case "-c":
 					case "-config":
 						try {
-							//TODO Load A Default Config File When Arg Not Used
 							System.out.println("Loading External Config..");
 							ConfigLoader.loadSettings(args[++i]);
 							System.out.println("Loaded Config File " + args[i]);
@@ -161,9 +159,8 @@ public class GameEngine {
 			System.out.println("@@@@ DEBUG MODE IS ENABLED @@@@");
 		}
 
-		if (!new File("data").exists())
-		{
-		    System.out.println("************************************");
+		if (!new File("data").exists()) {
+			System.out.println("************************************");
 			System.out.println("************************************");
 			System.out.println("************************************");
 			System.out.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
@@ -183,7 +180,7 @@ public class GameEngine {
 		/**
 		 * Starts The File Server If Enabled In GameConstants
 		 */
-		if(GameConstants.FILE_SERVER) {
+		if (GameConstants.FILE_SERVER) {
 			FileServer fs = new FileServer();
 			try {
 				fs.start();
@@ -194,7 +191,7 @@ public class GameEngine {
 
 		/**
 		 * Start Integration Services
-         **/
+		 **/
 		ConfigLoader.loadSecrets();
 		JavaCord.init();
 
@@ -240,11 +237,11 @@ public class GameEngine {
 
 		/**
 		 * Main Server Tick
-		 * 
+		 *
 		 * This scheduler will tick once every 600ms. If the previous tick takes
 		 * 300ms to execute, this scheduler will wait 300ms only before the next
 		 * tick.
-		 * 
+		 *
 		 * scheduleAtFixedRate() does not invoke concurrent Runnables.
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
@@ -267,11 +264,11 @@ public class GameEngine {
 					objectHandler.process();
 					MageTrainingArena.process();
 					CycleEventHandler.getSingleton().process();
-					PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
-					if(GameConstants.WEBSITE_TOTAL_CHARACTERS_INTEGRATION) {
-					RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
+					if (GameConstants.WEBSITE_INTEGRATION) {
+						PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
+						RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
 					}
-					if(DiscordActivity.playerCount) {
+					if (DiscordActivity.playerCount) {
 						DiscordActivity.updateActivity();
 					}
 					if (System.currentTimeMillis() - lastMassSave > 300000) {
@@ -304,13 +301,13 @@ public class GameEngine {
 				}
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
-		
+
 		/*
 		 * I'd recommend disabling this until I can be bothered to implement it
 		 * properly.
 		 */
 		// CommandConsole.getInstance();
-		
+
 		try {
 			while (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
 				// TODO
@@ -319,7 +316,7 @@ public class GameEngine {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		acceptor = null;
 		connectionHandler = null;
 		sac = null;
@@ -328,6 +325,4 @@ public class GameEngine {
 
 	public static boolean playerExecuted = false;
 	private static BufferedReader minuteFile;
-
-
 }

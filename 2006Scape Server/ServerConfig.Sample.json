@@ -19,5 +19,5 @@
   "timeout": 60,
   "item_requirements": true,
   "max_players": 200,
-  "website_total_characters_integration": false
+  "website_integration": false
 }

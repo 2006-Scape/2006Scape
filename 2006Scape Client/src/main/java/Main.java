@@ -15,22 +15,24 @@ public final class Main {
 		try {
 			// Process server/ip address to connect to
 			for (int i = 0; i < args.length; i++) {
+				switch(args[i]) {
+					case "-dev"	:
+					case "-local":
+					case "-offline":
+						ClientSettings.SERVER_IP = "localhost";
+						ClientSettings.CHECK_CRC = false;
+						break;
+					case "-no-crc":
+					case "-no-cache-crc":
+						ClientSettings.CHECK_CRC = false;
+						break;
+				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
 					switch(args[i]) {
 						case "-s":
 						case "-server":
 						case "-ip":
 							ClientSettings.SERVER_IP = args[++i];
-							break;
-						case "-no-crc":
-						case "-no-cache-crc":
-							ClientSettings.CHECK_CRC = false;
-							break;
-						case "-dev"	:
-						case "-local":
-						case "-offline":
-							ClientSettings.SERVER_IP = "localhost";
-							ClientSettings.CHECK_CRC = false;
 							break;
 					}
 				}
