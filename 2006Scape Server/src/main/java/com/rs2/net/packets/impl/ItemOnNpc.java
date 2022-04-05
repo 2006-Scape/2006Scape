@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.event.impl.ItemOnNpcEvent;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.items.UseItem;
 import com.rs2.game.npcs.NpcHandler;
@@ -27,6 +28,7 @@ public class ItemOnNpc implements PacketType {
 			return;
 		}
 		player.faceNpc(i);
+		player.post(new ItemOnNpcEvent(itemId,npcId, i));
 		switch(npcId) {
 		case 3021:
 			if (player.getFarmingTools().noteItem(itemId)) {

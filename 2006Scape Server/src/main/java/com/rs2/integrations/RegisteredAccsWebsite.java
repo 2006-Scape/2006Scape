@@ -7,12 +7,12 @@ import java.net.URL;
 import com.rs2.GameConstants;
 
 public class RegisteredAccsWebsite {
-    static String password;
+    public static String password;
     private static boolean hasntwarned = true;
 
     private static void setAccountsRegistered(int amount) throws IOException {
         URL url;
-        url = new URL(GameConstants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount);
+        url = new URL(GameConstants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount + "&world=" + GameConstants.WORLD);
         url.openStream().close();
     }
 

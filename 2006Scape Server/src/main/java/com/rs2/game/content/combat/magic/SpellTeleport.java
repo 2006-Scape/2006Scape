@@ -14,7 +14,7 @@ public enum SpellTeleport {
     SENNTISTEN(60, 50245, 70, 3321, 3335, 0, new int[][] {{566, 1}, {563, 2}}, "ancient"),
     KHARYLL(66, 50253, 76, 3493, 3472, 0, new int[][] {{565, 1}, {563, 2}}, "ancient"),
     LASSAR(72, 51005, 82, 3006, 3471, 0, new int[][] {{563, 2}, {555, 4}}, "ancient"),
-    DAREEYAK(78, 51013, 88, 3161, 3671, 0, new int[][] {{563, 2}, {554, 3}, {556, 2}}, "ancient"),
+    DAREEYAK(78, 51013, 88, 2966, 3697, 0, new int[][] {{563, 2}, {554, 3}, {556, 2}}, "ancient"),
     CARRALLANGAR(84, 51023, 94, 3157, 3669, 0, new int[][] {{566, 2}, {563, 2}}, "ancient"),
     ANNAKARL(90, 51031, 100, 3286, 3884, 0, new int[][] {{565, 2}, {563, 2}}, "ancient"),
     GHORROCK(96, 51039, 106, 2977, 3873, 0, new int[][] {{563, 2}, {555, 8}}, "ancient");

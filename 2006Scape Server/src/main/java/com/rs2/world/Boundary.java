@@ -14,46 +14,45 @@ import com.rs2.game.players.PlayerHandler;
 public class Boundary {
 
 
-	int minX, minY, highX, highY;
-	int height;
+	public int minX, highX, minY, highY, height;
 
 	/**
 	 * 
 	 * @param minX
 	 *            The south-west x coordinate
-	 * @param minY
-	 *            The south-west y coordinate
 	 * @param highX
 	 *            The north-east x coordinate
+	 * @param minY
+	 *            The south-west y coordinate
 	 * @param highY
 	 *            The north-east y coordinate
 	 */
 	public Boundary(int minX, int highX, int minY, int highY) {
-		this.minX = minX;
-		this.minY = minY;
-		this.highX = highX;
-		this.highY = highY;
-		height = -1;
+		this.minX = Math.min(minX, highX);
+		this.highX = Math.max(minX, highX);
+		this.minY = Math.min(minY, highY);
+		this.highY = Math.max(minY, highY);
+		this.height = -1;
 	}
 
 	/**
 	 * 
 	 * @param minX
 	 *            The south-west x coordinate
-	 * @param minY
-	 *            The south-west y coordinate
 	 * @param highX
 	 *            The north-east x coordinate
+	 * @param minY
+	 *            The south-west y coordinate
 	 * @param highY
 	 *            The north-east y coordinate
 	 * @param height
 	 *            The height of the boundary
 	 */
 	public Boundary(int minX, int highX, int minY, int highY, int height) {
-		this.minX = minX;
-		this.minY = minY;
-		this.highX = highX;
-		this.highY = highY;
+		this.minX = Math.min(minX, highX);
+		this.highX = Math.max(minX, highX);
+		this.minY = Math.min(minY, highY);
+		this.highY = Math.max(minY, highY);
 		this.height = height;
 	}
 	
@@ -94,6 +93,29 @@ public class Boundary {
 			}
 		}
 		return player.getX() >= boundaries.minX && player.getX() <= boundaries.highX && player.getY() >= boundaries.minY && player.getY() <= boundaries.highY;
+	}
+
+	/**
+	 * 
+	 * @param x
+	 *            The x position
+	 * @param y
+	 *            The y position
+	 * @param boundaries
+	 *            The boundary object
+	 * @return
+	 */
+	public static boolean isIn(int x, int y, Boundary boundaries) {
+		return x >= boundaries.minX && x <= boundaries.highX && y >= boundaries.minY && y <= boundaries.highY;
+	}
+
+	public static boolean isIn(int x, int y, int h, Boundary boundaries) {
+		if (boundaries.height >= 0) {
+			if (h != boundaries.height) {
+				return false;
+			}
+		}
+		return x >= boundaries.minX && x <= boundaries.highX && y >= boundaries.minY && y <= boundaries.highY;
 	}
 
 	/**
@@ -278,6 +300,8 @@ public class Boundary {
 			   new Boundary(3087, 3094, 3251, 3255), new Boundary(3121, 3130, 3240, 3246), new Boundary(3102, 3112, 3162, 3165), new Boundary(3107, 3111, 3166, 3166), new Boundary(3103, 3115, 3157, 3161),
 			   new Boundary(3105, 3114, 3156, 3156), new Boundary(3105, 3113, 3155, 3155), new Boundary(3106, 3112, 3154, 3154), new Boundary(3092, 3097, 3240, 3246) };
 	
+	public static final Boundary VARROCK_BANK_BASEMENT = new Boundary(3186, 3197, 9817, 9824, 0);
+	public static final Boundary MAGE_TOWER_CAGE = new Boundary(3108, 3112, 3156, 3158, 2);
 	public static final Boundary ARDOUGNE_ZOO = new Boundary(2593, 2639, 3265, 3288);
 	public static final Boundary APE_ATOLL = new Boundary(2694, 2811, 2691, 2805);
 	public static final Boundary BARROWS = new Boundary(3543, 3584, 3265, 3311);
@@ -287,5 +311,12 @@ public class Boundary {
 	public static final Boundary FIGHT_CAVES = new Boundary(2360, 2445, 5045, 5125);
 	public static final Boundary PIRATE_HOUSE = new Boundary(3038, 3044, 3949, 3959);
 	public static final Boundary[] FIGHT_PITS = new Boundary[] { new Boundary(2378, 3415, 5133, 5167), new Boundary(2394, 2404, 5169, 5174) };
+	public static final Boundary PARTY_ROOM = new Boundary(2727, 2746, 3460, 3479);
+	public static final Boundary PARTY_ROOM_TABLE = new Boundary(2735, 2740, 3467, 3468);
+	public static final Boundary MAGE_TRAINING_ARENA = new Boundary(3330, 3388, 9614, 9727);
+	public static final Boundary MAGE_TRAINING_ARENA_ENCHANTING = new Boundary(3341, 3386, 9618, 9662, 0);
+	public static final Boundary MAGE_TRAINING_ARENA_GRAVEYARD =  new Boundary(3340, 3386, 9616, 9662, 1);
+	public static final Boundary MAGE_TRAINING_ARENA_ALCHEMY = new Boundary(3350, 3379, 9616, 9655, 2);
+	public static final Boundary MAGE_TRAINING_ARENA_TELEKINETIC =  new Boundary(3329, 3390, 9665, 9726);
 
 }

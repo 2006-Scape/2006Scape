@@ -8,21 +8,60 @@ public final class Main {
 	DEAR DEVELOPER!
 
 	If you want to run the client locally, the easiest way to do that is run the class "Client.java" instead!
-
-	If you REALLY want to use this class, add two random program arguments.
-	But seriously, Client.java is just a copy-paste of this class and does it locally. Use that instead!
-
-
+	If you REALLY want to use this class, add program arguments "-s localhost".
 	 */
 
 	public static void main(String[] args) {
-		if (args.length > 1)
-		{
-			System.out.println("Running local");
-			ClientSettings.SERVER_IP = "127.0.0.1";
-		}
 		try {
+			// Process server/ip address to connect to
+			for (int i = 0; i < args.length; i++) {
+				switch(args[i]) {
+					case "-dev"	:
+					case "-local":
+					case "-offline":
+						ClientSettings.SERVER_IP = "localhost";
+						ClientSettings.CHECK_CRC = false;
+						break;
+					case "-no-crc":
+					case "-no-cache-crc":
+						ClientSettings.CHECK_CRC = false;
+						break;
+				}
+				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
+					switch(args[i]) {
+						case "-s":
+						case "-server":
+						case "-ip":
+							ClientSettings.SERVER_IP = args[++i];
+							break;
+					}
+				}
+			}
+
 			Game game = new Game();
+
+			// Process other arguments
+			for (int i = 0; i < args.length; i++) {
+				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
+					switch(args[i]) {
+						case "-u":
+						case "-user":
+						case "-username":
+							game.myUsername = args[++i];
+							break;
+						case "-p":
+						case "-pass":
+						case "-password":
+							game.myPassword = args[++i];
+							break;
+						case "-w":
+						case "-world":
+							ClientSettings.SERVER_WORLD = Integer.parseInt(args[++i]);
+							break;
+					}
+				}
+			}
+
 			Game.nodeID = 10;
 			Game.portOff = 0;
 			Game.setHighMem();
@@ -34,5 +73,4 @@ public final class Main {
 			e.printStackTrace();
 		}
 	}
-
 }

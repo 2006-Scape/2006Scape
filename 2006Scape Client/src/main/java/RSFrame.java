@@ -4,12 +4,11 @@
 
 import java.awt.*;
 
-@SuppressWarnings("serial")
 final class RSFrame extends Frame {
 
 	public RSFrame(RSApplet RSApplet_, int i, int j) {
 		rsApplet = RSApplet_;
-		setTitle(ClientSettings.SERVER_NAME);
+		setTitle(ClientSettings.SERVER_NAME + " World: " + ClientSettings.SERVER_WORLD);
 		setResizable(false);
 		setMinimumSize(new Dimension(i + 8, j + 28));
 		setVisible(true);

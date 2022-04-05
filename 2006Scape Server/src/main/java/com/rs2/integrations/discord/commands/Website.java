@@ -11,7 +11,9 @@ public class Website implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::website") || message.getContent().equalsIgnoreCase("::site")) {
-            event.getChannel().sendMessage(GameConstants.WEBSITE_LINK);
+            if (GameConstants.WORLD == 1) {
+                event.getChannel().sendMessage(GameConstants.WEBSITE_LINK);
+            }
         }
     }
 }

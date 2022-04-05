@@ -81,6 +81,7 @@ public class PlayerSave {
 						switch (token) {
 							case "character-height":
 								player.heightLevel = Integer.parseInt(token2);
+								player.teleHeight = Integer.parseInt(token2);
 								break;
 							case "character-posx":
 								player.teleportToX = Integer.parseInt(token2) <= 0 ? player.lastX : Integer.parseInt(token2);
@@ -91,6 +92,8 @@ public class PlayerSave {
 							case "character-rights":
 								player.playerRights = Integer.parseInt(token2);
 								break;
+							case "xp-rate":
+								player.xpRate = Integer.parseInt(token2);
 							case "last-ip":
 								player.lastConnectedFrom = token2;
 								break;
@@ -409,6 +412,30 @@ public class PlayerSave {
 							case "fightMode":
 								player.fightMode = Integer.parseInt(token2);
 								break;
+							case "ectofuntusWorshipped":
+								player.ectofuntusWorshipped = Integer.parseInt(token2);
+								break;
+							case "graveyard-points":
+								player.graveyardPoints = Integer.parseInt(token2);
+								break;
+							case "alchemy-points":
+								player.alchemyPoints = Integer.parseInt(token2);
+								break;
+							case "enchantment-points":
+								player.enchantmentPoints = Integer.parseInt(token2);
+								break;
+							case "telekinetic-points":
+								player.telekineticPoints = Integer.parseInt(token2);
+								break;
+							case "telekinetic-mazes-solved":
+								player.telekineticMazesSolved = Integer.parseInt(token2);
+								break;
+							case "unlocked-bones-to-peaches":
+								player.unlockedBonesToPeaches = Boolean.parseBoolean(token2);
+								break;
+							case "discord-user-id":
+								player.discordCode = token2;
+								break;
 						}
 						break;
 					case 3:
@@ -570,6 +597,8 @@ public class PlayerSave {
 			characterfile.write("character-posy = " + player.absY);
 			characterfile.newLine();
 			characterfile.write("character-rights = " + player.playerRights);
+			characterfile.newLine();
+			characterfile.write("xp-rate = " + player.xpRate);
 			characterfile.newLine();
 			characterfile.write("last-ip = " + player.connectedFrom);
 			characterfile.newLine();
@@ -777,11 +806,27 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("fightMode = " + player.fightMode);
 			characterfile.newLine();
+			characterfile.write("ectofuntusWorshipped = " + player.ectofuntusWorshipped);
+			characterfile.newLine();
+			characterfile.write("graveyard-points = " + player.graveyardPoints);
+			characterfile.newLine();
+			characterfile.write("alchemy-points = " + player.alchemyPoints);
+			characterfile.newLine();
+			characterfile.write("enchantment-points = " + player.enchantmentPoints);
+			characterfile.newLine();
+			characterfile.write("telekinetic-points = " + player.telekineticPoints);
+			characterfile.newLine();
+			characterfile.write("telekinetic-mazes-solved = " + player.telekineticMazesSolved);
+			characterfile.newLine();
+			characterfile.write("unlocked-bones-to-peaches = " + player.unlockedBonesToPeaches);
+			characterfile.newLine();
 			String voidStatus = "";
 			for (int voidS : player.voidStatus){
 				voidStatus += voidS + "\t";
 			}
 			characterfile.write("void = " + voidStatus.trim());
+			characterfile.newLine();
+			characterfile.write("discord-user-id = " + player.discordCode);
 			characterfile.newLine();
 			characterfile.newLine();
 

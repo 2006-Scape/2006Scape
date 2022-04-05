@@ -8,12 +8,12 @@ import com.rs2.game.players.PlayerHandler;
 
 public class PlayersOnlineWebsite {
 
-    static String password;
+    public static String password;
     private static boolean hasntwared = true;
 
     private static void setWebsitePlayersOnline(int amount) throws IOException {
         URL url;
-        url = new URL(GameConstants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount);
+        url = new URL(GameConstants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount + "&world=" + GameConstants.WORLD);
         url.openStream().close();
     }
 

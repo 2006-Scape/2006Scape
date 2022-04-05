@@ -5,6 +5,7 @@ import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemData;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
+import com.rs2.world.Boundary;
 
 /**
  * Bank All Items
@@ -18,6 +19,12 @@ public class BankAll implements PacketType {
 		int removeId = player.getInStream().readUnsignedWordA();
 		player.endCurrentTask();
 		switch (interfaceId) {
+		case 2274:
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
+				PartyRoom.withdrawItem(player, removeSlot, player.partyN[removeSlot]);
+				return;
+			}
+			break;
 		// buy x
 		case 3900:
 			player.outStream.createFrame(27);
@@ -51,7 +58,7 @@ public class BankAll implements PacketType {
 			if(!player.getItemAssistant().playerHasItem(removeId)) {
 				return;
 			}
-			if (player.inPartyRoom) {
+			if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
 				PartyRoom.depositItem(player, removeId, player.getItemAssistant().itemAmount(player.playerItems[removeSlot]));
 				break;
 			}

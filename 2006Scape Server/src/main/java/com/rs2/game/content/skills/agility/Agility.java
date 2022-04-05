@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.agility;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -78,7 +79,7 @@ public class Agility {
 		if (player.stopPlayerPacket) {
 			return;
 		}
-		if (player.playerLevel[player.playerAgility] < 12) {
+		if (player.playerLevel[GameConstants.AGILITY] < 12) {
 			player.getDialogueHandler().sendStatement("You need 12 agility to use these stepping stones");
 			player.nextChat = 0;
 			return;
@@ -96,7 +97,7 @@ public class Agility {
 
 			@Override
 			public void stop() {
-				// c.getPlayerAssistant().addSkillXP(100, c.playerAgility);
+				// c.getPlayerAssistant().addSkillXP(100, GameConstants.AGILITY);
 			}
 		}, 1);
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -121,7 +122,7 @@ public class Agility {
 
 			@Override
 			public void stop() {
-				// c.getPlayerAssistant().addSkillXP(300, c.playerAgility);
+				// c.getPlayerAssistant().addSkillXP(300, GameConstants.AGILITY);
 				setAnimationBack(player);
 				player.stopPlayerPacket = false;
 			}
@@ -499,7 +500,7 @@ public class Agility {
 
 	public void lapFinished() {
 		if (agilityProgress[5]) {
-			c.getPlayerAssistant().addSkillXP(lapBonus, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(lapBonus, GameConstants.AGILITY);
 			c.getPacketSender().sendMessage("You received some bonus experience for completing the track!");
 			resetAgilityProgress();
 		}
@@ -549,7 +550,7 @@ public class Agility {
 			moveY = 2851;
 			moveH = 1;
 			walk(1, 0, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -558,7 +559,7 @@ public class Agility {
 			moveY = 2832;
 			moveH = 1;
 			walk(-1, 0, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -567,7 +568,7 @@ public class Agility {
 			moveY = 2832;
 			moveH = 1;
 			walk(-1, 0, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -576,7 +577,7 @@ public class Agility {
 			moveY = 2841;
 			moveH = 2;
 			walk(0, 1, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -585,7 +586,7 @@ public class Agility {
 			moveY = 2849;
 			moveH = 2;
 			walk(0, 1, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -594,7 +595,7 @@ public class Agility {
 			moveY = 2849;
 			moveH = 2;
 			walk(1, 0, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -603,7 +604,7 @@ public class Agility {
 			moveY = 2836;
 			moveH = 2;
 			walk(0, -1, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -612,7 +613,7 @@ public class Agility {
 			moveY = 2834;
 			moveH = 2;
 			walk(-1, 0, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -621,7 +622,7 @@ public class Agility {
 			moveY = 2847;
 			moveH = 3;
 			walk(0, 1, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 			agilityTimer = 2;
 		}
 
@@ -630,7 +631,7 @@ public class Agility {
 			moveY = 2840;
 			moveH = 3;
 			walk(0, -1, 2753, -1);
-			c.getPlayerAssistant().addSkillXP(14, c.playerAgility);
+			c.getPlayerAssistant().addSkillXP(14, GameConstants.AGILITY);
 		}
 
 		if (agilityTimer > 0) {
@@ -649,7 +650,7 @@ public class Agility {
 	}
 
 	public boolean checkLevel(int objectId) {
-		if (getLevelRequired(objectId) > c.playerLevel[c.playerAgility]) {
+		if (getLevelRequired(objectId) > c.playerLevel[GameConstants.AGILITY]) {
 			c.getPacketSender().sendMessage(
 					"You need atleast " + getLevelRequired(objectId)
 							+ " agility to do this.");

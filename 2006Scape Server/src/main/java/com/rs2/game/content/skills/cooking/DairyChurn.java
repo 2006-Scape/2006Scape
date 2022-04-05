@@ -2,6 +2,7 @@ package com.rs2.game.content.skills.cooking;
 
 import java.util.HashMap;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -73,7 +74,7 @@ public class DairyChurn {
 		if (churnData == null || player.getStatedInterface() != "dairyChurn") {
 			return;
 		}
-		if (player.playerLevel[player.playerCooking] < churnData.getLevel()) {
+		if (player.playerLevel[GameConstants.COOKING] < churnData.getLevel()) {
 			player.getDialogueHandler().sendStatement("You need a cooking level of " + churnData.getLevel() + " to make this.");
 			return;
 		}
@@ -102,7 +103,7 @@ public class DairyChurn {
 					player.getItemAssistant().deleteItem(churnData.getUsed()[i], 1);
 				player.getItemAssistant().addItem(churnData.getResult(), 1);
 				player.getItemAssistant().addItem(1925, 1);
-				player.getPlayerAssistant().addSkillXP(churnData.getExperience(), player.playerCooking);
+				player.getPlayerAssistant().addSkillXP(churnData.getExperience(), GameConstants.COOKING);
 			}
 
 			@Override

@@ -131,35 +131,35 @@ public class Guilds {
 			}
 			break;
 		case 2641: // Prayer Guild
-			if (player.getPlayerAssistant().getLevelForXP(player.playerXP[5]) < 31) {
+			if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.PRAYER]) < 31) {
 				player.getDialogueHandler().sendStatement("You need 31 prayer to enter this guild!");
 				player.nextChat = 0;
 				return false;
 			}
 			break;
 		case 2712: // Cooking Guild
-			if (player.playerLevel[player.playerCooking] < 32 || player.playerEquipment[player.playerHat] != 1949) {
+			if (player.playerLevel[GameConstants.COOKING] < 32 || player.playerEquipment[player.playerHat] != 1949) {
 				player.getDialogueHandler().sendStatement("You need 32 cooking and a chefs hat to enter this guild!");
 				player.nextChat = 0;
 				return false;
 			}
 			break;
 		case 2647: // Crafting Guild
-			if (player.playerLevel[player.playerCrafting] < 40 || player.playerEquipment[player.playerChest] != 1757) {
+			if (player.playerLevel[GameConstants.CRAFTING] < 40 || player.playerEquipment[player.playerChest] != 1757) {
 				player.getDialogueHandler().sendStatement("You need 40 Crafting and a Brown Apron to enter this guild!");
 				player.nextChat = 0;
 				return false;
 			}
 			break;
 		case 2113: // Mining Guild
-			if (player.playerLevel[player.playerMining] < 60) {
+			if (player.playerLevel[GameConstants.MINING] < 60) {
 				player.getDialogueHandler().sendStatement("You need 60 Mining to enter this guild!");
 				player.nextChat = 0;
 				return false;
 			}
 			break;
 		case 2025: // Fishing Guild
-			if (player.playerLevel[player.playerFishing] < 68) {
+			if (player.playerLevel[GameConstants.FISHING] < 68) {
 				player.getDialogueHandler().sendStatement("You need 68 Fishing to enter this guild!");
 				player.nextChat = 0;
 				return false;
@@ -167,14 +167,14 @@ public class Guilds {
 			break;
 		case 1600:
 		case 1601: // Wizards Guild
-			if (player.playerLevel[player.playerMagic] < 66) {
+			if (player.playerLevel[GameConstants.MAGIC] < 66) {
 				player.getDialogueHandler().sendStatement("You need 66 Magic to enter this guild!");
 				player.nextChat = 0;
 				return false;
 			}
 			break;
 		case 2514:
-			if (player.playerLevel[player.playerRanged] < 40) { // Ranging Guild
+			if (player.playerLevel[GameConstants.RANGED] < 40) { // Ranging Guild
 				player.getDialogueHandler().sendStatement("You need 40 Range to enter this guild!");
 				player.nextChat = 0;
 				return false;

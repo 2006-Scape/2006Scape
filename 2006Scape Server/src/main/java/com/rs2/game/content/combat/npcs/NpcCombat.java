@@ -63,7 +63,7 @@ public class NpcCombat {
 						c.gfx0(NpcHandler.npcs[i].endGfx);
 					}
 				}
-				c.getPlayerAssistant().refreshSkill(3);
+				c.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 			}
 		}
 	}
@@ -330,9 +330,9 @@ public class NpcCombat {
 			}
 			break;
 		case 134:
-			if (c.playerLevel[5] > 0) {
-				c.playerLevel[5]--;
-				c.getPlayerAssistant().refreshSkill(5);
+			if (c.playerLevel[GameConstants.PRAYER] > 0) {
+				c.playerLevel[GameConstants.PRAYER]--;
+				c.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
 				c.getPlayerAssistant().appendPoison(5);
 				c.getCombatAssistant().resetPlayerAttack();
 			}
@@ -508,8 +508,7 @@ public class NpcCombat {
 				NpcHandler.npcs[i].projectileId = 448;
 			} else if (r3 == 1) {
 				NpcHandler.npcs[i].attackType = 1;
-				NpcHandler.npcs[i].endGfx = 451;
-				NpcHandler.npcs[i].projectileId = -1;
+				NpcHandler.npcs[i].projectileId = 451;
 			} else if (r3 == 2) {
 				NpcHandler.npcs[i].attackType = 0;
 				NpcHandler.npcs[i].projectileId = -1;
@@ -575,8 +574,8 @@ public class NpcCombat {
 								 damage = 0;
 						}
 					}
-					if (c.playerLevel[3] - damage < 0) {
-						damage = c.playerLevel[3];
+					if (c.playerLevel[GameConstants.HITPOINTS] - damage < 0) {
+						damage = c.playerLevel[GameConstants.HITPOINTS];
 					}
 				}
 
@@ -596,8 +595,8 @@ public class NpcCombat {
 					if (c.getPrayer().prayerActive[17]) { // protect from range
 						damage = 0;
 					}
-					if (c.playerLevel[3] - damage < 0) {
-						damage = c.playerLevel[3];
+					if (c.playerLevel[GameConstants.HITPOINTS] - damage < 0) {
+						damage = c.playerLevel[GameConstants.HITPOINTS];
 					}
 				}
 
@@ -621,8 +620,8 @@ public class NpcCombat {
 							 damage = 0;
 						}
 						magicFailed = true;			
-						if (c.playerLevel[3] - damage < 0) { 
-							damage = c.playerLevel[3];
+						if (c.playerLevel[GameConstants.HITPOINTS] - damage < 0) { 
+							damage = c.playerLevel[GameConstants.HITPOINTS];
 						}
 						if(NpcHandler.npcs[i].endGfx > 0 && (!magicFailed || FightCaves.isFightCaveNpc(i))) {
 							c.gfx100(NpcHandler.npcs[i].endGfx);
@@ -654,20 +653,20 @@ public class NpcCombat {
 				if (damage > 0) {
 					c.getCombatAssistant().applyRecoilNPC(c, damage, i);
 				}
-				if (c.playerLevel[3] - damage < 0) {
-					damage = c.playerLevel[3];
+				if (c.playerLevel[GameConstants.HITPOINTS] - damage < 0) {
+					damage = c.playerLevel[GameConstants.HITPOINTS];
 				}
-				int difference = c.playerLevel[3] - damage;
+				int difference = c.playerLevel[GameConstants.HITPOINTS] - damage;
 				if (c.getPlayerAssistant().savePlayer()) {
 					c.getPlayerAssistant().handleROL();
-				} else if (difference <= c.getLevelForXP(c.playerXP[3]) / 10 && difference > 0) {
+				} else if (difference <= c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0) {
 					c.appendRedemption();
 				} else {
 					NpcHandler.handleSpecialEffects(c, i, damage);
 					c.logoutDelay = System.currentTimeMillis(); // logout delay
 					c.handleHitMask(damage);
-					c.playerLevel[3] -= damage;
-					c.getPlayerAssistant().refreshSkill(3);
+					c.playerLevel[GameConstants.HITPOINTS] -= damage;
+					c.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 					FightCaves.tzKihEffect(c, i, damage);
 					if (damage > 0)
 					{

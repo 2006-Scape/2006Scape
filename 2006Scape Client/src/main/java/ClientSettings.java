@@ -6,8 +6,8 @@ import java.math.BigInteger;
  */
 
 public class ClientSettings {
-	
-	public static String SNOW_MONTH = ".12";
+
+    public static String SNOW_MONTH = ".12";
 	/**
 	 * The Servers Name
 	 */
@@ -18,12 +18,24 @@ public class ClientSettings {
 	public final static String SERVER_WEBSITE = "www.2006Scape.org";
 	/**
 	 * The Servers Ip
-	 *
 	 * You don't have to change this, the client will automatically connect to the server
 	 * on localhost (Assuming you're running Client and LocalGame respectively)
-	 *
 	 */
-	public static String SERVER_IP = "127.0.0.1";
+	public static String SERVER_IP = "server.2006Scape.org";
+	/**
+	 * The Servers World
+	 * This Determines The Port The Server Will Connect On
+	 * World 1 Will Connect On Port 43594
+	 * World 2 Will Connect On Port 43598
+	 */
+	public static int SERVER_WORLD = 1;
+
+	/**
+	 * Enables/Disables FileServer CRC Checking For Cache Updates
+	 * FileServer Must Be Running Before Starting The Client If This Is True
+	 */
+	public static boolean CHECK_CRC = true;
+
 	/**
 	 * The Npc Bits for the Server
 	 */

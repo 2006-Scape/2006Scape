@@ -73,7 +73,7 @@ public class DropItem implements PacketType {
 				player.getItemAssistant().deleteItem(itemId, slot, player.playerItemsN[slot]);
 				player.handleHitMask(explosiveHit);
 				player.dealDamage(explosiveHit);
-				player.getPlayerAssistant().refreshSkill(3);
+				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 				player.forcedText = "Ow! That really hurt!";
 				player.forcedChatUpdateRequired = true;
 				player.updateRequired = true;

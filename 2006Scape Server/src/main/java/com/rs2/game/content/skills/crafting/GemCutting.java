@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.crafting;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -18,7 +19,7 @@ public class GemCutting extends CraftingData {
 		final int itemId = itemUsed == 1755 ? usedWith : itemUsed;
 		for (final cutGemData g : cutGemData.values()) {
 			if (itemId == g.getUncut()) {
-				if (player.playerLevel[12] < g.getLevel()) {
+				if (player.playerLevel[GameConstants.CRAFTING] < g.getLevel()) {
 					player.getPacketSender().sendMessage(
 							"You need a crafting level of " + g.getLevel()
 									+ " to cut this gem.");
@@ -39,8 +40,7 @@ public class GemCutting extends CraftingData {
 			            public void execute(CycleEventContainer container) {
 						if (Misc.random(2) == 0 && itemUsed > 1624 && itemUsed < 1630 || usedWith > 1624 && usedWith < 1630 && Misc.random(2) == 0) {
 							player.getPacketSender().sendMessage("You fail to cut the gem.");
-							player.getItemAssistant().addItem(1633, 1);
-							player.getItemAssistant().deleteItem(itemId, 1);
+							player.getItemAssistant().replaceItem(itemId, 1633);
 							player.getPlayerAssistant().addSkillXP(1, 12);
 						}
 						if (player.isCrafting) {

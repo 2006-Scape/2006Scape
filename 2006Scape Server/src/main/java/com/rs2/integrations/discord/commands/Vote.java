@@ -11,7 +11,9 @@ public class Vote implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::vote")) {
+            if (GameConstants.WORLD == 1) {
                 event.getChannel().sendMessage("Visit " + GameConstants.WEBSITE_LINK + "/vote.html then type \"::claimvote\" in-game to receive your reward!");
+            }
         }
     }
 }

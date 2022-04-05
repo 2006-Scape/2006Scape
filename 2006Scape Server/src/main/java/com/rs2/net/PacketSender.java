@@ -14,7 +14,6 @@ import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.players.Client;
-import com.rs2.game.players.MainFrameIDs;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
@@ -30,29 +29,48 @@ public class PacketSender {
 	}
 	
 	public PacketSender sendUpdateItems(int frame, Item[] items) {
-		player.getOutStream().createFrameVarSizeWord(53);
-		player.getOutStream().writeWord(frame);
-		player.getOutStream().writeWord(items.length);
-		Item[] var6 = items;
+		if (player.getOutStream() != null) {
+			player.getOutStream().createFrameVarSizeWord(53);
+			player.getOutStream().writeWord(frame);
+			player.getOutStream().writeWord(items.length);
+		}
+
 		for (int i = 0; i < items.length; i++) {
-			Item item = var6[i];
-			if (item == null) {
-				player.getOutStream().writeByte(0);
-				player.getOutStream().writeWordBigEndianA(0);
-			} else {
+			Item item = items[i];
+			if (player.getOutStream() != null) {
 				if (item.getCount() > 254) {
 					player.getOutStream().writeByte(255);
 					player.getOutStream().writeDWord_v2(item.getCount());
 				} else {
 					player.getOutStream().writeByte(item.getCount());
 				}
-
-				player.getOutStream().writeWordBigEndianA(item.getId());
 			}
+			int id = item.getId() + 1;
+			if (item.getCount() < 1) {
+				id = 0;
+			}
+			if (id > GameConstants.ITEM_LIMIT || id < 0) {
+				id = GameConstants.ITEM_LIMIT;
+			}
+			if (player.getOutStream() != null) {
+				player.getOutStream().writeWordBigEndianA(id);
+			}
+		}
+
+		if (player.getOutStream() != null) {
+			player.getOutStream().endFrameVarSizeWord();
+			player.flushOutStream();
 		}
 		return this;
 	}
 	
+	public PacketSender sendUpdateItems(int frame, int[] itemIDs, int[] itemAmounts) {
+		Item[] items = new Item[itemIDs.length];
+		for(int i = 0; i < itemIDs.length; i++) {
+			items[i] = new Item(itemIDs[i], itemAmounts[i]);
+		}
+		return sendUpdateItems(frame, items);
+	}
 	
 	public PacketSender loginPlayer() {
 		player.getPlayerAssistant().loginScreen();
@@ -85,12 +103,12 @@ public class PacketSender {
 		if (player.questPoints > QuestAssistant.MAXIMUM_QUESTPOINTS || player.playerRights > 2) {
 			player.questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for abusers
 		}
-		if (player.playerHitpoints < 0) {
+		if (GameConstants.HITPOINTS < 0) {
 			player.isDead = true;
 		}
-		if (player.playerLevel[player.playerHitpoints] > 99) {
-			player.playerLevel[player.playerHitpoints] = 99;// check for abusers
-			player.getPlayerAssistant().refreshSkill(3);
+		if (player.playerLevel[GameConstants.HITPOINTS] > 99) {
+			player.playerLevel[GameConstants.HITPOINTS] = 99;// check for abusers
+			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 		}
 		if (player.tutorialProgress > 0 && player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
 			player.getPacketSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
@@ -98,10 +116,10 @@ public class PacketSender {
 		if (player.tutorialProgress > 35) {
 			player.getPlayerAssistant().sendSidebars();
 			Weight.updateWeight(player);
-			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD  + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 			player.getPacketSender().sendMessage("Source code at github.com/2006-Scape/2006Scape");
-			player.getPacketSender().sendMessage("Join our Discord: discord.gg/4zrA2Wy");
+			player.getPacketSender().sendMessage("Join our Discord: https://discord.gg/hZ6VfWG");
 			/*if (!hasBankpin) { //Kind of annoying. Maybe add Random % 10 or something.
 				getActionSender().sendMessage("You do not have a bank pin it is highly recommended you set one.");
 			}*/
@@ -146,7 +164,7 @@ public class PacketSender {
 		player.getPacketSender().sendFrame107(); // reset screen
 		player.getPacketSender().setChatOptions(0, 0, 0); // reset private messaging options
 		player.correctCoordinates();
-		player.getPacketSender().showOption(4, 0, "Trade With", 3);
+		player.getPacketSender().showOption(4, 0, "Trade with", 3);
 		player.getPacketSender().showOption(5, 0, "Follow", 4);
 		player.getItemAssistant().resetItems(3214);
 		player.getItemAssistant().resetBonus();
@@ -169,7 +187,7 @@ public class PacketSender {
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 		player.saveTimer = GameConstants.SAVE_TIMER;
 		player.saveCharacter = true;
-		Misc.println("[REGISTERED]: " + player.playerName + "");
+		Misc.println((player.isBot ? "[BOT-REGISTERED]" : "[REGISTERED]") + ": " + player.playerName + " (level-" + player.calculateCombatLevel() + ")");
 		player.handler.updatePlayer(player, player.outStream);
 		player.handler.updateNPC(player, player.outStream);
 		player.flushOutStream();
@@ -304,8 +322,12 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendString(String s, int id) { //Seems to be about chat messsages
-		if(!player.checkPacket126Update(s, id)) {
+	public PacketSender sendString(String s, int id) { // Update string in interfaces etc
+		return sendString(s, id, false);
+	}
+
+	public PacketSender sendString(String s, int id, boolean forceSend) { // Update string in interfaces etc
+		if(!forceSend && !player.checkPacket126Update(s, id)) {
 			return this;
 		}
 		if (player.getOutStream() != null && player != null) {
@@ -371,12 +393,12 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame171(int MainFrame, int SubFrame) { //Special attack bar?
+	public PacketSender sendHideInterfaceLayer(int MainFrame, boolean hidden) { //Special attack bar?
 		// synchronized(c) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(171);
-			player.getOutStream().writeByte(MainFrame);
-			player.getOutStream().writeWord(SubFrame);
+			player.getOutStream().writeByte(hidden ? 1 : 0);
+			player.getOutStream().writeWord(MainFrame);
 			player.flushOutStream();
 		}
 		return this;
@@ -407,7 +429,8 @@ public class PacketSender {
 		return this;
 	}
 
-	public PacketSender sendFrame106(int sideIcon) { //Something to do with magic
+	// Show a certain tab
+	public PacketSender sendShowTab(int sideIcon) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(106);
 			player.getOutStream().writeByteC(sideIcon);
@@ -503,8 +526,6 @@ public class PacketSender {
 		if (player.getOutStream() != null && player != null) {
 			if (world != 0) {
 				world += 9;
-			} else if (!GameConstants.WORLD_LIST_FIX) {
-				world += 1;
 			}
 			player.getOutStream().createFrame(50);
 			player.getOutStream().writeQWord(playerName);
@@ -621,11 +642,9 @@ public class PacketSender {
 			player.getItemAssistant().rearrangeBank();
 			player.getItemAssistant().resetBank();
 			player.getItemAssistant().resetTempItems();
-			player.getOutStream().createFrame(248);
-			player.getOutStream().writeWordA(5292);
-			player.lastMainFrameInterface = MainFrameIDs.BANK; //Setting it to 5292, since I *think* that's what interface got opened
-			player.getOutStream().writeWord(5063);
+			sendFrame248(5292, 5063);
 			player.flushOutStream();
+			player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
 			player.isBanking = true;
 		}
 		return this;
@@ -1172,15 +1191,7 @@ public class PacketSender {
 		if (player.heightLevel != height) {
 			return this;
 		}
-		player.getOutStream().createFrame(85);
-		player.getOutStream().writeByteC(itemY - 8 * player.mapRegionY);
-		player.getOutStream().writeByteC(itemX - 8 * player.mapRegionX);
-		player.getOutStream().createFrame(44);
-		player.getOutStream().writeWordBigEndianA(itemID);
-		player.getOutStream().writeWord(itemAmount);
-		player.getOutStream().writeByte(0);
-		player.flushOutStream();
-		return this;
+		return createGroundItem(itemID, itemX, itemY, itemAmount);
 	}
 
 

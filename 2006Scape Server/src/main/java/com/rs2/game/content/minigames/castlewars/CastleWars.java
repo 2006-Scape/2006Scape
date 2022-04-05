@@ -2,6 +2,8 @@ package com.rs2.game.content.minigames.castlewars;
 
 import java.util.HashMap;
 import java.util.Iterator;
+
+import com.rs2.GameConstants;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -107,7 +109,7 @@ public class CastleWars {
 					&& teamPlayer.absX < COLLAPSE_ROCKS[cave][1]
 					&& teamPlayer.absY > COLLAPSE_ROCKS[cave][2]
 					&& teamPlayer.absY < COLLAPSE_ROCKS[cave][3]) {
-				int dmg = teamPlayer.playerLevel[3];
+				int dmg = teamPlayer.playerLevel[GameConstants.HITPOINTS];
 				teamPlayer.handleHitMask(dmg);
 				teamPlayer.dealDamage(99);// 99 damage?
 			}

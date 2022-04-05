@@ -5,6 +5,7 @@ import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.smithing.Smelting;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.PacketType;
+import com.rs2.world.Boundary;
 
 public class InterfaceX implements PacketType {
 
@@ -27,13 +28,19 @@ public class InterfaceX implements PacketType {
 	        }
         }
 		switch (player.xInterfaceId) {
-			case 5064:
-				if (player.inPartyRoom) {
-					PartyRoom.depositItem(player, player.xRemoveId, player.getItemAssistant().itemAmount(player.playerItems[player.xRemoveSlot]));
-					break;
+			case 2274:
+				if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
+					PartyRoom.withdrawItem(player, player.xRemoveSlot, Xamount);
+					return;
 				}
+				break;
+			case 5064:
 				if (player.inTrade) {
 					player.getPacketSender().sendMessage("You can't store items while trading!");
+					return;
+				}
+				if (Boundary.isIn(player, Boundary.PARTY_ROOM)) {
+					PartyRoom.depositItem(player, player.xRemoveId, Xamount);
 					return;
 				}
 				player.getItemAssistant().bankItem(player.playerItems[player.xRemoveSlot], player.xRemoveSlot, Xamount);

@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.agility;
 
+import com.rs2.GameConstants;
 import com.rs2.game.players.Player;
 
 /**
@@ -9,22 +10,28 @@ import com.rs2.game.players.Player;
 
 public class AgilityShortcut {
 
-	private static final int WALK = 1, MOVE = 2, AGILITY = 3;
+	private static final int WALK = 1, MOVE = 2, AGILITY = 3, DOWN = 4, UP = 5;
 
 	private static void handleAgility(Player player, int x, int y, int levelReq, int anim, int walk, String message) {
-		if (player.playerLevel[player.playerAgility] < levelReq) {
+		if (player.playerLevel[GameConstants.AGILITY] < levelReq) {
 			player.getPacketSender().sendMessage("You need " + levelReq + " agility to use this shortcut.");
 			return;
 		}
 		switch (walk) {
-		case 1:
+		case WALK:
 			player.getPlayerAssistant().walkTo(x, y);
 			break;
-		case 2:
+		case MOVE:
 			player.getPlayerAssistant().movePlayer(x, y, player.heightLevel);
 			break;
-		case 3:
+		case AGILITY:
 			player.getAgility().walk(x, y, anim, -1);
+			break;
+		case DOWN:
+			player.getPlayerAssistant().movePlayer(x, y, player.heightLevel - 1);
+			break;
+		case UP:
+			player.getPlayerAssistant().movePlayer(x, y, player.heightLevel + 1);
 			break;
 		}
 		if (anim != 0 && anim != -1) {
@@ -178,6 +185,18 @@ public class AgilityShortcut {
 			if (player.absY == 3107) {
 				handleAgility(player, 2575, 3112, 16, 844, MOVE,
 						"You pass through the agility shortcut.");
+			}
+			break;
+		case 9307:
+			if (player.absY == 9888) {
+				handleAgility(player, 3670, 9888, 58, Agility.CLIMB_UP_EMOTE, UP,
+						"You jump up the weathered wall.");
+			}
+			break;
+		case 9308:
+			if (player.absY == 9888) {
+				handleAgility(player, 3671, 9888, 58, Agility.CLIMB_DOWN_EMOTE, DOWN,
+						"You jump down the weathered wall.");
 			}
 			break;
 		case 9309:

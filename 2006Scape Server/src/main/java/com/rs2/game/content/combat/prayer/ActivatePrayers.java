@@ -1,5 +1,6 @@
 package com.rs2.game.content.combat.prayer;
 
+import com.rs2.GameConstants;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.players.Player;
 
@@ -18,13 +19,13 @@ public class ActivatePrayers {
 					"Prayer has been disabled in this duel!");
 			return;
 		}
-		if (i == 24 && player.playerLevel[1] < 65) {
+		if (i == 24 && player.playerLevel[GameConstants.DEFENCE] < 65) {
 			player.getPacketSender().sendConfig(player.getPrayer().PRAYER_GLOW[i], 0);
 			player.getPacketSender().sendMessage(
 					"You may not use this prayer yet.");
 			return;
 		}
-		if (i == 25 && player.playerLevel[1] < 70) {
+		if (i == 25 && player.playerLevel[GameConstants.DEFENCE] < 70) {
 			player.getPacketSender().sendConfig(player.getPrayer().PRAYER_GLOW[i], 0);
 			player.getPacketSender().sendMessage(
 					"You may not use this prayer yet.");
@@ -36,8 +37,8 @@ public class ActivatePrayers {
 		int[] rangePrayer = { 3, 11, 19 };
 		int[] magePrayer = { 4, 12, 20 };
 
-		if (player.playerLevel[5] > 0) {
-			if (player.getPlayerAssistant().getLevelForXP(player.playerXP[5]) >= player
+		if (player.playerLevel[GameConstants.PRAYER] > 0) {
+			if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.PRAYER]) >= player
 					.getPrayer().PRAYER_LEVEL_REQUIRED[i]) {
 				boolean headIcon = false;
 				switch (i) {

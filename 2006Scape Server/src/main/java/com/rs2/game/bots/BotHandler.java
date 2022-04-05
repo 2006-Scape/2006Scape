@@ -151,6 +151,7 @@ public class BotHandler {
     public static void closeShop(Player player) {
         Client shop = getPlayerShop(player.playerName);
         if (shop == null) return;
+        ShopHandler.closePlayerShop(shop);
         shop.getPlayerAssistant().movePlayer(0, 0, 0);
         new Thread(() -> {
             try {
@@ -174,6 +175,15 @@ public class BotHandler {
         Client shop = getPlayerShop(shop_id);
         if (shop == null) return;
         shop.getItemAssistant().addItem(currency, amount);
+    }
+
+    public static int checkCoins(Player player) {
+        Client shop = getPlayerShop(player.playerName);
+        if (shop == null) return 0;
+        if (!shop.getItemAssistant().playerHasItem(currency)) {
+            return 0;
+        }
+        return shop.getItemAssistant().getItemAmount(currency);
     }
 
     public static void takeCoins(Player player) {

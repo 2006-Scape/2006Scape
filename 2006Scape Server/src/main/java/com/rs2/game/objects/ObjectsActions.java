@@ -12,7 +12,6 @@ import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWarObjects;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.quests.QuestRewards;
-import com.rs2.game.content.random.Balloons;
 import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.randomevents.FreakyForester;
 import com.rs2.game.content.skills.agility.AgilityShortcut;
@@ -30,6 +29,7 @@ import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.globalworldobjects.ClimbOther;
 import com.rs2.game.globalworldobjects.PassDoor;
 import com.rs2.game.globalworldobjects.ClimbOther.ClimbData;
+import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.MilkCow;
@@ -91,8 +91,8 @@ public class ObjectsActions {
         if (player.getWerewolfAgility().werewolfCourse(objectType)) {
             return;
         }
-        if (objectType >= 115 && objectType <= 121) {
-            Balloons.popBalloon(player, objectX, objectY);
+        if (Boundary.isIn(player, Boundary.PARTY_ROOM) && objectType >= 115 && objectType <= 122) {
+            PartyRoom.popBalloon(player, objectX, objectY);
             return;
         }
         if (objectType >= 5103 && objectType <= 5107) {
@@ -115,14 +115,19 @@ public class ObjectsActions {
         PassDoor.processDoor(player, objectType);
         AbyssalHandler.handleAbyssalTeleport(player, objectType);
         OpenObject.interactObject(player, objectType);
-        // if its a rock we can mine, mine it
-        if (Mining.rockExists(objectType))
-            player.getMining().startMining(player, objectType, player.objectX, player.objectY, player.clickObjectType);
-        if (Stalls.isObject(objectType)) {
+         if (Stalls.isObject(objectType)) {
             Stalls.attemptStall(player, objectType, objectX, objectY);
             return;
         }
         switch (objectType) {
+            case 6969: // Swamp Boaty
+                if (player.objectX == 3523 && player.objectY == 3284)
+                    player.getPlayerAssistant().movePlayer(3499, 3380, 0);
+                break;
+            case 6970: // Swamp Boaty
+                if (player.objectX == 3498 && player.objectY == 3377)
+                    player.getPlayerAssistant().movePlayer(3522, 3284, 0);
+                break;
             case 6615:
                 if (player.absY == 2809) {
                     player.getPlayerAssistant().movePlayer(player.absX, 2810, 0);
@@ -130,11 +135,11 @@ public class ObjectsActions {
                     player.getPlayerAssistant().movePlayer(player.absX, 2809, 0);
                 }
                 break;
-            case 11163:
+            case Ectofuntus.GRINDER:
                 Ectofuntus.useBoneGrinder(player);
                 break;
 
-            case 11164:
+            case Ectofuntus.BIN:
                 Ectofuntus.emptyBin(player);
                 break;
             case 6:
@@ -318,7 +323,7 @@ public class ObjectsActions {
                 //if (c.objectX == 2675 && c.objectY == 3170) {
                 //c.getDH().sendDialogues(79, 0);
                 //} else {
-                if (player.playerLevel[player.playerFishing] <= 50) {
+                if (player.playerLevel[GameConstants.FISHING] <= 50) {
                     player.getPacketSender().sendMessage("You need a fishing level of 50 or higher to play Fishing Trawler.");
                     return;
                 }
@@ -437,16 +442,16 @@ public class ObjectsActions {
 
             case 2112:
                 if (player.absY == 9756
-                        && player.playerLevel[player.playerMining] >= 60) {
+                        && player.playerLevel[GameConstants.MINING] >= 60) {
                     player.getPlayerAssistant().movePlayer(3046, 9757, 0);
                     player.getPacketSender()
                             .sendMessage("You enter the guild.");
                 } else if (player.absY == 9757
-                        && player.playerLevel[player.playerMining] >= 60) {
+                        && player.playerLevel[GameConstants.MINING] >= 60) {
                     player.getPlayerAssistant().movePlayer(3046, 9756, 0);
                     player.getPacketSender()
                             .sendMessage("You enter the guild.");
-                } else if (player.playerLevel[player.playerMining] < 60) {
+                } else if (player.playerLevel[GameConstants.MINING] < 60) {
                     player.getPacketSender().sendMessage(
                             "You need 60 mining to enter this guild");
                 }
@@ -677,7 +682,7 @@ public class ObjectsActions {
                 break;
 
             case 10596:
-                if (player.playerLevel[player.playerSlayer] < 72) {
+                if (player.playerLevel[GameConstants.SLAYER] < 72) {
                     player.getPacketSender().sendMessage(
                             "You need 72 slayer to enter.");
                     return;
@@ -708,7 +713,7 @@ public class ObjectsActions {
                             "You pass through the energy barrier.");
                     player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
                 }
-		break;
+		        break;
 			
             case 5262:
                 if (player.heightLevel == 0)
@@ -752,21 +757,8 @@ public class ObjectsActions {
             case 5281:
                 player.getPlayerAssistant().movePlayer(3666, 3517, 0);
                 break;
-            case 5282: // Ectofuntus Worship
-                if (player.getItemAssistant().playerHasItem(4286) && player.getItemAssistant().playerHasItem(4255))
-                    {
-                    player.startAnimation(1651);
-                    player.getPacketSender().sendMessage("You put some ectoplasm and bonemeal into the Ectofuntus, and worship it.");
-                    player.getItemAssistant().deleteItem(4286, 1);
-                    player.getItemAssistant().deleteItem(4255, 1);
-                    player.getItemAssistant().addItem(1925, 1);
-                    player.getItemAssistant().addItem(1931, 1);
-                    player.getPlayerAssistant().addSkillXP(18, player.playerPrayer);
-                 }
-                else
-                    {
-                        player.getPacketSender().sendMessage("You'll need ectoplasm and bonemeal to worship the Ectofuntus.");
-                    }
+            case Ectofuntus.ECTOFUNTUS: // Ectofuntus Worship
+                Ectofuntus.handleEctofuntus(player);
                 break;
 
             case 12982:
@@ -801,14 +793,14 @@ public class ObjectsActions {
 
             case 2634:
                 if (player.absX == 2837
-                        && player.playerLevel[player.playerMining] >= 50) {
+                        && player.playerLevel[GameConstants.MINING] >= 50) {
                     player.getPlayerAssistant().movePlayer(player.absX + 3,
                             player.absY, 0);
                 } else if (player.absX == 2840
-                        && player.playerLevel[player.playerMining] >= 50) {
+                        && player.playerLevel[GameConstants.MINING] >= 50) {
                     player.getPlayerAssistant().movePlayer(player.absX - 3,
                             player.absY, 0);
-                } else if (player.playerLevel[player.playerMining] < 50) {
+                } else if (player.playerLevel[GameConstants.MINING] < 50) {
                     player.getDialogueHandler().sendStatement("You need 50 mining to pass to this rock slide.");
                     player.nextChat = 0;
                     return;
@@ -961,6 +953,8 @@ public class ObjectsActions {
             case 9326:
             case 9321:
             case 993:
+            case 9307:
+            case 9308:
                 AgilityShortcut.processAgilityShortcut(player);
                 break;
 
@@ -1415,7 +1409,7 @@ public class ObjectsActions {
                 break;
 
             case 9295:
-                if (player.playerLevel[player.playerAgility] < 51) {
+                if (player.playerLevel[GameConstants.AGILITY] < 51) {
                     player.getPacketSender().sendMessage(
                             "You need 51 agility to use this shortcut.");
                     return;
@@ -1527,7 +1521,7 @@ public class ObjectsActions {
                 break;
 
             case 2287:
-                if (player.playerLevel[16] < 35) {
+                if (player.playerLevel[GameConstants.AGILITY] < 35) {
                     player.getPacketSender().sendMessage(
                             "You need 35 agility to enter here!");
                     return;
@@ -1679,21 +1673,21 @@ public class ObjectsActions {
 
             case 2320:
                 long clickTimer = 0;
-                if (player.absY <= 9963 && player.playerLevel[player.playerAgility] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
+                if (player.absY <= 9963 && player.playerLevel[GameConstants.AGILITY] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
                     player.getPlayerAssistant().movePlayer(3120, 9970, 0);
                     player.startAnimation(744);
                     player.turnPlayerTo(player.objectX, player.objectY);
                     player.getPacketSender().sendMessage("You swing on the monkey bars.");
-                    player.getPlayerAssistant().addSkillXP(25, player.playerAgility);
+                    player.getPlayerAssistant().addSkillXP(25, GameConstants.AGILITY);
                     clickTimer = System.currentTimeMillis();
-                } else if (player.absY <= 9970 && player.playerLevel[player.playerAgility] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
+                } else if (player.absY <= 9970 && player.playerLevel[GameConstants.AGILITY] > 14 && System.currentTimeMillis() - clickTimer > 2000) {
                     player.getPlayerAssistant().movePlayer(3120, 9963, 0);
                     player.startAnimation(744);
                     player.turnPlayerTo(player.objectX, player.objectY);
                     player.getPacketSender().sendMessage("You swing on the monkey bars.");
-                    player.getPlayerAssistant().addSkillXP(25, player.playerAgility);
+                    player.getPlayerAssistant().addSkillXP(25, GameConstants.AGILITY);
                     clickTimer = System.currentTimeMillis();
-                } else if (player.playerLevel[player.playerAgility] < 15) {
+                } else if (player.playerLevel[GameConstants.AGILITY] < 15) {
                     player.getPacketSender().sendMessage("You need 15 agility to use these monkey bars.");
                 } else {
                     player.getPacketSender().sendMessage("You can't do the monkey bars here.");
@@ -1904,7 +1898,7 @@ public class ObjectsActions {
                     player.getItemAssistant().addItem(2130, 1);
                     player.getItemAssistant().deleteItem(1927, 1);
                     player.getPlayerAssistant()
-                            .addSkillXP(18, player.playerCooking);
+                            .addSkillXP(18, GameConstants.COOKING);
                 } else {
                     player.getPacketSender().sendMessage(
                             "You need a bucket of milk to do this.");
@@ -2553,14 +2547,14 @@ public class ObjectsActions {
             case 10638:
             case 411:
             case 412:
-                if (player.playerLevel[5] < player.getPlayerAssistant()
-                        .getLevelForXP(player.playerXP[5])) {
+                if (player.playerLevel[GameConstants.PRAYER] < player.getPlayerAssistant()
+                        .getLevelForXP(player.playerXP[GameConstants.PRAYER])) {
                     player.startAnimation(645);
-                    player.playerLevel[5] = player.getPlayerAssistant()
-                            .getLevelForXP(player.playerXP[5]);
+                    player.playerLevel[GameConstants.PRAYER] = player.getPlayerAssistant()
+                            .getLevelForXP(player.playerXP[GameConstants.PRAYER]);
                     player.getPacketSender().sendMessage(
                             "You recharge your prayer points.");
-                    player.getPlayerAssistant().refreshSkill(5);
+                    player.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
                 } else {
                     player.getPacketSender().sendMessage(
                             "You already have full prayer points.");
@@ -2573,14 +2567,14 @@ public class ObjectsActions {
                             "You can't use this in the wilderness.");
                     return;
                 }
-                if (player.playerLevel[5] < player.getPlayerAssistant()
-                        .getLevelForXP(player.playerXP[5])) {
+                if (player.playerLevel[GameConstants.PRAYER] < player.getPlayerAssistant()
+                        .getLevelForXP(player.playerXP[GameConstants.PRAYER])) {
                     player.startAnimation(645);
-                    player.playerLevel[5] = player.getPlayerAssistant()
-                            .getLevelForXP(player.playerXP[5]) + 2;
+                    player.playerLevel[GameConstants.PRAYER] = player.getPlayerAssistant()
+                            .getLevelForXP(player.playerXP[GameConstants.PRAYER]) + 2;
                     player.getPacketSender().sendMessage(
                             "You recharge your prayer points.");
-                    player.getPlayerAssistant().refreshSkill(5);
+                    player.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
                 } else {
                     player.getPacketSender().sendMessage(
                             "You already have full prayer points.");
@@ -2632,6 +2626,75 @@ public class ObjectsActions {
                     player.getPlayerAssistant().walkTo(0, -1);
                 }
                 break;
+			
+            case 10721:
+                if (player.absY == 3298)
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY + 2, 0);
+                else if (player.absY == 3300)
+                    player.getPlayerAssistant().movePlayer(player.absX, player.absY - 2, 0);
+                break;
+            case 10725: // Bone Pile
+            case 10726: // Bone Pile
+            case 10727: // Bone Pile
+            case 10728: // Bone Pile
+                player.getMageTrainingArena().graveyard.searchBonePile(objectType);
+                break;
+            case 10734: // Coin Collector
+                player.getMageTrainingArena().alchemy.collectCoins();
+                break;
+            case 10735: // Food Chute
+                player.getMageTrainingArena().graveyard.depositFood();
+                break;
+            case 10771:
+                player.getPlayerAssistant().movePlayer(3369, 3307, 1);
+                break;
+            case 10773:
+                player.getPlayerAssistant().movePlayer(3366, 3306, 0);
+                break;
+            case 10775:
+                player.getPlayerAssistant().movePlayer(3357, 3307, 1);
+                break;
+            case 10776:
+                player.getPlayerAssistant().movePlayer(3360, 3306, 0);
+                break;
+            case 10778:
+                // TODO: Require Pizazz progress hat equiped
+                player.getMageTrainingArena().telekinetic.goToMaze();
+                break;
+            case 10779:
+                // TODO: Require Pizazz progress hat equiped
+                player.getPlayerAssistant().startTeleport2(3363, 9639, 0); // Enchantment training
+                break;
+            case 10780:
+                // TODO: Require Pizazz progress hat equiped
+                if (player.getItemAssistant().playerHasItem(995)) {
+                    player.getDialogueHandler().sendStatement("You cannot bring coins with you.");
+                    return;
+                }
+                player.getPlayerAssistant().startTeleport2(3365, 9624, 2); // Alchemy training
+                break;
+            case 10781:
+                // TODO: Require Pizazz progress hat equiped
+                player.getPlayerAssistant().startTeleport2(3364, 9639, 1); // Graveyard training
+                break;
+            case 10782: // Leave mage training rooms
+                player.getPlayerAssistant().startTeleport2(3363, 3318, 0);
+                break;
+            case 10799: // Mage training arena - Enchantment room objects
+                player.getItemAssistant().addItem(6899, 1);
+                break;
+            case 10800: // Mage training arena - Enchantment room objects
+                player.getItemAssistant().addItem(6898, 1);
+                break;
+            case 10801: // Mage training arena - Enchantment room objects
+                player.getItemAssistant().addItem(6900, 1);
+                break;
+            case 10802: // Mage training arena - Enchantment room objects
+                player.getItemAssistant().addItem(6901, 1);
+                break;
+            case 10803: // Mage training arena - Enchantment room deposit hole
+                player.getMageTrainingArena().enchanting.deposit();
+                break;
             case 2873:
                 if (player.getItemAssistant().hasFreeSlots(1))
                     player.getItemAssistant().addItem(2412, 1);
@@ -2644,6 +2707,60 @@ public class ObjectsActions {
                 if (player.getItemAssistant().hasFreeSlots(1))
                     player.getItemAssistant().addItem(2413, 1);
                 break;
+            case 11209:
+                player.getPlayerAssistant().movePlayer(3712, 3496, 1);
+                break;
+            case 11210:
+                player.getPlayerAssistant().movePlayer(3709, 3496, 0);
+                break;
+            case 11211:
+                player.getPlayerAssistant().movePlayer(3684, 2950, 1);
+                break;
+            case 11212:
+                player.getPlayerAssistant().movePlayer(3684, 2953, 0);
+                break;
+            case 11289:
+                if (objectX == 3686 && objectY == 2946)
+                    player.getPlayerAssistant().movePlayer(3687, 2946, 2);
+                if (objectX == 3686 && objectY == 2950)
+                    player.getPlayerAssistant().movePlayer(3687, 2950, 2);
+                if (objectX == 3712 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3712, 3493, 2);
+                if (objectX == 3716 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3716, 3493, 2);
+                break;
+            case 11290:
+                if (objectX == 3686 && objectY == 2946)
+                    player.getPlayerAssistant().movePlayer(3685, 2946, 1);
+                if (objectX == 3686 && objectY == 2950)
+                    player.getPlayerAssistant().movePlayer(3685, 2950, 1);
+                if (objectX == 3712 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3712, 3495, 1);
+                if (objectX == 3716 && objectY == 3494)
+                    player.getPlayerAssistant().movePlayer(3716, 3495, 1);
+                break;
+            case 11308:
+                if (objectX == 3714 && objectY == 3502)
+                    player.getPlayerAssistant().movePlayer(3714, 3503, 1);
+                if (objectX == 3678 && objectY == 2948)
+                    player.getPlayerAssistant().movePlayer(3677, 2948, 1);
+                break;
+            case 11309:
+                if (objectX == 3714 && objectY == 3502)
+                    player.getPlayerAssistant().movePlayer(3714, 3503, 0);
+                if (objectX == 3678 && objectY == 2948)
+                    player.getPlayerAssistant().movePlayer(3677, 2948, 0);
+                break;
+            case 10783:
+            case 10785:
+            case 10787:
+            case 10789:
+            case 10791:
+            case 10793:
+            case 10795:
+            case 10797:
+                player.getMageTrainingArena().alchemy.searchCupboard(objectType);
+                break;
 
         }
     }
@@ -2653,10 +2770,6 @@ public class ObjectsActions {
         player.clickObjectType = 0;
         player.turnPlayerTo(obX, obY);
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
-            return;
-        }
-        if (Stalls.isObject(objectType)) {
-            Stalls.attemptStall(player, objectType, obX, obY);
             return;
         }
         if (Farming.inspectObject(player, obX, obY)) {
@@ -2763,6 +2876,18 @@ public class ObjectsActions {
             case 14747:
             case 12537:
                 Climbing.climbUp(player);
+                break;
+            
+            case Ectofuntus.GRINDER:
+                if (player.ectofuntusBoneCrusherState.equals("Empty")) {
+                    player.getPacketSender().sendMessage("You need to load some bones.");
+                } else if (player.ectofuntusBoneCrusherState.equals("Loaded")) {
+                    player.getPacketSender().sendMessage(ItemAssistant.getItemName(player.ectofuntusBoneUsed) + " loaded and ready to be grinded.");
+                } else if (player.ectofuntusBoneCrusherState.equals("Bin")) {
+                    player.getPacketSender().sendMessage("Bonemeal is ready to be collected from the bin.");
+                } else {
+                    player.getPacketSender().sendMessage("Ghostly forces are playing with the machinery.");
+                }
                 break;
 
             case 14921:
@@ -2920,10 +3045,6 @@ public class ObjectsActions {
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
             return;
         }
-        if (Stalls.isObject(objectType)) {
-            Stalls.attemptStall(player, objectType, obX, obY);
-            return;
-        }
         OpenObject.interactObject(player, objectType);
         switch (objectType) {
             case 6:
@@ -2940,9 +3061,6 @@ public class ObjectsActions {
                 if (player.objectX == 2506 && player.objectY == 3640) {
                     Climbing.climbDown(player);
                 }
-                break;
-            case 10177:
-                player.getPlayerAssistant().movePlayer(1798, 4407, 3);
                 break;
             case 11890:
                 Climbing.handleClimbing(player);
@@ -2966,6 +3084,5 @@ public class ObjectsActions {
         if (!Region.objectExists(objectType, obX, obY, player.heightLevel)) {
             return;
         }
-        Farming.guide(player, obX, obY);
     }
 }

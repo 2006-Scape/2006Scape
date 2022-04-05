@@ -75,16 +75,20 @@ public final class TextDrawingArea extends DrawingArea {
 		}
 	}
 
-	public void method380(String s, int i, int j, int k) {
-		method385(j, s, k, i - method384(s));
+	public void textRight(int i, String s, int k, int l) {
+		textLeft(i, s, k, l - method384(s));
 	}
 
-	public void drawText(int i, String s, int k, int l) {
-		method385(i, s, k, l - method384(s) / 2);
+	public void textCenter(int i, String s, int k, int l) {
+		textLeft(i, s, k, l - method384(s) / 2);
 	}
 
-	public void method382(int i, int j, String s, int l, boolean flag) {
-		method389(flag, j - getTextWidth(s) / 2, i, s, l);
+	public void textCenterShadow(int _color, int _x, String s, int _y, boolean _shadow) {
+		textLeftShadow(_shadow, _x - getTextWidth(s) / 2, _color, s, _y);
+	}
+
+	public void textRightShadow(boolean _shadow, int _x, int _color, String s, int _y) {
+		textLeftShadow(_shadow, _x - getTextWidth(s), _color, s, _y);
 	}
 
 	public int getTextWidth(String s) {
@@ -114,7 +118,7 @@ public final class TextDrawingArea extends DrawingArea {
 		return j;
 	}
 
-	public void method385(int i, String s, int j, int l) {
+	public void textLeft(int i, String s, int j, int l) {
 		if (s == null) {
 			return;
 		}
@@ -180,37 +184,37 @@ public final class TextDrawingArea extends DrawingArea {
 
 	}
 
-	public void method389(boolean flag1, int i, int j, String s, int k) {
+	public void textLeftShadow(boolean _shadow, int _x, int _color, String s, int _y) {
 		aBoolean1499 = false;
-		int l = i;
+		int l = _x;
 		if (s == null) {
 			return;
 		}
-		k -= anInt1497;
+		_y -= anInt1497;
 		for (int i1 = 0; i1 < s.length(); i1++) {
 			if (s.charAt(i1) == '@' && i1 + 4 < s.length() && s.charAt(i1 + 4) == '@') {
 				int j1 = getColorByName(s.substring(i1 + 1, i1 + 4));
 				if (j1 != -1) {
-					j = j1;
+					_color = j1;
 				}
 				i1 += 4;
 			} else {
 				char c = s.charAt(i1);
 				if (c != ' ') {
-					if (flag1) {
-						method392(aByteArrayArray1491[c], i + anIntArray1494[c] + 1, k + anIntArray1495[c] + 1, anIntArray1492[c], anIntArray1493[c], 0);
+					if (_shadow) {
+						method392(aByteArrayArray1491[c], _x + anIntArray1494[c] + 1, _y + anIntArray1495[c] + 1, anIntArray1492[c], anIntArray1493[c], 0);
 					}
 					try {
-					method392(aByteArrayArray1491[c], i + anIntArray1494[c], k + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], j);
+					method392(aByteArrayArray1491[c], _x + anIntArray1494[c], _y + anIntArray1495[c], anIntArray1492[c], anIntArray1493[c], _color);
 					} catch (Exception e) {
 						
 					}
 				}
-				i += anIntArray1496[c];
+				_x += anIntArray1496[c];
 			}
 		}
 		if (aBoolean1499) {
-			DrawingArea.method339(k + (int) (anInt1497 * 0.69999999999999996D), 0x800000, i - l, l);
+			DrawingArea.drawHorizontalLine(_y + (int) (anInt1497 * 0.69999999999999996D), 0x800000, _x - l, l);
 		}
 	}
 

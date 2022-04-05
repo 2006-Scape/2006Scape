@@ -17,7 +17,6 @@ import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillData;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.content.skills.smithing.Superheat;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
@@ -41,7 +40,7 @@ public class PlayerAssistant {
 	}
 	
 	public boolean savePlayer() {
-		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[3] > 0 && player.playerLevel[3] <= player.getLevelForXP(player.playerXP[3]) / 10 && player.underAttackBy > 0);
+		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[GameConstants.HITPOINTS] > 0 && player.playerLevel[GameConstants.HITPOINTS] <= player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) / 10 && player.underAttackBy > 0);
 	}
 	
 	public void handleROL() {
@@ -95,14 +94,14 @@ public class PlayerAssistant {
 	
 	public void loginScreen() {
 		player.getPacketSender().showInterface(15244);
-		player.getPacketSender().sendString("Welcome to " + GameConstants.SERVER_NAME + "\\n", 15257);
+		player.getPacketSender().sendString("Welcome to " + GameConstants.SERVER_NAME + "             World: " + GameConstants.WORLD + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
 
-		if (player.playerLevel[15] < 3) {
+		if (player.playerLevel[GameConstants.HERBLORE] < 3) {
 
-			player.playerLevel[15] = 3;
-			player.playerXP[15] = 175;
-			player.getPlayerAssistant().refreshSkill(15);
+			player.playerLevel[GameConstants.HERBLORE] = 3;
+			player.playerXP[GameConstants.HERBLORE] = 175;
+			player.getPlayerAssistant().refreshSkill(GameConstants.HERBLORE);
 		}
 	        if (player.lastLoginDate <= 0) {
 	            player.getPacketSender().sendString("This is your first time logging in!", 15258);
@@ -127,14 +126,14 @@ public class PlayerAssistant {
 	
 	private String[][] welcomeMessages = {
 			{"Remember to vote daily to help " + GameConstants.SERVER_NAME + "", "Every vote counts! :)"}, 
-			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/Nk9WQUK"},
+			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/hZ6VfWG"},
 			{"Do you have any bugs that you would like to report?", "Report them on our discord or message a staff member. :)"},
 			{"Want to help the server grow?", "Remember to vote daily and invite your friends!"}
 		};
 	
 	public void showMap() {
-		int posisition = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
-		player.getPacketSender().sendConfig(106, posisition);
+		int position = (player.getX() / 64 - 46) + (player.getY() / 64 - 49) * 6;
+		player.getPacketSender().sendConfig(106, position);
 		player.getPacketSender().showInterface(5392);
 	}
 
@@ -178,31 +177,31 @@ public class PlayerAssistant {
         int xpToAdd = 0;
         if (manta > 0) {
             toReturn.add(new GameItem(389, manta));
-            if (player.playerLevel[player.playerFishing] >= 81) {
+            if (player.playerLevel[GameConstants.FISHING] >= 81) {
                 xpToAdd += (manta * 46);
             }
         }
         if (turt > 0) {
             toReturn.add(new GameItem(395, turt));
-            if (player.playerLevel[player.playerFishing] >= 79) {
+            if (player.playerLevel[GameConstants.FISHING] >= 79) {
                 xpToAdd += (manta * 38);
             }
         }
         if (lobs > 0) {
             toReturn.add(new GameItem(377, lobs));
-            if (player.playerLevel[player.playerFishing] >= 40) {
+            if (player.playerLevel[GameConstants.FISHING] >= 40) {
                 xpToAdd += (manta * 90);
             }
         }
         if (swordFish > 0) {
             toReturn.add(new GameItem(371, swordFish));
-            if (player.playerLevel[player.playerFishing] >= 50) {
+            if (player.playerLevel[GameConstants.FISHING] >= 50) {
                 xpToAdd += (manta * 100);
             }
         }
         if (junk > 0)
             toReturn.add(new GameItem(685, junk));
-        player.getPlayerAssistant().addSkillXP(xpToAdd, player.playerFishing);
+        player.getPlayerAssistant().addSkillXP(xpToAdd, GameConstants.FISHING);
         return toReturn;
     }
     
@@ -402,7 +401,7 @@ public class PlayerAssistant {
 
 	public int raiseTimer() {
 		// calculations from https://oldschool.runescape.wiki/w/Energy
-		double seconds  = 60 / (8 + Math.floor(player.playerLevel[player.playerAgility] / 6));
+		double seconds  = 60 / (8 + Math.floor(player.playerLevel[GameConstants.AGILITY] / 6));
 		return (int) Math.floor(seconds * 1000);
 	}
 
@@ -769,6 +768,9 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
+			if (player.heightLevel != height) {
+				player.refresh = true;
+			}
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
@@ -833,6 +835,9 @@ public class PlayerAssistant {
 			player.npcIndex = 0;
 			player.playerIndex = 0;
 			player.faceUpdate(0);
+			if (player.heightLevel != height) {
+				player.refresh = true;
+			}
 			player.teleHeight = height;
 			player.startAnimation(714);
 			player.teleTimer = 11;
@@ -845,7 +850,6 @@ public class PlayerAssistant {
 	public void processTeleport() {
 		player.teleportToX = player.teleX;
 		player.teleportToY = player.teleY;
-		player.heightLevel = player.teleHeight;
 		if (player.teleEndAnimation > 0) {
 			player.startAnimation(player.teleEndAnimation);
 		}
@@ -859,7 +863,7 @@ public class PlayerAssistant {
 		if(player.heightLevel != h) {
 			player.refresh = true;
 		}
-		player.heightLevel = h;
+		player.teleHeight = h;
 		player.getPlayerAssistant().requestUpdates();
 	}
 
@@ -1019,7 +1023,7 @@ public class PlayerAssistant {
 		for (Player p : PlayerHandler.players) {
 			if (p != null && p.isActive) {
 				Client o = (Client) p;
-				o.getPlayerAssistant().updatePM(player.playerId, 1);
+				o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
 			}
 		}
 		boolean pmLoaded = false;
@@ -1028,7 +1032,7 @@ public class PlayerAssistant {
 			if (friend != 0) {
 				for (int i2 = 1; i2 < PlayerHandler.players.length; i2++) {
 					Player p = PlayerHandler.players[i2];
-					if (p != null && p.isActive
+					if (p != null && !p.isBot && p.isActive
 							&& Misc.playerNameToInt64(p.playerName) == friend) {
 						Client o = (Client) p;
 						if (player.playerRights >= 2
@@ -1037,7 +1041,7 @@ public class PlayerAssistant {
 								&& o.getPlayerAssistant()
 										.isInPM(Misc
 												.playerNameToInt64(player.playerName))) {
-							player.getPacketSender().loadPM(friend, 1);
+							player.getPacketSender().loadPM(friend, GameConstants.WORLD);
 							pmLoaded = true;
 						}
 						break;
@@ -1052,7 +1056,7 @@ public class PlayerAssistant {
 				Player p = PlayerHandler.players[i1];
 				if (p != null && p.isActive) {
 					Client o = (Client) p;
-					o.getPlayerAssistant().updatePM(player.playerId, 1);
+					o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
 				}
 			}
 		}
@@ -1165,59 +1169,60 @@ public class PlayerAssistant {
 				|| itemId == 995) {
 			return;
 		}
+		boolean canAlch = true;
 		switch (spellId) {
 		case 1162: // low alch
+			player.getPacketSender().sendShowTab(6);
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
 			}
-			if (System.currentTimeMillis() - player.alchDelay > 1000) {
-				if (!player.getCombatAssistant().checkMagicReqs(49)) {
-					break;
-				}
-				boolean canAlch = true;
-				for (int i : ItemConstants.ITEM_UNALCHABLE) {
-					if (itemId == i) {
-						player.getPacketSender().sendMessage("You can't alch that item!");
-						canAlch = false;
-						return;
-					}
-				}
-				if (canAlch) {
-					int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.4);
-					String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-					if (player.getPlayerAssistant().isPlayer()) {
-						GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast Low Alchemy on " + itemName + " for " + GameLogger.formatCurrency(value) + " coins");
-					}
-					player.getItemAssistant().deleteItem(itemId, slot, 1);
-					//855 - 858
-					if (itemId > 854 && itemId < 857) {
-						player.getItemAssistant().addItem(995, 512);
-					} else if (itemId > 856 && itemId < 859) {
-						player.getItemAssistant().addItem(995, 320);
-					} else if (itemId > 860 && itemId < 863) {
-						player.getItemAssistant().addItem(995, 640);
-					} else if (itemId > 858 && itemId < 861) {
-						player.getItemAssistant().addItem(995, 1024);
-					} else {
-						player.getItemAssistant().addItem(995, value);
-					}
-					player.startAnimation(MagicData.MAGIC_SPELLS[49][2]);
-					player.gfx100(MagicData.MAGIC_SPELLS[49][3]);
-					player.alchDelay = System.currentTimeMillis();
-					player.getPacketSender().sendFrame106(6);
-					addSkillXP(31, 6);
-					player.getPacketSender().sendSound(
-							SoundList.LOW_ALCHEMY, 100, 0);
-					RandomEventHandler.addRandom(player);
-					refreshSkill(6);
+			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
+				return;
+			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
+				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(49)) {
+				return;
+			}
+			canAlch = true;
+			for (int i : ItemConstants.ITEM_UNALCHABLE) {
+				if (itemId == i) {
+					player.getPacketSender().sendMessage("You can't alch that item!");
+					canAlch = false;
+					return;
 				}
 			}
-			break;
-
-		case 1173:
-			if (!Superheat.superHeatItem(player, itemId)) {
-				return;
+			if (canAlch) {
+				int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.4);
+				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+				if (player.getPlayerAssistant().isPlayer()) {
+					GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast Low Alchemy on " + itemName + " for " + GameLogger.formatCurrency(value) + " coins");
+				}
+				player.getItemAssistant().deleteItem(itemId, slot, 1);
+				//855 - 858
+				if (itemId > 854 && itemId < 857) {
+					player.getItemAssistant().addItem(995, 512);
+				} else if (itemId > 856 && itemId < 859) {
+					player.getItemAssistant().addItem(995, 320);
+				} else if (itemId > 860 && itemId < 863) {
+					player.getItemAssistant().addItem(995, 640);
+				} else if (itemId > 858 && itemId < 861) {
+					player.getItemAssistant().addItem(995, 1024);
+				} else {
+					player.getItemAssistant().addItem(995, value);
+				}
+				player.startAnimation(MagicData.MAGIC_SPELLS[49][2]);
+				player.gfx100(MagicData.MAGIC_SPELLS[49][3]);
+				player.alchDelay = System.currentTimeMillis();
+				player.getPacketSender().sendShowTab(6);
+				addSkillXP(31, 6);
+				player.getPacketSender().sendSound(
+						SoundList.LOW_ALCHEMY, 100, 0);
+				RandomEventHandler.addRandom(player);
+				refreshSkill(6);
 			}
 			break;
 
@@ -1227,54 +1232,65 @@ public class PlayerAssistant {
 		case 1180: // Lvl-4 enchant diamond
 		case 1187: // Lvl-5 enchant dragonstone
 		case 6003: // Lvl-6 enchant onyx
-			player.getEnchanting().enchantItem(itemId, spellId);
+			player.getPacketSender().sendShowTab(6);
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
+				player.getMageTrainingArena().enchantItem(itemId, spellId);
+			} else {
+				player.getEnchanting().enchantItem(itemId, spellId);
+			}
 			break;
 
 		case 1178: // high alch
+			player.getPacketSender().sendShowTab(6);
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage("You can't alch while in a trade!");
 				return;
 			}
-			if (System.currentTimeMillis() - player.alchDelay > 1000) {
-				if (!player.getCombatAssistant().checkMagicReqs(50)) {
-					break;
+			if (System.currentTimeMillis() - player.alchDelay <= 1000) {
+				return;
+			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA)) {
+				player.getMageTrainingArena().alchItem(itemId, spellId);
+				return;
+			}
+			if (!player.getCombatAssistant().checkMagicReqs(50)) {
+				break;
+			}
+			canAlch = true;
+			for (int i : ItemConstants.ITEM_UNALCHABLE) {
+				if (itemId == i) {
+					player.getPacketSender().sendMessage("You can't alch that item!");
+					canAlch = false;
+					return;
 				}
-				boolean canAlch = true;
-				for (int i : ItemConstants.ITEM_UNALCHABLE) {
-					if (itemId == i) {
-						player.getPacketSender().sendMessage("You can't alch that item!");
-						canAlch = false;
-						return;
-					}
+			}
+			if (canAlch) {
+				int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.75);
+				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+				if (player.getPlayerAssistant().isPlayer()) {
+					GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast High Alchemy on " + itemName + " for" + GameLogger.formatCurrency(value) + " coins");
 				}
-				if (canAlch) {
-					int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.75);
-					String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
-					if (player.getPlayerAssistant().isPlayer()) {
-						GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast High Alchemy on " + itemName + " for" + GameLogger.formatCurrency(value) + " coins");
-					}
-					player.getItemAssistant().deleteItem(itemId, slot, 1);
-					if (itemId > 854 && itemId < 857) {
-						player.getItemAssistant().addItem(995, 768);
-					} else if (itemId > 856 && itemId < 859) {
-						player.getItemAssistant().addItem(995, 480);
-					} else if (itemId > 858 && itemId < 861) {
-						player.getItemAssistant().addItem(995, 1536);
-					} else if (itemId > 860 && itemId < 863) {
-						player.getItemAssistant().addItem(995, 960);
-					} else {
-						player.getItemAssistant().addItem(995, (int) (player.getShopAssistant().getItemShopValue(itemId) * .75));
-					}
-					player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
-					player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
-					player.alchDelay = System.currentTimeMillis();
-					player.getPacketSender().sendFrame106(6);
-					RandomEventHandler.addRandom(player);
-					addSkillXP(65, 6);
-					player.getPacketSender().sendSound(
-							SoundList.HIGH_ALCHEMY, 100, 0);
-					refreshSkill(6);
+				player.getItemAssistant().deleteItem(itemId, slot, 1);
+				if (itemId > 854 && itemId < 857) {
+					player.getItemAssistant().addItem(995, 768);
+				} else if (itemId > 856 && itemId < 859) {
+					player.getItemAssistant().addItem(995, 480);
+				} else if (itemId > 858 && itemId < 861) {
+					player.getItemAssistant().addItem(995, 1536);
+				} else if (itemId > 860 && itemId < 863) {
+					player.getItemAssistant().addItem(995, 960);
+				} else {
+					player.getItemAssistant().addItem(995, (int) (player.getShopAssistant().getItemShopValue(itemId) * .75));
 				}
+				player.startAnimation(MagicData.MAGIC_SPELLS[50][2]);
+				player.gfx100(MagicData.MAGIC_SPELLS[50][3]);
+				player.alchDelay = System.currentTimeMillis();
+				player.getPacketSender().sendShowTab(6);
+				RandomEventHandler.addRandom(player);
+				addSkillXP(65, 6);
+				player.getPacketSender().sendSound(
+						SoundList.HIGH_ALCHEMY, 100, 0);
+				refreshSkill(6);
 			}
 			break;
 		}
@@ -1392,8 +1408,8 @@ public class PlayerAssistant {
 			player.clickedVamp = false;
 		} else if (player.isWoodcutting) {
 			player.isWoodcutting = false;
-		} else if (player.playerSkilling[10]) {
-			player.playerSkilling[10] = false;
+		} else if (player.playerSkilling[GameConstants.FISHING]) {
+			player.playerSkilling[GameConstants.FISHING] = false;
 		} else if(player.clickedTree) {
 				player.clickedTree = false;
 		}
@@ -1614,7 +1630,7 @@ public class PlayerAssistant {
 		if (player.freezeTimer > 0) {
 			return;
 		}
-		if (player.isDead || player.playerLevel[3] <= 0) {
+		if (player.isDead || player.playerLevel[GameConstants.HITPOINTS] <= 0) {
 			return;
 		}
 
@@ -1816,10 +1832,10 @@ public class PlayerAssistant {
 			player.getItemAssistant().clearBank();
 			player.getPlayerAssistant().addStarter();
 			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
-			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source and pull requests are welcome!");
 			player.getPacketSender().sendMessage("Source code: github.com/2006-Scape/2006Scape");
-			player.getPacketSender().sendMessage("Discord: discord.gg/4zrA2Wy");
+			player.getPacketSender().sendMessage("Discord: https://discord.gg/hZ6VfWG");
 			player.getDialogueHandler().sendDialogues(3115, 2224);
 			player.isRunning2 = false;
 			player.autoRet = 1;
@@ -1970,8 +1986,10 @@ public class PlayerAssistant {
 		player.getPacketSender().sendString("" + player.playerXP[skill] + "", data.get().getFrame6());
 		player.getPacketSender().sendString("" + getXPForLevel(getLevelForXP(player.playerXP[skill]) + 1) + "", data.get().getFrame7());
 		if (skill == 5) {
-			player.getPacketSender().sendString("" + player.playerLevel[5] + "/" + getLevelForXP(player.playerXP[5]) + "", 687);// Prayer
+			player.getPacketSender().sendString("" + player.playerLevel[GameConstants.PRAYER] + "/" + getLevelForXP(player.playerXP[GameConstants.PRAYER]) + "", 687);// Prayer
 		}
+		// Update skill data
+		player.getPacketSender().setSkillLevel(skill, player.playerLevel[skill], player.playerXP[skill]);
 	}
 
 	public int getXPForLevel(int level) {
@@ -2014,7 +2032,11 @@ public class PlayerAssistant {
 		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && GameConstants.TUTORIAL_ISLAND) {
 			return false;
 		}
-		amount *= GameConstants.XP_RATE;
+		if (GameConstants.VARIABLE_XP_RATE){
+			amount *= player.getXPRate();
+		} else {
+			amount *= GameConstants.XP_RATE;
+		}
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
 		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
@@ -2283,8 +2305,25 @@ public class PlayerAssistant {
 	 */
 	public void sendCameraCutscene(int x, int y, int height, int speed, int angle) {
 		player.getOutStream().createFrame(177);
-		player.getOutStream().writeByte(x / 64); //
-		player.getOutStream().writeByte(y / 64); //
+		player.getOutStream().writeByte(x); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeByte(y); // divided by 64 apparently allows real world coords
+		player.getOutStream().writeWord(height); //
+		player.getOutStream().writeByte(speed); //
+		player.getOutStream().writeByte(angle);
+	}
+
+	/**
+	 * anchors the camera to a specific view (for cutscenes)
+	 * @param x  The X Coordinate (Within the player's loaded area)
+	 * @param y The Y Coordinate (Within the player's loaded area)
+	 * @param height The Height of Camera (not relative to the game world height)
+	 * @param speed The Camera Speed (Speed at which the camera turns to where it should point?)
+	 * @param angle The Camera Angle
+	 */
+	public void sendCameraCutscene2(int x, int y, int height, int speed, int angle) {
+		player.getOutStream().createFrame(166);
+		player.getOutStream().writeByte(x); //
+		player.getOutStream().writeByte(y); //
 		player.getOutStream().writeWord(height); //
 		player.getOutStream().writeByte(speed); //
 		player.getOutStream().writeByte(angle);

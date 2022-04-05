@@ -1,0 +1,23 @@
+{
+  "server_name": "2006Scape",
+  "website_link": "https://2006Scape.org",
+  "server_debug": false,
+  "file_server": true,
+  "world_id": 1,
+  "xp_rate": 1.0,
+  "variable_xp_rate": false,
+  "variable_xp_rates": [1, 2, 5, 10],
+  "members_only": false,
+  "tutorial_island_enabled": false,
+  "party_room_enabled": true,
+  "clues_enabled": true,
+  "admin_can_trade": false,
+  "admin_can_sell": false,
+  "respawn_x": 3222,
+  "respawn_y": 3218,
+  "save_timer": 120,
+  "timeout": 60,
+  "item_requirements": true,
+  "max_players": 200,
+  "website_integration": false
+}

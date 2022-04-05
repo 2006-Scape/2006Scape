@@ -1,0 +1,23 @@
+
+version: "3"
+services:
+  rsps-2006scape-build:
+    image: maven:3.8.2-jdk-8
+    container_name: rsps-2006scape-build
+    command: ["mvn", "-B",  "clean", "install"]
+    volumes:
+      - ./:/usr/src/2006scape
+    working_dir: /usr/src/2006scape
+    restart: "no"
+
+  rsps-2006scape-server:
+    image: openjdk:8-alpine
+    container_name: rsps-2006scape-server
+    command: ["java", "-jar", "target/server-1.0-jar-with-dependencies.jar", "-c", "ServerConfig.json"]
+    volumes:
+      - ./2006Scape Server:/usr/src/server
+    working_dir: /usr/src/server
+    ports: # You will need to open other ports if your world ID is not 1 (43598 for world 2)
+      - 43594:43594 # Server
+      - 43595-43596:43595-43596 # File Server
+    restart: unless-stopped

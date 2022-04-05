@@ -1,5 +1,6 @@
 package com.rs2.game.content.combat.magic;
 
+import com.rs2.GameConstants;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -9,23 +10,23 @@ public class MagicRequirements {
 	public static boolean wearingStaff(Player player, int runeId) {
 		int wep = player.playerEquipment[player.playerWeapon];
 		switch (runeId) {
-		case 554:
-			if (wep == 1387 || wep == 1393 || wep == 3053) {
+		case 554: // Fire runes
+			if (wep == 1387 || wep == 1393 || wep == 1401 || wep == 3053 || wep == 3054) {
 				return true;
 			}
 			break;
-		case 555:
-			if (wep == 1383 || wep == 1395 || wep == 6562) {
+		case 555: // Water runes
+			if (wep == 1383 || wep == 1395 || wep == 1403 || wep == 6562 || wep == 6563) {
 				return true;
 			}
 			break;
-		case 556:
-			if (wep == 1381 || wep == 1397) {
+		case 556: // Air runes
+			if (wep == 1381 || wep == 1397 || wep == 1405) {
 				return true;
 			}
 			break;
-		case 557:
-			if (wep == 1385 || wep == 1399 || wep == 3053 || wep == 6562) {
+		case 557: // Earth runes
+			if (wep == 1385 || wep == 1399 || wep == 3053 || wep == 3054 || wep == 6562 || wep == 6563) {
 				return true;
 			}
 			break;
@@ -34,31 +35,24 @@ public class MagicRequirements {
 	}
 
 	public static boolean checkMagicReqs(Player c, int spell) {
-		if (c.usingMagic && MagicTeleports.RUNES_REQUIRED) { // check for runes
-			if (!c.getItemAssistant().playerHasItem(
-					MagicData.MAGIC_SPELLS[spell][8],
-					MagicData.MAGIC_SPELLS[spell][9])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][8])
-					|| !c.getItemAssistant().playerHasItem(
-							MagicData.MAGIC_SPELLS[spell][10],
-							MagicData.MAGIC_SPELLS[spell][11])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][10])
-					|| !c.getItemAssistant().playerHasItem(
-							MagicData.MAGIC_SPELLS[spell][12],
-							MagicData.MAGIC_SPELLS[spell][13])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][12])
-					|| !c.getItemAssistant().playerHasItem(
-							MagicData.MAGIC_SPELLS[spell][14],
-							MagicData.MAGIC_SPELLS[spell][15])
-					&& !wearingStaff(c, MagicData.MAGIC_SPELLS[spell][14])) {
-				c.getPacketSender()
-						.sendMessage(
-								"You don't have the required runes to cast this spell.");
+		return checkMagicReqs(c, spell, true);
+	}
+
+	public static boolean checkMagicReqs(Player c, int spell, boolean runesRequired) {
+		int[] spellData = MagicData.MAGIC_SPELLS[spell];
+		if (runesRequired) { // check for runes
+			if (
+				!c.getItemAssistant().playerHasItem(spellData[8], spellData[9]) && !wearingStaff(c, spellData[8])
+				|| !c.getItemAssistant().playerHasItem(spellData[10], spellData[11]) && !wearingStaff(c, spellData[10])
+				|| !c.getItemAssistant().playerHasItem(spellData[12], spellData[13]) && !wearingStaff(c, spellData[12])
+				|| !c.getItemAssistant().playerHasItem(spellData[14], spellData[15]) && !wearingStaff(c, spellData[14])
+			) {
+				c.getPacketSender().sendMessage("You don't have the required runes to cast this spell.");
 				return false;
 			}
 		}
 
-		if (c.usingMagic && c.playerIndex > 0) {
+		if (c.playerIndex > 0) {
 			if (PlayerHandler.players[c.playerIndex] != null) {
 				for (int r = 0; r < c.REDUCE_SPELLS.length; r++) { // reducing
 																	// spells,
@@ -87,7 +81,7 @@ public class MagicRequirements {
 		}
 
 		int staffRequired = getStaffNeeded(c);
-		if (c.usingMagic && staffRequired > 0 && MagicTeleports.RUNES_REQUIRED) { // staff
+		if (staffRequired > 0 && runesRequired) { // staff
 																			// required
 			if (c.playerEquipment[c.playerWeapon] != staffRequired) {
 				c.getPacketSender()
@@ -100,16 +94,15 @@ public class MagicRequirements {
 			}
 		}
 
-		if (c.usingMagic && MagicTeleports.MAGIC_LEVEL_REQUIRED) { // check magic level
-			if (c.playerLevel[6] < MagicData.MAGIC_SPELLS[spell][1]) {
-				c.getPacketSender().sendMessage(
-						"You need to have a magic level of "
-								+ MagicData.MAGIC_SPELLS[spell][1]
-								+ " to cast this spell.");
-				return false;
-			}
+		// check magic level
+		if (c.playerLevel[GameConstants.MAGIC] < MagicData.MAGIC_SPELLS[spell][1]) {
+			c.getPacketSender().sendMessage(
+					"You need to have a magic level of "
+							+ MagicData.MAGIC_SPELLS[spell][1]
+							+ " to cast this spell.");
+			return false;
 		}
-		if (c.usingMagic && MagicTeleports.RUNES_REQUIRED) {
+		if (runesRequired) {
 			if (MagicData.MAGIC_SPELLS[spell][8] > 0) { // deleting runes
 				if (!wearingStaff(c, MagicData.MAGIC_SPELLS[spell][8])) {
 					c.getItemAssistant().deleteItem(

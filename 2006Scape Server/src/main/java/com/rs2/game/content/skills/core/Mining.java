@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.core;
 
+import com.rs2.GameConstants;
 import com.rs2.event.*;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.objects.Object;
@@ -175,7 +176,7 @@ public class Mining {
 		CycleEventHandler.getSingleton().stopEvents(player, "miningEvent".hashCode());
 		if (player.isMining || player.miningRock) 
 			return;
-		int miningLevel = player.playerLevel[player.playerMining];
+		int miningLevel = player.playerLevel[GameConstants.MINING];
 		rockData rock = rockData.getRock(objectID);
 		player.miningAxe = -1;
 		player.turnPlayerTo(objectX, objectY);
@@ -230,7 +231,7 @@ public class Mining {
 				if (player.isMining) {
 					if (!giveGem(player)) {
 						player.getItemAssistant().addItem(oreID, 1);
-						player.getPlayerAssistant().addSkillXP(rock.getXp(), player.playerMining);
+						player.getPlayerAssistant().addSkillXP(rock.getXp(), GameConstants.MINING);
 						player.getPacketSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(oreID).toLowerCase() + ".");
 					} else {
 						obtainGem(player);

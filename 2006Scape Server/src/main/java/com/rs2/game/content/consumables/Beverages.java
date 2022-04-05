@@ -1,5 +1,6 @@
 package com.rs2.game.content.consumables;
 
+import com.rs2.GameConstants;
 import com.rs2.event.*;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -128,50 +129,50 @@ public class Beverages {
 		switch (id) {
 		case 1917:
 		case 7740://beer
-			double beerEffectStrength = c.getLevelForXP(c.playerXP[2]) * .04 + c.getLevelForXP(c.playerXP[2]);
-			double beerEffectAttack = c.getLevelForXP(c.playerXP[0]) * .07;
-			if (c.playerLevel[2] < beerEffectStrength) {
-				c.playerLevel[2] = (int) beerEffectStrength;
+			double beerEffectStrength = c.getLevelForXP(c.playerXP[GameConstants.STRENGTH]) * .04 + c.getLevelForXP(c.playerXP[GameConstants.STRENGTH]);
+			double beerEffectAttack = c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * .07;
+			if (c.playerLevel[GameConstants.STRENGTH] < beerEffectStrength) {
+				c.playerLevel[GameConstants.STRENGTH] = (int) beerEffectStrength;
 			}
-			if (c.playerLevel[0] > 0) {
-				c.playerLevel[0] -= beerEffectAttack;
+			if (c.playerLevel[GameConstants.ATTACK] > 0) {
+				c.playerLevel[GameConstants.ATTACK] -= beerEffectAttack;
 			}
-			if (c.playerLevel[0] <= 0) {
-				c.playerLevel[0] = 1;
+			if (c.playerLevel[GameConstants.ATTACK] <= 0) {
+				c.playerLevel[GameConstants.ATTACK] = 1;
 			}
 			c.getPlayerAssistant().refreshSkill(0);
-			c.getPlayerAssistant().refreshSkill(2);
+			c.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
 			break;
 		case 1913: //dwarven stout
-			c.playerLevel[c.playerMining] = c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerMining]) + 1;
-			c.playerLevel[c.playerSmithing] = c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerSmithing]) + 1;
-			c.getPlayerAssistant().refreshSkill(c.playerMining);
-			c.getPlayerAssistant().refreshSkill(c.playerSmithing);
+			c.playerLevel[GameConstants.MINING] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.MINING]) + 1;
+			c.playerLevel[GameConstants.SMITHING] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.SMITHING]) + 1;
+			c.getPlayerAssistant().refreshSkill(GameConstants.MINING);
+			c.getPlayerAssistant().refreshSkill(GameConstants.SMITHING);
 		break;
 		case 1907://wizard's mind bomb
-			if (c.playerLevel[c.playerMagic] < 50) {
-				c.playerLevel[c.playerMagic] = c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerMagic]) + 2;
+			if (c.playerLevel[GameConstants.MAGIC] < 50) {
+				c.playerLevel[GameConstants.MAGIC] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.MAGIC]) + 2;
 			} else {
-				c.playerLevel[c.playerMagic] = c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerMagic]) + 3;
+				c.playerLevel[GameConstants.MAGIC] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.MAGIC]) + 3;
 			}
-			c.playerLevel[c.playerStrength] = c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerStrength]) - 3;
-			c.playerLevel[c.playerDefence] = c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerDefence]) - 3;
-			c.playerLevel[c.playerAttack] = c.getPlayerAssistant().getLevelForXP(c.playerXP[c.playerAttack]) - 4;
-			c.getPlayerAssistant().refreshSkill(c.playerDefence);
-			c.getPlayerAssistant().refreshSkill(c.playerMagic);
-			c.getPlayerAssistant().refreshSkill(c.playerAttack);
-			c.getPlayerAssistant().refreshSkill(c.playerStrength);
+			c.playerLevel[GameConstants.STRENGTH] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.STRENGTH]) - 3;
+			c.playerLevel[GameConstants.DEFENCE] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) - 3;
+			c.playerLevel[GameConstants.ATTACK] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.ATTACK]) - 4;
+			c.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
+			c.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+			c.getPlayerAssistant().refreshSkill(GameConstants.ATTACK);
+			c.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
 		break;
 		case 1915://grog
-			c.playerLevel[2] = c.getPlayerAssistant().getLevelForXP(c.playerXP[2]) + 3;
-			if (c.playerLevel[0] > 0) {
-				c.playerLevel[0] = c.getPlayerAssistant().getLevelForXP(c.playerXP[0]) - 2;
+			c.playerLevel[GameConstants.STRENGTH] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.STRENGTH]) + 3;
+			if (c.playerLevel[GameConstants.ATTACK] > 0) {
+				c.playerLevel[GameConstants.ATTACK] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.ATTACK]) - 2;
 			}
-			if (c.playerLevel[0] <= 0) {
-				c.playerLevel[0] = 1;
+			if (c.playerLevel[GameConstants.ATTACK] <= 0) {
+				c.playerLevel[GameConstants.ATTACK] = 1;
 			}
 			c.getPlayerAssistant().refreshSkill(0);
-			c.getPlayerAssistant().refreshSkill(2);
+			c.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
 			break;
 		}
 	}

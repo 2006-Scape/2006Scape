@@ -9,12 +9,11 @@ import java.util.Map;
 import java.util.Queue;
 
 import com.everythingrs.hiscores.Hiscores;
+import com.rs2.event.*;
+import com.rs2.plugin.PluginService;
 import org.apache.mina.common.IoSession;
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
-import com.rs2.event.CycleEvent;
-import com.rs2.event.CycleEventContainer;
-import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.BankPin;
 import com.rs2.game.content.EmoteHandler;
 import com.rs2.game.content.combat.CombatAssistant;
@@ -32,6 +31,7 @@ import com.rs2.game.content.minigames.Dueling;
 import com.rs2.game.content.minigames.FightPits;
 import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
+import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.music.PlayList;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.SkillInterfaces;
@@ -98,7 +98,9 @@ public abstract class Player {
 	
 	public byte buffer[] = null;
 	public String lastConnectedFrom;
-	private Compost compost = new Compost(this);
+    public static int xpRate = 1;
+    public String discordCode;
+    private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
 	private Flowers flower = new Flowers(this);
 	private Herbs herb = new Herbs(this);
@@ -114,6 +116,7 @@ public abstract class Player {
     public IoSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
+	private final MageTrainingArena mageArena = new MageTrainingArena(this);
 	private final Trading trading = new Trading(this);
 	private final Dueling duel = new Dueling(this);
 	private final PlayerAssistant playerAssistant = new PlayerAssistant(this);
@@ -164,7 +167,15 @@ public abstract class Player {
 	private SingleGates singleGates = new SingleGates();
 	private DoubleGates doubleGates = new DoubleGates();
 	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
-	
+
+	public int getXPRate() { return xpRate; }
+
+	public void setXPRate(int xpRate) { this.xpRate = xpRate; }
+
+	public String getDiscordCode() { return discordCode; }
+
+	public void setDiscordCode(String code) { this.discordCode = code; }
+
 	public boolean isPreaching() {
 		return preaching;
 	}
@@ -172,9 +183,9 @@ public abstract class Player {
 	public void setPreaching(boolean preaching) {
 		this.preaching = preaching;
 	}
-	
+
 	public boolean preaching;
-	
+
 	public Compost getCompost() {
 		return compost;
 	}
@@ -222,12 +233,12 @@ public abstract class Player {
 	public ToolLeprechaun getFarmingTools() {
 		return toolLeprechaun;
 	}
-	
+
 
 	public LogCuttingInterface getFletching() {
 		return fletching;
 	}
-	
+
 	public SingleGates getSingleGates() {
 		return singleGates;
 	}
@@ -400,6 +411,10 @@ public abstract class Player {
 		return shopAssistant;
 	}
 
+	public MageTrainingArena getMageTrainingArena() {
+		return mageArena;
+	}
+
 	public Trading getTrading() {
 		return trading;
 	}
@@ -439,13 +454,13 @@ public abstract class Player {
 	public Inventory getInventory() {
 		return inventory;
 	}
-	
+
 	private Inventory inventory = new Inventory(this);
-	
-	
+
+
 	private int tempInteger;
 	public boolean tempBoolean;
-	
+
 	public void setTempInteger(int tempInteger) {
 		this.tempInteger = tempInteger;
 	}
@@ -455,17 +470,17 @@ public abstract class Player {
 	}
 
 	public int totalShopItems;
-	
+
 	public boolean stopPlayer(boolean stop) {
 		return (stop ? stopPlayerPacket == true : stopPlayerPacket == false);
 	}
-	
+
 	public long objectDelay;
-	
+
 	public long getObjectDelay() {
 		return (objectDelay);
 	}
-	
+
 	public long setObjectDelay(long delay) {
 		return (objectDelay = delay);
 	}
@@ -736,6 +751,68 @@ public abstract class Player {
 		}
 	}
 
+	/**
+	 * This worlds event provider.
+	 */
+	private static final UniversalEventProvider eventProvider = new UniversalEventProvider();
+
+	/**
+	 * The service for plugins.
+	 */
+	private static final PluginService pluginService = new PluginService();
+
+	/**
+	 * Posts an event to this worlds event provider.
+	 *
+	 * @param player
+	 *            The player to post the event for.
+	 * @param event
+	 *            The event to post.
+	 */
+	public <E extends Event> void post(Player player, E event) {
+		eventProvider.post(player, event);
+	}
+
+	/**
+	 * Posts an event to this world's event provider.
+	 *
+	 * @param event
+	 *            The event to post.
+	 */
+	public <E extends Event> void post(E event) {
+		post(this, event);
+	}
+
+	/**
+	 * Provides an event subscriber to this worlds event provider.
+	 *
+	 * @param subscriber
+	 *            The event subscriber.
+	 */
+	public static <E extends Event> void provideSubscriber(EventSubscriber<E> subscriber) {
+		eventProvider.provideSubscriber(subscriber);
+	}
+
+	/**
+	 * Deprives an event subscriber to this worlds event provider.
+	 *
+	 * @param subscriber
+	 *            The event subscriber.
+	 */
+	public <E extends Event> void depriveSubscriber(EventSubscriber<E> subscriber) {
+		eventProvider.depriveSubscriber(subscriber);
+	}
+
+	/**
+	 * Gets the service for plugins.
+	 */
+	public static PluginService getPluginService() {
+		return pluginService;
+	}
+
+	public UniversalEventProvider getSubscribers() {
+		return eventProvider;
+	}
 
 	public int packetSize = 0, packetType = -1;
 	public boolean wildernessWarning;
@@ -814,6 +891,14 @@ public abstract class Player {
 			isSnowy = false;
 		} else if (inCw() || inPits) {
 			getPacketSender().showOption(3, 0, "Attack", 1);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ALCHEMY)) {
+			getPacketSender().walkableInterface(15892);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
+			getPacketSender().walkableInterface(15917);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_TELEKINETIC)) {
+			getPacketSender().walkableInterface(15962);
+		} else if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+			getPacketSender().walkableInterface(15931);
 		} else {
 			getPacketSender().sendMapState(0);
 			if (!isSnowy) {
@@ -864,6 +949,7 @@ public abstract class Player {
 			lastIncrease = System.currentTimeMillis();
 		}
 		if (playerEnergy <= 0 && isRunning2) {
+			isRunning = false;
 			isRunning2 = false;
 			getPacketSender().sendConfig(504, 0);
 			getPacketSender().sendConfig(173, 0);
@@ -905,20 +991,20 @@ public abstract class Player {
 		if (System.currentTimeMillis() - singleCombatDelay2 > 3300) {
 			underAttackBy2 = 0;
 		}
-		
+
 		if (System.currentTimeMillis() - restoreStatsDelay > 60000) {
 			restoreStatsDelay = System.currentTimeMillis();
-			for (int level = 0; level < playerLevel.length; level++) {
-				if (playerLevel[level] < getLevelForXP(playerXP[level])) {
-					if (level != 5) { // prayer doesn't restore
-						playerLevel[level] += 1;
-						getPacketSender().setSkillLevel(level, playerLevel[level], playerXP[level]);
-						getPlayerAssistant().refreshSkill(level);
+			for (int skill = 0; skill < playerLevel.length; skill++) {
+				if (playerLevel[skill] < getLevelForXP(playerXP[skill])) {
+					if (skill != 5) { // prayer doesn't restore
+						playerLevel[skill] += 1;
+						getPacketSender().setSkillLevel(skill, playerLevel[skill], playerXP[skill]);
+						getPlayerAssistant().refreshSkill(skill);
 					}
-				} else if (playerLevel[level] > getLevelForXP(playerXP[level])) {
-					playerLevel[level] -= 1;
-					getPacketSender().setSkillLevel(level, playerLevel[level], playerXP[level]);
-					getPlayerAssistant().refreshSkill(level);
+				} else if (playerLevel[skill] > getLevelForXP(playerXP[skill])) {
+					playerLevel[skill] -= 1;
+					getPacketSender().setSkillLevel(skill, playerLevel[skill], playerXP[skill]);
+					getPlayerAssistant().refreshSkill(skill);
 				}
 			}
 		}
@@ -1322,20 +1408,20 @@ public abstract class Player {
 			restoreStatsDelay, logoutDelay, buryDelay, foodDelay, potDelay,
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
 			boneDelay, leverDelay = 0, searchObjectDelay = 0, clickDelay = 0;
-	
+
 	public boolean hideYell;
 
 
 	private Npc specialTarget = null;
-	
+
 	public void setSpecialTarget(Npc target) {
 		this.specialTarget = target;
 	}
-	
+
 	public Npc getSpecialTarget() {
 		return specialTarget;
 	}
-		
+
 	public int miningAxe = -1, woodcuttingAxe = -1;
 
 	public boolean initialized, musicOn = true, luthas,
@@ -1619,12 +1705,12 @@ public abstract class Player {
 			4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 2097152,
 			8388608, 16777216, 67108864, 134217728 };
 
-	
+
 	/**
 	 * Combat variables
 	 */
 	public boolean doubleHit, usingSpecial, usingRangeWeapon,
-			usingBow, usingMagic, castingMagic;
+			usingBow, usingMagic, castingMagic, unlockedBonesToPeaches;
 	public int castingSpellId, oldSpellId,
 			spellId, hitDelay;
 	public int specMaxHitIncrease, freezeDelay, freezeTimer = -6, killerId,
@@ -1632,12 +1718,12 @@ public abstract class Player {
 			crystalBowArrowCount, playerMagicBook, teleGfx, teleEndAnimation,
 			teleHeight, teleX, teleY, rangeItemUsed, killingNpcIndex,
 			totalDamageDealt, globalDamageDealt, oldNpcIndex, fightMode, attackTimer,
-			bowSpecShot;
+			bowSpecShot, ectofuntusWorshipped, graveyardPoints, alchemyPoints, enchantmentPoints, telekineticPoints, telekineticMazesSolved;
 	public boolean magicFailed, oldMagicFailed;
 	/**
 	 * End
 	 */
-	
+
 	public int clickNpcType, clickObjectType, objectId, objectX,
 			objectY, npcIndex, npcClickIndex, npcType;
 	public int pItemX, pItemY, pItemId;
@@ -1873,28 +1959,6 @@ public abstract class Player {
 	public int playerRing = 12;
 	public int playerArrows = 13;
 
-	public int playerAttack = 0;
-	public int playerDefence = 1;
-	public int playerStrength = 2;
-	public int playerHitpoints = 3;
-	public int playerRanged = 4;
-	public int playerPrayer = 5;
-	public int playerMagic = 6;
-	public int playerCooking = 7;
-	public int playerWoodcutting = 8;
-	public int playerFletching = 9;
-	public int playerFishing = 10;
-	public int playerFiremaking = 11;
-	public int playerCrafting = 12;
-	public int playerSmithing = 13;
-	public int playerMining = 14;
-	public int playerHerblore = 15;
-	public int playerAgility = 16;
-	public int playerThieving = 17;
-	public int playerSlayer = 18;
-	public int playerFarming = 19;
-	public int playerRunecrafting = 20;
-
 	public int[] playerEquipment = new int[14];
 	public int[] playerEquipmentN = new int[14];
 	public int[] playerLevel = new int[25];
@@ -2076,11 +2140,11 @@ public abstract class Player {
 		walkingQueueY[wQueueWritePtr] = y;
 		wQueueWritePtr = next;
 	}
-	
+
 	public boolean checkRangeDistance() {
 		return (usingRangeWeapon || usingBow);
 	}
-	
+
 	public int gatherRangeDistance(int distance) {
 		//dart (non long range)
 		if (usingRangeWeapon && RangeData.usingDart(this) && fightMode != 3) {
@@ -2094,7 +2158,7 @@ public abstract class Player {
 		//dart, knife, throwing axe (long range)
 		} else if (usingRangeWeapon && fightMode == 3) {
 			distance = RangeData.usingDart(this) ? 5 : 6;
-		//short bow 
+		//short bow
 		} else if (usingBow && !RangeData.usingLongbow(this)) {
 			distance = fightMode == 3 ? 7 : 9;
 		}
@@ -2105,6 +2169,11 @@ public abstract class Player {
 		if (checkRangeDistance()) {
 			distance = gatherRangeDistance(distance);
 		}
+
+		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
+	}
+
+	public boolean goodObjectDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
 		return ((objectX-playerX <= distance && objectX-playerX >= -distance) && (objectY-playerY <= distance && objectY-playerY >= -distance));
 	}
 
@@ -2162,13 +2231,29 @@ public abstract class Player {
 				mapRegionX = (teleportToX >> 3) - 6;
 				mapRegionY = (teleportToY >> 3) - 6;
 			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ALCHEMY) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ALCHEMY)) {
+				// remove any alchemy training items
+				getMageTrainingArena().alchemy.clearItems();
+			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_ENCHANTING) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_ENCHANTING)) {
+				// remove any enchanting training items
+				getMageTrainingArena().enchanting.clearItems();
+			}
+			if (Boundary.isIn(this, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD) && !Boundary.isIn(teleportToX, teleportToY, teleHeight, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+				// remove any enchanting training items
+				getMageTrainingArena().graveyard.clearItems();
+			}
 			currentX = teleportToX - 8 * mapRegionX;
 			currentY = teleportToY - 8 * mapRegionY;
 			absX = teleportToX;
 			absY = teleportToY;
+			int newHeight = teleHeight >= 0 ? teleHeight : heightLevel >= 0 ? heightLevel : 0;
+			if (heightLevel != newHeight)
+				GameEngine.itemHandler.reloadItems(this);
+			heightLevel = newHeight;
 			resetWalkingQueue();
 
-			teleportToX = teleportToY = -1;
+			teleportToX = teleportToY = teleHeight = -1;
 			didTeleport = true;
 			updateWalkEntities();
 		} else {
@@ -2432,74 +2517,74 @@ public abstract class Player {
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.CAPE] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.CAPE]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.AMULET] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.AMULET]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.WEAPON] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.WEAPON]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.CHEST] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.CHEST]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[2]);
 			}
-	
+
 			if (playerEquipment[ItemConstants.SHIELD] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.SHIELD]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (!ItemData.isFullBody(playerEquipment[ItemConstants.CHEST])) {
 				playerProps.writeWord(0x100 + playerAppearance[3]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.LEGS] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.LEGS]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[5]);
 			}
-	
+
 			if (!ItemData.isFullHelm(playerEquipment[ItemConstants.HAT])
 					&& !ItemData.isFullMask(playerEquipment[ItemConstants.HAT])) {
 				playerProps.writeWord(0x100 + playerAppearance[1]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 			if (playerEquipment[ItemConstants.HANDS] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.HANDS]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[4]);
 			}
-	
+
 			if (playerEquipment[ItemConstants.FEET] > 1) {
 				playerProps.writeWord(0x200 + playerEquipment[ItemConstants.FEET]);
 			} else {
 				playerProps.writeWord(0x100 + playerAppearance[6]);
 			}
-	
+
 			if (playerAppearance[0] != 1 && !ItemData.isFullMask(playerEquipment[ItemConstants.HAT])) {
 				playerProps.writeWord(0x100 + playerAppearance[7]);
 			} else {
 				playerProps.writeByte(0);
 			}
-	
+
 	    } else {//send npc data
 	          playerProps.writeWord(-1);//Tells client that were being a npc
 	          playerProps.writeWord(npcId2);//send NpcID
@@ -2526,13 +2611,17 @@ public abstract class Player {
 	}
 
 	public int calculateCombatLevel() {
-		int j = getLevelForXP(playerXP[playerAttack]);
-		int k = getLevelForXP(playerXP[playerDefence]);
-		int l = getLevelForXP(playerXP[playerStrength]);
-		int i1 = getLevelForXP(playerXP[playerHitpoints]);
-		int j1 = getLevelForXP(playerXP[playerPrayer]);
-		int k1 = getLevelForXP(playerXP[playerRanged]);
-		int l1 = getLevelForXP(playerXP[playerMagic]);
+		// Show the bots as level 0 combat
+		if (isBot) {
+			return 0;
+		}
+		int j = getLevelForXP(playerXP[GameConstants.ATTACK]);
+		int k = getLevelForXP(playerXP[GameConstants.DEFENCE]);
+		int l = getLevelForXP(playerXP[GameConstants.STRENGTH]);
+		int i1 = getLevelForXP(playerXP[GameConstants.HITPOINTS]);
+		int j1 = getLevelForXP(playerXP[GameConstants.PRAYER]);
+		int k1 = getLevelForXP(playerXP[GameConstants.RANGED]);
+		int l1 = getLevelForXP(playerXP[GameConstants.MAGIC]);
 		int combatLevel = (int) ((k + i1 + Math.floor(j1 / 2)) * 0.25D) + 1;
 		double d = (j + l) * 0.32500000000000001D;
 		double d1 = Math.floor(k1 * 1.5D) * 0.32500000000000001D;
@@ -2698,12 +2787,12 @@ public abstract class Player {
 		} else {
 			str.writeByteA(0); // 0: red hitting - 1: blue hitting
 		}
-		if (playerLevel[3] <= 0) {
-			playerLevel[3] = 0;
+		if (playerLevel[GameConstants.HITPOINTS] <= 0) {
+			playerLevel[GameConstants.HITPOINTS] = 0;
 			isDead = true;
 		}
-		str.writeByteC(playerLevel[3]); // Their current hp, for HP bar
-		str.writeByte(getLevelForXP(playerXP[3]));
+		str.writeByteC(playerLevel[GameConstants.HITPOINTS]); // Their current hp, for HP bar
+		str.writeByte(getLevelForXP(playerXP[GameConstants.HITPOINTS]));
 	}
 
 	protected void appendHitUpdate2(Stream str) {
@@ -2716,12 +2805,12 @@ public abstract class Player {
 		} else {
 			str.writeByteS(0); // 0: red hitting - 1: blue hitting
 		}
-		if (playerLevel[3] <= 0) {
-			playerLevel[3] = 0;
+		if (playerLevel[GameConstants.HITPOINTS] <= 0) {
+			playerLevel[GameConstants.HITPOINTS] = 0;
 			isDead = true;
 		}
-		str.writeByte(playerLevel[3]); // Their current hp, for HP bar
-		str.writeByteC(getLevelForXP(playerXP[3])); // Their max hp, for HP
+		str.writeByte(playerLevel[GameConstants.HITPOINTS]); // Their current hp, for HP bar
+		str.writeByteC(getLevelForXP(playerXP[GameConstants.HITPOINTS])); // Their max hp, for HP
 	}
 
 	public void appendPlayerUpdateBlock(Stream str) {
@@ -3101,9 +3190,9 @@ public abstract class Player {
 
 	public void dealDamage(int damage) {
 		if (teleTimer <= 0) {
-			playerLevel[3] -= damage;
-			int difference = playerLevel[3] - damage;
-			if (difference <= getLevelForXP(playerXP[3]) / 10 && difference > 0)
+			playerLevel[GameConstants.HITPOINTS] -= damage;
+			int difference = playerLevel[GameConstants.HITPOINTS] - damage;
+			if (difference <= getLevelForXP(playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0)
 				appendRedemption();
 				getPlayerAssistant().handleROL();
 		} else {
@@ -3114,20 +3203,21 @@ public abstract class Player {
 				hitUpdateRequired2 = false;
 			}
 		}
+		getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 	}
 
 	public void appendRedemption() {
 		Client c = (Client) PlayerHandler.players[playerId];
 		if (c.getPrayer().prayerActive[22]) {
-			int added = c.playerLevel[3] += (int)(c.getLevelForXP(c.playerXP[5]) * .25);
-			if (added > c.getLevelForXP(c.playerXP[3])) {
-				c.playerLevel[3] = c.getLevelForXP(c.playerXP[3]);
+			int added = c.playerLevel[GameConstants.HITPOINTS] += (int)(c.getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
+			if (added > c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
+				c.playerLevel[GameConstants.HITPOINTS] = c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS]);
 			} else {
-				c.playerLevel[3] += (int)(getLevelForXP(c.playerXP[5]) * .25);
+				c.playerLevel[GameConstants.HITPOINTS] += (int)(getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
 			}
-			c.playerLevel[5] = 0;
-			c.getPlayerAssistant().refreshSkill(3);
-			c.getPlayerAssistant().refreshSkill(5);
+			c.playerLevel[GameConstants.PRAYER] = 0;
+			c.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			c.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
 			c.gfx0(436);
 			PrayerDrain.resetPrayers(c);
 		}

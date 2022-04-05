@@ -103,9 +103,13 @@ public class ItemAssistant {
 	}
 
 	public void replaceItem(int itemToReplace, int replaceWith) {
-		if(playerHasItem(itemToReplace)) {
-			deleteItem(itemToReplace, 1);
-			addItem(replaceWith, 1);
+		replaceItem(itemToReplace, replaceWith, 1);
+	}
+
+	public void replaceItem(int itemToReplace, int replaceWith, int amount) {
+		if(playerHasItem(itemToReplace, amount)) {
+			deleteItem(itemToReplace, amount);
+			addItem(replaceWith, amount);
 		}
 	}
 
@@ -1099,39 +1103,39 @@ public class ItemAssistant {
 		switch (weapon) {
 
 			case 4151: // whip
-				player.getPacketSender().sendFrame171(0, 12323);
+				player.getPacketSender().sendHideInterfaceLayer(12323, false);
 				specialAmount(weapon, player.specAmount, 12335);
 				break;
 
 			case 859: // magic bows
 			case 861:
 			case 11235:
-				player.getPacketSender().sendFrame171(0, 7549);
+				player.getPacketSender().sendHideInterfaceLayer(7549, false);
 				specialAmount(weapon, player.specAmount, 7561);
 				break;
 
 			case 4587: // dscimmy
-				player.getPacketSender().sendFrame171(0, 7599);
+				player.getPacketSender().sendHideInterfaceLayer(7599, false);
 				specialAmount(weapon, player.specAmount, 7611);
 				break;
 
 			case 3204: // d hally
-				player.getPacketSender().sendFrame171(0, 8493);
+				player.getPacketSender().sendHideInterfaceLayer(8493, false);
 				specialAmount(weapon, player.specAmount, 8505);
 				break;
 
 			case 1377: // d battleaxe
-				player.getPacketSender().sendFrame171(0, 7499);
+				player.getPacketSender().sendHideInterfaceLayer(7499, false);
 				specialAmount(weapon, player.specAmount, 7511);
 				break;
 
 			case 4153: // gmaul
-				player.getPacketSender().sendFrame171(0, 7474);
+				player.getPacketSender().sendHideInterfaceLayer(7474, false);
 				specialAmount(weapon, player.specAmount, 7486);
 				break;
 
 			case 1249: // dspear
-				player.getPacketSender().sendFrame171(0, 7674);
+				player.getPacketSender().sendHideInterfaceLayer(7674, false);
 				specialAmount(weapon, player.specAmount, 7686);
 				break;
 
@@ -1145,29 +1149,29 @@ public class ItemAssistant {
 			case 11700:
 			case 11730:
 			case 11696:
-				player.getPacketSender().sendFrame171(0, 7574);
+				player.getPacketSender().sendHideInterfaceLayer(7574, false);
 				specialAmount(weapon, player.specAmount, 7586);
 				break;
 
 			case 1434: // dragon mace
-				player.getPacketSender().sendFrame171(0, 7624);
+				player.getPacketSender().sendHideInterfaceLayer(7624, false);
 				specialAmount(weapon, player.specAmount, 7636);
 				break;
 
 			default:
-				player.getPacketSender().sendFrame171(1, 7624); // mace
+				player.getPacketSender().sendHideInterfaceLayer(7624, true); // mace
 				// interface
-				player.getPacketSender().sendFrame171(1, 7474); // hammer, gmaul
-				player.getPacketSender().sendFrame171(1, 7499); // axe
-				player.getPacketSender().sendFrame171(1, 7549); // bow interface
-				player.getPacketSender().sendFrame171(1, 7574); // sword
+				player.getPacketSender().sendHideInterfaceLayer(7474, true); // hammer, gmaul
+				player.getPacketSender().sendHideInterfaceLayer(7499, true); // axe
+				player.getPacketSender().sendHideInterfaceLayer(7549, true); // bow interface
+				player.getPacketSender().sendHideInterfaceLayer(7574, true); // sword
 				// interface
-				player.getPacketSender().sendFrame171(1, 7599); // scimmy sword
+				player.getPacketSender().sendHideInterfaceLayer(7599, true); // scimmy sword
 				// interface,
 				// for most
 				// swords
-				player.getPacketSender().sendFrame171(1, 8493);
-				player.getPacketSender().sendFrame171(1, 12323); // whip
+				player.getPacketSender().sendHideInterfaceLayer(8493, true);
+				player.getPacketSender().sendHideInterfaceLayer(12323, true); // whip
 				// interface
 				break;
 		}
@@ -1240,6 +1244,9 @@ public class ItemAssistant {
 	public boolean wearItem(int wearID, int slot) {
 		// Check the player has the item the want to wear
 		if (!playerHasItem(wearID, 1, slot)) {
+			return false;
+		}
+		if (slot < 0) {
 			return false;
 		}
 		boolean greegree = Greegree.attemptGreegree(player, wearID);
@@ -1341,32 +1348,32 @@ public class ItemAssistant {
 						|| targetSlot == ItemConstants.HAT
 						|| targetSlot == ItemConstants.HANDS) {
 					if (player.defenceLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[1]) < player.defenceLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.DEFENCE]) < player.defenceLevelReq) {
 							player.getPacketSender().sendMessage("You need a defence level of " + player.defenceLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (player.rangeLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[4]) < player.rangeLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.RANGED]) < player.rangeLevelReq) {
 							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (player.magicLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[6]) < player.magicLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) < player.magicLevelReq) {
 							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 				}
 				if (player.slayerLevelReq > 0) {
-					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[18]) < player.slayerLevelReq) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.SLAYER]) < player.slayerLevelReq) {
 						player.getPacketSender().sendMessage("You need a slayer level of " + player.slayerLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
 				if (player.agilityLevelReq > 0) {
-					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[16]) < player.agilityLevelReq) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.AGILITY]) < player.agilityLevelReq) {
 						player.getPacketSender().sendMessage("You need a agility level of " + player.agilityLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
@@ -1374,19 +1381,19 @@ public class ItemAssistant {
 				// Weapon
 				if (targetSlot == ItemConstants.WEAPON) {
 					if (player.attackLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[0]) < player.attackLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.ATTACK]) < player.attackLevelReq) {
 							player.getPacketSender().sendMessage("You need an attack level of " + player.attackLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (player.rangeLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[4]) < player.rangeLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.RANGED]) < player.rangeLevelReq) {
 							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (player.magicLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[6]) < player.magicLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) < player.magicLevelReq) {
 							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
@@ -1705,6 +1712,7 @@ public class ItemAssistant {
 	}
 
 	public void resetBank() {
+		player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
 		if (player.getOutStream() != null) {
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(5382); // bank
@@ -2474,6 +2482,18 @@ public class ItemAssistant {
 		int freeS = 0;
 		for (int playerItem : player.playerItems) {
 			if (playerItem <= 0) {
+				freeS++;
+			}
+		}
+		return freeS;
+	}
+
+	public int freeSlots(int itemID, int amount) {
+		int freeS = 0;
+		for (int i = 0; i < player.playerItems.length; i ++) {
+			int _id = player.playerItems[i];
+			int _amt = player.playerItemsN[i];
+			if (_id <= 0 || (_id == itemID && isStackable(_id) && _amt + amount <= Integer.MAX_VALUE)) {
 				freeS++;
 			}
 		}

@@ -1,5 +1,6 @@
 package com.rs2.game.content.skills.fletching;
 
+import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -73,7 +74,7 @@ public class Stringing {
 		if (loadData == null) {
 			return false;
 		}
-		if (player.playerLevel[9] < loadData.getLevel()) {
+		if (player.playerLevel[GameConstants.FLETCHING] < loadData.getLevel()) {
 			player.getDialogueHandler().sendStatement("You need a fletching level of " + loadData.getLevel() + " to do this");
 			return false;
 		}

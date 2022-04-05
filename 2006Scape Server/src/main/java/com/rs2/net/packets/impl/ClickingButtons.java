@@ -1,5 +1,7 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.event.impl.ButtonActionEvent;
+import com.rs2.GameConstants;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.Specials;
 import com.rs2.game.content.combat.magic.*;
@@ -34,6 +36,7 @@ import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
+import com.rs2.world.Boundary;
 
 /**
  * Clicking most buttons
@@ -79,6 +82,8 @@ public class ClickingButtons implements PacketType {
 		if (player.isAutoButton(actionButtonId)) {
 			player.assignAutocast(actionButtonId);
 		}
+		player.post(new ButtonActionEvent(actionButtonId));
+
 		switch (actionButtonId) {
 			case 23132:
 				player.getPlayerAssistant().unMorphPlayer();
@@ -120,21 +125,27 @@ public class ClickingButtons implements PacketType {
 
 
 		case 4135:
+			if (System.currentTimeMillis() - player.boneDelay < 2000) {
+				return;
+			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage(
 						"You can't do this in trade!");
 				return;
 			}
-			if (player.playerLevel[6] < 15) {
+			if (player.playerLevel[GameConstants.MAGIC] < 15) {
 				player.getPacketSender().sendString(
 								"You need a magic level of @blu@15 @bla@to cast bones to bananas",
 								357);
 				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+				player.getMageTrainingArena().graveyard.bonesToFood(52);
+				return;
+			}
 			if (!player.getItemAssistant().playerHasItem(526, 1)) {
-				player.getPacketSender().sendMessage(
-						"You don't have any bones!");
+				player.getPacketSender().sendMessage("You don't have any bones!");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(561, 1)
@@ -148,35 +159,44 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().deleteItem(561, 1);
 				player.getItemAssistant().deleteItem(557, 2);
 				player.getItemAssistant().deleteItem(555, 2);
-				player.getPlayerAssistant().addSkillXP(40, 6);
-				player.getPlayerAssistant().refreshSkill(6);
+				player.getPlayerAssistant().addSkillXP(25, 6);
+				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(141);
-				player.getPacketSender().sendFrame106(6);
-				player.getPacketSender().sendSound(
-						SoundList.BONES_TO_BANNAS, 100, 0);
+				player.getPacketSender().sendShowTab(6);
+				player.getPacketSender().sendSound(SoundList.BONES_TO_BANNAS, 100, 0);
 				player.boneDelay = System.currentTimeMillis();
 				do {
-					player.getItemAssistant().deleteItem(526, 1);
-					player.getItemAssistant().addItem(1963, 1);
+					player.getItemAssistant().replaceItem(526, 1963);
 				} while (player.getItemAssistant().playerHasItem(526, 1));
 			}
 			break;
 
 		case 62005:
+			if (System.currentTimeMillis() - player.boneDelay < 2000) {
+				return;
+			}
 			if (player.inTrade) {
 				player.getPacketSender().sendMessage(
 						"You can't do this in trade!");
 				return;
 			}
-			if (player.playerLevel[6] < 60) {
+			if (player.playerLevel[GameConstants.MAGIC] < 60) {
 				player.getPacketSender().sendString("You need a magic level of @blu@60  @blu@ to cast bones to peaches.", 357);
 				player.getPacketSender().sendChatInterface(356);
 				return;
 			}
+			if (!player.unlockedBonesToPeaches) {
+				player.getPacketSender().sendString("You haven't unlocked this spell yet.", 357);
+				player.getPacketSender().sendChatInterface(356);
+				return;
+			}
+			if (Boundary.isIn(player, Boundary.MAGE_TRAINING_ARENA_GRAVEYARD)) {
+				player.getMageTrainingArena().graveyard.bonesToFood(53);
+				return;
+			}
 			if (!player.getItemAssistant().playerHasItem(526, 1)) {
-				player.getPacketSender().sendMessage(
-						"You don't have any bones!");
+				player.getPacketSender().sendMessage("You don't have any bones!");
 				return;
 			}
 			if (!player.getItemAssistant().playerHasItem(561, 2)
@@ -192,15 +212,14 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().deleteItem(561, 2);
 				player.getItemAssistant().deleteItem(557, 4);
 				player.getItemAssistant().deleteItem(555, 4);
-				player.getPlayerAssistant().addSkillXP(40, 6);
-				player.getPlayerAssistant().refreshSkill(6);
+				player.getPlayerAssistant().addSkillXP(35.5, 6);
+				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(311);
-				player.getPacketSender().sendFrame106(6);
+				player.getPacketSender().sendShowTab(6);
 				player.boneDelay = System.currentTimeMillis();
 				do {
-					player.getItemAssistant().deleteItem(526, 1);
-					player.getItemAssistant().addItem(6883, 1);
+					player.getItemAssistant().replaceItem(526, 6883);
 				} while (player.getItemAssistant().playerHasItem(526, 1));
 			}
 			break;
@@ -572,22 +591,6 @@ public class ClickingButtons implements PacketType {
 			player.getPacketSender().closeAllWindows();
 			break;
 		/** End of Hairdresser buttons */
-
-		case 3166:
-		case 3165:
-		case 3164:
-		case 3163:
-				Music.playMusic(player);
-				player.musicOn = true;
-			break;
-
-		case 3162:
-			if (player.musicOn) {
-				player.musicOn = false;
-			} else {
-				player.getPacketSender().sendMessage("Your music is already turned off.");
-			}
-			break;
 
 		case 8198:
 			PartyRoom.accept(player);
@@ -1164,23 +1167,6 @@ public class ClickingButtons implements PacketType {
 			player.usingMagic = false;
 			break;
 
-		case 153:
-			if (player.tutorialProgress == 11) {
-				player.getDialogueHandler().sendDialogues(3041, 0);
-			}
-			player.getPacketSender().sendConfig(173, 1);
-			player.isRunning2 = true;
-			break;
-
-		case 152:
-			player.isRunning2 = false;
-			player.getPacketSender().sendConfig(173, 0);
-			break;
-
-		case 9154:
-			player.logout();
-			break;
-
 		case 21010:
 			if (player.isBanking) {	
 				player.takeAsNote = true;
@@ -1485,17 +1471,6 @@ public class ClickingButtons implements PacketType {
 				player.getPacketSender().sendConfig(170, 0);
 			}
 			break;
-		case 3189:
-			if (player.splitChat == false) {
-				player.getPacketSender().sendConfig(502, 1);
-				player.getPacketSender().sendConfig(287, 1);
-				player.splitChat = true;
-			} else if (player.splitChat) {
-				player.getPacketSender().sendConfig(502, 0);
-				player.getPacketSender().sendConfig(287, 0);
-				player.splitChat = false;
-			}
-			break;
 		case 74180:
 			if (!player.chatEffects) {
 				player.chatEffects = true;
@@ -1528,26 +1503,6 @@ public class ClickingButtons implements PacketType {
 				player.getPacketSender().sendConfig(504, 0);
 				player.getPacketSender().sendConfig(173, 0);
 			}
-			break;
-			
-		//case 74201:// brightness1
-		case 3138:
-			LightSources.brightness1(player);
-			break;
-
-		//case 74203:// brightness2
-		case 3140:
-			LightSources.brightness2(player);
-			break;
-
-		//case 74204:// brightness3
-		case 3142:
-			LightSources.brightness3(player);
-			break;
-
-		//case 74205:// brightness4
-		case 3144:
-			LightSources.brightness4(player);
 			break;
 
 		case 74206:// area1

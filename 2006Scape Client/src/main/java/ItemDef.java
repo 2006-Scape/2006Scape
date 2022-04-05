@@ -2103,7 +2103,7 @@ public final class ItemDef {
 		int j3 = DrawingArea.bottomY;
 		Texture.aBoolean1464 = false;
 		DrawingArea.initDrawingArea(32, 32, sprite2.pixels);
-		DrawingArea.method336(32, 0, 0, 32, 0);
+		DrawingArea.fillArea(32, 0, 0, 32, 0);
 		Texture.method364();
 		int k3 = itemDef.modelZoom;
 		if (k == -1) {
@@ -2372,7 +2372,7 @@ public final class ItemDef {
 	private int[] originalModelColors;
 	public boolean membersObject;
 	private int anInt162;
-	private int certTemplateID;
+	public int certTemplateID;
 	private int anInt164;
 	private int anInt165;
 	private int anInt166;
@@ -2405,7 +2405,7 @@ public final class ItemDef {
 	private int anInt197;
 	public int modelRotation2;
 	private int anInt200;
-	private int[] stackAmounts;
+	public int[] stackAmounts;
 	public int team;
 	public static int totalItems;
 	private int anInt204;

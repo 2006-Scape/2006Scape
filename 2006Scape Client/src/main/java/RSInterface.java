@@ -25,8 +25,6 @@ public final class RSInterface {
 			rsInterface.id = k;
 			rsInterface.parentID = i;
 			rsInterface.type = stream.readUnsignedByte();
-			//if(rsInterface.type == 0)
-			//	System.out.println(rsInterface.parentID+":"+k);
 			rsInterface.atActionType = stream.readUnsignedByte();
 			rsInterface.anInt214 = stream.readUnsignedWord();
 			rsInterface.width = stream.readUnsignedWord();
