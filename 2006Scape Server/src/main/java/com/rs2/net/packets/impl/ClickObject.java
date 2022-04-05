@@ -154,7 +154,7 @@ public class ClickObject implements PacketType {
 				if (player.spiritTree == false && player.clickedTree == false) {
 					player.getPacketSender().sendMessage("You attempt to chop the tree, and a tree spirit appears !");
 					player.getPacketSender().sendSound(300, 100, 1);
-					NpcHandler.spawnNpc(player, 655, player.getX(), player.getY(), 0, 0, 225, 20, 80, 80, true, true);
+					NpcHandler.spawnNpc(player, 655, player.getX(), player.getY(), 0, 0, 90, 9, 70, 70, true, true);
 					player.clickedTree = true;
 				} else if (player.spiritTree && player.lostCity >= 2) {
 					Woodcutting.startWoodcutting(player, player.objectId, player.objectX, player.objectY, player.clickObjectType);

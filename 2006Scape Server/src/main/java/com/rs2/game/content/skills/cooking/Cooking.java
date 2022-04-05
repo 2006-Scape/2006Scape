@@ -38,8 +38,9 @@ public class Cooking extends SkillHandler {
 				LOBSTER(377, 379, 381, 40, 120, 74, 68, "lobster"), 
 				SWORDFISH(371, 373, 375, 50, 140, 86, 81, "swordfish"),
 				MONKFISH(7944, 7946, 7948, 62, 150, 92, 90,	"monkfish"), 
-				SHARK(383, 385, 387, 76, 210, 100, 94, "shark"), 
-				MANTA_RAY(389, 391, 393, 91, 169, 100, 100, "manta ray"),
+				SHARK(383, 385, 387, 76, 210, 100, 94, "shark"),
+				SEA_TURTLE(395, 397, 399, 82, 211, 100, 97, "sea turtle"),
+				MANTA_RAY(389, 391, 393, 91, 216, 100, 100, "manta ray"),
 				SEAWEED(401, 1781, 1781, 1, 1, 1, 1, "sea weed"),
 				CURRY(2009, 2011, 2013, 60, 280, 74, 74, "curry");
 
