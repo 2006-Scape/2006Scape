@@ -6,3 +6,12 @@
 */*.jar
 *.iml
 .DS_Store
+2006Scape Server/data/logs
+*.class
+*.project
+2006Scape Client/bin/
+*.prefs
+*.classpath
+
+# Ignore any json files in the server root (should only be config files, the sample file should still be updated)
+2006Scape Server/*.json
