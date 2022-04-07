@@ -10970,9 +10970,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
+    "maxHit": 8,
     "strength": 150,
-    "attack": 250,
+    "attack": 135,
     "x": 3425,
     "y": 3568,
     "id": 1615,
@@ -10980,9 +10980,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
-    "strength": 150,
-    "attack": 250,
+    "maxHit": 8,
+    "strength": 67,
+    "attack": 135,
     "x": 3428,
     "y": 3565,
     "id": 1615,
@@ -10990,8 +10990,8 @@
     "height": 2
   },
   {
-    "maxHit": 16,
-    "strength": 150,
+    "maxHit": 8,
+    "strength": 67,
     "attack": 250,
     "x": 3425,
     "y": 3574,
@@ -11000,9 +11000,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
+    "maxHit": 8,
     "strength": 150,
-    "attack": 250,
+    "attack": 135,
     "x": 3423,
     "y": 3572,
     "id": 1615,
@@ -11010,9 +11010,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
-    "strength": 150,
-    "attack": 250,
+    "maxHit": 8,
+    "strength": 67,
+    "attack": 135,
     "x": 3427,
     "y": 3570,
     "id": 1615,
@@ -11020,9 +11020,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
-    "strength": 150,
-    "attack": 250,
+    "maxHit": 8,
+    "strength": 67,
+    "attack": 135,
     "x": 3416,
     "y": 3567,
     "id": 1615,
@@ -11030,9 +11030,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
-    "strength": 150,
-    "attack": 250,
+    "maxHit": 8,
+    "strength": 67,
+    "attack": 135,
     "x": 3413,
     "y": 3570,
     "id": 1615,
@@ -11040,9 +11040,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
-    "strength": 150,
-    "attack": 250,
+    "maxHit": 8,
+    "strength": 67,
+    "attack": 135,
     "x": 3410,
     "y": 3574,
     "id": 1615,
@@ -11050,9 +11050,9 @@
     "height": 2
   },
   {
-    "maxHit": 16,
-    "strength": 150,
-    "attack": 250,
+    "maxHit": 8,
+    "strength": 67,
+    "attack": 135,
     "x": 3413,
     "y": 3574,
     "id": 1615,
