@@ -139112,14 +139112,6 @@
         ]
       },
       {
-        "item_id": 6733,
-        "chance": 256,
-        "amounts": [
-          1,
-          1
-        ]
-      },
-      {
         "item_id": -1,
         "chance": 256,
         "amounts": [
@@ -139470,14 +139462,6 @@
       },
       {
         "item_id": 6139,
-        "chance": 256,
-        "amounts": [
-          1,
-          1
-        ]
-      },
-      {
-        "item_id": 6731,
         "chance": 256,
         "amounts": [
           1,
