@@ -1049,10 +1049,14 @@ public class NpcHandler {
                 // These npcs shouldn't have drops
                 return;
             }
+            boolean isDropped = false;
             for (ItemDrop possible_drop : NPCDropsHandler.getNpcDrops(getNpcListName(npcs[i].npcType).toLowerCase().replace(" ", "_"), npcs[i].npcType)) {
-                if (Misc.random(possible_drop.getChance()) == 0) {
+                if (Misc.random(possible_drop.getChance()) == 0 && !isDropped) {
                     int amt = possible_drop.getAmount();
                     GameEngine.itemHandler.createGroundItem(c, possible_drop.getItemID(), npcs[i].absX, npcs[i].absY, amt, c.playerId);
+                    //Making sure items that always drop don't cost us our drop table roll
+                    if (possible_drop.getChance() > 1)
+                        isDropped = true;
                 }
             }
             switch (npcs[i].npcType) {
