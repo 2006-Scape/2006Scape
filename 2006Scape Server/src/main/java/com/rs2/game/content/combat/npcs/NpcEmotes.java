@@ -11,8 +11,9 @@ import com.rs2.game.players.Player;
 
 public enum NpcEmotes {
 		MAN(new int[] {1, 2, 3, 4, 5, 6}, 422, 1834, 836),
-		AL_KHARID_WARRIOR(new int[] {18}, 451, 404, 836),
-		GUARD(new int[] {9, 10}, 412, 404, 836),
+		AL_KHARID_WARRIOR(new int[] {18}, 451, 1156, 836),
+		GUARD(new int[] {9}, 412, 1156, 836),
+		GUARD_NO_SHIELD(new int[] {10}, 412, 404, 836),
 		GARGOYLE(new int[] {1610, 1611}, 1517, 1519, 1518),
 		SKELETAL_WYVERN(new int[] {3068}, 2989, 2988, 2987),
 		BAT(new int[] {412, 78}, 30, 31, 36),
