@@ -32,6 +32,7 @@ public class JavaCord {
                     api.addListener(new Forum());
                     api.addListener(new Hiscores());
                     api.addListener(new Issues());
+                    api.addListener(new Link());
                     api.addListener(new Online());
                     api.addListener(new Players());
                     api.addListener(new Vote());

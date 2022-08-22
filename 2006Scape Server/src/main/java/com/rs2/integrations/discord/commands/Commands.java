@@ -12,6 +12,8 @@ public class Commands implements MessageCreateListener {
         if (message.getContent().equalsIgnoreCase(JavaCord.commandPrefix + " commands")) {
             event.getChannel().sendMessage("```fix"
                     + System.lineSeparator() +
+                    "::link"
+                    + System.lineSeparator() +
                     "::forum/::forums"
                     + System.lineSeparator() +
                     JavaCord.commandPrefix + " gamekick(if account id linked)"
