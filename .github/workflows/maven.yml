@@ -25,6 +25,9 @@ jobs:
           mkdir -p ~/artifacts
           cp "2006Scape Client/target/client-1.0-jar-with-dependencies.jar" ~/artifacts/Client.jar
           cp "2006Scape Server/target/server-1.0-jar-with-dependencies.jar" ~/artifacts/Server.jar
+          cp "2006Scape Server/ServerConfig.Sample.json" ~/artifacts/ServerConfig.json
+          cp SinglePlayer.bat ~/artifacts/
+          cp -r "2006Scape Server/plugins" ~/artifacts/
           cp -r "2006Scape Server/data" ~/artifacts/
     - name: Publish build to GH Actions
       uses: actions/upload-artifact@v2
