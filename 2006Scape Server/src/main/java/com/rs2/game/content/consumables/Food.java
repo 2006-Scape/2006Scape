@@ -24,7 +24,7 @@ public class Food {
 		MANTA(391, 22, "Manta Ray", 0, "Food", false), 
 		SHARK(385, 20, "Shark", 0, "Food", false), 
 		LOBSTER(379, 12, "Lobster", 0, "Food", false), 
-		KARAMBWAN(3144, 2 + Misc.random(4), "Karambwan", 0, "Food", false), 
+		KARAMBWAN(3144, 18, "Karambwan", 0, "Food", false), 
 		TROUT(333, 7, "Trout", 0, "Food", false), 
 		SALMON(329, 9, "Salmon", 0, "Food", false), 
 		SWORDFISH(373, 14, "Swordfish", 0, "Food", false), 
