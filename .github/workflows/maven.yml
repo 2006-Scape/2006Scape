@@ -5,9 +5,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ master dev ]
 
 jobs:
   build:
@@ -21,4 +21,12 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -B clean install
+      run: |
+          mvn -B clean install
+          mkdir -p ~/artifacts
+          cp "2006Scape Server/data" ~/artifacts/
+    - name: Publish build to GH Actions
+      uses: actions/upload-artifact@v2
+      with:
+          path: ~/artifacts/*
+          name: build
