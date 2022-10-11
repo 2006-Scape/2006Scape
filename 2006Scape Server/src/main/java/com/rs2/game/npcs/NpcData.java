@@ -1,12 +1,12 @@
 package com.rs2.game.npcs;
 
-import java.util.ArrayList;
-
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.Region;
+
+import java.util.ArrayList;
 
 public class NpcData {
 
@@ -261,6 +261,7 @@ public class NpcData {
 		case 2561:
 		case 2562:
 		case 2563:
+		case 2566:
 		case 2564:
 		case 2550:
 		case 2551:
