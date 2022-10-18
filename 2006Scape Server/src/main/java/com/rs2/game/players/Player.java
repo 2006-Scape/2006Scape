@@ -1376,7 +1376,7 @@ public abstract class Player {
 			lastPlayerMove, lastPoison, lastPoisonSip, poisonImmune, lastSpear,
 			lastProtItem, dfsDelay, lastYell, teleGrabDelay,
 			protMageDelay, protMeleeDelay, protRangeDelay, lastAction,
-			lastThieve, lastLockPick, lastSearchedForTraps, alchDelay, specDelay = System.currentTimeMillis(), duelDelay, teleBlockDelay,
+			lastThieve, lastLockPick, alchDelay, specDelay = System.currentTimeMillis(), duelDelay, teleBlockDelay,
 			godSpellDelay, singleCombatDelay, singleCombatDelay2, reduceStat,
 			restoreStatsDelay, logoutDelay, buryDelay, foodDelay, potDelay,
 			doorDelay, doubleDoorDelay, buySlayerTimer, lastIncrease,
