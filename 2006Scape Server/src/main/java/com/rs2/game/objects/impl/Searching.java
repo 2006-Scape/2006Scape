@@ -12,7 +12,7 @@ public class Searching {
 		WARDROBE(new int[] {389}, "The wardrobe is empty."),
 		DRAWER(new int[] {348, 350, 5618}, "The drawer is empty."),
 		CHEST(new int[] {378}, "The chest is empty."),
-		CHEST_WITH_TRAP(new int[] {2566}, "You have activated a trap on the chest.");
+		CHEST_WITH_TRAP(new int[] {2566, 2567, 2568, 2570}, "You have activated a trap on the chest.");
 		
 	private final int[] objectId;
 	private final String searchText;

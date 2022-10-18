@@ -2811,15 +2811,17 @@ public class ObjectsActions {
             case 2551:
                 ThieveOther.pickLock(player, 14, 15, 2674, 3303, 2, false);
                 break;
-            case 2566: // cia turi buti 10 coin chestas (pirmas aukstas)
+            case 2566:
                 SearchForTraps.searchForTraps(player, 2566); // uzdeti 28 thv
                 break;
-            case 2568: // nature rune chest
+            case 2568:
                 SearchForTraps.searchForTraps(player, 2568);
                 break;
-            case 2567: // empty chestas
+            case 2567:
                 SearchForTraps.searchForTraps(player, 2567);
-                //SearchForTraps.searchForTraps(player, 1, 125, 2674, 3307, 8); // uzdeti 28 thv
+                break;
+            case 2570:
+                SearchForTraps.searchForTraps(player, 2570);
                 break;
             case 2272:
                 player.getPacketSender().object(2271, 2984, 3336, 1, 10);
