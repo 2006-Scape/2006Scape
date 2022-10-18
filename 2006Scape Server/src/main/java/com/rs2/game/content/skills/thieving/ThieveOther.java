@@ -17,9 +17,7 @@ import com.rs2.util.Misc;
 public class ThieveOther {
 	
 	private static boolean isPicking = false;
-
 	private static final int[][] LOCKED_DOORS = {{2550, 2674, 3305}, {2551, 2674, 3304}};
-
 	public static boolean lockedDoor(Player player, int objectType) {
 		for (int[] element : LOCKED_DOORS) {
 			int objectId = element[0];
@@ -32,15 +30,7 @@ public class ThieveOther {
 		}
 		return true;
 	}
-	
-	public static void stealFromChest(Player client, int level, int exp, int reward, int amount) {
-		if (playerHasRequiredThievingLevel(client, level) && thievingEnabled(client)) {
-			client.getItemAssistant().addItem(reward, amount);
-			client.getPlayerAssistant().addSkillXP(exp, GameConstants.THIEVING);
-			client.getPacketSender().sendMessage("You steal " + ItemAssistant.getItemName(reward) + " from the chest.");
-		}
-	}
-	
+
 	public static void pickLock(final Player client, int level, final double exp, final int x, final int y, final int hardness, boolean lock) {
 		if (!client.getItemAssistant().playerHasItem(1523, 1) && lock) {
 			client.getPacketSender().sendMessage("You need a lock pick to do that.");

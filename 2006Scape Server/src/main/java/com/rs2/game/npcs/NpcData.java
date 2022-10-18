@@ -261,7 +261,6 @@ public class NpcData {
 		case 2561:
 		case 2562:
 		case 2563:
-		case 2566:
 		case 2564:
 		case 2550:
 		case 2551:
