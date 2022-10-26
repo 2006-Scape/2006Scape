@@ -22,31 +22,14 @@
 
 To compile any module from the command line, run `mvn clean install`
 
-## Using Parabot with your local server: (OUTDATED)
-- **1:** Download the latest `localhost_2006Scape.jar` from [here](https://github.com/2006-Scape/2006Scape/releases) (or, if testing server changes, compile it yourself like [this](https://i.imgur.com/uDrF0gl.png))
-- **2:** Download the latest `Provider-version.jar` file from [here](http://v3.bdn.parabot.org/api/bot/download/default-provider?nightly=false)
-- **3:** Create a file called `localhost.json` in `{user}\Documents\Parabot\servers`
-- **4:** Put the following in the file
-```json
-{
-    "name": "localhost",
-    "author": "RedSparr0w",
-    "version": 1.0,
-    "client-class": "LocalGame",
-    "locations":{
-        "provider": "pathToYourJar/Provider-1.21.5.jar",
-        "server": "pathToYourJar/localhost_2006Scape.jar",
-        "hooks": "http://bdn.parabot.org/data/hooks/carmeuses/2006rebotted_hooks.xml"
-    }
-}
-```
-_(you will need to put the path to the jar files yourself)_
-- 5: Run the parabot client with the following args:
+## Using Parabot with your local server:
+- **1:** Download the latest `2006-Scape Fork Of Parabot` from [here](https://github.com/2006-Scape/Parabot/actions/workflows/maven.yml)
+- **2:** Run the parabot client with the following args:
 ```fix
-java -jar Client-2.8.1.jar -login username password -loadlocal -v -clearcache
+java -jar Parabot-V3.0.0.jar -login username password -loadlocal -v -clearcache
 ```
-- **6:** ???
-- **7:** PROFIT
+- **3:** ???
+- **4:** PROFIT
 
 ### Server source layout
 
@@ -56,4 +39,4 @@ java -jar Client-2.8.1.jar -login username password -loadlocal -v -clearcache
 
 ## Building from command line
 
-Run `mvn -B clean install`
+Run `mvn -B clean package`
