@@ -1,20 +1,18 @@
-package com.rs2.integrations.discord.commands;
+package com.rs2.integrations.discord.commands
 
-import com.rs2.game.players.PlayerHandler;
-import com.rs2.integrations.discord.JavaCord;
-import org.javacord.api.entity.message.Message;
-import org.javacord.api.event.message.MessageCreateEvent;
-import org.javacord.api.listener.message.MessageCreateListener;
+import com.rs2.game.players.PlayerHandler
+import com.rs2.integrations.discord.JavaCord
+import org.javacord.api.event.message.MessageCreateEvent
+import org.javacord.api.listener.message.MessageCreateListener
 
-public class Players implements MessageCreateListener {
-    @Override
-    public void onMessageCreate(MessageCreateEvent event) {
-        Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase(JavaCord.commandPrefix + " players")) {
+class Players : MessageCreateListener {
+    override fun onMessageCreate(event: MessageCreateEvent) {
+        val message = event.message
+        if (message.content.equals(JavaCord.commandPrefix + " players", ignoreCase = true)) {
             if (PlayerHandler.getPlayerCount() != 1) {
-                event.getChannel().sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online (" + PlayerHandler.getNonPlayerCount() + " staff online).");
+                event.channel.sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online (" + PlayerHandler.getNonPlayerCount() + " staff online).")
             } else {
-                event.getChannel().sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.");
+                event.channel.sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.")
             }
         }
     }

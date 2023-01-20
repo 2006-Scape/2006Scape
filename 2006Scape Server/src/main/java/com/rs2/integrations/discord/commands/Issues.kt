@@ -1,17 +1,19 @@
-package com.rs2.integrations.discord.commands;
+package com.rs2.integrations.discord.commands
 
-import com.rs2.GameConstants;
-import org.javacord.api.entity.message.Message;
-import org.javacord.api.event.message.MessageCreateEvent;
-import org.javacord.api.listener.message.MessageCreateListener;
+import com.rs2.GameConstants
+import org.javacord.api.event.message.MessageCreateEvent
+import org.javacord.api.listener.message.MessageCreateListener
 
-public class Issues implements MessageCreateListener {
-    @Override
-    public void onMessageCreate(MessageCreateEvent event) {
-        Message message = event.getMessage();
-        if (message.getContent().equalsIgnoreCase("::issues") || message.getContent().equalsIgnoreCase("::bugs")) {
+class Issues : MessageCreateListener {
+    override fun onMessageCreate(event: MessageCreateEvent) {
+        val message = event.message
+        if (message.content.equals("::issues", ignoreCase = true) || message.content.equals(
+                "::bugs",
+                ignoreCase = true
+            )
+        ) {
             if (GameConstants.WORLD == 1) {
-                event.getChannel().sendMessage("https://github.com/2006-Scape/2006Scape/issues");
+                event.channel.sendMessage("https://github.com/2006-Scape/2006Scape/issues")
             }
         }
     }

@@ -1,38 +1,35 @@
-package com.rs2.integrations.discord.commands.admin;
+package com.rs2.integrations.discord.commands.admin
 
-import com.rs2.GameConstants;
-import org.javacord.api.entity.message.Message;
-import org.javacord.api.event.message.MessageCreateEvent;
-import org.javacord.api.listener.message.MessageCreateListener;
+import com.rs2.GameConstants
+import org.javacord.api.event.message.MessageCreateEvent
+import org.javacord.api.listener.message.MessageCreateListener
 
-public class Pin implements MessageCreateListener {
-    @Override
-    public void onMessageCreate(MessageCreateEvent event) {
-        Message message = event.getMessage();
-        if (message.getContent().startsWith("::pin")) {
-            if (event.getMessageAuthor().isServerAdmin()) {
-                if(GameConstants.WORLD == 1) {
-                    if (message.getReferencedMessage().isPresent()) {
-                        Message messageToPin = message.getReferencedMessage().get();
-                        messageToPin.pin();
+class Pin : MessageCreateListener {
+    override fun onMessageCreate(event: MessageCreateEvent) {
+        val message = event.message
+        if (message.content.startsWith("::pin")) {
+            if (event.messageAuthor.isServerAdmin) {
+                if (GameConstants.WORLD == 1) {
+                    if (message.referencedMessage.isPresent) {
+                        val messageToPin = message.referencedMessage.get()
+                        messageToPin.pin()
                     }
                 }
             } else {
-                event.getChannel().sendMessage("You do not have permission to perform this command");
+                event.channel.sendMessage("You do not have permission to perform this command")
             }
         }
-        if (message.getContent().startsWith("::unpin")) {
-            if (event.getMessageAuthor().isServerAdmin()) {
-                if(GameConstants.WORLD == 1) {
-                    if (message.getReferencedMessage().isPresent()) {
-                        Message messageToUnpin = message.getReferencedMessage().get();
-                        messageToUnpin.unpin();
-                        event.getChannel().sendMessage("Un-Pinned Message: " + messageToUnpin.getLink());
-
+        if (message.content.startsWith("::unpin")) {
+            if (event.messageAuthor.isServerAdmin) {
+                if (GameConstants.WORLD == 1) {
+                    if (message.referencedMessage.isPresent) {
+                        val messageToUnpin = message.referencedMessage.get()
+                        messageToUnpin.unpin()
+                        event.channel.sendMessage("Un-Pinned Message: " + messageToUnpin.link)
                     }
                 }
             } else {
-                event.getChannel().sendMessage("You do not have permission to perform this command");
+                event.channel.sendMessage("You do not have permission to perform this command")
             }
         }
     }

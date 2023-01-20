@@ -1,75 +1,74 @@
-package com.rs2.integrations.discord;
+package com.rs2.integrations.discord
 
-import com.rs2.GameConstants;
-import com.rs2.integrations.discord.commands.*;
-import com.rs2.integrations.discord.commands.admin.*;
-import org.javacord.api.DiscordApi;
-import org.javacord.api.DiscordApiBuilder;
-import org.javacord.api.entity.channel.TextChannel;
-import org.javacord.api.entity.message.MessageBuilder;
-import org.javacord.api.util.logging.ExceptionLogger;
+import com.rs2.GameConstants
+import com.rs2.integrations.discord.commands.*
+import com.rs2.integrations.discord.commands.admin.*
+import org.javacord.api.DiscordApi
+import org.javacord.api.DiscordApiBuilder
+import org.javacord.api.entity.channel.TextChannel
+import org.javacord.api.entity.message.MessageBuilder
+import org.javacord.api.event.message.MessageCreateEvent
+import org.javacord.api.util.logging.ExceptionLogger
+import java.io.IOException
+import java.util.*
 
-import java.io.IOException;
 
 /**
  * @author Patrity || https://www.rune-server.ee/members/patrity/
  */
-
-public class JavaCord {
-
-    public static String serverName = GameConstants.SERVER_NAME;
-    public static String commandPrefix = "::w" + GameConstants.WORLD;
-    public static String token;
-    public static DiscordApi api = null;
-
-    public static void init() throws IOException {
-        if (token != null && !token.equals("")) { //If the token was loaded by loadSettings:
-            new DiscordApiBuilder().setToken(token).login().thenAccept(api -> {
+object JavaCord {
+    var serverName: String = GameConstants.SERVER_NAME
+    var commandPrefix = "::w" + GameConstants.WORLD
+    @JvmField
+    var token: String? = null
+    var api: DiscordApi? = null
+    @JvmStatic
+    @Throws(IOException::class)
+    fun init() {
+        if (token != null && token != "") { //If the token was loaded by loadSettings:
+            DiscordApiBuilder().setToken(token).login().thenAccept { api: DiscordApi ->
                 try {
-                    JavaCord.api = api;
+                    JavaCord.api = api
                     //System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
-                    api.addListener(new Commands());
-                    api.addListener(new Forum());
-                    api.addListener(new Hiscores());
-                    api.addListener(new Issues());
-                    api.addListener(new Link());
-                    api.addListener(new Online());
-                    api.addListener(new Players());
-                    api.addListener(new Vote());
-                    api.addListener(new Website());
+                    api.addListener(Commands())
+                    api.addListener(Forum())
+                    api.addListener(Hiscores())
+                    api.addListener(Issues())
+                    api.addListener(Link())
+                    api.addListener(Online())
+                    api.addListener(Players())
+                    api.addListener(Vote())
+                    api.addListener(Website())
                     //Admin Commands
-                    api.addListener(new AdminCommands());
-                    api.addListener(new GameKick());
-                    api.addListener(new MoveHome());
-                    api.addListener(new Update());
-                    api.addListener(new Pin());
-                    api.addListener(new Purge());
+                    api.addListener(AdminCommands())
+                    api.addListener(GameKick())
+                    api.addListener(MoveHome())
+                    api.addListener(Update())
+                    api.addListener(Pin())
+                    api.addListener(Purge())
                     //api.addListener(new Link());
                     //api.addListener(new WelcomeMessage());
-                    if(!DiscordActivity.playerCount) {
-                        api.updateActivity(GameConstants.WEBSITE_LINK);
+                    if (!DiscordActivity.playerCount) {
+                        api.updateActivity(GameConstants.WEBSITE_LINK)
                     }
-                    api.addMessageCreateListener(event -> {
-                    });
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    api.addMessageCreateListener { event: MessageCreateEvent? -> }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            })
-                    // Log exceptions (might not work now that we try(catch)
-                    .exceptionally(ExceptionLogger.get());
+            } // Log exceptions (might not work now that we try(catch)
+                .exceptionally(ExceptionLogger.get())
         } else {
-            System.out.println("Discord Token Not Set So Bot Not Loaded");
+            println("Discord Token Not Set So Bot Not Loaded")
         }
     }
 
-    public static void sendMessage(String channel, String msg) {
+    fun sendMessage(channel: String?, msg: String?) {
         try {
-            new MessageBuilder()
-                    .append(msg)
-                    .send((TextChannel) api.getTextChannelsByNameIgnoreCase(channel).toArray()[0]);
-        } catch (Exception e) {
-            e.printStackTrace();
+            MessageBuilder()
+                .append(msg)
+                .send(api!!.getTextChannelsByNameIgnoreCase(channel).toTypedArray()[0] as TextChannel)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }
