@@ -11,7 +11,8 @@ public class Searching {
 		BOOKCASE(new int[] {380, 381, 4617, 4671, 9611}, "The bookcase is empty."),
 		WARDROBE(new int[] {389}, "The wardrobe is empty."),
 		DRAWER(new int[] {348, 350, 5618}, "The drawer is empty."),
-		CHEST(new int[] {378}, "The chest is empty.");
+		CHEST(new int[] {378}, "The chest is empty."),
+		CHEST_WITH_TRAP(new int[] {2566, 2567, 2568, 2570}, "You have activated a trap on the chest.");
 		
 	private final int[] objectId;
 	private final String searchText;
@@ -33,6 +34,9 @@ public class Searching {
 		for (SearchData s: SearchData.values()) {
 			for (int i = 0; i < s.getObjectId().length; i++) {
 				if (objectType == s.getObjectId()[i]) {
+					if (s == SearchData.CHEST_WITH_TRAP) {
+						player.dealDamage(2);
+					}
 					player.searchObjectDelay = System.currentTimeMillis();
 					player.getPacketSender().sendMessage(s.getObjectText());
  				}

@@ -93,6 +93,9 @@ public class ItemAssistant {
 		} else if (!hasFreeSlots(amount) && !isStackable(item)) {
 			GameEngine.itemHandler.createGroundItem(player, item, player.getX(), player.getY(), amount, player.playerId);
 			player.getPacketSender().sendMessage("You have no inventory space, so the item(s) appear beneath you.");
+		} else if (isStackable(item) && !hasFreeSlots(1) && !playerHasItem(item)) {
+			GameEngine.itemHandler.createGroundItem(player, item, player.getX(), player.getY(), amount, player.playerId);
+			player.getPacketSender().sendMessage("You have no inventory space, so the item(s) appear beneath you.");
 		} else {
 			addItem(item, amount);
 		}

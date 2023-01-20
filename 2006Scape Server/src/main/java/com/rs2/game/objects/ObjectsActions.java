@@ -22,28 +22,19 @@ import com.rs2.game.content.skills.prayer.Ectofuntus;
 import com.rs2.game.content.skills.runecrafting.AbyssalHandler;
 import com.rs2.game.content.skills.runecrafting.RuneCraftingActions;
 import com.rs2.game.content.skills.smithing.Smelting;
+import com.rs2.game.content.skills.thieving.SearchForTraps;
 import com.rs2.game.content.skills.thieving.Stalls;
 import com.rs2.game.content.skills.thieving.ThieveOther;
 import com.rs2.game.content.skills.woodcutting.Woodcutting;
 import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.globalworldobjects.ClimbOther;
-import com.rs2.game.globalworldobjects.PassDoor;
 import com.rs2.game.globalworldobjects.ClimbOther.ClimbData;
+import com.rs2.game.globalworldobjects.PassDoor;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.MilkCow;
-import com.rs2.game.objects.impl.AxeInLog;
-import com.rs2.game.objects.impl.BrimhavenVines;
-import com.rs2.game.objects.impl.Climbing;
-import com.rs2.game.objects.impl.FlourMill;
-import com.rs2.game.objects.impl.Levers;
-import com.rs2.game.objects.impl.OpenObject;
-import com.rs2.game.objects.impl.OtherObjects;
-import com.rs2.game.objects.impl.Pickable;
-import com.rs2.game.objects.impl.Searching;
-import com.rs2.game.objects.impl.UseOther;
-import com.rs2.game.objects.impl.Webs;
+import com.rs2.game.objects.impl.*;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.Position;
 import com.rs2.util.Misc;
@@ -2817,9 +2808,20 @@ public class ObjectsActions {
             case 2550:
                 ThieveOther.pickLock(player, 1, 3.5, 2674, 3306, 1, false);
                 break;
-
             case 2551:
                 ThieveOther.pickLock(player, 14, 15, 2674, 3303, 2, false);
+                break;
+            case 2566:
+                SearchForTraps.searchForTraps(player, 2566); // uzdeti 28 thv
+                break;
+            case 2568:
+                SearchForTraps.searchForTraps(player, 2568);
+                break;
+            case 2567:
+                SearchForTraps.searchForTraps(player, 2567);
+                break;
+            case 2570:
+                SearchForTraps.searchForTraps(player, 2570);
                 break;
             case 2272:
                 player.getPacketSender().object(2271, 2984, 3336, 1, 10);
