@@ -22,10 +22,10 @@ public class RegionFactory {
 	public static void load() {
 		//GameEngine.getLogger(Region.class).info("Loading region configurations...");
 		try {
-			IndexedFileSystem cache = new IndexedFileSystem(new File(Constants.FILE_SYSTEM_DIR), true);
-			ObjectDefinition.loadConfig();
+			IndexedFileSystem fs = new IndexedFileSystem(new File(Constants.FILE_SYSTEM_DIR), true);
+			ObjectDefinition.loadConfig(fs);
 
-			Archive archive = Archive.decode(cache.getFile(0, 5));
+			Archive archive = Archive.decode(fs.getFile(0, 5));
 			ArchiveEntry entry = archive.getEntry("map_index");
 			ByteBuffer buffer = entry.getBuffer();
 	
@@ -56,8 +56,8 @@ public class RegionFactory {
 			for (int i = 0; i < size; i++) {
 				//GameEngine.getLogger(Region.class).info("Region: " + i + " RegionId: " + regionIds[i] + " ObjectsId: " + mapObjectsFileIds[i]
 				//		+ " ClippingsId: " + mapGroundFileIds[i]);				
-				byte[] file1 = CompressionUtil.degzip(cache.getFileBytes(4, mapObjectsFileIds[i]));
-				byte[] file2 = CompressionUtil.degzip(cache.getFileBytes(4, mapGroundFileIds[i]));
+				byte[] file1 = CompressionUtil.degzip(fs.getFileBytes(4, mapObjectsFileIds[i]));
+				byte[] file2 = CompressionUtil.degzip(fs.getFileBytes(4, mapGroundFileIds[i]));
 				if (file1 == null || file2 == null) {
 					continue;
 				}

@@ -1,5 +1,7 @@
 package com.rs2.world.clip;
 
+import org.apollo.jagcached.fs.IndexedFileSystem;
+
 public final class ObjectDefinition {
 
 	public static ObjectDefinition getObjectDef(int i) {
@@ -24,10 +26,10 @@ public final class ObjectDefinition {
 		anIntArray773 = null;
 		anIntArray776 = null;
 		name = null;
-		anInt744 = 1;
-		anInt761 = 1;
-		aBoolean767 = true;
-		aBoolean757 = true;
+		width = 1;
+		length = 1;
+		solid = true;
+		impenetrable = true;
 		hasActions = false;
 		anInt781 = -1;
 		actions = null;
@@ -37,7 +39,24 @@ public final class ObjectDefinition {
 		childrenIDs = null;
 	}
 
-	public static void loadConfig() {
+/*	
+Currently broken. Archive class from Apollo is backed by read only bytebuffers. TODO look at taking whole class from apollo.
+
+public static void loadConfig(IndexedFileSystem fs) throws IOException {
+		Archive configs = Archive.decode(fs.getFile(0, 2));
+		ArchiveEntry dat = configs.getEntry("loc.dat");
+		ArchiveEntry idx = configs.getEntry("loc.idx");
+		
+		archive = new MemoryArchive(new ByteStream(dat.getBuffer().array()),
+				new ByteStream(idx.getBuffer().array()));
+		cache = new ObjectDefinition[20];
+		for (int k = 0; k < 20; k++) {
+			cache[k] = new ObjectDefinition();
+		}
+		System.out.println("[ObjectDef] DONE LOADING OBJECT CONFIGURATION");
+	}*/
+	
+	public static void loadConfig(IndexedFileSystem fs) {
 		archive = new MemoryArchive(new ByteStream(getBuffer("loc.dat")),
 				new ByteStream(getBuffer("loc.idx")));
 		cache = new ObjectDefinition[20];
@@ -101,13 +120,13 @@ public final class ObjectDefinition {
 					}
 				}
 			} else if (type == 14) {
-				anInt744 = stream.readUnsignedByte();
+				width = stream.readUnsignedByte();
 			} else if (type == 15) {
-				anInt761 = stream.readUnsignedByte();
+				length = stream.readUnsignedByte();
 			} else if (type == 17) {
-				aBoolean767 = false;
+				solid = false;
 			} else if (type == 18) {
-				aBoolean757 = false;
+				impenetrable = false;
 			} else if (type == 19) {
 				flag = stream.readUnsignedByte();
 				hasActions = flag == 1;
@@ -253,29 +272,29 @@ public final class ObjectDefinition {
 	}
 
 	public int xLength() {
-		return anInt744;
+		return width;
 	}
 
 	public int yLength() {
-		return anInt761;
+		return length;
 	}
 
 	public boolean aBoolean767() {
-		return aBoolean767;
+		return solid;
 	}
 
 	public boolean isUnshootable() {
-		return aBoolean757;
+		return impenetrable;
 	}
 
 	public String name;
-	private int anInt744;
+	private int width;
 	private int anInt749;
 	private int type;
-	private boolean aBoolean757;
+	private boolean impenetrable;
 	private int childrenIDs[];
-	private int anInt761;
-	private boolean aBoolean767;
+	private int length;
+	private boolean solid;
 	private static int cacheIndex;
 	private int[] anIntArray773;
 	private int anInt774;
