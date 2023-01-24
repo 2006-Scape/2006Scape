@@ -65,6 +65,7 @@ public final class ObjectDefinition {
 	}
 
 	private void readValues(ByteStreamExt stream) {
+		int flag = -1;
 		do {
 			int type = stream.readUnsignedByte();
 			if (type == 0) {
@@ -108,7 +109,8 @@ public final class ObjectDefinition {
 			} else if (type == 18) {
 				aBoolean757 = false;
 			} else if (type == 19) {
-				hasActions = stream.readUnsignedByte() == 1;
+				flag = stream.readUnsignedByte();
+				hasActions = flag == 1;
 			} else if (type == 21) {
 				// aBoolean762 = true;
 			} else if (type == 22) {
@@ -225,11 +227,13 @@ public final class ObjectDefinition {
 				System.out.println("Unknown config: " + type);
 			}
 		} while (true);
+		if (flag == -1) {
 			hasActions = anIntArray773 != null
 					&& (anIntArray776 == null || anIntArray776[0] == 10);
 			if (actions != null) {
 				hasActions = true;
 			}
+		}
 	}
 
 	private ObjectDefinition() {
