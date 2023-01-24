@@ -24,24 +24,14 @@ public final class ObjectDefinition {
 		anIntArray773 = null;
 		anIntArray776 = null;
 		name = null;
-		description = null;
-		modifiedModelColors = null;
-		originalModelColors = null;
 		anInt744 = 1;
 		anInt761 = 1;
 		aBoolean767 = true;
 		aBoolean757 = true;
 		hasActions = false;
-		aBoolean762 = false;
-		aBoolean764 = false;
 		anInt781 = -1;
-		anInt775 = 16;
 		actions = null;
-		anInt746 = -1;
-		anInt758 = -1;
 		aBoolean779 = true;
-		anInt768 = 0;
-		aBoolean736 = false;
 		anInt774 = -1;
 		anInt749 = -1;
 		childrenIDs = null;
@@ -57,7 +47,7 @@ public final class ObjectDefinition {
 		System.out.println("[ObjectDef] DONE LOADING OBJECT CONFIGURATION");
 	}
 
-	public static byte[] getBuffer(String s) {
+	private static byte[] getBuffer(String s) {
 		try {
 			java.io.File f = new java.io.File("./data/world/object/" + s);
 			if (!f.exists()) {
@@ -75,7 +65,6 @@ public final class ObjectDefinition {
 	}
 
 	private void readValues(ByteStreamExt stream) {
-		int flag = -1;
 		do {
 			int type = stream.readUnsignedByte();
 			if (type == 0) {
@@ -84,7 +73,7 @@ public final class ObjectDefinition {
 			if (type == 1) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
-					if (anIntArray773 == null || lowMem) {
+					if (anIntArray773 == null) {
 						anIntArray776 = new int[len];
 						anIntArray773 = new int[len];
 						for (int k1 = 0; k1 < len; k1++) {
@@ -100,7 +89,7 @@ public final class ObjectDefinition {
 			} else if (type == 5) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
-					if (anIntArray773 == null || lowMem) {
+					if (anIntArray773 == null) {
 						anIntArray776 = null;
 						anIntArray773 = new int[len];
 						for (int l1 = 0; l1 < len; l1++) {
@@ -121,10 +110,10 @@ public final class ObjectDefinition {
 			} else if (type == 19) {
 				hasActions = stream.readUnsignedByte() == 1;
 			} else if (type == 21) {
-				aBoolean762 = true;
+				// aBoolean762 = true;
 			} else if (type == 22) {
 			} else if (type == 23) {
-				aBoolean764 = true;
+				// aBoolean764 = true;
 			} else if (type == 24) {
 				anInt781 = stream.readUnsignedWord();
 				if (anInt781 == 65535) {
@@ -133,7 +122,7 @@ public final class ObjectDefinition {
 			} else if (type == 27) {
 				continue;
 			} else if (type == 28) {
-				anInt775 = stream.readUnsignedByte();
+				/* anInt775 = */ stream.readUnsignedByte();
 			} else if (type == 29) {
 				stream.readSignedByte();
 			} else if (type == 39) {
@@ -149,13 +138,7 @@ public final class ObjectDefinition {
 				}
 			} else if (type == 40) {
 				int i1 = stream.readUnsignedByte();
-				modifiedModelColors = new int[i1];
-				originalModelColors = new int[i1];
-				for (int i2 = 0; i2 < i1; i2++) {
-					modifiedModelColors[i2] = stream.readUnsignedWord();
-					originalModelColors[i2] = stream.readUnsignedWord();
-				}
-
+				stream.skip(i1 * 4);
 			} else if (type == 41) {
 				int l = stream.readUnsignedByte();
 				stream.skip(l * 4);
@@ -163,7 +146,7 @@ public final class ObjectDefinition {
 				int l = stream.readUnsignedByte();
 				stream.skip(l);
 			} else if (type == 60) {
-				anInt746 = stream.readUnsignedWord();
+				/* anInt746 = */ stream.readUnsignedWord();
 			} else if (type == 62) {
 			} else if (type == 64) {
 				aBoolean779 = false;
@@ -174,9 +157,9 @@ public final class ObjectDefinition {
 			} else if (type == 67) {
 				stream.readUnsignedWord();
 			} else if (type == 68) {
-				anInt758 = stream.readUnsignedWord();
+				/* anInt758 = */ stream.readUnsignedWord();
 			} else if (type == 69) {
-				anInt768 = stream.readUnsignedByte();
+				/* anInt768 = */ stream.readUnsignedByte();
 			} else if (type == 70) {
 				stream.readSignedWord();
 			} else if (type == 71) {
@@ -184,7 +167,7 @@ public final class ObjectDefinition {
 			} else if (type == 72) {
 				stream.readSignedWord();
 			} else if (type == 73) {
-				aBoolean736 = true;
+			//	aBoolean736 = true;
 			} else if (type == 74) {
 			} else if (type == 75) {
 				stream.readUnsignedByte();
@@ -242,13 +225,11 @@ public final class ObjectDefinition {
 				System.out.println("Unknown config: " + type);
 			}
 		} while (true);
-		if (flag == -1) {
 			hasActions = anIntArray773 != null
 					&& (anIntArray776 == null || anIntArray776[0] == 10);
 			if (actions != null) {
 				hasActions = true;
 			}
-		}
 	}
 
 	private ObjectDefinition() {
@@ -283,34 +264,23 @@ public final class ObjectDefinition {
 		return aBoolean757;
 	}
 
-	public boolean aBoolean736;
 	public String name;
-	public int anInt744;
-	public int anInt746;
-	private int[] originalModelColors;
-	public int anInt749;
-	public static boolean lowMem;
-	public int type;
-	public boolean aBoolean757;
-	public int anInt758;
-	public int childrenIDs[];
-	public int anInt761;
-	public boolean aBoolean762;
-	public boolean aBoolean764;
-	public boolean aBoolean767;
-	public int anInt768;
+	private int anInt744;
+	private int anInt749;
+	private int type;
+	private boolean aBoolean757;
+	private int childrenIDs[];
+	private int anInt761;
+	private boolean aBoolean767;
 	private static int cacheIndex;
 	private int[] anIntArray773;
-	public int anInt774;
-	public int anInt775;
+	private int anInt774;
 	private int[] anIntArray776;
-	public byte description[];
-	public boolean hasActions;
-	public boolean aBoolean779;
-	public int anInt781;
+	private boolean hasActions;
+	private boolean aBoolean779;
+	private int anInt781;
 	private static ObjectDefinition[] cache;
-	private int[] modifiedModelColors;
-	public String actions[];
+	private String actions[];
 	private static MemoryArchive archive;
 
 }
