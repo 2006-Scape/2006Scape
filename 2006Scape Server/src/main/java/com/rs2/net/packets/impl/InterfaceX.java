@@ -13,7 +13,7 @@ public class InterfaceX implements PacketType {
 	@Override
 	public void processPacket(Player player, Packet packet) {
 		player.endCurrentTask();
-		int Xamount = player.getInStream().readDWord();
+		int Xamount = packet.readDWord();
 		if (Xamount < 0) {
             Xamount = player.getItemAssistant().getItemAmount(player.xRemoveId);
         }

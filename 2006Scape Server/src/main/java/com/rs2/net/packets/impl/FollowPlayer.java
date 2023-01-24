@@ -9,7 +9,7 @@ public class FollowPlayer implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int followPlayer = player.getInStream().readUnsignedWordBigEndian();
+		int followPlayer = packet.readUnsignedWordBigEndian();
 		if (PlayerHandler.players[followPlayer] == null) {
 			return;
 		}

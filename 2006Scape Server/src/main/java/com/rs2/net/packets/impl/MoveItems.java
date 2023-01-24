@@ -11,10 +11,10 @@ public class MoveItems implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int interfaceId = player.getInStream().readSignedWordBigEndianA();
-		boolean insertMode = player.getInStream().readSignedByteC() == 1;
-		int from = player.getInStream().readSignedWordBigEndianA();
-		int to = player.getInStream().readSignedWordBigEndian();
+		int interfaceId = packet.readSignedWordBigEndianA();
+		boolean insertMode = packet.readSignedByteC() == 1;
+		int from = packet.readSignedWordBigEndianA();
+		int to = packet.readSignedWordBigEndian();
 		if (player.inTrade) {
 			player.getTrading().declineTrade();
 			return;

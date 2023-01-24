@@ -21,12 +21,12 @@ public class ItemOnObject implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		player.getInStream().readUnsignedWord();
-		int objectId = player.getInStream().readSignedWordBigEndian();
-		int objectY = player.getInStream().readSignedWordBigEndianA();
-		player.getInStream().readUnsignedWord();
-		int objectX = player.getInStream().readSignedWordBigEndianA();
-		int itemId = player.getInStream().readUnsignedWord();
+		packet.readUnsignedWord();
+		int objectId = packet.readSignedWordBigEndian();
+		int objectY = packet.readSignedWordBigEndianA();
+		packet.readUnsignedWord();
+		int objectX = packet.readSignedWordBigEndianA();
+		int itemId = packet.readUnsignedWord();
 		player.turnPlayerTo(objectX, objectY);
 		player.objectX = objectX;
 		player.objectY = objectY;

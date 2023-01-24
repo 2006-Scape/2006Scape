@@ -11,12 +11,12 @@ public class ItemOnGroundItem implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		player.getInStream().readSignedWordBigEndian();
-		int itemUsed = player.getInStream().readSignedWordA();
-		int groundItem = player.getInStream().readUnsignedWord();
-		int gItemY = player.getInStream().readSignedWordA();
-		int itemUsedSlot = player.getInStream().readSignedWordBigEndianA();
-		int gItemX = player.getInStream().readUnsignedWord();
+		packet.readSignedWordBigEndian();
+		int itemUsed = packet.readSignedWordA();
+		int groundItem = packet.readUnsignedWord();
+		int gItemY = packet.readSignedWordA();
+		int itemUsedSlot = packet.readSignedWordBigEndianA();
+		int gItemX = packet.readUnsignedWord();
 		if (!player.getItemAssistant().playerHasItem(itemUsed, 1, itemUsedSlot)) {
 			return;
 		}

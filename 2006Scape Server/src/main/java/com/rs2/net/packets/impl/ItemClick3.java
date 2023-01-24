@@ -19,9 +19,9 @@ public class ItemClick3 implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int itemId11 = player.getInStream().readSignedWordBigEndianA();
-		int itemId1 = player.getInStream().readSignedWordA();
-		int itemId = player.getInStream().readSignedWordA();
+		int itemId11 = packet.readSignedWordBigEndianA();
+		int itemId1 = packet.readSignedWordA();
+		int itemId = packet.readSignedWordA();
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;
 		}

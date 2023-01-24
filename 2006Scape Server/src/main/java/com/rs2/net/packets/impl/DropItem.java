@@ -20,10 +20,10 @@ public class DropItem implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int itemId = player.getInStream().readUnsignedWordA();
-		player.getInStream().readUnsignedByte();
-		player.getInStream().readUnsignedByte();
-		int slot = player.getInStream().readUnsignedWordA();
+		int itemId = packet.readUnsignedWordA();
+		packet.readUnsignedByte();
+		packet.readUnsignedByte();
+		int slot = packet.readUnsignedWordA();
 		if (!player.getItemAssistant().playerHasItem(itemId) || !RareProtection.removeItemOtherActions(player, itemId) || System.currentTimeMillis() - player.alchDelay < 1800 || player.stopPlayerPacket || System.currentTimeMillis() - player.buryDelay < 1800 || !CastleWars.deleteCastleWarsItems(player, itemId)) {
 			return;
 		}

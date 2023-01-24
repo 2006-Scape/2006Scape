@@ -17,9 +17,9 @@ public class RemoveItem implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int interfaceId = player.getInStream().readUnsignedWordA();
-		int removeSlot = player.getInStream().readUnsignedWordA();
-		int removeId = player.getInStream().readUnsignedWordA();
+		int interfaceId = packet.readUnsignedWordA();
+		int removeSlot = packet.readUnsignedWordA();
+		int removeId = packet.readUnsignedWordA();
 		if (!RareProtection.removeItem(player, removeId)) {
 			return;
 		}

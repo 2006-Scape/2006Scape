@@ -14,10 +14,10 @@ public class Chat implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		player.setChatTextEffects(player.getInStream().readUnsignedByteS());
-		player.setChatTextColor(player.getInStream().readUnsignedByteS());
+		player.setChatTextEffects(packet.readUnsignedByteS());
+		player.setChatTextColor(packet.readUnsignedByteS());
 		player.setChatTextSize((byte) (packet.getLength() - 2));
-		player.inStream.readBytes_reverseA(player.getChatText(), player.getChatTextSize(), 0);
+		packet.readBytes_reverseA(player.getChatText(), player.getChatTextSize(), 0);
 		ReportHandler.addText(player.playerName, player.getChatText(), packet.getLength() - 2);
 		String word = Misc.textUnpack(player.getChatText(), packet.getLength() - 2).toLowerCase();
 		if (AntiSpam.blockedWords(player, word, true) && !Connection.isMuted(player)) {

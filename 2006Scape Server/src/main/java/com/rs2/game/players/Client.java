@@ -12,8 +12,6 @@ public class Client extends Player {
 		session = s;
 		outStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
 		outStream.currentOffset = 0;
-		inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
-		inStream.currentOffset = 0;
 		buffer = new byte[GameConstants.BUFFER_SIZE];
 	}
 	
@@ -22,8 +20,6 @@ public class Client extends Player {
 		super(-1);
 		isBot = true;
 		session = null;
-		inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
-		inStream.currentOffset = 0;
 		buffer = new byte[GameConstants.BUFFER_SIZE];
 	}
 

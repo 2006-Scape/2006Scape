@@ -85,7 +85,7 @@ public abstract class Player {
 	private SpecialPlantOne specialPlantOne = new SpecialPlantOne(this);
 	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
 	private ToolLeprechaun toolLeprechaun = new ToolLeprechaun(this);
-	public Stream inStream = null, outStream = null;
+	public Stream outStream = null;
     public IoSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
@@ -354,10 +354,6 @@ public abstract class Player {
 
 	public BankPin getBankPin() {
 		return bankPin;
-	}
-
-	public synchronized Stream getInStream() {
-		return inStream;
 	}
 
 	public synchronized Stream getOutStream() {
@@ -633,7 +629,6 @@ public abstract class Player {
 		disconnected = true;
 		session.close();
 		session = null;
-		inStream = null;
 		outStream = null;
 		isActive = false;
 		buffer = null;
@@ -1101,8 +1096,6 @@ public abstract class Player {
 		if (p == null) {
 			return false;
 		}
-		inStream.currentOffset = 0;
-		inStream.buffer = p.getData();
 		if (p.getId() > 0) {
 			PacketHandler.processPacket(this, p);
 		}
@@ -1115,8 +1108,6 @@ public abstract class Player {
 			if (p == null) {
 				return false;
 			}
-			inStream.currentOffset = 0;
-			inStream.buffer = p.getData();
 			if (p.getId() > 0) {
 				PacketHandler.processPacket(this, p);
 			}

@@ -62,7 +62,7 @@ public class ClickNPC implements PacketType {
 				player.getPacketSender().sendMessage("I can't reach that.");
 				break;
 			}
-			player.npcIndex = player.getInStream().readUnsignedWordA();
+			player.npcIndex = packet.readUnsignedWordA();
 			if (NpcHandler.npcs[player.npcIndex] == null) {
 				player.npcIndex = 0;
 				break;
@@ -189,8 +189,8 @@ public class ClickNPC implements PacketType {
 			// c.usingSpecial = false;
 			// c.getItems().updateSpecialBar();
 
-			player.npcIndex = player.getInStream().readSignedWordBigEndianA();
-			int castingSpellId = player.getInStream().readSignedWordA();
+			player.npcIndex = packet.readSignedWordBigEndianA();
+			int castingSpellId = packet.readSignedWordA();
 			player.usingMagic = false;
 
 			if (NpcHandler.npcs[player.npcIndex] == null) {
@@ -231,7 +231,7 @@ public class ClickNPC implements PacketType {
 			break;
 
 		case FIRST_CLICK:
-			player.npcClickIndex = player.inStream.readSignedWordBigEndian();
+			player.npcClickIndex = packet.readSignedWordBigEndian();
 			player.npcType = NpcHandler.npcs[player.npcClickIndex].npcType;
 
 			if (player.goodDistance(NpcHandler.npcs[player.npcClickIndex].getX(),
@@ -275,7 +275,7 @@ public class ClickNPC implements PacketType {
 			}
 			break;
 		case SECOND_CLICK:
-			player.npcClickIndex = player.inStream.readUnsignedWordBigEndianA();
+			player.npcClickIndex = packet.readUnsignedWordBigEndianA();
 			player.npcType = NpcHandler.npcs[player.npcClickIndex].npcType;
 			if (player.goodDistance(NpcHandler.npcs[player.npcClickIndex].getX(),
 					NpcHandler.npcs[player.npcClickIndex].getY(), player.getX(),
@@ -319,7 +319,7 @@ public class ClickNPC implements PacketType {
 			break;
 
 		case THIRD_CLICK:
-			player.npcClickIndex = player.inStream.readSignedWord();
+			player.npcClickIndex = packet.readSignedWord();
 			player.npcType = NpcHandler.npcs[player.npcClickIndex].npcType;
 			if (player.goodDistance(NpcHandler.npcs[player.npcClickIndex].getX(),
 					NpcHandler.npcs[player.npcClickIndex].getY(), player.getX(),

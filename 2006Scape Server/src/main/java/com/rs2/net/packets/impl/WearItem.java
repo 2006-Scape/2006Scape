@@ -15,9 +15,9 @@ public class WearItem implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		player.wearId = player.getInStream().readUnsignedWord();
-		player.wearSlot = player.getInStream().readUnsignedWordA();
-		player.interfaceId = player.getInStream().readUnsignedWordA();
+		player.wearId = packet.readUnsignedWord();
+		player.wearSlot = packet.readUnsignedWordA();
+		player.interfaceId = packet.readUnsignedWordA();
 		Weight.updateWeight(player);
 		if (!RareProtection.equipItem(player)) {
 			return;

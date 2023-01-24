@@ -37,7 +37,7 @@ public class ChangeAppearance implements PacketType {
 
 	@Override
 	public void processPacket(final Player player, Packet packet) {
-		final int gender = player.getInStream().readSignedByte();
+		final int gender = packet.readSignedByte();
 
 		if (gender != 0 && gender != 1) {
 			return;
@@ -45,7 +45,7 @@ public class ChangeAppearance implements PacketType {
 
 		final int[] apperances = new int[MALE_VALUES.length]; // appearance values check
 		for (int i = 0; i < apperances.length; i++) {
-			int value = player.getInStream().readSignedByte();
+			int value = packet.readSignedByte();
 			if (value < (gender == 0 ? MALE_VALUES[i][0] : FEMALE_VALUES[i][0])
 					|| value > (gender == 0 ? MALE_VALUES[i][1]
 							: FEMALE_VALUES[i][1])) {
@@ -56,7 +56,7 @@ public class ChangeAppearance implements PacketType {
 
 		final int[] colors = new int[ALLOWED_COLORS.length]; // color value check
 		for (int i = 0; i < colors.length; i++) {
-			int value = player.getInStream().readSignedByte();
+			int value = packet.readSignedByte();
 			if (value < ALLOWED_COLORS[i][0] || value > ALLOWED_COLORS[i][1]) {
 				value = ALLOWED_COLORS[i][0];
 			}

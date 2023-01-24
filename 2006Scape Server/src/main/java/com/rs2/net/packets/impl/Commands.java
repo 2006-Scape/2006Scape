@@ -23,7 +23,7 @@ public class Commands implements PacketType {
 
     @Override
     public void processPacket(Player player, Packet packet) {
-        String[] messageArr = player.getInStream().readString().split(" ");
+        String[] messageArr = packet.readString().split(" ");
         String playerCommand = messageArr[0];
         String[] commandArguments = Arrays.copyOfRange(messageArr, 1, messageArr.length);
         if ((playerCommand.startsWith("ban") || playerCommand.startsWith("ip") || playerCommand.startsWith("mute") || playerCommand.startsWith("un")) && player.playerRights > 0 && player.playerRights < 4) {

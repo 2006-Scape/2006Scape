@@ -9,7 +9,7 @@ public class Report implements PacketType {
 	@Override
 	public void processPacket(Player player, Packet packet) {
 		try {
-			ReportHandler.handleReport(player);
+			ReportHandler.handleReport(player, packet);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

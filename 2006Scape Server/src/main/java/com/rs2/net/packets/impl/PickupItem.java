@@ -26,9 +26,9 @@ public class PickupItem implements PacketType {
 
 	@Override
 	public void processPacket(final Player player, Packet packet) {
-		player.pItemY = player.getInStream().readSignedWordBigEndian();
-		player.pItemId = player.getInStream().readUnsignedWord();
-		player.pItemX = player.getInStream().readSignedWordBigEndian();
+		player.pItemY = packet.readSignedWordBigEndian();
+		player.pItemId = packet.readUnsignedWord();
+		player.pItemX = packet.readSignedWordBigEndian();
 		// Cannot pickup the telekinetic guardian statue, should show overview of current maze
 		if (player.pItemId == 6888) {
 			player.getMageTrainingArena().telekinetic.observeStatue(player.pItemX, player.pItemY);

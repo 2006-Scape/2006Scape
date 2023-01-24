@@ -13,10 +13,10 @@ public class MagicOnItems implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int slot = player.getInStream().readSignedWord();
-		int itemId = player.getInStream().readSignedWordA();
-		player.getInStream().readSignedWord();
-		int spellId = player.getInStream().readSignedWordA();
+		int slot = packet.readSignedWord();
+		int itemId = packet.readSignedWordA();
+		packet.readSignedWord();
+		int spellId = packet.readSignedWordA();
 		player.endCurrentTask();
 		if(!player.getItemAssistant().playerHasItem(itemId, 1, slot)) {
 			return;

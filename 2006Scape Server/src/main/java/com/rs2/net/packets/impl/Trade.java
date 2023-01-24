@@ -13,7 +13,7 @@ public class Trade implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int tradeId = player.getInStream().readSignedWordBigEndian();
+		int tradeId = packet.readSignedWordBigEndian();
 		player.getPlayerAssistant().resetFollow();
 		player.endCurrentTask();
 		if (player.disconnected) {

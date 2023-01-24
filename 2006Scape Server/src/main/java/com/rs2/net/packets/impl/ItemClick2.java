@@ -15,7 +15,7 @@ public class ItemClick2 implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int itemId = player.getInStream().readSignedWordA();
+		int itemId = packet.readSignedWordA();
 
 		if (!player.getItemAssistant().playerHasItem(itemId, 1)) {
 			return;

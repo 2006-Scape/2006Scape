@@ -17,9 +17,9 @@ public class BankX1 implements PacketType {
 	public void processPacket(Player player, Packet packet) {
 		player.endCurrentTask();
 		if (packet.getId() == 135) {
-			player.xRemoveSlot = player.getInStream().readSignedWordBigEndian();
-			player.xInterfaceId = player.getInStream().readUnsignedWordA();
-			player.xRemoveId = player.getInStream().readSignedWordBigEndian();
+			player.xRemoveSlot = packet.readSignedWordBigEndian();
+			player.xInterfaceId = packet.readUnsignedWordA();
+			player.xRemoveId = packet.readSignedWordBigEndian();
 		} else {
 			if (player.xInterfaceId == 7423) {
 				player.getItemAssistant().bankItem(player.xRemoveId, player.xRemoveSlot, Xamount);// Depo 1

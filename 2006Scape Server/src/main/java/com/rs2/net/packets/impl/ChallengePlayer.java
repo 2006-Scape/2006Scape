@@ -14,7 +14,7 @@ public class ChallengePlayer implements PacketType {
 	public void processPacket(Player player, Packet packet) {
 		switch (packet.getId()) {
 		case 128:
-			int answerPlayer = player.getInStream().readUnsignedWord();
+			int answerPlayer = packet.readUnsignedWord();
 		    if(PlayerHandler.players[answerPlayer] == null || answerPlayer == player.playerId)
                 return;
 

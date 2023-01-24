@@ -28,7 +28,7 @@ public final class Packet {
 	/**
 	 * The payload
 	 */
-	private final byte[] pData;
+	public /*private final*/ byte[] pData;
 	/**
 	 * The current index into the payload buffer for reading
 	 */
@@ -145,116 +145,6 @@ public final class Packet {
 
 	}
 
-	/**
-	 * Reads the next <code>byte</code> from the payload.
-	 * 
-	 * @return A <code>byte</code>
-	 */
-	public byte readByte() {
-		return pData[caret++];
-	}
-
-	/**
-	 * Reads the next <code>short</code> from the payload.
-	 * 
-	 * @return A <code>short</code>
-	 */
-	public short readShort() {
-		return (short) ((short) ((pData[caret++] & 0xff) << 8) | (short) (pData[caret++] & 0xff));
-	}
-
-	public int readLEShortA() {
-		int i = (pData[caret++] - 128 & 0xff) + ((pData[caret++] & 0xff) << 8);
-		if (i > 32767) {
-			i -= 0x10000;
-		}
-		return i;
-	}
-
-	public int readLEShort() {
-		int i = (pData[caret++] & 0xff) + ((pData[caret++] & 0xff) << 8);
-		if (i > 32767) {
-			i -= 0x10000;
-		}
-		return i;
-	}
-
-	/**
-	 * Reads the next <code>int</code> from the payload.
-	 * 
-	 * @return An <code>int</code>
-	 */
-	public int readInt() {
-		return (pData[caret++] & 0xff) << 24 | (pData[caret++] & 0xff) << 16
-				| (pData[caret++] & 0xff) << 8 | pData[caret++] & 0xff;
-	}
-
-	public int readLEInt() {
-		return pData[caret++] & 0xff | (pData[caret++] & 0xff) << 8
-				| (pData[caret++] & 0xff) << 16 | (pData[caret++] & 0xff) << 24;
-	}
-
-	/**
-	 * Reads the next <code>long</code> from the payload.
-	 * 
-	 * @return A <code>long</code>
-	 */
-	public long readLong() {
-		return (long) (pData[caret++] & 0xff) << 56
-				| (long) (pData[caret++] & 0xff) << 48
-				| (long) (pData[caret++] & 0xff) << 40
-				| (long) (pData[caret++] & 0xff) << 32
-				| (long) (pData[caret++] & 0xff) << 24
-				| (long) (pData[caret++] & 0xff) << 16
-				| (long) (pData[caret++] & 0xff) << 8 | pData[caret++] & 0xff;
-	}
-
-	/**
-	 * Reads the string which is formed by the unread portion of the payload.
-	 * 
-	 * @return A <code>String</code>
-	 */
-	public String readString() {
-		return readString(pLength - caret);
-	}
-
-	public String readRS2String() {
-		int start = caret;
-		while (pData[caret++] != 0) {
-			;
-		}
-		return new String(pData, start, caret - start - 1);
-	}
-
-	public void readBytes(byte[] buf, int off, int len) {
-		for (int i = 0; i < len; i++) {
-			buf[off + i] = pData[caret++];
-		}
-	}
-
-	/**
-	 * Reads a string of the specified length from the payload.
-	 * 
-	 * @param length
-	 *            The length of the string to be read
-	 * @return A <code>String</code>
-	 */
-	public String readString(int length) {
-		String rv = new String(pData, caret, length);
-		caret += length;
-		return rv;
-	}
-
-	/**
-	 * Skips the specified number of bytes in the payload.
-	 * 
-	 * @param x
-	 *            The number of bytes to be skipped
-	 */
-	public void skip(int x) {
-		caret += x;
-	}
-
 	public int remaining() {
 		return pData.length - caret;
 	}
@@ -287,18 +177,226 @@ public final class Packet {
 
 	private static final char[] hex = "0123456789ABCDEF".toCharArray();
 
-	public int readShortA() {
+	
+	/* TODO Stream methods below */
+	
+	public long readQWord2() {
+		final long l = readDWord() & 0xffffffffL;
+		final long l1 = readDWord() & 0xffffffffL;
+		return (l << 32) + l1;
+	}
+
+	public byte readSignedByteA() {
+		return (byte) (pData[caret++] - 128);
+	}
+
+	public byte readSignedByteC() {
+		return (byte) -pData[caret++];
+	}
+
+	public byte readSignedByteS() {
+		return (byte) (128 - pData[caret++]);
+	}
+
+	public int readUnsignedByteA() {
+		return pData[caret++] - 128 & 0xff;
+	}
+
+	public int readUnsignedByteC() {
+		return -pData[caret++] & 0xff;
+	}
+
+	public int readUnsignedByteS() {
+		return 128 - pData[caret++] & 0xff;
+	}
+
+	public void writeByteA(int i) {
+		ensureCapacity(1);
+		pData[caret++] = (byte) (i + 128);
+	}
+
+	public void writeByteS(int i) {
+		ensureCapacity(1);
+		pData[caret++] = (byte) (128 - i);
+	}
+
+	public void writeByteC(int i) {
+		ensureCapacity(1);
+		pData[caret++] = (byte) -i;
+	}
+
+	public int readSignedWordBigEndian() {
 		caret += 2;
-		return ((pData[caret - 2] & 0xFF) << 8)
-				+ (pData[caret - 1] - 128 & 0xFF);
+		int i = ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] & 0xff);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
 	}
 
-	public byte readByteC() {
-		return (byte) -readByte();
+	public int readSignedWordA() {
+		caret += 2;
+		int i = ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] - 128 & 0xff);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
 	}
 
-	public byte readByteS() {
-		return (byte) (128 - readByte());
+	public int readSignedWordBigEndianA() {
+		caret += 2;
+		int i = ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] - 128 & 0xff);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
 	}
 
+	public int readUnsignedWordBigEndian() {
+		caret += 2;
+		return ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] & 0xff);
+	}
+
+	public int readUnsignedWordA() {
+		caret += 2;
+		return ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] - 128 & 0xff);
+	}
+
+	public int readUnsignedWordBigEndianA() {
+		caret += 2;
+		return ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] - 128 & 0xff);
+	}
+
+	public void writeWordBigEndianA(int i) {
+		ensureCapacity(2);
+		pData[caret++] = (byte) (i + 128);
+		pData[caret++] = (byte) (i >> 8);
+	}
+
+	public void writeWordA(int i) {
+		ensureCapacity(2);
+		pData[caret++] = (byte) (i >> 8);
+		pData[caret++] = (byte) (i + 128);
+	}
+
+	public void writeWordBigEndian_dup(int i) {
+		ensureCapacity(2);
+		pData[caret++] = (byte) i;
+		pData[caret++] = (byte) (i >> 8);
+	}
+
+	public int readDWord_v1() {
+		caret += 4;
+		return ((pData[caret - 2] & 0xff) << 24)
+				+ ((pData[caret - 1] & 0xff) << 16)
+				+ ((pData[caret - 4] & 0xff) << 8)
+				+ (pData[caret - 3] & 0xff);
+	}
+
+	public int readDWord_v2() {
+		caret += 4;
+		return ((pData[caret - 3] & 0xff) << 24)
+				+ ((pData[caret - 4] & 0xff) << 16)
+				+ ((pData[caret - 1] & 0xff) << 8)
+				+ (pData[caret - 2] & 0xff);
+	}
+
+	public void writeDWord_v1(int i) {
+		ensureCapacity(4);
+		pData[caret++] = (byte) (i >> 8);
+		pData[caret++] = (byte) i;
+		pData[caret++] = (byte) (i >> 24);
+		pData[caret++] = (byte) (i >> 16);
+	}
+
+	public void writeDWord_v2(int i) {
+		ensureCapacity(4);
+		pData[caret++] = (byte) (i >> 16);
+		pData[caret++] = (byte) (i >> 24);
+		pData[caret++] = (byte) i;
+		pData[caret++] = (byte) (i >> 8);
+	}
+
+	public void readBytes_reverse(byte abyte0[], int i, int j) {
+		for (int k = j + i - 1; k >= j; k--) {
+			abyte0[k] = pData[caret++];
+		}
+
+	}
+
+	public void writeBytes_reverse(byte abyte0[], int i, int j) {
+		ensureCapacity(i);
+		for (int k = j + i - 1; k >= j; k--) {
+			pData[caret++] = abyte0[k];
+		}
+	}
+
+	public void readBytes_reverseA(byte abyte0[], int i, int j) {
+		ensureCapacity(i);
+		for (int k = j + i - 1; k >= j; k--) {
+			abyte0[k] = (byte) (pData[caret++] - 128);
+		}
+
+	}
+
+	public int readUnsignedByte() {
+		return pData[caret++] & 0xff;
+	}
+
+	public byte readSignedByte() {
+		return pData[caret++];
+	}
+
+	public int readUnsignedWord() {
+		caret += 2;
+		return ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] & 0xff);
+	}
+
+	public int readSignedWord() {
+		caret += 2;
+		int i = ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] & 0xff);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
+	}
+
+	public int readDWord() {
+		caret += 4;
+		return ((pData[caret - 4] & 0xff) << 24)
+				+ ((pData[caret - 3] & 0xff) << 16)
+				+ ((pData[caret - 2] & 0xff) << 8)
+				+ (pData[caret - 1] & 0xff);
+	}
+
+	public long readQWord() {
+		long l = readDWord() & 0xffffffffL;
+		long l1 = readDWord() & 0xffffffffL;
+		return (l << 32) + l1;
+	}
+
+	public java.lang.String readString() {
+		int i = caret;
+		while (pData[caret++] != 10) {
+			;
+		}
+		return new String(pData, i, caret - i - 1);
+	}
+
+	public void readBytes(byte abyte0[], int i, int j) {
+		for (int k = j; k < j + i; k++) {
+			abyte0[k] = pData[caret++];
+		}
+
+	}
+
+	public void ensureCapacity(int len) {
+		if (caret + len + 1 >= pData.length) {
+			byte[] oldBuffer = pData;
+			int newLength = pData.length * 2;
+			pData = new byte[newLength];
+			System.arraycopy(oldBuffer, 0, pData, 0, oldBuffer.length);
+			ensureCapacity(len);
+		}
+	}
 }

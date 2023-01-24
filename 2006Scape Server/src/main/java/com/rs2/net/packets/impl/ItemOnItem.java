@@ -9,8 +9,8 @@ public class ItemOnItem implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		int usedWithSlot = player.getInStream().readUnsignedWord();
-		int itemUsedSlot = player.getInStream().readUnsignedWordA();
+		int usedWithSlot = packet.readUnsignedWord();
+		int itemUsedSlot = packet.readUnsignedWordA();
 		int useWith = player.playerItems[usedWithSlot] - 1;
 		int itemUsed = player.playerItems[itemUsedSlot] - 1;
 		if (!player.getItemAssistant().playerHasItem(useWith, 1, usedWithSlot)|| !player.getItemAssistant().playerHasItem(itemUsed, 1, itemUsedSlot)) {

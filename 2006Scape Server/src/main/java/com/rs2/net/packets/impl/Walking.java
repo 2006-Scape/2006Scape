@@ -235,20 +235,20 @@ public class Walking implements PacketType {
 		int realY = 0;
 
 		if (player.clickToTele) {
-			firstStepX = player.getInStream().readSignedWordBigEndianA();
+			firstStepX = packet.readSignedWordBigEndianA();
 		} else {
-			realX = player.getInStream().readSignedWordBigEndianA();
+			realX = packet.readSignedWordBigEndianA();
 			firstStepX = realX - player.getMapRegionX() * 8;
 		}
 		for (int i = 1; i < player.newWalkCmdSteps; i++) {
-			player.getNewWalkCmdX()[i] = player.getInStream().readSignedByte();
-			player.getNewWalkCmdY()[i] = player.getInStream().readSignedByte();
+			player.getNewWalkCmdX()[i] = packet.readSignedByte();
+			player.getNewWalkCmdY()[i] = packet.readSignedByte();
 		}
 
 		if (player.clickToTele) {
-			firstStepY = player.getInStream().readSignedWordBigEndian();
+			firstStepY = packet.readSignedWordBigEndian();
 		} else {
-			realY = player.getInStream().readSignedWordBigEndian();
+			realY = packet.readSignedWordBigEndian();
 			firstStepY = realY - player.getMapRegionY() * 8;
 		}
 
@@ -258,7 +258,7 @@ public class Walking implements PacketType {
 			}
 		}
 
-		player.setNewWalkCmdIsRunning(player.getInStream().readSignedByteC() == 1 && player.playerEnergy > 0);
+		player.setNewWalkCmdIsRunning(packet.readSignedByteC() == 1 && player.playerEnergy > 0);
 		for (int i1 = 0; i1 < player.newWalkCmdSteps; i1++) {
 			if (player.clickToTele)
 				player.getPlayerAssistant().movePlayer(player.getNewWalkCmdX()[i1] + firstStepX, player.getNewWalkCmdY()[i1] + firstStepY, player.heightLevel);

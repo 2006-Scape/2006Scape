@@ -88,31 +88,31 @@ public class ClickObject implements PacketType {
 		switch (packet.getId()) {
 
 			case FIRST_CLICK:
-				player.objectX = player.getInStream().readSignedWordBigEndianA();
-				player.objectId = player.getInStream().readUnsignedWord();
-				player.objectY = player.getInStream().readUnsignedWordA();
+				player.objectX = packet.readSignedWordBigEndianA();
+				player.objectId = packet.readUnsignedWord();
+				player.objectY = packet.readUnsignedWordA();
 				onObjectReached(player, (p) -> completeObjectClick(p, 1));
 				break;
 
 			case SECOND_CLICK:
-				player.objectId = player.getInStream().readUnsignedWordBigEndianA();
-				player.objectY = player.getInStream().readSignedWordBigEndian();
-				player.objectX = player.getInStream().readUnsignedWordA();
+				player.objectId = packet.readUnsignedWordBigEndianA();
+				player.objectY = packet.readSignedWordBigEndian();
+				player.objectX = packet.readUnsignedWordA();
 				onObjectReached(player, (p) -> completeObjectClick(p, 2));
 				break;
 
 			case THIRD_CLICK: // 'F'
-				player.objectX = player.getInStream().readSignedWordBigEndian();
-				player.objectY = player.getInStream().readUnsignedWord();
-				player.objectId = player.getInStream().readUnsignedWordBigEndianA();
+				player.objectX = packet.readSignedWordBigEndian();
+				player.objectY = packet.readUnsignedWord();
+				player.objectId = packet.readUnsignedWordBigEndianA();
 				onObjectReached(player, (p) -> completeObjectClick(p, 3));
 				break;
 
 
 			case FOURTH_CLICK:
-				player.objectX = player.getInStream().readSignedWordBigEndianA();
-				player.objectId = player.getInStream().readUnsignedWordA();
-				player.objectY = player.getInStream().readUnsignedWordBigEndianA();
+				player.objectX = packet.readSignedWordBigEndianA();
+				player.objectId = packet.readUnsignedWordA();
+				player.objectY = packet.readUnsignedWordBigEndianA();
 				onObjectReached(player, (p) -> completeObjectClick(p, 4));
 				break;
 		}

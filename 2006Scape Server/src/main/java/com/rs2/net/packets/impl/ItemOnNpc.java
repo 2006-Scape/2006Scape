@@ -12,9 +12,9 @@ public class ItemOnNpc implements PacketType {
 
 	@Override
 	public void processPacket(final Player player, Packet packet) {
-		final int itemId = player.getInStream().readSignedWordA();
-		final int i = player.getInStream().readSignedWordA();
-		final int slot = player.getInStream().readSignedWordBigEndian();
+		final int itemId = packet.readSignedWordA();
+		final int i = packet.readSignedWordA();
+		final int slot = packet.readSignedWordBigEndian();
 		final int npcId = NpcHandler.npcs[i].npcType;
 		SkillHandler.resetItemOnNpc(player);
 		player.endCurrentTask();
