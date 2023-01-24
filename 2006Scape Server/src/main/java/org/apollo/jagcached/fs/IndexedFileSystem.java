@@ -269,6 +269,142 @@ public final class IndexedFileSystem implements Closeable {
 		return buffer;
 	}
 
+	public byte[] getFileBytes(FileDescriptor fd) throws IOException {
+		Index index = getIndex(fd);
+		byte[] decompressed = new byte[index.getSize()];
+		
+		// calculate some initial values
+		long ptr = (long) index.getBlock() * (long) FileSystemConstants.BLOCK_SIZE;
+		int read = 0;
+		int size = index.getSize();
+		int blocks = size / FileSystemConstants.CHUNK_SIZE;
+		if (size % FileSystemConstants.CHUNK_SIZE != 0) {
+			blocks++;
+		}
+		
+		for (int i = 0; i < blocks; i++) {
+			
+			// read header
+			byte[] header = new byte[FileSystemConstants.HEADER_SIZE];
+			synchronized (data) {
+				data.seek(ptr);
+				data.readFully(header);
+			}
+			
+			// increment pointers
+			ptr += FileSystemConstants.HEADER_SIZE;
+			
+			// parse header
+			int nextFile = ((header[0] & 0xFF) << 8) | (header[1] & 0xFF);
+			int curChunk = ((header[2] & 0xFF) << 8) | (header[3] & 0xFF);
+			int nextBlock = ((header[4] & 0xFF) << 16) | ((header[5] & 0xFF) << 8) | (header[6] & 0xFF);
+			int nextType = header[7] & 0xFF;
+			
+			// check expected chunk id is correct
+			if (i != curChunk) {
+				throw new IOException("Chunk id mismatch.");
+			}
+			
+			// calculate how much we can read
+			int chunkSize = size - read;
+			if (chunkSize > FileSystemConstants.CHUNK_SIZE) {
+				chunkSize = FileSystemConstants.CHUNK_SIZE;
+			}
+			
+			// read the next chunk and put it in the buffer
+			synchronized (data) {
+				data.seek(ptr);
+				data.readFully(decompressed, read, chunkSize);
+			}			
+			
+			// increment pointers
+			read += chunkSize;
+			ptr = (long) nextBlock * (long) FileSystemConstants.BLOCK_SIZE;
+			
+			// if we still have more data to read, check the validity of the
+			// header
+			if (size > read) {				
+				if (nextType != (fd.getType() + 1)) {
+					throw new IOException("File type mismatch.");
+				}
+				
+				if (nextFile != fd.getFile()) {
+					throw new IOException("File id mismatch.");
+				}
+			}
+		}
+		
+		return decompressed;
+	}
+	
+	private static byte[] buffer = new byte[520];
+
+	private synchronized void seek(RandomAccessFile file, int position) throws IOException {
+		if (position < 0 || position > 0x3c00000) {
+			System.out.println("Badseek - pos:" + position + " len:" + file.length());
+			position = 0x3c00000;
+
+			try {
+				Thread.sleep(1000L);
+			} catch (InterruptedException ex) {
+			}
+		}
+
+		file.seek(position);
+	}
+	
+	/**
+	 * Use IndexedFileSystem.getFileBytes instead.
+	 */
+	@Deprecated
+	public synchronized byte[] decompress(FileDescriptor fd) {
+		try {
+			Index index = getIndex(fd);
+			int size = index.getSize();
+			int block = index.getBlock();
+			
+			byte[] decompressed = new byte[size];
+			int totalRead = 0;
+
+			for (int part = 0; totalRead < size; part++) {
+				if (block == 0) {
+					return null;
+				}
+
+				seek(data, block * FileSystemConstants.BLOCK_SIZE);
+				int unread = Math.min(size - totalRead, FileSystemConstants.CHUNK_SIZE);
+
+				for (int in = 0, read = 0; read < unread + FileSystemConstants.HEADER_SIZE; read += in) {
+					in = data.read(buffer, read, unread + FileSystemConstants.HEADER_SIZE - read);
+					if (in == -1) {
+						return null;
+					}
+				}
+
+				int nextFile = ((buffer[0] & 0xff) << 8) + (buffer[1] & 0xff);
+				int curChunk = ((buffer[2] & 0xff) << 8) + (buffer[3] & 0xff);
+				int nextBlock = ((buffer[4] & 0xff) << 16) + ((buffer[5] & 0xff) << 8) + (buffer[6] & 0xff);
+				int nextType = buffer[7] & 0xff;
+
+				if (nextFile != fd.getFile() || curChunk != part || nextType != (fd.getType() + 1)) {
+					return null;
+				} else if (nextBlock < 0 || nextBlock > data.length() / (long) FileSystemConstants.BLOCK_SIZE) {
+					return null;
+				}
+
+				for (int i = 0; i < unread; i++) {
+					decompressed[totalRead++] = buffer[i + FileSystemConstants.HEADER_SIZE];
+				}
+
+				block = nextBlock;
+			}
+
+			return decompressed;
+		} catch (IOException ex) {
+			return null;
+		}
+	}
+	
 	@Override
 	public void close() throws IOException {
 		if (data != null) {
