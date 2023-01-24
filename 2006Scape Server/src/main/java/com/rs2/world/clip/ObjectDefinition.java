@@ -29,7 +29,6 @@ public final class ObjectDefinition {
 		solid = true;
 		impenetrable = true;
 		hasActions = false;
-		actions = null;
 		clipped = true;
 	}
 
@@ -78,10 +77,12 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 	}
 
 	private void readValues(ByteStreamExt stream) {
-		int[] anIntArray773 = null;
-		int[] anIntArray776 = null;
+		int[] modelId = null;
+		int[] modelType = null;
 		
 		int flag = -1;
+		boolean actions = false;
+		
 		do {
 			int type = stream.readUnsignedByte();
 			if (type == 0) {
@@ -90,12 +91,12 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 			if (type == 1) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
-					if (anIntArray773 == null) {
-						anIntArray776 = new int[len];
-						anIntArray773 = new int[len];
+					if (modelId == null) {
+						modelType = new int[len];
+						modelId = new int[len];
 						for (int k1 = 0; k1 < len; k1++) {
-							anIntArray773[k1] = stream.readUnsignedWord();
-							anIntArray776[k1] = stream.readUnsignedByte();
+							modelId[k1] = stream.readUnsignedWord();
+							modelType[k1] = stream.readUnsignedByte();
 						}
 					} else {
 						stream.currentOffset += len * 3;
@@ -106,11 +107,11 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 			} else if (type == 5) {
 				int len = stream.readUnsignedByte();
 				if (len > 0) {
-					if (anIntArray773 == null) {
-						anIntArray776 = null;
-						anIntArray773 = new int[len];
+					if (modelId == null) {
+						modelType = null;
+						modelId = new int[len];
 						for (int l1 = 0; l1 < len; l1++) {
-							anIntArray773[l1] = stream.readUnsignedWord();
+							modelId[l1] = stream.readUnsignedWord();
 						}
 					} else {
 						stream.currentOffset += len * 2;
@@ -143,14 +144,9 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 			} else if (type == 39) {
 				stream.readSignedByte();
 			} else if (type >= 30 && type < 39) {
-				if (actions == null) {
-					actions = new String[5];
-				}
-				actions[type - 30] = stream.readNewString();
+				actions = true;
+				stream.readNewString();
 				hasActions = true;
-				if (actions[type - 30].equalsIgnoreCase("hidden")) {
-					actions[type - 30] = null;
-				}
 			} else if (type == 40) {
 				int i1 = stream.readUnsignedByte();
 				stream.skip(i1 * 4);
@@ -225,9 +221,8 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 			}
 		} while (true);
 		if (flag == -1) {
-			hasActions = anIntArray773 != null
-					&& (anIntArray776 == null || anIntArray776[0] == 10);
-			if (actions != null) {
+			hasActions = modelId != null && (modelType == null || modelType[0] == 10);
+			if (actions) {
 				hasActions = true;
 			}
 		}
@@ -237,6 +232,9 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 		type = -1;
 	}
 
+	/*
+	 * TODO is this needed? Only called by type 22 objects (ground decorations/map signs).
+	 */
 	public boolean hasActions() {
 		return hasActions;
 	}
@@ -275,7 +273,6 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 	private boolean hasActions;
 	private boolean clipped;
 	private static ObjectDefinition[] cache;
-	private String actions[];
 	private static MemoryArchive archive;
 
 }
