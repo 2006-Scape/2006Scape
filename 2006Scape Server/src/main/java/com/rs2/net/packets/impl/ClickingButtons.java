@@ -59,7 +59,7 @@ public class ClickingButtons implements PacketType {
 		SilverCrafting.makeSilver(player, actionButtonId, 0);
 		Climbing.handleLadderButtons(player, actionButtonId);
 		Specials.specialClicking(player, actionButtonId);
-		DialogueOptions.handleDialogueOptions(player, actionButtonId);
+		//DialogueOptions.handleDialogueOptions(player, actionButtonId);
 		DairyChurn.churnItem(player, actionButtonId);
 		if (EnchantStaff.staffButtons(player, actionButtonId)) {
 			return;

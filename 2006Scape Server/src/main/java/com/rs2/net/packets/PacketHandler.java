@@ -1,7 +1,7 @@
 package com.rs2.net.packets;
 
 import com.rs2.GameConstants;
-import com.rs2.game.dialogues.Dialogue;
+import com.rs2.net.packets.impl.DialoguePacket;
 import com.rs2.game.players.Player;
 import com.rs2.net.packets.impl.AttackPlayer;
 import com.rs2.net.packets.impl.Bank10;
@@ -73,7 +73,7 @@ public class PacketHandler {
 		packetId[150] = u;
 		packetId[120] = new ClickTab();
 		packetId[14] = new ItemOnPlayer();
-		packetId[40] = new Dialogue();
+		packetId[40] = new DialoguePacket();
 		ClickObject co = new ClickObject();
 		packetId[132] = co;
 		packetId[252] = co;

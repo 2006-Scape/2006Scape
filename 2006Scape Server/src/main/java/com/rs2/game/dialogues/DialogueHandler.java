@@ -8,7 +8,6 @@ import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.quests.QuestRewards;
 import com.rs2.game.content.randomevents.FreakyForester;
 import com.rs2.game.content.randomevents.RandomEventHandler;
-import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.content.skills.farming.Farmers;
 import com.rs2.game.content.skills.slayer.Slayer;
 import com.rs2.game.content.traveling.CarpetTravel;
@@ -22,6 +21,12 @@ import com.rs2.game.players.PlayerAssistant;
 import com.rs2.game.shops.Shops.Shop;
 import com.rs2.util.Misc;
 
+/**
+ * Handles Dialogues between NPCs and Players
+ * @Deprecated Consider using {@link DialogueFactoryPlugin} instead to implement dialogues.
+ *
+ */
+@Deprecated
 public class DialogueHandler {
 
 	private final Player player;
@@ -311,140 +316,6 @@ public class DialogueHandler {
 						player.talkingNpc, "Wydin");
 				player.nextChat = 0;
 				player.ptjob = 2;
-				break;
-			case 50:
-				sendNpcChat1("What am I to do?", player.talkingNpc, "Cook");
-				player.nextChat = 51;
-				break;
-			case 51:
-				sendOption("What's wrong?", "Can you cook me a cake?",
-						"You don't look very happy.", "Nice hat.");
-				player.dialogueAction = 52;
-				break;
-			case 52:
-				sendPlayerChat("What's wrong?");
-				player.nextChat = 54;
-				break;
-			case 54:
-				sendNpcChat3(
-						"Oh dear, oh dear, oh dear, I'm in a terrible terrible",
-						"mess! It's the Duke's birthday today, and I should be",
-						"making him a lovely big birthday cake!",
-						player.talkingNpc, "Cook");
-				player.nextChat = 55;
-				break;
-			case 55:
-				sendNpcChat4(
-						"I've forgotten to buy the ingredients. I'll never get",
-						"them in time now. He'll sack me! What will I do? I have",
-						"four children and a goat to look after. Would you help",
-						"me? Please?", player.talkingNpc, "Cook");
-				player.nextChat = 56;
-				break;
-			case 56:
-				sendOption("I'm always happy to help a cook in distress.",
-						"I can't right now, Maybe later.");
-				player.dialogueAction = 57;
-				break;
-			case 57:
-				sendPlayerChat("Yes, I'll help you.");// 9157
-				player.nextChat = 60;
-				break;
-			case 58:
-				sendPlayerChat("I can't right now, Maybe later.");// 9158
-				player.nextChat = 59;
-				break;
-			case 59:
-				sendNpcChat1("Oh please! Hurry then!", player.talkingNpc, "Cook");
-				player.nextChat = 0;
-				break;
-			case 60:
-				sendNpcChat2("Oh thank you, thank you. I need milk, an egg, and",
-						"flour. I'd be very grateful if you can get them for me.",
-						player.talkingNpc, "Cook");
-				player.cookAss = 1;
-				QuestAssistant.sendStages(player);
-				player.nextChat = 61;
-				break;
-			case 61:
-				sendPlayerChat("So where do I find these ingredients then?");
-				player.nextChat = 62;
-				break;
-			case 62:
-				sendNpcChat3("You can find flour in any of the shops here.",
-						"You can find eggs by killing chickens.",
-						"You can find milk by using a bucket on a cow",
-						player.talkingNpc, "Cook");
-				player.nextChat = 0;
-				break;
-			case 63:
-				sendNpcChat1("I don't have time for your jibber-jabber!",
-						player.talkingNpc, "Cook");
-				player.nextChat = 0;
-				break;
-			case 64:
-				sendNpcChat1("Does it look like I have the time?",
-						player.talkingNpc, "Cook");
-				player.nextChat = 0;
-				break;
-			case 65:
-				sendPlayerChat("You don't look so happy.");
-				player.nextChat = 54;
-				break;
-			case 66:
-				sendNpcChat1(
-						"How are you getting on with finding the ingredients?",
-						player.talkingNpc, "Cook");
-				player.nextChat = 67;
-				break;
-			case 67:
-				if (player.getItemAssistant().playerHasItem(1944, 1)
-						&& player.getItemAssistant().playerHasItem(1927, 1)
-						&& player.getItemAssistant().playerHasItem(1933, 1)) {
-					sendPlayerChat("Here's all the items!");
-					player.nextChat = 68;
-				} else {
-					sendPlayerChat("I don't have all the items yet.");
-					player.nextChat = 59;
-				}
-				break;
-			case 68:
-				player.getItemAssistant().deleteItem(1944, 1);
-				player.getItemAssistant().deleteItem(1927, 1);
-				player.getItemAssistant().deleteItem(1933, 1);
-				player.cookAss = 2;
-				sendNpcChat2("You brought me everything I need! I'm saved!",
-						"Thank you!", player.talkingNpc, "Cook");
-				player.nextChat = 69;
-				break;
-			case 69:
-				sendPlayerChat("So do I get to go to the Duke's Party?");
-				player.nextChat = 70;
-				break;
-			case 70:
-				sendNpcChat2(
-						"I'm afraid not, only the big cheeses get to dine with the",
-						"Duke.", player.talkingNpc, "Cook");
-				player.nextChat = 72;
-				break;
-			case 72:
-				sendPlayerChat(
-						"Well, maybe one day I'll be important enough to sit on",
-						"the Duke's table");
-				player.nextChat = 74;
-				break;
-			case 74:
-				sendNpcChat1("Maybe, but I won't be holding my breath.",
-						player.talkingNpc, "Cook");
-				player.nextChat = 75;
-				break;
-			case 75:
-				QuestRewards.cookReward(player);
-				break;
-			case 76:
-				sendNpcChat1("Thanks for helping me out friend!",
-						player.talkingNpc, "Cook");
-				player.nextChat = 0;
 				break;
 			case 84:
 				sendNpcChat1("How are you getting on finding all my supplies",
@@ -3942,32 +3813,9 @@ public class DialogueHandler {
 						"Tzhaar-Mej-Tal");
 				player.nextChat = 0;
 				break;
-
-			/** Bank Settings **/
-			case 1013:
-				if (SkillHandler.isSkilling(player)) {
-					return;
-				}
-				sendNpcChat1("Good day. How may I help you?", player.talkingNpc, "Banker");
-				player.nextChat = 1014;
-				break;
-			case 1014:// bank open done, this place done, settings done, to do
-				// delete pin
-				sendOption("I'd like to access my bank account, please.", "I'd like to check my my P I N settings.", "What is this place?");
-				player.dialogueAction = 251;
-				break;
-			/** What is this place? **/
-			case 1015:
-				sendPlayerChat("What is this place?");
-				player.nextChat = 1016;
-				break;
-			case 1016:
-				sendNpcChat2("This is the bank of " + GameConstants.SERVER_NAME + ".", "We have many branches in many towns.", player.talkingNpc, "Banker");
-				player.nextChat = 0;
-				break;
 			/**
-			 * Note on P I N. In order to check your "Pin Settings. You must have
-			 * enter your Bank Pin first
+			 * BANK P I N Setting
+			 * Note on P I N. In order to check your P I N Settings. You must enter your Bank Pin first
 			 **/
 			/** I don't know option for Bank Pin **/
 			case 1017:
@@ -7472,28 +7320,8 @@ public class DialogueHandler {
 			case 3868:
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Enjoy your stay here. May it be spiritually uplifting!");
 				player.getDialogueHandler().endDialogue();
-				break;	
-			case 3869:
-				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Hello, how's it going?");
-				player.nextChat = 3870;
 				break;
-			case 3870:
-				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "I'm fine how are you?");
-				player.nextChat = 3871;
-				break;
-			case 3871:
-				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Very well thank you.");
-				player.getDialogueHandler().endDialogue();
-				break;
-			case 3872:
-				player.getDialogueHandler().sendPlayerChat(ChatEmotes.DEFAULT, "Hello, how's it going?");
-				player.nextChat = 3873;
-				break;
-			case 3873:
-				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.HAPPY_JOYFUL, "Hello there! Nice weather we've been having.");
-				player.getDialogueHandler().endDialogue();
-				break;
-				//holiday events (easter)
+			//holiday events (easter)
 			case 6000:
 				player.getDialogueHandler().sendNpcChat(player.talkingNpc, ChatEmotes.DISTRESSED, "Oh dear... What am I going to do?");
 				player.nextChat = 6001;

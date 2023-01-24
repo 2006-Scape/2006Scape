@@ -724,18 +724,6 @@ public class NpcActions {
 			}
 			break;
 
-		case 278:
-			if (player.cookAss == 0) {
-				player.getDialogueHandler().sendDialogues(50, npcType);
-			} else if (player.cookAss == 1) {
-				player.getDialogueHandler().sendDialogues(67, npcType);
-			} else if (player.cookAss == 2) {
-				player.getDialogueHandler().sendDialogues(69, npcType);
-			} else if (player.cookAss == 3) {
-				player.getDialogueHandler().sendDialogues(76, npcType);
-			}
-			break;
-
 		case 608:
 			if (player.blackKnight == 0 && player.questPoints >= 12) {
 				player.getDialogueHandler().sendDialogues(3902, npcType);

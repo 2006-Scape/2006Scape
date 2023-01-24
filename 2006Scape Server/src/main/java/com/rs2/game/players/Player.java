@@ -37,6 +37,9 @@ import com.rs2.game.content.skills.smithing.Smithing;
 import com.rs2.game.content.skills.smithing.SmithingInterface;
 import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.content.traveling.DesertHeat;
+import com.rs2.game.dialogues.DialoguePlugin;
+import com.rs2.game.dialogues.DialogueFactoryPlugin;
+import com.rs2.game.dialogues.OptionDialoguePlugin;
 import com.rs2.game.dialogues.DialogueHandler;
 import com.rs2.game.globalworldobjects.DoubleGates;
 import com.rs2.game.globalworldobjects.GateHandler;
@@ -117,6 +120,14 @@ public abstract class Player {
 	private final Slayer slayer = new Slayer(this);
 	private final PacketSender packetSender = new PacketSender(this);
 	private final DialogueHandler dialogues = new DialogueHandler(this);
+
+	private final DialogueFactoryPlugin dialogueFactory = new DialogueFactoryPlugin(this);
+
+	private Optional<DialoguePlugin> dialogue = Optional.empty();
+
+	private Optional<OptionDialoguePlugin> optionDialogue = Optional.empty();
+
+
 	private final GnomeAgility gnomeStrongHold = new GnomeAgility(this);
 	private final WildernessAgility wildernessAgility = new WildernessAgility(this);
 	private final BarbarianAgility barbarianAgility = new BarbarianAgility(this);
@@ -477,6 +488,26 @@ public abstract class Player {
 	}
 
 	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
+
+	public DialogueFactoryPlugin getDialogueFactory() {
+		return this.dialogueFactory;
+	}
+
+	public Optional<DialoguePlugin> getDialogue() {
+		return this.dialogue;
+	}
+
+	public Optional<OptionDialoguePlugin> getOptionDialogue() {
+		return this.optionDialogue;
+	}
+
+	public void setDialogue(Optional<DialoguePlugin> dialogue) {
+		this.dialogue = dialogue;
+	}
+
+	public void setOptionDialogue(Optional<OptionDialoguePlugin> optionDialogue) {
+		this.optionDialogue = optionDialogue;
+	}
 
 	public class TinterfaceText {
 		public int id;
