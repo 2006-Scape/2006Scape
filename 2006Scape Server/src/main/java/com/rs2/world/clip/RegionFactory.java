@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.zip.GZIPInputStream;
 
+import org.apollo.jagcached.Constants;
+import org.apollo.jagcached.fs.IndexedFileSystem;
+
 public class RegionFactory {
 	
 	private static Region[] regions;
@@ -14,8 +17,9 @@ public class RegionFactory {
 		return regions;
 	}
 
-	public static void load() {
+	public static void load() throws Exception {
 		//GameEngine.getLogger(Region.class).info("Loading region configurations...");
+		IndexedFileSystem cache = new IndexedFileSystem(new File(Constants.FILE_SYSTEM_DIR), true);
 		try {
 			File f = new File("./data/world/map_index");
 			byte[] buffer = new byte[(int) f.length()];
@@ -49,11 +53,9 @@ public class RegionFactory {
 			//GameEngine.getLogger(Region.class).info("Populating regions...");
 			for (int i = 0; i < size; i++) {
 				//GameEngine.getLogger(Region.class).info("Region: " + i + " RegionId: " + regionIds[i] + " ObjectsId: " + mapObjectsFileIds[i]
-				//		+ " ClippingsId: " + mapGroundFileIds[i]);
-				byte[] file1 = getBuffer(new File("./data/world/map/"
-						+ mapObjectsFileIds[i] + ".gz"));
-				byte[] file2 = getBuffer(new File("./data/world/map/"
-						+ mapGroundFileIds[i] + ".gz"));
+				//		+ " ClippingsId: " + mapGroundFileIds[i]);				
+				byte[] file1 = getBuffer(cache.getFileBytes(4, mapObjectsFileIds[i]));
+				byte[] file2 = getBuffer(cache.getFileBytes(4, mapGroundFileIds[i]));
 				if (file1 == null || file2 == null) {
 					continue;
 				}
@@ -159,14 +161,7 @@ public class RegionFactory {
 		}
 	}
 
-	public static byte[] getBuffer(File f) throws Exception {
-		if (!f.exists()) {
-			return null;
-		}
-		byte[] buffer = new byte[(int) f.length()];
-		DataInputStream dis = new DataInputStream(new FileInputStream(f));
-		dis.readFully(buffer);
-		dis.close();
+	public static byte[] getBuffer(byte[] buffer) throws Exception {
 		byte[] gzipInputBuffer = new byte[999999];
 		int bufferlength = 0;
 		GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(
@@ -192,5 +187,4 @@ public class RegionFactory {
 		}
 		return buffer;
 	}
-
 }

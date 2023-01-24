@@ -269,6 +269,10 @@ public final class IndexedFileSystem implements Closeable {
 		return buffer;
 	}
 
+	public byte[] getFileBytes(int type, int file) throws IOException {
+		return getFileBytes(new FileDescriptor(type, file));
+	}
+	
 	public byte[] getFileBytes(FileDescriptor fd) throws IOException {
 		Index index = getIndex(fd);
 		byte[] decompressed = new byte[index.getSize()];
