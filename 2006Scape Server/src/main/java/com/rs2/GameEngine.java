@@ -213,13 +213,7 @@ public class GameEngine {
 		/**
 		 * Initialise Handlers
 		 */
-		ObjectDefinition.loadConfig();
-		try {
-			RegionFactory.load();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		RegionFactory.load();
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();
 		ItemDefinition.read();
