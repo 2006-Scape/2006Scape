@@ -81,4 +81,35 @@ public final class CompressionUtil {
 
 	}
 
+	/**
+	 * Was originally from RegionFactory and titled getBuffer where it loaded off the FS rather than cache. 
+	 * #TODO testing on this vs the methods from Apollo above.
+	 */
+	public static byte[] degzip(byte[] buffer) throws Exception {
+		byte[] gzipInputBuffer = new byte[999999];
+		int bufferlength = 0;
+		GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(
+				buffer));
+		do {
+			if (bufferlength == gzipInputBuffer.length) {
+				System.out
+						.println("Error inflating data.\nGZIP buffer overflow.");
+				break;
+			}
+			int readByte = gzip.read(gzipInputBuffer, bufferlength,
+					gzipInputBuffer.length - bufferlength);
+			if (readByte == -1) {
+				break;
+			}
+			bufferlength += readByte;
+		} while (true);
+		byte[] inflated = new byte[bufferlength];
+		System.arraycopy(gzipInputBuffer, 0, inflated, 0, bufferlength);
+		buffer = inflated;
+		if (buffer.length < 10) {
+			return null;
+		}
+		return buffer;
+	}
+
 }

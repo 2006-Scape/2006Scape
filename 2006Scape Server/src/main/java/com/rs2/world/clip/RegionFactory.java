@@ -1,11 +1,10 @@
 package com.rs2.world.clip;
 
-import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.zip.GZIPInputStream;
 
+import org.apollo.archive.CompressionUtil;
 import org.apollo.jagcached.Constants;
 import org.apollo.jagcached.fs.IndexedFileSystem;
 
@@ -54,8 +53,8 @@ public class RegionFactory {
 			for (int i = 0; i < size; i++) {
 				//GameEngine.getLogger(Region.class).info("Region: " + i + " RegionId: " + regionIds[i] + " ObjectsId: " + mapObjectsFileIds[i]
 				//		+ " ClippingsId: " + mapGroundFileIds[i]);				
-				byte[] file1 = getBuffer(cache.getFileBytes(4, mapObjectsFileIds[i]));
-				byte[] file2 = getBuffer(cache.getFileBytes(4, mapGroundFileIds[i]));
+				byte[] file1 = CompressionUtil.degzip(cache.getFileBytes(4, mapObjectsFileIds[i]));
+				byte[] file2 = CompressionUtil.degzip(cache.getFileBytes(4, mapGroundFileIds[i]));
 				if (file1 == null || file2 == null) {
 					continue;
 				}
@@ -159,32 +158,5 @@ public class RegionFactory {
 				}
 			}
 		}
-	}
-
-	public static byte[] getBuffer(byte[] buffer) throws Exception {
-		byte[] gzipInputBuffer = new byte[999999];
-		int bufferlength = 0;
-		GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(
-				buffer));
-		do {
-			if (bufferlength == gzipInputBuffer.length) {
-				System.out
-						.println("Error inflating data.\nGZIP buffer overflow.");
-				break;
-			}
-			int readByte = gzip.read(gzipInputBuffer, bufferlength,
-					gzipInputBuffer.length - bufferlength);
-			if (readByte == -1) {
-				break;
-			}
-			bufferlength += readByte;
-		} while (true);
-		byte[] inflated = new byte[bufferlength];
-		System.arraycopy(gzipInputBuffer, 0, inflated, 0, bufferlength);
-		buffer = inflated;
-		if (buffer.length < 10) {
-			return null;
-		}
-		return buffer;
 	}
 }
