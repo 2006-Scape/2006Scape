@@ -11,6 +11,7 @@ import com.rs2.game.content.skills.firemaking.LogData;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
 import com.rs2.world.Boundary;
@@ -24,7 +25,7 @@ public class PickupItem implements PacketType {
 
 
 	@Override
-	public void processPacket(final Player player, int packetType, int packetSize) {
+	public void processPacket(final Player player, Packet packet) {
 		player.pItemY = player.getInStream().readSignedWordBigEndian();
 		player.pItemId = player.getInStream().readUnsignedWord();
 		player.pItemX = player.getInStream().readSignedWordBigEndian();

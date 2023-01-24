@@ -5,6 +5,7 @@ import com.rs2.game.content.skills.runecrafting.Runecrafting;
 import com.rs2.game.items.impl.HandleEmpty;
 import com.rs2.game.items.impl.Teles;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
 
@@ -17,7 +18,7 @@ import com.rs2.util.Misc;
 public class ItemClick3 implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
+	public void processPacket(Player player, Packet packet) {
 		int itemId11 = player.getInStream().readSignedWordBigEndianA();
 		int itemId1 = player.getInStream().readSignedWordA();
 		int itemId = player.getInStream().readSignedWordA();

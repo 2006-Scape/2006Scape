@@ -6,6 +6,7 @@ import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.game.players.antimacro.AntiSpam;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
 import com.rs2.util.Misc;
@@ -19,8 +20,8 @@ public class PrivateMessaging implements PacketType {
 			CHANGE_PM_STATUS = 95, REMOVE_IGNORE = 59, ADD_IGNORE = 133;
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
-		switch (packetType) {
+	public void processPacket(Player player, Packet packet) {
+		switch (packet.getId()) {
 
 		case ADD_FRIEND:
 			player.friendUpdate = true;
@@ -57,11 +58,11 @@ public class PrivateMessaging implements PacketType {
 		case SEND_PM:
 			long sendMessageToFriendId = player.getInStream().readQWord();
 			byte pmchatText[] = new byte[100];
-			int pmchatTextSize = (byte) (packetSize - 8);
+			int pmchatTextSize = (byte) (packet.getLength() - 8);
 			player.getInStream().readBytes(pmchatText, pmchatTextSize, 0);
-			String word = Misc.textUnpack(pmchatText, player.packetSize - 2).toLowerCase();// used
+			String word = Misc.textUnpack(pmchatText, packet.getLength() - 2).toLowerCase();// used
 			if (player.getPlayerAssistant().isPlayer()) {
-				GameLogger.writeLog(player.playerName, "pmsent", player.playerName + " said " + Misc.textUnpack(pmchatText, packetSize - 8) + "");
+				GameLogger.writeLog(player.playerName, "pmsent", player.playerName + " said " + Misc.textUnpack(pmchatText, packet.getLength() - 8) + "");
 			}
 			if (!AntiSpam.blockedWords(player, word, false) || Connection.isMuted(player)) {
 				return;
@@ -78,7 +79,7 @@ public class PrivateMessaging implements PacketType {
 									if (friend == sendMessageToFriendId) {
 										o.getPacketSender().sendPM(Misc.playerNameToInt64(player.playerName), player.playerRights, pmchatText, pmchatTextSize);
 										if (player.getPlayerAssistant().isPlayer()) {
-											GameLogger.writeLog(o.playerName, "pmrecieved", player.playerName + " said to " + o.playerName + " " + Misc.textUnpack(pmchatText, packetSize - 8) + "");
+											GameLogger.writeLog(o.playerName, "pmrecieved", player.playerName + " said to " + o.playerName + " " + Misc.textUnpack(pmchatText, packet.getLength() - 8) + "");
 										}
 										pmSent = true;
 									}

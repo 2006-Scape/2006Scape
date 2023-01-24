@@ -11,6 +11,7 @@ import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -19,7 +20,7 @@ import com.rs2.net.packets.PacketType;
 public class Walking implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
+	public void processPacket(Player player, Packet packet) {
 		player.getDueling().checkDuelWalk();
 		if (player.playerIsBusy()) {
 			player.playerIsBusy = false;
@@ -87,7 +88,7 @@ public class Walking implements PacketType {
 		if (player.getPlayerAction().checkWalking() == false) {
 			return;
 		}
-		if (packetType == 248 || packetType == 164) {
+		if (packet.getId() == 248 || packet.getId() == 164) {
 			player.faceUpdate(0);
 			player.npcIndex = 0;
 			player.playerIndex = 0;
@@ -118,12 +119,12 @@ public class Walking implements PacketType {
 				if (player.goodDistance(player.getX(), player.getY(),
 						PlayerHandler.players[player.playerIndex].getX(),
 						PlayerHandler.players[player.playerIndex].getY(), 1)
-						&& packetType != 98) {
+						&& packet.getId() != 98) {
 					player.playerIndex = 0;
 					return;
 				}
 			}
-			if (packetType != 98) {
+			if (packet.getId() != 98) {
 				player.getPacketSender().sendMessage("A magical force stops you from moving.");
 				player.playerIndex = 0;
 			}
@@ -136,7 +137,7 @@ public class Walking implements PacketType {
 			return;
 		}
 
-		if (packetType == 98) {
+		if (packet.getId() == 98) {
 			player.mageAllowed = true;
 		}
 
@@ -170,8 +171,8 @@ public class Walking implements PacketType {
 		}
 
 		player.endCurrentTask();
-
-		if (packetType == 248) {
+		int packetSize = packet.getLength();
+		if (packet.getId() == 248) {
 			packetSize -= 14;
 		}
 //

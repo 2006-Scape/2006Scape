@@ -1,6 +1,7 @@
 package com.rs2.net.packets.impl;
 
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -35,7 +36,7 @@ public class ChangeAppearance implements PacketType {
 	};
 
 	@Override
-	public void processPacket(final Player player, final int packetType, final int packetSize) {
+	public void processPacket(final Player player, Packet packet) {
 		final int gender = player.getInStream().readSignedByte();
 
 		if (gender != 0 && gender != 1) {

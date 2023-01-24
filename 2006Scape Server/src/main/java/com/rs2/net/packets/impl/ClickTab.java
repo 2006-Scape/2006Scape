@@ -2,13 +2,14 @@ package com.rs2.net.packets.impl;
 
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 public class ClickTab implements PacketType {
 
 	@Override
-	public void processPacket(final Player player, int packetType, int packetSize) {
-		switch (packetSize) {
+	public void processPacket(final Player player, Packet packet) {
+		switch (packet.getLength()) {
 		case 1:// first part.
 			if (player.tutorialProgress == 0) { // wrench
 				player.getPacketSender().chatbox(6180);

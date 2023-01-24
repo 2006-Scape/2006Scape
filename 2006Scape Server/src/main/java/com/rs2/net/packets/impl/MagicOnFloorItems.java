@@ -7,6 +7,7 @@ import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.GlobalDropsHandler;
 import com.rs2.world.clip.PathFinder;
@@ -18,7 +19,7 @@ import com.rs2.world.clip.PathFinder;
 public class MagicOnFloorItems implements PacketType {
 
 	@Override
-	public void processPacket(final Player player, int packetType, int packetSize) {
+	public void processPacket(final Player player, Packet packet) {
 		final int itemY = player.getInStream().readSignedWordBigEndian();
 		int itemId = player.getInStream().readUnsignedWord();
 		final int itemX = player.getInStream().readSignedWordBigEndian();

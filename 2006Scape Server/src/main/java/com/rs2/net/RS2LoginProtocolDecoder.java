@@ -249,9 +249,6 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 			}
 		}
 
-		cl.packetType = -1;
-		cl.packetSize = 0;
-
 		StaticPacketBuilder bldr = new StaticPacketBuilder();
 		bldr.setBare(true);
 		bldr.addByte((byte) returnCode);

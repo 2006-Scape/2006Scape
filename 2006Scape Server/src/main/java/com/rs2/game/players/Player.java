@@ -360,14 +360,6 @@ public abstract class Player {
 		return inStream;
 	}
 
-	public synchronized int getPacketType() {
-		return packetType;
-	}
-
-	public synchronized int getPacketSize() {
-		return packetSize;
-	}
-
 	public synchronized Stream getOutStream() {
 		return outStream;
 	}
@@ -787,7 +779,6 @@ public abstract class Player {
 		return eventProvider;
 	}
 
-	public int packetSize = 0, packetType = -1;
 	public boolean wildernessWarning;
 	public int axeAnimation = -1;
 
@@ -1111,11 +1102,9 @@ public abstract class Player {
 			return false;
 		}
 		inStream.currentOffset = 0;
-		packetType = p.getId();
-		packetSize = p.getLength();
 		inStream.buffer = p.getData();
-		if (packetType > 0) {
-			PacketHandler.processPacket(this, packetType, packetSize);
+		if (p.getId() > 0) {
+			PacketHandler.processPacket(this, p);
 		}
 		timeOutCounter = 0;
 		return true;
@@ -1127,11 +1116,9 @@ public abstract class Player {
 				return false;
 			}
 			inStream.currentOffset = 0;
-			packetType = p.getId();
-			packetSize = p.getLength();
 			inStream.buffer = p.getData();
-			if (packetType > 0) {
-				PacketHandler.processPacket(this, packetType, packetSize);
+			if (p.getId() > 0) {
+				PacketHandler.processPacket(this, p);
 			}
 			timeOutCounter = 0;
 			return true;
