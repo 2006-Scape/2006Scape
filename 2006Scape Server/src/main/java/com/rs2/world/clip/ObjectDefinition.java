@@ -1,231 +1,182 @@
 package com.rs2.world.clip;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
+import org.apollo.archive.Archive;
 import org.apollo.jagcached.fs.IndexedFileSystem;
 
 public final class ObjectDefinition {
 
+	private static ObjectDefinition[] definitions;
+
 	public static ObjectDefinition getObjectDef(int i) {
-		for (int j = 0; j < 20; j++) {
-			if (cache[j].type == i) {
-				return cache[j];
-			}
-		}
-
-		cacheIndex = (cacheIndex + 1) % 20;
-		ObjectDefinition class46 = cache[cacheIndex];
-		class46.type = i;
-		class46.setDefaults();
-		byte[] buffer = archive.get(i);
-		if (buffer != null && buffer.length > 0) {
-			class46.readValues(new ByteStreamExt(buffer));
-		}
-		return class46;
+		return definitions[i];
 	}
 
-	private void setDefaults() {
-		name = null;
-		width = 1;
-		length = 1;
-		solid = true;
-		impenetrable = true;
-		hasActions = false;
-		clipped = true;
-	}
-
-/*	
-Currently broken. Archive class from Apollo is backed by read only bytebuffers. TODO look at taking whole class from apollo.
-
-public static void loadConfig(IndexedFileSystem fs) throws IOException {
-		Archive configs = Archive.decode(fs.getFile(0, 2));
-		ArchiveEntry dat = configs.getEntry("loc.dat");
-		ArchiveEntry idx = configs.getEntry("loc.idx");
-		
-		archive = new MemoryArchive(new ByteStream(dat.getBuffer().array()),
-				new ByteStream(idx.getBuffer().array()));
-		cache = new ObjectDefinition[20];
-		for (int k = 0; k < 20; k++) {
-			cache[k] = new ObjectDefinition();
+	public static void loadConfig(IndexedFileSystem fs) throws IOException {
+		Archive config = Archive.decode(fs.getFile(0, 2));
+		ByteBuffer data = config.getEntry("loc.dat").getBuffer();
+		ByteBuffer idx = config.getEntry("loc.idx").getBuffer();
+		int count = idx.getShort(), index = 2;
+		int[] indices = new int[count];
+		for (int i = 0; i < count; i++) {
+			indices[i] = index;
+			index += idx.getShort();
 		}
-		System.out.println("[ObjectDef] DONE LOADING OBJECT CONFIGURATION");
-	}*/
-	
-	public static void loadConfig(IndexedFileSystem fs) {
-		archive = new MemoryArchive(new ByteStream(getBuffer("loc.dat")),
-				new ByteStream(getBuffer("loc.idx")));
-		cache = new ObjectDefinition[20];
-		for (int k = 0; k < 20; k++) {
-			cache[k] = new ObjectDefinition();
+		definitions = new ObjectDefinition[count];
+		for (int i = 0; i < count; i++) {
+			data.position(indices[i]);
+			definitions[i] = readValues(i, data);
 		}
 		System.out.println("[ObjectDef] DONE LOADING OBJECT CONFIGURATION");
 	}
 
-	private static byte[] getBuffer(String s) {
-		try {
-			java.io.File f = new java.io.File("./data/world/object/" + s);
-			if (!f.exists()) {
-				return null;
-			}
-			byte[] buffer = new byte[(int) f.length()];
-			java.io.DataInputStream dis = new java.io.DataInputStream(
-					new java.io.FileInputStream(f));
-			dis.readFully(buffer);
-			dis.close();
-			return buffer;
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
-	private void readValues(ByteStreamExt stream) {
+	private static ObjectDefinition readValues(int id, ByteBuffer data) {
+		ObjectDefinition def = new ObjectDefinition();
+		def.type = id;
 		int[] modelId = null;
 		int[] modelType = null;
-		
+
 		int flag = -1;
 		boolean actions = false;
-		
 		do {
-			int type = stream.readUnsignedByte();
+			int type = data.get() & 0xFF;
 			if (type == 0) {
 				break;
 			}
 			if (type == 1) {
-				int len = stream.readUnsignedByte();
+				int len = data.get() & 0xFF;
 				if (len > 0) {
 					if (modelId == null) {
 						modelType = new int[len];
 						modelId = new int[len];
 						for (int k1 = 0; k1 < len; k1++) {
-							modelId[k1] = stream.readUnsignedWord();
-							modelType[k1] = stream.readUnsignedByte();
+							modelId[k1] = data.getShort() & 0xFFFF;
+							modelType[k1] = data.get() & 0xFF;
 						}
 					} else {
-						stream.currentOffset += len * 3;
+						for (int i = 0; i < len; i++) {
+							data.getShort();
+							data.get();
+						}
 					}
 				}
 			} else if (type == 2) {
-				name = stream.readNewString();
+				def.name = readString(data);
+			} else if (type == 3) {
+				readString(data);
 			} else if (type == 5) {
-				int len = stream.readUnsignedByte();
+				int len = data.get() & 0xFF;
 				if (len > 0) {
 					if (modelId == null) {
 						modelType = null;
 						modelId = new int[len];
 						for (int l1 = 0; l1 < len; l1++) {
-							modelId[l1] = stream.readUnsignedWord();
+							modelId[l1] = data.getShort() & 0xFFFF;
 						}
 					} else {
-						stream.currentOffset += len * 2;
+						for (int i = 0; i < len; i++) {
+							data.getShort();
+						}
 					}
 				}
 			} else if (type == 14) {
-				width = stream.readUnsignedByte();
+				def.width = data.get() & 0xFF;
 			} else if (type == 15) {
-				length = stream.readUnsignedByte();
+				def.length = data.get() & 0xFF;
 			} else if (type == 17) {
-				solid = false;
+				def.solid = false;
 			} else if (type == 18) {
-				impenetrable = false;
+				def.impenetrable = false;
 			} else if (type == 19) {
-				flag = stream.readUnsignedByte();
-				hasActions = flag == 1;
+				flag = data.get() & 0xFF;
+				def.hasActions = flag == 1;
 			} else if (type == 21) {
 				// aBoolean762 = true;
 			} else if (type == 22) {
 			} else if (type == 23) {
 				// aBoolean764 = true;
 			} else if (type == 24) {
-				stream.readUnsignedWord();
+				data.getShort();
 			} else if (type == 27) {
 				continue;
 			} else if (type == 28) {
-				/* anInt775 = */ stream.readUnsignedByte();
+				data.get();
 			} else if (type == 29) {
-				stream.readSignedByte();
+				data.get();
 			} else if (type == 39) {
-				stream.readSignedByte();
+				data.get();
 			} else if (type >= 30 && type < 39) {
 				actions = true;
-				stream.readNewString();
-				hasActions = true;
+				readString(data);
+				def.hasActions = true;
 			} else if (type == 40) {
-				int i1 = stream.readUnsignedByte();
-				stream.skip(i1 * 4);
-			} else if (type == 41) {
-				int l = stream.readUnsignedByte();
-				stream.skip(l * 4);
-			} else if (type == 42) {
-				int l = stream.readUnsignedByte();
-				stream.skip(l);
+				int amount = data.get() & 0xFF;
+				for (int i = 0; i < amount; i++) {
+					data.getShort();
+					data.getShort();
+				}
 			} else if (type == 60) {
-				/* anInt746 = */ stream.readUnsignedWord();
+				data.getShort();
 			} else if (type == 62) {
 			} else if (type == 64) {
-				clipped = false;
+				def.clipped = false;
 			} else if (type == 65) {
-				stream.readUnsignedWord();
+				data.getShort();
 			} else if (type == 66) {
-				stream.readUnsignedWord();
+				data.getShort();
 			} else if (type == 67) {
-				stream.readUnsignedWord();
+				data.getShort();
 			} else if (type == 68) {
-				/* anInt758 = */ stream.readUnsignedWord();
+				data.getShort();
 			} else if (type == 69) {
-				/* anInt768 = */ stream.readUnsignedByte();
+				data.get();
 			} else if (type == 70) {
-				stream.readSignedWord();
+				data.getShort();
 			} else if (type == 71) {
-				stream.readSignedWord();
+				data.getShort();
 			} else if (type == 72) {
-				stream.readSignedWord();
+				data.getShort();
 			} else if (type == 73) {
-			//	aBoolean736 = true;
+				// #TODO obstructive = true;
 			} else if (type == 74) {
 			} else if (type == 75) {
-				stream.readUnsignedByte();
-			} else if (type == 77 || type == 92) {
-				stream.skip(4);
-				if (type == 92) {
-					stream.readUnsignedWord();
-				}
-				int count = stream.readUnsignedByte();
-				for (int j2 = 0; j2 <= count; j2++) {
-					stream.readUnsignedWord();
-				}
-			} else if (type == 78) {
-				stream.skip(3);
-			} else if (type == 79) {
-				stream.skip(5);
-				int l = stream.readUnsignedByte();
-				stream.skip(l * 2);
-			} else if (type == 81) {
-				stream.skip(1);
-			} else if (type == 82 || type == 88 || type == 89 || type == 90
-					|| type == 91 || type == 94 || type == 95 || type == 96
-					|| type == 97) {
-				continue;
-			} else if (type == 93) {
-				stream.skip(2);
-			} else if (type == 249) {
-				int l = stream.readUnsignedByte();
-				for (int ii = 0; ii < l; ii++) {
-					boolean b = stream.readUnsignedByte() == 1;
-					stream.skip(3);
-					if (b) {
-						stream.readNewString();
-					} else {
-						stream.skip(4);
-					}
+				data.get();
+			} else if (type == 77) {
+				data.getShort();
+				data.getShort();
+				int count = data.get() & 0xFF;
+				for (int i = 0; i <= count; i++) {
+					data.getShort();
 				}
 			} else {
-				System.out.println("Unknown config: " + type);
+				System.out.println("Unknown  config: " + type);
+				System.exit(0);
 			}
 		} while (true);
 		if (flag == -1) {
-			hasActions = modelId != null && (modelType == null || modelType[0] == 10);
+			def.hasActions = modelId != null && (modelType == null || modelType[0] == 10);
 			if (actions) {
-				hasActions = true;
+				def.hasActions = true;
 			}
 		}
+		return def;
+	}
+
+	/**
+	 * Reads a string from the specified {@link ByteBuffer}.
+	 *
+	 * @param buffer The buffer.
+	 * @return The string.
+	 */
+	public static String readString(ByteBuffer buffer) {
+		StringBuilder bldr = new StringBuilder();
+		char character;
+		while ((character = (char) buffer.get()) != 10) {
+			bldr.append(character);
+		}
+		return bldr.toString();
 	}
 
 	private ObjectDefinition() {
@@ -263,16 +214,13 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 		return impenetrable;
 	}
 
-	public String name;
-	private int width;
+	public String name = null;
+	private int width = 1;
+	@SuppressWarnings("unused")
 	private int type;
-	private boolean impenetrable;
-	private int length;
-	private boolean solid;
-	private static int cacheIndex;
-	private boolean hasActions;
-	private boolean clipped;
-	private static ObjectDefinition[] cache;
-	private static MemoryArchive archive;
-
+	private boolean impenetrable = true;
+	private int length = 1;
+	private boolean solid = true;
+	private boolean hasActions = false;
+	private boolean clipped = true;
 }
