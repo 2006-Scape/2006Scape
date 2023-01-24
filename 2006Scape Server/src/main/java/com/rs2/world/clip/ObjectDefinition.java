@@ -23,20 +23,14 @@ public final class ObjectDefinition {
 	}
 
 	private void setDefaults() {
-		anIntArray773 = null;
-		anIntArray776 = null;
 		name = null;
 		width = 1;
 		length = 1;
 		solid = true;
 		impenetrable = true;
 		hasActions = false;
-		anInt781 = -1;
 		actions = null;
-		aBoolean779 = true;
-		anInt774 = -1;
-		anInt749 = -1;
-		childrenIDs = null;
+		clipped = true;
 	}
 
 /*	
@@ -84,6 +78,9 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 	}
 
 	private void readValues(ByteStreamExt stream) {
+		int[] anIntArray773 = null;
+		int[] anIntArray776 = null;
+		
 		int flag = -1;
 		do {
 			int type = stream.readUnsignedByte();
@@ -136,10 +133,7 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 			} else if (type == 23) {
 				// aBoolean764 = true;
 			} else if (type == 24) {
-				anInt781 = stream.readUnsignedWord();
-				if (anInt781 == 65535) {
-					anInt781 = -1;
-				}
+				stream.readUnsignedWord();
 			} else if (type == 27) {
 				continue;
 			} else if (type == 28) {
@@ -170,7 +164,7 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 				/* anInt746 = */ stream.readUnsignedWord();
 			} else if (type == 62) {
 			} else if (type == 64) {
-				aBoolean779 = false;
+				clipped = false;
 			} else if (type == 65) {
 				stream.readUnsignedWord();
 			} else if (type == 66) {
@@ -193,30 +187,14 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 			} else if (type == 75) {
 				stream.readUnsignedByte();
 			} else if (type == 77 || type == 92) {
-				anInt774 = stream.readUnsignedWord();
-				if (anInt774 == 65535) {
-					anInt774 = -1;
-				}
-				anInt749 = stream.readUnsignedWord();
-				if (anInt749 == 65535) {
-					anInt749 = -1;
-				}
-				int endChild = -1;
+				stream.skip(4);
 				if (type == 92) {
-					endChild = stream.readUnsignedWord();
-					if (endChild == 65535) {
-						endChild = -1;
-					}
+					stream.readUnsignedWord();
 				}
-				int j1 = stream.readUnsignedByte();
-				childrenIDs = new int[j1 + 2];
-				for (int j2 = 0; j2 <= j1; j2++) {
-					childrenIDs[j2] = stream.readUnsignedWord();
-					if (childrenIDs[j2] == 65535) {
-						childrenIDs[j2] = -1;
-					}
+				int count = stream.readUnsignedByte();
+				for (int j2 = 0; j2 <= count; j2++) {
+					stream.readUnsignedWord();
 				}
-				childrenIDs[j1 + 1] = endChild;
 			} else if (type == 78) {
 				stream.skip(3);
 			} else if (type == 79) {
@@ -268,7 +246,7 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 	}
 
 	public boolean solid() {
-		return aBoolean779;
+		return clipped;
 	}
 
 	public int xLength() {
@@ -289,19 +267,13 @@ public static void loadConfig(IndexedFileSystem fs) throws IOException {
 
 	public String name;
 	private int width;
-	private int anInt749;
 	private int type;
 	private boolean impenetrable;
-	private int childrenIDs[];
 	private int length;
 	private boolean solid;
 	private static int cacheIndex;
-	private int[] anIntArray773;
-	private int anInt774;
-	private int[] anIntArray776;
 	private boolean hasActions;
-	private boolean aBoolean779;
-	private int anInt781;
+	private boolean clipped;
 	private static ObjectDefinition[] cache;
 	private String actions[];
 	private static MemoryArchive archive;
