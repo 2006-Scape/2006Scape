@@ -653,15 +653,16 @@ public class NpcCombat {
 				if (damage > 0) {
 					c.getCombatAssistant().applyRecoilNPC(c, damage, i);
 				}
-				if (c.playerLevel[GameConstants.HITPOINTS] - damage < 0) {
-					damage = c.playerLevel[GameConstants.HITPOINTS];
-				}
-				int difference = c.playerLevel[GameConstants.HITPOINTS] - damage;
 				if (c.getPlayerAssistant().savePlayer()) {
 					c.getPlayerAssistant().handleROL();
-				} else if (difference <= c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0) {
-					c.appendRedemption();
 				} else {
+					int difference = c.playerLevel[GameConstants.HITPOINTS] - damage;
+					if (difference <= c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0) {
+						c.appendRedemption();
+					} 
+					if (c.playerLevel[GameConstants.HITPOINTS] - damage < 0) {
+						damage = c.playerLevel[GameConstants.HITPOINTS];
+					}
 					NpcHandler.handleSpecialEffects(c, i, damage);
 					c.logoutDelay = System.currentTimeMillis(); // logout delay
 					c.handleHitMask(damage);
