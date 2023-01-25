@@ -266,6 +266,11 @@ public final class Packet {
 		return i;
 	}
 
+	public int readHex() {
+		caret += 2;
+		return ((pData[caret - 2] & 0xFF) * 1000) + (pData[caret - 1] & 0xFF);
+	}
+	
 	public int readDWord() {
 		caret += 4;
 		return ((pData[caret - 4] & 0xff) << 24)

@@ -46,7 +46,7 @@ public class ClickingButtons implements PacketType {
 
 	@Override
 	public void processPacket(final Player player, Packet packet) {
-		int actionButtonId = Misc.hexToInt(packet.pData, 0, packet.getLength());
+		int actionButtonId = packet.readHex();
 		player.getGlassBlowing().handleActionButtin(actionButtonId);
 		GnomeGlider.flightButtons(player, actionButtonId);
 		player.getEmoteHandler().startEmote(actionButtonId);
