@@ -213,7 +213,6 @@ public class GameEngine {
 		/**
 		 * Initialise Handlers
 		 */
-		ObjectDefinition.loadConfig();
 		RegionFactory.load();
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();
