@@ -17,7 +17,7 @@ import com.rs2.game.items.impl.ExperienceLamp;
 import com.rs2.game.items.impl.Flowers;
 import com.rs2.game.items.impl.GodBooks;
 import com.rs2.game.players.Player;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
 import com.rs2.util.Misc;
@@ -28,7 +28,7 @@ import com.rs2.util.Misc;
 public class ClickItem implements PacketType {
 
 	@Override
-	public void processPacket(Player player, Packet packet) {
+	public void processPacket(Player player, GamePacket packet) {
 		player.endCurrentTask();
 		packet.readSignedWordBigEndianA();
 		int itemSlot = packet.readUnsignedWordA();

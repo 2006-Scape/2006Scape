@@ -5,7 +5,7 @@ package com.rs2.net;
  * 
  * @author Graham
  */
-public final class Packet {
+public final class GamePacket {
 
 	public static enum Size {
 		Fixed, VariableByte, VariableShort
@@ -33,7 +33,7 @@ public final class Packet {
 	private final boolean bare;
 	private Size size = Size.Fixed;
 
-	public Packet(int pID, byte[] pData, boolean bare, Size s) {
+	public GamePacket(int pID, byte[] pData, boolean bare, Size s) {
 		this.pID = pID;
 		this.pData = pData;
 		pLength = pData.length;
@@ -54,7 +54,7 @@ public final class Packet {
 	 *            Whether this packet is bare, which means that it does not
 	 *            include the standard packet header
 	 */
-	public Packet(int pID, byte[] pData, boolean bare) {
+	public GamePacket(int pID, byte[] pData, boolean bare) {
 		this(pID, pData, bare, Size.Fixed);
 	}
 
@@ -69,7 +69,7 @@ public final class Packet {
 	 * @param pData
 	 *            The payload the packet
 	 */
-	public Packet(int pID, byte[] pData) {
+	public GamePacket(int pID, byte[] pData) {
 		this(pID, pData, false);
 	}
 

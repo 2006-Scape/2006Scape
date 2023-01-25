@@ -52,7 +52,7 @@ import com.rs2.game.npcs.impl.Pets;
 import com.rs2.game.objects.ObjectsActions;
 import com.rs2.game.shops.ShopAssistant;
 import com.rs2.net.HostList;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.PacketSender;
 import com.rs2.net.StaticPacketBuilder;
 import com.rs2.net.packets.PacketHandler;
@@ -96,7 +96,7 @@ public abstract class Player {
 	private final CombatAssistant combatAssistant = new CombatAssistant(this);
 	private final ObjectsActions actionHandler = new ObjectsActions(this);
 	private final NpcActions npcs = new NpcActions(this);
-	private final Queue<Packet> queuedPackets = new LinkedList<Packet>();
+	private final Queue<GamePacket> queuedPackets = new LinkedList<GamePacket>();
 	private final Potions potions = new Potions(this);
 	private final PotionMixing potionMixing = new PotionMixing(this);
 	private final EmoteHandler emoteHandler = new EmoteHandler(this);
@@ -1056,12 +1056,12 @@ public abstract class Player {
 		timeOutCounter++;
 	}
 
-	public void queueMessage(Packet arg1) {
+	public void queueMessage(GamePacket arg1) {
 		queuedPackets.add(arg1);
 	}
 
 	public synchronized boolean processQueuedPackets() {
-		Packet p = null;
+		GamePacket p = null;
 		synchronized (queuedPackets) {
 			p = queuedPackets.poll();
 		}
@@ -1075,7 +1075,7 @@ public abstract class Player {
 		return true;
 	}
 
-	public synchronized boolean processPacket(Packet p) {
+	public synchronized boolean processPacket(GamePacket p) {
 		synchronized (this) {
 			if (p == null) {
 				return false;

@@ -2,7 +2,7 @@ package com.rs2.net.packets.impl;
 
 import com.rs2.event.impl.MagicOnItemEvent;
 import com.rs2.game.players.Player;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -12,7 +12,7 @@ import com.rs2.net.packets.PacketType;
 public class MagicOnItems implements PacketType {
 
 	@Override
-	public void processPacket(Player player, Packet packet) {
+	public void processPacket(Player player, GamePacket packet) {
 		int slot = packet.readSignedWord();
 		int itemId = packet.readSignedWordA();
 		packet.readSignedWord();

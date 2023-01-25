@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.rs2.game.players.Player;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.util.Misc;
 
 public class ReportHandler {
@@ -60,7 +60,7 @@ public class ReportHandler {
 	 *             ex
 	 */
 
-	public static void handleReport(Player c, Packet packet) throws Exception {
+	public static void handleReport(Player c, GamePacket packet) throws Exception {
 		String player = Misc.longToReportPlayerName(packet.readQWord2());
 		player = player.replaceAll("_", " ");
 		byte rule = (byte) packet.readUnsignedByte();

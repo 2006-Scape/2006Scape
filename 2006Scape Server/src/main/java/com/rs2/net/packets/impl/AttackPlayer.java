@@ -8,7 +8,7 @@ import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 
 public class AttackPlayer implements PacketType {
@@ -16,7 +16,7 @@ public class AttackPlayer implements PacketType {
 	public static final int ATTACK_PLAYER = 73, MAGE_PLAYER = 249;
 
 	@Override
-	public void processPacket(Player player, Packet packet) {
+	public void processPacket(Player player, GamePacket packet) {
 		player.endCurrentTask();
 		player.playerIndex = 0;
 		player.npcIndex = 0;

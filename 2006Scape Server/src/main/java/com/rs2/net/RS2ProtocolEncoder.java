@@ -24,7 +24,7 @@ public class RS2ProtocolEncoder implements ProtocolEncoder {
 			ProtocolEncoderOutput out) throws Exception {
 		try {
 			synchronized (session) {
-				Packet p = (Packet) message;
+				GamePacket p = (GamePacket) message;
 				byte[] data = p.getData();
 				int dataLength = p.getLength();
 				ByteBuffer buffer;
@@ -32,9 +32,9 @@ public class RS2ProtocolEncoder implements ProtocolEncoder {
 					buffer = ByteBuffer.allocate(dataLength + 3);
 					int id = p.getId();
 					buffer.put((byte) id);
-					if (p.getSize() != Packet.Size.Fixed) { // variable length
+					if (p.getSize() != GamePacket.Size.Fixed) { // variable length
 						// Logger.log("variable length: id="+id+",dataLength="+dataLength);
-						if (p.getSize() == Packet.Size.VariableByte) {
+						if (p.getSize() == GamePacket.Size.VariableByte) {
 							if (dataLength > 255) {
 								// then we can represent
 								// with 8 bits!
@@ -45,7 +45,7 @@ public class RS2ProtocolEncoder implements ProtocolEncoder {
 												+ p.getId() + "]");
 							}
 							buffer.put((byte) dataLength);
-						} else if (p.getSize() == Packet.Size.VariableShort) {
+						} else if (p.getSize() == GamePacket.Size.VariableShort) {
 							if (dataLength > 65535) {
 								// then we can represent
 								// with 16 bits!

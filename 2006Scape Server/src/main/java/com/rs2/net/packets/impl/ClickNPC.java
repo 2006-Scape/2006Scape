@@ -12,7 +12,7 @@ import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -24,7 +24,7 @@ public class ClickNPC implements PacketType {
 			SECOND_CLICK = 17, THIRD_CLICK = 21;
 
 	@Override
-	public void processPacket(final Player player, Packet packet) {
+	public void processPacket(final Player player, GamePacket packet) {
 		player.npcIndex = 0;
 		player.npcClickIndex = 0;
 		player.playerIndex = 0;

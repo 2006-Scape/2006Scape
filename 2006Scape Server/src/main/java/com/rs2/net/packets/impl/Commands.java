@@ -11,7 +11,7 @@ import com.rs2.game.bots.BotHandler;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
 import com.rs2.world.clip.Region;
@@ -22,7 +22,7 @@ import java.util.GregorianCalendar;
 public class Commands implements PacketType {
 
     @Override
-    public void processPacket(Player player, Packet packet) {
+    public void processPacket(Player player, GamePacket packet) {
         String[] messageArr = packet.readString().split(" ");
         String playerCommand = messageArr[0];
         String[] commandArguments = Arrays.copyOfRange(messageArr, 1, messageArr.length);

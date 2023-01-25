@@ -1,7 +1,7 @@
 package com.rs2.net.packets.impl;
 
 import com.rs2.game.players.Player;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -14,7 +14,7 @@ public class BankX1 implements PacketType {
 	public int XremoveSlot, XinterfaceID, XremoveID, Xamount;
 
 	@Override
-	public void processPacket(Player player, Packet packet) {
+	public void processPacket(Player player, GamePacket packet) {
 		player.endCurrentTask();
 		if (packet.getId() == 135) {
 			player.xRemoveSlot = packet.readSignedWordBigEndian();

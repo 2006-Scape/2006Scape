@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
 
@@ -14,7 +14,7 @@ import com.rs2.util.Misc;
 public class WearItem implements PacketType {
 
 	@Override
-	public void processPacket(Player player, Packet packet) {
+	public void processPacket(Player player, GamePacket packet) {
 		player.wearId = packet.readUnsignedWord();
 		player.wearSlot = packet.readUnsignedWordA();
 		player.interfaceId = packet.readUnsignedWordA();

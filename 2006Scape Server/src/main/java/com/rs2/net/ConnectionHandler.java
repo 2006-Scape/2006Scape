@@ -20,7 +20,7 @@ public class ConnectionHandler implements IoHandler {
 	public void messageReceived(IoSession arg0, Object arg1) throws Exception {
 		if (arg0.getAttachment() != null) {
 			Client plr = (Client) arg0.getAttachment();
-			plr.queueMessage((Packet) arg1);
+			plr.queueMessage((GamePacket) arg1);
 		}
 	}
 

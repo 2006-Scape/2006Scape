@@ -264,7 +264,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 		}
 		bldr.addByte((byte) 0);
 		cl.isActive = true;
-		Packet pkt = bldr.toPacket();
+		GamePacket pkt = bldr.toPacket();
 		session.setAttachment(cl);
 		session.write(pkt).addListener(new IoFutureListener() {
 

@@ -26,7 +26,7 @@ public class StaticPacketBuilder implements PacketBuilder {
 	/**
 	 * Current index into the buffer by bits
 	 */
-	private Packet.Size size = Packet.Size.Fixed;
+	private GamePacket.Size size = GamePacket.Size.Fixed;
 	/**
 	 * Whether this packet does not use the standard packet header
 	 */
@@ -118,7 +118,7 @@ public class StaticPacketBuilder implements PacketBuilder {
 		return this;
 	}
 
-	public StaticPacketBuilder setSize(Packet.Size s) {
+	public StaticPacketBuilder setSize(GamePacket.Size s) {
 		size = s;
 		return this;
 	}
@@ -224,10 +224,10 @@ public class StaticPacketBuilder implements PacketBuilder {
 	 * 
 	 * @return A <code>Packet</code> object
 	 */
-	public Packet toPacket() {
+	public GamePacket toPacket() {
 		byte[] data = new byte[curLength];
 		System.arraycopy(payload, 0, data, 0, curLength);
-		return new Packet(id, data, bare, size);
+		return new GamePacket(id, data, bare, size);
 	}
 
 }

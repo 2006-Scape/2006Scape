@@ -10,7 +10,7 @@ import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.npcs.impl.Pets;
 import com.rs2.game.players.Player;
-import com.rs2.net.Packet;
+import com.rs2.net.GamePacket;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -19,7 +19,7 @@ import com.rs2.net.packets.PacketType;
 public class DropItem implements PacketType {
 
 	@Override
-	public void processPacket(Player player, Packet packet) {
+	public void processPacket(Player player, GamePacket packet) {
 		int itemId = packet.readUnsignedWordA();
 		packet.readUnsignedByte();
 		packet.readUnsignedByte();

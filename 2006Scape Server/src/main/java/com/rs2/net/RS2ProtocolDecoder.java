@@ -138,7 +138,7 @@ public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
 				/*
 				 * Produce and write the packet object.
 				 */
-				out.write(new Packet(opcode, data));
+				out.write(new GamePacket(opcode, data));
 
 				/*
 				 * Reset the cached opcode and sizes.
