@@ -269,6 +269,78 @@ public final class IndexedFileSystem implements Closeable {
 		return buffer;
 	}
 
+	public byte[] getFileBytes(int type, int file) throws IOException {
+		return getFileBytes(new FileDescriptor(type, file));
+	}
+	
+	public byte[] getFileBytes(FileDescriptor fd) throws IOException {
+		Index index = getIndex(fd);
+		byte[] decompressed = new byte[index.getSize()];
+		
+		// calculate some initial values
+		long ptr = (long) index.getBlock() * (long) FileSystemConstants.BLOCK_SIZE;
+		int read = 0;
+		int size = index.getSize();
+		int blocks = size / FileSystemConstants.CHUNK_SIZE;
+		if (size % FileSystemConstants.CHUNK_SIZE != 0) {
+			blocks++;
+		}
+		
+		for (int i = 0; i < blocks; i++) {
+			
+			// read header
+			byte[] header = new byte[FileSystemConstants.HEADER_SIZE];
+			synchronized (data) {
+				data.seek(ptr);
+				data.readFully(header);
+			}
+			
+			// increment pointers
+			ptr += FileSystemConstants.HEADER_SIZE;
+			
+			// parse header
+			int nextFile = ((header[0] & 0xFF) << 8) | (header[1] & 0xFF);
+			int curChunk = ((header[2] & 0xFF) << 8) | (header[3] & 0xFF);
+			int nextBlock = ((header[4] & 0xFF) << 16) | ((header[5] & 0xFF) << 8) | (header[6] & 0xFF);
+			int nextType = header[7] & 0xFF;
+			
+			// check expected chunk id is correct
+			if (i != curChunk) {
+				throw new IOException("Chunk id mismatch.");
+			}
+			
+			// calculate how much we can read
+			int chunkSize = size - read;
+			if (chunkSize > FileSystemConstants.CHUNK_SIZE) {
+				chunkSize = FileSystemConstants.CHUNK_SIZE;
+			}
+			
+			// read the next chunk and put it in the buffer
+			synchronized (data) {
+				data.seek(ptr);
+				data.readFully(decompressed, read, chunkSize);
+			}			
+			
+			// increment pointers
+			read += chunkSize;
+			ptr = (long) nextBlock * (long) FileSystemConstants.BLOCK_SIZE;
+			
+			// if we still have more data to read, check the validity of the
+			// header
+			if (size > read) {				
+				if (nextType != (fd.getType() + 1)) {
+					throw new IOException("File type mismatch.");
+				}
+				
+				if (nextFile != fd.getFile()) {
+					throw new IOException("File id mismatch.");
+				}
+			}
+		}
+		
+		return decompressed;
+	}
+	
 	@Override
 	public void close() throws IOException {
 		if (data != null) {

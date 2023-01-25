@@ -1,10 +1,15 @@
 package com.rs2.world.clip;
 
-import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.zip.GZIPInputStream;
+import java.nio.ByteBuffer;
+
+import org.apollo.archive.Archive;
+import org.apollo.archive.ArchiveEntry;
+import org.apollo.archive.CompressionUtil;
+import org.apollo.jagcached.Constants;
+import org.apollo.jagcached.fs.IndexedFileSystem;
 
 public class RegionFactory {
 	
@@ -17,13 +22,14 @@ public class RegionFactory {
 	public static void load() {
 		//GameEngine.getLogger(Region.class).info("Loading region configurations...");
 		try {
-			File f = new File("./data/world/map_index");
-			byte[] buffer = new byte[(int) f.length()];
-			DataInputStream dis = new DataInputStream(new FileInputStream(f));
-			dis.readFully(buffer);
-			dis.close();
-			ByteStream in = new ByteStream(buffer);
-			int size = in.length() / 7;
+			IndexedFileSystem fs = new IndexedFileSystem(new File(Constants.FILE_SYSTEM_DIR), true);
+			ObjectDefinition.loadConfig(fs);
+
+			Archive archive = Archive.decode(fs.getFile(0, 5));
+			ArchiveEntry entry = archive.getEntry("map_index");
+			ByteBuffer buffer = entry.getBuffer();
+	
+			int size = buffer.capacity() / 7;
 			regions = new Region[size];
 			int[] regionIds = new int[size];
 			int[] mapGroundFileIds = new int[size];
@@ -37,10 +43,10 @@ public class RegionFactory {
 			 * isMembers (8 bits)
 			 */
 			for (int i = 0; i < size; i++) {
-				regionIds[i] = in.getUShort();
-				mapGroundFileIds[i] = in.getUShort();
-				mapObjectsFileIds[i] = in.getUShort();
-				isMembers[i] = in.getUByte() == 0;
+				regionIds[i] = buffer.getShort() & 0xFFFF;
+				mapGroundFileIds[i] = buffer.getShort() & 0xFFFF;
+				mapObjectsFileIds[i] = buffer.getShort() & 0xFFFF;
+				isMembers[i] = buffer.get() == 0;
 			}
 			for (int i = 0; i < size; i++) {
 				regions[i] = new Region(regionIds[i], isMembers[i]);
@@ -49,11 +55,9 @@ public class RegionFactory {
 			//GameEngine.getLogger(Region.class).info("Populating regions...");
 			for (int i = 0; i < size; i++) {
 				//GameEngine.getLogger(Region.class).info("Region: " + i + " RegionId: " + regionIds[i] + " ObjectsId: " + mapObjectsFileIds[i]
-				//		+ " ClippingsId: " + mapGroundFileIds[i]);
-				byte[] file1 = getBuffer(new File("./data/world/map/"
-						+ mapObjectsFileIds[i] + ".gz"));
-				byte[] file2 = getBuffer(new File("./data/world/map/"
-						+ mapGroundFileIds[i] + ".gz"));
+				//		+ " ClippingsId: " + mapGroundFileIds[i]);				
+				byte[] file1 = CompressionUtil.degzip(fs.getFileBytes(4, mapObjectsFileIds[i]));
+				byte[] file2 = CompressionUtil.degzip(fs.getFileBytes(4, mapGroundFileIds[i]));
 				if (file1 == null || file2 == null) {
 					continue;
 				}
@@ -158,39 +162,4 @@ public class RegionFactory {
 			}
 		}
 	}
-
-	public static byte[] getBuffer(File f) throws Exception {
-		if (!f.exists()) {
-			return null;
-		}
-		byte[] buffer = new byte[(int) f.length()];
-		DataInputStream dis = new DataInputStream(new FileInputStream(f));
-		dis.readFully(buffer);
-		dis.close();
-		byte[] gzipInputBuffer = new byte[999999];
-		int bufferlength = 0;
-		GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(
-				buffer));
-		do {
-			if (bufferlength == gzipInputBuffer.length) {
-				System.out
-						.println("Error inflating data.\nGZIP buffer overflow.");
-				break;
-			}
-			int readByte = gzip.read(gzipInputBuffer, bufferlength,
-					gzipInputBuffer.length - bufferlength);
-			if (readByte == -1) {
-				break;
-			}
-			bufferlength += readByte;
-		} while (true);
-		byte[] inflated = new byte[bufferlength];
-		System.arraycopy(gzipInputBuffer, 0, inflated, 0, bufferlength);
-		buffer = inflated;
-		if (buffer.length < 10) {
-			return null;
-		}
-		return buffer;
-	}
-
 }

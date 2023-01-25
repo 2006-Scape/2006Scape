@@ -81,14 +81,24 @@ public class Firemaking {
 						GameEngine.itemHandler.createGroundItem(c, logId, c.absX, c.absY, 1, c.playerId);
 					}
 				}
-				final boolean walk;
+				
+				int[] dir = { 0, 0 };
 				if (Region.getClipping(x - 1, y, c.heightLevel, -1, 0)) {
-					walk = true;
-				} else {
-					walk = false;
+					dir[0] = -1;
+					dir[1] = 0;
+				} else if (Region.getClipping(x + 1, y, c.heightLevel, 1, 0)) {
+					dir[0] = 1;
+					dir[1] = 0;
+				} else if (Region.getClipping(x, y - 1, c.heightLevel, 0, -1)) {
+					dir[0] = 0;
+					dir[1] = -1;
+				} else if (Region.getClipping(x, y + 1, c.heightLevel, 0, 1)) {
+					dir[0] = 0;
+					dir[1] = 1;
 				}
+				
 				c.startAnimation(733);
-				c.getPlayerAssistant().walkTo(walk ? -1 : 1, 0);
+				c.getPlayerAssistant().walkTo(dir[0], dir[1]);
 				c.stopFiremaking = false;
 				CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 
@@ -121,7 +131,7 @@ public class Firemaking {
 
 										@Override
 										public void execute(CycleEventContainer container) {
-											c.turnPlayerTo(walk ? x + 1 : x - 1, y);
+											c.turnPlayerTo(x - dir[0], y - dir[1]);
 											c.logLit = true;
 											stopFiremaking(c);
 											container.stop();
@@ -164,4 +174,5 @@ public class Firemaking {
 			}
 		}
 	}
+	
 }
