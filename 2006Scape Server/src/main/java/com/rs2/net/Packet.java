@@ -1,7 +1,5 @@
 package com.rs2.net;
 
-import org.apache.mina.common.IoSession;
-
 /**
  * Immutable packet object.
  * 
@@ -13,10 +11,6 @@ public final class Packet {
 		Fixed, VariableByte, VariableShort
 	};
 
-	/**
-	 * The associated IO session
-	 */
-	private final IoSession session;
 	/**
 	 * The ID of the packet
 	 */
@@ -39,8 +33,7 @@ public final class Packet {
 	private final boolean bare;
 	private Size size = Size.Fixed;
 
-	public Packet(IoSession session, int pID, byte[] pData, boolean bare, Size s) {
-		this.session = session;
+	public Packet(int pID, byte[] pData, boolean bare, Size s) {
 		this.pID = pID;
 		this.pData = pData;
 		pLength = pData.length;
@@ -61,8 +54,8 @@ public final class Packet {
 	 *            Whether this packet is bare, which means that it does not
 	 *            include the standard packet header
 	 */
-	public Packet(IoSession session, int pID, byte[] pData, boolean bare) {
-		this(session, pID, pData, bare, Size.Fixed);
+	public Packet(int pID, byte[] pData, boolean bare) {
+		this(pID, pData, bare, Size.Fixed);
 	}
 
 	/**
@@ -76,17 +69,8 @@ public final class Packet {
 	 * @param pData
 	 *            The payload the packet
 	 */
-	public Packet(IoSession session, int pID, byte[] pData) {
-		this(session, pID, pData, false);
-	}
-
-	/**
-	 * Returns the IO session associated with the packet, if any.
-	 * 
-	 * @return The <code>IoSession</code> object, or <code>null</code> if none.
-	 */
-	public IoSession getSession() {
-		return session;
+	public Packet(int pID, byte[] pData) {
+		this(pID, pData, false);
 	}
 
 	/**
@@ -300,7 +284,7 @@ public final class Packet {
 
 	}
 
-	public void ensureCapacity(int len) {
+	private void ensureCapacity(int len) {
 		if (caret + len + 1 >= pData.length) {
 			byte[] oldBuffer = pData;
 			int newLength = pData.length * 2;
