@@ -25,11 +25,7 @@ public class ConnectionHandler extends SimpleChannelHandler {
 			session.setClient((Client) e.getMessage());
 		} else if (e.getMessage() instanceof Packet) {
 			if (session.getClient() != null) {
-				Packet p = (Packet) e.getMessage();
-				int packetType = p.getOpcode();
-				int packetSize = p.getLength();
-				byte[] buffer = p.getPayload().array();
-				session.getClient().queueMessage(new GamePacket(packetType, buffer, true));
+				session.getClient().queueMessage((Packet) e.getMessage());
 			}
 		}
 	}

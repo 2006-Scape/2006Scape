@@ -6,7 +6,7 @@ import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
-import com.rs2.net.GamePacket;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.Boundary;
 
@@ -16,7 +16,7 @@ import com.rs2.world.Boundary;
 public class RemoveItem implements PacketType {
 
 	@Override
-	public void processPacket(Player player, GamePacket packet) {
+	public void processPacket(Player player, Packet packet) {
 		int interfaceId = packet.readUnsignedWordA();
 		int removeSlot = packet.readUnsignedWordA();
 		int removeId = packet.readUnsignedWordA();

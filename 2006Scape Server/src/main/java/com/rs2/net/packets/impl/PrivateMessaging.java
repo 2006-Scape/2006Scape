@@ -6,7 +6,7 @@ import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.game.players.antimacro.AntiSpam;
-import com.rs2.net.GamePacket;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
 import com.rs2.util.Misc;
@@ -20,8 +20,8 @@ public class PrivateMessaging implements PacketType {
 			CHANGE_PM_STATUS = 95, REMOVE_IGNORE = 59, ADD_IGNORE = 133;
 
 	@Override
-	public void processPacket(Player player, GamePacket packet) {
-		switch (packet.getId()) {
+	public void processPacket(Player player, Packet packet) {
+		switch (packet.getOpcode()) {
 
 		case ADD_FRIEND:
 			player.friendUpdate = true;

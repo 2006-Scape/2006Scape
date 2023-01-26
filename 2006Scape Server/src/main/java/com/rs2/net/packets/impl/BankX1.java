@@ -1,7 +1,7 @@
 package com.rs2.net.packets.impl;
 
 import com.rs2.game.players.Player;
-import com.rs2.net.GamePacket;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -14,9 +14,9 @@ public class BankX1 implements PacketType {
 	public int XremoveSlot, XinterfaceID, XremoveID, Xamount;
 
 	@Override
-	public void processPacket(Player player, GamePacket packet) {
+	public void processPacket(Player player, Packet packet) {
 		player.endCurrentTask();
-		if (packet.getId() == 135) {
+		if (packet.getOpcode() == 135) {
 			player.xRemoveSlot = packet.readSignedWordBigEndian();
 			player.xInterfaceId = packet.readUnsignedWordA();
 			player.xRemoveId = packet.readSignedWordBigEndian();
@@ -26,7 +26,7 @@ public class BankX1 implements PacketType {
 				player.getItemAssistant().resetItems(7423);
 			}
 		}
-		if (packet.getId() == PART1) {
+		if (packet.getOpcode() == PART1) {
 			synchronized (player) {
 				player.getOutStream().createFrame(27);
 			}

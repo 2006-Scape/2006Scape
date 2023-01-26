@@ -51,7 +51,7 @@ import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.Pets;
 import com.rs2.game.objects.ObjectsActions;
 import com.rs2.game.shops.ShopAssistant;
-import com.rs2.net.GamePacket;
+import com.rs2.net.Packet;
 import com.rs2.net.HostList;
 import com.rs2.net.Packet;
 import com.rs2.net.Packet.Type;
@@ -99,7 +99,7 @@ public abstract class Player {
 	private final CombatAssistant combatAssistant = new CombatAssistant(this);
 	private final ObjectsActions actionHandler = new ObjectsActions(this);
 	private final NpcActions npcs = new NpcActions(this);
-	private final Queue<GamePacket> queuedPackets = new LinkedList<GamePacket>();
+	private final Queue<Packet> queuedPackets = new LinkedList<Packet>();
 	private final Potions potions = new Potions(this);
 	private final PotionMixing potionMixing = new PotionMixing(this);
 	private final EmoteHandler emoteHandler = new EmoteHandler(this);
@@ -1058,31 +1058,31 @@ public abstract class Player {
 		timeOutCounter++;
 	}
 
-	public void queueMessage(GamePacket arg1) {
+	public void queueMessage(Packet arg1) {
 		queuedPackets.add(arg1);
 	}
 
 	public synchronized boolean processQueuedPackets() {
-		GamePacket p = null;
+		Packet p = null;
 		synchronized (queuedPackets) {
 			p = queuedPackets.poll();
 		}
 		if (p == null) {
 			return false;
 		}
-		if (p.getId() > 0) {
+		if (p.getOpcode() > 0) {
 			PacketHandler.processPacket(this, p);
 		}
 		timeOutCounter = 0;
 		return true;
 	}
 
-	public synchronized boolean processPacket(GamePacket p) {
+	public synchronized boolean processPacket(Packet p) {
 		synchronized (this) {
 			if (p == null) {
 				return false;
 			}
-			if (p.getId() > 0) {
+			if (p.getOpcode() > 0) {
 				PacketHandler.processPacket(this, p);
 			}
 			timeOutCounter = 0;

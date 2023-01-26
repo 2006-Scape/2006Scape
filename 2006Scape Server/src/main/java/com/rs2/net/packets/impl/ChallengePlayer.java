@@ -2,7 +2,7 @@ package com.rs2.net.packets.impl;
 
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
-import com.rs2.net.GamePacket;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -11,8 +11,8 @@ import com.rs2.net.packets.PacketType;
 public class ChallengePlayer implements PacketType {
 
 	@Override
-	public void processPacket(Player player, GamePacket packet) {
-		switch (packet.getId()) {
+	public void processPacket(Player player, Packet packet) {
+		switch (packet.getOpcode()) {
 		case 128:
 			int answerPlayer = packet.readUnsignedWord();
 		    if(PlayerHandler.players[answerPlayer] == null || answerPlayer == player.playerId)

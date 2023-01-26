@@ -377,4 +377,298 @@ public class Packet {
 			return ((getShort() & 0xFFFF) - 49152);
 	}
 
+	
+	
+	public int readDWord() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int readHex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void readBytes(byte[] pmchatText, int pmchatTextSize, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void readBytes_reverseA(byte[] chatText, byte chatTextSize, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String readString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public int readSignedByte() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int readSignedWord() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public int readSignedWordA() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public int readSignedWordBigEndian() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readSignedWordBigEndianA() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int readUnsignedByte() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readUnsignedByteS() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readSignedByteC() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readSignedByteS() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readUnsignedWord() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readUnsignedWordA() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readUnsignedWordBigEndian() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readUnsignedWordBigEndianA() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readQWord() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int readQWord2() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+//
+//	/**
+//	 * The ID of the packet
+//	 */
+//	private final int pID;
+//	/**
+//	 * The length of the payload
+//	 */
+//	private final int pLength;
+//	/**
+//	 * The payload
+//	 */
+//	public /*private final*/ byte[] pData;
+//	/**
+//	 * The current index into the payload buffer for reading
+//	 */
+//	private int caret = 0;
+//	/**
+//	 * Whether this packet is without the standard packet header
+//	 */
+//	private final boolean bare;
+//
+//	/**
+//	 * Returns the remaining payload data of this packet.
+//	 * 
+//	 * @return The payload <code>byte</code> array
+//	 */
+//	public byte[] getRemainingData() {
+//		byte[] data = new byte[pLength - caret];
+//		for (int i = 0; i < data.length; i++) {
+//			data[i] = pData[i + caret];
+//		}
+//		caret += data.length;
+//		return data;
+//
+//	}
+//
+//	public int remaining() {
+//		return pData.length - caret;
+//	}
+//
+//	/**
+//	 * Returns this packet in string form.
+//	 * 
+//	 * @return A <code>String</code> representing this packet
+//	 */
+//	@Override
+//	public String toString() {
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("[id=" + pID + ",len=" + pLength + ",data=0x");
+//		for (int x = 0; x < pLength; x++) {
+//			sb.append(byteToHex(pData[x], true));
+//		}
+//		sb.append("]");
+//		return sb.toString();
+//	}
+//
+//	private static String byteToHex(byte b, boolean forceLeadingZero) {
+//		StringBuilder out = new StringBuilder();
+//		int ub = b & 0xff;
+//		if (ub / 16 > 0 || forceLeadingZero) {
+//			out.append(hex[ub / 16]);
+//		}
+//		out.append(hex[ub % 16]);
+//		return out.toString();
+//	}
+//
+//	private static final char[] hex = "0123456789ABCDEF".toCharArray();
+//
+//	
+//	/* TODO Stream methods below */
+//	
+//	public long readQWord2() {
+//		final long l = readDWord() & 0xffffffffL;
+//		final long l1 = readDWord() & 0xffffffffL;
+//		return (l << 32) + l1;
+//	}
+//
+//	public byte readSignedByteC() {
+//		return (byte) -pData[caret++];
+//	}
+//
+//	public int readUnsignedByteS() {
+//		return 128 - pData[caret++] & 0xff;
+//	}
+//
+//	public int readSignedWordBigEndian() {
+//		caret += 2;
+//		int i = ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] & 0xff);
+//		if (i > 32767) {
+//			i -= 0x10000;
+//		}
+//		return i;
+//	}
+//
+//	public int readSignedWordA() {
+//		caret += 2;
+//		int i = ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] - 128 & 0xff);
+//		if (i > 32767) {
+//			i -= 0x10000;
+//		}
+//		return i;
+//	}
+//
+//	public int readSignedWordBigEndianA() {
+//		caret += 2;
+//		int i = ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] - 128 & 0xff);
+//		if (i > 32767) {
+//			i -= 0x10000;
+//		}
+//		return i;
+//	}
+//
+//	public int readUnsignedWordBigEndian() {
+//		caret += 2;
+//		return ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] & 0xff);
+//	}
+//
+//	public int readUnsignedWordA() {
+//		caret += 2;
+//		return ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] - 128 & 0xff);
+//	}
+//
+//	public int readUnsignedWordBigEndianA() {
+//		caret += 2;
+//		return ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] - 128 & 0xff);
+//	}
+//
+//	public void readBytes_reverseA(byte abyte0[], int i, int j) {
+//		ensureCapacity(i);
+//		for (int k = j + i - 1; k >= j; k--) {
+//			abyte0[k] = (byte) (pData[caret++] - 128);
+//		}
+//
+//	}
+//
+//	public int readUnsignedByte() {
+//		return pData[caret++] & 0xff;
+//	}
+//
+//	public byte readSignedByte() {
+//		return pData[caret++];
+//	}
+//
+//	public int readUnsignedWord() {
+//		caret += 2;
+//		return ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] & 0xff);
+//	}
+//
+//	public int readSignedWord() {
+//		caret += 2;
+//		int i = ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] & 0xff);
+//		if (i > 32767) {
+//			i -= 0x10000;
+//		}
+//		return i;
+//	}
+//
+//	public int readHex() {
+//		caret += 2;
+//		return ((pData[caret - 2] & 0xFF) * 1000) + (pData[caret - 1] & 0xFF);
+//	}
+//	
+//	public int readDWord() {
+//		caret += 4;
+//		return ((pData[caret - 4] & 0xff) << 24)
+//				+ ((pData[caret - 3] & 0xff) << 16)
+//				+ ((pData[caret - 2] & 0xff) << 8)
+//				+ (pData[caret - 1] & 0xff);
+//	}
+//
+//	public long readQWord() {
+//		long l = readDWord() & 0xffffffffL;
+//		long l1 = readDWord() & 0xffffffffL;
+//		return (l << 32) + l1;
+//	}
+//
+//	public java.lang.String readString() {
+//		int i = caret;
+//		while (pData[caret++] != 10) {
+//			;
+//		}
+//		return new String(pData, i, caret - i - 1);
+//	}
+//
+//	public void readBytes(byte abyte0[], int i, int j) {
+//		for (int k = j; k < j + i; k++) {
+//			abyte0[k] = pData[caret++];
+//		}
+//
+//	}
+//
+//	private void ensureCapacity(int len) {
+//		if (caret + len + 1 >= pData.length) {
+//			byte[] oldBuffer = pData;
+//			int newLength = pData.length * 2;
+//			pData = new byte[newLength];
+//			System.arraycopy(oldBuffer, 0, pData, 0, oldBuffer.length);
+//			ensureCapacity(len);
+//		}
+//	}
+
+
 }

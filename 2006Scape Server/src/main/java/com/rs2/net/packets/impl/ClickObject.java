@@ -16,7 +16,7 @@ import com.rs2.game.globalworldobjects.Doors;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
-import com.rs2.net.GamePacket;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.clip.Region;
 
@@ -79,13 +79,13 @@ public class ClickObject implements PacketType {
 	}
 
 	@Override
-	public void processPacket(final Player player, GamePacket packet) {
+	public void processPacket(final Player player, Packet packet) {
 		player.clickObjectType = player.objectX = player.objectId = player.objectY = 0;
 		player.getPlayerAssistant().resetFollow();
 		player.getCombatAssistant().resetPlayerAttack();
 		player.getPlayerAssistant().requestUpdates();
 		player.endCurrentTask();
-		switch (packet.getId()) {
+		switch (packet.getOpcode()) {
 
 			case FIRST_CLICK:
 				player.objectX = packet.readSignedWordBigEndianA();
