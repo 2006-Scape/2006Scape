@@ -196,9 +196,9 @@ public class GameEngine {
 		/**
 		 * Accepting Connections
 		 */
-        ServerBootstrap serverBootstrap = new ServerBootstrap (new NioServerSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
-        serverBootstrap.setPipelineFactory (new PipelineFactory(new HashedWheelTimer()));
-        serverBootstrap.bind (new InetSocketAddress(serverlistenerPort));	
+		ServerBootstrap serverBootstrap = new ServerBootstrap (new NioServerSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
+		serverBootstrap.setPipelineFactory (new PipelineFactory(new HashedWheelTimer()));
+		serverBootstrap.bind (new InetSocketAddress(serverlistenerPort));	
         
 		/**
 		 * Initialise Handlers
