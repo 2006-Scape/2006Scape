@@ -60,7 +60,7 @@ public class Firemaking {
 				boolean notInstant = System.currentTimeMillis() - SkillHandler.lastSkillingAction > 2500;
 				int cycle = 2;
 				if (notInstant) {
-					c.getPacketSender().sendMessage("You attempt to light a fire.");
+					c.getPacketSender().sendMessage("You attempt to light the logs.");
 					c.getPacketSender().sendSound(SoundList.FIRE_LIGHT, 100, 0);
 					if (!notInstant) {
 						c.getPacketSender().sendSound(SoundList.FIRST_ATTEMPT, 100, 0);// testing
@@ -122,7 +122,7 @@ public class Firemaking {
 								new Object(11404, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
 							else
 								new Object(2732, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
-							c.getPacketSender().sendMessage("The fire catches and the log beings to burn.");
+							c.getPacketSender().sendMessage("The fire catches and the logs begin to burn.");
 							c.getPlayerAssistant().addSkillXP((int) l.getXp(), 11);
 							if (c.tutorialProgress == 4) {
 								c.getDialogueHandler().sendDialogues(3016, 943);
