@@ -53,12 +53,9 @@ public class Packet {
 	/**
 	 * Creates a packet.
 	 * 
-	 * @param opcode
-	 *            The opcode.
-	 * @param type
-	 *            The type.
-	 * @param payload
-	 *            The payload.
+	 * @param opcode  The opcode.
+	 * @param type    The type.
+	 * @param payload The payload.
 	 */
 	public Packet(final int opcode, final Type type, final ChannelBuffer payload) {
 		this.opcode = opcode;
@@ -67,8 +64,8 @@ public class Packet {
 	}
 
 	/**
-	 * Checks if this packet is raw. A raw packet does not have the usual
-	 * headers such as opcode or size.
+	 * Checks if this packet is raw. A raw packet does not have the usual headers
+	 * such as opcode or size.
 	 * 
 	 * @return <code>true</code> if so, <code>false</code> if not.
 	 */
@@ -124,8 +121,7 @@ public class Packet {
 	/**
 	 * Reads several bytes.
 	 * 
-	 * @param b
-	 *            The target array.
+	 * @param b The target array.
 	 */
 	public void get(final byte[] b) {
 		payload.readBytes(b);
@@ -309,12 +305,9 @@ public class Packet {
 	/**
 	 * Reads a series of bytes in reverse.
 	 * 
-	 * @param is
-	 *            The target byte array.
-	 * @param offset
-	 *            The offset.
-	 * @param length
-	 *            The length.
+	 * @param is     The target byte array.
+	 * @param offset The offset.
+	 * @param length The length.
 	 */
 	public void getReverse(final byte[] is, final int offset, final int length) {
 		for (int i = (offset + length - 1); i >= offset; i--)
@@ -324,12 +317,9 @@ public class Packet {
 	/**
 	 * Reads a series of type A bytes in reverse.
 	 * 
-	 * @param is
-	 *            The target byte array.
-	 * @param offset
-	 *            The offset.
-	 * @param length
-	 *            The length.
+	 * @param is     The target byte array.
+	 * @param offset The offset.
+	 * @param length The length.
 	 */
 	public void getReverseA(final byte[] is, final int offset, final int length) {
 		for (int i = (offset + length - 1); i >= offset; i--)
@@ -339,12 +329,9 @@ public class Packet {
 	/**
 	 * Reads a series of bytes.
 	 * 
-	 * @param is
-	 *            The target byte array.
-	 * @param offset
-	 *            The offset.
-	 * @param length
-	 *            The length.
+	 * @param is     The target byte array.
+	 * @param offset The offset.
+	 * @param length The length.
 	 */
 	public void get(final byte[] is, final int offset, final int length) {
 		for (int i = 0; i < length; i++)
@@ -377,298 +364,107 @@ public class Packet {
 			return ((getShort() & 0xFFFF) - 49152);
 	}
 
-	
-	
-	public int readDWord() {
-		// TODO Auto-generated method stub
-		return 0;
+	/* Legacy methods here */
+
+	public int readUnsignedByte() {
+		return get() & 0xff;
+	}
+
+	public byte readSignedByte() {
+		return get();
+	}
+
+	public byte readSignedByteC() {
+		return (byte) -get();
+	}
+
+	public int readUnsignedByteS() {
+		return 128 - get() & 0xff;
 	}
 
 	public int readHex() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ((get() & 0xFF) * 1000) + (get() & 0xFF);
 	}
 
-	public void readBytes(byte[] pmchatText, int pmchatTextSize, int i) {
-		// TODO Auto-generated method stub
-		
+	public void readBytes(byte abyte0[], int length, int offset) {
+		for (int i = 0; i < length; i++)
+			abyte0[offset + i] = get();
 	}
 
-	public void readBytes_reverseA(byte[] chatText, byte chatTextSize, int i) {
-		// TODO Auto-generated method stub
-		
+	public void readBytes_reverseA(byte abyte0[], int length, int offset) {
+		for (int i = (offset + length - 1); i >= offset; i--)
+			abyte0[i] = getByteA();
 	}
 
 	public String readString() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder bldr = new StringBuilder();
+		byte b;
+		while (payload.readable() && (b = payload.readByte()) != 10)
+			bldr.append((char) b);
+		return bldr.toString();
 	}
-	
-	public int readSignedByte() {
-		// TODO Auto-generated method stub
-		return 0;
+
+	public int readDWord() {
+		return ((readUnsignedByte()) << 24) + ((readUnsignedByte()) << 16) + ((readUnsignedByte()) << 8) + (readUnsignedByte());
+	}
+
+	public long readQWord() {
+		long l = readDWord() & 0xffffffffL;
+		long l1 = readDWord() & 0xffffffffL;
+		return (l << 32) + l1;
+	}
+
+	public long readQWord2() {
+		final long l = readDWord() & 0xffffffffL;
+		final long l1 = readDWord() & 0xffffffffL;
+		return (l << 32) + l1;
+	}
+
+	public int readSignedWordA() {
+		int i = ((readUnsignedByte()) << 8) + (get() - 128 & 0xff);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
+	}
+
+	public int readUnsignedWordA() {
+		return ((readUnsignedByte()) << 8) + (get() - 128 & 0xff);
+	}
+
+	public int readUnsignedWord() {
+		return ((readUnsignedByte()) << 8) + (readUnsignedByte());
 	}
 
 	public int readSignedWord() {
-		// TODO Auto-generated method stub
-		return 0;
+		int i = ((readUnsignedByte()) << 8) + (readUnsignedByte());
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
 	}
-	
-	public int readSignedWordA() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+
 	public int readSignedWordBigEndian() {
-		// TODO Auto-generated method stub
-		return 0;
+		int i = (readUnsignedByte()) + ((readUnsignedByte()) << 8);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
 	}
+
 	public int readSignedWordBigEndianA() {
-		// TODO Auto-generated method stub
-		return 0;
+		int i = (get() - 128 & 0xff) + ((readUnsignedByte()) << 8);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
 	}
 
-	public int readUnsignedByte() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int readUnsignedByteS() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int readSignedByteC() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int readSignedByteS() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int readUnsignedWord() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int readUnsignedWordA() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	public int readUnsignedWordBigEndian() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (readUnsignedByte()) + ((readUnsignedByte()) << 8);
 	}
+
 	public int readUnsignedWordBigEndianA() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (get() - 128 & 0xff) + ((readUnsignedByte()) << 8);
 	}
-	public int readQWord() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int readQWord2() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-//
-//	/**
-//	 * The ID of the packet
-//	 */
-//	private final int pID;
-//	/**
-//	 * The length of the payload
-//	 */
-//	private final int pLength;
-//	/**
-//	 * The payload
-//	 */
-//	public /*private final*/ byte[] pData;
-//	/**
-//	 * The current index into the payload buffer for reading
-//	 */
-//	private int caret = 0;
-//	/**
-//	 * Whether this packet is without the standard packet header
-//	 */
-//	private final boolean bare;
-//
-//	/**
-//	 * Returns the remaining payload data of this packet.
-//	 * 
-//	 * @return The payload <code>byte</code> array
-//	 */
-//	public byte[] getRemainingData() {
-//		byte[] data = new byte[pLength - caret];
-//		for (int i = 0; i < data.length; i++) {
-//			data[i] = pData[i + caret];
-//		}
-//		caret += data.length;
-//		return data;
-//
-//	}
-//
-//	public int remaining() {
-//		return pData.length - caret;
-//	}
-//
-//	/**
-//	 * Returns this packet in string form.
-//	 * 
-//	 * @return A <code>String</code> representing this packet
-//	 */
-//	@Override
-//	public String toString() {
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("[id=" + pID + ",len=" + pLength + ",data=0x");
-//		for (int x = 0; x < pLength; x++) {
-//			sb.append(byteToHex(pData[x], true));
-//		}
-//		sb.append("]");
-//		return sb.toString();
-//	}
-//
-//	private static String byteToHex(byte b, boolean forceLeadingZero) {
-//		StringBuilder out = new StringBuilder();
-//		int ub = b & 0xff;
-//		if (ub / 16 > 0 || forceLeadingZero) {
-//			out.append(hex[ub / 16]);
-//		}
-//		out.append(hex[ub % 16]);
-//		return out.toString();
-//	}
-//
-//	private static final char[] hex = "0123456789ABCDEF".toCharArray();
-//
-//	
-//	/* TODO Stream methods below */
-//	
-//	public long readQWord2() {
-//		final long l = readDWord() & 0xffffffffL;
-//		final long l1 = readDWord() & 0xffffffffL;
-//		return (l << 32) + l1;
-//	}
-//
-//	public byte readSignedByteC() {
-//		return (byte) -pData[caret++];
-//	}
-//
-//	public int readUnsignedByteS() {
-//		return 128 - pData[caret++] & 0xff;
-//	}
-//
-//	public int readSignedWordBigEndian() {
-//		caret += 2;
-//		int i = ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] & 0xff);
-//		if (i > 32767) {
-//			i -= 0x10000;
-//		}
-//		return i;
-//	}
-//
-//	public int readSignedWordA() {
-//		caret += 2;
-//		int i = ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] - 128 & 0xff);
-//		if (i > 32767) {
-//			i -= 0x10000;
-//		}
-//		return i;
-//	}
-//
-//	public int readSignedWordBigEndianA() {
-//		caret += 2;
-//		int i = ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] - 128 & 0xff);
-//		if (i > 32767) {
-//			i -= 0x10000;
-//		}
-//		return i;
-//	}
-//
-//	public int readUnsignedWordBigEndian() {
-//		caret += 2;
-//		return ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] & 0xff);
-//	}
-//
-//	public int readUnsignedWordA() {
-//		caret += 2;
-//		return ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] - 128 & 0xff);
-//	}
-//
-//	public int readUnsignedWordBigEndianA() {
-//		caret += 2;
-//		return ((pData[caret - 1] & 0xff) << 8) + (pData[caret - 2] - 128 & 0xff);
-//	}
-//
-//	public void readBytes_reverseA(byte abyte0[], int i, int j) {
-//		ensureCapacity(i);
-//		for (int k = j + i - 1; k >= j; k--) {
-//			abyte0[k] = (byte) (pData[caret++] - 128);
-//		}
-//
-//	}
-//
-//	public int readUnsignedByte() {
-//		return pData[caret++] & 0xff;
-//	}
-//
-//	public byte readSignedByte() {
-//		return pData[caret++];
-//	}
-//
-//	public int readUnsignedWord() {
-//		caret += 2;
-//		return ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] & 0xff);
-//	}
-//
-//	public int readSignedWord() {
-//		caret += 2;
-//		int i = ((pData[caret - 2] & 0xff) << 8) + (pData[caret - 1] & 0xff);
-//		if (i > 32767) {
-//			i -= 0x10000;
-//		}
-//		return i;
-//	}
-//
-//	public int readHex() {
-//		caret += 2;
-//		return ((pData[caret - 2] & 0xFF) * 1000) + (pData[caret - 1] & 0xFF);
-//	}
-//	
-//	public int readDWord() {
-//		caret += 4;
-//		return ((pData[caret - 4] & 0xff) << 24)
-//				+ ((pData[caret - 3] & 0xff) << 16)
-//				+ ((pData[caret - 2] & 0xff) << 8)
-//				+ (pData[caret - 1] & 0xff);
-//	}
-//
-//	public long readQWord() {
-//		long l = readDWord() & 0xffffffffL;
-//		long l1 = readDWord() & 0xffffffffL;
-//		return (l << 32) + l1;
-//	}
-//
-//	public java.lang.String readString() {
-//		int i = caret;
-//		while (pData[caret++] != 10) {
-//			;
-//		}
-//		return new String(pData, i, caret - i - 1);
-//	}
-//
-//	public void readBytes(byte abyte0[], int i, int j) {
-//		for (int k = j; k < j + i; k++) {
-//			abyte0[k] = pData[caret++];
-//		}
-//
-//	}
-//
-//	private void ensureCapacity(int len) {
-//		if (caret + len + 1 >= pData.length) {
-//			byte[] oldBuffer = pData;
-//			int newLength = pData.length * 2;
-//			pData = new byte[newLength];
-//			System.arraycopy(oldBuffer, 0, pData, 0, oldBuffer.length);
-//			ensureCapacity(len);
-//		}
-//	}
-
-
 }
