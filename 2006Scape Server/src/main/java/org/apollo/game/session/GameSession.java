@@ -4,17 +4,17 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apollo.ServerContext;
-import org.apollo.game.GameConstants;
-import org.apollo.game.message.handler.MessageHandlerChainSet;
-import org.apollo.game.message.impl.LogoutMessage;
-import org.apollo.game.model.entity.Player;
 import org.apollo.net.message.Message;
+
+import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 
 /**
  * A game session.
@@ -29,14 +29,9 @@ public final class GameSession extends Session {
 	private static final Logger logger = Logger.getLogger(GameSession.class.getName());
 
 	/**
-	 * The server context.
-	 */
-	private final ServerContext context;
-
-	/**
 	 * The queue of pending {@link Message}s.
 	 */
-	private final BlockingQueue<Message> messages = new ArrayBlockingQueue<>(GameConstants.MESSAGES_PER_PULSE);
+	private final BlockingQueue<Message> messages = new ArrayBlockingQueue<>(25);
 
 	/**
 	 * The player.
@@ -56,16 +51,15 @@ public final class GameSession extends Session {
 	 * @param player The player.
 	 * @param reconnecting If the player was reconnecting.
 	 */
-	public GameSession(Channel channel, ServerContext context, Player player, boolean reconnecting) {
+	public GameSession(Channel channel, Player player, boolean reconnecting) {
 		super(channel);
-		this.context = context;
 		this.player = player;
 		this.reconnecting = reconnecting;
 	}
 
 	@Override
 	public void destroy() {
-		context.getGameService().unregisterPlayer(player);
+		player.disconnected = true;
 	}
 
 	/**
@@ -73,13 +67,13 @@ public final class GameSession extends Session {
 	 *
 	 * @param message The message.
 	 */
-	public void dispatchMessage(Message message) {
+	public void dispatchMessage(Packet message) {
 		Channel channel = getChannel();
 		if (channel.isActive() && channel.isOpen()) {
 			ChannelFuture future = channel.writeAndFlush(message);
-			if (message.getClass() == LogoutMessage.class) {
-				future.addListener(ChannelFutureListener.CLOSE);
-			}
+	//		if (message.getClass() == LogoutMessage.class) {//TODO write packet 109.
+	//			future.addListener(ChannelFutureListener.CLOSE);
+	//		}
 		}
 	}
 
@@ -120,11 +114,15 @@ public final class GameSession extends Session {
 
 	@Override
 	public void messageReceived(Object message) {
-		if (messages.size() >= GameConstants.MESSAGES_PER_PULSE) {
+		if (messages.size() >= 25) {
 			logger.warning("Too many messages in queue for game session, dropping...");
 		} else {
 			messages.add((Message) message);
 		}
+	}
+
+	public SocketAddress getRemoteAddress() {
+		return channel.remoteAddress();
 	}
 
 }

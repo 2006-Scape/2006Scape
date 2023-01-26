@@ -31,11 +31,6 @@ import org.apollo.util.security.IsaacRandomPair;
 public final class LoginSession extends Session {
 
 	/**
-	 * The ServerContext.
-	 */
-	private final ServerContext context;
-
-	/**
 	 * The LoginRequest for this LoginSession.
 	 */
 	private LoginRequest request;
@@ -46,9 +41,8 @@ public final class LoginSession extends Session {
 	 * @param channel The channel.
 	 * @param context The server context.
 	 */
-	public LoginSession(Channel channel, ServerContext context) {
+	public LoginSession(Channel channel) {
 		super(channel);
-		this.context = context;
 	}
 
 	@Override
@@ -108,14 +102,11 @@ public final class LoginSession extends Session {
 		int rights = player.getPrivilegeLevel().toInteger();
 		channel.writeAndFlush(new LoginResponse(LoginConstants.STATUS_OK, rights, flagged));
 
-		Release release = context.getRelease();
-
 		channel.pipeline().addFirst("messageEncoder", new GameMessageEncoder(release));
 		channel.pipeline().addBefore("messageEncoder", "gameEncoder", new GamePacketEncoder(randomPair.getEncodingRandom()));
 
-		channel.pipeline().addBefore("handler", "gameDecoder",
-				new GamePacketDecoder(randomPair.getDecodingRandom(), context.getRelease()));
-		channel.pipeline().addAfter("gameDecoder", "messageDecoder", new GameMessageDecoder(release));
+		channel.pipeline().addBefore("handler", "gameDecoder", new GamePacketDecoder(randomPair.getDecodingRandom()));
+		channel.pipeline().addAfter("gameDecoder", "messageDecoder", new GameMessageDecoder());
 
 		channel.pipeline().remove("loginDecoder");
 		channel.pipeline().remove("loginEncoder");
