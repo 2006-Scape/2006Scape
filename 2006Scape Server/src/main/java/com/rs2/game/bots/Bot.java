@@ -20,8 +20,8 @@ public class Bot {
     
     public Bot(String username, Integer x, Integer y, Integer z) {
         botClient = new Client(null);
-		inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
-		inStream.currentOffset = 0;
+        inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
+        inStream.currentOffset = 0;
         botClient.playerName = username;
         botClient.playerName2 = botClient.playerName;
         botClient.properName = Character.toUpperCase(username.charAt(1)) + username.substring(2);
