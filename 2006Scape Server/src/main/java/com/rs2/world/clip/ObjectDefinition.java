@@ -3,8 +3,8 @@ package com.rs2.world.clip;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-import org.apollo.archive.Archive;
-import org.apollo.jagcached.fs.IndexedFileSystem;
+import org.apollo.cache.IndexedFileSystem;
+import org.apollo.cache.archive.Archive;
 
 public final class ObjectDefinition {
 
