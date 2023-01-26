@@ -14,9 +14,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.rs2.game.bots.BotHandler;
-import org.apache.mina.common.IoAcceptor;
-import org.apache.mina.transport.socket.nio.SocketAcceptor;
-import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.content.minigames.FightPits;
@@ -37,8 +34,7 @@ import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
 import com.rs2.integrations.discord.DiscordActivity;
 import com.rs2.integrations.discord.JavaCord;
-import com.rs2.net.ConnectionHandler;
-import com.rs2.net.ConnectionThrottleFilter;
+import com.rs2.net.PipelineFactory;
 import com.rs2.tick.Scheduler;
 import com.rs2.tick.Tick;
 import com.rs2.util.HostBlacklist;
@@ -48,6 +44,11 @@ import com.rs2.world.ObjectHandler;
 import com.rs2.world.ObjectManager;
 import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
+
+import org.jboss.netty.bootstrap.ServerBootstrap;
+import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import org.jboss.netty.util.HashedWheelTimer;
+
 import org.apollo.jagcached.FileServer;
 
 /**
@@ -111,9 +112,6 @@ public class GameEngine {
 	public static boolean sleeping;
 	public static boolean updateServer = false;
 	public static long lastMassSave = System.currentTimeMillis();
-	private static IoAcceptor acceptor;
-	private static ConnectionHandler connectionHandler;
-	private static ConnectionThrottleFilter throttleFilter;
 	public static boolean shutdownServer = false;
 	public static int garbageCollectDelay = 40;
 	public static boolean shutdownClientHandler;
@@ -198,18 +196,10 @@ public class GameEngine {
 		/**
 		 * Accepting Connections
 		 */
-		acceptor = new SocketAcceptor();
-		connectionHandler = new ConnectionHandler();
-
-		SocketAcceptorConfig sac = new SocketAcceptorConfig();
-		sac.getSessionConfig().setTcpNoDelay(false);
-		sac.setReuseAddress(true);
-		sac.setBacklog(100);
-
-		throttleFilter = new ConnectionThrottleFilter(GameConstants.CONNECTION_DELAY);
-		sac.getFilterChain().addFirst("throttleFilter", throttleFilter);
-		acceptor.bind(new InetSocketAddress(serverlistenerPort), connectionHandler, sac);
-
+        ServerBootstrap serverBootstrap = new ServerBootstrap (new NioServerSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
+        serverBootstrap.setPipelineFactory (new PipelineFactory(new HashedWheelTimer()));
+        serverBootstrap.bind (new InetSocketAddress(serverlistenerPort));	
+        
 		/**
 		 * Initialise Handlers
 		 */
@@ -316,9 +306,6 @@ public class GameEngine {
 			e.printStackTrace();
 		}
 
-		acceptor = null;
-		connectionHandler = null;
-		sac = null;
 		System.exit(0);
 	}
 

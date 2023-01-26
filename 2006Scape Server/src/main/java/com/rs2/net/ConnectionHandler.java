@@ -1,63 +1,61 @@
 package com.rs2.net;
 
-import org.apache.mina.common.IdleStatus;
-import org.apache.mina.common.IoHandler;
-import org.apache.mina.common.IoSession;
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.ChannelStateEvent;
+import org.jboss.netty.channel.ExceptionEvent;
+import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.channel.SimpleChannelHandler;
+import org.jboss.netty.handler.timeout.ReadTimeoutException;
 
 import com.rs2.game.players.Client;
 
-public class ConnectionHandler implements IoHandler {
-
+public class ConnectionHandler extends SimpleChannelHandler {
+	
+	private Session session = null;
+	
 	@Override
-	public void exceptionCaught(IoSession arg0, Throwable arg1)
+	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e)
 			throws Exception {
-		// TODO Auto-generated method stub
-
+		// TODO Auto-generated method stub 
 	}
 
 	@Override
-	public void messageReceived(IoSession arg0, Object arg1) throws Exception {
-		if (arg0.getAttachment() != null) {
-			Client plr = (Client) arg0.getAttachment();
-			plr.queueMessage((GamePacket) arg1);
+	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+		if (e.getMessage() instanceof Client) {
+			session.setClient((Client) e.getMessage());
+		} else if (e.getMessage() instanceof Packet) {
+			if (session.getClient() != null) {
+				Packet p = (Packet) e.getMessage();
+				int packetType = p.getOpcode();
+				int packetSize = p.getLength();
+				byte[] buffer = p.getPayload().array();
+				session.getClient().queueMessage(new GamePacket(packetType, buffer, true));
+			}
 		}
 	}
 
 	@Override
-	public void messageSent(IoSession arg0, Object arg1) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sessionClosed(IoSession arg0) throws Exception {
-		if (arg0.getAttachment() != null) {
-			Client plr = (Client) arg0.getAttachment();
-			plr.disconnected = true;
-		}
-		HostList.getHostList().remove(arg0);
-	}
-
-	@Override
-	public void sessionCreated(IoSession arg0) throws Exception {
-		if (!HostList.getHostList().add(arg0)) {
-			arg0.close();
-		} else {
-			arg0.setAttribute("inList", Boolean.TRUE);
+	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
+		if (session == null) {
+			session = new Session(ctx.getChannel());
+			if (!HostList.getHostList().add(session)) {
+				ctx.getChannel().close();
+			} else {
+				session.setInList(true);
+			}
 		}
 	}
-
+	
 	@Override
-	public void sessionIdle(IoSession arg0, IdleStatus arg1) throws Exception {
-		arg0.close();
-	}
-
-	@Override
-	public void sessionOpened(IoSession arg0) throws Exception {
-		arg0.setIdleTime(IdleStatus.BOTH_IDLE, 60);
-		arg0.getFilterChain().addLast("protocolFilter",
-				new ProtocolCodecFilter(new CodecFactory()));
+	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+		if (session != null) {
+			HostList.getHostList().remove(session);
+			Client client = session.getClient();
+			if (client != null) {
+				client.disconnected = true;
+			}
+			session = null;
+		}
 	}
 
 }

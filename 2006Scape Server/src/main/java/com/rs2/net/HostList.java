@@ -1,16 +1,22 @@
 package com.rs2.net;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.mina.common.IoSession;
 
 import com.rs2.Connection;
 import com.rs2.GameConstants;
 
 public class HostList {
 
+	private final Map<InetAddress, Long> clients;
+	
+	private HostList() {
+		clients = Collections.synchronizedMap(new HashMap<InetAddress, Long>());
+	}
+	
 	private static HostList list = new HostList();
 
 	public static HostList getHostList() {
@@ -19,9 +25,11 @@ public class HostList {
 
 	private final Map<String, Integer> connections = new HashMap<String, Integer>();
 
-	public synchronized boolean add(IoSession session) {
-		String addr = ((InetSocketAddress) session.getRemoteAddress())
-				.getAddress().getHostAddress();
+	public synchronized boolean add(Session session) {
+		if(!isConnectionOk(session)) {
+			return false;
+		}
+		String addr = ((InetSocketAddress) session.getChannel().getRemoteAddress()).getAddress().getHostAddress();
 		Integer amt = connections.get(addr);
 		if (amt == null) {
 			amt = 1;
@@ -36,11 +44,11 @@ public class HostList {
 		}
 	}
 
-	public synchronized void remove(IoSession session) {
-		if (session.getAttribute("inList") != Boolean.TRUE) {
+	public synchronized void remove(Session session) {
+		if (!session.isInList()) {
 			return;
 		}
-		String addr = ((InetSocketAddress) session.getRemoteAddress())
+		String addr = ((InetSocketAddress) session.getChannel().getRemoteAddress())
 				.getAddress().getHostAddress();
 		Integer amt = connections.get(addr);
 		if (amt == null) {
@@ -54,4 +62,29 @@ public class HostList {
 		}
 	}
 
+	private InetAddress getAddress(Session io) {
+		return ((InetSocketAddress) io.getChannel().getRemoteAddress()).getAddress();
+	}
+
+	/**
+	 * Method responsible for deciding if a connection is OK to continue
+	 * 
+	 * @param session
+	 *            The new session that will be verified
+	 * @return True if the session meets the criteria, otherwise false
+	 */
+	private boolean isConnectionOk(Session session) {
+		InetAddress addr = getAddress(session);
+		long now = System.currentTimeMillis();
+		if (clients.containsKey(addr)) {
+			long lastConnTime = clients.get(addr);
+
+			if (now - lastConnTime < GameConstants.CONNECTION_DELAY) {
+				System.out.println("["+addr+"] Session dropped (delay="+(now-lastConnTime)+"ms)");
+				return false;
+			} 
+		} 
+		clients.put(addr, now);
+		return true;
+	}
 }

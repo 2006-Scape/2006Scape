@@ -1,13 +1,13 @@
 package com.rs2.game.players;
 
-import org.apache.mina.common.IoSession;
+import org.jboss.netty.channel.Channel;
 
 import com.rs2.GameConstants;
 import com.rs2.util.Stream;
 
 public class Client extends Player {
 	
-	public Client(IoSession s, int _playerId) {
+	public Client(Channel s, int _playerId) {
 		super(_playerId);
 		session = s;
 		outStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
@@ -16,7 +16,7 @@ public class Client extends Player {
 	}
 	
 	//bots
-	public Client(IoSession s) {
+	public Client(Channel s) {
 		super(-1);
 		isBot = true;
 		session = null;

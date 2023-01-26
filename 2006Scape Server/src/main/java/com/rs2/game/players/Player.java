@@ -51,10 +51,11 @@ import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.Pets;
 import com.rs2.game.objects.ObjectsActions;
 import com.rs2.game.shops.ShopAssistant;
-import com.rs2.net.HostList;
 import com.rs2.net.GamePacket;
+import com.rs2.net.HostList;
+import com.rs2.net.Packet;
+import com.rs2.net.Packet.Type;
 import com.rs2.net.PacketSender;
-import com.rs2.net.StaticPacketBuilder;
 import com.rs2.net.packets.PacketHandler;
 import com.rs2.net.packets.impl.ChallengePlayer;
 import com.rs2.plugin.PluginService;
@@ -63,9 +64,11 @@ import com.rs2.util.Misc;
 import com.rs2.util.Stream;
 import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
-import org.apache.mina.common.IoSession;
 
 import java.util.*;
+
+import org.jboss.netty.buffer.ChannelBuffers;
+import org.jboss.netty.channel.Channel;
 
 public abstract class Player {
 	
@@ -86,7 +89,7 @@ public abstract class Player {
 	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
 	private ToolLeprechaun toolLeprechaun = new ToolLeprechaun(this);
 	public Stream outStream = null;
-    public IoSession session;
+    public Channel session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
 	private final MageTrainingArena mageArena = new MageTrainingArena(this);
@@ -400,7 +403,7 @@ public abstract class Player {
 		return npcs;
 	}
 
-	public IoSession getSession() {
+	public Channel getSession() {
 		return session;
 	}
 
@@ -522,15 +525,14 @@ public abstract class Player {
 	}
 
 	public void flushOutStream() {
-		if (disconnected || outStream == null || outStream.currentOffset == 0) {
+		if (!session.isConnected() || disconnected || outStream == null || outStream.currentOffset == 0) {
 			return;
 		}
 		synchronized (this) {
-			StaticPacketBuilder out = new StaticPacketBuilder().setBare(true);
 			byte[] temp = new byte[outStream.currentOffset];
 			System.arraycopy(outStream.buffer, 0, temp, 0, temp.length);
-			out.addBytes(temp);
-			session.write(out.toPacket());
+			Packet packet = new Packet(-1, Type.FIXED, ChannelBuffers.wrappedBuffer(temp));
+			session.write(packet);
 			outStream.currentOffset = 0;
 		}
 	}
@@ -596,7 +598,7 @@ public abstract class Player {
 		}
 
 		Misc.println("[DEREGISTERED]: " + playerName + "");
-		HostList.getHostList().remove(session);
+		// HostList.getHostList().remove(session);
 		CycleEventHandler.getSingleton().stopEvents(this);
 		disconnected = true;
 		session.close();

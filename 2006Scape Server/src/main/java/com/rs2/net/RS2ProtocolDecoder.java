@@ -1,14 +1,19 @@
 package com.rs2.net;
 
-import org.apache.mina.common.ByteBuffer;
-import org.apache.mina.common.IoSession;
-import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
-import org.apache.mina.filter.codec.ProtocolDecoderOutput;
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
+import org.jboss.netty.channel.Channel;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.handler.codec.frame.FrameDecoder;
 
 import com.rs2.util.ISAACRandomGen;
 
-public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
+import com.rs2.net.Packet.Type;
 
+public class RS2ProtocolDecoder extends FrameDecoder {
+	
+	private int opcode = -1;
+	private int size = -1;
 	private final ISAACRandomGen isaac;
 	public static final int PACKET_SIZES[] = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
 			0, 0, 0, 0, 8, 0, 6, 2, 2, 0, // 10
@@ -54,118 +59,78 @@ public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
 	 * @return
 	 */
 	@Override
-	protected boolean doDecode(IoSession session, ByteBuffer in,
-			ProtocolDecoderOutput out) throws Exception {
-		synchronized (session) {
+	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer in) throws Exception {
+		/*
+		 * If the opcode is not present.
+		 */
+		if (opcode == -1) {
 			/*
-			 * Fetch the ISAAC cipher for this session.
+			 * Check if it can be read.
 			 */
-			// ISAACRandomGen inCipher = ((Player)
-			// session.getAttribute("player")).getInStreamDecryption();
-
-			/*
-			 * Fetch any cached opcodes and sizes, reset to -1 if not present.
-			 */
-			int opcode = (Integer) session.getAttribute("opcode");
-			int size = (Integer) session.getAttribute("size");
-
-			/*
-			 * If the opcode is not present.
-			 */
-			if (opcode == -1) {
+			if (in.readableBytes() >= 1) {
 				/*
-				 * Check if it can be read.
+				 * Read and decrypt the opcode.
 				 */
-				if (in.remaining() >= 1) {
-					/*
-					 * Read and decrypt the opcode.
-					 */
-					opcode = in.get() & 0xFF;
-					opcode = opcode - isaac.getNextKey() & 0xFF;
-
-					/*
-					 * Find the packet size.
-					 */
-					size = RS2ProtocolDecoder.PACKET_SIZES[opcode];
-
-					/*
-					 * Set the cached opcode and size.
-					 */
-					session.setAttribute("opcode", opcode);
-					session.setAttribute("size", size);
-				} else {
-					/*
-					 * We need to wait for more data.
-					 */
-					return false;
-				}
+				opcode = in.readByte() & 0xFF;
+				opcode = (opcode - isaac.getNextKey()) & 0xFF;
+				/*
+				 * Find the packet size.
+				 */
+				size = PACKET_SIZES[opcode];
+			} else {
+				/*
+				 * We need to wait for more data.
+				 */
+				return null;
 			}
-
+		}
+		
+		/*
+		 * If the packet is variable-length.
+		 */
+		if (size == -1) {
 			/*
-			 * If the packet is variable-length.
+			 * Check if the size can be read.
 			 */
-			if (size == -1) {
+			if (in.readableBytes() >= 1) {
 				/*
-				 * Check if the size can be read.
+				 * Read the packet size and cache it.
 				 */
-				if (in.remaining() >= 1) {
-					/*
-					 * Read the packet size and cache it.
-					 */
-					size = in.get() & 0xFF;
-					session.setAttribute("size", size);
-				} else {
-					/*
-					 * We need to wait for more data.
-					 */
-					return false;
-				}
+				size = in.readByte() & 0xFF;
+			} else {
+				/*
+				 * We need to wait for more data.
+				 */
+				return null;
 			}
-
+		}
+		
+		/*
+		 * If the packet payload (data) can be read.
+		 */
+		if (in.readableBytes() >= size) {
 			/*
-			 * If the packet payload (data) can be read.
+			 * Read it.
 			 */
-			if (in.remaining() >= size) {
-				/*
-				 * Read it.
-				 */
-				byte[] data = new byte[size];
-				in.get(data);
-				ByteBuffer payload = ByteBuffer.allocate(data.length);
-				payload.put(data);
-				payload.flip();
-
+			final byte[] data = new byte[size];
+			in.readBytes(data);
+			final ChannelBuffer payload = ChannelBuffers.buffer(size);
+			payload.writeBytes(data);
+			try {
 				/*
 				 * Produce and write the packet object.
 				 */
-				out.write(new GamePacket(opcode, data));
-
-				/*
-				 * Reset the cached opcode and sizes.
-				 */
-				session.setAttribute("opcode", -1);
-				session.setAttribute("size", -1);
-
-				/*
-				 * Indicate we are ready to read another packet.
-				 */
-				return true;
+				return new Packet(opcode, Type.FIXED, payload);
+			} finally {
+				opcode = -1;
+				size = -1;
 			}
-
-			/*
-			 * We need to wait for more data.
-			 */
-			return false;
 		}
-	}
-
-	@Override
-	/**
-	 * Releases resources used by this decoder.
-	 * @param session
-	 */
-	public void dispose(IoSession session) throws Exception {
-		super.dispose(session);
+		
+		/*
+		 * We need to wait for more data.
+		 */
+		return null;
 	}
 
 }

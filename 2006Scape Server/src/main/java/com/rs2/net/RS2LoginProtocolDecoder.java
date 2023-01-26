@@ -2,14 +2,15 @@ package com.rs2.net;
 
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
+import java.security.SecureRandom;
 
-import org.apache.mina.common.ByteBuffer;
-import org.apache.mina.common.IoFuture;
-import org.apache.mina.common.IoFutureListener;
-import org.apache.mina.common.IoSession;
-import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
-import org.apache.mina.filter.codec.ProtocolDecoderOutput;
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
+import org.jboss.netty.channel.Channel;
+import org.jboss.netty.channel.ChannelFuture;
+import org.jboss.netty.channel.ChannelFutureListener;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.handler.codec.frame.FrameDecoder;
 
 import com.rs2.Connection;
 import com.rs2.GameConstants;
@@ -27,11 +28,12 @@ import com.rs2.util.ISAACRandomGen;
  * @author Ryan / Lmctruck30 <- login Protocol fixes
  */
 
-public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
-	
+public class RS2LoginProtocolDecoder extends FrameDecoder {
+
 	private static final BigInteger RSA_MODULUS = new BigInteger("91553247461173033466542043374346300088148707506479543786501537350363031301992107112953015516557748875487935404852620239974482067336878286174236183516364787082711186740254168914127361643305190640280157664988536979163450791820893999053469529344247707567448479470137716627440246788713008490213212272520901741443");
 	private static final BigInteger RSA_EXPONENT = new BigInteger("33280025241734061313051117678670856264399753710527826596057587687835856000539511539311834363046145710983857746766009612538140077973762171163294453513440619295457626227183742315140865830778841533445402605660729039310637444146319289077374748018792349647460850308384280105990607337322160553135806205784213241305");
 
+	private int loginStage = 0;
 
 	/**
 	 * Parses the data in the provided byte buffer and writes it to
@@ -47,189 +49,159 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 	 * @return Whether enough data was available to create a packet
 	 */
 	@Override
-	public boolean doDecode(IoSession session, ByteBuffer in,
-			ProtocolDecoderOutput out) {
-		synchronized (session) {
-			Object loginStageObj = session.getAttribute("LOGIN_STAGE");
-			int loginStage = 0;
-			if (loginStageObj != null) {
-				loginStage = (Integer) loginStageObj;
-			}
-			// Logger.log("recv login packet, stage: "+loginStage);
-			switch (loginStage) {
-			case 0:
-				if (2 <= in.remaining()) {
-					int protocol = in.get() & 0xff;
-					@SuppressWarnings("unused")
-					int nameHash = in.get() & 0xff;
-					if (protocol == 14) {
-						long serverSessionKey = ((long) (java.lang.Math
-								.random() * 99999999D) << 32)
-								+ (long) (java.lang.Math.random() * 99999999D);
-						StaticPacketBuilder s1Response = new StaticPacketBuilder();
-						s1Response
-								.setBare(true)
-								.addBytes(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 })
-								.addByte((byte) 0).addLong(serverSessionKey);
-						session.setAttribute("SERVER_SESSION_KEY",
-								serverSessionKey);
-						session.write(s1Response.toPacket());
-						session.setAttribute("LOGIN_STAGE", 1);
-					}
-					return true;
-				} else {
-					in.rewind();
-					return false;
-				}
-			case 1:
-				@SuppressWarnings("unused")
-				int loginType = -1,
-				loginPacketSize = -1,
-				loginEncryptPacketSize = -1;
-				if (2 <= in.remaining()) {
-					loginType = in.get() & 0xff; // should be 16 or 18
-					loginPacketSize = in.get() & 0xff;
-					loginEncryptPacketSize = loginPacketSize - (36 + 1 + 1 + 2);
-					if (loginPacketSize <= 0 || loginEncryptPacketSize <= 0) {
-						System.out.println("Zero or negative login size.");
-						session.close();
-						return false;
-					}
-				} else {
-					in.rewind();
-					return false;
-				}
-				if (loginPacketSize <= in.remaining()) {
-					int magic = in.get() & 0xff;
-					int version = in.getUnsignedShort();
-					if (magic != 255) {
-						// System.out.println("Wrong magic id.");
-						session.close();
-						return false;
-					}
-					if (version != 1) {
-						// Dont Add Anything
-					}
-					@SuppressWarnings("unused")
-					int lowMem = in.get() & 0xff;
-					for (int i = 0; i < 9; i++) {
-						in.getInt();
-					}
-					loginEncryptPacketSize--;
-					if(loginEncryptPacketSize != (in.get() & 0xff)) {
-						System.out.println("Encrypted size mismatch.");
-						session.close();
-						return false;
-					}
-                    byte[] encryptionBytes = new byte[loginEncryptPacketSize];
-                    in.get(encryptionBytes);
-                    ByteBuffer rsaBuffer = ByteBuffer.wrap(new BigInteger(encryptionBytes).modPow(RSA_EXPONENT, RSA_MODULUS).toByteArray());
-					if((rsaBuffer.get() & 0xff) != 10) {
-						System.out.println("Encrypted id != 10.");
-						session.close();
-						return false;
-					}
-					long clientSessionKey = rsaBuffer.getLong();
-					long serverSessionKey = rsaBuffer.getLong();
-					int uid = rsaBuffer.getInt();
-					if(uid != 314268572) {
-						session.close();
-						return false;
-					}
-					String name = readRS2String(rsaBuffer);
-					String pass = readRS2String(rsaBuffer);
-					int sessionKey[] = new int[4];
-					sessionKey[0] = (int) (clientSessionKey >> 32);
-					sessionKey[1] = (int) clientSessionKey;
-					sessionKey[2] = (int) (serverSessionKey >> 32);
-					sessionKey[3] = (int) serverSessionKey;
-					ISAACRandomGen inC = new ISAACRandomGen(sessionKey);
-					for (int i = 0; i < 4; i++)
-						sessionKey[i] += 50;
-					ISAACRandomGen outC = new ISAACRandomGen(sessionKey);
-					load(session, uid, name, pass, inC, outC, version);
-					session.getFilterChain().remove("protocolFilter");
-					session.getFilterChain().addLast("protocolFilter", new ProtocolCodecFilter(new GameCodecFactory(inC)));
-					return true;
-				} else {
-					in.rewind();
-					return false;
-				}
-			}
+	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
+		if (!channel.isConnected()) {
+			return null;
 		}
-		return false;
+		// Logger.log("recv login packet, stage: "+loginStage);
+		switch (loginStage) {
+		case 0:
+			if (buffer.readableBytes() < 2) {
+				return null;
+			}
+			int protocol = buffer.readUnsignedByte();
+			if (protocol != 14) {
+				System.out.println("Invalid login request: " + protocol);
+				channel.close();
+				return null;
+			}
+			@SuppressWarnings("unused")
+			int nameHash = buffer.readUnsignedByte();
+			channel.write(new PacketBuilder().putLong(0).put((byte) 0).putLong(new SecureRandom().nextLong()).toPacket());
+			loginStage = 1;
+			return null;
+		case 1:
+
+			if (buffer.readableBytes() < 2) {
+				return null;
+			}
+
+			int loginType = buffer.readByte(); // should be 16 or 18
+			if (loginType != 16 && loginType != 18) {
+				System.out.println("Invalid login type: " + loginType);
+				// channel.close();
+				// return null;
+			}
+			// System.out.println("Login type = "+loginType);
+			int loginPacketSize = buffer.readByte() & 0xff;
+			if (buffer.readableBytes() < loginPacketSize) {
+				return null;
+			}
+
+			int magic = buffer.readByte() & 0xff;
+			int version = buffer.readShort();
+			if (magic != 255) {
+				// System.out.println("Wrong magic id.");
+				channel.close();
+				return null;
+			}
+			if (version != 1) {
+				// Dont Add Anything
+			}
+
+			@SuppressWarnings("unused")
+			int lowMem =buffer.readByte();// lowmem
+			for (int i = 0; i < 9; i++)
+				buffer.readInt();// skip
+
+			int securePayloadLength = buffer.readUnsignedByte();
+
+			ChannelBuffer secure = buffer.readBytes(securePayloadLength);
+
+			BigInteger value = new BigInteger(secure.array());
+			value = value.modPow(RSA_EXPONENT, RSA_MODULUS);
+			secure = ChannelBuffers.wrappedBuffer(value.toByteArray());
+
+			int rsaOpcode = secure.readByte() & 0xff;
+
+			if (rsaOpcode != 10) {
+				System.out.println("Unable to decode RSA block properly!");
+				channel.close();
+				return null;
+			}
+
+			final long clientSessionKey = secure.readLong();
+			final long serverSessionKey = secure.readLong();
+			final int[] isaacSeed = { (int) (clientSessionKey >> 32), (int) clientSessionKey, (int) (serverSessionKey >> 32),
+					(int) serverSessionKey };
+			final ISAACRandomGen inC = new ISAACRandomGen(isaacSeed);
+			for (int i = 0; i < isaacSeed.length; i++)
+				isaacSeed[i] += 50;
+			final ISAACRandomGen outC = new ISAACRandomGen(isaacSeed);
+			final int uid = secure.readInt();
+			if(uid != 314268572) {
+				channel.close();
+				return null;
+			}
+			final String name = readRS2String(secure);
+			final String pass = readRS2String(secure);
+
+			channel.getPipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(inC));
+			return load(channel, uid, name, pass, inC, outC, version);
+		}
+		return null;
 	}
 
-
-	private synchronized void load(final IoSession session, final int uid,
+	private static Client load(Channel channel, final int uid,
 			String name, String pass, final ISAACRandomGen inC,
 			ISAACRandomGen outC, int version) {
-		session.setAttribute("opcode", -1);
-		session.setAttribute("size", -1);
 		int returnCode = 2;
-
+		
 		name = name.trim();
 		name = name.toLowerCase();
-	//	pass = pass.toLowerCase();
+		//	pass = pass.toLowerCase();
 
-		String hostName = ((InetSocketAddress) session.getRemoteAddress())
+		String hostName = ((InetSocketAddress) channel.getRemoteAddress())
 				.getAddress().getHostName();
 
 		//if (version != 1) {
 			//returnCode = 31;
 		//d}
-
+		
 		if (HostBlacklist.isBlocked(hostName)) {
 			returnCode = 11;
 		}
-
+		
 		if (!name.matches("[A-Za-z0-9 ]+")) {
 			returnCode = 4;
 		}
-
 		if (name.length() > 12) {
 			returnCode = 8;
 		}
-                
-                if (pass.length() == 0) {
-                        returnCode = 4;
-                }
-
-		Client cl = new Client(session, -1);
+		
+        if (pass.length() == 0) {
+            returnCode = 4;
+        }
+        
+		Client cl = new Client(channel, -1);
 		cl.playerName = name;
 		cl.playerName2 = cl.playerName;
 		cl.playerPass = pass;
-
-		cl.setInStreamDecryption(inC);
-		cl.setOutStreamDecryption(outC);
 		cl.outStream.packetEncryption = outC;
 		cl.saveCharacter = false;
 		char first = name.charAt(0);
 		cl.properName = Character.toUpperCase(first)
-				+ name.substring(1, name.length());
-
+				+ name.substring(1, name.length());		
 		if (Connection.isNamedBanned(cl.playerName)) {
 			returnCode = 4;
 		}
-
-
+		
 		if (PlayerHandler.isPlayerOn(name)) {
 			returnCode = 5;
 		}
-
-		if (PlayerHandler.playerCount >= GameConstants.MAX_PLAYERS) {
+		
+		if (PlayerHandler.getPlayerCount() >= GameConstants.MAX_PLAYERS) {
 			returnCode = 7;
 		}
-
+		
 		if (GameEngine.updateServer) {
 			returnCode = 14;
 		}
-
+		
 		if (returnCode == 2) {
 			int load = PlayerSave.loadGame(cl, cl.playerName, cl.playerPass);
-			if (load == 0) {
+			if (load == 0)
 				cl.addStarter = true;
-			}
 			if (load == 3) {
 				returnCode = 3;
 				cl.saveFile = false;
@@ -248,55 +220,44 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 				}
 			}
 		}
-
-		StaticPacketBuilder bldr = new StaticPacketBuilder();
-		bldr.setBare(true);
-		bldr.addByte((byte) returnCode);
 		if (returnCode == 2) {
 			cl.saveCharacter = true;
+			final PacketBuilder bldr = new PacketBuilder();
+			bldr.put((byte) 2);
 			if (cl.playerRights == 3) {
-				bldr.addByte((byte) 2);
+				bldr.put((byte) 2);
 			} else {
-				bldr.addByte((byte) cl.playerRights);
+				bldr.put((byte) cl.playerRights);
 			}
+			bldr.put((byte) 0);
+			channel.write(bldr.toPacket());
 		} else {
-			bldr.addByte((byte) 0);
+			System.out.println("returncode:" + returnCode);
+			sendReturnCode(channel, returnCode);
+			return null;
 		}
-		bldr.addByte((byte) 0);
-		cl.isActive = true;
-		GamePacket pkt = bldr.toPacket();
-		session.setAttachment(cl);
-		session.write(pkt).addListener(new IoFutureListener() {
+		cl.isActive = true;//TODO?
+		synchronized (PlayerHandler.lock) {// TODO nuke this?
+			cl.getPacketSender().loginPlayer();
+			cl.initialized = true;
+		}
+		return cl;
+	}
 
+	public static void sendReturnCode(final Channel channel, final int code) {
+		channel.write(new PacketBuilder().put((byte) code).toPacket()).addListener(new ChannelFutureListener() {
 			@Override
-			public void operationComplete(IoFuture arg0) {
-				session.getFilterChain().remove("protocolFilter");
-				session.getFilterChain().addFirst("protocolFilter",
-						new ProtocolCodecFilter(new GameCodecFactory(inC)));
+			public void operationComplete(final ChannelFuture arg0) throws Exception {
+				arg0.getChannel().close();
 			}
 		});
 	}
 
-	private synchronized String readRS2String(ByteBuffer in) {
-		StringBuilder sb = new StringBuilder();
+	private static String readRS2String(final ChannelBuffer buf) {
+		final StringBuilder bldr = new StringBuilder();
 		byte b;
-		while ((b = in.get()) != 10) {
-			sb.append((char) b);
-		}
-		return sb.toString();
+		while (buf.readable() && (b = buf.readByte()) != 10)
+			bldr.append((char) b);
+		return bldr.toString();
 	}
-
-	/**
-	 * Releases the buffer used by the given session.
-	 * 
-	 * @param session
-	 *            The session for which to release the buffer
-	 * @throws Exception
-	 *             if failed to dispose all resources
-	 */
-	@Override
-	public void dispose(IoSession session) throws Exception {
-		super.dispose(session);
-	}
-
 }
