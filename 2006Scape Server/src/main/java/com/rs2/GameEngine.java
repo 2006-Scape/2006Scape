@@ -45,9 +45,12 @@ import com.rs2.world.ObjectManager;
 import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
 
-import org.jboss.netty.bootstrap.ServerBootstrap;
-import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
-import org.jboss.netty.util.HashedWheelTimer;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.ResourceLeakDetector;
+import io.netty.util.ResourceLeakDetector.Level;
 
 import org.apollo.jagcached.FileServer;
 
@@ -196,10 +199,11 @@ public class GameEngine {
 		/**
 		 * Accepting Connections
 		 */
-		ServerBootstrap serverBootstrap = new ServerBootstrap (new NioServerSocketChannelFactory(Executors.newCachedThreadPool(), Executors.newCachedThreadPool()));
-		serverBootstrap.setPipelineFactory (new PipelineFactory(new HashedWheelTimer()));
-		serverBootstrap.bind (new InetSocketAddress(serverlistenerPort));	
-        
+		ResourceLeakDetector.setLevel(Level.DISABLED);
+		EventLoopGroup loopGroup = new NioEventLoopGroup();
+		ServerBootstrap bootstrap = new ServerBootstrap();
+		bootstrap.group(loopGroup).channel(NioServerSocketChannel.class).childHandler(new PipelineFactory()).bind(serverlistenerPort).syncUninterruptibly();
+		
 		/**
 		 * Initialise Handlers
 		 */

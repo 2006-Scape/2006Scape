@@ -1,10 +1,10 @@
 package com.rs2.net;
 
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToByteEncoder;
 
-public class RS2ProtocolEncoder extends OneToOneEncoder {
+public class RS2ProtocolEncoder extends MessageToByteEncoder<Packet> {
 
 	/**
 	 * Only CodecFactory can create us.
@@ -19,8 +19,8 @@ public class RS2ProtocolEncoder extends OneToOneEncoder {
 	 * @param message
 	 * @param out
 	 */
-	protected Object encode(ChannelHandlerContext ctx, Channel channel, Object object) throws Exception {
-		return ((Packet) object).getPayload();
+	protected void encode(ChannelHandlerContext ctx, Packet msg, ByteBuf out) throws Exception {
+		out.writeBytes(msg.getPayload());//return ((Packet) object).getPayload(); Do we need to go bldr->packet?
 	}
 
 }

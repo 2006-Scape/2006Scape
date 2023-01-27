@@ -1,49 +1,32 @@
 package com.rs2.net;
 
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.ExceptionEvent;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelHandler;
-import org.jboss.netty.handler.timeout.ReadTimeoutException;
-
 import com.rs2.game.players.Client;
 
-public class ConnectionHandler extends SimpleChannelHandler {
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+
+public class ConnectionHandler extends ChannelInboundHandlerAdapter {
 	
+//	public static final AttributeKey<Session> SESSION_KEY = AttributeKey.valueOf("session");
+
 	private Session session = null;
 	
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e)
-			throws Exception {
-		// TODO Auto-generated method stub 
-	}
-
-	@Override
-	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
-		if (e.getMessage() instanceof Client) {
-			session.setClient((Client) e.getMessage());
-		} else if (e.getMessage() instanceof Packet) {
-			if (session.getClient() != null) {
-				session.getClient().queueMessage((Packet) e.getMessage());
-			}
-		}
-	}
-
-	@Override
-	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
-		if (session == null) {
-			session = new Session(ctx.getChannel());
-			if (!HostList.getHostList().add(session)) {
-				ctx.getChannel().close();
-			} else {
-				session.setInList(true);
-			}
-		}
-	}
+//	@Override
+//	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
+//		if (session == null) {
+//			session = new Session(ctx.getChannel());
+//			if (!HostList.getHostList().add(session)) {
+//				ctx.getChannel().close();
+//			} else {
+//				session.setInList(true);
+//			}
+//		}
+//	}
+	
 	
 	@Override
-	public void channelClosed(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
+	public void channelInactive(ChannelHandlerContext ctx) {
 		if (session != null) {
 			HostList.getHostList().remove(session);
 			Client client = session.getClient();
@@ -52,6 +35,41 @@ public class ConnectionHandler extends SimpleChannelHandler {
 			}
 			session = null;
 		}
+		Channel channel = ctx.channel();
+		channel.close();
 	}
 
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
+		if (!e.getMessage().contains("An existing connection was forcibly closed by the remote host")) {
+			e.printStackTrace();
+		//	logger.log(Level.WARNING, "Exception occured for channel: " + ctx.channel() + ", closing...", e);
+		}
+		ctx.channel().close();
+	}
+
+	@Override
+	public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
+		System.out.println(message.getClass());
+		if (session == null) {
+			session = new Session(ctx.channel());
+//			if (!HostList.getHostList().add(session)) {
+//				ctx.channel().close();
+//			} else {
+//				session.setInList(true);
+//			}
+		}
+		if (message instanceof Client) {
+			session.setClient((Client) message);
+		} else if (message instanceof Packet) {
+			if (session.getClient() != null) {
+				session.getClient().queueMessage((Packet) message);
+			}
+		}		
+	}
+	
+	@Override
+	public void channelReadComplete(ChannelHandlerContext ctx) {
+		ctx.flush();
+	}
 }

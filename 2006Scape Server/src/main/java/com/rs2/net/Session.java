@@ -1,8 +1,8 @@
 package com.rs2.net;
 
-import org.jboss.netty.channel.Channel;
-
 import com.rs2.game.players.Client;
+
+import io.netty.channel.Channel;
 
 public class Session {
 	

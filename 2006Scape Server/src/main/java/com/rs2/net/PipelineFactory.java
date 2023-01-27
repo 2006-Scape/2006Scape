@@ -1,27 +1,26 @@
 package com.rs2.net;
 
-import org.jboss.netty.channel.ChannelPipeline;
-import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.DefaultChannelPipeline;
-import org.jboss.netty.handler.timeout.ReadTimeoutHandler;
-import org.jboss.netty.util.Timer;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.timeout.ReadTimeoutHandler;
 
-public class PipelineFactory implements ChannelPipelineFactory {
+public class PipelineFactory extends ChannelInitializer<SocketChannel> {
 
-	private final Timer timer;
-
-	public PipelineFactory(Timer timer) {
-		this.timer = timer;
-	}
-
+//	private final ChannelInboundHandlerAdapter handler;
+//
+//	public PipelineFactory(ChannelInboundHandlerAdapter handler) {
+//		this.handler = handler;
+//	}
+	
 	@Override
-	public ChannelPipeline getPipeline() throws Exception {
-		final ChannelPipeline pipeline = new DefaultChannelPipeline();
-		pipeline.addLast("timeout", new ReadTimeoutHandler(timer, 10));
+	protected void initChannel(SocketChannel ch) throws Exception {
+		final ChannelPipeline pipeline = ch.pipeline();
+		pipeline.addLast("timeout", new ReadTimeoutHandler(10));
 		pipeline.addLast("encoder", new RS2ProtocolEncoder());
 		pipeline.addLast("decoder", new RS2LoginProtocolDecoder());
-		pipeline.addLast("handler", new ConnectionHandler());
-		return pipeline;
+		pipeline.addLast("handler", new ConnectionHandler());//handler
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.rs2.game.players;
 
-import org.jboss.netty.channel.Channel;
-
 import com.rs2.GameConstants;
 import com.rs2.util.Stream;
+
+import io.netty.channel.Channel;
 
 public class Client extends Player {
 	

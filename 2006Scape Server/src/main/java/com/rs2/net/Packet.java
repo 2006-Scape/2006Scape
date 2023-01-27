@@ -1,6 +1,6 @@
 package com.rs2.net;
 
-import org.jboss.netty.buffer.ChannelBuffer;
+import io.netty.buffer.ByteBuf;
 
 /**
  * Represents a single packet.
@@ -48,7 +48,7 @@ public class Packet {
 	/**
 	 * The payload.
 	 */
-	private final ChannelBuffer payload;
+	private final ByteBuf payload;
 
 	/**
 	 * Creates a packet.
@@ -57,7 +57,7 @@ public class Packet {
 	 * @param type    The type.
 	 * @param payload The payload.
 	 */
-	public Packet(final int opcode, final Type type, final ChannelBuffer payload) {
+	public Packet(final int opcode, final Type type, final ByteBuf payload) {
 		this.opcode = opcode;
 		this.type = type;
 		this.payload = payload;
@@ -96,7 +96,7 @@ public class Packet {
 	 * 
 	 * @return The payload.
 	 */
-	public ChannelBuffer getPayload() {
+	public ByteBuf getPayload() {
 		return payload;
 	}
 
@@ -283,11 +283,12 @@ public class Packet {
 	 * @return The string.
 	 */
 	public String getRS2String() {
-		StringBuilder bldr = new StringBuilder();
-		byte b;
-		while (payload.readable() && (b = payload.readByte()) != 10)
-			bldr.append((char) b);
-		return bldr.toString();
+		byte temp;
+		StringBuilder b = new StringBuilder();
+		while ((temp = payload.readByte()) != 10) {
+			b.append((char) temp);
+		}
+		return b.toString();
 	}
 
 	/**
@@ -397,11 +398,12 @@ public class Packet {
 	}
 
 	public String readString() {
-		StringBuilder bldr = new StringBuilder();
-		byte b;
-		while (payload.readable() && (b = payload.readByte()) != 10)
-			bldr.append((char) b);
-		return bldr.toString();
+		byte temp;
+		StringBuilder b = new StringBuilder();
+		while ((temp = payload.readByte()) != 10) {
+			b.append((char) temp);
+		}
+		return b.toString();
 	}
 
 	public int readDWord() {

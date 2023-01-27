@@ -59,16 +59,17 @@ import com.rs2.net.PacketSender;
 import com.rs2.net.packets.PacketHandler;
 import com.rs2.net.packets.impl.ChallengePlayer;
 import com.rs2.plugin.PluginService;
-import com.rs2.util.ISAACRandomGen;
 import com.rs2.util.Misc;
 import com.rs2.util.Stream;
 import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
 
+import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
+
 import java.util.*;
 
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.Channel;
+import org.apollo.util.security.IsaacRandom;
 
 public abstract class Player {
 	
@@ -525,13 +526,13 @@ public abstract class Player {
 	}
 
 	public void flushOutStream() {
-		if (!session.isConnected() || disconnected || outStream == null || outStream.currentOffset == 0) {
+		if (!session.isActive() || disconnected || outStream == null || outStream.currentOffset == 0) {
 			return;
 		}
 		synchronized (this) {
 			byte[] temp = new byte[outStream.currentOffset];
 			System.arraycopy(outStream.buffer, 0, temp, 0, temp.length);
-			Packet packet = new Packet(-1, Type.FIXED, ChannelBuffers.wrappedBuffer(temp));
+			Packet packet = new Packet(-1, Type.FIXED, Unpooled.wrappedBuffer(temp));
 			session.write(packet);
 			outStream.currentOffset = 0;
 		}
@@ -3092,11 +3093,11 @@ public abstract class Player {
 		return newWalkCmdIsRunning;
 	}
 
-	public void setInStreamDecryption(ISAACRandomGen inStreamDecryption) {
+	public void setInStreamDecryption(IsaacRandom inStreamDecryption) {
 
 	}
 
-	public void setOutStreamDecryption(ISAACRandomGen outStreamDecryption) {
+	public void setOutStreamDecryption(IsaacRandom outStreamDecryption) {
 
 	}
 

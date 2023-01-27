@@ -29,7 +29,7 @@ public class HostList {
 		if(!isConnectionOk(session)) {
 			return false;
 		}
-		String addr = ((InetSocketAddress) session.getChannel().getRemoteAddress()).getAddress().getHostAddress();
+		String addr = ((InetSocketAddress) session.getChannel().remoteAddress()).getAddress().getHostAddress();
 		Integer amt = connections.get(addr);
 		if (amt == null) {
 			amt = 1;
@@ -48,7 +48,7 @@ public class HostList {
 		if (!session.isInList()) {
 			return;
 		}
-		String addr = ((InetSocketAddress) session.getChannel().getRemoteAddress())
+		String addr = ((InetSocketAddress) session.getChannel().remoteAddress())
 				.getAddress().getHostAddress();
 		Integer amt = connections.get(addr);
 		if (amt == null) {
@@ -63,7 +63,7 @@ public class HostList {
 	}
 
 	private InetAddress getAddress(Session io) {
-		return ((InetSocketAddress) io.getChannel().getRemoteAddress()).getAddress();
+		return ((InetSocketAddress) io.getChannel().remoteAddress()).getAddress();
 	}
 
 	/**

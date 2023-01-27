@@ -1,5 +1,7 @@
 package com.rs2.util;
 
+import org.apollo.util.security.IsaacRandom;
+
 import com.rs2.GameConstants;
 
 public class Stream {
@@ -94,7 +96,7 @@ public class Stream {
 
 	public void createFrame(int id) {
 		ensureCapacity(1);
-		buffer[currentOffset++] = (byte) (id + packetEncryption.getNextKey());
+		buffer[currentOffset++] = (byte) (id + packetEncryption.nextInt());
 	}
 
 	private static final int frameStackSize = 10;
@@ -103,7 +105,7 @@ public class Stream {
 
 	public void createFrameVarSize(int id) {
 		ensureCapacity(3);
-		buffer[currentOffset++] = (byte) (id + packetEncryption.getNextKey());
+		buffer[currentOffset++] = (byte) (id + packetEncryption.nextInt());
 		buffer[currentOffset++] = 0;
 		if (frameStackPtr >= frameStackSize - 1) {
 			throw new RuntimeException("Stack overflow");
@@ -114,7 +116,7 @@ public class Stream {
 
 	public void createFrameVarSizeWord(int id) {
 		ensureCapacity(2);
-		buffer[currentOffset++] = (byte) (id + packetEncryption.getNextKey());
+		buffer[currentOffset++] = (byte) (id + packetEncryption.nextInt());
 		writeWord(0);
 		if (frameStackPtr >= frameStackSize - 1) {
 			throw new RuntimeException("Stack overflow");
@@ -276,6 +278,6 @@ public class Stream {
 		}
 	}
 
-	public ISAACRandomGen packetEncryption = null;
+	public IsaacRandom packetEncryption = null;
 
 }

@@ -1,20 +1,20 @@
 package com.rs2.net;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.handler.codec.frame.FrameDecoder;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
 
-import com.rs2.util.ISAACRandomGen;
+import java.util.List;
+
+import org.apollo.util.security.IsaacRandom;
 
 import com.rs2.net.Packet.Type;
 
-public class RS2ProtocolDecoder extends FrameDecoder {
+public class RS2ProtocolDecoder extends ByteToMessageDecoder {
 	
 	private int opcode = -1;
 	private int size = -1;
-	private final ISAACRandomGen isaac;
+	private final IsaacRandom isaac;
 	public static final int PACKET_SIZES[] = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
 			0, 0, 0, 0, 8, 0, 6, 2, 2, 0, // 10
 			0, 2, 0, 6, 0, 12, 0, 0, 0, 0, // 20
@@ -46,7 +46,7 @@ public class RS2ProtocolDecoder extends FrameDecoder {
 	/**
 	 * To make sure only the CodecFactory can initialise us.
 	 */
-	protected RS2ProtocolDecoder(ISAACRandomGen isaac) {
+	protected RS2ProtocolDecoder(IsaacRandom isaac) {
 		this.isaac = isaac;
 	}
 
@@ -59,7 +59,7 @@ public class RS2ProtocolDecoder extends FrameDecoder {
 	 * @return
 	 */
 	@Override
-	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer in) throws Exception {
+	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 		/*
 		 * If the opcode is not present.
 		 */
@@ -72,7 +72,7 @@ public class RS2ProtocolDecoder extends FrameDecoder {
 				 * Read and decrypt the opcode.
 				 */
 				opcode = in.readByte() & 0xFF;
-				opcode = (opcode - isaac.getNextKey()) & 0xFF;
+				opcode = (opcode - isaac.nextInt()) & 0xFF;
 				/*
 				 * Find the packet size.
 				 */
@@ -81,7 +81,7 @@ public class RS2ProtocolDecoder extends FrameDecoder {
 				/*
 				 * We need to wait for more data.
 				 */
-				return null;
+				return;
 			}
 		}
 		
@@ -101,7 +101,7 @@ public class RS2ProtocolDecoder extends FrameDecoder {
 				/*
 				 * We need to wait for more data.
 				 */
-				return null;
+				return;
 			}
 		}
 		
@@ -112,25 +112,19 @@ public class RS2ProtocolDecoder extends FrameDecoder {
 			/*
 			 * Read it.
 			 */
-			final byte[] data = new byte[size];
-			in.readBytes(data);
-			final ChannelBuffer payload = ChannelBuffers.buffer(size);
-			payload.writeBytes(data);
-			try {
-				/*
-				 * Produce and write the packet object.
-				 */
-				return new Packet(opcode, Type.FIXED, payload);
-			} finally {
-				opcode = -1;
-				size = -1;
-			}
+			ByteBuf payload = in.readBytes(size);
+			/*
+			 * Produce and write the packet object.
+			 */
+			out.add(new Packet(opcode, Type.FIXED, payload));
+			opcode = -1;
+			size = -1;
 		}
 		
 		/*
 		 * We need to wait for more data.
 		 */
-		return null;
+		return;
 	}
 
 }
