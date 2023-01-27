@@ -34,7 +34,6 @@ import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
 import com.rs2.integrations.discord.DiscordActivity;
 import com.rs2.integrations.discord.JavaCord;
-import com.rs2.net.PipelineFactory;
 import com.rs2.tick.Scheduler;
 import com.rs2.tick.Tick;
 import com.rs2.util.HostBlacklist;
@@ -45,12 +44,6 @@ import com.rs2.world.ObjectManager;
 import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
 
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.ResourceLeakDetector;
-import io.netty.util.ResourceLeakDetector.Level;
 
 import org.apollo.jagcached.FileServer;
 
@@ -179,18 +172,6 @@ public class GameEngine {
 		System.out.println("Launching " + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD + "...");
 
 		/**
-		 * Starts The File Server If Enabled In GameConstants
-		 */
-		if (GameConstants.FILE_SERVER) {
-			FileServer fs = new FileServer();
-			try {
-				fs.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		/**
 		 * Start Integration Services
 		 **/
 		ConfigLoader.loadSecrets();
@@ -199,11 +180,14 @@ public class GameEngine {
 		/**
 		 * Accepting Connections
 		 */
-		ResourceLeakDetector.setLevel(Level.DISABLED);
-		EventLoopGroup loopGroup = new NioEventLoopGroup();
-		ServerBootstrap bootstrap = new ServerBootstrap();
-		bootstrap.group(loopGroup).channel(NioServerSocketChannel.class).childHandler(new PipelineFactory()).bind(serverlistenerPort).syncUninterruptibly();
-		
+//		ResourceLeakDetector.setLevel(Level.DISABLED);
+		FileServer fs = new FileServer();
+		try {
+			fs.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		/**
 		 * Initialise Handlers
 		 */
