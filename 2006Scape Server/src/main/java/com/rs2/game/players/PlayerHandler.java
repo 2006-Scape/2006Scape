@@ -12,7 +12,6 @@ import com.rs2.world.GlobalDropsHandler;
 
 public class PlayerHandler {
 
-	public static Object lock = new Object();
 	public static Player players[] = new Player[GameConstants.MAX_PLAYERS];
 	public static int playerCount = 0, playerShopCount = 0;
 	public static String playersCurrentlyOn[] = new String[GameConstants.MAX_PLAYERS];
@@ -111,7 +110,6 @@ public class PlayerHandler {
 	}
 
 	public void process() {
-//		synchronized (lock) {
 		updatePlayerNames();
 		if (kickAllPlayers) {
 			for (int i = 0; i < PlayerHandler.players.length; i++) {
@@ -280,7 +278,6 @@ public class PlayerHandler {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-//		}
 		}
 	}
 
