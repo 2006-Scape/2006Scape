@@ -59,25 +59,13 @@ public final class FileServer {
 	 */
 	private static final Logger logger = Logger.getLogger(FileServer.class.getName());
 
-	/**
-	 * The entry point of the application.
-	 * @param args The command-line arguments.
-	 */
-	public static void main(String[] args) {
-		try {
-			new FileServer().start();
-		} catch (Throwable t) {
-			logger.log(Level.SEVERE, "Error starting server.", t);
-		}
-	}
-	
 	
 	/**
 	 * The request worker pool.
 	 */
 	private final RequestWorkerPool pool = new RequestWorkerPool();
-	
-		
+
+
 	/**
 	 * Starts the file server.
 	 * @throws Exception if an error occurs.

@@ -82,8 +82,8 @@ public final class ApolloHandler extends ChannelInboundHandlerAdapter {
 
 			switch (handshakeMessage.getServiceId()) {
 			case HandshakeConstants.SERVICE_GAME:
-				System.out.println("Login received");
-//					attribute.set(new LoginSession(channel));
+					System.out.println("Login received");
+					attribute.set(new LoginSession(channel));
 					break;
 
 				case HandshakeConstants.SERVICE_UPDATE:

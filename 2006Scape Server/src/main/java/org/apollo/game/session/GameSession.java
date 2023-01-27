@@ -11,8 +11,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apollo.net.message.Message;
-
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
 
@@ -31,12 +29,16 @@ public final class GameSession extends Session {
 	/**
 	 * The queue of pending {@link Message}s.
 	 */
-	private final BlockingQueue<Message> messages = new ArrayBlockingQueue<>(25);
+	private final BlockingQueue<Packet> messages = new ArrayBlockingQueue<>(25);
 
 	/**
 	 * The player.
 	 */
-	private final Player player;
+	private Player player;
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
 	/**
 	 * If the player was reconnecting.
@@ -62,46 +64,46 @@ public final class GameSession extends Session {
 		player.disconnected = true;
 	}
 
-	/**
-	 * Encodes and dispatches the specified message.
-	 *
-	 * @param message The message.
-	 */
-	public void dispatchMessage(Packet message) {
-		Channel channel = getChannel();
-		if (channel.isActive() && channel.isOpen()) {
-			ChannelFuture future = channel.writeAndFlush(message);
-	//		if (message.getClass() == LogoutMessage.class) {//TODO write packet 109.
-	//			future.addListener(ChannelFutureListener.CLOSE);
-	//		}
-		}
-	}
-
-	/**
-	 * Handles pending messages for this session.
-	 *
-	 * @param chainSet The {@link MessageHandlerChainSet}
-	 */
-	public void handlePendingMessages(MessageHandlerChainSet chainSet) {
-		while (!messages.isEmpty()) {
-			Message message = messages.poll();
-
-			try {
-				chainSet.notify(player, message);
-			} catch (Exception reason) {
-				logger.log(Level.SEVERE, "Uncaught exception thrown while handling message: " + message, reason);
-			}
-		}
-	}
-
-	/**
-	 * Handles a player saver response.
-	 *
-	 * @param success A flag indicating if the save was successful.
-	 */
-	public void handlePlayerSaverResponse(boolean success) {
-		context.getGameService().finalizePlayerUnregistration(player);
-	}
+//	/**
+//	 * Encodes and dispatches the specified message.
+//	 *
+//	 * @param message The message.
+//	 */
+//	public void dispatchMessage(Packet message) {
+//		Channel channel = getChannel();
+//		if (channel.isActive() && channel.isOpen()) {
+//			ChannelFuture future = channel.writeAndFlush(message);
+//	//		if (message.getClass() == LogoutMessage.class) {//TODO write packet 109.
+//	//			future.addListener(ChannelFutureListener.CLOSE);
+//	//		}
+//		}
+//	}
+//
+//	/**
+//	 * Handles pending messages for this session.
+//	 *
+//	 * @param chainSet The {@link MessageHandlerChainSet}
+//	 */
+//	public void handlePendingMessages(MessageHandlerChainSet chainSet) {
+//		while (!messages.isEmpty()) {
+//			Message message = messages.poll();
+//
+//			try {
+//				chainSet.notify(player, message);
+//			} catch (Exception reason) {
+//				logger.log(Level.SEVERE, "Uncaught exception thrown while handling message: " + message, reason);
+//			}
+//		}
+//	}
+//
+//	/**
+//	 * Handles a player saver response.
+//	 *
+//	 * @param success A flag indicating if the save was successful.
+//	 */
+//	public void handlePlayerSaverResponse(boolean success) {
+//		context.getGameService().finalizePlayerUnregistration(player);
+//	}
 
 	/**
 	 * Determines if this player is reconnecting.
@@ -114,15 +116,30 @@ public final class GameSession extends Session {
 
 	@Override
 	public void messageReceived(Object message) {
-		if (messages.size() >= 25) {
-			logger.warning("Too many messages in queue for game session, dropping...");
-		} else {
-			messages.add((Message) message);
-		}
+//		System.out.println(message.getClass());
+//		if (messages.size() >= 25) {
+//			logger.warning("Too many messages in queue for game session, dropping...");
+//		} else {
+//			messages.add((Message) message);
+//		}
+		player.queueMessage((Packet) message);
 	}
 
 	public SocketAddress getRemoteAddress() {
 		return channel.remoteAddress();
+	}
+
+	public void close() {
+		channel.close();
+	}
+
+	public boolean isActive() {
+		return channel.isActive();
+	}
+
+	public void write(Packet packet) {
+		System.out.println("Writing packet xd");
+		channel.write(packet);
 	}
 
 }

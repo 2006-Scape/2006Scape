@@ -234,9 +234,6 @@ public final class RS2LoginProtocolDecoder extends StatefulFrameDecoder<LoginDec
 
 			PlayerCredentials credentials = new PlayerCredentials(username, password, usernameHash, uid, hostAddress);
 			IsaacRandomPair randomPair = new IsaacRandomPair(encodingRandom, decodingRandom);
-
-			ctx.channel().pipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(decodingRandom));
-			ctx.channel().pipeline().addLast("encoder", new RS2ProtocolEncoder());
 			out.add(load(ctx, credentials, randomPair));
 		}
 	}
@@ -257,6 +254,10 @@ public final class RS2LoginProtocolDecoder extends StatefulFrameDecoder<LoginDec
 
 	public static Client load(ChannelHandlerContext ctx,
 			PlayerCredentials credentials, IsaacRandomPair randomPair) {
+		
+		ctx.channel().pipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
+		ctx.channel().pipeline().addLast("encoder", new RS2ProtocolEncoder());
+		
 		Channel channel = ctx.channel();
 		int returnCode = 2;
 		

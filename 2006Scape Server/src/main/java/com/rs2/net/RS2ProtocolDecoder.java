@@ -46,7 +46,7 @@ public class RS2ProtocolDecoder extends ByteToMessageDecoder {
 	/**
 	 * To make sure only the CodecFactory can initialise us.
 	 */
-	protected RS2ProtocolDecoder(IsaacRandom isaac) {
+	public RS2ProtocolDecoder(IsaacRandom isaac) {
 		this.isaac = isaac;
 	}
 

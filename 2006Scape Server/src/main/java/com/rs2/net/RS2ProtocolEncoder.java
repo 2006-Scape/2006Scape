@@ -9,7 +9,7 @@ public class RS2ProtocolEncoder extends MessageToByteEncoder<Packet> {
 	/**
 	 * Only CodecFactory can create us.
 	 */
-	protected RS2ProtocolEncoder() {
+	public RS2ProtocolEncoder() {
 	}
 
 	@Override

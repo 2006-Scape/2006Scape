@@ -1,23 +1,21 @@
 package org.apollo.game.session;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.Optional;
 
-import org.apollo.net.codec.game.GameMessageDecoder;
-import org.apollo.net.codec.game.GameMessageEncoder;
-import org.apollo.net.codec.game.GamePacketDecoder;
-import org.apollo.net.codec.game.GamePacketEncoder;
 import org.apollo.net.codec.login.LoginConstants;
 import org.apollo.net.codec.login.LoginRequest;
 import org.apollo.net.codec.login.LoginResponse;
-import org.apollo.net.release.Release;
 import org.apollo.util.security.IsaacRandom;
 import org.apollo.util.security.IsaacRandomPair;
+import org.apollo.util.security.PlayerCredentials;
 
 import com.rs2.Connection;
 import com.rs2.GameConstants;
@@ -25,7 +23,8 @@ import com.rs2.GameEngine;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.game.players.PlayerSave;
-import com.rs2.net.PacketBuilder;
+import com.rs2.net.RS2ProtocolDecoder;
+import com.rs2.net.RS2ProtocolEncoder;
 import com.rs2.util.HostBlacklist;
 
 /**
@@ -63,49 +62,56 @@ public final class LoginSession extends Session {
 	}
 
 	public static Client load(Channel channel,
-			String name, String pass, final IsaacRandom inC,
-			IsaacRandom outC) {
+			PlayerCredentials credentials, IsaacRandomPair randomPair, boolean reconnecting) {
+		
 		int returnCode = 2;
 		
-		name = name.trim();
-		name = name.toLowerCase();
+		String username = credentials.getUsername().trim();
+		String password = credentials.getPassword().trim();
+		username = username.toLowerCase();
 		//	pass = pass.toLowerCase();
 
-		String hostName = ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostName();
+		String hostName = ((InetSocketAddress) channel.remoteAddress())
+				.getAddress().getHostName();
 
-		//if (version != 1) {
-			//returnCode = 31;
-		//d}
+//		if (uid != 314268572) {
+//			channel.close();
+//			return;
+//		}
+//		if (version != 1) {
+//			returnCode = 31;
+//		}
 		
 		if (HostBlacklist.isBlocked(hostName)) {
 			returnCode = 11;
 		}
 		
-		if (!name.matches("[A-Za-z0-9 ]+")) {
+		if (!username.matches("[A-Za-z0-9 ]+")) {
 			returnCode = 4;
 		}
-		if (name.length() > 12) {
+		if (username.length() > 12) {
 			returnCode = 8;
 		}
 		
-        if (pass.length() == 0) {
+        if (password.length() == 0) {
             returnCode = 4;
         }
-        
-		Client cl = new Client(channel, -1);
-		cl.playerName = name;
+		GameSession session = new GameSession(channel, null, reconnecting);
+		Client cl = new Client(session, -1);
+		session.setPlayer(cl);
+		cl.playerName = username;
 		cl.playerName2 = cl.playerName;
-		cl.playerPass = pass;
-		cl.outStream.packetEncryption = outC;
+		cl.playerPass = password;
+		cl.outStream.packetEncryption = randomPair.getEncodingRandom();
 		cl.saveCharacter = false;
-		char first = name.charAt(0);
+		char first = username.charAt(0);
 		cl.properName = Character.toUpperCase(first)
-				+ name.substring(1, name.length());		
+				+ username.substring(1, username.length());		
 		if (Connection.isNamedBanned(cl.playerName)) {
 			returnCode = 4;
 		}
 		
-		if (PlayerHandler.isPlayerOn(name)) {
+		if (PlayerHandler.isPlayerOn(username)) {
 			returnCode = 5;
 		}
 		
@@ -141,18 +147,20 @@ public final class LoginSession extends Session {
 		}
 		if (returnCode == 2) {
 			cl.saveCharacter = true;
-			final PacketBuilder bldr = new PacketBuilder();
-			bldr.put((byte) 2);
+			ByteBuf response = channel.alloc().buffer(3);
+			response.writeByte((byte) 2);
 			if (cl.playerRights == 3) {
-				bldr.put((byte) 2);
+				response.writeByte((byte) 2);
 			} else {
-				bldr.put((byte) cl.playerRights);
+				response.writeByte((byte) cl.playerRights);
 			}
-			bldr.put((byte) 0);
-			channel.write(bldr.toPacket());
+			response.writeByte((byte) 0);
+			channel.write(response);
 		} else {
 			System.out.println("returncode:" + returnCode);
-			sendReturnCode(channel, returnCode);
+			ByteBuf buffer = channel.alloc().buffer(1);
+			buffer.writeByte(returnCode);
+			channel.writeAndFlush(buffer).addListener(ChannelFutureListener.CLOSE);
 			return null;
 		}
 		cl.isActive = true;//TODO?
@@ -160,16 +168,25 @@ public final class LoginSession extends Session {
 			cl.getPacketSender().loginPlayer();
 			cl.initialized = true;
 		}
+//		channel.pipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
+//		channel.pipeline().addLast("encoder", new RS2ProtocolEncoder());
+		
+		
+//		channel.pipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
+//		channel.pipeline().addLast("encoder", new RS2ProtocolEncoder());
+		
+		
+		channel.attr(ApolloHandler.SESSION_KEY).set(session);
+		
+		channel.pipeline().addFirst("gameEncoder", new RS2ProtocolEncoder());
+//
+		channel.pipeline().addBefore("handler", "gameDecoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
+//		channel.pipeline().addAfter("gameDecoder", "messageDecoder", new GameMessageDecoder());
+//
+		channel.pipeline().remove("loginDecoder");
+		channel.pipeline().remove("loginEncoder");
+		
 		return cl;
-	}
-
-	public static void sendReturnCode(final Channel channel, final int code) {
-		channel.write(new PacketBuilder().put((byte) code).toPacket()).addListener(new ChannelFutureListener() {
-			@Override
-			public void operationComplete(final ChannelFuture arg0) throws Exception {
-				arg0.channel().close();
-			}
-		});
 	}
 	
 //	/**
@@ -201,31 +218,31 @@ public final class LoginSession extends Session {
 //		channel.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
 //	}
 
-	/**
-	 * Sends a succesfull {@link LoginResponse} to the client.
-	 *
-	 * @param player The {@link Player} that successfully logged in.
-	 */
-	public void sendLoginSuccess(Player player) {
-		IsaacRandomPair randomPair = request.getRandomPair();
-		boolean flagged = false;
-
-		GameSession session = new GameSession(channel, player, request.isReconnecting());
-		channel.attr(ApolloHandler.SESSION_KEY).set(session);
-		player.setSession(session);
-
-		int rights = player.getPrivilegeLevel().toInteger();
-		channel.writeAndFlush(new LoginResponse(LoginConstants.STATUS_OK, rights, flagged));
-
-		channel.pipeline().addFirst("messageEncoder", new GameMessageEncoder(release));
-		channel.pipeline().addBefore("messageEncoder", "gameEncoder", new GamePacketEncoder(randomPair.getEncodingRandom()));
-
-		channel.pipeline().addBefore("handler", "gameDecoder", new GamePacketDecoder(randomPair.getDecodingRandom()));
-		channel.pipeline().addAfter("gameDecoder", "messageDecoder", new GameMessageDecoder());
-
-		channel.pipeline().remove("loginDecoder");
-		channel.pipeline().remove("loginEncoder");
-	}
+//	/**
+//	 * Sends a succesfull {@link LoginResponse} to the client.
+//	 *
+//	 * @param player The {@link Player} that successfully logged in.
+//	 */
+//	public void sendLoginSuccess(Player player) {
+//		IsaacRandomPair randomPair = request.getRandomPair();
+//		boolean flagged = false;
+//
+//		GameSession session = new GameSession(channel, player, request.isReconnecting());
+//		channel.attr(ApolloHandler.SESSION_KEY).set(session);
+//		player.setSession(session);
+//
+//		int rights = player.getPrivilegeLevel().toInteger();
+//		channel.writeAndFlush(new LoginResponse(LoginConstants.STATUS_OK, rights, flagged));
+//
+//		channel.pipeline().addFirst("messageEncoder", new GameMessageEncoder(release));
+//		channel.pipeline().addBefore("messageEncoder", "gameEncoder", new GamePacketEncoder(randomPair.getEncodingRandom()));
+//
+//		channel.pipeline().addBefore("handler", "gameDecoder", new GamePacketDecoder(randomPair.getDecodingRandom()));
+//		channel.pipeline().addAfter("gameDecoder", "messageDecoder", new GameMessageDecoder());
+//
+//		channel.pipeline().remove("loginDecoder");
+//		channel.pipeline().remove("loginEncoder");
+//	}
 
 	/**
 	 * Handles a login request.
@@ -234,6 +251,7 @@ public final class LoginSession extends Session {
 	 * @throws IOException If some I/O exception occurs.
 	 */
 	private void handleLoginRequest(LoginRequest request) throws IOException {
-		load(channel, request.getCredentials().getUsername(), request.getCredentials().getPassword(), request.getRandomPair().getDecodingRandom(), request.getRandomPair().getEncodingRandom());
+		System.out.println("Handle login: "+request.getCredentials().getUsername());
+		load(channel, request.getCredentials(), request.getRandomPair(), request.isReconnecting());
 	}
 }

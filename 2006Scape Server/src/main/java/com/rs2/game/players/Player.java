@@ -69,6 +69,7 @@ import io.netty.channel.Channel;
 
 import java.util.*;
 
+import org.apollo.game.session.GameSession;
 import org.apollo.util.security.IsaacRandom;
 
 public abstract class Player {
@@ -90,7 +91,7 @@ public abstract class Player {
 	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
 	private ToolLeprechaun toolLeprechaun = new ToolLeprechaun(this);
 	public Stream outStream = null;
-    public Channel session;
+    public GameSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
 	private final MageTrainingArena mageArena = new MageTrainingArena(this);
@@ -404,7 +405,7 @@ public abstract class Player {
 		return npcs;
 	}
 
-	public Channel getSession() {
+	public GameSession getSession() {
 		return session;
 	}
 
