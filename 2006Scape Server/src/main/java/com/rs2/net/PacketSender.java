@@ -336,7 +336,8 @@ public class PacketSender {
 			player.getOutStream().writeWordA(id);
 			player.getOutStream().endFrameVarSizeWord();
 			player.flushOutStream();
-		}
+		}//send(new SetWidgetTextMessage(id, s));
+
 		return this;
 	}
 

@@ -6,7 +6,7 @@
 
   <ports>
     <http>8080</http>
-    <service>43596</service>
+    <service>43594</service>
     <jaggrab>43595</jaggrab>
   </ports>
 </net>

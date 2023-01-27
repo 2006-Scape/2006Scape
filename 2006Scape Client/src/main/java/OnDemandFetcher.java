@@ -235,7 +235,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 					return;
 				}
 				openSocketTime = l;
-				socket = clientInstance.openSocket(43596 + Game.portOff);
+				socket = clientInstance.openSocket(43594 + Game.portOff);
 				inputStream = socket.getInputStream();
 				outputStream = socket.getOutputStream();
 				outputStream.write(15);
