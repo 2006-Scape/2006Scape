@@ -1,5 +1,6 @@
 package org.apollo.game.session;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 
 import java.net.SocketAddress;
@@ -54,8 +55,12 @@ public final class GameSession extends Session {
 		return channel.isActive();
 	}
 
-	public void write(Packet packet) {
-		channel.write(packet);
+//	public void write(Packet packet) {
+//		channel.write(packet);
+//	}
+
+	public void write(ByteBuf buf) {
+		channel.write(buf);
 	}
 
 }

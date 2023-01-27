@@ -62,6 +62,7 @@ import com.rs2.util.Stream;
 import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
 import java.util.*;
@@ -529,9 +530,16 @@ public abstract class Player {
 		}
 			byte[] temp = new byte[outStream.currentOffset];
 			System.arraycopy(outStream.buffer, 0, temp, 0, temp.length);
-			Packet packet = new Packet(-1, Type.FIXED, Unpooled.wrappedBuffer(temp));
-			session.write(packet);
+			
+		//	Packet packet = new Packet(-1, Type.FIXED, Unpooled.wrappedBuffer(temp));
+		//	session.write(packet);
+			session.write(Unpooled.buffer().writeBytes(temp));
 			outStream.currentOffset = 0;
+			
+			
+		//	ByteBuf buffer = Unpooled.buffer();
+		//	buffer.writeBytes(temp);
+			
 	}
 
 	public void sendClan(String name, String message, String clan, int rights) {

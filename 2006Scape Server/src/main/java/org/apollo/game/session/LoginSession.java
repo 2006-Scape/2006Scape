@@ -24,7 +24,6 @@ import com.rs2.game.players.Client;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.game.players.PlayerSave;
 import com.rs2.net.RS2ProtocolDecoder;
-import com.rs2.net.RS2ProtocolEncoder;
 import com.rs2.util.HostBlacklist;
 
 /**
@@ -155,7 +154,7 @@ public final class LoginSession extends Session {
 		cl.isActive = true;
 		channel.attr(ApolloHandler.SESSION_KEY).set(session);
 		
-		channel.pipeline().addFirst("gameEncoder", new RS2ProtocolEncoder());
+//		channel.pipeline().addFirst("gameEncoder", new RS2ProtocolEncoder());
 		channel.pipeline().addBefore("handler", "gameDecoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
 		channel.pipeline().remove("loginDecoder");
 		channel.pipeline().remove("loginEncoder");
