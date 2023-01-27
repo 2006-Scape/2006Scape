@@ -13,7 +13,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apollo.jagcached.FileServer;
+
 import com.rs2.game.bots.BotHandler;
+import com.google.common.base.Stopwatch;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.content.minigames.FightPits;
@@ -44,8 +47,8 @@ import com.rs2.world.ObjectManager;
 import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
 
-
-import org.apollo.jagcached.FileServer;
+import io.netty.util.ResourceLeakDetector;
+import io.netty.util.ResourceLeakDetector.Level;
 
 /**
  * Server.java
@@ -180,12 +183,14 @@ public class GameEngine {
 		/**
 		 * Accepting Connections
 		 */
-//		ResourceLeakDetector.setLevel(Level.DISABLED);
+		//TODO debug ResourceLeakDetector.setLevel(Level.PARANOID);
+		ResourceLeakDetector.setLevel(Level.DISABLED);
 		FileServer fs = new FileServer();
 		try {
 			fs.start();
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 
 		/**
@@ -223,6 +228,7 @@ public class GameEngine {
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
 			public void run() {
+				//TODO debug Stopwatch stopwatch = Stopwatch.createStarted();
 				/**
 				 * Main Server Tick
 				 */
@@ -276,6 +282,7 @@ public class GameEngine {
 					}
 					scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 				}
+				//TODO debug System.out.println("Cycle took " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms.");
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 
