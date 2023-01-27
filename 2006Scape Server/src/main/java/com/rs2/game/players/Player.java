@@ -52,8 +52,6 @@ import com.rs2.game.npcs.impl.Pets;
 import com.rs2.game.objects.ObjectsActions;
 import com.rs2.game.shops.ShopAssistant;
 import com.rs2.net.Packet;
-import com.rs2.net.HostList;
-import com.rs2.net.Packet;
 import com.rs2.net.Packet.Type;
 import com.rs2.net.PacketSender;
 import com.rs2.net.packets.PacketHandler;
@@ -65,7 +63,6 @@ import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
 
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
 
 import java.util.*;
 

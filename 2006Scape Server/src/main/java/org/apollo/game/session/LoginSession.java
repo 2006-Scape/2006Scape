@@ -28,23 +28,12 @@ import com.rs2.net.RS2ProtocolEncoder;
 import com.rs2.util.HostBlacklist;
 
 /**
- * A login session.
+ * Temporary quick and tear integration with apollo netcode. This needs redone when the Apollo Service system is added.
+ * @author Advocatus
  *
- * @author Graham
  */
 public final class LoginSession extends Session {
 
-	/**
-	 * The LoginRequest for this LoginSession.
-	 */
-	private LoginRequest request;
-
-	/**
-	 * Creates a login session for the specified channel.
-	 *
-	 * @param channel The channel.
-	 * @param context The server context.
-	 */
 	public LoginSession(Channel channel) {
 		super(channel);
 	}
@@ -61,7 +50,7 @@ public final class LoginSession extends Session {
 		}
 	}
 
-	public static Client load(Channel channel,
+	public static void load(Channel channel,
 			PlayerCredentials credentials, IsaacRandomPair randomPair, boolean reconnecting) {
 		
 		int returnCode = 2;
@@ -161,89 +150,22 @@ public final class LoginSession extends Session {
 			ByteBuf buffer = channel.alloc().buffer(1);
 			buffer.writeByte(returnCode);
 			channel.writeAndFlush(buffer).addListener(ChannelFutureListener.CLOSE);
-			return null;
+			return;
 		}
-		cl.isActive = true;//TODO?
+		cl.isActive = true;
+		channel.attr(ApolloHandler.SESSION_KEY).set(session);
+		
+		channel.pipeline().addFirst("gameEncoder", new RS2ProtocolEncoder());
+		channel.pipeline().addBefore("handler", "gameDecoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
+		channel.pipeline().remove("loginDecoder");
+		channel.pipeline().remove("loginEncoder");
+		
 		synchronized (PlayerHandler.lock) {// TODO nuke this?
 			cl.getPacketSender().loginPlayer();
 			cl.initialized = true;
 		}
-//		channel.pipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
-//		channel.pipeline().addLast("encoder", new RS2ProtocolEncoder());
-		
-		
-//		channel.pipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
-//		channel.pipeline().addLast("encoder", new RS2ProtocolEncoder());
-		
-		
-		channel.attr(ApolloHandler.SESSION_KEY).set(session);
-		
-		channel.pipeline().addFirst("gameEncoder", new RS2ProtocolEncoder());
-//
-		channel.pipeline().addBefore("handler", "gameDecoder", new RS2ProtocolDecoder(randomPair.getDecodingRandom()));
-//		channel.pipeline().addAfter("gameDecoder", "messageDecoder", new GameMessageDecoder());
-//
-		channel.pipeline().remove("loginDecoder");
-		channel.pipeline().remove("loginEncoder");
-		
-		return cl;
 	}
 	
-//	/**
-//	 * Handles a response from the login service.
-//	 *
-//	 * @param request The request this response corresponds to.
-//	 * @param response The response.
-//	 */
-//	public void handlePlayerLoaderResponse(LoginRequest request, PlayerLoaderResponse response) {
-//		this.request = request;
-//		GameService service = context.getGameService();
-//		Optional<Player> optional = response.getPlayer();
-//
-//		if (optional.isPresent()) {
-//			service.registerPlayer(optional.get(), this);
-//		} else {
-//			sendLoginFailure(response.getStatus());
-//		}
-//	}
-//	
-//	/**
-//	 * Sends a failed {@link LoginResponse} to the client.
-//	 *
-//	 * @param status The failure status.
-//	 */
-//	public void sendLoginFailure(int status) {
-//		boolean flagged = false;
-//		LoginResponse response = new LoginResponse(status, 0, flagged);
-//		channel.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
-//	}
-
-//	/**
-//	 * Sends a succesfull {@link LoginResponse} to the client.
-//	 *
-//	 * @param player The {@link Player} that successfully logged in.
-//	 */
-//	public void sendLoginSuccess(Player player) {
-//		IsaacRandomPair randomPair = request.getRandomPair();
-//		boolean flagged = false;
-//
-//		GameSession session = new GameSession(channel, player, request.isReconnecting());
-//		channel.attr(ApolloHandler.SESSION_KEY).set(session);
-//		player.setSession(session);
-//
-//		int rights = player.getPrivilegeLevel().toInteger();
-//		channel.writeAndFlush(new LoginResponse(LoginConstants.STATUS_OK, rights, flagged));
-//
-//		channel.pipeline().addFirst("messageEncoder", new GameMessageEncoder(release));
-//		channel.pipeline().addBefore("messageEncoder", "gameEncoder", new GamePacketEncoder(randomPair.getEncodingRandom()));
-//
-//		channel.pipeline().addBefore("handler", "gameDecoder", new GamePacketDecoder(randomPair.getDecodingRandom()));
-//		channel.pipeline().addAfter("gameDecoder", "messageDecoder", new GameMessageDecoder());
-//
-//		channel.pipeline().remove("loginDecoder");
-//		channel.pipeline().remove("loginEncoder");
-//	}
-
 	/**
 	 * Handles a login request.
 	 *
@@ -251,7 +173,6 @@ public final class LoginSession extends Session {
 	 * @throws IOException If some I/O exception occurs.
 	 */
 	private void handleLoginRequest(LoginRequest request) throws IOException {
-		System.out.println("Handle login: "+request.getCredentials().getUsername());
 		load(channel, request.getCredentials(), request.getRandomPair(), request.isReconnecting());
 	}
 }
