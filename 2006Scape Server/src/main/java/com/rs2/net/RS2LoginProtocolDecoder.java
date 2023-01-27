@@ -236,7 +236,8 @@ public final class RS2LoginProtocolDecoder extends StatefulFrameDecoder<LoginDec
 			IsaacRandomPair randomPair = new IsaacRandomPair(encodingRandom, decodingRandom);
 
 			ctx.channel().pipeline().replace("decoder", "decoder", new RS2ProtocolDecoder(decodingRandom));
-			out.add(load(ctx, uid, username, password, decodingRandom, encodingRandom, version));
+			ctx.channel().pipeline().addLast("encoder", new RS2ProtocolEncoder());
+			out.add(load(ctx, credentials, randomPair));
 		}
 	}
 
@@ -253,8 +254,118 @@ public final class RS2LoginProtocolDecoder extends StatefulFrameDecoder<LoginDec
 	}
 
 	
-	private static final BigInteger RSA_MODULUS = new BigInteger("91553247461173033466542043374346300088148707506479543786501537350363031301992107112953015516557748875487935404852620239974482067336878286174236183516364787082711186740254168914127361643305190640280157664988536979163450791820893999053469529344247707567448479470137716627440246788713008490213212272520901741443");
-	private static final BigInteger RSA_EXPONENT = new BigInteger("33280025241734061313051117678670856264399753710527826596057587687835856000539511539311834363046145710983857746766009612538140077973762171163294453513440619295457626227183742315140865830778841533445402605660729039310637444146319289077374748018792349647460850308384280105990607337322160553135806205784213241305");
+
+	public static Client load(ChannelHandlerContext ctx,
+			PlayerCredentials credentials, IsaacRandomPair randomPair) {
+		Channel channel = ctx.channel();
+		int returnCode = 2;
+		
+		String username = credentials.getUsername().trim();
+		String password = credentials.getPassword().trim();
+		username = username.toLowerCase();
+		//	pass = pass.toLowerCase();
+
+		String hostName = ((InetSocketAddress) channel.remoteAddress())
+				.getAddress().getHostName();
+
+//		if (uid != 314268572) {
+//			channel.close();
+//			return;
+//		}
+//		if (version != 1) {
+//			returnCode = 31;
+//		}
+		
+		if (HostBlacklist.isBlocked(hostName)) {
+			returnCode = 11;
+		}
+		
+		if (!username.matches("[A-Za-z0-9 ]+")) {
+			returnCode = 4;
+		}
+		if (username.length() > 12) {
+			returnCode = 8;
+		}
+		
+        if (password.length() == 0) {
+            returnCode = 4;
+        }
+        
+		Client cl = new Client(channel, -1);
+		cl.playerName = username;
+		cl.playerName2 = cl.playerName;
+		cl.playerPass = password;
+		cl.outStream.packetEncryption = randomPair.getEncodingRandom();
+		cl.saveCharacter = false;
+		char first = username.charAt(0);
+		cl.properName = Character.toUpperCase(first)
+				+ username.substring(1, username.length());		
+		if (Connection.isNamedBanned(cl.playerName)) {
+			returnCode = 4;
+		}
+		
+		if (PlayerHandler.isPlayerOn(username)) {
+			returnCode = 5;
+		}
+		
+		if (PlayerHandler.getPlayerCount() >= GameConstants.MAX_PLAYERS) {
+			returnCode = 7;
+		}
+		
+		if (GameEngine.updateServer) {
+			returnCode = 14;
+		}
+		
+		if (returnCode == 2) {
+			int load = PlayerSave.loadGame(cl, cl.playerName, cl.playerPass);
+			if (load == 0)
+				cl.addStarter = true;
+			if (load == 3) {
+				returnCode = 3;
+				cl.saveFile = false;
+			} else {
+				for (int i = 0; i < cl.playerEquipment.length; i++) {
+					if (cl.playerEquipment[i] == 0) {
+						cl.playerEquipment[i] = -1;
+						cl.playerEquipmentN[i] = 0;
+					}
+				}
+				if (!GameEngine.playerHandler.newPlayerClient(cl)) {
+					returnCode = 7;
+					cl.saveFile = false;
+				} else {
+					cl.saveFile = true;
+				}
+			}
+		}
+		if (returnCode == 2) {
+			cl.saveCharacter = true;
+			ByteBuf response = ctx.alloc().buffer(3);
+			response.writeByte((byte) 2);
+			if (cl.playerRights == 3) {
+				response.writeByte((byte) 2);
+			} else {
+				response.writeByte((byte) cl.playerRights);
+			}
+			response.writeByte((byte) 0);
+			channel.write(response);
+		} else {
+			System.out.println("returncode:" + returnCode);
+			ByteBuf buffer = ctx.alloc().buffer(1);
+			buffer.writeByte(returnCode);
+			ctx.writeAndFlush(buffer).addListener(ChannelFutureListener.CLOSE);
+			return null;
+		}
+		cl.isActive = true;//TODO?
+		synchronized (PlayerHandler.lock) {// TODO nuke this?
+			cl.getPacketSender().loginPlayer();
+			cl.initialized = true;
+		}
+		return cl;
+	}
+
+//	private static final BigInteger RSA_MODULUS = new BigInteger("91553247461173033466542043374346300088148707506479543786501537350363031301992107112953015516557748875487935404852620239974482067336878286174236183516364787082711186740254168914127361643305190640280157664988536979163450791820893999053469529344247707567448479470137716627440246788713008490213212272520901741443");
+//	private static final BigInteger RSA_EXPONENT = new BigInteger("33280025241734061313051117678670856264399753710527826596057587687835856000539511539311834363046145710983857746766009612538140077973762171163294453513440619295457626227183742315140865830778841533445402605660729039310637444146319289077374748018792349647460850308384280105990607337322160553135806205784213241305");
 //
 //	private int loginStage = 0;
 //
@@ -369,110 +480,4 @@ public final class RS2LoginProtocolDecoder extends StatefulFrameDecoder<LoginDec
 //		}
 //		return;
 //	}
-
-	public static Client load(ChannelHandlerContext ctx, final int uid,
-			String name, String pass, final IsaacRandom inC,
-			IsaacRandom outC, int version) {
-		Channel channel = ctx.channel();
-		int returnCode = 2;
-		
-		name = name.trim();
-		name = name.toLowerCase();
-		//	pass = pass.toLowerCase();
-
-		String hostName = ((InetSocketAddress) channel.remoteAddress())
-				.getAddress().getHostName();
-
-		//if (version != 1) {
-			//returnCode = 31;
-		//d}
-		
-		if (HostBlacklist.isBlocked(hostName)) {
-			returnCode = 11;
-		}
-		
-		if (!name.matches("[A-Za-z0-9 ]+")) {
-			returnCode = 4;
-		}
-		if (name.length() > 12) {
-			returnCode = 8;
-		}
-		
-        if (pass.length() == 0) {
-            returnCode = 4;
-        }
-        
-		Client cl = new Client(channel, -1);
-		cl.playerName = name;
-		cl.playerName2 = cl.playerName;
-		cl.playerPass = pass;
-		cl.outStream.packetEncryption = outC;
-		cl.saveCharacter = false;
-		char first = name.charAt(0);
-		cl.properName = Character.toUpperCase(first)
-				+ name.substring(1, name.length());		
-		if (Connection.isNamedBanned(cl.playerName)) {
-			returnCode = 4;
-		}
-		
-		if (PlayerHandler.isPlayerOn(name)) {
-			returnCode = 5;
-		}
-		
-		if (PlayerHandler.getPlayerCount() >= GameConstants.MAX_PLAYERS) {
-			returnCode = 7;
-		}
-		
-		if (GameEngine.updateServer) {
-			returnCode = 14;
-		}
-		
-		if (returnCode == 2) {
-			int load = PlayerSave.loadGame(cl, cl.playerName, cl.playerPass);
-			if (load == 0)
-				cl.addStarter = true;
-			if (load == 3) {
-				returnCode = 3;
-				cl.saveFile = false;
-			} else {
-				for (int i = 0; i < cl.playerEquipment.length; i++) {
-					if (cl.playerEquipment[i] == 0) {
-						cl.playerEquipment[i] = -1;
-						cl.playerEquipmentN[i] = 0;
-					}
-				}
-				if (!GameEngine.playerHandler.newPlayerClient(cl)) {
-					returnCode = 7;
-					cl.saveFile = false;
-				} else {
-					cl.saveFile = true;
-				}
-			}
-		}
-		if (returnCode == 2) {
-			cl.saveCharacter = true;
-			ByteBuf response = ctx.alloc().buffer(3);
-			response.writeByte((byte) 2);
-			if (cl.playerRights == 3) {
-				response.writeByte((byte) 2);
-			} else {
-				response.writeByte((byte) cl.playerRights);
-			}
-			response.writeByte((byte) 0);
-			channel.write(response);
-		} else {
-			System.out.println("returncode:" + returnCode);
-			ByteBuf buffer = ctx.alloc().buffer(1);
-			buffer.writeByte(returnCode);
-			ctx.writeAndFlush(buffer).addListener(ChannelFutureListener.CLOSE);
-			return null;
-		}
-		cl.isActive = true;//TODO?
-		synchronized (PlayerHandler.lock) {// TODO nuke this?
-			cl.getPacketSender().loginPlayer();
-			cl.initialized = true;
-		}
-		return cl;
-	}
-
 }
