@@ -16,6 +16,8 @@ import org.apollo.net.codec.handshake.HandshakeConstants;
 import org.apollo.net.codec.handshake.HandshakeMessage;
 import org.apollo.net.codec.jaggrab.JagGrabRequest;
 
+import com.rs2.GameConstants;
+
 /**
  * An implementation of {@link ChannelInboundHandlerAdapter} which handles incoming upstream events from Netty.
  *
@@ -86,6 +88,10 @@ public final class ApolloHandler extends ChannelInboundHandlerAdapter {
 					break;
 
 				case HandshakeConstants.SERVICE_UPDATE:
+					if(!GameConstants.FILE_SERVER) {
+						ctx.close();
+						return;
+					}
 					attribute.set(new UpdateSession(channel));
 					break;
 			}

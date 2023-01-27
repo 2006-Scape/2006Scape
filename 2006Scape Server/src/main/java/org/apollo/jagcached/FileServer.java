@@ -18,6 +18,8 @@ import org.apollo.net.JagGrabChannelInitializer;
 import org.apollo.net.NetworkConstants;
 import org.apollo.net.ServiceChannelInitializer;
 
+import com.rs2.GameConstants;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
@@ -36,12 +38,12 @@ public final class FileServer {
 	/**
 	 * The {@link ServerBootstrap} for the HTTP listener.
 	 */
-	private final ServerBootstrap httpBootstrap = new ServerBootstrap();
+	private ServerBootstrap httpBootstrap;
 
 	/**
 	 * The {@link ServerBootstrap} for the JAGGRAB listener.
 	 */
-	private final ServerBootstrap jaggrabBootstrap = new ServerBootstrap();
+	private ServerBootstrap jaggrabBootstrap;
 
 	/**
 	 * The event loop group.
@@ -63,7 +65,7 @@ public final class FileServer {
 	/**
 	 * The request worker pool.
 	 */
-	private final RequestWorkerPool pool = new RequestWorkerPool();
+	private RequestWorkerPool pool;
 
 
 	/**
@@ -86,9 +88,13 @@ public final class FileServer {
 			System.exit(1);
 		}
 
-		logger.info("Starting workers...");
-		pool.start();
-		
+		if(GameConstants.FILE_SERVER) {
+			httpBootstrap = new ServerBootstrap();
+			jaggrabBootstrap = new ServerBootstrap();
+			pool = new RequestWorkerPool();
+			logger.info("Starting workers...");
+			pool.start();
+		}
 		logger.info("Starting services...");
 		
 		init();
@@ -110,15 +116,18 @@ public final class FileServer {
 	public void init() throws Exception {
 		
 		serviceBootstrap.group(loopGroup);
-		httpBootstrap.group(loopGroup);
-		jaggrabBootstrap.group(loopGroup);		
-		
+		if(GameConstants.FILE_SERVER) {
+			httpBootstrap.group(loopGroup);
+			jaggrabBootstrap.group(loopGroup);		
+		}
 		ApolloHandler handler = new ApolloHandler();
 
 		ChannelInitializer<SocketChannel> service = new ServiceChannelInitializer(handler);
 		serviceBootstrap.channel(NioServerSocketChannel.class);
 		serviceBootstrap.childHandler(service);
 
+		if(!GameConstants.FILE_SERVER)
+			return;
 		ChannelInitializer<SocketChannel> http = new HttpChannelInitializer(handler);
 		httpBootstrap.channel(NioServerSocketChannel.class);
 		httpBootstrap.childHandler(http);
@@ -139,17 +148,17 @@ public final class FileServer {
 	public void bind(SocketAddress service, SocketAddress http, SocketAddress jaggrab) throws IOException {
 		logger.fine("Binding service listener to address: " + service + "...");
 		bind(serviceBootstrap, service);
-
-		try {
-			logger.fine("Binding HTTP listener to address: " + http + "...");
-			bind(httpBootstrap, http);
-		} catch (IOException cause) {
-			logger.log(Level.WARNING, "Unable to bind to HTTP - JAGGRAB will be used as a fallback.", cause);
+		if (GameConstants.FILE_SERVER) {
+			try {
+				logger.fine("Binding HTTP listener to address: " + http + "...");
+				bind(httpBootstrap, http);
+			} catch (IOException cause) {
+				logger.log(Level.WARNING, "Unable to bind to HTTP - JAGGRAB will be used as a fallback.", cause);
+			}
+	
+			logger.fine("Binding JAGGRAB listener to address: " + jaggrab + "...");
+			bind(jaggrabBootstrap, jaggrab);
 		}
-
-		logger.fine("Binding JAGGRAB listener to address: " + jaggrab + "...");
-		bind(jaggrabBootstrap, jaggrab);
-
 		logger.info("Ready for connections.");
 	}
 	
