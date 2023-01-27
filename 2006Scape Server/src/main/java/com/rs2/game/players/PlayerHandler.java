@@ -111,7 +111,7 @@ public class PlayerHandler {
 	}
 
 	public void process() {
-		synchronized (lock) {
+//		synchronized (lock) {
 		updatePlayerNames();
 		if (kickAllPlayers) {
 			for (int i = 0; i < PlayerHandler.players.length; i++) {
@@ -280,7 +280,7 @@ public class PlayerHandler {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+//		}
 		}
 	}
 

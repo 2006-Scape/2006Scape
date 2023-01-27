@@ -17,7 +17,7 @@ public class PipelineFactory extends ChannelInitializer<SocketChannel> {
 	@Override
 	protected void initChannel(SocketChannel ch) throws Exception {
 		final ChannelPipeline pipeline = ch.pipeline();
-		pipeline.addLast("timeout", new ReadTimeoutHandler(10));
+//		pipeline.addLast("timeout", new ReadTimeoutHandler(10));
 		pipeline.addLast("encoder", new RS2ProtocolEncoder());
 		pipeline.addLast("decoder", new RS2LoginProtocolDecoder());
 		pipeline.addLast("handler", new ConnectionHandler());//handler

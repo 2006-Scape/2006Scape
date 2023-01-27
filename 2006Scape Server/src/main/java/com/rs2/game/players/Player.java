@@ -529,13 +529,11 @@ public abstract class Player {
 		if (!session.isActive() || disconnected || outStream == null || outStream.currentOffset == 0) {
 			return;
 		}
-		synchronized (this) {
 			byte[] temp = new byte[outStream.currentOffset];
 			System.arraycopy(outStream.buffer, 0, temp, 0, temp.length);
 			Packet packet = new Packet(-1, Type.FIXED, Unpooled.wrappedBuffer(temp));
 			session.write(packet);
 			outStream.currentOffset = 0;
-		}
 	}
 
 	public void sendClan(String name, String message, String clan, int rights) {

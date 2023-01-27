@@ -28,7 +28,7 @@ public class ConnectionHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) {
 		if (session != null) {
-			HostList.getHostList().remove(session);
+	//		HostList.getHostList().remove(session);
 			Client client = session.getClient();
 			if (client != null) {
 				client.disconnected = true;
@@ -50,7 +50,7 @@ public class ConnectionHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
-		System.out.println(message.getClass());
+//		System.out.println(message.getClass());
 		if (session == null) {
 			session = new Session(ctx.channel());
 //			if (!HostList.getHostList().add(session)) {
