@@ -66,6 +66,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import org.apollo.game.session.GameSession;
 import org.apollo.util.security.IsaacRandom;
@@ -99,7 +101,7 @@ public abstract class Player {
 	private final CombatAssistant combatAssistant = new CombatAssistant(this);
 	private final ObjectsActions actionHandler = new ObjectsActions(this);
 	private final NpcActions npcs = new NpcActions(this);
-	private final Queue<Packet> queuedPackets = new LinkedList<Packet>();
+	private final BlockingQueue<Packet> queuedPackets = new ArrayBlockingQueue<Packet>(25);
 	private final Potions potions = new Potions(this);
 	private final PotionMixing potionMixing = new PotionMixing(this);
 	private final EmoteHandler emoteHandler = new EmoteHandler(this);
@@ -1064,34 +1066,18 @@ public abstract class Player {
 	}
 
 	public void queueMessage(Packet arg1) {
-		queuedPackets.add(arg1);
+		if (queuedPackets.size() < 25) {
+			queuedPackets.add(arg1);
+		}
 	}
 
-	public synchronized boolean processQueuedPackets() {
-		Packet p = null;
-		synchronized (queuedPackets) {
-			p = queuedPackets.poll();
-		}
-		if (p == null) {
-			return false;
-		}
-		if (p.getOpcode() > 0) {
-			PacketHandler.processPacket(this, p);
-		}
-		timeOutCounter = 0;
-		return true;
-	}
-
-	public synchronized boolean processPacket(Packet p) {
-		synchronized (this) {
-			if (p == null) {
-				return false;
-			}
+	public void processQueuedPackets() {
+		while (!queuedPackets.isEmpty()) {
+			Packet p = queuedPackets.poll();
 			if (p.getOpcode() > 0) {
 				PacketHandler.processPacket(this, p);
 			}
 			timeOutCounter = 0;
-			return true;
 		}
 	}
 

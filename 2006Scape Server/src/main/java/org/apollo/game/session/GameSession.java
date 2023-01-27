@@ -60,7 +60,7 @@ public final class GameSession extends Session {
 //	}
 
 	public void write(ByteBuf buf) {
-		channel.write(buf);
+		channel.writeAndFlush(buf);
 	}
 
 }
