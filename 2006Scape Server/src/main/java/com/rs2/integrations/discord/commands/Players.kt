@@ -12,7 +12,7 @@ class Players : MessageCreateListener {
             if (PlayerHandler.getPlayerCount() != 1) {
                 event.channel.sendMessage("There are currently " + PlayerHandler.getPlayerCount() + " players online (" + PlayerHandler.getNonPlayerCount() + " staff online).")
             } else {
-                event.channel.sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online.")
+                event.channel.sendMessage("There is currently " + PlayerHandler.getPlayerCount() + " player online (" + PlayerHandler.getNonPlayerCount() + " staff online).")
             }
         }
     }
