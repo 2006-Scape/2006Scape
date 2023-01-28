@@ -6,22 +6,18 @@ import java.awt.*;
 
 final class RSFrame extends Frame {
 
-	public RSFrame(RSApplet RSApplet_, int i, int j) {
+	public RSFrame(RSApplet RSApplet_) {
 		rsApplet = RSApplet_;
 		setTitle(ClientSettings.SERVER_NAME + " World: " + ClientSettings.SERVER_WORLD);
-		setResizable(false);
-		setMinimumSize(new Dimension(i + 8, j + 28));
-		setVisible(true);
-		toFront();
-		setSize(i + 8, j + 28);
-		setLocationRelativeTo(null);
-	}
+		this.setResizable(false);
 
-	@Override
-	public Graphics getGraphics() {
-		Graphics g = super.getGraphics();
-		g.translate(4, 24);
-		return g;
+		this.setLayout(new BorderLayout());
+		this.add(rsApplet);
+		this.pack();
+
+		this.setVisible(true);
+		this.toFront();
+		this.setLocationRelativeTo(null);
 	}
 
 	@Override

@@ -2,7 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import javax.swing.*;
 import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -29,7 +28,9 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	final void createClientFrame(int i, int j) {
 		myWidth = j;
 		myHeight = i;
-		gameFrame = new RSFrame(this, myWidth, myHeight);
+		this.setPreferredSize(new Dimension(this.myWidth, this.myHeight));
+
+		gameFrame = new RSFrame(this);
 		graphics = getGameComponent().getGraphics();
 		fullGameScreen = new RSImageProducer(myWidth, myHeight, getGameComponent());
 		startRunnable(this, 1);
@@ -215,10 +216,6 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	public final void mousePressed(MouseEvent mouseevent) {
 		int i = mouseevent.getX();
 		int j = mouseevent.getY();
-		if (gameFrame != null) {
-			i -= 4;
-			j -= 22;
-		}
 		idleTime = 0;
 		clickX = i;
 		clickY = j;
@@ -265,11 +262,6 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	public final void mouseDragged(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		if(gameFrame != null) {
-			Insets insets = gameFrame.getInsets();
-			x -= insets.left;//4
-			y -= insets.top;//22
-		}
 		if (mouseWheelDown) {
 			y = mouseWheelX - e.getX();
 			int k = mouseWheelY - e.getY();
@@ -290,10 +282,6 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	public void mouseMoved(MouseEvent mouseevent) {
 		int i = mouseevent.getX();
 		int j = mouseevent.getY();
-		if (gameFrame != null) {
-			i -= 4;
-			j -= 22;
-		}
 		idleTime = 0;
 		mouseX = i;
 		mouseY = j;
@@ -498,11 +486,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	}
 
 	Component getGameComponent() {
-		if (gameFrame != null) {
-			return gameFrame;
-		} else {
-			return this;
-		}
+		return this;
 	}
 
 	public void startRunnable(Runnable runnable, int priority) {
