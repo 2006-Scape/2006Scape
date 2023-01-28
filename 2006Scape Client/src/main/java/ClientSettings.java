@@ -54,4 +54,15 @@ public class ClientSettings {
 	
 	public static final BigInteger RSA_MODULUS = new BigInteger("91553247461173033466542043374346300088148707506479543786501537350363031301992107112953015516557748875487935404852620239974482067336878286174236183516364787082711186740254168914127361643305190640280157664988536979163450791820893999053469529344247707567448479470137716627440246788713008490213212272520901741443");
 	public static final BigInteger RSA_EXPONENT = new BigInteger("65537");
+
+	// smooths out lines and sprites on the minimap
+	public static final boolean BILINEAR_MINIMAP_FILTERING = false;
+
+	// fixes overlapping lines drawn on transparent objects by post-incrementing the offset
+	// note: there's 2 other instances that haven't been updated in Texture.java (misnamed) because rarely used like this
+	public static final boolean FIX_TRANSPARENCY_OVERFLOW = false;
+
+	// render the game to 512px instead of 511px (black line on right side)
+	public static final boolean FULL_512PX_VIEWPORT = false;
+
 }

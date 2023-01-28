@@ -366,7 +366,30 @@ public final class Sprite extends DrawingArea {
 				int k4 = j3 + i3 * i4;
 				int l4 = k3 - l2 * i4;
 				for (k1 = -ai[j1]; k1 < 0; k1++) {
-					DrawingArea.pixels[j4++] = pixels[(k4 >> 16) + (l4 >> 16) * width];
+					if (ClientSettings.BILINEAR_MINIMAP_FILTERING) {
+						int x1 = k4 >> 16;
+						int y1 = l4 >> 16;
+						int x2 = x1 + 1;
+						int y2 = y1 + 1;
+						int sampleColor1 = pixels[x1 + y1 * width];
+						int sampleColor2 = pixels[x2 + y1 * width];
+						int sampleColor3 = pixels[x1 + y2 * width];
+						int sampleColor4 = pixels[x2 + y2 * width];
+						int x1Distance = (k4 >> 8) - (x1 << 8);
+						int y1Distance = (l4 >> 8) - (y1 << 8);
+						int x2Distance = (x2 << 8) - (k4 >> 8);
+						int y2Distance = (y2 << 8) - (l4 >> 8);
+						int sampleAlpha1 = x2Distance * y2Distance;
+						int sampleAlpha2 = x1Distance * y2Distance;
+						int sampleAlpha3 = x2Distance * y1Distance;
+						int sampleAlpha4 = x1Distance * y1Distance;
+						int red = (sampleColor1 >> 16 & 0xff) * sampleAlpha1 + (sampleColor2 >> 16 & 0xff) * sampleAlpha2 + (sampleColor3 >> 16 & 0xff) * sampleAlpha3 + (sampleColor4 >> 16 & 0xff) * sampleAlpha4 & 0xff0000;
+						int green = (sampleColor1 >> 8 & 0xff) * sampleAlpha1 + (sampleColor2 >> 8 & 0xff) * sampleAlpha2 + (sampleColor3 >> 8 & 0xff) * sampleAlpha3 + (sampleColor4 >> 8 & 0xff) * sampleAlpha4 >> 8 & 0xff00;
+						int blue = (sampleColor1 & 0xff) * sampleAlpha1 + (sampleColor2 & 0xff) * sampleAlpha2 + (sampleColor3 & 0xff) * sampleAlpha3 + (sampleColor4 & 0xff) * sampleAlpha4 >> 16;
+						DrawingArea.pixels[j4++] = red | green | blue;
+					} else {
+						DrawingArea.pixels[j4++] = pixels[(k4 >> 16) + (l4 >> 16) * width];
+					}
 					k4 += i3;
 					l4 -= l2;
 				}
