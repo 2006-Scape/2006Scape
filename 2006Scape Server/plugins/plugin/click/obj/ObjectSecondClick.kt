@@ -6,6 +6,7 @@ import com.rs2.event.SubscribesTo
 import com.rs2.event.impl.ObjectSecondClickEvent
 import com.rs2.game.content.skills.thieving.Stalls
 import com.rs2.game.players.Player
+import com.rs2.world.clip.Region
 
 @SubscribesTo(ObjectSecondClickEvent::class)
 class ObjectSecondClick : EventSubscriber<ObjectSecondClickEvent> {
@@ -14,6 +15,10 @@ class ObjectSecondClick : EventSubscriber<ObjectSecondClickEvent> {
 
 		if (player.playerRights >= 3) {
 			player.packetSender.sendMessage("[click= object], [type= second], [id= ${player.objectId}], [location= x:${player.objectX} y:${player.objectY} ]");
+		}
+
+		if (!Region.objectExists(player.objectId, player.objectX, player.objectY, player.heightLevel)) {
+			return
 		}
 
 		if (Stalls.isObject(event.gameObject)) {
