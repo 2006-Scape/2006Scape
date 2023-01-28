@@ -13,7 +13,7 @@ public final class Main {
 
 	public static void main(String[] args) {
 		try {
-			// Process server/ip address to connect to
+			// Process client arguments to connect to
 			for (int i = 0; i < args.length; i++) {
 				switch(args[i]) {
 					case "-dev"	:
@@ -25,6 +25,16 @@ public final class Main {
 					case "-no-crc":
 					case "-no-cache-crc":
 						ClientSettings.CHECK_CRC = false;
+						break;
+					case "-qol":
+					case "-fixes":
+						ClientSettings.BILINEAR_MINIMAP_FILTERING = true;
+						ClientSettings.FIX_TRANSPARENCY_OVERFLOW = true;
+						ClientSettings.FULL_512PX_VIEWPORT = true;
+						break;
+					case "-no-nav":
+					case"-disable-nav":
+						ClientSettings.SHOW_NAVBAR = false;
 						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
