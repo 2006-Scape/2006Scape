@@ -8,6 +8,7 @@ import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 public class AttackPlayer implements PacketType {
@@ -15,23 +16,23 @@ public class AttackPlayer implements PacketType {
 	public static final int ATTACK_PLAYER = 73, MAGE_PLAYER = 249;
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
+	public void processPacket(Player player, Packet packet) {
 		player.endCurrentTask();
 		player.playerIndex = 0;
 		player.npcIndex = 0;
-		switch (packetType) {
+		switch (packet.getOpcode()) {
 
 		/**
 		 * Attack player
 		 **/
 		case ATTACK_PLAYER:
-			player.playerIndex = player.getInStream().readSignedWordBigEndian();
+			player.playerIndex = packet.readSignedWordBigEndian();
 			if (PlayerHandler.players[player.playerIndex] == null) {
 				break;
 			}
 			
 			if (player.inDuelArena() && !player.duelingArena()) {
-				player.getChallengePlayer().processPacket(player, packetType, packetSize);
+				player.getChallengePlayer().processPacket(player, null);
 			}
 
 			if (player.respawnTimer > 0) {
@@ -149,8 +150,8 @@ public class AttackPlayer implements PacketType {
 				break;
 			}
 
-			player.playerIndex = player.getInStream().readSignedWordA();
-			int castingSpellId = player.getInStream().readSignedWordBigEndian();
+			player.playerIndex = packet.readSignedWordA();
+			int castingSpellId = packet.readSignedWordBigEndian();
 			player.castingSpellId = castingSpellId;
 			player.usingMagic = false;
 

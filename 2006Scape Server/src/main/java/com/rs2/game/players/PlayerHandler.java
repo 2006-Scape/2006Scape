@@ -110,7 +110,6 @@ public class PlayerHandler {
 	}
 
 	public void process() {
-		// synchronized (PlayerHandler.players) {
 		updatePlayerNames();
 		if (kickAllPlayers) {
 			for (int i = 0; i < PlayerHandler.players.length; i++) {
@@ -182,9 +181,7 @@ public class PlayerHandler {
 				}
 
 
-				while (players[i].processQueuedPackets()) {
-					;
-				}
+				players[i].processQueuedPackets();
 
 				players[i].process();
 				players[i].postProcessing();

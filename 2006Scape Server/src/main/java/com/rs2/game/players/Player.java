@@ -51,21 +51,26 @@ import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.Pets;
 import com.rs2.game.objects.ObjectsActions;
 import com.rs2.game.shops.ShopAssistant;
-import com.rs2.net.HostList;
 import com.rs2.net.Packet;
+import com.rs2.net.Packet.Type;
 import com.rs2.net.PacketSender;
-import com.rs2.net.StaticPacketBuilder;
 import com.rs2.net.packets.PacketHandler;
 import com.rs2.net.packets.impl.ChallengePlayer;
 import com.rs2.plugin.PluginService;
-import com.rs2.util.ISAACRandomGen;
 import com.rs2.util.Misc;
 import com.rs2.util.Stream;
 import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
-import org.apache.mina.common.IoSession;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
+import org.apollo.game.session.GameSession;
+import org.apollo.util.security.IsaacRandom;
 
 public abstract class Player {
 	
@@ -85,8 +90,8 @@ public abstract class Player {
 	private SpecialPlantOne specialPlantOne = new SpecialPlantOne(this);
 	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
 	private ToolLeprechaun toolLeprechaun = new ToolLeprechaun(this);
-	public Stream inStream = null, outStream = null;
-    public IoSession session;
+	public Stream outStream = null;
+    public GameSession session;
 	private final ItemAssistant itemAssistant = new ItemAssistant(this);
 	private final ShopAssistant shopAssistant = new ShopAssistant(this);
 	private final MageTrainingArena mageArena = new MageTrainingArena(this);
@@ -96,7 +101,7 @@ public abstract class Player {
 	private final CombatAssistant combatAssistant = new CombatAssistant(this);
 	private final ObjectsActions actionHandler = new ObjectsActions(this);
 	private final NpcActions npcs = new NpcActions(this);
-	private final Queue<Packet> queuedPackets = new LinkedList<Packet>();
+	private final BlockingQueue<Packet> queuedPackets = new ArrayBlockingQueue<Packet>(25);
 	private final Potions potions = new Potions(this);
 	private final PotionMixing potionMixing = new PotionMixing(this);
 	private final EmoteHandler emoteHandler = new EmoteHandler(this);
@@ -356,18 +361,6 @@ public abstract class Player {
 		return bankPin;
 	}
 
-	public synchronized Stream getInStream() {
-		return inStream;
-	}
-
-	public synchronized int getPacketType() {
-		return packetType;
-	}
-
-	public synchronized int getPacketSize() {
-		return packetSize;
-	}
-
 	public synchronized Stream getOutStream() {
 		return outStream;
 	}
@@ -412,7 +405,7 @@ public abstract class Player {
 		return npcs;
 	}
 
-	public IoSession getSession() {
+	public GameSession getSession() {
 		return session;
 	}
 
@@ -534,17 +527,21 @@ public abstract class Player {
 	}
 
 	public void flushOutStream() {
-		if (disconnected || outStream == null || outStream.currentOffset == 0) {
+		if (!session.isActive() || disconnected || outStream == null || outStream.currentOffset == 0) {
 			return;
 		}
-		synchronized (this) {
-			StaticPacketBuilder out = new StaticPacketBuilder().setBare(true);
 			byte[] temp = new byte[outStream.currentOffset];
 			System.arraycopy(outStream.buffer, 0, temp, 0, temp.length);
-			out.addBytes(temp);
-			session.write(out.toPacket());
+			
+		//	Packet packet = new Packet(-1, Type.FIXED, Unpooled.wrappedBuffer(temp));
+		//	session.write(packet);
+			session.write(Unpooled.buffer().writeBytes(temp));
 			outStream.currentOffset = 0;
-		}
+			
+			
+		//	ByteBuf buffer = Unpooled.buffer();
+		//	buffer.writeBytes(temp);
+			
 	}
 
 	public void sendClan(String name, String message, String clan, int rights) {
@@ -557,34 +554,6 @@ public abstract class Player {
 			outStream.endFrameVarSize();
 		}
 	}
-
-	public static final int PACKET_SIZES[] = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
-			0, 0, 0, 0, 8, 0, 6, 2, 2, 0, // 10
-			0, 2, 0, 6, 0, 12, 0, 0, 0, 0, // 20
-			0, 0, 0, 0, 0, 8, 4, 0, 0, 2, // 30
-			2, 6, 0, 6, 0, -1, 0, 0, 0, 0, // 40
-			0, 0, 0, 12, 0, 0, 0, 8, 8, 12, // 50
-			8, 8, 0, 0, 0, 0, 0, 0, 0, 0, // 60
-			6, 0, 2, 2, 8, 6, 0, -1, 0, 6, // 70
-			0, 0, 0, 0, 0, 1, 4, 6, 0, 0, // 80
-			0, 0, 0, 0, 0, 3, 0, 0, -1, 0, // 90
-			0, 13, 0, -1, 0, 0, 0, 0, 0, 0,// 100
-			0, 0, 0, 0, 0, 0, 0, 6, 0, 0, // 110
-			1, 0, 6, 0, 0, 0, -1, 0, 2, 6, // 120
-			0, 4, 6, 8, 0, 6, 0, 0, 0, 2, // 130
-			0, 0, 0, 0, 0, 6, 0, 0, 0, 0, // 140
-			0, 0, 1, 2, 0, 2, 6, 0, 0, 0, // 150
-			0, 0, 0, 0, -1, -1, 0, 0, 0, 0,// 160
-			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 170
-			0, 8, 0, 3, 0, 2, 0, 0, 8, 1, // 180
-			0, 0, 12, 0, 0, 0, 0, 0, 0, 0, // 190
-			2, 0, 0, 0, 0, 0, 0, 0, 4, 0, // 200
-			4, 0, 0, 0, 7, 8, 0, 0, 10, 0, // 210
-			0, 0, 0, 0, 0, 0, -1, 0, 6, 0, // 220
-			1, 0, 0, 0, 6, 0, 6, 8, 1, 0, // 230
-			0, 4, 0, 0, 0, 0, -1, 0, -1, 4,// 240
-			0, 0, 6, 6, 0, 0, 0 // 250
-	};
 
 	public void destruct() {
 		if (session == null) {
@@ -636,12 +605,11 @@ public abstract class Player {
 		}
 
 		Misc.println("[DEREGISTERED]: " + playerName + "");
-		HostList.getHostList().remove(session);
+		// HostList.getHostList().remove(session);
 		CycleEventHandler.getSingleton().stopEvents(this);
 		disconnected = true;
 		session.close();
 		session = null;
-		inStream = null;
 		outStream = null;
 		isActive = false;
 		buffer = null;
@@ -787,7 +755,6 @@ public abstract class Player {
 		return eventProvider;
 	}
 
-	public int packetSize = 0, packetType = -1;
 	public boolean wildernessWarning;
 	public int axeAnimation = -1;
 
@@ -1099,42 +1066,18 @@ public abstract class Player {
 	}
 
 	public void queueMessage(Packet arg1) {
-		queuedPackets.add(arg1);
+		if (queuedPackets.size() < 25) {
+			queuedPackets.add(arg1);
+		}
 	}
 
-	public synchronized boolean processQueuedPackets() {
-		Packet p = null;
-		synchronized (queuedPackets) {
-			p = queuedPackets.poll();
-		}
-		if (p == null) {
-			return false;
-		}
-		inStream.currentOffset = 0;
-		packetType = p.getId();
-		packetSize = p.getLength();
-		inStream.buffer = p.getData();
-		if (packetType > 0) {
-			PacketHandler.processPacket(this, packetType, packetSize);
-		}
-		timeOutCounter = 0;
-		return true;
-	}
-
-	public synchronized boolean processPacket(Packet p) {
-		synchronized (this) {
-			if (p == null) {
-				return false;
-			}
-			inStream.currentOffset = 0;
-			packetType = p.getId();
-			packetSize = p.getLength();
-			inStream.buffer = p.getData();
-			if (packetType > 0) {
-				PacketHandler.processPacket(this, packetType, packetSize);
+	public void processQueuedPackets() {
+		while (!queuedPackets.isEmpty()) {
+			Packet p = queuedPackets.poll();
+			if (p.getOpcode() > 0) {
+				PacketHandler.processPacket(this, p);
 			}
 			timeOutCounter = 0;
-			return true;
 		}
 	}
 
@@ -3140,11 +3083,11 @@ public abstract class Player {
 		return newWalkCmdIsRunning;
 	}
 
-	public void setInStreamDecryption(ISAACRandomGen inStreamDecryption) {
+	public void setInStreamDecryption(IsaacRandom inStreamDecryption) {
 
 	}
 
-	public void setOutStreamDecryption(ISAACRandomGen outStreamDecryption) {
+	public void setOutStreamDecryption(IsaacRandom outStreamDecryption) {
 
 	}
 

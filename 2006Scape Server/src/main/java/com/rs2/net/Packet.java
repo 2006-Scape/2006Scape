@@ -1,304 +1,472 @@
 package com.rs2.net;
 
-import org.apache.mina.common.IoSession;
+import io.netty.buffer.ByteBuf;
 
 /**
- * Immutable packet object.
+ * Represents a single packet.
  * 
- * @author Graham
+ * @author Graham Edgecombe
+ * 
  */
-public final class Packet {
-
-	public static enum Size {
-		Fixed, VariableByte, VariableShort
-	};
+public class Packet {
 
 	/**
-	 * The associated IO session
-	 */
-	private final IoSession session;
-	/**
-	 * The ID of the packet
-	 */
-	private final int pID;
-	/**
-	 * The length of the payload
-	 */
-	private final int pLength;
-	/**
-	 * The payload
-	 */
-	private final byte[] pData;
-	/**
-	 * The current index into the payload buffer for reading
-	 */
-	private int caret = 0;
-	/**
-	 * Whether this packet is without the standard packet header
-	 */
-	private final boolean bare;
-	private Size size = Size.Fixed;
-
-	public Packet(IoSession session, int pID, byte[] pData, boolean bare, Size s) {
-		this.session = session;
-		this.pID = pID;
-		this.pData = pData;
-		pLength = pData.length;
-		this.bare = bare;
-		size = s;
-	}
-
-	/**
-	 * Creates a new packet with the specified parameters.
+	 * The type of packet.
 	 * 
-	 * @param session
-	 *            The session to associate with the packet
-	 * @param pID
-	 *            The ID of the packet
-	 * @param pData
-	 *            The payload of the packet
-	 * @param bare
-	 *            Whether this packet is bare, which means that it does not
-	 *            include the standard packet header
+	 * @author Graham Edgecombe
+	 * 
 	 */
-	public Packet(IoSession session, int pID, byte[] pData, boolean bare) {
-		this(session, pID, pData, bare, Size.Fixed);
+	public enum Type {
+
+		/**
+		 * A fixed size packet where the size never changes.
+		 */
+		FIXED,
+
+		/**
+		 * A variable packet where the size is described by a byte.
+		 */
+		VARIABLE,
+
+		/**
+		 * A variable packet where the size is described by a word.
+		 */
+		VARIABLE_SHORT;
+
 	}
 
 	/**
-	 * Creates a new packet with the specified parameters. The packet is
-	 * considered not to be a bare packet.
-	 * 
-	 * @param session
-	 *            The session to associate with the packet
-	 * @param pID
-	 *            The ID of the packet
-	 * @param pData
-	 *            The payload the packet
+	 * The opcode.
 	 */
-	public Packet(IoSession session, int pID, byte[] pData) {
-		this(session, pID, pData, false);
+	private final int opcode;
+
+	/**
+	 * The type.
+	 */
+	private final Type type;
+
+	/**
+	 * The payload.
+	 */
+	private final ByteBuf payload;
+
+	/**
+	 * Creates a packet.
+	 * 
+	 * @param opcode  The opcode.
+	 * @param type    The type.
+	 * @param payload The payload.
+	 */
+	public Packet(final int opcode, final Type type, final ByteBuf payload) {
+		this.opcode = opcode;
+		this.type = type;
+		this.payload = payload;
 	}
 
 	/**
-	 * Returns the IO session associated with the packet, if any.
+	 * Checks if this packet is raw. A raw packet does not have the usual headers
+	 * such as opcode or size.
 	 * 
-	 * @return The <code>IoSession</code> object, or <code>null</code> if none.
+	 * @return <code>true</code> if so, <code>false</code> if not.
 	 */
-	public IoSession getSession() {
-		return session;
+	public boolean isRaw() {
+		return opcode == -1;
 	}
 
 	/**
-	 * Checks if this packet is considered to be a bare packet, which means that
-	 * it does not include the standard packet header (ID and length values).
+	 * Gets the opcode.
 	 * 
-	 * @return Whether this packet is a bare packet
+	 * @return The opcode.
 	 */
-	public boolean isBare() {
-		return bare;
-	}
-
-	public Size getSize() {
-		return size;
+	public int getOpcode() {
+		return opcode;
 	}
 
 	/**
-	 * Returns the packet ID.
+	 * Gets the type.
 	 * 
-	 * @return The packet ID
+	 * @return The type.
 	 */
-	public int getId() {
-		return pID;
+	public Type getType() {
+		return type;
 	}
 
 	/**
-	 * Returns the length of the payload of this packet.
+	 * Gets the payload.
 	 * 
-	 * @return The length of the packet's payload
+	 * @return The payload.
+	 */
+	public ByteBuf getPayload() {
+		return payload;
+	}
+
+	/**
+	 * Gets the length.
+	 * 
+	 * @return The length.
 	 */
 	public int getLength() {
-		return pLength;
+		return payload.capacity();
 	}
 
 	/**
-	 * Returns the entire payload data of this packet.
+	 * Reads a single byte.
 	 * 
-	 * @return The payload <code>byte</code> array
+	 * @return A single byte.
 	 */
-	public byte[] getData() {
-		return pData;
+	public byte get() {
+		return payload.readByte();
 	}
 
 	/**
-	 * Returns the remaining payload data of this packet.
+	 * Reads several bytes.
 	 * 
-	 * @return The payload <code>byte</code> array
+	 * @param b The target array.
 	 */
-	public byte[] getRemainingData() {
-		byte[] data = new byte[pLength - caret];
-		for (int i = 0; i < data.length; i++) {
-			data[i] = pData[i + caret];
-		}
-		caret += data.length;
-		return data;
-
+	public void get(final byte[] b) {
+		payload.readBytes(b);
 	}
 
 	/**
-	 * Reads the next <code>byte</code> from the payload.
+	 * Reads a byte.
 	 * 
-	 * @return A <code>byte</code>
+	 * @return A single byte.
 	 */
-	public byte readByte() {
-		return pData[caret++];
+	public byte getByte() {
+		return get();
 	}
 
 	/**
-	 * Reads the next <code>short</code> from the payload.
+	 * Reads an unsigned byte.
 	 * 
-	 * @return A <code>short</code>
+	 * @return An unsigned byte.
 	 */
-	public short readShort() {
-		return (short) ((short) ((pData[caret++] & 0xff) << 8) | (short) (pData[caret++] & 0xff));
+	public int getUnsignedByte() {
+		return payload.readByte() & 0xff;
 	}
 
-	public int readLEShortA() {
-		int i = (pData[caret++] - 128 & 0xff) + ((pData[caret++] & 0xff) << 8);
-		if (i > 32767) {
+	/**
+	 * Reads a short.
+	 * 
+	 * @return A short.
+	 */
+	public short getShort() {
+		return payload.readShort();
+	}
+
+	/**
+	 * Reads an unsigned short.
+	 * 
+	 * @return An unsigned short.
+	 */
+	public int getUnsignedShort() {
+		int value = 0;
+		value |= (get() & 0xff) << 8;
+		value |= (get() & 0xff);
+		return value;
+	}
+
+	public int getUnsignedShortA() {
+		int value = 0;
+		value |= (get() & 0xff) << 8;
+		value |= ((get() - 128) & 0xff);
+		return value;
+	}
+
+	/**
+	 * Reads an integer.
+	 * 
+	 * @return An integer.
+	 */
+	public int getInt() {
+		return payload.readInt();
+	}
+
+	/**
+	 * Reads a long.
+	 * 
+	 * @return A long.
+	 */
+	public long getLong() {
+		return payload.readLong();
+	}
+
+	/**
+	 * Reads a type C byte.
+	 * 
+	 * @return A type C byte.
+	 */
+	public byte getByteC() {
+		return (byte) (-get());
+	}
+
+	/**
+	 * Gets a type S byte.
+	 * 
+	 * @return A type S byte.
+	 */
+	public byte getByteS() {
+		return (byte) (128 - get());
+	}
+
+	/**
+	 * Reads a little-endian type A short.
+	 * 
+	 * @return A little-endian type A short.
+	 */
+	public short getLEShortA() {
+		int i = (get() - 128 & 0xFF) | ((get() & 0xFF) << 8);
+		if (i > 32767)
 			i -= 0x10000;
-		}
-		return i;
+		return (short) i;
 	}
 
-	public int readLEShort() {
-		int i = (pData[caret++] & 0xff) + ((pData[caret++] & 0xff) << 8);
-		if (i > 32767) {
+	/**
+	 * Reads a little-endian short.
+	 * 
+	 * @return A little-endian short.
+	 */
+	public short getLEShort() {
+		int i = (get() & 0xFF) | ((get() & 0xFF) << 8);
+		if (i > 32767)
 			i -= 0x10000;
+		return (short) i;
+	}
+
+	/**
+	 * Reads a V1 integer.
+	 * 
+	 * @return A V1 integer.
+	 */
+	public int getInt1() {
+		final byte b1 = get();
+		final byte b2 = get();
+		final byte b3 = get();
+		final byte b4 = get();
+		return ((b3 << 24) & 0xFF) | ((b4 << 16) & 0xFF) | ((b1 << 8) & 0xFF) | (b2 & 0xFF);
+	}
+
+	/**
+	 * Reads a V2 integer.
+	 * 
+	 * @return A V2 integer.
+	 */
+	public int getInt2() {
+		final int b1 = get() & 0xFF;
+		final int b2 = get() & 0xFF;
+		final int b3 = get() & 0xFF;
+		final int b4 = get() & 0xFF;
+		return ((b2 << 24) & 0xFF) | ((b1 << 16) & 0xFF) | ((b4 << 8) & 0xFF) | (b3 & 0xFF);
+	}
+
+	/**
+	 * Gets a 3-byte integer.
+	 * 
+	 * @return The 3-byte integer.
+	 */
+	public int getTriByte() {
+		return ((get() << 16) & 0xFF) | ((get() << 8) & 0xFF) | (get() & 0xFF);
+	}
+
+	/**
+	 * Reads a type A byte.
+	 * 
+	 * @return A type A byte.
+	 */
+	public byte getByteA() {
+		return (byte) (get() - 128);
+	}
+
+	/**
+	 * Reads a RuneScape string.
+	 * 
+	 * @return The string.
+	 */
+	public String getRS2String() {
+		byte temp;
+		StringBuilder b = new StringBuilder();
+		while ((temp = payload.readByte()) != 10) {
+			b.append((char) temp);
 		}
-		return i;
+		return b.toString();
 	}
 
 	/**
-	 * Reads the next <code>int</code> from the payload.
+	 * Reads a type A short.
 	 * 
-	 * @return An <code>int</code>
+	 * @return A type A short.
 	 */
-	public int readInt() {
-		return (pData[caret++] & 0xff) << 24 | (pData[caret++] & 0xff) << 16
-				| (pData[caret++] & 0xff) << 8 | pData[caret++] & 0xff;
-	}
-
-	public int readLEInt() {
-		return pData[caret++] & 0xff | (pData[caret++] & 0xff) << 8
-				| (pData[caret++] & 0xff) << 16 | (pData[caret++] & 0xff) << 24;
+	public short getShortA() {
+		int i = ((get() & 0xFF) << 8) | (get() - 128 & 0xFF);
+		if (i > 32767)
+			i -= 0x10000;
+		return (short) i;
 	}
 
 	/**
-	 * Reads the next <code>long</code> from the payload.
+	 * Reads a series of bytes in reverse.
 	 * 
-	 * @return A <code>long</code>
+	 * @param is     The target byte array.
+	 * @param offset The offset.
+	 * @param length The length.
 	 */
-	public long readLong() {
-		return (long) (pData[caret++] & 0xff) << 56
-				| (long) (pData[caret++] & 0xff) << 48
-				| (long) (pData[caret++] & 0xff) << 40
-				| (long) (pData[caret++] & 0xff) << 32
-				| (long) (pData[caret++] & 0xff) << 24
-				| (long) (pData[caret++] & 0xff) << 16
-				| (long) (pData[caret++] & 0xff) << 8 | pData[caret++] & 0xff;
+	public void getReverse(final byte[] is, final int offset, final int length) {
+		for (int i = (offset + length - 1); i >= offset; i--)
+			is[i] = get();
 	}
 
 	/**
-	 * Reads the string which is formed by the unread portion of the payload.
+	 * Reads a series of type A bytes in reverse.
 	 * 
-	 * @return A <code>String</code>
+	 * @param is     The target byte array.
+	 * @param offset The offset.
+	 * @param length The length.
 	 */
+	public void getReverseA(final byte[] is, final int offset, final int length) {
+		for (int i = (offset + length - 1); i >= offset; i--)
+			is[i] = getByteA();
+	}
+
+	/**
+	 * Reads a series of bytes.
+	 * 
+	 * @param is     The target byte array.
+	 * @param offset The offset.
+	 * @param length The length.
+	 */
+	public void get(final byte[] is, final int offset, final int length) {
+		for (int i = 0; i < length; i++)
+			is[offset + i] = get();
+	}
+
+	/**
+	 * Gets a smart.
+	 * 
+	 * @return The smart.
+	 */
+	public int getSmart() {
+		final int peek = payload.getByte(payload.readerIndex());
+		if (peek < 128)
+			return (get() & 0xFF);
+		else
+			return (getShort() & 0xFFFF) - 32768;
+	}
+
+	/**
+	 * Gets a signed smart.
+	 * 
+	 * @return The signed smart.
+	 */
+	public int getSignedSmart() {
+		final int peek = payload.getByte(payload.readerIndex());
+		if (peek < 128)
+			return ((get() & 0xFF) - 64);
+		else
+			return ((getShort() & 0xFFFF) - 49152);
+	}
+
+	/* Legacy methods here */
+
+	public int readUnsignedByte() {
+		return get() & 0xff;
+	}
+
+	public byte readSignedByte() {
+		return get();
+	}
+
+	public byte readSignedByteC() {
+		return (byte) -get();
+	}
+
+	public int readUnsignedByteS() {
+		return 128 - get() & 0xff;
+	}
+
+	public int readHex() {
+		return ((get() & 0xFF) * 1000) + (get() & 0xFF);
+	}
+
+	public void readBytes(byte abyte0[], int length, int offset) {
+		for (int i = 0; i < length; i++)
+			abyte0[offset + i] = get();
+	}
+
+	public void readBytes_reverseA(byte abyte0[], int length, int offset) {
+		for (int i = (offset + length - 1); i >= offset; i--)
+			abyte0[i] = getByteA();
+	}
+
 	public String readString() {
-		return readString(pLength - caret);
-	}
-
-	public String readRS2String() {
-		int start = caret;
-		while (pData[caret++] != 0) {
-			;
+		byte temp;
+		StringBuilder b = new StringBuilder();
+		while ((temp = payload.readByte()) != 10) {
+			b.append((char) temp);
 		}
-		return new String(pData, start, caret - start - 1);
+		return b.toString();
 	}
 
-	public void readBytes(byte[] buf, int off, int len) {
-		for (int i = 0; i < len; i++) {
-			buf[off + i] = pData[caret++];
+	public int readDWord() {
+		return ((readUnsignedByte()) << 24) + ((readUnsignedByte()) << 16) + ((readUnsignedByte()) << 8) + (readUnsignedByte());
+	}
+
+	public long readQWord() {
+		long l = readDWord() & 0xffffffffL;
+		long l1 = readDWord() & 0xffffffffL;
+		return (l << 32) + l1;
+	}
+
+	public long readQWord2() {
+		final long l = readDWord() & 0xffffffffL;
+		final long l1 = readDWord() & 0xffffffffL;
+		return (l << 32) + l1;
+	}
+
+	public int readSignedWordA() {
+		int i = ((readUnsignedByte()) << 8) + (get() - 128 & 0xff);
+		if (i > 32767) {
+			i -= 0x10000;
 		}
+		return i;
 	}
 
-	/**
-	 * Reads a string of the specified length from the payload.
-	 * 
-	 * @param length
-	 *            The length of the string to be read
-	 * @return A <code>String</code>
-	 */
-	public String readString(int length) {
-		String rv = new String(pData, caret, length);
-		caret += length;
-		return rv;
+	public int readUnsignedWordA() {
+		return ((readUnsignedByte()) << 8) + (get() - 128 & 0xff);
 	}
 
-	/**
-	 * Skips the specified number of bytes in the payload.
-	 * 
-	 * @param x
-	 *            The number of bytes to be skipped
-	 */
-	public void skip(int x) {
-		caret += x;
+	public int readUnsignedWord() {
+		return ((readUnsignedByte()) << 8) + (readUnsignedByte());
 	}
 
-	public int remaining() {
-		return pData.length - caret;
-	}
-
-	/**
-	 * Returns this packet in string form.
-	 * 
-	 * @return A <code>String</code> representing this packet
-	 */
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[id=" + pID + ",len=" + pLength + ",data=0x");
-		for (int x = 0; x < pLength; x++) {
-			sb.append(byteToHex(pData[x], true));
+	public int readSignedWord() {
+		int i = ((readUnsignedByte()) << 8) + (readUnsignedByte());
+		if (i > 32767) {
+			i -= 0x10000;
 		}
-		sb.append("]");
-		return sb.toString();
+		return i;
 	}
 
-	private static String byteToHex(byte b, boolean forceLeadingZero) {
-		StringBuilder out = new StringBuilder();
-		int ub = b & 0xff;
-		if (ub / 16 > 0 || forceLeadingZero) {
-			out.append(hex[ub / 16]);
+	public int readSignedWordBigEndian() {
+		int i = (readUnsignedByte()) + ((readUnsignedByte()) << 8);
+		if (i > 32767) {
+			i -= 0x10000;
 		}
-		out.append(hex[ub % 16]);
-		return out.toString();
+		return i;
 	}
 
-	private static final char[] hex = "0123456789ABCDEF".toCharArray();
-
-	public int readShortA() {
-		caret += 2;
-		return ((pData[caret - 2] & 0xFF) << 8)
-				+ (pData[caret - 1] - 128 & 0xFF);
+	public int readSignedWordBigEndianA() {
+		int i = (get() - 128 & 0xff) + ((readUnsignedByte()) << 8);
+		if (i > 32767) {
+			i -= 0x10000;
+		}
+		return i;
 	}
 
-	public byte readByteC() {
-		return (byte) -readByte();
+	public int readUnsignedWordBigEndian() {
+		return (readUnsignedByte()) + ((readUnsignedByte()) << 8);
 	}
 
-	public byte readByteS() {
-		return (byte) (128 - readByte());
+	public int readUnsignedWordBigEndianA() {
+		return (get() - 128 & 0xff) + ((readUnsignedByte()) << 8);
 	}
-
 }

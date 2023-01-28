@@ -11,6 +11,7 @@ import com.rs2.game.content.skills.firemaking.LogData;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
 import com.rs2.world.Boundary;
@@ -24,10 +25,10 @@ public class PickupItem implements PacketType {
 
 
 	@Override
-	public void processPacket(final Player player, int packetType, int packetSize) {
-		player.pItemY = player.getInStream().readSignedWordBigEndian();
-		player.pItemId = player.getInStream().readUnsignedWord();
-		player.pItemX = player.getInStream().readSignedWordBigEndian();
+	public void processPacket(final Player player, Packet packet) {
+		player.pItemY = packet.readSignedWordBigEndian();
+		player.pItemId = packet.readUnsignedWord();
+		player.pItemX = packet.readSignedWordBigEndian();
 		// Cannot pickup the telekinetic guardian statue, should show overview of current maze
 		if (player.pItemId == 6888) {
 			player.getMageTrainingArena().telekinetic.observeStatue(player.pItemX, player.pItemY);

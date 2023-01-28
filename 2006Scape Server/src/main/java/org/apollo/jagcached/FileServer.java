@@ -1,25 +1,33 @@
 package org.apollo.jagcached;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.nio.file.Paths;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apollo.cache.IndexedFileSystem;
+import org.apollo.game.session.ApolloHandler;
+import org.apollo.net.HttpChannelInitializer;
+import org.apollo.net.JagGrabChannelInitializer;
+import org.apollo.net.NetworkConstants;
+import org.apollo.net.ServiceChannelInitializer;
 
-import org.apollo.jagcached.dispatch.RequestWorkerPool;
-import org.apollo.jagcached.net.FileServerHandler;
-import org.apollo.jagcached.net.HttpPipelineFactory;
-import org.apollo.jagcached.net.JagGrabPipelineFactory;
-import org.apollo.jagcached.net.NetworkConstants;
-import org.apollo.jagcached.net.OnDemandPipelineFactory;
-import org.jboss.netty.bootstrap.ServerBootstrap;
-import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
-import org.jboss.netty.util.HashedWheelTimer;
-import org.jboss.netty.util.Timer;
+import com.rs2.GameConstants;
+
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.HashedWheelTimer;
+import io.netty.util.Timer;
 
 /**
  * The core class of the file server.
@@ -28,46 +36,44 @@ import org.jboss.netty.util.Timer;
 public final class FileServer {
 	
 	/**
+	 * The {@link ServerBootstrap} for the HTTP listener.
+	 */
+	private ServerBootstrap httpBootstrap;
+
+	/**
+	 * The {@link ServerBootstrap} for the JAGGRAB listener.
+	 */
+	private ServerBootstrap jaggrabBootstrap;
+
+	/**
+	 * The event loop group.
+	 */
+	private final EventLoopGroup loopGroup = new NioEventLoopGroup();
+
+	/**
+	 * The {@link ServerBootstrap} for the service listener.
+	 */
+	private final ServerBootstrap serviceBootstrap = new ServerBootstrap();
+	
+	
+	/**
 	 * The logger for this class.
 	 */
 	private static final Logger logger = Logger.getLogger(FileServer.class.getName());
 
-	/**
-	 * The entry point of the application.
-	 * @param args The command-line arguments.
-	 */
-	public static void main(String[] args) {
-		try {
-			new FileServer().start();
-		} catch (Throwable t) {
-			logger.log(Level.SEVERE, "Error starting server.", t);
-		}
-	}
-	
-	/**
-	 * The executor service.
-	 */
-	private final ExecutorService service = Executors.newCachedThreadPool();
 	
 	/**
 	 * The request worker pool.
 	 */
-	private final RequestWorkerPool pool = new RequestWorkerPool();
-	
-	/**
-	 * The file server event handler.
-	 */
-	private final FileServerHandler handler = new FileServerHandler();
-	
-	/**
-	 * The timer used for idle checking.
-	 */
-	private final Timer timer = new HashedWheelTimer();
-	
+	private RequestWorkerPool pool;
+
+
 	/**
 	 * Starts the file server.
 	 * @throws Exception if an error occurs.
 	 */
+	public SocketAddress service = new InetSocketAddress((GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD);
+
 	public void start() throws Exception {
 		if (!new File(Constants.FILE_SYSTEM_DIR).exists())
 		{
@@ -84,37 +90,92 @@ public final class FileServer {
 			System.exit(1);
 		}
 
-		logger.info("Starting workers...");
-		pool.start();
-		
-		logger.info("Starting services...");
-		try {
-			start("HTTP", new HttpPipelineFactory(handler, timer), NetworkConstants.HTTP_PORT);
-		} catch (Throwable t) {
-			logger.log(Level.SEVERE, "Failed to start HTTP service.", t);
-			logger.warning("HTTP will be unavailable. JAGGRAB will be used as a fallback by clients but this isn't reccomended!");
+		if(GameConstants.FILE_SERVER) {
+			httpBootstrap = new ServerBootstrap();
+			jaggrabBootstrap = new ServerBootstrap();
+			pool = new RequestWorkerPool();
+			logger.info("Starting workers...");
+			pool.start();
 		}
-		start("JAGGRAB", new JagGrabPipelineFactory(handler, timer), NetworkConstants.JAGGRAB_PORT);
-		start("ondemand", new OnDemandPipelineFactory(handler, timer), NetworkConstants.SERVICE_PORT);
+		logger.info("Starting services...");
+		
+		init();
+		SocketAddress http = new InetSocketAddress(NetworkConstants.HTTP_PORT);
+		SocketAddress jaggrab = new InetSocketAddress(NetworkConstants.JAGGRAB_PORT);
+
+		bind(service, http, jaggrab);
 		
 		logger.info("Ready for connections.");
 	}
 
 	/**
-	 * Starts the specified service.
-	 * @param name The name of the service.
-	 * @param pipelineFactory The pipeline factory.
-	 * @param port The port.
+	 * Initialises the server.
+	 *
+	 * @param releaseName The class name of the current active {@link Release}.
+	 * @throws Exception If an error occurs.
 	 */
-	private void start(String name, ChannelPipelineFactory pipelineFactory, int port) {
-		SocketAddress address = new InetSocketAddress(port);
+	public void init() throws Exception {
 		
-		logger.info("Binding " + name + " service to " + address + "...");
-		
-		ServerBootstrap bootstrap = new ServerBootstrap();
-		bootstrap.setFactory(new NioServerSocketChannelFactory(service, service));
-		bootstrap.setPipelineFactory(pipelineFactory);
-		bootstrap.bind(address);
-	}
+		serviceBootstrap.group(loopGroup);
+		if(GameConstants.FILE_SERVER) {
+			httpBootstrap.group(loopGroup);
+			jaggrabBootstrap.group(loopGroup);		
+		}
+		ApolloHandler handler = new ApolloHandler();
 
+		ChannelInitializer<SocketChannel> service = new ServiceChannelInitializer(handler);
+		serviceBootstrap.channel(NioServerSocketChannel.class);
+		serviceBootstrap.childHandler(service);
+
+		if(!GameConstants.FILE_SERVER)
+			return;
+		ChannelInitializer<SocketChannel> http = new HttpChannelInitializer(handler);
+		httpBootstrap.channel(NioServerSocketChannel.class);
+		httpBootstrap.childHandler(http);
+
+		ChannelInitializer<SocketChannel> jaggrab = new JagGrabChannelInitializer(handler);
+		jaggrabBootstrap.channel(NioServerSocketChannel.class);
+		jaggrabBootstrap.childHandler(jaggrab);
+	}
+	
+	/**
+	 * Binds the server to the specified address.
+	 *
+	 * @param service The service address to bind to.
+	 * @param http The HTTP address to bind to.
+	 * @param jaggrab The JAGGRAB address to bind to.
+	 * @throws BindException If the ServerBootstrap fails to bind to the SocketAddress.
+	 */
+	public void bind(SocketAddress service, SocketAddress http, SocketAddress jaggrab) throws IOException {
+		logger.fine("Binding service listener to address: " + service + "...");
+		bind(serviceBootstrap, service);
+		if (GameConstants.FILE_SERVER) {
+			try {
+				logger.fine("Binding HTTP listener to address: " + http + "...");
+				bind(httpBootstrap, http);
+			} catch (IOException cause) {
+				logger.log(Level.WARNING, "Unable to bind to HTTP - JAGGRAB will be used as a fallback.", cause);
+			}
+	
+			logger.fine("Binding JAGGRAB listener to address: " + jaggrab + "...");
+			bind(jaggrabBootstrap, jaggrab);
+		}
+		logger.info("Ready for connections.");
+	}
+	
+	/**
+	 * Attempts to bind the specified ServerBootstrap to the specified SocketAddress.
+	 *
+	 * @param bootstrap The ServerBootstrap.
+	 * @param address The SocketAddress.
+	 * @throws IOException If the ServerBootstrap fails to bind to the SocketAddress.
+	 */
+	private void bind(ServerBootstrap bootstrap, SocketAddress address) throws IOException {
+		try {
+			bootstrap.bind(address).sync();
+		} catch (Exception cause) {
+			throw new IOException("Failed to bind to " + address, cause);
+		}
+	}
+	
 }

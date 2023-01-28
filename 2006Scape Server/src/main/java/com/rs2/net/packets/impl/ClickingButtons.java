@@ -34,6 +34,7 @@ import com.rs2.game.objects.impl.Climbing;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
@@ -44,8 +45,8 @@ import com.rs2.world.Boundary;
 public class ClickingButtons implements PacketType {
 
 	@Override
-	public void processPacket(final Player player, int packetType, int packetSize) {
-		int actionButtonId = Misc.hexToInt(player.getInStream().buffer, 0, packetSize);
+	public void processPacket(final Player player, Packet packet) {
+		int actionButtonId = packet.readHex();
 		player.getGlassBlowing().handleActionButtin(actionButtonId);
 		GnomeGlider.flightButtons(player, actionButtonId);
 		player.getEmoteHandler().startEmote(actionButtonId);

@@ -12,6 +12,7 @@ import com.rs2.game.content.skills.prayer.Ectofuntus;
 import com.rs2.game.items.UseItem;
 import com.rs2.game.items.impl.Fillables;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.Region;
@@ -19,13 +20,13 @@ import com.rs2.world.clip.Region;
 public class ItemOnObject implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
-		player.getInStream().readUnsignedWord();
-		int objectId = player.getInStream().readSignedWordBigEndian();
-		int objectY = player.getInStream().readSignedWordBigEndianA();
-		player.getInStream().readUnsignedWord();
-		int objectX = player.getInStream().readSignedWordBigEndianA();
-		int itemId = player.getInStream().readUnsignedWord();
+	public void processPacket(Player player, Packet packet) {
+		packet.readUnsignedWord();
+		int objectId = packet.readSignedWordBigEndian();
+		int objectY = packet.readSignedWordBigEndianA();
+		packet.readUnsignedWord();
+		int objectX = packet.readSignedWordBigEndianA();
+		int itemId = packet.readUnsignedWord();
 		player.turnPlayerTo(objectX, objectY);
 		player.objectX = objectX;
 		player.objectY = objectY;

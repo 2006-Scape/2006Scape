@@ -1,15 +1,13 @@
 package com.rs2.world.clip;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.nio.ByteBuffer;
+import java.nio.file.Paths;
 
-import org.apollo.archive.Archive;
-import org.apollo.archive.ArchiveEntry;
-import org.apollo.archive.CompressionUtil;
+import org.apollo.cache.IndexedFileSystem;
+import org.apollo.cache.archive.Archive;
+import org.apollo.cache.archive.ArchiveEntry;
 import org.apollo.jagcached.Constants;
-import org.apollo.jagcached.fs.IndexedFileSystem;
+import org.apollo.util.CompressionUtil;
 
 public class RegionFactory {
 	
@@ -22,7 +20,7 @@ public class RegionFactory {
 	public static void load() {
 		//GameEngine.getLogger(Region.class).info("Loading region configurations...");
 		try {
-			IndexedFileSystem fs = new IndexedFileSystem(new File(Constants.FILE_SYSTEM_DIR), true);
+			IndexedFileSystem fs = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
 			ObjectDefinition.loadConfig(fs);
 
 			Archive archive = Archive.decode(fs.getFile(0, 5));
@@ -56,8 +54,8 @@ public class RegionFactory {
 			for (int i = 0; i < size; i++) {
 				//GameEngine.getLogger(Region.class).info("Region: " + i + " RegionId: " + regionIds[i] + " ObjectsId: " + mapObjectsFileIds[i]
 				//		+ " ClippingsId: " + mapGroundFileIds[i]);				
-				byte[] file1 = CompressionUtil.degzip(fs.getFileBytes(4, mapObjectsFileIds[i]));
-				byte[] file2 = CompressionUtil.degzip(fs.getFileBytes(4, mapGroundFileIds[i]));
+				byte[] file1 = CompressionUtil.degzip(fs.getFile(4, mapObjectsFileIds[i]));
+				byte[] file2 = CompressionUtil.degzip(fs.getFile(4, mapGroundFileIds[i]));
 				if (file1 == null || file2 == null) {
 					continue;
 				}

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.util.Misc;
 
 public class ReportHandler {
@@ -59,11 +60,11 @@ public class ReportHandler {
 	 *             ex
 	 */
 
-	public static void handleReport(Player c) throws Exception {
-		String player = Misc.longToReportPlayerName(c.inStream.readQWord2());
+	public static void handleReport(Player c, Packet packet) throws Exception {
+		String player = Misc.longToReportPlayerName(packet.readQWord2());
 		player = player.replaceAll("_", " ");
-		byte rule = (byte) c.inStream.readUnsignedByte();
-		int mute = c.getInStream().readUnsignedByte();
+		byte rule = (byte) packet.readUnsignedByte();
+		int mute = packet.readUnsignedByte();
 
 		if (c.lastReported.equalsIgnoreCase(player) && System.currentTimeMillis() - c.lastReport < 60000) {
 			c.getPacketSender().sendMessage("You can only report a player once every 60 seconds.");

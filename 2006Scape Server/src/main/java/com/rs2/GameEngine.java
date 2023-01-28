@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.apollo.jagcached.FileServer;
+
 import com.rs2.game.bots.BotHandler;
-import org.apache.mina.common.IoAcceptor;
-import org.apache.mina.transport.socket.nio.SocketAcceptor;
-import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
+import com.google.common.base.Stopwatch;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.content.minigames.FightPits;
@@ -37,8 +37,6 @@ import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
 import com.rs2.integrations.discord.DiscordActivity;
 import com.rs2.integrations.discord.JavaCord;
-import com.rs2.net.ConnectionHandler;
-import com.rs2.net.ConnectionThrottleFilter;
 import com.rs2.tick.Scheduler;
 import com.rs2.tick.Tick;
 import com.rs2.util.HostBlacklist;
@@ -48,7 +46,9 @@ import com.rs2.world.ObjectHandler;
 import com.rs2.world.ObjectManager;
 import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
-import org.apollo.jagcached.FileServer;
+
+import io.netty.util.ResourceLeakDetector;
+import io.netty.util.ResourceLeakDetector.Level;
 
 /**
  * Server.java
@@ -111,13 +111,9 @@ public class GameEngine {
 	public static boolean sleeping;
 	public static boolean updateServer = false;
 	public static long lastMassSave = System.currentTimeMillis();
-	private static IoAcceptor acceptor;
-	private static ConnectionHandler connectionHandler;
-	private static ConnectionThrottleFilter throttleFilter;
 	public static boolean shutdownServer = false;
 	public static int garbageCollectDelay = 40;
 	public static boolean shutdownClientHandler;
-	private static int serverlistenerPort;
 	public static ItemHandler itemHandler = new ItemHandler();
 	public static PlayerHandler playerHandler = new PlayerHandler();
 	public static NpcHandler npcHandler = new NpcHandler();
@@ -152,7 +148,6 @@ public class GameEngine {
 				}
 			}
 		}
-		serverlistenerPort = (GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD;
 
 		System.out.println("Starting game engine..");
 		if (GameConstants.SERVER_DEBUG) {
@@ -178,18 +173,6 @@ public class GameEngine {
 		System.out.println("Launching " + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD + "...");
 
 		/**
-		 * Starts The File Server If Enabled In GameConstants
-		 */
-		if (GameConstants.FILE_SERVER) {
-			FileServer fs = new FileServer();
-			try {
-				fs.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		/**
 		 * Start Integration Services
 		 **/
 		ConfigLoader.loadSecrets();
@@ -198,17 +181,15 @@ public class GameEngine {
 		/**
 		 * Accepting Connections
 		 */
-		acceptor = new SocketAcceptor();
-		connectionHandler = new ConnectionHandler();
-
-		SocketAcceptorConfig sac = new SocketAcceptorConfig();
-		sac.getSessionConfig().setTcpNoDelay(false);
-		sac.setReuseAddress(true);
-		sac.setBacklog(100);
-
-		throttleFilter = new ConnectionThrottleFilter(GameConstants.CONNECTION_DELAY);
-		sac.getFilterChain().addFirst("throttleFilter", throttleFilter);
-		acceptor.bind(new InetSocketAddress(serverlistenerPort), connectionHandler, sac);
+		//TODO debug ResourceLeakDetector.setLevel(Level.PARANOID);
+		ResourceLeakDetector.setLevel(Level.DISABLED);
+		FileServer fs = new FileServer();
+		try {
+			fs.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 
 		/**
 		 * Initialise Handlers
@@ -232,7 +213,7 @@ public class GameEngine {
 		/**
 		 * Server Successfully Loaded
 		 */
-		System.out.println("Server listening on port " + serverlistenerPort);
+		System.out.println("World Server listening on " + fs.service.toString());
 
 		/**
 		 * Main Server Tick
@@ -245,6 +226,7 @@ public class GameEngine {
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
 			public void run() {
+				//TODO debug Stopwatch stopwatch = Stopwatch.createStarted();
 				/**
 				 * Main Server Tick
 				 */
@@ -298,6 +280,7 @@ public class GameEngine {
 					}
 					scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 				}
+				//TODO debug System.out.println("Cycle took " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms.");
 			}
 		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 
@@ -316,9 +299,6 @@ public class GameEngine {
 			e.printStackTrace();
 		}
 
-		acceptor = null;
-		connectionHandler = null;
-		sac = null;
 		System.exit(0);
 	}
 

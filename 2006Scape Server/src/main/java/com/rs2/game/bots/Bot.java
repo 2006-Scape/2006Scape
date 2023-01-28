@@ -5,19 +5,23 @@ import static com.rs2.game.players.PlayerSave.loadPlayerInfo;
 import java.text.DecimalFormat;
 import java.util.*;
 
+import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Client;
 import com.rs2.util.Misc;
+import com.rs2.util.Stream;
 
 public class Bot {
 
     private Client botClient;
     static Timer timer = new Timer();
-
+    private Stream inStream;
+    
     public Bot(String username, Integer x, Integer y, Integer z) {
         botClient = new Client(null);
-
+        inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
+        inStream.currentOffset = 0;
         botClient.playerName = username;
         botClient.playerName2 = botClient.playerName;
         botClient.properName = Character.toUpperCase(username.charAt(1)) + username.substring(2);
@@ -78,10 +82,10 @@ public class Bot {
         // Normal chat from here down:
         botClient.setChatTextColor(Misc.random(11));
         botClient.setChatTextEffects(Misc.random(5));
-        Misc.textPack(botClient.inStream, _message);
-        botClient.setChatTextSize((byte) botClient.inStream.currentOffset);
-        botClient.setChatText(botClient.inStream.buffer);
-        botClient.inStream.currentOffset = 0;
+        Misc.textPack(inStream, _message);
+        botClient.setChatTextSize((byte) inStream.currentOffset);
+        botClient.setChatText(inStream.buffer);
+        inStream.currentOffset = 0;
         botClient.setChatTextUpdateRequired(true);
     }
 

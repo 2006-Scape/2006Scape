@@ -3,6 +3,7 @@ package com.rs2.net.packets;
 import com.rs2.GameConstants;
 import com.rs2.game.dialogues.Dialogue;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.impl.AttackPlayer;
 import com.rs2.net.packets.impl.Bank10;
 import com.rs2.net.packets.impl.Bank5;
@@ -156,14 +157,16 @@ public class PacketHandler {
 		}
 	}*/
 	
-	public static void processPacket(Player player, int packetType, int packetSize) {
+	public static void processPacket(Player player, Packet packet) {
+		int packetType = packet.getOpcode();
+		int packetSize = packet.getLength();
         PacketType p = packetId[packetType];
-        if(p != null && packetType > 0 && packetType < 257 && packetType == player.packetType && packetSize == player.packetSize) {
+        if(p != null && packetType > 0 && packetType < 257) {
             if (GameConstants.sendServerPackets && player.playerRights == 3) {
                 player.getPacketSender().sendMessage("PacketType: " + packetType + ". PacketSize: " + packetSize + ".");
             }
             try {
-                p.processPacket(player, packetType, packetSize);
+                p.processPacket(player, packet);
             } catch(Exception e) {
                 e.printStackTrace();
             }

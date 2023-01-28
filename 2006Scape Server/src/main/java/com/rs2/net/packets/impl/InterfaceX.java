@@ -4,15 +4,16 @@ import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.smithing.Smelting;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.Boundary;
 
 public class InterfaceX implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
+	public void processPacket(Player player, Packet packet) {
 		player.endCurrentTask();
-		int Xamount = player.getInStream().readDWord();
+		int Xamount = packet.readDWord();
 		if (Xamount < 0) {
             Xamount = player.getItemAssistant().getItemAmount(player.xRemoveId);
         }

@@ -1,5 +1,7 @@
 package com.rs2.util;
 
+import org.apollo.util.security.IsaacRandom;
+
 import com.rs2.GameConstants;
 
 public class Stream {
@@ -10,36 +12,6 @@ public class Stream {
 	public Stream(byte abyte0[]) {
 		buffer = abyte0;
 		currentOffset = 0;
-	}
-
-	public long readQWord2() {
-		final long l = readDWord() & 0xffffffffL;
-		final long l1 = readDWord() & 0xffffffffL;
-		return (l << 32) + l1;
-	}
-
-	public byte readSignedByteA() {
-		return (byte) (buffer[currentOffset++] - 128);
-	}
-
-	public byte readSignedByteC() {
-		return (byte) -buffer[currentOffset++];
-	}
-
-	public byte readSignedByteS() {
-		return (byte) (128 - buffer[currentOffset++]);
-	}
-
-	public int readUnsignedByteA() {
-		return buffer[currentOffset++] - 128 & 0xff;
-	}
-
-	public int readUnsignedByteC() {
-		return -buffer[currentOffset++] & 0xff;
-	}
-
-	public int readUnsignedByteS() {
-		return 128 - buffer[currentOffset++] & 0xff;
 	}
 
 	public void writeByteA(int i) {
@@ -56,49 +28,7 @@ public class Stream {
 		ensureCapacity(1);
 		buffer[currentOffset++] = (byte) -i;
 	}
-
-	public int readSignedWordBigEndian() {
-		currentOffset += 2;
-		int i = ((buffer[currentOffset - 1] & 0xff) << 8) + (buffer[currentOffset - 2] & 0xff);
-		if (i > 32767) {
-			i -= 0x10000;
-		}
-		return i;
-	}
-
-	public int readSignedWordA() {
-		currentOffset += 2;
-		int i = ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] - 128 & 0xff);
-		if (i > 32767) {
-			i -= 0x10000;
-		}
-		return i;
-	}
-
-	public int readSignedWordBigEndianA() {
-		currentOffset += 2;
-		int i = ((buffer[currentOffset - 1] & 0xff) << 8) + (buffer[currentOffset - 2] - 128 & 0xff);
-		if (i > 32767) {
-			i -= 0x10000;
-		}
-		return i;
-	}
-
-	public int readUnsignedWordBigEndian() {
-		currentOffset += 2;
-		return ((buffer[currentOffset - 1] & 0xff) << 8) + (buffer[currentOffset - 2] & 0xff);
-	}
-
-	public int readUnsignedWordA() {
-		currentOffset += 2;
-		return ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] - 128 & 0xff);
-	}
-
-	public int readUnsignedWordBigEndianA() {
-		currentOffset += 2;
-		return ((buffer[currentOffset - 1] & 0xff) << 8) + (buffer[currentOffset - 2] - 128 & 0xff);
-	}
-
+	
 	public void writeWordBigEndianA(int i) {
 		ensureCapacity(2);
 		buffer[currentOffset++] = (byte) (i + 128);
@@ -149,26 +79,11 @@ public class Stream {
 		buffer[currentOffset++] = (byte) (i >> 8);
 	}
 
-	public void readBytes_reverse(byte abyte0[], int i, int j) {
-		for (int k = j + i - 1; k >= j; k--) {
-			abyte0[k] = buffer[currentOffset++];
-		}
-
-	}
-
 	public void writeBytes_reverse(byte abyte0[], int i, int j) {
 		ensureCapacity(i);
 		for (int k = j + i - 1; k >= j; k--) {
 			buffer[currentOffset++] = abyte0[k];
 		}
-	}
-
-	public void readBytes_reverseA(byte abyte0[], int i, int j) {
-		ensureCapacity(i);
-		for (int k = j + i - 1; k >= j; k--) {
-			abyte0[k] = (byte) (buffer[currentOffset++] - 128);
-		}
-
 	}
 
 	public void writeBytes_reverseA(byte abyte0[], int i, int j) {
@@ -181,7 +96,7 @@ public class Stream {
 
 	public void createFrame(int id) {
 		ensureCapacity(1);
-		buffer[currentOffset++] = (byte) (id + packetEncryption.getNextKey());
+		buffer[currentOffset++] = (byte) (id + packetEncryption.nextInt());
 	}
 
 	private static final int frameStackSize = 10;
@@ -190,7 +105,7 @@ public class Stream {
 
 	public void createFrameVarSize(int id) {
 		ensureCapacity(3);
-		buffer[currentOffset++] = (byte) (id + packetEncryption.getNextKey());
+		buffer[currentOffset++] = (byte) (id + packetEncryption.nextInt());
 		buffer[currentOffset++] = 0;
 		if (frameStackPtr >= frameStackSize - 1) {
 			throw new RuntimeException("Stack overflow");
@@ -201,7 +116,7 @@ public class Stream {
 
 	public void createFrameVarSizeWord(int id) {
 		ensureCapacity(2);
-		buffer[currentOffset++] = (byte) (id + packetEncryption.getNextKey());
+		buffer[currentOffset++] = (byte) (id + packetEncryption.nextInt());
 		writeWord(0);
 		if (frameStackPtr >= frameStackSize - 1) {
 			throw new RuntimeException("Stack overflow");
@@ -301,57 +216,6 @@ public class Stream {
 		buffer[currentOffset - i - 1] = (byte) i;
 	}
 
-	public int readUnsignedByte() {
-		return buffer[currentOffset++] & 0xff;
-	}
-
-	public byte readSignedByte() {
-		return buffer[currentOffset++];
-	}
-
-	public int readUnsignedWord() {
-		currentOffset += 2;
-		return ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] & 0xff);
-	}
-
-	public int readSignedWord() {
-		currentOffset += 2;
-		int i = ((buffer[currentOffset - 2] & 0xff) << 8) + (buffer[currentOffset - 1] & 0xff);
-		if (i > 32767) {
-			i -= 0x10000;
-		}
-		return i;
-	}
-
-	public int readDWord() {
-		currentOffset += 4;
-		return ((buffer[currentOffset - 4] & 0xff) << 24)
-				+ ((buffer[currentOffset - 3] & 0xff) << 16)
-				+ ((buffer[currentOffset - 2] & 0xff) << 8)
-				+ (buffer[currentOffset - 1] & 0xff);
-	}
-
-	public long readQWord() {
-		long l = readDWord() & 0xffffffffL;
-		long l1 = readDWord() & 0xffffffffL;
-		return (l << 32) + l1;
-	}
-
-	public java.lang.String readString() {
-		int i = currentOffset;
-		while (buffer[currentOffset++] != 10) {
-			;
-		}
-		return new String(buffer, i, currentOffset - i - 1);
-	}
-
-	public void readBytes(byte abyte0[], int i, int j) {
-		for (int k = j; k < j + i; k++) {
-			abyte0[k] = buffer[currentOffset++];
-		}
-
-	}
-
 	public void initBitAccess() {
 		bitPosition = currentOffset * 8;
 	}
@@ -414,6 +278,6 @@ public class Stream {
 		}
 	}
 
-	public ISAACRandomGen packetEncryption = null;
+	public IsaacRandom packetEncryption = null;
 
 }
