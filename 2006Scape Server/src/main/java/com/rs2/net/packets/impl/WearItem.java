@@ -4,6 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
 
@@ -13,10 +14,10 @@ import com.rs2.util.Misc;
 public class WearItem implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
-		player.wearId = player.getInStream().readUnsignedWord();
-		player.wearSlot = player.getInStream().readUnsignedWordA();
-		player.interfaceId = player.getInStream().readUnsignedWordA();
+	public void processPacket(Player player, Packet packet) {
+		player.wearId = packet.readUnsignedWord();
+		player.wearSlot = packet.readUnsignedWordA();
+		player.interfaceId = packet.readUnsignedWordA();
 		Weight.updateWeight(player);
 		if (!RareProtection.equipItem(player)) {
 			return;

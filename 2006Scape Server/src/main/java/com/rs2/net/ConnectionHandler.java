@@ -1,63 +1,76 @@
 package com.rs2.net;
 
-import org.apache.mina.common.IdleStatus;
-import org.apache.mina.common.IoHandler;
-import org.apache.mina.common.IoSession;
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
-import com.rs2.game.players.Client;
-
-public class ConnectionHandler implements IoHandler {
-
-	@Override
-	public void exceptionCaught(IoSession arg0, Throwable arg1)
-			throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void messageReceived(IoSession arg0, Object arg1) throws Exception {
-		if (arg0.getAttachment() != null) {
-			Client plr = (Client) arg0.getAttachment();
-			plr.queueMessage((Packet) arg1);
-		}
-	}
-
-	@Override
-	public void messageSent(IoSession arg0, Object arg1) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void sessionClosed(IoSession arg0) throws Exception {
-		if (arg0.getAttachment() != null) {
-			Client plr = (Client) arg0.getAttachment();
-			plr.disconnected = true;
-		}
-		HostList.getHostList().remove(arg0);
-	}
-
-	@Override
-	public void sessionCreated(IoSession arg0) throws Exception {
-		if (!HostList.getHostList().add(arg0)) {
-			arg0.close();
-		} else {
-			arg0.setAttribute("inList", Boolean.TRUE);
-		}
-	}
-
-	@Override
-	public void sessionIdle(IoSession arg0, IdleStatus arg1) throws Exception {
-		arg0.close();
-	}
-
-	@Override
-	public void sessionOpened(IoSession arg0) throws Exception {
-		arg0.setIdleTime(IdleStatus.BOTH_IDLE, 60);
-		arg0.getFilterChain().addLast("protocolFilter",
-				new ProtocolCodecFilter(new CodecFactory()));
-	}
-
+/**
+ * Old class that was used with netty 4 impl. This is no longer needed but will be a reference for re-adding the HostList stuff into the ApolloHandler.
+ * @author Advocatus
+ *
+ */
+public class ConnectionHandler extends ChannelInboundHandlerAdapter {
+	
+////	public static final AttributeKey<Session> SESSION_KEY = AttributeKey.valueOf("session");
+//
+//	private Session session = null;
+//	
+////	@Override
+////	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
+////		if (session == null) {
+////			session = new Session(ctx.getChannel());
+////			if (!HostList.getHostList().add(session)) {
+////				ctx.getChannel().close();
+////			} else {
+////				session.setInList(true);
+////			}
+////		}
+////	}
+//	
+//	
+//	@Override
+//	public void channelInactive(ChannelHandlerContext ctx) {
+//		if (session != null) {
+//	//		HostList.getHostList().remove(session);
+//			Client client = session.getClient();
+//			if (client != null) {
+//				client.disconnected = true;
+//			}
+//			session = null;
+//		}
+//		Channel channel = ctx.channel();
+//		channel.close();
+//	}
+//
+//	@Override
+//	public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
+//		if (!e.getMessage().contains("An existing connection was forcibly closed by the remote host")) {
+//			e.printStackTrace();
+//		//	logger.log(Level.WARNING, "Exception occured for channel: " + ctx.channel() + ", closing...", e);
+//		}
+//		ctx.channel().close();
+//	}
+//
+//	@Override
+//	public void channelRead(ChannelHandlerContext ctx, Object message) throws Exception {
+////		System.out.println(message.getClass());
+//		if (session == null) {
+//			session = new Session(ctx.channel());
+////			if (!HostList.getHostList().add(session)) {
+////				ctx.channel().close();
+////			} else {
+////				session.setInList(true);
+////			}
+//		}
+//		if (message instanceof Client) {
+//			session.setClient((Client) message);
+//		} else if (message instanceof Packet) {
+//			if (session.getClient() != null) {
+//				session.getClient().queueMessage((Packet) message);
+//			}
+//		}		
+//	}
+//	
+//	@Override
+//	public void channelReadComplete(ChannelHandlerContext ctx) {
+//		ctx.flush();
+//	}
 }

@@ -11,6 +11,7 @@ import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -19,7 +20,7 @@ import com.rs2.net.packets.PacketType;
 public class Walking implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
+	public void processPacket(Player player, Packet packet) {
 		player.getDueling().checkDuelWalk();
 		if (player.playerIsBusy()) {
 			player.playerIsBusy = false;
@@ -87,7 +88,7 @@ public class Walking implements PacketType {
 		if (player.getPlayerAction().checkWalking() == false) {
 			return;
 		}
-		if (packetType == 248 || packetType == 164) {
+		if (packet.getOpcode() == 248 || packet.getOpcode() == 164) {
 			player.faceUpdate(0);
 			player.npcIndex = 0;
 			player.playerIndex = 0;
@@ -118,12 +119,12 @@ public class Walking implements PacketType {
 				if (player.goodDistance(player.getX(), player.getY(),
 						PlayerHandler.players[player.playerIndex].getX(),
 						PlayerHandler.players[player.playerIndex].getY(), 1)
-						&& packetType != 98) {
+						&& packet.getOpcode() != 98) {
 					player.playerIndex = 0;
 					return;
 				}
 			}
-			if (packetType != 98) {
+			if (packet.getOpcode() != 98) {
 				player.getPacketSender().sendMessage("A magical force stops you from moving.");
 				player.playerIndex = 0;
 			}
@@ -136,7 +137,7 @@ public class Walking implements PacketType {
 			return;
 		}
 
-		if (packetType == 98) {
+		if (packet.getOpcode() == 98) {
 			player.mageAllowed = true;
 		}
 
@@ -170,8 +171,8 @@ public class Walking implements PacketType {
 		}
 
 		player.endCurrentTask();
-
-		if (packetType == 248) {
+		int packetSize = packet.getLength();
+		if (packet.getOpcode() == 248) {
 			packetSize -= 14;
 		}
 //
@@ -234,20 +235,20 @@ public class Walking implements PacketType {
 		int realY = 0;
 
 		if (player.clickToTele) {
-			firstStepX = player.getInStream().readSignedWordBigEndianA();
+			firstStepX = packet.readSignedWordBigEndianA();
 		} else {
-			realX = player.getInStream().readSignedWordBigEndianA();
+			realX = packet.readSignedWordBigEndianA();
 			firstStepX = realX - player.getMapRegionX() * 8;
 		}
 		for (int i = 1; i < player.newWalkCmdSteps; i++) {
-			player.getNewWalkCmdX()[i] = player.getInStream().readSignedByte();
-			player.getNewWalkCmdY()[i] = player.getInStream().readSignedByte();
+			player.getNewWalkCmdX()[i] = packet.readSignedByte();
+			player.getNewWalkCmdY()[i] = packet.readSignedByte();
 		}
 
 		if (player.clickToTele) {
-			firstStepY = player.getInStream().readSignedWordBigEndian();
+			firstStepY = packet.readSignedWordBigEndian();
 		} else {
-			realY = player.getInStream().readSignedWordBigEndian();
+			realY = packet.readSignedWordBigEndian();
 			firstStepY = realY - player.getMapRegionY() * 8;
 		}
 
@@ -257,7 +258,7 @@ public class Walking implements PacketType {
 			}
 		}
 
-		player.setNewWalkCmdIsRunning(player.getInStream().readSignedByteC() == 1 && player.playerEnergy > 0);
+		player.setNewWalkCmdIsRunning(packet.readSignedByteC() == 1 && player.playerEnergy > 0);
 		for (int i1 = 0; i1 < player.newWalkCmdSteps; i1++) {
 			if (player.clickToTele)
 				player.getPlayerAssistant().movePlayer(player.getNewWalkCmdX()[i1] + firstStepX, player.getNewWalkCmdY()[i1] + firstStepY, player.heightLevel);

@@ -5,6 +5,7 @@ import com.rs2.GameEngine;
 import com.rs2.game.content.music.Music;
 import com.rs2.game.globalworldobjects.Doors;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.world.GlobalDropsHandler;
 
@@ -14,7 +15,7 @@ import com.rs2.world.GlobalDropsHandler;
 public class ChangeRegions implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
+	public void processPacket(Player player, Packet packet) {
 		if (GameConstants.SOUND && player.musicOn) {
 			Music.playMusic(player);
 		}

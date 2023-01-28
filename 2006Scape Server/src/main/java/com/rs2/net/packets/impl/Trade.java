@@ -2,6 +2,7 @@ package com.rs2.net.packets.impl;
 
 import com.rs2.GameConstants;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -11,8 +12,8 @@ import com.rs2.net.packets.PacketType;
 public class Trade implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
-		int tradeId = player.getInStream().readSignedWordBigEndian();
+	public void processPacket(Player player, Packet packet) {
+		int tradeId = packet.readSignedWordBigEndian();
 		player.getPlayerAssistant().resetFollow();
 		player.endCurrentTask();
 		if (player.disconnected) {

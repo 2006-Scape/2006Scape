@@ -5,15 +5,16 @@ import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.items.UseItem;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 public class ItemOnNpc implements PacketType {
 
 	@Override
-	public void processPacket(final Player player, int packetType, int packetSize) {
-		final int itemId = player.getInStream().readSignedWordA();
-		final int i = player.getInStream().readSignedWordA();
-		final int slot = player.getInStream().readSignedWordBigEndian();
+	public void processPacket(final Player player, Packet packet) {
+		final int itemId = packet.readSignedWordA();
+		final int i = packet.readSignedWordA();
+		final int slot = packet.readSignedWordBigEndian();
 		final int npcId = NpcHandler.npcs[i].npcType;
 		SkillHandler.resetItemOnNpc(player);
 		player.endCurrentTask();

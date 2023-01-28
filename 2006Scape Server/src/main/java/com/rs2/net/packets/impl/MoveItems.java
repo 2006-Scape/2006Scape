@@ -1,6 +1,7 @@
 package com.rs2.net.packets.impl;
 
 import com.rs2.game.players.Player;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 
 /**
@@ -9,11 +10,11 @@ import com.rs2.net.packets.PacketType;
 public class MoveItems implements PacketType {
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
-		int interfaceId = player.getInStream().readSignedWordBigEndianA();
-		boolean insertMode = player.getInStream().readSignedByteC() == 1;
-		int from = player.getInStream().readSignedWordBigEndianA();
-		int to = player.getInStream().readSignedWordBigEndian();
+	public void processPacket(Player player, Packet packet) {
+		int interfaceId = packet.readSignedWordBigEndianA();
+		boolean insertMode = packet.readSignedByteC() == 1;
+		int from = packet.readSignedWordBigEndianA();
+		int to = packet.readSignedWordBigEndian();
 		if (player.inTrade) {
 			player.getTrading().declineTrade();
 			return;

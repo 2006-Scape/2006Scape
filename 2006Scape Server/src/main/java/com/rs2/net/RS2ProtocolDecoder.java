@@ -1,145 +1,210 @@
 package com.rs2.net;
 
-import org.apache.mina.common.ByteBuffer;
-import org.apache.mina.common.IoSession;
-import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
-import org.apache.mina.filter.codec.ProtocolDecoderOutput;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.ByteToMessageDecoder;
 
-import com.rs2.game.players.Client;
-import com.rs2.util.ISAACRandomGen;
+import java.util.List;
 
-public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
+import org.apollo.util.StatefulFrameDecoder;
+import org.apollo.util.security.IsaacRandom;
 
-	private final ISAACRandomGen isaac;
+import com.google.common.base.Preconditions;
+import com.rs2.net.Packet.Type;
+
+public class RS2ProtocolDecoder extends StatefulFrameDecoder<GameDecoderState> {
+	
+	private int opcode = -1;
+	private int length = -1;
+	private final IsaacRandom random;
+	public static final int PACKET_SIZES[] = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
+			0, 0, 0, 0, 8, 0, 6, 2, 2, 0, // 10
+			0, 2, 0, 6, 0, 12, 0, 0, 0, 0, // 20
+			0, 0, 0, 0, 0, 8, 4, 0, 0, 2, // 30
+			2, 6, 0, 6, 0, -1, 0, 0, 0, 0, // 40
+			0, 0, 0, 12, 0, 0, 0, 8, 8, 12, // 50
+			8, 8, 0, 0, 0, 0, 0, 0, 0, 0, // 60
+			6, 0, 2, 2, 8, 6, 0, -1, 0, 6, // 70
+			0, 0, 0, 0, 0, 1, 4, 6, 0, 0, // 80
+			0, 0, 0, 0, 0, 3, 0, 0, -1, 0, // 90
+			0, 13, 0, -1, 0, 0, 0, 0, 0, 0,// 100
+			0, 0, 0, 0, 0, 0, 0, 6, 0, 0, // 110
+			1, 0, 6, 0, 0, 0, -1, 0, 2, 6, // 120
+			0, 4, 6, 8, 0, 6, 0, 0, 0, 2, // 130
+			0, 0, 0, 0, 0, 6, 0, 0, 0, 0, // 140
+			0, 0, 1, 2, 0, 2, 6, 0, 0, 0, // 150
+			0, 0, 0, 0, -1, -1, 0, 0, 0, 0,// 160
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 170
+			0, 8, 0, 3, 0, 2, 0, 0, 8, 1, // 180
+			0, 0, 12, 0, 0, 0, 0, 0, 0, 0, // 190
+			2, 0, 0, 0, 0, 0, 0, 0, 4, 0, // 200
+			4, 0, 0, 0, 7, 8, 0, 0, 10, 0, // 210
+			0, 0, 0, 0, 0, 0, -1, 0, 6, 0, // 220
+			1, 0, 0, 0, 6, 0, 6, 8, 1, 0, // 230
+			0, 4, 0, 0, 0, 0, -1, 0, -1, 4,// 240
+			0, 0, 6, 6, 0, 0, 0 // 250
+	};
 
 	/**
 	 * To make sure only the CodecFactory can initialise us.
 	 */
-	protected RS2ProtocolDecoder(ISAACRandomGen isaac) {
-		this.isaac = isaac;
+	public RS2ProtocolDecoder(IsaacRandom isaac) {
+		super(GameDecoderState.GAME_OPCODE);
+		this.random = isaac;
 	}
+	
+//	/**
+//	 * Decodes a message.
+//	 * 
+//	 * @param session
+//	 * @param in
+//	 * @param out
+//	 * @return
+//	 */
+//	@Override
+//	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+//		/*
+//		 * If the opcode is not present.
+//		 */
+//		if (opcode == -1) {
+//			/*
+//			 * Check if it can be read.
+//			 */
+//			if (in.readableBytes() >= 1) {
+//				/*
+//				 * Read and decrypt the opcode.
+//				 */
+//				opcode = in.readByte() & 0xFF;
+//				opcode = (opcode - random.nextInt()) & 0xFF;
+//				/*
+//				 * Find the packet size.
+//				 */
+//				length = PACKET_SIZES[opcode];
+//			} else {
+//				/*
+//				 * We need to wait for more data.
+//				 */
+//				return;
+//			}
+//		}
+//		
+//		/*
+//		 * If the packet is variable-length.
+//		 */
+//		if (length == -1) {
+//			/*
+//			 * Check if the size can be read.
+//			 */
+//			if (in.readableBytes() >= 1) {
+//				/*
+//				 * Read the packet size and cache it.
+//				 */
+//				length = in.readByte() & 0xFF;
+//			} else {
+//				/*
+//				 * We need to wait for more data.
+//				 */
+//				return;
+//			}
+//		}
+//		
+//		/*
+//		 * If the packet payload (data) can be read.
+//		 */
+//		if (in.readableBytes() >= length) {
+//			/*
+//			 * Read it.
+//			 */
+//			ByteBuf payload = in.readBytes(length);
+//			/*
+//			 * Produce and write the packet object.
+//			 */
+//			out.add(new Packet(opcode, Type.FIXED, payload));
+//			opcode = -1;
+//			length = -1;
+//		}
+//		
+//		/*
+//		 * We need to wait for more data.
+//		 */
+//		return;
+//	}
 
-	/**
-	 * Decodes a message.
-	 * 
-	 * @param session
-	 * @param in
-	 * @param out
-	 * @return
-	 */
 	@Override
-	protected boolean doDecode(IoSession session, ByteBuffer in,
-			ProtocolDecoderOutput out) throws Exception {
-		synchronized (session) {
-			/*
-			 * Fetch the ISAAC cipher for this session.
-			 */
-			// ISAACRandomGen inCipher = ((Player)
-			// session.getAttribute("player")).getInStreamDecryption();
-
-			/*
-			 * Fetch any cached opcodes and sizes, reset to -1 if not present.
-			 */
-			int opcode = (Integer) session.getAttribute("opcode");
-			int size = (Integer) session.getAttribute("size");
-
-			/*
-			 * If the opcode is not present.
-			 */
-			if (opcode == -1) {
-				/*
-				 * Check if it can be read.
-				 */
-				if (in.remaining() >= 1) {
-					/*
-					 * Read and decrypt the opcode.
-					 */
-					opcode = in.get() & 0xFF;
-					opcode = opcode - isaac.getNextKey() & 0xFF;
-
-					/*
-					 * Find the packet size.
-					 */
-					size = Client.PACKET_SIZES[opcode];
-
-					/*
-					 * Set the cached opcode and size.
-					 */
-					session.setAttribute("opcode", opcode);
-					session.setAttribute("size", size);
-				} else {
-					/*
-					 * We need to wait for more data.
-					 */
-					return false;
-				}
-			}
-
-			/*
-			 * If the packet is variable-length.
-			 */
-			if (size == -1) {
-				/*
-				 * Check if the size can be read.
-				 */
-				if (in.remaining() >= 1) {
-					/*
-					 * Read the packet size and cache it.
-					 */
-					size = in.get() & 0xFF;
-					session.setAttribute("size", size);
-				} else {
-					/*
-					 * We need to wait for more data.
-					 */
-					return false;
-				}
-			}
-
-			/*
-			 * If the packet payload (data) can be read.
-			 */
-			if (in.remaining() >= size) {
-				/*
-				 * Read it.
-				 */
-				byte[] data = new byte[size];
-				in.get(data);
-				ByteBuffer payload = ByteBuffer.allocate(data.length);
-				payload.put(data);
-				payload.flip();
-
-				/*
-				 * Produce and write the packet object.
-				 */
-				out.write(new Packet(session, opcode, data));
-
-				/*
-				 * Reset the cached opcode and sizes.
-				 */
-				session.setAttribute("opcode", -1);
-				session.setAttribute("size", -1);
-
-				/*
-				 * Indicate we are ready to read another packet.
-				 */
-				return true;
-			}
-
-			/*
-			 * We need to wait for more data.
-			 */
-			return false;
+	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out, GameDecoderState state) {
+		switch (state) {
+			case GAME_OPCODE:
+				decodeOpcode(in, out);
+				break;
+			case GAME_LENGTH:
+				decodeLength(in);
+				break;
+			case GAME_PAYLOAD:
+				decodePayload(in, out);
+				break;
+			default:
+				throw new IllegalStateException("Invalid game decoder state.");
 		}
 	}
 
-	@Override
 	/**
-	 * Releases resources used by this decoder.
-	 * @param session
+	 * Decodes the length state.
+	 *
+	 * @param buffer The buffer.
 	 */
-	public void dispose(IoSession session) throws Exception {
-		super.dispose(session);
+	private void decodeLength(ByteBuf buffer) {
+		if (buffer.isReadable()) {
+			length = buffer.readUnsignedByte();
+			if (length != 0) {
+				setState(GameDecoderState.GAME_PAYLOAD);
+			}
+		}
 	}
 
+	/**
+	 * Decodes the opcode state.
+	 *
+	 * @param buffer The buffer.
+	 * @param out The {@link List} of objects to be passed along the pipeline.
+	 */
+	private void decodeOpcode(ByteBuf buffer, List<Object> out) {
+		if (buffer.isReadable()) {
+			int encryptedOpcode = buffer.readUnsignedByte();
+			opcode = encryptedOpcode - random.nextInt() & 0xFF;
+
+			int s = PACKET_SIZES[opcode];
+
+			switch (s) {
+				default:
+					length = s;
+					if (length == 0) {
+						setState(GameDecoderState.GAME_OPCODE);
+						out.add(new Packet(opcode, Type.FIXED, Unpooled.EMPTY_BUFFER));
+					} else {
+						setState(GameDecoderState.GAME_PAYLOAD);
+					}
+					break;
+				case -1:
+					setState(GameDecoderState.GAME_LENGTH);
+					break;
+//				default:
+//					throw new IllegalStateException("Illegal packet type: " + type + ".");
+			}
+		}
+	}
+
+	/**
+	 * Decodes the payload state.
+	 *
+	 * @param buffer The buffer.
+	 * @param out The {@link List} of objects to be passed along the pipeline.
+	 */
+	private void decodePayload(ByteBuf buffer, List<Object> out) {
+		if (buffer.readableBytes() >= length) {
+			ByteBuf payload = buffer.readBytes(length);
+			setState(GameDecoderState.GAME_OPCODE);
+			out.add(new Packet(opcode, Type.FIXED, payload));
+		}
+	}
 }

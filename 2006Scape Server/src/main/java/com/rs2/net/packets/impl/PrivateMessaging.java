@@ -6,6 +6,7 @@ import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.game.players.antimacro.AntiSpam;
+import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.GameLogger;
 import com.rs2.util.Misc;
@@ -19,12 +20,12 @@ public class PrivateMessaging implements PacketType {
 			CHANGE_PM_STATUS = 95, REMOVE_IGNORE = 59, ADD_IGNORE = 133;
 
 	@Override
-	public void processPacket(Player player, int packetType, int packetSize) {
-		switch (packetType) {
+	public void processPacket(Player player, Packet packet) {
+		switch (packet.getOpcode()) {
 
 		case ADD_FRIEND:
 			player.friendUpdate = true;
-			long friendToAdd = player.getInStream().readQWord();
+			long friendToAdd = packet.readQWord();
 			boolean canAdd = true;
 
 			for (long friend : player.friends) {
@@ -55,13 +56,13 @@ public class PrivateMessaging implements PacketType {
 			break;
 
 		case SEND_PM:
-			long sendMessageToFriendId = player.getInStream().readQWord();
+			long sendMessageToFriendId = packet.readQWord();
 			byte pmchatText[] = new byte[100];
-			int pmchatTextSize = (byte) (packetSize - 8);
-			player.getInStream().readBytes(pmchatText, pmchatTextSize, 0);
-			String word = Misc.textUnpack(pmchatText, player.packetSize - 2).toLowerCase();// used
+			int pmchatTextSize = (byte) (packet.getLength() - 8);
+			packet.readBytes(pmchatText, pmchatTextSize, 0);
+			String word = Misc.textUnpack(pmchatText, packet.getLength() - 2).toLowerCase();// used
 			if (player.getPlayerAssistant().isPlayer()) {
-				GameLogger.writeLog(player.playerName, "pmsent", player.playerName + " said " + Misc.textUnpack(pmchatText, packetSize - 8) + "");
+				GameLogger.writeLog(player.playerName, "pmsent", player.playerName + " said " + Misc.textUnpack(pmchatText, packet.getLength() - 8) + "");
 			}
 			if (!AntiSpam.blockedWords(player, word, false) || Connection.isMuted(player)) {
 				return;
@@ -78,7 +79,7 @@ public class PrivateMessaging implements PacketType {
 									if (friend == sendMessageToFriendId) {
 										o.getPacketSender().sendPM(Misc.playerNameToInt64(player.playerName), player.playerRights, pmchatText, pmchatTextSize);
 										if (player.getPlayerAssistant().isPlayer()) {
-											GameLogger.writeLog(o.playerName, "pmrecieved", player.playerName + " said to " + o.playerName + " " + Misc.textUnpack(pmchatText, packetSize - 8) + "");
+											GameLogger.writeLog(o.playerName, "pmrecieved", player.playerName + " said to " + o.playerName + " " + Misc.textUnpack(pmchatText, packet.getLength() - 8) + "");
 										}
 										pmSent = true;
 									}
@@ -97,7 +98,7 @@ public class PrivateMessaging implements PacketType {
 
 		case REMOVE_FRIEND:
 			player.friendUpdate = true;
-			long friendToRemove = player.getInStream().readQWord();
+			long friendToRemove = packet.readQWord();
 
 			for (int i1 = 0; i1 < player.friends.length; i1++) {
 				if (player.friends[i1] == friendToRemove) {
@@ -118,7 +119,7 @@ public class PrivateMessaging implements PacketType {
 
 		case REMOVE_IGNORE:
 			player.friendUpdate = true;
-			long ignore = player.getInStream().readQWord();
+			long ignore = packet.readQWord();
 
 			for (int i = 0; i < player.ignores.length; i++) {
 				if (player.ignores[i] == ignore) {
@@ -129,7 +130,7 @@ public class PrivateMessaging implements PacketType {
 			break;
 
 		case CHANGE_PM_STATUS:
-			player.privateChat = player.getInStream().readUnsignedByte();
+			player.privateChat = packet.readUnsignedByte();
 			for (int i1 = 1; i1 < PlayerHandler.players.length; i1++) {
 				if (PlayerHandler.players[i1] != null
 						&& PlayerHandler.players[i1].isActive) {
@@ -143,7 +144,7 @@ public class PrivateMessaging implements PacketType {
 
 		case ADD_IGNORE:
 			player.friendUpdate = true;
-			long ignoreAdd = player.getInStream().readQWord();
+			long ignoreAdd = packet.readQWord();
 			for (int i = 0; i < player.ignores.length; i++) {
 				if (player.ignores[i] == 0) {
 					player.ignores[i] = ignoreAdd;
