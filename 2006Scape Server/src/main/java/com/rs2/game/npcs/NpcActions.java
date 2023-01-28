@@ -1,6 +1,7 @@
 package com.rs2.game.npcs;
 
 import com.rs2.GameConstants;
+import com.rs2.game.content.StaticNpcList;
 import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.skills.core.Fishing;
@@ -40,57 +41,53 @@ public class NpcActions {
 			}
 		}
 		switch (npcType) {
-		case 389 : //thormac
-			player.getDialogueHandler().sendDialogues(3574, npcType);
-			break;
-		case 1686 : // Ghost Desciple
-			player.getDialogueHandler().sendDialogues(1390, npcType);
-			break;
-		case 1704 : // Ghost Captain
-		case 1705 : // Ghost Captain
-			player.getDialogueHandler().sendDialogues(1400, npcType);
-			break;
-			
-		case 2324 :
-		case 2323 :
-		case 2326 :
-		case 2325 :
+			case StaticNpcList.THORMAC:
+				player.getDialogueHandler().sendDialogues(3574, npcType);
+				break;
+			case StaticNpcList.GHOST_DISCIPLE:
+				player.getDialogueHandler().sendDialogues(1390, npcType);
+				break;
+			case StaticNpcList.GHOST_CAPTAIN:
+			case StaticNpcList.GHOST_CAPTAIN_1705:
+				player.getDialogueHandler().sendDialogues(1400, npcType);
+				break;
+			case StaticNpcList.ELSTAN:
+			case StaticNpcList.DANTAERA:
+			case StaticNpcList.KRAGEN:
+			case StaticNpcList.LYRA:
+			case StaticNpcList.FRANCIS:
+			case StaticNpcList.GARTH:
+			case StaticNpcList.ELLENA:
+			case StaticNpcList.SELENA:
+			case StaticNpcList.VASQUEN:
+			case StaticNpcList.RHONEN:
+
 		case 2337 :
 		case 2336 :
 		case 2335 :
 		case 2338 :
-		case 2334 :
-		case 2332 :
-		case 2333 :
-		case 2327 :
 		case 2343 :
-		case 2331 :
 		case 2344 :
-		case 2330 :
 		case 2340 :
 		case 2339 :
 		case 2341 :
 		case 2342 :
 			player.getDialogueHandler().sendDialogues(3530, npcType);
 			break;
-		  case 209:
-	        	player.getDialogueHandler().sendDialogues(3500, 209);
-	        break;
-		
-		case 2238:
-			player.getDialogueHandler().sendDialogues(3214, npcType);
-		break;
-
-		case 3156 : // Bill Teach
-		case 3157 : // Bill Teach
-			player.getDialogueHandler().sendDialogues(1410, npcType);
-			break;
-		
-		case 958:
-			player.getDialogueHandler().sendDialogues(3208, npcType);
-		break;
-
-		case 606://squire
+		  	case StaticNpcList.NULODION:
+	        	player.getDialogueHandler().sendDialogues(3500, StaticNpcList.NULODION);
+	        	break;
+			case StaticNpcList.DONIE:
+				player.getDialogueHandler().sendDialogues(3214, npcType);
+				break;
+			case StaticNpcList.BILL_TEACH_3156:
+			case StaticNpcList.BILL_TEACH_3157:
+				player.getDialogueHandler().sendDialogues(1410, npcType);
+				break;
+			case StaticNpcList.FADLI:
+				player.getDialogueHandler().sendDialogues(3208, npcType);
+				break;
+			case StaticNpcList.SQUIRE:
 		if (player.knightS == 0) {
 			player.getDialogueHandler().sendDialogues(610, 606);
 		} else if (player.knightS == 4) {
@@ -126,11 +123,11 @@ public class NpcActions {
 			player.getDialogueHandler().sendDialogues(674, 604);
 		}
 		break;
-		
+
 		case 693: //rang guild shots
 			player.getDialogueHandler().sendDialogues(3201, npcType);
 			break;
-		
+
 		case 694: //rang guild store
 			player.getShopAssistant().openShop(111);
 			break;
@@ -194,7 +191,7 @@ public class NpcActions {
 			break;
 		case 654:
 			player.getDialogueHandler().sendDialogues(3848, npcType);
-			break;		
+			break;
 
 		case 644: //Straven
 			if (player.shieldArrav <= 4) {
@@ -415,10 +412,10 @@ public class NpcActions {
 		case 598:
 			player.getDialogueHandler().sendDialogues(1300, npcType);
 			break;
-				
+
 		case 216:
 			player.getDialogueHandler().sendDialogues(3867, npcType);
-			break;		
+			break;
 
 		case 70:
 		case 1596:
@@ -785,7 +782,7 @@ public class NpcActions {
 				player.getDialogueHandler().sendDialogues(3570, npcType);
 			}
 			break;
-			
+
 		case 2294:
 			player.getDialogueHandler().sendDialogues(3555, npcType);
 			break;
@@ -823,24 +820,24 @@ public class NpcActions {
 		 */
 		case 953:
 		case 166:
-		case 1702: 
-		case 495: 
+		case 1702:
+		case 495:
 		case 496:
 		case 497:
-		case 498: 
-		case 499: 
-		case 567: 
-		case 1036: 
-		case 1360: 
-		case 2163: 
+		case 498:
+		case 499:
+		case 567:
+		case 1036:
+		case 1360:
+		case 2163:
 		case 2164:
-		case 2354: 
-		case 2355: 
-		case 2568: 
-		case 2569: 
-		case 2570: 
-		case 2271: 
-		case 494: 
+		case 2354:
+		case 2355:
+		case 2568:
+		case 2569:
+		case 2570:
+		case 2271:
+		case 494:
 		case 2619:
 			player.getDialogueHandler().sendDialogues(1013, npcType);
 		break;
@@ -864,7 +861,7 @@ public class NpcActions {
 		case 658:
 			Sailing.startTravel(player, 2);
 			break;
-			
+
 		case 2437:
 		case 2438:
 		if (!player.getItemAssistant().playerHasItem(995, 1000)) {
@@ -880,7 +877,7 @@ public class NpcActions {
 			player.nextChat = 0;
 		} else {
 			 if (player.getItemAssistant().playerHasItem(995, 1000)) {
-			//Sailing.startTravel(c, 17);	
+			//Sailing.startTravel(c, 17);
 			player.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
 			player.getItemAssistant().deleteItem(995, 1000);
 			player.getDialogueHandler().sendStatement("You arrive safely.");
@@ -1068,8 +1065,8 @@ public class NpcActions {
 		 /*case 209:
 	        player.getShopAssistant().openShop(144);
 	        break;*/
-	        
-	        
+
+
 		case 2437:
 		case 2438:
 		if (!player.getItemAssistant().playerHasItem(995, 1000)) {
@@ -1084,7 +1081,7 @@ public class NpcActions {
 			player.nextChat = 0;
 		} else {
 			 if (player.getItemAssistant().playerHasItem(995, 1000)) {
-				//Sailing.startTravel(c, 17);	
+				//Sailing.startTravel(c, 17);
 				player.getPlayerAssistant().startTeleport(2620, 3686, 0, "modern");
 				player.getItemAssistant().deleteItem(995, 1000);
 				player.getDialogueHandler().sendStatement("You arrive safely.");
@@ -1168,24 +1165,24 @@ public class NpcActions {
 			 */
 			case 953:
 			case 166:
-			case 1702: 
-			case 495: 
+			case 1702:
+			case 495:
 			case 496:
 			case 497:
-			case 498: 
-			case 499: 
-			case 567: 
-			case 1036: 
-			case 1360: 
-			case 2163: 
+			case 498:
+			case 499:
+			case 567:
+			case 1036:
+			case 1360:
+			case 2163:
 			case 2164:
-			case 2354: 
-			case 2355: 
-			case 2568: 
-			case 2569: 
-			case 2570: 
-			case 2271: 
-			case 494: 
+			case 2354:
+			case 2355:
+			case 2568:
+			case 2569:
+			case 2570:
+			case 2271:
+			case 494:
 			case 2619:
 				player.getPacketSender().openUpBank();
 			break;
@@ -1204,14 +1201,14 @@ public class NpcActions {
 			}
 		}
 		switch (npcType) {
-		
+
 		/**
 		 * Banker
 		 */
 		case 3824:
 			player.getPacketSender().openUpBank();
 		break;
-		
+
 		case 958:
 			player.getShopAssistant().openShop(143);
 		break;
@@ -1219,7 +1216,7 @@ public class NpcActions {
 		case 1526:
 			player.getShopAssistant().openShop(ShopAssistant.CASTLE_SHOP);
 		break;
-		
+
 		case 70:
 		case 1596:
 		case 1597:
