@@ -4672,7 +4672,10 @@ public class Game extends RSApplet {
 			mouseDetection.running = false;
 		}
 		mouseDetection = null;
-		onDemandFetcher.disable();
+		if (onDemandFetcher != null) {
+			// prevent an exception if the client hasn't connected but tries to close the client, so it will actually close
+			onDemandFetcher.disable();
+		}
 		onDemandFetcher = null;
 		aStream_834 = null;
 		stream = null;

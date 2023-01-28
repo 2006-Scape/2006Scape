@@ -2,22 +2,15 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.applet.Applet;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
+import java.awt.font.TextAttribute;
+import java.net.URI;
+import java.util.Map;
 
 @SuppressWarnings("serial")
-public class RSApplet extends Applet implements Runnable, MouseListener, MouseWheelListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+public class RSApplet extends JApplet implements Runnable, MouseListener, MouseWheelListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
 	public static boolean ctrlDown = false;
 	public static boolean shiftDown = false;
@@ -33,7 +26,204 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 		gameFrame = new RSFrame(this);
 		graphics = getGameComponent().getGraphics();
 		fullGameScreen = new RSImageProducer(myWidth, myHeight, getGameComponent());
+
+		if (ClientSettings.SHOW_NAVBAR) {
+			try {
+				java.awt.Font arial = new java.awt.Font("Arial", java.awt.Font.PLAIN, 11);
+				Map attributes = arial.getAttributes();
+				attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+
+				JLayeredPane layers = new JLayeredPane();
+				layers.setPreferredSize(new Dimension(765, 25));
+
+				ImageIcon backgroundImg = new ImageIcon(this.getClass().getResource("navbar.gif"));
+				ImageIcon menuImg = new ImageIcon(this.getClass().getResource("navbar_mainmenu.gif"));
+				ImageIcon companyImg = new ImageIcon(this.getClass().getResource("navbar_jagex.gif"));
+				ImageIcon worldmapImg = new ImageIcon(this.getClass().getResource("navbar_worldmap.gif"));
+				ImageIcon manualImg = new ImageIcon(this.getClass().getResource("navbar_manual.gif"));
+				ImageIcon rulesImg = new ImageIcon(this.getClass().getResource("navbar_rules.gif"));
+
+				// set up containers
+				JLabel background = new JLabel(backgroundImg);
+				background.setBounds(0, 0, backgroundImg.getIconWidth(), backgroundImg.getIconHeight());
+
+				JLabel company = new JLabel(companyImg);
+				company.setBounds(5, 0, companyImg.getIconWidth(), companyImg.getIconHeight());
+
+				JLabel mainMenu = new JLabel(menuImg);
+				mainMenu.setBounds(126, 0, menuImg.getIconWidth(), menuImg.getIconHeight());
+				mainMenu.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+						try {
+							Desktop.getDesktop().browse(URI.create("https://2006scape.org/"));
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				});
+				JLabel mainMenuText = new JLabel();
+				mainMenuText.setForeground(Color.WHITE);
+				mainMenuText.setFont(arial.deriveFont(attributes));
+				mainMenuText.setBounds(126 + menuImg.getIconWidth() + 4, 0, 75, 25);
+				mainMenuText.setText("Main Menu");
+				mainMenuText.addMouseListener(mainMenu.getMouseListeners()[0]);
+				mainMenuText.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						mainMenuText.setForeground(Color.LIGHT_GRAY);
+						mainMenuText.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						mainMenuText.setForeground(Color.WHITE);
+						mainMenuText.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					}
+				});
+
+				JLabel worldSelect = new JLabel(menuImg);
+				worldSelect.setBounds(250, 0, menuImg.getIconWidth(), menuImg.getIconHeight());
+				worldSelect.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+						// TODO: world select popup? redirect to launcher?
+					}
+				});
+				JLabel worldSelectText = new JLabel();
+				worldSelectText.setForeground(Color.WHITE);
+				worldSelectText.setFont(arial.deriveFont(attributes));
+				worldSelectText.setBounds(250 + menuImg.getIconWidth() + 4, 0, 75, 25);
+				worldSelectText.setText("World Select");
+				worldSelectText.addMouseListener(worldSelect.getMouseListeners()[0]);
+				worldSelectText.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						worldSelectText.setForeground(Color.LIGHT_GRAY);
+						worldSelectText.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						worldSelectText.setForeground(Color.WHITE);
+						worldSelectText.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					}
+				});
+
+				JLabel worldmap = new JLabel(worldmapImg);
+				worldmap.setBounds(387, 0, worldmapImg.getIconWidth(), worldmapImg.getIconHeight());
+				worldmap.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+						try {
+							Desktop.getDesktop().browse(URI.create("https://2006scape.org/img/worldmap.jpg"));
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				});
+				JLabel worldmapText = new JLabel();
+				worldmapText.setForeground(Color.WHITE);
+				worldmapText.setFont(arial.deriveFont(attributes));
+				worldmapText.setBounds(387 + worldmapImg.getIconWidth() + 4, 0, 75, 25);
+				worldmapText.setText("World Map");
+				worldmapText.addMouseListener(worldmap.getMouseListeners()[0]);
+				worldmapText.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						worldmapText.setForeground(Color.LIGHT_GRAY);
+						worldmapText.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						worldmapText.setForeground(Color.WHITE);
+						worldmapText.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					}
+				});
+
+				JLabel manual = new JLabel(manualImg);
+				manual.setBounds(520, 0, manualImg.getIconWidth(), manualImg.getIconHeight());
+				manual.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+						try {
+							Desktop.getDesktop().browse(URI.create("https://2006scape.org/"));
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				});
+				JLabel manualText = new JLabel();
+				manualText.setForeground(Color.WHITE);
+				manualText.setFont(arial.deriveFont(attributes));
+				manualText.setBounds(520 + manualImg.getIconWidth() + 4, 0, 50, 25);
+				manualText.setText("Manual");
+				manualText.addMouseListener(manual.getMouseListeners()[0]);
+				manualText.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						manualText.setForeground(Color.LIGHT_GRAY);
+						manualText.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						manualText.setForeground(Color.WHITE);
+						manualText.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					}
+				});
+
+				JLabel rules = new JLabel(rulesImg);
+				rules.setBounds(636, 0, rulesImg.getIconWidth(), rulesImg.getIconHeight());
+				rules.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+						try {
+							Desktop.getDesktop().browse(URI.create("https://2006scape.org/kbase/rules.php"));
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
+				});
+				JLabel rulesText = new JLabel();
+				rulesText.setForeground(Color.WHITE);
+				rulesText.setFont(arial.deriveFont(attributes));
+				rulesText.setBounds(636 + rulesImg.getIconWidth() + 4, 0, 100, 25);
+				rulesText.setText("Rules & Security");
+				rulesText.addMouseListener(rules.getMouseListeners()[0]);
+				rulesText.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						rulesText.setForeground(Color.LIGHT_GRAY);
+						rulesText.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						rulesText.setForeground(Color.WHITE);
+						rulesText.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					}
+				});
+
+				// layer images
+				layers.add(background, 0);
+				layers.add(company, 0);
+				layers.add(mainMenu, 0);
+				layers.add(mainMenuText, 0);
+				layers.add(worldSelect, 0);
+				layers.add(worldSelectText, 0);
+				layers.add(worldmap, 0);
+				layers.add(worldmapText, 0);
+				layers.add(manual, 0);
+				layers.add(manualText, 0);
+				layers.add(rules, 0);
+				layers.add(rulesText, 0);
+				gameFrame.add(layers, BorderLayout.NORTH);
+				gameFrame.pack();
+				gameFrame.setLocationRelativeTo(null); // re-center based on the new size
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
 		startRunnable(this, 1);
+		this.requestFocus();
 	}
 
 	final void initClientFrame(int i, int j) {
@@ -184,7 +374,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	public final void destroy() {
 		anInt4 = -1;
 		try {
-			Thread.sleep(5000L);
+			Thread.sleep(1000L);
 		} catch (Exception _ex) {
 		}
 		if (anInt4 == -1) {
