@@ -55,7 +55,7 @@ public class RSApplet extends JApplet implements Runnable, MouseListener, MouseW
 				mainMenu.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
 						try {
-							Desktop.getDesktop().browse(URI.create("https://2006scape.org/"));
+							Desktop.getDesktop().browse(URI.create(ClientSettings.NAV_MAINMENU_LINK));
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}
@@ -113,7 +113,7 @@ public class RSApplet extends JApplet implements Runnable, MouseListener, MouseW
 				worldmap.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
 						try {
-							Desktop.getDesktop().browse(URI.create("https://2006scape.org/img/worldmap.jpg"));
+							Desktop.getDesktop().browse(URI.create(ClientSettings.NAV_WORLDMAP_LINK));
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}
@@ -144,7 +144,7 @@ public class RSApplet extends JApplet implements Runnable, MouseListener, MouseW
 				manual.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
 						try {
-							Desktop.getDesktop().browse(URI.create("https://2006scape.org/"));
+							Desktop.getDesktop().browse(URI.create(ClientSettings.NAV_MANUAL_LINK));
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}
@@ -175,7 +175,7 @@ public class RSApplet extends JApplet implements Runnable, MouseListener, MouseW
 				rules.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent e) {
 						try {
-							Desktop.getDesktop().browse(URI.create("https://2006scape.org/kbase/rules.php"));
+							Desktop.getDesktop().browse(URI.create(ClientSettings.NAV_RULES_LINK));
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}
