@@ -233,16 +233,13 @@ public class NpcActions {
             case ROAVAR:
                 player.getDialogueHandler().sendDialogues(3167, npcType);
                 break;
-
-            case 735:
+            case BARTENDER_735:
                 player.getDialogueHandler().sendDialogues(3167, npcType);
                 break;
-
-            case 36:
+            case WYSON_THE_GARDENER:
                 player.getDialogueHandler().sendDialogues(3158, npcType);
                 break;
-
-            case 844:
+            case WIZARD_CROMPERTY:
                 if (player.runeMist < 4 && player.playerRights <= 1) {
                     player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
                     player.nextChat = 0;
@@ -250,21 +247,19 @@ public class NpcActions {
                 }
                 player.getDialogueHandler().sendDialogues(3144, npcType);
                 break;
-
-            case 798:
+            case VELRAK_THE_EXPLORER:
                 player.getDialogueHandler().sendDialogues(3133, npcType);
                 break;
-
-            case 736:
-            case 3217:
-            case 3218:
+            case EMILY:
+            case KAYLEE:
+            case TINA:
                 player.getDialogueHandler().sendDialogues(3118, npcType);
                 break;
 
             /*
              * tutorial island
              */
-            case 945:
+            case RUNESCAPE_GUIDE:
                 if (player.tutorialProgress == 0) {
                     player.getDialogueHandler().sendDialogues(3001, npcType);
                 }
@@ -275,8 +270,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendNpcChat1("You should move on now.", npcType, "Runescape Guide");
                 }
                 break;
-
-            case 943:// survival
+            case SURVIVAL_EXPERT:
                 if (player.tutorialProgress == 2) {
                     player.getDialogueHandler().sendDialogues(3012, npcType);
                 }
@@ -284,14 +278,12 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(3017, npcType);
                 }
                 break;
-
-            case 942: // master chef
+            case MASTER_CHEF:
                 if (player.tutorialProgress == 7) {
                     player.getDialogueHandler().sendDialogues(3021, npcType);
                 }
                 break;
-
-            case 949: // quest guide
+            case QUEST_GUIDE:
                 if (player.tutorialProgress == 12) {
                     player.getDialogueHandler().sendDialogues(3043, npcType);
                 }
@@ -299,7 +291,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(3045, npcType);
                 }
                 break;
-            case 948: // mining tutor
+            case MINING_INSTRUCTOR:
                 if (player.tutorialProgress == 14) {
                     player.getDialogueHandler().sendDialogues(3052, npcType);
                 }
@@ -310,7 +302,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(3063, npcType);
                 }
                 break;
-            case 944: // Combat deud
+            case COMBAT_INSTRUCTOR:
                 if (player.tutorialProgress == 21) {
                     player.getDialogueHandler().sendDialogues(3067, npcType);
                 } else if (player.tutorialProgress == 23
@@ -334,15 +326,13 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(3074, npcType);
                 }
                 break;
-
-            case 947: // fiancial dude
+            case FINANCIAL_ADVISOR:
                 if (player.tutorialProgress == 27) {
                     player.getDialogueHandler().sendDialogues(3079, npcType);
                 }
                 // c.getPacketDispatcher().createArrow(1, 7);
                 break;
-
-            case 954: // prayer dude
+            case BROTHER_BRACE:
                 if (player.tutorialProgress == 28) {
                     player.getDialogueHandler().sendDialogues(3089, npcType);
                 }
@@ -353,7 +343,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(3097, npcType);
                 }
                 break;
-            case 946:// mage
+            case MAGIC_INSTRUCTOR:
                 if (player.tutorialProgress == 32) {
                     player.getDialogueHandler().sendDialogues(3105, npcType);
                 }
@@ -367,58 +357,47 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(3112, npcType);
                 }
                 break;
-
-            case 922:
+            case AGGIE:
                 player.getDialogueHandler().sendDialogues(1312, npcType);
                 break;
-
-            case 805:
+            case MASTER_CRAFTER:
                 player.getDialogueHandler().sendDialogues(1317, npcType);
                 break;
-
-            case 519:
+            case BOB:
                 player.getDialogueHandler().sendDialogues(15, npcType); // barrows fix
                 // barrows
                 break;
-
-            case 598:
+            case HAIRDRESSER:
                 player.getDialogueHandler().sendDialogues(1300, npcType);
                 break;
-
-            case 216:
+            case HIGH_PRIEST:
                 player.getDialogueHandler().sendDialogues(3867, npcType);
                 break;
-
-            case 70:
-            case 1596:
-            case 1597:
-            case 1598:
-            case 1599:
+            case TURAEL:
+            case MAZCHNA:
+            case VANNAKA:
+            case CHAELDAR:
+            case DURADEL:
                 player.getDialogueHandler().sendDialogues(1228, npcType);
                 player.SlayerMaster = npcType;
                 break;
-
-            case 1595:
+            case SANIBOCH:
                 player.getDialogueHandler().sendDialogues(1036, npcType);
                 break;
-
-            case 170:
+            case GNOME_PILOT:
                 player.getDialogueHandler().sendDialogues(591, npcType);
                 break;
-
-            case 925:
-            case 926:
+            case BORDER_GUARD:
+            case BORDER_GUARD_926:
                 player.getDialogueHandler().sendDialogues(1018, npcType);
                 break;
-
-            case 2728:
-            case 2729:
+            case MONK_OF_ENTRANA_2728:
+            case MONK_OF_ENTRANA_2729:
                 player.getDialogueHandler().sendDialogues(1011, npcType);
                 break;
-
-            case 376:
-            case 377:
-            case 378:
+            case CAPTAIN_TOBIAS:
+            case SEAMAN_LORRIS:
+            case SEAMAN_THRESNOR:
                 if (player.getItemAssistant().playerHasItem(995, 30)) {
                     player.getDialogueHandler().sendDialogues(33, npcType);
                 } else {
@@ -426,8 +405,7 @@ public class NpcActions {
                             "You need 30 coins to travel on this ship.");
                 }
                 break;
-
-            case 380:
+            case CUSTOMS_OFFICER:
                 if (player.getItemAssistant().playerHasItem(995, 30)) {
                     player.getDialogueHandler().sendDialogues(584, npcType);
                 } else {
@@ -439,8 +417,7 @@ public class NpcActions {
             /**
              * Start of Quests
              */
-
-            case 557:
+            case WYDIN:
                 if (player.ptjob == 0) {
                     player.getDialogueHandler().sendDialogues(37, npcType);
                 } else if (player.ptjob == 1) {
@@ -449,8 +426,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(1000, npcType);
                 }
                 break;
-
-            case 375:
+            case REDBEARD_FRANK:
                 if (player.pirateTreasure == 0) {
                     player.getDialogueHandler().sendDialogues(554, npcType);
                 } else if (player.pirateTreasure == 1) {
@@ -465,8 +441,7 @@ public class NpcActions {
                             "Arr! Thanks for me helping me.");
                 }
                 break;
-
-            case 307:
+            case HETTY:
                 if (player.witchspot == 0) {
                     player.getDialogueHandler().sendDialogues(532, npcType);
                 } else if (player.witchspot == 1) {
@@ -479,8 +454,7 @@ public class NpcActions {
                             player.talkingNpc, "Hetty");
                 }
                 break;
-
-            case 755:// morgan
+            case MORGAN:
                 if (player.vampSlayer == 3) {
                     player.getDialogueHandler().sendDialogues(531, npcType);
                 } else if (player.vampSlayer == 4) {
@@ -489,8 +463,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(476, npcType);
                 }
                 break;
-
-            case 743:// ned
+            case NED:
                 if (player.vampSlayer == 0) {
                     player.getDialogueHandler().sendDialogues(211, npcType);
                 } else if (player.vampSlayer == 1) {
@@ -499,8 +472,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(1337, npcType);
                 }
                 break;
-
-            case 756:// harlow
+            case DR_HARLOW:
                 if (player.vampSlayer == 1) {
                     player.getDialogueHandler().sendDialogues(498, npcType);
                 } else if (player.vampSlayer == 2) {
@@ -511,26 +483,22 @@ public class NpcActions {
                     player.getDialogueHandler().sendStatement("I'm not on this step yet.");
                 }
                 break;
-
-            case 456:
+            case FATHER_AERECK:
                 if (player.restGhost == 0) {
                     player.getDialogueHandler().sendDialogues(338, 456);
                 }
                 break;
-
-            case 457:
+            case RESTLESS_GHOST:
                 if (player.restGhost == 2) {
                     player.getDialogueHandler().sendDialogues(371, npcType);
                 }
                 break;
-
-            case 458:
+            case FATHER_URHNEY:
                 if (player.restGhost == 1) {
                     player.getDialogueHandler().sendDialogues(352, npcType);
                 }
                 break;
-
-            case 759:
+            case GERTRUDES_CAT:
                 if (player.getItemAssistant().playerHasItem(1927, 1) && player.gertCat == 2) {
                     player.getDialogueHandler().sendDialogues(319, npcType);
                     player.getItemAssistant().deleteItem(1927, 1);
@@ -555,8 +523,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendStatement("Fluffs hisses but clearly wants something - maybe she is thirsty?");
                 }
                 break;
-
-            case 780:
+            case GERTRUDE:
                 if (player.playerLevel[GameConstants.FISHING] < 4) {
                     player.getDialogueHandler().sendStatement(
                             "You don't have the requirements to do this quest.");
@@ -573,16 +540,14 @@ public class NpcActions {
                             .sendStatement("She has nothing to say to you.");
                 }
                 break;
-
-            case 783:
+            case WILOUGH:
                 if (player.gertCat == 1) {
                     player.getDialogueHandler().sendDialogues(286, npcType);
                 } else if (player.gertCat == 2) {
                     player.getDialogueHandler().sendDialogues(314, npcType);
                 }
                 break;
-
-            case 639:
+            case ROMEO:
                 if (player.romeojuliet == 0) {
                     player.getDialogueHandler().sendDialogues(389, npcType);
                 } else if (player.romeojuliet == 1) {
@@ -609,8 +574,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(421, npcType);
                 }
                 break;
-
-            case 276:
+            case WINELDA:
                 if (player.romeojuliet == 5) {
                     player.getDialogueHandler().sendDialogues(432, npcType);
                 }
@@ -625,8 +589,7 @@ public class NpcActions {
                     }
                 }
                 break;
-
-            case 637:
+            case JULIET:
                 if (player.romeojuliet == 0) {
                     player.getDialogueHandler().sendDialogues(409, npcType);
                 } else if (player.romeojuliet == 1) {
@@ -639,20 +602,17 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(468, npcType);
                 }
                 break;
-
-            case 741:
+            case DUKE_HORACIO:
                 player.getDialogueHandler().sendDialogues(190, npcType);
                 break;
-
-            case 553:
+            case AUBURY:
                 if (player.runeMist == 2) {
                     player.getDialogueHandler().sendDialogues(229, npcType);
                 } else if (player.runeMist == 3) {
                     player.getDialogueHandler().sendDialogues(237, npcType);
                 }
                 break;
-
-            case 300:
+            case SEDRIDOR:
                 if (player.runeMist == 1) {
                     player.getDialogueHandler().sendDialogues(201, npcType);
                 } else if (player.runeMist == 2) {
@@ -664,8 +624,7 @@ public class NpcActions {
                             "He has nothing to say to you.");
                 }
                 break;
-
-            case 284:
+            case DORIC:
                 if (player.doricQuest == 0) {
                     player.getDialogueHandler().sendDialogues(89, npcType);
                 } else if (player.doricQuest == 1) {
@@ -676,8 +635,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(100, npcType);
                 }
                 break;
-
-            case 706:
+            case WIZARD_MIZGOG:
                 if (player.impsC == 0) {
                     player.getDialogueHandler().sendDialogues(145, npcType);
                 } else if (player.impsC == 1) {
@@ -692,8 +650,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(157, npcType);
                 }
                 break;
-
-            case 278:
+            case COOK:
                 if (player.cookAss == 0) {
                     player.getDialogueHandler().sendDialogues(50, npcType);
                 } else if (player.cookAss == 1) {
@@ -704,8 +661,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(76, npcType);
                 }
                 break;
-
-            case 608:
+            case SIR_AMIK_VARZE:
                 if (player.blackKnight == 0 && player.questPoints >= 12) {
                     player.getDialogueHandler().sendDialogues(3902, npcType);
                 } else if (player.blackKnight == 1) {
@@ -717,8 +673,7 @@ public class NpcActions {
                             "He has nothing to say to you.");
                 }
                 break;
-
-            case 758:
+            case FRED_THE_FARMER:
                 if (player.sheepShear == 0) {
                     player.getDialogueHandler().sendDialogues(164, npcType);
                 } else if (player.sheepShear == 1) {
@@ -728,9 +683,8 @@ public class NpcActions {
                             "He has nothing to say to you.");
                 }
                 break;
-
-            case 379:
-                if (player.bananas == 0 || player.luthas == false) {
+            case LUTHAS:
+                if (player.bananas == 0 || !player.luthas) {
                     player.getDialogueHandler().sendDialogues(8, npcType);
                 } else if (player.bananas > 0) {
                     player.getDialogueHandler().sendDialogues(4, npcType);
@@ -742,100 +696,84 @@ public class NpcActions {
                     player.bananas = 0;
                 }
                 break;
-
             /**
              * End of Quests
              */
-
-            case 2293:
+            case RUG_MERCHANT_2293:
                 if (player.absY >= 2939 && player.absY <= 2945) {
                     player.getDialogueHandler().sendDialogues(3565, npcType);
                 } else {
                     player.getDialogueHandler().sendDialogues(3570, npcType);
                 }
                 break;
-
-            case 2294:
+            case RUG_MERCHANT_2294:
                 player.getDialogueHandler().sendDialogues(3555, npcType);
                 break;
-
-            case 2296:
+            case RUG_MERCHANT_2296:
                 player.getDialogueHandler().sendDialogues(3559, npcType);
                 break;
-
-            case 659:
+            case PARTY_PETE:
                 player.getDialogueHandler().sendDialogues(18, npcType);
                 break;
-
-            case 2244:
+            case LUMBRIDGE_GUIDE:
                 player.getDialogueHandler().sendDialogues(14, npcType);
                 break;
-
-            case 641:
+            case TRAMP_641:
                 player.getDialogueHandler().sendDialogues(11, npcType);
                 break;
-
-            case 2458:
+            case FREAKY_FORESTER:
                 player.getDialogueHandler().sendDialogues(2, npcType);
                 break;
-
-            case 731:
+            case BARTENDER:
                 player.getDialogueHandler().sendDialogues(19, npcType);
                 break;
-
-            case 732:
+            case BARTENDER_732:
                 player.getDialogueHandler().sendDialogues(3150, npcType);
                 break;
 
             /**
              * Bankers
              */
-            case 953:
-            case 166:
-            case 1702:
-            case 495:
-            case 496:
-            case 497:
-            case 498:
-            case 499:
-            case 567:
-            case 1036:
-            case 1360:
-            case 2163:
-            case 2164:
-            case 2354:
-            case 2355:
-            case 2568:
-            case 2569:
-            case 2570:
-            case 2271:
-            case 494:
-            case 2619:
+            case GNOME_BANKER:
+            case BANKER:
+            case BANKER_495:
+            case BANKER_496:
+            case BANKER_497:
+            case BANKER_498:
+            case BANKER_499:
+            case FAIRY_567:
+            case BANKER_953:
+            case BANKER_1036:
+            case BANKER_1360:
+            case GHOST_BANKER:
+            case BANKER_2163:
+            case BANKER_2164:
+            case EMERALD_BENEDICT:
+            case BANKER_2354:
+            case BANKER_2355:
+            case BANKER_2568:
+            case BANKER_2569:
+            case BANKER_2570:
+            case TZHAARKETZUH:
                 player.getDialogueHandler().sendDialogues(1013, npcType);
                 break;
-
-            case 1152:
+            case WEIRD_OLD_MAN:
                 player.getDialogueHandler().sendDialogues(16, npcType);
                 break;
-
-            case 905:
+            case KOLODION:
                 player.getDialogueHandler().sendDialogues(5, npcType);
                 break;
-
-            case 460:
+            case WIZARD_FRUMSCONE:
                 player.getDialogueHandler().sendDialogues(3, npcType);
                 break;
-
-            case 462:
+            case WIZARD_DISTENTOR:
                 player.getDialogueHandler().sendDialogues(3149, npcType);
                 break;
-
-            case 658:
+            case MONK_OF_ENTRANA_658:
                 Sailing.startTravel(player, 2);
                 break;
-
-            case 2437:
-            case 2438:
+            case JARVALD_2437:
+            case JARVALD_2438:
                 if (!player.getItemAssistant().playerHasItem(995, 1000)) {
                     player.getDialogueHandler().sendStatement("You need 1000 coins to go here!");
                     player.nextChat = 0;
@@ -857,25 +795,21 @@ public class NpcActions {
                     }
                 }
                 break;
-
-            case 381:
+            case CAPTAIN_BARNABY:
                 if (player.absY > 3230 && player.absY < 3236) {
                     Sailing.startTravel(player, 8);
                 } else {
                     Sailing.startTravel(player, 7);
                 }
                 break;
-
-            case 804:
-            case 1041:
+            case TANNER:
+            case SBOTT:
                 Tanning.sendTanningInterface(player);
                 break;
-
-            case 657:
+            case MONK_OF_ENTRANA:
                 Sailing.startTravel(player, 1);
                 break;
-
-            case 8689:
+            case 8689: //TODO Apparently Doesn't Exist But Spawns Banker In-Game
                 if (System.currentTimeMillis() - player.buryDelay > 1500) {
                     if (player.getItemAssistant().playerHasItem(1925, 1)) {
                         player.turnPlayerTo(player.objectX, player.objectY);
@@ -889,12 +823,10 @@ public class NpcActions {
                     }
                 }
                 break;
-
-            case 3789:
+            case VOID_KNIGHT_3789:
                 player.getPacketSender().sendMessage(
-                        new StringBuilder().append("You currently have ")
-                                .append(player.pcPoints).append(" pest control points.")
-                                .toString());
+                        "You currently have " +
+                                player.pcPoints + " pest control points.");
                 break;
 
             /* Shops */
@@ -1030,17 +962,14 @@ public class NpcActions {
             }
         }
         switch (npcType) {
-            case 3021:
+            case TOOL_LEPRECHAUN:
                 player.getFarmingTools().loadInterfaces();
                 break;
-			
 		 /*case 209:
 	        player.getShopAssistant().openShop(144);
 	        break;*/
-
-
-            case 2437:
-            case 2438:
+            case JARVALD_2437:
+            case JARVALD_2438:
                 if (!player.getItemAssistant().playerHasItem(995, 1000)) {
                     player.getDialogueHandler().sendStatement("You need 1000 coins to go here!");
                     return;
@@ -1061,9 +990,8 @@ public class NpcActions {
                     }
                 }
                 break;
-
-            case 537:
-            case 536:
+            case VALAINE:
+            case SCAVVO:
                 int requiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
                 if (player.questPoints >= requiredQP) {
                     player.getShopAssistant().openShop(npcType);
@@ -1071,8 +999,9 @@ public class NpcActions {
                     player.getPacketSender().sendMessage("You need " + requiredQP + " quest points to open this shop.");
                 }
                 break;
-
-            case 300:
+            case SEDRIDOR:
+            case WIZARD_DISTENTOR:
+            case WIZARD_CROMPERTY:
                 if (player.runeMist < 4 && player.playerRights <= 1) {
                     player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
                     player.nextChat = 0;
@@ -1080,17 +1009,14 @@ public class NpcActions {
                 }
                 player.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
                 break;
-
-            case 557:
+            case WYDIN:
                 player.getShopAssistant().openShop(34);
                 break;
-
-            case 804:
-            case 1041:
+            case TANNER:
+            case SBOTT:
                 Tanning.sendTanningInterface(player);
                 break;
-
-            case 2270:
+            case MARTIN_THWAIT:
                 if (player.playerLevel[GameConstants.THIEVING] > 98) {
                     player.getShopAssistant().openShop(118);
                 } else if (player.playerLevel[GameConstants.THIEVING] > 49
@@ -1101,8 +1027,7 @@ public class NpcActions {
                             "You don't have the required skills to open this shop");
                 }
                 break;
-
-            case 1042:
+            case ROAVAR:
                 if (player.getItemAssistant().playerHasItem(995, 5)) {
                     player.getItemAssistant().addItem(2955, 1);
                     player.getItemAssistant().deleteItem(995, 5);
@@ -1113,49 +1038,37 @@ public class NpcActions {
                     player.nextChat = 0;
                 }
                 break;
-
-            case 844:
-            case 462:
-                if (player.runeMist < 4 && player.playerRights <= 1) {
-                    player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
-                    player.nextChat = 0;
-                    return;
-                }
-                player.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
-                break;
-
-            case 519:
+            case BOB:
                 player.getShopAssistant().openShop(8);
                 break;
-
-            case 1595:
+            case SANIBOCH:
                 player.getDialogueHandler().sendDialogues(1053, npcType);
                 break;
 
             /**
              * Bankers
              */
-            case 953:
-            case 166:
-            case 1702:
-            case 495:
-            case 496:
-            case 497:
-            case 498:
-            case 499:
-            case 567:
-            case 1036:
-            case 1360:
-            case 2163:
-            case 2164:
-            case 2354:
-            case 2355:
-            case 2568:
-            case 2569:
-            case 2570:
-            case 2271:
-            case 494:
-            case 2619:
+            case GNOME_BANKER:
+            case BANKER:
+            case BANKER_495:
+            case BANKER_496:
+            case BANKER_497:
+            case BANKER_498:
+            case BANKER_499:
+            case FAIRY_567:
+            case BANKER_953:
+            case BANKER_1036:
+            case BANKER_1360:
+            case GHOST_BANKER:
+            case BANKER_2163:
+            case BANKER_2164:
+            case EMERALD_BENEDICT:
+            case BANKER_2354:
+            case BANKER_2355:
+            case BANKER_2568:
+            case BANKER_2569:
+            case BANKER_2570:
+            case TZHAARKETZUH:
                 player.getPacketSender().openUpBank();
                 break;
         }
@@ -1177,27 +1090,23 @@ public class NpcActions {
             /**
              * Banker
              */
-            case 3824:
+            case ARNOLD_LYDSPOR:
                 player.getPacketSender().openUpBank();
                 break;
-
-            case 958:
+            case FADLI:
                 player.getShopAssistant().openShop(143);
                 break;
-
-            case 1526:
+            case LANTHUS:
                 player.getShopAssistant().openShop(ShopAssistant.CASTLE_SHOP);
                 break;
-
-            case 70:
-            case 1596:
-            case 1597:
-            case 1598:
-            case 1599:
+            case TURAEL:
+            case MAZCHNA:
+            case VANNAKA:
+            case CHAELDAR:
+            case DURADEL:
                 player.getShopAssistant().openShop(109);
                 break;
-
-            case 836:
+            case SHANTAY:
                 if (player.getItemAssistant().playerHasItem(995, 5)) {
                     player.getPacketSender().sendMessage(
                             "You buy a shantay pass quickly.");
@@ -1208,7 +1117,7 @@ public class NpcActions {
                             "You need 5 coins to buy a pass.");
                 }
                 break;
-            case 553:
+            case AUBURY:
                 if (player.runeMist < 4 && player.playerRights <= 1) {
                     player.getDialogueHandler().sendStatement("You need to beat rune mysteries first to do this.");
                     return;
@@ -1216,18 +1125,16 @@ public class NpcActions {
                 String type = player.playerMagicBook == 0 ? "modern" : "ancient";
                 player.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
                 break;
-
-            case 2258:
+            case MAGE_OF_ZAMORAK:
                 if (player.playerLevel[GameConstants.RUNECRAFTING] < 35) {
                     player.getPacketSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
                     return;
                 }
                 player.getPlayerAssistant().spellTeleport(3027, 4852, 0);
                 break;
-
-            case 3103: // Mage arena point shop
+            case REWARDS_GUARDIAN:
                 player.getMageTrainingArena().openShop();
-
+                break;
             default:
                 if (player.playerRights == 3) {
                     Misc.println("Third Click NPC : " + npcType);
