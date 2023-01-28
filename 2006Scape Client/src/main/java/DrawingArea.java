@@ -16,7 +16,11 @@ public class DrawingArea extends NodeSub {
 		topY = 0;
 		bottomX = width;
 		bottomY = height;
-		centerX = bottomX - 1;
+		if (ClientSettings.FULL_512PX_VIEWPORT) {
+			centerX = bottomX;
+		} else {
+			centerX = bottomX - 1;
+		}
 		centerY = bottomX / 2;
 	}
 
@@ -37,7 +41,11 @@ public class DrawingArea extends NodeSub {
 		topY = l;
 		bottomX = k;
 		bottomY = i;
-		centerX = bottomX - 1;
+		if (ClientSettings.FULL_512PX_VIEWPORT) {
+			centerX = bottomX;
+		} else {
+			centerX = bottomX - 1;
+		}
 		centerY = bottomX / 2;
 		anInt1387 = bottomY / 2;
 	}
