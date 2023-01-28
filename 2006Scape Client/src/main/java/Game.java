@@ -4813,9 +4813,6 @@ public class Game extends RSApplet {
 	Component getGameComponent() {
 		if (Signlink.mainapp != null) {
 			return Signlink.mainapp;
-		}
-		if (super.gameFrame != null) {
-			return super.gameFrame;
 		} else {
 			return this;
 		}
