@@ -13,6 +13,8 @@ import com.rs2.game.shops.ShopAssistant;
 import com.rs2.game.shops.Shops;
 import com.rs2.util.Misc;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 public class NpcActions {
 
     private final Player player;
@@ -39,53 +41,52 @@ public class NpcActions {
             }
         }
         switch (npcType) {
-            case StaticNpcList.THORMAC:
+            case THORMAC:
                 player.getDialogueHandler().sendDialogues(3574, npcType);
                 break;
-            case StaticNpcList.GHOST_DISCIPLE:
+            case GHOST_DISCIPLE:
                 player.getDialogueHandler().sendDialogues(1390, npcType);
                 break;
-            case StaticNpcList.GHOST_CAPTAIN:
-            case StaticNpcList.GHOST_CAPTAIN_1705:
+            case GHOST_CAPTAIN:
+            case GHOST_CAPTAIN_1705:
                 player.getDialogueHandler().sendDialogues(1400, npcType);
                 break;
-            case StaticNpcList.ELSTAN:
-            case StaticNpcList.DANTAERA:
-            case StaticNpcList.KRAGEN:
-            case StaticNpcList.LYRA:
-            case StaticNpcList.FRANCIS:
-            case StaticNpcList.GARTH:
-            case StaticNpcList.ELLENA:
-            case StaticNpcList.SELENA:
-            case StaticNpcList.VASQUEN:
-            case StaticNpcList.RHONEN:
-
-            case 2337:
-            case 2336:
-            case 2335:
-            case 2338:
-            case 2343:
-            case 2344:
-            case 2340:
-            case 2339:
-            case 2341:
-            case 2342:
+            case ELSTAN:
+            case DANTAERA:
+            case KRAGEN:
+            case LYRA:
+            case FRANCIS:
+            case GARTH:
+            case ELLENA:
+            case SELENA:
+            case VASQUEN:
+            case RHONEN:
+            case DREVEN:
+            case TARIA:
+            case RHAZIEN:
+            case TORRELL:
+            case ALAIN:
+            case HESKEL:
+            case TREZNOR:
+            case FAYETH:
+            case BOLONGO:
+            case GILETH:
                 player.getDialogueHandler().sendDialogues(3530, npcType);
                 break;
-            case StaticNpcList.NULODION:
+            case NULODION:
                 player.getDialogueHandler().sendDialogues(3500, StaticNpcList.NULODION);
                 break;
-            case StaticNpcList.DONIE:
+            case DONIE:
                 player.getDialogueHandler().sendDialogues(3214, npcType);
                 break;
-            case StaticNpcList.BILL_TEACH_3156:
-            case StaticNpcList.BILL_TEACH_3157:
+            case BILL_TEACH_3156:
+            case BILL_TEACH_3157:
                 player.getDialogueHandler().sendDialogues(1410, npcType);
                 break;
-            case StaticNpcList.FADLI:
+            case FADLI:
                 player.getDialogueHandler().sendDialogues(3208, npcType);
                 break;
-            case StaticNpcList.SQUIRE:
+            case SQUIRE:
                 if (player.knightS == 0) {
                     player.getDialogueHandler().sendDialogues(610, 606);
                 } else if (player.knightS == 4) {
@@ -94,7 +95,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(682, 606);
                 }
                 break;
-            case 647://reldo
+            case 647://TODO reldo
                 if (player.knightS == 1) {
                     player.getDialogueHandler().sendDialogues(626, 647);
                 } else if (player.shieldArrav == 0) {
@@ -105,7 +106,7 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(697, 647);
                 }
                 break;
-            case 604://thurgo
+            case StaticNpcList.THURGO:
                 if (player.knightS == 2) {
                     player.getDialogueHandler().sendDialogues(640, 604);
                 } else if (player.knightS == 3) {
@@ -118,20 +119,16 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(674, 604);
                 }
                 break;
-
-            case 693: //rang guild shots
+            case COMPETITION_JUDGE:
                 player.getDialogueHandler().sendDialogues(3201, npcType);
                 break;
-
-            case 694: //rang guild store
+            case TICKET_MERCHANT:
                 player.getShopAssistant().openShop(111);
                 break;
-
-            case 1834:
+            case CANDLE_SELLER:
                 player.getDialogueHandler().sendDialogues(1378, npcType);
                 break;
-
-            case 1835:
+            case EASTER_BUNNY:
                 if (player.easterEvent == 0)
                     player.getDialogueHandler().sendDialogues(6000, npcType);
                 else if (player.easterEvent == 1) {
@@ -148,9 +145,8 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(6022, npcType);
                 }
                 break;
-
-            case 537:
-            case 536:
+            case VALAINE:
+            case SCAVVO:
                 int requiredQP = Math.min(32, QuestAssistant.MAXIMUM_QUESTPOINTS);
                 if (player.questPoints >= requiredQP) {
                     player.getDialogueHandler().sendDialogues(1373, npcType);
@@ -159,33 +155,30 @@ public class NpcActions {
                             "You need " + requiredQP + " quest points to open this shop.");
                 }
                 break;
-
-            case 547: //Baraek
+            case BARAEK:
                 if (player.shieldArrav == 3) {
                     player.getDialogueHandler().sendDialogues(701, npcType);
                 }
                 break;
-
-            case 599:
+            case MAKEOVER_MAGE:
                 player.getDialogueHandler().sendDialogues(1369, npcType);
                 break;
-            case 649:
+            case ARCHER_649:
                 player.getDialogueHandler().sendDialogues(3840, npcType);
                 break;
-            case 650:
+            case WARRIOR:
                 player.getDialogueHandler().sendDialogues(3578, npcType);
                 break;
-            case 651:
+            case MONK_651:
                 player.getDialogueHandler().sendDialogues(3840, npcType);
                 break;
-            case 652:
+            case WIZARD_652:
                 player.getDialogueHandler().sendDialogues(3840, npcType);
                 break;
-            case 654:
+            case SHAMUS:
                 player.getDialogueHandler().sendDialogues(3848, npcType);
                 break;
-
-            case 644: //Straven
+            case STRAVEN:
                 if (player.shieldArrav <= 4) {
                     player.getDialogueHandler().sendDialogues(711, npcType);
                 } else if (player.shieldArrav == 5) {
@@ -194,33 +187,26 @@ public class NpcActions {
                     player.getDialogueHandler().sendDialogues(741, npcType);
                 }
                 break;
-
-            case 646: //Curator Haig Halen
+            case CURATOR: //Curator Haig Halen
                 player.getDialogueHandler().sendDialogues(745, npcType);
                 break;
-
-            case 648: //King Roald
+            case KING_ROALD:
                 if (player.shieldArrav == 7 && player.getItemAssistant().playerHasItem(769))
                     player.getDialogueHandler().sendDialogues(756, npcType);
                 break;
-
-            case 663:
+            case MAN_663:
                 player.getDialogueHandler().sendDialogues(3189, npcType);
                 break;
-
-            case 802:
+            case BROTHER_JERED:
                 player.getDialogueHandler().sendDialogues(1358, npcType);
                 break;
-
-            case 2205:
+            case DWARVEN_BOATMAN_2205:
                 player.getDialogueHandler().sendDialogues(1353, npcType);
                 break;
-
-            case 3830:
+            case KATHY_CORKAT:
                 player.getDialogueHandler().sendDialogues(1349, npcType);
                 break;
-
-            case 2270:
+            case MARTIN_THWAIT:
                 if (player.playerLevel[GameConstants.THIEVING] > 98) {
                     player.getShopAssistant().openShop(118);
                 } else if (player.playerLevel[GameConstants.THIEVING] > 49
@@ -231,24 +217,20 @@ public class NpcActions {
                             "You don't have the required skills to open this shop");
                 }
                 break;
-
-            case 1071:
+            case TENZING:
                 player.getDialogueHandler().sendDialogues(1345, npcType);
                 break;
-
-            case 666:
+            case CALEB:
                 player.getDialogueHandler().sendDialogues(3183, npcType);
                 break;
-
-            case 510:
+            case HAJEDY:
                 if (player.absY > 3209 && player.absY < 3215) {
                     player.getDialogueHandler().sendDialogues(3173, npcType);
                 } else {
                     player.getDialogueHandler().sendDialogues(3178, npcType);
                 }
                 break;
-
-            case 1042:
+            case ROAVAR:
                 player.getDialogueHandler().sendDialogues(3167, npcType);
                 break;
 
