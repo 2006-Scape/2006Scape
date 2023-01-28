@@ -2991,27 +2991,27 @@
     "items": [
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 6
       },
       {
         "itemId": 1267,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1269,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1273,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1271,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1275,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
