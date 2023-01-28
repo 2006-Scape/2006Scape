@@ -114,7 +114,6 @@ public class GameEngine {
 	public static boolean shutdownServer = false;
 	public static int garbageCollectDelay = 40;
 	public static boolean shutdownClientHandler;
-	private static int serverlistenerPort;
 	public static ItemHandler itemHandler = new ItemHandler();
 	public static PlayerHandler playerHandler = new PlayerHandler();
 	public static NpcHandler npcHandler = new NpcHandler();
@@ -149,7 +148,6 @@ public class GameEngine {
 				}
 			}
 		}
-		serverlistenerPort = (GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD;
 
 		System.out.println("Starting game engine..");
 		if (GameConstants.SERVER_DEBUG) {
@@ -215,7 +213,7 @@ public class GameEngine {
 		/**
 		 * Server Successfully Loaded
 		 */
-		System.out.println("Server listening on port " + serverlistenerPort);
+		System.out.println("World Server listening on " + fs.service.toString());
 
 		/**
 		 * Main Server Tick

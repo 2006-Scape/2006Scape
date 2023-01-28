@@ -72,6 +72,8 @@ public final class FileServer {
 	 * Starts the file server.
 	 * @throws Exception if an error occurs.
 	 */
+	public SocketAddress service = new InetSocketAddress((GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD);
+
 	public void start() throws Exception {
 		if (!new File(Constants.FILE_SYSTEM_DIR).exists())
 		{
@@ -98,7 +100,6 @@ public final class FileServer {
 		logger.info("Starting services...");
 		
 		init();
-		SocketAddress service = new InetSocketAddress(NetworkConstants.SERVICE_PORT);
 		SocketAddress http = new InetSocketAddress(NetworkConstants.HTTP_PORT);
 		SocketAddress jaggrab = new InetSocketAddress(NetworkConstants.JAGGRAB_PORT);
 
