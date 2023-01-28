@@ -57,4 +57,14 @@ public class ClientSettings {
 
 	public static final boolean SHOW_NAVBAR = true;
 
+	// smooths out lines and sprites on the minimap
+	public static final boolean BILINEAR_MINIMAP_FILTERING = false;
+
+	// fixes overlapping lines drawn on transparent objects by post-incrementing the offset
+	// note: there's 2 other instances that haven't been updated in Texture.java (misnamed) because rarely used like this
+	public static final boolean FIX_TRANSPARENCY_OVERFLOW = false;
+
+	// render the game to 512px instead of 511px (black line on right side)
+	public static final boolean FULL_512PX_VIEWPORT = false;
+
 }
