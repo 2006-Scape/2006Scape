@@ -1,4 +1,4 @@
-package com.rs2.game.content.combat.npcs;
+package com.rs2.game.content;
 
 /**
  * NPC Constants for 2006scape.
