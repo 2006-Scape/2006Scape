@@ -2,7 +2,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Amulet Store",
+    "name": "Davon's Amulet Store.",
     "id": 2,
     "items": [
       {
@@ -30,76 +30,20 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Lowe's Archery Emporium",
-    "id": 3,
-    "items": [
-      {
-        "itemId": 882,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 884,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 886,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 888,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 890,
-        "itemAmount": 30
-      },
-      {
-        "itemId": 841,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 839,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 843,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 845,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 849,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 847,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 853,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 851,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Hickton's Archery Emperium",
+    "name": "Hickton's Archery Emporium.",
     "id": 4,
     "items": [
+      {
+        "itemId": 877,
+        "itemAmount": 200
+      },
       {
         "itemId": 882,
         "itemAmount": 1000
       },
       {
         "itemId": 884,
-        "itemAmount": 100
+        "itemAmount": 800
       },
       {
         "itemId": 886,
@@ -111,6 +55,10 @@
       },
       {
         "itemId": 890,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 892,
         "itemAmount": 0
       },
       {
@@ -143,43 +91,59 @@
       },
       {
         "itemId": 39,
-        "itemAmount": 0
+        "itemAmount": 1000
       },
       {
         "itemId": 40,
-        "itemAmount": 0
+        "itemAmount": 800
       },
       {
         "itemId": 41,
-        "itemAmount": 0
+        "itemAmount": 600
       },
       {
         "itemId": 42,
-        "itemAmount": 0
+        "itemAmount": 400
       },
       {
         "itemId": 43,
-        "itemAmount": 0
+        "itemAmount": 200
       },
       {
         "itemId": 44,
-        "itemAmount": 0
+        "itemAmount": 100
       },
       {
         "itemId": 841,
-        "itemAmount": 10
+        "itemAmount": 4
+      },
+      {
+        "itemId": 839,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 837,
+        "itemAmount": 2
       },
       {
         "itemId": 843,
-        "itemAmount": 10
+        "itemAmount": 4
+      },
+      {
+        "itemId": 845,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 4827,
+        "itemAmount": 0
       },
       {
         "itemId": 1133,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1097,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
@@ -290,56 +254,56 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Brians's Archery Shop",
+    "name": "Brian's Archery Supplies.",
     "id": 7,
     "items": [
       {
         "itemId": 886,
-        "itemAmount": 100
+        "itemAmount": 1500
       },
       {
         "itemId": 888,
-        "itemAmount": 50
+        "itemAmount": 1000
       },
       {
         "itemId": 890,
-        "itemAmount": 30
+        "itemAmount": 800
       },
       {
         "itemId": 843,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 845,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 849,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 847,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 853,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 851,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Bob's Brilliant Axes",
+    "name": "Bob's Brilliant Axes.",
     "id": 8,
-    "items": [
+        "items": [
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1351,
@@ -347,43 +311,55 @@
       },
       {
         "itemId": 1349,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1353,
-        "itemAmount": 6
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1363,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1365,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1369,
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Brian's Battleaxe Bazaar",
+    "name": "Brian's Battleaxe Bazaar.",
     "id": 9,
     "items": [
       {
         "itemId": 1375,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1363,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1365,
-        "itemAmount": 8
+        "itemAmount": 2
       },
       {
         "itemId": 1367,
-        "itemAmount": 6
+        "itemAmount": 1
       },
       {
         "itemId": 1369,
-        "itemAmount": 5
+        "itemAmount": 1
       },
       {
         "itemId": 1371,
-        "itemAmount": 4
+        "itemAmount": 1
       }
     ]
   },
@@ -396,114 +372,74 @@
       {
         "itemId": 36,
         "itemAmount": 10
-      },
-      {
-        "itemId": 38,
-        "itemAmount": 10
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Wayne's Chains",
+    "name": "Wayne's Chains! - Chainmail Specialist.",
     "id": 11,
     "items": [
       {
         "itemId": 1103,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1101,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1105,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1107,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1109,
-        "itemAmount": 8
+        "itemAmount": 1
       },
       {
         "itemId": 1111,
-        "itemAmount": 5
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Clothes Store",
-    "id": 12,
-    "items": [
-      {
-        "itemId": 1005,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1129,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1059,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1061,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1757,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1013,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1015,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 577,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1007,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 950,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 426,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 428,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Clothes Store",
+    "name": "Fancy Clothes Store",
     "id": 13,
     "items": [
       {
-        "itemId": 1005,
-        "itemAmount": 10
+        "itemId": 1949,
+        "itemAmount": 0
       },
       {
-        "itemId": 1129,
-        "itemAmount": 10
+        "itemId": 579,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1023,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 958,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 948,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1733,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1734,
+        "itemAmount": 100
       },
       {
         "itemId": 1059,
@@ -514,124 +450,124 @@
         "itemAmount": 10
       },
       {
-        "itemId": 1757,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1013,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1015,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 577,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1007,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 950,
-        "itemAmount": 10
-      },
-      {
         "itemId": 426,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 428,
-        "itemAmount": 10
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1757,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 1013,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1015,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1011,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1007,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 1025,
+        "itemAmount": 3
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Rometti's Fine Fashions",
+    "name": "Fine Fashions",
     "id": 14,
     "items": [
       {
         "itemId": 656,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 658,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 660,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 662,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 664,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 636,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 638,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 640,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 642,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 644,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 646,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 648,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 650,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 652,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 654,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 626,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 628,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 630,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 632,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 634,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -642,212 +578,216 @@
     "id": 15,
     "items": [
       {
-        "itemId": 3791,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3793,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3795,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3797,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3777,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3779,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3781,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3783,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3785,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3787,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3789,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3759,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3761,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3763,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3765,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3767,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3769,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3771,
-        "itemAmount": 10
+        "itemId": 3775,
+        "itemAmount": 5
       },
       {
         "itemId": 3773,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
-        "itemId": 3775,
-        "itemAmount": 10
+        "itemId": 3767,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3769,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3771,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3793,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3795,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3797,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3791,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3799,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3765,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3763,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3761,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3759,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3777,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3779,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3781,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3783,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3785,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3787,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 3789,
+        "itemAmount": 5
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Barker's Haberdashery",
+    "name": "Barkers' Haberdashery",
     "id": 16,
     "items": [
       {
         "itemId": 2894,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2896,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2898,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2900,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2902,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2904,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2906,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2908,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2910,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2912,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2914,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2916,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2918,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2920,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2922,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2924,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2926,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2928,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2930,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2932,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2934,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2936,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2938,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2940,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2942,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1007,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1019,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1021,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1023,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1027,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -1023,11 +963,11 @@
     "items": [
       {
         "itemId": 2171,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
         "itemId": 2128,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 1933,
@@ -1083,35 +1023,39 @@
       },
       {
         "itemId": 1973,
+        "itemAmount": 20
+      },
+      {
+        "itemId": 1975,
         "itemAmount": 10
       },
       {
         "itemId": 2130,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1927,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2167,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2164,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2165,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2166,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -1143,23 +1087,23 @@
       },
       {
         "itemId": 2128,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 2108,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 2102,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 2120,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 2126,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2025,
@@ -1167,7 +1111,7 @@
       },
       {
         "itemId": 1973,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 1975,
@@ -1175,238 +1119,214 @@
       },
       {
         "itemId": 2130,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1927,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2026,
-        "itemAmount": 10
+        "itemAmount": 20
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Frenita's Cookery Shop",
+    "name": "Frenita's Cookery Shop.",
     "id": 23,
     "items": [
       {
         "itemId": 2313,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1955,
-        "itemAmount": 0
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1942,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 8
       },
       {
         "itemId": 1973,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1933,
-        "itemAmount": 500
+        "itemAmount": 8
       },
       {
         "itemId": 1980,
-        "itemAmount": 10
+        "itemAmount": 20
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Dommik's Crafting Shop",
+    "name": "Dommik's Crafting Store.",
     "id": 24,
     "items": [
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1592,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 1597,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1595,
+        "itemAmount": 2
       },
       {
         "itemId": 1733,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1734,
-        "itemAmount": 1000
+        "itemAmount": 100
+      },
+      {
+        "itemId": 1599,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 2976,
+        "itemAmount": 6
       },
       {
         "itemId": 5523,
         "itemAmount": 10
-      },
-      {
-        "itemId": 1592,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1595,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1597,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1599,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2976,
-        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Rommik's Crafting shop",
+    "name": "Rommik's Crafty Supplies.",
     "id": 25,
     "items": [
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1592,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 1597,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1595,
+        "itemAmount": 2
       },
       {
         "itemId": 1733,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1734,
-        "itemAmount": 1000
+        "itemAmount": 100
+      },
+      {
+        "itemId": 1599,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 2976,
+        "itemAmount": 6
       },
       {
         "itemId": 5523,
         "itemAmount": 10
-      },
-      {
-        "itemId": 1592,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1595,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1597,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1599,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2976,
-        "itemAmount": 10
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Farming Shop",
+    "name": "Vanessa's Farming shop.",
     "id": 26,
     "items": [
       {
-        "itemId": 5376,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6032,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5418,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6036,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5350,
-        "itemAmount": 10
-      },
-      {
         "itemId": 5341,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5329,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5343,
-        "itemAmount": 10
+        "itemAmount": 500
+      },
+      {
+        "itemId": 5329,
+        "itemAmount": 500
       },
       {
         "itemId": 952,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5325,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5331,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
-        "itemId": 5996,
-        "itemAmount": 0
+        "itemId": 5354,
+        "itemAmount": 500
       },
       {
-        "itemId": 6006,
-        "itemAmount": 0
+        "itemId": 6032,
+        "itemAmount": 500
       },
       {
-        "itemId": 1965,
-        "itemAmount": 0
+        "itemId": 5418,
+        "itemAmount": 500
       },
       {
-        "itemId": 5994,
-        "itemAmount": 0
+        "itemId": 5376,
+        "itemAmount": 500
       },
       {
-        "itemId": 5931,
-        "itemAmount": 0
+        "itemId": 1925,
+        "itemAmount": 100
       },
       {
-        "itemId": 6000,
+        "itemId": 1942,
         "itemAmount": 0
       },
       {
@@ -1414,15 +1334,7 @@
         "itemAmount": 0
       },
       {
-        "itemId": 1942,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5504,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5986,
+        "itemId": 1965,
         "itemAmount": 0
       },
       {
@@ -1430,7 +1342,31 @@
         "itemAmount": 0
       },
       {
+        "itemId": 5986,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5504,
+        "itemAmount": 0
+      },
+      {
         "itemId": 5982,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5994,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5996,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5998,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 6000,
         "itemAmount": 0
       },
       {
@@ -1438,87 +1374,71 @@
         "itemAmount": 0
       },
       {
-        "itemId": 5998,
+        "itemId": 5931,
         "itemAmount": 0
+      },
+      {
+        "itemId": 6006,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 6036,
+        "itemAmount": 100
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Farming Shop",
+    "name": "Alice's Farming shop.",
     "id": 27,
     "items": [
       {
-        "itemId": 5376,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6032,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5418,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6036,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5350,
-        "itemAmount": 10
-      },
-      {
         "itemId": 5341,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5329,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5343,
-        "itemAmount": 10
+        "itemAmount": 500
+      },
+      {
+        "itemId": 5329,
+        "itemAmount": 500
       },
       {
         "itemId": 952,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5325,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5331,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
-        "itemId": 5996,
-        "itemAmount": 0
+        "itemId": 5354,
+        "itemAmount": 500
       },
       {
-        "itemId": 6006,
-        "itemAmount": 0
+        "itemId": 6032,
+        "itemAmount": 500
       },
       {
-        "itemId": 1965,
-        "itemAmount": 0
+        "itemId": 5418,
+        "itemAmount": 500
       },
       {
-        "itemId": 5994,
-        "itemAmount": 0
+        "itemId": 5376,
+        "itemAmount": 500
       },
       {
-        "itemId": 5931,
-        "itemAmount": 0
+        "itemId": 1925,
+        "itemAmount": 100
       },
       {
-        "itemId": 6000,
+        "itemId": 1942,
         "itemAmount": 0
       },
       {
@@ -1526,15 +1446,7 @@
         "itemAmount": 0
       },
       {
-        "itemId": 1942,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5504,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5986,
+        "itemId": 1965,
         "itemAmount": 0
       },
       {
@@ -1542,7 +1454,31 @@
         "itemAmount": 0
       },
       {
+        "itemId": 5986,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5504,
+        "itemAmount": 0
+      },
+      {
         "itemId": 5982,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5994,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5996,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5998,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 6000,
         "itemAmount": 0
       },
       {
@@ -1550,8 +1486,16 @@
         "itemAmount": 0
       },
       {
-        "itemId": 5998,
+        "itemId": 5931,
         "itemAmount": 0
+      },
+      {
+        "itemId": 6006,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 6036,
+        "itemAmount": 100
       }
     ]
   },
@@ -1670,79 +1614,55 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Farming Shop",
+    "name": "Richard's Farming shop.",
     "id": 29,
     "items": [
       {
-        "itemId": 5376,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6032,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5418,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6036,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5350,
-        "itemAmount": 10
-      },
-      {
         "itemId": 5341,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 5329,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5343,
-        "itemAmount": 10
+        "itemAmount": 500
+      },
+      {
+        "itemId": 5329,
+        "itemAmount": 500
       },
       {
         "itemId": 952,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5325,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 5331,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
-        "itemId": 5996,
-        "itemAmount": 0
+        "itemId": 5354,
+        "itemAmount": 500
       },
       {
-        "itemId": 6006,
-        "itemAmount": 0
+        "itemId": 6032,
+        "itemAmount": 500
       },
       {
-        "itemId": 1965,
-        "itemAmount": 0
+        "itemId": 5418,
+        "itemAmount": 500
       },
       {
-        "itemId": 5994,
-        "itemAmount": 0
+        "itemId": 5376,
+        "itemAmount": 500
       },
       {
-        "itemId": 5931,
-        "itemAmount": 0
+        "itemId": 1925,
+        "itemAmount": 100
       },
       {
-        "itemId": 6000,
+        "itemId": 1942,
         "itemAmount": 0
       },
       {
@@ -1750,15 +1670,7 @@
         "itemAmount": 0
       },
       {
-        "itemId": 1942,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5504,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5986,
+        "itemId": 1965,
         "itemAmount": 0
       },
       {
@@ -1766,7 +1678,31 @@
         "itemAmount": 0
       },
       {
+        "itemId": 5986,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5504,
+        "itemAmount": 0
+      },
+      {
         "itemId": 5982,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5994,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5996,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 5998,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 6000,
         "itemAmount": 0
       },
       {
@@ -1774,79 +1710,51 @@
         "itemAmount": 0
       },
       {
-        "itemId": 5998,
+        "itemId": 5931,
         "itemAmount": 0
+      },
+      {
+        "itemId": 6006,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 6036,
+        "itemAmount": 100
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Shilo Fishing Store",
+    "name": "Fernahei's Fishing Hut.",
     "id": 30,
     "items": [
       {
-        "itemId": 305,
-        "itemAmount": 10
+        "itemId": 307,
+        "itemAmount": 5
       },
       {
         "itemId": 309,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 307,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 311,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 301,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 313,
-        "itemAmount": 1000
+        "itemAmount": 200
       },
       {
         "itemId": 314,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 317,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 327,
-        "itemAmount": 0
+        "itemAmount": 800
       },
       {
         "itemId": 335,
         "itemAmount": 0
       },
       {
-        "itemId": 321,
+        "itemId": 349,
         "itemAmount": 0
       },
       {
         "itemId": 331,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 359,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 377,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 371,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 7944,
         "itemAmount": 0
       }
     ]
@@ -1854,36 +1762,36 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Gerrant's Fishy Business",
+    "name": "Gerrant's Fishy Business.",
     "id": 31,
     "items": [
       {
-        "itemId": 314,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 313,
-        "itemAmount": 1000
-      },
-      {
         "itemId": 303,
-        "itemAmount": 100
+        "itemAmount": 5
       },
       {
         "itemId": 307,
-        "itemAmount": 100
+        "itemAmount": 5
       },
       {
         "itemId": 309,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 301,
-        "itemAmount": 100
+        "itemAmount": 5
       },
       {
         "itemId": 311,
-        "itemAmount": 100
+        "itemAmount": 2
+      },
+      {
+        "itemId": 301,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 313,
+        "itemAmount": 1500
+      },
+      {
+        "itemId": 314,
+        "itemAmount": 1000
       },
       {
         "itemId": 317,
@@ -1891,7 +1799,7 @@
       },
       {
         "itemId": 327,
-        "itemAmount": 10
+        "itemAmount": 200
       },
       {
         "itemId": 345,
@@ -1930,32 +1838,32 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Harry's Fishing Shop",
+    "name": "Harry's Fishing Shop.",
     "id": 32,
     "items": [
       {
         "itemId": 303,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 307,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 311,
-        "itemAmount": 1000
+        "itemAmount": 2
       },
       {
         "itemId": 301,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 313,
-        "itemAmount": 1000
+        "itemAmount": 1200
       },
       {
         "itemId": 305,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 317,
@@ -1990,6 +1898,10 @@
         "itemAmount": 0
       },
       {
+        "itemId": 363,
+        "itemAmount": 0
+      },
+      {
         "itemId": 371,
         "itemAmount": 0
       },
@@ -2002,32 +1914,32 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Fishmonger",
+    "name": "Fremennik Fish Monger",
     "id": 33,
     "items": [
       {
-        "itemId": 305,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 309,
-        "itemAmount": 10
+        "itemId": 303,
+        "itemAmount": 5
       },
       {
         "itemId": 307,
-        "itemAmount": 10
+        "itemAmount": 5
+      },
+      {
+        "itemId": 309,
+        "itemAmount": 5
       },
       {
         "itemId": 311,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 301,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 313,
-        "itemAmount": 1000
+        "itemAmount": 1500
       },
       {
         "itemId": 314,
@@ -2035,7 +1947,7 @@
       },
       {
         "itemId": 305,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 317,
@@ -2043,20 +1955,116 @@
       },
       {
         "itemId": 327,
-        "itemAmount": 10
+        "itemAmount": 200
+      },
+      {
+        "itemId": 345,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 353,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 341,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 321,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 335,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 349,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 331,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 359,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 377,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 363,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 371,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 383,
+        "itemAmount": 0
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Wydins Food Store",
+    "name": "Wydin's Food Store",
     "id": 34,
     "items": [
       {
         "itemId": 1933,
-        "itemAmount": 500
+        "itemAmount": 3
       },
+      {
+        "itemId": 2132,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 2138,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 1965,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1963,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1951,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 2309,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 1973,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 1985,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1982,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1942,
+        "itemAmount": 1
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Rufus' Meat Emporium",
+    "id": 35,
+    "items": [
       {
         "itemId": 2132,
         "itemAmount": 10
@@ -2066,72 +2074,28 @@
         "itemAmount": 10
       },
       {
-        "itemId": 1965,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1963,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1951,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2309,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1973,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1985,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1982,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1942,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1550,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Rufus's Meat Emperium",
-    "id": 35,
-    "items": [
-      {
-        "itemId": 4287,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 4289,
-        "itemAmount": 30
-      },
-      {
         "itemId": 2134,
-        "itemAmount": 30
+        "itemAmount": 10
       },
       {
-        "itemId": 331,
-        "itemAmount": 0
+        "itemId": 2136,
+        "itemAmount": 10
       },
       {
         "itemId": 335,
-        "itemAmount": 0
+        "itemAmount": 5
+      },
+      {
+        "itemId": 349,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 331,
+        "itemAmount": 5
       },
       {
         "itemId": 383,
-        "itemAmount": 0
+        "itemAmount": 1
       }
     ]
   },
@@ -2162,12 +2126,12 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Herquin's Gems",
+    "name": "Herquin's Gems.",
     "id": 37,
     "items": [
       {
         "itemId": 1623,
-        "itemAmount": 0
+        "itemAmount": 1
       },
       {
         "itemId": 1621,
@@ -2183,7 +2147,7 @@
       },
       {
         "itemId": 1607,
-        "itemAmount": 0
+        "itemAmount": 1
       },
       {
         "itemId": 1605,
@@ -2202,16 +2166,16 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Al Kharid Gems",
+    "name": "Gem Trader.",
     "id": 38,
     "items": [
       {
         "itemId": 1623,
-        "itemAmount": 0
+        "itemAmount": 1
       },
       {
         "itemId": 1621,
-        "itemAmount": 0
+        "itemAmount": 1
       },
       {
         "itemId": 1619,
@@ -2223,11 +2187,11 @@
       },
       {
         "itemId": 1607,
-        "itemAmount": 0
+        "itemAmount": 1
       },
       {
         "itemId": 1605,
-        "itemAmount": 0
+        "itemAmount": 1
       },
       {
         "itemId": 1603,
@@ -2266,80 +2230,80 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Peksa's Helmet Shop",
+    "name": "Helmet Shop.",
     "id": 40,
     "items": [
       {
         "itemId": 1139,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1137,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1141,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1143,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1145,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1155,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1153,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1157,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1159,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1161,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Skulgrimens Battle Gear",
+    "name": "Skulgrimen's Battle Gear",
     "id": 41,
     "items": [
       {
         "itemId": 1337,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1335,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1339,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1341,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1343,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1345,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1347,
@@ -2347,59 +2311,59 @@
       },
       {
         "itemId": 3749,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 3751,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 3753,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 3755,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Frincos Fabulous Herb Store",
+    "name": "Frincos' Fabulous Herb Store.",
     "id": 42,
     "items": [
       {
         "itemId": 229,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
         "itemId": 233,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 221,
-        "itemAmount": 10
+        "itemAmount": 50
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Jatix's Herblore Shop",
+    "name": "Jatix's Herblore Shop.",
     "id": 43,
     "items": [
       {
         "itemId": 229,
-        "itemAmount": 10
+        "itemAmount": 800
       },
       {
         "itemId": 233,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 221,
-        "itemAmount": 10
+        "itemAmount": 800
       }
     ]
   },
@@ -2422,7 +2386,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Grum's Gold Exchange",
+    "name": "Grum's Gold Exchange.",
     "id": 45,
     "items": [
       {
@@ -2466,23 +2430,23 @@
         "itemAmount": 0
       },
       {
-        "itemId": 1673,
+        "itemId": 1692,
         "itemAmount": 0
       },
       {
-        "itemId": 1675,
+        "itemId": 1694,
         "itemAmount": 0
       },
       {
-        "itemId": 1677,
+        "itemId": 1696,
         "itemAmount": 0
       },
       {
-        "itemId": 1679,
+        "itemId": 1698,
         "itemAmount": 0
       },
       {
-        "itemId": 1681,
+        "itemId": 1700,
         "itemAmount": 0
       }
     ]
@@ -2523,149 +2487,101 @@
       }
     ]
   },
-  {
+{
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Flynn's Mace Shop",
+    "name": "Flynn's Mace Market.",
     "id": 49,
     "items": [
       {
         "itemId": 1422,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1420,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1424,
-        "itemAmount": 8
+        "itemAmount": 4
       },
       {
         "itemId": 1428,
-        "itemAmount": 6
+        "itemAmount": 3
       },
       {
         "itemId": 1430,
-        "itemAmount": 4
+        "itemAmount": 2
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Ali's Discount Wares",
+    "name": "Ali's Discount Wares.",
     "id": 50,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
-        "itemId": 1823,
-        "itemAmount": 30
+        "itemId": 1825,
+        "itemAmount": 10
       },
       {
         "itemId": 1833,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1837,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 10
+        "itemAmount": 19
       },
       {
         "itemId": 4593,
-        "itemAmount": 10
+        "itemAmount": 11
       },
       {
         "itemId": 4591,
-        "itemAmount": 10
+        "itemAmount": 12
       },
       {
         "itemId": 970,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 11
       },
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 23
       },
       {
         "itemId": 2138,
-        "itemAmount": 10
+        "itemAmount": 15
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Betty's Magic emporium",
+    "name": "Betty's Magic Emporium.",
     "id": 51,
     "items": [
-      {
-        "itemId": 554,
-        "itemAmount": 300
-      },
-      {
-        "itemId": 555,
-        "itemAmount": 300
-      },
-      {
-        "itemId": 556,
-        "itemAmount": 300
-      },
-      {
-        "itemId": 557,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 558,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 562,
-        "itemAmount": 30
-      },
-      {
-        "itemId": 560,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 221,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 579,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1017,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Aubury Magic Shop",
-    "id": 52,
-    "items": [
-      {
+            {
         "itemId": 554,
         "itemAmount": 5000
       },
@@ -2696,6 +2612,18 @@
       {
         "itemId": 560,
         "itemAmount": 250
+      },
+      {
+        "itemId": 221,
+        "itemAmount": 300
+      },
+      {
+        "itemId": 579,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 1017,
+        "itemAmount": 1
       }
     ]
   },
@@ -2946,7 +2874,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "TzHaar Mej Roh's Rune Store",
+    "name": "TzHaar-Mej-Roh's Rune Store",
     "id": 58,
     "items": [
       {
@@ -2974,11 +2902,11 @@
         "itemAmount": 5000
       },
       {
-        "itemId": 560,
+        "itemId": 562,
         "itemAmount": 2500
       },
       {
-        "itemId": 562,
+        "itemId": 560,
         "itemAmount": 2500
       }
     ]
@@ -2986,7 +2914,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Nurmof's Pickaxe Shop",
+    "name": "Nurmof's Pickaxe Shop.",
     "id": 59,
     "items": [
       {
@@ -3018,16 +2946,16 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Drogo's Mining Emporium",
+    "name": "Drogo's Mining Emporium.",
     "id": 60,
     "items": [
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 436,
@@ -3090,224 +3018,152 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Zenesha's Platebody Shop",
+    "name": "Zenesha's Plate Mail Body Shop.",
     "id": 62,
     "items": [
       {
         "itemId": 1117,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1115,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1119,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1125,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1121,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Horviks Platebody Shop",
-    "id": 63,
-    "items": [
-      {
-        "itemId": 1103,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1101,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1139,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1137,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1115,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1117,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1173,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1175,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1075,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1067,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1087,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1081,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1119,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1125,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1121,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1097,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1133,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Louie Legs",
+    "name": "Louie's Armoured Legs Bazaar.",
     "id": 64,
     "items": [
       {
         "itemId": 1075,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1067,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1069,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1077,
+        "itemAmount": 1
       },
       {
         "itemId": 1071,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1073,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Seddu's Adventurer Store",
+    "name": "Seddu's Adventurer's Store.",
     "id": 65,
     "items": [
       {
         "itemId": 1093,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1079,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1113,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1099,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1065,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1193,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1151,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Ranael's Super Skirt Store",
+    "name": "Ranael's Super Skirt Store.",
     "id": 66,
     "items": [
       {
         "itemId": 1087,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1081,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1083,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1089,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1085,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1091,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Zeke's Superior Scimitars",
+    "name": "Zeke's Superior Scimitars.",
     "id": 67,
     "items": [
       {
         "itemId": 1321,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1323,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1325,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1329,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
@@ -3342,40 +3198,40 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Cassie's Shield Shop",
+    "name": "Cassie's Shield Shop.",
     "id": 69,
     "items": [
       {
         "itemId": 1171,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1173,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1189,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1175,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1191,
-        "itemAmount": 10
+        "itemAmount": 0
       },
       {
         "itemId": 1177,
-        "itemAmount": 10
+        "itemAmount": 0
       },
       {
         "itemId": 1193,
-        "itemAmount": 10
+        "itemAmount": 0
       },
       {
         "itemId": 1181,
-        "itemAmount": 10
+        "itemAmount": 0
       }
     ]
   },
@@ -3418,68 +3274,36 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Zaff's Superior Staves",
-    "id": 72,
-    "items": [
-      {
-        "itemId": 1379,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1389,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1381,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1383,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1385,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1387,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Dwarven Shopping Store",
+    "name": "Dwarven shopping store",
     "id": 73,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -3512,46 +3336,50 @@
     ]
   },
   {
-    "buyModifier": 1,
-    "sellModifier": 1,
-    "name": "Al Kharid General Store",
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Al-Kharid General Store",
     "id": 75,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1887,
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 550,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -3588,61 +3416,57 @@
     ]
   },
   {
-    "buyModifier": 1,
-    "sellModifier": 1,
-    "name": "Aemad's Adventuring Supplies",
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Aemad's Adventuring Supplies.",
     "id": 77,
     "items": [
       {
         "itemId": 227,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1349,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2142,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1759,
-        "itemAmount": 100
+        "itemAmount": 30
       },
       {
         "itemId": 882,
-        "itemAmount": 1000
+        "itemAmount": 500
       },
       {
         "itemId": 954,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 970,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
         "itemId": 946,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
   {
     "buyModifier": 1931,
     "sellModifier": 1,
-    "name": "West Ardougne General Store1",
+    "name": "West Ardougne General Store",
     "id": 78,
     "items": [
       {
@@ -3702,88 +3526,88 @@
     "id": 79,
     "items": [
       {
-        "itemId": 1831,
-        "itemAmount": 30
+        "itemId": 1823,
+        "itemAmount": 5
       },
       {
-        "itemId": 1823,
-        "itemAmount": 30
+        "itemId": 1831,
+        "itemAmount": 5
       },
       {
         "itemId": 1937,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1921,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1837,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1833,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1835,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
   {
     "buyModifier": 1,
     "sellModifier": 1,
-    "name": "Canifis General Store",
+    "name": "General Store",
     "id": 80,
     "items": [
       {
         "itemId": 1733,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1734,
-        "itemAmount": 1000
+        "itemAmount": 50
       },
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 2
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 3377,
@@ -3791,55 +3615,55 @@
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
   {
     "buyModifier": 1,
     "sellModifier": 1,
-    "name": "Arhein's Store",
+    "name": "Arhein Store",
     "id": 81,
     "items": [
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 10
       },
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 954,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 2
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
@@ -3851,43 +3675,47 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
+      },
+      {
+        "itemId": 946,
+        "itemAmount": 1
       },
       {
         "itemId": 550,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -3899,43 +3727,43 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 550,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -3947,39 +3775,39 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -4191,139 +4019,151 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+      {
+        "itemId": 946,
+        "itemAmount": 5
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+            {
+        "itemId": 952,
+        "itemAmount": 5
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 550,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
   {
-    "buyModifier": 1,
-    "sellModifier": 1,
-    "name": "Razmire's General Store",
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Razmire General Store.",
     "id": 89,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
-        "itemId": 3424,
-        "itemAmount": 500
+        "itemId": 3422,
+        "itemAmount": 150
       },
       {
         "itemId": 227,
-        "itemAmount": 300
+        "itemAmount": 100
       },
       {
         "itemId": 1933,
-        "itemAmount": 10
+        "itemAmount": 100
       },
       {
         "itemId": 3678,
-        "itemAmount": 10
+        "itemAmount": 3
       }
     ]
   },
   {
     "buyModifier": 1,
     "sellModifier": 1,
-    "name": "Nardah General Store",
+    "name": "Nardah General Store.",
     "id": 90,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
+      },
+      {
+        "itemId": 2142,
+        "itemAmount": 4
       }
     ]
   },
@@ -4376,66 +4216,66 @@
     ]
   },
   {
-    "buyModifier": 1,
-    "sellModifier": 1,
-    "name": "Pollniveach General Store",
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Pollnivneach general store.",
     "id": 92,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1825,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 1833,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1837,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 10
+        "itemAmount": 12
       },
       {
         "itemId": 4593,
-        "itemAmount": 10
+        "itemAmount": 11
       },
       {
         "itemId": 4591,
-        "itemAmount": 10
+        "itemAmount": 12
       },
       {
         "itemId": 1985,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 2120,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1982,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1937,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1921,
-        "itemAmount": 10
+        "itemAmount": 7
       },
       {
         "itemId": 1929,
-        "itemAmount": 10
+        "itemAmount": 8
       }
     ]
   },
@@ -4447,31 +4287,31 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 300
+        "itemAmount": 100
       },
       {
         "itemId": 1925,
-        "itemAmount": 300
+        "itemAmount": 100
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -4483,19 +4323,23 @@
     "items": [
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 954,
-        "itemAmount": 1
+        "itemAmount": 10
+      },
+      {
+        "itemId": 233,
+        "itemAmount": 3
       },
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 2142,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2309,
@@ -4514,6 +4358,10 @@
         "itemAmount": 10
       },
       {
+        "itemId": 2347,
+        "itemAmount": 10
+      },
+      {
         "itemId": 229,
         "itemAmount": 10
       },
@@ -4526,6 +4374,10 @@
         "itemAmount": 10
       },
       {
+        "itemId": 1929,
+        "itemAmount": 10
+      },
+      {
         "itemId": 1944,
         "itemAmount": 10
       },
@@ -4534,15 +4386,7 @@
         "itemAmount": 10
       },
       {
-        "itemId": 233,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1929,
+        "itemId": 1965,
         "itemAmount": 10
       }
     ]
@@ -4555,55 +4399,55 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1887,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 550,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
   {
     "buyModifier": 1,
     "sellModifier": 1,
-    "name": "Obli's General Store",
+    "name": "Obli's General Store.",
     "id": 96,
     "items": [
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 229,
@@ -4611,103 +4455,27 @@
       },
       {
         "itemId": 233,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1351,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1349,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1129,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1059,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2142,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2309,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 952,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 36,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1755,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 970,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 973,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 227,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 975,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 954,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 1,
-    "sellModifier": 1,
-    "name": "Jiminua's Jungle Store",
-    "id": 97,
-    "items": [
-      {
-        "itemId": 590,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 36,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1931,
-        "itemAmount": 30
-      },
-      {
-        "itemId": 954,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1129,
-        "itemAmount": 10
+        "itemAmount": 12
       },
       {
         "itemId": 1059,
@@ -4719,38 +4487,26 @@
       },
       {
         "itemId": 2142,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2309,
         "itemAmount": 10
       },
       {
-        "itemId": 229,
-        "itemAmount": 300
-      },
-      {
-        "itemId": 227,
-        "itemAmount": 300
-      },
-      {
-        "itemId": 233,
+        "itemId": 2349,
         "itemAmount": 10
       },
       {
-        "itemId": 175,
+        "itemId": 952,
         "itemAmount": 10
       },
       {
-        "itemId": 970,
+        "itemId": 36,
         "itemAmount": 10
       },
       {
-        "itemId": 973,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 946,
+        "itemId": 1755,
         "itemAmount": 10
       },
       {
@@ -4758,8 +4514,104 @@
         "itemAmount": 10
       },
       {
+        "itemId": 970,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 973,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 227,
+        "itemAmount": 50
+      },
+      {
         "itemId": 975,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 954,
         "itemAmount": 10
+      }
+    ]
+  },
+  {
+    "buyModifier": 1,
+    "sellModifier": 1,
+    "name": "Jiminua's Jungle Store.",
+    "id": 97,
+    "items": [
+      {
+        "itemId": 590,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 36,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 1931,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 954,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 1129,
+        "itemAmount": 12
+      },
+      {
+        "itemId": 1059,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 1061,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 2142,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 2309,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 229,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 227,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 233,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 175,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 970,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 973,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 946,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 2347,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 975,
+        "itemAmount": 50
       },
       {
         "itemId": 1755,
@@ -4771,15 +4623,23 @@
       },
       {
         "itemId": 1351,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1349,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 2349,
         "itemAmount": 10
+      },
+      {
+        "itemId": 7936,
+        "itemAmount": 0
       }
     ]
   },
@@ -4791,43 +4651,43 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1265,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 882,
-        "itemAmount": 1000
+        "itemAmount": 30
       },
       {
         "itemId": 2142,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
@@ -4899,43 +4759,43 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1887,
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 550,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -4995,55 +4855,59 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1887,
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 550,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Shantay Store",
+    "name": "Shantay Pass Shop",
     "id": 103,
     "items": [
       {
         "itemId": 1823,
-        "itemAmount": 30
+        "itemAmount": 100
       },
       {
         "itemId": 1831,
-        "itemAmount": 30
+        "itemAmount": 100
       },
       {
         "itemId": 1937,
@@ -5075,11 +4939,11 @@
       },
       {
         "itemId": 2349,
-        "itemAmount": 0
+        "itemAmount": 10
       },
       {
         "itemId": 314,
-        "itemAmount": 1000
+        "itemAmount": 500
       },
       {
         "itemId": 2347,
@@ -5087,79 +4951,79 @@
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 0
       },
       {
         "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 0
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 954,
-        "itemAmount": 100
+        "itemAmount": 0
       },
       {
         "itemId": 1854,
-        "itemAmount": 100
+        "itemAmount": 500
+      },
+      {
+        "itemId": 954,
+        "itemAmount": 20
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Varrock Sword Shop",
+    "name": "Varrock Swordshop",
     "id": 104,
     "items": [
       {
         "itemId": 1277,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1279,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1281,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1283,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1285,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1287,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1291,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1293,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1295,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1297,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1299,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1301,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1205,
@@ -5167,58 +5031,62 @@
       },
       {
         "itemId": 1203,
-        "itemAmount": 10
+        "itemAmount": 6
       },
       {
         "itemId": 1207,
-        "itemAmount": 10
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1217,
+        "itemAmount": 4
       },
       {
         "itemId": 1209,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1211,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Taverly Sword Shop",
+    "name": "Gaius' Two Handed Shop.",
     "id": 105,
     "items": [
       {
         "itemId": 1307,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1309,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1311,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1313,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1315,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1317,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Jukats Sword Shop",
+    "name": "Jukat",
     "id": 106,
     "items": [
       {
@@ -5250,92 +5118,92 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Fur Trader",
+    "name": "Ardougne Fur Stall.",
     "id": 108,
     "items": [
       {
         "itemId": 948,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 958,
-        "itemAmount": 10
+        "itemAmount": 3
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Slayer Shop",
+    "name": "Slayer Equipment",
     "id": 109,
     "items": [
       {
         "itemId": 4155,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
-        "itemId": 4166,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 4161,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 6696,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 7051,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 4551,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 7159,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6720,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 4168,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 4164,
-        "itemAmount": 10
+        "itemId": 4156,
+        "itemAmount": 100
       },
       {
         "itemId": 4158,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
         "itemId": 4172,
         "itemAmount": 50000
       },
       {
-        "itemId": 4170,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 7432,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 7421,
-        "itemAmount": 1000
+        "itemId": 4161,
+        "itemAmount": 5000
       },
       {
         "itemId": 4162,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
-        "itemId": 4156,
-        "itemAmount": 10
+        "itemId": 4164,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 4166,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 4168,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 4170,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 4551,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 6696,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 6720,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 7051,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 7159,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 7421,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 7432,
+        "itemAmount": 5000
       }
     ]
   },
@@ -5370,7 +5238,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Range Guild Exchange Store",
+    "name": "Ranging Guild Ticket Exchange",
     "id": 111,
     "items": [
       {
@@ -5379,7 +5247,15 @@
       },
       {
         "itemId": 1133,
-        "itemAmount": 10
+        "itemAmount": 1
+      },
+      {
+        "itemId": 892,
+        "itemAmount": 50
+      },
+      {
+        "itemId": 1169,
+        "itemAmount": 1
       },
       {
         "itemId": 1135,
@@ -5388,14 +5264,6 @@
       {
         "itemId": 829,
         "itemAmount": 20
-      },
-      {
-        "itemId": 1169,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 892,
-        "itemAmount": 50
       }
     ]
   },
@@ -5486,20 +5354,20 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Karamja Wines Spirts Beers",
+    "name": "Karamja Wines, Spirits, and Beers",
     "id": 113,
     "items": [
       {
         "itemId": 1917,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 431,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1993,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
@@ -5511,39 +5379,39 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 3
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1925,
-        "itemAmount": 30
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1980,
-        "itemAmount": 10
+        "itemAmount": 20
       }
     ]
   },
@@ -5566,84 +5434,84 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Shrimp and Parrot",
+    "name": "The Shrimp and Parrot",
     "id": 116,
     "items": [
       {
         "itemId": 347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 339,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 361,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 379,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 373,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 3144,
-        "itemAmount": 10
+        "itemAmount": 3
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Pick and Lute",
+    "name": "The Pick and Lute",
     "id": 117,
     "items": [
       {
         "itemId": 1905,
-        "itemAmount": 10
+        "itemAmount": 12
       },
       {
         "itemId": 1907,
-        "itemAmount": 10
+        "itemAmount": 12
       },
       {
         "itemId": 1913,
-        "itemAmount": 10
+        "itemAmount": 12
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Martin Thwait Lost and Found",
+    "name": "Martin Thwait's Lost and Found.",
     "id": 118,
     "items": [
       {
         "itemId": 954,
-        "itemAmount": 10
+        "itemAmount": 50
       },
       {
         "itemId": 1523,
-        "itemAmount": 10
+        "itemAmount": 25
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 30
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 5560,
-        "itemAmount": 10
+        "itemAmount": 25
       },
       {
         "itemId": 864,
-        "itemAmount": 10
+        "itemAmount": 15
       },
       {
         "itemId": 863,
@@ -5651,26 +5519,26 @@
       },
       {
         "itemId": 865,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 3095,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 3096,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 3097,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Aarons Archery Appendages",
+    "name": "Aaron's Archery Appendages.",
     "id": 119,
     "items": [
       {
@@ -5687,10 +5555,14 @@
       },
       {
         "itemId": 1095,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 1097,
+        "itemAmount": 15
+      },
+      {
+        "itemId": 1167,
         "itemAmount": 10
       },
       {
@@ -5706,7 +5578,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Dargaud's Bows and Arrows",
+    "name": "Dargaud's Bow and Arrows.",
     "id": 120,
     "items": [
       {
@@ -5715,27 +5587,27 @@
       },
       {
         "itemId": 39,
-        "itemAmount": 300
+        "itemAmount": 500
       },
       {
         "itemId": 40,
-        "itemAmount": 300
+        "itemAmount": 400
       },
       {
         "itemId": 41,
-        "itemAmount": 100
+        "itemAmount": 300
       },
       {
         "itemId": 42,
-        "itemAmount": 100
+        "itemAmount": 200
       },
       {
         "itemId": 43,
-        "itemAmount": 100
+        "itemAmount": 200
       },
       {
         "itemId": 44,
-        "itemAmount": 30
+        "itemAmount": 150
       },
       {
         "itemId": 882,
@@ -5743,23 +5615,23 @@
       },
       {
         "itemId": 884,
-        "itemAmount": 300
+        "itemAmount": 500
       },
       {
         "itemId": 886,
-        "itemAmount": 300
+        "itemAmount": 500
       },
       {
         "itemId": 888,
-        "itemAmount": 100
+        "itemAmount": 500
       },
       {
         "itemId": 890,
-        "itemAmount": 100
+        "itemAmount": 450
       },
       {
         "itemId": 892,
-        "itemAmount": 100
+        "itemAmount": 400
       },
       {
         "itemId": 4773,
@@ -5791,171 +5663,191 @@
       },
       {
         "itemId": 841,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 843,
-        "itemAmount": 10
+        "itemAmount": 20
       },
       {
         "itemId": 849,
-        "itemAmount": 10
+        "itemAmount": 20
+      },
+      {
+        "itemId": 839,
+        "itemAmount": 20
+      },
+      {
+        "itemId": 845,
+        "itemAmount": 20
+      },
+      {
+        "itemId": 4827,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 847,
+        "itemAmount": 20
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Authentic Throwing Weapons",
+    "name": "Authentic Throwing Weapons.",
     "id": 121,
     "items": [
       {
         "itemId": 825,
-        "itemAmount": 1000
+        "itemAmount": 900
       },
       {
         "itemId": 826,
-        "itemAmount": 1000
+        "itemAmount": 800
       },
       {
         "itemId": 827,
-        "itemAmount": 1000
+        "itemAmount": 700
       },
       {
         "itemId": 828,
-        "itemAmount": 300
+        "itemAmount": 600
       },
       {
         "itemId": 829,
-        "itemAmount": 100
+        "itemAmount": 500
       },
       {
         "itemId": 830,
-        "itemAmount": 100
+        "itemAmount": 400
       },
       {
         "itemId": 800,
-        "itemAmount": 1000
+        "itemAmount": 900
       },
       {
         "itemId": 801,
-        "itemAmount": 1000
+        "itemAmount": 800
       },
       {
         "itemId": 802,
-        "itemAmount": 300
+        "itemAmount": 700
       },
       {
         "itemId": 803,
-        "itemAmount": 300
+        "itemAmount": 600
       },
       {
         "itemId": 804,
-        "itemAmount": 100
+        "itemAmount": 500
       },
       {
         "itemId": 805,
-        "itemAmount": 100
+        "itemAmount": 400
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Magic Guild Store Mystic Robes",
+    "name": "Magic Guild Store - Mystic Robes",
     "id": 122,
     "items": [
       {
         "itemId": 4089,
-        "itemAmount": 10
+        "itemAmount": 1000
       },
       {
         "itemId": 4091,
-        "itemAmount": 10
+        "itemAmount": 1000
       },
       {
         "itemId": 4093,
-        "itemAmount": 10
+        "itemAmount": 1000
       },
       {
         "itemId": 4095,
-        "itemAmount": 10
+        "itemAmount": 1000
       },
       {
         "itemId": 4097,
-        "itemAmount": 10
+        "itemAmount": 1000
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Magic Guild Store Runes and Staves",
+    "name": "Magic Guild Store - Runes and Staves",
     "id": 123,
     "items": [
       {
         "itemId": 556,
-        "itemAmount": 1000
+        "itemAmount": 5000
       },
       {
         "itemId": 555,
-        "itemAmount": 1000
+        "itemAmount": 5000
       },
       {
         "itemId": 557,
-        "itemAmount": 1000
+        "itemAmount": 5000
       },
       {
         "itemId": 554,
-        "itemAmount": 1000
+        "itemAmount": 5000
       },
       {
         "itemId": 558,
-        "itemAmount": 1000
+        "itemAmount": 5000
       },
       {
         "itemId": 559,
-        "itemAmount": 1000
+        "itemAmount": 5000
       },
       {
         "itemId": 562,
-        "itemAmount": 300
+        "itemAmount": 250
       },
       {
         "itemId": 561,
-        "itemAmount": 300
+        "itemAmount": 250
       },
       {
         "itemId": 560,
-        "itemAmount": 1000
+        "itemAmount": 250
       },
       {
         "itemId": 563,
-        "itemAmount": 100
+        "itemAmount": 250
       },
       {
         "itemId": 565,
-        "itemAmount": 100
+        "itemAmount": 250
       },
       {
         "itemId": 566,
-        "itemAmount": 100
+        "itemAmount": 250
+      },
+      {
+        "itemId": 1391,
+        "itemAmount": 5
       },
       {
         "itemId": 1387,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1383,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1381,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1385,
-        "itemAmount": 10
+        "itemAmount": 2
       }
     ]
   },
@@ -6246,60 +6138,60 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Gianne's Restraunt",
+    "name": "Gianne's Restaurant",
     "id": 133,
     "items": [
       {
-        "itemId": 2223,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2225,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2221,
-        "itemAmount": 10
+        "itemId": 2227,
+        "itemAmount": 3
       },
       {
         "itemId": 2219,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
-        "itemId": 2227,
-        "itemAmount": 10
+        "itemId": 2221,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 2225,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 2223,
+        "itemAmount": 3
       },
       {
         "itemId": 2233,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 2231,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 2235,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 2229,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2241,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2243,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2239,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 2237,
-        "itemAmount": 10
+        "itemAmount": 3
+      },
+      {
+        "itemId": 2243,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 2239,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 2241,
+        "itemAmount": 3
       }
     ]
   },
@@ -6311,63 +6203,87 @@
     "items": [
       {
         "itemId": 882,
-        "itemAmount": 1000
+        "itemAmount": 200
+      },
+      {
+        "itemId": 877,
+        "itemAmount": 150
+      },
+      {
+        "itemId": 880,
+        "itemAmount": 1
       },
       {
         "itemId": 841,
-        "itemAmount": 10
+        "itemAmount": 4
+      },
+      {
+        "itemId": 839,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 837,
+        "itemAmount": 2
       },
       {
         "itemId": 39,
-        "itemAmount": 100
+        "itemAmount": 200
       },
       {
         "itemId": 40,
-        "itemAmount": 100
+        "itemAmount": 180
       },
       {
         "itemId": 41,
-        "itemAmount": 100
+        "itemAmount": 160
       },
       {
         "itemId": 42,
-        "itemAmount": 100
+        "itemAmount": 140
       },
       {
         "itemId": 1349,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
         "itemId": 1353,
-        "itemAmount": 10
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1363,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1365,
+        "itemAmount": 2
       },
       {
         "itemId": 1369,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1307,
-        "itemAmount": 10
+        "itemAmount": 4
       },
       {
         "itemId": 1309,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1311,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1313,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1315,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1317,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
@@ -6379,54 +6295,42 @@
     "items": [
       {
         "itemId": 2283,
-        "itemAmount": 10
+        "itemAmount": 30
       }
     ]
   },
   {
-    "buyModifier": 1,
-    "sellModifier": 1,
-    "name": "Wilderness General Store",
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Bandit Duty Free",
     "id": 136,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1735,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 30
-      },
-      {
-        "itemId": 1923,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
       },
       {
-        "itemId": 550,
-        "itemAmount": 10
+        "itemId": 1265,
+        "itemAmount": 5
       },
       {
-        "itemId": 946,
+        "itemId": 1351,
         "itemAmount": 10
       }
     ]
@@ -6462,68 +6366,104 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Tzhaar Hur Tel's Equipment Store",
+    "name": "TzHaar-Hur-Tel's Equipment Store",
     "id": 138,
     "items": [
       {
         "itemId": 6522,
-        "itemAmount": 10
+        "itemAmount": 500
       },
       {
         "itemId": 6523,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6524,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 6525,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6526,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 6527,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 6528,
-        "itemAmount": 10
+        "itemAmount": 1
+      },
+      {
+        "itemId": 6526,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 6527,
+        "itemAmount": 1
       },
       {
         "itemId": 6568,
-        "itemAmount": 10
+        "itemAmount": 1
+      },
+      {
+        "itemId": 6524,
+        "itemAmount": 1
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Tzhaar Hur Lek's Ore and Gem Store",
+    "name": "TzHaar-Hur-Rin's Ore and Gem Store",
     "id": 139,
     "items": [
       {
         "itemId": 438,
-        "itemAmount": 5
+        "itemAmount": 25
       },
       {
         "itemId": 436,
-        "itemAmount": 5
+        "itemAmount": 25
+      },
+      {
+        "itemId": 440,
+        "itemAmount": 15
+      },
+      {
+        "itemId": 442,
+        "itemAmount": 12
       },
       {
         "itemId": 453,
+        "itemAmount": 20
+      },
+      {
+        "itemId": 444,
+        "itemAmount": 12
+      },
+      {
+        "itemId": 447,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 449,
         "itemAmount": 2
       },
       {
-        "itemId": 1623,
+        "itemId": 451,
         "itemAmount": 1
       },
       {
+        "itemId": 1623,
+        "itemAmount": 16
+      },
+      {
         "itemId": 1621,
-        "itemAmount": 1
+        "itemAmount": 12
+      },
+      {
+        "itemId": 1619,
+        "itemAmount": 8
+      },
+      {
+        "itemId": 1617,
+        "itemAmount": 6
+      },
+      {
+        "itemId": 1631,
+        "itemAmount": 0
       },
       {
         "itemId": 6571,
@@ -6590,35 +6530,35 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Blurberry's Bar",
+    "name": "Blurberry Bar",
     "id": 142,
     "items": [
       {
-        "itemId": 2028,
+        "itemId": 2064,
         "itemAmount": 10
       },
       {
-        "itemId": 2030,
+        "itemId": 2074,
         "itemAmount": 10
       },
       {
-        "itemId": 2032,
+        "itemId": 2092,
         "itemAmount": 10
       },
       {
-        "itemId": 2034,
+        "itemId": 2084,
         "itemAmount": 10
       },
       {
-        "itemId": 2036,
+        "itemId": 2048,
         "itemAmount": 10
       },
       {
-        "itemId": 2038,
+        "itemId": 2080,
         "itemAmount": 10
       },
       {
-        "itemId": 2040,
+        "itemId": 2054,
         "itemAmount": 10
       }
     ]
@@ -6631,7 +6571,7 @@
     "items": [
       {
         "itemId": 2518,
-        "itemAmount": 100
+        "itemAmount": 2000
       }
     ]
   },
@@ -6714,58 +6654,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Martin Thwait's Lost and Found",
-    "id": 146,
-    "items": [
-      {
-        "itemId": 954,
-        "itemAmount": 50
-      },
-      {
-        "itemId": 1523,
-        "itemAmount": 25
-      },
-      {
-        "itemId": 1755,
-        "itemAmount": 30
-      },
-      {
-        "itemId": 946,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 5560,
-        "itemAmount": 25
-      },
-      {
-        "itemId": 864,
-        "itemAmount": 15
-      },
-      {
-        "itemId": 863,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 865,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 3095,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 3096,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 3097,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Grace's Graceful Clothing",
     "id": 147,
     "items": []
@@ -6832,26 +6720,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Frincos's Fabulous Herb Store",
-    "id": 151,
-    "items": [
-      {
-        "itemId": 229,
-        "itemAmount": 50
-      },
-      {
-        "itemId": 233,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 221,
-        "itemAmount": 50
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Garden Centre",
     "id": 152,
     "items": []
@@ -6859,337 +6727,9 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Flynn's Mace Market",
-    "id": 153,
-    "items": [
-      {
-        "itemId": 1422,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1420,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1424,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1428,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1430,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Herquin's Gems",
-    "id": 154,
-    "items": [
-      {
-        "itemId": 1623,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1621,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1619,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1617,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1607,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1605,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1603,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1601,
-        "itemAmount": 0
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Wayne's Chains! - Chainmail Specialist",
-    "id": 155,
-    "items": [
-      {
-        "itemId": 1103,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1101,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1105,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1107,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1109,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1111,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Prospector Percy's Nugget Shop",
     "id": 156,
     "items": []
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Brian's Battleaxe Bazaar",
-    "id": 157,
-    "items": [
-      {
-        "itemId": 1375,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1363,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1365,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1367,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1369,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1371,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Gerrant's Fishy Business",
-    "id": 158,
-    "items": [
-      {
-        "itemId": 303,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 307,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 309,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 311,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 301,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 313,
-        "itemAmount": 1500
-      },
-      {
-        "itemId": 314,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 317,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 327,
-        "itemAmount": 200
-      },
-      {
-        "itemId": 345,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 321,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 335,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 349,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 331,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 359,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 377,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 371,
-        "itemAmount": 0
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Brian's Archery Supplies",
-    "id": 159,
-    "items": [
-      {
-        "itemId": 886,
-        "itemAmount": 1500
-      },
-      {
-        "itemId": 888,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 890,
-        "itemAmount": 800
-      },
-      {
-        "itemId": 843,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 845,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 849,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 847,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 853,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 851,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Rommik's Crafty Supplies",
-    "id": 160,
-    "items": [
-      {
-        "itemId": 1755,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1592,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1597,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1595,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1733,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1734,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 1599,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2976,
-        "itemAmount": 6
-      },
-      {
-        "itemId": 5523,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Gaius' Two Handed Shop",
-    "id": 161,
-    "items": [
-      {
-        "itemId": 1307,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1309,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1311,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1313,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1315,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1317,
-        "itemAmount": 1
-      }
-    ]
   },
   {
     "buyModifier": 2,
@@ -8240,102 +7780,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Fremennik Fish Monger",
-    "id": 187,
-    "items": [
-      {
-        "itemId": 303,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 307,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 309,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 311,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 301,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 313,
-        "itemAmount": 1500
-      },
-      {
-        "itemId": 314,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 305,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 317,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 327,
-        "itemAmount": 200
-      },
-      {
-        "itemId": 345,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 353,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 341,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 321,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 335,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 349,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 331,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 359,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 377,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 363,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 371,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 383,
-        "itemAmount": 0
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Fremennik Fur Trader",
     "id": 188,
     "items": [
@@ -8627,62 +8071,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Authentic Trowing Weapons",
-    "id": 200,
-    "items": [
-      {
-        "itemId": 825,
-        "itemAmount": 900
-      },
-      {
-        "itemId": 826,
-        "itemAmount": 800
-      },
-      {
-        "itemId": 827,
-        "itemAmount": 700
-      },
-      {
-        "itemId": 828,
-        "itemAmount": 600
-      },
-      {
-        "itemId": 829,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 830,
-        "itemAmount": 400
-      },
-      {
-        "itemId": 800,
-        "itemAmount": 900
-      },
-      {
-        "itemId": 801,
-        "itemAmount": 800
-      },
-      {
-        "itemId": 802,
-        "itemAmount": 700
-      },
-      {
-        "itemId": 803,
-        "itemAmount": 600
-      },
-      {
-        "itemId": 804,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 805,
-        "itemAmount": 400
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Warrior Guild Armoury",
     "id": 201,
     "items": [
@@ -8891,490 +8279,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Magic Guild Store - Mystic Robes",
-    "id": 204,
-    "items": [
-      {
-        "itemId": 4089,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4091,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4093,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4095,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4097,
-        "itemAmount": 1000
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Magic Guild Store - Runes and Staves",
-    "id": 205,
-    "items": [
-      {
-        "itemId": 4089,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4091,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4093,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4095,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 4097,
-        "itemAmount": 1000
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Magic Guild Store - Runes and Staves",
-    "id": 206,
-    "items": [
-      {
-        "itemId": 556,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 555,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 557,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 554,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 558,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 559,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 562,
-        "itemAmount": 250
-      },
-      {
-        "itemId": 561,
-        "itemAmount": 250
-      },
-      {
-        "itemId": 560,
-        "itemAmount": 250
-      },
-      {
-        "itemId": 563,
-        "itemAmount": 250
-      },
-      {
-        "itemId": 565,
-        "itemAmount": 250
-      },
-      {
-        "itemId": 566,
-        "itemAmount": 250
-      },
-      {
-        "itemId": 1391,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1387,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1383,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1381,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1385,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Harry's Fishing Shop",
-    "id": 207,
-    "items": [
-      {
-        "itemId": 303,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 307,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 311,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 301,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 313,
-        "itemAmount": 1200
-      },
-      {
-        "itemId": 305,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 317,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 327,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 345,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 353,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 341,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 321,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 359,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 377,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 363,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 371,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 383,
-        "itemAmount": 0
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Hickton's Archery Emporium",
-    "id": 208,
-    "items": [
-      {
-        "itemId": 877,
-        "itemAmount": 200
-      },
-      {
-        "itemId": 882,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 884,
-        "itemAmount": 800
-      },
-      {
-        "itemId": 886,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 888,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 890,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 892,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 4773,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 4778,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 4783,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 4788,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 4793,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 4798,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 4803,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 39,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 40,
-        "itemAmount": 800
-      },
-      {
-        "itemId": 41,
-        "itemAmount": 600
-      },
-      {
-        "itemId": 42,
-        "itemAmount": 400
-      },
-      {
-        "itemId": 43,
-        "itemAmount": 200
-      },
-      {
-        "itemId": 44,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 841,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 839,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 837,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 843,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 845,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 4827,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1133,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1097,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Vanessa's Farming Shop",
-    "id": 209,
-    "items": [
-      {
-        "itemId": 5341,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5343,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5329,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 952,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5325,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5331,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5354,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 6032,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5418,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5376,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 1942,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1957,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1965,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1982,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5986,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5504,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5982,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5994,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5996,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5998,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6000,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6002,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5931,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6006,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6036,
-        "itemAmount": 100
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Aemad's Adventuring Supplies",
-    "id": 210,
-    "items": [
-      {
-        "itemId": 227,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 1265,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1349,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 2142,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 590,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1759,
-        "itemAmount": 30
-      },
-      {
-        "itemId": 882,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 954,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 970,
-        "itemAmount": 50
-      },
-      {
-        "itemId": 946,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Ardougne Baker's Stall",
     "id": 211,
     "items": [
@@ -9393,22 +8297,6 @@
       {
         "itemId": 1973,
         "itemAmount": 9
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Ardougne Fur Stall",
-    "id": 212,
-    "items": [
-      {
-        "itemId": 948,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 958,
-        "itemAmount": 3
       }
     ]
   },
@@ -9473,142 +8361,6 @@
       {
         "itemId": 1550,
         "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Zenesha's Plate Mail Body Shop",
-    "id": 216,
-    "items": [
-      {
-        "itemId": 1117,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1115,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1119,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1125,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1121,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Richard's Farming Shop",
-    "id": 217,
-    "items": [
-      {
-        "itemId": 5341,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5343,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5329,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 952,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5325,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5331,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5356,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 6032,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5418,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5376,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 1942,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1957,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1965,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1982,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5986,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5504,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5982,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5994,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5996,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5998,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6000,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6002,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5931,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6006,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6036,
-        "itemAmount": 100
       }
     ]
   },
@@ -9808,107 +8560,15 @@
       },
       {
         "itemId": 1941,
-        "itemAmount": 500
+        "itemAmount": 5000
       },
       {
         "itemId": 946,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Gianne's Restaurant",
-    "id": 221,
-    "items": [
-      {
-        "itemId": 2227,
-        "itemAmount": 3
+        "itemAmount": 2
       },
       {
-        "itemId": 2219,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2221,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2225,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2223,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2233,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2231,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2235,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2229,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2237,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2243,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2239,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2241,
-        "itemAmount": 3
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Blurberry Bar",
-    "id": 222,
-    "items": [
-      {
-        "itemId": 2064,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2074,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2092,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2084,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2048,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2080,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2054,
-        "itemAmount": 10
+        "itemId": 1351,
+        "itemAmount": 5
       }
     ]
   },
@@ -10068,7 +8728,7 @@
     "items": [
       {
         "itemId": 1969,
-        "itemAmount": 1
+        "itemAmount": 5
       },
       {
         "itemId": 2023,
@@ -10084,7 +8744,7 @@
       },
       {
         "itemId": 550,
-        "itemAmount": 1
+        "itemAmount": 20
       },
       {
         "itemId": 583,
@@ -10100,7 +8760,7 @@
       },
       {
         "itemId": 970,
-        "itemAmount": 1
+        "itemAmount": 5
       },
       {
         "itemId": 975,
@@ -10128,11 +8788,11 @@
       },
       {
         "itemId": 2524,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 3377,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 2894,
@@ -10148,7 +8808,7 @@
       },
       {
         "itemId": 3711,
-        "itemAmount": 1
+        "itemAmount": 20
       },
       {
         "itemId": 3678,
@@ -10156,131 +8816,15 @@
       },
       {
         "itemId": 3424,
-        "itemAmount": 1
+        "itemAmount": 2
       },
       {
         "itemId": 3420,
-        "itemAmount": 1
+        "itemAmount": 2
       },
       {
         "itemId": 5,
         "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Davon's Amulet Store",
-    "id": 227,
-    "items": [
-      {
-        "itemId": 1718,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1727,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1729,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1725,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1731,
-        "itemAmount": 0
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "The Shrimp and Parrot",
-    "id": 228,
-    "items": [
-      {
-        "itemId": 347,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 339,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 361,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 379,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 373,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 3144,
-        "itemAmount": 3
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Karamja Wines, Spirits, and Beers",
-    "id": 229,
-    "items": [
-      {
-        "itemId": 1917,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 431,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1993,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Fernahei's Fishing Hut",
-    "id": 230,
-    "items": [
-      {
-        "itemId": 307,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 309,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 313,
-        "itemAmount": 200
-      },
-      {
-        "itemId": 314,
-        "itemAmount": 800
-      },
-      {
-        "itemId": 335,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 349,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 331,
-        "itemAmount": 0
       }
     ]
   },
@@ -10503,150 +9047,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "TzHaar-Hur-Lek's Ore and Gem Store",
-    "id": 235,
-    "items": []
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "TzHaar-Hur-Tel's Equipment Store",
-    "id": 236,
-    "items": []
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "TzHaar-Mej-Roh's Rune Store",
-    "id": 237,
-    "items": []
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "TzHaar-Hur-Rin's Ore and Gem Store",
-    "id": 238,
-    "items": [
-      {
-        "itemId": 438,
-        "itemAmount": 25
-      },
-      {
-        "itemId": 436,
-        "itemAmount": 25
-      },
-      {
-        "itemId": 440,
-        "itemAmount": 15
-      },
-      {
-        "itemId": 442,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 453,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 444,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 447,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 449,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 451,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1623,
-        "itemAmount": 16
-      },
-      {
-        "itemId": 1621,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 1619,
-        "itemAmount": 8
-      },
-      {
-        "itemId": 1617,
-        "itemAmount": 6
-      },
-      {
-        "itemId": 1631,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6571,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "TzHaar-Hur-Zal's Equipment Store",
-    "id": 239,
-    "items": []
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Al-Kharid General Store",
-    "id": 240,
-    "items": [
-      {
-        "itemId": 1931,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1735,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1923,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1887,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 590,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1755,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 550,
-        "itemAmount": 5
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Dommik's Crafting Store",
     "id": 241,
     "items": [
@@ -10731,170 +9131,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Louie's Armoured Legs Bazaar",
-    "id": 243,
-    "items": [
-      {
-        "itemId": 1075,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1067,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1069,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1077,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1071,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1073,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Ranael's Super Skirt Store",
-    "id": 244,
-    "items": [
-      {
-        "itemId": 1087,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1081,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1083,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1089,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1085,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1091,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Shantay Pass Shop",
-    "id": 245,
-    "items": [
-      {
-        "itemId": 1823,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 1831,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 1937,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1921,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1929,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 946,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1833,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1835,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1837,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2349,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 314,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1923,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1854,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 954,
-        "itemAmount": 20
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Zeke's Superior Scimitars",
-    "id": 246,
-    "items": [
-      {
-        "itemId": 1321,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1323,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1325,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1329,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "The Big Heist Lodge",
     "id": 247,
     "items": [
@@ -10965,106 +9201,6 @@
       {
         "itemId": 1973,
         "itemAmount": 25
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Seddu's Adventurer's Store",
-    "id": 251,
-    "items": [
-      {
-        "itemId": 1093,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1079,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1113,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1099,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1065,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1193,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1151,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Pollnivneach General Store",
-    "id": 252,
-    "items": [
-      {
-        "itemId": 1931,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1825,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 1833,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1837,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 4593,
-        "itemAmount": 11
-      },
-      {
-        "itemId": 4591,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 1985,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2120,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1982,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1937,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1921,
-        "itemAmount": 7
-      },
-      {
-        "itemId": 1929,
-        "itemAmount": 8
       }
     ]
   },
@@ -11525,99 +9661,11 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Helmet Shop",
-    "id": 267,
-    "items": [
-      {
-        "itemId": 1139,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1137,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1141,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1143,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1145,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1155,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1153,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1157,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1159,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1161,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Bob's Brilliant Axes",
-    "id": 268,
-    "items": [
-      {
-        "itemId": 1265,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1351,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1349,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1353,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1363,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1365,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1369,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Aubury's Rune Shop",
-    "id": 269,
+    "name": "Aubury's Rune Shop.",
+    "id": 52,
     "items": [
       {
         "itemId": 556,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 558,
         "itemAmount": 5000
       },
       {
@@ -11630,6 +9678,10 @@
       },
       {
         "itemId": 557,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 558,
         "itemAmount": 5000
       },
       {
@@ -11669,84 +9721,8 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Fancy Clothes Store",
-    "id": 271,
-    "items": [
-      {
-        "itemId": 1949,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 579,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1023,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 958,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 948,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1733,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1734,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 1059,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1061,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 426,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 428,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1757,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1013,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1015,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1011,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1007,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1025,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Horvik's Armour Shop",
-    "id": 272,
+    "id": 63,
     "items": [
       {
         "itemId": 1103,
@@ -11802,7 +9778,7 @@
     "buyModifier": 2,
     "sellModifier": 2,
     "name": "Lowe's Archery Emporium",
-    "id": 273,
+    "id": 3,
     "items": [
       {
         "itemId": 882,
@@ -11870,7 +9846,7 @@
     "buyModifier": 2,
     "sellModifier": 2,
     "name": "Thessalia's Fine Clothes",
-    "id": 274,
+    "id": 12,
     "items": [
       {
         "itemId": 1005,
@@ -11925,88 +9901,8 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Varrock Swordshop",
-    "id": 275,
-    "items": [
-      {
-        "itemId": 1277,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1279,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1281,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1283,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1285,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1287,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1291,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1293,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1295,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1297,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1299,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1301,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1205,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1203,
-        "itemAmount": 6
-      },
-      {
-        "itemId": 1207,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1217,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 1209,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1211,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Zaff's Superior Staffs!",
-    "id": 276,
+    "id": 72,
     "items": [
       {
         "itemId": 1391,
@@ -12053,222 +9949,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "General Store",
-    "id": 278,
-    "items": [
-      {
-        "itemId": 1733,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1734,
-        "itemAmount": 50
-      },
-      {
-        "itemId": 1931,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 590,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1755,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 3377,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 946,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Barker's Haberdashery",
-    "id": 279,
-    "items": [
-      {
-        "itemId": 2894,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2896,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2898,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2900,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2902,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2904,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2906,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2908,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2910,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2912,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2914,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2916,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2918,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2920,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2922,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2924,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2926,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2928,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2930,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2932,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2934,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2936,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2938,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2940,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 2942,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1007,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1019,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1021,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1023,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1027,
-        "itemAmount": 5
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Rufus' Meat Emporium",
-    "id": 280,
-    "items": [
-      {
-        "itemId": 2132,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2138,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2134,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 2136,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 335,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 349,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 331,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 383,
-        "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Trader Sven's Black Market Goods",
     "id": 281,
     "items": []
@@ -12276,67 +9956,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Razmire General Store",
-    "id": 282,
-    "items": [
-      {
-        "itemId": 1931,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1735,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1925,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1923,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1887,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 590,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1755,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 3422,
-        "itemAmount": 150
-      },
-      {
-        "itemId": 227,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 1933,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 3678,
-        "itemAmount": 3
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Razmire Builders' Merchants",
+    "name": "Razmire Builders Merchants.",
     "id": 283,
     "items": [
       {
@@ -12360,120 +9980,12 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Ak-Haranu's Exotic Shop",
+    "name": "Ak-Haranu's Exotic Shop.",
     "id": 284,
     "items": [
       {
         "itemId": 4740,
         "itemAmount": 500
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Alice's Farming Shop",
-    "id": 285,
-    "items": [
-      {
-        "itemId": 5341,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5343,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5329,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 952,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5325,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5331,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5356,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 6032,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5418,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 5376,
-        "itemAmount": 500
-      },
-      {
-        "itemId": 1942,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1957,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1965,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 1982,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5986,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5504,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5982,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5994,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5996,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5998,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6000,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6002,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 5931,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6006,
-        "itemAmount": 0
-      },
-      {
-        "itemId": 6036,
-        "itemAmount": 100
       }
     ]
   },
@@ -14489,42 +12001,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Bandit Duty Free",
-    "id": 334,
-    "items": [
-      {
-        "itemId": 1931,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 590,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1755,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1265,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1351,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Darren's Wilderness Cape Shop",
     "id": 335,
     "items": [
@@ -14817,38 +12293,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Bandit Duty Free",
-    "id": 334,
-    "items": [
-      {
-        "itemId": 1931,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1755,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 2347,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1265,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1351,
-        "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Darren's Wilderness Cape Shop",
     "id": 335,
     "items": [
@@ -15067,22 +12511,6 @@
       {
         "itemId": 1641,
         "itemAmount": 5
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Jukat",
-    "id": 345,
-    "items": [
-      {
-        "itemId": 1305,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1215,
-        "itemAmount": 2
       }
     ]
   },
