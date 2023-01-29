@@ -2,6 +2,9 @@ package com.rs2.game.content.skills.core;
 
 import com.rs2.GameConstants;
 import com.rs2.event.*;
+import com.rs2.game.content.StaticItemList;
+import com.rs2.game.content.StaticNpcList;
+import com.rs2.game.content.StaticObjectList;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.objects.Object;
 import com.rs2.game.players.Player;
@@ -14,8 +17,8 @@ public class Mining {
 	/**
 	 * Andrew (Mr Extremez)
 	 */
-	private static final int[] RANDOM_GEMS = {1617, 1619, 1621, 1623};
-	private static final int[] GLORIES = {1706, 1708, 1710, 1712};
+	private static final int[] RANDOM_GEMS = {StaticItemList.UNCUT_DIAMOND, StaticItemList.UNCUT_RUBY, StaticItemList.UNCUT_EMERALD, StaticItemList.UNCUT_SAPPHIRE};
+	private static final int[] GLORIES = {StaticItemList.AMULET_OF_GLORY1, StaticItemList.AMULET_OF_GLORY2, StaticItemList.AMULET_OF_GLORY3, StaticItemList.AMULET_OF_GLORY4};
 	
 	public boolean giveGem(Player player) {
 		int chance = 256;
@@ -34,22 +37,22 @@ public class Mining {
 	}
 	
 	public final int[][] Pick_Settings = {
-		{1265, 1, 1, 625}, //Bronze
-		{1267, 1, 2, 626}, //Iron
-		{1269, 6, 3, 627}, //Steel
-		{1273, 21, 4, 629}, //Mithril
-		{1271, 31, 5, 628}, //Addy
-		{1275, 41, 6, 624}, //Rune
+		{StaticItemList.BRONZE_PICKAXE, 1, 1, 625}, //Bronze
+		{StaticItemList.IRON_PICKAXE, 1, 2, 626}, //Iron
+		{StaticItemList.STEEL_PICKAXE, 6, 3, 627}, //Steel
+		{StaticItemList.MITHRIL_PICKAXE, 21, 4, 629}, //Mithril
+		{StaticItemList.ADAMANT_PICKAXE, 31, 5, 628}, //Addy
+		{StaticItemList.RUNE_PICKAXE, 41, 6, 624}, //Rune
 	};
 
 	public static enum gems {
-		OPAL(1625, 60),
-		JADE(1627, 30),
-		RED_TOPAZ(1629, 15),
-		SAPHIRE(1623, 9),
-		EMERALD(1621, 5),
-		RUBY(1619, 5),
-		DIAMOND(1617, 4);
+		OPAL(StaticItemList.UNCUT_OPAL, 60),
+		JADE(StaticItemList.UNCUT_JADE, 30),
+		RED_TOPAZ(StaticItemList.UNCUT_RED_TOPAZ, 15),
+		SAPHIRE(StaticItemList.UNCUT_SAPPHIRE, 9),
+		EMERALD(StaticItemList.UNCUT_EMERALD, 5),
+		RUBY(StaticItemList.UNCUT_RUBY, 5),
+		DIAMOND(StaticItemList.UNCUT_DIAMOND, 4);
 
 		public final int itemID;
 		public final int chance;
@@ -72,23 +75,23 @@ public class Mining {
 			return gems.OPAL.itemID;
 		}
 	}
-
+	//Rock ID's, Level Req, XP, mineTimer, respawnTimer, Ore ID's
 	public static enum rockData {
-		ESSENCE(new int[] { 2491 }, 1, 5, 2, 0, new int[] { 1436, 7936 }),
-		CLAY(new int[] { 2108, 2109, 11189, 11190, 11191, 9713, 9711, 14905, 14904 }, 1, 5, 1, 2, new int[] { 434 }),
-		COPPER(new int[] { 3042, 2091, 2090, 9708, 9709, 9710, 11960, 14906, 14907 }, 1, 18, 1, 4, new int[] { 436 }),
-		TIN(new int[] { 2094, 2095, 3043, 9716, 9714, 11958, 11957, 11959, 11933, 11934, 11935, 14903, 14902 }, 1, 18, 1, 4, new int[] { 438 }),
-		BLURITE(new int[] { 10574, 10583, 10584, 2110 }, 10, 20, 1, 42, new int[] { 668 }),
-		IRON(new int[] { 450, 2093, 2092, 9717, 9718, 9719, 11962, 11956, 11954, 14856, 14857, 14858, 14914, 14913 }, 15, 35, 2, 9, new int[] { 440 }),
-		SILVER(new int[] { 2101, 11186, 11187, 11188, 2100 }, 20, 40, 3, 100, new int[] { 442 }),
-		COAL(new int[] { 2096, 2097, 11963, 11964, 14850, 14851, 14852, 11930, 11931, 11932 }, 30, 50, 4, 50, new int[] { 453 }),
-		GOLD(new int[] { 2099, 2098, 11183, 11184, 11185, 9720, 9722 }, 40,	65, 6, 100, new int[] { 444 }),
-		MITHRIL(new int[] { 2103, 2102, 14853, 14854, 14855 }, 55, 80, 8, 200, new int[] { 447 }),
-		ADAMANT(new int[] { 2104, 2105, 14862, 14863, 14864 }, 70, 95, 10, 400, new int[] { 449 }),
-		RUNE(new int[] { 14859, 14860, 2106, 2107 }, 85, 125, 20, 1200, new int[] { 451 }),
-		GRANITE(new int[] { 10947 }, 45, 75, 10, 8, new int[] { 6979, 6981, 6983 }),
-		SANDSTONE(new int[] { 10946 }, 35, 60, 5, 8, new int[] { 6971, 6973, 6975, 6977 }),
-		GEM(new int[] {2111}, 40, 65, 6, 175, new int[] {});
+		ESSENCE(new int[] {StaticObjectList.RUNE_ESSENCE }, 1, 5, 2, 0, new int[] {StaticItemList.RUNE_ESSENCE, StaticItemList.PURE_ESSENCE }),
+		CLAY(new int[] { StaticObjectList.ROCKS_2108, StaticObjectList.ROCKS_2109, StaticObjectList.ROCKS_11189, StaticObjectList.ROCKS_11190, StaticObjectList.ROCKS_11191, StaticObjectList.ROCKS_9713, StaticObjectList.ROCKS_9711, StaticObjectList.ROCKS_14905, StaticObjectList.ROCKS_14904 }, 1, 5, 1, 2, new int[] { StaticItemList.CLAY }),
+		COPPER(new int[] { StaticObjectList.ROCKS_3042, StaticObjectList.ROCKS_2091, StaticObjectList.ROCKS_2090, StaticObjectList.ROCKS_9708, StaticObjectList.ROCKS_9709, StaticObjectList.ROCKS_9710, StaticObjectList.ROCKS_11960, StaticObjectList.ROCKS_14906, StaticObjectList.ROCKS_14907 }, 1, 18, 1, 4, new int[] { StaticItemList.COPPER_ORE }),
+		TIN(new int[] { StaticObjectList.ROCKS_2094, StaticObjectList.ROCKS_2095, StaticObjectList.ROCKS_3043, StaticObjectList.ROCKS_9716, StaticObjectList.ROCKS_9714, StaticObjectList.ROCKS_11958, StaticObjectList.ROCKS_11957, StaticObjectList.ROCKS_11959, StaticObjectList.ROCKS_11933, StaticObjectList.ROCKS_11934, StaticObjectList.ROCKS_11935, StaticObjectList.ROCKS_14903, StaticObjectList.ROCKS_14902 }, 1, 18, 1, 4, new int[] { StaticItemList.TIN_ORE }),
+		BLURITE(new int[] { StaticObjectList.ROCKS_10583, StaticObjectList.ROCKS_10584, StaticObjectList.ROCKS_2110 }, 10, 20, 1, 42, new int[] { StaticItemList.BLURITE_ORE }),
+		IRON(new int[] { StaticObjectList.ROCKS, StaticObjectList.ROCKS_2093, StaticObjectList.ROCKS_2092, StaticObjectList.ROCKS_9717, StaticObjectList.ROCKS_9718, StaticObjectList.ROCKS_9719, StaticObjectList.ROCKS_11962, StaticObjectList.ROCKS_11956, StaticObjectList.ROCKS_11954, StaticObjectList.ROCKS_14856, StaticObjectList.ROCKS_14857, StaticObjectList.ROCKS_14858, StaticObjectList.ROCKS_14914, StaticObjectList.ROCKS_14913 }, 15, 35, 2, 9, new int[] { StaticItemList.IRON_ORE }),
+		SILVER(new int[] { StaticObjectList.ROCKS_2101, StaticObjectList.ROCKS_11186, StaticObjectList.ROCKS_11187, StaticObjectList.ROCKS_11188, StaticObjectList.ROCKS_2100 }, 20, 40, 3, 100, new int[] { StaticItemList.SILVER_ORE }),
+		COAL(new int[] { StaticObjectList.ROCKS_2096, StaticObjectList.ROCKS_2097, StaticObjectList.ROCKS_11963, StaticObjectList.ROCKS_11964, StaticObjectList.ROCKS_14850, StaticObjectList.ROCKS_14851, StaticObjectList.ROCKS_14852, StaticObjectList.ROCKS_11930, StaticObjectList.ROCKS_11931, StaticObjectList.ROCKS_11932 }, 30, 50, 4, 50, new int[] { StaticItemList.COAL }),
+		GOLD(new int[] { StaticObjectList.ROCKS_2099, StaticObjectList.ROCKS_2098, StaticObjectList.ROCKS_11183, StaticObjectList.ROCKS_11184, StaticObjectList.ROCKS_11185, StaticObjectList.ROCKS_9720, StaticObjectList.ROCKS_9722 }, 40,	65, 6, 100, new int[] { StaticItemList.GOLD_ORE }),
+		MITHRIL(new int[] { StaticObjectList.ROCKS_2103, StaticObjectList.ROCKS_2102, StaticObjectList.ROCKS_14853, StaticObjectList.ROCKS_14854, StaticObjectList.ROCKS_14855 }, 55, 80, 8, 200, new int[] { StaticItemList.MITHRIL_ORE }),
+		ADAMANT(new int[] { StaticObjectList.ROCKS_2104, StaticObjectList.ROCKS_2105, StaticObjectList.ROCKS_14862, StaticObjectList.ROCKS_14863, StaticObjectList.ROCKS_14864 }, 70, 95, 10, 400, new int[] { StaticItemList.ADAMANTITE_ORE }),
+		RUNE(new int[] { StaticObjectList.ROCKS_14859, StaticObjectList.ROCKS_14860, StaticObjectList.ROCKS_2106, StaticObjectList.ROCKS_2107 }, 85, 125, 20, 1200, new int[] { StaticItemList.RUNITE_ORE }),
+		GRANITE(new int[] { StaticObjectList.ROCKS_10947 }, 45, 75, 10, 8, new int[] { StaticItemList.GRANITE_500G, StaticItemList.GRANITE_2KG, StaticItemList.GRANITE_5KG }),
+		SANDSTONE(new int[] { StaticObjectList.ROCKS_10946 }, 35, 60, 5, 8, new int[] { StaticItemList.SANDSTONE_1KG, StaticItemList.SANDSTONE_2KG, StaticItemList.SANDSTONE_5KG, StaticItemList.SANDSTONE_10KG }),
+		GEM(new int[] {StaticObjectList.ROCKS_2111}, 40, 65, 6, 175, new int[] {});
 
 		private final int levelReq, mineTimer, respawnTimer, xp;
 		private final int[] oreIds;
@@ -243,9 +246,9 @@ public class Mining {
 						resetMining(player);
 						return;
 					}
-					if (player.getItemAssistant().playerHasItem(438)) {
+					if (player.getItemAssistant().playerHasItem(StaticItemList.TIN_ORE)) {
 						player.getPacketSender().createArrow(3086, 9501, player.getH(), 2);
-						player.getDialogueHandler().chatboxText("Now you have some tin ore you must need some copper ore, then", "you'll have all you need to create a bronze bar. As you did before", "riger click on the copper rock and select 'mine'.", "", "Mining");
+						player.getDialogueHandler().chatboxText("Now you have some tin ore you must need some copper ore, then", "you'll have all you need to create a bronze bar. As you did before", "right click on the copper rock and select 'mine'.", "", "Mining");
 						player.tutorialProgress = 18;
 					}
 				} else if (player.tutorialProgress == 18) {
@@ -254,7 +257,7 @@ public class Mining {
 						resetMining(player);
 						return;
 					}
-					if (player.getItemAssistant().playerHasItem(436)) {
+					if (player.getItemAssistant().playerHasItem(StaticItemList.COPPER_ORE)) {
 						player.getPacketSender().createArrow(3078, 9495, 0, 2);
 						player.getDialogueHandler().sendDialogues(3061, -1);
 					}
@@ -301,9 +304,9 @@ public class Mining {
 	}
 
 	public void mineRock(int respawnTime, int x, int y, int type, int i) {
-		if (i != 2491) {
-			new Object(452, x, y, 0, type, 10, i, respawnTime);
-			Region.addObject(452, x, y, 0, 10, type, false);
+		if (i != StaticObjectList.RUNE_ESSENCE) {
+			new Object(StaticObjectList.ROCKS_452, x, y, 0, type, 10, i, respawnTime);
+			Region.addObject(StaticObjectList.ROCKS_452, x, y, 0, 10, type, false);
 
 			for (int t = 0; t < PlayerHandler.players.length; t++) {
 				if (PlayerHandler.players[t] != null) {
