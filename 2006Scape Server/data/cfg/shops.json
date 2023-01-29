@@ -30,74 +30,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Lowe's Archery Emporium",
-    "id": 3,
-    "items": [
-      {
-        "itemId": 882,
-        "itemAmount": 2000
-      },
-      {
-        "itemId": 884,
-        "itemAmount": 1500
-      },
-      {
-        "itemId": 886,
-        "itemAmount": 1000
-      },
-      {
-        "itemId": 888,
-        "itemAmount": 800
-      },
-      {
-        "itemId": 890,
-        "itemAmount": 600
-      },
-      {
-        "itemId": 877,
-        "itemAmount": 1500
-      },
-      {
-        "itemId": 841,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 839,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 843,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 845,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 849,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 847,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 853,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 851,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 837,
-        "itemAmount": 2
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Hickton's Archery Emporium.",
     "id": 4,
     "items": [
@@ -218,108 +150,104 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Lletya Archery Shop",
+    "name": "Lletya's Archery Shop",
     "id": 5,
     "items": [
       {
         "itemId": 884,
-        "itemAmount": 2000
+        "itemAmount": 1000
       },
       {
         "itemId": 886,
-        "itemAmount": 500
+        "itemAmount": 1000
       },
       {
         "itemId": 888,
-        "itemAmount": 500
+        "itemAmount": 1000
       },
       {
         "itemId": 890,
-        "itemAmount": 450
+        "itemAmount": 500
       },
       {
         "itemId": 892,
-        "itemAmount": 400
-      },
-      {
-        "itemId": 877,
-        "itemAmount": 1500
+        "itemAmount": 300
       },
       {
         "itemId": 843,
-        "itemAmount": 5
+        "itemAmount": 10
       },
       {
         "itemId": 845,
-        "itemAmount": 5
+        "itemAmount": 10
       },
       {
         "itemId": 837,
-        "itemAmount": 5
+        "itemAmount": 10
       },
       {
         "itemId": 849,
-        "itemAmount": 5
+        "itemAmount": 10
       },
       {
         "itemId": 847,
-        "itemAmount": 5
+        "itemAmount": 10
       }
     ]
   },
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Void Knight Archery Store",
+    "name": "Void Knight Archery Suplies  ",
     "id": 6,
     "items": [
       {
         "itemId": 825,
-        "itemAmount": 10
+        "itemAmount": 300
       },
       {
         "itemId": 826,
-        "itemAmount": 10
+        "itemAmount": 300
       },
       {
         "itemId": 827,
-        "itemAmount": 10
+        "itemAmount": 100
       },
       {
         "itemId": 828,
-        "itemAmount": 5
+        "itemAmount": 100
       },
       {
         "itemId": 829,
-        "itemAmount": 5
+        "itemAmount": 250
       },
       {
         "itemId": 830,
-        "itemAmount": 5
+        "itemAmount": 10
       },
       {
         "itemId": 39,
-        "itemAmount": 10
+        "itemAmount": 100
       },
       {
         "itemId": 40,
-        "itemAmount": 10
+        "itemAmount": 100
       },
       {
         "itemId": 41,
-        "itemAmount": 10
+        "itemAmount": 100
       },
       {
         "itemId": 42,
-        "itemAmount": 5
+        "itemAmount": 30
       },
       {
         "itemId": 43,
-        "itemAmount": 5
+        "itemAmount": 30
       },
       {
         "itemId": 44,
-        "itemAmount": 5
+        "itemAmount": 10
       }
     ]
   },
@@ -476,62 +404,6 @@
       {
         "itemId": 1111,
         "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Thessalia's Fine Clothes",
-    "id": 12,
-    "items": [
-      {
-        "itemId": 1005,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1129,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 1059,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1061,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1757,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 1013,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1015,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 1011,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1007,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 950,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 426,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 428,
-        "itemAmount": 3
       }
     ]
   },
@@ -927,15 +799,15 @@
     "items": [
       {
         "itemId": 1734,
-        "itemAmount": 8
+        "itemAmount": 100
       },
       {
         "itemId": 1733,
-        "itemAmount": 3
+        "itemAmount": 10
       },
       {
         "itemId": 1759,
-        "itemAmount": 5
+        "itemAmount": 100
       },
       {
         "itemId": 1763,
@@ -947,7 +819,7 @@
       },
       {
         "itemId": 1767,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1769,
@@ -966,12 +838,12 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Dodgy Mike's Second Hand Clothing.",
+    "name": "Dodgy Mike's Second-hand Clothing",
     "id": 18,
     "items": [
       {
         "itemId": 7114,
-        "itemAmount": 15
+        "itemAmount": 10
       },
       {
         "itemId": 7110,
@@ -979,7 +851,7 @@
       },
       {
         "itemId": 7112,
-        "itemAmount": 20
+        "itemAmount": 10
       },
       {
         "itemId": 7116,
@@ -991,7 +863,7 @@
       },
       {
         "itemId": 7124,
-        "itemAmount": 20
+        "itemAmount": 10
       },
       {
         "itemId": 7126,
@@ -1003,7 +875,7 @@
       },
       {
         "itemId": 7130,
-        "itemAmount": 20
+        "itemAmount": 10
       },
       {
         "itemId": 7132,
@@ -1015,7 +887,7 @@
       },
       {
         "itemId": 7136,
-        "itemAmount": 20
+        "itemAmount": 10
       },
       {
         "itemId": 7138,
@@ -2498,16 +2370,16 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Gardener Gunnhild",
+    "name": "Gardener Gunhild",
     "id": 44,
     "items": [
       {
         "itemId": 3899,
-        "itemAmount": 1
+        "itemAmount": 100
       },
       {
         "itemId": 5341,
-        "itemAmount": 1
+        "itemAmount": 100
       }
     ]
   },
@@ -2758,46 +2630,6 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Aubury's Rune Shop.",
-    "id": 52,
-    "items": [
-      {
-        "itemId": 556,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 554,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 555,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 557,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 558,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 559,
-        "itemAmount": 5000
-      },
-      {
-        "itemId": 562,
-        "itemAmount": 250
-      },
-      {
-        "itemId": 560,
-        "itemAmount": 250
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
     "name": "Wizards Guild Shop",
     "id": 53,
     "items": [
@@ -3003,35 +2835,35 @@
     "items": [
       {
         "itemId": 554,
-        "itemAmount": 5000
+        "itemAmount": 1000
       },
       {
         "itemId": 555,
-        "itemAmount": 5000
+        "itemAmount": 1000
       },
       {
         "itemId": 556,
-        "itemAmount": 5000
+        "itemAmount": 1000
       },
       {
         "itemId": 557,
-        "itemAmount": 5000
+        "itemAmount": 1000
       },
       {
         "itemId": 558,
-        "itemAmount": 5000
+        "itemAmount": 1000
       },
       {
         "itemId": 559,
-        "itemAmount": 5000
+        "itemAmount": 1000
       },
       {
         "itemId": 562,
-        "itemAmount": 250
+        "itemAmount": 300
       },
       {
         "itemId": 560,
-        "itemAmount": 250
+        "itemAmount": 300
       }
     ]
   },
@@ -3414,7 +3246,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "The Spice is Right.",
+    "name": "The Spice is Right",
     "id": 71,
     "items": [
       {
@@ -3432,42 +3264,6 @@
       {
         "itemId": 175,
         "itemAmount": 10
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Zaff's Superior Staffs!",
-    "id": 72,
-    "items": [
-      {
-        "itemId": 1391,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1379,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1389,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1381,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1383,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1385,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1387,
-        "itemAmount": 2
       }
     ]
   },
@@ -4175,19 +3971,19 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 3
+        "itemAmount": 30
       },
       {
         "itemId": 1935,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 1735,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 1925,
-        "itemAmount": 2
+        "itemAmount": 30
       },
       {
         "itemId": 1923,
@@ -4199,7 +3995,7 @@
       },
       {
         "itemId": 590,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 1755,
@@ -5007,39 +4803,35 @@
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 5
+        "itemAmount": 30
       },
       {
         "itemId": 1935,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 1735,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 1925,
-        "itemAmount": 3
+        "itemAmount": 30
       },
       {
         "itemId": 1923,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1887,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 590,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 1755,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 2347,
-        "itemAmount": 5
+        "itemAmount": 10
       },
       {
         "itemId": 1351,
@@ -5047,7 +4839,7 @@
       },
       {
         "itemId": 7934,
-        "itemAmount": 25
+        "itemAmount": 10
       }
     ]
   },
@@ -5306,20 +5098,16 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Oziach",
+    "name": "Oziachs Armour",
     "id": 107,
     "items": [
       {
         "itemId": 1127,
-        "itemAmount": 2
+        "itemAmount": 10
       },
       {
         "itemId": 1135,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1540,
-        "itemAmount": 35
+        "itemAmount": 10
       }
     ]
   },
@@ -5418,28 +5206,28 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Sam's Wilderness Cape Shop.",
+    "name": "Sams Cape Shop",
     "id": 110,
     "items": [
       {
         "itemId": 4333,
-        "itemAmount": 100
+        "itemAmount": 10
       },
       {
         "itemId": 4353,
-        "itemAmount": 100
+        "itemAmount": 10
       },
       {
         "itemId": 4373,
-        "itemAmount": 100
+        "itemAmount": 10
       },
       {
         "itemId": 4393,
-        "itemAmount": 100
+        "itemAmount": 10
       },
       {
         "itemId": 4413,
-        "itemAmount": 100
+        "itemAmount": 10
       }
     ]
   },
@@ -5483,87 +5271,79 @@
     "items": [
       {
         "itemId": 4071,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4069,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4070,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4072,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4068,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4506,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4504,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4505,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4507,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4503,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4511,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4509,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4510,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4512,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4508,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4513,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4514,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4515,
-        "itemAmount": 1
+        "itemAmount": 10
       },
       {
         "itemId": 4516,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 4037,
-        "itemAmount": 1
-      },
-      {
-        "itemId": 4039,
-        "itemAmount": 1
+        "itemAmount": 10
       }
     ]
   },
@@ -6848,6 +6628,30 @@
     ]
   },
   {
+    "buyModifier": 1,
+    "sellModifier": 1,
+    "name": "Legends' Guild General Store",
+    "id": 192,
+    "items": [
+      {
+        "itemId": 373,
+        "itemAmount": 20
+      },
+      {
+        "itemId": 2323,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 121,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 886,
+        "itemAmount": 500
+      }
+    ]
+  },
+  {
     "buyModifier": 2,
     "sellModifier": 2,
     "name": "Grace's Graceful Clothing",
@@ -8006,30 +7810,6 @@
       {
         "itemId": 1434,
         "itemAmount": 1
-      }
-    ]
-  },
-  {
-    "buyModifier": 1,
-    "sellModifier": 1,
-    "name": "Legends' Guild General Store",
-    "id": 192,
-    "items": [
-      {
-        "itemId": 373,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 2323,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 121,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 886,
-        "itemAmount": 500
       }
     ]
   },
@@ -9689,6 +9469,46 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
+    "name": "Aubury's Rune Shop.",
+    "id": 52,
+    "items": [
+      {
+        "itemId": 556,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 554,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 555,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 557,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 558,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 559,
+        "itemAmount": 5000
+      },
+      {
+        "itemId": 562,
+        "itemAmount": 250
+      },
+      {
+        "itemId": 560,
+        "itemAmount": 250
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
     "name": "Construction Supplies",
     "id": 270,
     "items": [
@@ -9765,6 +9585,166 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
+    "name": "Lowe's Archery Emporium",
+    "id": 3,
+    "items": [
+      {
+        "itemId": 882,
+        "itemAmount": 2000
+      },
+      {
+        "itemId": 884,
+        "itemAmount": 1500
+      },
+      {
+        "itemId": 886,
+        "itemAmount": 1000
+      },
+      {
+        "itemId": 888,
+        "itemAmount": 800
+      },
+      {
+        "itemId": 890,
+        "itemAmount": 600
+      },
+      {
+        "itemId": 877,
+        "itemAmount": 1500
+      },
+      {
+        "itemId": 841,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 839,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 843,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 845,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 849,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 847,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 853,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 851,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 837,
+        "itemAmount": 2
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Thessalia's Fine Clothes",
+    "id": 12,
+    "items": [
+      {
+        "itemId": 1005,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1129,
+        "itemAmount": 12
+      },
+      {
+        "itemId": 1059,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 1061,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 1757,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 1013,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1015,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 1011,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1007,
+        "itemAmount": 4
+      },
+      {
+        "itemId": 950,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 426,
+        "itemAmount": 3
+      },
+      {
+        "itemId": 428,
+        "itemAmount": 3
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Zaff's Superior Staffs!",
+    "id": 72,
+    "items": [
+      {
+        "itemId": 1391,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1379,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1389,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 1381,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1383,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1385,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 1387,
+        "itemAmount": 2
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
     "name": "Ye Olde Tea Shoppe",
     "id": 277,
     "items": [
@@ -9814,6 +9794,58 @@
       {
         "itemId": 4740,
         "itemAmount": 500
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Lletya Archery Shop",
+    "id": 286,
+    "items": [
+      {
+        "itemId": 884,
+        "itemAmount": 2000
+      },
+      {
+        "itemId": 886,
+        "itemAmount": 500
+      },
+      {
+        "itemId": 888,
+        "itemAmount": 500
+      },
+      {
+        "itemId": 890,
+        "itemAmount": 450
+      },
+      {
+        "itemId": 892,
+        "itemAmount": 400
+      },
+      {
+        "itemId": 877,
+        "itemAmount": 1500
+      },
+      {
+        "itemId": 843,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 845,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 837,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 849,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 847,
+        "itemAmount": 5
       }
     ]
   },
@@ -11526,6 +11558,62 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
+    "name": "Void Knight Archery Store",
+    "id": 333,
+    "items": [
+      {
+        "itemId": 825,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 826,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 827,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 828,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 829,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 830,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 39,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 40,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 41,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 42,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 43,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 44,
+        "itemAmount": 5
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
     "name": "Darren's Wilderness Cape Shop",
     "id": 335,
     "items": [
@@ -11762,6 +11850,62 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
+    "name": "Void Knight Archery Store",
+    "id": 333,
+    "items": [
+      {
+        "itemId": 825,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 826,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 827,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 828,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 829,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 830,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 39,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 40,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 41,
+        "itemAmount": 10
+      },
+      {
+        "itemId": 42,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 43,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 44,
+        "itemAmount": 5
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
     "name": "Darren's Wilderness Cape Shop",
     "id": 335,
     "items": [
@@ -11839,6 +11983,34 @@
       },
       {
         "itemId": 4405,
+        "itemAmount": 100
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
+    "name": "Sam's Wilderness Cape Shop",
+    "id": 342,
+    "items": [
+      {
+        "itemId": 4333,
+        "itemAmount": 100
+      },
+      {
+        "itemId": 4353,
+        "itemAmount": 100
+      },
+      {
+        "itemId": 4373,
+        "itemAmount": 100
+      },
+      {
+        "itemId": 4393,
+        "itemAmount": 100
+      },
+      {
+        "itemId": 4413,
         "itemAmount": 100
       }
     ]
