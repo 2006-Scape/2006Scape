@@ -403,6 +403,16 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
+    "x": 2335,
+    "y": 3181,
+    "id": 2352,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
     "x": 2326,
     "y": 3176,
     "id": 2353,
@@ -793,6 +803,16 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
+    "x": 2752,
+    "y": 2774,
+    "id": 1436,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
     "x": 2658,
     "y": 2655,
     "id": 3800,
@@ -993,49 +1013,9 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
-    "x": 2752,
-    "y": 2774,
-    "id": 1436,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 2614,
-    "y": 3293,
-    "id": 590,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 3176,
-    "y": 2987,
-    "id": 1917,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 3479,
-    "y": 3494,
-    "id": 1040,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 2806,
-    "y": 3433,
-    "id": 563,
+    "x": 3315,
+    "y": 3180,
+    "id": 521,
     "walk": 1,
     "height": 0
   },
@@ -1053,9 +1033,29 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
+    "x": 3081,
+    "y": 3512,
+    "id": 523,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
     "x": 2958,
     "y": 3387,
     "id": 524,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2956,
+    "y": 3389,
+    "id": 525,
     "walk": 1,
     "height": 0
   },
@@ -1073,29 +1073,9 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
-    "x": 2868,
-    "y": 10190,
-    "id": 2154,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 2509,
-    "y": 3638,
-    "id": 1334,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 2335,
-    "y": 3181,
-    "id": 2352,
+    "x": 2902,
+    "y": 3145,
+    "id": 527,
     "walk": 1,
     "height": 0
   },
@@ -1106,6 +1086,76 @@
     "x": 3212,
     "y": 3246,
     "id": 528,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3211,
+    "y": 3249,
+    "id": 529,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2949,
+    "y": 3214,
+    "id": 530,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2948,
+    "y": 3217,
+    "id": 531,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3216,
+    "y": 3416,
+    "id": 532,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3217,
+    "y": 3413,
+    "id": 533,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2377,
+    "y": 4446,
+    "id": 534,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2376,
+    "y": 4449,
+    "id": 535,
     "walk": 1,
     "height": 0
   },
@@ -1173,16 +1223,6 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
-    "x": 2949,
-    "y": 3214,
-    "id": 530,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
     "x": 2824,
     "y": 2960,
     "id": 516,
@@ -1223,39 +1263,9 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
-    "x": 3216,
-    "y": 3416,
-    "id": 532,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 3217,
-    "y": 3413,
-    "id": 552,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
     "x": 2651,
     "y": 2664,
     "id": 3797,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 2377,
-    "y": 4446,
-    "id": 534,
     "walk": 1,
     "height": 0
   },
@@ -1293,9 +1303,29 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
+    "x": 3205,
+    "y": 3403,
+    "id": 552,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
     "x": 2885,
     "y": 3451,
     "id": 586,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2806,
+    "y": 3433,
+    "id": 563,
     "walk": 1,
     "height": 0
   },
@@ -1347,6 +1377,16 @@
     "y": 2909,
     "id": 3037,
     "walk": 0,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 3176,
+    "y": 2987,
+    "id": 1917,
+    "walk": 1,
     "height": 0
   },
   {
@@ -12553,6 +12593,16 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
+    "x": 3479,
+    "y": 3494,
+    "id": 1040,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
     "x": 3490,
     "y": 3500,
     "id": 1041,
@@ -19230,6 +19280,16 @@
     "height": 0
   },
   {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2509,
+    "y": 3638,
+    "id": 1334,
+    "walk": 1,
+    "height": 0
+  },
+  {
     "maxHit": 7,
     "strength": 60,
     "attack": 70,
@@ -20143,6 +20203,16 @@
     "maxHit": 0,
     "strength": 0,
     "attack": 0,
+    "x": 2614,
+    "y": 3293,
+    "id": 590,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
     "x": 3034,
     "y": 9845,
     "id": 594,
@@ -20246,6 +20316,16 @@
     "x": 2826,
     "y": 10198,
     "id": 2153,
+    "walk": 1,
+    "height": 0
+  },
+  {
+    "maxHit": 0,
+    "strength": 0,
+    "attack": 0,
+    "x": 2868,
+    "y": 10190,
+    "id": 2154,
     "walk": 1,
     "height": 0
   },
@@ -20726,16 +20806,6 @@
     "x": 3230,
     "y": 3237,
     "id": 47,
-    "walk": 1,
-    "height": 0
-  },
-  {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
-    "x": 3211,
-    "y": 3249,
-    "id": 552,
     "walk": 1,
     "height": 0
   },
