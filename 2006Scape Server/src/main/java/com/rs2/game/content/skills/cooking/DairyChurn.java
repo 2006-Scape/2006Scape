@@ -6,6 +6,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.StaticItemList;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 /**
@@ -16,9 +17,9 @@ public class DairyChurn {
 	private static final int CHURN_ANIMATION = 894;
 
 	public static enum ChurnData {
-		CREAM(59238, new int[] { 1927 }, 2130, 21, 18), BUTTER(59239,
-				new int[] { 1927, 2130 }, 6697, 38, 40), CHEESE(59240,
-				new int[] { 1927, 2130, 6697 }, 1985, 48, 64);
+		CREAM(59238, new int[] { StaticItemList.BUCKET_OF_MILK }, StaticItemList.POT_OF_CREAM, 21, 18),
+		BUTTER(59239, new int[] { StaticItemList.BUCKET_OF_MILK, StaticItemList.POT_OF_CREAM }, StaticItemList.PAT_OF_BUTTER, 38, 40),
+		CHEESE(59240, new int[] { StaticItemList.BUCKET_OF_MILK, StaticItemList.POT_OF_CREAM, StaticItemList.PAT_OF_BUTTER }, StaticItemList.CHEESE, 48, 64);
 
 		private int buttonId;
 		private int[] used;
@@ -102,7 +103,7 @@ public class DairyChurn {
 				for (int i = 0; i < churnData.getUsed().length; i++)
 					player.getItemAssistant().deleteItem(churnData.getUsed()[i], 1);
 				player.getItemAssistant().addItem(churnData.getResult(), 1);
-				player.getItemAssistant().addItem(1925, 1);
+				player.getItemAssistant().addItem(StaticItemList.BUCKET, 1);
 				player.getPlayerAssistant().addSkillXP(churnData.getExperience(), GameConstants.COOKING);
 			}
 

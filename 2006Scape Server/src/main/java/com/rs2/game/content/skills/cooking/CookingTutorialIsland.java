@@ -4,6 +4,8 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.StaticItemList;
+import com.rs2.game.content.StaticObjectList;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.items.ItemAssistant;
@@ -15,7 +17,7 @@ public class CookingTutorialIsland extends SkillHandler {
 	public static void cookThisFood(Player p, int i, int object) {
 		switch (i) {
 		case 317:
-			cookFish(p, i, 30, 1, 323, 315, object);
+			cookFish(p, i, 30, 1, StaticItemList.BURNT_FISH, StaticItemList.SHRIMPS, object);
 			break;
 		default:
 			p.getPacketSender().sendMessage("Nothing interesting happens.");
@@ -34,7 +36,7 @@ public class CookingTutorialIsland extends SkillHandler {
 			return;
 		}
 		int chance = c.playerLevel[GameConstants.COOKING];
-		if (c.playerEquipment[c.playerHands] == 775) {
+		if (c.playerEquipment[c.playerHands] == StaticItemList.COOKING_GAUNTLETS) {
 			chance = c.playerLevel[GameConstants.COOKING] + 8;
 		}
 		if (chance <= 0) {
@@ -90,10 +92,10 @@ public class CookingTutorialIsland extends SkillHandler {
 			c.stopPlayerSkill = true;
 			c.getPacketSender().closeAllWindows();
 			if (c.playerSkillProp[GameConstants.COOKING][5] > 0) {
-				// c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == 2732 ? 897 :
+				// c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.FIRE ? 897 :
 				// 896);
-				c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == 2732 ? 897
-						: c.playerSkillProp[GameConstants.COOKING][5] == 12269 ? 897 : 896);
+				c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.FIRE ? 897
+						: c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.STOVE_12269 ? 897 : 896);
 				if (GameConstants.SOUND) {
 					c.getPacketSender().sendSound(SoundList.COOK_ITEM, 100,
 							0);
@@ -162,7 +164,7 @@ public class CookingTutorialIsland extends SkillHandler {
 					if (c.playerSkillProp[GameConstants.COOKING][5] > 0) {
 						// c.getPacketSender().sendSound(357, 100, 1); //
 						// cook sound
-						c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == 2732 ? 897
+						c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.FIRE ? 897
 								: 896);
 					}
 					if (!c.stopPlayerSkill) {

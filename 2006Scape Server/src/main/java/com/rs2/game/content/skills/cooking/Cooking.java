@@ -5,6 +5,8 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.StaticItemList;
+import com.rs2.game.content.StaticObjectList;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
@@ -19,30 +21,30 @@ public class Cooking extends SkillHandler {
 
 	private static enum CookingItems {
 		//raw, cooked, burnt, levelreq, exp, stopburn, stopburn w/gloves, name
-				SHRIMP(317, 315, 7954, 1, 30, 34, 30, "shrimp"), 
-				SARDINE(327, 325, 369, 1, 40, 38, 38, "sardine"), 
-				HERRING(345, 347, 357, 5, 50, 41, 41, "herring"), 
-				TROUT(335, 333, 343, 15, 70, 50, 50, "trout"), 
-				TUNA(359, 361, 367, 30, 100, 64, 63, "tuna"), 
-				ANCHOVIES(321, 319, 323, 5, 45, 34, 34, "anchovies"), 
-				RAW_BEEF(2132, 2142, 2146, 1, 30, 33, 33, "raw beef"), 
-				RAW_RAT(2134, 2142, 2146, 1, 30, 33, 33, "raw rat meat"), 
-				BURNT_MEAT(2142, 2146, 2146, 1, 1, 100, 100, "cooked meat"),
-				RAW_CHICKEN(2138, 2140, 2144, 1, 30, 33, 33, "raw chicken"), 
-				RAW_BEAR_MEAT(2136, 2142, 2146, 1, 30, 33, 33, "raw bear meat"), 
-				MACKERAL(353, 355, 357, 10, 60, 45, 45, "mackeral"), 
-				SALMON(331, 329, 343, 25, 90, 58, 55, "salmon"),
-				UNCOOKED_BERRY_PIE(2321, 2325, 2329, 10, 78, 50, 50, "uncooked pie"),
-				PIKE(349, 351, 343, 20, 80, 59, 59, "pike"), 
-				KARAMBWAN(3142, 3144, 3146, 1, 80, 20, 20, "karambwan"), 
-				LOBSTER(377, 379, 381, 40, 120, 74, 68, "lobster"), 
-				SWORDFISH(371, 373, 375, 50, 140, 86, 81, "swordfish"),
-				MONKFISH(7944, 7946, 7948, 62, 150, 92, 90,	"monkfish"), 
-				SHARK(383, 385, 387, 76, 210, 100, 94, "shark"),
-				SEA_TURTLE(395, 397, 399, 82, 211, 100, 100, "sea turtle"),
-				MANTA_RAY(389, 391, 393, 91, 216, 100, 100, "manta ray"),
-				SEAWEED(401, 1781, 1781, 1, 1, 1, 1, "sea weed"),
-				CURRY(2009, 2011, 2013, 60, 280, 74, 74, "curry");
+				SHRIMP(StaticItemList.RAW_SHRIMPS, StaticItemList.SHRIMPS, StaticItemList.BURNT_SHRIMP, 1, 30, 34, 30, "shrimp"),
+				SARDINE(StaticItemList.RAW_SARDINE, StaticItemList.SARDINE, StaticItemList.BURNT_FISH_369, 1, 40, 38, 38, "sardine"),
+				HERRING(StaticItemList.RAW_HERRING, StaticItemList.HERRING, StaticItemList.BURNT_FISH_357, 5, 50, 41, 41, "herring"),
+				TROUT(StaticItemList.RAW_TROUT, StaticItemList.TROUT, StaticItemList.BURNT_FISH_343, 15, 70, 50, 50, "trout"),
+				TUNA(StaticItemList.RAW_TUNA, StaticItemList.TUNA, StaticItemList.BURNT_FISH_367, 30, 100, 64, 63, "tuna"),
+				ANCHOVIES(StaticItemList.RAW_ANCHOVIES, StaticItemList.ANCHOVIES, StaticItemList.BURNT_FISH, 5, 45, 34, 34, "anchovies"),
+				RAW_BEEF(StaticItemList.RAW_BEEF, StaticItemList.COOKED_MEAT, StaticItemList.BURNT_MEAT, 1, 30, 33, 33, "raw beef"),
+				RAW_RAT(StaticItemList.RAW_RAT_MEAT, StaticItemList.COOKED_MEAT, StaticItemList.BURNT_MEAT, 1, 30, 33, 33, "raw rat meat"),
+				BURNT_MEAT(StaticItemList.COOKED_MEAT, StaticItemList.BURNT_MEAT, StaticItemList.BURNT_MEAT, 1, 1, 100, 100, "cooked meat"),
+				RAW_CHICKEN(StaticItemList.RAW_CHICKEN, StaticItemList.COOKED_CHICKEN, StaticItemList.BURNT_CHICKEN, 1, 30, 33, 33, "raw chicken"),
+				RAW_BEAR_MEAT(StaticItemList.RAW_BEAR_MEAT, StaticItemList.COOKED_MEAT, StaticItemList.BURNT_MEAT, 1, 30, 33, 33, "raw bear meat"),
+				MACKEREL(StaticItemList.RAW_MACKEREL, StaticItemList.MACKEREL, StaticItemList.BURNT_FISH_357, 10, 60, 45, 45, "mackerel"),
+				SALMON(StaticItemList.RAW_SALMON, StaticItemList.SALMON, StaticItemList.BURNT_FISH_343, 25, 90, 58, 55, "salmon"),
+				UNCOOKED_BERRY_PIE(StaticItemList.UNCOOKED_BERRY_PIE, StaticItemList.REDBERRY_PIE, StaticItemList.BURNT_PIE, 10, 78, 50, 50, "uncooked pie"),
+				PIKE(StaticItemList.RAW_PIKE, StaticItemList.PIKE, StaticItemList.BURNT_FISH_343, 20, 80, 59, 59, "pike"),
+				KARAMBWAN(StaticItemList.RAW_KARAMBWAN, StaticItemList.COOKED_KARAMBWAN, StaticItemList.COOKED_KARAMBWAN_3146, 1, 80, 20, 20, "karambwan"),
+				LOBSTER(StaticItemList.RAW_LOBSTER, StaticItemList.LOBSTER, StaticItemList.BURNT_LOBSTER, 40, 120, 74, 68, "lobster"),
+				SWORDFISH(StaticItemList.RAW_SWORDFISH, StaticItemList.SWORDFISH, StaticItemList.BURNT_SWORDFISH, 50, 140, 86, 81, "swordfish"),
+				MONKFISH(StaticItemList.RAW_MONKFISH, StaticItemList.MONKFISH, StaticItemList.BURNT_MONKFISH, 62, 150, 92, 90,	"monkfish"),
+				SHARK(StaticItemList.RAW_SHARK, StaticItemList.SHARK, StaticItemList.BURNT_SHARK, 76, 210, 100, 94, "shark"),
+				SEA_TURTLE(StaticItemList.RAW_SEA_TURTLE, StaticItemList.SEA_TURTLE, StaticItemList.BURNT_SEA_TURTLE, 82, 211, 100, 100, "sea turtle"),
+				MANTA_RAY(StaticItemList.RAW_MANTA_RAY, StaticItemList.MANTA_RAY, StaticItemList.BURNT_MANTA_RAY, 91, 216, 100, 100, "manta ray"),
+				SEAWEED(StaticItemList.SEAWEED, StaticItemList.SODA_ASH, StaticItemList.SODA_ASH, 1, 1, 1, 1, "sea weed"),
+				CURRY(StaticItemList.UNCOOKED_CURRY, StaticItemList.CURRY, StaticItemList.BURNT_CURRY, 60, 280, 74, 74, "curry");
 
 		int rawItem, cookedItem, burntItem, levelReq, xp, stopBurn, stopBurnGloves;
 		String name;
@@ -100,11 +102,11 @@ public class Cooking extends SkillHandler {
 	}
 
 	public static void makeBreadOptions(Player c, int item) {
-		if (c.getItemAssistant().playerHasItem(1929) && c.getItemAssistant().playerHasItem(1933) && item == c.breadID) {
-			c.getItemAssistant().deleteItem(1929, 1);
-			c.getItemAssistant().deleteItem(1933, 1);
-			c.getItemAssistant().addItem(1925, 1);
-			c.getItemAssistant().addItem(1931, 1);
+		if (c.getItemAssistant().playerHasItem(StaticItemList.BUCKET_OF_WATER) && c.getItemAssistant().playerHasItem(StaticItemList.POT_OF_FLOUR) && item == c.breadID) {
+			c.getItemAssistant().deleteItem(StaticItemList.BUCKET_OF_WATER, 1);
+			c.getItemAssistant().deleteItem(StaticItemList.POT_OF_FLOUR, 1);
+			c.getItemAssistant().addItem(StaticItemList.BUCKET, 1);
+			c.getItemAssistant().addItem(StaticItemList.POT, 1);
 			c.getItemAssistant().addItem(item, 1);
 			c.getPacketSender().sendMessage("You mix the water and flour to make some " + ItemAssistant.getItemName(item) + ".");
 		}
@@ -203,7 +205,7 @@ public class Cooking extends SkillHandler {
 				player.doAmount = player.getItemAssistant().getItemAmount(itemId);
 			}
 			if (objectId > 0) {
-				player.startAnimation(objectId == 2732 ? 897 : 896);
+				player.startAnimation(objectId == StaticObjectList.FIRE ? 897 : 896);
 			}
 			CycleEventHandler.getSingleton().addEvent("cookingEvent".hashCode(), player, new CycleEvent() {
 				@Override
@@ -220,7 +222,7 @@ public class Cooking extends SkillHandler {
 						return;
 					}
 					boolean burn;
-					if (player.playerEquipment[ItemConstants.HANDS] == 775) {
+					if (player.playerEquipment[ItemConstants.HANDS] == StaticItemList.COOKING_GAUNTLETS) {
 						burn = !getSuccess(player, 3, item.getLevelReq(), item.getStopBurnGloves());
 					} else {
 						burn = !getSuccess(player, 3, item.getLevelReq(), item.getStopBurn());
@@ -255,7 +257,7 @@ public class Cooking extends SkillHandler {
 					}
 					if (player.doAmount > 0) {
 						if (objectId > 0) {
-							player.startAnimation(objectId == 2732 ? 897 : 896);
+							player.startAnimation(objectId == StaticObjectList.FIRE ? 897 : 896);
 						}
 					} else if (player.doAmount == 0) {
 						setCooking(player, false);
