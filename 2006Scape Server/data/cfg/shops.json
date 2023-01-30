@@ -372,7 +372,7 @@
     "sellModifier": 2,
     "name": "Bob's Brilliant Axes.",
     "id": 8,
-        "items": [
+    "items": [
       {
         "itemId": 1265,
         "itemAmount": 5
@@ -2615,7 +2615,7 @@
       }
     ]
   },
-{
+  {
     "buyModifier": 2,
     "sellModifier": 2,
     "name": "Flynn's Mace Market.",
@@ -2709,7 +2709,7 @@
     "name": "Betty's Magic Emporium.",
     "id": 51,
     "items": [
-            {
+      {
         "itemId": 554,
         "itemAmount": 5000
       },
@@ -2923,35 +2923,35 @@
     "items": [
       {
         "itemId": 554,
-        "itemAmount": 100
+        "itemAmount": 1000
       },
       {
         "itemId": 555,
-        "itemAmount": 100
+        "itemAmount": 1000
       },
       {
         "itemId": 556,
-        "itemAmount": 100
+        "itemAmount": 1000
       },
       {
         "itemId": 557,
-        "itemAmount": 100
-      },
-      {
-        "itemId": 559,
-        "itemAmount": 100
+        "itemAmount": 1000
       },
       {
         "itemId": 558,
-        "itemAmount": 100
+        "itemAmount": 1000
       },
       {
         "itemId": 562,
-        "itemAmount": 30
+        "itemAmount": 500
       },
       {
         "itemId": 560,
-        "itemAmount": 30
+        "itemAmount": 500
+      },
+      {
+        "itemId": 565,
+        "itemAmount": 500
       }
     ]
   },
@@ -3414,12 +3414,12 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "The Spice is Right.",
+    "name": "The Spice Is Right.",
     "id": 71,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 2169,
@@ -3430,8 +3430,16 @@
         "itemAmount": 0
       },
       {
+        "itemId": 4689,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 4687,
+        "itemAmount": 0
+      },
+      {
         "itemId": 175,
-        "itemAmount": 10
+        "itemAmount": 20
       }
     ]
   },
@@ -3527,10 +3535,6 @@
       },
       {
         "itemId": 353,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 952,
         "itemAmount": 10
       }
     ]
@@ -3670,52 +3674,56 @@
     "id": 78,
     "items": [
       {
-        "itemId": 10,
-        "itemAmount": 954
+        "itemId": 1931,
+        "itemAmount": 3
       },
       {
-        "itemId": 10,
-        "itemAmount": 1265
+        "itemId": 954,
+        "itemAmount": 3
       },
       {
-        "itemId": 10,
-        "itemAmount": 1925
+        "itemId": 1265,
+        "itemAmount": 2
       },
       {
-        "itemId": 30,
-        "itemAmount": 590
+        "itemId": 1925,
+        "itemAmount": 2
       },
       {
-        "itemId": 10,
-        "itemAmount": 1415
+        "itemId": 590,
+        "itemAmount": 2
       },
       {
-        "itemId": 10,
-        "itemAmount": 1061
+        "itemId": 2347,
+        "itemAmount": 3
       },
       {
-        "itemId": 10,
-        "itemAmount": 841
+        "itemId": 1061,
+        "itemAmount": 2
       },
       {
-        "itemId": 10,
-        "itemAmount": 882
+        "itemId": 839,
+        "itemAmount": 2
       },
       {
-        "itemId": 100,
-        "itemAmount": 329
+        "itemId": 882,
+        "itemAmount": 20
       },
       {
-        "itemId": 10,
-        "itemAmount": 2327
+        "itemId": 329,
+        "itemAmount": 10
       },
       {
-        "itemId": 10,
-        "itemAmount": 2309
+        "itemId": 2327,
+        "itemAmount": 10
       },
       {
-        "itemId": 10,
-        "itemAmount": 2142
+        "itemId": 2309,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 2142,
+        "itemAmount": 10
       }
     ]
   },
@@ -4190,24 +4198,24 @@
         "itemAmount": 2
       },
       {
-        "itemId": 1923,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 1887,
-        "itemAmount": 10
-      },
-      {
         "itemId": 590,
         "itemAmount": 2
       },
       {
         "itemId": 1755,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 2347,
-        "itemAmount": 10
+        "itemAmount": 5
+      },
+      {
+        "itemId": 952,
+        "itemAmount": 5
+      },
+      {
+        "itemId": 946,
+        "itemAmount": 4
       }
     ]
   },
@@ -4253,7 +4261,7 @@
         "itemId": 1755,
         "itemAmount": 2
       },
-            {
+      {
         "itemId": 952,
         "itemAmount": 5
       },
@@ -4370,36 +4378,44 @@
   {
     "buyModifier": 1,
     "sellModifier": 1,
-    "name": "Arnold's Ecletic Supplies",
+    "name": "Arnold's Eclectic Supplies.",
     "id": 91,
     "items": [
       {
         "itemId": 303,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 311,
+        "itemAmount": 2
+      },
+      {
+        "itemId": 7944,
         "itemAmount": 1
       },
       {
-        "itemId": 2309,
-        "itemAmount": 10
+        "itemId": 7946,
+        "itemAmount": 0
       },
       {
-        "itemId": 1925,
-        "itemAmount": 30
+        "itemId": 2309,
+        "itemAmount": 1
+      },
+      {
+        "itemId": 1931,
+        "itemAmount": 4
       },
       {
         "itemId": 1927,
-        "itemAmount": 10
+        "itemAmount": 1
       },
       {
         "itemId": 1733,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 1734,
-        "itemAmount": 1000
+        "itemAmount": 15
       },
       {
         "itemId": 1917,
@@ -4407,11 +4423,11 @@
       },
       {
         "itemId": 1785,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 946,
-        "itemAmount": 10
+        "itemAmount": 1
       }
     ]
   },
@@ -4894,24 +4910,24 @@
   {
     "buyModifier": 1,
     "sellModifier": 1,
-    "name": "Quartermaster's Store",
+    "name": "Quartermaster's Stores",
     "id": 99,
     "items": [
       {
         "itemId": 1931,
-        "itemAmount": 30
+        "itemAmount": 5
       },
       {
         "itemId": 1935,
-        "itemAmount": 10
+        "itemAmount": 2
       },
       {
         "itemId": 1735,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 590,
-        "itemAmount": 10
+        "itemAmount": 3
       },
       {
         "itemId": 2309,
@@ -4935,19 +4951,19 @@
       },
       {
         "itemId": 3198,
-        "itemAmount": 10
+        "itemAmount": 7
       },
       {
         "itemId": 3200,
-        "itemAmount": 10
+        "itemAmount": 7
       },
       {
         "itemId": 3202,
-        "itemAmount": 10
+        "itemAmount": 7
       },
       {
         "itemId": 3204,
-        "itemAmount": 10
+        "itemAmount": 5
       }
     ]
   },
@@ -5100,8 +5116,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Shantay Pass Shop",
     "id": 103,
     "items": [
@@ -9841,66 +9857,6 @@
       },
       {
         "itemId": 1891,
-        "itemAmount": 5
-      }
-    ]
-  },
-  {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Quartermaster's Stores",
-    "id": 288,
-    "items": [
-      {
-        "itemId": 1931,
-        "itemAmount": 5
-      },
-      {
-        "itemId": 1935,
-        "itemAmount": 2
-      },
-      {
-        "itemId": 1735,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 590,
-        "itemAmount": 3
-      },
-      {
-        "itemId": 2309,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3190,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3192,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3194,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3196,
-        "itemAmount": 10
-      },
-      {
-        "itemId": 3198,
-        "itemAmount": 7
-      },
-      {
-        "itemId": 3200,
-        "itemAmount": 7
-      },
-      {
-        "itemId": 3202,
-        "itemAmount": 7
-      },
-      {
-        "itemId": 3204,
         "itemAmount": 5
       }
     ]
