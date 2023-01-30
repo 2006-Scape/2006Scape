@@ -991,7 +991,7 @@
   },
   {
     "hitpoints": 0,
-    "name": "Gnome shop keeper",
+    "name": "Gnome Shop keeper",
     "combat": 0,
     "id": 165
   },
@@ -3121,31 +3121,31 @@
   },
   {
     "hitpoints": 0,
-    "name": "Shop Keeper",
+    "name": "Shop keeper",
     "combat": 0,
     "id": 520
   },
   {
     "hitpoints": 0,
-    "name": "Shop Assistant",
+    "name": "Shop assistant",
     "combat": 0,
     "id": 521
   },
   {
     "hitpoints": 0,
-    "name": "Shop Keeper",
+    "name": "Shop keeper",
     "combat": 0,
     "id": 522
   },
   {
     "hitpoints": 0,
-    "name": "Shop Assistant",
+    "name": "Shop assistant",
     "combat": 0,
     "id": 523
   },
   {
     "hitpoints": 0,
-    "name": "Shop Keeper",
+    "name": "Shop keeper",
     "combat": 0,
     "id": 524
   },
@@ -3157,61 +3157,61 @@
   },
   {
     "hitpoints": 0,
-    "name": "Shop Keeper",
+    "name": "Shop keeper",
     "combat": 0,
     "id": 526
   },
   {
     "hitpoints": 0,
-    "name": "Shop Assistant",
+    "name": "Shop assistant",
     "combat": 0,
     "id": 527
   },
   {
     "hitpoints": 0,
-    "name": "Shop Keeper",
+    "name": "Shop keeper",
     "combat": 0,
     "id": 528
   },
   {
     "hitpoints": 0,
-    "name": "Shop Assistant",
+    "name": "Shop assistant",
     "combat": 0,
     "id": 529
   },
   {
     "hitpoints": 0,
-    "name": "Shop Keeper",
+    "name": "Shop keeper",
     "combat": 0,
     "id": 530
   },
   {
     "hitpoints": 0,
-    "name": "Shop Assistant",
+    "name": "Shop assistant",
     "combat": 0,
     "id": 531
   },
   {
     "hitpoints": 0,
-    "name": "Shop Keeper",
+    "name": "Shop keeper",
     "combat": 0,
     "id": 532
   },
   {
     "hitpoints": 0,
-    "name": "Shop Assistant",
+    "name": "Shop assistant",
     "combat": 0,
     "id": 533
   },
   {
     "hitpoints": 0,
-    "name": "Fairy Shop Keeper",
+    "name": "Fairy shop keeper",
     "combat": 0,
     "id": 534
   },
   {
     "hitpoints": 0,
-    "name": "Fairy Shop assistant",
+    "name": "Fairy shop assistant",
     "combat": 0,
     "id": 535
   },
@@ -3253,7 +3253,7 @@
   },
   {
     "hitpoints": 0,
-    "name": "Louie legs",
+    "name": "Louie Legs",
     "combat": 0,
     "id": 542
   },
@@ -3325,7 +3325,7 @@
   },
   {
     "hitpoints": 0,
-    "name": "Fancy dress shop owner",
+    "name": "Fancy-dress shop owner",
     "combat": 0,
     "id": 554
   },
@@ -10207,7 +10207,7 @@
   },
   {
     "hitpoints": 0,
-    "name": "Ghost Shopkeeper",
+    "name": "Ghost shopkeeper",
     "combat": 0,
     "id": 1699
   },
@@ -16218,6 +16218,12 @@
     "id": 3109
   },
   {
+    "hitpoints": 0,
+    "name": "Mike",
+    "combat": 0,
+    "id": 3166
+  },
+  {
     "hitpoints": 250,
     "name": "Chaos Elemental",
     "combat": 305,
@@ -16583,6 +16589,7 @@
     "combat": 140,
     "id": 3068
   },
+
   {
     "hitpoints": 7,
     "name": "Drunken Man",
