@@ -4,6 +4,7 @@ import com.rs2.event.EventContext
 import com.rs2.event.EventSubscriber
 import com.rs2.event.SubscribesTo
 import com.rs2.event.impl.ItemFirstClickEvent
+import com.rs2.game.content.StaticItemList.YOYO
 import com.rs2.game.players.Player
 
 
@@ -18,7 +19,7 @@ class ItemFirstClick : EventSubscriber<ItemFirstClickEvent> {
 		
 		when(event.item) {
 
-			4079 -> player.startAnimation(1457) // yo-yo
+			YOYO -> player.startAnimation(1457)
 
 		}
 		

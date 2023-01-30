@@ -4,6 +4,7 @@ import com.rs2.event.EventContext
 import com.rs2.event.EventSubscriber
 import com.rs2.event.SubscribesTo
 import com.rs2.event.impl.ItemThirdClickEvent
+import com.rs2.game.content.StaticItemList.YOYO
 import com.rs2.game.players.Player
 
 @SubscribesTo(ItemThirdClickEvent::class)
@@ -17,7 +18,7 @@ class ItemThirdClick : EventSubscriber<ItemThirdClickEvent> {
 		
 		when(event.id) {
 
-			4079 -> player.startAnimation(1460) //yo-yo
+			YOYO -> player.startAnimation(1460)
 
 
 		}
