@@ -3472,8 +3472,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Dwarven shopping store",
     "id": 73,
     "items": [
@@ -3508,8 +3508,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Aurel's Supplies",
     "id": 74,
     "items": [
@@ -3536,8 +3536,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Al-Kharid General Store",
     "id": 75,
     "items": [
@@ -3616,8 +3616,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Aemad's Adventuring Supplies.",
     "id": 77,
     "items": [
@@ -3664,7 +3664,7 @@
     ]
   },
   {
-    "buyModifier": 1931,
+    "buyModifier": 1,
     "sellModifier": 1,
     "name": "West Ardougne General Store",
     "id": 78,
@@ -4268,8 +4268,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Razmire General Store.",
     "id": 89,
     "items": [
@@ -4416,8 +4416,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Pollnivneach general store.",
     "id": 92,
     "items": [
@@ -5588,8 +5588,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Burthorpe Supplies",
     "id": 114,
     "items": [
@@ -5700,8 +5700,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Martin Thwait's Lost and Found.",
     "id": 118,
     "items": [
@@ -6520,8 +6520,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Bandit Duty Free",
     "id": 136,
     "items": [
@@ -6928,8 +6928,8 @@
     "items": []
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Dal's General Ogre Supplies",
     "id": 163,
     "items": [
@@ -7423,8 +7423,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Moon Clan General Store",
     "id": 178,
     "items": [
@@ -7550,8 +7550,8 @@
     "items": []
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Miscellanian General Store",
     "id": 181,
     "items": [
@@ -8565,8 +8565,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Khazard General Store",
     "id": 220,
     "items": [
@@ -8777,8 +8777,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Rasolo the Wandering Merchant",
     "id": 226,
     "items": [
@@ -9449,8 +9449,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Dorgesh-Kaan General Supplies",
     "id": 258,
     "items": [
@@ -10178,8 +10178,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Regath's Wares",
     "id": 300,
     "items": [
@@ -10326,8 +10326,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Little Shop of Horace",
     "id": 304,
     "items": [
@@ -10582,8 +10582,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Little Munty's Little Shop",
     "id": 309,
     "items": [
@@ -10774,8 +10774,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Leenz's General Supplies",
     "id": 314,
     "items": [
@@ -10926,8 +10926,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Warrens General Store",
     "id": 317,
     "items": [
@@ -11186,8 +11186,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Jennifer's General Field Supplies",
     "id": 320,
     "items": [
@@ -11342,8 +11342,8 @@
     ]
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Fossil Island General Store",
     "id": 326,
     "items": [
@@ -11898,8 +11898,8 @@
     "items": []
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
+    "buyModifier": 1,
+    "sellModifier": 1,
     "name": "Trader Stan's Trading Post",
     "id": 348,
     "items": [
