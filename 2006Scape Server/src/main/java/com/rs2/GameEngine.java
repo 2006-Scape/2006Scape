@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.rs2.gui.ControlPanel;
 import org.apollo.jagcached.FileServer;
 
 import com.rs2.game.bots.BotHandler;
@@ -117,7 +118,7 @@ public class GameEngine {
 	public static ItemHandler itemHandler = new ItemHandler();
 	public static PlayerHandler playerHandler = new PlayerHandler();
 	public static NpcHandler npcHandler = new NpcHandler();
-	private static ShopHandler shopHandler = new ShopHandler();
+	public static ShopHandler shopHandler = new ShopHandler();
 	public static ObjectHandler objectHandler = new ObjectHandler();
 	public static ObjectManager objectManager = new ObjectManager();
 	public static FightCaves fightCaves = new FightCaves();
@@ -125,6 +126,7 @@ public class GameEngine {
 	public static Trawler trawler = new Trawler();
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private final static Lock lock = new ReentrantLock();
+	public static ControlPanel panel = new ControlPanel();
 
 	static {
 		shutdownServer = false;
@@ -133,6 +135,8 @@ public class GameEngine {
 	public static void main(java.lang.String[] args)
 			throws NullPointerException, IOException {
 		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("-gui"))
+				GameConstants.GUI_ENABLED = true;
 			if (args[i].startsWith("-") && (i + 1) < args.length && !args[i + 1].startsWith("-")) {
 				switch (args[i]) {
 					case "-c":
@@ -214,6 +218,14 @@ public class GameEngine {
 		 * Server Successfully Loaded
 		 */
 		System.out.println("World Server listening on " + fs.service.toString());
+
+		/**
+		 * Makes Visible Control Panel If Enabled
+		 */
+		if(GameConstants.GUI_ENABLED) {
+			panel.setVisible(true);
+			System.out.println("Control Panel Enabled.");
+		}
 
 		/**
 		 * Main Server Tick

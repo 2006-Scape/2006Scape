@@ -7,6 +7,7 @@ object GameConstants {
      * SERVER_NAME Sets The Name The Server Will Use
      * WEBSITE_LINK Defines The Server Website Links
      * WORLD Sets The Servers World ID
+     * GUI_ENABLED Enables/Disables The Server Control Panel
      * MAX_PLAYERS Sets The Maximum Amount Of Players Allow To Be Logged In At Once
      * TIMEOUT Sets The Amount Of Time Before A Player Timeouts From A Bad Connection
      * SAVE_TIMER Sets In Seconds How Often The Server Shouls Auto-Save All Characters
@@ -33,6 +34,8 @@ object GameConstants {
 	var WEBSITE_LINK = "https://2006Scape.org"
     @JvmField
 	var WORLD = 1
+    @JvmField
+    var GUI_ENABLED: Boolean = false
     @JvmField
 	var MAX_PLAYERS = 200
     @JvmField

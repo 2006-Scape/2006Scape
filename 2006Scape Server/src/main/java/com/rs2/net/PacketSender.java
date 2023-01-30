@@ -73,6 +73,7 @@ public class PacketSender {
 	}
 	
 	public PacketSender loginPlayer() {
+		GameEngine.panel.addEntity(player.playerName);
 		player.getPlayerAssistant().loginScreen();
 		if (Connection.isNamedBanned(player.playerName)) {
 			player.logout();

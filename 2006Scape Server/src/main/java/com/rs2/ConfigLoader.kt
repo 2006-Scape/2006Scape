@@ -16,6 +16,7 @@ object ConfigLoader {
         val obj = JSONObject(out)
         if (obj.has("server_name")) GameConstants.SERVER_NAME = obj.getString("server_name")
         if (obj.has("server_test_version")) GameConstants.TEST_VERSION = obj.getDouble("server_test_version")
+        if (obj.has("gui_enabled")) GameConstants.GUI_ENABLED = obj.getBoolean("gui_enabled")
         if (obj.has("website_link")) GameConstants.WEBSITE_LINK = obj.getString("website_link")
         if (obj.has("server_debug")) GameConstants.SERVER_DEBUG = obj.getBoolean("server_debug")
         if (obj.has("file_server")) GameConstants.FILE_SERVER = obj.getBoolean("file_server")
