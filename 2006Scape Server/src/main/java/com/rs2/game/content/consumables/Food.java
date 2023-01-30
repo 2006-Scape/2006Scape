@@ -20,7 +20,7 @@ public class Food {
 		PINEAPPLE(2114, 2, "Pineapple", 0, "Food", false), 
 		CHOCOLATE_BAR(1973, 2, "Chocolate Bar", 0, "Food", false), 
 		Wine(1993, 11, "Wine", 1935, "Drink", false), 
-		MACKERAL(355, 6, "Mackeral", 0, "Food", false), 
+		MACKEREL(355, 6, "Mackerel", 0, "Food", false),
 		MANTA(391, 22, "Manta Ray", 0, "Food", false), 
 		SHARK(385, 20, "Shark", 0, "Food", false), 
 		LOBSTER(379, 12, "Lobster", 0, "Food", false), 

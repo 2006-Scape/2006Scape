@@ -4,6 +4,7 @@ import com.rs2.event.EventContext
 import com.rs2.event.EventSubscriber
 import com.rs2.event.SubscribesTo
 import com.rs2.event.impl.ItemSecondClickEvent
+import com.rs2.game.content.StaticItemList.YOYO
 import com.rs2.game.players.Player
 
 @SubscribesTo(ItemSecondClickEvent::class)
@@ -17,7 +18,7 @@ class ItemSecondClick : EventSubscriber<ItemSecondClickEvent> {
 		
 		when(event.id) {
 
-			4079 -> player.startAnimation(1459) //yo-yo
+			YOYO -> player.startAnimation(1459)
 
 		}
 		
