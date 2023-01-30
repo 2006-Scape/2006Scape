@@ -559,6 +559,7 @@ public abstract class Player {
 		if (session == null) {
 			return;
 		}
+		GameEngine.panel.removeEntity(playerName);
 		if (getCannon().hasCannon()) {
 			getCannon().removeObject(cannonX, cannonY);
 			for(int i = 0; i < GameEngine.cannonsX.length; i++) {

@@ -1,6 +1,7 @@
 {
   "server_name": "2006Scape",
   "server_test_version": 2.3,
+  "gui_enabled": true,
   "website_link": "https://2006Scape.org",
   "server_debug": false,
   "file_server": true,
