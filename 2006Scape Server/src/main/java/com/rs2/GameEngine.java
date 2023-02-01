@@ -38,8 +38,6 @@ import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
 import com.rs2.integrations.discord.DiscordActivity;
 import com.rs2.integrations.discord.JavaCord;
-import com.rs2.tick.Scheduler;
-import com.rs2.tick.Tick;
 import com.rs2.util.HostBlacklist;
 import com.rs2.world.GlobalDropsHandler;
 import com.rs2.world.ItemHandler;
@@ -92,18 +90,6 @@ public class GameEngine {
 				- minutesCounter);
 		return d;
 	}
-
-	private static final Scheduler scheduler2 = new Scheduler();
-
-
-	public static Scheduler getScheduler() {
-		return scheduler2;
-	}
-
-	public static void schedule(Tick tick) {
-		getScheduler().schedule(tick);
-	}
-
 
 	public static String ersSecret;
 	public static int[] cannonsX = new int[50];
