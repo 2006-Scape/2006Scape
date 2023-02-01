@@ -619,10 +619,14 @@ public class ItemAssistant {
 			player.getPacketSender().sendFrame246(4447, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 4449);
 		} else if (newWeapon.startsWith("dagger")
-				|| newWeapon.contains("sword")) {
+				|| newWeapon.startsWith("sword")) {
 			player.getPacketSender().setSidebarInterface(0, 2276); // stab, lunge, slash, block
 			player.getPacketSender().sendFrame246(2277, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 2279);
+		} else if (newWeapon.startsWith("longsword")) {
+			player.getPacketSender().setSidebarInterface(0, 2423); // chop, slash, lunge, block
+			player.getPacketSender().sendFrame246(2424, 200, weapon);
+			player.getPacketSender().sendString(weaponName, 2426);
 		} else if (newWeapon.startsWith("pickaxe")) {
 			player.getPacketSender().setSidebarInterface(0, 5570); // spike, impale, smash, block
 			player.getPacketSender().sendFrame246(5571, 200, weapon);
@@ -645,15 +649,15 @@ public class ItemAssistant {
 			player.getPacketSender().sendFrame246(4680, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 4682);
 		} else if (newWeapon.toLowerCase().contains("mace")) {
-			player.getPacketSender().setSidebarInterface(0, 3796);
+			player.getPacketSender().setSidebarInterface(0, 3796); // pound, pummel, spike, block
 			player.getPacketSender().sendFrame246(3797, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 3799);
 		} else if (player.playerEquipment[player.playerWeapon] == 4153) {
-			player.getPacketSender().setSidebarInterface(0, 425); // war hamer equip
+			player.getPacketSender().setSidebarInterface(0, 425); // war hammer equip
 			player.getPacketSender().sendFrame246(426, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 428);
 		} else {
-			player.getPacketSender().setSidebarInterface(0, 2423); // chop, slash, lung, block
+			player.getPacketSender().setSidebarInterface(0, 2423); // chop, slash, lunge, block
 			player.getPacketSender().sendFrame246(2424, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 2426);
 		}
