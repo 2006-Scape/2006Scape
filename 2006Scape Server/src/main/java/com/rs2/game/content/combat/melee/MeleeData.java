@@ -453,9 +453,7 @@ public class MeleeData {
 			if (weaponName.contains("cross") || weaponName.contains("c'bow")) {
 				return 4;
 			}
-			if (weaponName.contains("bow") && !c.dbowSpec) {
-				return 4;
-			} else if (c.dbowSpec) {
+			if (weaponName.contains("bow")) {
 				return 4;
 			}
 

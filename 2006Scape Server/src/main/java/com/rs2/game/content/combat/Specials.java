@@ -134,66 +134,7 @@ public class Specials {
 				return;
 			}
 			if (equippedWeapon == SA.getWeapon()) {
-				if (SA.getWeapon() == 11235) { //Todo remove Darkbow
-					player.usingBow = true;
-					player.dbowSpec = true;
-					player.rangeItemUsed = player.playerEquipment[player.playerArrows];
-					player.getItemAssistant().deleteArrow();
-					player.getItemAssistant().deleteArrow();
-					player.lastWeaponUsed = weapon;
-					player.hitDelay = 3;
-					player.startAnimation(426);
-					player.projectileStage = 1;
-					player.gfx100(RangeData.getRangeStartGFX(player));
-					player.hitDelay = player.getCombatAssistant().getHitDelay();
-					if (player.fightMode == 2) {
-						player.attackTimer--;
-					}
-					if (player.playerIndex > 0) {
-						player.getCombatAssistant().fireProjectilePlayer();
-					} else if (player.npcIndex > 0) {
-						player.getCombatAssistant().fireProjectileNpc();
-					}
-					player.specAccuracy = SA.getSpecAccuracy();
-					player.specDamage = SA.getSpecDamage();
-				} else if (SA.getWeapon() == 15241) {//TODO Remove Handcanon
-					player.usingBow = true;
-					player.rangeItemUsed = player.playerEquipment[player.playerArrows];
-					player.getItemAssistant().deleteArrow();
-					player.lastWeaponUsed = weapon;
-					player.startAnimation(12175);
-					player.specAccuracy = SA.getSpecAccuracy();
-					player.specDamage = SA.getSpecDamage();
-					player.hitDelay = 5;
-					player.attackTimer -= 7;
-					player.hitDelay = player.getCombatAssistant().getHitDelay();
-					if (player.fightMode == 2) {
-						if (player.playerIndex > 0) {
-							player.getCombatAssistant().fireProjectilePlayer();
-						} else if (player.npcIndex > 0) {
-							player.getCombatAssistant().fireProjectileNpc();
-						}
-					}
-				} else if (SA.getWeapon() == 13879 || SA.getWeapon() == 13883) { //TODO remove Morrigan's javelin/throwing axe
-					player.usingRangeWeapon = true;
-					player.rangeItemUsed = player.playerEquipment[player.playerWeapon];
-					player.getItemAssistant().deleteArrow();
-					player.lastWeaponUsed = weapon;
-					player.startAnimation(SA.getAnim());
-					player.gfx0(SA.getGfx1());
-					player.specAccuracy = SA.getSpecAccuracy();
-					player.specDamage = SA.getSpecDamage();
-					player.projectileStage = 1;
-					player.hitDelay = player.getCombatAssistant().getHitDelay();
-					if (player.fightMode == 2) {
-						player.attackTimer--;
-					}
-					if (player.playerIndex > 0) {
-						player.getCombatAssistant().fireProjectilePlayer();
-					} else if (player.npcIndex > 0) {
-						player.getCombatAssistant().fireProjectileNpc();
-					}
-				} else if (SA.getWeapon() == StaticItemList.MAGIC_LONGBOW || SA.getWeapon() == StaticItemList.MAGIC_SHORTBOW) {
+				if (SA.getWeapon() == StaticItemList.MAGIC_LONGBOW || SA.getWeapon() == StaticItemList.MAGIC_SHORTBOW) {
 					player.usingBow = true;
 					player.bowSpecShot = 1;
 					player.rangeItemUsed = player.playerEquipment[player.playerArrows];

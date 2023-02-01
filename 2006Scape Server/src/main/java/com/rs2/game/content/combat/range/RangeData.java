@@ -219,9 +219,6 @@ public class RangeData {
 	}
 
 	public static int getRangeProjectileGFX(Player c) {
-		if (c.dbowSpec) {
-			return 672;
-		}
 		if (c.bowSpecShot > 0) {
 			switch (c.rangeItemUsed) {
 			default:
@@ -332,9 +329,6 @@ public class RangeData {
 	}
 
 	public static int getProjectileSpeed(Player c) {
-		if (c.dbowSpec) {
-			return 100;
-		}
 		return 70;
 	}
 
