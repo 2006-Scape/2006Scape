@@ -3,6 +3,8 @@ package com.rs2.game.content.combat;
 import java.util.HashMap;
 
 import com.rs2.GameConstants;
+import com.rs2.game.content.StaticItemList;
+import com.rs2.game.content.StaticNpcList;
 import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.content.music.sound.CombatSounds;
 import com.rs2.game.npcs.NpcHandler;
@@ -24,18 +26,18 @@ public class Specials {
 		// ItemName(ItemId, SpecDamage, SpecAccuracy, SpecAmount, Anim, GFX0,
 		// GFX100, DoubleHit, SsSpec, SpecEffect)
 
-		ABYSSAL_WHIP(4151, 1, 1.25, 5, 1658, 341, -1, false, 0),
-		DRAGON_DAGGER(1215, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
-		DRAGON_DAGGER_P(1231, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
-		DRAGON_DAGGER_PP(5698, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
-		DRAGON_DAGGER_PPP(5680, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
-		DRAGON_LONG(1305, 1.20, 1.10, 2.5, 1058, -1, 248, false, 0),
-		DRAGON_MACE(1434, 1.55, 1.25, 2.5, 1060, -1, 251, false, 0),
-		DRAGON_SCIMITAR(4587, 1, 1.25, 5.5, 1872, -1, 347, false, 1),
-		DRAGON_HALBERD(3204, 1.25, .85, 3, 1203, -1, 282, true, 0),
-		GRANITE_MAUL(4153, 1.10, .85, 5, 1667, -1, 337, false, 0),
-		MAGIC_SHORTBOW(861, 1.05, .95, 5.5, 1074, -1, -1, true, 0), 
-		MAGIC_LONGBOW(859, 1.20, 1.05, 5.5, 426, -1, -1, false, 0);
+		ABYSSAL_WHIP(StaticItemList.ABYSSAL_WHIP, 1, 1.25, 5, 1658, 341, -1, false, 0),
+		DRAGON_DAGGER(StaticItemList.DRAGON_DAGGER, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_DAGGER_P(StaticItemList.DRAGON_DAGGERP, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_DAGGER_PP(StaticItemList.DRAGON_DAGGERS, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_DAGGER_PPP(StaticItemList.DRAGON_DAGGER_5680, 1.15, 1.25, 2.5, 1062, -1, 252, true, 0),
+		DRAGON_LONG(StaticItemList.DRAGON_LONGSWORD, 1.20, 1.10, 2.5, 1058, -1, 248, false, 0),
+		DRAGON_MACE(StaticItemList.DRAGON_MACE, 1.55, 1.25, 2.5, 1060, -1, 251, false, 0),
+		DRAGON_SCIMITAR(StaticItemList.DRAGON_SCIMITAR, 1, 1.25, 5.5, 1872, -1, 347, false, 1),
+		DRAGON_HALBERD(StaticItemList.DRAGON_HALBERD, 1.25, .85, 3, 1203, -1, 282, true, 0),
+		GRANITE_MAUL(StaticItemList.GRANITE_MAUL, 1.10, .85, 5, 1667, -1, 337, false, 0),
+		MAGIC_SHORTBOW(StaticItemList.MAGIC_SHORTBOW, 1.05, .95, 5.5, 1074, -1, -1, true, 0),
+		MAGIC_LONGBOW(StaticItemList.MAGIC_LONGBOW, 1.20, 1.05, 5.5, 426, -1, -1, false, 0);
 		
 		private int weapon, anim, gfx1, gfx2, specEffect;
 		private double specDamage, specAccuracy, specAmount;
@@ -132,7 +134,7 @@ public class Specials {
 				return;
 			}
 			if (equippedWeapon == SA.getWeapon()) {
-				if (SA.getWeapon() == 11235) {
+				if (SA.getWeapon() == 11235) { //Todo remove Darkbow
 					player.usingBow = true;
 					player.dbowSpec = true;
 					player.rangeItemUsed = player.playerEquipment[player.playerArrows];
@@ -154,7 +156,7 @@ public class Specials {
 					}
 					player.specAccuracy = SA.getSpecAccuracy();
 					player.specDamage = SA.getSpecDamage();
-				} else if (SA.getWeapon() == 15241) {
+				} else if (SA.getWeapon() == 15241) {//TODO Remove Handcanon
 					player.usingBow = true;
 					player.rangeItemUsed = player.playerEquipment[player.playerArrows];
 					player.getItemAssistant().deleteArrow();
@@ -172,7 +174,7 @@ public class Specials {
 							player.getCombatAssistant().fireProjectileNpc();
 						}
 					}
-				} else if (SA.getWeapon() == 13879 || SA.getWeapon() == 13883) {
+				} else if (SA.getWeapon() == 13879 || SA.getWeapon() == 13883) { //TODO remove Morrigan's javelin/throwing axe
 					player.usingRangeWeapon = true;
 					player.rangeItemUsed = player.playerEquipment[player.playerWeapon];
 					player.getItemAssistant().deleteArrow();
@@ -191,7 +193,7 @@ public class Specials {
 					} else if (player.npcIndex > 0) {
 						player.getCombatAssistant().fireProjectileNpc();
 					}
-				} else if (SA.getWeapon() == 859 || SA.getWeapon() == 861) {
+				} else if (SA.getWeapon() == StaticItemList.MAGIC_LONGBOW || SA.getWeapon() == StaticItemList.MAGIC_SHORTBOW) {
 					player.usingBow = true;
 					player.bowSpecShot = 1;
 					player.rangeItemUsed = player.playerEquipment[player.playerArrows];
@@ -241,7 +243,7 @@ public class Specials {
 	public void handleGmaul() {
 		if (player.npcIndex > 0 && NpcHandler.npcs[player.npcIndex] != null) {
 			if (player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY(), player.getCombatAssistant().getRequiredDistance())) {
-				if (player.getCombatAssistant().checkSpecAmount(4153)) {
+				if (player.getCombatAssistant().checkSpecAmount(StaticItemList.GRANITE_MAUL)) {
 					boolean hit = Misc.random(player.getCombatAssistant().calcAtt()) > Misc.random(NpcHandler.npcs[player.npcIndex].defence);
 					int damage = 0;
 					if (hit) {
@@ -260,7 +262,7 @@ public class Specials {
 			if (player.goodDistance(player.getX(), player.getY(), o.getX(), o.getY(), player
 					.getCombatAssistant().getRequiredDistance())) {
 				if (player.getCombatAssistant().checkReqs()) {
-					if (player.getCombatAssistant().checkSpecAmount(4153)) {
+					if (player.getCombatAssistant().checkSpecAmount(StaticItemList.GRANITE_MAUL)) {
 						boolean hit = Misc.random(player.getCombatAssistant().calcAtt()) > Misc.random(o.getCombatAssistant().calcDef());
 						int damage = 0;
 						if (hit) {
@@ -296,7 +298,7 @@ public class Specials {
    public static void specialClicking(Player player2, int actionButtonId) {
 	   switch (actionButtonId) {
 		case 29188:
-			if (player2.playerEquipment[player2.playerWeapon] == 1434) {
+			if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_MACE) {
 				player2.specBarId = 7636;
 				player2.usingSpecial = !player2.usingSpecial;
 				player2.getItemAssistant().updateSpecialBar();
@@ -304,7 +306,7 @@ public class Specials {
 			break;
 
 		case 29163:
-			if (player2.playerEquipment[player2.playerWeapon] == 4587) {
+			if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_SCIMITAR) {
 				player2.specBarId = 7611;
 				player2.usingSpecial = !player2.usingSpecial;
 				player2.getItemAssistant().updateSpecialBar();
@@ -312,7 +314,7 @@ public class Specials {
 			break;
 
 		case 33033:
-			if (player2.playerEquipment[player2.playerWeapon] == 4153) {
+			if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.GRANITE_MAUL) {//TODO should this be here twice?
 				player2.specBarId = 8505;
 				player2.usingSpecial = !player2.usingSpecial;
 				player2.getItemAssistant().updateSpecialBar();
@@ -320,7 +322,7 @@ public class Specials {
 			break;
 
 		case 29038:
-			if (player2.playerEquipment[player2.playerWeapon] == 4153) {
+			if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.GRANITE_MAUL) {
 				player2.specBarId = 7486;
 				player2.getSpecials().handleGmaul();
 				player2.usingSpecial = !player2.usingSpecial;
@@ -329,7 +331,7 @@ public class Specials {
 			break;
 
 		case 29063:
-		if (player2.playerEquipment[player2.playerWeapon] == 1377) {
+		if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_BATTLEAXE) {
 			if (player2.specAmount >= 5) {
 				player2.gfx0(246);
 				player2.forcedChat("Raarrrrrgggggghhhhhhh!");
@@ -345,7 +347,7 @@ public class Specials {
 		break;
 
 		case 48023:
-			if (player2.playerEquipment[player2.playerWeapon] == 4151) {
+			if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.ABYSSAL_WHIP) {
 				player2.specBarId = 12335;
 				player2.usingSpecial = !player2.usingSpecial;
 				player2.getItemAssistant().updateSpecialBar();
@@ -353,9 +355,9 @@ public class Specials {
 			break;
 
 		case 29138:
-			if (player2.playerEquipment[player2.playerWeapon] == 1215 || player2.playerEquipment[player2.playerWeapon] == 1231 
-				|| player2.playerEquipment[player2.playerWeapon] == 5680 || player2.playerEquipment[player2.playerWeapon] == 5698
-				|| player2.playerEquipment[player2.playerWeapon] == 1305) {
+			if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_DAGGER || player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_DAGGERP
+				|| player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_DAGGER_5680 || player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_DAGGERS
+				|| player2.playerEquipment[player2.playerWeapon] == StaticItemList.DRAGON_LONGSWORD) {
 				player2.specBarId = 7586;
 				player2.usingSpecial = !player2.usingSpecial;
 				player2.getItemAssistant().updateSpecialBar();
@@ -363,7 +365,7 @@ public class Specials {
 			break;
 
 		case 29113:
-			if (player2.playerEquipment[player2.playerWeapon] == 861 || player2.playerEquipment[player2.playerWeapon] == 859) {
+			if (player2.playerEquipment[player2.playerWeapon] == StaticItemList.MAGIC_SHORTBOW || player2.playerEquipment[player2.playerWeapon] == StaticItemList.MAGIC_LONGBOW) {
 				player2.specBarId = 7561;
 				player2.usingSpecial = !player2.usingSpecial;
 				player2.getItemAssistant().updateSpecialBar();
