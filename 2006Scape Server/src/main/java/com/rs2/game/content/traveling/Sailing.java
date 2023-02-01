@@ -42,7 +42,7 @@ public class Sailing {
 			return false;
 		}
 		c.getItemAssistant().deleteItem(995, 1000);
-		c.getPacketSender().sendMessage("Your free to go and pay the 1000 coins.");
+		c.getPacketSender().sendMessage("You're free to go and pay the 1000 coins.");
 		return true;
 	}
 
@@ -53,7 +53,7 @@ public class Sailing {
 			return false;
 		}
 		c.getItemAssistant().deleteItem(995, 30);
-		c.getPacketSender().sendMessage("Your free to go and pay the 30 coins.");
+		c.getPacketSender().sendMessage("You're free to go and pay the 30 coins.");
 		return true;
 	}
 
@@ -66,7 +66,7 @@ public class Sailing {
 			}
 		}
 		c.getPacketSender().sendMessage(
-				"Your clean of any possible alchohol.");
+				"You're clean of any possible alcohol.");
 		return true;
 	}
 
@@ -78,7 +78,7 @@ public class Sailing {
 				return false;
 			}
 		}
-		c.getPacketSender().sendMessage("Your clean of any possible weapons.");
+		c.getPacketSender().sendMessage("You're clean of any possible weapons.");
 		return true;
 	}
 
