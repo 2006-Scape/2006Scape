@@ -4,6 +4,7 @@
     "sellModifier": 2,
     "name": "Davon's Amulet Store.",
     "id": 2,
+    "id": 2,
     "items": [
       {
         "itemId": 1718,
@@ -6866,6 +6867,18 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
+    "name": "Pelters' Veg Stall",
+    "id": 146,
+    "items": [
+      {
+        "itemId": 2518,
+        "itemAmount": 2000
+      }
+    ]
+  },
+  {
+    "buyModifier": 2,
+    "sellModifier": 2,
     "name": "Grace's Graceful Clothing",
     "id": 147,
     "items": []
@@ -6937,13 +6950,6 @@
     "items": []
   },
   {
-    "buyModifier": 2,
-    "sellModifier": 2,
-    "name": "Prospector Percy's Nugget Shop",
-    "id": 156,
-    "items": []
-  },
-  {
     "buyModifier": 1,
     "sellModifier": 1,
     "name": "Dal's General Ogre Supplies",
@@ -7002,7 +7008,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Uglug's Stuffsies",
+    "name": "~ Uglug's stuffsies ~",
     "id": 165,
     "items": [
       {
@@ -7948,7 +7954,7 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "Fishing Guild Shop",
+    "name": "Fishing Guild Shop.",
     "id": 190,
     "items": [
       {
