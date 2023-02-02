@@ -112,7 +112,7 @@ public class GameEngine {
 	public static Trawler trawler = new Trawler();
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private final static Lock lock = new ReentrantLock();
-	public static ControlPanel panel = new ControlPanel();
+	public static ControlPanel panel;
 
 	static {
 		shutdownServer = false;
@@ -209,6 +209,8 @@ public class GameEngine {
 		 * Makes Visible Control Panel If Enabled
 		 */
 		if(GameConstants.GUI_ENABLED) {
+			ControlPanel panel = new ControlPanel();
+			panel.initComponents();
 			panel.setVisible(true);
 			System.out.println("Control Panel Enabled.");
 		}

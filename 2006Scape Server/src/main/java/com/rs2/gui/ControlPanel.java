@@ -27,7 +27,7 @@ public class ControlPanel extends JFrame {
     public JButton EMPTY_BANK;
     public JButton EMPTY_INVENTORY;
     public JList ENTITY_LIST;
-    public DefaultListModel LIST_MODEL;
+    public static DefaultListModel LIST_MODEL;
     public DefaultListModel LIST_NPCS;
     public JMenuItem EXIT_ITEM;
     public JMenu FILE_MENU;
@@ -96,15 +96,14 @@ public class ControlPanel extends JFrame {
     public JScrollPane jScrollPane4;
     private PanelSettings settings = null;
     public ControlPanel() {
-        initComponents();
     }
 
-    public void addEntity(String name) {
-        this.LIST_MODEL.addElement(name);
+    public static void addEntity(String name) {
+        LIST_MODEL.addElement(name);
     }
 
-    public void removeEntity(String name) {
-        this.LIST_MODEL.removeElement(name);
+    public static void removeEntity(String name) {
+        LIST_MODEL.removeElement(name);
     }
 
     public PanelSettings settings() {
