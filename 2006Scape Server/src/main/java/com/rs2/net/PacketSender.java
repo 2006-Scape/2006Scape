@@ -16,6 +16,7 @@ import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
+import com.rs2.gui.ControlPanel;
 import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.Region;
@@ -27,7 +28,7 @@ public class PacketSender {
 	public PacketSender(Player player2) {
 		this.player = player2;
 	}
-	
+
 	public PacketSender sendUpdateItems(int frame, Item[] items) {
 		if (player.getOutStream() != null) {
 			player.getOutStream().createFrameVarSizeWord(53);
@@ -63,7 +64,7 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
+
 	public PacketSender sendUpdateItems(int frame, int[] itemIDs, int[] itemAmounts) {
 		Item[] items = new Item[itemIDs.length];
 		for(int i = 0; i < itemIDs.length; i++) {
@@ -71,9 +72,11 @@ public class PacketSender {
 		}
 		return sendUpdateItems(frame, items);
 	}
-	
+
 	public PacketSender loginPlayer() {
-		GameEngine.panel.addEntity(player.playerName);
+		if (GameConstants.GUI_ENABLED) {
+			ControlPanel.addEntity(player.playerName);
+		}
 		player.getPlayerAssistant().loginScreen();
 		if (Connection.isNamedBanned(player.playerName)) {
 			player.logout();
@@ -200,7 +203,7 @@ public class PacketSender {
 	}
 
 	public PacketSender sendClan(String name, String message, String clan, int rights) {
-		if (player.getOutStream() == null) 
+		if (player.getOutStream() == null)
 			return this;
 		player.outStream.createFrameVarSizeWord(217);
 		player.outStream.writeString(name);
@@ -210,9 +213,9 @@ public class PacketSender {
 		player.outStream.endFrameVarSize();
 		return this;
 	}
-	
+
 	public PacketSender createPlayersObjectAnim(int X, int Y, int animationID, int tileObjectType, int orientation) {
-		if (player.getOutStream() == null) 
+		if (player.getOutStream() == null)
 			return this;
 		try{
 			player.getOutStream().createFrame(85);
@@ -229,8 +232,8 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
-	
+
+
 	public PacketSender setInterfaceOffset(int x, int y, int id) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(70);
@@ -241,10 +244,10 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
+
 	public PacketSender shakeScreen(int verticleAmount, int verticleSpeed,
-			int horizontalAmount, int horizontalSpeed) {
-		if (player.getOutStream() == null) 
+									int horizontalAmount, int horizontalSpeed) {
+		if (player.getOutStream() == null)
 			return this;
 		player.getOutStream().createFrame(35); // Creates frame 35.
 		player.getOutStream().writeByte(verticleAmount);
@@ -272,7 +275,7 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Reseting animations for everyone
 	 **/
@@ -295,14 +298,14 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
+
 	public PacketSender setInterfaceWalkable(int ID) {
 		player.outStream.createFrame(208);
 		player.outStream.writeWordBigEndian_dup(ID);
 		player.flushOutStream();
 		return this;
 	}
-	
+
 	public PacketSender sendFrame36(int id, int state) {
 		if(player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(36);
@@ -474,7 +477,7 @@ public class PacketSender {
 	}
 
 	public PacketSender setPrivateMessaging(int i) { // friends and ignore list status
-												// synchronized(c) {
+		// synchronized(c) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(221);
 			player.getOutStream().writeByte(i);
@@ -507,7 +510,7 @@ public class PacketSender {
 	}
 
 	public PacketSender sendPM(long name, int rights, byte[] chatmessage,
-			int messagesize) {
+							   int messagesize) {
 		// synchronized(c) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrameVarSize(196);
@@ -559,23 +562,23 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
+
 	public PacketSender sendItemOnInterface(int id, int amount, int child) {
-			player.getOutStream().createFrameVarSizeWord(53);
-			player.getOutStream().writeWord(child);
-			player.getOutStream().writeWord(amount);
-			if (amount > 254){
-				player.getOutStream().writeByte(255);
-				player.getOutStream().writeDWord_v2(amount);
-			} else {
-				player.getOutStream().writeByte(amount);
-			}
-			player.getOutStream().writeWordBigEndianA(id); 
-			player.getOutStream().endFrameVarSizeWord();
-			player.flushOutStream();
-			return this;
+		player.getOutStream().createFrameVarSizeWord(53);
+		player.getOutStream().writeWord(child);
+		player.getOutStream().writeWord(amount);
+		if (amount > 254){
+			player.getOutStream().writeByte(255);
+			player.getOutStream().writeDWord_v2(amount);
+		} else {
+			player.getOutStream().writeByte(amount);
+		}
+		player.getOutStream().writeWordBigEndianA(id);
+		player.getOutStream().endFrameVarSizeWord();
+		player.flushOutStream();
+		return this;
 	}
-	
+
 	public PacketSender walkableInterface(int id) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(208);
@@ -584,7 +587,7 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
+
 
 	public PacketSender openUpBank() {
 		if (player.isBanking = false) {
@@ -620,7 +623,7 @@ public class PacketSender {
 				player.hasBankpin = false;
 				player.requestPinDelete = false;
 				player.getPacketSender().sendMessage("[Notice] Your PIN has been deleted. It is recommended "
-								+ "to have one.");
+						+ "to have one.");
 			}
 		}
 		if (!player.enterdBankpin && player.hasBankpin) {
@@ -722,8 +725,8 @@ public class PacketSender {
 	}
 
 	public PacketSender createProjectile(int x, int y, int offX, int offY,
-			int angle, int speed, int gfxMoving, int startHeight,
-			int endHeight, int lockon, int time) {
+										 int angle, int speed, int gfxMoving, int startHeight,
+										 int endHeight, int lockon, int time) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(85);
 			player.getOutStream()
@@ -748,8 +751,8 @@ public class PacketSender {
 	}
 
 	public PacketSender createProjectile2(int x, int y, int offX, int offY,
-			int angle, int speed, int gfxMoving, int startHeight,
-			int endHeight, int lockon, int time, int slope) {
+										  int angle, int speed, int gfxMoving, int startHeight,
+										  int endHeight, int lockon, int time, int slope) {
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(85);
 			player.getOutStream()
@@ -979,7 +982,7 @@ public class PacketSender {
 
 	/**
 	 * Show an arrow icon on the selected player.
-	 * 
+	 *
 	 * @Param i - Either 0 or 1; 1 is arrow, 0 is none.
 	 * @Param j - The player/Npc that the arrow will be displayed above.
 	 * @Param k - Keep this set as 0
@@ -1011,10 +1014,10 @@ public class PacketSender {
 		if (player != null) {
 			player.getOutStream().createFrame(254); // The packet ID
 			player.getOutStream().writeByte(pos); // Position on Square(2 =
-													// middle, 3
-													// = west, 4 = east, 5 =
-													// south,
-													// 6 = north)
+			// middle, 3
+			// = west, 4 = east, 5 =
+			// south,
+			// 6 = north)
 			player.getOutStream().writeWord(x); // X-Coord of Object
 			player.getOutStream().writeWord(y); // Y-Coord of Object
 			player.getOutStream().writeByte(height); // Height off Ground
@@ -1033,7 +1036,7 @@ public class PacketSender {
 			player.getOutStream().write3Byte(0); // Junk
 		}
 		return this;
-	}	
+	}
 
 	public PacketSender checkObjectSpawn(int objectId, int objectX, int objectY, int face, int objectType) {
 		if (player.distanceToPoint(objectX, objectY) < 60) {
@@ -1062,7 +1065,7 @@ public class PacketSender {
 		}
 		return this;
 	}
-	
+
 	public PacketSender createObjectSpawn(int objectId, int objectX, int objectY, int height, int face, int objectType) {
 		if (player.getOutStream() == null) return this;
 		if (player.heightLevel != height) {
@@ -1114,7 +1117,7 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendSong(int id) {
-		if (player.getOutStream() == null) 
+		if (player.getOutStream() == null)
 			return this;
 		if (player != null && id != -1) {
 			player.getOutStream().createFrame(74);
@@ -1128,7 +1131,7 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendQuickSong(int id, int songDelay) {
-		if (player.getOutStream() == null) 
+		if (player.getOutStream() == null)
 			return this;
 		if (player != null) {
 			player.getOutStream().createFrame(121);
@@ -1144,7 +1147,7 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendSound(int id, int type, int delay, int volume) {
-		if (player.getOutStream() == null) 
+		if (player.getOutStream() == null)
 			return this;
 		if (player != null && id != -1) {
 			player.getOutStream().createFrame(174);
@@ -1187,7 +1190,7 @@ public class PacketSender {
 		player.flushOutStream();
 		return this;
 	}
-	
+
 	public PacketSender createGroundItem(int itemID, int itemX, int itemY, int itemAmount, int height) {
 		if (player.getOutStream() == null) return this;
 		if (player.heightLevel != height) {
