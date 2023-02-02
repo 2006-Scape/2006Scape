@@ -14,6 +14,9 @@ import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.Region;
 
+import com.rs2.game.content.StaticItemList;
+import com.rs2.game.content.StaticObjectList;
+
 /**
  * Cannon
  * @author Andrew (Mr Extremez)
@@ -27,13 +30,9 @@ public class DwarfCannon {
 
 	private Player player;
 
-	public final int[] ITEM_PARTS = {6, 8, 10, 12};
+	public final int[] ITEM_PARTS = {StaticItemList.CANNON_BASE, StaticItemList.CANNON_STAND, StaticItemList.CANNON_BARRELS, StaticItemList.CANNON_FURNACE};
 	
-	private final int[] OBJECT_PARTS = {7, 8, 9, 6};
-	
-	private final int ballsID = 2;
-
-	public final int steelBarID = 2353;
+	private final int[] OBJECT_PARTS = {StaticObjectList.CANNON_BASE, StaticObjectList.CANNON_STAND, StaticObjectList.CANNON_BASE_9, StaticObjectList.DWARF_MULTICANNON};
 
 	public boolean settingUp = false;
 	
@@ -58,7 +57,7 @@ public class DwarfCannon {
 	public static void makeBall(Player player)
 	{
 		//An interface could be added instead of making all.
-		if (!player.getItemAssistant().playerHasItem(2353) || !player.getItemAssistant().playerHasItem(4))
+		if (!player.getItemAssistant().playerHasItem(StaticItemList.STEEL_BAR) || !player.getItemAssistant().playerHasItem(StaticItemList.AMMO_MOULD))
 		{
 			player.getPacketSender().sendMessage("You need an ammo mould and steel bars to make cannonballs.");
 			return;
@@ -69,7 +68,7 @@ public class DwarfCannon {
 			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 				@Override
 				public void execute(CycleEventContainer container) {
-					if (player.isWoodcutting || player.isCrafting || player.isFletching || player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing || player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting || player.playerIsCooking || player.isPotCrafting ||!player.isSmithing || !player.getItemAssistant().playerHasItem(2353) || !player.getItemAssistant().playerHasItem(4))
+					if (player.isWoodcutting || player.isCrafting || player.isFletching || player.isMoving || player.isMining || player.isBusy || player.isShopping || player.isFiremaking || player.isSpinning || player.isPotionMaking || player.playerIsFishing || player.isBanking || player.isSmelting || player.isTeleporting || player.isHarvesting || player.playerIsCooking || player.isPotCrafting ||!player.isSmithing || !player.getItemAssistant().playerHasItem(StaticItemList.STEEL_BAR) || !player.getItemAssistant().playerHasItem(StaticItemList.AMMO_MOULD))
 					{
 						container.stop();
 						return;
@@ -77,7 +76,7 @@ public class DwarfCannon {
 					else
 					{
 						player.startAnimation(899);
-						player.getItemAssistant().deleteItem(2353, 1);
+						player.getItemAssistant().deleteItem(StaticItemList.STEEL_BAR, 1);
 						player.getItemAssistant().addItem(2, 4);
 						player.getPacketSender().sendMessage("You make some cannonballs.");
 						player.getPlayerAssistant().addSkillXP(26, GameConstants.SMITHING);
@@ -152,7 +151,7 @@ public class DwarfCannon {
 				 */
 				int cballs = getBalls();
 				int amount = cballs - myBalls;
-				player.getItemAssistant().deleteItem(ballsID, player.getItemAssistant().getItemSlot(ballsID), amount);
+				player.getItemAssistant().deleteItem(StaticItemList.CANNONBALL, player.getItemAssistant().getItemSlot(StaticItemList.CANNONBALL), amount);
 				myBalls = cballs;
 			}
 		}, 2);
@@ -193,7 +192,7 @@ public class DwarfCannon {
 		}
 		
 		public int getBalls() {
-			int cannonBalls = player.getItemAssistant().getItemAmount(ballsID);
+			int cannonBalls = player.getItemAssistant().getItemAmount(StaticItemList.CANNONBALL);
 			if (cannonBalls >= maxBalls) {
 				return maxBalls;
 			}
@@ -225,9 +224,9 @@ public class DwarfCannon {
 			}
 			if (myBalls <= 29) {
 				int amount = cballs - myBalls;
-				player.getItemAssistant().deleteItem(ballsID, player.getItemAssistant().getItemSlot(ballsID), amount);
+				player.getItemAssistant().deleteItem(StaticItemList.CANNONBALL, player.getItemAssistant().getItemSlot(StaticItemList.CANNONBALL), amount);
 				myBalls = cballs;
-				if (player.getItemAssistant().playerHasItem(ballsID)) {
+				if (player.getItemAssistant().playerHasItem(StaticItemList.CANNONBALL)) {
 					player.getPacketSender().sendMessage(amount > 1 ? "You load the cannon with " + amount + " cannonballs." : "You load the cannon with 1 cannonball.");
 				} else {
 					player.getPacketSender().sendMessage("You have no cannonballs to load into the cannon.");
@@ -371,7 +370,7 @@ public class DwarfCannon {
 				player.getPacketSender().sendMessage("You don't have enough free inventory slots to do that.");
 			}
 			if (myBalls > 0) {
-				player.getItemAssistant().addItem(ballsID, myBalls);
+				player.getItemAssistant().addItem(StaticItemList.CANNONBALL, myBalls);
 				myBalls = 0;
 			}
 			removeObject(player.cannonX, player.cannonY);
