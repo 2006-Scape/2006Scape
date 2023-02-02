@@ -104,16 +104,6 @@ public class CombatAssistant {
 						damage2 = 0;
 					}
 				}
-				if (player.dbowSpec) {
-					NpcHandler.npcs[i].gfx100(1100);
-					if (damage < 8) {
-						damage = 8;
-					}
-					if (damage2 < 8) {
-						damage2 = 8;
-					}
-					player.dbowSpec = false;
-				}
 				if (damage > 0 && Misc.random(5) == 1 && player.lastArrowUsed == 9244) {
 					damage *= 1.45;
 					NpcHandler.npcs[i].gfx0(756);
@@ -1164,16 +1154,6 @@ public class CombatAssistant {
 					if (Misc.random(10 + o.getCombatAssistant().calculateRangeDefence()) > Misc.random(10 + calculateRangeAttack())) {
 						damage2 = 0;
 					}
-				}
-				if (player.dbowSpec) {
-					o.gfx100(1100);
-					if (damage < 8) {
-						damage = 8;
-					}
-					if (damage2 < 8) {
-						damage2 = 8;
-					}
-					player.dbowSpec = false;
 				}
 				if (damage > 0 && Misc.random(5) == 1 && player.lastArrowUsed == 9244) {
 					damage *= 1.45;
