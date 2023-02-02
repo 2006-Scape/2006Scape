@@ -209,6 +209,7 @@ public class GameEngine {
 		 * Makes Visible Control Panel If Enabled
 		 */
 		if(GameConstants.GUI_ENABLED) {
+			panel.initComponents();
 			panel.setVisible(true);
 			System.out.println("Control Panel Enabled.");
 		}

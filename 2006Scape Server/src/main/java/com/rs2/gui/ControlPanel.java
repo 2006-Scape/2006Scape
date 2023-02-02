@@ -96,7 +96,6 @@ public class ControlPanel extends JFrame {
     public JScrollPane jScrollPane4;
     private PanelSettings settings = null;
     public ControlPanel() {
-        initComponents();
     }
 
     public void addEntity(String name) {
