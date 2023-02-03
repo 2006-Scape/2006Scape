@@ -28,9 +28,11 @@ public final class Main {
 						break;
 					case "-qol":
 					case "-fixes":
+						ClientSettings.CUSTOM_SETTINGS_TAB = true;
 						ClientSettings.BILINEAR_MINIMAP_FILTERING = true;
 						ClientSettings.FIX_TRANSPARENCY_OVERFLOW = true;
 						ClientSettings.FULL_512PX_VIEWPORT = true;
+						Game.customSettingVisiblePlayerNames = true;
 						break;
 					case "-no-nav":
 					case"-disable-nav":
