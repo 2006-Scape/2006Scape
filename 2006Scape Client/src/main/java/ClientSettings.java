@@ -7,7 +7,6 @@ import java.math.BigInteger;
  */
 
 public class ClientSettings {
-
     public static String SNOW_MONTH = ".12";
     /**
      * The Servers Name
@@ -42,6 +41,8 @@ public class ClientSettings {
     public static final String NAV_WORLDMAP_LINK = SERVER_WEBSITE + "img/worldmap.jpg";
     public static final String NAV_MANUAL_LINK = SERVER_WEBSITE;
     public static final String NAV_RULES_LINK = SERVER_WEBSITE + "kbase/rules.php";
+
+    public static boolean CUSTOM_SETTINGS_TAB = false;
 
     // smooths out lines and sprites on the minimap
     public static boolean BILINEAR_MINIMAP_FILTERING = false;

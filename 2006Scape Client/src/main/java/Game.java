@@ -1808,7 +1808,7 @@ public class Game extends RSApplet {
 		invBack.method361(0, 0);
 		if (invOverlayInterfaceID == -1) {
 			if (tabInterfaceIDs[tabID] != -1) {
-				if (tabID == 7) {
+				if (tabID == 7 && ClientSettings.CUSTOM_SETTINGS_TAB) {
 					try {
 						int centerX = 95;
 						int currentY = 10;
@@ -1830,10 +1830,13 @@ public class Game extends RSApplet {
 						aTextDrawingArea_1271.textCenterShadow(Color.WHITE.hashCode(), centerX, WorldController.drawDistance + " tiles", currentY + textBottom, true);
 
 						drawButton(customSettingShowExperiencePerHour, centerX - 73, currentY += 40, 146);
-						aTextDrawingArea_1271.textCenterShadow(customSettingShowExperiencePerHour ? Color.YELLOW.hashCode() : Color.YELLOW.hashCode(), centerX, "show exp info", currentY + textMiddle, true);
+						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "show exp info", currentY + textMiddle, true);
 						
 						drawButton(showInfo, centerX - 73, currentY += 40, 146);
-						aTextDrawingArea_1271.textCenterShadow(showInfo ? Color.YELLOW.hashCode() : Color.YELLOW.hashCode(), centerX, "show debug info", currentY + textMiddle, true);
+						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "show debug info", currentY + textMiddle, true);
+
+						drawButton(customSettingVisualFixes, centerX - 73, currentY += 40, 146);
+						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "visual fixes", currentY + textMiddle, true);
 					} catch (Exception e) { }
 				}
 			}
@@ -5607,12 +5610,13 @@ public class Game extends RSApplet {
 	}
 
 	int customTabAction = 0;
-	boolean customSettingVisiblePlayerNames = true;
-	int customSettingMinItemValue = 1000;
+	static boolean customSettingVisiblePlayerNames = false;
+	int customSettingMinItemValue = 1;
 	boolean customSettingShowExperiencePerHour = false;
 	long customSettingShowExperiencePerHourStartExp = 0;
 	long customSettingShowExperiencePerHourStart = System.currentTimeMillis();
 	int customSettingShowExperiencePerHourStartLevels = 0;
+	boolean customSettingVisualFixes = true;
 
 	public void processTabClick() {
 		if (super.clickMode3 == 1) {
@@ -5651,7 +5655,7 @@ public class Game extends RSApplet {
 				tabID = 6;
 				tabAreaAltered = true;
 			}
-			if (super.saveClickX >= 540 && super.saveClickX <= 574 && super.saveClickY >= 466 && super.saveClickY < 502 && tabInterfaceIDs[7] != -1) {
+			if (super.saveClickX >= 540 && super.saveClickX <= 574 && super.saveClickY >= 466 && super.saveClickY < 502 && tabInterfaceIDs[7] != -1 && ClientSettings.CUSTOM_SETTINGS_TAB) {
 				/* Unused tab bottom left */
 				needDrawTabArea = true;
 				tabID = 7;
@@ -5690,7 +5694,7 @@ public class Game extends RSApplet {
 			if (invOverlayInterfaceID == -1) {
 				if (tabInterfaceIDs[tabID] != -1) {
 					// Handle our custom tab
-					if (tabID == 7 && super.saveClickX >= 575 && super.saveClickX <= 720 && super.saveClickY >= 210 && super.saveClickY <= 465) {
+					if (tabID == 7 && ClientSettings.CUSTOM_SETTINGS_TAB && super.saveClickX >= 575 && super.saveClickX <= 720 && super.saveClickY >= 210 && super.saveClickY <= 465) {
 						int startY = 217 + 3;
 						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
 							customSettingVisiblePlayerNames = !customSettingVisiblePlayerNames;
@@ -5723,6 +5727,13 @@ public class Game extends RSApplet {
 						startY += 40;
 						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
 							showInfo= !showInfo;
+						}
+						startY += 40;
+						if (super.saveClickY >= startY && super.saveClickY <= (startY + 30)) {
+							customSettingVisualFixes = !customSettingVisualFixes;
+							ClientSettings.BILINEAR_MINIMAP_FILTERING = !ClientSettings.BILINEAR_MINIMAP_FILTERING;
+							ClientSettings.FIX_TRANSPARENCY_OVERFLOW = !ClientSettings.FIX_TRANSPARENCY_OVERFLOW;
+							ClientSettings.FULL_512PX_VIEWPORT = !ClientSettings.FULL_512PX_VIEWPORT;
 						}
 					}
 				}
@@ -7971,7 +7982,7 @@ public class Game extends RSApplet {
 			backBase2.method361(0, 0);
 			if (invOverlayInterfaceID == -1) {
 				if (tabInterfaceIDs[tabID] != -1) {
-					if (tabID == 7) {
+					if (tabID == 7 && ClientSettings.CUSTOM_SETTINGS_TAB) {
 						redStone1_3.method361(42, 0);
 					}
 					if (tabID == 8) {
@@ -7993,7 +8004,7 @@ public class Game extends RSApplet {
 						redStone1_4.method361(229, 0);
 					}
 				}
-				if (tabInterfaceIDs[7] != -1 && (anInt1054 != 7 || loopCycle % 20 < 10)) {
+				if (tabInterfaceIDs[7] != -1 && (anInt1054 != 7 || loopCycle % 20 < 10) && ClientSettings.CUSTOM_SETTINGS_TAB) {
 					sideIcons[10].method361(47, 2);
 				}
 				if (tabInterfaceIDs[8] != -1 && (anInt1054 != 8 || loopCycle % 20 < 10)) {
