@@ -400,6 +400,9 @@ public class MeleeData {
      * Block emotes
      */
     public static int getBlockEmote(Player c) {
+        MonkeyData data = MonkeyData.forId(c.playerEquipment[ItemConstants.WEAPON]);
+        if (data != null)
+            return data.getBlockAnim();
         String weaponName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
         String shieldName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.SHIELD]).toLowerCase();
         if (c.playerEquipment[c.playerShield] >= 8844
@@ -410,9 +413,6 @@ public class MeleeData {
             return 1156;
         if (weaponName.contains("staff"))
             return 420;
-        MonkeyData data = MonkeyData.forId(c.playerEquipment[ItemConstants.WEAPON]);
-        if (data != null)
-            return data.getBlockAnim();
         switch (c.playerEquipment[c.playerWeapon]) {
             case -1:
             case 0:
