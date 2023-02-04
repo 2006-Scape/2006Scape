@@ -7,6 +7,8 @@ import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.players.Player;
 
+import static com.rs2.game.content.StaticItemList.TOKTZKETXIL;
+
 public class MeleeData {
 
 	public static boolean fullVoidMelee(Player c) {
@@ -398,10 +400,16 @@ public class MeleeData {
 	 * Block emotes
 	 */
 	public static int getBlockEmote(Player c) {
+		String weaponName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
+		String shieldName = ItemAssistant.getItemName(c.playerEquipment[ItemConstants.SHIELD]).toLowerCase();
 		if (c.playerEquipment[c.playerShield] >= 8844
 				&& c.playerEquipment[c.playerShield] <= 8850) {
 			return 4177;
 		}
+		if (shieldName.contains("shield"))
+			return 1156;
+		if (weaponName.contains("staff"))
+			return 420;
 		MonkeyData data = MonkeyData.forId(c.playerEquipment[ItemConstants.WEAPON]);
 		if (data != null)
 			return data.getBlockAnim();
@@ -424,6 +432,8 @@ public class MeleeData {
 		case 11696:
 		case 11730:
 			return -1;
+		case TOKTZKETXIL:
+			return 1156;
 		default:
 			return 404;
 		}
