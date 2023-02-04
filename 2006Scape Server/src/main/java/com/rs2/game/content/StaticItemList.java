@@ -6,6 +6,7 @@ package com.rs2.game.content;
  * @author Advocatus
  *
  */
+@SuppressWarnings("unused")
 public class StaticItemList {
 
 	public static final int DWARF_REMAINS = 0;

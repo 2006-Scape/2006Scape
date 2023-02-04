@@ -6,6 +6,7 @@ package com.rs2.game.content;
  * @author Advocatus
  *
  */
+@SuppressWarnings("unused")
 public class StaticObjectList {
 
 	public static final int CRATE = 0;
