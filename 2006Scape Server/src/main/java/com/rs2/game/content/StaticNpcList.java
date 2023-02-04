@@ -6,6 +6,7 @@ package com.rs2.game.content;
  * @author Advocatus
  *
  */
+@SuppressWarnings("unused")
 public class StaticNpcList {
 
 	public static final int HANS = 0;
