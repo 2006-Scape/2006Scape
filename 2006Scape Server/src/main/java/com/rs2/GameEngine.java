@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Paths;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +16,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import com.rs2.gui.ControlPanel;
 
+import org.apollo.cache.IndexedFileSystem;
+import org.apollo.cache.decoder.ItemDefinitionDecoder;
+import org.apollo.cache.decoder.ObjectDefinitionDecoder;
 import org.apollo.cache.def.ObjectDefinition;
+import org.apollo.jagcached.Constants;
 import org.apollo.jagcached.FileServer;
 
 import com.rs2.game.bots.BotHandler;
@@ -182,10 +187,14 @@ public class GameEngine {
 			System.exit(1);
 		}
 
+		IndexedFileSystem cache = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
+		new ObjectDefinitionDecoder(cache).run();
+		new ItemDefinitionDecoder(cache).run();
+		
 		/**
 		 * Initialise Handlers
 		 */
-		RegionFactory.load();
+		RegionFactory.load(cache);
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();
 		ItemDefinitions.load();
