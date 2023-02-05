@@ -50,7 +50,7 @@ public class ItemDefinitions {
 		try {
 			Type collectionType = new TypeToken<ItemData[]>() {
 			}.getType();
-			ItemData[] data = gson.fromJson(new FileReader("./data/data/ItemDefinitions.json"), collectionType);
+			ItemData[] data = gson.fromJson(new FileReader("./data/cfg/ItemDefinitions.json"), collectionType);
 
 			for (ItemData item : data) {
 				defintions.put(item.id, new Definition(item));
