@@ -1,10 +1,11 @@
 package com.rs2.game.objects.impl;
 
+import org.apollo.cache.def.ObjectDefinition;
+
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.players.Player;
-import com.rs2.world.clip.ObjectDefinition;
 
 /**
  * Levers
@@ -22,7 +23,7 @@ public class Levers {
 	};
 
 	public static void pullLever(final Player player, int objectType) {
-		String objectName = ObjectDefinition.getObjectDef(objectType).name;
+		String objectName = ObjectDefinition.lookup(objectType).getName();
 		for (final int[] element : LEVERS) {
 			if (player.objectX == element[0] && player.objectY == element[1] && objectName.equalsIgnoreCase("Lever")) {
 				if (System.currentTimeMillis() - player.leverDelay > 3750) {

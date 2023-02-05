@@ -12,8 +12,9 @@ import org.apollo.util.BufferUtil;
 
 /**
  * Decodes object data from the {@code loc.dat} file into {@link ObjectDefinition}s.
- *
+ * 
  * @author Major
+ * @author Advocatus
  */
 public final class ObjectDefinitionDecoder implements Runnable {
 
@@ -65,17 +66,35 @@ public final class ObjectDefinitionDecoder implements Runnable {
 	 * @return The object definition.
 	 */
 	private ObjectDefinition decode(int id, ByteBuffer data) {
+		boolean actions = false;
+		int[] modelId = null;
+		int[] modelType = null;
 		ObjectDefinition definition = new ObjectDefinition(id);
 		while (true) {
 			int opcode = data.get() & 0xFF;
 
 			if (opcode == 0) {
+				definition.setInteractive(modelId != null && (modelType == null || modelType[0] == 10));
+				if (actions) {
+					definition.setInteractive(true);
+				}
 				return definition;
 			} else if (opcode == 1) {
 				int amount = data.get() & 0xFF;
-				for (int i = 0; i < amount; i++) {
-					data.getShort();
-					data.get();
+				if (amount > 0) {
+					if (modelId == null) {
+						modelType = new int[amount];
+						modelId = new int[amount];
+						for (int i = 0; i < amount; i++) {
+							modelId[i] = data.getShort() & 0xFFFF;
+							modelType[i] = data.get() & 0xFF;
+						}
+					} else {
+						for (int i = 0; i < amount; i++) {
+							data.getShort();
+							data.get();
+						}
+					}
 				}
 			} else if (opcode == 2) {
 				definition.setName(BufferUtil.readString(data));
@@ -83,8 +102,18 @@ public final class ObjectDefinitionDecoder implements Runnable {
 				definition.setDescription(BufferUtil.readString(data));
 			} else if (opcode == 5) {
 				int amount = data.get() & 0xFF;
-				for (int i = 0; i < amount; i++) {
-					data.getShort();
+				if (amount > 0) {
+					if (modelId == null) {
+						modelType = null;
+						modelId = new int[amount];
+						for (int i = 0; i < amount; i++) {
+							modelId[i] = data.getShort() & 0xFFFF;
+						}
+					} else {
+						for (int i = 0; i < amount; i++) {
+							data.getShort();
+						}
+					}
 				}
 			} else if (opcode == 14) {
 				definition.setWidth(data.get() & 0xFF);
@@ -101,13 +130,15 @@ public final class ObjectDefinitionDecoder implements Runnable {
 			} else if (opcode == 28 || opcode == 29) {
 				data.get();
 			} else if (opcode >= 30 && opcode < 39) {
-				String[] actions = definition.getMenuActions();
-				if (actions == null) {
-					actions = new String[10];
+				actions = true;
+				String[] strings = definition.getMenuActions();
+				if (strings == null) {
+					strings = new String[10];
 				}
 				String action = BufferUtil.readString(data);
-				actions[opcode - 30] = action;
-				definition.setMenuActions(actions);
+				strings[opcode - 30] = action;
+				definition.setMenuActions(strings);
+				definition.setInteractive(true);
 			} else if (opcode == 39) {
 				data.get();
 			} else if (opcode == 40) {
@@ -116,6 +147,8 @@ public final class ObjectDefinitionDecoder implements Runnable {
 					data.getShort();
 					data.getShort();
 				}
+			} else if (opcode == 64) {
+				definition.setClipped(false);
 			} else if (opcode == 60 || opcode >= 65 && opcode <= 68) {
 				data.getShort();
 			} else if (opcode == 69) {

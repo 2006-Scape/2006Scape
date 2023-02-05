@@ -1,5 +1,7 @@
 package com.rs2.game.objects.impl;
 
+import org.apollo.cache.def.ObjectDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
@@ -9,7 +11,6 @@ import com.rs2.game.content.traveling.DesertHeat;
 import com.rs2.game.objects.ObjectDefaults;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
-import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.Region;
 
 public class OtherObjects {
@@ -118,7 +119,7 @@ public class OtherObjects {
 	}
 	
 	private static void handleSpecialObject(final Player player, final int objectType) {	
-		String objectName = ObjectDefinition.getObjectDef(objectType).name;
+		String objectName = ObjectDefinition.lookup(objectType).getName();
 		if (objectType == 160 && player.getX() == 3096) {
 			player.getPlayerAssistant().walkTo(0, 1);
 			CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {	

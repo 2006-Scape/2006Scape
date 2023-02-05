@@ -1,7 +1,8 @@
 package com.rs2.game.objects;
 
+import org.apollo.cache.def.ObjectDefinition;
+
 import com.rs2.game.players.Player;
-import com.rs2.world.clip.ObjectDefinition;
 
 /**
  * ObjectDefaults
@@ -17,7 +18,7 @@ public class ObjectDefaults {
 		WEST = 3;
 	
 	public static int getObjectType(Player player, int objectType) {
-		String objectName = ObjectDefinition.getObjectDef(objectType).name;
+		String objectName = ObjectDefinition.lookup(objectType).getName();
 		if (objectName.contains("Wardrobe") || objectName.contains("chest") || objectName.contains("Cupboard") || objectName.contains("Coffin")) {
 			return 10;
 		} else if (objectName.contains("Curtain")) {

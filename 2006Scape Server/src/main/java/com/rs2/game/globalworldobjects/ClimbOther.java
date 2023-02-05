@@ -1,9 +1,10 @@
 package com.rs2.game.globalworldobjects;
 
+import org.apollo.cache.def.ObjectDefinition;
+
 import com.rs2.game.objects.Object;
 import com.rs2.game.objects.ObjectDefaults;
 import com.rs2.game.players.Player;
-import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.Region;
 
 public class ClimbOther {
@@ -40,7 +41,7 @@ public class ClimbOther {
 	}
 	
 	public static void useOther(Player player, int objectType) {
-		final String objectName = ObjectDefinition.getObjectDef(objectType).name;
+		final String objectName = ObjectDefinition.lookup(objectType).getName();
 		if (System.currentTimeMillis() - player.climbDelay < 1800) {
 			return;
 		}

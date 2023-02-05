@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.cache.archive.Archive;
 import org.apollo.cache.archive.ArchiveEntry;
+import org.apollo.cache.decoder.ObjectDefinitionDecoder;
+import org.apollo.cache.def.ObjectDefinition;
 import org.apollo.jagcached.Constants;
 import org.apollo.util.CompressionUtil;
 
@@ -21,7 +23,7 @@ public class RegionFactory {
 		//GameEngine.getLogger(Region.class).info("Loading region configurations...");
 		try {
 			IndexedFileSystem fs = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
-			ObjectDefinition.loadConfig(fs);
+			new ObjectDefinitionDecoder(fs).run();
 
 			Archive archive = Archive.decode(fs.getFile(0, 5));
 			ArchiveEntry entry = archive.getEntry("map_index");
