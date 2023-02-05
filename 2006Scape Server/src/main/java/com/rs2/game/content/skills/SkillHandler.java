@@ -10,7 +10,7 @@ import com.rs2.game.content.skills.core.Mining;
 import com.rs2.game.content.skills.herblore.Herblore;
 import com.rs2.game.content.skills.smithing.Smelting;
 import com.rs2.game.content.skills.woodcutting.Woodcutting;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 
 /**
@@ -139,7 +139,7 @@ public class SkillHandler {
 	public static void send1Item(Player c, int itemId) {
 		c.getPacketSender().sendFrame246(1746, view190 ? 190 : 150, itemId);
 		c.getPacketSender().sendString(
-				getLine(c) + "" + ItemAssistant.getItemName(itemId) + "", 2799);
+				getLine(c) + "" + Deprecated.getItemName(itemId) + "", 2799);
 		c.getPacketSender().sendChatInterface(4429);
 	}
 

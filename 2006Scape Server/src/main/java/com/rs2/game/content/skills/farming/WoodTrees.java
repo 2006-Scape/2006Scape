@@ -20,7 +20,7 @@ import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.skills.SkillConstants;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.content.skills.farming.ChopTree.Tree;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -901,7 +901,7 @@ public class WoodTrees {
 					player.getItemAssistant().addItem(ChopTree.getTree(object).getLog(), 1);
 					player.getPacketSender().sendMessage(
 							"You get some "
-									+ ItemAssistant
+									+ Deprecated
 											.getItemName(ChopTree.getTree(object)
 													.getLog())
 											.toLowerCase() + ".");

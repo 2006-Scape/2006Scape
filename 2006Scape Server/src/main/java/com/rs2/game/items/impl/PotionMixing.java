@@ -1,7 +1,6 @@
 package com.rs2.game.items.impl;
 
 import com.rs2.game.items.Deprecated;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 
 /**
@@ -17,8 +16,8 @@ public class PotionMixing {
 	}
 
 	public void mixPotion2(int id, int id2) {
-		String id11 = ItemAssistant.getItemName(id);
-		String id22 = ItemAssistant.getItemName(id2);
+		String id11 = Deprecated.getItemName(id);
+		String id22 = Deprecated.getItemName(id2);
 		if (id11.substring(0, id11.indexOf("(")).equalsIgnoreCase(
 				id22.substring(0, id22.indexOf("(")))) {
 			try {

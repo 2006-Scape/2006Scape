@@ -12,7 +12,7 @@ import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.skills.herblore.Herblore;
 import com.rs2.game.content.skills.prayer.Prayer;
 import com.rs2.game.content.skills.woodcutting.BirdNest;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.impl.ExperienceLamp;
 import com.rs2.game.items.impl.Flowers;
 import com.rs2.game.items.impl.GodBooks;
@@ -44,7 +44,7 @@ public class ClickItem implements PacketType {
 		if (itemId == 6) {
 			player.getCannon().placeCannon();
 		}
-		String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+		String itemName = Deprecated.getItemName(itemId).toLowerCase();
 		if (player.getPlayerAssistant().isPlayer()) {
 			GameLogger.writeLog(player.playerName, "clickitem", player.playerName + " clicked item " + itemName + "");
 		}

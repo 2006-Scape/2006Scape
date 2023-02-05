@@ -9,9 +9,9 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemData;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.util.GameLogger;
 import com.rs2.util.Misc;
@@ -450,10 +450,10 @@ public class Trading {
 				}
 
 				if (Count == 0) {
-					SendTrade = ItemAssistant.getItemName(item.id);
+					SendTrade = Deprecated.getItemName(item.id);
 				} else {
 					SendTrade = SendTrade + "\\n"
-							+ ItemAssistant.getItemName(item.id);
+							+ Deprecated.getItemName(item.id);
 				}
 
 				if (item.stackable) {
@@ -482,10 +482,10 @@ public class Trading {
 				}
 
 				if (Count == 0) {
-					SendTrade = ItemAssistant.getItemName(item.id);
+					SendTrade = Deprecated.getItemName(item.id);
 				} else {
 					SendTrade = SendTrade + "\\n"
-							+ ItemAssistant.getItemName(item.id);
+							+ Deprecated.getItemName(item.id);
 				}
 				if (item.stackable) {
 					SendTrade = SendTrade + " x " + SendAmount;
@@ -505,7 +505,7 @@ public class Trading {
 		}
 		try {
 			for (GameItem item : o.getTrading().offeredItems) {
-				String itemName = ItemAssistant.getItemName(item.id);
+				String itemName = Deprecated.getItemName(item.id);
 				if (item.id > 0) {
 					player.getItemAssistant().addItem(item.id, item.amount);
 					if (player.getPlayerAssistant().isPlayer()) {

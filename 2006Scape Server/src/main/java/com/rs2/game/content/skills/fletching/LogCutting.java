@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -48,11 +48,11 @@ public class LogCutting {
 						player.getItemAssistant().deleteItem(player.getFletching().log, 1);
 						if (product == 52) {
 							player.getItemAssistant().addItem(product, 15);
-							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(player.getFletching().log) + " into 15 " + ItemAssistant.getItemName(product) + "s.");
+							player.getPacketSender().sendMessage("You carefully cut the " + Deprecated.getItemName(player.getFletching().log) + " into 15 " + Deprecated.getItemName(product) + "s.");
 
 						} else {
 							player.getItemAssistant().addItem(product, 1);
-							player.getPacketSender().sendMessage("You carefully cut the " + ItemAssistant.getItemName(player.getFletching().log) + " into a " + ItemAssistant.getItemName(product) + ".");
+							player.getPacketSender().sendMessage("You carefully cut the " + Deprecated.getItemName(player.getFletching().log) + " into a " + Deprecated.getItemName(product) + ".");
 
 						}
 						player.getPlayerAssistant().addSkillXP(xp, GameConstants.FLETCHING);
@@ -298,7 +298,7 @@ public class LogCutting {
 			c.getItemAssistant().deleteItem(2859, amount);
 			c.getItemAssistant().addItem(2861, makeAmount);
 			c.getPlayerAssistant().addSkillXP(3 * amount, GameConstants.FLETCHING);
-			c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2859) + " into " + ItemAssistant.getItemName(2861) + ".");
+			c.getPacketSender().sendMessage("You turn your " + Deprecated.getItemName(2859) + " into " + Deprecated.getItemName(2861) + ".");
 		}
 	}
 
@@ -320,7 +320,7 @@ public class LogCutting {
 				c.getItemAssistant().deleteItem(314, feather * 4);
 				c.getItemAssistant().deleteItem(2864, arrowShaft);
 				c.getItemAssistant().addItem(2865, arrowShaft);
-				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2864) + " into " + ItemAssistant.getItemName(2865) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + Deprecated.getItemName(2864) + " into " + Deprecated.getItemName(2865) + "(s).");
 			} else {
 				c.getPacketSender().sendMessage("You need 4 times the amount of feathers as arrow shafts to do this.");
 			}
@@ -346,21 +346,21 @@ public class LogCutting {
 				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, GameConstants.FLETCHING);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
-				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + Deprecated.getItemName(2865) + " (s) into " + Deprecated.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow > flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, flightedArrow);
 				c.getPlayerAssistant().addSkillXP(1 * flightedArrow, GameConstants.FLETCHING);
 				c.getItemAssistant().deleteItem(2861, flightedArrow);
 				c.getItemAssistant().deleteItem(2865, flightedArrow);
-				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + Deprecated.getItemName(2865) + " (s) into " + Deprecated.getItemName(2866) + "(s).");
 			} else if (wolfBoneArrow < flightedArrow) {
 				c.startAnimation(1248);
 				c.getItemAssistant().addItem(2866, wolfBoneArrow);
 				c.getPlayerAssistant().addSkillXP(1 * wolfBoneArrow, GameConstants.FLETCHING);
 				c.getItemAssistant().deleteItem(2861, wolfBoneArrow);
 				c.getItemAssistant().deleteItem(2865, wolfBoneArrow);
-				c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2865) + " (s) into " + ItemAssistant.getItemName(2866) + "(s).");
+				c.getPacketSender().sendMessage("You turn your " + Deprecated.getItemName(2865) + " (s) into " + Deprecated.getItemName(2866) + "(s).");
 			}
 		}
 	}
@@ -378,7 +378,7 @@ public class LogCutting {
 			c.getItemAssistant().deleteItem(2862, amount);
 			c.getItemAssistant().addItem(2864, makeAmount);
 			c.getPlayerAssistant().addSkillXP(2 * amount, GameConstants.FLETCHING);
-			c.getPacketSender().sendMessage("You turn your " + ItemAssistant.getItemName(2862) + " (s) into " + ItemAssistant.getItemName(2864) + "(s).");
+			c.getPacketSender().sendMessage("You turn your " + Deprecated.getItemName(2862) + " (s) into " + Deprecated.getItemName(2864) + "(s).");
 		}
 	}
 }

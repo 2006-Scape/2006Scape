@@ -31,4 +31,11 @@ public class Deprecated {
 		}
 		return -1;
 	}
+
+	
+	public static String getItemName(int ItemID) {
+		if(org.apollo.cache.def.ItemDefinition.lookup(ItemID) == null)
+			return "Unarmed";
+		return org.apollo.cache.def.ItemDefinition.lookup(ItemID).getName();
+	}
 }

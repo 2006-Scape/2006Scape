@@ -6,7 +6,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 
 public class Potions {
@@ -461,13 +461,13 @@ public class Potions {
 	}
 
 	public boolean isPotion(int itemId) {
-		String name = ItemAssistant.getItemName(itemId);
+		String name = Deprecated.getItemName(itemId);
 		return name.contains("(4)") || name.contains("(3)")
 				|| name.contains("(2)") || name.contains("(1)");
 	}
 
 	public boolean potionNames(int itemId) {
-		String name = ItemAssistant.getItemName(itemId);
+		String name = Deprecated.getItemName(itemId);
 		return name.endsWith("potion(4)") || name.endsWith("potion(3)")
 				|| name.endsWith("potion(2)") || name.endsWith("potion(1)")
 				|| name.contains("saradomin brew")

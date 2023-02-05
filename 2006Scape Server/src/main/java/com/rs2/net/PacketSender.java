@@ -8,8 +8,8 @@ import com.rs2.game.content.combat.magic.MagicTeleports;
 import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.content.skills.runecrafting.Tiaras;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.Item;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.LightSources;
@@ -129,7 +129,7 @@ public class PacketSender {
 			}*/
 		}
 		player.getPlayerAssistant().firstTimeTutorial();
-		player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]));
+		player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], Deprecated.getItemName(player.playerEquipment[player.playerWeapon]));
 		for (int i = 0; i < 25; i++) {
 			player.getPacketSender().setSkillLevel(i, player.playerLevel[i], player.playerXP[i]);
 			player.getPlayerAssistant().refreshSkill(i);

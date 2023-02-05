@@ -3,8 +3,8 @@ package com.rs2.world;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rs2.GameConstants;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.GroundItem;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemList;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
@@ -193,7 +193,7 @@ public class ItemHandler {
                 for (int j = 0; j < itemAmount; j++) {
                     GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), 1, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
                     addItem(item);
-                    String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+                    String itemName = Deprecated.getItemName(itemId).toLowerCase();
                     if (c.isDead == false && itemId != 526) {
                         if (c.getPlayerAssistant().isPlayer()) {
                             GameLogger.writeLog(c.playerName, "dropitem", c.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + c.absX + " absY: " + c.absY + "");
@@ -203,7 +203,7 @@ public class ItemHandler {
             } else {
                 GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), itemAmount, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
                 addItem(item);
-                String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+                String itemName = Deprecated.getItemName(itemId).toLowerCase();
                 if (c.isDead == false && itemId != 526) {
                     if (c.getPlayerAssistant().isPlayer()) {
                         GameLogger.writeLog(c.playerName, "dropitem", c.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + c.absX + " absY: " + c.absY + "");

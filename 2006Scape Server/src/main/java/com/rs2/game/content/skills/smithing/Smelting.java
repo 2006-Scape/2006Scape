@@ -5,7 +5,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -83,13 +83,13 @@ public class Smelting extends SkillHandler {
 				// Check the player has all required items
 				if (data[i][4] <= 0) { // Bars with only a primary requirement
 					if (!c.getItemAssistant().playerHasItem(data[i][3])) {
-						c.getPacketSender().sendMessage("You need " + ItemAssistant.getItemName(data[i][3]).toLowerCase() + " to make this bar.");
+						c.getPacketSender().sendMessage("You need " + Deprecated.getItemName(data[i][3]).toLowerCase() + " to make this bar.");
 						c.getPacketSender().closeAllWindows();
 						return;
 					}
 				} else { // Bars with a secondary requirement
 					if (!c.getItemAssistant().playerHasItem(data[i][3]) || !c.getItemAssistant().playerHasItem(data[i][4], data[i][5])) {
-						c.getPacketSender().sendMessage("You need 1 " + ItemAssistant.getItemName(data[i][3]).toLowerCase() + " and " + data[i][5] + " " + ItemAssistant.getItemName(data[i][4]).toLowerCase() + " to make this bar.");
+						c.getPacketSender().sendMessage("You need 1 " + Deprecated.getItemName(data[i][3]).toLowerCase() + " and " + data[i][5] + " " + Deprecated.getItemName(data[i][4]).toLowerCase() + " to make this bar.");
 						c.getPacketSender().closeAllWindows();
 						return;
 					}
@@ -128,13 +128,13 @@ public class Smelting extends SkillHandler {
 						if (c.playerSkillProp[GameConstants.SMITHING][3] == IRON && c.playerSkillProp[GameConstants.SMITHING][4] == -1 && c.isSmelting) {
 							// Ring of forging
 							if (c.playerEquipment[c.playerRing] == 2568) {
-								c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
+								c.getPacketSender().sendMessage("You receive an " + Deprecated.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
 								c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
 								c.getPlayerAssistant().addSkillXP(c.playerSkillProp[GameConstants.SMITHING][2], GameConstants.SMITHING);
 
 							} else {
 								if (Misc.random(100) >= 50) {
-									c.getPacketSender().sendMessage("You receive an " + ItemAssistant.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
+									c.getPacketSender().sendMessage("You receive an " + Deprecated.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
 									c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
 									c.getPlayerAssistant().addSkillXP(c.playerSkillProp[GameConstants.SMITHING][2], GameConstants.SMITHING);
 								} else {
@@ -142,11 +142,11 @@ public class Smelting extends SkillHandler {
 								}
 							}
 						} else if (c.playerSkillProp[GameConstants.SMITHING][3] == GOLD && c.playerEquipment[c.playerHands] == 776 && c.isSmelting) {
-							c.getPacketSender().sendMessage("You receive a " + ItemAssistant.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
+							c.getPacketSender().sendMessage("You receive a " + Deprecated.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
 							c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
 							c.getPlayerAssistant().addSkillXP(56.2,	GameConstants.SMITHING);
 						} else if (c.isSmelting){
-							c.getPacketSender().sendMessage("You receive a " + ItemAssistant.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
+							c.getPacketSender().sendMessage("You receive a " + Deprecated.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
 							c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
 							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[GameConstants.SMITHING][2], GameConstants.SMITHING);
 						}

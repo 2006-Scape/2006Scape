@@ -9,7 +9,7 @@ import com.rs2.game.content.StaticObjectList;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -109,7 +109,7 @@ public class Cooking extends SkillHandler {
             c.getItemAssistant().addItem(StaticItemList.BUCKET, 1);
             c.getItemAssistant().addItem(StaticItemList.POT, 1);
             c.getItemAssistant().addItem(item, 1);
-            c.getPacketSender().sendMessage("You mix the water and flour to make some " + ItemAssistant.getItemName(item) + ".");
+            c.getPacketSender().sendMessage("You mix the water and flour to make some " + Deprecated.getItemName(item) + ".");
         }
         c.getPacketSender().closeAllWindows();
     }
@@ -120,7 +120,7 @@ public class Cooking extends SkillHandler {
             c.getItemAssistant().deleteItem(itemID2, 1);
             c.getItemAssistant().addItem(giveItem, 1);
             if (message.equalsIgnoreCase("")) {
-                c.getPacketSender().sendMessage("You mix the two ingredients and get an " + ItemAssistant.getItemName(giveItem) + ".");
+                c.getPacketSender().sendMessage("You mix the two ingredients and get an " + Deprecated.getItemName(giveItem) + ".");
             } else {
                 c.getPacketSender().sendMessage(message);
             }
@@ -134,10 +134,10 @@ public class Cooking extends SkillHandler {
                 c.getItemAssistant().deleteItem(itemID2, 1);
                 c.getItemAssistant().addItem(giveItem, 1);
                 c.getPlayerAssistant().addSkillXP(expGained, 7);
-                c.getPacketSender().sendMessage("You create a " + ItemAssistant.getItemName(giveItem) + ".");
+                c.getPacketSender().sendMessage("You create a " + Deprecated.getItemName(giveItem) + ".");
             }
         } else {
-            c.getPacketSender().sendMessage("You don't have the required level to make an " + ItemAssistant.getItemName(giveItem));
+            c.getPacketSender().sendMessage("You don't have the required level to make an " + Deprecated.getItemName(giveItem));
         }
     }
 
@@ -149,7 +149,7 @@ public class Cooking extends SkillHandler {
     private static void viewCookInterface(Player c, int item) {
         c.getPacketSender().sendChatInterface(1743);
         c.getPacketSender().sendFrame246(13716, view190 ? 190 : 170, item);
-        c.getPacketSender().sendString(getLine(c) + "" + ItemAssistant.getItemName(item) + "", 13717);
+        c.getPacketSender().sendString(getLine(c) + "" + Deprecated.getItemName(item) + "", 13717);
     }
 
     public static boolean startCooking(Player c, int itemId, int objectId) {

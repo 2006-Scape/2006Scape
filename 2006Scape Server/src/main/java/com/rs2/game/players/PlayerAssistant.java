@@ -17,8 +17,8 @@ import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillData;
 import com.rs2.game.content.skills.SkillHandler;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.GameItem;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
@@ -1143,7 +1143,7 @@ public class PlayerAssistant {
 			if (player.getItemAssistant().playerHasItem(itemId, 1, itemSlot)) {
 				player.getPacketSender().sendMessage(
 						"You drink the "
-								+ ItemAssistant.getItemName(itemId)
+								+ Deprecated.getItemName(itemId)
 										.toLowerCase() + ".");
 				player.foodDelay = System.currentTimeMillis();
 				// Actions
@@ -1197,7 +1197,7 @@ public class PlayerAssistant {
 			}
 			if (canAlch) {
 				int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.4);
-				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+				String itemName = Deprecated.getItemName(itemId).toLowerCase();
 				if (player.getPlayerAssistant().isPlayer()) {
 					GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast Low Alchemy on " + itemName + " for " + GameLogger.formatCurrency(value) + " coins");
 				}
@@ -1266,7 +1266,7 @@ public class PlayerAssistant {
 			}
 			if (canAlch) {
 				int value = (int) Math.floor(player.getShopAssistant().getItemShopValue(itemId) * 0.75);
-				String itemName = ItemAssistant.getItemName(itemId).toLowerCase();
+				String itemName = Deprecated.getItemName(itemId).toLowerCase();
 				if (player.getPlayerAssistant().isPlayer()) {
 					GameLogger.writeLog(player.playerName, "alchemy", player.playerName + " cast High Alchemy on " + itemName + " for" + GameLogger.formatCurrency(value) + " coins");
 				}
@@ -2283,7 +2283,7 @@ public class PlayerAssistant {
 
 	public void unMorphPlayer() {
 		sendSidebars();
-		player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]));
+		player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], Deprecated.getItemName(player.playerEquipment[player.playerWeapon]));
 		if (player.playerEquipment[player.playerRing] == 6583 || player.playerEquipment[player.playerRing] == 7927) {
 			int ring = player.playerEquipment[player.playerRing];
 			player.getItemAssistant().deleteEquipment(ring, player.playerRing);

@@ -25,8 +25,8 @@ import com.rs2.game.content.skills.smithing.SilverCrafting;
 import com.rs2.game.content.skills.smithing.Smelting;
 import com.rs2.game.content.traveling.GnomeGlider;
 import com.rs2.game.dialogues.DialogueOptions;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.GameItem;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.impl.EnchantStaff;
 import com.rs2.game.items.impl.ExperienceLamp;
 import com.rs2.game.items.impl.LightSources;
@@ -1533,7 +1533,7 @@ public class ClickingButtons implements PacketType {
 
 		case 24017:
 			player.getPlayerAssistant().resetAutocast();
-			player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]));
+			player.getItemAssistant().sendWeapon(player.playerEquipment[player.playerWeapon], Deprecated.getItemName(player.playerEquipment[player.playerWeapon]));
 			break;
 
 		}

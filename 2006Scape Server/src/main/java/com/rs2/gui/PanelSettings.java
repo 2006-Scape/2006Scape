@@ -3,6 +3,7 @@ package com.rs2.gui;
 import com.rs2.Connection;
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
@@ -407,7 +408,7 @@ public class PanelSettings {
                 int amount = getInt(cmd, "Enter the amount");
                 if (item <= 160000 && item > 0) {
                     c.getItemAssistant().addItem(item, amount);
-                    p.displayMessage("You give " + c.playerName + " " + amount + " " + c.getItemAssistant().getItemName(item) + "s!", cmd, 1);
+                    p.displayMessage("You give " + c.playerName + " " + amount + " " + Deprecated.getItemName(item) + "s!", cmd, 1);
                 }
                 return;
             }

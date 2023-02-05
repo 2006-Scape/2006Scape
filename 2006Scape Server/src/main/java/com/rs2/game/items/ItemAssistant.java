@@ -44,7 +44,7 @@ public class ItemAssistant {
 				deleteItem(itemId, 1);
 				clickTimer = System.currentTimeMillis();
 				player.getPacketSender().sendMessage(
-						"You find " + amount + " " + getItemName(item) + ".");
+						"You find " + amount + " " + Deprecated.getItemName(item) + ".");
 			} else {
 				if (System.currentTimeMillis() - clickTimer > 1800) {
 					addItem(995, 100);
@@ -62,7 +62,7 @@ public class ItemAssistant {
 
 	public void destroyInterface(int itemId) {
 		itemId = player.droppedItem;
-		String itemName = getItemName(player.droppedItem);
+		String itemName = Deprecated.getItemName(player.droppedItem);
 		String[][] info = {
 				{ "Are you sure you want to destroy this item?", "14174" },
 				{ "Yes.", "14175" }, { "No.", "14176" }, { "", "14177" },
@@ -76,7 +76,7 @@ public class ItemAssistant {
 
 	public void destroyItem(int itemId) {
 		itemId = player.droppedItem;
-		String itemName = getItemName(itemId);
+		String itemName = Deprecated.getItemName(itemId);
 		deleteItem(itemId,getItemSlot(itemId), player.playerItemsN[getItemSlot(itemId)]);
 		player.getPacketSender().sendMessage("Your " + itemName + " vanishes as you destroy it.");
 		player.getPacketSender().closeAllWindows();
@@ -1203,7 +1203,7 @@ public class ItemAssistant {
 		player.getPacketSender().sendFrame70(specAmount >= 2 ? 500 : 0, 0, --barId);
 		player.getPacketSender().sendFrame70(specAmount >= 1 ? 500 : 0, 0, --barId);
 		updateSpecialBar();
-		sendWeapon(weapon, getItemName(weapon));
+		sendWeapon(weapon, Deprecated.getItemName(weapon));
 	}
 
 	/**
@@ -1300,7 +1300,7 @@ public class ItemAssistant {
 		int targetSlot = ItemConstants.HAT;
 		boolean canWearItem = true;
 		if (player.playerItems[slot] == wearID + 1) {
-			getRequirements(getItemName(wearID).toLowerCase(), wearID);
+			getRequirements(Deprecated.getItemName(wearID).toLowerCase(), wearID);
 			targetSlot = ItemData.targetSlots[wearID];
 
 			if (player.duelRule[11] && targetSlot == 0) {
@@ -1323,7 +1323,7 @@ public class ItemAssistant {
 				player.getPacketSender().sendMessage("Wearing bodies has been disabled in this duel!");
 				return false;
 			}
-			if (player.duelRule[16] && targetSlot == 5 || player.duelRule[16] && is2handed(getItemName(wearID).toLowerCase(), wearID)) {
+			if (player.duelRule[16] && targetSlot == 5 || player.duelRule[16] && is2handed(Deprecated.getItemName(wearID).toLowerCase(), wearID)) {
 				player.getPacketSender().sendMessage("Wearing shield has been disabled in this duel!");
 				return false;
 			}
@@ -1459,7 +1459,7 @@ public class ItemAssistant {
 					player.playerEquipment[targetSlot] = toEquip - 1;
 					player.playerEquipmentN[targetSlot] = toEquipN;
 				} else if (targetSlot == ItemConstants.SHIELD) {
-					boolean wearing2h = is2handed(getItemName(player.playerEquipment[ItemConstants.WEAPON]).toLowerCase(), player.playerEquipment[ItemConstants.WEAPON]);
+					boolean wearing2h = is2handed(Deprecated.getItemName(player.playerEquipment[ItemConstants.WEAPON]).toLowerCase(), player.playerEquipment[ItemConstants.WEAPON]);
 					if (wearing2h) {
 						// remove the weapon, add to inventory
 						toRemove = player.playerEquipment[player.playerWeapon];
@@ -1479,7 +1479,7 @@ public class ItemAssistant {
 						toRemove = -1;
 						toRemoveN = 0;
 					}
-					boolean is2h = is2handed(getItemName(wearID).toLowerCase(), wearID);
+					boolean is2h = is2handed(Deprecated.getItemName(wearID).toLowerCase(), wearID);
 					boolean wearingShield = player.playerEquipment[ItemConstants.SHIELD] > 0;
 					boolean wearingWeapon = player.playerEquipment[ItemConstants.WEAPON] > 0;
 					if (is2h) {
@@ -1537,7 +1537,7 @@ public class ItemAssistant {
 				player.getOutStream().endFrameVarSizeWord();
 				player.flushOutStream();
 			}
-			sendWeapon(player.playerEquipment[player.playerWeapon], getItemName(player.playerEquipment[player.playerWeapon]));
+			sendWeapon(player.playerEquipment[player.playerWeapon], Deprecated.getItemName(player.playerEquipment[player.playerWeapon]));
 			resetBonus();
 			getBonus();
 			writeBonus();
@@ -1573,7 +1573,7 @@ public class ItemAssistant {
 			player.getItemAssistant()
 					.sendWeapon(
 							player.playerEquipment[player.playerWeapon],
-							ItemAssistant
+							Deprecated
 									.getItemName(player.playerEquipment[player.playerWeapon]));
 			resetBonus();
 			getBonus();
@@ -1609,7 +1609,7 @@ public class ItemAssistant {
 					player.playerEquipment[slot] = -1;
 					player.playerEquipmentN[slot] = 0;
 					sendWeapon(player.playerEquipment[ItemConstants.WEAPON],
-							getItemName(player.playerEquipment[ItemConstants.WEAPON]));
+							Deprecated.getItemName(player.playerEquipment[ItemConstants.WEAPON]));
 					resetBonus();
 					getBonus();
 					writeBonus();
@@ -1650,7 +1650,7 @@ public class ItemAssistant {
 					player.playerEquipment[slot] = -1;
 					player.playerEquipmentN[slot] = 0;
 					sendWeapon(player.playerEquipment[player.playerWeapon],
-							getItemName(player.playerEquipment[player.playerWeapon]));
+							Deprecated.getItemName(player.playerEquipment[player.playerWeapon]));
 					resetBonus();
 					getBonus();
 					writeBonus();
@@ -2512,17 +2512,6 @@ public class ItemAssistant {
 			}
 		}
 		return -1;
-	}
-
-	public static String getItemName(int ItemID) {
-		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.itemList[i] != null) {
-				if (GameEngine.itemHandler.itemList[i].itemId == ItemID) {
-					return GameEngine.itemHandler.itemList[i].itemName;
-				}
-			}
-		}
-		return "Unarmed";
 	}
 
 	public int getItemSlot(int ItemID) {

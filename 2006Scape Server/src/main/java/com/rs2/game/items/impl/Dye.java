@@ -1,7 +1,7 @@
 package com.rs2.game.items.impl;
 
 import com.rs2.GameConstants;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 
 import static com.rs2.game.content.StaticItemList.*;
@@ -52,13 +52,13 @@ public enum Dye {
     };
 
     public static boolean blockDye(Player player, Dye dye, int itemUsed, int useWith) {
-        if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && ItemDefinition.lookup(useWith).isNote()) {
+        if (itemUsed == dye.getItemUsed() && Deprecated.getItemName(useWith).equalsIgnoreCase("Cape") && ItemDefinition.lookup(useWith).isNote()) {
             player.getPacketSender().sendMessage("You can't dye a noted cape.");
             return true;
-        } else if (itemUsed == dye.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && useWith == dye.getReward() && !ItemDefinition.lookup(useWith).isNote()) {
+        } else if (itemUsed == dye.getItemUsed() && Deprecated.getItemName(useWith).equalsIgnoreCase("Cape") && useWith == dye.getReward() && !ItemDefinition.lookup(useWith).isNote()) {
             player.getPacketSender().sendMessage("That cape is already that color.");
             return true;
-        } else if (itemUsed == dye.getItemUsed() && !ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape")) {
+        } else if (itemUsed == dye.getItemUsed() && !Deprecated.getItemName(useWith).equalsIgnoreCase("Cape")) {
             return true;
         }
         return false;
@@ -69,7 +69,7 @@ public enum Dye {
             if (blockDye(player, cape, itemUsed, useWith)) {
                 return;
             }
-            if (itemUsed == cape.getItemUsed() && ItemAssistant.getItemName(useWith).equalsIgnoreCase("Cape") && !ItemDefinition.lookup(useWith).isNote() && useWith != cape.getReward()) {
+            if (itemUsed == cape.getItemUsed() && Deprecated.getItemName(useWith).equalsIgnoreCase("Cape") && !ItemDefinition.lookup(useWith).isNote() && useWith != cape.getReward()) {
                 player.getItemAssistant().deleteItem(itemUsed, 1);
                 player.getItemAssistant().deleteItem(useWith, 1);
                 player.getItemAssistant().addItem(cape.getReward(), 1);

@@ -7,7 +7,7 @@ import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.ItemList;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
@@ -147,7 +147,7 @@ public class Stalls {
 				p.getPlayerAssistant().addSkillXP((int) s.getXp(), GameConstants.THIEVING);
 				int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
 				s.respawnTime = System.currentTimeMillis() + (respawnTime * GameConstants.CYCLE_TIME);
-				p.getPacketSender().sendMessage("You steal a " + ItemAssistant.getItemName(random[0]) + " from the stall.");
+				p.getPacketSender().sendMessage("You steal a " + Deprecated.getItemName(random[0]) + " from the stall.");
 				p.getItemAssistant().addItem(random[0], random[1]);
 				p.setHasThievedStall(true);
 				CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {

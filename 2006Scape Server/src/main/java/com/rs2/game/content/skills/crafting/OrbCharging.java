@@ -3,7 +3,7 @@ package com.rs2.game.content.skills.crafting;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 
 public class OrbCharging {
@@ -16,8 +16,8 @@ public class OrbCharging {
 			if (objectId == l.getObjectId(objectId)) {
 				if (l.getSpell() == spellId) {
 					if (!player.getItemAssistant().playerHasItem(567, 1)) {
-						player.getPacketSender().sendMessage("You need 1 " + ItemAssistant.getItemName(567).toLowerCase() + " to make "
-								+ ItemAssistant.getItemName(l.getProduct()).toLowerCase() + ".");
+						player.getPacketSender().sendMessage("You need 1 " + Deprecated.getItemName(567).toLowerCase() + " to make "
+								+ Deprecated.getItemName(l.getProduct()).toLowerCase() + ".");
 						player.getPacketSender().closeAllWindows();
 						return;
 					}

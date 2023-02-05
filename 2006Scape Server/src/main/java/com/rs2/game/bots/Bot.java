@@ -7,7 +7,7 @@ import java.util.*;
 
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Client;
 import com.rs2.util.Misc;
 import com.rs2.util.Stream;
@@ -70,7 +70,7 @@ public class Bot {
         }
         if (items.size() <= 0) return;
         int item_id = Misc.randomArrayListItem(items);
-        String item_name = ItemAssistant.getItemName(item_id).toLowerCase();
+        String item_name = Deprecated.getItemName(item_id).toLowerCase();
         int value = BotHandler.getItemPrice(botClient.shopId, item_id);
         if (value <= 0) return;
 

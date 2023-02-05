@@ -5,7 +5,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.music.sound.SoundList;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -51,7 +51,7 @@ public class GemCutting extends CraftingData {
 								player.getItemAssistant();
 								player.getPacketSender().sendMessage(
 										"You cut the "
-												+ ItemAssistant.getItemName(
+												+ Deprecated.getItemName(
 														itemId).toLowerCase()
 												+ ".");
 								player.startAnimation(g.getAnimation());

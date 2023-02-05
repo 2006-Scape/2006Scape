@@ -131,8 +131,8 @@ public class UseItem {
 		WeaponPoison.execute(player, itemUsed, useWith);
 		player.getGlassBlowing().ItemOnItem(itemUsed, useWith);
 		//CapeDye.execute(c, itemUsed, useWith);
-		if (ItemAssistant.getItemName(itemUsed).contains("(")
-				&& ItemAssistant.getItemName(useWith).contains("(")) {
+		if (Deprecated.getItemName(itemUsed).contains("(")
+				&& Deprecated.getItemName(useWith).contains("(")) {
 			player.getPotMixing().mixPotion2(itemUsed, useWith);
 		}
 		BattleStaffs.makeBattleStaff(player, itemUsed, useWith);

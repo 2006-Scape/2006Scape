@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 
 /**
@@ -61,7 +61,7 @@ public class Pottery {
 			c.getItemAssistant().addItem(id, 1);
 			c.getPacketSender().sendMessage(
 					"You make the soft clay into a "
-							+ ItemAssistant.getItemName(id) + ".");
+							+ Deprecated.getItemName(id) + ".");
 			c.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 			c.doAmount--;
 		}
@@ -75,7 +75,7 @@ public class Pottery {
 					c.startAnimation(unFire);
 					c.getItemAssistant().deleteItem(softClay, 1);
 					c.getItemAssistant().addItem(id, 1);
-					c.getPacketSender().sendMessage("You make the soft clay into a " + ItemAssistant.getItemName(id) + ".");
+					c.getPacketSender().sendMessage("You make the soft clay into a " + Deprecated.getItemName(id) + ".");
 					c.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 					c.doAmount--;
 				}
@@ -119,8 +119,8 @@ public class Pottery {
 			player.getItemAssistant().addItem(finishId, 1);
 			player.startAnimation(Fire);
 			player.getPacketSender().sendSound(469, 100, 0);
-			player.getPacketSender().sendMessage("You put a " + ItemAssistant.getItemName(startId) + " into the oven.");
-			player.getPacketSender().sendMessage("You retrieve the " + ItemAssistant.getItemName(finishId) + " from the oven.");
+			player.getPacketSender().sendMessage("You put a " + Deprecated.getItemName(startId) + " into the oven.");
+			player.getPacketSender().sendMessage("You retrieve the " + Deprecated.getItemName(finishId) + " from the oven.");
 			player.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 			player.doAmount--;
 		}
@@ -130,7 +130,7 @@ public class Pottery {
 		}
 
 		if (!player.getItemAssistant().playerHasItem(startId) && player.playerLevel[GameConstants.CRAFTING] >= level) {
-			player.getPacketSender().sendMessage("You need an " + ItemAssistant.getItemName(startId) + " to do this.");
+			player.getPacketSender().sendMessage("You need an " + Deprecated.getItemName(startId) + " to do this.");
 		}
 
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -142,8 +142,8 @@ public class Pottery {
 					player.getItemAssistant().addItem(finishId, 1);
 					player.startAnimation(Fire);
 					player.getPacketSender().sendSound(469, 100, 0);
-					player.getPacketSender().sendMessage("You put a " + ItemAssistant.getItemName(startId) + " into the oven.");
-					player.getPacketSender().sendMessage("You retrieve the " + ItemAssistant.getItemName(finishId) + " from the oven.");
+					player.getPacketSender().sendMessage("You put a " + Deprecated.getItemName(startId) + " into the oven.");
+					player.getPacketSender().sendMessage("You retrieve the " + Deprecated.getItemName(finishId) + " from the oven.");
 					player.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
 					player.doAmount--;
 				}

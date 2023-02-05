@@ -5,7 +5,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 
 public class Herblore extends SkillHandler {
@@ -34,7 +34,7 @@ public class Herblore extends SkillHandler {
 				}
 				c.getItemAssistant().deleteItem(itemId, itemSlot, 1);
 				c.getItemAssistant().addItem(element[1], 1);
-				c.getPacketSender().sendMessage("The herb is a " + ItemAssistant.getItemName(element[1]) + ".");
+				c.getPacketSender().sendMessage("The herb is a " + Deprecated.getItemName(element[1]) + ".");
 				c.getPlayerAssistant().addSkillXP(element[3], 15);
 			}
 		}
@@ -98,7 +98,7 @@ public class Herblore extends SkillHandler {
 				c.getItemAssistant().deleteItem(itemToDelete, c.getItemAssistant().getItemSlot(itemToDelete), 1);
 				c.getItemAssistant().deleteItem(itemToDelete2, c.getItemAssistant().getItemSlot(itemToDelete2), 1);
 				c.getItemAssistant().addItem(itemToAdd, 1);
-				c.getPacketSender().sendMessage("You make a " + ItemAssistant.getItemName(itemToAdd).toLowerCase() + ".");
+				c.getPacketSender().sendMessage("You make a " + Deprecated.getItemName(itemToAdd).toLowerCase() + ".");
 				c.getPlayerAssistant().addSkillXP(potExp, GameConstants.HERBLORE);
 				deleteTime(c);
 				if (!c.getItemAssistant().playerHasItem(itemToDelete2, 1) || !c.getItemAssistant().playerHasItem(itemToDelete, 1) || c.doAmount <= 0) {

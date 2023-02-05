@@ -1,7 +1,7 @@
 package com.rs2.game.content.skills.woodcutting;
 
 import com.rs2.GameEngine;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -48,7 +48,7 @@ public class BirdNest {
 			for (int i = 0; i < TREE_CHANCE.length; i++) {
 				if (randomTree >= TREE_CHANCE[i][1] && randomTree <= TREE_CHANCE[i][2]) {
 					player.getItemAssistant().addItem(TREE_CHANCE[i][0], 1);
-					player.getPacketSender().sendMessage("You find a " + ItemAssistant.getItemName(TREE_CHANCE[i][0]) + ".");
+					player.getPacketSender().sendMessage("You find a " + Deprecated.getItemName(TREE_CHANCE[i][0]) + ".");
 				}
 			}
 			break;
@@ -57,7 +57,7 @@ public class BirdNest {
 			for (int i = 0; i < RING_CHANCE.length; i++) {
 				if (randomRing >= RING_CHANCE[i][1] && randomRing <= RING_CHANCE[i][2]) {
 					player.getItemAssistant().addItem(RING_CHANCE[i][0], 1);
-					player.getPacketSender().sendMessage("You find a " + ItemAssistant.getItemName(RING_CHANCE[i][0]) + ".");
+					player.getPacketSender().sendMessage("You find a " + Deprecated.getItemName(RING_CHANCE[i][0]) + ".");
 				}
 			}
 			break;
@@ -66,7 +66,7 @@ public class BirdNest {
 			for (int i = 0; i < WYSON_CHANCE.length; i++) {
 				if (randomWyson >= WYSON_CHANCE[i][2] && randomWyson <= WYSON_CHANCE[i][3]) {
 					player.getItemAssistant().addItem(WYSON_CHANCE[i][0], WYSON_CHANCE[i][1]);
-					player.getPacketSender().sendMessage("You find a " + ItemAssistant.getItemName(WYSON_CHANCE[i][0]) + ".");
+					player.getPacketSender().sendMessage("You find a " + Deprecated.getItemName(WYSON_CHANCE[i][0]) + ".");
 				}
 			}
 			break;
