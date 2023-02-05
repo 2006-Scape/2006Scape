@@ -5,7 +5,7 @@ import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.magic.CastOnOther;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.range.RangeData;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.net.Packet;
@@ -121,7 +121,7 @@ public class AttackPlayer implements PacketType {
 					&& usingBow
 					&& !RangeData.usingCrystalBow(player)
 					&& player.playerEquipment[player.playerWeapon] != 9185) {
-				player.getPacketSender().sendMessage("You can't use " + Deprecated.getItemName(player.playerEquipment[player.playerArrows]).toLowerCase() + "s with a " + Deprecated.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase() + ".");
+				player.getPacketSender().sendMessage("You can't use " + DeprecatedItems.getItemName(player.playerEquipment[player.playerArrows]).toLowerCase() + "s with a " + DeprecatedItems.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase() + ".");
 				player.stopMovement();
 				player.getCombatAssistant().resetPlayerAttack();
 				return;

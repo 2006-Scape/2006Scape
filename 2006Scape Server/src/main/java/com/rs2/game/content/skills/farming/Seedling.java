@@ -7,7 +7,7 @@ package com.rs2.game.content.skills.farming;
 import java.util.HashMap;
 import java.util.Map;
 import com.rs2.game.content.skills.SkillConstants;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.Item;
 import com.rs2.game.players.Player;
 
@@ -108,8 +108,8 @@ public class Seedling {
 		if (seedlingData == null)
 			seedlingData = SeedlingData.getUnwatered(usedWith);
 		if (seedlingData == null
-				|| (!Deprecated.getItemName(itemUsed).toLowerCase()
-						.contains("watering") && !Deprecated.getItemName(usedWith)
+				|| (!DeprecatedItems.getItemName(itemUsed).toLowerCase()
+						.contains("watering") && !DeprecatedItems.getItemName(usedWith)
 						.toLowerCase()
 						.contains("watering")))
 			return false;
@@ -121,7 +121,7 @@ public class Seedling {
 
 		player.getPacketSender().sendMessage(
 				"You water the "
-						+ Deprecated.getItemName(seedlingData.getSeedId()).toLowerCase() + ".");
+						+ DeprecatedItems.getItemName(seedlingData.getSeedId()).toLowerCase() + ".");
 		player.getItemAssistant().deleteItem(seedlingData.getUnwateredSeedlingId(), 1);
 		player.getItemAssistant().addItem(seedlingData.getWateredSeedlingId(), 1);
 		return true;

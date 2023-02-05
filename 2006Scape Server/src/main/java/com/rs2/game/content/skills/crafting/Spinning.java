@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 public class Spinning extends CraftingData {
@@ -51,7 +51,7 @@ public class Spinning extends CraftingData {
 							player.getItemAssistant().deleteItem(before, 1);
 							player.getItemAssistant().addItem(after, 1);
 							player.getPlayerAssistant().addSkillXP(exp, GameConstants.CRAFTING);
-							player.getPacketSender().sendMessage("You spin the " + Deprecated.getItemName(before) + " into a " + Deprecated.getItemName(after) + ".");
+							player.getPacketSender().sendMessage("You spin the " + DeprecatedItems.getItemName(before) + " into a " + DeprecatedItems.getItemName(after) + ".");
 							player.doAmount--;
 						}
 

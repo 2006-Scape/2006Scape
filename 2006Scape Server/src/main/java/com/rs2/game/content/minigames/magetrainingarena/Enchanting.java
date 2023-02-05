@@ -5,7 +5,7 @@ import java.util.Random;
 import com.rs2.GameConstants;
 import com.rs2.game.content.combat.magic.CastRequirements;
 import com.rs2.game.content.combat.magic.Enchanting.EnchantSpell;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -69,7 +69,7 @@ public class Enchanting {
             orbsDeposited -= 20;
             int reward = random.nextInt(rewards.length);
             player.getItemAssistant().addOrDropItem(rewards[reward], 3);
-            player.getPacketSender().sendMessage("You are rewarded with 3 " + Deprecated.getItemName(rewards[reward]) + "s.");
+            player.getPacketSender().sendMessage("You are rewarded with 3 " + DeprecatedItems.getItemName(rewards[reward]) + "s.");
         }
         player.getPacketSender().sendMessage((20 - orbsDeposited) + " more Orbs until your next reward.");
 	}

@@ -2,7 +2,7 @@ package com.rs2.game.content.skills.herblore;
 
 import com.rs2.GameConstants;
 import com.rs2.game.content.music.sound.SoundList;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 public class GrindingAction {
@@ -39,7 +39,7 @@ public class GrindingAction {
 				player.getPacketSender().sendSound(SoundList.PESTLE_MOTAR, 100, 0);
 				player.getItemAssistant().deleteItem(d.getId(), 1);
 				player.getItemAssistant().addItem(d.getEnd(), 1);
-				player.getPacketSender().sendMessage("You carefully grind the " + Deprecated.getItemName(d.getId()) + ".");
+				player.getPacketSender().sendMessage("You carefully grind the " + DeprecatedItems.getItemName(d.getId()) + ".");
 				player.getPlayerAssistant().addSkillXP(1, GameConstants.HERBLORE);
 			}
 		}

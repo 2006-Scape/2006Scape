@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -104,9 +104,9 @@ public class ArrowMaking {
 				|| !player.getItemAssistant().playerHasItem(arrowData.getItem2())) {
 			player.getDialogueHandler().sendStatement(
 					"You need 15 "
-							+ Deprecated.getItemName(arrowData.getItem1())
+							+ DeprecatedItems.getItemName(arrowData.getItem1())
 							+ " and 15 "
-							+ Deprecated.getItemName(arrowData.getItem2())
+							+ DeprecatedItems.getItemName(arrowData.getItem2())
 							+ " to make this.");
 			player.nextChat = 0;
 			return false;
@@ -142,13 +142,13 @@ public class ArrowMaking {
 							count / multiplier);
 					player.getPacketSender().sendMessage(
 							"You attach the "
-									+ Deprecated.getItemName(arrowData
+									+ DeprecatedItems.getItemName(arrowData
 									.getItem1())
 									+ " to "
 									+ count
 									/ multiplier
 									+ " "
-									+ Deprecated.getItemName(arrowData
+									+ DeprecatedItems.getItemName(arrowData
 									.getItem2()) + "s.");
 					player.getPlayerAssistant().addSkillXP(
 							count / multiplier * arrowData.getXp(), 9);

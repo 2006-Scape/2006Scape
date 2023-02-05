@@ -1,7 +1,7 @@
 package com.rs2.game.items.impl;
 
 import com.rs2.game.content.music.sound.SoundList;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -15,7 +15,7 @@ public class HandleEmpty {
 	}
 
 	public static int filledToEmpty(Player c, int id) {
-		String itemName = Deprecated.getItemName(id);
+		String itemName = DeprecatedItems.getItemName(id);
 		if (!itemName.contains("Ring") && !itemName.contains("necklace")) {
 		if (itemName.contains("(3)") || itemName.contains("(4)") || itemName.contains("(2)") || itemName.contains("(1)")  || itemName.contains("Weapon poison")) {
 			if (id != 1712 && id != 1710 && id != 1708 && id != 1706) {
@@ -51,7 +51,7 @@ public class HandleEmpty {
 	}
 
 	public static void handleEmptyItem(Player c, int itemId, int giveItem) {
-		final String name = Deprecated.getItemName(itemId);
+		final String name = DeprecatedItems.getItemName(itemId);
 		c.getPacketSender().sendMessage("You empty your " + name + ".");
 		c.getItemAssistant().deleteItem(itemId, 1);
 		c.getItemAssistant().addItem(giveItem, 1);

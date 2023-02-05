@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.rs2.GameEngine;
 import com.rs2.game.dialogues.ChatEmotes;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 /**
@@ -115,7 +115,7 @@ public class Farmers {
 					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.ANNOYED,  "I am sorry but you have no crops growing in this patch.");
 					player.getDialogueHandler().endDialogue();
 				} else {
-					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
 					player.nextChat = 3544;
 					player.setTempInteger(indexArray);
 				}
@@ -128,7 +128,7 @@ public class Farmers {
 					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.ANNOYED, "I am sorry but you have no crops growing in this patch.");
 					player.getDialogueHandler().endDialogue();
 				} else {
-					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
 					player.nextChat = 3544;
 					player.setTempInteger(indexArray);
 				}
@@ -141,7 +141,7 @@ public class Farmers {
 					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.ANNOYED, "I am sorry but you have no crops growing in this patch.");
 					player.getDialogueHandler().endDialogue();
 				} else {
-					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED,"If you like, but I want " + payment[1] + " " + getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED,"If you like, but I want " + payment[1] + " " + getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
 					player.nextChat = 3544;
 					player.setTempInteger(indexArray);
 				}
@@ -155,7 +155,7 @@ public class Farmers {
 					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.ANNOYED, "I am sorry but you have no crops growing in this patch.");
 					player.getDialogueHandler().endDialogue();
 				} else {
-					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
 					player.nextChat = 3544;
 					player.setTempInteger(indexArray);
 				}
@@ -169,7 +169,7 @@ public class Farmers {
 					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.ANNOYED, "I am sorry but you have no crops growing in this patch.");
 					player.getDialogueHandler().endDialogue();
 				} else {
-					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(Deprecated.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
+					player.getDialogueHandler().sendNpcChat(player.npcType, ChatEmotes.NOT_INTERESTED, "If you like, but I want " + payment[1] + " " + getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()) + (getFinalPaymentString(DeprecatedItems.getItemName(payment[0]).toLowerCase()).endsWith("s") ? "" : "s") + " for that.");
 					player.nextChat = 3544;
 					player.setTempInteger(indexArray);
 				}

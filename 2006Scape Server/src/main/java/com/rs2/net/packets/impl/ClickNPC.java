@@ -9,7 +9,7 @@ import com.rs2.event.impl.NpcThirdClickEvent;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.range.RangeData;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
@@ -132,11 +132,11 @@ public class ClickNPC implements PacketType {
 					&& player.playerEquipment[player.playerWeapon] != 9185) {
 				player.getPacketSender().sendMessage(
 						"You can't use "
-								+ Deprecated.getItemName(
+								+ DeprecatedItems.getItemName(
 										player.playerEquipment[player.playerArrows])
 										.toLowerCase()
 								+ "s with a "
-								+ Deprecated.getItemName(
+								+ DeprecatedItems.getItemName(
 										player.playerEquipment[player.playerWeapon])
 										.toLowerCase() + ".");
 				player.stopMovement();

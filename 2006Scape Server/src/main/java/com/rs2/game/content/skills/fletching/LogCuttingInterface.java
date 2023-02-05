@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.fletching;
 
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -36,44 +36,44 @@ public class LogCuttingInterface {
 			c.getPacketSender().sendFrame246(8883, 180, 52); // left
 			c.getPacketSender().sendFrame246(8884, 180, 50); // middle
 			c.getPacketSender().sendFrame246(8885, 180, 48); // right
-			c.getPacketSender().sendString(Deprecated.getItemName(52), 8889);
-			c.getPacketSender().sendString(Deprecated.getItemName(50), 8893);
-			c.getPacketSender().sendString(Deprecated.getItemName(48), 8897);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(52), 8889);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(50), 8893);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(48), 8897);
 		} else if (item == 1521) {
 			c.getPacketSender().sendChatInterface(8866);
 			c.getPacketSender().sendString("What would you like to make?", 8879);
 			c.getPacketSender().sendFrame246(8869, 180, 54); // left
 			c.getPacketSender().sendFrame246(8870, 180, 56); // right
-			c.getPacketSender().sendString(Deprecated.getItemName(54), 8874);
-			c.getPacketSender().sendString(Deprecated.getItemName(56), 8878);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(54), 8874);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(56), 8878);
 		} else if (item == 1519) {
 			c.getPacketSender().sendChatInterface(8866);
 			c.getPacketSender().sendString("What would you like to make?", 8879);
 			c.getPacketSender().sendFrame246(8869, 180, 60); // left
 			c.getPacketSender().sendFrame246(8870, 180, 58); // right
-			c.getPacketSender().sendString(Deprecated.getItemName(60), 8874);
-			c.getPacketSender().sendString(Deprecated.getItemName(58), 8878);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(60), 8874);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(58), 8878);
 		} else if (item == 1517) {
 			c.getPacketSender().sendChatInterface(8866);
 			c.getPacketSender().sendString("What would you like to make?", 8879);
 			c.getPacketSender().sendFrame246(8869, 180, 64); // left
 			c.getPacketSender().sendFrame246(8870, 180, 62); // right
-			c.getPacketSender().sendString(Deprecated.getItemName(64), 8874);
-			c.getPacketSender().sendString(Deprecated.getItemName(62), 8878);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(64), 8874);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(62), 8878);
 		} else if (item == 1515) {
 			c.getPacketSender().sendChatInterface(8866);
 			c.getPacketSender().sendString("What would you like to make?", 8879);
 			c.getPacketSender().sendFrame246(8869, 180, 68); // left
 			c.getPacketSender().sendFrame246(8870, 180, 66); // right
-			c.getPacketSender().sendString(Deprecated.getItemName(68), 8874);
-			c.getPacketSender().sendString(Deprecated.getItemName(66), 8878);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(68), 8874);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(66), 8878);
 		} else if (item == 1513) {
 			c.getPacketSender().sendChatInterface(8866);
 			c.getPacketSender().sendString("What would you like to make?", 8879);
 			c.getPacketSender().sendFrame246(8869, 180, 72); // left
 			c.getPacketSender().sendFrame246(8870, 180, 70); // right
-			c.getPacketSender().sendString(Deprecated.getItemName(72), 8874);
-			c.getPacketSender().sendString(Deprecated.getItemName(70), 8878);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(72), 8874);
+			c.getPacketSender().sendString(DeprecatedItems.getItemName(70), 8878);
 		}
 	}
 

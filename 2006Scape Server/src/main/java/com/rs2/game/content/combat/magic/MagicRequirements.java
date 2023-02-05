@@ -1,7 +1,7 @@
 package com.rs2.game.content.combat.magic;
 
 import com.rs2.GameConstants;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 
@@ -87,7 +87,7 @@ public class MagicRequirements {
 				c.getPacketSender()
 						.sendMessage(
 								"You need a "
-										+ Deprecated.getItemName(
+										+ DeprecatedItems.getItemName(
 												staffRequired).toLowerCase()
 										+ " to cast this spell.");
 				return false;

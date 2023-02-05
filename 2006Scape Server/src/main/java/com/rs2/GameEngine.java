@@ -29,7 +29,7 @@ import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.minigames.trawler.Trawler;
 import com.rs2.game.globalworldobjects.Doors;
 import com.rs2.game.globalworldobjects.DoubleDoors;
-import com.rs2.game.items.ItemDefinitions2;
+import com.rs2.game.items.ItemDefinitions;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
@@ -188,7 +188,7 @@ public class GameEngine {
 		RegionFactory.load();
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();
-		ItemDefinitions2.load();
+		ItemDefinitions.load();
 		GlobalDropsHandler.initialize();
 		Connection.initialize();
 		HostBlacklist.loadBlacklist();

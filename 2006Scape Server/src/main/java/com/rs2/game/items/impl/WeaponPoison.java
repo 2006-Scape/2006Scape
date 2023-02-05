@@ -2,7 +2,7 @@ package com.rs2.game.items.impl;
 
 import java.util.HashMap;
 
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -136,7 +136,7 @@ public class WeaponPoison {
 		if (weapon != null) {
 			for (int element[] : weapon.getNewItemId()) {
 				if (itemUse == element[0]) {
-					player.getPacketSender().sendMessage("You make a " + Deprecated.getItemName(element[1]) + ".");
+					player.getPacketSender().sendMessage("You make a " + DeprecatedItems.getItemName(element[1]) + ".");
 					player.getItemAssistant().deleteItem(element[0], player.getItemAssistant().getItemSlot(element[0]), 1);
 					player.getItemAssistant().deleteItem(weapon.getItemId(), player.getItemAssistant().getItemSlot(weapon.getItemId()), 1);
 					player.getItemAssistant().addItem(VIAL, 1);

@@ -16,7 +16,7 @@ public class Weight {
      *            - deleteitem, additem, equip, unequip.
      */
     public static void calcWeight(Player c, int item, String action) {
-    	double weight = ItemDefinitions2.getWeight(item);
+    	double weight = ItemDefinitions.getWeight(item);
         if (action.equalsIgnoreCase("deleteitem")) {
             if (weight > 99.20) {
                 c.weight -= weight / 100;

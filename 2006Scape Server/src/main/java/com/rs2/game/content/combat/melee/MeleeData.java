@@ -2,7 +2,7 @@ package com.rs2.game.content.combat.melee;
 
 import com.rs2.GameConstants;
 import com.rs2.game.content.combat.magic.MagicData;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.players.Player;
@@ -95,7 +95,7 @@ public class MeleeData {
      **/
 
     public static int getAttackDelay(Player c) {
-        String s = Deprecated.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
+        String s = DeprecatedItems.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
         if (c.usingMagic) {
             switch (MagicData.MAGIC_SPELLS[c.spellId][0]) {
                 case 12871: // ice blitz
@@ -216,7 +216,7 @@ public class MeleeData {
      **/
 
     public static void getPlayerAnimIndex(Player c) {
-        String weaponName = Deprecated.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
+        String weaponName = DeprecatedItems.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
         c.playerStandIndex = 0x328;
         c.playerTurnIndex = 0x337;
         c.playerWalkIndex = 0x333;
@@ -310,7 +310,7 @@ public class MeleeData {
      **/
 
     public static int getWeaponAnimation(Player c) {
-        String weaponName = Deprecated.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
+        String weaponName = DeprecatedItems.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
         MonkeyData data = MonkeyData.forId(c.playerEquipment[ItemConstants.WEAPON]);
         if (data != null)
             return data.getAttackAnim();
@@ -403,8 +403,8 @@ public class MeleeData {
         MonkeyData data = MonkeyData.forId(c.playerEquipment[ItemConstants.WEAPON]);
         if (data != null)
             return data.getBlockAnim();
-        String weaponName = Deprecated.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
-        String shieldName = Deprecated.getItemName(c.playerEquipment[ItemConstants.SHIELD]).toLowerCase();
+        String weaponName = DeprecatedItems.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
+        String shieldName = DeprecatedItems.getItemName(c.playerEquipment[ItemConstants.SHIELD]).toLowerCase();
         if (c.playerEquipment[c.playerShield] >= 8844
                 && c.playerEquipment[c.playerShield] <= 8850) {
             return 4177;
@@ -443,7 +443,7 @@ public class MeleeData {
      * How long it takes to hit your enemy
      **/
     public static int getHitDelay(Player c) {
-        String weaponName = Deprecated.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
+        String weaponName = DeprecatedItems.getItemName(c.playerEquipment[ItemConstants.WEAPON]).toLowerCase();
         if (c.usingMagic) {
             switch (MagicData.MAGIC_SPELLS[c.spellId][0]) {
                 case 12891:

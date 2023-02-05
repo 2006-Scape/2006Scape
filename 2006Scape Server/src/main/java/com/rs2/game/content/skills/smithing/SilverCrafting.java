@@ -7,7 +7,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 public class SilverCrafting {
@@ -123,7 +123,7 @@ public class SilverCrafting {
 					player.startAnimation(SILVER_ANIMATION);
 					player.getPacketSender().sendMessage(
 							"You make the silver bar into "
-									+ Deprecated
+									+ DeprecatedItems
 											.getItemName(
 													silverCraft.getResult())
 											.toLowerCase().toLowerCase() + ".");

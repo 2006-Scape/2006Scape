@@ -42,7 +42,7 @@ import com.rs2.game.globalworldobjects.DoubleGates;
 import com.rs2.game.globalworldobjects.GateHandler;
 import com.rs2.game.globalworldobjects.SingleGates;
 import com.rs2.game.items.*;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.items.impl.PotionMixing;
 import com.rs2.game.items.impl.Teles;
@@ -2639,7 +2639,7 @@ public abstract class Player {
 
 	public boolean wearing2h() {
 		Client c = (Client) this;
-		String s = Deprecated.getItemName(c.playerEquipment[c.playerWeapon]);
+		String s = DeprecatedItems.getItemName(c.playerEquipment[c.playerWeapon]);
 		if (s.contains("2h")) {
 			return true;
 		}

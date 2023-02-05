@@ -20,7 +20,7 @@ import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.music.sound.CombatSounds;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.slayer.SlayerRequirements;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
@@ -582,7 +582,7 @@ public class CombatAssistant {
 				if (RangeData.correctBowAndArrows(player) < player.playerEquipment[player.playerArrows] && CombatConstants.CORRECT_ARROWS && player.usingBow && !RangeData.usingCrystalBow(player) && player.playerEquipment[player.playerWeapon] != 9185) {
 					player.getItemAssistant();
 					player.getItemAssistant();
-					player.getPacketSender().sendMessage("You can't use " + Deprecated.getItemName(player.playerEquipment[player.playerArrows]).toLowerCase() + "s with a " + Deprecated.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase() + ".");
+					player.getPacketSender().sendMessage("You can't use " + DeprecatedItems.getItemName(player.playerEquipment[player.playerArrows]).toLowerCase() + "s with a " + DeprecatedItems.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase() + ".");
 					player.stopMovement();
 					player.npcIndex = 0;
 					return;
@@ -884,7 +884,7 @@ public class CombatAssistant {
 						&& !player.usingMagic) {
 					player.getItemAssistant();
 					player.getItemAssistant();
-					player.getPacketSender().sendMessage("You can't use " + Deprecated.getItemName(player.playerEquipment[player.playerArrows]).toLowerCase() + "s with a " + Deprecated.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase() + ".");
+					player.getPacketSender().sendMessage("You can't use " + DeprecatedItems.getItemName(player.playerEquipment[player.playerArrows]).toLowerCase() + "s with a " + DeprecatedItems.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase() + ".");
 					player.stopMovement();
 					resetPlayerAttack();
 					return;

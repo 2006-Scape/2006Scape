@@ -1,8 +1,8 @@
 package com.rs2.world;
 
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.GroundItem;
-import com.rs2.game.items.ItemDefinitions2;
+import com.rs2.game.items.ItemDefinitions;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -177,7 +177,7 @@ public class ItemHandler {
                 for (int j = 0; j < itemAmount; j++) {
                     GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), 1, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
                     addItem(item);
-                    String itemName = Deprecated.getItemName(itemId).toLowerCase();
+                    String itemName = DeprecatedItems.getItemName(itemId).toLowerCase();
                     if (c.isDead == false && itemId != 526) {
                         if (c.getPlayerAssistant().isPlayer()) {
                             GameLogger.writeLog(c.playerName, "dropitem", c.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + c.absX + " absY: " + c.absY + "");
@@ -187,7 +187,7 @@ public class ItemHandler {
             } else {
                 GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), itemAmount, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
                 addItem(item);
-                String itemName = Deprecated.getItemName(itemId).toLowerCase();
+                String itemName = DeprecatedItems.getItemName(itemId).toLowerCase();
                 if (c.isDead == false && itemId != 526) {
                     if (c.getPlayerAssistant().isPlayer()) {
                         GameLogger.writeLog(c.playerName, "dropitem", c.playerName + " dropped " + itemAmount + " " + itemName + " absX: " + c.absX + " absY: " + c.absY + "");

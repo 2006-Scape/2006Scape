@@ -7,7 +7,7 @@ import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.Shade;
 import com.rs2.game.content.randomevents.Zombie;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -78,7 +78,7 @@ public class Prayer {
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
-							c.getPacketSender().sendMessage("You bury the " + Deprecated.getItemName(element[0]).toLowerCase() + ".");
+							c.getPacketSender().sendMessage("You bury the " + DeprecatedItems.getItemName(element[0]).toLowerCase() + ".");
 							container.stop();
 						}
 						@Override

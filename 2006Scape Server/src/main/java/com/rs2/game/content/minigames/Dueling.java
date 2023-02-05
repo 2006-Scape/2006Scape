@@ -8,7 +8,7 @@ import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.combat.prayer.PrayerDrain;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemData;
 import com.rs2.game.items.ItemConstants;
@@ -426,20 +426,20 @@ public class Dueling {
 		String itemId = "";
 		for (GameItem item : stakedItems) {
 			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
-				itemId += Deprecated.getItemName(item.id) + " x "
+				itemId += DeprecatedItems.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
-				itemId += Deprecated.getItemName(item.id) + "\\n";
+				itemId += DeprecatedItems.getItemName(item.id) + "\\n";
 			}
 		}
 		player.getPacketSender().sendString(itemId, 6516);
 		itemId = "";
 		for (GameItem item : o.getDueling().stakedItems) {
 			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
-				itemId += Deprecated.getItemName(item.id) + " x "
+				itemId += DeprecatedItems.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
-				itemId += Deprecated.getItemName(item.id) + "\\n";
+				itemId += DeprecatedItems.getItemName(item.id) + "\\n";
 			}
 		}
 		player.getPacketSender().sendString(itemId, 6517);
@@ -796,8 +796,8 @@ public class Dueling {
 				}
 			}
 		}
-		if (i == 16 && (player.getItemAssistant().is2handed(Deprecated.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
-	                && player.getItemAssistant().freeSlots() == 0) || (o.getItemAssistant().is2handed(Deprecated.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
+		if (i == 16 && (player.getItemAssistant().is2handed(DeprecatedItems.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
+	                && player.getItemAssistant().freeSlots() == 0) || (o.getItemAssistant().is2handed(DeprecatedItems.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
 	                && o.getItemAssistant().freeSlots() == 0)) {
 	            player.getPacketSender().sendMessage("You or your opponent don't have the required space to set this rule.");
 	            return;

@@ -30,7 +30,7 @@ import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.globalworldobjects.ClimbOther;
 import com.rs2.game.globalworldobjects.ClimbOther.ClimbData;
 import com.rs2.game.globalworldobjects.PassDoor;
-import com.rs2.game.items.Deprecated;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.npcs.impl.MilkCow;
@@ -2884,7 +2884,7 @@ public class ObjectsActions {
                 if (player.ectofuntusBoneCrusherState.equals("Empty")) {
                     player.getPacketSender().sendMessage("You need to load some bones.");
                 } else if (player.ectofuntusBoneCrusherState.equals("Loaded")) {
-                    player.getPacketSender().sendMessage(Deprecated.getItemName(player.ectofuntusBoneUsed) + " loaded and ready to be grinded.");
+                    player.getPacketSender().sendMessage(DeprecatedItems.getItemName(player.ectofuntusBoneUsed) + " loaded and ready to be grinded.");
                 } else if (player.ectofuntusBoneCrusherState.equals("Bin")) {
                     player.getPacketSender().sendMessage("Bonemeal is ready to be collected from the bin.");
                 } else {
