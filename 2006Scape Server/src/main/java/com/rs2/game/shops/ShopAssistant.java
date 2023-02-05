@@ -102,8 +102,8 @@ public class ShopAssistant {
 		double ShopValue = 1;
 		double TotPrice = 0;
 		double sellingRatio = isSelling ? 0.85 : 1;
-		if (com.rs2.game.items.ItemDefinition.getDefs()[ItemID] != null) {
-			ShopValue = com.rs2.game.items.ItemDefinition.getDefs()[ItemID].highAlch / 3.0 * 5.0 * sellingRatio;
+		if (ItemDefinition.lookup(ItemID) != null) {
+			ShopValue = ItemDefinition.lookup(ItemID).getValue() * sellingRatio;
 		}
 
 		TotPrice = ShopValue;

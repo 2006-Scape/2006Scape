@@ -1,5 +1,6 @@
 package com.rs2.game.items;
 
+//only the name id and bonus is used.
 public class ItemList {
 
 	public int itemId;

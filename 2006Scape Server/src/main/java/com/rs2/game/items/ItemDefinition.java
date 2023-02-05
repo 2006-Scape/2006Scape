@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONObject;
 
+//TODO only weight is in use.
 public class ItemDefinition {
 
 	public static ItemDefinition getDefs()[] {
