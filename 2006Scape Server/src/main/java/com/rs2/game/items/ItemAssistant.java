@@ -2525,18 +2525,6 @@ public class ItemAssistant {
 		return "Unarmed";
 	}
 
-	public static int getItemId(String itemName) {
-		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.itemList[i] != null) {
-				if (GameEngine.itemHandler.itemList[i].itemName
-						.equalsIgnoreCase(itemName)) {
-					return GameEngine.itemHandler.itemList[i].itemId;
-				}
-			}
-		}
-		return -1;
-	}
-
 	public int getItemSlot(int ItemID) {
 		for (int i = 0; i < player.playerItems.length; i++) {
 			if (player.playerItems[i] - 1 == ItemID) {

@@ -1,5 +1,6 @@
 package com.rs2.game.items.impl;
 
+import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 
@@ -38,9 +39,9 @@ public class PotionMixing {
 					c.getItemAssistant().deleteItem(id2,
 							c.getItemAssistant().getItemSlot(id2), 1);
 					c.getItemAssistant().addItem(
-							c.getItemAssistant().getItemId(item1), 1);
+							Deprecated.getItemId(item1), 1);
 					c.getItemAssistant().addItem(
-							c.getItemAssistant().getItemId(item2), 1);
+							Deprecated.getItemId(item2), 1);
 				} else {
 					amount1 = totalAmount;
 					String item1 = id11.substring(0, id11.indexOf("(") + 1)
@@ -50,7 +51,7 @@ public class PotionMixing {
 					c.getItemAssistant().deleteItem(id2,
 							c.getItemAssistant().getItemSlot(id2), 1);
 					c.getItemAssistant().addItem(
-							c.getItemAssistant().getItemId(item1), 1);
+							Deprecated.getItemId(item1), 1);
 					c.getItemAssistant().addItem(229, 1);
 				}
 			} catch (Exception e) {
