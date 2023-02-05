@@ -9,11 +9,6 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <properties>
-        <kotlin.version>1.6.10</kotlin.version>
-        <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-    </properties>
-
     <repositories>
         <repository>
             <id>libs-local</id>
@@ -23,11 +18,6 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -166,30 +156,12 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <sourceDir>${project.basedir}/plugins</sourceDir>
-                                <sourceDir>${project.basedir}/src/main/java</sourceDir>
-                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
+                    <generatedSourcesDirectory>${project.basedir}/plugins</generatedSourcesDirectory>
+                    <generatedSourcesDirectory>${project.basedir}/src/main/java</generatedSourcesDirectory>
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>
