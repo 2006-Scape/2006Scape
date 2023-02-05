@@ -2595,27 +2595,4 @@ public class ItemAssistant {
 		return false;
 	}
 
-	public int getUnnotedItem(int ItemID) {
-		int newId = ItemID - 1;
-		String NotedName = "";
-		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.itemList[i] != null) {
-				if (GameEngine.itemHandler.itemList[i].itemId == ItemID) {
-					NotedName = GameEngine.itemHandler.itemList[i].itemName;
-				}
-			}
-		}
-		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.itemList[i] != null) {
-				if (GameEngine.itemHandler.itemList[i].itemName == NotedName) {
-					if (GameEngine.itemHandler.itemList[i].itemDescription.startsWith("Swap this note at any bank for a") == false) {
-						newId = GameEngine.itemHandler.itemList[i].itemId;
-						break;
-					}
-				}
-			}
-		}
-		return newId;
-	}
-
 }

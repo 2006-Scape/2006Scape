@@ -446,7 +446,7 @@ public class ShopAssistant {
 			return false;
 		}
 		if (ItemDefinition.lookup(itemID).isNote()) {
-			itemID = player.getItemAssistant().getUnnotedItem(itemID);
+			itemID = ItemDefinition.noteToItem(itemID);
 		}
 		for (int i = 0; i < ShopHandler.shopItems[player.shopId].length; i++) {
 			if (ShopHandler.shopItems[player.shopId][i] - 1 == itemID) {
