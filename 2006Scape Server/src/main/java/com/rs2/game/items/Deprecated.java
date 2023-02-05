@@ -1,7 +1,5 @@
 package com.rs2.game.items;
 
-import com.rs2.GameEngine;
-
 /**
  * Methods which are set to be phased out but exist to maintain compatibility with the existing source code.
  * 
@@ -23,8 +21,8 @@ public class Deprecated {
 		for (int i = 0; i < org.apollo.cache.def.ItemDefinition.count(); i++) {
 			org.apollo.cache.def.ItemDefinition def = org.apollo.cache.def.ItemDefinition.lookup(i);
 			if (def != null && def.getName() != null) {
-				if (GameEngine.itemHandler.itemList[i].itemName.equalsIgnoreCase(name)) {
-					return GameEngine.itemHandler.itemList[i].itemId;
+				if (def.getName().equalsIgnoreCase(name)) {
+					return def.getId();
 				}
 			}
 		}

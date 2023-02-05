@@ -1,25 +1,14 @@
 package com.rs2.world;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.rs2.GameConstants;
 import com.rs2.game.items.Deprecated;
 import com.rs2.game.items.GroundItem;
-import com.rs2.game.items.ItemList;
+import com.rs2.game.items.ItemDefinitions2;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.GameLogger;
-import com.rs2.util.ItemData;
-import com.rs2.util.Misc;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Handles ground items
@@ -31,11 +20,6 @@ public class ItemHandler {
     public static final int              HIDE_TICKS = 100;
 
     public ItemHandler() {
-        for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-            itemList[i] = null;
-        }
-        //loadItemList("item.cfg");
-        loadItemListJson();
     }
 
     /**
@@ -317,183 +301,5 @@ public class ItemHandler {
             }
         }
         removeItem(i);
-    }
-
-    /**
-     * Item List
-     **/
-
-    public ItemList itemList[] = new ItemList[GameConstants.ITEM_LIMIT];
-
-    public void newItemList(int ItemId, String ItemName, String ItemDescription, double ShopValue, double LowAlch, double HighAlch, int Bonuses[]) {
-        // first, search for a free slot
-        int slot = -1;
-        for (int i = 0; i < 11740; i++) {
-            if (itemList[i] == null) {
-                slot = i;
-                break;
-            }
-        }
-
-        if (slot == -1) {
-            return; // no free slot found
-        }
-        ItemList newItemList = new ItemList(ItemId);
-        newItemList.itemName = ItemName;
-        newItemList.itemDescription = ItemDescription;
-        newItemList.ShopValue = ShopValue;
-        newItemList.LowAlch = LowAlch;
-        newItemList.HighAlch = HighAlch;
-        newItemList.Bonuses = Bonuses;
-        itemList[slot] = newItemList;
-    }
-
-    public void loadItemPrices(String filename) {
-        try {
-            @SuppressWarnings("resource")
-            Scanner s = new Scanner(new File("./data/cfg/" + filename));
-            while (s.hasNextLine()) {
-                String[] line = s.nextLine().split(" ");
-                ItemList temp = getItemList(Integer.parseInt(line[0]));
-                if (temp != null) {
-                    temp.ShopValue = Integer.parseInt(line[1]);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ItemList getItemList(int i) {
-        for (com.rs2.game.items.ItemList element : itemList) {
-            if (element != null) {
-                if (element.itemId == i) {
-                    return element;
-                }
-            }
-        }
-        return null;
-    }
-
-    public void loadItemListJson() {
-        Gson gson = new Gson();
-
-        try {
-            Type collectionType = new TypeToken<ItemData[]>() {
-            }.getType();
-            ItemData[] data = gson.fromJson(new FileReader("./data/cfg/items.json"), collectionType);
-
-            for (ItemData item : data) {
-                newItemList(item.getId(),
-                        item.getName(),
-                        item.getExamine(),
-                        item.getValues().getShopValue(),
-                        item.getValues().getLowAlch(),
-                        item.getValues().getHighAlch(),
-                        item.getBonuses().getBonuses());
-            }
-        } catch (FileNotFoundException fileex) {
-            Misc.println("items.json: file not found.");
-        }
-    }
-
-    public boolean readCfgWriteJson(String FileName) {
-        String         line          = "";
-        String         token         = "";
-        String         token2        = "";
-        String         token2_2      = "";
-        String[]       token3        = new String[10];
-        boolean        EndOfFile     = false;
-        BufferedReader characterfile = null;
-        JSONArray      array         = new JSONArray();
-        try {
-            characterfile = new BufferedReader(new FileReader("./data/cfg/"
-                    + FileName));
-        } catch (FileNotFoundException fileex) {
-            Misc.println(FileName + ": file not found.");
-            return false;
-        }
-        try {
-            line = characterfile.readLine();
-        } catch (IOException ioexception) {
-            Misc.println(FileName + ": error loading file.");
-            // return false;
-        }
-        while (EndOfFile == false && line != null) {
-            line = line.trim();
-            int spot = line.indexOf("=");
-            if (spot > -1) {
-                token = line.substring(0, spot);
-                token = token.trim();
-                token2 = line.substring(spot + 1);
-                token2 = token2.trim();
-                token2_2 = token2.replaceAll("\t+", "\t");
-                token3 = token2_2.split("\t");
-
-                if (token.equals("item")) {
-                    int[] Bonuses = new int[12];
-                    for (int i = 0; i < 12; i++) {
-                        if (token3[6 + i] != null) {
-                            Bonuses[i] = Integer.parseInt(token3[6 + i]);
-                        } else {
-                            break;
-                        }
-                    }
-                    JSONObject object = new JSONObject();
-
-                    object.put("id", token3[0]);
-                    object.put("name", token3[1].replaceAll("_", " "));
-                    object.put("examine", token3[2].replaceAll("_", " "));
-
-                    JSONArray  array1  = new JSONArray();
-                    JSONObject object1 = new JSONObject();
-                    object1.put("shopValue", token3[4]);
-                    object1.put("lowAlch", token3[5]);
-                    object1.put("highAlch", token3[6]);
-                    array1.put(0, object1);
-                    object.put("values", array1);
-
-                    JSONArray  array2  = new JSONArray();
-                    JSONObject object2 = new JSONObject();
-                    object2.put("attackStab", Bonuses[0]);
-                    object2.put("attackSlash", Bonuses[1]);
-                    object2.put("attackCrush", Bonuses[2]);
-                    object2.put("attackMagic", Bonuses[3]);
-                    object2.put("attackRange", Bonuses[4]);
-                    object2.put("defenceStab", Bonuses[5]);
-                    object2.put("defenceSlash", Bonuses[6]);
-                    object2.put("defenceCrush", Bonuses[7]);
-                    object2.put("defenceMagic", Bonuses[8]);
-                    object2.put("defenceRange", Bonuses[9]);
-                    object2.put("strengthBonus", Bonuses[10]);
-                    object2.put("prayerBonus", Bonuses[11]);
-                    array2.put(0, object2);
-                    object.put("bonuses", array2);
-
-                    array.put(object);
-                }
-            } else {
-                if (line.equals("[ENDOFITEMLIST]")) {
-                    try {
-                        FileWriter fileWriter = new FileWriter("item-dump.json");
-                        fileWriter.write(array.toString());
-                        fileWriter.close();
-                        characterfile.close();
-                    } catch (IOException e) {
-                    }
-                    //return true;
-                }
-            }
-            try {
-                line = characterfile.readLine();
-            } catch (IOException ioexception1) {
-                EndOfFile = true;
-            }
-        }
-        try {
-            characterfile.close();
-        } catch (IOException ioexception) {
-        }
-        return false;
     }
 }

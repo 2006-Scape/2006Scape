@@ -561,17 +561,9 @@ public class ItemAssistant {
 
 	public void getBonus() {
 		for (int element : player.playerEquipment) {
-			if (element > -1) {
-				for (int j = 0; j < GameConstants.ITEM_LIMIT; j++) {
-					if (GameEngine.itemHandler.itemList[j] != null) {
-						if (GameEngine.itemHandler.itemList[j].itemId == element) {
-							for (int k = 0; k < player.playerBonus.length; k++) {
-								player.playerBonus[k] += GameEngine.itemHandler.itemList[j].Bonuses[k];
-							}
-							break;
-						}
-					}
-				}
+			int[] bonuses = ItemDefinitions2.getBonus(element);
+			for (int k = 0; k < player.playerBonus.length; k++) {
+				player.playerBonus[k] += bonuses[k];
 			}
 		}
 	}
