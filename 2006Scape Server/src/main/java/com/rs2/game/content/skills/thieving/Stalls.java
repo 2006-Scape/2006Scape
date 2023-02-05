@@ -1,5 +1,7 @@
 package com.rs2.game.content.skills.thieving;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
@@ -7,8 +9,6 @@ import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.Deprecated;
-import com.rs2.game.items.ItemList;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -21,12 +21,30 @@ public class Stalls {
 		BAKER_STALL(2561, 5, 16, 3, new int[] { 2309, 1 }, new int[] { 1891, 1 }, new int[] { 1895, 1 }),
 		TEA_STALL(635, 5, 16, 0, new int[] {712, 1 }),
 		SILK_STALL(2560, 20, 24, 2, new int[] { 950, 1 }),
-		WINE_STALL(14011, 22, 27, 0, new int[] { 1935, 1 }, new int[] {i("jug of water"), 1 }, new int[] { i("jug of wine"), 1 },
-				new int[] { i("grapes"), 1 }), SEED_STALL(7053, 27, 10, 0, new int[] { i("potato seed"), 1 }, new int[] {i("onion seed"), 1 },
-				new int[] { i("cabbage seed"), 1 }, new int[] {i("tomato seed"), 1 }, new int[] { i("sweetcorn seed"), 1 }, new int[] { i("strawberry seed"), 1 },
-				new int[] {i("watermelon seed"), 1 }, new int[] {i("barley seed"), 1 }, new int[] { i("jute seed"), 1 }, new int[] { i("marigold seed"), 1 },
-				new int[] {i("rosemary seed"), 1 }, new int[] {i("hammerstone seed"), 1 }, new int[] {i("asgarnain seed"), 1 }, new int[] {i("yanillian seed"), 1 },
-				new int[] {i("krandorian seed"), 1 }, new int[] {i("wildblood seed"), 1 }), 
+		WINE_STALL(14011, 22, 27, 0, 
+				new int[] { 1935, 1 },
+				new int[] { 1937, 1 },
+				new int[] { 1993, 1 },
+				new int[] { 1987, 1 }), 
+		
+		SEED_STALL(7053, 27, 10, 0, 
+				new int[] { 5318, 1 },
+				new int[] { 5319, 1 },
+				new int[] { 5324, 1 },
+				new int[] { 5322, 1 },
+				new int[] { 5320, 1 },
+				new int[] { 5323, 1 },
+				new int[] { 5321, 1 },
+				new int[] { 5305, 1 },
+				new int[] { 5306, 1 },
+				new int[] { 5096, 1 },
+				new int[] { 5097, 1 },
+				new int[] { 5307, 1 },
+				new int[] { 5308, 1 },
+				new int[] { 5309, 1 },
+				new int[] { 5310, 1 },
+				new int[] { 5311, 1 }), 
+		
 		FUR_STALL(2563, 35, 36, 0, new int[] { 6814, 1 }, new int[] { 958, 1 }),
 		FUR_STALL2(4278, 35, 36, 0, new int[] { 6814, 1 }, new int[] { 958, 1 }),
 		FISH_STALL(4705, 42, 42, 0, new int[] { 359, 1 }),
@@ -35,8 +53,14 @@ public class Stalls {
 		SPICE_STALL(2564, 65, 81.3, 0, new int[] { 2007, 1 }, new int[] { 946, 1 }, new int[] { 1550, 1 }), 
 		GEM_STALL(2562, 75, 160, 3,
 				new int[] { 1617, 1 }, new int[] { 1619, 1 }, new int[] { 1621, 1 }, new int[] { 1623, 1 }),
-		MAGIC_STALL(4877, 65, 100, 0, new int[] {i("air rune"), 1}, new int[] {i("water rune"), 1}, new int[] {i("fire rune"), 1}, new int[] {i("law rune"), 1}),
-		SCIMITAR_STALL(4878, 65, 100, 0, new int[] {i("iron scimitar"), 1}, new int[] {i("steel scimitar"), 1});
+		MAGIC_STALL(4877, 65, 100, 0, 
+				new int[] { 556, 1 },
+				new int[] { 555, 1 },
+				new int[] { 554, 1 },
+				new int[] { 563, 1 }),
+		SCIMITAR_STALL(4878, 65, 100, 0, 
+				new int[] { 1323, 1 },
+				new int[] { 1325, 1 });
 
 		private int objectId, levelReq, face;
 		private int[][] stalls;
@@ -76,21 +100,6 @@ public class Stalls {
 
 	public static int r(int random) {
 		return Misc.random(random);
-	}
-
-	public static int i(String ItemName) {
-		return getItemId(ItemName);
-	}
-
-	public static int getItemId(String itemName) {
-		for (ItemList i : GameEngine.itemHandler.itemList) {
-			if (i != null) {
-				if (i.itemName.equalsIgnoreCase(itemName)) {
-					return i.itemId;
-				}
-			}
-		}
-		return -1;
 	}
 
 	public static boolean isObject(int object) {
@@ -147,7 +156,7 @@ public class Stalls {
 				p.getPlayerAssistant().addSkillXP((int) s.getXp(), GameConstants.THIEVING);
 				int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
 				s.respawnTime = System.currentTimeMillis() + (respawnTime * GameConstants.CYCLE_TIME);
-				p.getPacketSender().sendMessage("You steal a " + Deprecated.getItemName(random[0]) + " from the stall.");
+				p.getPacketSender().sendMessage("You steal a " + ItemDefinition.lookup(random[0]).getName() + " from the stall.");
 				p.getItemAssistant().addItem(random[0], random[1]);
 				p.setHasThievedStall(true);
 				CycleEventHandler.getSingleton().addEvent(p, new CycleEvent() {

@@ -12,19 +12,13 @@ import com.rs2.GameEngine;
 
 public class Deprecated {
 	
-	//TODO remove later after done testing defs
-	public static void main(String[] args) throws FileNotFoundException {
-		IndexedFileSystem fs = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
-		new ItemDefinitionDecoder(fs).run();
-	//	System.out.println(org.apollo.cache.def.ItemDefinition.lookup(4157).getValue());
-	}
 
+		
 	//TODO this is super scuffed and used for Potion Mixing. Redo.
 	public static int getItemId(String itemName) {
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
 			if (GameEngine.itemHandler.itemList[i] != null) {
-				if (GameEngine.itemHandler.itemList[i].itemName
-						.equalsIgnoreCase(itemName)) {
+				if (GameEngine.itemHandler.itemList[i].itemName.equalsIgnoreCase(itemName)) {
 					return GameEngine.itemHandler.itemList[i].itemId;
 				}
 			}
