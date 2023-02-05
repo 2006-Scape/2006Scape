@@ -179,6 +179,7 @@
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/plugins</sourceDir>
                                 <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
