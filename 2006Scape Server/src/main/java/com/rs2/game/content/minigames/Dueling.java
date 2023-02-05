@@ -262,7 +262,7 @@ public class Dueling {
 			player.getPacketSender().sendString("", 6684);
 			o.getPacketSender().sendString("", 6684);
 		}
-		if (ItemDefinition.lookup(itemID).isStackable() || ItemData.itemIsNote[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable() || ItemDefinition.lookup(itemID).isNote()) {
 			boolean found = false;
 			for (GameItem item : stakedItems) {
 				if (item.id == itemID) {
@@ -425,7 +425,7 @@ public class Dueling {
 		}
 		String itemId = "";
 		for (GameItem item : stakedItems) {
-			if (ItemDefinition.lookup(item.id).isStackable() || ItemData.itemIsNote[item.id]) {
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
 				itemId += ItemAssistant.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
@@ -435,7 +435,7 @@ public class Dueling {
 		player.getPacketSender().sendString(itemId, 6516);
 		itemId = "";
 		for (GameItem item : o.getDueling().stakedItems) {
-			if (ItemDefinition.lookup(item.id).isStackable() || ItemData.itemIsNote[item.id]) {
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
 				itemId += ItemAssistant.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
@@ -715,7 +715,7 @@ public class Dueling {
 			if (item.amount < 1) {
 				continue;
 			}
-			if (ItemDefinition.lookup(item.id).isStackable() || ItemData.itemIsNote[item.id]) {
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
 				player.getItemAssistant().addItem(item.id, item.amount);
 			} else {
 				player.getItemAssistant().addItem(item.id, 1);

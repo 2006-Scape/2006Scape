@@ -445,7 +445,7 @@ public class ShopAssistant {
 		if (amount <= 0) {
 			return false;
 		}
-		if (ItemData.itemIsNote[itemID]) {
+		if (ItemDefinition.lookup(itemID).isNote()) {
 			itemID = player.getItemAssistant().getUnnotedItem(itemID);
 		}
 		for (int i = 0; i < ShopHandler.shopItems[player.shopId].length; i++) {

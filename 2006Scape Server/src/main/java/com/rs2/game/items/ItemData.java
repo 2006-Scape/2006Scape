@@ -197,24 +197,10 @@ public class ItemData {
 		return null;
 	}
 
-	public static boolean[] itemIsNote = new boolean[GameConstants.ITEM_LIMIT];
 	public static int[] targetSlots = new int[GameConstants.ITEM_LIMIT];
 	static {
 		int counter = 0;
 		int c;
-
-		counter = 0;
-		try {
-			FileInputStream dataIn = new FileInputStream(new File("./data/data/notes.dat"));
-			while ((c = dataIn.read()) != -1) {
-				itemIsNote[counter] = c == 0;
-				counter++;
-			}
-			dataIn.close();
-		} catch (IOException e) {
-			System.out.println("Critical error while loading notedata! Trace:");
-			e.printStackTrace();
-		}
 
 		counter = 0;
 		try {

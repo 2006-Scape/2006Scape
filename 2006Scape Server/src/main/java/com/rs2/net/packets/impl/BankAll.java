@@ -107,7 +107,7 @@ public class BankAll implements PacketType {
 					player.getTrading().tradeItem(removeId, removeSlot, 28);
 				}
 			} else {
-				if (ItemDefinition.lookup(removeId).isStackable() || ItemData.itemIsNote[removeId]) {
+				if (ItemDefinition.lookup(removeId).isStackable() || ItemDefinition.lookup(removeId).isNote()) {
 					player.getDueling().stakeItem(removeId, removeSlot,
 							player.playerItemsN[removeSlot]);
 				} else {
@@ -140,7 +140,7 @@ public class BankAll implements PacketType {
 			break;
 
 		case 6669:
-			if (ItemDefinition.lookup(removeId).isStackable() || ItemData.itemIsNote[removeId]) {
+			if (ItemDefinition.lookup(removeId).isStackable() || ItemDefinition.lookup(removeId).isNote()) {
 				for (GameItem item : player.getDueling().stakedItems) {
 					if (item.id == removeId) {
 						player.getDueling()

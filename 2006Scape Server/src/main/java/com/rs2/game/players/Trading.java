@@ -275,7 +275,7 @@ public class Trading {
 		}
 		player.tradeConfirmed = false;
 		o.tradeConfirmed = false;
-		if (!ItemDefinition.lookup(itemID).isStackable() && !ItemData.itemIsNote[itemID]) {
+		if (!ItemDefinition.lookup(itemID).isStackable() && !ItemDefinition.lookup(itemID).isNote()) {
 			for (int a = 0; a < amount && a < 28; a++) {
 				if (player.getItemAssistant().playerHasItem(itemID, 1)) {
 					offeredItems.add(new GameItem(itemID, 1));
@@ -307,7 +307,7 @@ public class Trading {
 			declineTrade();
 			return false;
 		}
-		if (ItemDefinition.lookup(itemID).isStackable() || ItemData.itemIsNote[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable() || ItemDefinition.lookup(itemID).isNote()) {
 			boolean inTrade = false;
 			for (GameItem item : offeredItems) {
 				if (item.id == itemID) {

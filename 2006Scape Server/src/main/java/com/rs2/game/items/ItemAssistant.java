@@ -263,12 +263,12 @@ public class ItemAssistant {
 	public int getTotalCount(int itemID) {
 		int count = 0;
 		for (int j = 0; j < player.playerItems.length; j++) {
-			if (ItemData.itemIsNote[itemID + 1]) {
+			if (ItemDefinition.lookup(itemID + 1).isNote()) {
 				if (itemID + 2 == player.playerItems[j]) {
 					count += player.playerItemsN[j];
 				}
 			}
-			if (!ItemData.itemIsNote[itemID + 1]) {
+			if (!ItemDefinition.lookup(itemID + 1).isNote()) {
 				if (itemID + 1 == player.playerItems[j]) {
 					count += player.playerItemsN[j];
 				}
@@ -1817,7 +1817,7 @@ public class ItemAssistant {
 		if (player.playerItemsN[fromSlot] <= 0) {
 			return false;
 		}
-		if (!ItemData.itemIsNote[player.playerItems[fromSlot] - 1]) {
+		if (!ItemDefinition.lookup(player.playerItems[fromSlot] - 1).isNote()) {
 			if (player.playerItems[fromSlot] <= 0) {
 				return false;
 			}
@@ -1944,7 +1944,7 @@ public class ItemAssistant {
 					return false;
 				}
 			}
-		} else if (ItemData.itemIsNote[player.playerItems[fromSlot] - 1] && !ItemData.itemIsNote[player.playerItems[fromSlot] - 2]) {
+		} else if (ItemDefinition.lookup(player.playerItems[fromSlot] - 1).isNote() && !ItemDefinition.lookup(player.playerItems[fromSlot] - 2).isNote()) {
 			if (player.playerItems[fromSlot] <= 0) {
 				return false;
 			}
@@ -2145,7 +2145,7 @@ public class ItemAssistant {
 							resetBank();
 							resetItems(5064);
 						}
-					} else if (player.takeAsNote && ItemData.itemIsNote[player.bankItems[fromSlot]]) {
+					} else if (player.takeAsNote && ItemDefinition.lookup(player.bankItems[fromSlot]).isNote()) {
 						if (player.bankItemsN[fromSlot] > amount) {
 							if (addItem(player.bankItems[fromSlot], amount)) {
 								player.bankItemsN[fromSlot] -= amount;
