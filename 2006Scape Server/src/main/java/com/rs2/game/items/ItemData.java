@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
-import com.rs2.GameEngine;
 
 public class ItemData {
 
@@ -148,7 +149,7 @@ public class ItemData {
 			"sallet", "Facemask", "Bearhead"};
 
 	public static boolean isFullBody(int itemId) {
-		String weapon = getItemName(itemId);
+		String weapon = ItemDefinition.lookup(itemId).getName();
 		if (weapon == null) {
 			return false;
 		}
@@ -161,7 +162,7 @@ public class ItemData {
 	}
 
 	public static boolean isFullHelm(int itemId) {
-		String weapon = getItemName(itemId);
+		String weapon = ItemDefinition.lookup(itemId).getName();
 		if (weapon == null) {
 			return false;
 		}
@@ -174,7 +175,7 @@ public class ItemData {
 	}
 
 	public static boolean isFullMask(int itemId) {
-		String weapon = getItemName(itemId);
+		String weapon = ItemDefinition.lookup(itemId).getName();
 		if (weapon == null) {
 			return false;
 		}
@@ -184,17 +185,6 @@ public class ItemData {
 			}
 		}
 		return false;
-	}
-
-	public static String getItemName(int id) {
-		for (ItemList element : GameEngine.itemHandler.itemList) {
-			if (element != null) {
-				if (element.itemId == id) {
-					return element.itemName;
-				}
-			}
-		}
-		return null;
 	}
 
 	public static int[] targetSlots = new int[GameConstants.ITEM_LIMIT];

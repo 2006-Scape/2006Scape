@@ -1,10 +1,11 @@
 package com.rs2.game.content.consumables;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemData;
 import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.players.Player;
 
@@ -31,9 +32,9 @@ public class Potions {
 			c.getCombatAssistant().resetPlayerAttack();
 			c.attackTimer++;
 			c.getPacketSender().sendMessage(
-					"You drink some of your " + ItemData.getItemName(itemId) + ".");
+					"You drink some of your " + ItemDefinition.lookup(itemId).getName() + ".");
 			c.startAnimation(829);
-			final String item = ItemData.getItemName(itemId);
+			final String item = ItemDefinition.lookup(itemId).getName();
 			String m = "";
 			if (item.endsWith("(4)")) {
 				m = "You have 3 doses of potion left.";

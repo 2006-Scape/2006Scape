@@ -128,18 +128,6 @@ public class Inventory {
 		}
 	}
 	
-	public boolean ownsItem(String itemName) {
-		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
-			if (GameEngine.itemHandler.itemList[i] != null) {
-				if (GameEngine.itemHandler.itemList[i].itemName
-						.equalsIgnoreCase(itemName)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	public boolean playerHasItem(int item) {
 		return player.getItemAssistant().playerHasItem(item);
 	}
