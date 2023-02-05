@@ -2525,7 +2525,7 @@ public class ItemAssistant {
 		return "Unarmed";
 	}
 
-	public int getItemId(String itemName) {
+	public static int getItemId(String itemName) {
 		for (int i = 0; i < GameConstants.ITEM_LIMIT; i++) {
 			if (GameEngine.itemHandler.itemList[i] != null) {
 				if (GameEngine.itemHandler.itemList[i].itemName
