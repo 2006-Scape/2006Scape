@@ -2,6 +2,9 @@ package com.rs2.game.players;
 
 import java.time.temporal.ValueRange;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -148,7 +151,7 @@ public class Trading {
 			}
 			player.tradeConfirmed = false;
 			o.tradeConfirmed = false;
-			if (!ItemData.itemStackable[itemID]) {
+			if (!ItemDefinition.lookup(itemID).isStackable()) {
 				for (int a = 0; a < amount; a++) {
 					for (GameItem item : offeredItems) {
 						if (item.id == itemID) {
@@ -272,7 +275,7 @@ public class Trading {
 		}
 		player.tradeConfirmed = false;
 		o.tradeConfirmed = false;
-		if (!ItemData.itemStackable[itemID] && !ItemData.itemIsNote[itemID]) {
+		if (!ItemDefinition.lookup(itemID).isStackable() && !ItemData.itemIsNote[itemID]) {
 			for (int a = 0; a < amount && a < 28; a++) {
 				if (player.getItemAssistant().playerHasItem(itemID, 1)) {
 					offeredItems.add(new GameItem(itemID, 1));
@@ -304,7 +307,7 @@ public class Trading {
 			declineTrade();
 			return false;
 		}
-		if (ItemData.itemStackable[itemID] || ItemData.itemIsNote[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable() || ItemData.itemIsNote[itemID]) {
 			boolean inTrade = false;
 			for (GameItem item : offeredItems) {
 				if (item.id == itemID) {

@@ -1,6 +1,9 @@
 package com.rs2.game.content.minigames;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.combat.prayer.PrayerDrain;
@@ -242,7 +245,7 @@ public class Dueling {
 			return false;
 		}
 		changeDuelStuff();
-		if (!ItemData.itemStackable[itemID]) {
+		if (!ItemDefinition.lookup(itemID).isStackable()) {
 			for (int a = 0; a < amount; a++) {
 				if (player.getItemAssistant().playerHasItem(itemID, 1)) {
 					stakedItems.add(new GameItem(itemID, 1));
@@ -259,7 +262,7 @@ public class Dueling {
 			player.getPacketSender().sendString("", 6684);
 			o.getPacketSender().sendString("", 6684);
 		}
-		if (ItemData.itemStackable[itemID] || ItemData.itemIsNote[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable() || ItemData.itemIsNote[itemID]) {
 			boolean found = false;
 			for (GameItem item : stakedItems) {
 				if (item.id == itemID) {
@@ -313,7 +316,7 @@ public class Dueling {
 			o.getDueling().declineDuel();
 			return false;
 		}
-		if (ItemData.itemStackable[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable()) {
 			if (player.getItemAssistant().freeSlots() - 1 < player.duelSpaceReq) {
 				player.getPacketSender().sendMessage(
 						"You have too many rules set to remove that item.");
@@ -323,7 +326,7 @@ public class Dueling {
 
 		changeDuelStuff();
 		boolean goodSpace = true;
-		if (!ItemData.itemStackable[itemID]) {
+		if (!ItemDefinition.lookup(itemID).isStackable()) {
 			for (int a = 0; a < amount; a++) {
 				for (GameItem item : stakedItems) {
 					if (item.id == itemID) {
@@ -422,7 +425,7 @@ public class Dueling {
 		}
 		String itemId = "";
 		for (GameItem item : stakedItems) {
-			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemData.itemIsNote[item.id]) {
 				itemId += ItemAssistant.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
@@ -432,7 +435,7 @@ public class Dueling {
 		player.getPacketSender().sendString(itemId, 6516);
 		itemId = "";
 		for (GameItem item : o.getDueling().stakedItems) {
-			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemData.itemIsNote[item.id]) {
 				itemId += ItemAssistant.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
@@ -650,7 +653,7 @@ public class Dueling {
 	public void claimStakedItems() {
 		for (GameItem item : otherStakedItems) {
 			if (item.id > 0 && item.amount > 0) {
-				if (ItemData.itemStackable[item.id]) {
+				if (ItemDefinition.lookup(item.id).isStackable()) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
 						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
@@ -668,7 +671,7 @@ public class Dueling {
 		}
 		for (GameItem item : stakedItems) {
 			if (item.id > 0 && item.amount > 0) {
-				if (ItemData.itemStackable[item.id]) {
+				if (ItemDefinition.lookup(item.id).isStackable()) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
 						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
@@ -712,7 +715,7 @@ public class Dueling {
 			if (item.amount < 1) {
 				continue;
 			}
-			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemData.itemIsNote[item.id]) {
 				player.getItemAssistant().addItem(item.id, item.amount);
 			} else {
 				player.getItemAssistant().addItem(item.id, 1);

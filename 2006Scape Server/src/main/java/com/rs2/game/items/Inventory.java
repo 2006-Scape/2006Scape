@@ -1,5 +1,7 @@
 package com.rs2.game.items;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.players.Player;
@@ -88,7 +90,7 @@ public class Inventory {
 	}
 
 	public boolean add(int id, int amount) {
-		if (player.getItemAssistant().isStackable(id)) {
+		if (ItemDefinition.lookup(id).isStackable()) {
 			int allAmount = getStackedGroundAmount(id, amount, getCount(id));
 			if (allAmount > 0) {
 				GameEngine.itemHandler.createGroundItem(player, id, player.getX(), player

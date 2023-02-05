@@ -189,7 +189,7 @@ public class ItemHandler {
                     }
                 }
             }
-            if (!com.rs2.game.items.ItemData.itemStackable[itemId] && itemAmount > 0) {
+            if (!org.apollo.cache.def.ItemDefinition.lookup(itemId).isStackable() && itemAmount > 0) {
                 for (int j = 0; j < itemAmount; j++) {
                     GroundItem item = new GroundItem(itemId, itemX, itemY, c.getH(), 1, c.playerId, HIDE_TICKS, PlayerHandler.players[playerId].playerName);
                     addItem(item);

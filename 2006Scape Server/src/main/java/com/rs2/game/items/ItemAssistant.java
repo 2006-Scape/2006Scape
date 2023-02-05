@@ -1,5 +1,7 @@
 package com.rs2.game.items;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
@@ -88,12 +90,12 @@ public class ItemAssistant {
 	}
 
 	public void addOrDropItem(int item, int amount) {
-		if (isStackable(item) && hasFreeSlots(1)) {
+		if (ItemDefinition.lookup(item).isStackable() && hasFreeSlots(1)) {
 			addItem(item, amount);
-		} else if (!hasFreeSlots(amount) && !isStackable(item)) {
+		} else if (!hasFreeSlots(amount) && !ItemDefinition.lookup(item).isStackable()) {
 			GameEngine.itemHandler.createGroundItem(player, item, player.getX(), player.getY(), amount, player.playerId);
 			player.getPacketSender().sendMessage("You have no inventory space, so the item(s) appear beneath you.");
-		} else if (isStackable(item) && !hasFreeSlots(1) && !playerHasItem(item)) {
+		} else if (ItemDefinition.lookup(item).isStackable() && !hasFreeSlots(1) && !playerHasItem(item)) {
 			GameEngine.itemHandler.createGroundItem(player, item, player.getX(), player.getY(), amount, player.playerId);
 			player.getPacketSender().sendMessage("You have no inventory space, so the item(s) appear beneath you.");
 		} else {
@@ -486,10 +488,10 @@ public class ItemAssistant {
 			return false;
 		}
 		if ((freeSlots() >= 1 || playerHasItem(item, 1))
-				&& ItemData.itemStackable[item] || freeSlots() > 0
-				&& !ItemData.itemStackable[item]) {
+				&& ItemDefinition.lookup(item).isStackable() || freeSlots() > 0
+				&& !ItemDefinition.lookup(item).isStackable()) {
 			for (int i = 0; i < player.playerItems.length; i++) {
-				if (player.playerItems[i] == item + 1 && ItemData.itemStackable[item]
+				if (player.playerItems[i] == item + 1 && ItemDefinition.lookup(item).isStackable()
 						&& player.playerItems[i] > 0) {
 					player.playerItems[i] = item + 1;
 					if (player.playerItemsN[i] + amount < GameConstants.MAXITEM_AMOUNT
@@ -1448,7 +1450,7 @@ public class ItemAssistant {
 				int toEquipN = player.playerItemsN[slot];
 				int toRemove = player.playerEquipment[targetSlot];
 				int toRemoveN = player.playerEquipmentN[targetSlot];
-				if (toEquip == toRemove + 1 && ItemData.itemStackable[toRemove]) {
+				if (toEquip == toRemove + 1 && ItemDefinition.lookup(toRemove).isStackable()) {
 					deleteItem(toRemove, getItemSlot(toRemove), toEquipN);
 					player.playerEquipmentN[targetSlot] += toEquipN;
 				} else if (targetSlot != ItemConstants.SHIELD && targetSlot != ItemConstants.WEAPON) {
@@ -1819,7 +1821,7 @@ public class ItemAssistant {
 			if (player.playerItems[fromSlot] <= 0) {
 				return false;
 			}
-			if (ItemData.itemStackable[player.playerItems[fromSlot] - 1] || player.playerItemsN[fromSlot] > 1) {
+			if (ItemDefinition.lookup(player.playerItems[fromSlot] - 1).isStackable() || player.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
@@ -1946,7 +1948,7 @@ public class ItemAssistant {
 			if (player.playerItems[fromSlot] <= 0) {
 				return false;
 			}
-			if (ItemData.itemStackable[player.playerItems[fromSlot] - 1] || player.playerItemsN[fromSlot] > 1) {
+			if (ItemDefinition.lookup(player.playerItems[fromSlot] - 1).isStackable() || player.playerItemsN[fromSlot] > 1) {
 				int toBankSlot = 0;
 				boolean alreadyInBank = false;
 				for (int i = 0; i < ItemConstants.BANK_SIZE; i++) {
@@ -2112,7 +2114,7 @@ public class ItemAssistant {
 				}
 				if (!cantWithdrawCuzMaxStack) {
 					if (!player.takeAsNote) {
-						if (ItemData.itemStackable[player.bankItems[fromSlot] - 1]) {
+						if (ItemDefinition.lookup(player.bankItems[fromSlot] - 1).isStackable()) {
 							if (player.bankItemsN[fromSlot] > amount) {
 								if (addItem(player.bankItems[fromSlot] - 1, amount)) {
 									player.bankItemsN[fromSlot] -= amount;
@@ -2160,7 +2162,7 @@ public class ItemAssistant {
 						}
 					} else {
 						player.getPacketSender().sendMessage("This item can't be withdrawn as a note.");
-						if (ItemData.itemStackable[player.bankItems[fromSlot] - 1]) {
+						if (ItemDefinition.lookup(player.bankItems[fromSlot] - 1).isStackable()) {
 							if (player.bankItemsN[fromSlot] > amount) {
 								if (addItem(player.bankItems[fromSlot] - 1, amount)) {
 									player.bankItemsN[fromSlot] -= amount;
@@ -2197,10 +2199,6 @@ public class ItemAssistant {
 				}
 			}
 		}
-	}
-
-	public boolean isStackable(int itemID) {
-		return ItemData.itemStackable[itemID];
 	}
 
 	/**
@@ -2500,7 +2498,7 @@ public class ItemAssistant {
 		for (int i = 0; i < player.playerItems.length; i ++) {
 			int _id = player.playerItems[i];
 			int _amt = player.playerItemsN[i];
-			if (_id <= 0 || (_id == itemID && isStackable(_id) && _amt + amount <= Integer.MAX_VALUE)) {
+			if (_id <= 0 || (_id == itemID && ItemDefinition.lookup(_id).isStackable() && _amt + amount <= Integer.MAX_VALUE)) {
 				freeS++;
 			}
 		}

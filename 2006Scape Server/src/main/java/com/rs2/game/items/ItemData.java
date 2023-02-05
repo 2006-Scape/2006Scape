@@ -197,29 +197,11 @@ public class ItemData {
 		return null;
 	}
 
-	public static boolean[] itemStackable = new boolean[GameConstants.ITEM_LIMIT];
 	public static boolean[] itemIsNote = new boolean[GameConstants.ITEM_LIMIT];
 	public static int[] targetSlots = new int[GameConstants.ITEM_LIMIT];
 	static {
 		int counter = 0;
 		int c;
-
-		try {
-			FileInputStream dataIn = new FileInputStream(new File("./data/data/stackable.dat"));
-			while ((c = dataIn.read()) != -1) {
-				if (c == 0) {
-					itemStackable[counter] = false;
-					itemStackable[291] = true;
-				} else {
-					itemStackable[counter] = true;
-				}
-				counter++;
-			}
-			dataIn.close();
-		} catch (IOException e) {
-			System.out.println("Critical error while loading stackabledata! Trace:");
-			e.printStackTrace();
-		}
 
 		counter = 0;
 		try {
