@@ -8,7 +8,7 @@ import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.randomevents.TreeSpirit;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.objects.Object;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -314,7 +314,7 @@ public class Woodcutting {
 					if (p.isWoodcutting) {
 						p.getItemAssistant().addItem(tree.getLogRecieved(), 1);
 						p.getPlayerAssistant().addSkillXP(XP, 8);
-						p.getPacketSender().sendMessage("You manage to get some " + ItemAssistant.getItemName(tree.getLogRecieved()).toLowerCase() + " from the tree.");
+						p.getPacketSender().sendMessage("You manage to get some " + DeprecatedItems.getItemName(tree.getLogRecieved()).toLowerCase() + " from the tree.");
 					}
 					if (p.tutorialProgress == 3) {
 						p.getDialogueHandler().sendDialogues(3014, 0);

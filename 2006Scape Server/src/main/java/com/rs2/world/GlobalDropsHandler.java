@@ -11,6 +11,8 @@ import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.GlobalDropData;
 import com.rs2.util.Misc;
 import com.rs2.util.ShopData;
+
+import org.apollo.cache.def.ItemDefinition;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -172,7 +174,7 @@ public class GlobalDropsHandler {
             return;
         }
         if (player.getItemAssistant().freeSlots() < 1) {
-            if (!(player.getItemAssistant().playerHasItem(player.pItemId) && player.getItemAssistant().isStackable(player.pItemId))) {
+            if (!(player.getItemAssistant().playerHasItem(player.pItemId) && ItemDefinition.lookup(player.pItemId).isStackable())) {
                 player.getPacketSender().sendMessage("Not enough space in your inventory.");
                 return;
             }

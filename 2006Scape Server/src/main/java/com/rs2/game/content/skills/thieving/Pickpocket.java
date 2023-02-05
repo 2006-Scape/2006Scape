@@ -1,14 +1,12 @@
 package com.rs2.game.content.skills.thieving;
 
 import com.rs2.GameConstants;
-import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemList;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -64,48 +62,48 @@ public class Pickpocket extends SkillHandler {
 				{1944, 1},
 		}),
 		MASTER_FARMER(new int[] { 2234, 2235 }, 38, 43.0, 2, 5, new int[][] {
-				{i("potato seed"), 1, 2},
-				{i("onion seed"), 1, 2},
-				{i("cabbage seed"), 1, 2},
-				{i("tomato seed"), 1, 1},
-				{i("sweetcorn seedseed"), 1, 1},
-				{i("strawberry seed"), 1},
-				{i("watermelon seed"), 1},
-				{i("barely seed"), 1, 3},
-				{i("hammerstone seed"), 1, 2},
-				{i("asgarnian seed"), 1, 1},
-				{i("jute seed"), 1, 2},
-				{i("yanillian seed"), 1, 1},
-				{i("krandorian seed"), 1},
-				{i("wildblood seed"), 1},
-				{i("redberry seed"), 1},
-				{i("cadavaberry seed"), 1},
-				{i("dwellberry seed"), 1},
-				{i("jangerberry seed"), 1},
-				{i("whiteberry seed"), 1},
-				{i("poison ivy seed"), 1},
-				{i("marigold seed"), 1},
-				{i("rosemarry seed"), 1},
-				{i("nasturtium seed"), 1},
-				{i("woad seed"), 1},
-				{i("limpwurt seed"), 1},
-				{i("guam seed"), 1},
-				{i("marentill seed"), 1},
-				{i("tarromin seed"), 1},
-				{i("harralander seed"), 1},
-				{i("ranarr seed"), 1},
-				{i("toadflax seed"), 1},
-				{i("irit seed"), 1},
-				{i("avantoe seed"), 1},
-				{i("kwuarm seed"), 1},
-				{i("snapdragon seed"), 1},
-				{i("cadantine seed"), 1},
-				{i("lantadyme seed"), 1},
-				{i("dwarf weed seed"), 1},
-				{i("torstol seed"), 1},
-				{i("bittercap mushroom spore"), 1},
-				{i("belladonna seed"), 1},
-				{i("cactus seed"), 1},
+			{5318, 1, 2},
+			{5319, 1, 2},
+			{5324, 1, 2},
+			{5322, 1, 1},
+			{5320, 1, 1},
+			{5323, 1},
+			{5321, 1},
+			{5305, 1, 3},
+			{5307, 1, 2},
+			{5308, 1, 1},
+			{5306, 1, 2},
+			{5309, 1, 1},
+			{5310, 1},
+			{5311, 1},
+			{5101, 1},
+			{5102, 1},
+			{5103, 1},
+			{5104, 1},
+			{5105, 1},
+			{5106, 1},
+			{5096, 1},
+			{5097, 1},
+			{5098, 1},
+			{5099, 1},
+			{5100, 1},
+			{5291, 1},
+			{5292, 1},
+			{5293, 1},
+			{5294, 1},
+			{5295, 1},
+			{5296, 1},
+			{5297, 1},
+			{5298, 1},
+			{5299, 1},
+			{5300, 1},
+			{5301, 1},
+			{5302, 1},
+			{5303, 1},
+			{5304, 1},
+			{5282, 1},
+			{5281, 1},
+			{5280, 1},
 		}),
 		GUARD(new int[] { 9, 32 }, 40, 46.8, 2, 5, new int[][] {
 				{995, 30},
@@ -189,21 +187,6 @@ public class Pickpocket extends SkillHandler {
 
 	public static int r(int random) {
 		return Misc.random(random);
-	}
-
-	public static int i(String ItemName) {
-		return getItemId(ItemName);
-	}
-
-	public static int getItemId(String itemName) {
-		for (ItemList i : GameEngine.itemHandler.itemList) {
-			if (i != null) {
-				if (i.itemName.equalsIgnoreCase(itemName)) {
-					return i.itemId;
-				}
-			}
-		}
-		return -1;
 	}
 
 	public static boolean isNPC(Player c, int npc) {

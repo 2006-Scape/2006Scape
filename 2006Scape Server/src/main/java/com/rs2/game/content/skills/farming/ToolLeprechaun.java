@@ -12,6 +12,8 @@ package com.rs2.game.content.skills.farming;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.game.dialogues.ChatEmotes;
 import com.rs2.game.items.Item;
 import com.rs2.game.items.ItemData;
@@ -355,7 +357,7 @@ public class ToolLeprechaun {
 
 	public boolean noteItem(int itemId) {
 
-		if (ItemData.itemIsNote[itemId]) {
+		if (ItemDefinition.lookup(itemId).isNote()) {
 			player.getDialogueHandler().sendNpcChat(3021, ChatEmotes.DEFAULT, "That is a banknote!");
 			return true;
 		}

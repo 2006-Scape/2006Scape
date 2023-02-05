@@ -5,7 +5,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.music.sound.SoundList;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -82,9 +82,9 @@ public class TipMaking {
 				|| !player.getItemAssistant().playerHasItem(itemData.getItem2())) {
 			player.getDialogueHandler().sendStatement(
 					"You need "
-							+ ItemAssistant.getItemName(itemData.getItem1())
+							+ DeprecatedItems.getItemName(itemData.getItem1())
 							+ " and "
-							+ ItemAssistant.getItemName(itemData.getItem2())
+							+ DeprecatedItems.getItemName(itemData.getItem2())
 							+ " to make this.");
 			player.nextChat = 0;
 			return false;
@@ -108,11 +108,11 @@ public class TipMaking {
 					player.getItemAssistant().addItem(itemData.getProduct(), itemData.getQuantity());
 					player.getPacketSender().sendMessage(
 							"You cut the "
-									+ ItemAssistant.getItemName(itemData.getItem2())
+									+ DeprecatedItems.getItemName(itemData.getItem2())
 									+ " in to "
 									+ itemData.getQuantity()
 									+ " "
-									+ ItemAssistant.getItemName(itemData.getProduct()) + ".");
+									+ DeprecatedItems.getItemName(itemData.getProduct()) + ".");
 					player.getPlayerAssistant().addSkillXP(itemData.getQuantity() * itemData.getXp(), GameConstants.FLETCHING);
 				}
 

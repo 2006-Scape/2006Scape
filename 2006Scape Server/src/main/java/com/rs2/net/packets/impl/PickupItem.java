@@ -8,7 +8,7 @@ import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.content.skills.firemaking.LogData;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
@@ -52,7 +52,7 @@ public class PickupItem implements PacketType {
 		if (player.stopPlayerPacket) {
 			return;
 		}
-		String itemName = ItemAssistant.getItemName(player.pItemId).toLowerCase();
+		String itemName = DeprecatedItems.getItemName(player.pItemId).toLowerCase();
 		if (player.getPlayerAssistant().isPlayer()) {
 			GameLogger.writeLog(player.playerName, "pickupitem", player.playerName + " picked up " + itemName + " itemX: " + player.pItemX + ", itemY: " + player.pItemY + "");
 		}

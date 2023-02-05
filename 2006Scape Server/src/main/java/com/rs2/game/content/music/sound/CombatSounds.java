@@ -1,6 +1,7 @@
 package com.rs2.game.content.music.sound;
 
-import com.rs2.GameEngine;
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
@@ -173,10 +174,6 @@ public class CombatSounds {
 		return "";
 	}
 
-	public static String getItemName(int ItemID) {
-		return GameEngine.itemHandler.itemList[ItemID].itemName;
-	}
-
 	public static int getMagicSound(Player c, int spellId) {
 		return MagicData.MAGIC_SPELLS[spellId][16];
 	}
@@ -254,8 +251,7 @@ public class CombatSounds {
 			return 417;
 			}
 		if (c.playerEquipment[c.playerWeapon] >= 1) {
-			String wep = getItemName(c.playerEquipment[c.playerWeapon])
-					.toLowerCase();
+			String wep = ItemDefinition.lookup(c.playerEquipment[c.playerWeapon]).getName().toLowerCase();
 
 
 			if (c.playerEquipment[c.playerWeapon] == 4718) {// Dharok's

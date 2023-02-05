@@ -1,8 +1,6 @@
 package com.rs2.game.npcs.drops;
 
 import com.google.gson.Gson;
-import com.rs2.GameEngine;
-import com.rs2.game.items.ItemList;
 import com.rs2.util.Misc;
 import com.rs2.util.NpcDrop;
 
@@ -49,38 +47,9 @@ public class NPCDropsHandler {
         }
 
         return new ItemDrop[]{
-                new ItemDrop(i("bones"), 1, 0),
+                new ItemDrop(526, 1, 0),
                 new ItemDrop(995, new int[]{ 1, 10 }, 3),
                 new ItemDrop(2677, 1, 512) };
-    }
-
-    /**
-     * short version of getItemId
-     *
-     * @param itemName name of the item
-     *
-     * @return itemId
-     */
-    public static int i(String itemName) {
-        return getItemId(itemName);
-    }
-
-    /**
-     * Item id main method
-     *
-     * @param itemName name of the item
-     *
-     * @return itemId
-     */
-    public static int getItemId(String itemName) {
-        for (ItemList i : GameEngine.itemHandler.itemList) {
-            if (i != null) {
-                if (i.itemName.equalsIgnoreCase(itemName)) {
-                    return i.itemId;
-                }
-            }
-        }
-        return -1;
     }
 
     /**

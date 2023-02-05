@@ -1,13 +1,16 @@
 package com.rs2.game.content.minigames;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.combat.prayer.PrayerDrain;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemData;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Client;
@@ -242,7 +245,7 @@ public class Dueling {
 			return false;
 		}
 		changeDuelStuff();
-		if (!ItemData.itemStackable[itemID]) {
+		if (!ItemDefinition.lookup(itemID).isStackable()) {
 			for (int a = 0; a < amount; a++) {
 				if (player.getItemAssistant().playerHasItem(itemID, 1)) {
 					stakedItems.add(new GameItem(itemID, 1));
@@ -259,7 +262,7 @@ public class Dueling {
 			player.getPacketSender().sendString("", 6684);
 			o.getPacketSender().sendString("", 6684);
 		}
-		if (ItemData.itemStackable[itemID] || ItemData.itemIsNote[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable() || ItemDefinition.lookup(itemID).isNote()) {
 			boolean found = false;
 			for (GameItem item : stakedItems) {
 				if (item.id == itemID) {
@@ -313,7 +316,7 @@ public class Dueling {
 			o.getDueling().declineDuel();
 			return false;
 		}
-		if (ItemData.itemStackable[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable()) {
 			if (player.getItemAssistant().freeSlots() - 1 < player.duelSpaceReq) {
 				player.getPacketSender().sendMessage(
 						"You have too many rules set to remove that item.");
@@ -323,7 +326,7 @@ public class Dueling {
 
 		changeDuelStuff();
 		boolean goodSpace = true;
-		if (!ItemData.itemStackable[itemID]) {
+		if (!ItemDefinition.lookup(itemID).isStackable()) {
 			for (int a = 0; a < amount; a++) {
 				for (GameItem item : stakedItems) {
 					if (item.id == itemID) {
@@ -422,21 +425,21 @@ public class Dueling {
 		}
 		String itemId = "";
 		for (GameItem item : stakedItems) {
-			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
-				itemId += ItemAssistant.getItemName(item.id) + " x "
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
+				itemId += DeprecatedItems.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
-				itemId += ItemAssistant.getItemName(item.id) + "\\n";
+				itemId += DeprecatedItems.getItemName(item.id) + "\\n";
 			}
 		}
 		player.getPacketSender().sendString(itemId, 6516);
 		itemId = "";
 		for (GameItem item : o.getDueling().stakedItems) {
-			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
-				itemId += ItemAssistant.getItemName(item.id) + " x "
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
+				itemId += DeprecatedItems.getItemName(item.id) + " x "
 						+ Misc.format(item.amount) + "\\n";
 			} else {
-				itemId += ItemAssistant.getItemName(item.id) + "\\n";
+				itemId += DeprecatedItems.getItemName(item.id) + "\\n";
 			}
 		}
 		player.getPacketSender().sendString(itemId, 6517);
@@ -650,7 +653,7 @@ public class Dueling {
 	public void claimStakedItems() {
 		for (GameItem item : otherStakedItems) {
 			if (item.id > 0 && item.amount > 0) {
-				if (ItemData.itemStackable[item.id]) {
+				if (ItemDefinition.lookup(item.id).isStackable()) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
 						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
@@ -668,7 +671,7 @@ public class Dueling {
 		}
 		for (GameItem item : stakedItems) {
 			if (item.id > 0 && item.amount > 0) {
-				if (ItemData.itemStackable[item.id]) {
+				if (ItemDefinition.lookup(item.id).isStackable()) {
 					if (!player.getItemAssistant().addItem(item.id, item.amount)) {
 						GameEngine.itemHandler.createGroundItem(player, item.id,
 								player.getX(), player.getY(), item.amount, player.getId());
@@ -712,7 +715,7 @@ public class Dueling {
 			if (item.amount < 1) {
 				continue;
 			}
-			if (ItemData.itemStackable[item.id] || ItemData.itemIsNote[item.id]) {
+			if (ItemDefinition.lookup(item.id).isStackable() || ItemDefinition.lookup(item.id).isNote()) {
 				player.getItemAssistant().addItem(item.id, item.amount);
 			} else {
 				player.getItemAssistant().addItem(item.id, 1);
@@ -793,8 +796,8 @@ public class Dueling {
 				}
 			}
 		}
-		if (i == 16 && (player.getItemAssistant().is2handed(ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
-	                && player.getItemAssistant().freeSlots() == 0) || (o.getItemAssistant().is2handed(ItemAssistant.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
+		if (i == 16 && (player.getItemAssistant().is2handed(DeprecatedItems.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
+	                && player.getItemAssistant().freeSlots() == 0) || (o.getItemAssistant().is2handed(DeprecatedItems.getItemName(player.playerEquipment[player.playerWeapon]).toLowerCase(), player.playerEquipment[player.playerWeapon])
 	                && o.getItemAssistant().freeSlots() == 0)) {
 	            player.getPacketSender().sendMessage("You or your opponent don't have the required space to set this rule.");
 	            return;

@@ -8,7 +8,7 @@ import com.rs2.game.content.StaticItemList;
 import com.rs2.game.content.StaticObjectList;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -80,7 +80,7 @@ public class CookingTutorialIsland extends SkillHandler {
         c.getPacketSender().sendChatInterface(1743);
         c.getPacketSender().sendFrame246(13716, 190, item);
         c.getPacketSender().sendString(
-                "" + ItemAssistant.getItemName(item) + "", 13717);
+                "" + DeprecatedItems.getItemName(item) + "", 13717);
     }
 
     private static void cookTutFish(final Player c) {

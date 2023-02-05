@@ -1,11 +1,12 @@
 package com.rs2.game.globalworldobjects;
 
+import org.apollo.cache.def.ObjectDefinition;
+
 import com.rs2.GameEngine;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
 import com.rs2.world.ObjectManager;
-import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.Region;
 
 /**
@@ -19,7 +20,7 @@ public class GateHandler {
 		CLOSED = 0, PARTIAL_OPEN = 1, OPEN = 2;
 	
 	public boolean isGate(int objectId) {
-		String objectName = ObjectDefinition.getObjectDef(objectId).name;
+		String objectName = ObjectDefinition.lookup(objectId).getName();
 		try {
 			return objectName.equalsIgnoreCase("gate") || objectName.equalsIgnoreCase("Gate");
 		} catch (Exception e) {

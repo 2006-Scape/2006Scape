@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 public class Smithing {
@@ -12,7 +12,7 @@ public class Smithing {
 	private int addItem, xp, removeItem, removeAmount, makeTimes;
 	
 	private boolean hasItem(Player player, int type, String string) {
-		return (ItemAssistant.getItemName(type).contains(string));
+		return (DeprecatedItems.getItemName(type).contains(string));
 	}
 
 	public void readInput(Player player, int levelReq, int type, int amountToMake) {
@@ -52,7 +52,7 @@ public class Smithing {
     public static void smithItem(Player player, int addItem, int removeItem, int removeItem2, int timesToMake, int XP) {
 		player.doAmount = timesToMake;
 		player.getPacketSender().closeAllWindows();
-		String name = ItemAssistant.getItemName(addItem);
+		String name = DeprecatedItems.getItemName(addItem);
 		if (player.getItemAssistant().playerHasItem(removeItem, removeItem2)) {
 			if (!player.isSmithing) {
 				player.isSmithing = true;

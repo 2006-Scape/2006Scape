@@ -5,7 +5,7 @@ import com.rs2.game.players.Player;
 /**
  * @author somedude, credits to Galkon for item weights
  */
-public class Weight extends ItemDefinition {
+public class Weight {
 
     /**
      * Calculates the weight when doing actions
@@ -16,27 +16,28 @@ public class Weight extends ItemDefinition {
      *            - deleteitem, additem, equip, unequip.
      */
     public static void calcWeight(Player c, int item, String action) {
+    	double weight = ItemDefinitions.getWeight(item);
         if (action.equalsIgnoreCase("deleteitem")) {
-            if (getWeight(item) > 99.20) {
-                c.weight -= getWeight(item) / 100;
+            if (weight > 99.20) {
+                c.weight -= weight / 100;
                 if (c.weight < 0) {
                     c.weight = 0.0;
                 }
                 c.getPacketSender().writeWeight((int) c.weight);
                 return;
             }
-            c.weight -= getWeight(item) / 10;
+            c.weight -= weight / 10;
             if (c.weight < 0) {
                 c.weight = 0.0;
             }
             c.getPacketSender().writeWeight((int) c.weight);
         } else if (action.equalsIgnoreCase("additem")) {
-            if (getWeight(item) > 99.20) {
-                c.weight += getWeight(item) / 100;
+            if (weight > 99.20) {
+                c.weight += weight / 100;
                 c.getPacketSender().writeWeight((int) c.weight);
                 return;
             }
-            c.weight += getWeight(item) / 10;
+            c.weight += weight / 10;
             c.getPacketSender().writeWeight((int) c.weight);
         }
     }

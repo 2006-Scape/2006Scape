@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Paths;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +15,12 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.rs2.gui.ControlPanel;
+
+import org.apollo.cache.IndexedFileSystem;
+import org.apollo.cache.decoder.ItemDefinitionDecoder;
+import org.apollo.cache.decoder.ObjectDefinitionDecoder;
+import org.apollo.cache.def.ObjectDefinition;
+import org.apollo.jagcached.Constants;
 import org.apollo.jagcached.FileServer;
 
 import com.rs2.game.bots.BotHandler;
@@ -27,7 +34,7 @@ import com.rs2.game.content.minigames.magetrainingarena.MageTrainingArena;
 import com.rs2.game.content.minigames.trawler.Trawler;
 import com.rs2.game.globalworldobjects.Doors;
 import com.rs2.game.globalworldobjects.DoubleDoors;
-import com.rs2.game.items.ItemDefinition;
+import com.rs2.game.items.ItemDefinitions;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
@@ -43,7 +50,6 @@ import com.rs2.world.GlobalDropsHandler;
 import com.rs2.world.ItemHandler;
 import com.rs2.world.ObjectHandler;
 import com.rs2.world.ObjectManager;
-import com.rs2.world.clip.ObjectDefinition;
 import com.rs2.world.clip.RegionFactory;
 
 import io.netty.util.ResourceLeakDetector;
@@ -181,13 +187,17 @@ public class GameEngine {
 			System.exit(1);
 		}
 
+		IndexedFileSystem cache = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
+		new ObjectDefinitionDecoder(cache).run();
+		new ItemDefinitionDecoder(cache).run();
+		
 		/**
 		 * Initialise Handlers
 		 */
-		RegionFactory.load();
+		RegionFactory.load(cache);
 		Doors.getSingleton().load();
 		DoubleDoors.getSingleton().load();
-		ItemDefinition.read();
+		ItemDefinitions.load();
 		GlobalDropsHandler.initialize();
 		Connection.initialize();
 		HostBlacklist.loadBlacklist();

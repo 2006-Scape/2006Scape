@@ -1,6 +1,6 @@
 package com.rs2.game.objects;
 
-import com.rs2.world.clip.ObjectDefinition;
+import org.apollo.cache.def.ObjectDefinition;
 
 public class Objects {
 
@@ -39,7 +39,7 @@ public class Objects {
 	}
 
 	public int[] getObjectSize() {
-		ObjectDefinition def = ObjectDefinition.getObjectDef(objectId);
+		ObjectDefinition def = ObjectDefinition.lookup(objectId);
 		if (def == null) {
 			return new int[] {1, 1};
 		}
@@ -49,11 +49,11 @@ public class Objects {
 		int xLength;
 		int yLength;
 		if (objectFace != 1 && objectFace != 3) {
-			xLength = def.xLength();
-			yLength = def.yLength();
+			xLength = def.getWidth();
+			yLength = def.getLength();
 		} else {
-			xLength = def.yLength();
-			yLength = def.xLength();
+			xLength = def.getLength();
+			yLength = def.getWidth();
 		}
 
 		return new int[] {xLength, yLength};

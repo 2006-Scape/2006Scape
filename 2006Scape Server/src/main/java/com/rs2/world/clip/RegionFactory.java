@@ -1,12 +1,11 @@
 package com.rs2.world.clip;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.file.Paths;
 
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.cache.archive.Archive;
 import org.apollo.cache.archive.ArchiveEntry;
-import org.apollo.jagcached.Constants;
 import org.apollo.util.CompressionUtil;
 
 public class RegionFactory {
@@ -17,60 +16,53 @@ public class RegionFactory {
 		return regions;
 	}
 
-	public static void load() {
+	public static void load(IndexedFileSystem fs) throws IOException {
 		//GameEngine.getLogger(Region.class).info("Loading region configurations...");
-		try {
-			IndexedFileSystem fs = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
-			ObjectDefinition.loadConfig(fs);
+		Archive archive = Archive.decode(fs.getFile(0, 5));
+		ArchiveEntry entry = archive.getEntry("map_index");
+		ByteBuffer buffer = entry.getBuffer();
 
-			Archive archive = Archive.decode(fs.getFile(0, 5));
-			ArchiveEntry entry = archive.getEntry("map_index");
-			ByteBuffer buffer = entry.getBuffer();
-	
-			int size = buffer.capacity() / 7;
-			regions = new Region[size];
-			int[] regionIds = new int[size];
-			int[] mapGroundFileIds = new int[size];
-			int[] mapObjectsFileIds = new int[size];
-			boolean[] isMembers = new boolean[size];
-			/**
-			 * Seems to be that regions consist of
-			 * regionIds (16 bits)
-			 * groundFileIds (16 bits)
-			 * objectsFileIds (16 bits)
-			 * isMembers (8 bits)
-			 */
-			for (int i = 0; i < size; i++) {
-				regionIds[i] = buffer.getShort() & 0xFFFF;
-				mapGroundFileIds[i] = buffer.getShort() & 0xFFFF;
-				mapObjectsFileIds[i] = buffer.getShort() & 0xFFFF;
-				isMembers[i] = buffer.get() == 0;
-			}
-			for (int i = 0; i < size; i++) {
-				regions[i] = new Region(regionIds[i], isMembers[i]);
-			}
-			//GameEngine.getLogger(Region.class).info(size + " Regions created.");
-			//GameEngine.getLogger(Region.class).info("Populating regions...");
-			for (int i = 0; i < size; i++) {
-				//GameEngine.getLogger(Region.class).info("Region: " + i + " RegionId: " + regionIds[i] + " ObjectsId: " + mapObjectsFileIds[i]
-				//		+ " ClippingsId: " + mapGroundFileIds[i]);				
-				byte[] file1 = CompressionUtil.degzip(fs.getFile(4, mapObjectsFileIds[i]));
-				byte[] file2 = CompressionUtil.degzip(fs.getFile(4, mapGroundFileIds[i]));
-				if (file1 == null || file2 == null) {
-					continue;
-				}
-				try {
-					loadMaps(regionIds[i], new ByteStream(file1),
-							new ByteStream(file2));
-				} catch (Exception e) {
-					System.out.println("Error loading map region: "
-							+ regionIds[i]);
-				}
-			}
-			//GameEngine.getLogger(Region.class).info("Region configuration done.");
-		} catch (Exception e) {
-			e.printStackTrace();
+		int size = buffer.capacity() / 7;
+		regions = new Region[size];
+		int[] regionIds = new int[size];
+		int[] mapGroundFileIds = new int[size];
+		int[] mapObjectsFileIds = new int[size];
+		boolean[] isMembers = new boolean[size];
+		/**
+		 * Seems to be that regions consist of
+		 * regionIds (16 bits)
+		 * groundFileIds (16 bits)
+		 * objectsFileIds (16 bits)
+		 * isMembers (8 bits)
+		 */
+		for (int i = 0; i < size; i++) {
+			regionIds[i] = buffer.getShort() & 0xFFFF;
+			mapGroundFileIds[i] = buffer.getShort() & 0xFFFF;
+			mapObjectsFileIds[i] = buffer.getShort() & 0xFFFF;
+			isMembers[i] = buffer.get() == 0;
 		}
+		for (int i = 0; i < size; i++) {
+			regions[i] = new Region(regionIds[i], isMembers[i]);
+		}
+		//GameEngine.getLogger(Region.class).info(size + " Regions created.");
+		//GameEngine.getLogger(Region.class).info("Populating regions...");
+		for (int i = 0; i < size; i++) {
+			//GameEngine.getLogger(Region.class).info("Region: " + i + " RegionId: " + regionIds[i] + " ObjectsId: " + mapObjectsFileIds[i]
+			//		+ " ClippingsId: " + mapGroundFileIds[i]);				
+			byte[] file1 = CompressionUtil.degzip(fs.getFile(4, mapObjectsFileIds[i]));
+			byte[] file2 = CompressionUtil.degzip(fs.getFile(4, mapGroundFileIds[i]));
+			if (file1 == null || file2 == null) {
+				continue;
+			}
+			try {
+				loadMaps(regionIds[i], new ByteStream(file1),
+						new ByteStream(file2));
+			} catch (Exception e) {
+				System.out.println("Error loading map region: "
+						+ regionIds[i]);
+			}
+		}
+		//GameEngine.getLogger(Region.class).info("Region configuration done.");
 	}
 	
 	/**

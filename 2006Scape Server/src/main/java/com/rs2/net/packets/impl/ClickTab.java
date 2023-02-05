@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
@@ -101,7 +101,7 @@ public class ClickTab implements PacketType {
 				player.getItemAssistant()
 						.sendWeapon(
 								player.playerEquipment[player.playerWeapon],
-								ItemAssistant
+								DeprecatedItems
 										.getItemName(player.playerEquipment[player.playerWeapon]));
 				player.getPacketSender().createArrow(3111, 9518, player.getH(), 2);
 			} else if (player.tutorialProgress == 29) { // Prayer

@@ -1,7 +1,7 @@
 package com.rs2.game.content.skills.crafting;
 
 import com.rs2.GameConstants;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 public class JewelryMaking {
@@ -137,19 +137,19 @@ public class JewelryMaking {
 			return;
 		}
 		if (player.playerLevel[GameConstants.CRAFTING] >= lvl) {
-			if (ItemAssistant.getItemName(itemAdd).toLowerCase().contains("gold")
+			if (DeprecatedItems.getItemName(itemAdd).toLowerCase().contains("gold")
 					&& !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)
 					|| !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
 				player.getPacketSender().sendMessage("You need a Gold bar to make this.");
 				return;
 			} else if (!player.getItemAssistant().playerHasItem(gem, 1)
 					&& player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
-				player.getPacketSender().sendMessage(getRequiredMessage(ItemAssistant.getItemName(gem)));
+				player.getPacketSender().sendMessage(getRequiredMessage(DeprecatedItems.getItemName(gem)));
 				return;
 			}
 			player.getPacketSender().closeAllWindows();
 			while (done < amount
-					&& (ItemAssistant.getItemName(gem).toLowerCase()
+					&& (DeprecatedItems.getItemName(gem).toLowerCase()
 							.contains("unarmed")
 							&& player.getItemAssistant().playerHasItem(GOLD_BAR, 1) || player
 							.getItemAssistant().playerHasItem(gem, 1)
@@ -162,11 +162,11 @@ public class JewelryMaking {
 				done++;
 			}
 			if (done == 1) {
-				player.getPacketSender().sendMessage("You craft the gold to form a " + ItemAssistant.getItemName(itemAdd) + ".");
+				player.getPacketSender().sendMessage("You craft the gold to form a " + DeprecatedItems.getItemName(itemAdd) + ".");
 			} else if (done > 1) {
 				player.getPacketSender().sendMessage(
 						"You craft the gold to form " + done
-								+ " " + ItemAssistant.getItemName(itemAdd)
+								+ " " + DeprecatedItems.getItemName(itemAdd)
 								+ "'s.");
 			}
 		} else {

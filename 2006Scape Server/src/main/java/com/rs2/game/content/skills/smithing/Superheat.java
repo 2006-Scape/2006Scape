@@ -3,7 +3,7 @@ package com.rs2.game.content.skills.smithing;
 import com.rs2.GameConstants;
 import com.rs2.game.content.combat.magic.CastRequirements;
 import com.rs2.game.content.music.sound.SoundList;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -31,7 +31,7 @@ public class Superheat {
 					if (itemID == 440 && smelt[2] == 453) {
 						continue;
 					} else {
-						player.getPacketSender().sendMessage("You haven't got enough " + ItemAssistant.getItemName(smelt[2]).toLowerCase() + " to cast this spell!");
+						player.getPacketSender().sendMessage("You haven't got enough " + DeprecatedItems.getItemName(smelt[2]).toLowerCase() + " to cast this spell!");
 						return false;
 					}
 				}

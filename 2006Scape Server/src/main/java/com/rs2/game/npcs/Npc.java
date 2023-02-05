@@ -3,7 +3,7 @@ package com.rs2.game.npcs;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
@@ -66,7 +66,7 @@ public class Npc {
 	
 	public void shearSheep(Player player, int itemNeeded, int itemGiven, int animation, final int currentId, final int newId, int transformTime) {
 		if (!player.getItemAssistant().playerHasItem(itemNeeded)) {
-			player.getPacketSender().sendMessage("You need " + ItemAssistant.getItemName(itemNeeded).toLowerCase() + " to do that.");
+			player.getPacketSender().sendMessage("You need " + DeprecatedItems.getItemName(itemNeeded).toLowerCase() + " to do that.");
 			return;
 		}
 		if (transformId == newId) {
@@ -81,7 +81,7 @@ public class Npc {
 		}
 		requestTransform(newId);
 		player.getItemAssistant().addItem(itemGiven, 1);
-		player.getPacketSender().sendMessage("You get some " + ItemAssistant.getItemName(itemGiven).toLowerCase() + ".");
+		player.getPacketSender().sendMessage("You get some " + DeprecatedItems.getItemName(itemGiven).toLowerCase() + ".");
 		CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 
 			@Override

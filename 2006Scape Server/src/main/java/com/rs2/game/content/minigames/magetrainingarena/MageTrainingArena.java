@@ -5,7 +5,7 @@
 
 package com.rs2.game.content.minigames.magetrainingarena;
 
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -244,7 +244,7 @@ public class MageTrainingArena {
 
 	public void sendItemValue(int itemId) {
 		player.getPacketSender().sendMessage(
-				ItemAssistant.getItemName(itemId) + " costs "
+				DeprecatedItems.getItemName(itemId) + " costs "
 				+ getTelekineticPointValue(itemId) + " Telekinetic points, "
 				+ getGraveyardPointValue(itemId) + " Graveyard points,");
 		player.getPacketSender().sendMessage(

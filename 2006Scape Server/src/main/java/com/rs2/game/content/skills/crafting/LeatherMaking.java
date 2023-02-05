@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 public class LeatherMaking extends CraftingData {
@@ -24,7 +24,7 @@ public class LeatherMaking extends CraftingData {
 					c.getPacketSender().sendChatInterface(4429);
 					c.getPacketSender().sendFrame246(1746, 200, 1131);
 					c.getPacketSender().sendString(
-							ItemAssistant.getItemName(1131), 2799);
+							DeprecatedItems.getItemName(1131), 2799);
 					c.leatherType = leather;
 				}
 				if (l.getLeather() == 6289) {
@@ -88,10 +88,10 @@ public class LeatherMaking extends CraftingData {
 								"You need "
 										+ l.getHideAmount()
 										+ " "
-										+ ItemAssistant.getItemName(
+										+ DeprecatedItems.getItemName(
 												player.leatherType).toLowerCase()
 										+ " to make "
-										+ ItemAssistant.getItemName(
+										+ DeprecatedItems.getItemName(
 												l.getProduct()).toLowerCase()
 										+ ".");
 						player.getPacketSender().closeAllWindows();
@@ -141,14 +141,14 @@ public class LeatherMaking extends CraftingData {
 										player.getPacketSender()
 												.sendMessage(
 														"You make "
-																+ (ItemAssistant
+																+ (DeprecatedItems
 																		.getItemName(
 																				l.getProduct())
 																		.contains(
 																				"body") ? "a"
 																		: "some")
 																+ " "
-																+ ItemAssistant
+																+ DeprecatedItems
 																		.getItemName(l
 																				.getProduct())
 																+ ".");

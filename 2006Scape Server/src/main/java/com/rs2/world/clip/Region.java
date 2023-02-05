@@ -2,6 +2,8 @@ package com.rs2.world.clip;
 
 import java.util.ArrayList;
 
+import org.apollo.cache.def.ObjectDefinition;
+
 import com.rs2.game.objects.Objects;
 
 public class Region {
@@ -601,40 +603,40 @@ public class Region {
 	 * @param startUp
 	 */
 	public static void addObject(int objectId, int x, int y, int height, int type, int direction, boolean startUp) {
-		if (ObjectDefinition.getObjectDef(objectId) == null) {
+		if (ObjectDefinition.lookup(objectId) == null) {
 		}
 		int xLength;
 		int yLength;
 		if (direction != 1 && direction != 3) {
-			xLength = ObjectDefinition.getObjectDef(objectId).xLength();
-			yLength = ObjectDefinition.getObjectDef(objectId).yLength();
+			xLength = ObjectDefinition.lookup(objectId).getWidth();
+			yLength = ObjectDefinition.lookup(objectId).getLength();
 		} else {
-			xLength = ObjectDefinition.getObjectDef(objectId).yLength();
-			yLength = ObjectDefinition.getObjectDef(objectId).xLength();
+			xLength = ObjectDefinition.lookup(objectId).getLength();
+			yLength = ObjectDefinition.lookup(objectId).getWidth();
 		}
 		if (type == 22) {
-			if (ObjectDefinition.getObjectDef(objectId).hasActions()
-					&& ObjectDefinition.getObjectDef(objectId).aBoolean767()) {
+			if (ObjectDefinition.lookup(objectId).isInteractive()
+					&& ObjectDefinition.lookup(objectId).isSolid()) {
 				addClipping(x, y, height, 0x200000);
-				if (ObjectDefinition.getObjectDef(objectId).isUnshootable()) {
+				if (ObjectDefinition.lookup(objectId).isImpenetrable()) {
 					addProjectileClipping(x, y, height, 0x200000);
 				}
 			}
 		} else if (type >= 9) {
-			if (ObjectDefinition.getObjectDef(objectId).aBoolean767()) {
+			if (ObjectDefinition.lookup(objectId).isSolid()) {
 				addClippingForSolidObject(x, y, height, xLength, yLength,
-						ObjectDefinition.getObjectDef(objectId).solid());
-				if (ObjectDefinition.getObjectDef(objectId).isUnshootable()) {
+						ObjectDefinition.lookup(objectId).isClipped());
+				if (ObjectDefinition.lookup(objectId).isImpenetrable()) {
 					addProjectileClippingForSolidObject(x, y, height, xLength, yLength,
-							ObjectDefinition.getObjectDef(objectId).solid());
+							ObjectDefinition.lookup(objectId).isClipped());
 				}
 			}
 		} else if (type >= 0 && type <= 3) {
-			if (ObjectDefinition.getObjectDef(objectId).aBoolean767()) {
+			if (ObjectDefinition.lookup(objectId).isSolid()) {
 				addClippingForVariableObject(x, y, height, type, direction,
-						ObjectDefinition.getObjectDef(objectId).solid());
-				if (ObjectDefinition.getObjectDef(objectId).isUnshootable()) {
-					addProjectileClippingForVariableObject(x, y, height, type, direction, ObjectDefinition.getObjectDef(objectId).solid());
+						ObjectDefinition.lookup(objectId).isClipped());
+				if (ObjectDefinition.lookup(objectId).isImpenetrable()) {
+					addProjectileClippingForVariableObject(x, y, height, type, direction, ObjectDefinition.lookup(objectId).isClipped());
 				}
 			}
 		}

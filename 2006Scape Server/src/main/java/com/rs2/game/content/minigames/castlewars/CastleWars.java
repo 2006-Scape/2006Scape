@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.rs2.GameConstants;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -72,7 +72,7 @@ public class CastleWars {
 			int amount = c.getItemAssistant().getItemAmount(item);
 			if (itemId == item && !isInCw(c)) {
 				c.getItemAssistant().deleteItem(item, amount);
-				c.getPacketSender().sendMessage("You shouldn't have " + ItemAssistant.getItemName(itemId) + " outside of castlewars!");
+				c.getPacketSender().sendMessage("You shouldn't have " + DeprecatedItems.getItemName(itemId) + " outside of castlewars!");
 				return false;
 			}
 		}

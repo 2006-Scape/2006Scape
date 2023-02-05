@@ -5,7 +5,7 @@ import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.StaticItemList;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 import java.util.HashMap;
@@ -100,7 +100,7 @@ public class DairyChurn {
                 }
                 container.setTick(5);
                 player.startAnimation(CHURN_ANIMATION);
-                player.getPacketSender().sendMessage("You make a " + ItemAssistant.getItemName(churnData.getResult()).toLowerCase() + ".");
+                player.getPacketSender().sendMessage("You make a " + DeprecatedItems.getItemName(churnData.getResult()).toLowerCase() + ".");
                 for (int i = 0; i < churnData.getUsed().length; i++)
                     player.getItemAssistant().deleteItem(churnData.getUsed()[i], 1);
                 player.getItemAssistant().addItem(churnData.getResult(), 1);

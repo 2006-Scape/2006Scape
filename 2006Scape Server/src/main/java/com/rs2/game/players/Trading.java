@@ -2,13 +2,16 @@ package com.rs2.game.players;
 
 import java.time.temporal.ValueRange;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemData;
-import com.rs2.game.items.ItemAssistant;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.util.GameLogger;
 import com.rs2.util.Misc;
@@ -148,7 +151,7 @@ public class Trading {
 			}
 			player.tradeConfirmed = false;
 			o.tradeConfirmed = false;
-			if (!ItemData.itemStackable[itemID]) {
+			if (!ItemDefinition.lookup(itemID).isStackable()) {
 				for (int a = 0; a < amount; a++) {
 					for (GameItem item : offeredItems) {
 						if (item.id == itemID) {
@@ -272,7 +275,7 @@ public class Trading {
 		}
 		player.tradeConfirmed = false;
 		o.tradeConfirmed = false;
-		if (!ItemData.itemStackable[itemID] && !ItemData.itemIsNote[itemID]) {
+		if (!ItemDefinition.lookup(itemID).isStackable() && !ItemDefinition.lookup(itemID).isNote()) {
 			for (int a = 0; a < amount && a < 28; a++) {
 				if (player.getItemAssistant().playerHasItem(itemID, 1)) {
 					offeredItems.add(new GameItem(itemID, 1));
@@ -304,7 +307,7 @@ public class Trading {
 			declineTrade();
 			return false;
 		}
-		if (ItemData.itemStackable[itemID] || ItemData.itemIsNote[itemID]) {
+		if (ItemDefinition.lookup(itemID).isStackable() || ItemDefinition.lookup(itemID).isNote()) {
 			boolean inTrade = false;
 			for (GameItem item : offeredItems) {
 				if (item.id == itemID) {
@@ -447,10 +450,10 @@ public class Trading {
 				}
 
 				if (Count == 0) {
-					SendTrade = ItemAssistant.getItemName(item.id);
+					SendTrade = DeprecatedItems.getItemName(item.id);
 				} else {
 					SendTrade = SendTrade + "\\n"
-							+ ItemAssistant.getItemName(item.id);
+							+ DeprecatedItems.getItemName(item.id);
 				}
 
 				if (item.stackable) {
@@ -479,10 +482,10 @@ public class Trading {
 				}
 
 				if (Count == 0) {
-					SendTrade = ItemAssistant.getItemName(item.id);
+					SendTrade = DeprecatedItems.getItemName(item.id);
 				} else {
 					SendTrade = SendTrade + "\\n"
-							+ ItemAssistant.getItemName(item.id);
+							+ DeprecatedItems.getItemName(item.id);
 				}
 				if (item.stackable) {
 					SendTrade = SendTrade + " x " + SendAmount;
@@ -502,7 +505,7 @@ public class Trading {
 		}
 		try {
 			for (GameItem item : o.getTrading().offeredItems) {
-				String itemName = ItemAssistant.getItemName(item.id);
+				String itemName = DeprecatedItems.getItemName(item.id);
 				if (item.id > 0) {
 					player.getItemAssistant().addItem(item.id, item.amount);
 					if (player.getPlayerAssistant().isPlayer()) {

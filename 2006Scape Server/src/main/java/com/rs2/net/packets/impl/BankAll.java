@@ -1,5 +1,7 @@
 package com.rs2.net.packets.impl;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemData;
@@ -67,7 +69,7 @@ public class BankAll implements PacketType {
 				player.getPacketSender().sendMessage("You can't store items while trading!");
 				return;
 			}
-			if (ItemData.itemStackable[removeId]) {
+			if (ItemDefinition.lookup(removeId).isStackable()) {
 				player.getItemAssistant().bankItem(player.playerItems[removeSlot], removeSlot, player.playerItemsN[removeSlot]);
 			} else {
 				player.getItemAssistant().bankItem(player.playerItems[removeSlot], removeSlot, player.getItemAssistant().itemAmount(player.playerItems[removeSlot]));
@@ -98,14 +100,14 @@ public class BankAll implements PacketType {
 
 		case 3322:
 			if (player.duelStatus <= 0) {
-				if (ItemData.itemStackable[removeId]) {
+				if (ItemDefinition.lookup(removeId).isStackable()) {
 					player.getTrading().tradeItem(removeId, removeSlot,
 							player.playerItemsN[removeSlot]);
 				} else {
 					player.getTrading().tradeItem(removeId, removeSlot, 28);
 				}
 			} else {
-				if (ItemData.itemStackable[removeId] || ItemData.itemIsNote[removeId]) {
+				if (ItemDefinition.lookup(removeId).isStackable() || ItemDefinition.lookup(removeId).isNote()) {
 					player.getDueling().stakeItem(removeId, removeSlot,
 							player.playerItemsN[removeSlot]);
 				} else {
@@ -116,7 +118,7 @@ public class BankAll implements PacketType {
 
 		case 3415:
 			if (player.duelStatus <= 0) {
-				if (ItemData.itemStackable[removeId]) {
+				if (ItemDefinition.lookup(removeId).isStackable()) {
 					for (GameItem item : player.getTrading().offeredItems) {
 						if (item.id == removeId) {
 							player.getTrading()
@@ -138,7 +140,7 @@ public class BankAll implements PacketType {
 			break;
 
 		case 6669:
-			if (ItemData.itemStackable[removeId] || ItemData.itemIsNote[removeId]) {
+			if (ItemDefinition.lookup(removeId).isStackable() || ItemDefinition.lookup(removeId).isNote()) {
 				for (GameItem item : player.getDueling().stakedItems) {
 					if (item.id == removeId) {
 						player.getDueling()

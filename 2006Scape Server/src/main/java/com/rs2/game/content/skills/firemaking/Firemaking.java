@@ -8,7 +8,7 @@ import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.content.skills.cooking.Cooking;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.objects.Object;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -44,7 +44,7 @@ public class Firemaking {
 			final int logId = usedWith == firemakingItems[i] ? itemUsed : usedWith;
 			if (logId == l.getLogId()) {
 				if (c.playerLevel[GameConstants.FIREMAKING] < l.getLevel()) {
-					c.getPacketSender().sendMessage("You need a firemaking level of " + l.getLevel() + " to light " + ItemAssistant.getItemName(logId));
+					c.getPacketSender().sendMessage("You need a firemaking level of " + l.getLevel() + " to light " + DeprecatedItems.getItemName(logId));
 					return;
 				}
 				if (Boundary.isIn(c, Boundary.BANK_AREA) || Boundary.isIn(c, Boundary.LUMB_BUILDING) || Boundary.isIn(c, Boundary.DRAYNOR_BUILDING)) {

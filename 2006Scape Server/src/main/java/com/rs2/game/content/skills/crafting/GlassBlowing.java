@@ -2,7 +2,7 @@ package com.rs2.game.content.skills.crafting;
 
 import com.rs2.GameConstants;
 import com.rs2.event.*;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -83,7 +83,7 @@ public class GlassBlowing {
         
         public void makeItem(final int id, final int amount, final int slot) {
             if(c.playerLevel[GameConstants.CRAFTING] < data[slot][2]) {
-				c.getPacketSender().sendMessage("You need a crafting level of "+data[slot][2]+" make a "+ItemAssistant.getItemName(id)+"");
+				c.getPacketSender().sendMessage("You need a crafting level of "+data[slot][2]+" make a "+DeprecatedItems.getItemName(id)+"");
                 return;
             }
             if(!started) {

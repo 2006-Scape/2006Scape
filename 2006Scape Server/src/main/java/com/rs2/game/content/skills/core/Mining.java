@@ -6,7 +6,7 @@ import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.StaticItemList;
 import com.rs2.game.content.StaticObjectList;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.objects.Object;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -34,7 +34,7 @@ public class Mining {
     public void obtainGem(Player player) {
         int reward = RANDOM_GEMS[(int) (RANDOM_GEMS.length * Math.random())];
         player.getItemAssistant().addItem(reward, 1);
-        player.getPacketSender().sendMessage("You found an " + ItemAssistant.getItemName(reward) + ".");
+        player.getPacketSender().sendMessage("You found an " + DeprecatedItems.getItemName(reward) + ".");
     }
 
     public final int[][] Pick_Settings = {
@@ -237,7 +237,7 @@ public class Mining {
                     if (!giveGem(player)) {
                         player.getItemAssistant().addItem(oreID, 1);
                         player.getPlayerAssistant().addSkillXP(rock.getXp(), GameConstants.MINING);
-                        player.getPacketSender().sendMessage("You manage to mine some " + ItemAssistant.getItemName(oreID).toLowerCase() + ".");
+                        player.getPacketSender().sendMessage("You manage to mine some " + DeprecatedItems.getItemName(oreID).toLowerCase() + ".");
                     } else {
                         obtainGem(player);
                     }

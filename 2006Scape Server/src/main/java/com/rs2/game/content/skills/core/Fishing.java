@@ -7,7 +7,7 @@ import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.randomevents.RiverTroll;
 import com.rs2.game.content.skills.SkillHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -82,7 +82,7 @@ public class Fishing extends SkillHandler {
                     if (!c.getItemAssistant().playerHasItem(data[i][3])) {
                         c.getDialogueHandler().sendStatement(
                                 "You need more "
-                                        + ItemAssistant.getItemName(data[i][3])
+                                        + DeprecatedItems.getItemName(data[i][3])
                                         .toLowerCase().toLowerCase()
                                         + " in order to fish at this spot.");
                         return;
@@ -206,13 +206,13 @@ public class Fishing extends SkillHandler {
                                         c.getPacketSender()
                                                 .sendMessage(
                                                         "You don't have any "
-                                                                + ItemAssistant
+                                                                + DeprecatedItems
                                                                 .getItemName(c.playerSkillProp[GameConstants.FISHING][3])
                                                                 + " left!");
                                         c.getPacketSender()
                                                 .sendMessage(
                                                         "You need "
-                                                                + ItemAssistant
+                                                                + DeprecatedItems
                                                                 .getItemName(c.playerSkillProp[GameConstants.FISHING][3])
                                                                 + " to fish here.");
                                         resetFishing(c);
@@ -272,7 +272,7 @@ public class Fishing extends SkillHandler {
                                                             || c.playerSkillProp[GameConstants.FISHING][1] == RAW_SHRIMPS
                                                             || c.playerSkillProp[GameConstants.FISHING][1] == RAW_MONKFISH ? "some "
                                                             : "a ")
-                                                            + ItemAssistant
+                                                            + DeprecatedItems
                                                             .getItemName(
                                                                     c.playerSkillProp[GameConstants.FISHING][1])
                                                             .toLowerCase()
@@ -305,7 +305,7 @@ public class Fishing extends SkillHandler {
                                         c.getDialogueHandler()
                                                 .sendStatement(
                                                         "You have run out of "
-                                                                + ItemAssistant
+                                                                + DeprecatedItems
                                                                 .getItemName(
                                                                         c.playerSkillProp[GameConstants.FISHING][3])
                                                                 .toLowerCase()
@@ -352,7 +352,7 @@ public class Fishing extends SkillHandler {
                 if (!c.getItemAssistant().playerHasItem(HARPOON)) {
                     c.getPacketSender().sendMessage(
                             "You need a "
-                                    + ItemAssistant.getItemName(equipment)
+                                    + DeprecatedItems.getItemName(equipment)
                                     .toLowerCase() + " to fish here.");
                     resetFishing(c);
                     return false;
@@ -360,7 +360,7 @@ public class Fishing extends SkillHandler {
             } else {
                 resetFishing(c);
                 c.getPacketSender().sendMessage(
-                        "You need a " + ItemAssistant.getItemName(equipment)
+                        "You need a " + DeprecatedItems.getItemName(equipment)
                                 + " to fish here.");
                 return false;
             }

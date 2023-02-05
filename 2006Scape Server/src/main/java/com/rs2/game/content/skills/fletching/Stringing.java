@@ -4,7 +4,7 @@ import com.rs2.GameConstants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
 /**
@@ -79,7 +79,7 @@ public class Stringing {
 			return false;
 		}
 		if (!player.getItemAssistant().playerHasItem(loadData.getItem1()) || !player.getItemAssistant().playerHasItem(loadData.getItem2())) {
-			player.getDialogueHandler().sendStatement("You need a " + ItemAssistant.getItemName(loadData.getItem1()) + " and a " + ItemAssistant.getItemName(loadData.getItem2()) + " to make this.");
+			player.getDialogueHandler().sendStatement("You need a " + DeprecatedItems.getItemName(loadData.getItem1()) + " and a " + DeprecatedItems.getItemName(loadData.getItem2()) + " to make this.");
 			return false;
 		}
 		player.playerIsFletching = true;

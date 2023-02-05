@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
  * Represents a type of GameObject.
  *
  * @author Major
+ * @author Advocatus
  */
 public final class ObjectDefinition {
 
@@ -60,6 +61,11 @@ public final class ObjectDefinition {
 		return definitions[id];
 	}
 
+	/**
+	 * Represents whether or not this object is clipped. By default, they are.
+	 */
+	private boolean clipped = true;
+	
 	/**
 	 * The object's description.
 	 */
@@ -174,6 +180,15 @@ public final class ObjectDefinition {
 	}
 
 	/**
+	 * Indicates whether or not this object is clipped.
+	 * 
+	 * @return {@code true} if this object is clipped.
+	 */
+	public boolean isClipped() {
+		return clipped;
+	}
+	
+	/**
 	 * Indicates the impenetrability of this object.
 	 *
 	 * @return {@code true} if this object is impenetrable, otherwise {@code false}.
@@ -209,6 +224,15 @@ public final class ObjectDefinition {
 		return solid;
 	}
 
+	/**
+	 * Sets whether or not this this object is clipped.
+	 * 
+	 * @param clipped Whether it is clipped.
+	 */
+	public void setClipped(boolean clipped) {
+		this.clipped = clipped;
+	}
+	
 	/**
 	 * Sets the description of this object.
 	 *

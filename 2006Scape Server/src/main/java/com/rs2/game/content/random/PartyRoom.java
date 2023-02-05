@@ -3,10 +3,12 @@ package com.rs2.game.content.random;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.items.ItemConstants;
-import com.rs2.game.items.ItemData;
 import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -109,7 +111,7 @@ public class PartyRoom {
 	public static int arraySlot(int[] array, int itemID) {
 		int spare = -1;
 		for (int x = 0; x < array.length; x++) {
-			if (array[x] == itemID && ItemData.itemStackable[itemID]) {
+			if (array[x] == itemID && ItemDefinition.lookup(itemID).isStackable()) {
 				return x;
 			} else if (spare == -1 && array[x] <= 0) {
 				spare = x;
@@ -132,7 +134,7 @@ public class PartyRoom {
 	public static void accept(Player c) {
 		for (int x = 0; x < c.party.length; x++) {
 			if (c.partyN[x] > 0) {
-				if (ItemData.itemStackable[c.party[x]]) {
+				if (ItemDefinition.lookup(c.party[x]).isStackable()) {
 					int slot = arraySlot(roomItems, c.party[x]);
 					if (slot < 0) {
 						c.getPacketSender().sendMessage("Theres not enough space left in the chest.");
@@ -208,7 +210,7 @@ public class PartyRoom {
 			return;
 		}
 
-		if (player.getItemAssistant().isStackable(id)) {
+		if (ItemDefinition.lookup(id).isStackable()) {
 			int slot = arraySlot(player.party, id);
 			if (slot == -1) {
 				player.getPacketSender().sendMessage("You can only deposit up to 8 items at once.");

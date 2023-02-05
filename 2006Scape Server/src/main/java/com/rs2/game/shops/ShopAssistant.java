@@ -1,11 +1,12 @@
 package com.rs2.game.shops;
 
+import org.apollo.cache.def.ItemDefinition;
+
 import com.rs2.GameConstants;
 import com.rs2.game.bots.BotHandler;
 import com.rs2.game.items.ItemData;
-import com.rs2.game.items.ItemAssistant;
+import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.ItemConstants;
-import com.rs2.game.items.ItemDefinition;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.GameLogger;
@@ -101,8 +102,8 @@ public class ShopAssistant {
 		double ShopValue = 1;
 		double TotPrice = 0;
 		double sellingRatio = isSelling ? 0.85 : 1;
-		if (ItemDefinition.getDefs()[ItemID] != null) {
-			ShopValue = ItemDefinition.getDefs()[ItemID].highAlch / 3.0 * 5.0 * sellingRatio;
+		if (ItemDefinition.lookup(ItemID) != null) {
+			ShopValue = ItemDefinition.lookup(ItemID).getValue() * sellingRatio;
 		}
 
 		TotPrice = ShopValue;
@@ -133,19 +134,19 @@ public class ShopAssistant {
 			ShopValue = BotHandler.getItemPrice(player.shopId, itemID);
 		}
 		if (player.shopId == 138 || player.shopId == 139 || player.shopId == 58) {
-			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + SpecialValue + " tokkul.");
+			player.getPacketSender().sendMessage(DeprecatedItems.getItemName(itemID) + ": currently costs " + SpecialValue + " tokkul.");
 			return;
 		}
 		if (player.shopId == PEST_SHOP) {
-			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getPestItemValue(itemID) + " pest control points.");
+			player.getPacketSender().sendMessage(DeprecatedItems.getItemName(itemID)+": currently costs " + getPestItemValue(itemID) + " pest control points.");
 			return;
 		}
 		if (player.shopId == CASTLE_SHOP) {
-			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getCastleItemValue(itemID) + " castle wars tickets.");
+			player.getPacketSender().sendMessage(DeprecatedItems.getItemName(itemID)+": currently costs " + getCastleItemValue(itemID) + " castle wars tickets.");
 			return;
 		}
 		if (player.shopId == RANGE_SHOP) {
-			player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID)+": currently costs " + getRGItemValue(itemID) + " archery tickets.");
+			player.getPacketSender().sendMessage(DeprecatedItems.getItemName(itemID)+": currently costs " + getRGItemValue(itemID) + " archery tickets.");
 			return;
 		}
 		if (ShopValue >= 1000 && ShopValue < 1000000) {
@@ -153,7 +154,7 @@ public class ShopAssistant {
 		} else if (ShopValue >= 1000000) {
 			ShopAdd = " (" + ShopValue / 1000000 + " million)";
 		}
-		player.getPacketSender().sendMessage(ItemAssistant.getItemName(itemID) + ": currently costs " + ShopValue + " coins" + ShopAdd);
+		player.getPacketSender().sendMessage(DeprecatedItems.getItemName(itemID) + ": currently costs " + ShopValue + " coins" + ShopAdd);
 	}
 
 	public int getCastleItemValue(int id) {
@@ -274,7 +275,7 @@ public class ShopAssistant {
 	 **/
 	public void sellToShopPrice(int removeId, int removeSlot) {
 		int unNotedItemID = getUnNoted(removeId);
-		String itemName = ItemAssistant.getItemName(unNotedItemID);
+		String itemName = DeprecatedItems.getItemName(unNotedItemID);
 		for (int i : ItemConstants.ITEM_SELLABLE) {
 			if (unNotedItemID == i) {
 				player.getPacketSender().sendMessage("You can't sell " + itemName + ".");
@@ -303,7 +304,7 @@ public class ShopAssistant {
 		}
 
 		if (canSellItem == false) {
-			player.getPacketSender().sendMessage("You can't sell " + ItemAssistant.getItemName(removeId).toLowerCase() + " to this store.");
+			player.getPacketSender().sendMessage("You can't sell " + DeprecatedItems.getItemName(removeId).toLowerCase() + " to this store.");
 		} else {
 			int ShopValue = (int) Math.floor(getItemShopValue(unNotedItemID, 1, true));
 			int tokkulValue = (int) Math.floor(getTokkulValue(unNotedItemID) *.85);
@@ -334,7 +335,7 @@ public class ShopAssistant {
 
 	public boolean sellItem(int itemID, int fromSlot, int amount) {
 		int unNotedItemID = getUnNoted(itemID);
-		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+		String itemName = DeprecatedItems.getItemName(itemID).toLowerCase();
 		for (int i : ItemConstants.ITEM_SELLABLE) {
 			if (i == unNotedItemID) {
 				player.getPacketSender().sendMessage("You can't sell " + itemName + ".");
@@ -410,7 +411,7 @@ public class ShopAssistant {
 				currency = 995;
 			}
 
-			boolean isStackable = ItemDefinition.getDefs()[itemID].isStackable;
+			boolean isStackable = ItemDefinition.lookup(itemID).isStackable();
 
 			if (!player.getItemAssistant().playerHasItem(currency) && isStackable && amount < inventoryAmount && player.getItemAssistant().freeSlots() <= 0) {
 				player.getPacketSender().sendMessage("You don't have enough space in your inventory.");
@@ -426,7 +427,7 @@ public class ShopAssistant {
 				// Add currency to players inventory
 				int totalValue = value * amount;
 				player.getItemAssistant().addItem(currency, totalValue);
-				player.getPacketSender().sendMessage("You sold " + amount + " " + itemName + " for " + totalValue + " " + ItemAssistant.getItemName(currency).toLowerCase() + ".");
+				player.getPacketSender().sendMessage("You sold " + amount + " " + itemName + " for " + totalValue + " " + DeprecatedItems.getItemName(currency).toLowerCase() + ".");
 			}
 
 			// Add item to the shop
@@ -444,8 +445,8 @@ public class ShopAssistant {
 		if (amount <= 0) {
 			return false;
 		}
-		if (ItemData.itemIsNote[itemID]) {
-			itemID = player.getItemAssistant().getUnnotedItem(itemID);
+		if (ItemDefinition.lookup(itemID).isNote()) {
+			itemID = ItemDefinition.noteToItem(itemID);
 		}
 		for (int i = 0; i < ShopHandler.shopItems[player.shopId].length; i++) {
 			if (ShopHandler.shopItems[player.shopId][i] - 1 == itemID) {
@@ -467,8 +468,8 @@ public class ShopAssistant {
 	}
 
 	private static int getUnNoted(int itemID){
-		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID - 1).toLowerCase();
+		String itemName = DeprecatedItems.getItemName(itemID).toLowerCase();
+		String ItemNameUnNotedItem = DeprecatedItems.getItemName(itemID - 1).toLowerCase();
 		if (itemName.equalsIgnoreCase(ItemNameUnNotedItem)) {
 			itemID--; //Replace the noted item by it's un-noted version.
 		}
@@ -476,8 +477,8 @@ public class ShopAssistant {
 	}
 
 	private static int getNoted(int itemID){
-		String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
-		String ItemNameUnNotedItem = ItemAssistant.getItemName(itemID + 1).toLowerCase();
+		String itemName = DeprecatedItems.getItemName(itemID).toLowerCase();
+		String ItemNameUnNotedItem = DeprecatedItems.getItemName(itemID + 1).toLowerCase();
 		if (itemName.equalsIgnoreCase(ItemNameUnNotedItem)) {
 			itemID++; //Replace the item by it's noted version.
 		}
@@ -491,7 +492,7 @@ public class ShopAssistant {
 		int notedItemID = getNoted(itemID);
 		boolean isPlayerShop = ShopHandler.shopBModifier[player.shopId] == 0;
 		// Items are stackable if from a player owned shop and notable
-		boolean isStackable = ItemDefinition.getDefs()[itemID].isStackable || (isPlayerShop && getNoted(itemID) != itemID);
+		boolean isStackable = ItemDefinition.lookup(itemID).isStackable() || (isPlayerShop && getNoted(itemID) != itemID);
 		int freeSlots = player.getItemAssistant().freeSlots();
 		int storeQty = ShopHandler.getStock(shopID, itemID);
 		if (amount > 0) {
@@ -550,7 +551,7 @@ public class ShopAssistant {
 				currency = 995; //gp
 			}
 			int currencySlot = player.getItemAssistant().getItemSlot(currency);
-			String currencyName = ItemAssistant.getItemName(currency).toLowerCase();
+			String currencyName = DeprecatedItems.getItemName(currency).toLowerCase();
 
 			// player has none of the required currency
 			if (currencySlot == -1) {
@@ -572,7 +573,7 @@ public class ShopAssistant {
 				}
 			}
 
-			String itemName = ItemAssistant.getItemName(itemID).toLowerCase();
+			String itemName = DeprecatedItems.getItemName(itemID).toLowerCase();
 			if (!shopIsOwnedByThisPlayer) {
 				player.getItemAssistant().deleteItem(currency, totalValue);
 				player.getPacketSender().sendMessage("You bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + "." );

@@ -1,7 +1,5 @@
 package com.rs2.game.items;
 
-import com.rs2.GameEngine;
-
 /**
  * Represents a single item.
  * 
@@ -97,9 +95,5 @@ public class Item {
 
 	public boolean equals(Item item) {
 		return item.getId() == id && count == item.getCount();
-	}
-
-	public ItemList getDefinition() {
-		return GameEngine.itemHandler.itemList[id];
 	}
 }
