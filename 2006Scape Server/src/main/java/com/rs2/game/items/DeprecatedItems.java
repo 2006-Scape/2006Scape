@@ -39,6 +39,8 @@ public class DeprecatedItems {
 	 */
 	@java.lang.Deprecated
 	public static String getItemName(int id) {
+		if(id == -1)
+			return "Unarmed";
 		if(org.apollo.cache.def.ItemDefinition.lookup(id) == null || org.apollo.cache.def.ItemDefinition.lookup(id).getName() == null)
 			return "Unarmed";
 		return org.apollo.cache.def.ItemDefinition.lookup(id).getName();

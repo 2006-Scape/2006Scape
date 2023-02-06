@@ -78,6 +78,12 @@ public final class ItemDefinition {
 		return entry;
 	}
 
+	private static ItemDefinition NULL_DEF = new ItemDefinition(-1);
+	static {
+		NULL_DEF.setName("");
+		NULL_DEF.setDescription("");
+	}
+	
 	/**
 	 * Gets the item definition for the specified id.
 	 *
@@ -86,7 +92,10 @@ public final class ItemDefinition {
 	 * @throws IndexOutOfBoundsException If the id is out of bounds.
 	 */
 	public static ItemDefinition lookup(int id) {
-		Preconditions.checkElementIndex(id, definitions.length, "Id out of bounds.");
+//		Preconditions.checkElementIndex(id, definitions.length, "Id out of bounds.");
+		if(id < 0 || id > definitions.length) {
+			return NULL_DEF;
+		}
 		return definitions[id];
 	}
 

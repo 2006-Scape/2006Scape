@@ -149,6 +149,8 @@ public class ItemData {
 			"sallet", "Facemask", "Bearhead"};
 
 	public static boolean isFullBody(int itemId) {
+		if(itemId == -1)
+			return false;
 		String weapon = ItemDefinition.lookup(itemId).getName();
 		if (weapon == null) {
 			return false;
@@ -162,6 +164,8 @@ public class ItemData {
 	}
 
 	public static boolean isFullHelm(int itemId) {
+		if(itemId == -1)
+			return false;
 		String weapon = ItemDefinition.lookup(itemId).getName();
 		if (weapon == null) {
 			return false;
@@ -175,6 +179,8 @@ public class ItemData {
 	}
 
 	public static boolean isFullMask(int itemId) {
+		if(itemId == -1)
+			return false;
 		String weapon = ItemDefinition.lookup(itemId).getName();
 		if (weapon == null) {
 			return false;
