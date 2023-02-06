@@ -2039,7 +2039,7 @@ public class PlayerAssistant {
 		}
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
-		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
+		if (oldLevel <= getLevelForXP(player.playerXP[skill])) {
 			if (player.playerLevel[skill] < player.getLevelForXP(player.playerXP[skill]) && skill != 3 && skill != 5) {
 				player.playerLevel[skill] = player.getLevelForXP(player.playerXP[skill]);
 			}

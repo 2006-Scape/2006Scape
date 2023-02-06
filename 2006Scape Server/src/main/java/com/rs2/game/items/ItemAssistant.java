@@ -646,7 +646,7 @@ public class ItemAssistant {
 			player.getPacketSender().setSidebarInterface(0, 3796); // pound, pummel, spike, block
 			player.getPacketSender().sendFrame246(3797, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 3799);
-		} else if (player.playerEquipment[player.playerWeapon] == 4153) {
+		} else if (newWeapon.toLowerCase().contains("tzhaar") || newWeapon.toLowerCase().contains("warhammer") || player.playerEquipment[player.playerWeapon] == 4153) {
 			player.getPacketSender().setSidebarInterface(0, 425); // war hammer equip
 			player.getPacketSender().sendFrame246(426, 200, weapon);
 			player.getPacketSender().sendString(weaponName, 428);

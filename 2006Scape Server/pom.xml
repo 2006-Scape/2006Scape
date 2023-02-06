@@ -155,13 +155,30 @@
 
     <build>
         <plugins>
+			<plugin>
+            <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/java</source>
+                                <source>plugins</source>
+                            </sources>
+                    </configuration>
+                    </execution>
+            </executions>
+            </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <generatedSourcesDirectory>${project.basedir}/plugins</generatedSourcesDirectory>
-                    <generatedSourcesDirectory>${project.basedir}/src/main/java</generatedSourcesDirectory>
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>

@@ -6,6 +6,7 @@ import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.players.Player;
+import com.rs2.util.Misc;
 
 import static com.rs2.game.content.StaticItemList.TOKTZKETXIL;
 
@@ -330,13 +331,21 @@ public class MeleeData {
             return 806;
         }
         if (weaponName.contains("halberd")) {
-            return 440;
+            return c.fightMode == 2 ? 440 : 412;
+        }
+        
+        //pickaxe anims are 395, 400, 401, 395
+        //this is for attack, str, str, and def.
+        if (weaponName.contains("pickaxe")) {
+            switch (c.fightMode) {
+                case 2:
+                	return (Misc.random(1) == 0) ? 400 : 401;
+                default:
+                    return 395;
+            }
         }
         if (weaponName.contains("dragon dagger")) {
             return 402;
-        }
-        if (weaponName.endsWith("dagger")) {
-            return 412;
         }
         if (weaponName.contains("2h sword") || weaponName.contains("godsword")
                 || weaponName.contains("aradomin sword")) {
@@ -349,14 +358,21 @@ public class MeleeData {
                     return 407;
             }
         }
-        if (weaponName.contains("sword")) {
-            switch (c.fightMode) {
-                case 0:
-                case 1:
-                    return 412;
-                case 2:
-                    return 451;
-            }
+        if (weaponName.contains("longsword")) {
+        	switch (c.fightMode) {
+        	case 3:
+        		return 412;
+        	default:
+        		return 451;
+        	}
+        }
+        if (weaponName.contains("sword") || weaponName.endsWith("dagger")) {
+        	switch (c.fightMode) {
+        	case 3:
+        		return 451;
+        	default:
+        		return 412;
+        	}
         }
         if (weaponName.contains("karil")) {
             return 2075;

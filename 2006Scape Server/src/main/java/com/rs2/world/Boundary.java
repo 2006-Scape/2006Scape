@@ -274,7 +274,7 @@ public class Boundary {
 	public static final Boundary SOPHANEM = new Boundary(3273, 3323, 2749, 2806);
 	public static final Boundary MENAPHOS = new Boundary(3200, 3266, 2749, 2806);
 	public static final Boundary POLLIVNEACH = new Boundary(3329, 3377, 2936, 3002);
-	public static final Boundary SHANTAY_PASS = new Boundary(3298, 3312, 3304, 3303);
+	public static final Boundary SHANTAY_PASS = new Boundary(3295, 3311, 3116, 3128);
 	
 	public static final Boundary[] NO_HEAT = {NARDAH, BANDIT_CAMP, MINING_CAMP, BEDABIN, UZER, AGILITY_PYRAMID, PYRAMID, SOPHANEM, MENAPHOS, POLLIVNEACH, SHANTAY_PASS};
 	
