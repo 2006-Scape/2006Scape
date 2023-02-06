@@ -1,23 +1,18 @@
+import java.io.IOException;
 import java.io.InputStream;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
 
-import sun.audio.AudioPlayer; //Note! If you see a compile error here, make sure you set your JDK to Java 8!
+import javax.sound.sampled.*;
 
 public class SoundPlayer implements Runnable {
 
 	private AudioInputStream stream;
 	private DataLine.Info info;
-	private Clip sound;
+	private SourceDataLine sound;
 
 	private InputStream soundStream;
 	private Thread player;
 	private int delay;
 	private int soundLevel;
-	private InputStream arg0;
 	public static int volume;
 
 	/**
@@ -42,22 +37,37 @@ public class SoundPlayer implements Runnable {
 	 */
 	public void run() {
 		try {
-			AudioPlayer.player.start(arg0);
 			stream = AudioSystem.getAudioInputStream(soundStream);
-			info = new DataLine.Info(Clip.class, stream.getFormat());
-			sound = (Clip) AudioSystem.getLine(info);
-			sound.open(stream);
+
+			AudioFormat format = stream.getFormat();
+			info = new DataLine.Info(SourceDataLine.class, format);
+			sound = (SourceDataLine) AudioSystem.getLine(info);
+			sound.open(format);
+
 			FloatControl volume = (FloatControl) sound.getControl(FloatControl.Type.MASTER_GAIN);
 			volume.setValue(getDecibels(soundLevel - getVolume()));
 			if (delay > 0) {
 				Thread.sleep(delay);
 			}
 			sound.start();
-			while (sound.isActive()) {
-				Thread.sleep(250);
+
+			int nBytesRead = 0;
+			int EXTERNAL_BUFFER_SIZE = 524288;
+			byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
+			try {
+				while (nBytesRead != -1) {
+					nBytesRead = stream.read(abData, 0, abData.length);
+					if (nBytesRead >= 0) {
+						sound.write(abData, 0, nBytesRead);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				sound.drain();
+				sound.close();
 			}
-			Thread.sleep(10000);
-			sound.close();
+
 			stream.close();
 			player.interrupt();
 		} catch (Exception e) {
