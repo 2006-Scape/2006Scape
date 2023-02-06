@@ -529,7 +529,7 @@ public abstract class Player {
 	}
 
 	public void flushOutStream() {
-		if ((session != null && !session.isActive()) || disconnected || outStream == null || outStream.currentOffset == 0) {
+		if (disconnected || outStream == null || outStream.currentOffset == 0 || (session != null && !session.isActive())) {
 			return;
 		}
 		byte[] temp = new byte[outStream.currentOffset];
