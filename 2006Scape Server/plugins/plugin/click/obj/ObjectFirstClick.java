@@ -4,6 +4,7 @@ import com.rs2.event.EventContext;
 import com.rs2.event.EventSubscriber;
 import com.rs2.event.SubscribesTo;
 import com.rs2.event.impl.ObjectFirstClickEvent;
+import com.rs2.game.content.StaticObjectList;
 import com.rs2.game.content.skills.core.Mining;
 import com.rs2.game.players.Player;
 import com.rs2.world.clip.Region;
@@ -25,6 +26,11 @@ public final class ObjectFirstClick implements EventSubscriber<ObjectFirstClickE
         if (Mining.rockExists(event.getGameObject())) {
             player.getMining().startMining(player, event.getGameObject(), player.objectX, player.objectY, player.clickObjectType);
             return;
+        }
+        
+        //TODO when plugins occur, move the handling of this to the specific plugin for those map areas.
+        if(event.getGameObject() == StaticObjectList.CRATE_6839) {
+        	player.getShopAssistant().openShop(146);
         }
 
     }
