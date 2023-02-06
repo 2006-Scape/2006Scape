@@ -349,6 +349,9 @@ public class MeleeData {
                     return 407;
             }
         }
+        if (weaponName.contains("longsword")) {
+        	return 451;
+        }
         if (weaponName.contains("sword")) {
             switch (c.fightMode) {
                 case 0:
