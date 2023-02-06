@@ -21,7 +21,7 @@ public class ClientSettings {
      * You don't have to change this, the client will automatically connect to the server
      * on localhost (Assuming you're running Client and LocalGame respectively)
      */
-    public static String SERVER_IP = "localhost";
+    public static String SERVER_IP = "server.2006scape.org";
     /**
      * The Servers World
      * This Determines The Port The Server Will Connect On
