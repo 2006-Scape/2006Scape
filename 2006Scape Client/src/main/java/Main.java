@@ -33,6 +33,7 @@ public final class Main {
 						ClientSettings.FIX_TRANSPARENCY_OVERFLOW = true;
 						ClientSettings.FULL_512PX_VIEWPORT = true;
 						Game.customSettingVisiblePlayerNames = true;
+						Game.customSettingMinItemValue = 1000;
 						break;
 					case "-no-nav":
 					case"-disable-nav":
