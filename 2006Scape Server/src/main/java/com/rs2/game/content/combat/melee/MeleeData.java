@@ -335,7 +335,7 @@ public class MeleeData {
         if (weaponName.contains("dragon dagger")) {
             return 402;
         }
-        if (weaponName.endsWith("dagger")) {
+        if () {
             return 412;
         }
         if (weaponName.contains("2h sword") || weaponName.contains("godsword")
@@ -350,22 +350,20 @@ public class MeleeData {
             }
         }
         if (weaponName.contains("longsword")) {
-            switch (c.fightMode) {
-	            case 0:
-	            case 1:
-	                return 451;
-	            case 2:
-	                return 412;
-            }
+        	switch (c.fightMode) {
+        	case 3:
+        		return 412;
+        	default:
+        		return 451;
+        	}
         }
-        if (weaponName.contains("sword")) {
-            switch (c.fightMode) {
-                case 0:
-                case 1:
-                    return 412;
-                case 2:
-                    return 451;
-            }
+        if (weaponName.contains("sword") || weaponName.endsWith("dagger")) {
+        	switch (c.fightMode) {
+        	case 3:
+        		return 451;
+        	default:
+        		return 412;
+        	}
         }
         if (weaponName.contains("karil")) {
             return 2075;
