@@ -6,6 +6,7 @@ import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.players.Player;
+import com.rs2.util.Misc;
 
 import static com.rs2.game.content.StaticItemList.TOKTZKETXIL;
 
@@ -331,6 +332,17 @@ public class MeleeData {
         }
         if (weaponName.contains("halberd")) {
             return c.fightMode == 2 ? 440 : 412;
+        }
+        
+        //pickaxe anims are 395, 400, 401, 395
+        //this is for attack, str, str, and def.
+        if (weaponName.contains("pickaxe")) {
+            switch (c.fightMode) {
+                case 2:
+                	return (Misc.random(1) == 0) ? 400 : 401;
+                default:
+                    return 395;
+            }
         }
         if (weaponName.contains("dragon dagger")) {
             return 402;
