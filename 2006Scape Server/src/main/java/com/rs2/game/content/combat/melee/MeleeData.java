@@ -330,7 +330,7 @@ public class MeleeData {
             return 806;
         }
         if (weaponName.contains("halberd")) {
-            return 440;
+            return c.fightMode == 2 ? 440 : 412;
         }
         if (weaponName.contains("dragon dagger")) {
             return 402;
