@@ -335,9 +335,6 @@ public class MeleeData {
         if (weaponName.contains("dragon dagger")) {
             return 402;
         }
-        if () {
-            return 412;
-        }
         if (weaponName.contains("2h sword") || weaponName.contains("godsword")
                 || weaponName.contains("aradomin sword")) {
             switch (c.fightMode) {
