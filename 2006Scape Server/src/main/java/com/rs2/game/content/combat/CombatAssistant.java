@@ -320,8 +320,8 @@ public class CombatAssistant {
 		}
 		if (damage > 0 && guthansEffect) {
 			player.playerLevel[GameConstants.HITPOINTS] += damage;
-			if (player.playerLevel[GameConstants.HITPOINTS] > player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-				player.playerLevel[GameConstants.HITPOINTS] = player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+			if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+				player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
 			}
 			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 			NpcHandler.npcs[i].gfx0(398);
@@ -332,10 +332,10 @@ public class CombatAssistant {
 		switch (player.specEffect) {
 		case 4:
 			if (damage > 0) {
-				if (player.playerLevel[GameConstants.HITPOINTS] + damage > player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-					if (player.playerLevel[GameConstants.HITPOINTS] > player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+				if (player.playerLevel[GameConstants.HITPOINTS] + damage > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+					if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
 					} else {
-						player.playerLevel[GameConstants.HITPOINTS] = player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+						player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
 					}
 				} else {
 					player.playerLevel[GameConstants.HITPOINTS] += damage;
@@ -1435,8 +1435,8 @@ public class CombatAssistant {
 		}
 		if (damage > 0 && guthansEffect) {
 			player.playerLevel[GameConstants.HITPOINTS] += damage;
-			if (player.playerLevel[GameConstants.HITPOINTS] > player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-				player.playerLevel[GameConstants.HITPOINTS] = player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+			if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+				player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
 			}
 			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
 			o.gfx0(398);
@@ -1488,9 +1488,9 @@ public class CombatAssistant {
 			break;
 		case 4:
 			if (damage > 0) {
-				if (player.playerLevel[GameConstants.HITPOINTS] + damage > player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-					if (player.playerLevel[GameConstants.HITPOINTS] < player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-						player.playerLevel[GameConstants.HITPOINTS] = player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+				if (player.playerLevel[GameConstants.HITPOINTS] + damage > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+					if (player.playerLevel[GameConstants.HITPOINTS] < player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+						player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
 					}
 				} else {
 					player.playerLevel[GameConstants.HITPOINTS] += damage;

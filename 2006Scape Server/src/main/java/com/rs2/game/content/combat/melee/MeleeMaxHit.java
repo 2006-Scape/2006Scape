@@ -9,7 +9,7 @@ public class MeleeMaxHit {
 		double maxHit = 0;
 		int strBonus = c.playerBonus[10];
 		int strength = c.playerLevel[GameConstants.STRENGTH];
-		int lvlForXP = c.getLevelForXP(c.playerXP[GameConstants.STRENGTH]);
+		int lvlForXP = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.STRENGTH]);
 		if (c.getPrayer().prayerActive[1]) {
 			strength += (int) (lvlForXP * .05);
 		} else if (c.getPrayer().prayerActive[6]) {

@@ -129,8 +129,8 @@ public class Beverages {
 		switch (id) {
 		case 1917:
 		case 7740://beer
-			double beerEffectStrength = c.getLevelForXP(c.playerXP[GameConstants.STRENGTH]) * .04 + c.getLevelForXP(c.playerXP[GameConstants.STRENGTH]);
-			double beerEffectAttack = c.getLevelForXP(c.playerXP[GameConstants.ATTACK]) * .07;
+			double beerEffectStrength = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.STRENGTH]) * .04 + c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.STRENGTH]);
+			double beerEffectAttack = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.ATTACK]) * .07;
 			if (c.playerLevel[GameConstants.STRENGTH] < beerEffectStrength) {
 				c.playerLevel[GameConstants.STRENGTH] = (int) beerEffectStrength;
 			}
