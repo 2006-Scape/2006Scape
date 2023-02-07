@@ -40,7 +40,7 @@ public class PlayerAssistant {
 	}
 	
 	public boolean savePlayer() {
-		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[GameConstants.HITPOINTS] > 0 && player.playerLevel[GameConstants.HITPOINTS] <= player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) / 10 && player.underAttackBy > 0);
+		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[GameConstants.HITPOINTS] > 0 && player.playerLevel[GameConstants.HITPOINTS] <= getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) / 10 && player.underAttackBy > 0);
 	}
 	
 	public void handleROL() {
@@ -1992,34 +1992,29 @@ public class PlayerAssistant {
 		player.getPacketSender().setSkillLevel(skill, player.playerLevel[skill], player.playerXP[skill]);
 	}
 
-	public int getXPForLevel(int level) {
-		int points = 0;
-		int output = 0;
-
-		for (int lvl = 1; lvl <= level; lvl++) {
-			points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
-			if (lvl >= level) {
-				return output;
-			}
+	/* Updated methods for getXPForLevel/getLevelForXP */
+	private static final int[] xp_per_level = new int[100];
+	
+	static {
+		int points = 0, output = 0;
+		for (int lvl = 1; lvl <= 99; lvl++) {
+			xp_per_level[lvl] = output;
+			points += Math.floor(lvl + 300 * Math.pow(2, lvl / 7.0));
 			output = (int) Math.floor(points / 4);
 		}
-		return 0;
+	}
+	
+	public static int getXPForLevel(int level) {
+		return level > 99 ? 200_000_000 : xp_per_level[level];
 	}
 
-	public int getLevelForXP(int exp) {
-		int points = 0;
-		int output = 0;
-		if (exp > 13034430) {
-			return 99;
-		}
-		for (int lvl = 1; lvl <= 99; lvl++) {
-			points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
-			output = (int) Math.floor(points / 4);
-			if (output >= exp) {
+	public static int getLevelForXP(int exp) {
+		for (int lvl = 1; lvl <= 98; lvl++) {
+			if (exp < xp_per_level[lvl + 1]) {
 				return lvl;
 			}
 		}
-		return 0;
+		return 99;
 	}
 
 	public boolean addSkillXP(double amount, int skill) {
@@ -2039,9 +2034,9 @@ public class PlayerAssistant {
 		}
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
-		if (oldLevel <= getLevelForXP(player.playerXP[skill])) {
-			if (player.playerLevel[skill] < player.getLevelForXP(player.playerXP[skill]) && skill != 3 && skill != 5) {
-				player.playerLevel[skill] = player.getLevelForXP(player.playerXP[skill]);
+		if (oldLevel < getLevelForXP(player.playerXP[skill])) {
+			if (player.playerLevel[skill] < getLevelForXP(player.playerXP[skill]) && skill != 3 && skill != 5) {
+				player.playerLevel[skill] = getLevelForXP(player.playerXP[skill]);
 			}
 			levelUp(skill);
 			player.gfx100(199);

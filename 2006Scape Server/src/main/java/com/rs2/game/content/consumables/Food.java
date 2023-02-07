@@ -256,11 +256,11 @@ public class Food {
 				player.getPacketSender().sendSound(SoundList.DRINK, 100, 0);
 			}
 			player.foodDelay = System.currentTimeMillis();
-			if (player.playerLevel[GameConstants.HITPOINTS] < player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+			if (player.playerLevel[GameConstants.HITPOINTS] < player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
 				player.playerLevel[GameConstants.HITPOINTS] += f.getHeal();
 				player.getPacketSender().sendMessage("It heals some health.");
-				if (player.playerLevel[GameConstants.HITPOINTS] > player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-					player.playerLevel[GameConstants.HITPOINTS] = player.getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+				if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+					player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
 				}
 			}
 			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);

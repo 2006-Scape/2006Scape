@@ -63,7 +63,7 @@ public class MagicSpells extends MagicData {
 					- PlayerHandler.players[playerId].reduceStat > 35000) {
 				PlayerHandler.players[playerId].reduceStat = System
 						.currentTimeMillis();
-				PlayerHandler.players[playerId].playerLevel[GameConstants.ATTACK] -= PlayerHandler.players[playerId]
+				PlayerHandler.players[playerId].playerLevel[GameConstants.ATTACK] -= PlayerHandler.players[playerId].getPlayerAssistant()
 						.getLevelForXP(PlayerHandler.players[playerId].playerXP[GameConstants.ATTACK]) * 10 / 100;
 			}
 			break;

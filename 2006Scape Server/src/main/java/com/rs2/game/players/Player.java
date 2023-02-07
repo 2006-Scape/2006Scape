@@ -939,13 +939,13 @@ public abstract class Player {
 		if (System.currentTimeMillis() - restoreStatsDelay > 60000) {
 			restoreStatsDelay = System.currentTimeMillis();
 			for (int skill = 0; skill < playerLevel.length; skill++) {
-				if (playerLevel[skill] < getLevelForXP(playerXP[skill])) {
+				if (playerLevel[skill] < playerAssistant.getLevelForXP(playerXP[skill])) {
 					if (skill != 5) { // prayer doesn't restore
 						playerLevel[skill] += 1;
 						getPacketSender().setSkillLevel(skill, playerLevel[skill], playerXP[skill]);
 						getPlayerAssistant().refreshSkill(skill);
 					}
-				} else if (playerLevel[skill] > getLevelForXP(playerXP[skill])) {
+				} else if (playerLevel[skill] > playerAssistant.getLevelForXP(playerXP[skill])) {
 					playerLevel[skill] -= 1;
 					getPacketSender().setSkillLevel(skill, playerLevel[skill], playerXP[skill]);
 					getPlayerAssistant().refreshSkill(skill);
@@ -2543,13 +2543,13 @@ public abstract class Player {
 		if (isBot) {
 			return 0;
 		}
-		int j = getLevelForXP(playerXP[GameConstants.ATTACK]);
-		int k = getLevelForXP(playerXP[GameConstants.DEFENCE]);
-		int l = getLevelForXP(playerXP[GameConstants.STRENGTH]);
-		int i1 = getLevelForXP(playerXP[GameConstants.HITPOINTS]);
-		int j1 = getLevelForXP(playerXP[GameConstants.PRAYER]);
-		int k1 = getLevelForXP(playerXP[GameConstants.RANGED]);
-		int l1 = getLevelForXP(playerXP[GameConstants.MAGIC]);
+		int j = playerAssistant.getLevelForXP(playerXP[GameConstants.ATTACK]);
+		int k = playerAssistant.getLevelForXP(playerXP[GameConstants.DEFENCE]);
+		int l = playerAssistant.getLevelForXP(playerXP[GameConstants.STRENGTH]);
+		int i1 = playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS]);
+		int j1 = playerAssistant.getLevelForXP(playerXP[GameConstants.PRAYER]);
+		int k1 = playerAssistant.getLevelForXP(playerXP[GameConstants.RANGED]);
+		int l1 = playerAssistant.getLevelForXP(playerXP[GameConstants.MAGIC]);
 		int combatLevel = (int) ((k + i1 + Math.floor(j1 / 2)) * 0.25D) + 1;
 		double d = (j + l) * 0.32500000000000001D;
 		double d1 = Math.floor(k1 * 1.5D) * 0.32500000000000001D;
@@ -2562,24 +2562,6 @@ public abstract class Player {
 			combatLevel += d2;
 		}
 		return combatLevel;
-	}
-
-	public int getLevelForXP(int exp) {
-		if (exp > 13034430) {
-			return 99;
-		} else {
-			int points = 0;
-			for (int lvl = 1; lvl <= 99; ++lvl) {
-				points = (int) (points + Math.floor(lvl + 300.0D
-						* Math.pow(2.0D, lvl / 7.0D)));
-				int var5 = (int) Math.floor(points / 4);
-				if (var5 >= exp) {
-					return lvl;
-				}
-			}
-
-			return 99;
-		}
 	}
 
 	private boolean chatTextUpdateRequired = false;
@@ -2720,7 +2702,7 @@ public abstract class Player {
 			isDead = true;
 		}
 		str.writeByteC(playerLevel[GameConstants.HITPOINTS]); // Their current hp, for HP bar
-		str.writeByte(getLevelForXP(playerXP[GameConstants.HITPOINTS]));
+		str.writeByte(playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS]));
 	}
 
 	protected void appendHitUpdate2(Stream str) {
@@ -2738,7 +2720,7 @@ public abstract class Player {
 			isDead = true;
 		}
 		str.writeByte(playerLevel[GameConstants.HITPOINTS]); // Their current hp, for HP bar
-		str.writeByteC(getLevelForXP(playerXP[GameConstants.HITPOINTS])); // Their max hp, for HP
+		str.writeByteC(playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS])); // Their max hp, for HP
 	}
 
 	public void appendPlayerUpdateBlock(Stream str) {
@@ -3120,7 +3102,7 @@ public abstract class Player {
 		if (teleTimer <= 0) {
 			playerLevel[GameConstants.HITPOINTS] -= damage;
 			int difference = playerLevel[GameConstants.HITPOINTS] - damage;
-			if (difference <= getLevelForXP(playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0)
+			if (difference <= playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0)
 				appendRedemption();
 			getPlayerAssistant().handleROL();
 		} else {
@@ -3137,11 +3119,11 @@ public abstract class Player {
 	public void appendRedemption() {
 		Client c = (Client) PlayerHandler.players[playerId];
 		if (c.getPrayer().prayerActive[22]) {
-			int added = c.playerLevel[GameConstants.HITPOINTS] += (int)(c.getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
-			if (added > c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-				c.playerLevel[GameConstants.HITPOINTS] = c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS]);
+			int added = c.playerLevel[GameConstants.HITPOINTS] += (int)(c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
+			if (added > c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
+				c.playerLevel[GameConstants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]);
 			} else {
-				c.playerLevel[GameConstants.HITPOINTS] += (int)(getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
+				c.playerLevel[GameConstants.HITPOINTS] += (int)(playerAssistant.getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
 			}
 			c.playerLevel[GameConstants.PRAYER] = 0;
 			c.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);

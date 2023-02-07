@@ -586,7 +586,7 @@ public class CastleWars {
 			deleteGameItems(player);
 			player.isDead = false;
 			for (int i = 0; i < 25; i++) {
-				player.playerLevel[i] = player
+				player.playerLevel[i] = player.getPlayerAssistant()
 						.getLevelForXP(player.playerXP[i]);
 				player.getPlayerAssistant().refreshSkill(i);
 			}

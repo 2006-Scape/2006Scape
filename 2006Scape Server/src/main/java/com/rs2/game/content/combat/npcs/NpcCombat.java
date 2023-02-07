@@ -657,7 +657,7 @@ public class NpcCombat {
 					c.getPlayerAssistant().handleROL();
 				} else {
 					int difference = c.playerLevel[GameConstants.HITPOINTS] - damage;
-					if (difference <= c.getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0) {
+					if (difference <= c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0) {
 						c.appendRedemption();
 					} 
 					if (c.playerLevel[GameConstants.HITPOINTS] - damage < 0) {

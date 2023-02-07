@@ -8,7 +8,7 @@ public class MagicMaxHit {
 	public static int mageAttackBonus(Player c) {
 		int magicBonus = c.playerLevel[GameConstants.MAGIC];
 		if (MagicData.fullVoidMage(c)) {
-			magicBonus += c.getLevelForXP(c.playerXP[GameConstants.MAGIC]) * 0.2;
+			magicBonus += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.MAGIC]) * 0.2;
 		}
 		if (c.getPrayer().prayerActive[4]) {
 			magicBonus *= 1.05;
@@ -23,15 +23,15 @@ public class MagicMaxHit {
 	public static int mageDefenceBonus(Player c) {
 		int defenceBonus = c.playerLevel[GameConstants.DEFENCE] / 2 + c.playerLevel[GameConstants.MAGIC] / 2;
 		if (c.getPrayer().prayerActive[0]) {
-			defenceBonus += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.05;
+			defenceBonus += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.05;
 		} else if (c.getPrayer().prayerActive[3]) {
-			defenceBonus += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.1;
+			defenceBonus += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.1;
 		} else if (c.getPrayer().prayerActive[9]) {
-			defenceBonus += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.15;
+			defenceBonus += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.15;
 		} else if (c.getPrayer().prayerActive[18]) {
-			defenceBonus += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.2;
+			defenceBonus += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.2;
 		} else if (c.getPrayer().prayerActive[19]) {
-			defenceBonus += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.25;
+			defenceBonus += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.25;
 		}
 		return defenceBonus + c.playerBonus[8] + c.playerBonus[8] / 3;
 	}

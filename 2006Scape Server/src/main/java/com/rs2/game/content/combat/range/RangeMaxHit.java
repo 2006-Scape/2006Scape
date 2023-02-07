@@ -8,15 +8,15 @@ public class RangeMaxHit {
 	public static int calculateRangeDefence(Player c) {
 		int defenceLevel = c.playerLevel[GameConstants.DEFENCE];
 		if (c.getPrayer().prayerActive[0]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.05;
+			defenceLevel += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.05;
 		} else if (c.getPrayer().prayerActive[5]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.1;
+			defenceLevel += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.1;
 		} else if (c.getPrayer().prayerActive[13]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.15;
+			defenceLevel += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.15;
 		} else if (c.getPrayer().prayerActive[24]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.2;
+			defenceLevel += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.2;
 		} else if (c.getPrayer().prayerActive[25]) {
-			defenceLevel += c.getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.25;
+			defenceLevel += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.DEFENCE]) * 0.25;
 		}
 		return defenceLevel + c.playerBonus[9] + c.playerBonus[9] / 2;
 	}
@@ -25,7 +25,7 @@ public class RangeMaxHit {
 		int rangeLevel = c.playerLevel[GameConstants.RANGED];
 		rangeLevel *= c.specAccuracy;
 		if (RangeData.fullVoidRange(c)) {
-			rangeLevel += c.getLevelForXP(c.playerXP[GameConstants.RANGED]) * 0.1;
+			rangeLevel += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.RANGED]) * 0.1;
 		}
 		if (c.getPrayer().prayerActive[3]) {
 			rangeLevel *= 1.05;
