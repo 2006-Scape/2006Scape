@@ -3,6 +3,7 @@
 // Decompiler options: packimports(3) 
 
 import javax.swing.*;
+import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.TextAttribute;
@@ -10,7 +11,7 @@ import java.net.URI;
 import java.util.Map;
 
 @SuppressWarnings("serial")
-public class RSApplet extends JApplet implements Runnable, MouseListener, MouseWheelListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
+public class RSApplet extends Applet implements Runnable, MouseListener, MouseWheelListener, MouseMotionListener, KeyListener, FocusListener, WindowListener {
 
 	public static boolean ctrlDown = false;
 	public static boolean shiftDown = false;
