@@ -40,7 +40,7 @@ public class PlayerAssistant {
 	}
 	
 	public boolean savePlayer() {
-		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[GameConstants.HITPOINTS] > 0 && player.playerLevel[GameConstants.HITPOINTS] <= player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) / 10 && player.underAttackBy > 0);
+		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[GameConstants.HITPOINTS] > 0 && player.playerLevel[GameConstants.HITPOINTS] <= getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) / 10 && player.underAttackBy > 0);
 	}
 	
 	public void handleROL() {
@@ -2040,8 +2040,8 @@ public class PlayerAssistant {
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;
 		if (oldLevel <= getLevelForXP(player.playerXP[skill])) {
-			if (player.playerLevel[skill] < player.getPlayerAssistant().getLevelForXP(player.playerXP[skill]) && skill != 3 && skill != 5) {
-				player.playerLevel[skill] = player.getPlayerAssistant().getLevelForXP(player.playerXP[skill]);
+			if (player.playerLevel[skill] < getLevelForXP(player.playerXP[skill]) && skill != 3 && skill != 5) {
+				player.playerLevel[skill] = getLevelForXP(player.playerXP[skill]);
 			}
 			levelUp(skill);
 			player.gfx100(199);
