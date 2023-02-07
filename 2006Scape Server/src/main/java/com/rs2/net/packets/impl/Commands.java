@@ -45,9 +45,6 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
-        case "advo":
-        	player.getPlayerAssistant().addSkillXP(83, 0);
-        	break;
             case "link":
                 player.setDiscordCode(arguments[0]);
                 player.getPacketSender().sendMessage("Your Account has now been linked with Discord User ID:");
