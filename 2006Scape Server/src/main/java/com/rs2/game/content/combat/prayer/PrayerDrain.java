@@ -1,6 +1,6 @@
 package com.rs2.game.content.combat.prayer;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Player;
 
 public class PrayerDrain {
@@ -26,16 +26,16 @@ public class PrayerDrain {
 	}
 
 	public static void reducePrayerLevel(Player c) {
-		if (c.playerLevel[GameConstants.PRAYER] - 1 > 0) {
-			c.playerLevel[GameConstants.PRAYER] -= 1;
+		if (c.playerLevel[Constants.PRAYER] - 1 > 0) {
+			c.playerLevel[Constants.PRAYER] -= 1;
 		} else {
 			c.getPacketSender().sendMessage(
 					"You have run out of prayer points!");
-			c.playerLevel[GameConstants.PRAYER] = 0;
+			c.playerLevel[Constants.PRAYER] = 0;
 			resetPrayers(c);
 			c.getPrayer().prayerId = -1;
 		}
-		c.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
+		c.getPlayerAssistant().refreshSkill(Constants.PRAYER);
 	}
 
 	public static void resetPrayers(Player player) {

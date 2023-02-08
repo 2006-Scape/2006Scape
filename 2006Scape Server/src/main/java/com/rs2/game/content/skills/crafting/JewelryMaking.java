@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.crafting;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 
@@ -136,7 +136,7 @@ public class JewelryMaking {
 		if (!isRing && !isNeck && !isAmulet) {
 			return;
 		}
-		if (player.playerLevel[GameConstants.CRAFTING] >= lvl) {
+		if (player.playerLevel[Constants.CRAFTING] >= lvl) {
 			if (DeprecatedItems.getItemName(itemAdd).toLowerCase().contains("gold")
 					&& !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)
 					|| !player.getItemAssistant().playerHasItem(GOLD_BAR, 1)) {
@@ -157,8 +157,8 @@ public class JewelryMaking {
 				player.getItemAssistant().deleteItem(gem, 1);
 				player.getItemAssistant().deleteItem(GOLD_BAR, 1);
 				player.getItemAssistant().addItem(itemAdd, 1);
-				player.getPlayerAssistant().addSkillXP(xp, GameConstants.CRAFTING);
-				player.getPlayerAssistant().refreshSkill(GameConstants.CRAFTING);
+				player.getPlayerAssistant().addSkillXP(xp, Constants.CRAFTING);
+				player.getPlayerAssistant().refreshSkill(Constants.CRAFTING);
 				done++;
 			}
 			if (done == 1) {

@@ -2,7 +2,7 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.util.Random;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.magic.MagicRequirements;
 import com.rs2.game.content.music.sound.SoundList;
@@ -93,7 +93,7 @@ public class Alchemy {
         player.getItemAssistant().deleteItem(995, coins);
         player.alchemyPoints += points;
         player.getItemAssistant().addItemToBank(995, toBank);
-        player.getPlayerAssistant().addSkillXP(bonusExp, GameConstants.MAGIC);
+        player.getPlayerAssistant().addSkillXP(bonusExp, Constants.MAGIC);
         warned = false;
     }
 

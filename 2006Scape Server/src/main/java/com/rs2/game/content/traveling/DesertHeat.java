@@ -1,6 +1,6 @@
 package com.rs2.game.content.traveling;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -52,7 +52,7 @@ public class DesertHeat {
 		player.getPacketSender().sendMessage("You should get a waterskin for any traveling in the desert.");
 		player.handleHitMask(DAMAGE);
 		player.dealDamage(DAMAGE);
-		player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+		player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 	}
 	
 	private static int getClothes(Player player) {
@@ -79,7 +79,7 @@ public class DesertHeat {
 
 	public static void callHeat(final Player player) {
 		if (!Boundary.isIn(player, Boundary.DESERT) 
-			|| player.playerLevel[GameConstants.HITPOINTS] <= 0 
+			|| player.playerLevel[Constants.HITPOINTS] <= 0
 			|| preventHeat(player)) {
 			return;
 		}
@@ -87,7 +87,7 @@ public class DesertHeat {
 			@Override
 			public void execute(CycleEventContainer container) {
 				if (!Boundary.isIn(player, Boundary.DESERT) 
-					|| player.playerLevel[GameConstants.HITPOINTS] <= 0 
+					|| player.playerLevel[Constants.HITPOINTS] <= 0
 					|| player.disconnected 
 					|| preventHeat(player)) {
 					container.stop();
@@ -99,7 +99,7 @@ public class DesertHeat {
 						doDamage(player);
 					}
 					container.stop();
-				} else if (player.playerLevel[GameConstants.HITPOINTS] <= 0) {
+				} else if (player.playerLevel[Constants.HITPOINTS] <= 0) {
 					player.isDead = true;
 					container.stop();
 				}

@@ -1,14 +1,5 @@
 package com.rs2.net;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.rs2.Connection;
-import com.rs2.GameConstants;
-
 public class HostList {
 //
 //	private final Map<InetAddress, Long> clients;
@@ -36,7 +27,7 @@ public class HostList {
 //		} else {
 //			amt += 1;
 //		}
-//		if (amt > GameConstants.IPS_ALLOWED || Connection.isIpBanned(addr)) {
+//		if (amt > Constants.IPS_ALLOWED || Connection.isIpBanned(addr)) {
 //			return false;
 //		} else {
 //			connections.put(addr, amt);
@@ -79,7 +70,7 @@ public class HostList {
 //		if (clients.containsKey(addr)) {
 //			long lastConnTime = clients.get(addr);
 //
-//			if (now - lastConnTime < GameConstants.CONNECTION_DELAY) {
+//			if (now - lastConnTime < Constants.CONNECTION_DELAY) {
 //				System.out.println("["+addr+"] Session dropped (delay="+(now-lastConnTime)+"ms)");
 //				return false;
 //			} 

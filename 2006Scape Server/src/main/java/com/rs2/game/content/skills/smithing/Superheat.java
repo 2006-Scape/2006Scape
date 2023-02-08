@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.smithing;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.combat.magic.CastRequirements;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.items.DeprecatedItems;
@@ -40,15 +40,15 @@ public class Superheat {
 					return false;
 				}
 				if (itemID == 444 && player.playerEquipment[player.playerHands] == 776) {
-					player.getPlayerAssistant().addSkillXP(56.2, GameConstants.SMITHING);
+					player.getPlayerAssistant().addSkillXP(56.2, Constants.SMITHING);
 				} else {
-					player.getPlayerAssistant().addSkillXP(smelt[7], GameConstants.SMITHING);
+					player.getPlayerAssistant().addSkillXP(smelt[7], Constants.SMITHING);
 				}
-				if (player.playerLevel[GameConstants.SMITHING] < smelt[6]) {
+				if (player.playerLevel[Constants.SMITHING] < smelt[6]) {
 					player.getPacketSender().sendMessage("You need a smithing level of " + smelt[6] + " to superheat this ore.");
 					return false;
 				}
-				if (player.playerLevel[GameConstants.MAGIC] < 43) {
+				if (player.playerLevel[Constants.MAGIC] < 43) {
 					player.getPacketSender().sendMessage("You need a magic level of 43 to superheat this ore.");
 					return false;
 				}
@@ -56,12 +56,12 @@ public class Superheat {
 				player.getItemAssistant().deleteItem(smelt[2], smelt[3]);
 				CastRequirements.deleteRunes(player, new int[][]{{554, 4}, {561, 1}});
 				player.getItemAssistant().addItem(smelt[4], 1);
-				player.getPlayerAssistant().addSkillXP(53, GameConstants.MAGIC);
+				player.getPlayerAssistant().addSkillXP(53, Constants.MAGIC);
 				player.startAnimation(722);
 				player.gfx0(148);
 				player.getPacketSender().sendSound(SoundList.SUPERHEAT, 100, 0);
 				if (itemID != 444) {
-					player.getPlayerAssistant().addSkillXP(smelt[7], GameConstants.SMITHING);
+					player.getPlayerAssistant().addSkillXP(smelt[7], Constants.SMITHING);
 				}
 				player.getPacketSender().sendShowTab(6);
 				return true;

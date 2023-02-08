@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.crafting;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -52,7 +52,7 @@ public class BattleStaffs {
 					if (player.isCrafting == true) {
 						return;
 					}
-					if (player.playerLevel[GameConstants.CRAFTING] < b.getLevelReq()) {
+					if (player.playerLevel[Constants.CRAFTING] < b.getLevelReq()) {
 						player.getPacketSender().sendMessage("You need level " + b.getLevelReq() + " crafting to do that.");
 						return;
 					}

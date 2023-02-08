@@ -2,7 +2,7 @@ package com.rs2.game.content.skills.smithing;
 
 import java.util.HashMap;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -98,7 +98,7 @@ public class SilverCrafting {
 				player.getDialogueHandler().sendStatement("You need a silver bar to do this.");
 				return;
 			}
-			if (player.playerLevel[GameConstants.CRAFTING] < silverCraft.getLevel()) {
+			if (player.playerLevel[Constants.CRAFTING] < silverCraft.getLevel()) {
 				player.getDialogueHandler().sendStatement("You need a crafting level of " + silverCraft.getLevel() + " to make this.");
 				return;
 			}
@@ -131,7 +131,7 @@ public class SilverCrafting {
 					player.getItemAssistant().addItem(silverCraft.getResult(),
 							1);
 					player.getPlayerAssistant().addSkillXP(
-							silverCraft.getExperience(), GameConstants.CRAFTING);
+							silverCraft.getExperience(), Constants.CRAFTING);
 					amnt--;
 
 				}

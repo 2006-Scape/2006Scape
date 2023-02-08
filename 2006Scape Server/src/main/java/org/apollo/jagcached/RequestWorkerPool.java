@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.net.update.HttpRequestWorker;
 import org.apollo.net.update.JagGrabRequestWorker;
@@ -65,7 +65,7 @@ public final class RequestWorkerPool {
 	 * @throws Exception if the file system cannot be created.
 	 */
 	public void start() throws Exception {
-		Path base = Paths.get(GameConstants.FILE_SYSTEM_DIR);
+		Path base = Paths.get(Constants.FILE_SYSTEM_DIR);
 		for (int i = 0; i < THREADS_PER_REQUEST_TYPE; i++) {
 			workers.add(new JagGrabRequestWorker(dispatcher, new IndexedFileSystem(base, true)));
 			workers.add(new OnDemandRequestWorker(dispatcher, new IndexedFileSystem(base, true)));

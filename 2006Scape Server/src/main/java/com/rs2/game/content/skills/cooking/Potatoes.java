@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.cooking;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.StaticItemList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
@@ -101,12 +101,12 @@ public class Potatoes extends SkillHandler {
             return false;
         }
         if (c.getItemAssistant().playerHasItem(potato.getIngredient(), 1)) {
-            if (c.playerLevel[GameConstants.COOKING] >= potato.getReq()) {
+            if (c.playerLevel[Constants.COOKING] >= potato.getReq()) {
                 c.getItemAssistant().deleteItem(potato.getIngredient(), 1);
                 c.getItemAssistant().deleteItem(StaticItemList.POTATO_WITH_BUTTER, 1);
                 c.getPacketSender().sendMessage("You put the topping on.");
                 c.getItemAssistant().addItem(potato.getNewPotatoID(), 1);
-                c.getPlayerAssistant().addSkillXP(potato.getXP(), GameConstants.COOKING);
+                c.getPlayerAssistant().addSkillXP(potato.getXP(), Constants.COOKING);
                 RandomEventHandler.addRandom(c);
             } else {
                 c.getPacketSender().sendMessage("You need a cooking level of " + potato.getReq() + " to make this potato.");

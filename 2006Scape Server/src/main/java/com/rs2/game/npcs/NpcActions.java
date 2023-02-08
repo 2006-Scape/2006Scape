@@ -1,6 +1,6 @@
 package com.rs2.game.npcs;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.StaticNpcList;
 import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.skills.core.Fishing;
@@ -207,10 +207,10 @@ public class NpcActions {
                 player.getDialogueHandler().sendDialogues(1349, npcType);
                 break;
             case MARTIN_THWAIT:
-                if (player.playerLevel[GameConstants.THIEVING] > 98) {
+                if (player.playerLevel[Constants.THIEVING] > 98) {
                     player.getShopAssistant().openShop(118);
-                } else if (player.playerLevel[GameConstants.THIEVING] > 49
-                        && player.playerLevel[GameConstants.AGILITY] > 49) {
+                } else if (player.playerLevel[Constants.THIEVING] > 49
+                        && player.playerLevel[Constants.AGILITY] > 49) {
                     player.getShopAssistant().openShop(118);
                 } else {
                     player.getPacketSender().sendMessage(
@@ -524,7 +524,7 @@ public class NpcActions {
                 }
                 break;
             case GERTRUDE:
-                if (player.playerLevel[GameConstants.FISHING] < 4) {
+                if (player.playerLevel[Constants.FISHING] < 4) {
                     player.getDialogueHandler().sendStatement(
                             "You don't have the requirements to do this quest.");
                     return;
@@ -1017,10 +1017,10 @@ public class NpcActions {
                 Tanning.sendTanningInterface(player);
                 break;
             case MARTIN_THWAIT:
-                if (player.playerLevel[GameConstants.THIEVING] > 98) {
+                if (player.playerLevel[Constants.THIEVING] > 98) {
                     player.getShopAssistant().openShop(118);
-                } else if (player.playerLevel[GameConstants.THIEVING] > 49
-                        && player.playerLevel[GameConstants.AGILITY] > 49) {
+                } else if (player.playerLevel[Constants.THIEVING] > 49
+                        && player.playerLevel[Constants.AGILITY] > 49) {
                     player.getShopAssistant().openShop(118);
                 } else {
                     player.getPacketSender().sendMessage(
@@ -1126,7 +1126,7 @@ public class NpcActions {
                 player.getPlayerAssistant().startTeleport(2911, 4832, 0, type);
                 break;
             case MAGE_OF_ZAMORAK:
-                if (player.playerLevel[GameConstants.RUNECRAFTING] < 35) {
+                if (player.playerLevel[Constants.RUNECRAFTING] < 35) {
                     player.getPacketSender().sendMessage("You need a Runecrafting level of 35 to enter the Abyss.");
                     return;
                 }

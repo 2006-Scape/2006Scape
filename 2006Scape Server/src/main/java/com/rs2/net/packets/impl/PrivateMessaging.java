@@ -1,7 +1,7 @@
 package com.rs2.net.packets.impl;
 
 import com.rs2.Connection;
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -43,7 +43,7 @@ public class PrivateMessaging implements PacketType {
 								Client o = (Client) PlayerHandler.players[i2];
 								if (o != null) {
 									if (PlayerHandler.players[i2].privateChat == 0 || PlayerHandler.players[i2].privateChat == 1 && o.getPlayerAssistant().isInPM(Misc.playerNameToInt64(player.playerName))) {
-										player.getPacketSender().loadPM(friendToAdd, GameConstants.WORLD);
+										player.getPacketSender().loadPM(friendToAdd, Constants.WORLD);
 										break;
 									}
 								}
@@ -136,7 +136,7 @@ public class PrivateMessaging implements PacketType {
 						&& PlayerHandler.players[i1].isActive) {
 					Client o = (Client) PlayerHandler.players[i1];
 					if (o != null) {
-						o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
+						o.getPlayerAssistant().updatePM(player.playerId, Constants.WORLD);
 					}
 				}
 			}

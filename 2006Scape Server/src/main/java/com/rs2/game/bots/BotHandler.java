@@ -3,11 +3,10 @@ package com.rs2.game.bots;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -24,7 +23,7 @@ public class BotHandler {
 
     public static Bot connectBot(String username, Integer x, Integer y, Integer z) {
         Bot bot;
-        if (PlayerHandler.playerCount >= GameConstants.MAX_PLAYERS) {
+        if (PlayerHandler.playerCount >= Constants.MAX_PLAYERS) {
             System.out.println("Bot could not be connected, server is full.");
             return null;
         }

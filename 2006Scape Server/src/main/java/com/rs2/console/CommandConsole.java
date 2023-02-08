@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.console.commands.ListPlayers;
 import com.rs2.console.commands.Stop;
 
@@ -33,7 +33,7 @@ public class CommandConsole implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Welcome to " + GameConstants.SERVER_NAME + ".");
+		System.out.println("Welcome to " + Constants.SERVER_NAME + ".");
 		while (true) {
 			System.out.print("> ");
 			String input = null;

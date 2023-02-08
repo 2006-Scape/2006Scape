@@ -3,7 +3,7 @@ package com.rs2.game.content.minigames.trawler;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -485,7 +485,7 @@ public class Trawler extends GroupMinigame {
                                 return;
                         }
                         p.startAnimation(net_interaction);
-                        if (skillCheck(p.playerLevel[GameConstants.CRAFTING], 1, 0)) {
+                        if (skillCheck(p.playerLevel[Constants.CRAFTING], 1, 0)) {
                                 p.getItemAssistant().deleteItem(rope, 1);
                                 net_ripped = false;
                                 playerUpdates();
@@ -662,24 +662,24 @@ public class Trawler extends GroupMinigame {
         public int chanceByLevel(Player p, int fish) {
                 switch (fish) {
                 case 381:
-                        if (p.playerLevel[GameConstants.FISHING] >= 81
-                                        && p.playerLevel[GameConstants.FISHING] < 90) {
+                        if (p.playerLevel[Constants.FISHING] >= 81
+                                        && p.playerLevel[Constants.FISHING] < 90) {
                                 return 5;
-                        } else if (p.playerLevel[GameConstants.FISHING] >= 90
-                                        && p.playerLevel[GameConstants.FISHING] < 99) {
+                        } else if (p.playerLevel[Constants.FISHING] >= 90
+                                        && p.playerLevel[Constants.FISHING] < 99) {
                                 return 9;
-                        } else if (p.playerLevel[GameConstants.FISHING] == 99) {
+                        } else if (p.playerLevel[Constants.FISHING] == 99) {
                                 return 13;
                         }
                         return 0;
                 case 395:
-                        if (p.playerLevel[GameConstants.FISHING] >= 79
-                                        && p.playerLevel[GameConstants.FISHING] < 85) {
+                        if (p.playerLevel[Constants.FISHING] >= 79
+                                        && p.playerLevel[Constants.FISHING] < 85) {
                                 return 8;
-                        } else if (p.playerLevel[GameConstants.FISHING] >= 85
-                                        && p.playerLevel[GameConstants.FISHING] < 95) {
+                        } else if (p.playerLevel[Constants.FISHING] >= 85
+                                        && p.playerLevel[Constants.FISHING] < 95) {
                                 return 13;
-                        } else if (p.playerLevel[GameConstants.FISHING] >= 95) {
+                        } else if (p.playerLevel[Constants.FISHING] >= 95) {
                                 return 17;
                         }
                         return 0;
@@ -782,31 +782,31 @@ public class Trawler extends GroupMinigame {
                 int xpToAdd = 0;
                 if (manta > 0) {
                         toReturn.add(new GameItem(389, manta));
-                        if (p.playerLevel[GameConstants.FISHING] >= 81) {
+                        if (p.playerLevel[Constants.FISHING] >= 81) {
                                 xpToAdd += (manta * 46);
                         }
                 }
                 if (turt > 0) {
                         toReturn.add(new GameItem(395, turt));
-                        if (p.playerLevel[GameConstants.FISHING] >= 79) {
+                        if (p.playerLevel[Constants.FISHING] >= 79) {
                                 xpToAdd += (manta * 38);
                         }
                 }
                 if (lobs > 0) {
                         toReturn.add(new GameItem(377, lobs));
-                        if (p.playerLevel[GameConstants.FISHING] >= 40) {
+                        if (p.playerLevel[Constants.FISHING] >= 40) {
                                 xpToAdd += (manta * 90);
                         }
                 }
                 if (swordFish > 0) {
                         toReturn.add(new GameItem(371, swordFish));
-                        if (p.playerLevel[GameConstants.FISHING] >= 50) {
+                        if (p.playerLevel[Constants.FISHING] >= 50) {
                                 xpToAdd += (manta * 100);
                         }
                 }
                 if (junk > 0)
                         toReturn.add(new GameItem(685, junk));
-                p.getPlayerAssistant().addSkillXP(xpToAdd, GameConstants.FISHING);
+                p.getPlayerAssistant().addSkillXP(xpToAdd, Constants.FISHING);
                 return toReturn;
         }
  

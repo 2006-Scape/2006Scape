@@ -1,8 +1,8 @@
 package com.rs2.game.objects.impl;
 
+import com.rs2.Constants;
 import org.apollo.cache.def.ObjectDefinition;
 
-import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -201,7 +201,7 @@ public class OtherObjects {
 				player.updateRequired = true;
 				player.poisonMask = 2;
 				player.dealDamage(nettlesDamage);
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 				player.getPacketSender().sendMessage("You have been stung by the nettles.");
 				player.stopPlayer(false);
 			}
@@ -220,7 +220,7 @@ public class OtherObjects {
 					} else if (random == 9) {
 						player.handleHitMask(damage);
 						player.dealDamage(damage);
-						player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+						player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 						container.stop();
 					} else {
 						player.getPacketSender().sendMessage("You find nothing of interest.");

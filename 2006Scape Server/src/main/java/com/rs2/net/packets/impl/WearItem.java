@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.items.Weight;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
@@ -57,7 +57,7 @@ public class WearItem implements PacketType {
 		}
 
 		if(player.wearId == 6583 || player.wearId == 7927) {
-			for (int i = 0; i < GameConstants.SIDEBARS.length; i++) {
+			for (int i = 0; i < Constants.SIDEBARS.length; i++) {
 				player.getPacketSender().setSidebarInterface(i, 6014);
 			}
 			switch(player.wearId) {

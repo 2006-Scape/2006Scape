@@ -1,6 +1,6 @@
 package com.rs2.integrations.discord.commands.admin;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
@@ -14,7 +14,7 @@ public class Purge implements MessageCreateListener {
         Message message = event.getMessage();
         if (message.getContent().startsWith("::purge")) {
             if (event.getMessageAuthor().isServerAdmin()) {
-                if(GameConstants.WORLD == 1) {
+                if(Constants.WORLD == 1) {
                     int messagesToPurge = Integer.parseInt(event.getMessageContent().replace("::purge ", ""));
                     if (messagesToPurge > 50) {
                         event.getChannel().sendMessage("Can't purge more than 50 messages at once.");

@@ -1,6 +1,6 @@
 package com.rs2.game.content.traveling;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -65,7 +65,7 @@ public class DesertCactus {
 		int fail = Misc.random(2);
 		if (fail == 1) {
 			c.getPacketSender().sendMessage("You failed to cut the cactus.");
-			c.getPlayerAssistant().addSkillXP(1, GameConstants.WOODCUTTING);
+			c.getPlayerAssistant().addSkillXP(1, Constants.WOODCUTTING);
 			return;
 		}
 		c.startAnimation(CUTTING_ANIMATION);
@@ -75,7 +75,7 @@ public class DesertCactus {
 			if (c.getItemAssistant().playerHasItem(element[0])) {
 				c.getItemAssistant().deleteItem(element[0], c.getItemAssistant().getItemSlot(element[0]), 1);
 				c.getItemAssistant().addItem(element[1], 1);
-				c.getPlayerAssistant().addSkillXP(10, GameConstants.WOODCUTTING);
+				c.getPlayerAssistant().addSkillXP(10, Constants.WOODCUTTING);
 			}
 		}
 	}

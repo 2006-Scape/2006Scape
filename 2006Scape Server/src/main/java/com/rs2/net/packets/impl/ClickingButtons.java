@@ -1,12 +1,11 @@
 package com.rs2.net.packets.impl;
 
+import com.rs2.Constants;
 import com.rs2.event.impl.ButtonActionEvent;
-import com.rs2.GameConstants;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.Specials;
 import com.rs2.game.content.combat.magic.*;
 import com.rs2.game.content.combat.prayer.ActivatePrayers;
-import com.rs2.game.content.music.Music;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.quests.QuestAssistant;
 import com.rs2.game.content.random.PartyRoom;
@@ -29,14 +28,12 @@ import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.GameItem;
 import com.rs2.game.items.impl.EnchantStaff;
 import com.rs2.game.items.impl.ExperienceLamp;
-import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.objects.impl.Climbing;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
-import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 
 /**
@@ -134,7 +131,7 @@ public class ClickingButtons implements PacketType {
 						"You can't do this in trade!");
 				return;
 			}
-			if (player.playerLevel[GameConstants.MAGIC] < 15) {
+			if (player.playerLevel[Constants.MAGIC] < 15) {
 				player.getPacketSender().sendString(
 								"You need a magic level of @blu@15 @bla@to cast bones to bananas",
 								357);
@@ -161,7 +158,7 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().deleteItem(557, 2);
 				player.getItemAssistant().deleteItem(555, 2);
 				player.getPlayerAssistant().addSkillXP(25, 6);
-				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+				player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(141);
 				player.getPacketSender().sendShowTab(6);
@@ -182,7 +179,7 @@ public class ClickingButtons implements PacketType {
 						"You can't do this in trade!");
 				return;
 			}
-			if (player.playerLevel[GameConstants.MAGIC] < 60) {
+			if (player.playerLevel[Constants.MAGIC] < 60) {
 				player.getPacketSender().sendString("You need a magic level of @blu@60  @blu@ to cast bones to peaches.", 357);
 				player.getPacketSender().sendChatInterface(356);
 				return;
@@ -214,7 +211,7 @@ public class ClickingButtons implements PacketType {
 				player.getItemAssistant().deleteItem(557, 4);
 				player.getItemAssistant().deleteItem(555, 4);
 				player.getPlayerAssistant().addSkillXP(35.5, 6);
-				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+				player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
 				player.startAnimation(722);
 				player.gfx100(311);
 				player.getPacketSender().sendShowTab(6);

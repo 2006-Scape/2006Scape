@@ -3,7 +3,7 @@ package com.rs2.integrations;
 import java.io.IOException;
 import java.net.URL;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.PlayerHandler;
 
 public class PlayersOnlineWebsite {
@@ -13,7 +13,7 @@ public class PlayersOnlineWebsite {
 
     private static void setWebsitePlayersOnline(int amount) throws IOException {
         URL url;
-        url = new URL(GameConstants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount + "&world=" + GameConstants.WORLD);
+        url = new URL(Constants.WEBSITE_LINK + "/playersonline.php?pass=" + password + "&amount=" + amount + "&world=" + Constants.WORLD);
         url.openStream().close();
     }
 

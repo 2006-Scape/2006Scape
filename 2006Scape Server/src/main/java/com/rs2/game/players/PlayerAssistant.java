@@ -3,7 +3,8 @@ package com.rs2.game.players;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
-import com.rs2.GameConstants;
+
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -40,7 +41,7 @@ public class PlayerAssistant {
 	}
 	
 	public boolean savePlayer() {
-		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[GameConstants.HITPOINTS] > 0 && player.playerLevel[GameConstants.HITPOINTS] <= getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) / 10 && player.underAttackBy > 0);
+		return (player.wildLevel < 20 && player.playerEquipment[ItemConstants.RING] == 2570 && player.playerLevel[Constants.HITPOINTS] > 0 && player.playerLevel[Constants.HITPOINTS] <= getLevelForXP(player.playerXP[Constants.HITPOINTS]) / 10 && player.underAttackBy > 0);
 	}
 	
 	public void handleROL() {
@@ -94,14 +95,14 @@ public class PlayerAssistant {
 	
 	public void loginScreen() {
 		player.getPacketSender().showInterface(15244);
-		player.getPacketSender().sendString("Welcome to " + GameConstants.SERVER_NAME + "             World: " + GameConstants.WORLD + "\\n", 15257);
+		player.getPacketSender().sendString("Welcome to " + Constants.SERVER_NAME + "             World: " + Constants.WORLD + "\\n", 15257);
 		   int currentDay = player.getLastLogin() - player.lastLoginDate;
 
-		if (player.playerLevel[GameConstants.HERBLORE] < 3) {
+		if (player.playerLevel[Constants.HERBLORE] < 3) {
 
-			player.playerLevel[GameConstants.HERBLORE] = 3;
-			player.playerXP[GameConstants.HERBLORE] = 175;
-			player.getPlayerAssistant().refreshSkill(GameConstants.HERBLORE);
+			player.playerLevel[Constants.HERBLORE] = 3;
+			player.playerXP[Constants.HERBLORE] = 175;
+			player.getPlayerAssistant().refreshSkill(Constants.HERBLORE);
 		}
 	        if (player.lastLoginDate <= 0) {
 	            player.getPacketSender().sendString("This is your first time logging in!", 15258);
@@ -110,7 +111,7 @@ public class PlayerAssistant {
 	        } else {
 	        	player.getPacketSender().sendString("You last logged in @red@" + (currentDay > 1 ? (currentDay + " @bla@days ago") : ("earlier today")) + " @bla@ from: @red@" + player.lastConnectedFrom, 15258);
 	        }
-		player.getPacketSender().sendString("" +GameConstants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
+		player.getPacketSender().sendString("" + Constants.SERVER_NAME + " will NEVER email you.\\n We use the forums or we \\nWill contact you through game.", 15260);
 		player.getPacketSender().sendString("You have 0 unread messages\\nin your message centre.", 15261);
 		player.getPacketSender().sendString("You have @gre@unlimited@yel@ days of member credit.", 15262);
 		player.getPacketSender().sendString("CLICK HERE TO PLAY", 15263);
@@ -125,7 +126,7 @@ public class PlayerAssistant {
 	}
 	
 	private String[][] welcomeMessages = {
-			{"Remember to vote daily to help " + GameConstants.SERVER_NAME + "", "Every vote counts! :)"}, 
+			{"Remember to vote daily to help " + Constants.SERVER_NAME + "", "Every vote counts! :)"},
 			{"Not a member of our discord community?", "Join our discord at: https://discord.gg/hZ6VfWG"},
 			{"Do you have any bugs that you would like to report?", "Report them on our discord or message a staff member. :)"},
 			{"Want to help the server grow?", "Remember to vote daily and invite your friends!"}
@@ -177,31 +178,31 @@ public class PlayerAssistant {
         int xpToAdd = 0;
         if (manta > 0) {
             toReturn.add(new GameItem(389, manta));
-            if (player.playerLevel[GameConstants.FISHING] >= 81) {
+            if (player.playerLevel[Constants.FISHING] >= 81) {
                 xpToAdd += (manta * 46);
             }
         }
         if (turt > 0) {
             toReturn.add(new GameItem(395, turt));
-            if (player.playerLevel[GameConstants.FISHING] >= 79) {
+            if (player.playerLevel[Constants.FISHING] >= 79) {
                 xpToAdd += (manta * 38);
             }
         }
         if (lobs > 0) {
             toReturn.add(new GameItem(377, lobs));
-            if (player.playerLevel[GameConstants.FISHING] >= 40) {
+            if (player.playerLevel[Constants.FISHING] >= 40) {
                 xpToAdd += (manta * 90);
             }
         }
         if (swordFish > 0) {
             toReturn.add(new GameItem(371, swordFish));
-            if (player.playerLevel[GameConstants.FISHING] >= 50) {
+            if (player.playerLevel[Constants.FISHING] >= 50) {
                 xpToAdd += (manta * 100);
             }
         }
         if (junk > 0)
             toReturn.add(new GameItem(685, junk));
-        player.getPlayerAssistant().addSkillXP(xpToAdd, GameConstants.FISHING);
+        player.getPlayerAssistant().addSkillXP(xpToAdd, Constants.FISHING);
         return toReturn;
     }
     
@@ -350,8 +351,8 @@ public class PlayerAssistant {
 }
 
 	public void sendSidebars() {
-		for (int i = 0; i < GameConstants.SIDEBARS.length; i++) {
-			player.getPacketSender().setSidebarInterface(i, GameConstants.SIDEBARS[i]);
+		for (int i = 0; i < Constants.SIDEBARS.length; i++) {
+			player.getPacketSender().setSidebarInterface(i, Constants.SIDEBARS[i]);
 		}
 		player.getPacketSender().setSidebarInterface(6, player.playerMagicBook == 0 ? 1151 : 12855);
 	}
@@ -401,7 +402,7 @@ public class PlayerAssistant {
 
 	public int raiseTimer() {
 		// calculations from https://oldschool.runescape.wiki/w/Energy
-		double seconds  = 60 / (8 + Math.floor(player.playerLevel[GameConstants.AGILITY] / 6));
+		double seconds  = 60 / (8 + Math.floor(player.playerLevel[Constants.AGILITY] / 6));
 		return (int) Math.floor(seconds * 1000);
 	}
 
@@ -628,8 +629,8 @@ public class PlayerAssistant {
 			player.getPacketSender().sendMessage("You can't teleport from a Fight pits Game!");
 			return;
 		}
-		if (player.inWild() && player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
-			player.getPacketSender().sendMessage("You can't teleport above level " + GameConstants.NO_TELEPORT_WILD_LEVEL + " wilderness.");
+		if (player.inWild() && player.wildLevel > Constants.NO_TELEPORT_WILD_LEVEL) {
+			player.getPacketSender().sendMessage("You can't teleport above level " + Constants.NO_TELEPORT_WILD_LEVEL + " wilderness.");
 			return;
 		}
 		if (player.tutorialProgress < 36) {
@@ -689,7 +690,7 @@ public class PlayerAssistant {
 			}
 			player.teleHeight = height;
 			player.isTeleporting = true;
-			if (GameConstants.SOUND) {
+			if (Constants.SOUND) {
 				player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 700);
 			}
 			if (teleportType.equalsIgnoreCase("modern")) {
@@ -757,7 +758,7 @@ public class PlayerAssistant {
 			player.getPacketSender().sendMessage("You can't teleport as a monkey.");
 			return;
 		}
-		if (GameConstants.SOUND) {
+		if (Constants.SOUND) {
 			player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
 		if (!player.isDead && player.teleTimer == 0) {
@@ -820,7 +821,7 @@ public class PlayerAssistant {
 					"You are teleblocked and can't teleport.");
 			return;
 		}
-		if (GameConstants.SOUND) {
+		if (Constants.SOUND) {
 			player.getPacketSender().sendSound(SoundList.TELEPORT, 100, 0);
 		}
 		if (player.inWild() && player.wildLevel > 30) {
@@ -940,11 +941,11 @@ public class PlayerAssistant {
 				Client t = (Client) player;
 				if (t.absX >= x1 && t.absX <= x2 && t.absY >= y1
 						&& t.absY <= y2) {
-					int hit = t.playerLevel[GameConstants.HITPOINTS] / hp;
+					int hit = t.playerLevel[Constants.HITPOINTS] / hp;
 					t.setHitDiff2(hit);
 					t.setHitUpdateRequired2(true);
-					t.playerLevel[GameConstants.HITPOINTS] -= hit;
-					t.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+					t.playerLevel[Constants.HITPOINTS] -= hit;
+					t.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 					t.updateRequired = true;
 				}
 			}
@@ -1023,7 +1024,7 @@ public class PlayerAssistant {
 		for (Player p : PlayerHandler.players) {
 			if (p != null && p.isActive) {
 				Client o = (Client) p;
-				o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
+				o.getPlayerAssistant().updatePM(player.playerId, Constants.WORLD);
 			}
 		}
 		boolean pmLoaded = false;
@@ -1041,7 +1042,7 @@ public class PlayerAssistant {
 								&& o.getPlayerAssistant()
 										.isInPM(Misc
 												.playerNameToInt64(player.playerName))) {
-							player.getPacketSender().loadPM(friend, GameConstants.WORLD);
+							player.getPacketSender().loadPM(friend, Constants.WORLD);
 							pmLoaded = true;
 						}
 						break;
@@ -1056,7 +1057,7 @@ public class PlayerAssistant {
 				Player p = PlayerHandler.players[i1];
 				if (p != null && p.isActive) {
 					Client o = (Client) p;
-					o.getPlayerAssistant().updatePM(player.playerId, GameConstants.WORLD);
+					o.getPlayerAssistant().updatePM(player.playerId, Constants.WORLD);
 				}
 			}
 		}
@@ -1408,8 +1409,8 @@ public class PlayerAssistant {
 			player.clickedVamp = false;
 		} else if (player.isWoodcutting) {
 			player.isWoodcutting = false;
-		} else if (player.playerSkilling[GameConstants.FISHING]) {
-			player.playerSkilling[GameConstants.FISHING] = false;
+		} else if (player.playerSkilling[Constants.FISHING]) {
+			player.playerSkilling[Constants.FISHING] = false;
 		} else if(player.clickedTree) {
 				player.clickedTree = false;
 		}
@@ -1500,7 +1501,7 @@ public class PlayerAssistant {
 																	// duel
 																	// repawn to
 																	// wildy
-			movePlayer(GameConstants.RESPAWN_X, GameConstants.RESPAWN_Y, 0);
+			movePlayer(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
 			player.isSkulled = false;
 			player.skullTimer = 0;
 			player.attackedPlayers.clear();
@@ -1518,14 +1519,14 @@ public class PlayerAssistant {
 			}
 			player.getPacketSender().sendSound(122, 100, 0);
 			player.getPlayerAssistant().movePlayer(
-					GameConstants.DUELING_RESPAWN_X + 5,
-					GameConstants.DUELING_RESPAWN_Y + 5, 0);
+					Constants.DUELING_RESPAWN_X + 5,
+					Constants.DUELING_RESPAWN_Y + 5, 0);
 			assert o != null;
 			if (o != null) {
 				o.getPacketSender().sendSound(122, 100, 0);
 				o.getPlayerAssistant().movePlayer(
-						GameConstants.DUELING_RESPAWN_X + 5,
-						GameConstants.DUELING_RESPAWN_Y + 5, 0);
+						Constants.DUELING_RESPAWN_X + 5,
+						Constants.DUELING_RESPAWN_Y + 5, 0);
 			}
 			if (player.duelStatus != 6) { // if we have won but have died,
 											// don't reset the duel status.
@@ -1630,7 +1631,7 @@ public class PlayerAssistant {
 		if (player.freezeTimer > 0) {
 			return;
 		}
-		if (player.isDead || player.playerLevel[GameConstants.HITPOINTS] <= 0) {
+		if (player.isDead || player.playerLevel[Constants.HITPOINTS] <= 0) {
 			return;
 		}
 
@@ -1813,7 +1814,7 @@ public class PlayerAssistant {
 	}
 
 	public void firstTimeTutorial() {
-		if (GameConstants.TUTORIAL_ISLAND && player.tutorialProgress == 0) {
+		if (Constants.TUTORIAL_ISLAND && player.tutorialProgress == 0) {
 			player.getItemAssistant().deleteAllItems();
 			player.getPlayerAssistant().hideAllSideBars();
 			movePlayer(3094, 3107, 0);
@@ -1823,7 +1824,7 @@ public class PlayerAssistant {
 			player.autoRet = 1;
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
-		} else if (player.tutorialProgress == 0 && !GameConstants.TUTORIAL_ISLAND) {
+		} else if (player.tutorialProgress == 0 && !Constants.TUTORIAL_ISLAND) {
 			player.getPlayerAssistant().sendSidebars();
 			PlayerAssistant.removeHintIcon(player);
 			player.getPacketSender().walkableInterface(-1);
@@ -1832,7 +1833,7 @@ public class PlayerAssistant {
 			player.getItemAssistant().clearBank();
 			player.getPlayerAssistant().addStarter();
 			player.getPlayerAssistant().movePlayer(3233, 3229, 0);
-			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + " World: " + Constants.WORLD + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source and pull requests are welcome!");
 			player.getPacketSender().sendMessage("Source code: github.com/2006-Scape/2006Scape");
 			player.getPacketSender().sendMessage("Discord: https://discord.gg/hZ6VfWG");
@@ -1986,7 +1987,7 @@ public class PlayerAssistant {
 		player.getPacketSender().sendString("" + player.playerXP[skill] + "", data.get().getFrame6());
 		player.getPacketSender().sendString("" + getXPForLevel(getLevelForXP(player.playerXP[skill]) + 1) + "", data.get().getFrame7());
 		if (skill == 5) {
-			player.getPacketSender().sendString("" + player.playerLevel[GameConstants.PRAYER] + "/" + getLevelForXP(player.playerXP[GameConstants.PRAYER]) + "", 687);// Prayer
+			player.getPacketSender().sendString("" + player.playerLevel[Constants.PRAYER] + "/" + getLevelForXP(player.playerXP[Constants.PRAYER]) + "", 687);// Prayer
 		}
 		// Update skill data
 		player.getPacketSender().setSkillLevel(skill, player.playerLevel[skill], player.playerXP[skill]);
@@ -2024,13 +2025,13 @@ public class PlayerAssistant {
 			}
 			return false;
 		}
-		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && GameConstants.TUTORIAL_ISLAND) {
+		if (player.tutorialProgress < 36 && player.playerLevel[skill] == 3 && Constants.TUTORIAL_ISLAND) {
 			return false;
 		}
-		if (GameConstants.VARIABLE_XP_RATE){
+		if (Constants.VARIABLE_XP_RATE){
 			amount *= player.getXPRate();
 		} else {
-			amount *= GameConstants.XP_RATE;
+			amount *= Constants.XP_RATE;
 		}
 		int oldLevel = getLevelForXP(player.playerXP[skill]);
 		player.playerXP[skill] += amount;

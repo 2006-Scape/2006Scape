@@ -1,6 +1,6 @@
 package com.rs2.net.packets;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.dialogues.Dialogue;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
@@ -162,7 +162,7 @@ public class PacketHandler {
 		int packetSize = packet.getLength();
         PacketType p = packetId[packetType];
         if(p != null && packetType > 0 && packetType < 257) {
-            if (GameConstants.sendServerPackets && player.playerRights == 3) {
+            if (Constants.sendServerPackets && player.playerRights == 3) {
                 player.getPacketSender().sendMessage("PacketType: " + packetType + ". PacketSize: " + packetSize + ".");
             }
             try {

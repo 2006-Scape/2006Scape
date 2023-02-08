@@ -2,7 +2,7 @@ package com.rs2.game.content.skills.slayer;
 
 import java.util.ArrayList;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -165,7 +165,7 @@ public class Slayer {
 	}
 
 	public boolean canAttackNpc(int i) {
-		if (c.playerLevel[GameConstants.SLAYER] < getRequiredLevel(NpcHandler.npcs[i].npcType)) {
+		if (c.playerLevel[Constants.SLAYER] < getRequiredLevel(NpcHandler.npcs[i].npcType)) {
 			c.getPacketSender().sendMessage("You need a slayer level of " + getRequiredLevel(NpcHandler.npcs[i].npcType) + " to attack this npc.");
 			c.getCombatAssistant().resetPlayerAttack();
 			return false;
@@ -184,27 +184,27 @@ public class Slayer {
 		}
 		for (Task slayerTask : Task.values()) {
 			if (slayerTask.getDifficulty() == EASY_TASK) {
-				if (c.playerLevel[GameConstants.SLAYER] >= slayerTask.getLevelReq()) {
+				if (c.playerLevel[Constants.SLAYER] >= slayerTask.getLevelReq()) {
 					easyTask.add(slayerTask.getNpcId());
 				}
 				continue;
 			} else if (slayerTask.getDifficulty() == VERY_EASY_TASK) {
-				if (c.playerLevel[GameConstants.SLAYER] >= slayerTask.getLevelReq()) {
+				if (c.playerLevel[Constants.SLAYER] >= slayerTask.getLevelReq()) {
 					veryEasyTask.add(slayerTask.getNpcId());
 				}
 				continue;
 			} else if (slayerTask.getDifficulty() == MEDIUM_TASK) {
-				if (c.playerLevel[GameConstants.SLAYER] >= slayerTask.getLevelReq()) {
+				if (c.playerLevel[Constants.SLAYER] >= slayerTask.getLevelReq()) {
 					mediumTask.add(slayerTask.getNpcId());
 				}
 				continue;
 			} else if (slayerTask.getDifficulty() == HARD_TASK) {
-				if (c.playerLevel[GameConstants.SLAYER] >= slayerTask.getLevelReq()) {
+				if (c.playerLevel[Constants.SLAYER] >= slayerTask.getLevelReq()) {
 					hardTask.add(slayerTask.getNpcId());
 				}
 				continue;
 			} else if (slayerTask.getDifficulty() == VERY_HARD_TASK) {
-				if (c.playerLevel[GameConstants.SLAYER] >= slayerTask.getLevelReq()) {
+				if (c.playerLevel[Constants.SLAYER] >= slayerTask.getLevelReq()) {
 					veryHardTask.add(slayerTask.getNpcId());
 				}
 				continue;
@@ -335,7 +335,7 @@ public class Slayer {
 		int taskLevel = getSlayerDifficulty(c);
 		for (Task slayerTask : Task.values()) {
 			if (slayerTask.getDifficulty() == taskLevel) {
-				if (c.playerLevel[GameConstants.SLAYER] >= slayerTask.getLevelReq()) {
+				if (c.playerLevel[Constants.SLAYER] >= slayerTask.getLevelReq()) {
 					resizeTable(taskLevel);
 					if (!c.needsNewTask) {
 						int task = getRandomTask(taskLevel);

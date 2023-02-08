@@ -50,6 +50,7 @@ import com.rs2.world.clip.RegionFactory;
 
 import io.netty.util.ResourceLeakDetector;
 import io.netty.util.ResourceLeakDetector.Level;
+import org.apollo.net.NetworkConstants;
 
 /**
  * Server.java
@@ -68,7 +69,7 @@ public class GameEngine {
 	private static void startMinutesCounter() {
 		try {
 			minuteFile = new BufferedReader(new FileReader(
-					GameConstants.SERVER_LOG_DIR + "minutes.log"));
+					Constants.SERVER_LOG_DIR + "minutes.log"));
 			minutesCounter = Long.parseLong(minuteFile.readLine());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,7 +80,7 @@ public class GameEngine {
 	private static void setMinutesCounter(long minutesCounter) {
 		try {
 			BufferedWriter minuteCounter = new BufferedWriter(new FileWriter(
-					GameConstants.SERVER_LOG_DIR + "minutes.log"));
+					Constants.SERVER_LOG_DIR + "minutes.log"));
 			minuteCounter.write(Long.toString(minutesCounter));
 			minuteCounter.close();
 		} catch (IOException e) {
@@ -122,9 +123,14 @@ public class GameEngine {
 
 	public static void main(java.lang.String[] args)
 			throws NullPointerException, IOException {
+		if (NetworkConstants.RSA_EXPONENT != Constants.RSA_EXPONENT) {
+			NetworkConstants.RSA_EXPONENT = Constants.RSA_EXPONENT;
+			NetworkConstants.RSA_MODULUS = Constants.RSA_MODULUS;
+
+		}
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].equals("-gui"))
-				GameConstants.GUI_ENABLED = true;
+				Constants.GUI_ENABLED = true;
 			if (args[i].startsWith("-") && (i + 1) < args.length && !args[i + 1].startsWith("-")) {
 				switch (args[i]) {
 					case "-c":
@@ -142,7 +148,7 @@ public class GameEngine {
 		}
 
 		System.out.println("Starting game engine..");
-		if (GameConstants.SERVER_DEBUG) {
+		if (Constants.SERVER_DEBUG) {
 			System.out.println("@@@@ DEBUG MODE IS ENABLED @@@@");
 		}
 
@@ -162,7 +168,7 @@ public class GameEngine {
 		/**
 		 * Starting Up Server
 		 */
-		System.out.println("Launching " + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD + "...");
+		System.out.println("Launching " + Constants.SERVER_NAME + " World: " + Constants.WORLD + "...");
 
 		/**
 		 * Start Integration Services
@@ -183,7 +189,7 @@ public class GameEngine {
 			System.exit(1);
 		}
 
-		IndexedFileSystem cache = new IndexedFileSystem(Paths.get(GameConstants.FILE_SYSTEM_DIR), true);
+		IndexedFileSystem cache = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
 		new ObjectDefinitionDecoder(cache).run();
 		new ItemDefinitionDecoder(cache).run();
 		
@@ -214,7 +220,7 @@ public class GameEngine {
 		/**
 		 * Makes Visible Control Panel If Enabled
 		 */
-		if(GameConstants.GUI_ENABLED) {
+		if(Constants.GUI_ENABLED) {
 			ControlPanel panel = new ControlPanel();
 			panel.initComponents();
 			panel.setVisible(true);
@@ -251,7 +257,7 @@ public class GameEngine {
 					objectHandler.process();
 					MageTrainingArena.process();
 					CycleEventHandler.getSingleton().process();
-					if (GameConstants.WEBSITE_INTEGRATION) {
+					if (Constants.WEBSITE_INTEGRATION) {
 						PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 						RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
 					}
@@ -288,7 +294,7 @@ public class GameEngine {
 				}
 				//TODO debug System.out.println("Cycle took " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms.");
 			}
-		}, 0, GameConstants.CYCLE_TIME, TimeUnit.MILLISECONDS);
+		}, 0, Constants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 
 		/*
 		 * I'd recommend disabling this until I can be bothered to implement it

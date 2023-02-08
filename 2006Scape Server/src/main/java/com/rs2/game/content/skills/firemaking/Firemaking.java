@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.firemaking;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -43,7 +43,7 @@ public class Firemaking {
 		for (final LogData l : LogData.values()) {
 			final int logId = usedWith == firemakingItems[i] ? itemUsed : usedWith;
 			if (logId == l.getLogId()) {
-				if (c.playerLevel[GameConstants.FIREMAKING] < l.getLevel()) {
+				if (c.playerLevel[Constants.FIREMAKING] < l.getLevel()) {
 					c.getPacketSender().sendMessage("You need a firemaking level of " + l.getLevel() + " to light " + DeprecatedItems.getItemName(logId));
 					return;
 				}

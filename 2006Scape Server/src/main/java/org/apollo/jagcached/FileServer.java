@@ -8,13 +8,11 @@ import java.net.SocketAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.rs2.Constants;
 import org.apollo.game.session.ApolloHandler;
 import org.apollo.net.HttpChannelInitializer;
 import org.apollo.net.JagGrabChannelInitializer;
-import com.rs2.NetworkConstants;
 import org.apollo.net.ServiceChannelInitializer;
-
-import com.rs2.GameConstants;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -66,10 +64,10 @@ public final class FileServer {
 	 * Starts the file server.
 	 * @throws Exception if an error occurs.
 	 */
-	public SocketAddress service = new InetSocketAddress((GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD);
+	public SocketAddress service = new InetSocketAddress((Constants.WORLD == 1) ? 43594 : 43596 + Constants.WORLD);
 
 	public void start() throws Exception {
-		if (!new File(GameConstants.FILE_SYSTEM_DIR).exists())
+		if (!new File(Constants.FILE_SYSTEM_DIR).exists())
 		{
 			System.out.println("Working Directory = " + System.getProperty("user.dir"));
 			System.out.println("************************************");
@@ -84,7 +82,7 @@ public final class FileServer {
 			System.exit(1);
 		}
 
-		if(GameConstants.FILE_SERVER) {
+		if(Constants.FILE_SERVER) {
 			httpBootstrap = new ServerBootstrap();
 			jaggrabBootstrap = new ServerBootstrap();
 			pool = new RequestWorkerPool();
@@ -94,8 +92,8 @@ public final class FileServer {
 		logger.info("Starting services...");
 		
 		init();
-		SocketAddress http = new InetSocketAddress(NetworkConstants.HTTP_PORT);
-		SocketAddress jaggrab = new InetSocketAddress(NetworkConstants.JAGGRAB_PORT);
+		SocketAddress http = new InetSocketAddress(Constants.HTTP_PORT);
+		SocketAddress jaggrab = new InetSocketAddress(Constants.JAGGRAB_PORT);
 
 		bind(service, http, jaggrab);
 		
@@ -110,7 +108,7 @@ public final class FileServer {
 	public void init() throws Exception {
 		
 		serviceBootstrap.group(loopGroup);
-		if(GameConstants.FILE_SERVER) {
+		if(Constants.FILE_SERVER) {
 			httpBootstrap.group(loopGroup);
 			jaggrabBootstrap.group(loopGroup);		
 		}
@@ -120,7 +118,7 @@ public final class FileServer {
 		serviceBootstrap.channel(NioServerSocketChannel.class);
 		serviceBootstrap.childHandler(service);
 
-		if(!GameConstants.FILE_SERVER)
+		if(!Constants.FILE_SERVER)
 			return;
 		ChannelInitializer<SocketChannel> http = new HttpChannelInitializer(handler);
 		httpBootstrap.channel(NioServerSocketChannel.class);
@@ -142,7 +140,7 @@ public final class FileServer {
 	public void bind(SocketAddress service, SocketAddress http, SocketAddress jaggrab) throws IOException {
 		logger.fine("Binding service listener to address: " + service + "...");
 		bind(serviceBootstrap, service);
-		if (GameConstants.FILE_SERVER) {
+		if (Constants.FILE_SERVER) {
 			try {
 				logger.fine("Binding HTTP listener to address: " + http + "...");
 				bind(httpBootstrap, http);

@@ -1,9 +1,8 @@
 package com.rs2.game.players;
 
 import com.everythingrs.hiscores.Hiscores;
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
-import com.rs2.NetworkConstants;
 import com.rs2.event.*;
 import com.rs2.game.content.BankPin;
 import com.rs2.game.content.EmoteHandler;
@@ -55,7 +54,6 @@ import com.rs2.game.objects.ObjectsActions;
 import com.rs2.game.shops.ShopAssistant;
 import com.rs2.gui.ControlPanel;
 import com.rs2.net.Packet;
-import com.rs2.net.Packet.Type;
 import com.rs2.net.PacketSender;
 import com.rs2.net.packets.PacketHandler;
 import com.rs2.net.packets.impl.ChallengePlayer;
@@ -65,7 +63,6 @@ import com.rs2.util.Stream;
 import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
 import java.util.*;
@@ -562,7 +559,7 @@ public abstract class Player {
 		if (session == null) {
 			return;
 		}
-		if(GameConstants.GUI_ENABLED)
+		if(Constants.GUI_ENABLED)
 			ControlPanel.removeEntity(playerName);
 		if (getCannon().hasCannon()) {
 			getCannon().removeObject(cannonX, cannonY);
@@ -855,7 +852,7 @@ public abstract class Player {
 
 	public Client getClient(String name) {
 		name = name.toLowerCase();
-		for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+		for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
 			if (validClient(i)) {
 				Client client = getClient(i);
 				if (client.playerName.toLowerCase().equalsIgnoreCase(name)) {
@@ -871,7 +868,7 @@ public abstract class Player {
 	}
 
 	public boolean validClient(int id) {
-		if (id < 0 || id > GameConstants.MAX_PLAYERS) {
+		if (id < 0 || id > Constants.MAX_PLAYERS) {
 			return false;
 		}
 		return validClient(getClient(id));
@@ -922,7 +919,7 @@ public abstract class Player {
 				forcedChat("" + --duelCount);
 				duelDelay = System.currentTimeMillis();
 			} else {
-				damageTaken = new int[GameConstants.MAX_PLAYERS];
+				damageTaken = new int[Constants.MAX_PLAYERS];
 				forcedChat("FIGHT!");
 				duelCount = 0;
 			}
@@ -1062,7 +1059,7 @@ public abstract class Player {
 			}
 		}
 
-		if (timeOutCounter > GameConstants.TIMEOUT) {
+		if (timeOutCounter > Constants.TIMEOUT) {
 			if (!isBot)
 				logout(true);
 		}
@@ -1149,7 +1146,7 @@ public abstract class Player {
 	 *            : SOUND DELAY
 	 */
 	public void playSound(Client c, int SOUNDID, int delay) {
-		if (GameConstants.SOUND) {
+		if (Constants.SOUND) {
 			if (soundVolume <= -1) {
 				return;
 			}
@@ -1970,7 +1967,7 @@ public abstract class Player {
 
 		heightLevel = 0;
 
-		if (GameConstants.TUTORIAL_ISLAND) {
+		if (Constants.TUTORIAL_ISLAND) {
 			teleportToX = 3094;
 			teleportToY = 3107;
 		} else {
@@ -1984,11 +1981,11 @@ public abstract class Player {
 		resetWalkingQueue();
 	}
 
-	public static final int maxPlayerListSize = GameConstants.MAX_PLAYERS;
+	public static final int maxPlayerListSize = Constants.MAX_PLAYERS;
 	public Player playerList[] = new Player[maxPlayerListSize];
 	public int playerListSize = 0;
 
-	public byte playerInListBitmap[] = new byte[GameConstants.MAX_PLAYERS + 7 >> 3];
+	public byte playerInListBitmap[] = new byte[Constants.MAX_PLAYERS + 7 >> 3];
 
 	public static final int maxNPCListSize = NpcHandler.MAX_NPCS;
 	public Npc npcList[] = new Npc[maxNPCListSize];
@@ -2337,7 +2334,7 @@ public abstract class Player {
 		}
 	}
 
-	public byte cachedPropertiesBitmap[] = new byte[GameConstants.MAX_PLAYERS + 7 >> 3];
+	public byte cachedPropertiesBitmap[] = new byte[Constants.MAX_PLAYERS + 7 >> 3];
 
 	public void addNewNPC(Npc npc, Stream str, Stream updateBlock) {
 		int id = npc.npcId;
@@ -2544,13 +2541,13 @@ public abstract class Player {
 		if (isBot) {
 			return 0;
 		}
-		int j = playerAssistant.getLevelForXP(playerXP[GameConstants.ATTACK]);
-		int k = playerAssistant.getLevelForXP(playerXP[GameConstants.DEFENCE]);
-		int l = playerAssistant.getLevelForXP(playerXP[GameConstants.STRENGTH]);
-		int i1 = playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS]);
-		int j1 = playerAssistant.getLevelForXP(playerXP[GameConstants.PRAYER]);
-		int k1 = playerAssistant.getLevelForXP(playerXP[GameConstants.RANGED]);
-		int l1 = playerAssistant.getLevelForXP(playerXP[GameConstants.MAGIC]);
+		int j = playerAssistant.getLevelForXP(playerXP[Constants.ATTACK]);
+		int k = playerAssistant.getLevelForXP(playerXP[Constants.DEFENCE]);
+		int l = playerAssistant.getLevelForXP(playerXP[Constants.STRENGTH]);
+		int i1 = playerAssistant.getLevelForXP(playerXP[Constants.HITPOINTS]);
+		int j1 = playerAssistant.getLevelForXP(playerXP[Constants.PRAYER]);
+		int k1 = playerAssistant.getLevelForXP(playerXP[Constants.RANGED]);
+		int l1 = playerAssistant.getLevelForXP(playerXP[Constants.MAGIC]);
 		int combatLevel = (int) ((k + i1 + Math.floor(j1 / 2)) * 0.25D) + 1;
 		double d = (j + l) * 0.32500000000000001D;
 		double d1 = Math.floor(k1 * 1.5D) * 0.32500000000000001D;
@@ -2698,12 +2695,12 @@ public abstract class Player {
 		} else {
 			str.writeByteA(0); // 0: red hitting - 1: blue hitting
 		}
-		if (playerLevel[GameConstants.HITPOINTS] <= 0) {
-			playerLevel[GameConstants.HITPOINTS] = 0;
+		if (playerLevel[Constants.HITPOINTS] <= 0) {
+			playerLevel[Constants.HITPOINTS] = 0;
 			isDead = true;
 		}
-		str.writeByteC(playerLevel[GameConstants.HITPOINTS]); // Their current hp, for HP bar
-		str.writeByte(playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS]));
+		str.writeByteC(playerLevel[Constants.HITPOINTS]); // Their current hp, for HP bar
+		str.writeByte(playerAssistant.getLevelForXP(playerXP[Constants.HITPOINTS]));
 	}
 
 	protected void appendHitUpdate2(Stream str) {
@@ -2716,12 +2713,12 @@ public abstract class Player {
 		} else {
 			str.writeByteS(0); // 0: red hitting - 1: blue hitting
 		}
-		if (playerLevel[GameConstants.HITPOINTS] <= 0) {
-			playerLevel[GameConstants.HITPOINTS] = 0;
+		if (playerLevel[Constants.HITPOINTS] <= 0) {
+			playerLevel[Constants.HITPOINTS] = 0;
 			isDead = true;
 		}
-		str.writeByte(playerLevel[GameConstants.HITPOINTS]); // Their current hp, for HP bar
-		str.writeByteC(playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS])); // Their max hp, for HP
+		str.writeByte(playerLevel[Constants.HITPOINTS]); // Their current hp, for HP bar
+		str.writeByteC(playerAssistant.getLevelForXP(playerXP[Constants.HITPOINTS])); // Their max hp, for HP
 	}
 
 	public void appendPlayerUpdateBlock(Stream str) {
@@ -3101,9 +3098,9 @@ public abstract class Player {
 
 	public void dealDamage(int damage) {
 		if (teleTimer <= 0) {
-			playerLevel[GameConstants.HITPOINTS] -= damage;
-			int difference = playerLevel[GameConstants.HITPOINTS] - damage;
-			if (difference <= playerAssistant.getLevelForXP(playerXP[GameConstants.HITPOINTS]) / 10 && difference > 0)
+			playerLevel[Constants.HITPOINTS] -= damage;
+			int difference = playerLevel[Constants.HITPOINTS] - damage;
+			if (difference <= playerAssistant.getLevelForXP(playerXP[Constants.HITPOINTS]) / 10 && difference > 0)
 				appendRedemption();
 			getPlayerAssistant().handleROL();
 		} else {
@@ -3114,21 +3111,21 @@ public abstract class Player {
 				hitUpdateRequired2 = false;
 			}
 		}
-		getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+		getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 	}
 
 	public void appendRedemption() {
 		Client c = (Client) PlayerHandler.players[playerId];
 		if (c.getPrayer().prayerActive[22]) {
-			int added = c.playerLevel[GameConstants.HITPOINTS] += (int)(c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
-			if (added > c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-				c.playerLevel[GameConstants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]);
+			int added = c.playerLevel[Constants.HITPOINTS] += (int)(c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.PRAYER]) * .25);
+			if (added > c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS])) {
+				c.playerLevel[Constants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]);
 			} else {
-				c.playerLevel[GameConstants.HITPOINTS] += (int)(playerAssistant.getLevelForXP(c.playerXP[GameConstants.PRAYER]) * .25);
+				c.playerLevel[Constants.HITPOINTS] += (int)(playerAssistant.getLevelForXP(c.playerXP[Constants.PRAYER]) * .25);
 			}
-			c.playerLevel[GameConstants.PRAYER] = 0;
-			c.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-			c.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
+			c.playerLevel[Constants.PRAYER] = 0;
+			c.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+			c.getPlayerAssistant().refreshSkill(Constants.PRAYER);
 			c.gfx0(436);
 			PrayerDrain.resetPrayers(c);
 		}

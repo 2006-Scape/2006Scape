@@ -2,7 +2,6 @@ package com.rs2.game.items;
 
 import org.apollo.cache.def.ItemDefinition;
 
-import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.players.Player;
 

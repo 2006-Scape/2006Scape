@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.agility;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -38,7 +38,7 @@ public class ApeAtollAgility {
 				c.getAgility().walk(-2, 0,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getAgility().resetAgilityProgress();
 				c.getAgility().agilityProgress[0] = true;
 			}
@@ -58,7 +58,7 @@ public class ApeAtollAgility {
 						"You managed to climb up the Tree.");
 				c.getAgility().climbUpTropicalTree(c.getX(), c.getY(), 2);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[0]) {
 					c.getAgility().agilityProgress[1] = true;
 				}
@@ -81,7 +81,7 @@ public class ApeAtollAgility {
 				c.getAgility().walk(-5, 0,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[1]) {
 					c.getAgility().agilityProgress[2] = true;
 				}
@@ -101,7 +101,7 @@ public class ApeAtollAgility {
 				c.getAgility().walk(-5, 0,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getPacketSender().sendMessage("You climb your way up");
 				if (c.getAgility().agilityProgress[2]) {
 					c.getAgility().agilityProgress[3] = true;
@@ -122,7 +122,7 @@ public class ApeAtollAgility {
 				c.getAgility().walk(1, 0,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[3]) {
 					c.getAgility().agilityProgress[4] = true;
 				}
@@ -161,7 +161,7 @@ public class ApeAtollAgility {
 			c.getAgility().tropicalTreeUpdate = 2;
 			c.getAgility().moveHeight = 0;
 			c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId),
-					GameConstants.AGILITY);
+					Constants.AGILITY);
 			if (c.getAgility().agilityProgress[4]) {
 				c.getAgility().agilityProgress[5] = true;
 			}

@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.fletching;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -71,7 +71,7 @@ public class TipMaking {
 		if (itemData == null) {
 			return false;
 		}
-		if (player.playerLevel[GameConstants.FLETCHING] < itemData.getLevel()) {
+		if (player.playerLevel[Constants.FLETCHING] < itemData.getLevel()) {
 			player.getDialogueHandler().sendStatement(
 					"You need a fletching level of " + itemData.getLevel()
 							+ " to do this");
@@ -113,7 +113,7 @@ public class TipMaking {
 									+ itemData.getQuantity()
 									+ " "
 									+ DeprecatedItems.getItemName(itemData.getProduct()) + ".");
-					player.getPlayerAssistant().addSkillXP(itemData.getQuantity() * itemData.getXp(), GameConstants.FLETCHING);
+					player.getPlayerAssistant().addSkillXP(itemData.getQuantity() * itemData.getXp(), Constants.FLETCHING);
 				}
 
 				@Override

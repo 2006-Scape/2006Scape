@@ -1,6 +1,6 @@
 package com.rs2.game.content.combat.magic;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
@@ -95,7 +95,7 @@ public class MagicRequirements {
 		}
 
 		// check magic level
-		if (c.playerLevel[GameConstants.MAGIC] < MagicData.MAGIC_SPELLS[spell][1]) {
+		if (c.playerLevel[Constants.MAGIC] < MagicData.MAGIC_SPELLS[spell][1]) {
 			c.getPacketSender().sendMessage(
 					"You need to have a magic level of "
 							+ MagicData.MAGIC_SPELLS[spell][1]

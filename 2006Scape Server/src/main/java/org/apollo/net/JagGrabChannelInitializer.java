@@ -1,7 +1,5 @@
 package org.apollo.net;
 
-import com.rs2.GameConstants;
-import com.rs2.NetworkConstants;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInboundHandlerAdapter;

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.apollo.cache.FileSystemConstants;
-import com.rs2.NetworkConstants;
+import org.apollo.net.NetworkConstants;
 import org.apollo.util.BufferUtil;
 import org.apollo.util.StatefulFrameDecoder;
 import org.apollo.util.security.IsaacRandom;

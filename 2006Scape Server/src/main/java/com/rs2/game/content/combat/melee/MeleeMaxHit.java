@@ -1,6 +1,6 @@
 package com.rs2.game.content.combat.melee;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Player;
 
 public class MeleeMaxHit {
@@ -8,8 +8,8 @@ public class MeleeMaxHit {
 	public static int calculateMeleeMaxHit(Player c) {
 		double maxHit = 0;
 		int strBonus = c.playerBonus[10];
-		int strength = c.playerLevel[GameConstants.STRENGTH];
-		int lvlForXP = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.STRENGTH]);
+		int strength = c.playerLevel[Constants.STRENGTH];
+		int lvlForXP = c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.STRENGTH]);
 		if (c.getPrayer().prayerActive[1]) {
 			strength += (int) (lvlForXP * .05);
 		} else if (c.getPrayer().prayerActive[6]) {
@@ -32,7 +32,7 @@ public class MeleeMaxHit {
 				&& c.playerEquipment[c.playerHat] == 4716
 				&& c.playerEquipment[c.playerChest] == 4720
 				&& c.playerEquipment[c.playerLegs] == 4722) {
-			maxHit += (c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) - c.playerLevel[GameConstants.HITPOINTS]) / 2;
+			maxHit += (c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]) - c.playerLevel[Constants.HITPOINTS]) / 2;
 		}
 		if (c.specDamage > 1) {
 			maxHit = (int) (maxHit * c.specDamage);

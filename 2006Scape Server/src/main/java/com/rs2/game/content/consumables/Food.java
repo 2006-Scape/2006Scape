@@ -2,7 +2,7 @@ package com.rs2.game.content.consumables;
 
 import java.util.HashMap;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Player;
@@ -209,7 +209,7 @@ public class Food {
 	}
 
 	public static void eat(Player player, int id, int slot) {
-		if (player.isDead || player.playerLevel[GameConstants.HITPOINTS] <= 0) {
+		if (player.isDead || player.playerLevel[Constants.HITPOINTS] <= 0) {
 			return;
 		}
 		if (player.duelRule[6]) {
@@ -219,7 +219,7 @@ public class Food {
 		if (!RareProtection.eatDupedItem(player, id)) {
 			return;
 		}
-		if (System.currentTimeMillis() - player.foodDelay >= 1800 && player.playerLevel[GameConstants.HITPOINTS] > 0) {
+		if (System.currentTimeMillis() - player.foodDelay >= 1800 && player.playerLevel[Constants.HITPOINTS] > 0) {
 			player.getCombatAssistant().resetPlayerAttack();
 			player.attackTimer += 2;
 			player.startAnimation(829);
@@ -256,14 +256,14 @@ public class Food {
 				player.getPacketSender().sendSound(SoundList.DRINK, 100, 0);
 			}
 			player.foodDelay = System.currentTimeMillis();
-			if (player.playerLevel[GameConstants.HITPOINTS] < player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-				player.playerLevel[GameConstants.HITPOINTS] += f.getHeal();
+			if (player.playerLevel[Constants.HITPOINTS] < player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+				player.playerLevel[Constants.HITPOINTS] += f.getHeal();
 				player.getPacketSender().sendMessage("It heals some health.");
-				if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-					player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+				if (player.playerLevel[Constants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+					player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]);
 				}
 			}
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		}
 	}
 
@@ -274,33 +274,33 @@ public class Food {
 			player.forcedChat("Aaah, nothing like a nice cuppa tea!");
 			break;
 		case 1907:
-			if (player.playerLevel[GameConstants.MAGIC] < 50) {
-				player.playerLevel[GameConstants.MAGIC] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) + 2;
+			if (player.playerLevel[Constants.MAGIC] < 50) {
+				player.playerLevel[Constants.MAGIC] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.MAGIC]) + 2;
 			} else {
-				player.playerLevel[GameConstants.MAGIC] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) + 3;
+				player.playerLevel[Constants.MAGIC] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.MAGIC]) + 3;
 			}
-			if (player.playerLevel[GameConstants.STRENGTH] < 4) {
-				player.playerLevel[GameConstants.STRENGTH] = 1;
+			if (player.playerLevel[Constants.STRENGTH] < 4) {
+				player.playerLevel[Constants.STRENGTH] = 1;
 			}
-			if (player.playerLevel[GameConstants.ATTACK] < 5) {
-				player.playerLevel[GameConstants.ATTACK] = 1;
+			if (player.playerLevel[Constants.ATTACK] < 5) {
+				player.playerLevel[Constants.ATTACK] = 1;
 			} else {
-				player.playerLevel[GameConstants.ATTACK] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.ATTACK]) - 4;
+				player.playerLevel[Constants.ATTACK] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.ATTACK]) - 4;
 			}
-			if (player.playerLevel[GameConstants.DEFENCE] < 4) {
-				player.playerLevel[GameConstants.DEFENCE] = 1;
+			if (player.playerLevel[Constants.DEFENCE] < 4) {
+				player.playerLevel[Constants.DEFENCE] = 1;
 			} else {
-				player.playerLevel[GameConstants.DEFENCE] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.DEFENCE]) - 3;
+				player.playerLevel[Constants.DEFENCE] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.DEFENCE]) - 3;
 			}
-			if (player.playerLevel[GameConstants.STRENGTH] < 4) {
-				player.playerLevel[GameConstants.STRENGTH] = 1;
+			if (player.playerLevel[Constants.STRENGTH] < 4) {
+				player.playerLevel[Constants.STRENGTH] = 1;
 			} else {
-				player.playerLevel[GameConstants.STRENGTH] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.STRENGTH]) - 3;
+				player.playerLevel[Constants.STRENGTH] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.STRENGTH]) - 3;
 			}
 			player.getPlayerAssistant().refreshSkill(0);
-			player.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
-			player.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
-			player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+			player.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
+			player.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
+			player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
 			break;
 		}
 	}

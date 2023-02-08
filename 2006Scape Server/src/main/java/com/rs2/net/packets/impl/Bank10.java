@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.random.PartyRoom;
 import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.players.Player;
@@ -96,7 +96,7 @@ public class Bank10 implements PacketType {
 		case 1121:
 		case 1122:
 		case 1123:
-			player.getSmithing().readInput(player, player.playerLevel[GameConstants.SMITHING], removeId, 10);
+			player.getSmithing().readInput(player, player.playerLevel[Constants.SMITHING], removeId, 10);
 			break;
 
 		}

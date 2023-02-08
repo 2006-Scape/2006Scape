@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 
 public class RegisteredAccsWebsite {
     public static String password;
@@ -12,7 +12,7 @@ public class RegisteredAccsWebsite {
 
     private static void setAccountsRegistered(int amount) throws IOException {
         URL url;
-        url = new URL(GameConstants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount + "&world=" + GameConstants.WORLD);
+        url = new URL(Constants.WEBSITE_LINK + "/accountsregistered.php?pass=" + password + "&amount=" + amount + "&world=" + Constants.WORLD);
         url.openStream().close();
     }
 

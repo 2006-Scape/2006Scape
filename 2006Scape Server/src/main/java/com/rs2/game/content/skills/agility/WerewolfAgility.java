@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.agility;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -31,42 +31,42 @@ public class WerewolfAgility {
 				c.getAgility().walk(0, 2,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getAgility().resetAgilityProgress();
 				c.getAgility().agilityProgress[0] = true;
 			} else if (c.getAgility().hotSpot(3538, 9875)) {
 				c.getAgility().walk(0, 2,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getAgility().resetAgilityProgress();
 				c.getAgility().agilityProgress[0] = true;
 			} else if (c.getAgility().hotSpot(3538, 9876)) {
 				c.getAgility().walk(1, 2,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getAgility().resetAgilityProgress();
 				c.getAgility().agilityProgress[0] = true;
 			} else if (c.getAgility().hotSpot(3538, 9877)) {
 				c.getAgility().walk(2, 0,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getAgility().resetAgilityProgress();
 				c.getAgility().agilityProgress[0] = true;
 			} else if (c.getAgility().hotSpot(3540, 9877)) {
 				c.getAgility().walk(0, 2,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getAgility().resetAgilityProgress();
 				c.getAgility().agilityProgress[0] = true;
 			} else if (c.getAgility().hotSpot(3540, 9879)) {
 				c.getAgility().walk(0, 2,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				c.getAgility().resetAgilityProgress();
 				c.getAgility().agilityProgress[0] = true;
 			}
@@ -82,7 +82,7 @@ public class WerewolfAgility {
 				c.getAgility().walk(0, 2,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[0]) {
 					c.getAgility().agilityProgress[1] = true;
 				}
@@ -113,7 +113,7 @@ public class WerewolfAgility {
 				c.getAgility().walk(0, 6,
 						c.getAgility().getAnimation(objectId), 748);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[1]) {
 					c.getAgility().agilityProgress[2] = true;
 				}
@@ -121,7 +121,7 @@ public class WerewolfAgility {
 				c.getAgility().walk(0, 6,
 						c.getAgility().getAnimation(objectId), 748);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[1]) {
 					c.getAgility().agilityProgress[2] = true;
 				}
@@ -129,7 +129,7 @@ public class WerewolfAgility {
 				c.getAgility().walk(0, 6,
 						c.getAgility().getAnimation(objectId), 748);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[1]) {
 					c.getAgility().agilityProgress[2] = true;
 				}
@@ -144,7 +144,7 @@ public class WerewolfAgility {
 				c.getAgility().walk(-3, 0,
 						c.getAgility().getAnimation(objectId), -1);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[2]) {
 					c.getAgility().agilityProgress[3] = true;
 				}
@@ -159,7 +159,7 @@ public class WerewolfAgility {
 						c.getAgility().getAnimation(
 								WerewolfAgility.WEREWOLF_SLING_OBJECT), 743);
 				c.getPlayerAssistant().addSkillXP(
-						c.getAgility().getXp(objectId), GameConstants.AGILITY);
+						c.getAgility().getXp(objectId), Constants.AGILITY);
 				if (c.getAgility().agilityProgress[3]) {
 					c.getAgility().agilityProgress[4] = true;
 				}

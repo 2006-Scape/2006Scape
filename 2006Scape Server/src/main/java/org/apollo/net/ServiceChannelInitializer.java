@@ -1,6 +1,5 @@
 package org.apollo.net;
 
-import com.rs2.NetworkConstants;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

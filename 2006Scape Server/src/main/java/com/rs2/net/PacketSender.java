@@ -2,7 +2,7 @@ package com.rs2.net;
 
 import java.text.DecimalFormat;
 import com.rs2.Connection;
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.combat.magic.MagicTeleports;
 import com.rs2.game.content.quests.QuestAssistant;
@@ -50,8 +50,8 @@ public class PacketSender {
 			if (item.getCount() < 1) {
 				id = 0;
 			}
-			if (id > GameConstants.ITEM_LIMIT || id < 0) {
-				id = GameConstants.ITEM_LIMIT;
+			if (id > Constants.ITEM_LIMIT || id < 0) {
+				id = Constants.ITEM_LIMIT;
 			}
 			if (player.getOutStream() != null) {
 				player.getOutStream().writeWordBigEndianA(id);
@@ -74,7 +74,7 @@ public class PacketSender {
 	}
 
 	public PacketSender loginPlayer() {
-		if (GameConstants.GUI_ENABLED) {
+		if (Constants.GUI_ENABLED) {
 			ControlPanel.addEntity(player.playerName);
 		}
 		player.getPlayerAssistant().loginScreen();
@@ -107,20 +107,20 @@ public class PacketSender {
 		if (player.questPoints > QuestAssistant.MAXIMUM_QUESTPOINTS || player.playerRights > 2) {
 			player.questPoints = QuestAssistant.MAXIMUM_QUESTPOINTS;// check for abusers
 		}
-		if (GameConstants.HITPOINTS < 0) {
+		if (Constants.HITPOINTS < 0) {
 			player.isDead = true;
 		}
-		if (player.playerLevel[GameConstants.HITPOINTS] > 99) {
-			player.playerLevel[GameConstants.HITPOINTS] = 99;// check for abusers
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+		if (player.playerLevel[Constants.HITPOINTS] > 99) {
+			player.playerLevel[Constants.HITPOINTS] = 99;// check for abusers
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		}
-		if (player.tutorialProgress > 0 && player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
+		if (player.tutorialProgress > 0 && player.tutorialProgress < 36 && Constants.TUTORIAL_ISLAND) {
 			player.getPacketSender().sendMessage("@blu@Continue the tutorial from the last step you were on.@bla@");
 		}
 		if (player.tutorialProgress > 35) {
 			player.getPlayerAssistant().sendSidebars();
 			Weight.updateWeight(player);
-			player.getPacketSender().sendMessage("Welcome to @blu@" + GameConstants.SERVER_NAME + " World: " + GameConstants.WORLD  + "@bla@ - we are currently in Server Stage v@blu@" + GameConstants.TEST_VERSION + "@bla@.");
+			player.getPacketSender().sendMessage("Welcome to @blu@" + Constants.SERVER_NAME + " World: " + Constants.WORLD  + "@bla@ - we are currently in Server Stage v@blu@" + Constants.TEST_VERSION + "@bla@.");
 			player.getPacketSender().sendMessage("@red@Did you know?@bla@ We're open source! Pull requests are welcome");
 			player.getPacketSender().sendMessage("Source code at github.com/2006-Scape/2006Scape");
 			player.getPacketSender().sendMessage("Join our Discord: https://discord.gg/hZ6VfWG");
@@ -189,7 +189,7 @@ public class PacketSender {
 		player.getPlayerAssistant().logIntoPM();
 		Tiaras.handleTiara(player, ItemConstants.HAT);
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
-		player.saveTimer = GameConstants.SAVE_TIMER;
+		player.saveTimer = Constants.SAVE_TIMER;
 		player.saveCharacter = true;
 		Misc.println((player.isBot ? "[BOT-REGISTERED]" : "[REGISTERED]") + ": " + player.playerName + " (level-" + player.calculateCombatLevel() + ")");
 		player.handler.updatePlayer(player, player.outStream);
@@ -649,7 +649,7 @@ public class PacketSender {
 			player.getItemAssistant().resetTempItems();
 			sendFrame248(5292, 5063);
 			player.flushOutStream();
-			player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
+			player.getPacketSender().sendString("The Bank of " + Constants.SERVER_NAME, 5383, true);
 			player.isBanking = true;
 		}
 		return this;

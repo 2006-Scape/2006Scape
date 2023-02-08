@@ -1,6 +1,6 @@
 package com.rs2.integrations.discord.commands.admin;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
@@ -11,7 +11,7 @@ public class Pin implements MessageCreateListener {
         Message message = event.getMessage();
         if (message.getContent().startsWith("::pin")) {
             if (event.getMessageAuthor().isServerAdmin()) {
-                if(GameConstants.WORLD == 1) {
+                if(Constants.WORLD == 1) {
                     if (message.getReferencedMessage().isPresent()) {
                         Message messageToPin = message.getReferencedMessage().get();
                         messageToPin.pin();
@@ -23,7 +23,7 @@ public class Pin implements MessageCreateListener {
         }
         if (message.getContent().startsWith("::unpin")) {
             if (event.getMessageAuthor().isServerAdmin()) {
-                if(GameConstants.WORLD == 1) {
+                if(Constants.WORLD == 1) {
                     if (message.getReferencedMessage().isPresent()) {
                         Message messageToUnpin = message.getReferencedMessage().get();
                         messageToUnpin.unpin();

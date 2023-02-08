@@ -2,7 +2,7 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.util.Random;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.combat.magic.CastRequirements;
 import com.rs2.game.content.combat.magic.Enchanting.EnchantSpell;
 import com.rs2.game.items.DeprecatedItems;
@@ -24,7 +24,7 @@ public class Enchanting {
 
 	public void enchantItem(int itemID, int spellID) {
 		EnchantSpell spell = EnchantSpell.forId(spellID);
-		if (player.playerLevel[GameConstants.MAGIC] < spell.getLevelReq()) {
+		if (player.playerLevel[Constants.MAGIC] < spell.getLevelReq()) {
 			player.getPacketSender().sendMessage("You need a magic level of at least " + spell.getLevelReq() + " to cast this spell.");
 			return;
 		}
@@ -54,7 +54,7 @@ public class Enchanting {
 
         player.enchantmentPoints += points;
 		player.getItemAssistant().replaceItem(itemID, 6902);
-		player.getPlayerAssistant().addSkillXP(spell.getXp() * 0.75, GameConstants.MAGIC);
+		player.getPlayerAssistant().addSkillXP(spell.getXp() * 0.75, Constants.MAGIC);
 		CastRequirements.deleteRunes(player, player.getEnchanting().getRequiredRunes(spell));
 		player.startAnimation(spell.getAnim());
 		player.gfx100(spell.getGFX());

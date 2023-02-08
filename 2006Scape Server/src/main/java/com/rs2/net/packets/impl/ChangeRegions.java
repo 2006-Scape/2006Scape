@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.music.Music;
 import com.rs2.game.globalworldobjects.Doors;
@@ -16,7 +16,7 @@ public class ChangeRegions implements PacketType {
 
 	@Override
 	public void processPacket(Player player, Packet packet) {
-		if (GameConstants.SOUND && player.musicOn) {
+		if (Constants.SOUND && player.musicOn) {
 			Music.playMusic(player);
 		}
 		GameEngine.objectHandler.updateObjects(player);//testing

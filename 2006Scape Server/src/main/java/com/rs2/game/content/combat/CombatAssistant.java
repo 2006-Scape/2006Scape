@@ -1,6 +1,6 @@
 package com.rs2.game.content.combat;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.combat.magic.CastOnOther;
 import com.rs2.game.content.combat.magic.MagicData;
@@ -95,8 +95,8 @@ public class CombatAssistant {
 				if (Misc.random(4) == 1 && player.lastArrowUsed == 9242 && damage > 0) {
 					NpcHandler.npcs[i].gfx0(754);
 					damage = NpcHandler.npcs[i].HP / 5;
-					player.handleHitMask(player.playerLevel[GameConstants.HITPOINTS] / 10);
-					player.dealDamage(player.playerLevel[GameConstants.HITPOINTS] / 10);
+					player.handleHitMask(player.playerLevel[Constants.HITPOINTS] / 10);
+					player.dealDamage(player.playerLevel[Constants.HITPOINTS] / 10);
 					player.gfx0(754);
 				}
 				if (player.lastWeaponUsed == 11235 || player.bowSpecShot == 1) {
@@ -122,14 +122,14 @@ public class CombatAssistant {
 					player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE / 2, 4);
 					player.getPlayerAssistant().addSkillXP(damage / 2, 1);
 					player.getPlayerAssistant().addSkillXP(damage / 3, 3);
-					player.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);//defense
-					player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);//hp
-					player.getPlayerAssistant().refreshSkill(GameConstants.RANGED);//range
+					player.getPlayerAssistant().refreshSkill(Constants.DEFENCE);//defense
+					player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);//hp
+					player.getPlayerAssistant().refreshSkill(Constants.RANGED);//range
 				} else {
 					player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE, 4);
 					player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE /3, 3);
-					player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-					player.getPlayerAssistant().refreshSkill(GameConstants.RANGED);
+					player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+					player.getPlayerAssistant().refreshSkill(Constants.RANGED);
 				}
 				if (damage > 0) {
 					if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
@@ -201,8 +201,8 @@ public class CombatAssistant {
 				if (MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1161 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1153 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1157 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1542 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1543 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1562) {
 					player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MAGIC_EXP_RATE / 3, 3);
 				}
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
 				if (damage > 0) {
 					if (PestControl.npcIsPCMonster(NpcHandler.npcs[i].npcType) || PestControl.isPCPortal(NpcHandler.npcs[i].npcType)) {
 						player.pcDamage += damage;
@@ -227,12 +227,12 @@ public class CombatAssistant {
 					case 12911:
 					case 12929:
 						int heal = Misc.random(damage / 2);
-						if (player.playerLevel[GameConstants.HITPOINTS] + heal >= player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-							player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+						if (player.playerLevel[Constants.HITPOINTS] + heal >= player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+							player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]);
 						} else {
-							player.playerLevel[GameConstants.HITPOINTS] += heal;
+							player.playerLevel[Constants.HITPOINTS] += heal;
 						}
-						player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+						player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 						break;
 					}
 				}
@@ -302,15 +302,15 @@ public class CombatAssistant {
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 2);
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 3);
 			player.getPlayerAssistant().refreshSkill(0);
-			player.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
-			player.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			player.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
+			player.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		} else {
 			if (NpcHandler.npcs[i].npcType != 2459 && NpcHandler.npcs[i].npcType != 2460 && NpcHandler.npcs[i].npcType != 2461 && NpcHandler.npcs[i].npcType != 2462) {
 				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE, player.fightMode);
 				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 3);
 				player.getPlayerAssistant().refreshSkill(player.fightMode);
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 			}
 		}
 		if (damage > 0) {
@@ -319,11 +319,11 @@ public class CombatAssistant {
 			}
 		}
 		if (damage > 0 && guthansEffect) {
-			player.playerLevel[GameConstants.HITPOINTS] += damage;
-			if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-				player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+			player.playerLevel[Constants.HITPOINTS] += damage;
+			if (player.playerLevel[Constants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+				player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]);
 			}
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 			NpcHandler.npcs[i].gfx0(398);
 		}
 		NpcHandler.npcs[i].underAttack = true;
@@ -332,15 +332,15 @@ public class CombatAssistant {
 		switch (player.specEffect) {
 		case 4:
 			if (damage > 0) {
-				if (player.playerLevel[GameConstants.HITPOINTS] + damage > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-					if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
+				if (player.playerLevel[Constants.HITPOINTS] + damage > player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+					if (player.playerLevel[Constants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
 					} else {
-						player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+						player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]);
 					}
 				} else {
-					player.playerLevel[GameConstants.HITPOINTS] += damage;
+					player.playerLevel[Constants.HITPOINTS] += damage;
 				}
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 			}
 			break;
 
@@ -825,7 +825,7 @@ public class CombatAssistant {
 				}
 				if (player.duelRule[9]) {
 					boolean canUseWeapon = false;
-					for (int funWeapon : GameConstants.FUN_WEAPONS) {
+					for (int funWeapon : Constants.FUN_WEAPONS) {
 						if (player.playerEquipment[player.playerWeapon] == funWeapon) {
 							canUseWeapon = true;
 						}
@@ -1098,7 +1098,7 @@ public class CombatAssistant {
 
 	public void playerDelayedHit(int i) {
 		if (PlayerHandler.players[i] != null) {
-			if (PlayerHandler.players[i].isDead || player.isDead || PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS] <= 0 || player.playerLevel[GameConstants.HITPOINTS] <= 0) {
+			if (PlayerHandler.players[i].isDead || player.isDead || PlayerHandler.players[i].playerLevel[Constants.HITPOINTS] <= 0 || player.playerLevel[Constants.HITPOINTS] <= 0) {
 				player.playerIndex = 0;
 				return;
 			}
@@ -1146,8 +1146,8 @@ public class CombatAssistant {
 				if (Misc.random(4) == 1 && player.lastArrowUsed == 9242 && damage > 0) {
 					PlayerHandler.players[i].gfx0(754);
 					damage = NpcHandler.npcs[i].HP / 5;
-					player.handleHitMask(player.playerLevel[GameConstants.HITPOINTS] / 10);
-					player.dealDamage(player.playerLevel[GameConstants.HITPOINTS] / 10);
+					player.handleHitMask(player.playerLevel[Constants.HITPOINTS] / 10);
+					player.dealDamage(player.playerLevel[Constants.HITPOINTS] / 10);
 					player.gfx0(754);
 				}
 				if (player.lastWeaponUsed == 11235 || player.bowSpecShot == 1) {
@@ -1165,11 +1165,11 @@ public class CombatAssistant {
 						damage2 = damage2 * 60 / 100;
 					}
 				}
-				if (PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS] - damage < 0) {
-					damage = PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS];
+				if (PlayerHandler.players[i].playerLevel[Constants.HITPOINTS] - damage < 0) {
+					damage = PlayerHandler.players[i].playerLevel[Constants.HITPOINTS];
 				}
-				if (PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS] - damage - damage2 < 0) {
-					damage2 = PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS] - damage;
+				if (PlayerHandler.players[i].playerLevel[Constants.HITPOINTS] - damage - damage2 < 0) {
+					damage2 = PlayerHandler.players[i].playerLevel[Constants.HITPOINTS] - damage;
 				}
 				if (damage < 0) {
 					damage = 0;
@@ -1187,14 +1187,14 @@ public class CombatAssistant {
 					player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE / 3, 4);
 					player.getPlayerAssistant().addSkillXP(damage / 3, 1);
 					player.getPlayerAssistant().addSkillXP(damage / 3, 3);
-					player.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
-					player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-					player.getPlayerAssistant().refreshSkill(GameConstants.RANGED);
+					player.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
+					player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+					player.getPlayerAssistant().refreshSkill(Constants.RANGED);
 				} else {
 					player.getPlayerAssistant().addSkillXP(damage * CombatConstants.RANGE_EXP_RATE, 4);
 					player.getPlayerAssistant().addSkillXP(damage / 3, 3);
-					player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-					player.getPlayerAssistant().refreshSkill(GameConstants.RANGED);
+					player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+					player.getPlayerAssistant().refreshSkill(Constants.RANGED);
 				}
 				boolean dropArrows = true;
 				for (int noArrowId : RangeData.NO_ARROW_DROP) {
@@ -1220,7 +1220,7 @@ public class CombatAssistant {
 					PlayerHandler.players[i].handleHitMask(damage2);
 
 				}
-				o.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				o.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 				PlayerHandler.players[i].updateRequired = true;
 				applySmite(i, damage);
 				if (damage2 != -1) {
@@ -1239,8 +1239,8 @@ public class CombatAssistant {
 				if (o.getPrayer().prayerActive[16] && System.currentTimeMillis() - o.protMageDelay > 1500) { // if prayer active reduce damage
 					damage = damage * 60 / 100;
 				}
-				if (PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS] - damage < 0) {
-					damage = PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS];
+				if (PlayerHandler.players[i].playerLevel[Constants.HITPOINTS] - damage < 0) {
+					damage = PlayerHandler.players[i].playerLevel[Constants.HITPOINTS];
 				}
 				if (damage > 0) {
 					applyRecoil(player, damage, i);
@@ -1249,8 +1249,8 @@ public class CombatAssistant {
 				if (MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1161 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1153 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1157 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1542 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1543 && MagicData.MAGIC_SPELLS[player.oldSpellId][0] != 1562) {
 					player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[player.oldSpellId][7] + damage / 3, 3);
 				}
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
 
 				if (MagicSpells.getEndGfxHeight(player) == 100 && !player.magicFailed) { // end GFX
 					PlayerHandler.players[i].gfx100(MagicData.MAGIC_SPELLS[player.oldSpellId][5]);
@@ -1269,7 +1269,7 @@ public class CombatAssistant {
 						case 13011:
 						case 12999:
 						case 13023:
-							PlayerHandler.players[i].playerLevel[GameConstants.ATTACK] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[GameConstants.ATTACK]) * 10 / 100;
+							PlayerHandler.players[i].playerLevel[Constants.ATTACK] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[Constants.ATTACK]) * 10 / 100;
 							break;
 						}
 					}
@@ -1293,51 +1293,51 @@ public class CombatAssistant {
 					case 12911:
 					case 12929:
 						int heal = damage / 4;
-						if (player.playerLevel[GameConstants.HITPOINTS] + heal > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-							player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+						if (player.playerLevel[Constants.HITPOINTS] + heal > player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+							player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]);
 						} else {
-							player.playerLevel[GameConstants.HITPOINTS] += heal;
+							player.playerLevel[Constants.HITPOINTS] += heal;
 						}
-						player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+						player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 						break;
 
 					case 1153:
-						PlayerHandler.players[i].playerLevel[GameConstants.ATTACK] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[GameConstants.ATTACK]) * 5 / 100;
+						PlayerHandler.players[i].playerLevel[Constants.ATTACK] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[Constants.ATTACK]) * 5 / 100;
 						o.getPacketSender().sendMessage("Your attack level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[player.reduceSpellId] = System.currentTimeMillis();
 						o.getPlayerAssistant().refreshSkill(0);
 						break;
 
 					case 1157:
-						PlayerHandler.players[i].playerLevel[GameConstants.STRENGTH] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[GameConstants.STRENGTH]) * 5 / 100;
+						PlayerHandler.players[i].playerLevel[Constants.STRENGTH] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[Constants.STRENGTH]) * 5 / 100;
 						o.getPacketSender().sendMessage("Your strength level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[player.reduceSpellId] = System.currentTimeMillis();
-						o.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
+						o.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
 						break;
 
 					case 1161:
-						PlayerHandler.players[i].playerLevel[GameConstants.DEFENCE] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[GameConstants.DEFENCE]) * 5 / 100;
+						PlayerHandler.players[i].playerLevel[Constants.DEFENCE] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[Constants.DEFENCE]) * 5 / 100;
 						o.getPacketSender().sendMessage("Your defence level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[player.reduceSpellId] = System.currentTimeMillis();
-						o.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
+						o.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
 						break;
 
 					case 1542:
-						PlayerHandler.players[i].playerLevel[GameConstants.DEFENCE] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[GameConstants.DEFENCE]) * 10 / 100;
+						PlayerHandler.players[i].playerLevel[Constants.DEFENCE] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[Constants.DEFENCE]) * 10 / 100;
 						o.getPacketSender().sendMessage("Your defence level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[player.reduceSpellId] = System.currentTimeMillis();
-						o.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
+						o.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
 						break;
 
 					case 1543:
-						PlayerHandler.players[i].playerLevel[GameConstants.STRENGTH] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[GameConstants.STRENGTH]) * 10 / 100;
+						PlayerHandler.players[i].playerLevel[Constants.STRENGTH] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[Constants.STRENGTH]) * 10 / 100;
 						o.getPacketSender().sendMessage("Your strength level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[player.reduceSpellId] = System.currentTimeMillis();
-						o.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
+						o.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
 						break;
 
 					case 1562:
-						PlayerHandler.players[i].playerLevel[GameConstants.ATTACK] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[GameConstants.ATTACK]) * 10 / 100;
+						PlayerHandler.players[i].playerLevel[Constants.ATTACK] -= o.getPlayerAssistant().getLevelForXP(PlayerHandler.players[i].playerXP[Constants.ATTACK]) * 10 / 100;
 						o.getPacketSender().sendMessage("Your attack level has been reduced!");
 						PlayerHandler.players[i].reduceSpellDelay[player.reduceSpellId] = System.currentTimeMillis();
 						o.getPlayerAssistant().refreshSkill(0);
@@ -1358,7 +1358,7 @@ public class CombatAssistant {
 				}
 				applySmite(i, damage);
 				player.killedBy = PlayerHandler.players[i].playerId;
-				o.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				o.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 				PlayerHandler.players[i].updateRequired = true;
 				player.usingMagic = false;
 				player.castingMagic = false;
@@ -1378,8 +1378,8 @@ public class CombatAssistant {
 						}
 					}
 				}
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-				player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
 				player.oldSpellId = 0;
 			}
 		}
@@ -1434,15 +1434,15 @@ public class CombatAssistant {
 			damage = damage * 60 / 100;
 		}
 		if (damage > 0 && guthansEffect) {
-			player.playerLevel[GameConstants.HITPOINTS] += damage;
-			if (player.playerLevel[GameConstants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-				player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+			player.playerLevel[Constants.HITPOINTS] += damage;
+			if (player.playerLevel[Constants.HITPOINTS] > player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+				player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]);
 			}
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 			o.gfx0(398);
 		}
-		if (PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS] - damage < 0) {
-			damage = PlayerHandler.players[i].playerLevel[GameConstants.HITPOINTS];
+		if (PlayerHandler.players[i].playerLevel[Constants.HITPOINTS] - damage < 0) {
+			damage = PlayerHandler.players[i].playerLevel[Constants.HITPOINTS];
 		}
 		if (damage > 0) {
 			applyRecoil(player, damage, i);
@@ -1478,24 +1478,24 @@ public class CombatAssistant {
 			break;
 		case 3:
 			if (damage > 0) {
-				o.playerLevel[GameConstants.DEFENCE] -= damage;
+				o.playerLevel[Constants.DEFENCE] -= damage;
 				o.getPacketSender().sendMessage("You feel weak.");
-				if (o.playerLevel[GameConstants.DEFENCE] < 1) {
-					o.playerLevel[GameConstants.DEFENCE] = 1;
+				if (o.playerLevel[Constants.DEFENCE] < 1) {
+					o.playerLevel[Constants.DEFENCE] = 1;
 				}
-				o.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
+				o.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
 			}
 			break;
 		case 4:
 			if (damage > 0) {
-				if (player.playerLevel[GameConstants.HITPOINTS] + damage > player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-					if (player.playerLevel[GameConstants.HITPOINTS] < player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) {
-						player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]);
+				if (player.playerLevel[Constants.HITPOINTS] + damage > player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+					if (player.playerLevel[Constants.HITPOINTS] < player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) {
+						player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]);
 					}
 				} else {
-					player.playerLevel[GameConstants.HITPOINTS] += damage;
+					player.playerLevel[Constants.HITPOINTS] += damage;
 				}
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 			}
 			break;
 		}
@@ -1506,14 +1506,14 @@ public class CombatAssistant {
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 2);
 			player.getPlayerAssistant().addSkillXP(damage / 3, 3);
 			player.getPlayerAssistant().refreshSkill(0);
-			player.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
-			player.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			player.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
+			player.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		} else {
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE, player.fightMode);
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE/3, 3);
 			player.getPlayerAssistant().refreshSkill(player.fightMode);
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		}
 		PlayerHandler.players[i].logoutDelay = System.currentTimeMillis();
 		PlayerHandler.players[i].underAttackBy = player.playerId;
@@ -1530,7 +1530,7 @@ public class CombatAssistant {
 			PlayerHandler.players[i].damageTaken[player.playerId] += damage;
 			player.totalPlayerDamageDealt += damage;
 			PlayerHandler.players[i].updateRequired = true;
-			o.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			o.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 			break;
 
 		case 2:
@@ -1539,7 +1539,7 @@ public class CombatAssistant {
 			player.totalPlayerDamageDealt += damage;
 			PlayerHandler.players[i].updateRequired = true;
 			player.doubleHit = false;
-			o.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			o.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 			break;
 		}
 		PlayerHandler.players[i].handleHitMask(damage);
@@ -1554,12 +1554,12 @@ public class CombatAssistant {
 		}
 		if (PlayerHandler.players[index] != null) {
 			Client c2 = (Client) PlayerHandler.players[index];
-			c2.playerLevel[GameConstants.PRAYER] -= damage / 4;
-			if (c2.playerLevel[GameConstants.PRAYER] <= 0) {
-				c2.playerLevel[GameConstants.PRAYER] = 0;
+			c2.playerLevel[Constants.PRAYER] -= damage / 4;
+			if (c2.playerLevel[Constants.PRAYER] <= 0) {
+				c2.playerLevel[Constants.PRAYER] = 0;
 				PrayerDrain.resetPrayers(c2);
 			}
-			c2.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
+			c2.getPlayerAssistant().refreshSkill(Constants.PRAYER);
 		}
 
 	}

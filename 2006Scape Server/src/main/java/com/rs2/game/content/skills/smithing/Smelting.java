@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.smithing;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -75,7 +75,7 @@ public class Smelting extends SkillHandler {
 		for (int i = 0; i < data.length; i++) {
 			if (bartype == data[i][0]) {
 				// Check player has the correct smithing level
-				if (c.playerLevel[GameConstants.SMITHING] < data[i][1]) { // Smithing level
+				if (c.playerLevel[Constants.SMITHING] < data[i][1]) { // Smithing level
 					c.getDialogueHandler().sendStatement("You need a smithing level of at least "+ data[i][1] + " in order smelt this bar.");
 					return;
 				}
@@ -95,20 +95,20 @@ public class Smelting extends SkillHandler {
 					}
 				}
 				
-				if (c.playerSkilling[GameConstants.SMITHING]) {
+				if (c.playerSkilling[Constants.SMITHING]) {
 					return;
 				}
 
-				c.playerSkilling[GameConstants.SMITHING] = true;
+				c.playerSkilling[Constants.SMITHING] = true;
 				c.stopPlayerSkill = true;
 
-				c.playerSkillProp[GameConstants.SMITHING][0] = data[i][0];// index
-				c.playerSkillProp[GameConstants.SMITHING][1] = data[i][1];// Level required
-				c.playerSkillProp[GameConstants.SMITHING][2] = data[i][2];// XP
-				c.playerSkillProp[GameConstants.SMITHING][3] = data[i][3];// primary item required
-				c.playerSkillProp[GameConstants.SMITHING][4] = data[i][4];// secondary item required
-				c.playerSkillProp[GameConstants.SMITHING][5] = data[i][5];// secondary item amount
-				c.playerSkillProp[GameConstants.SMITHING][6] = data[i][6];// output item
+				c.playerSkillProp[Constants.SMITHING][0] = data[i][0];// index
+				c.playerSkillProp[Constants.SMITHING][1] = data[i][1];// Level required
+				c.playerSkillProp[Constants.SMITHING][2] = data[i][2];// XP
+				c.playerSkillProp[Constants.SMITHING][3] = data[i][3];// primary item required
+				c.playerSkillProp[Constants.SMITHING][4] = data[i][4];// secondary item required
+				c.playerSkillProp[Constants.SMITHING][5] = data[i][5];// secondary item amount
+				c.playerSkillProp[Constants.SMITHING][6] = data[i][6];// output item
 
 				c.getPacketSender().closeAllWindows();
 				c.startAnimation(899);
@@ -119,36 +119,36 @@ public class Smelting extends SkillHandler {
 					public void execute(CycleEventContainer container) {
 						deleteTime(c);
 						// Remove primary item
-						c.getItemAssistant().deleteItem(c.playerSkillProp[GameConstants.SMITHING][3], 1);
+						c.getItemAssistant().deleteItem(c.playerSkillProp[Constants.SMITHING][3], 1);
 						// Check if required and remove secondary items
-						if (c.playerSkillProp[GameConstants.SMITHING][4] > 0 && c.playerSkillProp[GameConstants.SMITHING][5] > 0) {
-							c.getItemAssistant().deleteItem(c.playerSkillProp[GameConstants.SMITHING][4], c.playerSkillProp[GameConstants.SMITHING][5]);
+						if (c.playerSkillProp[Constants.SMITHING][4] > 0 && c.playerSkillProp[Constants.SMITHING][5] > 0) {
+							c.getItemAssistant().deleteItem(c.playerSkillProp[Constants.SMITHING][4], c.playerSkillProp[Constants.SMITHING][5]);
 						}
 
-						if (c.playerSkillProp[GameConstants.SMITHING][3] == IRON && c.playerSkillProp[GameConstants.SMITHING][4] == -1 && c.isSmelting) {
+						if (c.playerSkillProp[Constants.SMITHING][3] == IRON && c.playerSkillProp[Constants.SMITHING][4] == -1 && c.isSmelting) {
 							// Ring of forging
 							if (c.playerEquipment[c.playerRing] == 2568) {
-								c.getPacketSender().sendMessage("You receive an " + DeprecatedItems.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
-								c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
-								c.getPlayerAssistant().addSkillXP(c.playerSkillProp[GameConstants.SMITHING][2], GameConstants.SMITHING);
+								c.getPacketSender().sendMessage("You receive an " + DeprecatedItems.getItemName(c.playerSkillProp[Constants.SMITHING][6]).toLowerCase() + ".");
+								c.getItemAssistant().addItem(c.playerSkillProp[Constants.SMITHING][6], 1);// item
+								c.getPlayerAssistant().addSkillXP(c.playerSkillProp[Constants.SMITHING][2], Constants.SMITHING);
 
 							} else {
 								if (Misc.random(100) >= 50) {
-									c.getPacketSender().sendMessage("You receive an " + DeprecatedItems.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
-									c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
-									c.getPlayerAssistant().addSkillXP(c.playerSkillProp[GameConstants.SMITHING][2], GameConstants.SMITHING);
+									c.getPacketSender().sendMessage("You receive an " + DeprecatedItems.getItemName(c.playerSkillProp[Constants.SMITHING][6]).toLowerCase() + ".");
+									c.getItemAssistant().addItem(c.playerSkillProp[Constants.SMITHING][6], 1);// item
+									c.getPlayerAssistant().addSkillXP(c.playerSkillProp[Constants.SMITHING][2], Constants.SMITHING);
 								} else {
 									c.getPacketSender().sendMessage("You failed to smelt the iron bar.");
 								}
 							}
-						} else if (c.playerSkillProp[GameConstants.SMITHING][3] == GOLD && c.playerEquipment[c.playerHands] == 776 && c.isSmelting) {
-							c.getPacketSender().sendMessage("You receive a " + DeprecatedItems.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
-							c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
-							c.getPlayerAssistant().addSkillXP(56.2,	GameConstants.SMITHING);
+						} else if (c.playerSkillProp[Constants.SMITHING][3] == GOLD && c.playerEquipment[c.playerHands] == 776 && c.isSmelting) {
+							c.getPacketSender().sendMessage("You receive a " + DeprecatedItems.getItemName(c.playerSkillProp[Constants.SMITHING][6]).toLowerCase() + ".");
+							c.getItemAssistant().addItem(c.playerSkillProp[Constants.SMITHING][6], 1);// item
+							c.getPlayerAssistant().addSkillXP(56.2,	Constants.SMITHING);
 						} else if (c.isSmelting){
-							c.getPacketSender().sendMessage("You receive a " + DeprecatedItems.getItemName(c.playerSkillProp[GameConstants.SMITHING][6]).toLowerCase() + ".");
-							c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.SMITHING][6], 1);// item
-							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[GameConstants.SMITHING][2], GameConstants.SMITHING);
+							c.getPacketSender().sendMessage("You receive a " + DeprecatedItems.getItemName(c.playerSkillProp[Constants.SMITHING][6]).toLowerCase() + ".");
+							c.getItemAssistant().addItem(c.playerSkillProp[Constants.SMITHING][6], 1);// item
+							c.getPlayerAssistant().addSkillXP(c.playerSkillProp[Constants.SMITHING][2], Constants.SMITHING);
 						}
 
 						////////////////////// CHECKING //////////////////////
@@ -156,7 +156,7 @@ public class Smelting extends SkillHandler {
 							resetSmelting(c);
 							container.stop();
 						}
-						if (!c.playerSkilling[GameConstants.SMITHING]) {
+						if (!c.playerSkilling[Constants.SMITHING]) {
 							resetSmelting(c);
 							container.stop();
 						}
@@ -164,13 +164,13 @@ public class Smelting extends SkillHandler {
 							resetSmelting(c);
 							container.stop();
 						}
-						if (!c.getItemAssistant().playerHasItem(c.playerSkillProp[GameConstants.SMITHING][3], 1)) {
+						if (!c.getItemAssistant().playerHasItem(c.playerSkillProp[Constants.SMITHING][3], 1)) {
 							c.getPacketSender().sendMessage("You don't have enough ores to continue smelting!");
 							resetSmelting(c);
 							container.stop();
 						}
-						if (c.playerSkillProp[GameConstants.SMITHING][4] > 0) {
-							if (!c.getItemAssistant().playerHasItem(c.playerSkillProp[GameConstants.SMITHING][4], c.playerSkillProp[GameConstants.SMITHING][5])) {
+						if (c.playerSkillProp[Constants.SMITHING][4] > 0) {
+							if (!c.getItemAssistant().playerHasItem(c.playerSkillProp[Constants.SMITHING][4], c.playerSkillProp[Constants.SMITHING][5])) {
 								c.getPacketSender().sendMessage("You don't have enough ores to continue smelting!");
 								resetSmelting(c);
 								container.stop();
@@ -189,7 +189,7 @@ public class Smelting extends SkillHandler {
 
 							@Override
 							public void execute(CycleEventContainer container) {
-								if (!c.playerSkilling[GameConstants.SMITHING]) {
+								if (!c.playerSkilling[Constants.SMITHING]) {
 									resetSmelting(c);
 									container.stop();
 									return;
@@ -327,11 +327,11 @@ public class Smelting extends SkillHandler {
 	 * Resets Smelting
 	 */
 	public static void resetSmelting(Player player) {
-		player.playerSkilling[GameConstants.SMITHING] = false;
+		player.playerSkilling[Constants.SMITHING] = false;
 		player.stopPlayerSkill = false;
 		player.isSmelting = false;
 		for (int i = 0; i < 7; i++) {
-			player.playerSkillProp[GameConstants.SMITHING][i] = -1;
+			player.playerSkillProp[Constants.SMITHING][i] = -1;
 		}
 	}
 

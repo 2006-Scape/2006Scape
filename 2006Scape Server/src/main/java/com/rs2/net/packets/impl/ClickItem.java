@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.impl.ItemFirstClickEvent;
 import com.rs2.game.content.consumables.Beverages;
@@ -148,21 +148,21 @@ public class ClickItem implements PacketType {
 			break;
 			
 		case 2677:
-			if (GameConstants.CLUES_ENABLED) {
+			if (Constants.CLUES_ENABLED) {
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 0);
 			}
 			break;
 
 		case 2678:
-			if (GameConstants.CLUES_ENABLED) {
+			if (Constants.CLUES_ENABLED) {
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 1);
 			}
 			break;
 
 		case 2679:
-			if (GameConstants.CLUES_ENABLED) {
+			if (Constants.CLUES_ENABLED) {
 				player.getItemAssistant().deleteItem(itemId, 1);
 				TreasureTrails.addClueReward(player, 2);
 			}
