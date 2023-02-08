@@ -45,7 +45,7 @@ public final class HttpChannelInitializer extends ChannelInitializer<SocketChann
 
 		pipeline.addLast("encoder", new HttpResponseEncoder());
 
-		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.TIMEOUT, 0, 0));
+		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.IDLE_TIME, 0, 0));
 		pipeline.addLast("handler", handler);
 	}
 

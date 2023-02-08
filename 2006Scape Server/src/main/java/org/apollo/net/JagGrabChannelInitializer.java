@@ -72,7 +72,7 @@ public final class JagGrabChannelInitializer extends ChannelInitializer<SocketCh
 
 		pipeline.addLast("jaggrab-encoder", new JagGrabResponseEncoder());
 
-		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.TIMEOUT, 0, 0));
+		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.IDLE_TIME, 0, 0));
 		pipeline.addLast("handler", handler);
 	}
 

@@ -28,9 +28,9 @@ public final class NetworkConstants {
 	public static int JAGGRAB_PORT = 43595;
 
 	/**
-	 * The Amount Of Time Before A Player Timeouts From A Bad Connection
+	 * The number of seconds before a connection becomes idle.
 	 */
-	public static int TIMEOUT = 60;
+	public static final int IDLE_TIME = 15;
 
 	/**
 	 * The exponent used when decrypting the RSA block.

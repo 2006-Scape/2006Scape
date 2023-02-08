@@ -1062,7 +1062,7 @@ public abstract class Player {
 			}
 		}
 
-		if (timeOutCounter > NetworkConstants.TIMEOUT) {
+		if (timeOutCounter > GameConstants.TIMEOUT) {
 			if (!isBot)
 				logout(true);
 		}

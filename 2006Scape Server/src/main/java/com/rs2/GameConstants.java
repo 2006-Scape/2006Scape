@@ -15,6 +15,7 @@ public class GameConstants {
      * RESPAWN_Y Sets The Y Coordinate That You Will Respawn At After Death
      * FILE_SERVER Sets Whether The FileServer Should Run With The Server
      * SERVER_DEBUG Sets Whether The Server Should Start In Debug Mode
+     * The Amount Of Time Before A Player Timeouts From A Bad Connection
      * MEMBERS_ONLY Sets Whether The World Is Members Only
      * TUTORIAL_ISLAND Enables/Disables Tutorial Island For Players On First Login
      * PARTY_ROOM_DISABLED Enables/Disables The Party Room Should Be Disabled
@@ -29,8 +30,7 @@ public class GameConstants {
      * WEBSITE_INTEGRATION Enables/Disables Website Features(Total Accounts Registered & Players Online)
      */
     public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
-    public static int WORLD = 1, MAX_PLAYERS = 200, SAVE_TIMER = 120,
-            RESPAWN_X = 3222, RESPAWN_Y = 3218;
+    public static int WORLD = 1, MAX_PLAYERS = 200, SAVE_TIMER = 120, TIMEOUT = 60, RESPAWN_X = 3222, RESPAWN_Y = 3218;
     public static boolean GUI_ENABLED = false, FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
             PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
             ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = false,

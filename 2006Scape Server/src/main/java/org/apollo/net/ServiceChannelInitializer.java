@@ -34,7 +34,7 @@ public final class ServiceChannelInitializer extends ChannelInitializer<SocketCh
 	protected void initChannel(SocketChannel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();
 		pipeline.addLast("handshakeDecoder", new HandshakeDecoder());
-		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.TIMEOUT, 0, 0));
+		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.IDLE_TIME, 0, 0));
 		pipeline.addLast("handler", handler);
 	}
 

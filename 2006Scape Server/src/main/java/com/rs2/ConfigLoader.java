@@ -55,7 +55,7 @@ public class ConfigLoader {
         if (obj.has("save_timer"))
             GameConstants.SAVE_TIMER = obj.getInt("save_timer");
         if (obj.has("timeout"))
-            NetworkConstants.TIMEOUT = obj.getInt("timeout");
+            GameConstants.TIMEOUT = obj.getInt("timeout");
         if (obj.has("item_requirements"))
             GameConstants.ITEM_REQUIREMENTS = obj.getBoolean("item_requirements");
         if (obj.has("variable_xp_rate"))
