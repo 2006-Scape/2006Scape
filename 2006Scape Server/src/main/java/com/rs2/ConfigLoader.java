@@ -28,6 +28,10 @@ public class ConfigLoader {
             GameConstants.SERVER_DEBUG = obj.getBoolean("server_debug");
             if(obj.has("file_server"))
             GameConstants.FILE_SERVER = obj.getBoolean("file_server");
+            if(obj.has("http_port"))
+            NetworkConstants.HTTP_PORT = obj.getInt("http_port");
+            if(obj.has("jaggrab_port"))
+            NetworkConstants.JAGGRAB_PORT = obj.getInt("jaggrab_port");
             if(obj.has("world_id"))
             GameConstants.WORLD = obj.getInt("world_id");
             if(obj.has("members_only"))

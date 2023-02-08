@@ -20,12 +20,12 @@ public final class NetworkConstants {
 	/**
 	 * The HTTP port.
 	 */
-	public static final int HTTP_PORT = 8080;
+	public static int HTTP_PORT = 8080;
 
 	/**
 	 * The JAGGRAB port.
 	 */
-	public static final int JAGGRAB_PORT = 43595;
+	public static int JAGGRAB_PORT = 43595;
 
 	/**
 	 * The Amount Of Time Before A Player Timeouts From A Bad Connection
