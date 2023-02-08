@@ -10,7 +10,6 @@ public class GameConstants {
      * WORLD Sets The Servers World ID
      * GUI_ENABLED Enables/Disables The Server Control Panel
      * MAX_PLAYERS Sets The Maximum Amount Of Players Allow To Be Logged In At Once
-     * TIMEOUT Sets The Amount Of Time Before A Player Timeouts From A Bad Connection
      * SAVE_TIMER Sets In Seconds How Often The Server Shouls Auto-Save All Characters
      * RESPAWN_X Sets The X Coordinate That You Will Respawn At After Death
      * RESPAWN_Y Sets The Y Coordinate That You Will Respawn At After Death
@@ -30,7 +29,7 @@ public class GameConstants {
      * WEBSITE_INTEGRATION Enables/Disables Website Features(Total Accounts Registered & Players Online)
      */
     public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
-    public static int WORLD = 1, MAX_PLAYERS = 200, TIMEOUT = 60, SAVE_TIMER = 120,
+    public static int WORLD = 1, MAX_PLAYERS = 200, SAVE_TIMER = 120,
             RESPAWN_X = 3222, RESPAWN_Y = 3218;
     public static boolean GUI_ENABLED = false, FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
             PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,

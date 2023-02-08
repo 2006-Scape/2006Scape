@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import org.apollo.game.session.ApolloHandler;
 import org.apollo.net.HttpChannelInitializer;
 import org.apollo.net.JagGrabChannelInitializer;
-import org.apollo.net.NetworkConstants;
+import com.rs2.NetworkConstants;
 import org.apollo.net.ServiceChannelInitializer;
 
 import com.rs2.GameConstants;

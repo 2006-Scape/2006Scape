@@ -3,6 +3,7 @@ package com.rs2.game.players;
 import com.everythingrs.hiscores.Hiscores;
 import com.rs2.GameConstants;
 import com.rs2.GameEngine;
+import com.rs2.NetworkConstants;
 import com.rs2.event.*;
 import com.rs2.game.content.BankPin;
 import com.rs2.game.content.EmoteHandler;
@@ -1061,7 +1062,7 @@ public abstract class Player {
 			}
 		}
 
-		if (timeOutCounter > GameConstants.TIMEOUT) {
+		if (timeOutCounter > NetworkConstants.TIMEOUT) {
 			if (!isBot)
 				logout(true);
 		}

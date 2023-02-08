@@ -1,5 +1,7 @@
 package org.apollo.net;
 
+import com.rs2.GameConstants;
+import com.rs2.NetworkConstants;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -70,7 +72,7 @@ public final class JagGrabChannelInitializer extends ChannelInitializer<SocketCh
 
 		pipeline.addLast("jaggrab-encoder", new JagGrabResponseEncoder());
 
-		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.IDLE_TIME, 0, 0));
+		pipeline.addLast("timeout", new IdleStateHandler(NetworkConstants.TIMEOUT, 0, 0));
 		pipeline.addLast("handler", handler);
 	}
 
