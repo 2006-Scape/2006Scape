@@ -5,13 +5,9 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.nio.file.Paths;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apollo.cache.IndexedFileSystem;
 import org.apollo.game.session.ApolloHandler;
 import org.apollo.net.HttpChannelInitializer;
 import org.apollo.net.JagGrabChannelInitializer;
@@ -26,8 +22,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.util.HashedWheelTimer;
-import io.netty.util.Timer;
 
 /**
  * The core class of the file server.
@@ -75,7 +69,7 @@ public final class FileServer {
 	public SocketAddress service = new InetSocketAddress((GameConstants.WORLD == 1) ? 43594 : 43596 + GameConstants.WORLD);
 
 	public void start() throws Exception {
-		if (!new File(Constants.FILE_SYSTEM_DIR).exists())
+		if (!new File(GameConstants.FILE_SYSTEM_DIR).exists())
 		{
 			System.out.println("Working Directory = " + System.getProperty("user.dir"));
 			System.out.println("************************************");
@@ -111,7 +105,6 @@ public final class FileServer {
 	/**
 	 * Initialises the server.
 	 *
-	 * @param releaseName The class name of the current active {@link Release}.
 	 * @throws Exception If an error occurs.
 	 */
 	public void init() throws Exception {

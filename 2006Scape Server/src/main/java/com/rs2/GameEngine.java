@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.nio.file.Paths;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -19,12 +18,9 @@ import com.rs2.gui.ControlPanel;
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.cache.decoder.ItemDefinitionDecoder;
 import org.apollo.cache.decoder.ObjectDefinitionDecoder;
-import org.apollo.cache.def.ObjectDefinition;
-import org.apollo.jagcached.Constants;
 import org.apollo.jagcached.FileServer;
 
 import com.rs2.game.bots.BotHandler;
-import com.google.common.base.Stopwatch;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.content.minigames.FightPits;
@@ -72,7 +68,7 @@ public class GameEngine {
 	private static void startMinutesCounter() {
 		try {
 			minuteFile = new BufferedReader(new FileReader(
-					"./data/minutes.log"));
+					GameConstants.SERVER_LOG_DIR + "minutes.log"));
 			minutesCounter = Long.parseLong(minuteFile.readLine());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,7 +79,7 @@ public class GameEngine {
 	private static void setMinutesCounter(long minutesCounter) {
 		try {
 			BufferedWriter minuteCounter = new BufferedWriter(new FileWriter(
-					"./data/minutes.log"));
+					GameConstants.SERVER_LOG_DIR + "minutes.log"));
 			minuteCounter.write(Long.toString(minutesCounter));
 			minuteCounter.close();
 		} catch (IOException e) {
@@ -187,7 +183,7 @@ public class GameEngine {
 			System.exit(1);
 		}
 
-		IndexedFileSystem cache = new IndexedFileSystem(Paths.get(Constants.FILE_SYSTEM_DIR), true);
+		IndexedFileSystem cache = new IndexedFileSystem(Paths.get(GameConstants.FILE_SYSTEM_DIR), true);
 		new ObjectDefinitionDecoder(cache).run();
 		new ItemDefinitionDecoder(cache).run();
 		

@@ -79,6 +79,13 @@ public class GameConstants {
 
     public final static int BUFFER_SIZE = 10000;
 
+    /**
+     * The directory of the file system.
+     */
+    public static final String FILE_SYSTEM_DIR = "./data/cache/";
+
+    public final static String SERVER_LOG_DIR = "./data/logs/";
+
     public final static int ATTACK = 0, DEFENCE = 1, STRENGTH = 2,
             HITPOINTS = 3, RANGED = 4, PRAYER = 5, MAGIC = 6, COOKING = 7,
             WOODCUTTING = 8, FLETCHING = 9, FISHING = 10, FIREMAKING = 11,
