@@ -19,10 +19,10 @@ import com.rs2.game.content.StaticObjectList;
  */
 public class ConstantReplacer {
 
-	private static String [] skipped = {  "bevAnim", "effect1", "effect2", "effect3", "effect4" };
-	private static String enum_clazz = "com.rs2.game.content.consumables.Beverages$beverageData";
+	private static String [] skipped = { "heal", "name", "type", "foodEffect" };
+	private static String enum_clazz = "com.rs2.game.content.consumables.Food$FoodToEat";
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
 		Map<Integer, String> items = buildNameMap(StaticItemList.class);
 		Map<Integer, String> npcs = buildNameMap(StaticNpcList.class);
 		Map<Integer, String> objects = buildNameMap(StaticObjectList.class);
@@ -34,7 +34,17 @@ public class ConstantReplacer {
 		}
 		if(skipped == null)
 			buildSkipped(c);
-		Field enumfield = c.getDeclaredField("ENUM$VALUES");
+		Field enumfield = null;
+		try {
+			enumfield = c.getDeclaredField("ENUM$VALUES");
+		} catch (NoSuchFieldException e) {
+			try {
+				enumfield = c.getDeclaredField("$VALUES");
+			} catch (NoSuchFieldException e1) {
+				e1.printStackTrace();
+				return;
+			} 
+		} 
 		enumfield.setAccessible(true);
 
 		Enum[] values = (Enum[]) enumfield.get(null);
@@ -53,6 +63,8 @@ public class ConstantReplacer {
 				f.setAccessible(true);
 				if(f.getGenericType().getTypeName() == "int")
 					out += ((!skip(f.getName()) ? items.get(f.getInt(m)) : f.getInt(m)) + ", ");
+				else if(f.getType() == (String.class))
+					out += "\""+  f.get(m) +"\", ";
 				else
 					out +=  f.get(m) + ", ";
 			}
@@ -62,7 +74,7 @@ public class ConstantReplacer {
 		}
 	}
 	
-	private static void buildSkipped(Class<?> c) throws Exception {
+	private static void buildSkipped(Class<?> c) {
 		Field[] flds = c.getDeclaredFields();
 		String out = ("private static String [] skipped = { ");
 		for (Field f : flds) {
