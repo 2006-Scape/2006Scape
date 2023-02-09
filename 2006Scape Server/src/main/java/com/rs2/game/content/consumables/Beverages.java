@@ -4,25 +4,23 @@ import com.rs2.Constants;
 import com.rs2.event.*;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
-
+import static com.rs2.game.content.StaticItemList.*;
 public class Beverages {
 
-	private static final int BEER_GLASS = 1919;
-
 	public static enum beverageData {
-		BEER(1917, BEER_GLASS, 829, true, false, false, false), 
-		BEER1(7740, BEER_GLASS, 829, true, false, false, false),
-				GROG(1915, BEER_GLASS, 829, true, false, false, false), 
-				BANDITS_BREW(4627, BEER_GLASS, 829, true, false, false, false), 
-				DRAGON_BITTER(1911, BEER_GLASS, 829, true, false, false, false), 
-				CIDER(7752,BEER_GLASS, 829, true, false, false, false), 
-				MATURE_CIDER(5765, BEER_GLASS, 829, true, false, false, false), 
-				MOONLIGHT_MEAD(7750, BEER_GLASS, 829, true, false, false, false), 
-				DWARVEN_STOUT(1913, BEER_GLASS, 829, true, false, false, false), 
-				GREENMANS_ALE(1909, BEER_GLASS, 829, true, false, false, false), 
-				CHEFS_DELIGHT(7754, BEER_GLASS, 829, true, false, false, false), 
-				ASGARNIAN_ALE(1905, BEER_GLASS, 829, true, false, false, false), 
-				WIZARDS_MIND_BOMB(1907, BEER_GLASS, 829, true, false, false, false);
+		BEER_(BEER, BEER_GLASS, 829, true, false, false, false),
+		BEER1_(BEER_7740, BEER_GLASS, 829, true, false, false, false),
+		GROG_(GROG, BEER_GLASS, 829, true, false, false, false),
+		BANDITS_BREW_(BANDITS_BREW, BEER_GLASS, 829, true, false, false, false),
+		DRAGON_BITTER_(DRAGON_BITTER, BEER_GLASS, 829, true, false, false, false),
+		CIDER_(CIDER_7752, BEER_GLASS, 829, true, false, false, false),
+		MATURE_CIDER_(MATURE_CIDER, BEER_GLASS, 829, true, false, false, false),
+		MOONLIGHT_MEAD_(MOONLIGHT_MEAD_7750, BEER_GLASS, 829, true, false, false, false),
+		DWARVEN_STOUT_(DWARVEN_STOUT, BEER_GLASS, 829, true, false, false, false),
+		GREENMANS_ALE_(GREENMANS_ALE, BEER_GLASS, 829, true, false, false, false),
+		CHEFS_DELIGHT_(CHEFS_DELIGHT_7754, BEER_GLASS, 829, true, false, false, false),
+		ASGARNIAN_ALE_(ASGARNIAN_ALE, BEER_GLASS, 829, true, false, false, false),
+		WIZARDS_MIND_BOMB_(WIZARDS_MIND_BOMB, BEER_GLASS, 829, true, false, false, false);
 
 		private int bevId, replacement, bevAnim;
 		private boolean effect1, effect2, effect3, effect4;
