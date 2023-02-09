@@ -1,24 +1,18 @@
 package org.apollo.game.session;
 
+import com.rs2.Constants;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandlerContext;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.Optional;
 
-import org.apollo.net.codec.login.LoginConstants;
 import org.apollo.net.codec.login.LoginRequest;
-import org.apollo.net.codec.login.LoginResponse;
-import org.apollo.util.security.IsaacRandom;
 import org.apollo.util.security.IsaacRandomPair;
 import org.apollo.util.security.PlayerCredentials;
 
 import com.rs2.Connection;
-import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.PlayerHandler;
@@ -103,7 +97,7 @@ public final class LoginSession extends Session {
 			returnCode = 5;
 		}
 		
-		if (PlayerHandler.getPlayerCount() >= GameConstants.MAX_PLAYERS) {
+		if (PlayerHandler.getPlayerCount() >= Constants.MAX_PLAYERS) {
 			returnCode = 7;
 		}
 		

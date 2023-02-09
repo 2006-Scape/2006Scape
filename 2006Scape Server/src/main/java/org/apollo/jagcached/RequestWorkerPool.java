@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.rs2.Constants;
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.net.update.HttpRequestWorker;
 import org.apollo.net.update.JagGrabRequestWorker;

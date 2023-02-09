@@ -2,11 +2,9 @@ package com.rs2.game.content.minigames.magetrainingarena;
 
 import java.util.Random;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.combat.magic.MagicData;
-import com.rs2.game.content.combat.magic.MagicRequirements;
 import com.rs2.game.content.music.sound.SoundList;
-import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.world.Boundary;
@@ -38,8 +36,8 @@ public class Graveyard {
         player.boneDelay = System.currentTimeMillis();
         player.startAnimation(MagicData.MAGIC_SPELLS[spellID][2]);
         player.gfx100(MagicData.MAGIC_SPELLS[spellID][3]);
-        player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[spellID][7], GameConstants.MAGIC);
-        player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+        player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[spellID][7], Constants.MAGIC);
+        player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
         player.getPacketSender().sendShowTab(6);
         player.getPacketSender().sendSound(SoundList.BONES_TO_BANNAS, 100, 0);
         int amount = 0;

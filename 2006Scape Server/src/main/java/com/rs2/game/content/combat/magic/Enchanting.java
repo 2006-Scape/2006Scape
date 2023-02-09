@@ -3,7 +3,7 @@ package com.rs2.game.content.combat.magic;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Player;
 
 public class Enchanting {
@@ -209,7 +209,7 @@ public class Enchanting {
 		if (enc == null || ens == null) {
 			return;
 		}
-		if (c.playerLevel[GameConstants.MAGIC] < ens.getLevelReq()) {
+		if (c.playerLevel[Constants.MAGIC] < ens.getLevelReq()) {
 			c.getPacketSender().sendMessage(
 				"You need a magic level of at least "
 				+ ens.getLevelReq() + " to cast this spell.");
@@ -230,7 +230,7 @@ public class Enchanting {
 		}
 		// Everything is fine, Enchant the item
 		c.getItemAssistant().replaceItem(enc.getUnenchanted(), enc.getEnchanted());
-		c.getPlayerAssistant().addSkillXP(ens.getXp(), GameConstants.MAGIC);
+		c.getPlayerAssistant().addSkillXP(ens.getXp(), Constants.MAGIC);
 		CastRequirements.deleteRunes(c, getRequiredRunes(ens));
 		c.startAnimation(ens.getAnim());
 		c.gfx100(ens.getGFX());

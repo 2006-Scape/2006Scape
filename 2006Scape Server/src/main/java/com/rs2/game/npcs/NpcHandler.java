@@ -2,7 +2,7 @@ package com.rs2.game.npcs;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -159,7 +159,7 @@ public class NpcHandler {
 
     public static boolean isUndead(int index) {
         String name = getNpcListName(npcs[index].npcType);
-		for (String s : GameConstants.UNDEAD) {
+		for (String s : Constants.UNDEAD) {
 			if (s.equalsIgnoreCase(name)) {
 				return true;
 			}
@@ -615,13 +615,13 @@ public class NpcHandler {
                     npcs[i].killerId = 0;
                     if (npcs[i].spawnedBy == 0) {
                         if (npcs[i].absX > npcs[i].makeX
-                                + GameConstants.NPC_RANDOM_WALK_DISTANCE
+                                + Constants.NPC_RANDOM_WALK_DISTANCE
                                 || npcs[i].absX < npcs[i].makeX
-                                - GameConstants.NPC_RANDOM_WALK_DISTANCE
+                                - Constants.NPC_RANDOM_WALK_DISTANCE
                                 || npcs[i].absY > npcs[i].makeY
-                                + GameConstants.NPC_RANDOM_WALK_DISTANCE
+                                + Constants.NPC_RANDOM_WALK_DISTANCE
                                 || npcs[i].absY < npcs[i].makeY
-                                - GameConstants.NPC_RANDOM_WALK_DISTANCE) {
+                                - Constants.NPC_RANDOM_WALK_DISTANCE) {
                             npcs[i].walkingHome = true;
                         }
                     }
@@ -787,8 +787,8 @@ public class NpcHandler {
                         }
                         if (npcs[i].npcType > 3726 && npcs[i].npcType < 3732) {
                             int damage = 10 + Misc.random(10);
-                            player.playerLevel[GameConstants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS]) - damage;
-                            player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+                            player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]) - damage;
+                            player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
                             player.handleHitMask(damage);
                         }
                         if (npcs[i].npcType == 655) {
@@ -1117,7 +1117,7 @@ public class NpcHandler {
 				{
 					scroll = 2679;
 				}
-				if (scroll >= 0 && GameConstants.CLUES_ENABLED) {
+				if (scroll >= 0 && Constants.CLUES_ENABLED) {
 					GameEngine.itemHandler.createGroundItem(c, scroll, npcs[i].absX, npcs[i].absY, 1, c.playerId);
 				}
             }
@@ -1232,10 +1232,10 @@ public class NpcHandler {
         int    y      = npc.absY;
         Player player = PlayerHandler.players[playerId];
         if (npcs[i].spawnedBy > 0
-                || x < npc.makeX + GameConstants.NPC_FOLLOW_DISTANCE
-                && x > npc.makeX - GameConstants.NPC_FOLLOW_DISTANCE
-                && y < npc.makeY + GameConstants.NPC_FOLLOW_DISTANCE
-                && y > npc.makeY - GameConstants.NPC_FOLLOW_DISTANCE) {
+                || x < npc.makeX + Constants.NPC_FOLLOW_DISTANCE
+                && x > npc.makeX - Constants.NPC_FOLLOW_DISTANCE
+                && y < npc.makeY + Constants.NPC_FOLLOW_DISTANCE
+                && y > npc.makeY - Constants.NPC_FOLLOW_DISTANCE) {
             if (npc.heightLevel == player.heightLevel) {
                 if (player != null && npc != null) {
                     if (playerX > x && playerY < y) {
@@ -1394,9 +1394,9 @@ public class NpcHandler {
                 || npcs[i].npcType == 1160) {
             if (damage > 0) {
                 if (c != null) {
-                    if (c.playerLevel[GameConstants.PRAYER] > 0) {
-                        c.playerLevel[GameConstants.PRAYER]--;
-                        c.getPlayerAssistant().refreshSkill(GameConstants.PRAYER);
+                    if (c.playerLevel[Constants.PRAYER] > 0) {
+                        c.playerLevel[Constants.PRAYER]--;
+                        c.getPlayerAssistant().refreshSkill(Constants.PRAYER);
                         c.getPlayerAssistant().appendPoison(12);
                     }
                 }

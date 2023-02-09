@@ -1,6 +1,6 @@
 package  com.rs2.game.content.randomevents;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
@@ -15,9 +15,9 @@ public class Swarm {
 
 	private static int checkStats(Player c, boolean bot) {
 		if (bot) {
-			return c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) * 3;
+			return c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]) * 3;
 		} else {
-			return c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) * 2;
+			return c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]) * 2;
 		}
 	}
 

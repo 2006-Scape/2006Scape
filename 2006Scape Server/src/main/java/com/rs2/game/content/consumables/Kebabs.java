@@ -1,6 +1,6 @@
 package com.rs2.game.content.consumables;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -51,10 +51,10 @@ public class Kebabs {
 		} else if (Misc.random(100.0f) <= eff2) { // 61.24% heals 10% of HP
 			c.getPacketSender()
 					.sendMessage("It restores some life points.");
-			if (c.playerLevel[GameConstants.HITPOINTS] < c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-				c.playerLevel[GameConstants.HITPOINTS] += c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]) * 0.10;
-				if (c.playerLevel[GameConstants.HITPOINTS] > c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-					c.playerLevel[GameConstants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]);
+			if (c.playerLevel[Constants.HITPOINTS] < c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS])) {
+				c.playerLevel[Constants.HITPOINTS] += c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]) * 0.10;
+				if (c.playerLevel[Constants.HITPOINTS] > c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS])) {
+					c.playerLevel[Constants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]);
 				}
 
 			}
@@ -62,10 +62,10 @@ public class Kebabs {
 		} else if (Misc.random(100.0f) <= eff3) { // 21.12% + 10-20 HP
 			c.getPacketSender().sendMessage(
 					"That was a good kebab. You feel a lot better. ");
-			if (c.playerLevel[GameConstants.HITPOINTS] < c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-				c.playerLevel[GameConstants.HITPOINTS] += Misc.random(20);
-				if (c.playerLevel[GameConstants.HITPOINTS] > c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-					c.playerLevel[GameConstants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]);
+			if (c.playerLevel[Constants.HITPOINTS] < c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS])) {
+				c.playerLevel[Constants.HITPOINTS] += Misc.random(20);
+				if (c.playerLevel[Constants.HITPOINTS] > c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS])) {
+					c.playerLevel[Constants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]);
 				}
 			}
 
@@ -74,16 +74,16 @@ public class Kebabs {
 			c.getPacketSender()
 					.sendMessage(
 							"Wow, that was an amazing kebab! You feel really invigorated.");
-			c.playerLevel[GameConstants.DEFENCE] += 2 + Misc.random(1); // def
-			c.playerLevel[GameConstants.STRENGTH] += 2 + Misc.random(1); // str
-			c.playerLevel[GameConstants.ATTACK] += 2 + Misc.random(1); // atk
-			c.getPlayerAssistant().refreshSkill(GameConstants.DEFENCE);
-			c.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
-			c.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
-			if (c.playerLevel[GameConstants.HITPOINTS] < c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-				c.playerLevel[GameConstants.HITPOINTS] += Misc.random(30);
-				if (c.playerLevel[GameConstants.HITPOINTS] > c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS])) {
-					c.playerLevel[GameConstants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[GameConstants.HITPOINTS]);
+			c.playerLevel[Constants.DEFENCE] += 2 + Misc.random(1); // def
+			c.playerLevel[Constants.STRENGTH] += 2 + Misc.random(1); // str
+			c.playerLevel[Constants.ATTACK] += 2 + Misc.random(1); // atk
+			c.getPlayerAssistant().refreshSkill(Constants.DEFENCE);
+			c.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
+			c.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
+			if (c.playerLevel[Constants.HITPOINTS] < c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS])) {
+				c.playerLevel[Constants.HITPOINTS] += Misc.random(30);
+				if (c.playerLevel[Constants.HITPOINTS] > c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS])) {
+					c.playerLevel[Constants.HITPOINTS] = c.getPlayerAssistant().getLevelForXP(c.playerXP[Constants.HITPOINTS]);
 				}
 			}
 
@@ -105,8 +105,8 @@ public class Kebabs {
 	 */
 	public static void eat(Player player, int slot) {
 		if (System.currentTimeMillis() - player.foodDelay >= 1500
-				&& player.playerLevel[GameConstants.HITPOINTS] > 0) {
-			if (player.playerLevel[GameConstants.HITPOINTS] == player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.HITPOINTS])) { // If
+				&& player.playerLevel[Constants.HITPOINTS] > 0) {
+			if (player.playerLevel[Constants.HITPOINTS] == player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS])) { // If
 																		// full
 																		// health,
 																		// does
@@ -120,7 +120,7 @@ public class Kebabs {
 				player.getItemAssistant().deleteItem(Kebab, slot, 1);
 				player.getPacketSender().sendSound(317, 100, 0);
 				player.foodDelay = System.currentTimeMillis();
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 				return;
 			}
 			player.getCombatAssistant().resetPlayerAttack();
@@ -131,7 +131,7 @@ public class Kebabs {
 			player.getItemAssistant().deleteItem(Kebab, slot, 1);
 			player.getPacketSender().sendSound(317, 100, 0);
 			player.foodDelay = System.currentTimeMillis();
-			player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		}
 	}
 }

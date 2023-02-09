@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.cooking;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -35,22 +35,22 @@ public class CookingTutorialIsland extends SkillHandler {
         if (!hasRequiredLevel(c, 7, levelRequired, "cooking", "cook this")) {
             return;
         }
-        int chance = c.playerLevel[GameConstants.COOKING];
+        int chance = c.playerLevel[Constants.COOKING];
         if (c.playerEquipment[c.playerHands] == StaticItemList.COOKING_GAUNTLETS) {
-            chance = c.playerLevel[GameConstants.COOKING] + 8;
+            chance = c.playerLevel[Constants.COOKING] + 8;
         }
         if (chance <= 0) {
             chance = Misc.random(5);
         }
-        c.playerSkillProp[GameConstants.COOKING][0] = itemID;
-        c.playerSkillProp[GameConstants.COOKING][1] = xpRecieved;
-        c.playerSkillProp[GameConstants.COOKING][2] = levelRequired;
-        c.playerSkillProp[GameConstants.COOKING][3] = burntFish;
-        c.playerSkillProp[GameConstants.COOKING][4] = cookedFish;
-        c.playerSkillProp[GameConstants.COOKING][5] = object;
-        c.playerSkillProp[GameConstants.COOKING][6] = chance;
+        c.playerSkillProp[Constants.COOKING][0] = itemID;
+        c.playerSkillProp[Constants.COOKING][1] = xpRecieved;
+        c.playerSkillProp[Constants.COOKING][2] = levelRequired;
+        c.playerSkillProp[Constants.COOKING][3] = burntFish;
+        c.playerSkillProp[Constants.COOKING][4] = cookedFish;
+        c.playerSkillProp[Constants.COOKING][5] = object;
+        c.playerSkillProp[Constants.COOKING][6] = chance;
         c.stopPlayerSkill = false;
-        int item = c.getItemAssistant().getItemAmount(c.playerSkillProp[GameConstants.COOKING][0]);
+        int item = c.getItemAssistant().getItemAmount(c.playerSkillProp[Constants.COOKING][0]);
         if (item == 1) {
             c.doAmount = 1;
             cookTutFish(c);
@@ -60,7 +60,7 @@ public class CookingTutorialIsland extends SkillHandler {
     }
 
     public static void getAmount(Player player, int amount) {
-        int item = player.getItemAssistant().getItemAmount(player.playerSkillProp[GameConstants.COOKING][0]);
+        int item = player.getItemAssistant().getItemAmount(player.playerSkillProp[Constants.COOKING][0]);
         if (amount > item) {
             amount = item;
         }
@@ -69,10 +69,10 @@ public class CookingTutorialIsland extends SkillHandler {
     }
 
     public static void resetCooking(Player c) {
-        c.playerSkilling[GameConstants.COOKING] = false;
+        c.playerSkilling[Constants.COOKING] = false;
         c.stopPlayerSkill = false;
         for (int i = 0; i < 6; i++) {
-            c.playerSkillProp[GameConstants.COOKING][i] = -1;
+            c.playerSkillProp[Constants.COOKING][i] = -1;
         }
     }
 
@@ -84,19 +84,19 @@ public class CookingTutorialIsland extends SkillHandler {
     }
 
     private static void cookTutFish(final Player c) {
-        if (c.playerSkilling[GameConstants.COOKING]) {
+        if (c.playerSkilling[Constants.COOKING]) {
             return;
         }
         if (c.tutorialProgress == 6) {
-            c.playerSkilling[GameConstants.COOKING] = true;
+            c.playerSkilling[Constants.COOKING] = true;
             c.stopPlayerSkill = true;
             c.getPacketSender().closeAllWindows();
-            if (c.playerSkillProp[GameConstants.COOKING][5] > 0) {
-                // c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.FIRE ? 897 :
+            if (c.playerSkillProp[Constants.COOKING][5] > 0) {
+                // c.startAnimation(c.playerSkillProp[Constants.COOKING][5] == StaticObjectList.FIRE ? 897 :
                 // 896);
-                c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.FIRE ? 897
-                        : c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.STOVE_12269 ? 897 : 896);
-                if (GameConstants.SOUND) {
+                c.startAnimation(c.playerSkillProp[Constants.COOKING][5] == StaticObjectList.FIRE ? 897
+                        : c.playerSkillProp[Constants.COOKING][5] == StaticObjectList.STOVE_12269 ? 897 : 896);
+                if (Constants.SOUND) {
                     c.getPacketSender().sendSound(SoundList.COOK_ITEM, 100,
                             0);
                 }
@@ -107,9 +107,9 @@ public class CookingTutorialIsland extends SkillHandler {
                 @Override
                 public void execute(CycleEventContainer container) {
                     c.getItemAssistant().deleteItem(
-                            c.playerSkillProp[GameConstants.COOKING][0],
+                            c.playerSkillProp[Constants.COOKING][0],
                             c.getItemAssistant().getItemSlot(
-                                    c.playerSkillProp[GameConstants.COOKING][0]), 1);
+                                    c.playerSkillProp[Constants.COOKING][0]), 1);
                     if (c.cookStage1 == 1) {
                         c.getPacketSender().chatbox(6180);
                         c.getDialogueHandler()
@@ -122,7 +122,7 @@ public class CookingTutorialIsland extends SkillHandler {
                         c.getPacketSender().chatbox(6179);
                         c.cookStage1 = 0;
                         c.getItemAssistant()
-                                .addItem(c.playerSkillProp[GameConstants.COOKING][3], 1);
+                                .addItem(c.playerSkillProp[Constants.COOKING][3], 1);
                     } else {
                         c.getPacketSender().chatbox(6180);
                         c.getDialogueHandler()
@@ -136,14 +136,14 @@ public class CookingTutorialIsland extends SkillHandler {
                         c.getPacketSender().createArrow(3089, 3092,
                                 c.getH(), 2);
                         c.getPlayerAssistant().addSkillXP(
-                                c.playerSkillProp[GameConstants.COOKING][1], 7);
+                                c.playerSkillProp[Constants.COOKING][1], 7);
                         c.getItemAssistant()
-                                .addItem(c.playerSkillProp[GameConstants.COOKING][4], 1);
+                                .addItem(c.playerSkillProp[Constants.COOKING][4], 1);
                         c.tutorialProgress = 7;
                     }
                     deleteTime(c);
                     if (!c.getItemAssistant().playerHasItem(
-                            c.playerSkillProp[GameConstants.COOKING][0], 1)
+                            c.playerSkillProp[Constants.COOKING][0], 1)
                             || c.doAmount <= 0) {
                         container.stop();
                     }
@@ -161,10 +161,10 @@ public class CookingTutorialIsland extends SkillHandler {
 
                 @Override
                 public void execute(CycleEventContainer container) {
-                    if (c.playerSkillProp[GameConstants.COOKING][5] > 0) {
+                    if (c.playerSkillProp[Constants.COOKING][5] > 0) {
                         // c.getPacketSender().sendSound(357, 100, 1); //
                         // cook sound
-                        c.startAnimation(c.playerSkillProp[GameConstants.COOKING][5] == StaticObjectList.FIRE ? 897
+                        c.startAnimation(c.playerSkillProp[Constants.COOKING][5] == StaticObjectList.FIRE ? 897
                                 : 896);
                     }
                     if (!c.stopPlayerSkill) {

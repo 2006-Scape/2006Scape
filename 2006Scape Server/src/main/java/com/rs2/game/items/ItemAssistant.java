@@ -1,8 +1,8 @@
 package com.rs2.game.items;
 
+import com.rs2.Constants;
 import org.apollo.cache.def.ItemDefinition;
 
-import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.skills.runecrafting.Tiaras;
@@ -494,11 +494,11 @@ public class ItemAssistant {
 				if (player.playerItems[i] == item + 1 && ItemDefinition.lookup(item).isStackable()
 						&& player.playerItems[i] > 0) {
 					player.playerItems[i] = item + 1;
-					if (player.playerItemsN[i] + amount < GameConstants.MAXITEM_AMOUNT
+					if (player.playerItemsN[i] + amount < Constants.MAXITEM_AMOUNT
 							&& player.playerItemsN[i] + amount > -1) {
 						player.playerItemsN[i] += amount;
 					} else {
-						player.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
+						player.playerItemsN[i] = Constants.MAXITEM_AMOUNT;
 					}
 					if (player.getOutStream() != null && player != null) {
 						player.getOutStream().createFrameVarSizeWord(34);
@@ -522,14 +522,14 @@ public class ItemAssistant {
 			for (int i = 0; i < player.playerItems.length; i++) {
 				if (player.playerItems[i] <= 0) {
 					player.playerItems[i] = item + 1;
-					if (amount < GameConstants.MAXITEM_AMOUNT && amount > -1) {
+					if (amount < Constants.MAXITEM_AMOUNT && amount > -1) {
 						player.playerItemsN[i] = 1;
 						if (amount > 1) {
 							addItem(item, amount - 1);
 							return true;
 						}
 					} else {
-						player.playerItemsN[i] = GameConstants.MAXITEM_AMOUNT;
+						player.playerItemsN[i] = Constants.MAXITEM_AMOUNT;
 					}
 					resetItems(3214);
 					i = 30;
@@ -1340,7 +1340,7 @@ public class ItemAssistant {
 				return false;
 			}
 
-			if (GameConstants.ITEM_REQUIREMENTS) {
+			if (Constants.ITEM_REQUIREMENTS) {
 				// Check if slot is armor
 				if (targetSlot == ItemConstants.FEET
 						|| targetSlot == ItemConstants.LEGS
@@ -1349,32 +1349,32 @@ public class ItemAssistant {
 						|| targetSlot == ItemConstants.HAT
 						|| targetSlot == ItemConstants.HANDS) {
 					if (player.defenceLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.DEFENCE]) < player.defenceLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.DEFENCE]) < player.defenceLevelReq) {
 							player.getPacketSender().sendMessage("You need a defence level of " + player.defenceLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (player.rangeLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.RANGED]) < player.rangeLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.RANGED]) < player.rangeLevelReq) {
 							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 					if (player.magicLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) < player.magicLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.MAGIC]) < player.magicLevelReq) {
 							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wear this item.");
 							canWearItem = false;
 						}
 					}
 				}
 				if (player.slayerLevelReq > 0) {
-					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.SLAYER]) < player.slayerLevelReq) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.SLAYER]) < player.slayerLevelReq) {
 						player.getPacketSender().sendMessage("You need a slayer level of " + player.slayerLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
 				}
 				if (player.agilityLevelReq > 0) {
-					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.AGILITY]) < player.agilityLevelReq) {
+					if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.AGILITY]) < player.agilityLevelReq) {
 						player.getPacketSender().sendMessage("You need a agility level of " + player.agilityLevelReq + " to wear this item.");
 						canWearItem = false;
 					}
@@ -1382,19 +1382,19 @@ public class ItemAssistant {
 				// Weapon
 				if (targetSlot == ItemConstants.WEAPON) {
 					if (player.attackLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.ATTACK]) < player.attackLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.ATTACK]) < player.attackLevelReq) {
 							player.getPacketSender().sendMessage("You need an attack level of " + player.attackLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (player.rangeLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.RANGED]) < player.rangeLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.RANGED]) < player.rangeLevelReq) {
 							player.getPacketSender().sendMessage("You need a range level of " + player.rangeLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
 					}
 					if (player.magicLevelReq > 0) {
-						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[GameConstants.MAGIC]) < player.magicLevelReq) {
+						if (player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.MAGIC]) < player.magicLevelReq) {
 							player.getPacketSender().sendMessage("You need a magic level of " + player.magicLevelReq + " to wield this weapon.");
 							canWearItem = false;
 						}
@@ -1713,7 +1713,7 @@ public class ItemAssistant {
 	}
 
 	public void resetBank() {
-		player.getPacketSender().sendString("The Bank of " + GameConstants.SERVER_NAME, 5383, true);
+		player.getPacketSender().sendString("The Bank of " + Constants.SERVER_NAME, 5383, true);
 		if (player.getOutStream() != null) {
 			player.getOutStream().createFrameVarSizeWord(53);
 			player.getOutStream().writeWord(5382); // bank
@@ -1731,8 +1731,8 @@ public class ItemAssistant {
 			if (player.bankItemsN[i] < 1) {
 				player.bankItems[i] = 0;
 			}
-			if (player.bankItems[i] > GameConstants.ITEM_LIMIT || player.bankItems[i] < 0) {
-				player.bankItems[i] = GameConstants.ITEM_LIMIT;
+			if (player.bankItems[i] > Constants.ITEM_LIMIT || player.bankItems[i] < 0) {
+				player.bankItems[i] = Constants.ITEM_LIMIT;
 			}
 			if (player.getOutStream() != null) {
 				player.getOutStream().writeWordBigEndianA(player.bankItems[i]);
@@ -1767,8 +1767,8 @@ public class ItemAssistant {
 					player.getOutStream().writeByte(player.playerItemsN[i]);
 				}
 			}
-			if (player.playerItems[i] > GameConstants.ITEM_LIMIT || player.playerItems[i] < 0) {
-				player.playerItems[i] = GameConstants.ITEM_LIMIT;
+			if (player.playerItems[i] > Constants.ITEM_LIMIT || player.playerItems[i] < 0) {
+				player.playerItems[i] = Constants.ITEM_LIMIT;
 			}
 			if (player.getOutStream() != null) {
 				player.getOutStream().writeWordBigEndianA(player.playerItems[i]);
@@ -1838,7 +1838,7 @@ public class ItemAssistant {
 					if (player.playerItemsN[fromSlot] < amount) {
 						amount = player.playerItemsN[fromSlot];
 					}
-					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
+					if (player.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT
 							&& player.bankItemsN[toBankSlot] + amount > -1) {
 						player.bankItemsN[toBankSlot] += amount;
 					} else {
@@ -1850,7 +1850,7 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else if (alreadyInBank) {
-					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT
+					if (player.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT
 							&& player.bankItemsN[toBankSlot] + amount > -1) {
 						player.bankItemsN[toBankSlot] += amount;
 					} else {
@@ -1965,7 +1965,7 @@ public class ItemAssistant {
 					if (player.playerItemsN[fromSlot] < amount) {
 						amount = player.playerItemsN[fromSlot];
 					}
-					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && player.bankItemsN[toBankSlot] + amount > -1) {
+					if (player.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT && player.bankItemsN[toBankSlot] + amount > -1) {
 						player.bankItemsN[toBankSlot] += amount;
 					} else {
 						return false;
@@ -1975,7 +1975,7 @@ public class ItemAssistant {
 					resetBank();
 					return true;
 				} else if (alreadyInBank) {
-					if (player.bankItemsN[toBankSlot] + amount <= GameConstants.MAXITEM_AMOUNT && player.bankItemsN[toBankSlot] + amount > -1) {
+					if (player.bankItemsN[toBankSlot] + amount <= Constants.MAXITEM_AMOUNT && player.bankItemsN[toBankSlot] + amount > -1) {
 						player.bankItemsN[toBankSlot] += amount;
 					} else {
 						return false;

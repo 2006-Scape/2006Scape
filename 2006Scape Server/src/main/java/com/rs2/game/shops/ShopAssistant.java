@@ -1,10 +1,9 @@
 package com.rs2.game.shops;
 
+import com.rs2.Constants;
 import org.apollo.cache.def.ItemDefinition;
 
-import com.rs2.GameConstants;
 import com.rs2.game.bots.BotHandler;
-import com.rs2.game.items.ItemData;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.players.Player;
@@ -81,9 +80,9 @@ public class ShopAssistant {
 						{
 						player.getOutStream().writeByte(ShopHandler.shopItemsN[ShopID][i]);
 					}
-					if (ShopHandler.shopItems[ShopID][i] > GameConstants.ITEM_LIMIT
+					if (ShopHandler.shopItems[ShopID][i] > Constants.ITEM_LIMIT
 							|| ShopHandler.shopItems[ShopID][i] < 0) {
-						ShopHandler.shopItems[ShopID][i] = GameConstants.ITEM_LIMIT;
+						ShopHandler.shopItems[ShopID][i] = Constants.ITEM_LIMIT;
 					}
 					player.getOutStream().writeWordBigEndianA(
 							ShopHandler.shopItems[ShopID][i]);
@@ -360,7 +359,7 @@ public class ShopAssistant {
 				return false;
 			}
 		}
-		if (player.playerRights == 2 && !GameConstants.ADMIN_CAN_SELL_ITEMS) {
+		if (player.playerRights == 2 && !Constants.ADMIN_CAN_SELL_ITEMS) {
 			player.getPacketSender().sendMessage("Selling items as an admin has been disabled.");
 			return false;
 		}

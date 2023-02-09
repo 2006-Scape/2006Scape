@@ -1,5 +1,0 @@
-[2019/10/28] 13:46 michael6 picked up bronze arrow itemX: 3224, itemY: 3223
-[2019/10/28] 13:48 michael6 picked up bronze arrow itemX: 3220, itemY: 3223
-[2019/10/28] 13:48 michael6 picked up bronze arrow itemX: 3222, itemY: 3222
-[2019/10/28] 13:48 michael6 picked up bronze arrow itemX: 3220, itemY: 3225
-[2019/10/28] 13:48 michael6 picked up bronze arrow itemX: 3220, itemY: 3226

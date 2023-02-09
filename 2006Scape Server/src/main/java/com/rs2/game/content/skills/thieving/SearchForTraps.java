@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.thieving;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -66,14 +66,14 @@ public class SearchForTraps {
         if (ThieveOther.thievingEnabled(client)) {
             for (final chestsWithTraps chest : chestsWithTraps.values()) {
                 if (chest.getChestId() == chestId) {
-                    if (client.playerLevel[GameConstants.THIEVING] < chest.getLevelReq()) {
+                    if (client.playerLevel[Constants.THIEVING] < chest.getLevelReq()) {
                         client.getDialogueHandler().sendStatement("You must have a thieving level of " + chest.getLevelReq() + " to steal from this chest.");
                         return;
                     }
 
                     if (System.currentTimeMillis() < chest.resetTime) {
-                        long timeFirstSearchForTraps = chest.resetTime - (GameConstants.CYCLE_TIME * getChestResetTime(chest.getChestId()));
-                        if (client.hasSearchedForTraps() || System.currentTimeMillis() - timeFirstSearchForTraps >= GameConstants.CYCLE_TIME) {
+                        long timeFirstSearchForTraps = chest.resetTime - (Constants.CYCLE_TIME * getChestResetTime(chest.getChestId()));
+                        if (client.hasSearchedForTraps() || System.currentTimeMillis() - timeFirstSearchForTraps >= Constants.CYCLE_TIME) {
                             client.getPacketSender().sendMessage("This chest has already been looted");
                             return;
                         }
@@ -85,8 +85,8 @@ public class SearchForTraps {
                     int resetTime = getChestResetTime(chest.getChestId());
                     client.getPacketSender().sendMessage("You find a trap on the chest...");
                     client.getPacketSender().sendMessage("You disable the trap");
-                    client.getPlayerAssistant().addSkillXP((int) chest.getXp(), GameConstants.THIEVING);
-                    chest.resetTime = System.currentTimeMillis() + (resetTime * GameConstants.CYCLE_TIME);
+                    client.getPlayerAssistant().addSkillXP((int) chest.getXp(), Constants.THIEVING);
+                    chest.resetTime = System.currentTimeMillis() + (resetTime * Constants.CYCLE_TIME);
                     client.getPacketSender().sendMessage("You open the chest");
                     client.startAnimation(536);
 

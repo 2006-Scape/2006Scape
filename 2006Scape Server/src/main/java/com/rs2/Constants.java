@@ -1,6 +1,8 @@
 package com.rs2;
 
-public class GameConstants {
+import java.math.BigInteger;
+
+public class Constants {
 
     /**
      * The Variables Below Can Be Also Changed On Server Startup By Using The ConfigLoader
@@ -8,14 +10,16 @@ public class GameConstants {
      * SERVER_NAME Sets The Name The Server Will Use
      * WEBSITE_LINK Defines The Server Website Links
      * WORLD Sets The Servers World ID
+     * The HTTP Server port.
+     * The JAGGRAB Server port.
      * GUI_ENABLED Enables/Disables The Server Control Panel
      * MAX_PLAYERS Sets The Maximum Amount Of Players Allow To Be Logged In At Once
-     * TIMEOUT Sets The Amount Of Time Before A Player Timeouts From A Bad Connection
      * SAVE_TIMER Sets In Seconds How Often The Server Shouls Auto-Save All Characters
      * RESPAWN_X Sets The X Coordinate That You Will Respawn At After Death
      * RESPAWN_Y Sets The Y Coordinate That You Will Respawn At After Death
      * FILE_SERVER Sets Whether The FileServer Should Run With The Server
      * SERVER_DEBUG Sets Whether The Server Should Start In Debug Mode
+     * The Amount Of Time Before A Player Timeouts From A Bad Connection
      * MEMBERS_ONLY Sets Whether The World Is Members Only
      * TUTORIAL_ISLAND Enables/Disables Tutorial Island For Players On First Login
      * PARTY_ROOM_DISABLED Enables/Disables The Party Room Should Be Disabled
@@ -30,15 +34,13 @@ public class GameConstants {
      * WEBSITE_INTEGRATION Enables/Disables Website Features(Total Accounts Registered & Players Online)
      */
     public static String SERVER_NAME = "2006Scape", WEBSITE_LINK = "https://2006Scape.org";
-    public static int WORLD = 1, MAX_PLAYERS = 200, TIMEOUT = 60, SAVE_TIMER = 120,
-            RESPAWN_X = 3222, RESPAWN_Y = 3218;
+    public static int WORLD = 1, HTTP_PORT = 8080, JAGGRAB_PORT = 43595, MAX_PLAYERS = 200, SAVE_TIMER = 120, TIMEOUT = 60, RESPAWN_X = 3222, RESPAWN_Y = 3218;
     public static boolean GUI_ENABLED = false, FILE_SERVER = true, SERVER_DEBUG = false, MEMBERS_ONLY = false, TUTORIAL_ISLAND = false,
             PARTY_ROOM_DISABLED = false, CLUES_ENABLED = true, ITEM_REQUIREMENTS = true,
             ADMIN_CAN_TRADE = false, ADMIN_DROP_ITEMS = false, ADMIN_CAN_SELL_ITEMS = false, VARIABLE_XP_RATE = false,
             WEBSITE_INTEGRATION = false;
     public static int[] VARIABLE_XP_RATES = new int[] {1, 2, 5, 10};
     public static double TEST_VERSION = 2.3, XP_RATE = 1.0;
-
 
     /**
      * The Variables Below Should Only Be Changed If You Understand What You Are Doing
@@ -78,6 +80,24 @@ public class GameConstants {
     public final static int CYCLE_TIME = 600;
 
     public final static int BUFFER_SIZE = 10000;
+
+    /**
+     * The directory of the file system.
+     */
+    public static final String FILE_SYSTEM_DIR = "./data/cache/";
+
+    public final static String SERVER_LOG_DIR = "./data/logs/";
+
+    /**
+     * The exponent used when decrypting the RSA block.
+     */
+    public static final BigInteger RSA_EXPONENT = new BigInteger("33280025241734061313051117678670856264399753710527826596057587687835856000539511539311834363046145710983857746766009612538140077973762171163294453513440619295457626227183742315140865830778841533445402605660729039310637444146319289077374748018792349647460850308384280105990607337322160553135806205784213241305");;
+
+    /**
+     * The modulus used when decrypting the RSA block.
+     */
+    public static final BigInteger RSA_MODULUS = new BigInteger("91553247461173033466542043374346300088148707506479543786501537350363031301992107112953015516557748875487935404852620239974482067336878286174236183516364787082711186740254168914127361643305190640280157664988536979163450791820893999053469529344247707567448479470137716627440246788713008490213212272520901741443");;
+
 
     public final static int ATTACK = 0, DEFENCE = 1, STRENGTH = 2,
             HITPOINTS = 3, RANGED = 4, PRAYER = 5, MAGIC = 6, COOKING = 7,

@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.thieving;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -222,13 +222,13 @@ public class Pickpocket extends SkillHandler {
 		}
 		for (final npcData n : npcData.values()) {
 			if (npcId == n.getNpc(npcId)) {
-				if (player.playerLevel[GameConstants.THIEVING] < n.getLevel()) {
+				if (player.playerLevel[Constants.THIEVING] < n.getLevel()) {
 					player.getDialogueHandler().sendStatement("You need a Thieving level of " + n.getLevel() + " to pickpocket the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + ".");
 					return;
 				}
 				player.getPacketSender().sendMessage("You attempt to pick the  " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
 				player.startAnimation(881);
-				if (Misc.random(player.playerLevel[GameConstants.THIEVING] + 5) < Misc.random(n.getLevel())) {
+				if (Misc.random(player.playerLevel[Constants.THIEVING] + 5) < Misc.random(n.getLevel())) {
 					RandomEventHandler.addRandom(player);
 					CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
 						@Override
@@ -240,8 +240,8 @@ public class Pickpocket extends SkillHandler {
 							player.playerStun = true;
 							player.setHitDiff(n.getDamage());
 							player.setHitUpdateRequired(true);
-							player.playerLevel[GameConstants.HITPOINTS] -= n.getDamage();
-							player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+							player.playerLevel[Constants.HITPOINTS] -= n.getDamage();
+							player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 							player.gfx100(80);
 							player.startAnimation(404);
 							player.getPacketSender().sendSound(SoundList.STUNNED, 100, 0);
@@ -290,7 +290,7 @@ public class Pickpocket extends SkillHandler {
 						public void execute(CycleEventContainer container) {
 							player.getPacketSender().sendMessage(message2);
 							player.getPlayerAssistant().addSkillXP((int) n.getXp(),
-									GameConstants.THIEVING);
+									Constants.THIEVING);
 							int[] random = n.getPickPockets()[Misc.random(n.getPickPockets().length - 1)];
 							player.getItemAssistant().addItem(random[0], random[1] + (random.length > 2 ? Misc.random(random[2]) : 0));
 							container.stop();

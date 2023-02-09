@@ -1,9 +1,0 @@
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3303 absY: 3136
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3303 absY: 3136
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3301 absY: 3138
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3299 absY: 3139
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3297 absY: 3141
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3297 absY: 3141
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3297 absY: 3141
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3297 absY: 3141
-[2020/08/09] 21:08 sandro dropped 1 waterskin(0) absX: 3293 absY: 3147

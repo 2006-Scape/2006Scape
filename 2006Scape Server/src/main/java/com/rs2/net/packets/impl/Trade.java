@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
@@ -24,7 +24,7 @@ public class Trade implements PacketType {
 			return;
 		}
 	
-		if (player.playerRights == 2 && !GameConstants.ADMIN_CAN_TRADE) {
+		if (player.playerRights == 2 && !Constants.ADMIN_CAN_TRADE) {
 			player.getPacketSender().sendMessage("Trading as an admin has been disabled.");
 			return;
 		}

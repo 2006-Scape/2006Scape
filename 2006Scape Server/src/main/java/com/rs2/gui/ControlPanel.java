@@ -1,6 +1,6 @@
 package com.rs2.gui;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -206,7 +206,7 @@ public class ControlPanel extends JFrame {
         EXIT_ITEM = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle(GameConstants.SERVER_NAME + " ControlPanel");
+        setTitle(Constants.SERVER_NAME + " ControlPanel");
         setBackground(new Color(245, 244, 244));
         setResizable(false);
 
@@ -698,20 +698,20 @@ public class ControlPanel extends JFrame {
 
         SERVER_NAME_LABEL.setText("Server Name:");
 
-        SERVER_NAME_TEXT.setText(GameConstants.SERVER_NAME);
+        SERVER_NAME_TEXT.setText(Constants.SERVER_NAME);
         SERVER_NAME_TEXT.setToolTipText("Set the name of the server.");
 
-        ADMINS_CAN_TRADE.setSelected(GameConstants.ADMIN_CAN_TRADE);
+        ADMINS_CAN_TRADE.setSelected(Constants.ADMIN_CAN_TRADE);
         ADMINS_CAN_TRADE.setText("Admins can Trade");
         ADMINS_CAN_TRADE.setToolTipText("Determins wether or not an admin can trade other players.");
 
         ADMINS_CAN_DROP.setText("Admins can Drop");
-        ADMINS_CAN_DROP.setSelected(GameConstants.ADMIN_DROP_ITEMS);
+        ADMINS_CAN_DROP.setSelected(Constants.ADMIN_DROP_ITEMS);
         ADMINS_CAN_DROP.setToolTipText("Determins if admins can drop an item.");
 
 
         ADMINS_CAN_SELL_ITEMS.setText("Admins can sell Items");
-        ADMINS_CAN_SELL_ITEMS.setSelected(GameConstants.ADMIN_CAN_SELL_ITEMS);
+        ADMINS_CAN_SELL_ITEMS.setSelected(Constants.ADMIN_CAN_SELL_ITEMS);
         ADMINS_CAN_SELL_ITEMS.setToolTipText("Determins if admins can sell items or not.");
 
         UPDATE_SETTINGS.setText("Update Settings");
@@ -975,7 +975,7 @@ public class ControlPanel extends JFrame {
                                 .addContainerGap())
         );
         pack();
-        setVisible(GameConstants.GUI_ENABLED);
+        setVisible(Constants.GUI_ENABLED);
     }
 
     // Holds the button commands

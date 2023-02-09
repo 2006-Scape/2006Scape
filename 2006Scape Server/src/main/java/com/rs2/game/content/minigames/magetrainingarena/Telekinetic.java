@@ -3,7 +3,7 @@ package com.rs2.game.content.minigames.magetrainingarena;
 import java.awt.Point;
 import java.util.Random;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -133,8 +133,8 @@ public class Telekinetic {
         player.gfx100(MagicData.MAGIC_SPELLS[51][3]);
         player.getPlayerAssistant().createPlayersStillGfx(144, itemX, itemY, 0, 72);
         player.getPlayerAssistant().createPlayersProjectile(player.getX(), player.getY(), offX, offY, 50, 70, MagicData.MAGIC_SPELLS[51][4], 50, 10, 0, 50);
-        player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], GameConstants.MAGIC);
-        player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+        player.getPlayerAssistant().addSkillXP(MagicData.MAGIC_SPELLS[51][7], Constants.MAGIC);
+        player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
         player.stopMovement();
 
         Maze maze = Maze.getMaze(itemX, itemY, player.heightLevel);
@@ -162,8 +162,8 @@ public class Telekinetic {
                             if (player.telekineticMazesSolved % 5 == 0) {
                                 player.telekineticPoints += 8;
                                 player.getItemAssistant().addOrDropItem(563, 10);
-                                player.getPlayerAssistant().addSkillXP(1000, GameConstants.MAGIC);
-                                player.getPlayerAssistant().refreshSkill(GameConstants.MAGIC);
+                                player.getPlayerAssistant().addSkillXP(1000, Constants.MAGIC);
+                                player.getPlayerAssistant().refreshSkill(Constants.MAGIC);
                             }
 
                             resetStatue(newPosition.x, newPosition.y);

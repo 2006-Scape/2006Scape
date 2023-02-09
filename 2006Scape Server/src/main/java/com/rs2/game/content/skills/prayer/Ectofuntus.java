@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.prayer;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -182,7 +182,7 @@ public class Ectofuntus {
 						player.getItemAssistant().replaceItem(ectofuntus.getBonemealId(), 1931);
 						player.getItemAssistant().replaceItem(BUCKET_OF_SLIME, 1925);// Bucket
 						player.startAnimation(WORSHIP);
-						player.getPlayerAssistant().addSkillXP(ectofuntus.getWorshipExperience(), GameConstants.PRAYER);
+						player.getPlayerAssistant().addSkillXP(ectofuntus.getWorshipExperience(), Constants.PRAYER);
 						player.getPacketSender().sendMessage("You pray to the ectofuntus.");
 						player.ectofuntusWorshipped++;
 						if (player.isMoving || !player.getItemAssistant().playerHasItem(ectofuntus.getBonemealId()) || !player.getItemAssistant().playerHasItem(BUCKET_OF_SLIME)) {

@@ -1,15 +1,13 @@
 package com.rs2.game.content.random;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Random;
 
+import com.rs2.Constants;
 import org.apollo.cache.def.ItemDefinition;
 
-import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.items.ItemConstants;
-import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.world.Boundary;
@@ -121,7 +119,7 @@ public class PartyRoom {
 	}
 
 	public static void open(Player player) {
-		if (!GameConstants.PARTY_ROOM_DISABLED) {
+		if (!Constants.PARTY_ROOM_DISABLED) {
 			updateGlobal(player);
 			updateDeposit(player);
 			player.getItemAssistant().resetItems(5064); // Player inventory

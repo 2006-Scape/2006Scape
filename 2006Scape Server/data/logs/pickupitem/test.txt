@@ -1,9 +1,0 @@
-[2019/10/04] 22:06 test picked up knife itemX: 3224, itemY: 3202
-[2019/10/04] 22:10 test picked up knife itemX: 3224, itemY: 3202
-[2019/10/04] 22:10 test picked up knife itemX: 3224, itemY: 3202
-[2019/10/04] 22:11 test picked up coins itemX: 3224, itemY: 3202
-[2019/10/04] 22:16 test picked up knife itemX: 3224, itemY: 3202
-[2019/10/04] 22:16 test picked up knife itemX: 3224, itemY: 3202
-[2019/10/04] 22:16 test picked up knife itemX: 3224, itemY: 3202
-[2019/10/04] 22:23 test picked up knife itemX: 3224, itemY: 3202
-[2019/10/04] 22:24 test picked up knife itemX: 3224, itemY: 3202

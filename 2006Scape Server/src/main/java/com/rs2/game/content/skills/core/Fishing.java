@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.core;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -58,8 +58,8 @@ public class Fishing extends SkillHandler {
             c.getPacketSender().sendMessage(c.disabled());
             return;
         }
-        if (c.playerSkillProp[GameConstants.FISHING][4] > 0) {
-            c.playerSkilling[GameConstants.FISHING] = false;
+        if (c.playerSkillProp[Constants.FISHING][4] > 0) {
+            c.playerSkilling[Constants.FISHING] = false;
             return;
         }
         if (!noInventorySpace(c, "fishing")) {
@@ -68,7 +68,7 @@ public class Fishing extends SkillHandler {
         resetFishing(c);
         for (int i = 0; i < data.length; i++) {
             if (npcId == data[i][0]) {
-                if (c.playerLevel[GameConstants.FISHING] < data[i][1]) {
+                if (c.playerLevel[Constants.FISHING] < data[i][1]) {
                     c.getDialogueHandler().sendStatement(
                             "You need a fishing level of at least "
                                     + data[i][1]
@@ -88,24 +88,24 @@ public class Fishing extends SkillHandler {
                         return;
                     }
                 }
-                c.playerSkillProp[GameConstants.FISHING][0] = data[i][6]; // ANIM
-                c.playerSkillProp[GameConstants.FISHING][1] = data[i][4]; // FISH
-                c.playerSkillProp[GameConstants.FISHING][2] = data[i][5]; // XP
-                c.playerSkillProp[GameConstants.FISHING][3] = data[i][3]; // BAIT
-                c.playerSkillProp[GameConstants.FISHING][4] = data[i][2]; // EQUIP
-                c.playerSkillProp[GameConstants.FISHING][5] = data[i][7]; // sFish
-                c.playerSkillProp[GameConstants.FISHING][6] = data[i][8]; // sLvl
-                c.playerSkillProp[GameConstants.FISHING][7] = data[i][4]; // FISH
-                c.playerSkillProp[GameConstants.FISHING][8] = data[i][9]; // sXP
-                c.playerSkillProp[GameConstants.FISHING][9] = Misc.random(1) == 0 ? 7 : 5;
-                c.playerSkillProp[GameConstants.FISHING][10] = data[i][0]; // INDEX
+                c.playerSkillProp[Constants.FISHING][0] = data[i][6]; // ANIM
+                c.playerSkillProp[Constants.FISHING][1] = data[i][4]; // FISH
+                c.playerSkillProp[Constants.FISHING][2] = data[i][5]; // XP
+                c.playerSkillProp[Constants.FISHING][3] = data[i][3]; // BAIT
+                c.playerSkillProp[Constants.FISHING][4] = data[i][2]; // EQUIP
+                c.playerSkillProp[Constants.FISHING][5] = data[i][7]; // sFish
+                c.playerSkillProp[Constants.FISHING][6] = data[i][8]; // sLvl
+                c.playerSkillProp[Constants.FISHING][7] = data[i][4]; // FISH
+                c.playerSkillProp[Constants.FISHING][8] = data[i][9]; // sXP
+                c.playerSkillProp[Constants.FISHING][9] = Misc.random(1) == 0 ? 7 : 5;
+                c.playerSkillProp[Constants.FISHING][10] = data[i][0]; // INDEX
 
-                if (c.playerSkilling[GameConstants.FISHING]) {
+                if (c.playerSkilling[Constants.FISHING]) {
                     return;
                 }
-                c.playerSkilling[GameConstants.FISHING] = true;
+                c.playerSkilling[Constants.FISHING] = true;
                 if (c.tutorialProgress == 6) { // if tutorial prog = 6
-                    c.startAnimation(c.playerSkillProp[GameConstants.FISHING][0]);
+                    c.startAnimation(c.playerSkillProp[Constants.FISHING][0]);
                     c.stopPlayerSkill = true;
                     c.getPacketSender().drawHeadicon(0, 0, 0, 0); // deletes
                     // headicon
@@ -121,9 +121,9 @@ public class Fishing extends SkillHandler {
                         @Override
                         public void execute(CycleEventContainer container) {
 
-                            if (c.playerSkillProp[GameConstants.FISHING][5] > 0) {
-                                if (c.playerLevel[GameConstants.FISHING] >= c.playerSkillProp[GameConstants.FISHING][6]) {
-                                    c.playerSkillProp[GameConstants.FISHING][1] = c.playerSkillProp[GameConstants.FISHING][Misc
+                            if (c.playerSkillProp[Constants.FISHING][5] > 0) {
+                                if (c.playerLevel[Constants.FISHING] >= c.playerSkillProp[Constants.FISHING][6]) {
+                                    c.playerSkillProp[Constants.FISHING][1] = c.playerSkillProp[Constants.FISHING][Misc
                                             .random(1) == 0 ? 7 : 5];
                                 }
                             }
@@ -131,12 +131,12 @@ public class Fishing extends SkillHandler {
                             if (!c.stopPlayerSkill) {
                                 container.stop();
                             }
-                            if (!c.playerSkilling[GameConstants.FISHING]) {
+                            if (!c.playerSkilling[Constants.FISHING]) {
                                 container.stop();
                             }
 
-                            if (c.playerSkillProp[GameConstants.FISHING][1] > 0) {
-                                c.startAnimation(c.playerSkillProp[GameConstants.FISHING][0]);
+                            if (c.playerSkillProp[Constants.FISHING][1] > 0) {
+                                c.startAnimation(c.playerSkillProp[Constants.FISHING][0]);
                             }
 
                         }
@@ -152,20 +152,20 @@ public class Fishing extends SkillHandler {
                                 @Override
                                 public void execute(
                                         CycleEventContainer container) {
-                                    if (c.playerSkillProp[GameConstants.FISHING][5] > 0) {
-                                        if (c.playerLevel[GameConstants.FISHING] >= c.playerSkillProp[GameConstants.FISHING][6]) {
-                                            c.playerSkillProp[GameConstants.FISHING][1] = c.playerSkillProp[GameConstants.FISHING][Misc
+                                    if (c.playerSkillProp[Constants.FISHING][5] > 0) {
+                                        if (c.playerLevel[Constants.FISHING] >= c.playerSkillProp[Constants.FISHING][6]) {
+                                            c.playerSkillProp[Constants.FISHING][1] = c.playerSkillProp[Constants.FISHING][Misc
                                                     .random(1) == 0 ? 7 : 5];
                                         }
                                     }
-                                    if (c.playerSkillProp[GameConstants.FISHING][2] > 0) {
+                                    if (c.playerSkillProp[Constants.FISHING][2] > 0) {
                                         c.getPlayerAssistant().addSkillXP(
-                                                c.playerSkillProp[GameConstants.FISHING][2],
-                                                GameConstants.FISHING);
+                                                c.playerSkillProp[Constants.FISHING][2],
+                                                Constants.FISHING);
                                     }
-                                    if (c.playerSkillProp[GameConstants.FISHING][1] > 0) {
-                                        c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.FISHING][1], 1);
-                                        c.startAnimation(c.playerSkillProp[GameConstants.FISHING][0]);
+                                    if (c.playerSkillProp[Constants.FISHING][1] > 0) {
+                                        c.getItemAssistant().addItem(c.playerSkillProp[Constants.FISHING][1], 1);
+                                        c.startAnimation(c.playerSkillProp[Constants.FISHING][0]);
                                         c.getDialogueHandler().sendDialogues(3019, -1);
                                         container.stop();
                                     }
@@ -175,7 +175,7 @@ public class Fishing extends SkillHandler {
                                     if (!c.stopPlayerSkill) {
                                         container.stop();
                                     }
-                                    if (!c.playerSkilling[GameConstants.FISHING]) {
+                                    if (!c.playerSkilling[Constants.FISHING]) {
                                         container.stop();
                                     }
                                 }
@@ -192,41 +192,41 @@ public class Fishing extends SkillHandler {
 
                 c.getPacketSender().sendMessage("" + messages(c));
                 // c.getPA().sendSound(379, 100, 1); // fishing
-                c.startAnimation(c.playerSkillProp[GameConstants.FISHING][0]);
+                c.startAnimation(c.playerSkillProp[Constants.FISHING][0]);
                 c.stopPlayerSkill = true;
                 CycleEventHandler.getSingleton().addEvent(eventId, c,
                         new CycleEvent() {
 
                             @Override
                             public void execute(CycleEventContainer container) {
-                                if (c.playerSkillProp[GameConstants.FISHING][3] > 0) {
+                                if (c.playerSkillProp[Constants.FISHING][3] > 0) {
 
                                     if (!c.getItemAssistant().playerHasItem(
-                                            c.playerSkillProp[GameConstants.FISHING][3])) {
+                                            c.playerSkillProp[Constants.FISHING][3])) {
                                         c.getPacketSender()
                                                 .sendMessage(
                                                         "You don't have any "
                                                                 + DeprecatedItems
-                                                                .getItemName(c.playerSkillProp[GameConstants.FISHING][3])
+                                                                .getItemName(c.playerSkillProp[Constants.FISHING][3])
                                                                 + " left!");
                                         c.getPacketSender()
                                                 .sendMessage(
                                                         "You need "
                                                                 + DeprecatedItems
-                                                                .getItemName(c.playerSkillProp[GameConstants.FISHING][3])
+                                                                .getItemName(c.playerSkillProp[Constants.FISHING][3])
                                                                 + " to fish here.");
                                         resetFishing(c);
                                         container.stop();
                                     }
                                 }
-                                if (c.playerSkillProp[GameConstants.FISHING][5] > 0) {
-                                    if (c.playerLevel[GameConstants.FISHING] >= c.playerSkillProp[GameConstants.FISHING][6]) {
-                                        c.playerSkillProp[GameConstants.FISHING][1] = c.playerSkillProp[GameConstants.FISHING][Misc
+                                if (c.playerSkillProp[Constants.FISHING][5] > 0) {
+                                    if (c.playerLevel[Constants.FISHING] >= c.playerSkillProp[Constants.FISHING][6]) {
+                                        c.playerSkillProp[Constants.FISHING][1] = c.playerSkillProp[Constants.FISHING][Misc
                                                 .random(1) == 0 ? 7 : 5];
                                     }
                                 }
                                 if (!hasFishingEquipment(c,
-                                        c.playerSkillProp[GameConstants.FISHING][4])) {
+                                        c.playerSkillProp[Constants.FISHING][4])) {
                                     resetFishing(c);
                                     container.stop();
                                 }
@@ -237,12 +237,12 @@ public class Fishing extends SkillHandler {
                                 if (!c.stopPlayerSkill) {
                                     container.stop();
                                 }
-                                if (!c.playerSkilling[GameConstants.FISHING]) {
+                                if (!c.playerSkilling[Constants.FISHING]) {
                                     resetFishing(c);
                                     container.stop();
                                 }
-                                if (c.playerSkillProp[GameConstants.FISHING][1] > 0) {
-                                    c.startAnimation(c.playerSkillProp[GameConstants.FISHING][0]);
+                                if (c.playerSkillProp[Constants.FISHING][1] > 0) {
+                                    c.startAnimation(c.playerSkillProp[Constants.FISHING][0]);
                                     // c.getPA().sendSound(379, 100, 1); //
                                     // fishing
                                 }
@@ -258,70 +258,70 @@ public class Fishing extends SkillHandler {
 
                             @Override
                             public void execute(CycleEventContainer container) {
-                                if (c.playerSkillProp[GameConstants.FISHING][5] > 0) {
-                                    if (c.playerLevel[GameConstants.FISHING] >= c.playerSkillProp[GameConstants.FISHING][6]) {
-                                        c.playerSkillProp[GameConstants.FISHING][1] = c.playerSkillProp[GameConstants.FISHING][Misc
+                                if (c.playerSkillProp[Constants.FISHING][5] > 0) {
+                                    if (c.playerLevel[Constants.FISHING] >= c.playerSkillProp[Constants.FISHING][6]) {
+                                        c.playerSkillProp[Constants.FISHING][1] = c.playerSkillProp[Constants.FISHING][Misc
                                                 .random(1) == 0 ? 7 : 5];
                                     }
                                 }
-                                if (c.playerSkillProp[GameConstants.FISHING][1] > 0) {
+                                if (c.playerSkillProp[Constants.FISHING][1] > 0) {
                                     c.getPacketSender()
                                             .sendMessage(
                                                     "You catch "
-                                                            + (c.playerSkillProp[GameConstants.FISHING][1] == RAW_ANCHOVIES
-                                                            || c.playerSkillProp[GameConstants.FISHING][1] == RAW_SHRIMPS
-                                                            || c.playerSkillProp[GameConstants.FISHING][1] == RAW_MONKFISH ? "some "
+                                                            + (c.playerSkillProp[Constants.FISHING][1] == RAW_ANCHOVIES
+                                                            || c.playerSkillProp[Constants.FISHING][1] == RAW_SHRIMPS
+                                                            || c.playerSkillProp[Constants.FISHING][1] == RAW_MONKFISH ? "some "
                                                             : "a ")
                                                             + DeprecatedItems
                                                             .getItemName(
-                                                                    c.playerSkillProp[GameConstants.FISHING][1])
+                                                                    c.playerSkillProp[Constants.FISHING][1])
                                                             .toLowerCase()
                                                             .replace(
                                                                     "raw ",
                                                                     "")
                                                             + ".");
                                 }
-                                if (c.playerSkillProp[GameConstants.FISHING][1] > 0 && c.randomEventsEnabled) {
+                                if (c.playerSkillProp[Constants.FISHING][1] > 0 && c.randomEventsEnabled) {
                                     randomEvents(c);
                                 }
-                                if (c.playerSkillProp[GameConstants.FISHING][1] > 0) {
-                                    c.getItemAssistant().deleteItem(c.playerSkillProp[GameConstants.FISHING][3], c.getItemAssistant().getItemSlot(c.playerSkillProp[GameConstants.FISHING][3]), 1);
-                                    c.getItemAssistant().addItem(c.playerSkillProp[GameConstants.FISHING][1], 1);
-                                    c.startAnimation(c.playerSkillProp[GameConstants.FISHING][0]);
+                                if (c.playerSkillProp[Constants.FISHING][1] > 0) {
+                                    c.getItemAssistant().deleteItem(c.playerSkillProp[Constants.FISHING][3], c.getItemAssistant().getItemSlot(c.playerSkillProp[Constants.FISHING][3]), 1);
+                                    c.getItemAssistant().addItem(c.playerSkillProp[Constants.FISHING][1], 1);
+                                    c.startAnimation(c.playerSkillProp[Constants.FISHING][0]);
                                 }
-                                if (c.playerSkillProp[GameConstants.FISHING][5] > 0
-                                        && c.playerLevel[GameConstants.FISHING] >= c.playerSkillProp[GameConstants.FISHING][6]) {
+                                if (c.playerSkillProp[Constants.FISHING][5] > 0
+                                        && c.playerLevel[Constants.FISHING] >= c.playerSkillProp[Constants.FISHING][6]) {
                                     c.getPlayerAssistant().addSkillXP(
-                                            c.playerSkillProp[GameConstants.FISHING][8],
-                                            GameConstants.FISHING);
-                                } else if (c.playerSkillProp[GameConstants.FISHING][7] > 0) {
+                                            c.playerSkillProp[Constants.FISHING][8],
+                                            Constants.FISHING);
+                                } else if (c.playerSkillProp[Constants.FISHING][7] > 0) {
                                     c.getPlayerAssistant().addSkillXP(
-                                            c.playerSkillProp[GameConstants.FISHING][2],
-                                            GameConstants.FISHING);
+                                            c.playerSkillProp[Constants.FISHING][2],
+                                            Constants.FISHING);
                                 }
-                                if (c.playerSkillProp[GameConstants.FISHING][3] > 0) {
+                                if (c.playerSkillProp[Constants.FISHING][3] > 0) {
                                     if (!c.getItemAssistant().playerHasItem(
-                                            c.playerSkillProp[GameConstants.FISHING][3])) {
+                                            c.playerSkillProp[Constants.FISHING][3])) {
                                         c.getDialogueHandler()
                                                 .sendStatement(
                                                         "You have run out of "
                                                                 + DeprecatedItems
                                                                 .getItemName(
-                                                                        c.playerSkillProp[GameConstants.FISHING][3])
+                                                                        c.playerSkillProp[Constants.FISHING][3])
                                                                 .toLowerCase()
                                                                 .toLowerCase()
                                                                 + ".");
                                         // c.getPacketDispatcher().sendMessage("You don't have any "+
-                                        // ItemAssistant.getItemName(c.playerSkillProp[GameConstants.FISHING][3])
+                                        // ItemAssistant.getItemName(c.playerSkillProp[Constants.FISHING][3])
                                         // +" left!");
                                         // c.getPacketDispatcher().sendMessage("You need "+
-                                        // ItemAssistant.getItemName(c.playerSkillProp[GameConstants.FISHING][3])
+                                        // ItemAssistant.getItemName(c.playerSkillProp[Constants.FISHING][3])
                                         // +" to fish here.");
                                         container.stop();
                                     }
                                 }
                                 if (!hasFishingEquipment(c,
-                                        c.playerSkillProp[GameConstants.FISHING][4])) {
+                                        c.playerSkillProp[Constants.FISHING][4])) {
                                     resetFishing(c);
                                     container.stop();
                                 }
@@ -332,7 +332,7 @@ public class Fishing extends SkillHandler {
                                 if (!c.stopPlayerSkill) {
                                     container.stop();
                                 }
-                                if (!c.playerSkilling[GameConstants.FISHING]) {
+                                if (!c.playerSkilling[Constants.FISHING]) {
                                     resetFishing(c);
                                     container.stop();
                                 }
@@ -371,32 +371,32 @@ public class Fishing extends SkillHandler {
     public static void resetFishing(Player player) {
         player.startAnimation(65535);
         player.stopPlayerSkill = false;
-        player.playerSkilling[GameConstants.FISHING] = false;
+        player.playerSkilling[Constants.FISHING] = false;
         player.fishingWhirlPool = false;
         stopEvents(player, eventId);
         for (int i = 0; i < 11; i++) {
-            player.playerSkillProp[GameConstants.FISHING][i] = -1;
+            player.playerSkillProp[Constants.FISHING][i] = -1;
         }
     }
 
     public static String messages(Player c) {
-        if (c.playerSkillProp[GameConstants.FISHING][10] == 1 || c.playerSkillProp[GameConstants.FISHING][10] == 9) {
+        if (c.playerSkillProp[Constants.FISHING][10] == 1 || c.playerSkillProp[Constants.FISHING][10] == 9) {
             // etc
             return messages[0][0];
         }
 
-        if (c.playerSkillProp[GameConstants.FISHING][10] == 2 || c.playerSkillProp[GameConstants.FISHING][10] == 3
-                || c.playerSkillProp[GameConstants.FISHING][10] == 4
-                || c.playerSkillProp[GameConstants.FISHING][10] == 5
-                || c.playerSkillProp[GameConstants.FISHING][10] == 6) {
+        if (c.playerSkillProp[Constants.FISHING][10] == 2 || c.playerSkillProp[Constants.FISHING][10] == 3
+                || c.playerSkillProp[Constants.FISHING][10] == 4
+                || c.playerSkillProp[Constants.FISHING][10] == 5
+                || c.playerSkillProp[Constants.FISHING][10] == 6) {
             return messages[1][0];
         }
 
-        if (c.playerSkillProp[GameConstants.FISHING][10] == 7 || c.playerSkillProp[GameConstants.FISHING][10] == 10) {
+        if (c.playerSkillProp[Constants.FISHING][10] == 7 || c.playerSkillProp[Constants.FISHING][10] == 10) {
             return messages[2][0];
         }
 
-        if (c.playerSkillProp[GameConstants.FISHING][10] == 8) {
+        if (c.playerSkillProp[Constants.FISHING][10] == 8) {
             return messages[3][0];
         }
 
@@ -404,7 +404,7 @@ public class Fishing extends SkillHandler {
     }
 
     private static int playerFishingLevel(Player c) {
-        return 10 - (int) Math.floor(c.playerLevel[GameConstants.FISHING] / 10);
+        return 10 - (int) Math.floor(c.playerLevel[Constants.FISHING] / 10);
     }
 
     private final static int getTimer(Player c, int npcId) {

@@ -1,7 +1,7 @@
 package com.rs2.net.packets.impl;
 
 import com.rs2.event.impl.ItemOnObjectEvent;
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.combat.range.DwarfCannon;
 import com.rs2.game.content.skills.cooking.Cooking;
 import com.rs2.game.content.skills.cooking.CookingTutorialIsland;
@@ -10,7 +10,6 @@ import com.rs2.game.content.skills.crafting.Pottery;
 import com.rs2.game.content.skills.crafting.Spinning;
 import com.rs2.game.content.skills.prayer.Ectofuntus;
 import com.rs2.game.items.UseItem;
-import com.rs2.game.items.impl.Fillables;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
@@ -163,7 +162,7 @@ public class ItemOnObject implements PacketType {
 				player.startAnimation(883);
 				player.getItemAssistant().addItem(2130, 1);
 				player.getItemAssistant().deleteItem(1927, 1);
-				player.getPlayerAssistant().addSkillXP(18, GameConstants.COOKING);
+				player.getPlayerAssistant().addSkillXP(18, Constants.COOKING);
 			} else {
 				player.getPacketSender().sendMessage("You need a bucket of milk to do this.");
 			}

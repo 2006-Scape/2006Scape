@@ -2,15 +2,14 @@ package com.rs2.game.content.minigames;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import com.rs2.Constants;
 import org.apollo.cache.def.ItemDefinition;
 
-import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.combat.prayer.PrayerDrain;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.items.GameItem;
-import com.rs2.game.items.ItemData;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.RareProtection;
 import com.rs2.game.players.Client;
@@ -154,8 +153,8 @@ public class Dueling {
 				} else {
 					player.getOutStream().writeByte(item.amount);
 				}
-				if (item.id > GameConstants.ITEM_LIMIT || item.id < 0) {
-					item.id = GameConstants.ITEM_LIMIT;
+				if (item.id > Constants.ITEM_LIMIT || item.id < 0) {
+					item.id = Constants.ITEM_LIMIT;
 				}
 				player.getOutStream().writeWordBigEndianA(item.id + 1);
 
@@ -183,8 +182,8 @@ public class Dueling {
 				} else {
 					player.getOutStream().writeByte(item.amount);
 				}
-				if (item.id > GameConstants.ITEM_LIMIT || item.id < 0) {
-					item.id = GameConstants.ITEM_LIMIT;
+				if (item.id > Constants.ITEM_LIMIT || item.id < 0) {
+					item.id = Constants.ITEM_LIMIT;
 				}
 				player.getOutStream().writeWordBigEndianA(item.id + 1);
 				current++;
@@ -579,7 +578,7 @@ public class Dueling {
 		Client opponent = (Client) PlayerHandler.players[player.duelingWith];
 		opponent.getDueling().duelVictory();
 		player.getDueling().resetDuel();
-		player.getPlayerAssistant().movePlayer(GameConstants.DUELING_RESPAWN_X + Misc.random(5), GameConstants.DUELING_RESPAWN_Y + Misc.random(5), 0);
+		player.getPlayerAssistant().movePlayer(Constants.DUELING_RESPAWN_X + Misc.random(5), Constants.DUELING_RESPAWN_Y + Misc.random(5), 0);
 		player.getPacketSender().sendMessage("You have lost the duel!");
 	}
 
@@ -607,14 +606,14 @@ public class Dueling {
 	            player.headIconPk = -1;
 	            player.getPlayerAssistant().requestUpdates();
 	        }
-		player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+		player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		duelRewardInterface();
 		player.getPacketSender().showInterface(6733);
 		player.getPacketSender().sendMessage("You have won the duel!");
 		if (player.getPlayerAssistant().isPlayer()) {
 			GameLogger.writeLog(player.playerName, "duelingkiller", player.playerName + " killed " + opponent.playerName + " in the duel arena.");
 		}
-		player.getPlayerAssistant().movePlayer(GameConstants.DUELING_RESPAWN_X + Misc.random(5), GameConstants.DUELING_RESPAWN_Y + Misc.random(5), 0);
+		player.getPlayerAssistant().movePlayer(Constants.DUELING_RESPAWN_X + Misc.random(5), Constants.DUELING_RESPAWN_Y + Misc.random(5), 0);
 		player.getPlayerAssistant().requestUpdates();
 		player.getPacketSender().showOption(3, 0, "Challenge", 3);
 		player.getPacketSender().createPlayerHints(10, -1);
@@ -640,8 +639,8 @@ public class Dueling {
 				} else {
 					player.getOutStream().writeByte(item.amount);
 				}
-				if (item.id > GameConstants.ITEM_LIMIT || item.id < 0) {
-					item.id = GameConstants.ITEM_LIMIT;
+				if (item.id > Constants.ITEM_LIMIT || item.id < 0) {
+					item.id = Constants.ITEM_LIMIT;
 				}
 				player.getOutStream().writeWordBigEndianA(item.id + 1);
 			}

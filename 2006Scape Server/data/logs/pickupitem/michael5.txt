@@ -1,5 +1,0 @@
-[2019/10/27] 18:51 michael5 picked up bronze arrow itemX: 3248, itemY: 3226
-[2019/10/27] 18:51 michael5 picked up air rune itemX: 3248, itemY: 3226
-[2019/10/27] 18:51 michael5 picked up bones itemX: 3248, itemY: 3226
-[2019/10/27] 18:51 michael5 picked up iron arrow itemX: 3248, itemY: 3226
-[2019/10/27] 18:51 michael5 picked up bronze arrow itemX: 3249, itemY: 3226

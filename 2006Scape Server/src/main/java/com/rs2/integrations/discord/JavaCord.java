@@ -1,6 +1,6 @@
 package com.rs2.integrations.discord;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.integrations.discord.commands.*;
 import com.rs2.integrations.discord.commands.admin.*;
 import org.javacord.api.DiscordApi;
@@ -17,8 +17,8 @@ import java.io.IOException;
 
 public class JavaCord {
 
-    public static String serverName = GameConstants.SERVER_NAME;
-    public static String commandPrefix = "::w" + GameConstants.WORLD;
+    public static String serverName = Constants.SERVER_NAME;
+    public static String commandPrefix = "::w" + Constants.WORLD;
     public static String token;
     public static DiscordApi api = null;
 
@@ -47,7 +47,7 @@ public class JavaCord {
                     //api.addListener(new Link());
                     //api.addListener(new WelcomeMessage());
                     if(!DiscordActivity.playerCount) {
-                        api.updateActivity(GameConstants.WEBSITE_LINK);
+                        api.updateActivity(Constants.WEBSITE_LINK);
                     }
                     api.addMessageCreateListener(event -> {
                     });

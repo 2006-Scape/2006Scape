@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import com.rs2.Constants;
 import org.apollo.cache.def.ItemDefinition;
-
-import com.rs2.GameConstants;
 
 public class ItemData {
 
@@ -193,7 +192,7 @@ public class ItemData {
 		return false;
 	}
 
-	public static int[] targetSlots = new int[GameConstants.ITEM_LIMIT];
+	public static int[] targetSlots = new int[Constants.ITEM_LIMIT];
 	static {
 		int counter = 0;
 		int c;

@@ -1,6 +1,6 @@
 package com.rs2.game.content.randomevents;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -18,7 +18,7 @@ public class RiverTroll {
 		for (int[] element : riverTroll) {
 			if (hasRiverTroll == false) {
 			if (client.combatLevel >= element[0] && client.combatLevel <= element[1] && hasRiverTroll == false) {
-				NpcHandler.spawnNpc(client, element[2], client.absX + Misc.random(1), client.absY + Misc.random(1), client.heightLevel, 0, element[3], element[4], client.playerLevel[GameConstants.ATTACK] * 2, client.playerLevel[GameConstants.DEFENCE] * 2, true, false);
+				NpcHandler.spawnNpc(client, element[2], client.absX + Misc.random(1), client.absY + Misc.random(1), client.heightLevel, 0, element[3], element[4], client.playerLevel[Constants.ATTACK] * 2, client.playerLevel[Constants.DEFENCE] * 2, true, false);
 					client.randomActions = 0;
 					hasRiverTroll = true;
 					NpcHandler.npcs[element[2]].forceChat("Fishies be mine! Leave dem fishies!");

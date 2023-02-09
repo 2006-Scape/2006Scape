@@ -1,6 +1,6 @@
 package com.rs2.game.content.random;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.PlayerHandler;
 
 /**
@@ -23,7 +23,7 @@ public enum HolidayDrops {
 	// amount
 	public static int dropAmount() {
 		int amount = DROP_AMOUNT;
-		if (GameConstants.SERVER_DEBUG)  {
+		if (Constants.SERVER_DEBUG)  {
 			return amount * 60;
 		}
 		return amount;

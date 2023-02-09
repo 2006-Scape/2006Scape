@@ -2,10 +2,8 @@ package com.rs2.game.content.combat;
 
 import java.util.HashMap;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.StaticItemList;
-import com.rs2.game.content.StaticNpcList;
-import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.content.music.sound.CombatSounds;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
@@ -212,10 +210,10 @@ public class Specials {
 						if (o.getPrayer().prayerActive[18] && System.currentTimeMillis() - o.protMeleeDelay > 1500) {
 							damage *= .6;
 						}
-						if (o.playerLevel[GameConstants.HITPOINTS] - damage <= 0) {
-							damage = o.playerLevel[GameConstants.HITPOINTS];
+						if (o.playerLevel[Constants.HITPOINTS] - damage <= 0) {
+							damage = o.playerLevel[Constants.HITPOINTS];
 						}
-						if (o.playerLevel[GameConstants.HITPOINTS] > 0) {
+						if (o.playerLevel[Constants.HITPOINTS] > 0) {
 							o.handleHitMask(damage);
 							player.startAnimation(1667);
 							o.gfx100(337);
@@ -278,8 +276,8 @@ public class Specials {
 				player2.forcedChat("Raarrrrrgggggghhhhhhh!");
 				player2.startAnimation(1056);
 				player2.specAmount -= 5;
-				player2.playerLevel[GameConstants.STRENGTH] = player2.getPlayerAssistant().getLevelForXP(player2.playerXP[GameConstants.STRENGTH]) + player2.getPlayerAssistant().getLevelForXP(player2.playerXP[GameConstants.STRENGTH]) * 15 / 100;
-				player2.getPlayerAssistant().refreshSkill(GameConstants.STRENGTH);
+				player2.playerLevel[Constants.STRENGTH] = player2.getPlayerAssistant().getLevelForXP(player2.playerXP[Constants.STRENGTH]) + player2.getPlayerAssistant().getLevelForXP(player2.playerXP[Constants.STRENGTH]) * 15 / 100;
+				player2.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
 				player2.getItemAssistant().updateSpecialBar();
 			} else {
 				player2.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");

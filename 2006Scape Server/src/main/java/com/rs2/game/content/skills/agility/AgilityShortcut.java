@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.agility;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.players.Player;
 
 /**
@@ -13,7 +13,7 @@ public class AgilityShortcut {
 	private static final int WALK = 1, MOVE = 2, AGILITY = 3, DOWN = 4, UP = 5;
 
 	private static void handleAgility(Player player, int x, int y, int levelReq, int anim, int walk, String message) {
-		if (player.playerLevel[GameConstants.AGILITY] < levelReq) {
+		if (player.playerLevel[Constants.AGILITY] < levelReq) {
 			player.getPacketSender().sendMessage("You need " + levelReq + " agility to use this shortcut.");
 			return;
 		}

@@ -1,6 +1,6 @@
 package com.rs2.integrations.discord.commands;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
@@ -12,7 +12,7 @@ public class Online implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase(JavaCord.commandPrefix + " online")) {
-            event.getChannel().sendMessage(":tada: " + JavaCord.serverName + " World:" + GameConstants.WORLD + " is Online! :tada:");
+            event.getChannel().sendMessage(":tada: " + JavaCord.serverName + " World:" + Constants.WORLD + " is Online! :tada:");
         }
     }
 }

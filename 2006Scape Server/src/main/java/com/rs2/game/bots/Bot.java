@@ -5,7 +5,7 @@ import static com.rs2.game.players.PlayerSave.loadPlayerInfo;
 import java.text.DecimalFormat;
 import java.util.*;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.players.Client;
@@ -20,7 +20,7 @@ public class Bot {
     
     public Bot(String username, Integer x, Integer y, Integer z) {
         botClient = new Client(null);
-        inStream = new Stream(new byte[GameConstants.BUFFER_SIZE]);
+        inStream = new Stream(new byte[Constants.BUFFER_SIZE]);
         inStream.currentOffset = 0;
         botClient.playerName = username;
         botClient.playerName2 = botClient.playerName;

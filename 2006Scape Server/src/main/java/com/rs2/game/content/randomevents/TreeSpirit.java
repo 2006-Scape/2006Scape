@@ -1,6 +1,6 @@
 package com.rs2.game.content.randomevents;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
@@ -14,7 +14,7 @@ public class TreeSpirit {
 			{ 91, 110, 442, 130, 5 }, { 111, 138, 443, 160, 7 }, };
 	
 	private static int checkStats(Player p) {
-		return p.getPlayerAssistant().getLevelForXP(p.playerXP[GameConstants.HITPOINTS]) * 2;
+		return p.getPlayerAssistant().getLevelForXP(p.playerXP[Constants.HITPOINTS]) * 2;
 	}
 	
 	public static void spawnTreeSpirit(Player p) {
@@ -23,7 +23,7 @@ public class TreeSpirit {
 			if (p.combatLevel >= element[0] && p.combatLevel <= element[1]) {
 				NpcHandler.spawnNpc(p, element[2], p.absX + Misc.random(1),
 						p.absY + Misc.random(1), p.heightLevel, 0, element[3],
-						element[4], checkStats(p), p.playerLevel[GameConstants.DEFENCE] * 2, true,
+						element[4], checkStats(p), p.playerLevel[Constants.DEFENCE] * 2, true,
 						false);
 				NpcHandler.npcs[element[2]]
 						.forceChat("Leave these woods and never return!");

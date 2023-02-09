@@ -1,7 +1,7 @@
 package com.rs2.gui;
 
 import com.rs2.Connection;
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.npcs.Npc;
@@ -71,7 +71,7 @@ public class PanelSettings {
 
     public Client getClient(String name) {
         name = name.toLowerCase();
-        for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+        for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
             if (validClient(i)) {
                 Client c = getClient(i);
                 if (c.playerName.toLowerCase().equalsIgnoreCase(name)) {
@@ -87,7 +87,7 @@ public class PanelSettings {
     }
 
     public boolean validClient(int id) {
-        if (id < 0 || id > GameConstants.MAX_PLAYERS)
+        if (id < 0 || id > Constants.MAX_PLAYERS)
             return false;
         return validClient(getClient(id));
     }
@@ -151,7 +151,7 @@ public class PanelSettings {
             SelectedName = SelectedName + getColor(color);
 
             // Sending the message
-            for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                 if (validClient(i)) {
                     Client c = getClient(i);
                     c.getPacketSender().sendMessage(SelectedName + p.MESSAGE_ALL_TEXT.getText());
@@ -161,7 +161,7 @@ public class PanelSettings {
             return;
         }
         if (cmd.equalsIgnoreCase("Players to Npcs")) {
-            for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                 if (validClient(i)) {
                     Client c = getClient(i);
                     try {
@@ -183,7 +183,7 @@ public class PanelSettings {
             return;
         }
         if (cmd.equalsIgnoreCase("Update Players")) {
-            for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                 if (validClient(i)) {
                     Client c = getClient(i);
                     c.isNpc = false;
@@ -211,7 +211,7 @@ public class PanelSettings {
                 y = tele.getY();
                 z = tele.getZ();
             }
-            for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                 if (validClient(i)) {
                     Client c = getClient(i);
                     c.getPlayerAssistant().spellTeleport(x, y, z);
@@ -226,7 +226,7 @@ public class PanelSettings {
                 p.displayMessage("You must enter a message!", cmd, 3);
                 return;
             }
-            for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                 if (validClient(i)) {
                     Client c = getClient(i);
                     c.forcedChat(msg);
@@ -234,7 +234,7 @@ public class PanelSettings {
             }
         }
         if (cmd.equalsIgnoreCase("Disconnect All")) {
-            for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                 if (validClient(i)) {
                     Client c = getClient(i);
                     c.disconnected = true;
@@ -327,7 +327,7 @@ public class PanelSettings {
                 SelectedName = "";
             String color = p.MESSAGE_ALL_COLOR_BOX.getSelectedItem().toString();
             SelectedName = SelectedName + getColor(color);
-            for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+            for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                 if (validClient(i)) {
                     getClient(i).getPacketSender().sendMessage(SelectedName + "Npcs have been reset.");
                 }
@@ -335,11 +335,11 @@ public class PanelSettings {
             return;
         }
         if (cmd.equalsIgnoreCase("Update Settings")) {
-            GameConstants.SERVER_NAME = p.SERVER_NAME_TEXT.getText();
-            GameConstants.ADMIN_CAN_TRADE = p.ADMINS_CAN_TRADE.isSelected();
-            GameConstants.ADMIN_DROP_ITEMS = p.ADMINS_CAN_DROP.isSelected();
-            GameConstants.ADMIN_CAN_SELL_ITEMS = p.ADMINS_CAN_SELL_ITEMS.isSelected();
-            p.setTitle(GameConstants.SERVER_NAME + " ControlPanel");
+            Constants.SERVER_NAME = p.SERVER_NAME_TEXT.getText();
+            Constants.ADMIN_CAN_TRADE = p.ADMINS_CAN_TRADE.isSelected();
+            Constants.ADMIN_DROP_ITEMS = p.ADMINS_CAN_DROP.isSelected();
+            Constants.ADMIN_CAN_SELL_ITEMS = p.ADMINS_CAN_SELL_ITEMS.isSelected();
+            p.setTitle(Constants.SERVER_NAME + " ControlPanel");
             return;
         }
 

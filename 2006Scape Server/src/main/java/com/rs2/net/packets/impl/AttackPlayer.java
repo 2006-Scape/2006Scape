@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.magic.CastOnOther;
 import com.rs2.game.content.combat.magic.MagicData;
@@ -76,7 +76,7 @@ public class AttackPlayer implements PacketType {
 				}
 				if (player.duelRule[9]) {
 					boolean canUseWeapon = false;
-					for (int funWeapon : GameConstants.FUN_WEAPONS) {
+					for (int funWeapon : Constants.FUN_WEAPONS) {
 						if (player.playerEquipment[player.playerWeapon] == funWeapon) {
 							canUseWeapon = true;
 						}
@@ -175,10 +175,10 @@ public class AttackPlayer implements PacketType {
 					player.getTrading().declineTrade(true);
 				}
 				if (player.inWild()
-						&& player.wildLevel > GameConstants.NO_TELEPORT_WILD_LEVEL) {
+						&& player.wildLevel > Constants.NO_TELEPORT_WILD_LEVEL) {
 					player.getPacketSender().sendMessage(
 							"You can't teleport above level "
-									+ GameConstants.NO_TELEPORT_WILD_LEVEL
+									+ Constants.NO_TELEPORT_WILD_LEVEL
 									+ " in the wilderness.");
 					break;
 				}

@@ -1,4 +1,0 @@
-[2019/10/28] 15:36 michael8 picked up bronze arrow itemX: 3219, itemY: 3221
-[2019/10/28] 15:43 michael8 picked up air talisman itemX: 3219, itemY: 3222
-[2019/10/28] 15:43 michael8 picked up herb itemX: 3219, itemY: 3222
-[2019/10/28] 15:43 michael8 picked up bones itemX: 3219, itemY: 3222

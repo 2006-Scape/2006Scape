@@ -5,7 +5,7 @@ import static com.rs2.util.GameLogger.writeLog;
 import java.util.Arrays;
 
 import com.rs2.Connection;
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.bots.BotHandler;
 import com.rs2.game.npcs.NpcHandler;
@@ -52,22 +52,22 @@ public class Commands implements PacketType {
                 break;
             case "myxprate":
             case "checkxprate":
-                if(GameConstants.VARIABLE_XP_RATE) {
+                if(Constants.VARIABLE_XP_RATE) {
                     player.getPacketSender().sendMessage("Your current XP rate is x" + player.getXPRate());
                     break;
                 }
             case "xprate":
-                if(GameConstants.VARIABLE_XP_RATE) {
-                    if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[0]) {
+                if(Constants.VARIABLE_XP_RATE) {
+                    if (player.getXPRate() == Constants.VARIABLE_XP_RATES[0]) {
                         player.getDialogueHandler().sendDialogues(10005, 2244);
                         return;
-                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[1]) {
+                    } else if (player.getXPRate() == Constants.VARIABLE_XP_RATES[1]) {
                         player.getDialogueHandler().sendDialogues(10006, 2244);
                         return;
-                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[2]) {
+                    } else if (player.getXPRate() == Constants.VARIABLE_XP_RATES[2]) {
                         player.getDialogueHandler().sendDialogues(10007, 2244);
                         return;
-                    } else if (player.getXPRate() == GameConstants.VARIABLE_XP_RATES[3]) {
+                    } else if (player.getXPRate() == Constants.VARIABLE_XP_RATES[3]) {
                         player.getPacketSender().sendMessage("You already have the highest XP rate.");
                         return;
                     } else {
@@ -210,7 +210,7 @@ public class Commands implements PacketType {
 
                 break;
             case "prayer":
-                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[GameConstants.PRAYER]));
+                player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[Constants.PRAYER]));
                 break;
             case "snow":
                 Calendar date = new GregorianCalendar();
@@ -310,8 +310,8 @@ public class Commands implements PacketType {
                         "",
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
-                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
-                        (GameConstants.VARIABLE_XP_RATE ? "\\n" + "::checkxprate(::myxprate)\\n" + "Displays the players currently set XP rate." : ""),
+                        (Constants.VARIABLE_XP_RATE ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
+                        (Constants.VARIABLE_XP_RATE ? "\\n" + "::checkxprate(::myxprate)\\n" + "Displays the players currently set XP rate." : ""),
                 };
 
                 // Clear all lines
@@ -438,7 +438,7 @@ public class Commands implements PacketType {
                     }
                     String playerToBan = String.join(" ", arguments);
                     Connection.addNameToMuteList(playerToBan);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                 Client c2 = (Client) PlayerHandler.players[i];
@@ -459,7 +459,7 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToBan = String.join(" ", arguments);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                 Connection.addIpToMuteList(PlayerHandler.players[i].connectedFrom);
@@ -482,7 +482,7 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToBan = String.join(" ", arguments);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                 Connection.unIPMuteUser(PlayerHandler.players[i].connectedFrom);
@@ -546,7 +546,7 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToBan = String.join(" ", arguments);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                 Connection.addIpToBanList(PlayerHandler.players[i].connectedFrom);
@@ -569,7 +569,7 @@ public class Commands implements PacketType {
                     String playerToBan = String.join(" ", arguments);
                     Connection.addNameToBanList(playerToBan);
                     Connection.addNameToFile(playerToBan);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToBan)) {
                                 PlayerHandler.players[i].disconnected = true;
@@ -732,11 +732,11 @@ public class Commands implements PacketType {
                 break;
             case "hp":
                 player.getPacketSender().sendMessage("You attributed yourself 999,999 hitpoints.");
-                player.playerLevel[GameConstants.HITPOINTS] = 999999;
+                player.playerLevel[Constants.HITPOINTS] = 999999;
                 break;
             case "pray":
                 player.getPacketSender().sendMessage("You attributed yourself 999,999 prayer points.");
-                player.playerLevel[GameConstants.PRAYER] = 999999;
+                player.playerLevel[Constants.PRAYER] = 999999;
                 break;
             case "setlevel":
             case "level":
@@ -855,7 +855,7 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToAdmin = String.join(" ", arguments);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
                                 Client c2 = (Client) PlayerHandler.players[i];
@@ -877,7 +877,7 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToAdmin = String.join(" ", arguments);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToAdmin)) {
                                 Client c2 = (Client) PlayerHandler.players[i];
@@ -899,7 +899,7 @@ public class Commands implements PacketType {
                         return;
                     }
                     String playerToMod = String.join(" ", arguments);
-                    for (int i = 0; i < GameConstants.MAX_PLAYERS; i++) {
+                    for (int i = 0; i < Constants.MAX_PLAYERS; i++) {
                         if (PlayerHandler.players[i] != null) {
                             if (PlayerHandler.players[i].playerName.equalsIgnoreCase(playerToMod)) {
                                 Client c2 = (Client) PlayerHandler.players[i];

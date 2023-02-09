@@ -1,8 +1,8 @@
 package com.rs2.game.content.skills.thieving;
 
+import com.rs2.Constants;
 import org.apollo.cache.def.ItemDefinition;
 
-import com.rs2.GameConstants;
 import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
@@ -131,21 +131,21 @@ public class Stalls {
 			if(objectId == s.getObject()) {
 				// Wait for respawn
 				if (System.currentTimeMillis() < s.respawnTime) {
-					long timeFirstStealFromStall = s.respawnTime - (GameConstants.CYCLE_TIME * getRespawnTime(s.objectId));
+					long timeFirstStealFromStall = s.respawnTime - (Constants.CYCLE_TIME * getRespawnTime(s.objectId));
 
 					// If stealing from stall at the same tick as another player
-					if(p.hasThievedStall() || System.currentTimeMillis() - timeFirstStealFromStall >= GameConstants.CYCLE_TIME) {
+					if(p.hasThievedStall() || System.currentTimeMillis() - timeFirstStealFromStall >= Constants.CYCLE_TIME) {
 						p.getPacketSender().sendMessage("You need to wait longer before you can thieve this stall!");
 						return;
 					}
 				}
 				// Thieving level too low
-				if (p.playerLevel[GameConstants.THIEVING] < s.getLevel()) {
+				if (p.playerLevel[Constants.THIEVING] < s.getLevel()) {
 					p.getDialogueHandler().sendStatement("You must have a thieving level of " + s.getLevel() + " to steal from this stall.");
 					return;
 				}
 				// Failed, was caught red handed
-				if(Misc.random(4) == 1 && p.playerLevel[GameConstants.THIEVING] < 99) {
+				if(Misc.random(4) == 1 && p.playerLevel[Constants.THIEVING] < 99) {
 					failGuards(p);
 					return;
 				}
@@ -153,9 +153,9 @@ public class Stalls {
 				RandomEventHandler.addRandom(p);
 				int respawnTime = getRespawnTime(s.getObject());
 				GameEngine.objectHandler.createAnObject(p, 634, x, y, 0, getSpecialFace(p, s));
-				p.getPlayerAssistant().addSkillXP((int) s.getXp(), GameConstants.THIEVING);
+				p.getPlayerAssistant().addSkillXP((int) s.getXp(), Constants.THIEVING);
 				int[] random = s.getStalls()[Misc.random(s.getStalls().length-1)];
-				s.respawnTime = System.currentTimeMillis() + (respawnTime * GameConstants.CYCLE_TIME);
+				s.respawnTime = System.currentTimeMillis() + (respawnTime * Constants.CYCLE_TIME);
 				p.getPacketSender().sendMessage("You steal a " + ItemDefinition.lookup(random[0]).getName() + " from the stall.");
 				p.getItemAssistant().addItem(random[0], random[1]);
 				p.setHasThievedStall(true);

@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.agility;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
@@ -45,7 +45,7 @@ public class PyramidAgility {
 					} else {
 						c.getAgility().climbUp(c.getX() + 3, c.getY() - 6, 0);
 						c.getAgility().agilityProgress[5] = true;
-						c.getAgility().lapBonus = 30 + c.playerLevel[GameConstants.AGILITY] * 8;
+						c.getAgility().lapBonus = 30 + c.playerLevel[Constants.AGILITY] * 8;
 						c.getAgility().lapFinished();
 						c.getPacketSender()
 								.sendMessage(
@@ -91,7 +91,7 @@ public class PyramidAgility {
 					c.getAgility().walk(0, 5,
 							c.getAgility().getAnimation(objectId), -1);
 				}
-				c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
+				c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), Constants.AGILITY);
 				return true;
 
 			case PyramidAgility.PYRAMID_WALL_OBJECT:
@@ -103,21 +103,21 @@ public class PyramidAgility {
 					c.getAgility().walk(0, 2,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 				}
 				if (c.getAgility().hotSpot(3371, 2834)
 						|| c.getAgility().hotSpot(3371, 2833)) {
 					c.getAgility().walk(-2, 0,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 				}
 				if (c.getAgility().hotSpot(3359, 2838)
 						|| c.getAgility().hotSpot(3358, 2838)) {
 					c.getAgility().walk(0, 2,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 				}
 				return true;
 
@@ -132,7 +132,7 @@ public class PyramidAgility {
 					c.getAgility().walk(1, 0,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -152,7 +152,7 @@ public class PyramidAgility {
 				if (c.getAgility().hotSpot(3372, 2832) || c.getAgility().hotSpot(3372, 2831)) {
 					c.getAgility().walk(-1, 0,
 							c.getAgility().getAnimation(1603), -1);
-					c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), GameConstants.AGILITY);
+					c.getPlayerAssistant().addSkillXP(c.getAgility().getXp(objectId), Constants.AGILITY);
 
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
@@ -174,7 +174,7 @@ public class PyramidAgility {
 					c.getAgility().walk(-1, 0,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -195,7 +195,7 @@ public class PyramidAgility {
 					c.getAgility().walk(0, 5,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -216,7 +216,7 @@ public class PyramidAgility {
 					c.getAgility().walk(0, 3,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -238,7 +238,7 @@ public class PyramidAgility {
 					c.getAgility().walk(5, 0,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -259,7 +259,7 @@ public class PyramidAgility {
 					c.getAgility().walk(0, 0,
 							c.getAgility().getAnimation(10859), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -280,7 +280,7 @@ public class PyramidAgility {
 					c.getAgility().walk(0, 1,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -301,7 +301,7 @@ public class PyramidAgility {
 					c.getAgility().walk(0, -1,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -322,7 +322,7 @@ public class PyramidAgility {
 					c.getAgility().walk(0, -1,
 							c.getAgility().getAnimation(objectId), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 					CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
 						@Override
 						public void execute(CycleEventContainer container) {
@@ -349,13 +349,13 @@ public class PyramidAgility {
 					c.getAgility().walk(0, -6,
 							c.getAgility().getAnimation(2295), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 				}
 				if (c.getAgility().hotSpot(3370, 2835) || c.getAgility().hotSpot(3371, 2835)) {
 					c.getAgility().walk(-6, 0,
 							c.getAgility().getAnimation(2295), -1);
 					c.getPlayerAssistant().addSkillXP(
-							c.getAgility().getXp(objectId), GameConstants.AGILITY);
+							c.getAgility().getXp(objectId), Constants.AGILITY);
 				}
 				return true;
 		}

@@ -1,5 +1,7 @@
 package com.rs2.util;
 
+import com.rs2.Constants;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -50,45 +52,45 @@ public class GameLogger {
 	/**
 	 * Writes to a log file.
 	 * 
-	 * @param log
-	 *            the log file.
+	 * @param logType
+	 *            the type of action to log.
 	 * @param data
 	 *            the data we are writing to the log.
 	 */
 	public static void writeLog(String player, String logType, String data) {
 		File log = null;
 		if (logType.equalsIgnoreCase("alchemy")) {
-			log = new File("./data/logs/alchlogs/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "alchlogs/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("shopselling")) {
-			log = new File("./data/logs/shopselling/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "shopselling/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("shopbuying")) {
-			log = new File("./data/logs/shopbuying/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "shopbuying/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("dropitem")) {
-			log = new File("./data/logs/dropitem/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "dropitem/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("clickitem")) {
-			log = new File("./data/logs/clickitem/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "clickitem/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pickupitem")) {
-			log = new File("./data/logs/pickupitem/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "pickupitem/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("commands")) {
-			log = new File("./data/logs/commands/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "commands/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pmsent")) {
-			log = new File("./data/logs/privatemessages/pmsent/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "privatemessages/pmsent/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pmrecieved")) {
-			log = new File("./data/logs/privatemessages/pmrecieved/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "privatemessages/pmrecieved/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("tradesgave")) {
-			log = new File("./data/logs/trades/gave/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "trades/gave/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("tradesrecieved")) {
-			log = new File("./data/logs/trades/recieved/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "trades/recieved/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pkingkilled")) {
-			log = new File("./data/logs/pking/killed/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "pking/killed/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("pkingkiller")) {
-			log = new File("./data/logs/pking/killer/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "pking/killer/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("duelingkilled")) {
-			log = new File("./data/logs/dueling/killed/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "dueling/killed/" + player + ".txt");
 		} else if (logType.equalsIgnoreCase("duelingkiller")) {
-			log = new File("./data/logs/dueling/killer/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + "dueling/killer/" + player + ".txt");
 		} else {
-			log = new File("./data/logs/" + player + ".txt");
+			log = new File(Constants.SERVER_LOG_DIR + player + ".txt");
 		}
 
 		if (!log.exists()) {

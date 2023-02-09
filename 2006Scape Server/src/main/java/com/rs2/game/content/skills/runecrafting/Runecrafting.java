@@ -1,6 +1,6 @@
 package com.rs2.game.content.skills.runecrafting;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.randomevents.RandomEventHandler;
 import com.rs2.game.content.skills.SkillHandler;
@@ -155,7 +155,7 @@ public class Runecrafting {
 				c.getPacketSender().sendMessage("This skill is currently disabled.");
 				return false;
 			}
-			if (c.playerLevel[GameConstants.RUNECRAFTING] >= ad.levelReq) {
+			if (c.playerLevel[Constants.RUNECRAFTING] >= ad.levelReq) {
 				getMultiSupport(obj);
 				c.startAnimation(791);
 				c.gfx100(186);
@@ -174,18 +174,18 @@ public class Runecrafting {
 			if (amount2 > 0 && amount > 0) {
 				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemAmount(7936));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount, GameConstants.RUNECRAFTING);
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount, Constants.RUNECRAFTING);
 				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemAmount(1436));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount2 * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, GameConstants.RUNECRAFTING);
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, Constants.RUNECRAFTING);
 			} else if (amount > 0) {
 				c.getItemAssistant().deleteItem(7936, c.getItemAssistant().getItemAmount(7936));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount, GameConstants.RUNECRAFTING);
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount, Constants.RUNECRAFTING);
 			} else if (amount2 > 0) {
 				c.getItemAssistant().deleteItem(1436, c.getItemAssistant().getItemAmount(1436));
 				c.getItemAssistant().addItem(ad.rewardedRune, amount2 * (getMultiplier(ad) <= 1 ? 1 : getMultiplier(ad)));
-				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, GameConstants.RUNECRAFTING);
+				c.getPlayerAssistant().addSkillXP(ad.xp * amount2, Constants.RUNECRAFTING);
 			} else {
 				c.getPacketSender().sendMessage("You don't have any essence left.");
 			}
@@ -196,7 +196,7 @@ public class Runecrafting {
 		int temp = 1;
 		for (int[] multiRune : ad.multiRunes) {
 			for (int j = 0; j < multiRune.length; j++) {
-				if (c.playerLevel[GameConstants.RUNECRAFTING] >= multiRune[0]) {
+				if (c.playerLevel[Constants.RUNECRAFTING] >= multiRune[0]) {
 					temp++;
 				}
 			}

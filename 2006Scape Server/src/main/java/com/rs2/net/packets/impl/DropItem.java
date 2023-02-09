@@ -1,6 +1,6 @@
 package com.rs2.net.packets.impl;
 
-import com.rs2.GameConstants;
+import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
 import com.rs2.game.content.music.sound.SoundList;
@@ -56,7 +56,7 @@ public class DropItem implements PacketType {
 			return;
 		}
 		SkillHandler.resetSkills(player);
-		if (player.tutorialProgress < 36 && GameConstants.TUTORIAL_ISLAND) {
+		if (player.tutorialProgress < 36 && Constants.TUTORIAL_ISLAND) {
 			player.getPacketSender().sendMessage(
 					"You can't drop items on tutorial island!");
 			return;
@@ -74,7 +74,7 @@ public class DropItem implements PacketType {
 				player.getItemAssistant().deleteItem(itemId, slot, player.playerItemsN[slot]);
 				player.handleHitMask(explosiveHit);
 				player.dealDamage(explosiveHit);
-				player.getPlayerAssistant().refreshSkill(GameConstants.HITPOINTS);
+				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 				player.forcedText = "Ow! That really hurt!";
 				player.forcedChatUpdateRequired = true;
 				player.updateRequired = true;
@@ -113,7 +113,7 @@ public class DropItem implements PacketType {
 				}
 				GameEngine.itemHandler.createGroundItem(player, itemId, player.getX(), player.getY(), player.playerItemsN[slot], player.getId());
 				player.getItemAssistant().deleteItem(itemId, slot, player.playerItemsN[slot]);
-				if (GameConstants.SOUND) {
+				if (Constants.SOUND) {
 					player.getPacketSender().sendSound(SoundList.ITEM_DROP, 100, 0);
 				}
 			} else {

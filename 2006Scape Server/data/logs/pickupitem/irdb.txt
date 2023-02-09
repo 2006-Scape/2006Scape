@@ -1,2 +1,0 @@
-[2019/06/19] 22:14 irdb picked up bronze dagger itemX: 3207, itemY: 3215
-[2019/10/03] 18:17 irdb picked up cabbage itemX: 3217, itemY: 9622

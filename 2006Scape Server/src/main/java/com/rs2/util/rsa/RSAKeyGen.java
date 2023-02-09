@@ -1,4 +1,4 @@
-package com.rs2.net.rsa;
+package com.rs2.util.rsa;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

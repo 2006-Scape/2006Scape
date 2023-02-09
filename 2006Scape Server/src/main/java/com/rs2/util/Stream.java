@@ -1,8 +1,7 @@
 package com.rs2.util;
 
+import com.rs2.Constants;
 import org.apollo.util.security.IsaacRandom;
-
-import com.rs2.GameConstants;
 
 public class Stream {
 
@@ -269,9 +268,9 @@ public class Stream {
 	}
 
 	public void reset() {
-		if (!(currentOffset > GameConstants.BUFFER_SIZE)) {
+		if (!(currentOffset > Constants.BUFFER_SIZE)) {
 			byte[] oldBuffer = buffer;
-			buffer = new byte[GameConstants.BUFFER_SIZE];
+			buffer = new byte[Constants.BUFFER_SIZE];
 			for (int i = 0; i < currentOffset; i++) {
 				buffer[i] = oldBuffer[i];
 			}
