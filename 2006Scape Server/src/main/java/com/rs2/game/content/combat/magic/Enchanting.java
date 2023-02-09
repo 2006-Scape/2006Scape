@@ -73,18 +73,12 @@ public class Enchanting {
 	}
 
 	public static enum EnchantSpell {
-		SAPPHIRE(1155, 7, 18, 719, 114, 1,
-			555, 1, 564, 1, -1, 0), 
-		EMERALD(1165, 27, 37, 719, 114, 2,
-			556, 3, 564, 1, -1, 0),
-		RUBY(1176, 47, 59, 720, 115, 3,
-			554, 5, 564, 1, -1, 0),
-		DIAMOND(1180, 57, 67, 720, 115, 4,
-			557, 10, 564, 1, -1, 0),
-		DRAGONSTONE(1187, 68, 78, 721, 116, 5,
-			555, 15, 557, 15, 564, 1),
-		ONYX(6003, 87, 97, 721, 452, 6,
-			557, 20, 554, 20, 564, 1);
+		SAPPHIRE(1155, 7, 18, 719, 114, 1, WATER_RUNE, 1, COSMIC_RUNE, 1, -1, 0),
+		EMERALD(1165, 27, 37, 719, 114, 2, AIR_RUNE, 3, COSMIC_RUNE, 1, -1, 0),
+		RUBY(1176, 47, 59, 720, 115, 3, FIRE_RUNE, 5, COSMIC_RUNE, 1, -1, 0),
+		DIAMOND(1180, 57, 67, 720, 115, 4, EARTH_RUNE, 10, COSMIC_RUNE, 1, -1, 0),
+		DRAGONSTONE(1187, 68, 78, 721, 116, 5, WATER_RUNE, 15, EARTH_RUNE, 15, COSMIC_RUNE, 1),
+		ONYX(6003, 87, 97, 721, 452, 6, EARTH_RUNE, 20, FIRE_RUNE, 20, COSMIC_RUNE, 1);
 
 		int spell, levelReq, xp, anim, gfx, enchantmentLevel;
 		int reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3, reqAmtRune3;
