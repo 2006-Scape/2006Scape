@@ -1,7 +1,6 @@
 package com.rs2.game.content.consumables;
 
 import com.rs2.Constants;
-import com.rs2.game.content.StaticItemList;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
@@ -118,7 +117,7 @@ public class Kebabs {
 				player.getPacketSender().sendMessage("You eat the kebab.");
 				player.attackTimer += 2;
 				player.startAnimation(829);
-				player.getItemAssistant().deleteItem(StaticItemList.KEBAB, slot, 1);
+				player.getItemAssistant().deleteItem(KEBAB, slot, 1);
 				player.getPacketSender().sendSound(317, 100, 0);
 				player.foodDelay = System.currentTimeMillis();
 				player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
@@ -129,7 +128,7 @@ public class Kebabs {
 			effects(player);
 			player.attackTimer += 2;
 			player.startAnimation(829);
-			player.getItemAssistant().deleteItem(StaticItemList.KEBAB, slot, 1);
+			player.getItemAssistant().deleteItem(KEBAB, slot, 1);
 			player.getPacketSender().sendSound(317, 100, 0);
 			player.foodDelay = System.currentTimeMillis();
 			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
