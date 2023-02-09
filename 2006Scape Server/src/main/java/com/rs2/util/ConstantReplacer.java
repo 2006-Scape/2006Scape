@@ -22,7 +22,7 @@ public class ConstantReplacer {
 	private static String [] skipped = {  "bevAnim", "effect1", "effect2", "effect3", "effect4" };
 	private static String enum_clazz = "com.rs2.game.content.consumables.Beverages$beverageData";
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
 		Map<Integer, String> items = buildNameMap(StaticItemList.class);
 		Map<Integer, String> npcs = buildNameMap(StaticNpcList.class);
 		Map<Integer, String> objects = buildNameMap(StaticObjectList.class);
@@ -34,7 +34,17 @@ public class ConstantReplacer {
 		}
 		if(skipped == null)
 			buildSkipped(c);
-		Field enumfield = c.getDeclaredField("ENUM$VALUES");
+		Field enumfield = null;
+		try {
+			enumfield = c.getDeclaredField("ENUM$VALUES");
+		} catch (NoSuchFieldException e) {
+			try {
+				enumfield = c.getDeclaredField("$VALUES");
+			} catch (NoSuchFieldException e1) {
+				e1.printStackTrace();
+				return;
+			} 
+		} 
 		enumfield.setAccessible(true);
 
 		Enum[] values = (Enum[]) enumfield.get(null);
@@ -62,7 +72,7 @@ public class ConstantReplacer {
 		}
 	}
 	
-	private static void buildSkipped(Class<?> c) throws Exception {
+	private static void buildSkipped(Class<?> c) {
 		Field[] flds = c.getDeclaredFields();
 		String out = ("private static String [] skipped = { ");
 		for (Field f : flds) {
