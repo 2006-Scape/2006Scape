@@ -1,6 +1,7 @@
 package com.rs2.game.content.consumables;
 
 import com.rs2.Constants;
+import static com.rs2.game.content.StaticItemList.*;
 import org.apollo.cache.def.ItemDefinition;
 
 import com.rs2.event.CycleEvent;
@@ -46,245 +47,223 @@ public class Potions {
 				m = "You have finished your potion.";
 			}
 			final String m1 = m;
-			   CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
-		            @Override
-		            public void execute(CycleEventContainer container) {
+			CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
 					c.getPacketSender().sendSound(1210, 100, 0);
 					c.getPacketSender().sendMessage(m1);
 					container.stop();
 				}
 				@Override
-					public void stop() {
-						
-					}
+				public void stop() {
+
+				}
 			}, 1);
 			switch (itemId) {
-			case 3040:
-				drinkStatPotion(itemId, 3042, slot, 6, false);
-				break;
-			case 3042:
-				drinkStatPotion(itemId, 3044, slot, 6, false);
-				break;
-			case 3044:
-				drinkStatPotion(itemId, 3046, slot, 6, false);
-				break;
-			case 3046:
-				drinkStatPotion(itemId, 229, slot, 6, false);
-				break;
-			case 2450:
-				doTheBrewzam(itemId, 189, slot);
-				break;
-			case 189:
-				doTheBrewzam(itemId, 191, slot);
-				break;
-			case 191:
-				doTheBrewzam(itemId, 193, slot);
-				break;
-			case 193:
-				doTheBrewzam(itemId, 229, slot);
-				break;
-			case 6685: // brews
-				doTheBrew(itemId, 6687, slot);
-				break;
-			case 6687:
-				doTheBrew(itemId, 6689, slot);
-				break;
-			case 6689:
-				doTheBrew(itemId, 6691, slot);
-				break;
-			case 6691:
-				doTheBrew(itemId, 229, slot);
-				break;
-			case 2436:
-				drinkStatPotion(itemId, 145, slot, 0, true); // sup attack
-				break;
-			case 145:
-				drinkStatPotion(itemId, 147, slot, 0, true);
-				break;
-			case 147:
-				drinkStatPotion(itemId, 149, slot, 0, true);
-				break;
-			case 149:
-				drinkStatPotion(itemId, 229, slot, 0, true);
-				break;
-			case 2440:
-				drinkStatPotion(itemId, 157, slot, 2, true); // sup str
-				break;
-			case 157:
-				drinkStatPotion(itemId, 159, slot, 2, true);
-				break;
-			case 159:
-				drinkStatPotion(itemId, 161, slot, 2, true);
-				break;
-			case 161:
-				drinkStatPotion(itemId, 229, slot, 2, true);
-				break;
-			case 2444:
-				drinkStatPotion(itemId, 169, slot, 4, false); // range pot
-				break;
-			case 169:
-				drinkStatPotion(itemId, 171, slot, 4, false);
-				break;
-			case 171:
-				drinkStatPotion(itemId, 173, slot, 4, false);
-				break;
-			case 173:
-				drinkStatPotion(itemId, 229, slot, 4, false);
-				break;
-			case 2432:
-				drinkStatPotion(itemId, 133, slot, 1, false); // def pot
-				break;
-			case 133:
-				drinkStatPotion(itemId, 135, slot, 1, false);
-				break;
-			case 135:
-				drinkStatPotion(itemId, 137, slot, 1, false);
-				break;
-			case 137:
-				drinkStatPotion(itemId, 229, slot, 1, false);
-				break;
-			case 113:
-				drinkStatPotion(itemId, 115, slot, 2, false); // str pot
-				break;
-			case 115:
-				drinkStatPotion(itemId, 117, slot, 2, false);
-				break;
-			case 117:
-				drinkStatPotion(itemId, 119, slot, 2, false);
-				break;
-			case 119:
-				drinkStatPotion(itemId, 229, slot, 2, false);
-				break;
-			case 2428:
-				drinkStatPotion(itemId, 121, slot, 0, false); // attack
-																// pot
-				break;
-			case 121:
-				drinkStatPotion(itemId, 123, slot, 0, false);
-				break;
-			case 123:
-				drinkStatPotion(itemId, 125, slot, 0, false);
-				break;
-			case 125:
-				drinkStatPotion(itemId, 229, slot, 0, false);
-				break;
-			case 2442:
-				drinkStatPotion(itemId, 163, slot, 1, true); // super def
-																// pot
-				break;
-			case 163:
-				drinkStatPotion(itemId, 165, slot, 1, true);
-				break;
-			case 165:
-				drinkStatPotion(itemId, 167, slot, 1, true);
-				break;
-			case 167:
-				drinkStatPotion(itemId, 229, slot, 1, true);
-				break;
-			case 3024:
-				drinkPrayerPot(itemId, 3026, slot, true); // sup restore
-				break;
-			case 3026:
-				drinkPrayerPot(itemId, 3028, slot, true);
-				break;
-			case 3028:
-				drinkPrayerPot(itemId, 3030, slot, true);
-				break;
-			case 3030:
-				drinkPrayerPot(itemId, 229, slot, true);
-				break;
-			case 10925:
-				drinkPrayerPot(itemId, 10927, slot, true); // sanfew
-															// serums
-				curePoison(300000);
-				break;
-			case 10927:
-				drinkPrayerPot(itemId, 10929, slot, true);
-				curePoison(300000);
-				break;
-			case 10929:
-				drinkPrayerPot(itemId, 10931, slot, true);
-				curePoison(300000);
-				break;
-			case 10931:
-				drinkPrayerPot(itemId, 229, slot, true);
-				curePoison(300000);
-				break;
-			case 2434:
-				drinkPrayerPot(itemId, 139, slot, false); // pray pot
-				break;
-			case 139:
-				drinkPrayerPot(itemId, 141, slot, false);
-				break;
-			case 141:
-				drinkPrayerPot(itemId, 143, slot, false);
-				break;
-			case 143:
-				drinkPrayerPot(itemId, 229, slot, false);
-				break;
-			case 2446:
-				drinkAntiPoison(itemId, 175, slot, 30000); // anti poisons
-				break;
-			case 175:
-				drinkAntiPoison(itemId, 177, slot, 30000);
-				break;
-			case 177:
-				drinkAntiPoison(itemId, 179, slot, 30000);
-				break;
-			case 179:
-				drinkAntiPoison(itemId, 229, slot, 30000);
-				break;
-			case 2448:
-				drinkAntiPoison(itemId, 181, slot, 300000); // anti
-															// poisons
-				break;
-			case 181:
-				drinkAntiPoison(itemId, 183, slot, 300000);
-				break;
-			case 183:
-				drinkAntiPoison(itemId, 185, slot, 300000);
-				break;
-			case 185:
-				drinkAntiPoison(itemId, 229, slot, 300000);
-				break;
-			/** Energy Potions **/
-			case 3008:
-				energyPotion(itemId, 3010, slot);
-				break;
-			case 3010:
-				energyPotion(itemId, 3012, slot);
-				break;
-			case 3012:
-				energyPotion(itemId, 3014, slot);
-				break;
-			case 3014:
-				energyPotion(itemId, 229, slot);
-				break;
-			/** Super Energy Potions **/
-			case 3016:
-				energyPotion(itemId, 3018, slot);
-				break;
-			case 3018:
-				energyPotion(itemId, 3020, slot);
-				break;
-			case 3020:
-				energyPotion(itemId, 3022, slot);
-				break;
-			case 3022:
-				energyPotion(itemId, 229, slot);
-				break;
-			case 2452:
-				antifirePot(itemId, 2454, slot);
-				break;
-			case 2454:
-				antifirePot(itemId, 2456, slot);
-				break;
-			case 2456:
-				antifirePot(itemId, 2458, slot);
-				break;
-			case 2458:
-				antifirePot(itemId, 229, slot);
-				break;
+				case MAGIC_POTION4:
+					drinkStatPotion(itemId, MAGIC_POTION3, slot, 6, false);
+					break;
+				case MAGIC_POTION3:
+					drinkStatPotion(itemId, MAGIC_POTION2, slot, 6, false);
+					break;
+				case MAGIC_POTION2:
+					drinkStatPotion(itemId, MAGIC_POTION1, slot, 6, false);
+					break;
+				case MAGIC_POTION1:
+					drinkStatPotion(itemId, VIAL, slot, 6, false);
+					break;
+				case ZAMORAK_BREW4:
+					doTheBrewzam(itemId, ZAMORAK_BREW3, slot);
+					break;
+				case ZAMORAK_BREW3:
+					doTheBrewzam(itemId, ZAMORAK_BREW2, slot);
+					break;
+				case ZAMORAK_BREW2:
+					doTheBrewzam(itemId, ZAMORAK_BREW1, slot);
+					break;
+				case ZAMORAK_BREW1:
+					doTheBrewzam(itemId, VIAL, slot);
+					break;
+				case SARADOMIN_BREW4:
+					doTheBrew(itemId, SARADOMIN_BREW3, slot);
+					break;
+				case SARADOMIN_BREW3:
+					doTheBrew(itemId, SARADOMIN_BREW2, slot);
+					break;
+				case SARADOMIN_BREW2:
+					doTheBrew(itemId, SARADOMIN_BREW1, slot);
+					break;
+				case SARADOMIN_BREW1:
+					doTheBrew(itemId, VIAL, slot);
+					break;
+				case SUPER_ATTACK4:
+					drinkStatPotion(itemId, SUPER_ATTACK3, slot, 0, true);
+					break;
+				case SUPER_ATTACK3:
+					drinkStatPotion(itemId, SUPER_ATTACK2, slot, 0, true);
+					break;
+				case SUPER_ATTACK2:
+					drinkStatPotion(itemId, SUPER_ATTACK1, slot, 0, true);
+					break;
+				case SUPER_ATTACK1:
+					drinkStatPotion(itemId, VIAL, slot, 0, true);
+					break;
+				case SUPER_STRENGTH4:
+					drinkStatPotion(itemId, SUPER_STRENGTH3, slot, 2, true);
+					break;
+				case SUPER_STRENGTH3:
+					drinkStatPotion(itemId, SUPER_STRENGTH2, slot, 2, true);
+					break;
+				case SUPER_STRENGTH2:
+					drinkStatPotion(itemId, SUPER_STRENGTH1, slot, 2, true);
+					break;
+				case SUPER_STRENGTH1:
+					drinkStatPotion(itemId, VIAL, slot, 2, true);
+					break;
+				case RANGING_POTION4:
+					drinkStatPotion(itemId, RANGING_POTION3, slot, 4, false);
+					break;
+				case RANGING_POTION3:
+					drinkStatPotion(itemId, RANGING_POTION2, slot, 4, false);
+					break;
+				case RANGING_POTION2:
+					drinkStatPotion(itemId, RANGING_POTION1, slot, 4, false);
+					break;
+				case RANGING_POTION1:
+					drinkStatPotion(itemId, VIAL, slot, 4, false);
+					break;
+				case DEFENCE_POTION4:
+					drinkStatPotion(itemId, DEFENCE_POTION3, slot, 1, false);
+					break;
+				case DEFENCE_POTION3:
+					drinkStatPotion(itemId, DEFENCE_POTION2, slot, 1, false);
+					break;
+				case DEFENCE_POTION2:
+					drinkStatPotion(itemId, DEFENCE_POTION1, slot, 1, false);
+					break;
+				case DEFENCE_POTION1:
+					drinkStatPotion(itemId, VIAL, slot, 1, false);
+					break;
+				case STRENGTH_POTION4:
+					drinkStatPotion(itemId, STRENGTH_POTION3, slot, 2, false);
+					break;
+				case STRENGTH_POTION3:
+					drinkStatPotion(itemId, STRENGTH_POTION2, slot, 2, false);
+					break;
+				case STRENGTH_POTION2:
+					drinkStatPotion(itemId, STRENGTH_POTION1, slot, 2, false);
+					break;
+				case STRENGTH_POTION1:
+					drinkStatPotion(itemId, VIAL, slot, 2, false);
+					break;
+				case ATTACK_POTION4:
+					drinkStatPotion(itemId, ATTACK_POTION3, slot, 0, false);
+					break;
+				case ATTACK_POTION3:
+					drinkStatPotion(itemId, ATTACK_POTION2, slot, 0, false);
+					break;
+				case ATTACK_POTION2:
+					drinkStatPotion(itemId, ATTACK_POTION1, slot, 0, false);
+					break;
+				case ATTACK_POTION1:
+					drinkStatPotion(itemId, VIAL, slot, 0, false);
+					break;
+				case SUPER_DEFENCE4:
+					drinkStatPotion(itemId, SUPER_DEFENCE3, slot, 1, true);
+					break;
+				case SUPER_DEFENCE3:
+					drinkStatPotion(itemId, SUPER_DEFENCE2, slot, 1, true);
+					break;
+				case SUPER_DEFENCE2:
+					drinkStatPotion(itemId, SUPER_DEFENCE1, slot, 1, true);
+					break;
+				case SUPER_DEFENCE1:
+					drinkStatPotion(itemId, VIAL, slot, 1, true);
+					break;
+				case SUPER_RESTORE4:
+					drinkPrayerPot(itemId, SUPER_RESTORE3, slot, true);
+					break;
+				case SUPER_RESTORE3:
+					drinkPrayerPot(itemId, SUPER_RESTORE2, slot, true);
+					break;
+				case SUPER_RESTORE2:
+					drinkPrayerPot(itemId, SUPER_RESTORE1, slot, true);
+					break;
+				case SUPER_RESTORE1:
+					drinkPrayerPot(itemId, VIAL, slot, true);
+					break;
+				case PRAYER_POTION4:
+					drinkPrayerPot(itemId, PRAYER_POTION3, slot, false);
+					break;
+				case PRAYER_POTION3:
+					drinkPrayerPot(itemId, PRAYER_POTION2, slot, false);
+					break;
+				case PRAYER_POTION2:
+					drinkPrayerPot(itemId, PRAYER_POTION1, slot, false);
+					break;
+				case PRAYER_POTION1:
+					drinkPrayerPot(itemId, VIAL, slot, false);
+					break;
+				case ANTIPOISON4:
+					drinkAntiPoison(itemId, ANTIPOISON3, slot, 30000);
+					break;
+				case ANTIPOISON3:
+					drinkAntiPoison(itemId, ANTIPOISON2, slot, 30000);
+					break;
+				case ANTIPOISON2:
+					drinkAntiPoison(itemId, ANTIPOISON1, slot, 30000);
+					break;
+				case ANTIPOISON1:
+					drinkAntiPoison(itemId, VIAL, slot, 30000);
+					break;
+				case SUPERANTIPOISON4:
+					drinkAntiPoison(itemId, SUPERANTIPOISON3, slot, 300000);
+					break;
+				case SUPERANTIPOISON3:
+					drinkAntiPoison(itemId, SUPERANTIPOISON2, slot, 300000);
+					break;
+				case SUPERANTIPOISON2:
+					drinkAntiPoison(itemId, SUPERANTIPOISON1, slot, 300000);
+					break;
+				case SUPERANTIPOISON1:
+					drinkAntiPoison(itemId, VIAL, slot, 300000);
+					break;
+				case ENERGY_POTION4:
+					energyPotion(itemId, ENERGY_POTION3, slot);
+					break;
+				case ENERGY_POTION3:
+					energyPotion(itemId, ENERGY_POTION2, slot);
+					break;
+				case ENERGY_POTION2:
+					energyPotion(itemId, ENERGY_POTION1, slot);
+					break;
+				case ENERGY_POTION1:
+					energyPotion(itemId, VIAL, slot);
+					break;
+				case SUPER_ENERGY4:
+					energyPotion(itemId, SUPER_ENERGY3, slot);
+					break;
+				case SUPER_ENERGY3:
+					energyPotion(itemId, SUPER_ENERGY2, slot);
+					break;
+				case SUPER_ENERGY2:
+					energyPotion(itemId, SUPER_ENERGY1, slot);
+					break;
+				case SUPER_ENERGY1:
+					energyPotion(itemId, VIAL, slot);
+					break;
+				case ANTIFIRE_POTION4:
+					antifirePot(itemId, ANTIFIRE_POTION3, slot);
+					break;
+				case ANTIFIRE_POTION3:
+					antifirePot(itemId, ANTIFIRE_POTION2, slot);
+					break;
+				case ANTIFIRE_POTION2:
+					antifirePot(itemId, ANTIFIRE_POTION1, slot);
+					break;
+				case ANTIFIRE_POTION1:
+					antifirePot(itemId, VIAL, slot);
+					break;
 			}
 		}
 	}
@@ -292,7 +271,7 @@ public class Potions {
 	private void energyPotion(int itemId, int replaceItem, int slot) {
 		c.playerItems[slot] = replaceItem + 1;
 		c.getItemAssistant().resetItems(3214);
-		if (itemId >= 3008 && itemId <= 3014) {
+		if (itemId >= ENERGY_POTION4 && itemId <= ENERGY_POTION1) {
 			c.playerEnergy += 20;
 		} else {
 			c.playerEnergy += 40;
@@ -304,7 +283,7 @@ public class Potions {
 	}
 
 	public void drinkAntiPoison(int itemId, int replaceItem, int slot,
-			long delay) {
+								long delay) {
 		// c.startAnimation(829);
 		c.playerItems[slot] = replaceItem + 1;
 		c.getItemAssistant().resetItems(3214);
@@ -318,7 +297,7 @@ public class Potions {
 	}
 
 	public void drinkStatPotion(int itemId, int replaceItem, int slot,
-			int stat, boolean sup) {
+								int stat, boolean sup) {
 		// c.startAnimation(829);
 		c.playerItems[slot] = replaceItem + 1;
 		c.getItemAssistant().resetItems(3214);
@@ -326,7 +305,7 @@ public class Potions {
 	}
 
 	public void drinkPrayerPot(int itemId, int replaceItem, int slot,
-			boolean rest) {
+							   boolean rest) {
 		// c.startAnimation(829);
 		c.playerItems[slot] = replaceItem + 1;
 		c.getItemAssistant().resetItems(3214);
