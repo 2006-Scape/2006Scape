@@ -6,6 +6,8 @@ import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.players.Player;
 
+import static com.rs2.game.content.StaticItemList.*;
+
 /**
  * Battle Staff making
  * @author Andrew (Mr Extremez)
@@ -14,10 +16,10 @@ public class BattleStaffs {
 	
 	public static enum battleStaffs {
 
-		AIR(573, 66, 138, 1397),
-		FIRE(569, 62, 125, 1393),
-		EARTH(575, 58, 113, 1399),
-		WATER(571, 54, 100, 1395);
+		AIR(AIR_ORB, 66, 138, AIR_BATTLESTAFF),
+		FIRE(FIRE_ORB, 62, 125, FIRE_BATTLESTAFF),
+		EARTH(EARTH_ORB, 58, 113, EARTH_BATTLESTAFF),
+		WATER(WATER_ORB, 54, 100, WATER_BATTLESTAFF);
 
 		private int orb, levelReq, xpRecieved, battlestaff;
 
@@ -47,8 +49,8 @@ public class BattleStaffs {
 	
 	public static void makeBattleStaff(Player player, int itemUsed, int usedWith) {
 		for (final battleStaffs b : battleStaffs.values()) {
-			if ((itemUsed == b.getOrb() && usedWith == 1391) || (itemUsed == 1391 && usedWith == b.getOrb())) {
-				if (player.getItemAssistant().playerHasItem(1391) && player.getItemAssistant().playerHasItem(b.getOrb())) {
+			if ((itemUsed == b.getOrb() && usedWith == BATTLESTAFF) || (itemUsed == BATTLESTAFF && usedWith == b.getOrb())) {
+				if (player.getItemAssistant().playerHasItem(BATTLESTAFF) && player.getItemAssistant().playerHasItem(b.getOrb())) {
 					if (player.isCrafting == true) {
 						return;
 					}
@@ -63,7 +65,7 @@ public class BattleStaffs {
 						@Override
 						public void execute(CycleEventContainer container) {
 							if (player.isCrafting == true && player != null) {
-								if (!player.getItemAssistant().playerHasItem(1391, 1)) {
+								if (!player.getItemAssistant().playerHasItem(BATTLESTAFF, 1)) {
 									player.getPacketSender().sendMessage("You have run out of battlestaffs.");
 									container.stop();
 									return;
@@ -77,12 +79,12 @@ public class BattleStaffs {
 									container.stop();
 									return;
 								}
-								player.getItemAssistant().deleteItem(1391, 1);
+								player.getItemAssistant().deleteItem(BATTLESTAFF, 1);
 								player.getItemAssistant().deleteItem(b.getOrb(), 1);
 								player.getItemAssistant().addItem(b.getBattlestaff(), 1);
 								player.getPlayerAssistant().addSkillXP((int) b.getXP(), 6);
 								player.skillAmount--;
-								if (!player.getItemAssistant().playerHasItem(1391) || !player.getItemAssistant().playerHasItem(b.getOrb())) {
+								if (!player.getItemAssistant().playerHasItem(BATTLESTAFF) || !player.getItemAssistant().playerHasItem(b.getOrb())) {
 									container.stop();
 									return;
 								}
