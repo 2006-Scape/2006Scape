@@ -2,6 +2,8 @@ package com.rs2.game.content.skills.crafting;
 
 import com.rs2.game.content.skills.SkillHandler;
 
+import static com.rs2.game.content.StaticItemList.*;
+
 public class CraftingData extends SkillHandler {
 
 	public static enum tanningData {
@@ -91,18 +93,18 @@ public class CraftingData extends SkillHandler {
 
 	public static enum leatherDialogueData {
 
-		GREEN_LEATHER(1745, 1065, 1135, 1099), BLUE_LEATHER(2505, 2487, 2499,
-				2493), RED_LEATHER(2507, 2489, 2501, 2495), BLACK_LEATHER(2509,
-				2491, 2503, 2497);
+		GREEN_LEATHER(GREEN_DLEATHER, GREEN_DHIDE_VAMB, GREEN_DHIDE_BODY, GREEN_DHIDE_CHAPS),
+		BLUE_LEATHER(BLUE_DLEATHER, BLUE_DHIDE_VAMB, BLUE_DHIDE_BODY, BLUE_DHIDE_CHAPS),
+		RED_LEATHER(RED_DRAGON_LEATHER, RED_DHIDE_VAMB, RED_DHIDE_BODY, RED_DHIDE_CHAPS),
+		BLACK_LEATHER(BLACK_DLEATHER, BLACK_DHIDE_VAMB, BLACK_DHIDE_BODY, BLACK_DHIDE_CHAPS);
 
-		private final int leather, vambraces, chaps, body;
+		private final int leather, vambraces, body, chaps;
 
-		private leatherDialogueData(final int leather, final int vambraces,
-				final int chaps, final int body) {
+		private leatherDialogueData(final int leather, final int vambraces, final int body, final int chaps) {
 			this.leather = leather;
 			this.vambraces = vambraces;
-			this.chaps = chaps;
 			this.body = body;
+			this.chaps = chaps;
 		}
 
 		public int getLeather() {
@@ -124,33 +126,29 @@ public class CraftingData extends SkillHandler {
 
 	public enum Leather {
 
-		LEATHER_GLOVES(1733, 1741, 1059, 1, 1, 13.75), LEATHER_BOOTS(1733,
-				1741, 1061, 1, 7, 16.25);
+		LEATHER_GLOVES_(LEATHER, LEATHER_GLOVES, 1, 1, 13.75),
+		LEATHER_BOOTS_(LEATHER, LEATHER_BOOTS, 1, 7, 16.25);
 
-		public int item1, leatherId, product, amountOfLeather, level;
+		public int leatherId, product, amountOfLeather, level;
 		public double xp;
 
 		public static Leather forId(int itemUsed, int usedWith) {
 			for (Leather Data : Leather.values()) {
-				if (Data.item1 == itemUsed && Data.leatherId == usedWith
-						|| Data.leatherId == itemUsed && Data.item1 == usedWith) {
+				if (NEEDLE == itemUsed && Data.leatherId == usedWith
+						|| Data.leatherId == itemUsed && NEEDLE == usedWith) {
 					return Data;
 				}
 			}
 			return null;
 		}
 
-		private Leather(int item1, int leatherId, int product,
+		private Leather(int leatherId, int product,
 				int amountOfLeather, int level, double xp) {
 			this.leatherId = leatherId;
 			this.product = product;
 			this.amountOfLeather = amountOfLeather;
 			this.level = level;
 			this.xp = xp;
-		}
-
-		public int needle() {
-			return item1;
 		}
 
 		public int getLeather() {
@@ -280,25 +278,29 @@ public class CraftingData extends SkillHandler {
 
 	public static enum cutGemData {
 
-		SAPPHIRE(1623, 1607, 20, 50, 888), EMERALD(1621, 1605, 27, 67, 889), RUBY(
-				1619, 1603, 34, 85, 887), DIAMOND(1617, 1601, 43, 107.5, 886), DRAGONSTONE(
-				1631, 1615, 55, 137.5, 885), ONYX(6571, 6573, 67, 168, 885), /**
-		 * 
+		SAPPHIRE_(UNCUT_SAPPHIRE, SAPPHIRE, 20, 888, 50.0),
+		EMERALD_(UNCUT_EMERALD, EMERALD, 27, 889, 67.0),
+		RUBY_(UNCUT_RUBY, RUBY, 34, 887, 85.0),
+		DIAMOND_(UNCUT_DIAMOND, DIAMOND, 43, 886, 107.5),
+		DRAGONSTONE_(UNCUT_DRAGONSTONE, DRAGONSTONE, 55, 885, 137.5),
+		ONYX_(UNCUT_ONYX, ONYX, 67, 885, 168.0),
+		/**
 		 * Need correct animation ID
 		 **/
-		OPAL(1625, 1609, 1, 12, 890), JADE(1627, 1611, 13, 20, 891), RED_TOPAZ(
-				1629, 1613, 16, 25, 892);
+		OPAL_(UNCUT_OPAL, OPAL, 1, 890, 12.0),
+		JADE_(UNCUT_JADE, JADE, 13, 891, 20.0),
+		RED_TOPAZ_(UNCUT_RED_TOPAZ, RED_TOPAZ, 16, 892, 25.0);
 
 		private final int uncut, cut, level, animation;
 		private final double xp;
 
-		private cutGemData(final int uncut, final int cut, final int level,
-				final double xp, final int animation) {
+		private cutGemData(final int uncut, final int cut, final int level, final int animation,
+				final double xp) {
 			this.uncut = uncut;
 			this.cut = cut;
 			this.level = level;
-			this.xp = xp;
 			this.animation = animation;
+			this.xp = xp;
 		}
 
 		public int getUncut() {
@@ -345,9 +347,13 @@ public class CraftingData extends SkillHandler {
 	}
 
 	public static enum amuletData {
-		GOLD(1673, 1692), SAPPHIRE(1675, 1694), EMERALD(1677, 1696), RUBY(1679,
-				1698), DIAMOND(1681, 1700), DRAGONSTONE(1683, 1702), ONYX(6579,
-				6581);
+		GOLD(GOLD_AMULET, GOLD_AMULET_1692),
+		SAPPHIRE(SAPPHIRE_AMULET, SAPPHIRE_AMULET_1694),
+		EMERALD(EMERALD_AMULET, EMERALD_AMULET_1696),
+		RUBY(RUBY_AMULET, RUBY_AMULET_1698),
+		DIAMOND(DIAMOND_AMULET, DIAMOND_AMULET_1700),
+		DRAGONSTONE(DRAGONSTONE_AMMY, DRAGONSTONE_AMMY_1702),
+		ONYX(ONYX_AMULET_6579, ONYX_AMULET_6581);
 
 		private final int amuletId, product;
 
