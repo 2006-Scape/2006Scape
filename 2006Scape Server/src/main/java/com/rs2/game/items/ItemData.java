@@ -138,13 +138,13 @@ public class ItemData {
 			"tunic", "blouse", "Wizard robe(g)", "Wizard robe(t)"
 	};
 	/* Fullhat covers your head but not your beard. */
-	private static String[] fullhat = { "med helm", "coif", "Dharok's helm",
+	private static String[] fullhat = { "med helm", "coif", "Dharoks helm",
 			"hood", "Initiate helm", "Coif", "Helm of neitiznot",
 			"Armadyl helmet", "Berserker helm", "Archer helm", "Farseer helm",
 			"Warrior helm", "Void"};
 	/* Fullmask covers your entire head. */  
-	private static String[] fullmask = { "full helm(t)", "full helm(g)", "full helm", "mask", "Verac's helm",
-			"Guthan's helm", "Karil's coif", "mask", "Torag's helm", "Void", "helmet",
+	private static String[] fullmask = { "full helm(t)", "full helm(g)", "full helm", "mask", "Veracs helm",
+			"Guthans helm", "Karils coif", "mask", "Torags helm", "Void", "helmet",
 			"sallet", "Facemask", "Bearhead"};
 
 	public static boolean isFullBody(int itemId) {

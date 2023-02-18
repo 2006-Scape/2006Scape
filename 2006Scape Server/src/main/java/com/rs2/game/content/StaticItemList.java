@@ -9,7 +9,7 @@ package com.rs2.game.content;
 @SuppressWarnings("unused")
 public class StaticItemList {
 
-	public static final int DWARF_REMAINS = 0;
+	public static final int NULL_0 = 0;
 	public static final int TOOL_KIT = 1;
 	public static final int CANNONBALL = 2;
 	public static final int NULODIONS_NOTES = 3;
