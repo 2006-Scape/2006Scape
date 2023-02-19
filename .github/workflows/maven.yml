@@ -33,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           path: ~/artifacts/*
-          name: 2006Scape-Build
+          name: 2006Scape-SinglePlayer
