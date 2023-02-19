@@ -143,7 +143,7 @@ public class ItemData {
 			"Armadyl helmet", "Berserker helm", "Archer helm", "Farseer helm",
 			"Warrior helm", "Void"};
 	/* Fullmask covers your entire head. */  
-	private static String[] fullmask = { "full helm(t)", "full helm(g)", "full helm", "mask", "Veracs helm",
+	private static String[] fullmask = { "full helm (t)", "full helm (g)", "full helm", "mask", "Veracs helm",
 			"Guthans helm", "Karils coif", "mask", "Torags helm", "Void", "helmet",
 			"sallet", "Facemask", "Bearhead"};
 
