@@ -76,7 +76,7 @@ public abstract class Player {
 
 	public byte buffer[] = null;
 	public String lastConnectedFrom;
-	public static int xpRate = 1;
+	public int xpRate = 1;
 	public String discordCode;
 	private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
