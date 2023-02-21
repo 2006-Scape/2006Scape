@@ -220,7 +220,7 @@ public class Npc {
 	/**
 	 * NPC's That Don't Turn To Face The Player When Clicked
 	 */
-	static int[] immobileNpcs = { //TODO Rename Appropriately
+	private static int[] immobileNpcs = { //TODO Rename Appropriately
 			OSPAK,
 			STYRMIR,
 			TORBRUND,
