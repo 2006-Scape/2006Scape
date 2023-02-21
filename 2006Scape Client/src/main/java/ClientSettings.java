@@ -7,6 +7,10 @@ import java.math.BigInteger;
  */
 
 public class ClientSettings {
+    /**
+     * @QoL
+     * Enables Server-Wide Snow In The Designated Month
+     */
     public static String SNOW_MONTH = ".12";
     /**
      * The Servers Name
@@ -31,6 +35,7 @@ public class ClientSettings {
     public static int SERVER_WORLD = 1;
 
     /**
+     * @QoL
      * If false, the client will run the on demand fetcher based on SERVER_WORLD. If true it will
      * only connect to the server on world 1/Port 43594.
      */
@@ -42,19 +47,30 @@ public class ClientSettings {
     public static final String NAV_MANUAL_LINK = SERVER_WEBSITE;
     public static final String NAV_RULES_LINK = SERVER_WEBSITE + "kbase/rules.php";
 
+    /**
+     * @QoL
+     * Enables A Custom Tab With Various QoL Changes
+     */
     public static boolean CUSTOM_SETTINGS_TAB = false;
-
-    // smooths out lines and sprites on the minimap
+    /**
+     * @QoL
+     * Enables Bilinear Minimap Filtering Which Smooths Out Lines And Sprites On The Minimap
+     */
     public static boolean BILINEAR_MINIMAP_FILTERING = false;
-
-    // fixes overlapping lines drawn on transparent objects by post-incrementing the offset
-    // note: there's 2 other instances that haven't been updated in Texture.java (misnamed) because rarely used like this
+    /**
+     * @QoL
+     * fixes overlapping lines drawn on transparent objects by post-incrementing the offset
+     * note: there's 2 other instances that haven't been updated in Texture.java (misnamed) because rarely used like this
+     */
     public static boolean FIX_TRANSPARENCY_OVERFLOW = false;
-
-    // render the game to 512px instead of 511px (black line on right side)
+    /**
+     * @QoL
+     * render the game to 512px instead of 511px (black line on right side)
+     */
     public static boolean FULL_512PX_VIEWPORT = false;
 
     /**
+     * @QoL
      * Enables/Disables FileServer CRC Checking For Cache Updates
      * FileServer Must Be Running Before Starting The Client If This Is True
      */
