@@ -217,6 +217,9 @@ public class Npc {
 		str.writeWord(face);
 	}
 
+	/**
+	 * NPC's That Don't Turn To Face The Player When Clicked
+	 */
 	static int[] immobileNpcs = { //TODO Rename Appropriately
 			OSPAK,
 			STYRMIR,
@@ -224,13 +227,11 @@ public class Npc {
 			FRIDGEIR,
 	};
 	public void facePlayer(Player player) {
-		if (player != null) {
 			for (int element : immobileNpcs) {
-				if (player.npcType == (element)) {
+				if (npcType == (element)) {
 					return;
 				}
 			}
-		}
 		face = (player != null) ? player.playerId + 32768 : 32768;
 		dirUpdateRequired = true;
 		updateRequired = true;
