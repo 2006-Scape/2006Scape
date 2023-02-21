@@ -251,7 +251,7 @@ public class Pickpocket extends SkillHandler {
 										if (player.goodDistance(player.absX, player.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 1) && player.heightLevel == NpcHandler.npcs[i].heightLevel) {
 											if (!NpcHandler.npcs[i].underAttack) {
 												NpcHandler.npcs[i].forceChat("What do you think you're doing?");
-												NpcHandler.npcs[i].facePlayer(player.playerId);
+												NpcHandler.npcs[i].facePlayer(player);
 											}
 										}
 									}

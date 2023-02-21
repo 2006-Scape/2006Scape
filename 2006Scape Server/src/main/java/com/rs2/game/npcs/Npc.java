@@ -9,6 +9,8 @@ import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
 import com.rs2.util.Stream;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 public class Npc {
 
 	public int npcId;
@@ -215,8 +217,21 @@ public class Npc {
 		str.writeWord(face);
 	}
 
-	public void facePlayer(int player) {
-		face = player + 32768;
+	static int[] immobileNpcs = { //TODO Rename Appropriately
+			OSPAK,
+			STYRMIR,
+			TORBRUND,
+			FRIDGEIR,
+	};
+	public void facePlayer(Player player) {
+		if (player != null) {
+			for (int element : immobileNpcs) {
+				if (player.npcType == (element)) {
+					return;
+				}
+			}
+		}
+		face = (player != null) ? player.playerId + 32768 : 32768;
 		dirUpdateRequired = true;
 		updateRequired = true;
 	}
