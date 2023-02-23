@@ -4,7 +4,6 @@
     "sellModifier": 2,
     "name": "Davon's Amulet Store.",
     "id": 2,
-    "id": 2,
     "items": [
       {
         "itemId": 1718,
@@ -3751,6 +3750,10 @@
         "itemAmount": 5
       },
       {
+        "itemId": 1929,
+        "itemAmount": 5
+      },
+      {
         "itemId": 1935,
         "itemAmount": 5
       },
@@ -6643,60 +6646,60 @@
   {
     "buyModifier": 2,
     "sellModifier": 2,
-    "name": "TzHaar-Hur-Rin's Ore and Gem Store",
+    "name": "TzHaar-Hur-Lek's Ore and Gem Store",
     "id": 139,
     "items": [
       {
         "itemId": 438,
-        "itemAmount": 25
+        "itemAmount": 5
       },
       {
         "itemId": 436,
-        "itemAmount": 25
+        "itemAmount": 5
       },
       {
         "itemId": 440,
-        "itemAmount": 15
-      },
-      {
-        "itemId": 442,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 453,
-        "itemAmount": 20
-      },
-      {
-        "itemId": 444,
-        "itemAmount": 12
-      },
-      {
-        "itemId": 447,
-        "itemAmount": 4
-      },
-      {
-        "itemId": 449,
         "itemAmount": 2
       },
       {
+        "itemId": 442,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 453,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 444,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 447,
+        "itemAmount": 0
+      },
+      {
+        "itemId": 449,
+        "itemAmount": 0
+      },
+      {
         "itemId": 451,
-        "itemAmount": 1
+        "itemAmount": 0
       },
       {
         "itemId": 1623,
-        "itemAmount": 16
+        "itemAmount": 1
       },
       {
         "itemId": 1621,
-        "itemAmount": 12
+        "itemAmount": 1
       },
       {
         "itemId": 1619,
-        "itemAmount": 8
+        "itemAmount": 0
       },
       {
         "itemId": 1617,
-        "itemAmount": 6
+        "itemAmount": 0
       },
       {
         "itemId": 1631,
