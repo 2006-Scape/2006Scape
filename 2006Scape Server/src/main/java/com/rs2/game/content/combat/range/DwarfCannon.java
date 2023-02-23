@@ -428,7 +428,7 @@ public class DwarfCannon {
 				player.globalDamageDealt += damage;
 				target.killerId = player.playerId;
 				target.killedBy = player.playerId;
-				target.facePlayer(player.playerId);
+				target.facePlayer(player);
 				target.hitUpdateRequired2 = true;
 				target.updateRequired = true;
 				myBalls -= 1;

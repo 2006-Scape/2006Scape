@@ -193,7 +193,7 @@ public class NpcHandler {
         newNPC.attack = attack;
         newNPC.defence = defence;
         newNPC.spawnedBy = c.getId();
-        newNPC.facePlayer(c.playerId);
+        newNPC.facePlayer(c);
         if (headIcon) {
             c.getPacketSender().drawHeadicon(1, slot, 0, 0);
         }
@@ -461,7 +461,7 @@ public class NpcHandler {
 
                 if (slaveOwner != null && slaveOwner.hasNpc && npcs[i].summoner) {
                     if (slaveOwner.goodDistance(npcs[i].absX, npcs[i].absY, slaveOwner.absX, slaveOwner.absY, 15)) {
-                        NpcHandler.followPlayer(i, slaveOwner.playerId);
+                        NpcHandler.followPlayer(i, slaveOwner);
                     }
                 }
 
@@ -587,7 +587,7 @@ public class NpcHandler {
                         int p = npcs[i].killerId;
                         if (PlayerHandler.players[p] != null) {
                             Player c = (Client) PlayerHandler.players[p];
-                            followPlayer(i, c.playerId);
+                            followPlayer(i, c);
                             if (npcs[i] == null) {
                                 continue;
                             }
@@ -598,7 +598,7 @@ public class NpcHandler {
                         } else {
                             npcs[i].killerId = 0;
                             npcs[i].underAttack = false;
-                            npcs[i].facePlayer(0);
+                            npcs[i].facePlayer(null);
                         }
                     }
                 }
@@ -611,7 +611,7 @@ public class NpcHandler {
                 }
                 if ((!npcs[i].underAttack || npcs[i].walkingHome)
                         && npcs[i].randomWalk && !npcs[i].isDead) {
-                    npcs[i].facePlayer(0);
+                    npcs[i].facePlayer(null);
                     npcs[i].killerId = 0;
                     if (npcs[i].spawnedBy == 0) {
                         if (npcs[i].absX > npcs[i].makeX
@@ -730,7 +730,7 @@ public class NpcHandler {
                 if (npcs[i].isDead) {
                     if (npcs[i].actionTimer == 0 && npcs[i].applyDead == false && npcs[i].needRespawn == false) {
                         npcs[i].updateRequired = true;
-                        npcs[i].facePlayer(0);
+                        npcs[i].facePlayer(null);
                         npcs[i].killedBy = NpcData.getNpcKillerId(i);
                         Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
                         if (c != null) {
@@ -1197,15 +1197,15 @@ public class NpcHandler {
         return true;
     }
 
-    public static void followPlayer(int i, int playerId) {
-        if (PlayerHandler.players[playerId] == null) {
+    public static void followPlayer(int i, Player player) {
+        if (player == null) {
             return;
         }
-        if (PlayerHandler.players[playerId].npcCanAttack == false) {
+        if (player.npcCanAttack == false) {
             return;
         }
-        if (PlayerHandler.players[playerId].respawnTimer > 0) {
-            npcs[i].facePlayer(0);
+        if (player.respawnTimer > 0) {
+            npcs[i].facePlayer(null);
             npcs[i].randomWalk = true;
             npcs[i].underAttack = false;
             return;
@@ -1216,12 +1216,12 @@ public class NpcHandler {
         }
 
         if (!followPlayer(i) && npcs[i].npcType != 1532 && npcs[i].npcType != 1534) {
-            npcs[i].facePlayer(playerId);
+            npcs[i].facePlayer(player);
             return;
         }
 
-        int playerX = PlayerHandler.players[playerId].absX;
-        int playerY = PlayerHandler.players[playerId].absY;
+        int playerX = player.absX;
+        int playerY = player.absY;
         npcs[i].randomWalk = false;
         if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, distanceRequired(i))) {
             return;
@@ -1230,7 +1230,6 @@ public class NpcHandler {
         Npc    npc    = npcs[i];
         int    x      = npc.absX;
         int    y      = npc.absY;
-        Player player = PlayerHandler.players[playerId];
         if (npcs[i].spawnedBy > 0
                 || x < npc.makeX + Constants.NPC_FOLLOW_DISTANCE
                 && x > npc.makeX - Constants.NPC_FOLLOW_DISTANCE
@@ -1259,14 +1258,14 @@ public class NpcHandler {
                         npc.moveX = GetMove(x, playerX); //Move East to player
                         npc.moveY = GetMove(y, playerY);
                     }
-                    npc.facePlayer(playerId);
+                    npc.facePlayer(player);
                     handleClipping(i);
                     npc.getRandomAndHomeNPCWalking(i);
                     npc.updateRequired = true;
                 }
             }
         } else {
-            npc.facePlayer(0);
+            npc.facePlayer(null);
             npc.randomWalk = true;
             npc.underAttack = false;
         }

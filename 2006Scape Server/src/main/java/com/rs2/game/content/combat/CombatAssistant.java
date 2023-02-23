@@ -64,7 +64,7 @@ public class CombatAssistant {
 				}
 				player.getPacketSender().sendSound(CombatSounds.getNpcBlockSound(NpcHandler.npcs[player.oldNpcIndex].npcType), 100, 0);
 			}
-			NpcHandler.npcs[i].facePlayer(player.playerId);
+			NpcHandler.npcs[i].facePlayer(player);
 			if (NpcHandler.npcs[i].underAttackBy > 0 && GameEngine.npcHandler.getsPulled(player, i)) {
 				NpcHandler.npcs[i].killerId = player.playerId;
 			} else if (NpcHandler.npcs[i].underAttackBy < 0 && !GameEngine.npcHandler.getsPulled(player, i)) {

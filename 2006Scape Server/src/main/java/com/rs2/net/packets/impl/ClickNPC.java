@@ -239,7 +239,7 @@ public class ClickNPC implements PacketType {
 					player.getY(), 2)) {
 				player.turnPlayerTo(NpcHandler.npcs[player.npcClickIndex].getX(),
 						NpcHandler.npcs[player.npcClickIndex].getY());
-				NpcHandler.npcs[player.npcClickIndex].facePlayer(player.playerId);
+				NpcHandler.npcs[player.npcClickIndex].facePlayer(player);
 				player.getNpcs().firstClickNpc(player.npcType);
 				player.post(new NpcFirstClickEvent(player.npcType));
 			} else {
@@ -256,7 +256,7 @@ public class ClickNPC implements PacketType {
 										NpcHandler.npcs[player.npcClickIndex].getX(),
 										NpcHandler.npcs[player.npcClickIndex].getY());
 								NpcHandler.npcs[player.npcClickIndex]
-										.facePlayer(player.playerId);
+										.facePlayer(player);
 								player.getNpcs().firstClickNpc(player.npcType);
 								player.post(new NpcFirstClickEvent(player.npcType));
 								container.stop();
@@ -282,7 +282,7 @@ public class ClickNPC implements PacketType {
 					player.getY(), 2)) {
 				player.turnPlayerTo(NpcHandler.npcs[player.npcClickIndex].getX(),
 						NpcHandler.npcs[player.npcClickIndex].getY());
-				NpcHandler.npcs[player.npcClickIndex].facePlayer(player.playerId);
+				NpcHandler.npcs[player.npcClickIndex].facePlayer(player);
 				player.getNpcs().secondClickNpc(player.npcType);
 				player.post(new NpcSecondClickEvent(player.npcType));
 			} else {
@@ -299,7 +299,7 @@ public class ClickNPC implements PacketType {
 										NpcHandler.npcs[player.npcClickIndex].getX(),
 										NpcHandler.npcs[player.npcClickIndex].getY());
 								NpcHandler.npcs[player.npcClickIndex]
-										.facePlayer(player.playerId);
+										.facePlayer(player);
 								player.getNpcs().secondClickNpc(player.npcType);
 								player.post(new NpcSecondClickEvent(player.npcType));
 								container.stop();
@@ -326,7 +326,7 @@ public class ClickNPC implements PacketType {
 					player.getY(), 2)) {
 				player.turnPlayerTo(NpcHandler.npcs[player.npcClickIndex].getX(),
 						NpcHandler.npcs[player.npcClickIndex].getY());
-				NpcHandler.npcs[player.npcClickIndex].facePlayer(player.playerId);
+				NpcHandler.npcs[player.npcClickIndex].facePlayer(player);
 				player.getNpcs().thirdClickNpc(player.npcType);
 				player.post(new NpcThirdClickEvent(player.npcType));
 			} else {
@@ -343,7 +343,7 @@ public class ClickNPC implements PacketType {
 										NpcHandler.npcs[player.npcClickIndex].getX(),
 										NpcHandler.npcs[player.npcClickIndex].getY());
 								NpcHandler.npcs[player.npcClickIndex]
-										.facePlayer(player.playerId);
+										.facePlayer(player);
 								player.getNpcs().thirdClickNpc(player.npcType);
 								player.post(new NpcThirdClickEvent(player.npcType));
 								container.stop();
