@@ -51,6 +51,10 @@ public class Firemaking {
 					c.getPacketSender().sendMessage("You cannot light a fire here.");
 					return;
 				}
+				if (Boundary.isIn(c, Boundary.DWARF_NO_FIREMAKING)) {
+					c.getPacketSender().sendMessage("The dwarves won't be happy if you light a fire here.");
+					return;
+				}
 				if (GameEngine.objectManager.objectExists(c.absX, c.absY)) {
 					c.getPacketSender().sendMessage("You cannot light a fire here.");
 					return;

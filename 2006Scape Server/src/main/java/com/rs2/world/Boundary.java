@@ -318,5 +318,5 @@ public class Boundary {
 	public static final Boundary MAGE_TRAINING_ARENA_GRAVEYARD =  new Boundary(3340, 3386, 9616, 9662, 1);
 	public static final Boundary MAGE_TRAINING_ARENA_ALCHEMY = new Boundary(3350, 3379, 9616, 9655, 2);
 	public static final Boundary MAGE_TRAINING_ARENA_TELEKINETIC =  new Boundary(3329, 3390, 9665, 9726);
-
+	public static final Boundary[] DWARF_NO_FIREMAKING = new Boundary[] { new Boundary(2944, 3072, 3392, 3456), new Boundary(3008, 3072, 3456, 3520), new Boundary(2880, 2944, 3456, 3520) };
 }
