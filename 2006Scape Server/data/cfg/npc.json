@@ -570,7 +570,7 @@
     "id": 94
   },
   {
-    "hitpoints": 70,
+    "hitpoints": 69,
     "name": "Wolf",
     "combat": 64,
     "id": 95
@@ -846,7 +846,7 @@
     "id": 140
   },
   {
-    "hitpoints": 67,
+    "hitpoints": 74,
     "name": "Big Wolf",
     "combat": 73,
     "id": 141
