@@ -115,13 +115,13 @@ public class Firemaking {
 							GameEngine.itemHandler.removeGroundItem(c, logId, x, y, false);
 							c.getPacketSender().sendSound(SoundList.FIRE_SUCCESSFUL, 100, 0);
 							if (itemUsed == 7331 || usedWith == 7331)
-								new Object(11406, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
+								new Object(11406, x, y, 0, 0, 10, -1, 200);
 							else if (itemUsed == 7330 || usedWith == 7330)
-								new Object(11405, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
+								new Object(11405, x, y, 0, 0, 10, -1, 200);
 							else if (itemUsed == 7329 || usedWith == 7329)
-								new Object(11404, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
+								new Object(11404, x, y, 0, 0, 10, -1, 200);
 							else
-								new Object(2732, x, y, 0, 0, 10, -1, 60 + Misc.random(30));
+								new Object(2732, x, y, 0, 0, 10, -1, 200);
 							c.getPacketSender().sendMessage("The fire catches and the logs begin to burn.");
 							c.getPlayerAssistant().addSkillXP((int) l.getXp(), 11);
 							if (c.tutorialProgress == 4) {
@@ -169,7 +169,7 @@ public class Firemaking {
 					public void stop() {
 
 					}
-					}, 60);
+					}, 100 + Misc.random(98));
 				}
 			}
 		}
