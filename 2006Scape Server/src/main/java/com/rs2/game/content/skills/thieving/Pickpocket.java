@@ -226,7 +226,7 @@ public class Pickpocket extends SkillHandler {
 					player.getDialogueHandler().sendStatement("You need a Thieving level of " + n.getLevel() + " to pickpocket the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + ".");
 					return;
 				}
-				player.getPacketSender().sendMessage("You attempt to pick the  " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
+				player.getPacketSender().sendMessage("You attempt to pick the " + NpcHandler.getNpcListName(n.getNpc(npcId)).toLowerCase() + "'s pocket.");
 				player.startAnimation(881);
 				if (Misc.random(player.playerLevel[Constants.THIEVING] + 5) < Misc.random(n.getLevel())) {
 					RandomEventHandler.addRandom(player);
