@@ -95,6 +95,8 @@ public class GameLogger {
 
 		if (!log.exists()) {
 			try {
+				if(!log.getParentFile().exists())
+					log.getParentFile().mkdirs();
 				log.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
