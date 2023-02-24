@@ -2050,9 +2050,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2617,
     "y": 3284,
     "id": 95,
@@ -2060,9 +2060,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2621,
     "y": 3283,
     "id": 95,
@@ -14980,9 +14980,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2849,
     "y": 3495,
     "id": 95,
@@ -14990,9 +14990,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2849,
     "y": 3503,
     "id": 95,
@@ -15000,9 +15000,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2837,
     "y": 3496,
     "id": 95,
@@ -15010,9 +15010,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2841,
     "y": 3497,
     "id": 95,
@@ -15020,9 +15020,9 @@
     "height": 0
   },
   {
-    "maxHit": 8,
-    "strength": 80,
-    "attack": 80,
+    "maxHit": 7,
+    "strength": 60,
+    "attack": 61,
     "x": 2846,
     "y": 3497,
     "id": 141,
@@ -15030,9 +15030,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2838,
     "y": 3505,
     "id": 95,
@@ -15040,9 +15040,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2832,
     "y": 3512,
     "id": 95,
@@ -15050,9 +15050,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2831,
     "y": 3500,
     "id": 95,
@@ -15060,9 +15060,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2832,
     "y": 3507,
     "id": 95,
@@ -15090,9 +15090,9 @@
     "height": 0
   },
   {
-    "maxHit": 0,
-    "strength": 0,
-    "attack": 0,
+    "maxHit": 6,
+    "strength": 55,
+    "attack": 50,
     "x": 2842,
     "y": 3507,
     "id": 95,
