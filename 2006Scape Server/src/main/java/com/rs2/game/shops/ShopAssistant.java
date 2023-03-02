@@ -1,6 +1,7 @@
 package com.rs2.game.shops;
 
 import com.rs2.Constants;
+import com.rs2.game.items.Weight;
 import org.apollo.cache.def.ItemDefinition;
 
 import com.rs2.game.bots.BotHandler;
@@ -450,6 +451,7 @@ public class ShopAssistant {
 			// Add item to the shop
 			addShopItem(unNotedItemID, amount);
 			player.getItemAssistant().resetItems(3823);
+			Weight.updateWeight(player);
 			resetShop(player.shopId);
 			updatePlayerShop();
 			return true;
@@ -611,6 +613,7 @@ public class ShopAssistant {
 				GameLogger.writeLog(player.playerName, "shopbuying", player.playerName + " bought " + amount + " " + itemName + " for " + totalValue + " " + currencyName + " from store " + shopID + ".");
 			}
 			player.getItemAssistant().resetItems(3823);
+			Weight.updateWeight(player);
 			resetShop(player.shopId);
 			updatePlayerShop();
 			return true; //return TRUE / FALSE Update = shop&Inventory / Doesnt Update
