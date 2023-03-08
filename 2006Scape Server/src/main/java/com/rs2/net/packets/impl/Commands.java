@@ -4,7 +4,6 @@ import static com.rs2.util.GameLogger.writeLog;
 
 import java.util.Arrays;
 
-import com.rs2.ConfigLoader;
 import com.rs2.Connection;
 import com.rs2.Constants;
 import com.rs2.GameEngine;
@@ -627,7 +626,7 @@ public class Commands implements PacketType {
                     int interface2 = Integer.parseInt(arguments[1]);
                     player.getPacketSender().sendFrame248(interface1, interface2);
                     return;
-                } else if (arguments.length == 2) {
+                } else if (arguments.length == 3) {
                     int interface1 = Integer.parseInt(arguments[0]);
                     int interface2 = Integer.parseInt(arguments[1]);
                     int interface3 = Integer.parseInt(arguments[2]);
