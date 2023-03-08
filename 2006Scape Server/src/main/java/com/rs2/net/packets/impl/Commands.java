@@ -49,8 +49,8 @@ public class Commands implements PacketType {
         switch (playerCommand.toLowerCase()) {
             case "stuck":
                 if(JavaCord.token != null) {
-                    if (JavaCord.api.getTextChannelById(JavaCord.staffRoomId).isPresent())
-                        JavaCord.api.getTextChannelById(JavaCord.staffRoomId).get().sendMessage(player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
+                    if (JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
+                        JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
                 }
                 player.getPlayerAssistant().spellTeleport(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
             case "link":
