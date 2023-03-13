@@ -1,5 +1,6 @@
 package com.rs2.integrations.discord.commands;
 
+import com.rs2.Constants;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
@@ -10,8 +11,10 @@ public class Link implements MessageCreateListener {
     public void onMessageCreate(MessageCreateEvent event) {
         Message message = event.getMessage();
         if (message.getContent().equalsIgnoreCase("::link")) {
-            event.getChannel().sendMessage(message.getAuthor().asUser().get().getMentionTag() + ", Please check your DM's to continue.");
-            message.getAuthor().asUser().get().sendMessage("Please copy/paste the following in-game to link your Discord account: \n ```::link " + message.getAuthor().asUser().get().getIdAsString() + "```");
+            if (Constants.WORLD == 1) {
+                event.getChannel().sendMessage(message.getAuthor().asUser().get().getMentionTag() + ", Please check your DM's to continue.");
+                message.getAuthor().asUser().get().sendMessage("Please copy/paste the following in-game to link your Discord account: \n ```::link " + message.getAuthor().asUser().get().getIdAsString() + "```");
+            }
         }
     }
 }
