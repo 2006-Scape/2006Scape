@@ -11,6 +11,7 @@ import com.rs2.game.bots.BotHandler;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
+import com.rs2.integrations.discord.JavaCord;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
@@ -45,6 +46,12 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "stuck":
+                if(JavaCord.token != null) {
+                    if (JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
+                        JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
+                }
+                player.getPlayerAssistant().spellTeleport(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
             case "link":
                 player.setDiscordCode(arguments[0]);
                 player.getPacketSender().sendMessage("Your Account has now been linked with Discord User ID:");
@@ -619,7 +626,7 @@ public class Commands implements PacketType {
                     int interface2 = Integer.parseInt(arguments[1]);
                     player.getPacketSender().sendFrame248(interface1, interface2);
                     return;
-                } else if (arguments.length == 2) {
+                } else if (arguments.length == 3) {
                     int interface1 = Integer.parseInt(arguments[0]);
                     int interface2 = Integer.parseInt(arguments[1]);
                     int interface3 = Integer.parseInt(arguments[2]);

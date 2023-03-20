@@ -21,6 +21,7 @@ public class JavaCord {
     public static String commandPrefix = "::w" + Constants.WORLD;
     public static String token;
     public static DiscordApi api = null;
+    public static String logChannelId = "1083146780507656294";
 
     public static void init() throws IOException {
         if (token != null && !token.equals("")) { //If the token was loaded by loadSettings:

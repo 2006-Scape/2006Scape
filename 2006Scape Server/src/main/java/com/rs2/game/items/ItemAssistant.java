@@ -515,7 +515,7 @@ public class ItemAssistant {
 						player.flushOutStream();
 					}
 					i = 30;
-					Weight.calcWeight(player, item, "additem");
+					Weight.updateWeight(player);
 					return true;
 				}
 			}
@@ -533,7 +533,7 @@ public class ItemAssistant {
 					}
 					resetItems(3214);
 					i = 30;
-					Weight.calcWeight(player, item, "additem");
+					Weight.updateWeight(player);
 					return true;
 				}
 			}
@@ -2338,7 +2338,7 @@ public class ItemAssistant {
 			}
 		}
 		resetItems(3214);
-		Weight.calcWeight(player, id, "deleteitem");
+		Weight.updateWeight(player);
 	}
 
 	public void deleteItem(int id, int slot, int amount) {
@@ -2353,7 +2353,7 @@ public class ItemAssistant {
 				player.playerItems[slot] = 0;
 			}
 			resetItems(3214);
-			Weight.calcWeight(player, id, "deleteitem");
+			Weight.updateWeight(player);
 		}
 	}
 
