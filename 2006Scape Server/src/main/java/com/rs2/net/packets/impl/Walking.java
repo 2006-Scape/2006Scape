@@ -73,6 +73,7 @@ public class Walking implements PacketType {
 		if (player.closeTutorialInterface == false && player.tutorialProgress == 36) {
 			player.getDialogueHandler().sendDialogues(3116, player.npcType);
 		}
+		player.getDialogue().ifPresent(it -> player.getDialogueFactory().clear());
 		if (player.gliderOpen) {
 			player.gliderOpen = false;
 		}

@@ -44,6 +44,7 @@ public class DialogueHandler {
 	}
 
 	public void sendDialogues(int dialogue, int npcId) {
+		player.dialoguePlugin = false;
 		player.talkingNpc = npcId;
 		switch (dialogue) {
 			case 0:
