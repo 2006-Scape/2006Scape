@@ -1165,6 +1165,9 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendSound(int id, int volume, int delay) {
+		if (player != null && !player.soundOn) {
+			return this;
+		}
 		frame174(id, volume, delay);
 		return this;
 	}

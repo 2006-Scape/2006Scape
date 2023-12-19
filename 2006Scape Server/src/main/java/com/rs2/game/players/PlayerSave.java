@@ -209,6 +209,9 @@ public class PlayerSave {
 							case "musicOn":
 								player.musicOn = Boolean.parseBoolean(token2);
 								break;
+							case "soundOn":
+								player.soundOn = Boolean.parseBoolean(token2);
+								break;
 							case "barrowsNpcs":
 								player.barrowsNpcs[Integer.parseInt(token3[0])][1] = Integer.parseInt(token3[1]);
 								break;
@@ -727,6 +730,8 @@ public class PlayerSave {
 			characterfile.write("special-amount = " + player.specAmount);
 			characterfile.newLine();
 			characterfile.write("musicOn = " + player.musicOn);
+			characterfile.newLine();
+			characterfile.write("soundOn = " + player.soundOn);
 			characterfile.newLine();
 			characterfile.write("needsNewTask = " + player.needsNewTask);
 			characterfile.newLine();
