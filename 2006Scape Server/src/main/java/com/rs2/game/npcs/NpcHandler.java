@@ -7,6 +7,7 @@ import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.npcs.NpcAggressive;
 import com.rs2.game.content.combat.npcs.NpcCombat;
@@ -907,21 +908,21 @@ public class NpcHandler {
     public static boolean multiAttacks(int i) {
         switch (npcs[i].npcType) {
             case 1158: //kq
-				if (npcs[i].attackType == 2) {
+				if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
 					return true;
 				}
             case 1160: //kq
-				if (npcs[i].attackType == 1) {
+				if (npcs[i].attackType == AttackType.RANGE.getValue()) {
 					return true;
 				}
             case 2558:
                 return true;
             case 2562:
-                if (npcs[i].attackType == 2) {
+                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
                     return true;
                 }
             case 2550:
-                if (npcs[i].attackType == 1) {
+                if (npcs[i].attackType == AttackType.RANGE.getValue()) {
                     return true;
                 }
             default:
@@ -1424,7 +1425,7 @@ public class NpcHandler {
             case 1158:
                 return 30;
             case 2558:
-                if (npcs[i].attackType == 2) {
+                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
                     return 28;
                 } else {
                     return 68;

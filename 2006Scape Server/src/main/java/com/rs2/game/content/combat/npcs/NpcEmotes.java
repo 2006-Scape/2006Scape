@@ -1,6 +1,7 @@
 package com.rs2.game.content.combat.npcs;
 
 import com.rs2.GameEngine;
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 
@@ -137,11 +138,11 @@ public enum NpcEmotes {
 				} else {
 					switch (NpcHandler.npcs[i].npcType) {
 					case 2745:
-						if (NpcHandler.npcs[i].attackType == 2) {
+						if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
 							return 2656;
-						} else if (NpcHandler.npcs[i].attackType == 1) {
+						} else if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
 							return 2652;
-						} else if (NpcHandler.npcs[i].attackType == 0) {
+						} else if (NpcHandler.npcs[i].attackType == AttackType.MELEE.getValue()) {
 							return 2655;
 						}
 						

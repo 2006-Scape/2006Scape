@@ -1,5 +1,6 @@
 package com.rs2.game.npcs;
 
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
@@ -227,8 +228,8 @@ public class NpcData {
 			return 3;
 
 		case 2745:
-			if (NpcHandler.npcs[i].attackType == 1
-					|| NpcHandler.npcs[i].attackType == 2) {
+			if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()
+					|| NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
 				return 5;
 			} else {
 				return 2;
@@ -285,11 +286,11 @@ public class NpcData {
 	 * It's also worth checking {@link NpcHandler#distanceRequired}
 	 */
 	public static int distanceRequired(int i) {
-		if (NpcHandler.npcs[i].attackType == 1) {
+		if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
 			return 8;
-		} else if (NpcHandler.npcs[i].attackType == 2) {
+		} else if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
 			return 10;
-		} else if (NpcHandler.npcs[i].attackType > 2) {
+		} else if (NpcHandler.npcs[i].attackType > AttackType.MAGIC.getValue()) {
 			return 5;
 		}
 		switch (NpcHandler.npcs[i].npcType) {
