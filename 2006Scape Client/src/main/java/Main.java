@@ -56,7 +56,7 @@ public final class Main {
 					case"-no-roofs":
 					case"-hide-roofs":
 					case"-disable-roofs":
-						ClientSettings.HIDE_ROOFS = false;
+						ClientSettings.HIDE_ROOFS = true;
 						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
