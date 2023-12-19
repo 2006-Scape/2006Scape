@@ -1271,7 +1271,7 @@ public class NpcHandler {
         }
     }
 
-    /***
+    /**
      * Distanced required to attack
      * If NPCs are maging in melee distance check that the NPC ID is actually in here.
      * It's also worth checking  {@link NpcData#distanceRequired}
