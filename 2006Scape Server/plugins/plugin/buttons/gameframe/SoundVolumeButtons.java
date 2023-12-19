@@ -31,7 +31,7 @@ public final class SoundVolumeButtons extends ButtonClick {
 
     @Override
     public boolean test(ButtonActionEvent event) {
-        return event.getButton() == 3162 || event.getButton() == 3163 || event.getButton() == 3164 || event.getButton() == 3165 || event.getButton() == 3166;
+        return event.getButton() == 3173 || event.getButton() == 3174 || event.getButton() == 3175 || event.getButton() == 3176 || event.getButton() == 3177;
     }
 
 }
