@@ -1271,8 +1271,10 @@ public class NpcHandler {
         }
     }
 
-    /**
+    /***
      * Distanced required to attack
+     * If NPCs are maging in melee distance check that the NPC ID is actually in here.
+     * It's also worth checking  {@link NpcData#distanceRequired}
      **/
     public static int distanceRequired(int i) {
         switch (npcs[i].npcType) {
@@ -1282,6 +1284,8 @@ public class NpcHandler {
             case 50:
             case 2562:
                 return 2;
+            case 172: // dark wizards
+            case 174:
             case 2881:// dag kings
             case 2882:
             case 3200:// chaos ele
