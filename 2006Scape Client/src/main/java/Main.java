@@ -35,6 +35,12 @@ public final class Main {
 						Game.customSettingVisiblePlayerNames = true;
 						Game.customSettingMinItemValue = 1000;
 						break;
+					case "-fixesnooverride":
+						ClientSettings.CUSTOM_SETTINGS_TAB = true;
+						ClientSettings.BILINEAR_MINIMAP_FILTERING = true;
+						ClientSettings.FIX_TRANSPARENCY_OVERFLOW = true;
+						ClientSettings.FULL_512PX_VIEWPORT = true;
+						break;
 					case "-no-nav":
 					case"-disable-nav":
 						ClientSettings.SHOW_NAVBAR = false;
