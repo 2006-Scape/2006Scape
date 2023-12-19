@@ -42,8 +42,21 @@ public final class Main {
 						ClientSettings.FULL_512PX_VIEWPORT = true;
 						break;
 					case "-no-nav":
-					case"-disable-nav":
+					case "-disable-nav":
 						ClientSettings.SHOW_NAVBAR = false;
+						break;
+					case"-no-snow":
+					case"-hide-snow":
+					case"-disable-snow":
+						ClientSettings.SNOW_FLOOR_ENABLED = false;
+						ClientSettings.SNOW_FLOOR_FORCE_ENABLED = false;
+						ClientSettings.SNOW_OVERLAY_FORCE_ENABLED = false;
+						ClientSettings.SNOW_OVERLAY_ENABLED = false;
+						break;
+					case"-no-roofs":
+					case"-hide-roofs":
+					case"-disable-roofs":
+						ClientSettings.HIDE_ROOFS = false;
 						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {

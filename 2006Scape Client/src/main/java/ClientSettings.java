@@ -11,7 +11,7 @@ public class ClientSettings {
      * @QoL
      * Hide roofs
      */
-    public static boolean HIDE_ROOFS = true;
+    public static boolean HIDE_ROOFS = false;
     /**
      * @QoL
      * Forces Server-Wide Snow floor
@@ -31,7 +31,7 @@ public class ClientSettings {
      * @QoL
      * Toggles Server-Wide Snow overlay
      */
-    public static boolean SNOW_OVERLAY_ENABLED = true;
+    public static boolean SNOW_OVERLAY_ENABLED = false;
     /**
      * @QoL
      * Enables Server-Wide Snow In The Designated Month
