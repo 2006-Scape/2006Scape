@@ -9,9 +9,39 @@ import java.math.BigInteger;
 public class ClientSettings {
     /**
      * @QoL
-     * Enables Server-Wide Snow In The Designated Month
+     * Hide roofs
      */
-    public static String SNOW_MONTH = ".12";
+    public static boolean HIDE_ROOFS = true;
+    /**
+     * @QoL
+     * Forces Server-Wide Snow floor
+     */
+    public static boolean SNOW_FLOOR_FORCE_ENABLED = false;
+    /**
+     * @QoL
+     * Toggles Server-Wide Snow floor
+     */
+    public static boolean SNOW_FLOOR_ENABLED = false;
+    /**
+     * @QoL
+     * Enables Server-Wide Snow floor In The Designated Month
+     */
+    public static int SNOW_FLOOR_MONTH = 12;
+    /**
+     * @QoL
+     * Forces Server-Wide Snow overlay
+     */
+    public static boolean SNOW_OVERLAY_FORCE_ENABLED = false;
+    /**
+     * @QoL
+     * Toggles Server-Wide Snow overlay
+     */
+    public static boolean SNOW_OVERLAY_ENABLED = false;
+    /**
+     * @QoL
+     * Enables Server-Wide Snow overlay In The Designated Month
+     */
+    public static String SNOW_OVERLAY_MONTH = ".12";
     /**
      * The Servers Name
      */
