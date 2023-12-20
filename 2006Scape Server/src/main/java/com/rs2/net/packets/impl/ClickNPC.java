@@ -15,11 +15,6 @@ import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
-import com.rs2.util.Misc;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Click NPC
@@ -157,10 +152,7 @@ public class ClickNPC implements PacketType {
 				player.getCombatAssistant().resetPlayerAttack();
 				return;
 			}
-			int dir = Misc.direction(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY());
-			Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
-			boolean nearBy = nearbyDirections.contains(dir);
-			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY(), NPCDefinition.forId(NpcHandler.npcs[player.npcIndex].npcType).getSize() > 1 && nearBy ? NPCDefinition.forId(NpcHandler.npcs[player.npcIndex].npcType).getSize() - 1 : NPCDefinition.forId(NpcHandler.npcs[player.npcIndex].npcType).getSize())) {
+			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY(), NPCDefinition.forId(NpcHandler.npcs[player.npcIndex].npcType).getSize())) {
 				System.out.println("distance good! stop movement 1");
 				player.stopMovement();
 			}
