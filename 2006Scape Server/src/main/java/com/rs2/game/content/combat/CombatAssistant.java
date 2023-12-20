@@ -410,12 +410,9 @@ public class CombatAssistant {
 			//distance 7 = shortbow, mode = normal, long range = 9 [good]
 			//distance 9 = longbow, long range = 10 [good]
 			//distance = 10 = crystal bow, both modes [good]
-			int dir = Misc.direction(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY());
-			Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
-			boolean nearBy = nearbyDirections.contains(dir);
 			if (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
 					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() > 1 && nearBy ? NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() - 1 : NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize()) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
+					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize()) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
 					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 7) && (player.usingBow || player.usingMagic)) {
 				return;
 			} else {
@@ -527,10 +524,7 @@ public class CombatAssistant {
 			}
 			player.followNpcId = i;
 			player.followPlayerId = 0;
-			int dir = Misc.direction(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY());
-			Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
-			boolean nearBy = nearbyDirections.contains(dir);
-			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() > 1 && nearBy ? NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() - 1 : NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize())) {
+			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize())) {
 				System.out.println("distance good! stop movement 2");
 				player.stopMovement();
 			}
@@ -584,7 +578,7 @@ public class CombatAssistant {
 				 */
 				if ((!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic)
 						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic)
-						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() > 1 && nearBy ? NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() - 1 : NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize()) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic)
+						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize()) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic)
 						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (player.usingBow || player.usingMagic))) {
 					System.err.println("npc distance check early return! probably not good");
 					return;
