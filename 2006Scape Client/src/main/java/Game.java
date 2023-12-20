@@ -11814,8 +11814,8 @@ public class Game extends RSApplet {
 		draw3dScreen();
 		if (showInfo) {
 			int debugX = 0;
-			int debugY = 249;
-			int debugItems = 4;
+			int debugY = 234;
+			int debugItems = 5;
 			int debugWidth = 140;
 			int debugHeight = 25 + (debugItems * 15);
 			int fill = 0x5d5447;
@@ -11842,6 +11842,8 @@ public class Game extends RSApplet {
 			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY);
 			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Interface:", debugY += 15);
 			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + openInterfaceID, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Zoom level:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + zoom, debugY);
 		}
 		
 		if (customSettingShowExperiencePerHour) {
