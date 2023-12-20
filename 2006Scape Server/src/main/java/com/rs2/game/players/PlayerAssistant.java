@@ -1655,12 +1655,8 @@ public class PlayerAssistant {
 		if (npc == null || npc.isDead) {
 			return;
 		}
-		//We may or may not need the direction check for getSize here, we might always need to apply getSize regardless of direction.
-		int dir = Misc.direction(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY());
-		Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
-		boolean nearBy = nearbyDirections.contains(dir);
-		int x = NpcHandler.npcs[player.followId2].getX() + NPCDefinition.forId(NpcHandler.npcs[player.followId2].npcType).getSize() > 1 && nearBy ? NPCDefinition.forId(NpcHandler.npcs[player.followId2].npcType).getSize() - 1 : NPCDefinition.forId(NpcHandler.npcs[player.followId2].npcType).getSize();
-		int y = NpcHandler.npcs[player.followId2].getY() + NPCDefinition.forId(NpcHandler.npcs[player.followId2].npcType).getSize() > 1 && nearBy ? NPCDefinition.forId(NpcHandler.npcs[player.followId2].npcType).getSize() - 1 : NPCDefinition.forId(NpcHandler.npcs[player.followId2].npcType).getSize();
+		int x = NpcHandler.npcs[player.followId2].getX();
+		int y = NpcHandler.npcs[player.followId2].getY();
 		if (!player.goodDistance(x, y, player.getX(), player.getY(), 25)) {
 			player.followId2 = 0;
 			resetFollow();
