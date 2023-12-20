@@ -154,7 +154,8 @@ public class NpcHandler {
         try {
             NPCDefinition.init();
         } catch (Exception e) {
-            //System.out.println("npc def error");
+            System.out.println("npc def error: ");
+            e.printStackTrace();
         }
     }
 

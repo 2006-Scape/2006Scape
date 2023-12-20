@@ -2,8 +2,13 @@ package com.rs2.game.npcs;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.io.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rs2.util.XStreamUtil;
 
 public class NPCDefinition {
@@ -13,7 +18,7 @@ public class NPCDefinition {
 	public static void init() throws IOException {
 		@SuppressWarnings("unchecked")
 		List<NPCDefinition> defs = (List<NPCDefinition>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/cfg/npcDefinitions.xml"));
-		definitions = new NPCDefinition[3790];
+		definitions = new NPCDefinition[6102]; // This needs to be maximum NPC ID + 1.
 		for (NPCDefinition def : defs) {
 			definitions[def.getId()] = def;
 		}
