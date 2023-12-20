@@ -3,7 +3,8 @@ package com.rs2.game.content.combat;
 public enum AttackType {
         MELEE(0),
         RANGE(1),
-        MAGIC(2);
+        MAGIC(2),
+        FIRE_BREATH(3);
 
         private final int value;
         

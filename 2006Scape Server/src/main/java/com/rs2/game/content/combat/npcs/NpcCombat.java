@@ -177,7 +177,7 @@ public class NpcCombat {
 					} else {
 						loadSpell(c, i);
 					}
-					if (NpcHandler.npcs[i].attackType == 3) {
+					if (NpcHandler.npcs[i].attackType == AttackType.FIRE_BREATH.getValue()) {
 						NpcHandler.npcs[i].hitDelayTimer += 2;
 					}
 					if (NpcHandler.multiAttacks(i)) {
@@ -633,7 +633,7 @@ public class NpcCombat {
 					}
 				}
 
-				if (NpcHandler.npcs[i].attackType == 3) { // fire breath
+				if (NpcHandler.npcs[i].attackType == AttackType.FIRE_BREATH.getValue()) { // fire breath
 					int anti = c.getPlayerAssistant().antiFire();
 					switch (anti) {
 					case 0:// has no shield
