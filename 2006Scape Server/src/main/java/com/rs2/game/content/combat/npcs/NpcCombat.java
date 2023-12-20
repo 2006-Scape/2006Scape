@@ -226,7 +226,7 @@ public class NpcCombat {
 	}
 
 	public static void loadSpell2(int i) {
-		NpcHandler.npcs[i].attackType = 3;
+		NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
 		int random = Misc.random(3);
 		if (random == 0) {
 			NpcHandler.npcs[i].projectileId = 393; // red
@@ -287,7 +287,7 @@ public class NpcCombat {
 		if(Misc.random(10) > 7) {
 			NpcHandler.npcs[i].projectileId = 393; //red
 			NpcHandler.npcs[i].endGfx = 430;
-			NpcHandler.npcs[i].attackType = 3;
+			NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
 			NpcData.startAnimation(2989, i);
 		} else {
 			NpcData.startAnimation(2980, i);
@@ -321,7 +321,7 @@ public class NpcCombat {
 			case 1:
 				NpcHandler.npcs[i].projectileId = 393; // red
 				NpcHandler.npcs[i].endGfx = 430;
-				NpcHandler.npcs[i].attackType = 3;
+				NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
 				break;
 			default:
 				NpcHandler.npcs[i].projectileId = -1; // melee
@@ -347,22 +347,22 @@ public class NpcCombat {
 			case 0:
 				NpcHandler.npcs[i].projectileId = 393; // red
 				NpcHandler.npcs[i].endGfx = 430;
-				NpcHandler.npcs[i].attackType = 3;
+				NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
 				break;
 			case 1:
 				NpcHandler.npcs[i].projectileId = 394; // green
 				NpcHandler.npcs[i].endGfx = 429;
-				NpcHandler.npcs[i].attackType = 3;
+				NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
 				break;
 			case 2:
 				NpcHandler.npcs[i].projectileId = 395; // white
 				NpcHandler.npcs[i].endGfx = 431;
-				NpcHandler.npcs[i].attackType = 3;
+				NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
 				break;
 			case 3:
 				NpcHandler.npcs[i].projectileId = 396; // blue
 				NpcHandler.npcs[i].endGfx = 428;
-				NpcHandler.npcs[i].attackType = 3;
+				NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
 				break;
 			case 4:
 				NpcHandler.npcs[i].projectileId = -1; // melee
