@@ -1655,6 +1655,7 @@ public class PlayerAssistant {
 		if (npc == null || npc.isDead) {
 			return;
 		}
+		//We may or may not need the direction check for getSize here, we might always need to apply getSize regardless of direction.
 		int dir = Misc.direction(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY());
 		Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
 		boolean nearBy = nearbyDirections.contains(dir);
