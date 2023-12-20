@@ -180,10 +180,10 @@ public enum NpcEmotes {
 						return 2654;
 					case 1158:
 						GameEngine.npcHandler.spawnSecondForm(player, i);
-						return 6242;
+						return 1187;
 					case 1160:
 						GameEngine.npcHandler.spawnFirstForm(player, i);
-						return 6233;
+						return 1182;
 					}
 				}
 			}
