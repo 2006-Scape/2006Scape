@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.*;
 import java.io.*;
 
 import com.google.gson.Gson;
@@ -14,8 +14,8 @@ import com.google.gson.reflect.TypeToken;
 import com.rs2.util.XStreamUtil;
 
 public class NPCDefinition {
-
-	private static NPCDefinition[] definitions = null;
+	
+	public static HashMap<Integer, NPCDefinition> definitions = new HashMap<>();
 
 	public static void init() throws IOException {
 		Gson gson = new Gson();
@@ -24,14 +24,13 @@ public class NPCDefinition {
 		try (FileReader reader = new FileReader("data/cfg/npcDefinitions.json")) {
         	defs = gson.fromJson(reader, type);
 		}
-		definitions = new NPCDefinition[6102]; // This needs to be maximum NPC ID + 1.
 		for (NPCDefinition def : defs) {
-			definitions[def.getId()] = def;
+			definitions.put(def.getId(), def);
 		}
 	}
 
 	public static NPCDefinition forId(int id) {
-		NPCDefinition d = definitions[id];
+		NPCDefinition d = definitions.get(id);
 		if (d == null) {
 			d = produceDefinition(id);
 		}
