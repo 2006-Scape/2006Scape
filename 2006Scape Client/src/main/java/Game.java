@@ -2975,7 +2975,11 @@ public class Game extends RSApplet {
 		if (anInt1011 > 0) {
 			anInt1011--;
 		}
-		for (int j = 0; j < 5; j++) {
+		//Technically, this loop should be < 5 for authenticity, but until we reduce server inefficiencies
+		//(for example killing a bunch of cows results in client lag, 
+		//likely from all the items on the ground for example), < 100 is fine. 
+		//OSRS uses < 100 and there are no drawbacks from having this < 100.
+		for (int j = 0; j < 100; j++) {
 			if (!parsePacket()) {
 				break;
 			}
