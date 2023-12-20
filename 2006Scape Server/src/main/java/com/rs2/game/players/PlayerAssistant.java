@@ -1,6 +1,8 @@
 package com.rs2.game.players;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Random;
 
 import com.rs2.Constants;
 import com.rs2.GameEngine;
