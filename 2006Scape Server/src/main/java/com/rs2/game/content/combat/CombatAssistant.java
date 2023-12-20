@@ -21,6 +21,7 @@ import com.rs2.game.content.music.sound.CombatSounds;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.slayer.SlayerRequirements;
 import com.rs2.game.items.DeprecatedItems;
+import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
@@ -406,7 +407,7 @@ public class CombatAssistant {
 			//distance = 10 = crystal bow, both modes [good]
 			if (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
 					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
+					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize()) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
 					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 7) && (player.usingBow || player.usingMagic)) {
 				return;
 			} else {
@@ -513,6 +514,10 @@ public class CombatAssistant {
 
 			player.followId2 = i;
 			player.followId = 0;
+			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize())) {
+				System.out.println("distance good! stop movement 2");
+				player.stopMovement();
+			}
 			if (player.attackTimer <= 0) {
 				player.usingBow = false;
 				player.usingRangeWeapon = false;
@@ -554,16 +559,18 @@ public class CombatAssistant {
 				}
 
 				if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, npc.getX(), npc.getY())) {
+					System.err.println("projectile path is not clear! exiting early");
 					return;
 				}
-
+				System.out.println("npc id is " + NpcHandler.npcs[i].npcType + " with size " + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize());
 				/**
 				 * Distances for attacking npcs
 				 */
-				if (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
-						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (player.usingBow || player.usingMagic)) {
+				if ((!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic)
+						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic)
+						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize()) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic)
+						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (player.usingBow || player.usingMagic))) {
+					System.err.println("npc distance check early return! probably not good");
 					return;
 				} else {
 					player.stopMovement();
@@ -599,6 +606,7 @@ public class CombatAssistant {
 				if (player.usingBow || player.usingMagic || player.usingRangeWeapon || player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player)) {
 					player.stopMovement();
 				}
+				
 				if (!checkMagicReqs(player.spellId)) {
 					player.stopMovement();
 					player.npcIndex = 0;

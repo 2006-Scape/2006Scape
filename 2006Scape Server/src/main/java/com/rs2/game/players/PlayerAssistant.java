@@ -1667,7 +1667,7 @@ public class PlayerAssistant {
 
 		int[] follow = getFollowLocation(x, y);
 		player.faceUpdate(player.followId2);
-        PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
+        PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], true, 1, 1);
 	}
 
 	public int getRunningMove(int i, int j) {
