@@ -58,6 +58,9 @@ public final class Main {
 					case"-disable-roofs":
 						ClientSettings.HIDE_ROOFS = true;
 						break;
+					case"-show-zoom":
+						ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES = true;
+						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
 					switch(args[i]) {

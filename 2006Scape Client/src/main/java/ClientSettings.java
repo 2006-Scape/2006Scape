@@ -9,6 +9,11 @@ import java.math.BigInteger;
 public class ClientSettings {
     /**
      * @QoL
+     * Show zoom level messages in chat when changing zoom levels
+     */
+    public static boolean SHOW_ZOOM_LEVEL_MESSAGES = false;
+    /**
+     * @QoL
      * Hide roofs
      */
     public static boolean HIDE_ROOFS = false;

@@ -12621,12 +12621,20 @@ public class Game extends RSApplet {
 				tabAreaAltered = true;
 				break;
 			case KeyEvent.VK_PAGE_UP:
-				if (zoom > -1)
+				if (zoom > -1) {
 					zoom--;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 				break;
 			case KeyEvent.VK_PAGE_DOWN:
-				if (zoom < (WorldController.drawDistance / 3))
+				if (zoom < (WorldController.drawDistance / 3)) {
 					zoom++;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 				break;
 			case KeyEvent.VK_V:
 				if (keyevent.isControlDown()) {
@@ -12811,11 +12819,19 @@ public class Game extends RSApplet {
 		// If mouse over main game screen, without anything else opened
 		if (openInterfaceID == -1 && mouseX < 515 && mouseY < 340) {
 			if (notches < 0) {
-				if (zoom > -1)
+				if (zoom > -1) {
 					zoom--;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 			} else {
-				if (zoom < (WorldController.drawDistance / 3))
+				if (zoom < (WorldController.drawDistance / 3)) {
 					zoom++;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 			}
 		}
 	}
