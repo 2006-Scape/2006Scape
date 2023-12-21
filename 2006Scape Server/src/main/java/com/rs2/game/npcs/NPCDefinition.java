@@ -15,7 +15,7 @@ import com.rs2.util.XStreamUtil;
 
 public class NPCDefinition {
 	
-	public static HashMap<Integer, NPCDefinition> definitions = new HashMap<>();
+	private static HashMap<Integer, NPCDefinition> definitions = new HashMap<>();
 
 	public static void init() throws IOException {
 		Gson gson = new Gson();
