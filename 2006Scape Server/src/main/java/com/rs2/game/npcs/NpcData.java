@@ -332,6 +332,8 @@ public class NpcData {
 			case 2028 : // Karil
 			case 2631 : // Tok-Xil (Tzhaar ranging guy)
 			case 1183 : // Elf ranger
+			case 172: // dark wizards
+			case 174:
 				return 8;
 			case 941 : // Green drag
 			case 50 : // Kbd
