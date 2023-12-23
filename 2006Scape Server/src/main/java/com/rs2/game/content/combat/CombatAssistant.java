@@ -410,6 +410,7 @@ public class CombatAssistant {
 					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 7) && (player.usingBow || player.usingMagic)) {
 				return;
 			} else {
+				player.followId2 = 0;
 				player.stopMovement();
 			}
 		}
@@ -566,6 +567,7 @@ public class CombatAssistant {
 						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (player.usingBow || player.usingMagic)) {
 					return;
 				} else {
+					player.followId2 = 0;
 					player.stopMovement();
 				}
 
