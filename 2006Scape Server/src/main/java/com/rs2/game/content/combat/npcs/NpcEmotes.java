@@ -40,7 +40,7 @@ public enum NpcEmotes {
 		COW(new int[] {81, 397, 1766, 1767, 1768}, 59, 60, 62),
 		BLOODVELD(new int[] {1618, 1619}, 1552, 1550, 1553),
 		IMP(new int[] {708}, 169, 170, 172),
-		DARK_WIZARD(new int[] {172, 13}, 711, 1834, 836),
+		DARK_WIZARD(new int[] {172, 13, 174}, 711, 1834, 836),
 		DUCK(new int[] {44, 45}, 7, 8, 9),
 		SPINOLYP(new int[] {2892, 2894}, 2868, 2864, 2865),
 		DWARF(new int[] {118, 119}, 99, 100, 102),
