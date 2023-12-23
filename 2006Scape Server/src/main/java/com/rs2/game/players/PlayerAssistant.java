@@ -11,7 +11,6 @@ import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.prayer.PrayerDrain;
-import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.content.minigames.FightPits;
 import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
@@ -1665,13 +1664,7 @@ public class PlayerAssistant {
 			resetFollow();
 			return;
 		}
-		if (player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.followId2].getX(), NpcHandler.npcs[player.followId2].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-				|| player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.followId2].getX(), NpcHandler.npcs[player.followId2].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-				|| player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.followId2].getX(), NpcHandler.npcs[player.followId2].getY(), 1) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
-				|| player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.followId2].getX(), NpcHandler.npcs[player.followId2].getY(), 8) && (player.usingBow || player.usingMagic)) {
-			player.followId2 = 0;
-			return;
-		}
+
 		int[] follow = getFollowLocation(x, y);
 		player.faceUpdate(player.followId2);
         PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
