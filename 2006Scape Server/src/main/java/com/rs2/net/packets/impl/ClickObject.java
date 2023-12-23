@@ -219,7 +219,13 @@ public class ClickObject implements PacketType {
             case 8929:
                 player.fade(2442, 10147, 0);
             break;
-
+			
+			case 12230: // Mole lair rope
+				if (player.objectX == 1752 && player.objectY == 5136) {
+					player.getPlayerAssistant().movePlayer(2997, 3375, 0);
+				}
+			break;
+				
 			case 1568:
 				if (player.objectX == 2399 && player.objectY == 3099) {
 					player.getPacketSender()
