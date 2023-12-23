@@ -24,7 +24,7 @@ public class ClientSettings {
     public static boolean SNOW_FLOOR_FORCE_ENABLED = false;
     /**
      * @QoL
-     * Toggles Server-Wide Snow floor
+     * Toggles Server-Wide Snow floor (for the designated month)
      */
     public static boolean SNOW_FLOOR_ENABLED = true;
     /**
@@ -34,7 +34,7 @@ public class ClientSettings {
     public static boolean SNOW_OVERLAY_FORCE_ENABLED = false;
     /**
      * @QoL
-     * Toggles Server-Wide Snow overlay
+     * Toggles Server-Wide Snow overlay (for the designated month)
      */
     public static boolean SNOW_OVERLAY_ENABLED = false;
     /**
