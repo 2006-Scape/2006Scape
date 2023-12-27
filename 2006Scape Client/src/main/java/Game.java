@@ -5614,8 +5614,6 @@ public class Game extends RSApplet {
 			if (!file.exists()) {
 				ImageIO.write(bufferedimage, "png", file);
 				pushMessage("A picture has been saved in your screenshots folder.", 0, "");
-			} else {
-				pushMessage("@red@Uh oh! A file with that name already exists!", 0, "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
