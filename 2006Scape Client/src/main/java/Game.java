@@ -3,12 +3,14 @@
  * THIS IS TO ALLOW LOCAL PARABOT TO CONTINUE TO WORK
  */
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.applet.AppletContext;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -23,6 +25,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.CRC32;
@@ -5579,7 +5582,45 @@ public class Game extends RSApplet {
 		}
 
 	}
-
+	private int screenshot;
+	
+	private boolean takeScreeny = true;
+	public void screenshot() {
+		try {
+			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
+			Point point = window.getLocationOnScreen();
+			int x = (int) point.getX();
+			int y = (int) point.getY();
+			int w = window.getWidth();
+			int h = window.getHeight();
+			Robot robot = new Robot(window.getGraphicsConfiguration().getDevice());
+			Rectangle captureSize = new Rectangle(x, y, w, h);
+			BufferedImage bufferedimage = robot.createScreenCapture(captureSize);
+	
+			// Format the current date and time
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd-HH_mm_ss");
+			String dateTime = dateFormat.format(new Date());
+	
+			// Update the file path and naming
+			String fileExtension = myUsername;
+			String screenshotDir = System.getProperty("user.home") + "/2006Scape/screenshots/";
+			File dir = new File(screenshotDir);
+			if (!dir.exists()) {
+				dir.mkdirs(); // Create the directory if it doesn't exist
+			}
+	
+			File file = new File(screenshotDir + fileExtension + "_" + dateTime + ".png");
+	
+			if (!file.exists()) {
+				ImageIO.write(bufferedimage, "png", file);
+				pushMessage("A picture has been saved in your screenshots folder.", 0, "");
+			} else {
+				pushMessage("@red@Uh oh! A file with that name already exists!", 0, "");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void pushMessage(String s, int i, String s1) {
 		if (i == 0 && dialogID != -1) {
 			aString844 = s;
@@ -12635,6 +12676,9 @@ public class Game extends RSApplet {
 					inputTaken = true;
 				}
 
+		}
+		  if (keyevent.getKeyCode() == KeyEvent.VK_PRINTSCREEN && keyevent.isControlDown()) {
+			screenshot(); // Call the screenshot method
 		}
 	}
 
