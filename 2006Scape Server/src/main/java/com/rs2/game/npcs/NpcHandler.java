@@ -331,28 +331,40 @@ public class NpcHandler {
         npcs[slot] = newNPC;
     }
 
-    private void killedBarrow(int i) {
+    private boolean killedBarrow(int i) {
+        boolean barrows = false;
         Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
         if (c != null) {
             for (int o = 0; o < c.barrowsNpcs.length; o++) {
                 if (npcs[i].npcType == c.barrowsNpcs[o][0]) {
                     c.barrowsNpcs[o][1] = 2; // 2 for dead
                     c.barrowsKillCount++;
+                    barrows = true;
+                }
+            }
+            if (barrows && c.getBarrows().checkBarrows()) {
+                c.incrementNpcKillCount(100000, 1);
+                if (c.displayBossKcMessages || c.displayRegularKcMessages) {
+                    c.getPacketSender().sendMessage("Your Barrows Chest count is now: " + c.getNpcKillCount(100000));
                 }
             }
         }
+        return barrows;
     }
 
-    private void killedCrypt(int i) {
+    private boolean killedCrypt(int i) {
+        boolean crypt = false;
         Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
         if (c != null) {
             for (int o = 0; o < c.barrowCrypt.length; o++) {
                 if (npcs[i].npcType == c.barrowCrypt[o][0]) {
                     c.barrowsKillCount++;
                     c.getPacketSender().sendString("" + c.barrowsKillCount, 4536);
+                    crypt = true;
                 }
             }
         }
+        return crypt;
     }
 
     public void newNPC(int npcType, int x, int y, int heightLevel,
@@ -745,10 +757,16 @@ public class NpcHandler {
                         npcs[i].animUpdateRequired = true;
                         npcs[i].freezeTimer = 0;
                         npcs[i].applyDead = true;
-                        killedBarrow(i);
-                        killedCrypt(i);
+                        boolean barrows = killedBarrow(i);
+                        boolean crypt = killedCrypt(i);
                         npcs[i].actionTimer = 4; // delete time
                         resetPlayersInCombat(i);
+                        if (!crypt && !barrows && c != null) {
+                            c.incrementNpcKillCount(npcs[i].npcType, 1);
+                            if (c.displayRegularKcMessages || (c.displayBossKcMessages && Constants.BOSS_NPC_IDS.contains(npcs[i].npcType)) || (c.displaySlayerKcMessages && Constants.SLAYER_NPC_IDS.contains(npcs[i].npcType))) {
+                                c.getPacketSender().sendMessage("Your " + npcs[i].name() + " kill count is now: " + c.getNpcKillCount(npcs[i].npcType));
+                            }
+                        }
                     } else if (npcs[i].actionTimer == 0
                             && npcs[i].applyDead
                             && npcs[i].needRespawn == false) {

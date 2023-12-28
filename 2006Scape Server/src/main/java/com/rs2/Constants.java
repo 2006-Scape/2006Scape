@@ -1,6 +1,10 @@
 package com.rs2;
 
+import com.rs2.game.content.StaticNpcList;
+
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Constants {
 
@@ -105,4 +109,88 @@ public class Constants {
             CRAFTING = 12, SMITHING = 13, MINING = 14, HERBLORE = 15,
             AGILITY = 16, THIEVING = 17, SLAYER = 18, FARMING = 19,
             RUNECRAFTING = 20;
+    
+    public static final HashSet<Integer> BOSS_NPC_IDS = new HashSet<>(Arrays.asList(
+        StaticNpcList.DAGANNOTH_REX,
+        StaticNpcList.DAGANNOTH_PRIME,
+        StaticNpcList.DAGANNOTH_SUPREME,
+        StaticNpcList.KING_BLACK_DRAGON,
+        StaticNpcList.KALPHITE_QUEEN,
+        StaticNpcList.GIANT_MOLE,
+        StaticNpcList.TZTOKJAD    
+    ));
+
+    public static final HashSet<Integer> SLAYER_NPC_IDS = new HashSet<>(Arrays.asList(
+        StaticNpcList.CRAWLING_HAND,    
+        StaticNpcList.CRAWLING_HAND_1649,    
+        StaticNpcList.CRAWLING_HAND_1650,    
+        StaticNpcList.CRAWLING_HAND_1651,    
+        StaticNpcList.CRAWLING_HAND_1652,    
+        StaticNpcList.CRAWLING_HAND_1653,    
+        StaticNpcList.CRAWLING_HAND_1654,    
+        StaticNpcList.CRAWLING_HAND_1655,    
+        StaticNpcList.CRAWLING_HAND_1656,    
+        StaticNpcList.CRAWLING_HAND_1657,
+        StaticNpcList.CAVE_BUG,
+        StaticNpcList.CAVE_CRAWLER,
+        StaticNpcList.CAVE_CRAWLER_1601,
+        StaticNpcList.CAVE_CRAWLER_1602,
+        StaticNpcList.CAVE_CRAWLER_1603,
+        StaticNpcList.BANSHEE,
+        StaticNpcList.CAVE_SLIME,
+        StaticNpcList.ROCKSLUG,
+        StaticNpcList.ROCKSLUG_1623,
+        StaticNpcList.DESERT_LIZARD,
+        StaticNpcList.DESERT_LIZARD_2805,
+        StaticNpcList.DESERT_LIZARD_2806,
+        StaticNpcList.COCKATRICE,
+        StaticNpcList.COCKATRICE_1621,
+        StaticNpcList.PYREFIEND,
+        StaticNpcList.PYREFIEND_1634,
+        StaticNpcList.PYREFIEND_1635,
+        StaticNpcList.PYREFIEND_1636,
+        StaticNpcList.MOGRE,
+        StaticNpcList.HARPIE_BUG_SWARM,
+        StaticNpcList.WALL_BEAST,
+        StaticNpcList.KILLERWATT,
+        StaticNpcList.KILLERWATT_3202,
+        StaticNpcList.BASILISK,
+        StaticNpcList.BASILISK_1617,
+        StaticNpcList.FEVER_SPIDER,
+        StaticNpcList.INFERNAL_MAGE,
+        StaticNpcList.INFERNAL_MAGE_1644,
+        StaticNpcList.INFERNAL_MAGE_1645,
+        StaticNpcList.INFERNAL_MAGE_1646,
+        StaticNpcList.INFERNAL_MAGE_1647,
+        StaticNpcList.JELLY,
+        StaticNpcList.JELLY_1638,
+        StaticNpcList.JELLY_1639,
+        StaticNpcList.JELLY_1640,
+        StaticNpcList.JELLY_1641,
+        StaticNpcList.JELLY_1642,
+        StaticNpcList.TUROTH,
+        StaticNpcList.TUROTH_1627,
+        StaticNpcList.TUROTH_1628,
+        StaticNpcList.TUROTH_1629,
+        StaticNpcList.TUROTH_1630,
+        StaticNpcList.TUROTH_1631,
+        StaticNpcList.TUROTH_1632,
+        StaticNpcList.ABERRANT_SPECTER,
+        StaticNpcList.ABERRANT_SPECTER_1605,
+        StaticNpcList.ABERRANT_SPECTER_1606,
+        StaticNpcList.ABERRANT_SPECTER_1607,
+        StaticNpcList.DUST_DEVIL,
+        StaticNpcList.KURASK,
+        StaticNpcList.KURASK_1609,
+        StaticNpcList.SKELETAL_WYVERN,
+        StaticNpcList.SKELETAL_WYVERN_3069,
+        StaticNpcList.SKELETAL_WYVERN_3070,
+        StaticNpcList.SKELETAL_WYVERN_3071,
+        StaticNpcList.GARGOYLE,
+        StaticNpcList.GARGOYLE_1611,
+        StaticNpcList.NECHRYAEL,
+        StaticNpcList.ABYSSAL_DEMON,
+        StaticNpcList.DARK_BEAST,
+        StaticNpcList.SMOKEDEVIL
+    ));
 }

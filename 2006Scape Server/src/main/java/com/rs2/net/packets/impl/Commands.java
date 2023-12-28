@@ -219,6 +219,27 @@ public class Commands implements PacketType {
             case "prayer":
                 player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[Constants.PRAYER]));
                 break;
+            case "togglenpckillmsgs":
+            case "togglenpckillmsg":
+            case "togglenpckcmsgs":
+            case "togglenpckcmsg":
+                player.displayRegularKcMessages = !player.displayRegularKcMessages;
+                player.getPacketSender().sendMessage("You now have regular NPC kill count messages: " + (player.displayRegularKcMessages ? "enabled" : "disabled"));
+                break;
+            case "togglebosskillmsgs":
+            case "togglebosskillmsg":
+            case "togglebossksmsgs":
+            case "togglebossksmsg":
+                player.displayBossKcMessages = !player.displayBossKcMessages;
+                player.getPacketSender().sendMessage("You now have boss NPC kill count messages: " + (player.displayBossKcMessages ? "enabled" : "disabled"));
+                break;
+            case "toggleslayerkillmsgs":
+            case "toggleslayerkillmsg":
+            case "toggleslayerkcmsgs":
+            case "toggleslayerkcmsg":
+                player.displaySlayerKcMessages = !player.displaySlayerKcMessages;
+                player.getPacketSender().sendMessage("You now have slayer NPC kill count messages: " + (player.displaySlayerKcMessages ? "enabled" : "disabled"));
+                break;
             case "snow":
                 Calendar date = new GregorianCalendar();
                 if ((date.get(Calendar.MONTH) + 1) == 12 && !player.inWild()) {
@@ -314,6 +335,15 @@ public class Commands implements PacketType {
                         "",
                         "::withdrawshop(::wshop)",
                         "Withdraw profits from player owned shop",
+                        "",
+                        "::togglenpckillmsgs(::togglenpckcmsgs)",
+                        "Toggle regular NPC kill count message display","",
+                        "",
+                        "::togglebosskillmsgs(::togglebosskcmsgs)",
+                        "Toggle regular Boss kill count message display","",
+                        "",
+                        "::toggleslayerkillmsgs(::toggleslayerkcmsgs)",
+                        "Toggle regular Slayer kill count message display",
                         "",
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
