@@ -19,6 +19,7 @@ import com.rs2.world.clip.Region;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 public class Commands implements PacketType {
 
@@ -48,10 +49,25 @@ public class Commands implements PacketType {
         switch (playerCommand.toLowerCase()) {
             case "stuck":
                 if(JavaCord.token != null) {
-                    if (JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
+                    if (JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
                         JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
                 }
+                System.err.println("Player " + player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
                 player.getPlayerAssistant().spellTeleport(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
+                break;
+            case "home":
+                long currentTime = System.currentTimeMillis();
+                long cooldown = 30 * 60 * 1000; // 30 minutes in milliseconds
+                if (player.getLastHomeTeleport() == 0 || (currentTime - player.getLastHomeTeleport() >= cooldown)) {
+                    player.getPlayerAssistant().spellTeleport(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
+                    player.setLastHomeTeleport(currentTime); // Update the last teleport time
+                } else {
+                    long remainingTime = cooldown - (currentTime - player.getLastHomeTeleport());
+                    long minutesLeft = TimeUnit.MILLISECONDS.toMinutes(remainingTime);
+                    long secondsLeft = TimeUnit.MILLISECONDS.toSeconds(remainingTime) - TimeUnit.MINUTES.toSeconds(minutesLeft);
+                    player.getPacketSender().sendMessage("You need to wait " + minutesLeft + " minutes and " + secondsLeft + " seconds to use home teleport again.");
+                }
+                break;
             case "link":
                 player.setDiscordCode(arguments[0]);
                 player.getPacketSender().sendMessage("Your Account has now been linked with Discord User ID:");

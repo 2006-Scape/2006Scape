@@ -75,6 +75,7 @@ import org.apollo.util.security.IsaacRandom;
 public abstract class Player {
 
 	public byte buffer[] = null;
+	private long lastHomeTeleport = 0;
 	public String lastConnectedFrom;
 	public int xpRate = 1;
 	public String discordCode;
@@ -149,6 +150,14 @@ public abstract class Player {
 	public int getXPRate() { return xpRate; }
 
 	public void setXPRate(int xpRate) { this.xpRate = xpRate; }
+	
+	public long getLastHomeTeleport() {
+		return lastHomeTeleport;
+	}
+
+	public void setLastHomeTeleport(long lastHomeTeleport) {
+		this.lastHomeTeleport = lastHomeTeleport;
+	}
 
 	public String getDiscordCode() { return discordCode; }
 
