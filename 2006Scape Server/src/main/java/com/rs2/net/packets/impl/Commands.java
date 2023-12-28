@@ -261,6 +261,9 @@ public class Commands implements PacketType {
                 else
                     player.gfx0(Integer.parseInt(arguments[0]));
                 break;
+            case "uptime":
+                player.getPacketSender().sendMessage("The server has now been online for: " + Misc.getServerUptime(GameEngine.getServerStartTime()));
+                break;
             case "tele":
                 if (player.connectedFrom.equals("127.0.0.1")) {
                     try {
