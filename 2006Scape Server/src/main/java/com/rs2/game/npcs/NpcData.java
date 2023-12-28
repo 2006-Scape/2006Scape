@@ -444,7 +444,7 @@ public class NpcData {
 			if (!firstCheck) {
 				if (melee) {
 					if (!Region.getClipping(x, y, n.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
-						System.err.println("checkClipping Region.getClipping exit early 1");
+						System.err.println("checkClip Region.getClipping exit early 1");
 						return false;
 					}
 				}
@@ -455,7 +455,7 @@ public class NpcData {
 			}
 			if (melee) {
 				if (!Region.getClipping(x, y, n.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
-					System.err.println("checkClipping Region.getClipping exit early 2");
+					System.err.println("checkClip Region.getClipping exit early 2");
 					return false;
 				}
 			}
