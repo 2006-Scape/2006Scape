@@ -241,7 +241,7 @@ public class GameEngine {
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
 			int gameTicksIncrementor;
-			final int printInfoTick = 10;
+			final int printInfoTick = Constants.CYCLE_LOGGING_TICK;
 			public void run() {
 				Stopwatch stopwatch = Stopwatch.createStarted();
 				/**
@@ -328,7 +328,7 @@ public class GameEngine {
 						System.out.println("NOTICE: Cycle duration exceeded 100 ms.");
 					}
 					gameTicksIncrementor++;
-					if (gameTicksIncrementor > 1 && gameTicksIncrementor % printInfoTick == 0) {
+					if (Constants.CYCLE_LOGGING && gameTicksIncrementor > 1 && gameTicksIncrementor % printInfoTick == 0) {
 						long totalMem = Runtime.getRuntime().totalMemory();
 						long freeMem = Runtime.getRuntime().freeMemory();
 						long maxMem = Runtime.getRuntime().maxMemory();
