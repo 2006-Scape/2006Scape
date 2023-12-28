@@ -92,7 +92,8 @@ public class Misc {
      * @return
      */
     public static String format(final int num) {
-        return NumberFormat.getInstance().format(num);
+        String string = Integer.toString(num);
+        return string;
     }
 
     /**
