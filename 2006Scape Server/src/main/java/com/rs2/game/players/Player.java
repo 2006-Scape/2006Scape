@@ -63,6 +63,7 @@ import com.rs2.util.Stream;
 import com.rs2.world.Boundary;
 import com.rs2.world.ObjectManager;
 
+import com.rs2.world.clip.Region;
 import io.netty.buffer.Unpooled;
 
 import java.util.*;
@@ -552,6 +553,18 @@ public abstract class Player {
 		getPacketSender().sendFrame246(4552, 250, 6830);
 		getPacketSender().showInterface(4543);
 	}
+	
+	public static int getAttackDistance(Player player) {
+        if (RangeData.usingHally(player)) {
+            return 2;
+        } else if (player.usingBow || player.usingRangeWeapon) {
+            return 7;
+        } else if (player.usingMagic) {
+            return 8;
+        } else {
+            return 1;
+        }
+    }
 
 	public void flushOutStream() {
 		if (disconnected || outStream == null || outStream.currentOffset == 0 || (session != null && !session.isActive())) {
@@ -1615,6 +1628,93 @@ public abstract class Player {
 		if (gameInterface != id) {
 			gameInterface = id;
 		}
+	}
+	
+	public static boolean checkClip(Player player, Npc n) {
+		int x2 = 0, y2 = 0, x3 = 0, y3 = 0;
+		if (player == null) return false;
+		int x = player.getX(); // -1
+		int y = player.getY(); // 1
+		final int dis = NpcHandler.distanceRequired(n.npcType);
+		int dis2 = 0;
+		final boolean melee = !player.usingBow && !player.usingMagic && !player.usingRangeWeapon;
+		/*if (x != x2 && y != y2) {
+			System.err.println("checkClip exit early! return false");
+			return false;
+		}*/
+		// Algorithm starts here
+		int w = x2 - x;
+		int h = y2 - y;
+		int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
+		if (w < 0) {
+			dx1 = -1;
+		} else if (w > 0) {
+			dx1 = 1;
+		}
+		if (h < 0) {
+			dy1 = -1;
+		} else if (h > 0) {
+			dy1 = 1;
+		}
+		if (w < 0) {
+			dx2 = -1;
+		} else if (w > 0) {
+			dx2 = 1;
+		}
+		int longest = Math.abs(w);
+		int shortest = Math.abs(h);
+		if (!(longest > shortest)) {
+			longest = Math.abs(h);
+			shortest = Math.abs(w);
+			if (h < 0) {
+				dy2 = -1;
+			} else if (h > 0) {
+				dy2 = 1;
+			}
+			dx2 = 0;
+		}
+		int numerator = longest >> 1;
+		boolean firstCheck = false;
+		for (int i = 0; i <= longest; i++) {
+			if (dis2 > dis) {
+				System.err.println("checkClip early exit, dis2 > dis " + dis2 + " > " + dis );
+				return false;
+			}
+			dis2++;
+			x3 = x;
+			y3 = y;
+			numerator += shortest;
+			if (!(numerator < longest)) {
+				numerator -= longest;
+				x += dx1;
+				y += dy1;
+			} else {
+				x += dx2;
+				y += dy2;
+			}
+			if (!firstCheck) {
+				if (melee) {
+					if (!Region.getClipping(x, y, player.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, player.heightLevel, x - x3, y - y3)) {
+						System.err.println("checkClipping Region.getClipping exit early 1");
+						return false;
+					}
+				}
+				if (x == x2 && y == y2) {
+					break;
+				}
+				firstCheck = true;
+			}
+			if (melee) {
+				if (!Region.getClipping(x, y, player.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, player.heightLevel, x - x3, y - y3)) {
+					System.err.println("checkClipping Region.getClipping exit early 2");
+					return false;
+				}
+			}
+			if (x == x2 && y == y2) {
+				return true;
+			}
+		}
+		return true;
 	}
 
 	public int gameInterface;
