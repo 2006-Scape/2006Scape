@@ -514,7 +514,7 @@ public class CombatAssistant {
 			}
 			if ((player.underAttackBy > 0 || player.underAttackBy2 > 0) && player.underAttackBy2 != i && !Boundary.isIn(player, Boundary.MULTI)) {
 				resetPlayerAttack();
-				player.getPacketSender().sendMessage("I'm already under attack.");
+				player.getPacketSender().sendMessage("I am already under attack.");
 				return;
 			}
 			if (NpcHandler.npcs[i].spawnedBy != player.playerId && NpcHandler.npcs[i].spawnedBy > 0) {
@@ -522,10 +522,7 @@ public class CombatAssistant {
 				player.getPacketSender().sendMessage("This monster was not spawned for you.");
 				return;
 			}
-			if (!Player.checkClip(player, NpcHandler.npcs[i])) {
-				player.getPacketSender().sendMessage("I can't reach that!");
-				return;
-			}
+
 			player.followNpcId = i;
 			player.followPlayerId = 0;
 			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize())) {
