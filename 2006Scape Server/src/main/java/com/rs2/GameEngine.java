@@ -13,6 +13,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.google.common.base.Stopwatch;
+import com.rs2.game.npcs.Npc;
+import com.rs2.game.npcs.NpcList;
 import com.rs2.gui.ControlPanel;
 
 import org.apollo.cache.IndexedFileSystem;
@@ -237,8 +240,10 @@ public class GameEngine {
 		 * scheduleAtFixedRate() does not invoke concurrent Runnables.
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
+			int gameTicksIncrementor;
+			final int printInfoTick = Constants.CYCLE_LOGGING_TICK;
 			public void run() {
-				//TODO debug Stopwatch stopwatch = Stopwatch.createStarted();
+				Stopwatch stopwatch = Stopwatch.createStarted();
 				/**
 				 * Main Server Tick
 				 */
@@ -246,17 +251,51 @@ public class GameEngine {
 					if (GameEngine.shutdownServer) {
 						scheduler.shutdown();
 					}
+					long startItemHandler = System.currentTimeMillis();
 					itemHandler.process();
+					long durationItemHandler = System.currentTimeMillis() - startItemHandler;
+					checkAndLogDuration("ItemHandler", durationItemHandler);
+					long startPlayerHandler = System.currentTimeMillis();
 					playerHandler.process();
+					long durationPlayerHandler = System.currentTimeMillis() - startPlayerHandler;
+					checkAndLogDuration("PlayerHandler", durationPlayerHandler);
+					long startNpcHandler = System.currentTimeMillis();
 					npcHandler.process();
+					long durationNpcHandler = System.currentTimeMillis() - startNpcHandler;
+					checkAndLogDuration("NpcHandler", durationNpcHandler);
+					long startShopHandler = System.currentTimeMillis();
 					shopHandler.process();
+					long durationShopHandler = System.currentTimeMillis() - startShopHandler;
+					checkAndLogDuration("ShopHandler", durationShopHandler);
+					long startObjectManager = System.currentTimeMillis();
 					objectManager.process();
+					long durationObjectManager = System.currentTimeMillis() - startObjectManager;
+					checkAndLogDuration("ObjectManager", durationObjectManager);
+					long startCastleWars = System.currentTimeMillis();
 					CastleWars.process();
+					long durationCastleWars = System.currentTimeMillis() - startCastleWars;
+					checkAndLogDuration("CastleWars", durationCastleWars);
+					long startFightPits = System.currentTimeMillis();
 					FightPits.process();
+					long durationFightPits = System.currentTimeMillis() - startFightPits;
+					checkAndLogDuration("FightPits", durationFightPits);
+					long startPestControl = System.currentTimeMillis();
 					pestControl.process();
+					long durationPestControl = System.currentTimeMillis() - startPestControl;
+					checkAndLogDuration("PestControl", durationPestControl);
+					long startObjectHandler = System.currentTimeMillis();
 					objectHandler.process();
+					long durationObjectHandler = System.currentTimeMillis() - startObjectHandler;
+					checkAndLogDuration("CastleWars", durationObjectHandler);
+					long startMageTrainingArena = System.currentTimeMillis();
 					MageTrainingArena.process();
+					long durationMageTrainingArena = System.currentTimeMillis() - startMageTrainingArena;
+					checkAndLogDuration("MageTrainingArena", durationMageTrainingArena);
+					long startCycleEventHandler = System.currentTimeMillis();
 					CycleEventHandler.getSingleton().process();
+					long durationCycleEventHandler = System.currentTimeMillis() - startCycleEventHandler;
+					checkAndLogDuration("CycleEventHandler", durationCycleEventHandler);
+					long startIntegrationEvents = System.currentTimeMillis();
 					if (Constants.WEBSITE_INTEGRATION) {
 						PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 						RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
@@ -264,6 +303,9 @@ public class GameEngine {
 					if (DiscordActivity.playerCount) {
 						DiscordActivity.updateActivity();
 					}
+					long durationIntegrationEvents = System.currentTimeMillis() - startIntegrationEvents;
+					checkAndLogDuration("IntegrationEvents", durationIntegrationEvents);
+					long startSaveEvents = System.currentTimeMillis();
 					if (System.currentTimeMillis() - lastMassSave > 300000) {
 						for (Player p : PlayerHandler.players) {
 							if (p == null) {
@@ -274,9 +316,41 @@ public class GameEngine {
 							lastMassSave = System.currentTimeMillis();
 						}
 					}
+					long durationSaveEvents = System.currentTimeMillis() - startSaveEvents;
+					checkAndLogDuration("SaveEvents", durationSaveEvents);
+					long totalCycleDuration = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+					//Technically, we could add commands to test both client lag (creating many tile objects) and server lag (creating a BCrypt hash on game thread)
+					if (totalCycleDuration > 500) {
+						System.err.println("ERROR: Cycle duration exceeded 500 ms!");
+					} else if (totalCycleDuration > 250) {
+						System.err.println("WARNING: Cycle duration exceeded 250 ms!");
+					} else if (totalCycleDuration > 100) {
+						System.out.println("NOTICE: Cycle duration exceeded 100 ms.");
+					}
+					gameTicksIncrementor++;
+					if (Constants.CYCLE_LOGGING && gameTicksIncrementor > 1 && gameTicksIncrementor % printInfoTick == 0) {
+						long totalMem = Runtime.getRuntime().totalMemory();
+						long freeMem = Runtime.getRuntime().freeMemory();
+						long maxMem = Runtime.getRuntime().maxMemory();
+						int playerCount = 0;
+						for (Player p : PlayerHandler.players) {
+							if (p != null) {
+								playerCount++;
+							}
+						}
+						int npcCount = 0;
+						for (Npc npc : NpcHandler.npcs) {
+							if (npc != null) {
+								npcCount++;
+							}
+						}
+						System.out.printf("Cycle #%d took %d ms. Players: %d, NPCs: %d, [Durations: i: %d ms, p: %d ms, n: %d ms, s: %d ms, oh: %d ms, om: %d ms], Memory: %dMB/%dMB. Max: %dMB, Threads: %d.%n",
+								gameTicksIncrementor, totalCycleDuration, playerCount, npcCount, durationItemHandler, durationPlayerHandler, durationNpcHandler, durationShopHandler, durationObjectHandler, durationObjectManager,
+								(totalMem - freeMem) / 1024 / 1024, totalMem / 1024 / 1024, maxMem / 1024 / 1024, Thread.activeCount());
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
-					System.out.println("A fatal exception has been thrown!");
+					System.err.println("A fatal exception has been thrown in the GameEngine cycle! Saving all players.");
 					for (Player p : PlayerHandler.players) {
 						if (p == null) {
 							continue;
@@ -292,7 +366,6 @@ public class GameEngine {
 					}
 					scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 				}
-				//TODO debug System.out.println("Cycle took " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms.");
 			}
 		}, 0, Constants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 
@@ -312,6 +385,16 @@ public class GameEngine {
 		}
 
 		System.exit(0);
+	}
+	
+	private static void checkAndLogDuration(String processName, long duration) {
+		if (duration > 500) {
+			System.err.println("ERROR: " + processName + " duration exceeded 500 ms! Duration: " + duration + " ms.");
+		} else if (duration > 250) {
+			System.err.println("WARNING: " + processName + " duration exceeded 250 ms! Duration: " + duration + " ms.");
+		} else if (duration > 100) {
+			System.out.println("NOTICE: " + processName + " duration exceeded 100 ms. Duration: " + duration + " ms.");
+		}
 	}
 
 	public static boolean playerExecuted = false;
