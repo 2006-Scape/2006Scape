@@ -18,7 +18,12 @@ public class CustomPrintStream extends PrintStream {
     public CustomPrintStream(OutputStream out, String logType, boolean fileOutput) throws IOException {
         super(out);
         this.fileOutput = fileOutput;
-        this.logType = Objects.requireNonNull(new Throwable().getStackTrace()[2].getFileName()).replace(".java", "").equals("Throwable") ? "ERROR" : logType;
+        StackTraceElement[] stackTrace = new Throwable().getStackTrace();
+        boolean throwable = false;
+        if (stackTrace.length > 2) {
+           throwable = stackTrace[2].getFileName() != null && stackTrace[2].getFileName().replace(".java", "").equals("Throwable");
+        }
+        this.logType =  throwable ? "ERROR" : logType;
         String date = new SimpleDateFormat("MM_dd_yyyy").format(new Date());
         String logFileName = "data/logs/server_" + logType.toLowerCase() + "_" + date + ".log";
         File logFile = this.fileOutput ? new File(logFileName) : null;
