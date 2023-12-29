@@ -2,6 +2,7 @@ package com.rs2.util;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.Executors;
@@ -21,7 +22,7 @@ public class CustomPrintStream extends PrintStream {
         StackTraceElement[] stackTrace = new Throwable().getStackTrace();
         boolean throwable = false;
         if (stackTrace.length > 2) {
-           throwable = stackTrace[2].getFileName() != null && stackTrace[2].getFileName().replace(".java", "").equals("Throwable");
+            throwable = stackTrace[2].getFileName() != null && stackTrace[2].getFileName().replace(".java", "").equals("Throwable");
         }
         this.logType =  throwable ? "ERROR" : logType;
         String date = new SimpleDateFormat("MM_dd_yyyy").format(new Date());
