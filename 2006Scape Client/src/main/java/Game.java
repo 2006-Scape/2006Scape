@@ -5585,7 +5585,7 @@ public class Game extends RSApplet {
 	private int screenshot;
 	
 	private boolean takeScreeny = true;
-	public void screenshot() {
+	public void screenshot(String... subfolders) {
 		try {
 			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
 			Point point = window.getLocationOnScreen();
@@ -5603,13 +5603,19 @@ public class Game extends RSApplet {
 	
 			// Update the file path and naming
 			String fileExtension = myUsername;
-			String screenshotDir = System.getProperty("user.home") + "/2006Scape/screenshots/";
+			
+			String subfolderPath = String.join(File.separator, subfolders);
+			if (!subfolderPath.isEmpty()) {
+				subfolderPath += File.separator;
+			}
+			
+			String screenshotDir = System.getProperty("user.home") + File.separatorChar + "2006Scape" + File.separatorChar + "screenshots" + File.separatorChar + subfolderPath;
 			File dir = new File(screenshotDir);
 			if (!dir.exists()) {
 				dir.mkdirs(); // Create the directory if it doesn't exist
 			}
 	
-			File file = new File(screenshotDir + fileExtension + "_" + dateTime + ".png");
+			File file = new File(screenshotDir, fileExtension + "_" + dateTime + ".png");
 	
 			if (!file.exists()) {
 				ImageIO.write(bufferedimage, "png", file);
@@ -12676,7 +12682,7 @@ public class Game extends RSApplet {
 
 		}
 		  if (keyevent.getKeyCode() == KeyEvent.VK_PRINTSCREEN && keyevent.isControlDown()) {
-			screenshot(); // Call the screenshot method
+			screenshot();
 		}
 	}
 
