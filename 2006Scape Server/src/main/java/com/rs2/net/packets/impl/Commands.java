@@ -65,6 +65,10 @@ public class Commands implements PacketType {
                 }
             case "xprate":
                 if(Constants.VARIABLE_XP_RATE) {
+                    if (arguments.length < 1 || !arguments[0].equals("confirm")) {
+                        player.getPacketSender().sendMessage("You must type \"::xprate confirm\" to view the dialogue to change your XP rate.");
+                        return;
+                    }
                     if (player.getXPRate() == Constants.VARIABLE_XP_RATES[0]) {
                         player.getDialogueHandler().sendDialogues(10005, 2244);
                         return;
@@ -190,7 +194,7 @@ public class Commands implements PacketType {
                 if (count != 1) {
                     player.getPacketSender().sendMessage("There are currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "players" : "player shops") + " online (" + PlayerHandler.getNonPlayerCount() + " staff member online).");
                 } else {
-                    player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online (\" + PlayerHandler.getNonPlayerCount() + \" staff member online).");
+                    player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online (" + PlayerHandler.getNonPlayerCount() + " staff member online).");
                 }
                 String[] players = new String[count];
 
