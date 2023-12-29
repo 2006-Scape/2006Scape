@@ -126,7 +126,7 @@ public class GameEngine {
 			throws NullPointerException, IOException {
 		CustomPrintStream errorStream = new CustomPrintStream(System.err, "ERROR", true);
 		System.setErr(errorStream);
-		CustomPrintStream infoStream = new CustomPrintStream(System.err, "ERROR", true);
+		CustomPrintStream infoStream = new CustomPrintStream(System.out, "INFO", true);
 		System.setOut(infoStream);
 		if (NetworkConstants.RSA_EXPONENT != Constants.RSA_EXPONENT) {
 			NetworkConstants.RSA_EXPONENT = Constants.RSA_EXPONENT;
