@@ -230,6 +230,10 @@ public class Barrows {
 		}
 		if (c.barrowsKillCount > 5 && checkBarrows()) {
 			if (c.getItemAssistant().freeSlots() >= 4) {
+                c.incrementNpcKillCount(100000, 1);
+                if (c.displayBossKcMessages || c.displayRegularKcMessages) {
+                    c.getPacketSender().sendMessage("Your Barrows Chest count is now: " + c.getNpcKillCount(100000));
+                }
 				reward();
 				resetBarrows();
 			} else {
