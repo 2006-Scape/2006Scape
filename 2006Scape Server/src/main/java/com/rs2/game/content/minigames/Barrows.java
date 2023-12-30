@@ -277,7 +277,7 @@ public class Barrows {
 		c.barrowsNpcs[4][1] = 0;
 		c.barrowsNpcs[5][1] = 0;
 		c.barrowsKillCount = 0;
-		c.getPlayerAssistant().movePlayer(3565, 3288, 0);
+		//c.getPlayerAssistant().movePlayer(3565, 3288, 0);
 	}
 	
 	
