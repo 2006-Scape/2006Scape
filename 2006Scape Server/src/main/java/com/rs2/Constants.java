@@ -5,6 +5,7 @@ import com.rs2.game.content.StaticNpcList;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 public class Constants {
 
@@ -110,7 +111,7 @@ public class Constants {
             AGILITY = 16, THIEVING = 17, SLAYER = 18, FARMING = 19,
             RUNECRAFTING = 20;
     
-    public static final HashSet<Integer> BOSS_NPC_IDS = new HashSet<>(Arrays.asList(
+    public static final LinkedHashSet<Integer> BOSS_NPC_IDS = new LinkedHashSet<>(Arrays.asList(
         StaticNpcList.DAGANNOTH_REX,
         StaticNpcList.DAGANNOTH_PRIME,
         StaticNpcList.DAGANNOTH_SUPREME,
@@ -120,7 +121,7 @@ public class Constants {
         StaticNpcList.TZTOKJAD    
     ));
 
-    public static final HashSet<Integer> SLAYER_NPC_IDS = new HashSet<>(Arrays.asList(
+    public static final LinkedHashSet<Integer> SLAYER_NPC_IDS = new LinkedHashSet<>(Arrays.asList(
         StaticNpcList.CRAWLING_HAND,    
         StaticNpcList.CRAWLING_HAND_1649,    
         StaticNpcList.CRAWLING_HAND_1650,    
