@@ -248,7 +248,6 @@ public class Commands implements PacketType {
                 if (arguments.length > 0) {
                     // Combine all arguments into a single string, assuming space-separated
                     String npcNameInput = String.join(" ", arguments).toLowerCase();
-            
                     try {
                         // Try to parse as an ID
                         int npcId = Integer.parseInt(arguments[0]);
@@ -258,10 +257,15 @@ public class Commands implements PacketType {
                     } catch (NumberFormatException e) {
                         // If not an ID, treat as a name
                         List<NPCDefinition> matchingDefs = new ArrayList<>();
-                        for (int id = 0; id <= 3789; id++) { // Assuming 3790 is the max ID
-                            NPCDefinition def = NPCDefinition.forId(id);
-                            if (def.getName().toLowerCase().startsWith(npcNameInput)) {
-                                matchingDefs.add(def);
+                        for (int id = 0; id <= 3789; id++) {
+                            try {
+                                NPCDefinition def = NPCDefinition.forId(id);
+                                if (def.getName().toLowerCase().startsWith(npcNameInput)) {
+                                    matchingDefs.add(def);
+                                }
+                            } catch (Exception exception) {
+                                System.err.println("Exception during kc command: " + exception.getMessage());
+                                break;
                             }
                         }
                         if (matchingDefs.isEmpty()) {
