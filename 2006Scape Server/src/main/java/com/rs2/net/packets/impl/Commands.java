@@ -291,6 +291,7 @@ public class Commands implements PacketType {
             case "bosskillcounts":
             case "bosskillcount":
             case "bosskc":
+            case "kcboss":
                 // Clear all lines
                 for (int i = 8144; i < 8195; i++) {
                     player.getPacketSender().sendString("", i);
@@ -310,6 +311,7 @@ public class Commands implements PacketType {
             case "slayerkillcounts":
             case "slayerkillcount":
             case "slayerkc":
+            case "kcslayer":
                 // Clear all lines
                 for (int i = 8144; i < 8195; i++) {
                     player.getPacketSender().sendString("", i);
