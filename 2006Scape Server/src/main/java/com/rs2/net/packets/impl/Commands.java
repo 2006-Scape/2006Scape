@@ -289,6 +289,8 @@ public class Commands implements PacketType {
                 }
                 break;  
             case "bosskillcounts":
+            case "bosskillcount":
+            case "bosskc":
                 // Clear all lines
                 for (int i = 8144; i < 8195; i++) {
                     player.getPacketSender().sendString("", i);
@@ -306,6 +308,8 @@ public class Commands implements PacketType {
                 player.getPacketSender().showInterface(8134);
                 break;
             case "slayerkillcounts":
+            case "slayerkillcount":
+            case "slayerkc":
                 // Clear all lines
                 for (int i = 8144; i < 8195; i++) {
                     player.getPacketSender().sendString("", i);
@@ -425,6 +429,15 @@ public class Commands implements PacketType {
                         "",
                         "::toggleslayerkillmsgs(::toggleslayerkcmsgs)",
                         "Toggle regular Slayer kill count message display",
+                        "",
+                        "::kc(::checknpckills)",
+                        "Search for your NPC kills for an NPC name or ID",
+                        "",
+                        "::bosskc(::toggleslayerkcmsgs)",
+                        "View your boss kills",
+                        "",
+                        "::slayerkc(::toggleslayerkcmsgs)",
+                        "View your slayer kills",
                         "",
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
