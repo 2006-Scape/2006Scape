@@ -1141,7 +1141,7 @@ public class NpcHandler {
                     c.slayerTask = -1;
                     c.slayerPoints += points;
                     c.getPacketSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points.");
-                    c.getPacketSender().sendMessage("Please talk to your slayer master for a new task.")
+                    c.getPacketSender().sendMessage("Please talk to your slayer master for a new task.");
                 }
             }
         }
