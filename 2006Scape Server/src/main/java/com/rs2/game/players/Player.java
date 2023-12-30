@@ -606,7 +606,7 @@ public abstract class Player {
 			System.out.println("EverythingRS API Disabled, highscores not saved!");
 		}
 
-		Misc.println("[DEREGISTERED]: " + playerName + "");
+		System.out.println("[DEREGISTERED]: " + playerName + "");
 		// HostList.getHostList().remove(session);
 		CycleEventHandler.getSingleton().stopEvents(this);
 		disconnected = true;

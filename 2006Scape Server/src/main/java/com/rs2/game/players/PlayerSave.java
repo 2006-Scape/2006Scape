@@ -44,14 +44,14 @@ public class PlayerSave {
 				//it's the .gitignore :P
 				return 0;
 			}
-			Misc.println(playerName + ": character file not found.");
+			System.out.println(playerName + ": character file not found.");
 			player.newPlayer = false;
 			return 0;
 		}
 		try {
 			line = characterfile.readLine();
 		} catch (IOException ioexception) {
-			Misc.println(playerName + ": error loading file.");
+			System.out.println(playerName + ": error loading file.");
 			return 3;
 		}
 		while (EndOfFile == false && line != null) {
@@ -910,7 +910,7 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.close();
 		} catch (IOException ioexception) {
-			Misc.println(player.playerName + ": error writing file.");
+			System.out.println(player.playerName + ": error writing file.");
 			return false;
 		}
 		return true;
