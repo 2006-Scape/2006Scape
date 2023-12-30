@@ -2,12 +2,13 @@ package com.rs2.net.packets.impl;
 
 import static com.rs2.util.GameLogger.writeLog;
 
-import java.util.Arrays;
+import java.util.*;
 
 import com.rs2.Connection;
 import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.bots.BotHandler;
+import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
@@ -239,6 +240,82 @@ public class Commands implements PacketType {
             case "toggleslayerkcmsg":
                 player.displaySlayerKcMessages = !player.displaySlayerKcMessages;
                 player.getPacketSender().sendMessage("You now have slayer NPC kill count messages: " + (player.displaySlayerKcMessages ? "enabled" : "disabled"));
+                break;
+            case "kc":
+            case "kills":
+            case "checknpckill":
+            case "checknpckills":
+                if (arguments.length > 0) {
+                    // Combine all arguments into a single string, assuming space-separated
+                    String npcNameInput = String.join(" ", arguments).toLowerCase();
+            
+                    try {
+                        // Try to parse as an ID
+                        int npcId = Integer.parseInt(arguments[0]);
+                        int killCount = player.getNpcKillCounts().getOrDefault(npcId, 0);
+                        String npcName = NPCDefinition.forId(npcId).getName();
+                        player.getPacketSender().sendMessage("Kill count for " + npcName + ": " + killCount);
+                    } catch (NumberFormatException e) {
+                        // If not an ID, treat as a name
+                        List<NPCDefinition> matchingDefs = new ArrayList<>();
+                        for (int id = 0; id <= 3789; id++) { // Assuming 3790 is the max ID
+                            NPCDefinition def = NPCDefinition.forId(id);
+                            if (def.getName().toLowerCase().startsWith(npcNameInput)) {
+                                matchingDefs.add(def);
+                            }
+                        }
+                        if (matchingDefs.isEmpty()) {
+                            player.getPacketSender().sendMessage("No NPCs found with the name: " + npcNameInput);
+                        } else {
+                            boolean empty = true;
+                            for (NPCDefinition def : matchingDefs) {
+                                int killCount = player.getNpcKillCounts().getOrDefault(def.getId(), 0);
+                                if (killCount > 0) {
+                                    empty = false;
+                                    player.getPacketSender().sendMessage("Kill count for " + def.getName() + " (ID: " + def.getId() + "): " + killCount);
+                                }
+                            }
+                            if (empty) {
+                                player.getPacketSender().sendMessage("Kill count for " + npcNameInput + ": 0");
+                            }
+                        }
+                    }
+                } else {
+                    player.getPacketSender().sendMessage("Please provide an NPC ID or name.");
+                }
+                break;  
+            case "bosskillcounts":
+                // Clear all lines
+                for (int i = 8144; i < 8195; i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+            
+                player.getPacketSender().sendString("@dre@Boss Kill Counts", 8144);
+                int bossLineId = 8147; // Starting line for display
+                player.getPacketSender().sendString("Barrows Chests: " + player.getNpcKillCounts().getOrDefault(100000, 0), bossLineId++);
+                for (Integer bossId : Constants.BOSS_NPC_IDS) {
+                    int killCount = player.getNpcKillCounts().getOrDefault(bossId, 0);
+                    String npcName = NPCDefinition.forId(bossId).getName();
+                    player.getPacketSender().sendString(npcName + ": " + killCount, bossLineId++);
+                }
+                
+                player.getPacketSender().showInterface(8134);
+                break;
+            case "slayerkillcounts":
+                // Clear all lines
+                for (int i = 8144; i < 8195; i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+            
+                player.getPacketSender().sendString("@dre@Slayer Kill Counts", 8144); 
+                int slayerLineId = 8147; // Starting line for display
+                for (Integer bossId : Constants.SLAYER_NPC_IDS) {
+                    int killCount = player.getNpcKillCounts().getOrDefault(bossId, 0);
+                    String npcName = NPCDefinition.forId(bossId).getName();
+                    player.getPacketSender().sendString(npcName + ": " + killCount, slayerLineId++);
+                }
+                
+                player.getPacketSender().showInterface(8134);
                 break;
             case "snow":
                 Calendar date = new GregorianCalendar();
