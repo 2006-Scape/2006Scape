@@ -319,12 +319,22 @@ public class Commands implements PacketType {
             
                 player.getPacketSender().sendString("@dre@Slayer Kill Counts", 8144); 
                 int slayerLineId = 8147; // Starting line for display
-                for (Integer bossId : Constants.SLAYER_NPC_IDS) {
-                    int killCount = player.getNpcKillCounts().getOrDefault(bossId, 0);
-                    String npcName = NPCDefinition.forId(bossId).getName();
-                    player.getPacketSender().sendString(npcName + ": " + killCount, slayerLineId++);
+            
+                // HashMap to store cumulative kills by NPC name
+                HashMap<String, Integer> nameToKills = new HashMap<>();
+            
+                // Populate the HashMap
+                for (Integer npcId : Constants.SLAYER_NPC_IDS) {
+                    String npcName = NPCDefinition.forId(npcId).getName();
+                    int killCount = player.getNpcKillCounts().getOrDefault(npcId, 0);
+                    nameToKills.put(npcName, nameToKills.getOrDefault(npcName, 0) + killCount);
                 }
-                
+            
+                // Display the results
+                for (Map.Entry<String, Integer> entry : nameToKills.entrySet()) {
+                    player.getPacketSender().sendString(entry.getKey() + ": " + entry.getValue(), slayerLineId++);
+                }
+            
                 player.getPacketSender().showInterface(8134);
                 break;
             case "snow":
