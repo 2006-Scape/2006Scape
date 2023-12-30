@@ -454,8 +454,8 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 100) {
-			c.getPacketSender().sendMessage("This requires atleast 100 slayer points, which you don't have.");
-			c.getDialogueHandler().sendNpcChat1("This requires atleast 100 slayer points, which you don't have.", c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
+			c.getPacketSender().sendMessage("This requires 100 slayer points, which you don't have.");
+			c.getDialogueHandler().sendNpcChat1("This requires 100 slayer points, which you don't have.", c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
