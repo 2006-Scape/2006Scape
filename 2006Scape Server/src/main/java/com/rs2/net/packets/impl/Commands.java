@@ -320,7 +320,7 @@ public class Commands implements PacketType {
                 player.getPacketSender().sendString("@dre@Slayer Kill Counts", 8144); 
                 int slayerLineId = 8147; // Starting line for display
                 
-                // HashMap to store cumulative kills by NPC name
+                // LinkedHashMap to store cumulative kills by NPC name
                 LinkedHashMap<String, Integer> nameToKills = new LinkedHashMap<>();
                 
                 // Populate the HashMap
