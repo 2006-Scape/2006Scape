@@ -323,7 +323,7 @@ public class NpcData {
 				int dir = Misc.direction(x, y, x2, y2);
 				Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
 				boolean nearBy = nearbyDirections.contains(dir);
-				if (Misc.goodDistance(x, y, x2, y2, nearBy ? distance - 1 : distance)) {
+				if (Misc.goodDistance(x, y, x2, y2, nearBy && NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() > 1 ? distance - 1 : distance)) {
 					System.out.println("distance is good! x " + x + " y " + y + " " + " x2 " + x2 + " y2 " + y2 + " vs distance " + (nearBy ? distance - 1 : distance) + " with direction " + dir);
 					return true;
 				} else {
