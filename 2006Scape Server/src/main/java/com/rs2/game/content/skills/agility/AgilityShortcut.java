@@ -50,11 +50,15 @@ public class AgilityShortcut {
 		}
 		break;
 		case 9326:
-		if (player.absX == 2773) {
-			handleAgility(player, 2, 0, 81, 3067, WALK, "You jump over the strange floor.");
-		} else if (player.absX == 2775) {
-			handleAgility(player, -2, 0, 81, 3067, WALK, "You jump over the strange floor.");
-		}
+			if (player.absX == 2770) {
+				handleAgility(player, 2768, 10002, 81, 3067, MOVE, "You jump over the strange floor.");
+			} else if (player.absX == 2768) {
+				handleAgility(player, 2770, 10002, 81, 3067, MOVE, "You jump over the strange floor.");
+			} else if (player.absX == 2773) {
+				handleAgility(player, 2775, 10003, 81, 3067, MOVE, "You jump over the strange floor.");
+			} else if (player.absX == 2775) {
+				handleAgility(player, 2773, 10003, 81, 3067, MOVE, "You jump over the strange floor.");
+			}
 		break;
 		case 9321:
 		if (player.absX == 2735) {
