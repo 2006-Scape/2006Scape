@@ -116,9 +116,9 @@ public class Constants {
         StaticNpcList.DAGANNOTH_REX,
         StaticNpcList.DAGANNOTH_PRIME,
         StaticNpcList.DAGANNOTH_SUPREME,
+        StaticNpcList.GIANT_MOLE,
         StaticNpcList.KING_BLACK_DRAGON,
         StaticNpcList.KALPHITE_QUEEN,
-        StaticNpcList.GIANT_MOLE,
         StaticNpcList.TZTOKJAD    
     ));
 
