@@ -112,6 +112,7 @@ public class Constants {
             RUNECRAFTING = 20;
     
     public static final LinkedHashSet<Integer> BOSS_NPC_IDS = new LinkedHashSet<>(Arrays.asList(
+        StaticNpcList.CHAOS_ELEMENTAL,
         StaticNpcList.DAGANNOTH_REX,
         StaticNpcList.DAGANNOTH_PRIME,
         StaticNpcList.DAGANNOTH_SUPREME,
