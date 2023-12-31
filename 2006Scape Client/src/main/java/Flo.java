@@ -35,7 +35,7 @@ public final class Flo {
 			} else if (i == 1) {
 				anInt390 = stream.read3Bytes();
 				Calendar date = new GregorianCalendar();
-				if ((date.get(Calendar.MONTH) + 1) == 12) {
+				if (ClientSettings.SNOW_FLOOR_FORCE_ENABLED || (ClientSettings.SNOW_FLOOR_ENABLED && (date.get(Calendar.MONTH) + 1) == Integer.parseInt(ClientSettings.SNOW_MONTH.substring(1)))) {
 					anInt390 = 0xffffff;
 				}
 				method262(anInt390);

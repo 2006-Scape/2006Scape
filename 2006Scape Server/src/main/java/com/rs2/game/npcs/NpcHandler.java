@@ -7,6 +7,7 @@ import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.npcs.NpcAggressive;
 import com.rs2.game.content.combat.npcs.NpcCombat;
@@ -32,6 +33,9 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 // Facetypes: 1-Walk, 2-North, 3-South, 4-East, 5-West
 
@@ -153,7 +157,8 @@ public class NpcHandler {
         try {
             NPCDefinition.init();
         } catch (Exception e) {
-            //System.out.println("npc def error");
+            System.out.println("npc def error: ");
+            e.printStackTrace();
         }
     }
 
@@ -907,21 +912,21 @@ public class NpcHandler {
     public static boolean multiAttacks(int i) {
         switch (npcs[i].npcType) {
             case 1158: //kq
-				if (npcs[i].attackType == 2) {
+				if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
 					return true;
 				}
             case 1160: //kq
-				if (npcs[i].attackType == 1) {
+				if (npcs[i].attackType == AttackType.RANGE.getValue()) {
 					return true;
 				}
             case 2558:
                 return true;
             case 2562:
-                if (npcs[i].attackType == 2) {
+                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
                     return true;
                 }
             case 2550:
-                if (npcs[i].attackType == 1) {
+                if (npcs[i].attackType == AttackType.RANGE.getValue()) {
                     return true;
                 }
             default:
@@ -1223,7 +1228,10 @@ public class NpcHandler {
         int playerX = player.absX;
         int playerY = player.absY;
         npcs[i].randomWalk = false;
-        if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, distanceRequired(i))) {
+        int dir = Misc.direction(npcs[i].getX(), npcs[i].getY(), playerX, playerY);
+        Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
+        boolean nearBy = nearbyDirections.contains(dir);
+        if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, nearBy && NPCDefinition.forId(npcs[i].npcType).getSize() > 1 ? distanceRequired(i) - 1 : distanceRequired(i))) {
             return;
         }
 
@@ -1273,8 +1281,12 @@ public class NpcHandler {
 
     /**
      * Distanced required to attack
+     * If NPCs are maging in melee distance check that the NPC ID is actually in here.
+     * It's also worth checking  {@link NpcData#distanceRequired}
      **/
     public static int distanceRequired(int i) {
+        //if (npcs[i].npcType == 81)
+        //    System.out.println("NpcHandler distanceRequired npc size " + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize());
         switch (npcs[i].npcType) {
             case 2025:
             case 2028:
@@ -1282,6 +1294,8 @@ public class NpcHandler {
             case 50:
             case 2562:
                 return 2;
+            case 172: // dark wizards
+            case 174:
             case 2881:// dag kings
             case 2882:
             case 3200:// chaos ele
@@ -1306,11 +1320,12 @@ public class NpcHandler {
             case 2894:
                 return 10;
             default:
-                return 1;
+                return NPCDefinition.forId(npcs[i].npcType).getSize();
         }
     }
 
     public static int followDistance(int i) {
+        
         switch (npcs[i].npcType) {
             case 2550:
             case 2551:
@@ -1420,7 +1435,7 @@ public class NpcHandler {
             case 1158:
                 return 30;
             case 2558:
-                if (npcs[i].attackType == 2) {
+                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
                     return 28;
                 } else {
                     return 68;

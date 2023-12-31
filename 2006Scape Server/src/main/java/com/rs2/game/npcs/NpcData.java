@@ -1,12 +1,17 @@
 package com.rs2.game.npcs;
 
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.Region;
+import org.apollo.cache.def.NpcDefinition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class NpcData {
 
@@ -227,8 +232,8 @@ public class NpcData {
 			return 3;
 
 		case 2745:
-			if (NpcHandler.npcs[i].attackType == 1
-					|| NpcHandler.npcs[i].attackType == 2) {
+			if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()
+					|| NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
 				return 5;
 			} else {
 				return 2;
@@ -279,23 +284,28 @@ public class NpcData {
 			return 25;
 		}
 	}
-	
+
+	/**
+	 * Distance required to attack
+	 * It's also worth checking {@link NpcHandler#distanceRequired}
+	 */
 	public static int distanceRequired(int i) {
-		int distanceNeeded = 1;
-		if (NpcHandler.npcs[i].attackType == 1) {
-			return distanceNeeded += 7;
-		} else if (NpcHandler.npcs[i].attackType == 2) {
-			return distanceNeeded += 9;
-		} else if (NpcHandler.npcs[i].attackType > 2) {
-			return distanceNeeded += 4;
+		//if (NpcHandler.npcs[i].npcType == 81)
+		//	System.out.println("npcHandler distanceRequired npc size " + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize());
+		if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
+			return 8;
+		} else if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
+			return 10;
+		} else if (NpcHandler.npcs[i].attackType > AttackType.MAGIC.getValue()) {
+			return 5;
 		}
 		switch (NpcHandler.npcs[i].npcType) {
 			case 2562:
-				return distanceNeeded += 1;
+				return 2;
 			case 2881:// dag kings
 			case 2882:
 			case 3200:// chaos ele
-				return distanceNeeded += 7;
+				return 8;
 			case 2552:
 			case 2553:
 			case 2556:
@@ -305,11 +315,11 @@ public class NpcData {
 			case 2560:
 			case 2564:
 			case 2565:
-				return distanceNeeded += 8;
+				return 9;
 			// things around dags
 			case 2892:
 			case 2894:
-				return distanceNeeded += 9;
+				return 10;
 			case 907 : // Kolodian
 			case 908 :
 			case 909 :
@@ -324,24 +334,30 @@ public class NpcData {
 			case 1158 : // Kalphite queen form 1
 			case 1160 : // Kalphite queen form 2
 			case 2025 : // Ahrim
-				return distanceNeeded += 9;
+				return 10;
 			case 2028 : // Karil
 			case 2631 : // Tok-Xil (Tzhaar ranging guy)
 			case 1183 : // Elf ranger
-				return distanceNeeded += 7;
+				return 8;
 			case 941 : // Green drag
 			case 50 : // Kbd
-				return distanceNeeded += 5;
+				return 6;
 		}
-		return distanceNeeded;
+		return NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize();
 	}
 
 
 	public static boolean goodDistanceNpc(int i, int x2, int y2, int distance) {
-		for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NpcHandler.npcs[i].size; x++) {
-			for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NpcHandler.npcs[i].size; y++) {
-				if (Misc.goodDistance(x, y, x2, y2, distance)) {
+		for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize(); x++) {
+			for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize(); y++) {
+				int dir = Misc.direction(x, y, x2, y2);
+				Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
+				boolean nearBy = nearbyDirections.contains(dir);
+				if (Misc.goodDistance(x, y, x2, y2, nearBy && NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() > 1 ? distance - 1 : distance)) {
+					System.out.println("distance is good! x " + x + " y " + y + " " + " x2 " + x2 + " y2 " + y2 + " vs distance " + (nearBy ? distance - 1 : distance) + " with direction " + dir);
 					return true;
+				} else {
+					System.out.println("distance is not good! x " + x + " y " + y + " " + " x2 " + x2 + " y2 " + y2 + " vs distance " + distance + " with direction " + dir);
 				}
 			}
 		}
@@ -368,10 +384,11 @@ public class NpcData {
 		}
 		int x = n.getX(); // -1
 		int y = n.getY(); // 1
-		final int dis = distanceRequired(n.npcId) + n.size;
+		final int dis = distanceRequired(n.npcId);
 		int dis2 = 0;
-		final boolean melee = distanceRequired(n.npcId) < 2;
-		if (n.size < 1 && x != x2 && y != y2) {
+		final boolean melee = distanceRequired(n.npcId) == NPCDefinition.forId(n.npcType).getSize();
+		if (NPCDefinition.forId(n.npcType).getSize() < 1 && x != x2 && y != y2) {
+			System.err.println("checkClip exit early! return false");
 			return false;
 		}
 		// Algorithm starts here
@@ -409,6 +426,7 @@ public class NpcData {
 		boolean firstCheck = false;
 		for (int i = 0; i <= longest; i++) {
 			if (dis2 > dis) {
+				System.err.println("checkClip early exit, dis2 > dis " + dis2 + " > " + dis );
 				return false;
 			}
 			dis2++;
@@ -425,7 +443,8 @@ public class NpcData {
 			}
 			if (!firstCheck) {
 				if (melee) {
-					if (!Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+					if (!Region.getClipping(x, y, n.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+						System.err.println("checkClip Region.getClipping exit early 1");
 						return false;
 					}
 				}
@@ -435,7 +454,8 @@ public class NpcData {
 				firstCheck = true;
 			}
 			if (melee) {
-				if (!Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+				if (!Region.getClipping(x, y, n.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+					System.err.println("checkClip Region.getClipping exit early 2");
 					return false;
 				}
 			}
@@ -449,17 +469,20 @@ public class NpcData {
 	public static boolean inNpc(int i, int x2, int y2) {
 		if (NpcHandler.npcs[i].size < 1) {
 			if (x2 == NpcHandler.npcs[i].getX() && y2 == NpcHandler.npcs[i].getY()) {
+				System.out.println("in npc 1");
 				return true;
 			}
 		} else {
 			for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NpcHandler.npcs[i].size; x++) {
 				for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NpcHandler.npcs[i].size; y++) {
 					if (x2 == x && y2 == y) {
+						System.out.println("in npc 2");
 						return true;
 					}
 				}
 			}
 		}
+		System.out.println("not in npc");
 		return false;
 	}
 

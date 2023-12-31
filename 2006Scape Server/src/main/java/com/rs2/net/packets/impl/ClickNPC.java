@@ -10,6 +10,7 @@ import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.items.DeprecatedItems;
+import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
@@ -151,7 +152,10 @@ public class ClickNPC implements PacketType {
 				player.getCombatAssistant().resetPlayerAttack();
 				return;
 			}
-
+			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY(), NPCDefinition.forId(NpcHandler.npcs[player.npcIndex].npcType).getSize())) {
+				System.out.println("distance good! stop movement 1");
+				player.stopMovement();
+			}
 			if (player.followId > 0) {
 				player.getPlayerAssistant().resetFollow();
 			}

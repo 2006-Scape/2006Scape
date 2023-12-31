@@ -153,15 +153,15 @@ public class GameEngine {
 		}
 
 		if (!new File("data").exists()) {
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
-			System.out.println("In IntelliJ, fix it by clicking \"Server\" > Edit Configurations at the top of your screen");
-			System.out.println("Then changing the \"Working Directory\" to be in \"2006Scape/2006Scape Server\", instead of just \"2006Scape\"");
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
+			System.err.println("In IntelliJ, fix it by clicking \"Server\" > Edit Configurations at the top of your screen");
+			System.err.println("Then changing the \"Working Directory\" to be in \"2006Scape/2006Scape Server\", instead of just \"2006Scape\"");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
 			System.exit(1);
 		}
 

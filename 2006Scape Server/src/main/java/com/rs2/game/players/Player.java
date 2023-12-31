@@ -1342,7 +1342,7 @@ public abstract class Player {
 
 	public int miningAxe = -1, woodcuttingAxe = -1;
 
-	public boolean initialized, musicOn = true, luthas,
+	public boolean initialized, musicOn = true, soundOn = true, luthas,
 			playerIsCooking, disconnected, ruleAgreeButton,
 			rebuildNPCList, isActive, isKicked,
 			isSkulled, friendUpdate, newPlayer,
