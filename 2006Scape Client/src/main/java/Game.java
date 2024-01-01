@@ -12820,6 +12820,9 @@ public class Game extends RSApplet {
 
 	public final void mouseWheelMoved(MouseWheelEvent e) {
 		int notches = e.getWheelRotation();
+		if (!e.isControlDown()) {
+			return;
+		}
 		// If mouse over main game screen, without anything else opened
 		if (openInterfaceID == -1 && mouseX < 515 && mouseY < 340) {
 			if (notches < 0) {
