@@ -209,7 +209,13 @@ public class Commands implements PacketType {
 
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+                for (int i = 8144; i < 8196; i++) player.getPacketSender().sendString("", i);
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
 
                 player.getPacketSender().sendString("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
 
@@ -326,9 +332,14 @@ public class Commands implements PacketType {
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++)
+                for (int i = 8144; i < 8196; i++)
                     player.getPacketSender().sendString("", i);
-
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
                 player.getPacketSender().sendString("@dre@Commands", 8144);
 
                 int commandsLineNumber = 8147;
@@ -400,7 +411,13 @@ public class Commands implements PacketType {
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+                for (int i = 8144; i < 8196; i++) player.getPacketSender().sendString("", i);
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
 
                 player.getPacketSender().sendString("@dre@Highscores", 8144);
 

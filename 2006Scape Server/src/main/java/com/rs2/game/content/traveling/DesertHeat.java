@@ -130,8 +130,14 @@ public class DesertHeat {
 	}
 	
 	public static void showWarning(Player player) {
-		for (int i = 8144; i < 8195; i++) {
+		for (int i = 8144; i < 8196; i++) {
 			player.getPacketSender().sendString("", i);
+		}
+		for (int i = 12174; i < (12174 + 50); i++) {
+			client.getPacketSender().sendString( "", i);
+		}
+		for (int i = 14945; i < (14945 + 100); i++) {
+			client.getPacketSender().sendString("", i);
 		}
 		player.getPacketSender().sendString("@dre@DESERT WARNING", 8144);
 		player.getPacketSender().sendString("", 8145);
