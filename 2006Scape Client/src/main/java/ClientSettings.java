@@ -9,6 +9,12 @@ import java.math.BigInteger;
 public class ClientSettings {
     /**
      * @QoL
+     * Require control key to zoom the client
+     */
+    public static boolean CONTROL_KEY_ZOOMING = false;
+    
+    /**
+     * @QoL
      * Show zoom level messages in chat when changing zoom levels
      */
     public static boolean SHOW_ZOOM_LEVEL_MESSAGES = false;

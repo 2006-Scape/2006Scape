@@ -12820,7 +12820,7 @@ public class Game extends RSApplet {
 
 	public final void mouseWheelMoved(MouseWheelEvent e) {
 		int notches = e.getWheelRotation();
-		if (!e.isControlDown()) {
+		if (ClientSettings.CONTROL_KEY_ZOOMING && !e.isControlDown()) {
 			return;
 		}
 		// If mouse over main game screen, without anything else opened
