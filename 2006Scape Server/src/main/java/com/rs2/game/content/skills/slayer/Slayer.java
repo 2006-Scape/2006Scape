@@ -436,8 +436,8 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 30) {
-			c.getPacketSender().sendMessage("This requires 30 slayer points, which you don't have.");
-			c.getDialogueHandler().sendNpcChat1("This requires 30 slayer points, which you don't have.", c.npcType,	NpcHandler.getNpcListName(c.talkingNpc));
+			c.getPacketSender().sendMessage("You need 30 slayer points to cancel a task.");
+			c.getDialogueHandler().sendNpcChat1("You need 30 slayer points to cancel a task.", c.npcType,	NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
@@ -454,8 +454,8 @@ public class Slayer {
 			return;
 		}
 		if (c.slayerPoints < 100) {
-			c.getPacketSender().sendMessage("This requires 100 slayer points, which you don't have.");
-			c.getDialogueHandler().sendNpcChat1("This requires 100 slayer points, which you don't have.", c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
+			c.getPacketSender().sendMessage("You need 100 slayer points to remove a task.");
+			c.getDialogueHandler().sendNpcChat1("You need 100 slayer points to remove a task.", c.npcType, NpcHandler.getNpcListName(c.talkingNpc));
 			c.nextChat = 0;
 			return;
 		}
