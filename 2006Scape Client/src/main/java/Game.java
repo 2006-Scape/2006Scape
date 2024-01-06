@@ -5674,6 +5674,15 @@ public class Game extends RSApplet {
 				needDrawTabArea = true;
 				tabID = 1;
 				tabAreaAltered = true;
+				//TODO: add QoL toggle for stats auto screenshots 
+				java.util.Timer timer = new java.util.Timer();
+				java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
+					@Override
+					public void run() {
+						screenshot("stats");
+					}
+				};
+				timer.schedule(delayedScreenshot, 300);
 			}
 			if (super.saveClickX >= 597 && super.saveClickX <= 627 && super.saveClickY >= 168 && super.saveClickY < 205 && tabInterfaceIDs[2] != -1) {
 				needDrawTabArea = true;
@@ -11292,6 +11301,17 @@ public class Game extends RSApplet {
 				tabAreaAltered = true;
 				aBoolean1149 = false;
 				pktType = -1;
+				//TODO: add QoL toggle for bank auto screenshots
+				if (i5 == 5292) {
+					java.util.Timer timer = new java.util.Timer();
+					java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
+						@Override
+						public void run() {
+							screenshot("bank");
+						}
+					};
+					timer.schedule(delayedScreenshot, 600);
+				}
 				return true;
 			}
 			if (pktType == 79) {
