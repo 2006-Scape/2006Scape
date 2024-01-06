@@ -5674,7 +5674,7 @@ public class Game extends RSApplet {
 				needDrawTabArea = true;
 				tabID = 1;
 				tabAreaAltered = true;
-				//TODO: add QoL toggle for stats auto screenshots 
+				//TODO: add QoL toggle with main launcher param for stats auto screenshots 
 				java.util.Timer timer = new java.util.Timer();
 				java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
 					@Override
@@ -11301,7 +11301,7 @@ public class Game extends RSApplet {
 				tabAreaAltered = true;
 				aBoolean1149 = false;
 				pktType = -1;
-				//TODO: add QoL toggle for bank auto screenshots
+				//TODO: add QoL toggle with main launcher param for bank auto screenshots 
 				if (i5 == 5292) {
 					java.util.Timer timer = new java.util.Timer();
 					java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
