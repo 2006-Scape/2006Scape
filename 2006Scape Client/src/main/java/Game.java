@@ -5593,6 +5593,9 @@ public class Game extends RSApplet {
 	public void screenshot(String... subfolders) {
 		try {
 			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
+			if (window == null) {
+				return;
+			}
 			Point point = window.getLocationOnScreen();
 			int x = (int) point.getX();
 			int y = (int) point.getY();
