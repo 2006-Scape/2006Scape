@@ -5602,7 +5602,7 @@ public class Game extends RSApplet {
 			String dateTime = dateFormat.format(new Date());
 	
 			// Update the file path and naming
-			String fileExtension = myUsername;
+			String fileExtension = myUsername != null && !myUsername.isEmpty() ? myUsername : "2006Scape";
 			
 			String subfolderPath = String.join(File.separator, subfolders);
 			if (!subfolderPath.isEmpty()) {
