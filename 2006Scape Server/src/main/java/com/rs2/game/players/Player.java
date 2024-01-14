@@ -151,12 +151,12 @@ public abstract class Player {
 	public boolean displayRegularKcMessages = false;
 	
 	public int getNpcKillCount(int npcId) {
-        return npcKillCounts.getOrDefault(npcId, 0);
-    }
+		return npcKillCounts.getOrDefault(npcId, 0);
+	}
 	
 	public Map<Integer, Integer> getNpcKillCounts() {
-        return npcKillCounts;
-    }
+		return npcKillCounts;
+	}
 	
 	public void incrementNpcKillCount(int npcId, int count) {
 		npcKillCounts.put(npcId, npcKillCounts.getOrDefault(npcId, 0) + count);
