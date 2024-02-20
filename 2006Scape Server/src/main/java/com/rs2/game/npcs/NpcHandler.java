@@ -1220,8 +1220,8 @@ public class NpcHandler {
             return;
         }
 
-        int playerX = player.absX;
-        int playerY = player.absY;
+        int playerX = player.getPreviousX();
+        int playerY = player.getPreviousY();
         npcs[i].randomWalk = false;
         if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, distanceRequired(i))) {
             return;

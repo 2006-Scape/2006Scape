@@ -2030,8 +2030,13 @@ public abstract class Player {
 
 	public int mapRegionX, mapRegionY;
 	public int absX;
-
 	public int absY;
+	public int getPreviousX() {
+		return travelBackX[1] > 0 ? travelBackX[1] : absX;
+	}
+	public int getPreviousY() {
+		return travelBackY[1]> 0 ? travelBackY[1] : absY;
+	}
 	public int currentX, currentY;
 
 	public int heightLevel;
