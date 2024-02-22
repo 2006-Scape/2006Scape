@@ -2,6 +2,7 @@ package com.rs2.game.npcs;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import com.rs2.util.XStreamUtil;
@@ -20,9 +21,16 @@ public class NPCDefinition {
 	}
 
 	public static NPCDefinition forId(int id) {
-		NPCDefinition d = definitions[id];
+		NPCDefinition d = null;
+		if(id >= definitions.length) {
+			definitions = Arrays.copyOf(definitions, id + 1);
+		} else {
+			d = definitions[id];
+		}
+
 		if (d == null) {
 			d = produceDefinition(id);
+			definitions[id] = d;
 		}
 		return d;
 	}

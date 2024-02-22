@@ -1182,28 +1182,36 @@ public class NpcHandler {
         return 0;
     }
 
-    public static boolean followPlayer(int i) {
+    public static boolean canFollowPlayer(int i) {
         if (NpcHandler.npcs[i].inLesserNpc()) {
             return false;
         }
         switch (npcs[i].npcType) {
-            case 1456:
-            case 2892:
+            case 1456://Monkey archer
+            case 2892://Spinolyp
             case 2894:
-            case 1532:
-            case 1534:
+            case 1532://Barricade
+            case 1534://Barricade
                 return false;
         }
         return true;
+    }
+
+    public static boolean canFacePlayer(int i) {
+        switch(npcs[i].npcType) {
+            case 1532://Barricade
+            case 1534://Barricade
+                return false;
+            default:
+                return true;
+        }
     }
 
     public static void followPlayer(int i, Player player) {
         if (player == null) {
             return;
         }
-        if (player.npcCanAttack == false) {
-            return;
-        }
+
         if (player.respawnTimer > 0) {
             npcs[i].facePlayer(null);
             npcs[i].randomWalk = true;
@@ -1211,19 +1219,19 @@ public class NpcHandler {
             return;
         }
 
-        if (npcs[i].npcType == 1532 || npcs[i].npcType == 1534) {
-            return;
-        }
-
-        if (!followPlayer(i) && npcs[i].npcType != 1532 && npcs[i].npcType != 1534) {
-            npcs[i].facePlayer(player);
+        if (!canFollowPlayer(i)){
+            if(canFacePlayer(i)) {
+                npcs[i].facePlayer(player);
+            }
             return;
         }
 
         int playerX = player.getPreviousX();
         int playerY = player.getPreviousY();
         npcs[i].randomWalk = false;
-        if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, distanceRequired(i))) {
+        int reqDist = (PlayerHandler.players[npcs[i].summonedBy] == player
+                            && !npcs[i].underAttack) ? 1 : distanceRequired(i);
+        if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, reqDist)) {
             return;
         }
 
@@ -1306,7 +1314,7 @@ public class NpcHandler {
             case 2894:
                 return 10;
             default:
-                return 1;
+                return NPCDefinition.forId(npcs[i].npcType).getSize();
         }
     }
 
