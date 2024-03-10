@@ -9,11 +9,11 @@ public class BlackKnightsFortress {
             client.getPacketSender().sendString("", i);
         }
         for (int i = 12174; i < (12174 + 50); i++) {
-			client.getPacketSender().sendString( "", i);
-		}
-		for (int i = 14945; i < (14945 + 100); i++) {
-			client.getPacketSender().sendString("", i);
-		}
+            client.getPacketSender().sendString( "", i);
+        }
+        for (int i = 14945; i < (14945 + 100); i++) {
+            client.getPacketSender().sendString("", i);
+        }
         client.getPacketSender().sendString("Black Knights' Fortress", 8144);
         if (client.blackKnight == 0) {
             client.getPacketSender().sendString("I can start this quest by speaking to Sir Amik Varze in", 8147);
