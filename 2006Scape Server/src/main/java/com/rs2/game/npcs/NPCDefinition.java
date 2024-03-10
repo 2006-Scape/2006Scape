@@ -19,10 +19,10 @@ public class NPCDefinition {
 
 	public static void init() throws IOException {
 		Gson gson = new Gson();
-    	Type type = new TypeToken<List<NPCDefinition>>(){}.getType();
+		Type type = new TypeToken<List<NPCDefinition>>(){}.getType();
 		List<NPCDefinition> defs;
 		try (FileReader reader = new FileReader("data/cfg/npcDefinitions.json")) {
-        	defs = gson.fromJson(reader, type);
+			defs = gson.fromJson(reader, type);
 		}
 		for (NPCDefinition def : defs) {
 			definitions.put(def.getId(), def);
