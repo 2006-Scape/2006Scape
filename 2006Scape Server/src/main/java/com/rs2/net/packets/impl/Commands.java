@@ -65,6 +65,10 @@ public class Commands implements PacketType {
                 }
             case "xprate":
                 if(Constants.VARIABLE_XP_RATE) {
+                    if (arguments.length < 1 || !arguments[0].equals("confirm")) {
+                        player.getPacketSender().sendMessage("You must type \"::xprate confirm\" to view the dialogue to change your XP rate.");
+                        return;
+                    }
                     if (player.getXPRate() == Constants.VARIABLE_XP_RATES[0]) {
                         player.getDialogueHandler().sendDialogues(10005, 2244);
                         return;
@@ -190,7 +194,7 @@ public class Commands implements PacketType {
                 if (count != 1) {
                     player.getPacketSender().sendMessage("There are currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "players" : "player shops") + " online (" + PlayerHandler.getNonPlayerCount() + " staff member online).");
                 } else {
-                    player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online (\" + PlayerHandler.getNonPlayerCount() + \" staff member online).");
+                    player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online (" + PlayerHandler.getNonPlayerCount() + " staff member online).");
                 }
                 String[] players = new String[count];
 
@@ -205,7 +209,13 @@ public class Commands implements PacketType {
 
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+                for (int i = 8144; i < 8196; i++) player.getPacketSender().sendString("", i);
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
 
                 player.getPacketSender().sendString("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
 
@@ -322,9 +332,14 @@ public class Commands implements PacketType {
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++)
+                for (int i = 8144; i < 8196; i++)
                     player.getPacketSender().sendString("", i);
-
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
                 player.getPacketSender().sendString("@dre@Commands", 8144);
 
                 int commandsLineNumber = 8147;
@@ -396,7 +411,13 @@ public class Commands implements PacketType {
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+                for (int i = 8144; i < 8196; i++) player.getPacketSender().sendString("", i);
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
 
                 player.getPacketSender().sendString("@dre@Highscores", 8144);
 

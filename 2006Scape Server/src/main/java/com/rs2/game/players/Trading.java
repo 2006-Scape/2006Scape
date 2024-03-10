@@ -70,7 +70,7 @@ public class Trading {
 				player.getPacketSender().sendMessage("Other player is busy at the moment.");
 			}
 		} catch (Exception e) {
-			Misc.println("Error requesting trade.");
+			System.out.println("Error requesting trade.");
 		}
 	}
 	public boolean isCloseTo(Client tradedPlayer) {

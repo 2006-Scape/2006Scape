@@ -72,7 +72,7 @@ public class Dueling {
 				o.getPacketSender().sendMessage(player.playerName + ":duelreq:");
 			}
 		} catch (Exception e) {
-			Misc.println("Error requesting duel.");
+			System.out.println("Error requesting duel.");
 		}
 	}
 

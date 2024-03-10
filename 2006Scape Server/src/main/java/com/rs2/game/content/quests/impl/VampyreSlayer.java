@@ -14,7 +14,13 @@ public class VampyreSlayer {
 
 	public static void showInformation(Player client) {
 		// Clear all lines
-		for (int i = 8144; i < 8195; i++) client.getPacketSender().sendString("", i);
+		for (int i = 8144; i < 8196; i++) client.getPacketSender().sendString("", i);
+		for (int i = 12174; i < (12174 + 50); i++) {
+			client.getPacketSender().sendString( "", i);
+		}
+		for (int i = 14945; i < (14945 + 100); i++) {
+			client.getPacketSender().sendString("", i);
+		}
 		// Set the title
 		client.getPacketSender().sendString("Vampyre Slayer", 8144);
 		// Add content

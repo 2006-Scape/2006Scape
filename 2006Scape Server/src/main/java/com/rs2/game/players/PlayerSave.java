@@ -44,14 +44,14 @@ public class PlayerSave {
 				//it's the .gitignore :P
 				return 0;
 			}
-			Misc.println(playerName + ": character file not found.");
+			System.out.println(playerName + ": character file not found.");
 			player.newPlayer = false;
 			return 0;
 		}
 		try {
 			line = characterfile.readLine();
 		} catch (IOException ioexception) {
-			Misc.println(playerName + ": error loading file.");
+			System.out.println(playerName + ": error loading file.");
 			return 3;
 		}
 		while (EndOfFile == false && line != null) {
@@ -208,6 +208,9 @@ public class PlayerSave {
 								break;
 							case "musicOn":
 								player.musicOn = Boolean.parseBoolean(token2);
+								break;
+							case "soundOn":
+								player.soundOn = Boolean.parseBoolean(token2);
 								break;
 							case "barrowsNpcs":
 								player.barrowsNpcs[Integer.parseInt(token3[0])][1] = Integer.parseInt(token3[1]);
@@ -728,6 +731,8 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("musicOn = " + player.musicOn);
 			characterfile.newLine();
+			characterfile.write("soundOn = " + player.soundOn);
+			characterfile.newLine();
 			characterfile.write("needsNewTask = " + player.needsNewTask);
 			characterfile.newLine();
 			characterfile.write("luthas = " + player.luthas);
@@ -905,7 +910,7 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.close();
 		} catch (IOException ioexception) {
-			Misc.println(player.playerName + ": error writing file.");
+			System.out.println(player.playerName + ": error writing file.");
 			return false;
 		}
 		return true;

@@ -1137,7 +1137,7 @@ public class NpcActions {
                 break;
             default:
                 if (player.playerRights == 3) {
-                    Misc.println("Third Click NPC : " + npcType);
+                    System.out.println("Third Click NPC : " + npcType);
                 }
                 break;
 

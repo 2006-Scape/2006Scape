@@ -112,7 +112,7 @@ public class UseItem {
 
 		default:
 			if (c.playerRights == 3) {
-				Misc.println("Player At Object id: " + objectID + " objectX: "
+				System.out.println("Player At Object id: " + objectID + " objectX: "
 						+ objectX + " objectY: " + objectY + " with Item id: "
 						+ itemId);
 			}
@@ -387,7 +387,7 @@ public class UseItem {
 		}
 
 		if (player.playerRights == 3) {
-			Misc.println("Player used Item id: " + itemUsed + " with Item id: " + useWith);
+			System.out.println("Player used Item id: " + itemUsed + " with Item id: " + useWith);
 		}
 	}
 
@@ -396,7 +396,7 @@ public class UseItem {
 
 		default:
 			if (c.playerRights == 3) {
-				Misc.println("Player used Item id: " + itemId
+				System.out.println("Player used Item id: " + itemId
 						+ " with Npc id: " + npcId + " With Slot : " + slot);
 			}
 			break;

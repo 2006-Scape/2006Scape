@@ -23,6 +23,10 @@ public class RemoveItem implements PacketType {
 		if (!RareProtection.removeItem(player, removeId)) {
 			return;
 		}
+		
+		if (interfaceId == 1688 && removeSlot == 3) {
+			player.getPlayerAssistant().resetAutocast();
+		}
 
 		player.endCurrentTask();
 

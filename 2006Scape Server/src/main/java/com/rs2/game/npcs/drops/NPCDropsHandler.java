@@ -28,7 +28,7 @@ public class NPCDropsHandler {
         try {
             npcDrops = new Gson().fromJson(new FileReader("./data/cfg/npcdrops.json"), NpcDrop[].class);
         } catch (FileNotFoundException fileex) {
-            Misc.println("npcdrops.json: file not found.");
+            System.out.println("npcdrops.json: file not found.");
         }
     }
 

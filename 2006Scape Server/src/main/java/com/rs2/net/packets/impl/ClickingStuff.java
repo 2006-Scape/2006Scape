@@ -32,7 +32,7 @@ public class ClickingStuff implements PacketType {
 				player.tradeConfirmed2 = false;
 				player.getPacketSender().sendMessage("@red@Trade has been declined.");
 				opponent.getPacketSender().sendMessage("@red@Other player has declined the trade.");
-				Misc.println("trade reset");
+				System.out.println("trade reset");
 				player.getTrading().declineTrade();
 				opponent.getTrading().declineTrade();
 				}

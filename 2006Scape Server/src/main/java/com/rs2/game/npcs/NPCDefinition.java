@@ -2,25 +2,35 @@ package com.rs2.game.npcs;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.io.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.rs2.util.XStreamUtil;
 
 public class NPCDefinition {
-
-	private static NPCDefinition[] definitions = null;
+	
+	private static HashMap<Integer, NPCDefinition> definitions = new HashMap<>();
 
 	public static void init() throws IOException {
-		@SuppressWarnings("unchecked")
-		List<NPCDefinition> defs = (List<NPCDefinition>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/cfg/npcDefinitions.xml"));
-		definitions = new NPCDefinition[3790];
+		Gson gson = new Gson();
+		Type type = new TypeToken<List<NPCDefinition>>(){}.getType();
+		List<NPCDefinition> defs;
+		try (FileReader reader = new FileReader("data/cfg/npcDefinitions.json")) {
+			defs = gson.fromJson(reader, type);
+		}
 		for (NPCDefinition def : defs) {
-			definitions[def.getId()] = def;
+			definitions.put(def.getId(), def);
 		}
 	}
 
 	public static NPCDefinition forId(int id) {
-		NPCDefinition d = definitions[id];
+		NPCDefinition d = definitions.get(id);
 		if (d == null) {
 			d = produceDefinition(id);
 		}

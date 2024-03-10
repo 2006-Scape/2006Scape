@@ -3926,7 +3926,11 @@ public class DialogueHandler {
 				player.dialogueAction = 70;
 				break;
 			case 1009:
-				sendPlayerChat("Yes.");
+				if (player.talkingNpc > 0) {
+					sendPlayerChat("Yes.");
+				} else {
+					player.getPacketSender().closeAllWindows();
+				}
 				player.getPlayerAssistant().movePlayer(1761, 5192, 0);
 				player.nextChat = 0;
 				break;

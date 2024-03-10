@@ -191,7 +191,7 @@ public class PacketSender {
 		player.getItemAssistant().addSpecialBar(player.playerEquipment[player.playerWeapon]);
 		player.saveTimer = Constants.SAVE_TIMER;
 		player.saveCharacter = true;
-		Misc.println((player.isBot ? "[BOT-REGISTERED]" : "[REGISTERED]") + ": " + player.playerName + " (level-" + player.calculateCombatLevel() + ")");
+		System.out.println((player.isBot ? "[BOT-REGISTERED]" : "[REGISTERED]") + ": " + player.playerName + " (level-" + player.calculateCombatLevel() + ")");
 		player.handler.updatePlayer(player, player.outStream);
 		player.handler.updateNPC(player, player.outStream);
 		player.flushOutStream();
@@ -1165,6 +1165,9 @@ public class PacketSender {
 	 */
 
 	public PacketSender sendSound(int id, int volume, int delay) {
+		if (player != null && !player.soundOn) {
+			return this;
+		}
 		frame174(id, volume, delay);
 		return this;
 	}
