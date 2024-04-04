@@ -30,6 +30,8 @@ import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.PathFinder;
 
+import static com.rs2.game.content.StaticItemList.GRANITE_MAUL;
+
 /**
  * @author whoever contributed
  * @author Andrew (Mr Extremez)
@@ -938,6 +940,10 @@ public class CombatAssistant {
 						player.lastArrowUsed = player.playerEquipment[player.playerArrows];
 						player.getSpecials().activateSpecial(player.playerEquipment[player.playerWeapon], o, i);
 						player.followId = player.playerIndex;
+						// We can create a list if there are more than one weapon which does not trigger this
+						if(player.playerWeapon != GRANITE_MAUL){
+							player.attackTimer = getAttackDelay();
+						}
 						return;
 					} else {
 						player.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");
