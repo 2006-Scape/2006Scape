@@ -410,7 +410,9 @@ public class CombatAssistant {
 					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 7) && (player.usingBow || player.usingMagic)) {
 				return;
 			} else {
-				player.followId2 = 0;
+				if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
+					player.followId2 = 0;
+				}
 				player.stopMovement();
 			}
 		}
@@ -444,6 +446,9 @@ public class CombatAssistant {
 					|| !player.goodDistance(player.getX(), player.getY(), PlayerHandler.players[i].getX(), PlayerHandler.players[i].getY(), 10) && (player.usingBow || player.usingMagic)) {
 				return;
 			} else {
+				if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
+					player.followId = 0;
+				}
 				player.stopMovement();
 			}
 		}
@@ -567,7 +572,9 @@ public class CombatAssistant {
 						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (player.usingBow || player.usingMagic)) {
 					return;
 				} else {
-					player.followId2 = 0;
+					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
+						player.followId2 = 0;
+					}
 					player.stopMovement();
 				}
 
@@ -867,6 +874,10 @@ public class CombatAssistant {
 						resetPlayerAttack();
 					}
 					return;
+				} else {
+					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
+						player.followId = 0;
+					}
 				}
 
 				if (!usingCross
@@ -1042,7 +1053,7 @@ public class CombatAssistant {
 								MagicSpells.getStartDelay(player));
 					}
 					if (player.autocastId > 0) {
-						player.followId = player.playerIndex;
+						//player.followId = player.playerIndex; //TODO: Why would the player ever follow themselves? There is no way this is correct.
 						player.followDistance = 5;
 					}
 					player.hitDelay = getHitDelay();
