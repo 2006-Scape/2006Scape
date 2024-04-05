@@ -1053,7 +1053,8 @@ public class CombatAssistant {
 								MagicSpells.getStartDelay(player));
 					}
 					if (player.autocastId > 0) {
-						//player.followId = player.playerIndex; //TODO: Why would the player ever follow themselves? There is no way this is correct.
+						//We don't need to set the followId if they are already autocasting, setting followId here makes a manual cast (when autocast is set) run up to the player.
+						//player.followId = player.playerIndex;
 						player.followDistance = 5;
 					}
 					player.hitDelay = getHitDelay();
