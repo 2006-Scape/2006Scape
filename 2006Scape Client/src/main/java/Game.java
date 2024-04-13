@@ -5627,7 +5627,9 @@ public class Game extends RSApplet {
 	
 			if (!file.exists()) {
 				ImageIO.write(bufferedimage, "png", file);
-				pushMessage("A picture has been saved in your screenshots folder.", 0, "");
+				if (sendMessage) {
+					pushMessage("A picture has been saved in your screenshots folder.", 0, "");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
