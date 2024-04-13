@@ -5582,7 +5582,7 @@ public class Game extends RSApplet {
 		}
 
 	}
-	public void screenshot(String... subfolders) {
+	public void screenshot(boolean sendMessage, String... subfolders) {
 		try {
 			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
 			if (window == null) {
