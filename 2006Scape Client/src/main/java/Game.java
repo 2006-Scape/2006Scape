@@ -12682,7 +12682,7 @@ public class Game extends RSApplet {
 
 		}
 		  if (keyevent.getKeyCode() == KeyEvent.VK_PRINTSCREEN && keyevent.isControlDown()) {
-			screenshot();
+			screenshot(true);
 		}
 	}
 
