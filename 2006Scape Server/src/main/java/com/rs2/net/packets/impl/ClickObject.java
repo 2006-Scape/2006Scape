@@ -23,7 +23,7 @@ import com.rs2.world.clip.Region;
 public class ClickObject implements PacketType {
 
 	public static final int FIRST_CLICK = 132, SECOND_CLICK = 252,
-			THIRD_CLICK = 70, FOURTH_CLICK = 234;
+			THIRD_CLICK = 70, FOURTH_CLICK = 234, FIFTH_CLICK = 228;
 
 	public void onObjectReached(Player player, Consumer<Player> consumer) {
 		if (System.currentTimeMillis() - player.clickDelay < 300)
@@ -114,6 +114,12 @@ public class ClickObject implements PacketType {
 				player.objectId = packet.readUnsignedWordA();
 				player.objectY = packet.readUnsignedWordBigEndianA();
 				onObjectReached(player, (p) -> completeObjectClick(p, 4));
+				break;
+			case FIFTH_CLICK:
+				player.objectId = packet.readUnsignedWordA();
+				player.objectY = packet.readUnsignedWordA();
+				player.objectX = packet.readUnsignedWord();
+				onObjectReached(player, (p) -> completeObjectClick(p, 5));
 				break;
 		}
 	}

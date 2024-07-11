@@ -3762,7 +3762,7 @@ public class Game extends RSApplet {
 				worldController.method312(k - 4, j - 4);
 			}
 		}
-		if (l == 1062) {
+		if (l == 1062) { //Fifth click
 			anInt924 += baseX;
 			if (anInt924 >= 113) {
 				stream.createFrame(183);
