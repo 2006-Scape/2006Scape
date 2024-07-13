@@ -9,6 +9,7 @@ import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.music.sound.CombatSounds;
 import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
+import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcData;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
@@ -568,7 +569,7 @@ public class NpcCombat {
 						if (NpcHandler.npcs[i].attackType == AttackType.MELEE.getValue()) {
 							damage = Misc.random(NpcHandler.npcs[i].maxHit);
 						}
-						if (10 + Misc.random(MeleeData.calculateMeleeDefence(c)) > Misc.random(NpcHandler.npcs[i].attack)) {
+						if (10 + Misc.random(MeleeData.calculateMeleeDefence(c)) > Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getAttackBonus())) {
 							 if (NpcHandler.npcs[i].npcType == 1158 || NpcHandler.npcs[i].npcType == 1160) 
 								damage = (damage / 2);
 							 else
@@ -582,7 +583,7 @@ public class NpcCombat {
 
 				if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) { // range
 					damage = Misc.random(NpcHandler.npcs[i].maxHit);
-					if (10 + Misc.random(c.getCombatAssistant().calculateRangeDefence()) > Misc.random(NpcHandler.npcs[i].attack)) {
+					if (10 + Misc.random(c.getCombatAssistant().calculateRangeDefence()) > Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getAttackBonus())) {
 						if (NpcHandler.npcs[i].npcType == 1158 || NpcHandler.npcs[i].npcType == 1160) 
 							damage = (damage / 2);
 						 else
@@ -604,7 +605,7 @@ public class NpcCombat {
 				if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) { // magic
 					damage = Misc.random(NpcHandler.npcs[i].maxHit);
 					boolean magicFailed = false;
-					if (10 + Misc.random(c.getCombatAssistant().mageDef()) > Misc.random(NpcHandler.npcs[i].attack)) {
+					if (10 + Misc.random(c.getCombatAssistant().mageDef()) > Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getAttackBonus())) {
 						damage = 0;
 						magicFailed = true;
 					}
