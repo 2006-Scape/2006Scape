@@ -4028,6 +4028,11 @@ public class DialogueHandler {
 
 			case 1027:
 				player.getDialogueHandler().sendStatement("10 coins are removed from your inventory.");
+				//Fix Al-Kharid gate talking option by setting an object ID required by initKharid
+				player.objectId = 2882;
+				if (player.getY() == 3228) {
+					player.objectId = 2883;
+				}
 				OtherObjects.initKharid(player, player.objectId);
 				player.nextChat = 0;
 				break;
