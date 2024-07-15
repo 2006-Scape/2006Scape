@@ -42,6 +42,8 @@ public class CustomPrintStream extends PrintStream {
         if (stack.length > 3) {
             StackTraceElement elem = stack[3];
             String className = elem.getClassName();
+            // Remove instance from class name since we care about files, not objects
+            className = className.replaceAll("\\$.*", "");
             String simpleClassName = className.substring(className.lastIndexOf('.') + 1); // Get simple class name
             String methodName = elem.getMethodName();
             caller = simpleClassName + "." + methodName + "()";
