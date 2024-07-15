@@ -344,9 +344,10 @@ public class GameEngine {
 								npcCount++;
 							}
 						}
-						System.out.printf("Cycle #%d took %d ms. Players: %d, NPCs: %d, [Durations: i: %d ms, p: %d ms, n: %d ms, s: %d ms, oh: %d ms, om: %d ms], Memory: %dMB/%dMB. Max: %dMB, Threads: %d.%n",
-								gameTicksIncrementor, totalCycleDuration, playerCount, npcCount, durationItemHandler, durationPlayerHandler, durationNpcHandler, durationShopHandler, durationObjectHandler, durationObjectManager,
-								(totalMem - freeMem) / 1024 / 1024, totalMem / 1024 / 1024, maxMem / 1024 / 1024, Thread.activeCount());
+						System.out.println("Cycle #" + gameTicksIncrementor + " took " + totalCycleDuration + " ms. Players: " + playerCount + ", NPCs: " + npcCount +
+								", [Durations: i: " + durationItemHandler + " ms, p: " + durationPlayerHandler + " ms, n: " + durationNpcHandler + " ms, s: " + durationShopHandler +
+								" ms, oh: " + durationObjectHandler + " ms, om: " + durationObjectManager + " ms], Memory: " + (totalMem - freeMem) / 1024 / 1024 + "MB/" +
+								totalMem / 1024 / 1024 + "MB. Max: " + maxMem / 1024 / 1024 + "MB, Threads: " + Thread.activeCount() + ".");
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
