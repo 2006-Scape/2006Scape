@@ -25,6 +25,11 @@ public class ClientSettings {
     public static boolean HIDE_ROOFS = false;
     /**
      * @QoL
+     * Hide buggy varrock sword shop snow
+     */
+    public static boolean HIDE_BUGGY_VARROCK_SWORD_SHOP_SNOW = true;
+    /**
+     * @QoL
      * Forces Server-Wide Snow floor
      */
     public static boolean SNOW_FLOOR_FORCE_ENABLED = false;

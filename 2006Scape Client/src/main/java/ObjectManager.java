@@ -1358,7 +1358,7 @@ final class ObjectManager {
 	
 	static boolean hideRoofs = ClientSettings.HIDE_ROOFS;
 	
-	static boolean hideBuggyVarrockSwordShopSnow = true; //There is some buggy snow near Varrock sword shop, let's hide it. I know, this is not ideal, but it does work.
+	static boolean hideBuggyVarrockSwordShopSnow = ClientSettings.HIDE_BUGGY_VARROCK_SWORD_SHOP_SNOW; //There is some buggy snow near Varrock sword shop, let's hide it. I know, this is not ideal, but it does work.
 	private static final int anIntArray152[] = {1, 2, 4, 8};
 
 }
