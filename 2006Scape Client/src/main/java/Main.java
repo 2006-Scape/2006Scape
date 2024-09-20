@@ -32,14 +32,7 @@ public final class Main {
 						ClientSettings.BILINEAR_MINIMAP_FILTERING = true;
 						ClientSettings.FIX_TRANSPARENCY_OVERFLOW = true;
 						ClientSettings.FULL_512PX_VIEWPORT = true;
-						Game.customSettingVisiblePlayerNames = true;
-						Game.customSettingMinItemValue = 1000;
-						break;
-					case "-fixesnooverride":
-						ClientSettings.CUSTOM_SETTINGS_TAB = true;
-						ClientSettings.BILINEAR_MINIMAP_FILTERING = true;
-						ClientSettings.FIX_TRANSPARENCY_OVERFLOW = true;
-						ClientSettings.FULL_512PX_VIEWPORT = true;
+						ClientSettings.CONTROL_KEY_ZOOMING = true;
 						break;
 					case "-no-nav":
 					case "-disable-nav":
@@ -60,10 +53,6 @@ public final class Main {
 						break;
 					case"-show-zoom":
 						ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES = true;
-						break;
-					case"-crtl-key-zoom":
-					case"-control-key-zoom":
-						ClientSettings.CONTROL_KEY_ZOOMING = true;
 						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {

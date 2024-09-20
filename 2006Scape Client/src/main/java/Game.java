@@ -5038,6 +5038,9 @@ public class Game extends RSApplet {
 					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
 						graphicsEnabled = !graphicsEnabled;
 					}
+					if (inputString.equals("::crtlkeyzoom") || inputString.equals("::controlkeyzoom")) {
+						ClientSettings.CONTROL_KEY_ZOOMING = !ClientSettings.CONTROL_KEY_ZOOMING;
+					}
 					if (myPrivilege >= 2) {
 						if (inputString.equals("::noclip"))
 							for (int k1 = 0; k1 < 4; k1++)
