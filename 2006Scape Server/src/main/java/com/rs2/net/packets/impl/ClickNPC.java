@@ -154,7 +154,7 @@ public class ClickNPC implements PacketType {
 				return;
 			}
 			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY(), NPCDefinition.forId(NpcHandler.npcs[player.npcIndex].npcType).getSize())) {
-				System.out.println("distance good! stop movement 1");
+				//System.out.println("distance good! stop movement 1");
 				player.stopMovement();
 			}
 			if (player.followPlayerId > 0) {

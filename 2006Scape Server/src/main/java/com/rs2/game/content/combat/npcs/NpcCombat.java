@@ -162,11 +162,11 @@ public class NpcCombat {
 			if (!NpcData.goodDistanceNpc(NpcHandler.npcs[i].npcId, c.getX(), c.getY(), NpcData.distanceRequired(NpcHandler.npcs[i].npcId)) || NpcData.inNpc(NpcHandler.npcs[i].npcId, c.getX(), c.getY())) {
 				return;
 			}
-			System.out.println("distance seems good!");
+			//System.out.println("distance seems good!");
 			NpcHandler.npcs[i].facePlayer(c);
 			boolean special = false;//specialCase(c,i);
 			if (NpcData.checkClip(NpcHandler.npcs[i]) || special) {
-				System.out.println("clip seems good!");
+				//System.out.println("clip seems good!");
 				if (c.respawnTimer <= 0) {
 					NpcHandler.npcs[i].facePlayer(c);
 					NpcHandler.npcs[i].attackTimer = NpcData.getNpcDelay(i);

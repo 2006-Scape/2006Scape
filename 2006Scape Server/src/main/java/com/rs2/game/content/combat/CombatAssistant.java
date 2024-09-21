@@ -526,7 +526,7 @@ public class CombatAssistant {
 			player.followNpcId = i;
 			player.followPlayerId = 0;
 			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize())) {
-				System.out.println("distance good! stop movement 2");
+				//System.out.println("distance good! stop movement 2");
 				player.stopMovement();
 			}
 			if (player.attackTimer <= 0) {
@@ -573,7 +573,7 @@ public class CombatAssistant {
 					System.err.println("projectile path is not clear! exiting early");
 					return;
 				}
-				System.out.println("npc id is " + NpcHandler.npcs[i].npcType + " with size " + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize());
+				//System.out.println("npc id is " + NpcHandler.npcs[i].npcType + " with size " + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize());
 				/**
 				 * Distances for attacking npcs
 				 */
@@ -581,7 +581,7 @@ public class CombatAssistant {
 						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic)
 						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize()) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic)
 						|| (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (player.usingBow || player.usingMagic))) {
-					System.err.println("npc distance check early return! probably not good");
+					//System.err.println("npc distance check early return! probably not good");
 					return;
 				} else {
 					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
