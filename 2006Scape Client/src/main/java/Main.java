@@ -60,7 +60,7 @@ public final class Main {
 						break;
 					case"-auto-screenshots":
 					case"-enable-auto-screenshots":
-						ClientSettings.SCREENSHOTS_ENABLED = true;
+						ClientSettings.AUTOMATIC_SCREENSHOTS_ENABLED = true;
 						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
