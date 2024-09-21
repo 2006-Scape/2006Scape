@@ -117,6 +117,7 @@ public class GameEngine {
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private final static Lock lock = new ReentrantLock();
 	public static ControlPanel panel;
+	private static long serverStartTime;
 
 	static {
 		shutdownServer = false;
@@ -128,6 +129,7 @@ public class GameEngine {
 		System.setErr(errorStream);
 		CustomPrintStream infoStream = new CustomPrintStream(System.out, "INFO", true);
 		System.setOut(infoStream);
+		serverStartTime = System.currentTimeMillis();
 		if (NetworkConstants.RSA_EXPONENT != Constants.RSA_EXPONENT) {
 			NetworkConstants.RSA_EXPONENT = Constants.RSA_EXPONENT;
 			NetworkConstants.RSA_MODULUS = Constants.RSA_MODULUS;
@@ -158,15 +160,15 @@ public class GameEngine {
 		}
 
 		if (!new File("data").exists()) {
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
-			System.out.println("In IntelliJ, fix it by clicking \"Server\" > Edit Configurations at the top of your screen");
-			System.out.println("Then changing the \"Working Directory\" to be in \"2006Scape/2006Scape Server\", instead of just \"2006Scape\"");
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
+			System.err.println("In IntelliJ, fix it by clicking \"Server\" > Edit Configurations at the top of your screen");
+			System.err.println("Then changing the \"Working Directory\" to be in \"2006Scape/2006Scape Server\", instead of just \"2006Scape\"");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
 			System.exit(1);
 		}
 
@@ -321,4 +323,8 @@ public class GameEngine {
 
 	public static boolean playerExecuted = false;
 	private static BufferedReader minuteFile;
+
+	public static long getServerStartTime() {
+		return serverStartTime;
+	}
 }

@@ -45,7 +45,7 @@ public class PlayerHandler {
 		players[slot].isActive = true;
 		players[slot].connectedFrom = client1.isBot ? "127.0.0.1" : ((InetSocketAddress) client1.getSession().getRemoteAddress()).getAddress().getHostAddress();
 		if (Constants.SERVER_DEBUG) {
-			Misc.println("Player Slot " + slot + " slot 0 " + players[0]
+			System.out.println("Player Slot " + slot + " slot 0 " + players[0]
 					+ " Player Hit " + players[slot]);
 		}
 		return true;

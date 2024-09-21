@@ -7,6 +7,7 @@ import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.npcs.NpcAggressive;
 import com.rs2.game.content.combat.npcs.NpcCombat;
@@ -153,7 +154,8 @@ public class NpcHandler {
         try {
             NPCDefinition.init();
         } catch (Exception e) {
-            //System.out.println("npc def error");
+            System.out.println("npc def error: ");
+            e.printStackTrace();
         }
     }
 
@@ -263,7 +265,7 @@ public class NpcHandler {
             }
         }
         if (slot == -1) {
-            // Misc.println("No Free Slot");
+            // System.out.println("No Free Slot");
             return; // no free slot found
         }
         Npc newNPC = new Npc(slot, npcType);
@@ -310,7 +312,7 @@ public class NpcHandler {
             }
         }
         if (slot == -1) {
-            // Misc.println("No Free Slot");
+            // System.out.println("No Free Slot");
             return; // no free slot found
         }
         Npc newNPC = new Npc(slot, npcType);
@@ -331,28 +333,34 @@ public class NpcHandler {
         npcs[slot] = newNPC;
     }
 
-    private void killedBarrow(int i) {
+    private boolean killedBarrow(int i) {
+        boolean barrows = false;
         Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
         if (c != null) {
             for (int o = 0; o < c.barrowsNpcs.length; o++) {
                 if (npcs[i].npcType == c.barrowsNpcs[o][0]) {
                     c.barrowsNpcs[o][1] = 2; // 2 for dead
                     c.barrowsKillCount++;
+                    barrows = true;
                 }
             }
         }
+        return barrows;
     }
 
-    private void killedCrypt(int i) {
+    private boolean killedCrypt(int i) {
+        boolean crypt = false;
         Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
         if (c != null) {
             for (int o = 0; o < c.barrowCrypt.length; o++) {
                 if (npcs[i].npcType == c.barrowCrypt[o][0]) {
                     c.barrowsKillCount++;
                     c.getPacketSender().sendString("" + c.barrowsKillCount, 4536);
+                    crypt = true;
                 }
             }
         }
+        return crypt;
     }
 
     public void newNPC(int npcType, int x, int y, int heightLevel,
@@ -745,10 +753,16 @@ public class NpcHandler {
                         npcs[i].animUpdateRequired = true;
                         npcs[i].freezeTimer = 0;
                         npcs[i].applyDead = true;
-                        killedBarrow(i);
-                        killedCrypt(i);
+                        boolean barrows = killedBarrow(i);
+                        boolean crypt = killedCrypt(i);
                         npcs[i].actionTimer = 4; // delete time
                         resetPlayersInCombat(i);
+                        if (!crypt && !barrows && c != null) {
+                            c.incrementNpcKillCount(npcs[i].npcType, 1);
+                            if (c.displayRegularKcMessages || (c.displayBossKcMessages && Constants.BOSS_NPC_IDS.contains(npcs[i].npcType)) || (c.displaySlayerKcMessages && Constants.SLAYER_NPC_IDS.contains(npcs[i].npcType))) {
+                                c.getPacketSender().sendMessage("Your " + npcs[i].name() + " kill count is now: " + c.getNpcKillCount(npcs[i].npcType));
+                            }
+                        }
                     } else if (npcs[i].actionTimer == 0
                             && npcs[i].applyDead
                             && npcs[i].needRespawn == false) {
@@ -907,21 +921,21 @@ public class NpcHandler {
     public static boolean multiAttacks(int i) {
         switch (npcs[i].npcType) {
             case 1158: //kq
-				if (npcs[i].attackType == 2) {
+				if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
 					return true;
 				}
             case 1160: //kq
-				if (npcs[i].attackType == 1) {
+				if (npcs[i].attackType == AttackType.RANGE.getValue()) {
 					return true;
 				}
             case 2558:
                 return true;
             case 2562:
-                if (npcs[i].attackType == 2) {
+                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
                     return true;
                 }
             case 2550:
-                if (npcs[i].attackType == 1) {
+                if (npcs[i].attackType == AttackType.RANGE.getValue()) {
                     return true;
                 }
             default:
@@ -1138,7 +1152,8 @@ public class NpcHandler {
                     int points = c.getSlayer().getDifficulty(c.slayerTask) * 4;
                     c.slayerTask = -1;
                     c.slayerPoints += points;
-                    c.getPacketSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points. Please talk to your slayer master.");
+                    c.getPacketSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points.");
+                    c.getPacketSender().sendMessage("Please talk to your slayer master for a new task.");
                 }
             }
         }
@@ -1273,6 +1288,8 @@ public class NpcHandler {
 
     /**
      * Distanced required to attack
+     * If NPCs are maging in melee distance check that the NPC ID is actually in here.
+     * It's also worth checking  {@link NpcData#distanceRequired}
      **/
     public static int distanceRequired(int i) {
         switch (npcs[i].npcType) {
@@ -1282,6 +1299,8 @@ public class NpcHandler {
             case 50:
             case 2562:
                 return 2;
+            case 172: // dark wizards
+            case 174:
             case 2881:// dag kings
             case 2882:
             case 3200:// chaos ele
@@ -1420,7 +1439,7 @@ public class NpcHandler {
             case 1158:
                 return 30;
             case 2558:
-                if (npcs[i].attackType == 2) {
+                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
                     return 28;
                 } else {
                     return 68;
@@ -1467,7 +1486,7 @@ public class NpcHandler {
                         spawn.getStrength());
             }
         } catch (FileNotFoundException fileex) {
-            Misc.println("spawns.json: file not found.");
+            System.out.println("spawns.json: file not found.");
         }
     }
 
@@ -1484,13 +1503,13 @@ public class NpcHandler {
         try {
             characterfile = new BufferedReader(new FileReader(FileName));
         } catch (FileNotFoundException fileex) {
-            Misc.println(FileName + ": file not found.");
+            System.out.println(FileName + ": file not found.");
             return false;
         }
         try {
             line = characterfile.readLine();
         } catch (IOException ioexception) {
-            Misc.println(FileName + ": error loading file.");
+            System.out.println(FileName + ": error loading file.");
             // return false;
         }
         while (EndOfFile == false && line != null) {
@@ -1581,7 +1600,7 @@ public class NpcHandler {
                 newNPCList(npc.getId(), npc.getName(), npc.getCombat(), npc.getHitpoints());
             }
         } catch (FileNotFoundException fileex) {
-            Misc.println("npc.json: file not found.");
+            System.out.println("npc.json: file not found.");
         }
     }
 
@@ -1597,14 +1616,14 @@ public class NpcHandler {
         try {
             characterfile = new BufferedReader(new FileReader(FileName));
         } catch (FileNotFoundException fileex) {
-            Misc.println(FileName + ": file not found.");
+            System.out.println(FileName + ": file not found.");
             return false;
         }
         try {
             line = characterfile.readLine();
             // characterfile.close();
         } catch (IOException ioexception) {
-            Misc.println(FileName + ": error loading file.");
+            System.out.println(FileName + ": error loading file.");
             // return false;
         }
         while (EndOfFile == false && line != null) {

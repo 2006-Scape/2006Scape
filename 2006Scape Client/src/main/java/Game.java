@@ -3,12 +3,14 @@
  * THIS IS TO ALLOW LOCAL PARABOT TO CONTINUE TO WORK
  */
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.applet.AppletContext;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -23,6 +25,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.CRC32;
@@ -2975,7 +2978,11 @@ public class Game extends RSApplet {
 		if (anInt1011 > 0) {
 			anInt1011--;
 		}
-		for (int j = 0; j < 5; j++) {
+		//TODO: Technically, this loop should be < 5 for authenticity, but until we reduce server inefficiencies
+		//(for example killing a bunch of cows results in client lag, 
+		//likely from all the items on the ground for example), < 100 is fine. 
+		//OSRS uses < 100 and there are no drawbacks from having this < 100.
+		for (int j = 0; j < 100; j++) {
 			if (!parsePacket()) {
 				break;
 			}
@@ -3758,7 +3765,7 @@ public class Game extends RSApplet {
 				worldController.method312(k - 4, j - 4);
 			}
 		}
-		if (l == 1062) {
+		if (l == 1062) { //Fifth click
 			anInt924 += baseX;
 			if (anInt924 >= 113) {
 				stream.createFrame(183);
@@ -5034,6 +5041,10 @@ public class Game extends RSApplet {
 					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
 						graphicsEnabled = !graphicsEnabled;
 					}
+					if (inputString.equals("::crtlkeyzoom") || inputString.equals("::controlkeyzoom")) {
+						ClientSettings.CONTROL_KEY_ZOOMING = !ClientSettings.CONTROL_KEY_ZOOMING;
+						pushMessage("Your control key zooming is now: " + (ClientSettings.CONTROL_KEY_ZOOMING ? "enabled" : "disabled"), 0, "");
+					}
 					if (myPrivilege >= 2) {
 						if (inputString.equals("::noclip"))
 							for (int k1 = 0; k1 < 4; k1++)
@@ -5579,7 +5590,51 @@ public class Game extends RSApplet {
 		}
 
 	}
-
+	public void screenshot(boolean sendMessage, String... subfolders) {
+		try {
+			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
+			if (window == null) {
+				return;
+			}
+			Point point = window.getLocationOnScreen();
+			int x = (int) point.getX();
+			int y = (int) point.getY();
+			int w = window.getWidth();
+			int h = window.getHeight();
+			Robot robot = new Robot(window.getGraphicsConfiguration().getDevice());
+			Rectangle captureSize = new Rectangle(x, y, w, h);
+			BufferedImage bufferedimage = robot.createScreenCapture(captureSize);
+	
+			// Format the current date and time
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd-HH_mm_ss");
+			String dateTime = dateFormat.format(new Date());
+	
+			// Update the file path and naming
+			String fileExtension = myUsername != null && !myUsername.isEmpty() ? myUsername : ClientSettings.SERVER_NAME;
+			
+			String subfolderPath = String.join(File.separator, subfolders);
+			if (!subfolderPath.isEmpty()) {
+				subfolderPath += File.separator;
+			}
+			
+			String screenshotDir = System.getProperty("user.home") + File.separatorChar + ClientSettings.SERVER_NAME + File.separatorChar + "screenshots" + File.separatorChar + subfolderPath;
+			File dir = new File(screenshotDir);
+			if (!dir.exists()) {
+				dir.mkdirs(); // Create the directory if it doesn't exist
+			}
+	
+			File file = new File(screenshotDir, fileExtension + "_" + dateTime + ".png");
+	
+			if (!file.exists()) {
+				ImageIO.write(bufferedimage, "png", file);
+				if (sendMessage) {
+					pushMessage("A picture has been saved in your screenshots folder.", 0, "");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void pushMessage(String s, int i, String s1) {
 		if (i == 0 && dialogID != -1) {
 			aString844 = s;
@@ -5629,6 +5684,16 @@ public class Game extends RSApplet {
 				needDrawTabArea = true;
 				tabID = 1;
 				tabAreaAltered = true;
+				if(ClientSettings.SCREENSHOTS_ENABLED && ClientSettings.AUTOMATIC_SCREENSHOTS_ENABLED) {
+					java.util.Timer timer = new java.util.Timer();
+					java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
+						@Override
+						public void run() {
+							screenshot(false, "stats");
+						}
+					};
+					timer.schedule(delayedScreenshot, 300);
+				}
 			}
 			if (super.saveClickX >= 597 && super.saveClickX <= 627 && super.saveClickY >= 168 && super.saveClickY < 205 && tabInterfaceIDs[2] != -1) {
 				needDrawTabArea = true;
@@ -11247,6 +11312,16 @@ public class Game extends RSApplet {
 				tabAreaAltered = true;
 				aBoolean1149 = false;
 				pktType = -1;
+				if (ClientSettings.SCREENSHOTS_ENABLED && ClientSettings.AUTOMATIC_SCREENSHOTS_ENABLED && i5 == 5292) {
+					java.util.Timer timer = new java.util.Timer();
+					java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
+						@Override
+						public void run() {
+							screenshot(false, "bank");
+						}
+					};
+					timer.schedule(delayedScreenshot, 600);
+				}
 				return true;
 			}
 			if (pktType == 79) {
@@ -11571,7 +11646,7 @@ public class Game extends RSApplet {
 				// 15774 = Good/Bad Password
 				// 15767 = Drama Type 
 				if (l7 == 15244) {
-					if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
+					if (ClientSettings.SNOW_OVERLAY_FORCE_ENABLED || (ClientSettings.SNOW_OVERLAY_ENABLED && Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH))) {
 						openInterfaceID = 15819;
 					} else {
 						openInterfaceID = 15801;
@@ -11814,8 +11889,8 @@ public class Game extends RSApplet {
 		draw3dScreen();
 		if (showInfo) {
 			int debugX = 0;
-			int debugY = 249;
-			int debugItems = 4;
+			int debugY = 234;
+			int debugItems = 5;
 			int debugWidth = 140;
 			int debugHeight = 25 + (debugItems * 15);
 			int fill = 0x5d5447;
@@ -11842,6 +11917,8 @@ public class Game extends RSApplet {
 			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY);
 			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Interface:", debugY += 15);
 			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + openInterfaceID, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Zoom level:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + zoom, debugY);
 		}
 		
 		if (customSettingShowExperiencePerHour) {
@@ -12619,12 +12696,20 @@ public class Game extends RSApplet {
 				tabAreaAltered = true;
 				break;
 			case KeyEvent.VK_PAGE_UP:
-				if (zoom > -1)
+				if (zoom > -1) {
 					zoom--;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 				break;
 			case KeyEvent.VK_PAGE_DOWN:
-				if (zoom < (WorldController.drawDistance / 3))
+				if (zoom < (WorldController.drawDistance / 3)) {
 					zoom++;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 				break;
 			case KeyEvent.VK_V:
 				if (keyevent.isControlDown()) {
@@ -12635,6 +12720,9 @@ public class Game extends RSApplet {
 					inputTaken = true;
 				}
 
+		}
+		  if (ClientSettings.SCREENSHOTS_ENABLED && keyevent.getKeyCode() == KeyEvent.VK_PRINTSCREEN && keyevent.isControlDown()) {
+			screenshot(true);
 		}
 	}
 
@@ -12783,7 +12871,7 @@ public class Game extends RSApplet {
 			inputTaken = true;
 		}
 		if (interfaceID == 15244) {
-			if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
+			if (ClientSettings.SNOW_OVERLAY_FORCE_ENABLED || (ClientSettings.SNOW_OVERLAY_ENABLED && Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH))) {
 				openInterfaceID = 15819;
 			} else {
 				openInterfaceID = 15801;
@@ -12806,14 +12894,25 @@ public class Game extends RSApplet {
 
 	public final void mouseWheelMoved(MouseWheelEvent e) {
 		int notches = e.getWheelRotation();
+		if (ClientSettings.CONTROL_KEY_ZOOMING && !e.isControlDown()) {
+			return;
+		}
 		// If mouse over main game screen, without anything else opened
 		if (openInterfaceID == -1 && mouseX < 515 && mouseY < 340) {
 			if (notches < 0) {
-				if (zoom > -1)
+				if (zoom > -1) {
 					zoom--;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 			} else {
-				if (zoom < (WorldController.drawDistance / 3))
+				if (zoom < (WorldController.drawDistance / 3)) {
 					zoom++;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 			}
 		}
 	}

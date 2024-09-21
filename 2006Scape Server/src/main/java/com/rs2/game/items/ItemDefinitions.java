@@ -56,7 +56,7 @@ public class ItemDefinitions {
 				defintions.put(item.id, new Definition(item));
 			}
 		} catch (FileNotFoundException fileex) {
-			Misc.println("items.json: file not found.");
+			System.out.println("items.json: file not found.");
 		}
 	}
 

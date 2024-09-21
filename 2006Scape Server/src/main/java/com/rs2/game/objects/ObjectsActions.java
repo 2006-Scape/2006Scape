@@ -106,8 +106,13 @@ public class ObjectsActions {
         PassDoor.processDoor(player, objectType);
         AbyssalHandler.handleAbyssalTeleport(player, objectType);
         OpenObject.interactObject(player, objectType);
-         if (Stalls.isObject(objectType)) {
+        if (Stalls.isObject(objectType)) {
             Stalls.attemptStall(player, objectType, objectX, objectY);
+            return;
+        }
+        //Prevent players getting stuck in level 28 wildy
+        if (objectType == 1752 && objectX == 3154 && objectY == 3743) {
+            player.getPacketSender().sendMessage("You find that ladder leads nowhere...");
             return;
         }
         switch (objectType) {
