@@ -5040,6 +5040,7 @@ public class Game extends RSApplet {
 					}
 					if (inputString.equals("::crtlkeyzoom") || inputString.equals("::controlkeyzoom")) {
 						ClientSettings.CONTROL_KEY_ZOOMING = !ClientSettings.CONTROL_KEY_ZOOMING;
+						pushMessage("Your control key zooming is now: " + (ClientSettings.CONTROL_KEY_ZOOMING ? "enabled" : "disabled"), 0, "");
 					}
 					if (myPrivilege >= 2) {
 						if (inputString.equals("::noclip"))
