@@ -116,6 +116,12 @@ public class ClientSettings {
      * FileServer Must Be Running Before Starting The Client If This Is True
      */
     public static boolean CHECK_CRC = true;
+    
+    /**
+     * @QoL
+     * Enables the ability to take screenshots
+     */
+    public static boolean SCREENSHOTS_ENABLED = false;
 
     /**
      * The Npc Bits for the Server
