@@ -1,8 +1,6 @@
 package com.rs2.game.players;
 
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 import com.rs2.Constants;
 import com.rs2.GameEngine;
@@ -23,6 +21,7 @@ import com.rs2.game.items.GameItem;
 import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
+import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.util.GameLogger;
@@ -1656,7 +1655,6 @@ public class PlayerAssistant {
 		if (npc == null || npc.isDead) {
 			return;
 		}
-
 		int x = NpcHandler.npcs[player.followId2].getX();
 		int y = NpcHandler.npcs[player.followId2].getY();
 		if (!player.goodDistance(x, y, player.getX(), player.getY(), 25)) {
@@ -1667,7 +1665,7 @@ public class PlayerAssistant {
 
 		int[] follow = getFollowLocation(x, y);
 		player.faceUpdate(player.followId2);
-        PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
+        PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], true, 1, 1);
 	}
 
 	public int getRunningMove(int i, int j) {
