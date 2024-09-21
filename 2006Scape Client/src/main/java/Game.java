@@ -5610,14 +5610,14 @@ public class Game extends RSApplet {
 			String dateTime = dateFormat.format(new Date());
 	
 			// Update the file path and naming
-			String fileExtension = myUsername != null && !myUsername.isEmpty() ? myUsername : "2006Scape";
+			String fileExtension = myUsername != null && !myUsername.isEmpty() ? myUsername : ClientSettings.SERVER_NAME;
 			
 			String subfolderPath = String.join(File.separator, subfolders);
 			if (!subfolderPath.isEmpty()) {
 				subfolderPath += File.separator;
 			}
 			
-			String screenshotDir = System.getProperty("user.home") + File.separatorChar + "2006Scape" + File.separatorChar + "screenshots" + File.separatorChar + subfolderPath;
+			String screenshotDir = System.getProperty("user.home") + File.separatorChar + ClientSettings.SERVER_NAME + File.separatorChar + "screenshots" + File.separatorChar + subfolderPath;
 			File dir = new File(screenshotDir);
 			if (!dir.exists()) {
 				dir.mkdirs(); // Create the directory if it doesn't exist
