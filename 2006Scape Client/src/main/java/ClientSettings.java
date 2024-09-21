@@ -122,6 +122,13 @@ public class ClientSettings {
      * Enables the ability to take screenshots
      */
     public static boolean SCREENSHOTS_ENABLED = false;
+    
+    /**
+     * @QoL
+     * Enables the ability to take automatic screenshots on stats tab click and bank open
+     * This is a poor man's player exports.
+     */
+    public static boolean AUTOMATIC_SCREENSHOTS_ENABLED = false;
 
     /**
      * The Npc Bits for the Server
