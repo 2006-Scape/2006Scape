@@ -18,6 +18,7 @@ import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcList;
 import com.rs2.gui.ControlPanel;
 
+import com.rs2.util.CustomPrintStream;
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.cache.decoder.ItemDefinitionDecoder;
 import org.apollo.cache.decoder.ObjectDefinitionDecoder;
@@ -127,6 +128,10 @@ public class GameEngine {
 
 	public static void main(java.lang.String[] args)
 			throws NullPointerException, IOException {
+		CustomPrintStream errorStream = new CustomPrintStream(System.err, "ERROR", true);
+		System.setErr(errorStream);
+		CustomPrintStream infoStream = new CustomPrintStream(System.out, "INFO", true);
+		System.setOut(infoStream);
 		serverStartTime = System.currentTimeMillis();
 		if (NetworkConstants.RSA_EXPONENT != Constants.RSA_EXPONENT) {
 			NetworkConstants.RSA_EXPONENT = Constants.RSA_EXPONENT;
