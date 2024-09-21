@@ -144,6 +144,24 @@ public abstract class Player {
 	private GateHandler gateHandler = new GateHandler();
 	private SingleGates singleGates = new SingleGates();
 	private DoubleGates doubleGates = new DoubleGates();
+	
+	private Map<Integer, Integer> npcKillCounts = new HashMap<>();
+	public boolean displayBossKcMessages = false;
+	public boolean displaySlayerKcMessages = false;
+	public boolean displayRegularKcMessages = false;
+	
+	public int getNpcKillCount(int npcId) {
+		return npcKillCounts.getOrDefault(npcId, 0);
+	}
+	
+	public Map<Integer, Integer> getNpcKillCounts() {
+		return npcKillCounts;
+	}
+	
+	public void incrementNpcKillCount(int npcId, int count) {
+		npcKillCounts.put(npcId, npcKillCounts.getOrDefault(npcId, 0) + count);
+	}
+	
 	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
 
 	public int getXPRate() { return xpRate; }

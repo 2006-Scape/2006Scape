@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Map;
 
 import com.rs2.util.Misc;
 
@@ -439,6 +440,15 @@ public class PlayerSave {
 							case "discord-user-id":
 								player.discordCode = token2;
 								break;
+							case "display-boss-kc-messages":
+								player.displayBossKcMessages = Boolean.parseBoolean(token2);	
+								break;
+							case "display-slayer-kc-messages":
+								player.displaySlayerKcMessages = Boolean.parseBoolean(token2);	
+								break;
+							case "display-regular-kc-messages":
+								player.displayRegularKcMessages = Boolean.parseBoolean(token2);	
+								break;
 						}
 						break;
 					case 3:
@@ -480,6 +490,16 @@ public class PlayerSave {
 						if (token.equals("character-ignore")) {
 							player.ignores[Integer.parseInt(token3[0])] = Long.parseLong(token3[1]);
 						}
+					case 10:
+						 if (token.startsWith("npcid-")) {
+							try {
+								int npcId = Integer.parseInt(token.substring(6));
+								int killCount = Integer.parseInt(token2);
+								player.incrementNpcKillCount(npcId, killCount);
+							} catch (NumberFormatException e) {
+								System.out.println("Error parsing NPC kill count for " + token);
+							}
+						}
 						break;
 				}
 			} else {
@@ -510,6 +530,9 @@ public class PlayerSave {
 						break;
 					case "[IGNORES]":
 						ReadMode = 9;
+						break;
+					case "[NPC-KILLS]":
+						ReadMode = 10;
 						break;
 					case "[EOF]":
 						try {
@@ -833,6 +856,12 @@ public class PlayerSave {
 			characterfile.newLine();
 			characterfile.write("discord-user-id = " + player.discordCode);
 			characterfile.newLine();
+			characterfile.write("display-boss-kc-messages = " + player.displayBossKcMessages);
+			characterfile.newLine();
+			characterfile.write("display-slayer-kc-messages = " + player.displaySlayerKcMessages);
+			characterfile.newLine();
+			characterfile.write("display-regular-kc-messages = " + player.displayRegularKcMessages);
+			characterfile.newLine();
 			characterfile.newLine();
 
 			/* EQUIPMENT */
@@ -902,6 +931,14 @@ public class PlayerSave {
 					characterfile.write("character-ignore = " + i + "\t" + player.ignores[i]);
 					characterfile.newLine();
 				}
+			}
+			characterfile.newLine();
+			
+			characterfile.write("[NPC-KILLS]");
+			characterfile.newLine();
+			for (Map.Entry<Integer, Integer> entry : player.getNpcKillCounts().entrySet()) {
+				characterfile.write("npcid-" + entry.getKey() + " = " + entry.getValue());
+				characterfile.newLine();
 			}
 			characterfile.newLine();
 			
