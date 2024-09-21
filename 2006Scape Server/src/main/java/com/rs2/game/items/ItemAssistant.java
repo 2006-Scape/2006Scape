@@ -487,7 +487,7 @@ public class ItemAssistant {
 		if (item <= 0) {
 			return false;
 		}
-		if ((freeSlots() >= 1 || playerHasItem(item, 1))
+		if ((freeSlots() >= 1 || playerHasItem(item))
 				&& ItemDefinition.lookup(item).isStackable() || freeSlots() > 0
 				&& !ItemDefinition.lookup(item).isStackable()) {
 			for (int i = 0; i < player.playerItems.length; i++) {

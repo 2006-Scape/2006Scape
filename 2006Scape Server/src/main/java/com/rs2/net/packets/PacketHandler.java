@@ -1,6 +1,7 @@
 package com.rs2.net.packets;
 
 import com.rs2.Constants;
+import com.rs2.event.impl.ObjectFifthClickEvent;
 import com.rs2.game.dialogues.Dialogue;
 import com.rs2.game.players.Player;
 import com.rs2.net.Packet;
@@ -135,6 +136,7 @@ public class PacketHandler {
 		packetId[121] = cr;
 		packetId[210] = cr;
 		packetId[253] = new ItemClick2OnGroundItem();
+		packetId[228] = new ClickObject();
 		// packetId[ContinueDialoguePacketHandler.CONTINUE] = new
 		// ContinueDialoguePacketHandler();
 	}
@@ -172,7 +174,7 @@ public class PacketHandler {
             }
         } else {
             player.disconnected = true;
-            System.out.println(player.playerName + "is sending invalid PacketType: " + packetType + ". PacketSize: " + packetSize);
+            System.out.println(player.playerName + " is sending invalid PacketType: " + packetType + ". PacketSize: " + packetSize);
         }
     }
 

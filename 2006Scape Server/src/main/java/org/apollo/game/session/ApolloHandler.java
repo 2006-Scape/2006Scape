@@ -56,7 +56,7 @@ public final class ApolloHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable e) {
-		if (!e.getMessage().contains("An existing connection was forcibly closed by the remote host")) {
+		if (!e.getMessage().contains("An existing connection was forcibly closed by the remote host") && !e.getMessage().contains("Connection reset by peer")) {
 			logger.log(Level.WARNING, "Exception occured for channel: " + ctx.channel() + ", closing...", e);
 		}
 		ctx.channel().close();

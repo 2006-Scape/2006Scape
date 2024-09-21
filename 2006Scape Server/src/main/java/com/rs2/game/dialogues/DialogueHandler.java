@@ -3926,7 +3926,11 @@ public class DialogueHandler {
 				player.dialogueAction = 70;
 				break;
 			case 1009:
-				sendPlayerChat("Yes.");
+				if (player.talkingNpc > 0) {
+					sendPlayerChat("Yes.");
+				} else {
+					player.getPacketSender().closeAllWindows();
+				}
 				player.getPlayerAssistant().movePlayer(1761, 5192, 0);
 				player.nextChat = 0;
 				break;
@@ -4024,6 +4028,11 @@ public class DialogueHandler {
 
 			case 1027:
 				player.getDialogueHandler().sendStatement("10 coins are removed from your inventory.");
+				//Fix Al-Kharid gate talking option by setting an object ID required by initKharid
+				player.objectId = 2882;
+				if (player.getY() == 3228) {
+					player.objectId = 2883;
+				}
 				OtherObjects.initKharid(player, player.objectId);
 				player.nextChat = 0;
 				break;

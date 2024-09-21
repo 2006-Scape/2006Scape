@@ -1,5 +1,6 @@
 package com.rs2.game.npcs;
 
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
@@ -227,8 +228,8 @@ public class NpcData {
 			return 3;
 
 		case 2745:
-			if (NpcHandler.npcs[i].attackType == 1
-					|| NpcHandler.npcs[i].attackType == 2) {
+			if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()
+					|| NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
 				return 5;
 			} else {
 				return 2;
@@ -279,23 +280,26 @@ public class NpcData {
 			return 25;
 		}
 	}
-	
+
+	/**
+	 * Distance required to attack
+	 * It's also worth checking {@link NpcHandler#distanceRequired}
+	 */
 	public static int distanceRequired(int i) {
-		int distanceNeeded = 1;
-		if (NpcHandler.npcs[i].attackType == 1) {
-			return distanceNeeded += 7;
-		} else if (NpcHandler.npcs[i].attackType == 2) {
-			return distanceNeeded += 9;
-		} else if (NpcHandler.npcs[i].attackType > 2) {
-			return distanceNeeded += 4;
+		if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
+			return 8;
+		} else if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
+			return 10;
+		} else if (NpcHandler.npcs[i].attackType > AttackType.MAGIC.getValue()) {
+			return 5;
 		}
 		switch (NpcHandler.npcs[i].npcType) {
 			case 2562:
-				return distanceNeeded += 1;
+				return 2;
 			case 2881:// dag kings
 			case 2882:
 			case 3200:// chaos ele
-				return distanceNeeded += 7;
+				return 8;
 			case 2552:
 			case 2553:
 			case 2556:
@@ -305,11 +309,11 @@ public class NpcData {
 			case 2560:
 			case 2564:
 			case 2565:
-				return distanceNeeded += 8;
+				return 9;
 			// things around dags
 			case 2892:
 			case 2894:
-				return distanceNeeded += 9;
+				return 10;
 			case 907 : // Kolodian
 			case 908 :
 			case 909 :
@@ -324,16 +328,18 @@ public class NpcData {
 			case 1158 : // Kalphite queen form 1
 			case 1160 : // Kalphite queen form 2
 			case 2025 : // Ahrim
-				return distanceNeeded += 9;
+				return 10;
 			case 2028 : // Karil
 			case 2631 : // Tok-Xil (Tzhaar ranging guy)
 			case 1183 : // Elf ranger
-				return distanceNeeded += 7;
+			case 172: // dark wizards
+			case 174:
+				return 8;
 			case 941 : // Green drag
 			case 50 : // Kbd
-				return distanceNeeded += 5;
+				return 6;
 		}
-		return distanceNeeded;
+		return 1;
 	}
 
 

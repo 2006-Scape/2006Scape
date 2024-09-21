@@ -146,7 +146,7 @@ final class ObjectManager {
 							k15 -= anIntArray127[k18];
 							k16 -= anIntArray128[k18];
 						}
-						if (k17 >= 1 && k17 < anInt147 - 1 && (!lowMem || (aByteArrayArrayArray149[0][l6][k17] & 2) != 0 || (aByteArrayArrayArray149[l][l6][k17] & 0x10) == 0 && method182(k17, l, l6) == anInt131)) {
+						if (k17 >= 1 && k17 < anInt147 - 1 && ((!hideBuggyVarrockSwordShopSnow && !hideRoofs && !lowMem) || (aByteArrayArrayArray149[0][l6][k17] & 2) != 0 || (aByteArrayArrayArray149[l][l6][k17] & 0x10) == 0 && method182(k17, l, l6) == anInt131)) {
 							if (l < anInt145) {
 								anInt145 = l;
 							}
@@ -456,7 +456,7 @@ final class ObjectManager {
 	}
 
 	private void method175(int i, WorldController worldController, CollisionMap class11, int j, int k, int l, int i1, int j1) {
-		if (lowMem && (aByteArrayArrayArray149[0][l][i] & 2) == 0) {
+		if ((hideRoofs || lowMem) && (aByteArrayArrayArray149[0][l][i] & 2) == 0) {
 			if ((aByteArrayArrayArray149[k][l][i] & 0x10) != 0) {
 				return;
 			}
@@ -1355,6 +1355,10 @@ final class ObjectManager {
 	private final byte[][][] aByteArrayArrayArray148;
 	private final byte[][][] aByteArrayArrayArray149;
 	static boolean lowMem = true;
+	
+	static boolean hideRoofs = ClientSettings.HIDE_ROOFS;
+	
+	static boolean hideBuggyVarrockSwordShopSnow = ClientSettings.HIDE_BUGGY_VARROCK_SWORD_SHOP_SNOW; //There is some buggy snow near Varrock sword shop, let's hide it. I know, this is not ideal, but it does work.
 	private static final int anIntArray152[] = {1, 2, 4, 8};
 
 }

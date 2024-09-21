@@ -142,7 +142,7 @@ public class ShopHandler {
                 totalshops++;
             }
         } catch (FileNotFoundException fileex) {
-            Misc.println("shops.json: file not found.");
+            System.out.println("shops.json: file not found.");
         }
     }
 
@@ -157,13 +157,13 @@ public class ShopHandler {
         try {
             characterfile = new BufferedReader(new FileReader("./data/cfg/" + FileName));
         } catch (FileNotFoundException fileex) {
-            Misc.println(FileName + ": file not found.");
+            System.out.println(FileName + ": file not found.");
             return false;
         }
         try {
             line = characterfile.readLine();
         } catch (IOException ioexception) {
-            Misc.println(FileName + ": error loading file.");
+            System.out.println(FileName + ": error loading file.");
         }
         while (EndOfFile == false && line != null) {
             line = line.trim();

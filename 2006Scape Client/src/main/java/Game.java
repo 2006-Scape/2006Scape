@@ -2975,7 +2975,11 @@ public class Game extends RSApplet {
 		if (anInt1011 > 0) {
 			anInt1011--;
 		}
-		for (int j = 0; j < 5; j++) {
+		//TODO: Technically, this loop should be < 5 for authenticity, but until we reduce server inefficiencies
+		//(for example killing a bunch of cows results in client lag, 
+		//likely from all the items on the ground for example), < 100 is fine. 
+		//OSRS uses < 100 and there are no drawbacks from having this < 100.
+		for (int j = 0; j < 100; j++) {
 			if (!parsePacket()) {
 				break;
 			}
@@ -3758,7 +3762,7 @@ public class Game extends RSApplet {
 				worldController.method312(k - 4, j - 4);
 			}
 		}
-		if (l == 1062) {
+		if (l == 1062) { //Fifth click
 			anInt924 += baseX;
 			if (anInt924 >= 113) {
 				stream.createFrame(183);
@@ -5033,6 +5037,10 @@ public class Game extends RSApplet {
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
 					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
 						graphicsEnabled = !graphicsEnabled;
+					}
+					if (inputString.equals("::crtlkeyzoom") || inputString.equals("::controlkeyzoom")) {
+						ClientSettings.CONTROL_KEY_ZOOMING = !ClientSettings.CONTROL_KEY_ZOOMING;
+						pushMessage("Your control key zooming is now: " + (ClientSettings.CONTROL_KEY_ZOOMING ? "enabled" : "disabled"), 0, "");
 					}
 					if (myPrivilege >= 2) {
 						if (inputString.equals("::noclip"))
@@ -11571,7 +11579,7 @@ public class Game extends RSApplet {
 				// 15774 = Good/Bad Password
 				// 15767 = Drama Type 
 				if (l7 == 15244) {
-					if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
+					if (ClientSettings.SNOW_OVERLAY_FORCE_ENABLED || (ClientSettings.SNOW_OVERLAY_ENABLED && Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH))) {
 						openInterfaceID = 15819;
 					} else {
 						openInterfaceID = 15801;
@@ -11814,8 +11822,8 @@ public class Game extends RSApplet {
 		draw3dScreen();
 		if (showInfo) {
 			int debugX = 0;
-			int debugY = 249;
-			int debugItems = 4;
+			int debugY = 234;
+			int debugItems = 5;
 			int debugWidth = 140;
 			int debugHeight = 25 + (debugItems * 15);
 			int fill = 0x5d5447;
@@ -11842,6 +11850,8 @@ public class Game extends RSApplet {
 			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY);
 			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Interface:", debugY += 15);
 			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + openInterfaceID, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Zoom level:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + zoom, debugY);
 		}
 		
 		if (customSettingShowExperiencePerHour) {
@@ -12619,12 +12629,20 @@ public class Game extends RSApplet {
 				tabAreaAltered = true;
 				break;
 			case KeyEvent.VK_PAGE_UP:
-				if (zoom > -1)
+				if (zoom > -1) {
 					zoom--;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 				break;
 			case KeyEvent.VK_PAGE_DOWN:
-				if (zoom < (WorldController.drawDistance / 3))
+				if (zoom < (WorldController.drawDistance / 3)) {
 					zoom++;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 				break;
 			case KeyEvent.VK_V:
 				if (keyevent.isControlDown()) {
@@ -12783,7 +12801,7 @@ public class Game extends RSApplet {
 			inputTaken = true;
 		}
 		if (interfaceID == 15244) {
-			if (Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH)) {
+			if (ClientSettings.SNOW_OVERLAY_FORCE_ENABLED || (ClientSettings.SNOW_OVERLAY_ENABLED && Flo.getTodaysDate().contains(ClientSettings.SNOW_MONTH))) {
 				openInterfaceID = 15819;
 			} else {
 				openInterfaceID = 15801;
@@ -12806,14 +12824,25 @@ public class Game extends RSApplet {
 
 	public final void mouseWheelMoved(MouseWheelEvent e) {
 		int notches = e.getWheelRotation();
+		if (ClientSettings.CONTROL_KEY_ZOOMING && !e.isControlDown()) {
+			return;
+		}
 		// If mouse over main game screen, without anything else opened
 		if (openInterfaceID == -1 && mouseX < 515 && mouseY < 340) {
 			if (notches < 0) {
-				if (zoom > -1)
+				if (zoom > -1) {
 					zoom--;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 			} else {
-				if (zoom < (WorldController.drawDistance / 3))
+				if (zoom < (WorldController.drawDistance / 3)) {
 					zoom++;
+					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
+						pushMessage("Your zoom level is now: " + zoom, 0, "");
+					}
+				}
 			}
 		}
 	}
