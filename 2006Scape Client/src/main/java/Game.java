@@ -5689,7 +5689,7 @@ public class Game extends RSApplet {
 				java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
 					@Override
 					public void run() {
-						screenshot("stats");
+						screenshot(false, "stats");
 					}
 				};
 				timer.schedule(delayedScreenshot, 300);
@@ -11317,7 +11317,7 @@ public class Game extends RSApplet {
 					java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
 						@Override
 						public void run() {
-							screenshot("bank");
+							screenshot(false, "bank");
 						}
 					};
 					timer.schedule(delayedScreenshot, 600);
