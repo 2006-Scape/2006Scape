@@ -54,6 +54,10 @@ public final class Main {
 					case"-show-zoom":
 						ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES = true;
 						break;
+					case"-screenshots":
+					case"-enable-screenshots":
+						ClientSettings.SCREENSHOTS_ENABLED = true;
+						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
 					switch(args[i]) {
