@@ -146,7 +146,7 @@ public abstract class Player {
 	private DoubleGates doubleGates = new DoubleGates();
 	
 	private Map<Integer, Integer> npcKillCounts = new HashMap<>();
-	public boolean displayBossKcMessages = true;
+	public boolean displayBossKcMessages = false;
 	public boolean displaySlayerKcMessages = false;
 	public boolean displayRegularKcMessages = false;
 	
