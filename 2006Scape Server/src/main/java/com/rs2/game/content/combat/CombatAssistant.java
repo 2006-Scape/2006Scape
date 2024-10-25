@@ -385,7 +385,7 @@ public class CombatAssistant {
 		if (i > 0 && NpcHandler.npcs[i] != null) {
 			if (NpcHandler.npcs[i].isDead) {
 				player.npcIndex = 0;
-				player.followId2 = 0;
+				player.followNpcId = 0;
 				player.faceNpc(0);
 				return;
 			}
@@ -411,7 +411,7 @@ public class CombatAssistant {
 				return;
 			} else {
 				if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-					player.followId2 = 0;
+					player.followNpcId = 0;
 				}
 				player.stopMovement();
 			}
@@ -423,7 +423,7 @@ public class CombatAssistant {
 		if (i > 0 && PlayerHandler.players[i] != null) {
 			if (PlayerHandler.players[i].isDead) {
 				player.playerIndex = 0;
-				player.followId = 0;
+				player.followPlayerId = 0;
 				player.faceNpc(0);
 				return;
 			}
@@ -447,7 +447,7 @@ public class CombatAssistant {
 				return;
 			} else {
 				if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-					player.followId = 0;
+					player.followPlayerId = 0;
 				}
 				player.stopMovement();
 			}
@@ -517,8 +517,8 @@ public class CombatAssistant {
 				return;
 			}
 
-			player.followId2 = i;
-			player.followId = 0;
+			player.followNpcId = i;
+			player.followPlayerId = 0;
 			if (player.attackTimer <= 0) {
 				player.usingBow = false;
 				player.usingRangeWeapon = false;
@@ -573,7 +573,7 @@ public class CombatAssistant {
 					return;
 				} else {
 					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-						player.followId2 = 0;
+						player.followNpcId = 0;
 					}
 					player.stopMovement();
 				}
@@ -803,7 +803,7 @@ public class CombatAssistant {
 						resetPlayerAttack();
 						return;
 					}
-					player.followId = i;
+					player.followPlayerId = i;
 					player.attackTimer = 0;
 					return;
 				}
@@ -876,7 +876,7 @@ public class CombatAssistant {
 					return;
 				} else {
 					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-						player.followId = 0;
+						player.followPlayerId = 0;
 					}
 				}
 
@@ -950,7 +950,7 @@ public class CombatAssistant {
 					if (checkSpecAmount(equippedWeapon)) {
 						player.lastArrowUsed = player.playerEquipment[player.playerArrows];
 						player.getSpecials().activateSpecial(player.playerEquipment[player.playerWeapon], o, i);
-						player.followId = player.playerIndex;
+						player.followPlayerId = player.playerIndex;
 						return;
 					} else {
 						player.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");
@@ -985,7 +985,7 @@ public class CombatAssistant {
 				player.lastArrowUsed = 0;
 				player.rangeItemUsed = 0;
 				if (!player.usingBow && !player.usingMagic && !player.usingRangeWeapon) { // melee hit delay
-					player.followId = PlayerHandler.players[player.playerIndex].playerId;
+					player.followPlayerId = PlayerHandler.players[player.playerIndex].playerId;
 					player.hitDelay = getHitDelay();
 					player.delayedDamage = Misc.random(meleeMaxHit());
 					player.projectileStage = 0;
@@ -1006,7 +1006,7 @@ public class CombatAssistant {
 						player.usingBow = true;
 					}
 					player.usingBow = true;
-					player.followId = PlayerHandler.players[player.playerIndex].playerId;
+					player.followPlayerId = PlayerHandler.players[player.playerIndex].playerId;
 					player.lastWeaponUsed = player.playerEquipment[player.playerWeapon];
 					player.lastArrowUsed = player.playerEquipment[player.playerArrows];
 					player.gfx100(RangeData.getRangeStartGFX(player));
@@ -1019,7 +1019,7 @@ public class CombatAssistant {
 					player.rangeItemUsed = player.playerEquipment[player.playerWeapon];
 					player.getItemAssistant().deleteEquipment();
 					player.usingRangeWeapon = true;
-					player.followId = PlayerHandler.players[player.playerIndex].playerId;
+					player.followPlayerId = PlayerHandler.players[player.playerIndex].playerId;
 					player.gfx100(RangeData.getRangeStartGFX(player));
 					if (player.fightMode == 2) {
 						player.attackTimer--;
@@ -1694,7 +1694,7 @@ public class CombatAssistant {
 	}
 
 	public int getRequiredDistance() {
-		if (player.followId > 0 && player.freezeTimer <= 0) {
+		if (player.followPlayerId > 0 && player.freezeTimer <= 0) {
 			return player.isMoving ? 3 : 2;
 		}
 		return 1;

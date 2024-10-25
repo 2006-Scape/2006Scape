@@ -152,7 +152,7 @@ public class ClickNPC implements PacketType {
 				return;
 			}
 
-			if (player.followId > 0) {
+			if (player.followPlayerId > 0) {
 				player.getPlayerAssistant().resetFollow();
 			}
 			if (player.attackTimer <= 0) {

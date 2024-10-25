@@ -82,7 +82,7 @@ public class Walking implements PacketType {
 		if (player.canWalkTutorial == false && player.tutorialProgress < 36) {
 			return;
 		}
-		if (player.followId > 0 || player.followId2 > 0) {
+		if (player.followPlayerId > 0 || player.followNpcId > 0) {
 			player.getPlayerAssistant().resetFollow();
 		}
 		if (player.getPlayerAction().checkWalking() == false) {
