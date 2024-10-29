@@ -30,6 +30,8 @@ import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.PathFinder;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 /**
  * @author whoever contributed
  * @author Andrew (Mr Extremez)
@@ -89,7 +91,7 @@ public class CombatAssistant {
 					NpcHandler.npcs[i].gfx0(758);
 				}
 				if (Misc.random(NpcHandler.npcs[i].defence) > Misc.random(10 + calculateRangeAttack()) && !ignoreDef
-					|| (NpcHandler.npcs[i].npcType == 2881 || NpcHandler.npcs[i].npcType == 2883 && !ignoreDef)) {
+					|| (NpcHandler.npcs[i].npcType == DAGANNOTH_SUPREME || NpcHandler.npcs[i].npcType == DAGANNOTH_REX && !ignoreDef)) {
 					damage = 0;
 				}
 				if (Misc.random(4) == 1 && player.lastArrowUsed == 9242 && damage > 0) {
@@ -182,7 +184,7 @@ public class CombatAssistant {
 				if (Misc.random(NpcHandler.npcs[i].defence) > 10 + Misc.random(mageAtk()) + bonusAttack) {
 					damage = 0;
 					magicFailed = true;
-				} else if (NpcHandler.npcs[i].npcType == 2881 || NpcHandler.npcs[i].npcType == 2882) {
+				} else if (NpcHandler.npcs[i].npcType == DAGANNOTH_SUPREME || NpcHandler.npcs[i].npcType == DAGANNOTH_PRIME) {
 					damage = 0;
 					magicFailed = true;
 				}
@@ -278,7 +280,7 @@ public class CombatAssistant {
 		if (!fullVeracsEffect) {
 			if (Misc.random(NpcHandler.npcs[i].defence) > 10 + Misc.random(calcAtt())) {
 				damage = 0;
-			} else if (NpcHandler.npcs[i].npcType == 2882 || NpcHandler.npcs[i].npcType == 2883) {
+			} else if (NpcHandler.npcs[i].npcType == DAGANNOTH_PRIME || NpcHandler.npcs[i].npcType == DAGANNOTH_REX) {
 				damage = 0;
 			}
 		}
@@ -296,7 +298,7 @@ public class CombatAssistant {
 				guthansEffect = true;
 			}
 		}
-		if (player.fightMode == 3 && NpcHandler.npcs[i].npcType != 2459 && NpcHandler.npcs[i].npcType != 2460 && NpcHandler.npcs[i].npcType != 2461 && NpcHandler.npcs[i].npcType != 2462) {
+		if (player.fightMode == 3 && NpcHandler.npcs[i].npcType != PHEASANT && NpcHandler.npcs[i].npcType != PHEASANT_2460 && NpcHandler.npcs[i].npcType != PHEASANT_2461 && NpcHandler.npcs[i].npcType != PHEASANT_2462) {
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 0);
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 1);
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 2);
@@ -306,7 +308,7 @@ public class CombatAssistant {
 			player.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
 			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		} else {
-			if (NpcHandler.npcs[i].npcType != 2459 && NpcHandler.npcs[i].npcType != 2460 && NpcHandler.npcs[i].npcType != 2461 && NpcHandler.npcs[i].npcType != 2462) {
+			if (NpcHandler.npcs[i].npcType != PHEASANT && NpcHandler.npcs[i].npcType != PHEASANT_2460 && NpcHandler.npcs[i].npcType != PHEASANT_2461 && NpcHandler.npcs[i].npcType != PHEASANT_2462) {
 				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE, player.fightMode);
 				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 3);
 				player.getPlayerAssistant().refreshSkill(player.fightMode);
@@ -479,7 +481,7 @@ public class CombatAssistant {
 			if (!SlayerRequirements.itemNeededSlayer(player, i) || !player.getSlayer().canAttackNpc(i)) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 757 && player.vampSlayer > 2) {
+			if (NpcHandler.npcs[i].npcType == COUNT_DRAYNOR && player.vampSlayer > 2) {
 				if (!player.getItemAssistant().playerHasItem(1549, 1) || !player.getItemAssistant().playerHasItem(2347, 1)) {
 					player.getPacketSender().sendMessage("You need a stake and hammer to attack count draynor.");
 					resetPlayerAttack();
@@ -491,12 +493,12 @@ public class CombatAssistant {
 				resetPlayerAttack();
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 1676) {
+			if (NpcHandler.npcs[i].npcType == EXPERIMENT) {
 				player.getPacketSender().sendMessage("You don't have the heart to kill the poor creature again.");
 				resetPlayerAttack();
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 411) {
+			if (NpcHandler.npcs[i].npcType == SWARM) {
 				player.getPacketSender().sendMessage("You can't attack a swarm!");
 				resetPlayerAttack();
 				return;
@@ -1743,14 +1745,14 @@ public class CombatAssistant {
 
 	public int getBonusAttack(int i) {
 		switch (NpcHandler.npcs[i].npcType) {
-		case 2883:
-			return Misc.random(50) + 30;
-		case 2026:
-		case 2027:
-		case 2029:
-		case 2030:
-			return Misc.random(50) + 30;
-		}
+			case DAGANNOTH_REX:
+				return Misc.random(50) + 30;
+			case DHAROK_THE_WRETCHED:
+			case GUTHAN_THE_INFESTED:
+			case TORAG_THE_CORRUPTED:
+			case VERAC_THE_DEFILED:
+				return Misc.random(50) + 30;
+			}
 		return 0;
 	}
 

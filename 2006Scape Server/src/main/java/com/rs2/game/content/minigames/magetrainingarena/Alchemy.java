@@ -3,6 +3,7 @@ package com.rs2.game.content.minigames.magetrainingarena;
 import java.util.Random;
 
 import com.rs2.Constants;
+import com.rs2.game.content.StaticNpcList;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.magic.MagicRequirements;
 import com.rs2.game.content.music.sound.SoundList;
@@ -141,7 +142,7 @@ public class Alchemy {
             // 1 in 4 chance of an item being free to alch
             freeAlch = random.nextInt(values.length * 4);
             for (int i = 0; i < NpcHandler.MAX_NPCS; i ++) {
-                if (NpcHandler.npcs[i] != null && NpcHandler.npcs[i].npcType == 3099) {
+                if (NpcHandler.npcs[i] != null && NpcHandler.npcs[i].npcType == StaticNpcList.ALCHEMY_GUARDIAN) {
                     NpcHandler.npcs[i].forceChat("Items are changing!");
                 }
             }

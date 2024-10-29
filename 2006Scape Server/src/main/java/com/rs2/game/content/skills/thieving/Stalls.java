@@ -13,6 +13,8 @@ import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 import com.rs2.util.Misc;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 public class Stalls {
 
 
@@ -221,7 +223,7 @@ public class Stalls {
 	private static void failGuards(final Player p) {
 		for (int i = 1; i < NpcHandler.MAX_NPCS; i ++) {
 			if (NpcHandler.npcs[i] != null) {
-				if (NpcHandler.npcs[i].npcType == 32 || NpcHandler.npcs[i].npcType == 1317 || NpcHandler.npcs[i].npcType == 2236 || NpcHandler.npcs[i].npcType == 2571) {
+				if (NpcHandler.npcs[i].npcType == GUARD_32 || NpcHandler.npcs[i].npcType == MARKET_GUARD || NpcHandler.npcs[i].npcType == MARKET_GUARD_2236 || NpcHandler.npcs[i].npcType == MARKET_GUARD_2571) {
 					if (p.goodDistance(p.absX, p.absY, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY, 7)
 							&& p.heightLevel == NpcHandler.npcs[i].heightLevel) {
 						if (!NpcHandler.npcs[i].underAttack) {
