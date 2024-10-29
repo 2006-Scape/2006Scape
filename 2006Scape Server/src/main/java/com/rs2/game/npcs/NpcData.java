@@ -214,9 +214,6 @@ public class NpcData {
 
 		case KETZEK:
 		case TOKXIL:
-		case ADAMANTITE_ORE:
-		case RUNITE_ORE:
-		case SILVER_ORE:
 			return 3;
 
 		case TZTOKJAD:
