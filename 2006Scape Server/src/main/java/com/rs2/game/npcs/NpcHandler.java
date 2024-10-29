@@ -931,16 +931,6 @@ public class NpcHandler {
 				if (npcs[i].attackType == AttackType.RANGE.getValue()) {
 					return true;
 				}
-            case ADAMANTITE_ORE: // What were these supposed to be...
-                return true;
-            case COAL:
-                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
-                    return true;
-                }
-            case DWARVEN_MINER_2550:
-                if (npcs[i].attackType == AttackType.RANGE.getValue()) {
-                    return true;
-                }
             default:
                 return false;
         }
@@ -1313,16 +1303,6 @@ public class NpcHandler {
                 return 8;
             case DAGANNOTH_REX:// rex
                 return 1;
-            case DWARVEN_MINER_2552:
-            case BLAST_FURNACE_FOREMAN:
-            case IRON_ORE:
-            case MITHRIL_ORE:
-            case ADAMANTITE_ORE:
-            case RUNITE_ORE:
-            case SILVER_ORE:
-            case ORDAN:
-            case JORZIK:
-                return 9;
             // things around dags
             case SPINOLYP:
             case SPINOLYP_2894:
@@ -1334,11 +1314,6 @@ public class NpcHandler {
 
     public static int followDistance(int i) {
         switch (npcs[i].npcType) {
-            case DWARVEN_MINER_2550:
-            case DWARVEN_MINER_2551:
-            case COAL:
-            case PERFECT_GOLD_ORE:
-                return 8;
             case DAGANNOTH_REX:
                 return 4;
             case DAGANNOTH_SUPREME:
@@ -1441,19 +1416,9 @@ public class NpcHandler {
         switch (npcs[i].npcType) {
             case KALPHITE_QUEEN:
                 return 30;
-            case ADAMANTITE_ORE: // There's no way adamantite ore has two attack types, right? Maybe it does... 
-                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
-                    return 28;
-                } else {
-                    return 68;
-                }
             case ROCK_CRAB:
             case ROCK_CRAB_1267:
                 return 2;
-            case COAL:
-                return 31;
-            case DWARVEN_MINER_2550:
-                return 36;
         }
         return 1;
     }

@@ -195,16 +195,6 @@ public class NpcData {
 		case TZTOKJAD:
 			return 8;
 
-		case ADAMANTITE_ORE:
-		case RUNITE_ORE:
-		case SILVER_ORE:
-		case GOLD_ORE:
-		case DWARVEN_MINER_2550:
-			return 6;
-			// saradomin gw boss
-		case COAL:
-			return 2;
-
 		default:
 			return 5;
 		}
@@ -258,17 +248,6 @@ public class NpcData {
 		case DAGANNOTH_SUPREME:
 		case DAGANNOTH_PRIME:
 		case DAGANNOTH_REX:
-		case ADAMANTITE_ORE:
-		case RUNITE_ORE:
-		case SILVER_ORE:
-		case GOLD_ORE:
-		case COAL:
-		case PERFECT_GOLD_ORE:
-		case ORDAN:
-		case DWARVEN_MINER_2550:
-		case DWARVEN_MINER_2551:
-		case DWARVEN_MINER_2552:
-		case BLAST_FURNACE_FOREMAN:
 			return 100;
 		case PORTAL:
 		case PORTAL_3778:
@@ -302,16 +281,6 @@ public class NpcData {
 			case DAGANNOTH_PRIME:
 			case CHAOS_ELEMENTAL:// chaos ele
 				return 8;
-			case DWARVEN_MINER_2552:
-			case BLAST_FURNACE_FOREMAN:
-			case IRON_ORE:
-			case MITHRIL_ORE:
-			case ADAMANTITE_ORE:
-			case RUNITE_ORE:
-			case SILVER_ORE:
-			case ORDAN:
-			case JORZIK:
-				return 9;
 			// things around dags
 			case SPINOLYP:
 			case SPINOLYP_2894:
