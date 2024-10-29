@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import java.io.*;
 import java.lang.reflect.Type;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 // Facetypes: 1-Walk, 2-North, 3-South, 4-East, 5-West
 
 public class NpcHandler {
@@ -1293,36 +1295,36 @@ public class NpcHandler {
      **/
     public static int distanceRequired(int i) {
         switch (npcs[i].npcType) {
-            case 2025:
-            case 2028:
+            case AHRIM_THE_BLIGHTED:
+            case KARIL_THE_TAINTED:
                 return 6;
-            case 50:
-            case 2562:
+            case KING_BLACK_DRAGON:
+            case COAL:
                 return 2;
-            case 172: // dark wizards
-            case 174:
-            case 2881:// dag kings
-            case 2882:
-            case 3200:// chaos ele
-            case 2743:
-            case 2631:
-            case 2745:
+            case DARK_WIZARD: // dark wizards
+            case DARK_WIZARD_174:
+            case DAGANNOTH_SUPREME:// dag kings
+            case DAGANNOTH_PRIME:
+            case CHAOS_ELEMENTAL:// chaos ele
+            case KETZEK:
+            case TOKXIL:
+            case TZTOKJAD:
                 return 8;
-            case 2883:// rex
+            case DAGANNOTH_REX:// rex
                 return 1;
-            case 2552:
-            case 2553:
-            case 2556:
-            case 2557:
-            case 2558:
-            case 2559:
-            case 2560:
-            case 2564:
-            case 2565:
+            case DWARVEN_MINER_2552:
+            case BLAST_FURNACE_FOREMAN:
+            case IRON_ORE:
+            case MITHRIL_ORE:
+            case ADAMANTITE_ORE:
+            case RUNITE_ORE:
+            case SILVER_ORE:
+            case ORDAN:
+            case JORZIK:
                 return 9;
             // things around dags
-            case 2892:
-            case 2894:
+            case SPINOLYP:
+            case SPINOLYP_2894:
                 return 10;
             default:
                 return 1;
