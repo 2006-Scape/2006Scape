@@ -12,6 +12,13 @@ public class Dialogue implements PacketType {
 
 	@Override
 	public void processPacket(Player c, Packet packet) {
+
+		if (c.dialoguePlugin) {
+			// New Dialogue System
+			c.getDialogueFactory().execute();
+			return;
+		}
+
 		if (c.nextChat > 0) {
 			c.getDialogueHandler().sendDialogues(c.nextChat, c.talkingNpc);
 		} else {
