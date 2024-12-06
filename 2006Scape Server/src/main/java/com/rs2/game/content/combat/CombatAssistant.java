@@ -1066,8 +1066,8 @@ public class CombatAssistant {
 								MagicSpells.getStartDelay(player));
 					}
 					if (player.autocastId > 0) {
-						//We don't need to set the followId if they are already autocasting, setting followId here makes a manual cast (when autocast is set) run up to the player.
-						//player.followId = player.playerIndex;
+						//We don't need to set the followPlayerId if they are already autocasting, setting followPlayerId here makes a manual cast (when autocast is set) run up to the player.
+						//player.followPlayerId = player.playerIndex;
 						player.followDistance = 5;
 					}
 					player.hitDelay = getHitDelay();
