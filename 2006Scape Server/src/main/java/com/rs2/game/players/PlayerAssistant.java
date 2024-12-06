@@ -567,7 +567,7 @@ public class PlayerAssistant {
 
 	
 	public void stepAway() {
-		player.faceUpdate(player.followId + 32768);
+		player.faceUpdate(player.followPlayerId + 32768);
 			if (Region.getClipping(player.getX() - 1, player.getY(), player.heightLevel, -1, 0)) {
 				walkTo(-1, 0);
 			} else if (Region.getClipping(player.getX() + 1, player.getY(), player.heightLevel, 1, 0)) {
@@ -1345,7 +1345,7 @@ public class PlayerAssistant {
 	public void resetFollowers() {
 		for (Player player : PlayerHandler.players) {
 			if (player != null) {
-				if (player.followId == player.playerId) {
+				if (player.followPlayerId == player.playerId) {
 					Client c = (Client) player;
 					c.getPlayerAssistant().resetFollow();
 				}
@@ -1623,8 +1623,8 @@ public class PlayerAssistant {
 	}
 
 	public void followPlayer() {
-		if (PlayerHandler.players[player.followId] == null
-				|| PlayerHandler.players[player.followId].isDead) {
+		if (PlayerHandler.players[player.followPlayerId] == null
+				|| PlayerHandler.players[player.followPlayerId].isDead) {
 			resetFollow();
 			return;
 		}
@@ -1635,38 +1635,38 @@ public class PlayerAssistant {
 			return;
 		}
 
-		int otherX = PlayerHandler.players[player.followId].getX();
-		int otherY = PlayerHandler.players[player.followId].getY();
+		int otherX = PlayerHandler.players[player.followPlayerId].getX();
+		int otherY = PlayerHandler.players[player.followPlayerId].getY();
 
 		if (!player.goodDistance(otherX, otherY, player.getX(), player.getY(),
 				25)) {
-			player.followId = 0;
+			player.followPlayerId = 0;
 			resetFollow();
 			return;
 		}
 
 		int[] follow = getFollowLocation(otherX, otherY);
-		player.faceUpdate(player.followId + 32768);
+		player.faceUpdate(player.followPlayerId + 32768);
 		PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
 	}
 
 
 	public void followNpc() {
-		Npc npc = NpcHandler.npcs[player.followId2];
+		Npc npc = NpcHandler.npcs[player.followNpcId];
 		if (npc == null || npc.isDead) {
 			return;
 		}
 
-		int x = NpcHandler.npcs[player.followId2].getX();
-		int y = NpcHandler.npcs[player.followId2].getY();
+		int x = NpcHandler.npcs[player.followNpcId].getX();
+		int y = NpcHandler.npcs[player.followNpcId].getY();
 		if (!player.goodDistance(x, y, player.getX(), player.getY(), 25)) {
-			player.followId2 = 0;
+			player.followNpcId = 0;
 			resetFollow();
 			return;
 		}
 
 		int[] follow = getFollowLocation(x, y);
-		player.faceUpdate(player.followId2);
+		player.faceUpdate(player.followNpcId);
         PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
 	}
 
@@ -1681,8 +1681,8 @@ public class PlayerAssistant {
 	}
 
 	public void resetFollow() {
-		player.followId = 0;
-		player.followId2 = 0;
+		player.followPlayerId = 0;
+		player.followNpcId = 0;
 		player.mageFollow = false;
 	}
 

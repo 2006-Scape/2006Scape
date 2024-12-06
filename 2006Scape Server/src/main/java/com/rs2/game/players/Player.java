@@ -935,9 +935,9 @@ public abstract class Player {
 			}
 		}
 
-		if (followId > 0) {
+		if (followPlayerId > 0) {
 			getPlayerAssistant().followPlayer();
-		} else if (followId2 > 0) {
+		} else if (followNpcId > 0) {
 			getPlayerAssistant().followNpc();
 		}
 
@@ -1405,8 +1405,8 @@ public abstract class Player {
 			dialogueId, randomCoffin, newLocation, specEffect,
 			specBarId, attackLevelReq, defenceLevelReq, strengthLevelReq,
 			rangeLevelReq, magicLevelReq, slayerLevelReq, agilityLevelReq,
-			followId, skullTimer, nextChat = 0, talkingNpc = -1,
-			dialogueAction = 0, autocastId, followDistance, followId2,
+			followPlayerId, skullTimer, nextChat = 0, talkingNpc = -1,
+			dialogueAction = 0, autocastId, followDistance, followNpcId,
 			barrageCount = 0, delayedDamage = 0, delayedDamage2 = 0,
 			pcPoints = 0, magePoints = 0, desertTreasure = 0, skillAmount,
 			lastArrowUsed = -1, autoRet = 1, pcDamage = 0, xInterfaceId = 0,

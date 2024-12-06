@@ -1,6 +1,7 @@
 package com.rs2.game.content.combat.npcs;
 
 import com.rs2.GameEngine;
+import com.rs2.game.content.StaticNpcList;
 import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
@@ -160,8 +161,8 @@ public enum NpcEmotes {
 					return e.getBlock();
 				} else {
 					switch (NpcHandler.npcs[i].npcType) {
-					case 2745:
-						return 2653;
+						case StaticNpcList.TZTOKJAD:
+							return 2653;
 					}
 				}
 			}
@@ -176,14 +177,14 @@ public enum NpcEmotes {
 					return e.getDead();
 				} else {
 					switch (NpcHandler.npcs[i].npcType) {
-					case 2745:
-						return 2654;
-					case 1158:
-						GameEngine.npcHandler.spawnSecondForm(player, i);
-						return 1187;
-					case 1160:
-						GameEngine.npcHandler.spawnFirstForm(player, i);
-						return 1182;
+						case StaticNpcList.TZTOKJAD:
+							return 2654;
+						case StaticNpcList.KALPHITE_QUEEN:
+							GameEngine.npcHandler.spawnSecondForm(player, i);
+							return 1187;
+						case StaticNpcList.KALPHITE_QUEEN_1160:
+							GameEngine.npcHandler.spawnFirstForm(player, i);
+							return 1182;
 					}
 				}
 			}

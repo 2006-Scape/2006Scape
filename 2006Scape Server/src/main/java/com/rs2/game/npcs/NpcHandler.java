@@ -7,6 +7,7 @@ import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.StaticItemList;
 import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.npcs.NpcAggressive;
@@ -34,6 +35,8 @@ import org.json.JSONObject;
 import java.io.*;
 import java.lang.reflect.Type;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 // Facetypes: 1-Walk, 2-North, 3-South, 4-East, 5-West
 
 public class NpcHandler {
@@ -48,7 +51,7 @@ public class NpcHandler {
         CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
-                spawnNpc2(1160, npcs[i].absX, npcs[i].absY, 0, 1, 230, 45, 500, 300, true);
+                spawnNpc2(KALPHITE_QUEEN_1160, npcs[i].absX, npcs[i].absY, 0, 1, 230, 45, 500, 300, true);
                 container.stop();
             }
 
@@ -66,7 +69,7 @@ public class NpcHandler {
         CycleEventHandler.getSingleton().addEvent(c, new CycleEvent() {
             @Override
             public void execute(CycleEventContainer container) {
-                spawnNpc2(1158, npcs[i].absX, npcs[i].absY, 0, 1, 230, 45, 500, 300, true);
+                spawnNpc2(KALPHITE_QUEEN, npcs[i].absX, npcs[i].absY, 0, 1, 230, 45, 500, 300, true);
                 container.stop();
             }
 
@@ -83,7 +86,7 @@ public class NpcHandler {
             if (npcs[i] == null || foundRat != -1) {
                 continue;
             }
-            if (npcs[i].npcType == 47 && !npcs[i].isDead) {
+            if (npcs[i].npcType == RAT && !npcs[i].isDead) {
                 if (goodDistance(npcs[npcIndex].absX, npcs[npcIndex].absY, npcs[i].absX, npcs[i].absY, 5)) {
                     foundRat = i;
                     continue;
@@ -101,13 +104,13 @@ public class NpcHandler {
             CycleEventHandler.getSingleton().addEvent(this, new CycleEvent() {
                 @Override
                 public void execute(CycleEventContainer container) {
-                    if (npcs[npcIndex].absX == npcs[npcs[npcIndex].chasingRat].absX && npcs[npcIndex].absY == npcs[npcs[npcIndex].chasingRat].absY && (beatChance || npcs[npcIndex].npcType >= 768 && npcs[npcIndex].npcType <= 773)) {
+                    if (npcs[npcIndex].absX == npcs[npcs[npcIndex].chasingRat].absX && npcs[npcIndex].absY == npcs[npcs[npcIndex].chasingRat].absY && (beatChance || npcs[npcIndex].npcType >= CAT && npcs[npcIndex].npcType <= CAT_773)) {
                         npcs[npcs[npcIndex].chasingRat].isDead = true;
                         npcs[npcs[npcIndex].chasingRat].forceChat("Eek!");
                         npcs[npcIndex].forceChat("Meow!");
                         //startAnimation(9163, npcIndex);
                         slaveOwner.getPacketSender().sendMessage("The " + getNpcListName(NpcHandler.npcs[npcIndex].npcType) + " caught a rat!");
-						if (npcs[npcIndex].npcType >= 761 && npcs[npcIndex].npcType <= 766) {
+						if (npcs[npcIndex].npcType >= KITTEN_761 && npcs[npcIndex].npcType <= KITTEN_766) {
 							slaveOwner.ratsCaught++;
 						}
                         if (slaveOwner.ratsCaught == Pets.RATS_NEEDED_TO_GROW) {
@@ -214,19 +217,19 @@ public class NpcHandler {
         npcs[slot] = newNPC;
     }
 
-    public boolean switchesAttackers(int i) {
+    public boolean switchesAttackers(int i) { // This seems unused, that's probably not good 
         switch (npcs[i].npcType) {
-            case 2551:
-            case 2552:
-            case 2553:
-            case 2559:
-            case 2560:
-            case 2561:
-            case 2563:
-            case 2564:
-            case 2565:
-            case 2892:
-            case 2894:
+            case DWARVEN_MINER_2551:
+            case DWARVEN_MINER_2552:
+            case BLAST_FURNACE_FOREMAN:
+            case RUNITE_ORE:
+            case SILVER_ORE:
+            case GOLD_ORE:
+            case PERFECT_GOLD_ORE:
+            case ORDAN:
+            case JORZIK:
+            case SPINOLYP:
+            case SPINOLYP_2894:
                 return true;
         }
         return false;
@@ -500,7 +503,7 @@ public class NpcHandler {
                     }
                 }
 
-                if (npcs[i].npcType == 162) {
+                if (npcs[i].npcType == GNOME_TRAINER) {
                     if (npcs[i].getX() == 2475 && npcs[i].getY() == 3438) {
                         npcs[i].forceChat("Okay get over that log, quick quick!");
                     } else if (npcs[i].getX() == 2471 && npcs[i].getY() == 3427) {
@@ -518,22 +521,22 @@ public class NpcHandler {
                     }
                 }
 
-                if (npcs[i].npcType == 43) {
+                if (npcs[i].npcType == SHEEP_43) {
                     if (Misc.random(20) == 4) {
                         npcs[i].forceChat("Baa!");
                     }
                 }
-                if (npcs[i].npcType == 81 || npcs[i].npcType == 397 || npcs[i].npcType == 1766 || npcs[i].npcType == 1767 || npcs[i].npcType == 1768) {
+                if (npcs[i].npcType == COW || npcs[i].npcType == COW_397 || npcs[i].npcType == COW_CALF || npcs[i].npcType == COW_1767 || npcs[i].npcType == COW_CALF_1768) {
                     if (Misc.random(30) == 4) {
                         npcs[i].forceChat("Moo");
                     }
                 }
-                if (npcs[i].npcType == 45) {
+                if (npcs[i].npcType == DUCK_45) {
                     if (Misc.random(30) == 6) {
                         npcs[i].forceChat("Quack!");
                     }
                 }
-		    if (npcs[i].npcType == 1685)
+		    if (npcs[i].npcType == GRAVINGAS)
 		    {
 			    if (Misc.random(25) == 7) {
 				    int rand = Misc.random(25);
@@ -771,7 +774,7 @@ public class NpcHandler {
                         // time
                         dropItems(i); // npc drops items!
                         FightCaves.tzhaarDeathHandler(i);
-                        if (npcs[i].npcType == 2745) {
+                        if (npcs[i].npcType == TZTOKJAD) {
                             FightCaves.handleJadDeath(i);
                             if (PlayerHandler.players[npcs[i].killerId] != null) {
                                 PlayerHandler.players[npcs[i].killerId].spawnedHealers = 0;
@@ -799,36 +802,36 @@ public class NpcHandler {
                                 handleratdeath2(i);
                             }
                         }
-                        if (npcs[i].npcType > 3726 && npcs[i].npcType < 3732) {
+                        if (npcs[i].npcType > RABBIT_3726 && npcs[i].npcType < SHIFTER) {
                             int damage = 10 + Misc.random(10);
                             player.playerLevel[Constants.HITPOINTS] = player.getPlayerAssistant().getLevelForXP(player.playerXP[Constants.HITPOINTS]) - damage;
                             player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
                             player.handleHitMask(damage);
                         }
-                        if (npcs[i].npcType == 655) {
+                        if (npcs[i].npcType == TREE_SPIRIT_655) {
                             player.spiritTree = true;
                             player.getPacketSender().sendMessage(
                                     "You have defeated the tree spirit.");
                         }
-                        if (npcs[i].npcType > 412 && npcs[i].npcType < 419) {
+                        if (npcs[i].npcType > BAT && npcs[i].npcType < ZOMBIE_419) {
                             player.golemSpawned = false;
                         }
-                        if (npcs[i].npcType == 757 && player.vampSlayer == 3) {
+                        if (npcs[i].npcType == COUNT_DRAYNOR && player.vampSlayer == 3) {
                             player.vampSlayer = 4;
                         }
-                        if (npcs[i].npcType > 390 && npcs[i].npcType < 397) {
+                        if (npcs[i].npcType > BIG_FISH && npcs[i].npcType < COW_397) {
                             RiverTroll.hasRiverTroll = false;
                         }
-                        if (npcs[i].npcType > 418 && npcs[i].npcType < 425) {
+                        if (npcs[i].npcType > ROCK_GOLEM_418 && npcs[i].npcType < SHADE) {
                             player.zombieSpawned = false;
                         }
-                        if (npcs[i].npcType > 424 && npcs[i].npcType < 431) {
+                        if (npcs[i].npcType > ZOMBIE_424 && npcs[i].npcType < WATCHMAN_431) {
                             player.shadeSpawned = false;
                         }
-                        if (npcs[i].npcType > 437 && npcs[i].npcType < 444) {
+                        if (npcs[i].npcType > CAPN_IZZY_NOBEARD && npcs[i].npcType < GOBLIN_444) {
                             player.treeSpiritSpawned = false;
                         }
-                        if (npcs[i].npcType > 2462 && npcs[i].npcType < 2469) {
+                        if (npcs[i].npcType > PHEASANT_2462 && npcs[i].npcType < FROG_2469) {
                             player.chickenSpawned = false;
                         }
                         npcs[i].absX = npcs[i].makeX;
@@ -837,11 +840,11 @@ public class NpcHandler {
                         npcs[i].animNumber = 0x328;
                         npcs[i].updateRequired = true;
                         npcs[i].animUpdateRequired = true;
-                        if (npcs[i].npcType >= 2440 && npcs[i].npcType <= 2446) {
+                        if (npcs[i].npcType >= DOORSUPPORT && npcs[i].npcType <= DOORSUPPORT_2446) {
                             GameEngine.objectManager.removeObject(npcs[i].absX,
                                     npcs[i].absY);
                         }
-                    } else if (npcs[i].actionTimer == 0 && npcs[i].needRespawn && npcs[i].npcType != 1158) {
+                    } else if (npcs[i].actionTimer == 0 && npcs[i].needRespawn && npcs[i].npcType != KALPHITE_QUEEN) {
                         if (npcs[i].spawnedBy > 0) {
                             npcs[i] = null;
                         } else {
@@ -904,12 +907,12 @@ public class NpcHandler {
 
     public boolean getsPulled(Player c, int i) {
         switch (npcs[i].npcType) {
-            case 2550:
+            case DWARVEN_MINER_2550:
                 if (npcs[i].firstAttacker > 0) {
                     return false;
                 }
                 break;
-            case 87:
+            case GIANT_RAT_87:
                 if (Boundary.isIn(c, Boundary.TUTORIAL) || c.tutorialProgress < 36) {
                     return false;
                 }
@@ -920,24 +923,14 @@ public class NpcHandler {
 
     public static boolean multiAttacks(int i) {
         switch (npcs[i].npcType) {
-            case 1158: //kq
+            case KALPHITE_QUEEN: //kq
 				if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
 					return true;
 				}
-            case 1160: //kq
+            case KALPHITE_QUEEN_1160: //kq
 				if (npcs[i].attackType == AttackType.RANGE.getValue()) {
 					return true;
 				}
-            case 2558:
-                return true;
-            case 2562:
-                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
-                    return true;
-                }
-            case 2550:
-                if (npcs[i].attackType == AttackType.RANGE.getValue()) {
-                    return true;
-                }
             default:
                 return false;
         }
@@ -1049,15 +1042,15 @@ public class NpcHandler {
         Player c = (Client) PlayerHandler.players[npcs[i].killedBy];
         if (c != null) {
             // These npcs shouldn't have drops
-            if (npcs[i].npcType == 2627 // Tz-Kih
-                    || npcs[i].npcType == 2630 // Tz-Kek
-                    || npcs[i].npcType == 2631 // Tok-Xil
-                    || npcs[i].npcType == 2638 // Neite
-                    || npcs[i].npcType == 2641 // Dragonkin
-                    || npcs[i].npcType == 2643 // R4ng3rNo0b889
-                    || npcs[i].npcType == 2645 // Love Cats
-                    || npcs[i].npcType == 1532 // Barricade
-                    || npcs[i].npcType == 153 // Butterfly
+            if (npcs[i].npcType == TZKIH // Tz-Kih
+                    || npcs[i].npcType == TZKEK_2630 // Tz-Kek
+                    || npcs[i].npcType == TOKXIL // Tok-Xil
+                    || npcs[i].npcType == NEITE_2638 // Neite
+                    || npcs[i].npcType == DRAGONKIN // Dragonkin
+                    || npcs[i].npcType == R4NG3RNO0B889 // R4ng3rNo0b889
+                    || npcs[i].npcType == LOVE_CATS_2645 // Love Cats
+                    || npcs[i].npcType == BARRICADE // Barricade
+                    || npcs[i].npcType == BUTTERFLY // Butterfly
                     || PestControl.npcIsPCMonster(npcs[i].npcType)
                     || FightCaves.isFightCaveNpc(i)) {
                 // These npcs shouldn't have drops
@@ -1074,36 +1067,36 @@ public class NpcHandler {
                 }
             }
             switch (npcs[i].npcType) {
-                case 2459:
+                case PHEASANT:
                     FreakyForester.killedPheasant(c, 0);
-                    GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
                     break;
-                case 2460:
+                case PHEASANT_2460:
                     FreakyForester.killedPheasant(c, 1);
-                    GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
                     break;
-                case 2461:
+                case PHEASANT_2461:
                     FreakyForester.killedPheasant(c, 2);
-                    GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
                     break;
-                case 2462:
+                case PHEASANT_2462:
                     FreakyForester.killedPheasant(c, 3);
-                    GameEngine.itemHandler.createGroundItem(c, 6178, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                    GameEngine.itemHandler.createGroundItem(c, StaticItemList.RAW_PHEASANT, npcs[i].absX, npcs[i].absY, 1, c.playerId);
                     break;
-                case 92:
+                case SKELETON_92:
                     if (c.restGhost == 3) {
-                        GameEngine.itemHandler.createGroundItem(c, 553, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.SKULL, npcs[i].absX, npcs[i].absY, 1, c.playerId);
                         c.restGhost = 4;
                     }
                     break;
-                case 47:
+                case RAT:
                     if (c.witchspot == 1 || c.romeojuliet > 0 && c.romeojuliet < 9) {
-                        GameEngine.itemHandler.createGroundItem(c, 300, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.RATS_TAIL, npcs[i].absX, npcs[i].absY, 1, c.playerId);
                     }
                     break;
-                case 645:
+                case JONNY_THE_BEARD:
                     if (c.shieldArrav == 5) {
-                        GameEngine.itemHandler.createGroundItem(c, 761, npcs[i].absX, npcs[i].absY, 1, c.playerId);
+                        GameEngine.itemHandler.createGroundItem(c, StaticItemList.SCROLL, npcs[i].absX, npcs[i].absY, 1, c.playerId);
                     }
                     break;
             }
@@ -1202,11 +1195,11 @@ public class NpcHandler {
             return false;
         }
         switch (npcs[i].npcType) {
-            case 1456:
-            case 2892:
-            case 2894:
-            case 1532:
-            case 1534:
+            case MONKEY_ARCHER:
+            case SPINOLYP:
+            case SPINOLYP_2894:
+            case BARRICADE:
+            case BARRICADE_1534:
                 return false;
         }
         return true;
@@ -1226,11 +1219,11 @@ public class NpcHandler {
             return;
         }
 
-        if (npcs[i].npcType == 1532 || npcs[i].npcType == 1534) {
+        if (npcs[i].npcType == BARRICADE || npcs[i].npcType == BARRICADE_1534) {
             return;
         }
 
-        if (!followPlayer(i) && npcs[i].npcType != 1532 && npcs[i].npcType != 1534) {
+        if (!followPlayer(i) && npcs[i].npcType != BARRICADE && npcs[i].npcType != BARRICADE_1534) {
             npcs[i].facePlayer(player);
             return;
         }
@@ -1293,36 +1286,26 @@ public class NpcHandler {
      **/
     public static int distanceRequired(int i) {
         switch (npcs[i].npcType) {
-            case 2025:
-            case 2028:
+            case AHRIM_THE_BLIGHTED:
+            case KARIL_THE_TAINTED:
                 return 6;
-            case 50:
-            case 2562:
+            case KING_BLACK_DRAGON:
+            case COAL:
                 return 2;
-            case 172: // dark wizards
-            case 174:
-            case 2881:// dag kings
-            case 2882:
-            case 3200:// chaos ele
-            case 2743:
-            case 2631:
-            case 2745:
+            case DARK_WIZARD: // dark wizards
+            case DARK_WIZARD_174:
+            case DAGANNOTH_SUPREME:// dag kings
+            case DAGANNOTH_PRIME:
+            case CHAOS_ELEMENTAL:// chaos ele
+            case KETZEK:
+            case TOKXIL:
+            case TZTOKJAD:
                 return 8;
-            case 2883:// rex
+            case DAGANNOTH_REX:// rex
                 return 1;
-            case 2552:
-            case 2553:
-            case 2556:
-            case 2557:
-            case 2558:
-            case 2559:
-            case 2560:
-            case 2564:
-            case 2565:
-                return 9;
             // things around dags
-            case 2892:
-            case 2894:
+            case SPINOLYP:
+            case SPINOLYP_2894:
                 return 10;
             default:
                 return 1;
@@ -1331,15 +1314,10 @@ public class NpcHandler {
 
     public static int followDistance(int i) {
         switch (npcs[i].npcType) {
-            case 2550:
-            case 2551:
-            case 2562:
-            case 2563:
-                return 8;
-            case 2883:
+            case DAGANNOTH_REX:
                 return 4;
-            case 2881:
-            case 2882:
+            case DAGANNOTH_SUPREME:
+            case DAGANNOTH_PRIME:
                 return 1;
         }
         return 0;
@@ -1347,21 +1325,21 @@ public class NpcHandler {
 
     public static int getProjectileSpeed(int i) {
         switch (npcs[i].npcType) {
-            case 2881:
-            case 2882:
-            case 3200:
+            case DAGANNOTH_SUPREME:
+            case DAGANNOTH_PRIME:
+            case CHAOS_ELEMENTAL:
                 return 85;
 
-            case 2745:
+            case TZTOKJAD:
                 return 130;
 
-            case 50:
+            case KING_BLACK_DRAGON:
                 return 90;
 
-            case 2025:
+            case AHRIM_THE_BLIGHTED:
                 return 85;
 
-            case 2028:
+            case KARIL_THE_TAINTED:
                 return 80;
 
             default:
@@ -1371,22 +1349,22 @@ public class NpcHandler {
 
     public static int offset(int i) {
         switch (npcs[i].npcType) {
-            case 50:
-            case 110:
-            case 941:
-            case 1590:
-            case 1591:
-            case 1592:
-            case 2642:
-            case 55:
-            case 54:
-            case 53:
+            case KING_BLACK_DRAGON:
+            case FIRE_GIANT:
+            case GREEN_DRAGON:
+            case BRONZE_DRAGON:
+            case IRON_DRAGON:
+            case STEEL_DRAGON:
+            case KING_BLACK_DRAGON_2642:
+            case BLUE_DRAGON:
+            case BLACK_DRAGON:
+            case RED_DRAGON:
                 return 2;
-            case 2881:
-            case 2882:
+            case DAGANNOTH_SUPREME:
+            case DAGANNOTH_PRIME:
                 return 1;
-            case 2745:
-            case 2743:
+            case TZTOKJAD:
+            case KETZEK:
                 return 1;
         }
         return 0;
@@ -1403,13 +1381,13 @@ public class NpcHandler {
     }
 
     public boolean retaliates(int npcType) {
-        return npcType < 3777 || npcType > 3780
-                && !(npcType >= 2440 && npcType <= 2446);
+        return npcType < PORTAL || npcType > PORTAL_3780
+                && !(npcType >= DOORSUPPORT && npcType <= DOORSUPPORT_2446);
     }
 
     public static void handleSpecialEffects(Player c, int i, int damage) {
-        if (npcs[i].npcType == 2892 || npcs[i].npcType == 2894 || npcs[i].npcType == 1158
-                || npcs[i].npcType == 1160) {
+        if (npcs[i].npcType == SPINOLYP || npcs[i].npcType == SPINOLYP_2894 || npcs[i].npcType == KALPHITE_QUEEN
+                || npcs[i].npcType == KALPHITE_QUEEN_1160) {
             if (damage > 0) {
                 if (c != null) {
                     if (c.playerLevel[Constants.PRAYER] > 0) {
@@ -1436,21 +1414,11 @@ public class NpcHandler {
 
     public static int getMaxHit(int i) {
         switch (npcs[i].npcType) {
-            case 1158:
+            case KALPHITE_QUEEN:
                 return 30;
-            case 2558:
-                if (npcs[i].attackType == AttackType.MAGIC.getValue()) {
-                    return 28;
-                } else {
-                    return 68;
-                }
-            case 1265:
-            case 1267:
+            case ROCK_CRAB:
+            case ROCK_CRAB_1267:
                 return 2;
-            case 2562:
-                return 31;
-            case 2550:
-                return 36;
         }
         return 1;
     }

@@ -18,6 +18,8 @@ import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 public class NpcCombat {
 
 	public static void multiAttackDamage(int i) {
@@ -108,28 +110,28 @@ public class NpcCombat {
 				|| NpcHandler.npcs[i].isDead) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 1532
-					|| NpcHandler.npcs[i].npcType == 1534
-					|| NpcHandler.npcs[i].npcType == 6145
+			if (NpcHandler.npcs[i].npcType == BARRICADE
+					|| NpcHandler.npcs[i].npcType == BARRICADE_1534
+					|| NpcHandler.npcs[i].npcType == 6145 //Unknown NPCs in 6000 range
 					|| NpcHandler.npcs[i].npcType == 6144
 					|| NpcHandler.npcs[i].npcType == 6143
 					|| NpcHandler.npcs[i].npcType == 6142
-					|| NpcHandler.npcs[i].npcType == 752) {
+					|| NpcHandler.npcs[i].npcType == LESSER_DEMON_752) {
 				return;
 			}
 			if (Boundary.isIn(c, Boundary.APE_ATOLL) && MonkeyData.isWearingGreegree(c)) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 1401 && Boundary.isIn(c, Boundary.TUTORIAL) || c.tutorialProgress < 36) {
+			if (NpcHandler.npcs[i].npcType == CHICKEN_1401 && Boundary.isIn(c, Boundary.TUTORIAL) || c.tutorialProgress < 36) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 9 && c.absX == 3180 && c.absY > 3433 && c.absY < 3447) {
+			if (NpcHandler.npcs[i].npcType == GUARD && c.absX == 3180 && c.absY > 3433 && c.absY < 3447) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 374 && c.absY == 3372 && c.absX > 2522 && c.absX < 2532) {
+			if (NpcHandler.npcs[i].npcType == OGRE_374 && c.absY == 3372 && c.absX > 2522 && c.absX < 2532) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType > 2462 && NpcHandler.npcs[i].npcType < 2468) {
+			if (NpcHandler.npcs[i].npcType > PHEASANT_2462 && NpcHandler.npcs[i].npcType < FROG_2469) {
 				if (Misc.random(5) == 0) {
 					NpcHandler.npcs[i].forceChat("Flee from me, " + c.playerName + "!");
 				} else if (Misc.random(5) == 1) {
@@ -203,7 +205,7 @@ public class NpcCombat {
 						c.getPlayerAssistant().createPlayersProjectile(nX, nY, offX, offY, 50, NpcHandler.getProjectileSpeed(i), NpcHandler.npcs[i].projectileId, 43, 31, -c.getId() - 1, 65);
 					}
 					int random = Misc.random(10);
-					if (NpcHandler.npcs[i].npcType == 222 && (NpcHandler.npcs[i].killerId > 0 && NpcHandler.npcs[i].underAttack) && !NpcHandler.npcs[i].isDead && (NpcHandler.npcs[i].HP < NpcHandler.npcs[i].MaxHP + 1)) {
+					if (NpcHandler.npcs[i].npcType == MONK && (NpcHandler.npcs[i].killerId > 0 && NpcHandler.npcs[i].underAttack) && !NpcHandler.npcs[i].isDead && (NpcHandler.npcs[i].HP < NpcHandler.npcs[i].MaxHP + 1)) {
 						if (random < 3) {
 							NpcHandler.npcs[i].HP += 2;
 							//NpcHandler.npcs[i].startAnimation(84); 
@@ -245,14 +247,14 @@ public class NpcCombat {
 	}
 
 	public static void loadSpell(Player c, int i) {
-		if (NpcHandler.npcs[i].npcType > 2462 && NpcHandler.npcs[i].npcType < 2469 || NpcHandler.npcs[i].npcType > 3751 && NpcHandler.npcs[i].npcType < 3762) {
+		if (NpcHandler.npcs[i].npcType > PHEASANT_2462 && NpcHandler.npcs[i].npcType < FROG_2469 || NpcHandler.npcs[i].npcType > SPINNER_3751 && NpcHandler.npcs[i].npcType < DEFILER) {
 			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
 		}
-		if (NpcHandler.npcs[i].npcType > 3761 && NpcHandler.npcs[i].npcType < 3772) {
+		if (NpcHandler.npcs[i].npcType > TORCHER_3761 && NpcHandler.npcs[i].npcType < BRAWLER) {
 			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
 		}
 		switch (NpcHandler.npcs[i].npcType) {
-		case 1158://kq first form
+		case KALPHITE_QUEEN://kq first form
 			int kqRandom = Misc.random(3);
 				if (kqRandom == 2) {
 					NpcHandler.npcs[i].projectileId = 280; //gfx
@@ -262,7 +264,7 @@ public class NpcCombat {
 					NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();	
 				}
 				break;
-			case 1160://kq secondform
+			case KALPHITE_QUEEN_1160://kq secondform
 				int kqRandom2 = Misc.random(3);
 				if (kqRandom2 == 2) {
 					NpcHandler.npcs[i].projectileId = 279; //gfx
@@ -272,51 +274,48 @@ public class NpcCombat {
 					NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();	
 				}
 				break;
-		case 2607:
+		case TZHAARXIL_2607:
 			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
-		case 2591:
+		case TZHAARMEJ:
 			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
 			break;	
-		case 172:
-		case 174:
+		case DARK_WIZARD:
+		case DARK_WIZARD_174:
 			NpcHandler.npcs[i].gfx100(96); // Dark Wizards use earth strike
 			NpcHandler.npcs[i].projectileId = 97; 
 			NpcHandler.npcs[i].endGfx = 98;
 			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
 			break;
-		case 3068:
-		if(Misc.random(10) > 7) {
-			NpcHandler.npcs[i].projectileId = 393; //red
-			NpcHandler.npcs[i].endGfx = 430;
-			NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
-			NpcData.startAnimation(2989, i);
-		} else {
-			NpcData.startAnimation(2980, i);
-			NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();
-		}
-		break;
-		case 2892:
+		case SKELETAL_WYVERN:
+			if(Misc.random(10) > 7) {
+				NpcHandler.npcs[i].projectileId = 393; //red
+				NpcHandler.npcs[i].endGfx = 430;
+				NpcHandler.npcs[i].attackType = AttackType.FIRE_BREATH.getValue();
+				NpcData.startAnimation(2989, i);
+			} else {
+				NpcData.startAnimation(2980, i);
+				NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();
+			}
+			break;
+		case SPINOLYP:
 			NpcHandler.npcs[i].projectileId = 94;
 			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
 			NpcHandler.npcs[i].endGfx = 95;
 			break;
-		case 2894:
+		case SPINOLYP_2894:
 			NpcHandler.npcs[i].projectileId = 298;
 			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
 			break;
 		/*
 		 * Better Dragons
 		 */
-		case 5363: // Mithril-Dragon
-		case 53: // Red Dragon
-		case 54: // Black-Dragon
-		case 55: // Blue-Dragon
-		case 941: // Green-Dragon
-		case 4682:
-		case 5362:
-		case 1590:
-		case 1591:
-		case 1592:
+		case RED_DRAGON: // Red Dragon
+		case BLACK_DRAGON: // Black-Dragon
+		case BLUE_DRAGON: // Blue-Dragon
+		case GREEN_DRAGON: // Green-Dragon
+		case BRONZE_DRAGON:
+		case IRON_DRAGON:
+		case STEEL_DRAGON:
 			int random1 = Misc.random(3);
 			switch (random1) {
 			case 1:
@@ -331,7 +330,7 @@ public class NpcCombat {
 				break;
 			}
 			break;
-		case 134:
+		case POISON_SPIDER:
 			if (c.playerLevel[Constants.PRAYER] > 0) {
 				c.playerLevel[Constants.PRAYER]--;
 				c.getPlayerAssistant().refreshSkill(Constants.PRAYER);
@@ -340,9 +339,9 @@ public class NpcCombat {
 			}
 			break;
 
-		case 3590:
-		case 50:
-		case 742:
+		case STEEL_DRAGON_3590:
+		case KING_BLACK_DRAGON:
+		case ELVARG:
 			int random = Misc.random(4);
 			switch (random) {
 			case 0:
@@ -372,73 +371,7 @@ public class NpcCombat {
 				break;
 			}
 			break;
-		// arma npcs
-		case 2561:
-			NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();
-			break;
-		case 2560:
-			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
-			NpcHandler.npcs[i].projectileId = 1190;
-			break;
-		case 2559:
-			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
-			NpcHandler.npcs[i].projectileId = 1203;
-			break;
-		case 2558:
-			random = Misc.random(1);
-			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue() + random;
-			if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
-				NpcHandler.npcs[i].projectileId = 1197;
-			} else {
-				NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
-				NpcHandler.npcs[i].projectileId = 1198;
-			}
-			break;
-		// sara npcs
-		case 2562: // sara
-			random = Misc.random(1);
-			if (random == 0) {
-				NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
-				NpcHandler.npcs[i].endGfx = 1224;
-				NpcHandler.npcs[i].projectileId = -1;
-			} else if (random == 1) {
-				NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();
-			}
-			break;
-		case 2563: // star
-			NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();
-			break;
-		case 2564: // growler
-			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
-			NpcHandler.npcs[i].projectileId = 1203;
-			break;
-		case 2565: // bree
-			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
-			NpcHandler.npcs[i].projectileId = 9;
-			break;
-		// bandos npcs
-		case 2550:
-			random = Misc.random(2);
-			if (random == 0 || random == 1) {
-				NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();
-			} else {
-				NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
-				NpcHandler.npcs[i].endGfx = 1211;
-				NpcHandler.npcs[i].projectileId = 288;
-			}
-			break;
-		case 2551:
-			NpcHandler.npcs[i].attackType = AttackType.MELEE.getValue();
-			break;
-		case 2552:
-			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
-			NpcHandler.npcs[i].projectileId = 1203;
-			break;
-		case 2553:
-			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
-			NpcHandler.npcs[i].projectileId = 1206;
-			break;
-		case 2025:
+		case AHRIM_THE_BLIGHTED:
 			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
 			int r = Misc.random(3);
 			if (r == 0) {
@@ -461,23 +394,23 @@ public class NpcCombat {
 				NpcHandler.npcs[i].projectileId = 156;
 			}
 			break;
-		case 2881:// supreme
+		case DAGANNOTH_SUPREME:// supreme
 			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
 			NpcHandler.npcs[i].projectileId = 298;
 			break;
 
-		case 2882:// prime
+		case DAGANNOTH_PRIME:// prime
 			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
 			NpcHandler.npcs[i].projectileId = 162;
 			NpcHandler.npcs[i].endGfx = 477;
 			break;
 
-		case 2028:
+		case KARIL_THE_TAINTED:
 			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
 			NpcHandler.npcs[i].projectileId = 27;
 			break;
 
-		case 3200:
+		case CHAOS_ELEMENTAL:
 			int r2 = Misc.random(1);
 			if (r2 == 0) {
 				NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
@@ -491,7 +424,7 @@ public class NpcCombat {
 				NpcHandler.npcs[i].endGfx = 555;
 			}
 			break;
-		case 2745:
+		case TZTOKJAD:
 			int r3 = 0;
 			if (NpcHandler
 					.goodDistance(
@@ -516,13 +449,13 @@ public class NpcCombat {
 				NpcHandler.npcs[i].projectileId = -1;
 			}
 			break;
-		case 2743:
+		case KETZEK:
 			NpcHandler.npcs[i].attackType = AttackType.MAGIC.getValue();
 			NpcHandler.npcs[i].projectileId = 445;
 			NpcHandler.npcs[i].endGfx = 446;
 			break;
 
-		case 2631:
+		case TOKXIL:
 			NpcHandler.npcs[i].attackType = AttackType.RANGE.getValue();
 			NpcHandler.npcs[i].projectileId = 443;
 			break;
