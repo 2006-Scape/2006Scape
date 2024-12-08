@@ -956,7 +956,7 @@ public class CombatAssistant {
 						player.followPlayerId = player.playerIndex;
            
             // We can create a list if there are more than one weapon which does not trigger this
-						if(player.playerWeapon != GRANITE_MAUL){
+						if(player.playerWeapon != StaticItemList.GRANITE_MAUL){
 							player.attackTimer = getAttackDelay();
 						}
             
