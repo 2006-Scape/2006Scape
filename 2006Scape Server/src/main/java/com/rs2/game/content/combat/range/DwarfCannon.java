@@ -5,6 +5,7 @@ import com.rs2.GameEngine;
 import com.rs2.event.CycleEvent;
 import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
+import com.rs2.game.content.StaticNpcList;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcHandler;
@@ -450,7 +451,7 @@ public class DwarfCannon {
 
 
 
-				if (!npc.isDead && !npc.isDead && npc.HP != 0 && npc.npcType != 1266 && npc.npcType != 1268 && inDistance(theirX, theirY)) {
+				if (!npc.isDead && !npc.isDead && npc.HP != 0 && npc.npcType != StaticNpcList.ROCKS && npc.npcType != StaticNpcList.ROCKS_1268 && inDistance(theirX, theirY)) {
 					switch (rotation) {
 						case 1:
 							if (theirY > myY && theirX >= myX - 1 && theirX <= myX + 1) {

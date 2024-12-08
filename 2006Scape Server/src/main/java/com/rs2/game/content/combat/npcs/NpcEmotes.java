@@ -1,6 +1,8 @@
 package com.rs2.game.content.combat.npcs;
 
 import com.rs2.GameEngine;
+import com.rs2.game.content.StaticNpcList;
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
 
@@ -21,9 +23,9 @@ public enum NpcEmotes {
 		HOB_GOBLIN(new int[] {122, 123}, 164, 165, 167),
 		AHRIM(new int[] {2025}, 729, 404, 2304),
 		DHAROK(new int[] {2026}, 2067, 404, 2304),
-		GUTHAN(new int[] {2027}, 422, 404, 2304),
+		GUTHAN(new int[] {2027}, 2080, 404, 2304),
 		KARIL(new int[] {2028}, 2075, 404, 2304),
-		TORAG(new int[] {2029}, 0x814, 404, 2304),
+		TORAG(new int[] {2029}, 2068, 404, 2304),
 		VERAC(new int[] {2030}, 2062, 404, 2304),
 		BABY_DRAGON(new int[] {51, 52, 1589, 3376}, 25, 26, 28),
 		CHICKEN(new int[] {41}, 55, 56, 57),
@@ -39,7 +41,7 @@ public enum NpcEmotes {
 		COW(new int[] {81, 397, 1766, 1767, 1768}, 59, 60, 62),
 		BLOODVELD(new int[] {1618, 1619}, 1552, 1550, 1553),
 		IMP(new int[] {708}, 169, 170, 172),
-		DARK_WIZARD(new int[] {172, 13}, 711, 1834, 836),
+		DARK_WIZARD(new int[] {172, 13, 174}, 711, 1834, 836),
 		DUCK(new int[] {44, 45}, 7, 8, 9),
 		SPINOLYP(new int[] {2892, 2894}, 2868, 2864, 2865),
 		DWARF(new int[] {118, 119}, 99, 100, 102),
@@ -137,11 +139,11 @@ public enum NpcEmotes {
 				} else {
 					switch (NpcHandler.npcs[i].npcType) {
 					case 2745:
-						if (NpcHandler.npcs[i].attackType == 2) {
+						if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
 							return 2656;
-						} else if (NpcHandler.npcs[i].attackType == 1) {
+						} else if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
 							return 2652;
-						} else if (NpcHandler.npcs[i].attackType == 0) {
+						} else if (NpcHandler.npcs[i].attackType == AttackType.MELEE.getValue()) {
 							return 2655;
 						}
 						
@@ -159,8 +161,8 @@ public enum NpcEmotes {
 					return e.getBlock();
 				} else {
 					switch (NpcHandler.npcs[i].npcType) {
-					case 2745:
-						return 2653;
+						case StaticNpcList.TZTOKJAD:
+							return 2653;
 					}
 				}
 			}
@@ -175,14 +177,14 @@ public enum NpcEmotes {
 					return e.getDead();
 				} else {
 					switch (NpcHandler.npcs[i].npcType) {
-					case 2745:
-						return 2654;
-					case 1158:
-						GameEngine.npcHandler.spawnSecondForm(player, i);
-						return 6242;
-					case 1160:
-						GameEngine.npcHandler.spawnFirstForm(player, i);
-						return 6233;
+						case StaticNpcList.TZTOKJAD:
+							return 2654;
+						case StaticNpcList.KALPHITE_QUEEN:
+							GameEngine.npcHandler.spawnSecondForm(player, i);
+							return 1187;
+						case StaticNpcList.KALPHITE_QUEEN_1160:
+							GameEngine.npcHandler.spawnFirstForm(player, i);
+							return 1182;
 					}
 				}
 			}

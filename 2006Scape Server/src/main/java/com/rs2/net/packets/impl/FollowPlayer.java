@@ -19,7 +19,7 @@ public class FollowPlayer implements PacketType {
 		player.usingBow = false;
 		player.usingRangeWeapon = false;
 		player.followDistance = 1;
-		player.followId = followPlayer;
+		player.followPlayerId = followPlayer;
 		player.endCurrentTask();
 	}
 }

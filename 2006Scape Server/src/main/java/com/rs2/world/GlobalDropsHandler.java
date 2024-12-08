@@ -65,7 +65,7 @@ public class GlobalDropsHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Misc.println("Loaded " + globalDrops.size() + " global drops.");
+        System.out.println("Loaded " + globalDrops.size() + " global drops.");
 
         for (Player player : PlayerHandler.players) {
             Client player2 = (Client) player;

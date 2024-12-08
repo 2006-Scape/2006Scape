@@ -2,12 +2,13 @@ package com.rs2.net.packets.impl;
 
 import static com.rs2.util.GameLogger.writeLog;
 
-import java.util.Arrays;
+import java.util.*;
 
 import com.rs2.Connection;
 import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.bots.BotHandler;
+import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
@@ -19,6 +20,7 @@ import com.rs2.world.clip.Region;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 public class Commands implements PacketType {
 
@@ -48,10 +50,25 @@ public class Commands implements PacketType {
         switch (playerCommand.toLowerCase()) {
             case "stuck":
                 if(JavaCord.token != null) {
-                    if (JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
+                    if (JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
                         JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
                 }
+                System.err.println("Player " + player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
                 player.getPlayerAssistant().spellTeleport(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
+                break;
+            case "home":
+                long currentTime = System.currentTimeMillis();
+                long cooldown = 30 * 60 * 1000; // 30 minutes in milliseconds
+                if (player.getLastHomeTeleport() == 0 || (currentTime - player.getLastHomeTeleport() >= cooldown)) {
+                    player.getPlayerAssistant().spellTeleport(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
+                    player.setLastHomeTeleport(currentTime); // Update the last teleport time
+                } else {
+                    long remainingTime = cooldown - (currentTime - player.getLastHomeTeleport());
+                    long minutesLeft = TimeUnit.MILLISECONDS.toMinutes(remainingTime);
+                    long secondsLeft = TimeUnit.MILLISECONDS.toSeconds(remainingTime) - TimeUnit.MINUTES.toSeconds(minutesLeft);
+                    player.getPacketSender().sendMessage("You need to wait " + minutesLeft + " minutes and " + secondsLeft + " seconds to use home teleport again.");
+                }
+                break;
             case "link":
                 player.setDiscordCode(arguments[0]);
                 player.getPacketSender().sendMessage("Your Account has now been linked with Discord User ID:");
@@ -65,6 +82,10 @@ public class Commands implements PacketType {
                 }
             case "xprate":
                 if(Constants.VARIABLE_XP_RATE) {
+                    if (arguments.length < 1 || !arguments[0].equals("confirm")) {
+                        player.getPacketSender().sendMessage("You must type \"::xprate confirm\" to view the dialogue to change your XP rate.");
+                        return;
+                    }
                     if (player.getXPRate() == Constants.VARIABLE_XP_RATES[0]) {
                         player.getDialogueHandler().sendDialogues(10005, 2244);
                         return;
@@ -190,7 +211,7 @@ public class Commands implements PacketType {
                 if (count != 1) {
                     player.getPacketSender().sendMessage("There are currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "players" : "player shops") + " online (" + PlayerHandler.getNonPlayerCount() + " staff member online).");
                 } else {
-                    player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online (\" + PlayerHandler.getNonPlayerCount() + \" staff member online).");
+                    player.getPacketSender().sendMessage("There is currently " + count + " " + (playerCommand.equalsIgnoreCase("players") ? "player" : "player shop") + " online (" + PlayerHandler.getNonPlayerCount() + " staff member online).");
                 }
                 String[] players = new String[count];
 
@@ -205,7 +226,13 @@ public class Commands implements PacketType {
 
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+                for (int i = 8144; i < 8196; i++) player.getPacketSender().sendString("", i);
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
 
                 player.getPacketSender().sendString("@dre@" + (playerCommand.equalsIgnoreCase("players") ? "Players" : "Player Shops"), 8144);
 
@@ -218,6 +245,135 @@ public class Commands implements PacketType {
                 break;
             case "prayer":
                 player.getPacketSender().sendMessage(String.format("Prayer points: %d", player.playerLevel[Constants.PRAYER]));
+                break;
+            case "togglenpckillmsgs":
+            case "togglenpckillmsg":
+            case "togglenpckcmsgs":
+            case "togglenpckcmsg":
+                player.displayRegularKcMessages = !player.displayRegularKcMessages;
+                player.getPacketSender().sendMessage("You now have regular NPC kill count messages: " + (player.displayRegularKcMessages ? "enabled" : "disabled"));
+                break;
+            case "togglebosskillmsgs":
+            case "togglebosskillmsg":
+            case "togglebossksmsgs":
+            case "togglebossksmsg":
+                player.displayBossKcMessages = !player.displayBossKcMessages;
+                player.getPacketSender().sendMessage("You now have boss NPC kill count messages: " + (player.displayBossKcMessages ? "enabled" : "disabled"));
+                break;
+            case "toggleslayerkillmsgs":
+            case "toggleslayerkillmsg":
+            case "toggleslayerkcmsgs":
+            case "toggleslayerkcmsg":
+                player.displaySlayerKcMessages = !player.displaySlayerKcMessages;
+                player.getPacketSender().sendMessage("You now have slayer NPC kill count messages: " + (player.displaySlayerKcMessages ? "enabled" : "disabled"));
+                break;
+            case "kc":
+            case "kills":
+            case "checknpckill":
+            case "checknpckills":
+                if (arguments.length > 0) {
+                    // Combine all arguments into a single string, assuming space-separated
+                    String npcNameInput = String.join(" ", arguments).toLowerCase();
+                    try {
+                        // Try to parse as an ID
+                        int npcId = Integer.parseInt(arguments[0]);
+                        int killCount = player.getNpcKillCounts().getOrDefault(npcId, 0);
+                        String npcName = NPCDefinition.forId(npcId).getName();
+                        player.getPacketSender().sendMessage("Kill count for " + npcName + ": " + killCount);
+                    } catch (NumberFormatException e) {
+                        // If not an ID, treat as a name
+                        List<NPCDefinition> matchingDefs = new ArrayList<>();
+                        for (int id = 0; id <= 3789; id++) {
+                            try {
+                                NPCDefinition def = NPCDefinition.forId(id);
+                                if (def.getName().toLowerCase().startsWith(npcNameInput)) {
+                                    matchingDefs.add(def);
+                                }
+                            } catch (Exception exception) {
+                                System.err.println("Exception during kc command: " + exception.getMessage());
+                                break;
+                            }
+                        }
+                        if (matchingDefs.isEmpty()) {
+                            player.getPacketSender().sendMessage("No NPCs found with the name: " + npcNameInput);
+                        } else {
+                            boolean empty = true;
+                            for (NPCDefinition def : matchingDefs) {
+                                int killCount = player.getNpcKillCounts().getOrDefault(def.getId(), 0);
+                                if (killCount > 0) {
+                                    empty = false;
+                                    player.getPacketSender().sendMessage("Kill count for " + def.getName() + " (ID: " + def.getId() + "): " + killCount);
+                                }
+                            }
+                            if (empty) {
+                                player.getPacketSender().sendMessage("Kill count for " + npcNameInput + ": 0");
+                            }
+                        }
+                    }
+                } else {
+                    player.getPacketSender().sendMessage("Please provide an NPC ID or name.");
+                }
+                break;  
+            case "bosskillcounts":
+            case "bosskillcount":
+            case "bosskc":
+            case "kcboss":
+                // Clear all lines
+                for (int i = 8144; i < 8196; i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+                
+                player.getPacketSender().sendString("@dre@Boss Kill Counts", 8144);
+                int bossLineId = 8147; // Starting line for display
+                player.getPacketSender().sendString("Barrows Chests: " + player.getNpcKillCounts().getOrDefault(100000, 0), bossLineId++);
+                for (Integer bossId : Constants.BOSS_NPC_IDS) {
+                    int killCount = player.getNpcKillCounts().getOrDefault(bossId, 0);
+                    String npcName = NPCDefinition.forId(bossId).getName();
+                    player.getPacketSender().sendString(npcName + ": " + killCount, bossLineId++);
+                }
+                
+                player.getPacketSender().showInterface(8134);
+                break;
+            case "slayerkillcounts":
+            case "slayerkillcount":
+            case "slayerkc":
+            case "kcslayer":
+                // Clear all lines
+                for (int i = 8144; i < 8196; i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
+                
+                player.getPacketSender().sendString("@dre@Slayer Kill Counts", 8144); 
+                int slayerLineId = 8147; // Starting line for display
+                
+                // LinkedHashMap to store cumulative kills by NPC name
+                LinkedHashMap<String, Integer> nameToKills = new LinkedHashMap<>();
+                
+                // Populate the HashMap
+                for (Integer npcId : Constants.SLAYER_NPC_IDS) {
+                    String npcName = NPCDefinition.forId(npcId).getName();
+                    int killCount = player.getNpcKillCounts().getOrDefault(npcId, 0);
+                    nameToKills.put(npcName, nameToKills.getOrDefault(npcName, 0) + killCount);
+                }
+                
+                // Display the results
+                for (Map.Entry<String, Integer> entry : nameToKills.entrySet()) {
+                    player.getPacketSender().sendString(entry.getKey() + ": " + entry.getValue(), slayerLineId++);
+                }
+                
+                player.getPacketSender().showInterface(8134);
                 break;
             case "snow":
                 Calendar date = new GregorianCalendar();
@@ -260,6 +416,9 @@ public class Commands implements PacketType {
                     player.getPacketSender().sendMessage("Must have 1 argument: ::gfx0 80");
                 else
                     player.gfx0(Integer.parseInt(arguments[0]));
+                break;
+            case "uptime":
+                player.getPacketSender().sendMessage("The server has now been online for: " + Misc.getServerUptime(GameEngine.getServerStartTime()));
                 break;
             case "tele":
                 if (player.connectedFrom.equals("127.0.0.1")) {
@@ -315,6 +474,24 @@ public class Commands implements PacketType {
                         "::withdrawshop(::wshop)",
                         "Withdraw profits from player owned shop",
                         "",
+                        "::togglenpckillmsgs(::togglenpckcmsgs)",
+                        "Toggle regular NPC kill count message display","",
+                        "",
+                        "::togglebosskillmsgs(::togglebosskcmsgs)",
+                        "Toggle regular Boss kill count message display","",
+                        "",
+                        "::toggleslayerkillmsgs(::toggleslayerkcmsgs)",
+                        "Toggle regular Slayer kill count message display",
+                        "",
+                        "::kc(::checknpckills)",
+                        "Search for your NPC kills for an NPC name or ID",
+                        "",
+                        "::bosskc(::toggleslayerkcmsgs)",
+                        "View your boss kills",
+                        "",
+                        "::slayerkc(::toggleslayerkcmsgs)",
+                        "View your slayer kills",
+                        "",
                         "::snow",
                         "Add some snow in your mainscreen(works only in december)",
                         (Constants.VARIABLE_XP_RATE ? "\\n" + "::xprate\\n" + "Opens dialogue for the player to set/increase their XP rate." : ""),
@@ -322,9 +499,14 @@ public class Commands implements PacketType {
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++)
+                for (int i = 8144; i < 8196; i++)
                     player.getPacketSender().sendString("", i);
-
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
                 player.getPacketSender().sendString("@dre@Commands", 8144);
 
                 int commandsLineNumber = 8147;
@@ -396,7 +578,13 @@ public class Commands implements PacketType {
                 };
 
                 // Clear all lines
-                for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+                for (int i = 8144; i < 8196; i++) player.getPacketSender().sendString("", i);
+                for (int i = 12174; i < (12174 + 50); i++) {
+                    player.getPacketSender().sendString( "", i);
+                }
+                for (int i = 14945; i < (14945 + 100); i++) {
+                    player.getPacketSender().sendString("", i);
+                }
 
                 player.getPacketSender().sendString("@dre@Highscores", 8144);
 

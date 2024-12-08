@@ -1,5 +1,6 @@
 package com.rs2.game.npcs;
 
+import com.rs2.game.content.combat.AttackType;
 import com.rs2.game.content.minigames.FightCaves;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
@@ -8,16 +9,18 @@ import com.rs2.world.clip.Region;
 
 import java.util.ArrayList;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 public class NpcData {
 
-	public static final int[] npcsOnlyMage = { 907, 908, 909, 910, 911, 912,
-			913, 914 };// done
-	public static final int[][] transformNpc = { { 3223, 6006 },
-			{ 3224, 6007 }, { 3225, 6008 }, { 3226, 6009 } };// done
-	public static final int[] npcsCantKillYou = { 41, 951, 1017, 1401, 1402,
-			1692, 2313, 2314, 2315 };// done
-	public static final int[] npcCantAttack = { 1532, 1533, 1534, 1535 };
-	public static final int[] npcDontGiveXp = { 2459, 2460, 2461, 2462 };
+	public static final int[] npcsOnlyMage = { KOLODION_907, KOLODION_908, KOLODION_909, KOLODION_910, KOLODION_911, BATTLE_MAGE,
+			BATTLE_MAGE_913, BATTLE_MAGE_914 };// done
+	public static final int[][] transformNpc = { { MAN_3223, 6006 },
+			{ MAN_3224, 6007 }, { MAN_3225, 6008 }, { WOMAN_3226, 6009 } };// done // this transformNpc array seems to be unused, maybe can be removed? Maybe it's not even accurate? Idk I just fixed the magic numbers.
+	public static final int[] npcsCantKillYou = { CHICKEN, CHICKEN_951, CHICKEN_1017, CHICKEN_1401, CHICKEN_1402,
+			UNDEAD_CHICKEN, CHICKEN_2313, CHICKEN_2314, CHICKEN_2315 };// done
+	public static final int[] npcCantAttack = { BARRICADE, BARRICADE_1533, BARRICADE_1534, BARRICADE_1535 };
+	public static final int[] npcDontGiveXp = { PHEASANT, PHEASANT_2460, PHEASANT_2461, PHEASANT_2462 };
 
 	public static boolean cantKillYou(int npcType) {
 		for (int n : npcsCantKillYou) {
@@ -185,22 +188,12 @@ public class NpcData {
 	 **/
 	public static int getNpcDelay(int i) {
 		switch (NpcHandler.npcs[i].npcType) {
-		case 2025:
-		case 2028:
+		case AHRIM_THE_BLIGHTED:
+		case KARIL_THE_TAINTED:
 			return 7;
 
-		case 2745:
+		case TZTOKJAD:
 			return 8;
-
-		case 2558:
-		case 2559:
-		case 2560:
-		case 2561:
-		case 2550:
-			return 6;
-			// saradomin gw boss
-		case 2562:
-			return 2;
 
 		default:
 			return 5;
@@ -212,31 +205,28 @@ public class NpcData {
 	 **/
 	public static int getHitDelay(int i) {
 		switch (NpcHandler.npcs[i].npcType) {
-		case 2881:
-		case 2882:
-		case 3200:
-		case 2892:
-		case 2894:
+		case DAGANNOTH_SUPREME:
+		case DAGANNOTH_PRIME:
+		case CHAOS_ELEMENTAL:
+		case SPINOLYP:
+		case SPINOLYP_2894:
 			return 3;
 
-		case 2743:
-		case 2631:
-		case 2558:
-		case 2559:
-		case 2560:
+		case KETZEK:
+		case TOKXIL:
 			return 3;
 
-		case 2745:
-			if (NpcHandler.npcs[i].attackType == 1
-					|| NpcHandler.npcs[i].attackType == 2) {
+		case TZTOKJAD:
+			if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()
+					|| NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
 				return 5;
 			} else {
 				return 2;
 			}
 
-		case 2025:
+		case AHRIM_THE_BLIGHTED:
 			return 4;
-		case 2028:
+		case KARIL_THE_TAINTED:
 			return 3;
 
 		default:
@@ -249,91 +239,75 @@ public class NpcData {
 	 **/
 	public static int getRespawnTime(int i) {
 		switch (NpcHandler.npcs[i].npcType) {
-		case 1158:
-		case 1160:
-		return -1;
-		case 2881:
-		case 2882:
-		case 2883:
-		case 2558:
-		case 2559:
-		case 2560:
-		case 2561:
-		case 2562:
-		case 2563:
-		case 2564:
-		case 2550:
-		case 2551:
-		case 2552:
-		case 2553:
+		case KALPHITE_QUEEN:
+		case KALPHITE_QUEEN_1160:
+			return -1;
+		case DAGANNOTH_SUPREME:
+		case DAGANNOTH_PRIME:
+		case DAGANNOTH_REX:
 			return 100;
-		case 3777:
-		case 3778:
-		case 3779:
-		case 3780:
+		case PORTAL:
+		case PORTAL_3778:
+		case PORTAL_3779:
+		case PORTAL_3780:
 			return 500;
-		case 1532:
-		case 1534:
+		case BARRICADE:
+		case BARRICADE_1534:
 			return -1;
 		default:
 			return 25;
 		}
 	}
-	
+
+	/**
+	 * Distance required to attack
+	 * It's also worth checking {@link NpcHandler#distanceRequired}
+	 */
 	public static int distanceRequired(int i) {
-		int distanceNeeded = 1;
-		if (NpcHandler.npcs[i].attackType == 1) {
-			return distanceNeeded += 7;
-		} else if (NpcHandler.npcs[i].attackType == 2) {
-			return distanceNeeded += 9;
-		} else if (NpcHandler.npcs[i].attackType > 2) {
-			return distanceNeeded += 4;
+		if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
+			return 8;
+		} else if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
+			return 10;
+		} else if (NpcHandler.npcs[i].attackType > AttackType.MAGIC.getValue()) {
+			return 5;
 		}
 		switch (NpcHandler.npcs[i].npcType) {
-			case 2562:
-				return distanceNeeded += 1;
-			case 2881:// dag kings
-			case 2882:
-			case 3200:// chaos ele
-				return distanceNeeded += 7;
-			case 2552:
-			case 2553:
-			case 2556:
-			case 2557:
-			case 2558:
-			case 2559:
-			case 2560:
-			case 2564:
-			case 2565:
-				return distanceNeeded += 8;
+			case COAL:
+				return 2;
+			case DAGANNOTH_SUPREME:// dag kings
+			case DAGANNOTH_PRIME:
+			case CHAOS_ELEMENTAL:// chaos ele
+				return 8;
 			// things around dags
-			case 2892:
-			case 2894:
-				return distanceNeeded += 9;
-			case 907 : // Kolodian
-			case 908 :
-			case 909 :
-			case 910 :
-			case 911 :
-			case 912 : // Zammy battlemage
-			case 913 : // Sara battlemage
-			case 914 : // Guthix battlemage
-			case 2591 : // TzHaar-Mej (Tzhaar mage guy)
-			case 2743 : // Ket-Zek (Tzhaar mage guy)
-			case 2745 : // TzTok-Jad
-			case 1158 : // Kalphite queen form 1
-			case 1160 : // Kalphite queen form 2
-			case 2025 : // Ahrim
-				return distanceNeeded += 9;
-			case 2028 : // Karil
-			case 2631 : // Tok-Xil (Tzhaar ranging guy)
-			case 1183 : // Elf ranger
-				return distanceNeeded += 7;
-			case 941 : // Green drag
-			case 50 : // Kbd
-				return distanceNeeded += 5;
+			case SPINOLYP:
+			case SPINOLYP_2894:
+				return 10;
+			case KOLODION_907 : // Kolodian
+			case KOLODION_908 :
+			case KOLODION_909 :
+			case KOLODION_910 :
+			case KOLODION_911 :
+			case BATTLE_MAGE : // Zammy battlemage
+			case BATTLE_MAGE_913 : // Sara battlemage
+			case BATTLE_MAGE_914 : // Guthix battlemage
+			case TZHAARMEJ : // TzHaar-Mej (Tzhaar mage guy)
+			case KETZEK : // Ket-Zek (Tzhaar mage guy)
+			case TZTOKJAD : // TzTok-Jad
+			case KALPHITE_QUEEN : // Kalphite queen form 1
+			case KALPHITE_QUEEN_1160 : // Kalphite queen form 2
+			case AHRIM_THE_BLIGHTED : // Ahrim
+				return 10;
+			case KARIL_THE_TAINTED : // Karil
+			case TOKXIL : // Tok-Xil (Tzhaar ranging guy)
+			case ELF_WARRIOR : // Elf ranger
+			case DARK_WIZARD: // dark wizards
+			case DARK_WIZARD_174:
+				return 8;
+			case GREEN_DRAGON : // Green drag
+			case KING_BLACK_DRAGON : // Kbd
+				return 6;
 		}
-		return distanceNeeded;
+		return 1;
 	}
 
 

@@ -14,7 +14,13 @@ public class CooksAssistant {
 	private static final int FLOUR = 1933;
 
 	public static void showInformation(Player client) {
-		for (int i = 8144; i < 8195; i++) {
+		for (int i = 8144; i < 8196; i++) {
+			client.getPacketSender().sendString("", i);
+		}
+		for (int i = 12174; i < (12174 + 50); i++) {
+			client.getPacketSender().sendString( "", i);
+		}
+		for (int i = 14945; i < (14945 + 100); i++) {
 			client.getPacketSender().sendString("", i);
 		}
 		client.getPacketSender().sendString("@dre@Cook's Assistant", 8144);

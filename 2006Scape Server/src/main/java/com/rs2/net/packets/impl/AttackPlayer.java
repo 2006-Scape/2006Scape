@@ -133,7 +133,7 @@ public class AttackPlayer implements PacketType {
 				return;
 			}
 			if (player.getCombatAssistant().checkReqs()) {
-				player.followId = player.playerIndex;
+				player.followPlayerId = player.playerIndex;
 				if (!player.usingMagic && !usingBow && !usingOtherRangeWeapons) {
 					player.followDistance = 1;
 					player.getPlayerAssistant().followPlayer();

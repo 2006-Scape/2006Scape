@@ -65,6 +65,10 @@ public class Npc {
         transformUpdateRequired = true;
         updateRequired = true;
     }
+    
+    public String name() {
+        return NpcHandler.getNpcListName(this.npcType);
+    }
 
     public void shearSheep(Player player, int itemNeeded, int itemGiven, int animation, final int currentId, final int newId, int transformTime) {
         if (!player.getItemAssistant().playerHasItem(itemNeeded)) {

@@ -13,8 +13,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.google.common.base.Stopwatch;
+import com.rs2.game.npcs.Npc;
+import com.rs2.game.npcs.NpcList;
 import com.rs2.gui.ControlPanel;
 
+import com.rs2.util.CustomPrintStream;
 import org.apollo.cache.IndexedFileSystem;
 import org.apollo.cache.decoder.ItemDefinitionDecoder;
 import org.apollo.cache.decoder.ObjectDefinitionDecoder;
@@ -116,6 +120,7 @@ public class GameEngine {
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private final static Lock lock = new ReentrantLock();
 	public static ControlPanel panel;
+	private static long serverStartTime;
 
 	static {
 		shutdownServer = false;
@@ -123,6 +128,11 @@ public class GameEngine {
 
 	public static void main(java.lang.String[] args)
 			throws NullPointerException, IOException {
+		CustomPrintStream errorStream = new CustomPrintStream(System.err, "ERROR", true);
+		System.setErr(errorStream);
+		CustomPrintStream infoStream = new CustomPrintStream(System.out, "INFO", true);
+		System.setOut(infoStream);
+		serverStartTime = System.currentTimeMillis();
 		if (NetworkConstants.RSA_EXPONENT != Constants.RSA_EXPONENT) {
 			NetworkConstants.RSA_EXPONENT = Constants.RSA_EXPONENT;
 			NetworkConstants.RSA_MODULUS = Constants.RSA_MODULUS;
@@ -153,15 +163,15 @@ public class GameEngine {
 		}
 
 		if (!new File("data").exists()) {
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
-			System.out.println("In IntelliJ, fix it by clicking \"Server\" > Edit Configurations at the top of your screen");
-			System.out.println("Then changing the \"Working Directory\" to be in \"2006Scape/2006Scape Server\", instead of just \"2006Scape\"");
-			System.out.println("************************************");
-			System.out.println("************************************");
-			System.out.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("WARNING: I could not find the /data folder. You are LIKELY running this in the wrong directory!");
+			System.err.println("In IntelliJ, fix it by clicking \"Server\" > Edit Configurations at the top of your screen");
+			System.err.println("Then changing the \"Working Directory\" to be in \"2006Scape/2006Scape Server\", instead of just \"2006Scape\"");
+			System.err.println("************************************");
+			System.err.println("************************************");
+			System.err.println("************************************");
 			System.exit(1);
 		}
 
@@ -237,8 +247,10 @@ public class GameEngine {
 		 * scheduleAtFixedRate() does not invoke concurrent Runnables.
 		 */
 		scheduler.scheduleAtFixedRate(new Runnable() {
+			int gameTicksIncrementor;
+			final int printInfoTick = Constants.CYCLE_LOGGING_TICK;
 			public void run() {
-				//TODO debug Stopwatch stopwatch = Stopwatch.createStarted();
+				Stopwatch stopwatch = Stopwatch.createStarted();
 				/**
 				 * Main Server Tick
 				 */
@@ -246,17 +258,51 @@ public class GameEngine {
 					if (GameEngine.shutdownServer) {
 						scheduler.shutdown();
 					}
+					long startItemHandler = System.currentTimeMillis();
 					itemHandler.process();
+					long durationItemHandler = System.currentTimeMillis() - startItemHandler;
+					checkAndLogDuration("ItemHandler", durationItemHandler);
+					long startPlayerHandler = System.currentTimeMillis();
 					playerHandler.process();
+					long durationPlayerHandler = System.currentTimeMillis() - startPlayerHandler;
+					checkAndLogDuration("PlayerHandler", durationPlayerHandler);
+					long startNpcHandler = System.currentTimeMillis();
 					npcHandler.process();
+					long durationNpcHandler = System.currentTimeMillis() - startNpcHandler;
+					checkAndLogDuration("NpcHandler", durationNpcHandler);
+					long startShopHandler = System.currentTimeMillis();
 					shopHandler.process();
+					long durationShopHandler = System.currentTimeMillis() - startShopHandler;
+					checkAndLogDuration("ShopHandler", durationShopHandler);
+					long startObjectManager = System.currentTimeMillis();
 					objectManager.process();
+					long durationObjectManager = System.currentTimeMillis() - startObjectManager;
+					checkAndLogDuration("ObjectManager", durationObjectManager);
+					long startCastleWars = System.currentTimeMillis();
 					CastleWars.process();
+					long durationCastleWars = System.currentTimeMillis() - startCastleWars;
+					checkAndLogDuration("CastleWars", durationCastleWars);
+					long startFightPits = System.currentTimeMillis();
 					FightPits.process();
+					long durationFightPits = System.currentTimeMillis() - startFightPits;
+					checkAndLogDuration("FightPits", durationFightPits);
+					long startPestControl = System.currentTimeMillis();
 					pestControl.process();
+					long durationPestControl = System.currentTimeMillis() - startPestControl;
+					checkAndLogDuration("PestControl", durationPestControl);
+					long startObjectHandler = System.currentTimeMillis();
 					objectHandler.process();
+					long durationObjectHandler = System.currentTimeMillis() - startObjectHandler;
+					checkAndLogDuration("CastleWars", durationObjectHandler);
+					long startMageTrainingArena = System.currentTimeMillis();
 					MageTrainingArena.process();
+					long durationMageTrainingArena = System.currentTimeMillis() - startMageTrainingArena;
+					checkAndLogDuration("MageTrainingArena", durationMageTrainingArena);
+					long startCycleEventHandler = System.currentTimeMillis();
 					CycleEventHandler.getSingleton().process();
+					long durationCycleEventHandler = System.currentTimeMillis() - startCycleEventHandler;
+					checkAndLogDuration("CycleEventHandler", durationCycleEventHandler);
+					long startIntegrationEvents = System.currentTimeMillis();
 					if (Constants.WEBSITE_INTEGRATION) {
 						PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 						RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
@@ -264,6 +310,9 @@ public class GameEngine {
 					if (DiscordActivity.playerCount) {
 						DiscordActivity.updateActivity();
 					}
+					long durationIntegrationEvents = System.currentTimeMillis() - startIntegrationEvents;
+					checkAndLogDuration("IntegrationEvents", durationIntegrationEvents);
+					long startSaveEvents = System.currentTimeMillis();
 					if (System.currentTimeMillis() - lastMassSave > 300000) {
 						for (Player p : PlayerHandler.players) {
 							if (p == null) {
@@ -274,9 +323,42 @@ public class GameEngine {
 							lastMassSave = System.currentTimeMillis();
 						}
 					}
+					long durationSaveEvents = System.currentTimeMillis() - startSaveEvents;
+					checkAndLogDuration("SaveEvents", durationSaveEvents);
+					long totalCycleDuration = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+					//Technically, we could add commands to test both client lag (creating many tile objects) and server lag (creating a BCrypt hash on game thread)
+					if (totalCycleDuration > 500) {
+						System.err.println("ERROR: Cycle duration exceeded 500 ms!");
+					} else if (totalCycleDuration > 250) {
+						System.err.println("WARNING: Cycle duration exceeded 250 ms!");
+					} else if (totalCycleDuration > 100) {
+						System.out.println("NOTICE: Cycle duration exceeded 100 ms.");
+					}
+					gameTicksIncrementor++;
+					if (Constants.CYCLE_LOGGING && gameTicksIncrementor > 1 && gameTicksIncrementor % printInfoTick == 0) {
+						long totalMem = Runtime.getRuntime().totalMemory();
+						long freeMem = Runtime.getRuntime().freeMemory();
+						long maxMem = Runtime.getRuntime().maxMemory();
+						int playerCount = 0;
+						for (Player p : PlayerHandler.players) {
+							if (p != null) {
+								playerCount++;
+							}
+						}
+						int npcCount = 0;
+						for (Npc npc : NpcHandler.npcs) {
+							if (npc != null) {
+								npcCount++;
+							}
+						}
+						System.out.println("Cycle #" + gameTicksIncrementor + " took " + totalCycleDuration + " ms. Players: " + playerCount + ", NPCs: " + npcCount +
+								", [Durations: i: " + durationItemHandler + " ms, p: " + durationPlayerHandler + " ms, n: " + durationNpcHandler + " ms, s: " + durationShopHandler +
+								" ms, oh: " + durationObjectHandler + " ms, om: " + durationObjectManager + " ms], Memory: " + (totalMem - freeMem) / 1024 / 1024 + "MB/" +
+								totalMem / 1024 / 1024 + "MB. Max: " + maxMem / 1024 / 1024 + "MB, Threads: " + Thread.activeCount() + ".");
+					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
-					System.out.println("A fatal exception has been thrown!");
+					System.err.println("A fatal exception has been thrown in the GameEngine cycle! Saving all players.");
 					for (Player p : PlayerHandler.players) {
 						if (p == null) {
 							continue;
@@ -292,7 +374,6 @@ public class GameEngine {
 					}
 					scheduler.shutdown(); // Kills the tickloop thread if Exception is thrown.
 				}
-				//TODO debug System.out.println("Cycle took " + stopwatch.elapsed(TimeUnit.MILLISECONDS) + " ms.");
 			}
 		}, 0, Constants.CYCLE_TIME, TimeUnit.MILLISECONDS);
 
@@ -313,7 +394,21 @@ public class GameEngine {
 
 		System.exit(0);
 	}
+	
+	private static void checkAndLogDuration(String processName, long duration) {
+		if (duration > 500) {
+			System.err.println("ERROR: " + processName + " duration exceeded 500 ms! Duration: " + duration + " ms.");
+		} else if (duration > 250) {
+			System.err.println("WARNING: " + processName + " duration exceeded 250 ms! Duration: " + duration + " ms.");
+		} else if (duration > 100) {
+			System.out.println("NOTICE: " + processName + " duration exceeded 100 ms. Duration: " + duration + " ms.");
+		}
+	}
 
 	public static boolean playerExecuted = false;
 	private static BufferedReader minuteFile;
+
+	public static long getServerStartTime() {
+		return serverStartTime;
+	}
 }

@@ -20,7 +20,13 @@ public class ShieldArrav {
 
 	public static void showInformation(Player player) {
 		// Clear all lines
-		for (int i = 8144; i < 8195; i++) player.getPacketSender().sendString("", i);
+		for (int i = 8144; i < 8196; i++) player.getPacketSender().sendString("", i);
+		for (int i = 12174; i < (12174 + 50); i++) {
+			player.getPacketSender().sendString( "", i);
+		}
+		for (int i = 14945; i < (14945 + 100); i++) {
+			player.getPacketSender().sendString("", i);
+		}
 		// Set the title
 		player.getPacketSender().sendString("Shield of Arrav", 8144);
 		// Add content

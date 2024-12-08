@@ -75,6 +75,7 @@ import org.apollo.util.security.IsaacRandom;
 public abstract class Player {
 
 	public byte buffer[] = null;
+	private long lastHomeTeleport = 0;
 	public String lastConnectedFrom;
 	public int xpRate = 1;
 	public String discordCode;
@@ -144,11 +145,37 @@ public abstract class Player {
 	private GateHandler gateHandler = new GateHandler();
 	private SingleGates singleGates = new SingleGates();
 	private DoubleGates doubleGates = new DoubleGates();
+	
+	private Map<Integer, Integer> npcKillCounts = new HashMap<>();
+	public boolean displayBossKcMessages = false;
+	public boolean displaySlayerKcMessages = false;
+	public boolean displayRegularKcMessages = false;
+	
+	public int getNpcKillCount(int npcId) {
+		return npcKillCounts.getOrDefault(npcId, 0);
+	}
+	
+	public Map<Integer, Integer> getNpcKillCounts() {
+		return npcKillCounts;
+	}
+	
+	public void incrementNpcKillCount(int npcId, int count) {
+		npcKillCounts.put(npcId, npcKillCounts.getOrDefault(npcId, 0) + count);
+	}
+	
 	public int lastMainFrameInterface = -1; //Possibly used in future to prevent packet exploits
 
 	public int getXPRate() { return xpRate; }
 
 	public void setXPRate(int xpRate) { this.xpRate = xpRate; }
+	
+	public long getLastHomeTeleport() {
+		return lastHomeTeleport;
+	}
+
+	public void setLastHomeTeleport(long lastHomeTeleport) {
+		this.lastHomeTeleport = lastHomeTeleport;
+	}
 
 	public String getDiscordCode() { return discordCode; }
 
@@ -606,7 +633,7 @@ public abstract class Player {
 			System.out.println("EverythingRS API Disabled, highscores not saved!");
 		}
 
-		Misc.println("[DEREGISTERED]: " + playerName + "");
+		System.out.println("[DEREGISTERED]: " + playerName + "");
 		// HostList.getHostList().remove(session);
 		CycleEventHandler.getSingleton().stopEvents(this);
 		disconnected = true;
@@ -908,9 +935,9 @@ public abstract class Player {
 			}
 		}
 
-		if (followId > 0) {
+		if (followPlayerId > 0) {
 			getPlayerAssistant().followPlayer();
-		} else if (followId2 > 0) {
+		} else if (followNpcId > 0) {
 			getPlayerAssistant().followNpc();
 		}
 
@@ -1342,7 +1369,7 @@ public abstract class Player {
 
 	public int miningAxe = -1, woodcuttingAxe = -1;
 
-	public boolean initialized, musicOn = true, luthas,
+	public boolean initialized, musicOn = true, soundOn = true, luthas,
 			playerIsCooking, disconnected, ruleAgreeButton,
 			rebuildNPCList, isActive, isKicked,
 			isSkulled, friendUpdate, newPlayer,
@@ -1378,8 +1405,8 @@ public abstract class Player {
 			dialogueId, randomCoffin, newLocation, specEffect,
 			specBarId, attackLevelReq, defenceLevelReq, strengthLevelReq,
 			rangeLevelReq, magicLevelReq, slayerLevelReq, agilityLevelReq,
-			followId, skullTimer, nextChat = 0, talkingNpc = -1,
-			dialogueAction = 0, autocastId, followDistance, followId2,
+			followPlayerId, skullTimer, nextChat = 0, talkingNpc = -1,
+			dialogueAction = 0, autocastId, followDistance, followNpcId,
 			barrageCount = 0, delayedDamage = 0, delayedDamage2 = 0,
 			pcPoints = 0, magePoints = 0, desertTreasure = 0, skillAmount,
 			lastArrowUsed = -1, autoRet = 1, pcDamage = 0, xInterfaceId = 0,

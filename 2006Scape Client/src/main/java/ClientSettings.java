@@ -9,6 +9,47 @@ import java.math.BigInteger;
 public class ClientSettings {
     /**
      * @QoL
+     * Require control key to zoom the client
+     */
+    public static boolean CONTROL_KEY_ZOOMING = false;
+    
+    /**
+     * @QoL
+     * Show zoom level messages in chat when changing zoom levels
+     */
+    public static boolean SHOW_ZOOM_LEVEL_MESSAGES = false;
+    /**
+     * @QoL
+     * Hide roofs
+     */
+    public static boolean HIDE_ROOFS = false;
+    /**
+     * @QoL
+     * Hide buggy varrock sword shop snow
+     */
+    public static boolean HIDE_BUGGY_VARROCK_SWORD_SHOP_SNOW = true;
+    /**
+     * @QoL
+     * Forces Server-Wide Snow floor
+     */
+    public static boolean SNOW_FLOOR_FORCE_ENABLED = false;
+    /**
+     * @QoL
+     * Toggles Server-Wide Snow floor (for the designated month)
+     */
+    public static boolean SNOW_FLOOR_ENABLED = true;
+    /**
+     * @QoL
+     * Forces Server-Wide Snow overlay
+     */
+    public static boolean SNOW_OVERLAY_FORCE_ENABLED = false;
+    /**
+     * @QoL
+     * Toggles Server-Wide Snow overlay (for the designated month)
+     */
+    public static boolean SNOW_OVERLAY_ENABLED = false;
+    /**
+     * @QoL
      * Enables Server-Wide Snow In The Designated Month
      */
     public static String SNOW_MONTH = ".12";
@@ -75,6 +116,19 @@ public class ClientSettings {
      * FileServer Must Be Running Before Starting The Client If This Is True
      */
     public static boolean CHECK_CRC = true;
+    
+    /**
+     * @QoL
+     * Enables the ability to take screenshots
+     */
+    public static boolean SCREENSHOTS_ENABLED = false;
+    
+    /**
+     * @QoL
+     * Enables the ability to take automatic screenshots on stats tab click and bank open
+     * This is a poor man's player exports.
+     */
+    public static boolean AUTOMATIC_SCREENSHOTS_ENABLED = false;
 
     /**
      * The Npc Bits for the Server
