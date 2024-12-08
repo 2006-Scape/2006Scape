@@ -30,7 +30,7 @@ import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.PathFinder;
 
-import static com.rs2.game.content.StaticItemList.GRANITE_MAUL;
+import static com.rs2.game.content.StaticItemList.*;
 
 /**
  * @author whoever contributed
