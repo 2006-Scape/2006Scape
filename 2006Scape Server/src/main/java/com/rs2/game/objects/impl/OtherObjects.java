@@ -67,6 +67,7 @@ public class OtherObjects {
 			targetX = 3268;
 			targetY = 3228;
 		}
+		//We must declare a final targetX and targetY so we can use them inside the CycleEvent lambda.
 		final int finalTargetX = targetX;
 		final int finalTargetY = targetY;
 		//Check if the player needs to walk first
