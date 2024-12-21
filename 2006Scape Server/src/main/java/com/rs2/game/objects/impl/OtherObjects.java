@@ -102,12 +102,16 @@ public class OtherObjects {
 	
 		//If no intermediate walk is required, proceed directly
 		if (openKharid(player, objectId)) {
+			//GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, -1);
+			final int[] coords = new int[2];
 			if (player.getX() == 3267) {
 				player.getPlayerAssistant().movePlayer(player.getX() + 1, player.getY(), 0);
 			} else if (player.getX() == 3268) {
 				player.getPlayerAssistant().movePlayer(player.getX() - 1, player.getY(), 0);
 			}
 			player.turnPlayerTo(player.objectX, player.objectY);
+			coords[0] = player.objectX;
+			coords[1] = player.objectY;
 			player.getItemAssistant().deleteItem(995, player.getItemAssistant().getItemSlot(995), 10);
 		}
 	}
