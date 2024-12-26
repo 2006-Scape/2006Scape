@@ -6220,7 +6220,7 @@ public class Game extends RSApplet {
 				return;
 			}
 			if (k == 11) {
-				loginMessage2 = "Login server rejected session.";
+				loginMessage1 = "Login server rejected session.";
 				loginMessage2 = "Please try again.";
 				return;
 			}
