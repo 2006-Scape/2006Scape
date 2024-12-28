@@ -6,8 +6,12 @@ import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.Region;
+import org.apollo.cache.def.NpcDefinition;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.rs2.game.content.StaticNpcList.*;
 
@@ -264,6 +268,8 @@ public class NpcData {
 	 * It's also worth checking {@link NpcHandler#distanceRequired}
 	 */
 	public static int distanceRequired(int i) {
+		//if (NpcHandler.npcs[i].npcType == 81)
+		//	System.out.println("npcHandler distanceRequired npc size " + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize());
 		if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) {
 			return 8;
 		} else if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) {
@@ -307,15 +313,21 @@ public class NpcData {
 			case KING_BLACK_DRAGON : // Kbd
 				return 6;
 		}
-		return 1;
+		return NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize();
 	}
 
 
 	public static boolean goodDistanceNpc(int i, int x2, int y2, int distance) {
-		for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NpcHandler.npcs[i].size; x++) {
-			for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NpcHandler.npcs[i].size; y++) {
-				if (Misc.goodDistance(x, y, x2, y2, distance)) {
+		for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize(); x++) {
+			for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize(); y++) {
+				int dir = Misc.direction(x, y, x2, y2);
+				Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
+				boolean nearBy = nearbyDirections.contains(dir);
+				if (Misc.goodDistance(x, y, x2, y2, nearBy && NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize() > 1 ? distance - 1 : distance)) {
+					//System.out.println("distance is good! x " + x + " y " + y + " " + " x2 " + x2 + " y2 " + y2 + " vs distance " + (nearBy ? distance - 1 : distance) + " with direction " + dir);
 					return true;
+				} else {
+					//System.out.println("distance is not good! x " + x + " y " + y + " " + " x2 " + x2 + " y2 " + y2 + " vs distance " + distance + " with direction " + dir);
 				}
 			}
 		}
@@ -342,10 +354,11 @@ public class NpcData {
 		}
 		int x = n.getX(); // -1
 		int y = n.getY(); // 1
-		final int dis = distanceRequired(n.npcId) + n.size;
+		final int dis = distanceRequired(n.npcId);
 		int dis2 = 0;
-		final boolean melee = distanceRequired(n.npcId) < 2;
-		if (n.size < 1 && x != x2 && y != y2) {
+		final boolean melee = distanceRequired(n.npcId) == NPCDefinition.forId(n.npcType).getSize();
+		if (NPCDefinition.forId(n.npcType).getSize() < 1 && x != x2 && y != y2) {
+			//System.err.println("checkClip exit early! return false");
 			return false;
 		}
 		// Algorithm starts here
@@ -383,6 +396,7 @@ public class NpcData {
 		boolean firstCheck = false;
 		for (int i = 0; i <= longest; i++) {
 			if (dis2 > dis) {
+				//System.err.println("checkClip early exit, dis2 > dis " + dis2 + " > " + dis );
 				return false;
 			}
 			dis2++;
@@ -399,7 +413,8 @@ public class NpcData {
 			}
 			if (!firstCheck) {
 				if (melee) {
-					if (!Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+					if (!Region.getClipping(x, y, n.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+						//System.err.println("checkClip Region.getClipping exit early 1");
 						return false;
 					}
 				}
@@ -409,7 +424,8 @@ public class NpcData {
 				firstCheck = true;
 			}
 			if (melee) {
-				if (!Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+				if (!Region.getClipping(x, y, n.heightLevel, x3 - x, y3 - y) && !Region.getClipping(x, y, n.heightLevel, x - x3, y - y3)) {
+					//System.err.println("checkClip Region.getClipping exit early 2");
 					return false;
 				}
 			}
@@ -423,17 +439,20 @@ public class NpcData {
 	public static boolean inNpc(int i, int x2, int y2) {
 		if (NpcHandler.npcs[i].size < 1) {
 			if (x2 == NpcHandler.npcs[i].getX() && y2 == NpcHandler.npcs[i].getY()) {
+				//System.out.println("in npc 1");
 				return true;
 			}
 		} else {
 			for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NpcHandler.npcs[i].size; x++) {
 				for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NpcHandler.npcs[i].size; y++) {
 					if (x2 == x && y2 == y) {
+						//System.out.println("in npc 2");
 						return true;
 					}
 				}
 			}
 		}
+		//System.out.println("not in npc");
 		return false;
 	}
 
