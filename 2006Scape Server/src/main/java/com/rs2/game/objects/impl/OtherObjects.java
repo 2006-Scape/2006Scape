@@ -49,6 +49,59 @@ public class OtherObjects {
 			player.getDialogueHandler().endDialogue();
 			return;
 		}
+	
+		int targetX = player.getX();
+		int targetY = player.getY();
+	
+		//Determine intermediate walk coordinates
+		if (player.getX() == 3266 && player.getY() == 3229) {
+			targetX = 3267;
+			targetY = 3228;
+		} else if (player.getX() == 3266 && player.getY() == 3226) {
+			targetX = 3267;
+			targetY = 3227;
+		} else if (player.getX() == 3269 && player.getY() == 3226) {
+			targetX = 3268;
+			targetY = 3227;
+		} else if (player.getX() == 3269 && player.getY() == 3229) {
+			targetX = 3268;
+			targetY = 3228;
+		}
+		//We must declare a final targetX and targetY so we can use them inside the CycleEvent lambda.
+		final int finalTargetX = targetX;
+		final int finalTargetY = targetY;
+		//Check if the player needs to walk first
+		if (targetX != player.getX() || targetY != player.getY()) {
+			player.getPlayerAssistant().playerWalk(targetX, targetY);
+	
+			CycleEvent objectWalkToEvent = new CycleEvent() {
+				@Override
+				public void execute(CycleEventContainer container) {
+					if (player.getX() == finalTargetX && player.getY() == finalTargetY) {
+						if (openKharid(player, objectId)) {
+							if (player.getX() == 3267) {
+								player.getPlayerAssistant().movePlayer(player.getX() + 1, player.getY(), 0);
+							} else if (player.getX() == 3268) {
+								player.getPlayerAssistant().movePlayer(player.getX() - 1, player.getY(), 0);
+							}
+							player.turnPlayerTo(player.objectX, player.objectY);
+							player.getItemAssistant().deleteItem(995, player.getItemAssistant().getItemSlot(995), 10);
+						}
+						container.stop();
+					}
+				}
+	
+				@Override
+				public void stop() {
+					//Optional cleanup logic
+				}
+			};
+	
+			player.startCurrentTask(1, objectWalkToEvent); //Start the event with a tick delay
+			return; //Exit so the rest of the initKharid method doesn't execute immediately
+		}
+	
+		//If no intermediate walk is required, proceed directly
 		if (openKharid(player, objectId)) {
 			//GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, -1);
 			final int[] coords = new int[2];
