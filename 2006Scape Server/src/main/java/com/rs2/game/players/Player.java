@@ -37,6 +37,9 @@ import com.rs2.game.content.skills.smithing.Smithing;
 import com.rs2.game.content.skills.smithing.SmithingInterface;
 import com.rs2.game.content.traveling.DesertCactus;
 import com.rs2.game.content.traveling.DesertHeat;
+import com.rs2.game.dialog.Dialogue;
+import com.rs2.game.dialog.DialogueFactory;
+import com.rs2.game.dialog.OptionDialogue;
 import com.rs2.game.dialogues.DialogueHandler;
 import com.rs2.game.globalworldobjects.DoubleGates;
 import com.rs2.game.globalworldobjects.GateHandler;
@@ -79,7 +82,8 @@ public abstract class Player {
 	public String lastConnectedFrom;
 	public int xpRate = 1;
 	public String discordCode;
-	private Compost compost = new Compost(this);
+    public boolean dialoguePlugin;
+    private Compost compost = new Compost(this);
 	private Allotments allotment = new Allotments(this);
 	private Flowers flower = new Flowers(this);
 	private Herbs herb = new Herbs(this);
@@ -450,6 +454,34 @@ public abstract class Player {
 
 	private Inventory inventory = new Inventory(this);
 
+	private DialogueFactory dialogueFactory = new DialogueFactory(this);
+	private Optional<Dialogue> dialogue = Optional.empty();
+	private Optional<OptionDialogue> optionDialogue;
+
+	public DialogueFactory getDialogueFactory() {
+		return dialogueFactory;
+	}
+
+	public void setDialogueFactory(DialogueFactory dialogueFactory) {
+		this.dialogueFactory = dialogueFactory;
+	}
+
+	public Optional<OptionDialogue> getOptionDialogue() {
+		return optionDialogue;
+	}
+
+	public void setOptionDialogue(Optional<OptionDialogue> optionDialogue) {
+		this.optionDialogue = optionDialogue;
+	}
+
+	public Optional<Dialogue> getDialogue() {
+		return dialogue;
+	}
+
+	public void setDialogue(final Optional<Dialogue> dialogue) {
+		this.dialogue = dialogue;
+	}
+
 
 	private int tempInteger;
 	public boolean tempBoolean;
@@ -498,7 +530,7 @@ public abstract class Player {
 
 	private Map<Integer, TinterfaceText> interfaceText = new HashMap<Integer, TinterfaceText>();
 
-	public class TinterfaceText {
+    public class TinterfaceText {
 		public int id;
 		public String currentState;
 
