@@ -32,7 +32,7 @@ public class AttackPlayer implements PacketType {
 			}
 			
 			if (player.inDuelArena() && !player.duelingArena()) {
-				player.getChallengePlayer().processPacket(player, null);
+				player.getChallengePlayer().processPacket(player, packet);
 			}
 
 			if (player.respawnTimer > 0) {
