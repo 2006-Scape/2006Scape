@@ -30,6 +30,7 @@ import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.PathFinder;
 
+import static com.rs2.game.content.StaticItemList.*;
 import static com.rs2.game.content.StaticNpcList.*;
 
 /**
@@ -953,6 +954,12 @@ public class CombatAssistant {
 						player.lastArrowUsed = player.playerEquipment[player.playerArrows];
 						player.getSpecials().activateSpecial(player.playerEquipment[player.playerWeapon], o, i);
 						player.followPlayerId = player.playerIndex;
+           
+            // We can create a list if there are more than one weapon which does not trigger this
+						if(player.playerWeapon != StaticItemList.GRANITE_MAUL){
+							player.attackTimer = getAttackDelay();
+						}
+            
 						return;
 					} else {
 						player.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");
