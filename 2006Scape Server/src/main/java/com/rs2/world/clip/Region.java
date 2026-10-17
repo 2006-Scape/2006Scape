@@ -649,6 +649,17 @@ public class Region {
 		}
 	}
 
+	public Objects GetObjectAt(int x, int y, int id)
+	{
+		for (Objects o : realObjects) {
+			if (o.objectX == x && o.objectY == y && o.objectId == id) {
+				return o;
+			}
+		}
+
+		return null;
+	}
+
 	public static int getClipping(int x, int y, int height) {
 		if (height > 3) {
 			height = 0; //this doesn't seem good
@@ -714,6 +725,35 @@ public class Region {
 		} catch (Exception e) {
 			return true;
 		}
+	}
+
+	public static boolean reachedObject(int startX, int startY, int endX, int endY, int endDistanceX, int endDistanceY,
+										int surroundings, int clipping)
+	{
+		int endX2 = (endX + endDistanceX) - 1;
+		int endY2 = (endY + endDistanceY) - 1;
+
+		if (startX >= endX && startX <= endX2 && startY >= endY && startY <= endY2)
+		{
+			return true;
+		}
+
+		if (startX == endX - 1 && startY >= endY && startY <= endY2
+				&& (clipping & 8) == 0 && (surroundings & 8) == 0)
+		{
+			return true;
+		}
+
+		if (startX == endX2 + 1 && startY >= endY && startY <= endY2
+				&& (clipping & 0x80) == 0 && (surroundings & 2) == 0)
+		{
+			return true;
+		}
+
+		return startY == endY - 1 && startX >= endX && startX <= endX2
+				&& (clipping & 2) == 0 && (surroundings & 4) == 0
+				|| startY == endY2 + 1 && startX >= endX && startX <= endX2
+				&& (clipping & 0x20) == 0 && (surroundings & 1) == 0;
 	}
 
 }
