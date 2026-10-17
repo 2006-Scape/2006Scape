@@ -9123,7 +9123,7 @@ public class Game extends RSApplet {
 			int k2 = stream.readBits(7);
 			int l2 = stream.readBits(7);
 			myPlayer.setPos(l2, k2, j1 == 1);
-			//Handle plane changes, higher planes need the roof drawing checks disabled, and we need to manually update ObjectManager's anInt131 (plane) then manually call method22 to let the ObjectManaegr know we're on a different plane. This makes plane changes draw properly. Coords for testing this: lumb: 3207 3227 and varrock: 3209, 3392 and gnome agil: 2474, 3427 
+			//Handle plane changes, higher planes need the roof drawing checks disabled, and we need to manually update ObjectManager's anInt131 (plane) then manually call method22 to let the ObjectManager know we're on a different plane. This makes plane changes draw properly. Coords for testing this: lumb: 3207 3227 and varrock: 3209, 3392 and gnome agil: 2474, 3427 
 			ObjectManager.hideRoofs = ClientSettings.HIDE_ROOFS;
 			ObjectManager.hideBuggyVarrockSwordShopSnow = ClientSettings.HIDE_BUGGY_VARROCK_SWORD_SHOP_SNOW;
 			if (plane > 0) {
