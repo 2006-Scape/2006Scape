@@ -1,5 +1,6 @@
 package com.rs2.net.packets.impl;
 
+import static com.rs2.game.npcs.drops.NPCDropsHandler.*;
 import static com.rs2.util.GameLogger.writeLog;
 
 import java.util.*;
@@ -10,13 +11,17 @@ import com.rs2.GameEngine;
 import com.rs2.game.bots.BotHandler;
 import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcHandler;
+import com.rs2.game.npcs.drops.ItemDrop;
+import com.rs2.game.npcs.drops.NPCDropsHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
 import com.rs2.integrations.discord.JavaCord;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
+import com.rs2.util.NpcDrop;
 import com.rs2.world.clip.Region;
+import org.apollo.cache.def.ItemDefinition;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -48,6 +53,80 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "npcdrops":
+            case "searchdrops":
+            case "searchnpcdrops":
+            case "drops": // Possible usage: ::drops scim
+                boolean found = false;
+            
+                // Check if arguments are provided (item ID or name)
+                if (arguments.length < 1) {
+                    player.getPacketSender().sendMessage("Please provide an item ID or name.");
+                    break;
+                }
+            
+                // If the argument can be parsed as an integer, treat it as an item ID
+                try {
+                    int itemId = Integer.parseInt(arguments[0]);
+                    
+                    // Search by item ID
+                    for (NpcDrop npcDrop : NPCDropsHandler.getNpcDrops()) {
+                        for (ItemDrop itemDrop : npcDrop.getItems()) {
+                            if (itemDrop.item_id == itemId) {  // Check if the item ID matches
+                                // Get NPC info
+                                String npcName = NPCDefinition.forId(npcDrop.getId()).getName();
+                                int npcCombatLevel = NPCDefinition.forId(npcDrop.getId()).getCombat();
+                                if (npcCombatLevel > 0) {
+                                    // Display NPC details with println
+                                    System.out.println("NPC ID: " + npcDrop.getId() + 
+                                                       " | Name: " + npcName + 
+                                                       " | Combat Level: " + npcCombatLevel +
+                                                       " | Item ID: " + itemDrop.item_id +
+                                                       " | Drop Chance: " + itemDrop.chance);
+                                    found = true;
+                                }
+                            }
+                        }
+                    }
+            
+                } catch (NumberFormatException e) {
+                    // If the argument is not a valid integer, assume it's an item name and search by name
+                    String itemName = arguments[0].toLowerCase();
+            
+                    // Search by item name
+                    for (NpcDrop npcDrop : NPCDropsHandler.getNpcDrops()) {
+                        for (ItemDrop itemDrop : npcDrop.getItems()) {
+                            if (ItemDefinition.forId(itemDrop.item_id) == null || ItemDefinition.forId(itemDrop.item_id).getName() == null) { // Check if the item is null, since there can be placeholder items in the cache
+                                System.out.println("Skipping null item ID: " + itemDrop.item_id);
+                                continue;
+                            }
+                            String dropItemName = ItemDefinition.forId(itemDrop.item_id).getName().toLowerCase();
+                            if (dropItemName.contains(itemName)) {  // Check if the name matches (case insensitive)
+                                // Get NPC info
+                                String npcName = NPCDefinition.forId(npcDrop.getId()).getName();
+                                int npcCombatLevel = NPCDefinition.forId(npcDrop.getId()).getCombat();
+                                if (npcCombatLevel > 0) {
+                                    // Display NPC details with println
+                                    System.out.println("NPC ID: " + npcDrop.getId() + 
+                                                       " | Name: " + npcName + 
+                                                       " | Combat Level: " + npcCombatLevel +
+                                                       " | Item ID: " + itemDrop.item_id +
+                                                       " | Item Name: " + dropItemName +
+                                                       " | Drop Chance: " + itemDrop.chance);
+                                    found = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            
+                if (!found) {
+                    player.getPacketSender().sendMessage("No NPCs found with the specified item ID or name.");
+                }
+                // Print message indicating drops info was sent
+                player.getPacketSender().sendMessage("Sent drops info");
+            
+                break;
             case "stuck":
                 if(JavaCord.token != null) {
                     if (JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
