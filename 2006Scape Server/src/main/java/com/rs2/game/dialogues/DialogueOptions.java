@@ -7,6 +7,10 @@ import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.items.impl.Flowers;
 import com.rs2.game.items.impl.Teles;
 import com.rs2.game.players.Player;
+import com.rs2.game.players.PlayerHandler;
+import com.rs2.integrations.discord.JavaCord;
+
+import static com.rs2.util.GameLogger.writeLog;
 
 /**
  * Dialogue Options
@@ -339,8 +343,42 @@ public class DialogueOptions {
 				break;
 			}
 			break;
-		case 9157:// barrows tele to tunnels
-			if (player.dialogueAction == 1) {
+		case 9157:
+			if (player.dialogueAction == 20000) {
+				// Yes, proceed with kill
+				String targetName = player.getTempString();
+				boolean found = false;
+				for (Player player2 : PlayerHandler.players) {
+					if (player2 != null) {
+						if (player2.playerName.equalsIgnoreCase(targetName)) {
+							player2.dealDamage(player2.playerLevel[Constants.HITPOINTS]);
+							player2.getPlayerAssistant().applyDead();
+							player.getPacketSender().sendMessage("You have killed " + player2.playerName + ".");
+							player2.getPacketSender().sendMessage("You have been killed by " + player.playerName + ".");
+							String logMsg;
+							if (player.playerRights >= 1 && !player.playerName.equalsIgnoreCase(player2.playerName)) {
+								logMsg = player.playerName + " (mod) confirmed ::forcekill on " + player2.playerName
+										+ " at X/Y: " + player2.absX + "/" + player2.absY
+										+ " | Mod location X/Y: " + player.absX + "/" + player.absY;
+							} else {
+								logMsg = player.playerName + " confirmed ::forcekill on " + player.playerName + " at X/Y: " + player2.absX + "/" + player2.absY;
+							}
+							writeLog(player.playerName, "commands", logMsg);
+							System.err.println(logMsg);
+							if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
+								JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(logMsg);
+							}
+							found = true;
+							break;
+						}
+					}
+				}
+				if (!found) {
+					player.getPacketSender().sendMessage("Player must be online.");
+				}
+				player.getPacketSender().closeAllWindows();
+				return;
+			} else if (player.dialogueAction == 1) { // barrows tele to tunnels
 				int r = 4;
 				// int r = Misc.random(3);
 
@@ -671,7 +709,25 @@ public class DialogueOptions {
 			break;
 
 		case 9158:
-			if (player.dialogueAction == 8) {
+			if (player.dialogueAction == 20000) {
+				// No, cancel
+				String cancelTarget = player.getTempString();
+				String cancelMsg;
+				if (player.playerRights >= 1 && !player.playerName.equalsIgnoreCase(cancelTarget)) {
+					cancelMsg = player.playerName + " (mod) cancelled ::forcekill on " + cancelTarget
+							+ " | Mod location X/Y: " + player.absX + "/" + player.absY;
+				} else {
+					cancelMsg = player.playerName + " cancelled ::forcekill on themselves at X/Y: " + player.absX + "/" + player.absY;
+				}
+				writeLog(player.playerName, "commands", cancelMsg);
+				System.err.println(cancelMsg);
+				if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
+					JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(cancelMsg);
+				}
+				player.getPacketSender().sendMessage("Kill cancelled.");
+				player.getPacketSender().closeAllWindows();
+				return;
+			} else if (player.dialogueAction == 8) {
 				player.getPlayerAssistant().fixAllBarrows();
 			} else if (player.dialogueAction == 29) {
 				player.getDialogueHandler().sendDialogues(481, player.npcType);
