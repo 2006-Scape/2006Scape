@@ -15,7 +15,7 @@ public class ChallengePlayer implements PacketType {
 		switch (packet.getOpcode()) {
 		case 128:
 			int answerPlayer = packet.readUnsignedWord();
-		    if(PlayerHandler.players[answerPlayer] == null || answerPlayer == player.playerId)
+		    if(answerPlayer < 0 || answerPlayer > PlayerHandler.players.length - 1 || PlayerHandler.players[answerPlayer] == null || answerPlayer == player.playerId)
                 return;
 
 			if (player.duelingArena() || player.duelStatus == 5) {
