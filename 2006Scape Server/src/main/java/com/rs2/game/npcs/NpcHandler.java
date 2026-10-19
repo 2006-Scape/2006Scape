@@ -34,6 +34,9 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.rs2.game.content.StaticNpcList.*;
 
@@ -1231,7 +1234,10 @@ public class NpcHandler {
         int playerX = player.absX;
         int playerY = player.absY;
         npcs[i].randomWalk = false;
-        if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, distanceRequired(i))) {
+        int dir = Misc.direction(npcs[i].getX(), npcs[i].getY(), playerX, playerY);
+        Set<Integer> nearbyDirections = new HashSet<>(Arrays.asList(6, 8, 9, 10, 12, 13));
+        boolean nearBy = nearbyDirections.contains(dir);
+        if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, nearBy && NPCDefinition.forId(npcs[i].npcType).getSize() > 1 ? distanceRequired(i) - 1 : distanceRequired(i))) {
             return;
         }
 
@@ -1285,6 +1291,8 @@ public class NpcHandler {
      * It's also worth checking  {@link NpcData#distanceRequired}
      **/
     public static int distanceRequired(int i) {
+        //if (npcs[i].npcType == 81)
+        //    System.out.println("NpcHandler distanceRequired npc size " + NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize());
         switch (npcs[i].npcType) {
             case AHRIM_THE_BLIGHTED:
             case KARIL_THE_TAINTED:
@@ -1308,11 +1316,12 @@ public class NpcHandler {
             case SPINOLYP_2894:
                 return 10;
             default:
-                return 1;
+                return NPCDefinition.forId(npcs[i].npcType).getSize();
         }
     }
 
     public static int followDistance(int i) {
+        
         switch (npcs[i].npcType) {
             case DAGANNOTH_REX:
                 return 4;
