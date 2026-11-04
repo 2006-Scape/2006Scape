@@ -98,6 +98,18 @@ public final class ItemDefinition {
 		}
 		return definitions[id];
 	}
+	
+	/**
+	 * Alias for lookup(id)
+	 * Gets the item definition for the specified id.
+	 *
+	 * @param id The id.
+	 * @return The definition.
+	 * @throws IndexOutOfBoundsException If the id is out of bounds.
+	 */
+	public static ItemDefinition forId(int id) {
+		return lookup(id);
+	}
 
 	/**
 	 * Converts a noted id to the normal item id.

@@ -14,6 +14,7 @@ import java.io.FileReader;
  */
 
 public class NPCDropsHandler {
+
     private static NpcDrop[] npcDrops;
 
     /*public static int // found on http://runescape.wikia.com/wiki/Drop rate
@@ -61,6 +62,10 @@ public class NPCDropsHandler {
      */
     public static int r(int max) {
         return Misc.random(max);
+    }
+
+    public static NpcDrop[] getNpcDrops() {
+        return npcDrops;
     }
 
 }
