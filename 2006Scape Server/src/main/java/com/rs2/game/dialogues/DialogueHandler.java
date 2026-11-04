@@ -3984,7 +3984,7 @@ public class DialogueHandler {
 				player.nextChat = 1019;
 				break;
 			case 1019:
-				if (player.absX == 3267 || player.absX == 3268) {
+				if (player.absX == 3266 || player.absX == 3267 || player.absX == 3268 || player.absX == 3269) {
 					sendNpcChat1("You must pay a toll of 10 gold coins to pass.",
 							player.talkingNpc, "Border Guard");
 					player.nextChat = 1020;
