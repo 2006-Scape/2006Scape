@@ -441,6 +441,58 @@ public class Commands implements PacketType {
             case "close_interface":
                 player.getPacketSender().closeAllWindows();
                 break;
+            case "forcekill":
+                try {
+                    if (arguments.length == 0) {
+                        // Show confirmation dialogue
+                        player.setTempString(player.playerName);
+                        player.getDialogueHandler().sendDialogues(20000, 2244);
+                        String logMsg = player.playerName + " used ::forcekill on " + player.playerName + " at X/Y: " + player.absX + "/" + player.absY;
+                        writeLog(player.playerName, "forcekill", logMsg);
+                        System.err.println(logMsg);
+                        if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
+                            JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(logMsg);
+                        }
+                    } else {
+                        // Kill another player (moderator+ only) - Show confirmation dialogue
+                        if (player.playerRights < 1) {
+                            player.getPacketSender().sendMessage("You must be a moderator or higher to kill other players.");
+                            return;
+                        }
+                        String playerToKill = String.join(" ", arguments);
+                        // Check if player exists before showing dialogue
+                        boolean foundPlayer = false;
+                        int targetX = 0, targetY = 0;
+                        for (Player player2 : PlayerHandler.players) {
+                            if (player2 != null) {
+                                if (player2.playerName.equalsIgnoreCase(playerToKill)) {
+                                    foundPlayer = true;
+                                    targetX = player2.absX;
+                                    targetY = player2.absY;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!foundPlayer) {
+                            player.getPacketSender().sendMessage("Player must be online.");
+                            return;
+                        }
+                        // Show confirmation dialogue
+                        player.setTempString(playerToKill);
+                        player.getDialogueHandler().sendDialogues(20000, 2244);
+                        String logMsg = player.playerName + " (mod) used ::forcekill on " + playerToKill
+                                + " at X/Y: " + targetX + "/" + targetY
+                                + " | Mod location X/Y: " + player.absX + "/" + player.absY;
+                        writeLog(player.playerName, "commands", logMsg);
+                        System.err.println(logMsg);
+                        if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
+                            JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(logMsg);
+                        }
+                    }
+                } catch (Exception e) {
+                    player.getPacketSender().sendMessage("An error occurred.");
+                }
+                break;
             case "commands":
             case "cmd":
                 String[] commands = new String[]{
@@ -473,6 +525,9 @@ public class Commands implements PacketType {
                         "",
                         "::withdrawshop(::wshop)",
                         "Withdraw profits from player owned shop",
+                        "",
+                        "::forcekill",
+                        "You can use this command if you get stuck in the wild.",
                         "",
                         "::togglenpckillmsgs(::togglenpckcmsgs)",
                         "Toggle regular NPC kill count message display","",
@@ -1183,7 +1238,7 @@ public class Commands implements PacketType {
                         {556, amount}, {557, amount}, {558, amount},
                         {559, amount}, {560, amount}, {561, amount},
                         {562, amount}, {563, amount}, {564, amount},
-                        {565, amount}, {566, amount}, {1963, 1},};
+                        {565, amount}, {566, amount}, {1963, 1},}; // Why is 1963 aka a banana here?
                 for (int[] element : RUNES) {
                     int item = element[0];
                     int amountToRecieve = element[1];

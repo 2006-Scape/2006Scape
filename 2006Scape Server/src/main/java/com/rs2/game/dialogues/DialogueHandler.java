@@ -7635,6 +7635,17 @@ public class DialogueHandler {
 				sendOption("x" + Constants.VARIABLE_XP_RATES[3], "Don't Change");
 				player.dialogueAction = 10007;
 				break;
+			case 20000:
+				String targetName = player.getTempString();
+				sendNpcChat(2244, ChatEmotes.DEFAULT,
+						"Are you sure you want to kill " + targetName + "?",
+						"This action cannot be undone!");
+				player.nextChat = 20001;
+				break;
+			case 20001:
+				sendOption("Yes, proceed with kill", "No, cancel");
+				player.dialogueAction = 20000;
+				break;
 		}
 	}
 	public void chatboxText(String text, String text1, String text2,
