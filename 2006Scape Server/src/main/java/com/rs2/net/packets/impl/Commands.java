@@ -8,8 +8,10 @@ import com.rs2.Connection;
 import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.game.bots.BotHandler;
+import com.rs2.game.content.combat.magic.SpellTeleport;
 import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcHandler;
+import org.apollo.cache.def.ItemDefinition;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
 import com.rs2.integrations.discord.JavaCord;
@@ -423,6 +425,34 @@ public class Commands implements PacketType {
             case "tele":
                 if (player.connectedFrom.equals("127.0.0.1")) {
                     try {
+                        if (arguments.length < 1) {
+                            player.getPacketSender().sendMessage("Must specify coordinates or a city: ::tele 3222 3218 0 or ::tele varrock");
+                            return;
+                        }
+                        boolean numericTele;
+                        try {
+                            Integer.parseInt(arguments[0]);
+                            numericTele = true;
+                        } catch (NumberFormatException notNumber) {
+                            numericTele = false;
+                        }
+                        if (!numericTele) {
+                            String cityName = String.join("_", arguments).toUpperCase();
+                            SpellTeleport city = null;
+                            for (SpellTeleport t : SpellTeleport.values()) {
+                                if (t.getType().equals("modern") && t.name().equals(cityName)) {
+                                    city = t;
+                                    break;
+                                }
+                            }
+                            if (city == null) {
+                                player.getPacketSender().sendMessage("Unknown city. Valid: varrock, lumbridge, falador, camelot, ardougne, watchtower, trollheim, ape_atoll");
+                                return;
+                            }
+                            player.getPlayerAssistant().movePlayer(city.getDestX(), city.getDestY(), city.getDestZ());
+                            player.getPacketSender().sendMessage("Teleported to " + city.name().toLowerCase().replace('_', ' ') + ".");
+                            return;
+                        }
                         if (arguments.length < 2) {
                             player.getPacketSender().sendMessage("Must specify x, y and optionally z coordinates: ::tele 3222 3218 0");
                             return;
@@ -959,27 +989,75 @@ public class Commands implements PacketType {
                 if (player.inWild()) {
                     return;
                 }
-                if (player.playerMagicBook == 0) {
-                    player.playerMagicBook = 1;
-                    player.getPacketSender().setSidebarInterface(6, 12855);
-                    player.getPacketSender().sendMessage("An ancient wisdomin fills your mind.");
-                    player.getPlayerAssistant().resetAutocast();
-                } else if (player.playerMagicBook == 1) {
+                String spellbookTarget = arguments.length > 0 ? arguments[0].toLowerCase() : "swap";
+                boolean toModern;
+                switch (spellbookTarget) {
+                    case "modern":
+                    case "normal":
+                        toModern = true;
+                        break;
+                    case "ancient":
+                    case "ancients":
+                        toModern = false;
+                        break;
+                    case "swap":
+                    case "toggle":
+                        toModern = player.playerMagicBook == 1;
+                        break;
+                    default:
+                        player.getPacketSender().sendMessage("Usage: ::spellbook [modern|ancient|swap]");
+                        return;
+                }
+                if (toModern) {
+                    if (player.playerMagicBook == 0) {
+                        player.getPacketSender().sendMessage("You are already on the modern spellbook.");
+                        return;
+                    }
                     player.getPacketSender().setSidebarInterface(6, 1151); // modern
                     player.playerMagicBook = 0;
                     player.getPacketSender().sendMessage("You feel a drain on your memory.");
                     player.autocastId = -1;
+                    player.getPlayerAssistant().resetAutocast();
+                } else {
+                    if (player.playerMagicBook == 1) {
+                        player.getPacketSender().sendMessage("You are already on the ancient spellbook.");
+                        return;
+                    }
+                    player.playerMagicBook = 1;
+                    player.getPacketSender().setSidebarInterface(6, 12855);
+                    player.getPacketSender().sendMessage("An ancient wisdomin fills your mind.");
                     player.getPlayerAssistant().resetAutocast();
                 }
                 break;
             case "item":
                 try {
                     if (arguments.length == 0) {
-                        player.getPacketSender().sendMessage("Must specify an item id: ::item 995 1000");
+                        player.getPacketSender().sendMessage("Must specify an item id or name: ::item 995 1000 or ::item coins 1000");
                         return;
                     }
-                    int newItemID = Integer.parseInt(arguments[0]);
-                    int newItemAmount = arguments.length >= 2 ? Integer.parseInt(arguments[1]) : 1;
+                    int newItemID;
+                    int newItemAmount;
+                    try {
+                        newItemID = Integer.parseInt(arguments[0]);
+                        newItemAmount = arguments.length >= 2 ? Integer.parseInt(arguments[1]) : 1;
+                    } catch (NumberFormatException notNumber) {
+                        int amount = 1;
+                        String[] nameTokens = arguments;
+                        if (arguments.length >= 2) {
+                            try {
+                                amount = Integer.parseInt(arguments[arguments.length - 1]);
+                                nameTokens = Arrays.copyOfRange(arguments, 0, arguments.length - 1);
+                            } catch (NumberFormatException ignore) {
+                            }
+                        }
+                        String itemName = String.join(" ", nameTokens);
+                        newItemID = findItemIdByName(itemName);
+                        if (newItemID == -1) {
+                            player.getPacketSender().sendMessage("No item found matching: " + itemName);
+                            return;
+                        }
+                        newItemAmount = amount;
+                    }
                     if (newItemID <= 10000 && newItemID >= 0) {
                         player.getItemAssistant().addItem(newItemID, newItemAmount);
                         if (player.isBusy()) {
@@ -990,6 +1068,42 @@ public class Commands implements PacketType {
                         player.getPacketSender().sendMessage("No such item.");
                     }
                 } catch (Exception e) {
+                }
+                break;
+            case "itemsearch":
+            case "searchitem":
+            case "finditem":
+                if (arguments.length == 0) {
+                    player.getPacketSender().sendMessage("Specify an item name to search: ::itemsearch dragon scimitar");
+                    return;
+                }
+                {
+                    String query = String.join(" ", arguments).toLowerCase();
+                    int found = 0;
+                    int limit = 25;
+                    for (int id = 0; id < ItemDefinition.count(); id++) {
+                        ItemDefinition def = ItemDefinition.lookup(id);
+                        if (def == null) {
+                            continue;
+                        }
+                        String defName = def.getName();
+                        if (defName == null || defName.isEmpty() || defName.equalsIgnoreCase("null")) {
+                            continue;
+                        }
+                        if (defName.toLowerCase().contains(query)) {
+                            found++;
+                            if (found <= limit) {
+                                player.getPacketSender().sendMessage(defName + " - ID: " + id);
+                            }
+                        }
+                    }
+                    if (found == 0) {
+                        player.getPacketSender().sendMessage("No items found matching: " + query);
+                    } else if (found > limit) {
+                        player.getPacketSender().sendMessage("Showing first " + limit + " of " + found + " matches. Refine your search.");
+                    } else {
+                        player.getPacketSender().sendMessage(found + " item(s) found.");
+                    }
                 }
                 break;
             case "master":
@@ -1128,11 +1242,21 @@ public class Commands implements PacketType {
             case "npc":
                 try {
                     if (arguments.length == 0) {
-                        player.getPacketSender().sendMessage("You must specify an ID: ::npc 1000");
+                        player.getPacketSender().sendMessage("You must specify an ID or name: ::npc 1000 or ::npc goblin");
                         return;
                     }
-                    int newNPC = Integer.parseInt(arguments[0]),
-                            maxHit = NpcHandler.getNpcListCombat(newNPC) / 10,
+                    int newNPC;
+                    try {
+                        newNPC = Integer.parseInt(arguments[0]);
+                    } catch (NumberFormatException notNumber) {
+                        String npcName = String.join(" ", arguments);
+                        newNPC = findNpcIdByName(npcName);
+                        if (newNPC == -1) {
+                            player.getPacketSender().sendMessage("No NPC found matching: " + npcName);
+                            return;
+                        }
+                    }
+                    int maxHit = NpcHandler.getNpcListCombat(newNPC) / 10,
                             attack = NpcHandler.getNpcListCombat(newNPC),
                             defence = NpcHandler.getNpcListCombat(newNPC);
                     boolean attackPlayer = NpcHandler.getNpcListCombat(newNPC) > 0;
@@ -1144,6 +1268,46 @@ public class Commands implements PacketType {
                         player.getPacketSender().sendMessage("Npc " + newNPC + " does not exist.");
                     }
                 } catch (Exception e) {
+                }
+                break;
+            case "npcsearch":
+            case "searchnpc":
+            case "findnpc":
+                if (arguments.length == 0) {
+                    player.getPacketSender().sendMessage("Specify an NPC name to search: ::npcsearch goblin");
+                    return;
+                }
+                {
+                    String query = String.join(" ", arguments).toLowerCase();
+                    int found = 0;
+                    int limit = 25;
+                    for (int id = 0; id <= 3789; id++) {
+                        try {
+                            NPCDefinition def = NPCDefinition.forId(id);
+                            if (def == null) {
+                                continue;
+                            }
+                            String defName = def.getName();
+                            if (defName == null || defName.isEmpty() || defName.equalsIgnoreCase("null")) {
+                                continue;
+                            }
+                            if (defName.toLowerCase().contains(query)) {
+                                found++;
+                                if (found <= limit) {
+                                    player.getPacketSender().sendMessage(defName + " - ID: " + id);
+                                }
+                            }
+                        } catch (Exception e) {
+                            break;
+                        }
+                    }
+                    if (found == 0) {
+                        player.getPacketSender().sendMessage("No NPCs found matching: " + query);
+                    } else if (found > limit) {
+                        player.getPacketSender().sendMessage("Showing first " + limit + " of " + found + " matches. Refine your search.");
+                    } else {
+                        player.getPacketSender().sendMessage(found + " NPC(s) found.");
+                    }
                 }
                 break;
             case "cantattack":
@@ -1194,5 +1358,53 @@ public class Commands implements PacketType {
                 player.getPlayerAssistant().sendSidebars();
                 break;
         }
+    }
+
+    private static int findItemIdByName(String name) {
+        int exact = -1, partial = -1;
+        for (int id = 0; id < ItemDefinition.count(); id++) {
+            ItemDefinition def = ItemDefinition.lookup(id);
+            if (def == null) {
+                continue;
+            }
+            String defName = def.getName();
+            if (defName == null || defName.isEmpty() || defName.equalsIgnoreCase("null")) {
+                continue;
+            }
+            if (defName.equalsIgnoreCase(name)) {
+                exact = id;
+                break;
+            }
+            if (partial == -1 && defName.toLowerCase().startsWith(name.toLowerCase())) {
+                partial = id;
+            }
+        }
+        return exact != -1 ? exact : partial;
+    }
+
+    private static int findNpcIdByName(String name) {
+        int exact = -1, partial = -1;
+        for (int id = 0; id <= 3789; id++) {
+            try {
+                NPCDefinition def = NPCDefinition.forId(id);
+                if (def == null) {
+                    continue;
+                }
+                String defName = def.getName();
+                if (defName == null || defName.isEmpty() || defName.equalsIgnoreCase("null")) {
+                    continue;
+                }
+                if (defName.equalsIgnoreCase(name)) {
+                    exact = id;
+                    break;
+                }
+                if (partial == -1 && defName.toLowerCase().startsWith(name.toLowerCase())) {
+                    partial = id;
+                }
+            } catch (Exception e) {
+                break;
+            }
+        }
+        return exact != -1 ? exact : partial;
     }
 }
