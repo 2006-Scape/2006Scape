@@ -1,4 +1,3 @@
-import java.applet.Applet;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,21 +6,6 @@ import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-
-import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Sequencer;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.Synthesizer;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 public final class Signlink implements Runnable {
 
@@ -101,60 +85,19 @@ public final class Signlink implements Runnable {
 				if (waveplay) {
 					String wave = s + saveReq;
 					waveplay = false;
-					AudioInputStream audioInputStream = null;
-					try {
-						audioInputStream = AudioSystem.getAudioInputStream(new File(wave));
-					} catch (UnsupportedAudioFileException e1) {
-						e1.printStackTrace();
-						return;
-					} catch (IOException e1) {
-						e1.printStackTrace();
-						return;
-					}
-					AudioFormat format = audioInputStream.getFormat();
-					SourceDataLine auline = null;
-					DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
-					try {
-						auline = (SourceDataLine) AudioSystem.getLine(info);
-						auline.open(format);
-					} catch (LineUnavailableException e) {
-						e.printStackTrace();
-						return;
-					} catch (Exception e) {
-						e.printStackTrace();
-						return;
-					}
-					if (auline.isControlSupported(FloatControl.Type.PAN)) {
-						FloatControl pan = (FloatControl) auline.getControl(FloatControl.Type.PAN);
-						if (curPosition == Position.RIGHT)
-							pan.setValue(1.0f);
-						else if (curPosition == Position.LEFT)
-							pan.setValue(-1.0f);
-					}
-					auline.start();
-					int nBytesRead = 0;
-					byte[] abData = new byte[EXTERNAL_BUFFER_SIZE];
-					try {
-						while (nBytesRead != -1) {
-							nBytesRead = audioInputStream.read(abData, 0,
-									abData.length);
-							if (nBytesRead >= 0)
-								auline.write(abData, 0, nBytesRead);
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-						return;
-					} finally {
-						auline.drain();
-						auline.close();
+					if (ClientSettings.ANDROID) {
+						AndroidHooks.playSound(savebuf, 0, savelen, wavevol, 0);
+					} else {
+						DesktopHooks.playSound(savebuf, 0, savelen, wavevol, 0);
 					}
 				}
 				if (play) {
 					midi = s + saveReq;
 					try {
-						if (music != null) {
-							music.stop();
-							music.close();
+						if (ClientSettings.ANDROID) {
+							AndroidHooks.stopMidi();
+						} else {
+							DesktopHooks.stopSignlinkMidi();
 						}
 						playMidi(midi);
 					} catch (Exception ex) {
@@ -166,7 +109,7 @@ public final class Signlink implements Runnable {
 			} else if (urlreq != null) {
 				try {
 					System.out.println("urlstream");
-					urlstream = new DataInputStream((new URL(mainapp.getCodeBase(), urlreq)).openStream());
+					urlstream = new DataInputStream((new URL(new URL("http://127.0.0.1"), urlreq)).openStream());
 				} catch (Exception _ex) {
 					urlstream = null;
 				}
@@ -184,39 +127,11 @@ public final class Signlink implements Runnable {
 	 * @param location
 	 */
 	private void playMidi(String location) {
-		music = null;
-		synthesizer = null;
-		sequence = null;
-		File midiFile = new File(location);
-		try {
-			sequence = MidiSystem.getSequence(midiFile);
-			music = MidiSystem.getSequencer();
-			music.open();
-			music.setSequence(sequence);
-		} catch (Exception e) {
-			System.err.println("Problem loading MIDI file.");
-			e.printStackTrace();
-			return;
-		}
-		if (music instanceof Synthesizer) {
-			synthesizer = (Synthesizer) music;
+		if (ClientSettings.ANDROID) {
+			AndroidHooks.playMidi(location, midiVolume);
 		} else {
-			try {
-				synthesizer = MidiSystem.getSynthesizer();
-				synthesizer.open();
-				if (synthesizer.getDefaultSoundbank() == null) {
-					music.getTransmitter().setReceiver(MidiSystem.getReceiver());
-				} else {
-					music.getTransmitter().setReceiver(synthesizer.getReceiver());
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
-			}
+			DesktopHooks.playSignlinkMidi(location, midiVolume);
 		}
-		music.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
-		music.start();
-		setVolume(midiVolume);
 	}
 
 	/**
@@ -224,36 +139,12 @@ public final class Signlink implements Runnable {
 	 * @param value
 	 */
 	public static boolean setVolume(int value) {
-		if (synthesizer == null) {
-			return false;
-		}
-		int CHANGE_VOLUME = 7;
 		midiVolume = value;
-		if (synthesizer.getDefaultSoundbank() == null) {
-			try {
-				ShortMessage volumeMessage = new ShortMessage();
-				for (int i = 0; i < 16; i++) {
-					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, CHANGE_VOLUME, midiVolume);
-					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 39, midiVolume);
-					MidiSystem.getReceiver().send(volumeMessage, -1);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
+		if (ClientSettings.ANDROID) {
+			return AndroidHooks.setMidiVolume(value);
 		} else {
-			try {
-				MidiChannel[] channels = synthesizer.getChannels();
-				for (int c = 0; channels != null && c < channels.length; c++) {
-					channels[c].controlChange(CHANGE_VOLUME, midiVolume);
-					channels[c].controlChange(39, midiVolume);
-				}
-			} catch (Exception e){
-				e.printStackTrace();
-				return false;
-			}
+			return DesktopHooks.setSignlinkVolume(value);
 		}
-		return true;
 	}
 
 	/**
@@ -261,23 +152,21 @@ public final class Signlink implements Runnable {
 	 * Stops the current midi playing.
 	 */
 	public static void fadeOut() {
-		if (music == null) {
-			return;
-		}
-		int volume = midiVolume;
-		if (music.isRunning()) {
-			for (int index = midiVolume; index > 0 && volume > 0; index--) {
-				volume--;
-				setVolume(volume);
-			}
+		if (ClientSettings.ANDROID) {
+			AndroidHooks.stopMidi();
+		} else {
+			DesktopHooks.stopSignlinkMidi();
 		}
 	}
 
-	public static Sequencer music = null;
-	public static Sequence sequence = null;
-	public static Synthesizer synthesizer = null;
+	public static Object music = null;
+	public static Object sequence = null;
+	public static Object synthesizer = null;
 
 	public static String findcachedir() {
+		if (ClientSettings.ANDROID) {
+			return AndroidHooks.getCacheDir();
+		}
 		String path = System.getProperty("user.home") + "/.2006Scape_file_system/";
 		File file = new File(path);
 		if (!file.exists()) {
@@ -389,7 +278,7 @@ public final class Signlink implements Runnable {
 	public static RandomAccessFile cache_dat = null;
 	public static final RandomAccessFile[] cache_idx = new RandomAccessFile[5];
 	public static boolean sunjava;
-	public static Applet mainapp = null;
+	public static Object mainapp = null;
 	private static boolean active;
 	private static int threadliveid;
 	private static InetAddress socketip;
@@ -403,7 +292,7 @@ public final class Signlink implements Runnable {
 	private static DataInputStream urlstream = null;
 	public static boolean reporterror = true;
 	public static String errorname = "";
-	public static Midi midii = new Midi();
+	public static Object midii = null;
 	private static int savelen;
 	private static String saveReq = null;
 	private static byte savebuf[] = null;

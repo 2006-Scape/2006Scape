@@ -8,6 +8,12 @@ import java.math.BigInteger;
 
 public class ClientSettings {
     /**
+     * @Android
+     * Flag indicating Android build/environment. Enabled by default for initial debugging.
+     */
+    public static boolean ANDROID = true;
+
+    /**
      * @QoL
      * Require control key to zoom the client
      */

@@ -479,22 +479,16 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 	}
 
 	@Override
-	public void mouseWheelMoved(MouseWheelEvent e) {}
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		handleMouseWheel(e.getWheelRotation(), e.isControlDown());
+	}
 
-	@Override
-	public void keyPressed(KeyEvent keyevent) {
+	public void handleMouseWheel(int notches, boolean isControlDown) {}
+
+	public void handleKeyPressed(int i, int j, boolean isCtrl, boolean isShift) {
 		idleTime = 0;
-		int i = keyevent.getKeyCode();
-		int j = keyevent.getKeyChar();
-		switch (keyevent.getKeyCode())
-		{
-			case KeyEvent.VK_SHIFT:
-				shiftDown = true;
-				break;
-			case KeyEvent.VK_CONTROL:
-				ctrlDown = true;
-				break;
-		}
+		if (isShift) shiftDown = true;
+		if (isCtrl) ctrlDown = true;
 		if (j < 30) {
 			j = 0;
 		}
@@ -547,6 +541,11 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseWh
 			charQueue[writeIndex] = j;
 			writeIndex = writeIndex + 1 & 0x7f;
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent keyevent) {
+		handleKeyPressed(keyevent.getKeyCode(), keyevent.getKeyChar(), keyevent.isControlDown(), keyevent.isShiftDown());
 	}
 
 	@Override

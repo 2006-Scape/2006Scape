@@ -2,12 +2,6 @@
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) 
 
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
-import java.awt.image.PixelGrabber;
-
 public final class Sprite extends DrawingArea {
 
 	public Sprite(int i, int j) {
@@ -17,25 +11,15 @@ public final class Sprite extends DrawingArea {
 		anInt1442 = anInt1443 = 0;
 	}
 
-	public Sprite(byte abyte0[], Component component) {
-		try {
-			// Image image =
-			// Toolkit.getDefaultToolkit().getImage(signlink.findcachedir()+"mopar.jpg");
-			Image image = Toolkit.getDefaultToolkit().createImage(abyte0);
-			MediaTracker mediatracker = new MediaTracker(component);
-			mediatracker.addImage(image, 0);
-			mediatracker.waitForAll();
-			width = image.getWidth(component);
-			height = image.getHeight(component);
-			trimWidth = width;
-			trimHeight = height;
-			anInt1442 = 0;
-			anInt1443 = 0;
-			pixels = new int[width * height];
-			PixelGrabber pixelgrabber = new PixelGrabber(image, 0, 0, width, height, pixels, 0, width);
-			pixelgrabber.grabPixels();
-		} catch (Exception _ex) {
-			System.out.println("Error converting jpg");
+	public Sprite(byte abyte0[]) {
+		this(abyte0, null);
+	}
+
+	public Sprite(byte abyte0[], Object component) {
+		if (ClientSettings.ANDROID) {
+			AndroidHooks.decodeImage(this, abyte0);
+		} else {
+			DesktopHooks.decodeImage(this, abyte0, component);
 		}
 	}
 
@@ -533,8 +517,8 @@ public final class Sprite extends DrawingArea {
 	public int pixels[];
 	public int width;
 	public int height;
-	private int anInt1442;
-	private int anInt1443;
+	int anInt1442;
+	int anInt1443;
 	public int trimWidth;
 	public int trimHeight;
 }

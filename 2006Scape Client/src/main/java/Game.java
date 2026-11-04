@@ -3,14 +3,7 @@
  * THIS IS TO ALLOW LOCAL PARABOT TO CONTINUE TO WORK
  */
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.applet.AppletContext;
-import java.awt.*;
-import java.awt.datatransfer.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.image.BufferedImage;
+
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -183,6 +176,10 @@ public class Game extends RSApplet {
 	static final boolean constructMusic() {
 		anInt720 = 20;
 		try {
+			if (ClientSettings.ANDROID) {
+				aClass56_749 = (Class56) AndroidHooks.getMusicPlayer();
+				return aClass56_749 != null;
+			}
 		    aClass56_749 = (Class56) Class.forName("Class56_Sub1_Sub1").newInstance();
 		} catch (Throwable throwable) {
 		    return false;
@@ -226,7 +223,9 @@ public class Game extends RSApplet {
 			if (fetchMusic) {
 				byte[] is = musicData;
 				if (is != null) {
-					if (anInt116 >= 0)
+					if (ClientSettings.ANDROID)
+						method853(musicVolume2, is, aBoolean995);
+					else if (anInt116 >= 0)
 						method684(aBoolean995, anInt116, musicVolume2, is);
 					else if (anInt139 >= 0)
 						method899(anInt139, -1, aBoolean995, is, musicVolume2);
@@ -346,12 +345,12 @@ public class Game extends RSApplet {
 	}
 
 	private void stopMidi() {
-		if (Signlink.music != null) {
-			if (Signlink.music.isRunning()) {
-				Signlink.fadeOut();
-				Signlink.music.stop();
-				Signlink.midi = "stop";
-			}
+		if (ClientSettings.ANDROID) {
+			AndroidHooks.stopMidi();
+			Signlink.midi = "stop";
+		} else {
+			DesktopHooks.stopSignlinkMidi();
+			Signlink.midi = "stop";
 		}
 	}
 
@@ -1014,10 +1013,8 @@ public class Game extends RSApplet {
 
 	public void loadError() {
 		String s = "ondemand";// was a constant parameter
-		try {
-			getAppletContext().showDocument(new URL(getCodeBase(), "loaderror_" + s + ".html"));
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		if (!ClientSettings.ANDROID) {
+			DesktopHooks.showDocument(this, s);
 		}
 		do {
 			try {
@@ -1435,7 +1432,11 @@ public class Game extends RSApplet {
 			}
 		}
 		if (action == 4) {
-			SoundPlayer.setVolume(config);
+			if (ClientSettings.ANDROID) {
+				AndroidHooks.setSoundVolume(config);
+			} else {
+				DesktopHooks.setSoundVolume(config);
+			}
 			if (config == 0) {
 				aBoolean848 = true;
 				setWaveVolume(0);
@@ -1486,13 +1487,13 @@ public class Game extends RSApplet {
 							calcEntityScreenPos(k5 * 128 + 64, 20, l5 * 128 + 64);
 							// only show ground items names if worth more than x (1k default)
 							if (totalValue >= customSettingMinItemValue) {
-								int color = Color.WHITE.hashCode();
+								int color = RSColors.WHITE;
 								if (totalValue >= 1e5) {
-									color = Color.GREEN.hashCode();
+									color = RSColors.GREEN;
 								} else if (totalValue >= 1e4) {
-									color = Color.CYAN.hashCode();
+									color = RSColors.CYAN;
 								} else if (totalValue >= 1e3) {
-									color = Color.YELLOW.hashCode();
+									color = RSColors.YELLOW;
 								}
 								String text = "";
 								if (item.amount > 1) {
@@ -1821,25 +1822,25 @@ public class Game extends RSApplet {
 
 						drawButton(customSettingVisiblePlayerNames, centerX - 73, currentY, 146);
 						// buttonLeftDisabled.drawSprite(centerX - 73, currentY);
-						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "always visible", currentY + textTop, true);
-						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "player names", currentY + textBottom, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.YELLOW, centerX, "always visible", currentY + textTop, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.YELLOW, centerX, "player names", currentY + textBottom, true);
 						
 						drawButton(true, centerX - 73, currentY += 40, 146);
-						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "item drops visible", currentY + textTop, true);
-						aTextDrawingArea_1271.textCenterShadow(Color.WHITE.hashCode(), centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.YELLOW, centerX, "item drops visible", currentY + textTop, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.WHITE, centerX, intToKOrMil(customSettingMinItemValue) + " gp", currentY + textBottom, true);
 						
 						drawButton(true, centerX - 73, currentY += 40, 146);
-						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "draw distance", currentY + textTop, true);
-						aTextDrawingArea_1271.textCenterShadow(Color.WHITE.hashCode(), centerX, WorldController.drawDistance + " tiles", currentY + textBottom, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.YELLOW, centerX, "draw distance", currentY + textTop, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.WHITE, centerX, WorldController.drawDistance + " tiles", currentY + textBottom, true);
 
 						drawButton(customSettingShowExperiencePerHour, centerX - 73, currentY += 40, 146);
-						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "show exp info", currentY + textMiddle, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.YELLOW, centerX, "show exp info", currentY + textMiddle, true);
 						
 						drawButton(showInfo, centerX - 73, currentY += 40, 146);
-						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "show debug info", currentY + textMiddle, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.YELLOW, centerX, "show debug info", currentY + textMiddle, true);
 
 						drawButton(customSettingVisualFixes, centerX - 73, currentY += 40, 146);
-						aTextDrawingArea_1271.textCenterShadow(Color.YELLOW.hashCode(), centerX, "visual fixes", currentY + textMiddle, true);
+						aTextDrawingArea_1271.textCenterShadow(RSColors.YELLOW, centerX, "visual fixes", currentY + textMiddle, true);
 					} catch (Exception e) { }
 				}
 			}
@@ -2191,6 +2192,7 @@ public class Game extends RSApplet {
 	}
 
 	public void resetLogout() {
+		boolean wasDisconnected = loggedIn && (pktType != 109) && (anInt1011 <= 0);
 		try {
 			if (socketStream != null) {
 				socketStream.close();
@@ -2199,7 +2201,14 @@ public class Game extends RSApplet {
 		}
 		socketStream = null;
 		loggedIn = false;
-		loginScreenState = 0;
+		if (wasDisconnected && (ClientSettings.ANDROID || (myUsername != null && myUsername.length() > 0))) {
+			loginMessage1 = "You were disconnected from the server.";
+			loginMessage2 = "Press Login to reconnect.";
+			loginScreenState = 2;
+			loginScreenCursorPos = (myPassword != null && myPassword.length() > 0) ? 1 : 0;
+		} else {
+			loginScreenState = 0;
+		}
 		// myUsername = "";
 		// myPassword = "";
 		unlinkMRUNodes();
@@ -2339,6 +2348,9 @@ public class Game extends RSApplet {
 				promptInput = "";
 				friendsListAction = 1;
 				aString1121 = "Enter name of friend to add to list";
+				if (ClientSettings.ANDROID) {
+					AndroidHooks.showKeyboard();
+				}
 			}
 			if (j == 202) {
 				inputTaken = true;
@@ -2347,6 +2359,9 @@ public class Game extends RSApplet {
 				promptInput = "";
 				friendsListAction = 2;
 				aString1121 = "Enter name of friend to delete from list";
+				if (ClientSettings.ANDROID) {
+					AndroidHooks.showKeyboard();
+				}
 			}
 		}
 		if (j == 205) {
@@ -2360,6 +2375,9 @@ public class Game extends RSApplet {
 			promptInput = "";
 			friendsListAction = 4;
 			aString1121 = "Enter name of player to add to list";
+			if (ClientSettings.ANDROID) {
+				AndroidHooks.showKeyboard();
+			}
 		}
 		if (j == 502) {
 			inputTaken = true;
@@ -2368,6 +2386,9 @@ public class Game extends RSApplet {
 			promptInput = "";
 			friendsListAction = 5;
 			aString1121 = "Enter name of player to delete from list";
+			if (ClientSettings.ANDROID) {
+				AndroidHooks.showKeyboard();
+			}
 		}
 		if (j >= 300 && j <= 313) {
 			int k = (j - 300) / 2;
@@ -2764,13 +2785,6 @@ public class Game extends RSApplet {
 
 	}
 
-	public AppletContext getAppletContext() {
-		if (Signlink.mainapp != null) {
-			return Signlink.mainapp.getAppletContext();
-		} else {
-			return super.getAppletContext();
-		}
-	}
 
 	public void drawLogo() {
 		byte abyte0[] = titleStreamLoader.getDataForName("title.dat");
@@ -3570,10 +3584,25 @@ public class Game extends RSApplet {
 		loginFailures = 0;
 		login(myUsername, myPassword, true);
 		if (!loggedIn) {
+			String existingMsg1 = loginMessage1;
+			String existingMsg2 = loginMessage2;
 			resetLogout();
+			if (existingMsg1 != null && !existingMsg1.isEmpty()) {
+				loginMessage1 = existingMsg1;
+				loginMessage2 = existingMsg2;
+			} else {
+				loginMessage1 = "You were disconnected from the server.";
+				loginMessage2 = "Press Login to reconnect.";
+			}
+			if (ClientSettings.ANDROID || (myUsername != null && myUsername.length() > 0)) {
+				loginScreenState = 2;
+				loginScreenCursorPos = (myPassword != null && myPassword.length() > 0) ? 1 : 0;
+			}
 		}
 		try {
-			rsSocket.close();
+			if (rsSocket != null) {
+				rsSocket.close();
+			}
 		} catch (Exception _ex) {
 		}
 	}
@@ -3621,8 +3650,20 @@ public class Game extends RSApplet {
 			return;
 		}
 		if (inputDialogState != 0) {
-			inputDialogState = 0;
-			inputTaken = true;
+			if (!ClientSettings.ANDROID || (super.saveClickX > 516 || super.saveClickY < 357 || super.saveClickY > 467)) {
+				inputDialogState = 0;
+				inputTaken = true;
+				if (ClientSettings.ANDROID) {
+					AndroidHooks.hideKeyboard();
+				}
+			}
+		}
+		if (messagePromptRaised) {
+			if (ClientSettings.ANDROID && (super.saveClickX > 516 || super.saveClickY < 357 || super.saveClickY > 467)) {
+				messagePromptRaised = false;
+				inputTaken = true;
+				AndroidHooks.hideKeyboard();
+			}
 		}
 		int j = menuActionCmd2[i];
 		int k = menuActionCmd3[i];
@@ -4312,6 +4353,9 @@ public class Game extends RSApplet {
 					friendsListAction = 3;
 					aLong953 = friendsListAsLongs[k3];
 					aString1121 = "Enter message to send to " + friendsList[k3];
+					if (ClientSettings.ANDROID) {
+						AndroidHooks.showKeyboard();
+					}
 				} else {
 					pushMessage("That player is currently offline.", 0, "");
 				}
@@ -4823,13 +4867,6 @@ public class Game extends RSApplet {
 		super.shouldDebug = true;
 	}
 
-	Component getGameComponent() {
-		if (Signlink.mainapp != null) {
-			return Signlink.mainapp;
-		} else {
-			return this;
-		}
-	}
 
 	public void method73() {
 		do {
@@ -4898,6 +4935,9 @@ public class Game extends RSApplet {
 				if (j == 13 || j == 10) {
 					messagePromptRaised = false;
 					inputTaken = true;
+					if (ClientSettings.ANDROID) {
+						AndroidHooks.hideKeyboard();
+					}
 					if (friendsListAction == 1) {
 						long l = TextClass.longForName(promptInput);
 						addFriend(l);
@@ -4964,10 +5004,16 @@ public class Game extends RSApplet {
 						}
 						inputDialogState = 0;
 						inputTaken = true;
+						if (ClientSettings.ANDROID) {
+							AndroidHooks.hideKeyboard();
+						}
 					}
 				} catch (NumberFormatException nfe) {
 					inputDialogState = 0;
 					inputTaken = true;
+					if (ClientSettings.ANDROID) {
+						AndroidHooks.hideKeyboard();
+					}
 					pushMessage("Please enter a lower amount.", 0, "");
 				}
 			} else if (inputDialogState == 2) {
@@ -4986,6 +5032,9 @@ public class Game extends RSApplet {
 					}
 					inputDialogState = 0;
 					inputTaken = true;
+					if (ClientSettings.ANDROID) {
+						AndroidHooks.hideKeyboard();
+					}
 				}
 			} else {
 				// typing characters
@@ -5591,48 +5640,10 @@ public class Game extends RSApplet {
 
 	}
 	public void screenshot(boolean sendMessage, String... subfolders) {
-		try {
-			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
-			if (window == null) {
-				return;
-			}
-			Point point = window.getLocationOnScreen();
-			int x = (int) point.getX();
-			int y = (int) point.getY();
-			int w = window.getWidth();
-			int h = window.getHeight();
-			Robot robot = new Robot(window.getGraphicsConfiguration().getDevice());
-			Rectangle captureSize = new Rectangle(x, y, w, h);
-			BufferedImage bufferedimage = robot.createScreenCapture(captureSize);
-	
-			// Format the current date and time
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd-HH_mm_ss");
-			String dateTime = dateFormat.format(new Date());
-	
-			// Update the file path and naming
-			String fileExtension = myUsername != null && !myUsername.isEmpty() ? myUsername : ClientSettings.SERVER_NAME;
-			
-			String subfolderPath = String.join(File.separator, subfolders);
-			if (!subfolderPath.isEmpty()) {
-				subfolderPath += File.separator;
-			}
-			
-			String screenshotDir = System.getProperty("user.home") + File.separatorChar + ClientSettings.SERVER_NAME + File.separatorChar + "screenshots" + File.separatorChar + subfolderPath;
-			File dir = new File(screenshotDir);
-			if (!dir.exists()) {
-				dir.mkdirs(); // Create the directory if it doesn't exist
-			}
-	
-			File file = new File(screenshotDir, fileExtension + "_" + dateTime + ".png");
-	
-			if (!file.exists()) {
-				ImageIO.write(bufferedimage, "png", file);
-				if (sendMessage) {
-					pushMessage("A picture has been saved in your screenshots folder.", 0, "");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (ClientSettings.ANDROID) {
+			AndroidHooks.takeScreenshot(this, sendMessage, subfolders);
+		} else {
+			DesktopHooks.takeScreenshot(this, sendMessage, subfolders);
 		}
 	}
 	public void pushMessage(String s, int i, String s1) {
@@ -6864,11 +6875,17 @@ public class Game extends RSApplet {
 			//if (soundDelay[index] <= 0) {
 				boolean flag1 = false;
 				try {
-					Stream stream = Sounds.method241(soundType[index], sound[index]);
-					new SoundPlayer((InputStream) new ByteArrayInputStream(stream.buffer, 0, stream.currentOffset), soundVolume[index], soundDelay[index]);
-					if (System.currentTimeMillis() + (long) (stream.currentOffset / 22) > aLong1172 + (long) (anInt1257 / 22)) {
-						anInt1257 = stream.currentOffset;
-						aLong1172 = System.currentTimeMillis();
+					Stream soundStream = Sounds.method241(soundType[index], sound[index]);
+					if (soundStream != null && soundStream.currentOffset > 0) {
+						if (ClientSettings.ANDROID) {
+							AndroidHooks.playSound(soundStream.buffer, 0, soundStream.currentOffset, soundVolume[index], soundDelay[index]);
+						} else {
+							DesktopHooks.playSound(soundStream.buffer, 0, soundStream.currentOffset, soundVolume[index], soundDelay[index]);
+						}
+						if (System.currentTimeMillis() + (long) (soundStream.currentOffset / 22) > aLong1172 + (long) (anInt1257 / 22)) {
+							anInt1257 = soundStream.currentOffset;
+							aLong1172 = System.currentTimeMillis();
+						}
 					}
 				} catch (Exception exception) {
 					exception.printStackTrace();
@@ -7033,6 +7050,9 @@ public class Game extends RSApplet {
 				method58(10, musicVolume, false, 0);
 				while (onDemandFetcher.getNodeCount() > 0) {
 					processOnDemandQueue();
+					if (fetchMusic) {
+						method49();
+					}
 					try {
 						Thread.sleep(100L);
 					} catch (Exception _ex) {
@@ -7364,8 +7384,13 @@ public class Game extends RSApplet {
 			ObjectDef.clientInstance = this;
 			EntityDef.clientInstance = this;
 			
-			if (myUsername != "" && myPassword != "")
-				login(myUsername, myPassword, false);
+			if (myUsername != null && !myUsername.isEmpty()) {
+				loginScreenState = 2;
+				loginScreenCursorPos = (myPassword != null && !myPassword.isEmpty()) ? 1 : 0;
+				if (myPassword != null && !myPassword.isEmpty()) {
+					login(myUsername, myPassword, false);
+				}
+			}
 			return;
 		} catch (Exception exception) {
 			Signlink.reporterror("loaderror " + aString1049 + " " + anInt1079);
@@ -7476,55 +7501,10 @@ public class Game extends RSApplet {
 	}
 
 	public void showErrorScreen() {
-		Graphics g = getGameComponent().getGraphics();
-		g.setColor(Color.black);
-		g.fillRect(0, 0, 765, 503);
-		method4(1);
-		if (loadingError) {
-			aBoolean831 = false;
-			g.setFont(new Font("Helvetica", 1, 16));
-			g.setColor(Color.yellow);
-			int k = 35;
-			g.drawString("Sorry, an error has occured whilst loading " + ClientSettings.SERVER_NAME + "", 30, k);
-			k += 50;
-			g.setColor(Color.white);
-			g.drawString("To fix this try the following (in order):", 30, k);
-			k += 50;
-			g.setColor(Color.white);
-			g.setFont(new Font("Helvetica", 1, 12));
-			g.drawString("1: Try closing ALL open web-browser windows, and reloading", 30, k);
-			k += 30;
-			g.drawString("2: Try clearing your web-browsers cache from tools->internet options", 30, k);
-			k += 30;
-			g.drawString("3: Try using a different game-world", 30, k);
-			k += 30;
-			g.drawString("4: Try rebooting your computer", 30, k);
-			k += 30;
-			g.drawString("5: Try selecting a different version of Java from the play-game menu", 30, k);
-		}
-		if (genericLoadingError) {
-			aBoolean831 = false;
-			g.setFont(new Font("Helvetica", 1, 20));
-			g.setColor(Color.white);
-			g.drawString("Error - unable to load game!", 50, 50);
-			g.drawString("To play " + ClientSettings.SERVER_NAME + " make sure you play from", 50, 100);
-			g.drawString("" + ClientSettings.SERVER_WEBSITE + "", 50, 150);
-		}
-		if (rsAlreadyLoaded) {
-			aBoolean831 = false;
-			g.setColor(Color.yellow);
-			int l = 35;
-			g.drawString("Error a copy of " + ClientSettings.SERVER_NAME + " already appears to be loaded", 30, l);
-			l += 50;
-			g.setColor(Color.white);
-			g.drawString("To fix this try the following (in order):", 30, l);
-			l += 50;
-			g.setColor(Color.white);
-			g.setFont(new Font("Helvetica", 1, 12));
-			g.drawString("1: Try closing ALL open web-browser windows, and reloading", 30, l);
-			l += 30;
-			g.drawString("2: Try rebooting your computer, and reloading", 30, l);
-			l += 30;
+		if (ClientSettings.ANDROID) {
+			AndroidHooks.showErrorScreen(this, loadingError, genericLoadingError, rsAlreadyLoaded);
+		} else {
+			DesktopHooks.showErrorScreen(this, loadingError, genericLoadingError, rsAlreadyLoaded);
 		}
 	}
 
@@ -8783,6 +8763,10 @@ public class Game extends RSApplet {
 			return;
 		}
 		anInt1061++;
+		if (ClientSettings.ANDROID && AndroidHooks.isAppInBackground()) {
+			anInt1213 = 0;
+			return;
+		}
 		if (!loggedIn) {
 			drawLoginScreen(false);
 		} else {
@@ -8896,20 +8880,20 @@ public class Game extends RSApplet {
 			int debugX = 511 - debugWidth;
 			int debugY = 334 - debugHeight;
 			int fill = 0x5d5447;
-			int fill2 = Color.BLACK.hashCode();
+			int fill2 = RSColors.BLACK;
 			int opacity = 140;
 	
 			DrawingArea.fillArea(fill, debugY, debugWidth, debugHeight, opacity, debugX);
 			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
 			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
-			chatTextDrawingArea.textLeft(Color.WHITE.darker().hashCode(), "Notification", debugY += 14, debugX + 3);
+			chatTextDrawingArea.textLeft(RSColors.WHITE_DARKER, "Notification", debugY += 14, debugX + 3);
 
 			// Bump Y value
 			debugY += 3;
 			
 			// Draw items
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "System update in:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), message, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "System update in:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, message, debugY);
 
 			// Not sure what this is for
 			anInt849++;
@@ -9001,6 +8985,12 @@ public class Game extends RSApplet {
 	}
 
 	public void determineMenuSize() {
+		if (isScrollBarAt(super.saveClickX, super.saveClickY)) {
+			return;
+		}
+		if (ClientSettings.ANDROID && (menuActionRow == 0 || (menuActionRow == 1 && menuActionID[0] == 1107))) {
+			return;
+		}
 		int i = chatTextDrawingArea.getTextWidth("Choose Option");
 		for (int j = 0; j < menuActionRow; j++) {
 			int k = chatTextDrawingArea.getTextWidth(menuActionName[j]);
@@ -9317,8 +9307,11 @@ public class Game extends RSApplet {
 	}
 
 	public String getParameter(String s) {
+		if (ClientSettings.ANDROID) {
+			return "";
+		}
 		if (Signlink.mainapp != null) {
-			return Signlink.mainapp.getParameter(s);
+			return DesktopHooks.getParameter(s);
 		} else {
 			return super.getParameter(s);
 		}
@@ -11627,6 +11620,9 @@ public class Game extends RSApplet {
 				inputDialogState = 1;
 				amountOrNameInput = "";
 				inputTaken = true;
+				if (ClientSettings.ANDROID) {
+					AndroidHooks.showKeyboard();
+				}
 				pktType = -1;
 				return true;
 			}
@@ -11635,6 +11631,9 @@ public class Game extends RSApplet {
 				inputDialogState = 2;
 				amountOrNameInput = "";
 				inputTaken = true;
+				if (ClientSettings.ANDROID) {
+					AndroidHooks.showKeyboard();
+				}
 				pktType = -1;
 				return true;
 			}
@@ -11910,14 +11909,14 @@ public class Game extends RSApplet {
 			int debugWidth = 140;
 			int debugHeight = 25 + (debugItems * 15);
 			int fill = 0x5d5447;
-			int fill2 = Color.BLACK.hashCode();
+			int fill2 = RSColors.BLACK;
 			int opacity = 140;
 	
 			DrawingArea.fillArea(fill, debugY, debugWidth, debugHeight, opacity, debugX);
 			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
 			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
-			chatTextDrawingArea.textLeft(Color.WHITE.darker().hashCode(), "Debug Info", debugY += 14, debugX + 3);
-			chatTextDrawingArea.textLeft(super.fps > 40 ? Color.YELLOW.hashCode() : super.fps > 25 ? Color.ORANGE.hashCode() : Color.RED.hashCode(), super.fps + "fps", debugY, debugX + debugWidth - chatTextDrawingArea.getTextWidth(super.fps + "fps") - 3);
+			chatTextDrawingArea.textLeft(RSColors.WHITE_DARKER, "Debug Info", debugY += 14, debugX + 3);
+			chatTextDrawingArea.textLeft(super.fps > 40 ? RSColors.YELLOW : super.fps > 25 ? RSColors.ORANGE : RSColors.RED, super.fps + "fps", debugY, debugX + debugWidth - chatTextDrawingArea.getTextWidth(super.fps + "fps") - 3);
 
 			// Bump Y value
 			debugY += 3;
@@ -11925,16 +11924,16 @@ public class Game extends RSApplet {
 			// Draw items
 			Runtime runtime = Runtime.getRuntime();
 			int memKB = (int) ((runtime.totalMemory() - runtime.freeMemory()) / 1024L);
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Memory:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), (memKB / 1024) + "mb", debugY);
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Mouse:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), super.mouseX + ", " + super.mouseY, debugY);
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Coords:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY);
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Interface:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + openInterfaceID, debugY);
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Zoom level:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + zoom, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "Memory:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, (memKB / 1024) + "mb", debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "Mouse:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, super.mouseX + ", " + super.mouseY, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "Coords:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, (myPlayer.smallX[0] + baseX) + ", " + (myPlayer.smallY[0] + baseY), debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "Interface:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, "" + openInterfaceID, debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "Zoom level:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, "" + zoom, debugY);
 		}
 		
 		if (customSettingShowExperiencePerHour) {
@@ -11944,13 +11943,13 @@ public class Game extends RSApplet {
 			int debugX = 511 - debugWidth;
 			int debugY = 0;
 			int fill = 0x5d5447;
-			int fill2 = Color.BLACK.hashCode();
+			int fill2 = RSColors.BLACK;
 			int opacity = 140;
 	
 			DrawingArea.fillArea(fill, debugY, debugWidth, debugHeight, opacity, debugX);
 			DrawingArea.fillArea(fill2, debugY + 1, debugWidth - 2, 16, opacity, debugX + 1);
 			DrawingArea.fillPixels(debugY + 18, debugHeight - 19, fill2, debugX + 1, debugWidth - 2);
-			chatTextDrawingArea.textLeft(Color.WHITE.darker().hashCode(), "Experience Info", debugY += 14, debugX + 3);
+			chatTextDrawingArea.textLeft(RSColors.WHITE_DARKER, "Experience Info", debugY += 14, debugX + 3);
 
 			// Bump Y value
 			debugY += 3;
@@ -11961,10 +11960,10 @@ public class Game extends RSApplet {
 			long expPerHour = (long) ((expGained * 3600000D) / (System.currentTimeMillis() - customSettingShowExperiencePerHourStart));
 
 			// Draw items
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Exp per hour:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), intToShortLetter((int) expPerHour), debugY);
-			chatTextDrawingArea.textLeftShadow(true, debugX + 4, Color.WHITE.hashCode(), "Levels gained:", debugY += 15);
-			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, Color.YELLOW.hashCode(), "" + (calculateTotalLevels() - customSettingShowExperiencePerHourStartLevels), debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "Exp per hour:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, intToShortLetter((int) expPerHour), debugY);
+			chatTextDrawingArea.textLeftShadow(true, debugX + 4, RSColors.WHITE, "Levels gained:", debugY += 15);
+			chatTextDrawingArea.textRightShadow(true, debugX + debugWidth - 4, RSColors.YELLOW, "" + (calculateTotalLevels() - customSettingShowExperiencePerHourStartLevels), debugY);
 		}
 
 		// Draw main screen
@@ -12000,15 +11999,8 @@ public class Game extends RSApplet {
 	}
 
 	public Game() {
-	    //Test if they're on 32-bit, warn them if they are
-		if (!System.getProperty("sun.arch.data.model").contains("64"))
-		{
-			JOptionPane.showMessageDialog(null, "You're running 32-bit java. This will definitely cause problems.\nYou can get the right Java 8 at AdoptOpenJDK.net", "You're running 32-bit Java!", JOptionPane.INFORMATION_MESSAGE);
-			System.out.println("Please upgrade to 64-bit java to avoid problems! (AdoptOpenJDK.net)");
-		}
-		if (Double.parseDouble(System.getProperty("java.specification.version")) >= 1.9) {
-			JOptionPane.showMessageDialog(null, "You're not running Java 8. If you're using Parabot, this will cause problems!\nYou can get Java 8 from AdoptOpenJDK.net", "You're not running Java 8!", JOptionPane.INFORMATION_MESSAGE);
-			System.out.println("Please downgrade to Java 8 to avoid problems! (AdoptOpenJDK.net)");
+		if (!ClientSettings.ANDROID) {
+			DesktopHooks.checkJavaVersion();
 		}
 		server = ClientSettings.SERVER_IP;
 		anIntArrayArray825 = new int[104][104];
@@ -12608,7 +12600,7 @@ public class Game extends RSApplet {
 	public static int anInt116;
 	public static boolean aBoolean995;
 	public static int anInt139;
-	public static int musicVolume = 0;
+	public static int musicVolume = 255;
 	public int[] gameScreenOffsets;
 	public int anInt1170;
 	public int anInt1215;
@@ -12643,75 +12635,75 @@ public class Game extends RSApplet {
 		this.anInt1187 += (j << 1);
 	}
 
-	public void keyPressed(KeyEvent keyevent)
+	public void handleKeyPressed(int keyCode, char keyChar, boolean isControlDown, boolean isShiftDown)
 	{
-		super.keyPressed(keyevent);
-		switch (keyevent.getKeyCode())
+		super.handleKeyPressed(keyCode, keyChar, isControlDown, isShiftDown);
+		switch (keyCode)
 		{
-			case KeyEvent.VK_ESCAPE:
+			case 27: // VK_ESCAPE
 				closeOpenInterfaces();
 				break;
-			case KeyEvent.VK_F1:
+			case 112: // VK_F1
 				needDrawTabArea = true;
 				tabID = 3;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F2:
+			case 113: // VK_F2
 				needDrawTabArea = true;
 				tabID = 4;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F3:
+			case 114: // VK_F3
 				needDrawTabArea = true;
 				tabID = 5;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F4:
+			case 115: // VK_F4
 				needDrawTabArea = true;
 				tabID = 6;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F5:
+			case 116: // VK_F5
 				needDrawTabArea = true;
 				tabID = 0;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F6:
+			case 117: // VK_F6
 				needDrawTabArea = true;
 				tabID = 1;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F7:
+			case 118: // VK_F7
 				needDrawTabArea = true;
 				tabID = 2;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F8:
+			case 119: // VK_F8
 				needDrawTabArea = true;
 				tabID = 8;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F9:
+			case 120: // VK_F9
 				needDrawTabArea = true;
 				tabID = 11;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F10:
+			case 121: // VK_F10
 				needDrawTabArea = true;
 				tabID = 12;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F11:
+			case 122: // VK_F11
 				needDrawTabArea = true;
 				tabID = 13;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_F12:
+			case 123: // VK_F12
 				needDrawTabArea = true;
 				tabID = 10;
 				tabAreaAltered = true;
 				break;
-			case KeyEvent.VK_PAGE_UP:
+			case 33: // VK_PAGE_UP
 				if (zoom > -1) {
 					zoom--;
 					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
@@ -12719,7 +12711,7 @@ public class Game extends RSApplet {
 					}
 				}
 				break;
-			case KeyEvent.VK_PAGE_DOWN:
+			case 34: // VK_PAGE_DOWN
 				if (zoom < (WorldController.drawDistance / 3)) {
 					zoom++;
 					if (ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES) {
@@ -12727,17 +12719,17 @@ public class Game extends RSApplet {
 					}
 				}
 				break;
-			case KeyEvent.VK_V:
-				if (keyevent.isControlDown()) {
+			case 86: // VK_V
+				if (isControlDown) {
 					inputString += getClipBoard();
 					if (inputString.length() > 80) {
 						inputString = inputString.substring(0, 80);
 					}
 					inputTaken = true;
 				}
-
+				break;
 		}
-		  if (ClientSettings.SCREENSHOTS_ENABLED && keyevent.getKeyCode() == KeyEvent.VK_PRINTSCREEN && keyevent.isControlDown()) {
+		if (ClientSettings.SCREENSHOTS_ENABLED && keyCode == 154 && isControlDown) {
 			screenshot(true);
 		}
 	}
@@ -12908,13 +12900,8 @@ public class Game extends RSApplet {
 		tabAreaAltered = true;
 	}
 
-	public final void mouseWheelMoved(MouseWheelEvent e) {
-		int notches = e.getWheelRotation();
-		if (ClientSettings.CONTROL_KEY_ZOOMING && !e.isControlDown()) {
-			return;
-		}
-		// If mouse over main game screen, without anything else opened
-		if (openInterfaceID == -1 && mouseX < 515 && mouseY < 340) {
+	public void adjustZoom(int notches) {
+		if (openInterfaceID == -1) {
 			if (notches < 0) {
 				if (zoom > -1) {
 					zoom--;
@@ -12933,26 +12920,180 @@ public class Game extends RSApplet {
 		}
 	}
 
-	public String getClipBoard(){
-		String myString = "";
-		try {
-			myString = (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
-		} catch (HeadlessException e) {
-			e.printStackTrace();            
-		} catch (UnsupportedFlavorException e) {
-			e.printStackTrace();            
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void handleMouseWheel(int notches, boolean isControlDown) {
+		if (!ClientSettings.ANDROID && ClientSettings.CONTROL_KEY_ZOOMING && !isControlDown) {
+			return;
 		}
+		// If mouse over main game screen, without anything else opened
+		if (openInterfaceID == -1 && mouseX < 515 && mouseY < 340) {
+			adjustZoom(notches);
+		}
+	}
 
-		String output = "";
-		for(int i = 0; i < myString.length(); i++) {
-			int j = (int) myString.charAt(i);
-			if (j >= 32 && j <= 122) {
-				output += (char) j;
+	public String getClipBoard() {
+		if (ClientSettings.ANDROID) {
+			return AndroidHooks.getClipBoard();
+		} else {
+			return DesktopHooks.getClipBoard();
+		}
+	}
+
+	public boolean canDragItemAt(int x, int y) {
+		if (!loggedIn || menuOpen || itemSelected != 0 || spellSelected != 0) {
+			return false;
+		}
+		int prevMouseX = super.mouseX;
+		int prevMouseY = super.mouseY;
+		super.mouseX = x;
+		super.mouseY = y;
+		lastActiveInvInterface = -1;
+		mouseInvInterfaceIndex = -1;
+		processRightClick();
+		boolean canDrag = false;
+		if (lastActiveInvInterface != -1 && mouseInvInterfaceIndex != -1) {
+			RSInterface interf = RSInterface.interfaceCache[lastActiveInvInterface];
+			if (interf != null && (interf.aBoolean259 || interf.aBoolean235)
+					&& mouseInvInterfaceIndex >= 0 && mouseInvInterfaceIndex < interf.inv.length
+					&& interf.inv[mouseInvInterfaceIndex] > 0) {
+				canDrag = true;
+			}
+		}
+		super.mouseX = prevMouseX;
+		super.mouseY = prevMouseY;
+		return canDrag;
+	}
+
+	public boolean startItemDrag(int x, int y) {
+		if (!loggedIn || menuOpen || itemSelected != 0 || spellSelected != 0) {
+			return false;
+		}
+		super.mouseX = x;
+		super.mouseY = y;
+		lastActiveInvInterface = -1;
+		mouseInvInterfaceIndex = -1;
+		processRightClick();
+		if (lastActiveInvInterface != -1 && mouseInvInterfaceIndex != -1) {
+			RSInterface interf = RSInterface.interfaceCache[lastActiveInvInterface];
+			if (interf != null && (interf.aBoolean259 || interf.aBoolean235)
+					&& mouseInvInterfaceIndex >= 0 && mouseInvInterfaceIndex < interf.inv.length
+					&& interf.inv[mouseInvInterfaceIndex] > 0) {
+				aBoolean1242 = true;
+				anInt989 = 10;
+				anInt1084 = lastActiveInvInterface;
+				anInt1085 = mouseInvInterfaceIndex;
+				activeInterfaceType = 2;
+				anInt1087 = x;
+				anInt1088 = y;
+				if (openInterfaceID != -1 && interf.parentID == openInterfaceID) {
+					activeInterfaceType = 1;
+				}
+				if (backDialogID != -1 && interf.parentID == backDialogID) {
+					activeInterfaceType = 3;
+				}
+				super.clickMode2 = 1;
+				if (activeInterfaceType == 2) {
+					needDrawTabArea = true;
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isScrollBarAt(int x, int y) {
+		if (!loggedIn) {
+			return false;
+		}
+		// 1. Chatbox scrollbar:
+		// Chat area is drawn at full screen x=17, y=357. Scrollbar thumb is at relative x=463, y=0, width 16, height 77.
+		// Screen coordinates: x in [480..496], y in [357..434].
+		if (backDialogID == -1) {
+			if (x >= 465 && x <= 512 && y >= 345 && y <= 445) {
+				return true;
 			}
 		}
 
-		return output;
+		// 2. Full screen interface (e.g. cutscene / welcome screen)
+		if (fullScreenInterfaceId != -1) {
+			if (checkInterfaceScrollBar(fullScreenInterfaceId, 0, 0, x, y)) {
+				return true;
+			}
+		}
+
+		// 3. Open main interface (bank, shop, quest journal, etc.)
+		if (openInterfaceID != -1) {
+			if (checkInterfaceScrollBar(openInterfaceID, 4, 4, x, y)) {
+				return true;
+			}
+		}
+
+		// 4. Side tab / inventory overlay interface
+		if (invOverlayInterfaceID != -1) {
+			if (checkInterfaceScrollBar(invOverlayInterfaceID, 553, 205, x, y)) {
+				return true;
+			}
+		} else if (tabID >= 0 && tabID < tabInterfaceIDs.length && tabInterfaceIDs[tabID] != -1) {
+			if (checkInterfaceScrollBar(tabInterfaceIDs[tabID], 553, 205, x, y)) {
+				return true;
+			}
+		}
+
+		// 5. Chat dialogue interfaces (NPC chat, options, etc.)
+		if (backDialogID != -1) {
+			if (checkInterfaceScrollBar(backDialogID, 17, 357, x, y)) {
+				return true;
+			}
+		} else if (dialogID != -1) {
+			if (checkInterfaceScrollBar(dialogID, 17, 357, x, y)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean checkInterfaceScrollBar(int interfaceId, int xOffset, int yOffset, int clickX, int clickY) {
+		if (interfaceId < 0 || interfaceId >= RSInterface.interfaceCache.length) {
+			return false;
+		}
+		RSInterface rsi = RSInterface.interfaceCache[interfaceId];
+		if (rsi == null) {
+			return false;
+		}
+		return checkInterfaceScrollBar(rsi, xOffset, yOffset, 0, clickX, clickY);
+	}
+
+	private boolean checkInterfaceScrollBar(RSInterface rsi, int i, int l, int scrollPos, int clickX, int clickY) {
+		if (rsi == null || rsi.children == null || rsi.aBoolean266) {
+			return false;
+		}
+		int count = rsi.children.length;
+		for (int idx = 0; idx < count; idx++) {
+			int childId = rsi.children[idx];
+			if (childId < 0 || childId >= RSInterface.interfaceCache.length) {
+				continue;
+			}
+			RSInterface child = RSInterface.interfaceCache[childId];
+			if (child == null || child.aBoolean266) {
+				continue;
+			}
+			int i2 = rsi.childX[idx] + i + child.anInt263;
+			int j2 = rsi.childY[idx] + l - scrollPos + child.anInt265;
+			if (child.type == 0) {
+				if (child.scrollMax > child.height) {
+					int sbX = i2 + child.width;
+					int sbY = j2;
+					int sbH = child.height;
+					// Standard scrollbar width is 16. Allow a touch-friendly margin around it
+					if (clickX >= sbX - 10 && clickX <= sbX + 26 && clickY >= sbY - 5 && clickY <= sbY + sbH + 5) {
+						return true;
+					}
+				}
+				if (checkInterfaceScrollBar(child, i2, j2, child.scrollPosition, clickX, clickY)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

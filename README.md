@@ -36,7 +36,21 @@ java -jar Parabot.jar -local
 - `2006Scape Server` contains all the server code; mark `src` as the Sources directory
 - `2006Scape Client` contains all the client code; likewise mark `src`
   - If more than 2 arguments are passed in (can be anything), the client runs locally
+- `2006Scape-Android` contains the native Android client port (Git submodule, Gradle project)
 
 ## Building from command line
 
-Run `mvn -B clean install`
+### Desktop (Server & Client)
+Run:
+```bash
+mvn -B clean install
+```
+
+### Android Client APK
+Run:
+```bash
+cd 2006Scape-Android
+./gradlew assembleDebug
+```
+The resulting debug APK is output to `app/build/outputs/apk/debug/app-debug.apk`.
+
