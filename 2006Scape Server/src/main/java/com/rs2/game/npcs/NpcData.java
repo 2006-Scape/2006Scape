@@ -79,11 +79,10 @@ public class NpcData {
 		ArrayList<Integer> players = new ArrayList<Integer>();
 		for (int j = 0; j < PlayerHandler.players.length; j++) {
 			if (PlayerHandler.players[j] != null) {
-				if (NpcHandler.goodDistance(
+				if (goodDistanceNpc(
+						i,
 						PlayerHandler.players[j].absX,
 						PlayerHandler.players[j].absY,
-						NpcHandler.npcs[i].absX,
-						NpcHandler.npcs[i].absY,
 						2 + NpcHandler.distanceRequired(i)
 								+ NpcHandler.followDistance(i))
 						|| FightCaves.isFightCaveNpc(i)) {
@@ -312,14 +311,30 @@ public class NpcData {
 
 
 	public static boolean goodDistanceNpc(int i, int x2, int y2, int distance) {
-		for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NpcHandler.npcs[i].size; x++) {
-			for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NpcHandler.npcs[i].size; y++) {
-				if (Misc.goodDistance(x, y, x2, y2, distance)) {
-					return true;
-				}
-			}
+		Npc npc = NpcHandler.npcs[i];
+		if (npc == null) {
+			return false;
 		}
-		return false;
+		return goodDistanceNpc(npc.getX(), npc.getY(), npc.getSize(), x2, y2, distance);
+	}
+
+	public static boolean goodDistanceNpc(int npcX, int npcY, int size, int x2, int y2, int distance) {
+		int dx = 0;
+		if (x2 < npcX) {
+			dx = npcX - x2;
+		} else if (x2 > npcX + size - 1) {
+			dx = x2 - (npcX + size - 1);
+		}
+		int dy = 0;
+		if (y2 < npcY) {
+			dy = npcY - y2;
+		} else if (y2 > npcY + size - 1) {
+			dy = y2 - (npcY + size - 1);
+		}
+		if (dx == 0 && dy == 0) {
+			return false; // Inside NPC
+		}
+		return Math.max(dx, dy) <= distance;
 	}
 	
 	
@@ -340,12 +355,16 @@ public class NpcData {
 		} else {
 			return false;
 		}
-		int x = n.getX(); // -1
-		int y = n.getY(); // 1
-		final int dis = distanceRequired(n.npcId) + n.size;
+		int size = n.getSize();
+		int x = Math.max(n.getX(), Math.min(x2, n.getX() + size - 1));
+		int y = Math.max(n.getY(), Math.min(y2, n.getY() + size - 1));
+		if (x == x2 && y == y2) {
+			return false;
+		}
+		final int dis = distanceRequired(n.npcId);
 		int dis2 = 0;
-		final boolean melee = distanceRequired(n.npcId) < 2;
-		if (n.size < 1 && x != x2 && y != y2) {
+		final boolean melee = dis < 2;
+		if (melee && size == 1 && x != x2 && y != y2) {
 			return false;
 		}
 		// Algorithm starts here
@@ -421,20 +440,14 @@ public class NpcData {
 	}
 
 	public static boolean inNpc(int i, int x2, int y2) {
-		if (NpcHandler.npcs[i].size < 1) {
-			if (x2 == NpcHandler.npcs[i].getX() && y2 == NpcHandler.npcs[i].getY()) {
-				return true;
-			}
-		} else {
-			for (int x = NpcHandler.npcs[i].getX(); x <= NpcHandler.npcs[i].getX() + NpcHandler.npcs[i].size; x++) {
-				for (int y = NpcHandler.npcs[i].getY(); y <= NpcHandler.npcs[i].getY() + NpcHandler.npcs[i].size; y++) {
-					if (x2 == x && y2 == y) {
-						return true;
-					}
-				}
-			}
+		Npc npc = NpcHandler.npcs[i];
+		if (npc == null) {
+			return false;
 		}
-		return false;
+		int npcX = npc.getX();
+		int npcY = npc.getY();
+		int size = npc.getSize();
+		return x2 >= npcX && x2 < npcX + size && y2 >= npcY && y2 < npcY + size;
 	}
 
 

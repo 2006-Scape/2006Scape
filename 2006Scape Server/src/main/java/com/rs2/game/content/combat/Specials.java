@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.rs2.Constants;
 import com.rs2.game.content.StaticItemList;
 import com.rs2.game.content.music.sound.CombatSounds;
+import com.rs2.game.npcs.NpcData;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
@@ -181,7 +182,7 @@ public class Specials {
 
 	public void handleGmaul() {
 		if (player.npcIndex > 0 && NpcHandler.npcs[player.npcIndex] != null) {
-			if (player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[player.npcIndex].getX(), NpcHandler.npcs[player.npcIndex].getY(), player.getCombatAssistant().getRequiredDistance())) {
+			if (NpcData.goodDistanceNpc(player.npcIndex, player.getX(), player.getY(), player.getCombatAssistant().getRequiredDistance())) {
 				if (player.getCombatAssistant().checkSpecAmount(StaticItemList.GRANITE_MAUL)) {
 					boolean hit = Misc.random(player.getCombatAssistant().calcAtt()) > Misc.random(NpcHandler.npcs[player.npcIndex].defence);
 					int damage = 0;

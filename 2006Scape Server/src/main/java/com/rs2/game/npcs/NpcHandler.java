@@ -241,7 +241,7 @@ public class NpcHandler {
                 if (j == npcs[i].spawnedBy) {
                     return j;
                 }
-                if (goodDistance(PlayerHandler.players[j].absX, PlayerHandler.players[j].absY, npcs[i].absX, npcs[i].absY, 2 + distanceRequired(i) + followDistance(i)) || FightCaves.isFightCaveNpc(i)) {
+                if (NpcData.goodDistanceNpc(i, PlayerHandler.players[j].absX, PlayerHandler.players[j].absY, 2 + distanceRequired(i) + followDistance(i)) || FightCaves.isFightCaveNpc(i)) {
                     if (PlayerHandler.players[j].underAttackBy <= 0 && PlayerHandler.players[j].underAttackBy2 <= 0 || Boundary.isIn(PlayerHandler.players[j], Boundary.MULTI)) {
                         if (PlayerHandler.players[j].heightLevel == npcs[i].heightLevel) {
                             return j;
@@ -957,74 +957,112 @@ public class NpcHandler {
 
     public static void handleClipping(int i) {
         Npc npc = npcs[i];
-        if (npc.moveX == 1 && npc.moveY == 1) {
-            if ((Region
-                    .getClipping(npc.absX + 1, npc.absY + 1, npc.heightLevel) & 0x12801e0) != 0) {
-                npc.moveX = 0;
-                npc.moveY = 0;
+        if (npc == null) {
+            return;
+        }
+        int size = npc.getSize();
+        if (size == 1) {
+            if (npc.moveX == 1 && npc.moveY == 1) {
                 if ((Region
-                        .getClipping(npc.absX, npc.absY + 1, npc.heightLevel) & 0x1280120) == 0) {
-                    npc.moveY = 1;
-                } else {
-                    npc.moveX = 1;
+                        .getClipping(npc.absX + 1, npc.absY + 1, npc.heightLevel) & 0x12801e0) != 0) {
+                    npc.moveX = 0;
+                    npc.moveY = 0;
+                    if ((Region
+                            .getClipping(npc.absX, npc.absY + 1, npc.heightLevel) & 0x1280120) == 0) {
+                        npc.moveY = 1;
+                    } else {
+                        npc.moveX = 1;
+                    }
                 }
-            }
-        } else if (npc.moveX == -1 && npc.moveY == -1) {
-            if ((Region
-                    .getClipping(npc.absX - 1, npc.absY - 1, npc.heightLevel) & 0x128010e) != 0) {
-                npc.moveX = 0;
-                npc.moveY = 0;
+            } else if (npc.moveX == -1 && npc.moveY == -1) {
                 if ((Region
-                        .getClipping(npc.absX, npc.absY - 1, npc.heightLevel) & 0x1280102) == 0) {
-                    npc.moveY = -1;
-                } else {
-                    npc.moveX = -1;
+                        .getClipping(npc.absX - 1, npc.absY - 1, npc.heightLevel) & 0x128010e) != 0) {
+                    npc.moveX = 0;
+                    npc.moveY = 0;
+                    if ((Region
+                            .getClipping(npc.absX, npc.absY - 1, npc.heightLevel) & 0x1280102) == 0) {
+                        npc.moveY = -1;
+                    } else {
+                        npc.moveX = -1;
+                    }
                 }
-            }
-        } else if (npc.moveX == 1 && npc.moveY == -1) {
-            if ((Region
-                    .getClipping(npc.absX + 1, npc.absY - 1, npc.heightLevel) & 0x1280183) != 0) {
-                npc.moveX = 0;
-                npc.moveY = 0;
+            } else if (npc.moveX == 1 && npc.moveY == -1) {
                 if ((Region
-                        .getClipping(npc.absX, npc.absY - 1, npc.heightLevel) & 0x1280102) == 0) {
-                    npc.moveY = -1;
-                } else {
-                    npc.moveX = 1;
+                        .getClipping(npc.absX + 1, npc.absY - 1, npc.heightLevel) & 0x1280183) != 0) {
+                    npc.moveX = 0;
+                    npc.moveY = 0;
+                    if ((Region
+                            .getClipping(npc.absX, npc.absY - 1, npc.heightLevel) & 0x1280102) == 0) {
+                        npc.moveY = -1;
+                    } else {
+                        npc.moveX = 1;
+                    }
                 }
-            }
-        } else if (npc.moveX == -1 && npc.moveY == 1) {
-            if ((Region
-                    .getClipping(npc.absX - 1, npc.absY + 1, npc.heightLevel) & 0x128013) != 0) {
-                npc.moveX = 0;
-                npc.moveY = 0;
+            } else if (npc.moveX == -1 && npc.moveY == 1) {
                 if ((Region
-                        .getClipping(npc.absX, npc.absY + 1, npc.heightLevel) & 0x1280120) == 0) {
-                    npc.moveY = 1;
-                } else {
-                    npc.moveX = -1;
+                        .getClipping(npc.absX - 1, npc.absY + 1, npc.heightLevel) & 0x1280138) != 0) {
+                    npc.moveX = 0;
+                    npc.moveY = 0;
+                    if ((Region
+                            .getClipping(npc.absX, npc.absY + 1, npc.heightLevel) & 0x1280120) == 0) {
+                        npc.moveY = 1;
+                    } else {
+                        npc.moveX = -1;
+                    }
                 }
-            }
-        } // Checking Diagonal movement.
+            } // Checking Diagonal movement.
 
-        if (npc.moveY == -1) {
-            if ((Region.getClipping(npc.absX, npc.absY - 1, npc.heightLevel) & 0x1280102) != 0) {
-                npc.moveY = 0;
-            }
-        } else if (npc.moveY == 1) {
-            if ((Region.getClipping(npc.absX, npc.absY + 1, npc.heightLevel) & 0x1280120) != 0) {
-                npc.moveY = 0;
-            }
-        } // Checking Y movement.
-        if (npc.moveX == 1) {
-            if ((Region.getClipping(npc.absX + 1, npc.absY, npc.heightLevel) & 0x1280180) != 0) {
-                npc.moveX = 0;
-            }
-        } else if (npc.moveX == -1) {
-            if ((Region.getClipping(npc.absX - 1, npc.absY, npc.heightLevel) & 0x1280108) != 0) {
-                npc.moveX = 0;
-            }
-        } // Checking X movement.
+            if (npc.moveY == -1) {
+                if ((Region.getClipping(npc.absX, npc.absY - 1, npc.heightLevel) & 0x1280102) != 0) {
+                    npc.moveY = 0;
+                }
+            } else if (npc.moveY == 1) {
+                if ((Region.getClipping(npc.absX, npc.absY + 1, npc.heightLevel) & 0x1280120) != 0) {
+                    npc.moveY = 0;
+                }
+            } // Checking Y movement.
+            if (npc.moveX == 1) {
+                if ((Region.getClipping(npc.absX + 1, npc.absY, npc.heightLevel) & 0x1280180) != 0) {
+                    npc.moveX = 0;
+                }
+            } else if (npc.moveX == -1) {
+                if ((Region.getClipping(npc.absX - 1, npc.absY, npc.heightLevel) & 0x1280108) != 0) {
+                    npc.moveX = 0;
+                }
+            } // Checking X movement.
+        } else {
+            // Multi-tile NPC clipping
+            if (npc.moveY == -1) {
+                for (int offset = 0; offset < size; offset++) {
+                    if ((Region.getClipping(npc.absX + offset, npc.absY - 1, npc.heightLevel) & 0x1280102) != 0) {
+                        npc.moveY = 0;
+                        break;
+                    }
+                }
+            } else if (npc.moveY == 1) {
+                for (int offset = 0; offset < size; offset++) {
+                    if ((Region.getClipping(npc.absX + offset, npc.absY + size, npc.heightLevel) & 0x1280120) != 0) {
+                        npc.moveY = 0;
+                        break;
+                    }
+                }
+            } // Checking Y movement.
+            if (npc.moveX == 1) {
+                for (int offset = 0; offset < size; offset++) {
+                    if ((Region.getClipping(npc.absX + size, npc.absY + offset, npc.heightLevel) & 0x1280180) != 0) {
+                        npc.moveX = 0;
+                        break;
+                    }
+                }
+            } else if (npc.moveX == -1) {
+                for (int offset = 0; offset < size; offset++) {
+                    if ((Region.getClipping(npc.absX - 1, npc.absY + offset, npc.heightLevel) & 0x1280108) != 0) {
+                        npc.moveX = 0;
+                        break;
+                    }
+                }
+            } // Checking X movement.
+        }
     }
 
     /**
@@ -1231,8 +1269,11 @@ public class NpcHandler {
         int playerX = player.absX;
         int playerY = player.absY;
         npcs[i].randomWalk = false;
-        if (goodDistance(npcs[i].getX(), npcs[i].getY(), playerX, playerY, distanceRequired(i))) {
-            return;
+        int reqDist = distanceRequired(i);
+        if (NpcData.goodDistanceNpc(i, playerX, playerY, reqDist)) {
+            if (reqDist > 1 || npcs[i].getSize() > 1 || playerX == npcs[i].getX() || playerY == npcs[i].getY()) {
+                return;
+            }
         }
 
         Npc    npc    = npcs[i];
@@ -1245,26 +1286,36 @@ public class NpcHandler {
                 && y > npc.makeY - Constants.NPC_FOLLOW_DISTANCE) {
             if (npc.heightLevel == player.heightLevel) {
                 if (player != null && npc != null) {
-                    if (playerX > x && playerY < y) {
-                        npc.moveX = GetMove(x, playerX);//Diagonal bottom right
-                    } else if (playerX < x && playerY < y) {
-                        npc.moveY = GetMove(y, playerY); //Diagonal bottom left
-                    } else if (playerX < x && playerY > y) {
-                        npc.moveX = GetMove(x, playerX);// Diagonal top left
-                    } else if (playerX > x && playerY > y) {
-                        npc.moveY = GetMove(y, playerY);// Diagonal top right
-                    } else if (playerY < y) {
-                        npc.moveX = GetMove(x, playerX); //Move South to player
-                        npc.moveY = GetMove(y, playerY);
-                    } else if (playerY > y) {
-                        npc.moveX = GetMove(x, playerX); //Move North to player
-                        npc.moveY = GetMove(y, playerY);
-                    } else if (playerX < x) {
-                        npc.moveX = GetMove(x, playerX); //Move West to player
-                        npc.moveY = GetMove(y, playerY);
-                    } else if (playerX > x) {
-                        npc.moveX = GetMove(x, playerX); //Move East to player
-                        npc.moveY = GetMove(y, playerY);
+                    int targetX = Math.max(x, Math.min(playerX, x + npc.getSize() - 1));
+                    int targetY = Math.max(y, Math.min(playerY, y + npc.getSize() - 1));
+                    if (targetX == playerX && targetY == playerY) {
+                        int dxToCenter = playerX * 2 - (2 * x + npc.getSize() - 1);
+                        int dyToCenter = playerY * 2 - (2 * y + npc.getSize() - 1);
+                        if (Math.abs(dxToCenter) >= Math.abs(dyToCenter)) {
+                            npc.moveX = dxToCenter >= 0 ? -1 : 1;
+                        } else {
+                            npc.moveY = dyToCenter >= 0 ? -1 : 1;
+                        }
+                    } else if (playerX > targetX && playerY < targetY) {
+                        npc.moveX = GetMove(targetX, playerX); // Diagonal bottom right
+                    } else if (playerX < targetX && playerY < targetY) {
+                        npc.moveY = GetMove(targetY, playerY); // Diagonal bottom left
+                    } else if (playerX < targetX && playerY > targetY) {
+                        npc.moveX = GetMove(targetX, playerX); // Diagonal top left
+                    } else if (playerX > targetX && playerY > targetY) {
+                        npc.moveY = GetMove(targetY, playerY); // Diagonal top right
+                    } else if (playerY < targetY) {
+                        npc.moveX = GetMove(targetX, playerX); // Move South to player
+                        npc.moveY = GetMove(targetY, playerY);
+                    } else if (playerY > targetY) {
+                        npc.moveX = GetMove(targetX, playerX); // Move North to player
+                        npc.moveY = GetMove(targetY, playerY);
+                    } else if (playerX < targetX) {
+                        npc.moveX = GetMove(targetX, playerX); // Move West to player
+                        npc.moveY = GetMove(targetY, playerY);
+                    } else if (playerX > targetX) {
+                        npc.moveX = GetMove(targetX, playerX); // Move East to player
+                        npc.moveY = GetMove(targetY, playerY);
                     }
                     npc.facePlayer(player);
                     handleClipping(i);
@@ -1372,8 +1423,8 @@ public class NpcHandler {
 
     public boolean specialCase(Player c, int i) { // responsible for npcs that
         // much
-        if (goodDistance(npcs[i].getX(), npcs[i].getY(), c.getX(), c.getY(), 8)
-                && !goodDistance(npcs[i].getX(), npcs[i].getY(), c.getX(),
+        if (NpcData.goodDistanceNpc(i, c.getX(), c.getY(), 8)
+                && !NpcData.goodDistanceNpc(i, c.getX(),
                 c.getY(), distanceRequired(i))) {
             return true;
         }

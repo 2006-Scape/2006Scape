@@ -58,6 +58,22 @@ public class Npc {
         applyDead = false;
         actionTimer = 0;
         randomWalk = true;
+        NPCDefinition def = NPCDefinition.forId(_npcType);
+        size = def != null ? def.getSize() : 1;
+        if (size < 1) {
+            size = 1;
+        }
+    }
+
+    public int getSize() {
+        if (size <= 0) {
+            NPCDefinition def = NPCDefinition.forId(npcType);
+            size = def != null ? def.getSize() : 1;
+            if (size < 1) {
+                size = 1;
+            }
+        }
+        return size;
     }
 
     public void requestTransform(int id) {

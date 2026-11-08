@@ -426,13 +426,11 @@ public class NpcCombat {
 			break;
 		case TZTOKJAD:
 			int r3 = 0;
-			if (NpcHandler
-					.goodDistance(
-							NpcHandler.npcs[i].absX,
-							NpcHandler.npcs[i].absY,
-							PlayerHandler.players[NpcHandler.npcs[i].spawnedBy].absX,
-							PlayerHandler.players[NpcHandler.npcs[i].spawnedBy].absY,
-							1)) {
+			if (NpcData.goodDistanceNpc(
+					i,
+					PlayerHandler.players[NpcHandler.npcs[i].spawnedBy].absX,
+					PlayerHandler.players[NpcHandler.npcs[i].spawnedBy].absY,
+					1)) {
 				r3 = Misc.random(2);
 			} else {
 				r3 = Misc.random(1);

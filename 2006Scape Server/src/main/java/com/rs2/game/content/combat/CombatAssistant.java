@@ -22,6 +22,7 @@ import com.rs2.game.content.music.sound.SoundList;
 import com.rs2.game.content.skills.slayer.SlayerRequirements;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.npcs.Npc;
+import com.rs2.game.npcs.NpcData;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
 import com.rs2.game.players.Player;
@@ -392,7 +393,10 @@ public class CombatAssistant {
 				return;
 			}
 
-			if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, NpcHandler.npcs[i].absX, NpcHandler.npcs[i].absY)) {
+			Npc npc = NpcHandler.npcs[i];
+			int targetX = Math.max(npc.getX(), Math.min(player.getX(), npc.getX() + npc.getSize() - 1));
+			int targetY = Math.max(npc.getY(), Math.min(player.getY(), npc.getY() + npc.getSize() - 1));
+			if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, targetX, targetY)) {
 				return;
 			}
 
@@ -406,10 +410,12 @@ public class CombatAssistant {
 			//distance 7 = shortbow, mode = normal, long range = 9 [good]
 			//distance 9 = longbow, long range = 10 [good]
 			//distance = 10 = crystal bow, both modes [good]
-			if (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
-					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 7) && (player.usingBow || player.usingMagic)) {
+			boolean inMelee = NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 1)
+					&& (npc.getSize() > 1 || player.getX() == npc.getX() || player.getY() == npc.getY());
+			if (!NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
+					|| !NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
+					|| !inMelee && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
+					|| !NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 7) && (player.usingBow || player.usingMagic)) {
 				return;
 			} else {
 				if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
@@ -521,6 +527,11 @@ public class CombatAssistant {
 
 			player.followNpcId = i;
 			player.followPlayerId = 0;
+			boolean inMelee = NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 1)
+					&& (npc.getSize() > 1 || player.getX() == npc.getX() || player.getY() == npc.getY());
+			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && inMelee) {
+				player.stopMovement();
+			}
 			if (player.attackTimer <= 0) {
 				player.usingBow = false;
 				player.usingRangeWeapon = false;
@@ -561,17 +572,19 @@ public class CombatAssistant {
 					player.getPacketSender().sendSound(SoundList.SHOOT_ARROW, 100, 0);
 				}
 
-				if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, npc.getX(), npc.getY())) {
+				int targetX = Math.max(npc.getX(), Math.min(player.getX(), npc.getX() + npc.getSize() - 1));
+				int targetY = Math.max(npc.getY(), Math.min(player.getY(), npc.getY() + npc.getSize() - 1));
+				if (!PathFinder.isProjectilePathClear(player.getX(), player.getY(), player.heightLevel, targetX, targetY)) {
 					return;
 				}
 
 				/**
 				 * Distances for attacking npcs
 				 */
-				if (!player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
-						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 1) && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
-						|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 8) && (player.usingBow || player.usingMagic)) {
+				if (!NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 2) && RangeData.usingHally(player) && !player.usingRangeWeapon && !player.usingBow && !player.usingMagic
+						|| !NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 4) && player.usingRangeWeapon && !player.usingBow && !player.usingMagic
+						|| !inMelee && !player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic
+						|| !NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 8) && (player.usingBow || player.usingMagic)) {
 					return;
 				} else {
 					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
@@ -607,7 +620,7 @@ public class CombatAssistant {
 				/**
 				 * Don't run up to player if using hally, set distance to 2
 				 */
-				if (player.usingBow || player.usingMagic || player.usingRangeWeapon || player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 2) && RangeData.usingHally(player)) {
+				if (player.usingBow || player.usingMagic || player.usingRangeWeapon || NpcData.goodDistanceNpc(i, player.getX(), player.getY(), 2) && RangeData.usingHally(player) || inMelee) {
 					player.stopMovement();
 				}
 				if (!checkMagicReqs(player.spellId)) {

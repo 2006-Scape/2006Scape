@@ -11,6 +11,7 @@ import com.rs2.event.CycleEventContainer;
 import com.rs2.event.CycleEventHandler;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.prayer.PrayerDrain;
+import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.content.minigames.FightPits;
 import com.rs2.game.content.minigames.PestControl;
 import com.rs2.game.content.minigames.castlewars.CastleWars;
@@ -24,6 +25,7 @@ import com.rs2.game.items.ItemConstants;
 import com.rs2.game.items.impl.LightSources;
 import com.rs2.game.items.impl.Greegree.MonkeyData;
 import com.rs2.game.npcs.Npc;
+import com.rs2.game.npcs.NpcData;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.util.GameLogger;
 import com.rs2.util.Misc;
@@ -1657,17 +1659,22 @@ public class PlayerAssistant {
 			return;
 		}
 
-		int x = NpcHandler.npcs[player.followNpcId].getX();
-		int y = NpcHandler.npcs[player.followNpcId].getY();
+		int x = npc.getX();
+		int y = npc.getY();
 		if (!player.goodDistance(x, y, player.getX(), player.getY(), 25)) {
 			player.followNpcId = 0;
 			resetFollow();
 			return;
 		}
 
-		int[] follow = getFollowLocation(x, y);
 		player.faceUpdate(player.followNpcId);
-        PathFinder.getPathFinder().findRoute(player, follow[0], follow[1], false, 1, 1);
+		int followDist = RangeData.usingHally(player) ? 2 : 1;
+		if (NpcData.goodDistanceNpc(player.followNpcId, player.getX(), player.getY(), followDist)) {
+			if (followDist > 1 || npc.getSize() > 1 || player.getX() == npc.getX() || player.getY() == npc.getY()) {
+				return;
+			}
+		}
+		PathFinder.getPathFinder().findRoute(player, x, y, true, npc.getSize(), npc.getSize());
 	}
 
 	public int getRunningMove(int i, int j) {
