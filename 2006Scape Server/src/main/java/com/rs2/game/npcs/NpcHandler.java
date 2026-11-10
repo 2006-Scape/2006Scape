@@ -622,118 +622,132 @@ public class NpcHandler {
                 }
                 if ((!npcs[i].underAttack || npcs[i].walkingHome)
                         && npcs[i].randomWalk && !npcs[i].isDead) {
-                    npcs[i].facePlayer(null);
-                    npcs[i].killerId = 0;
-                    if (npcs[i].spawnedBy == 0) {
-                        if (npcs[i].absX > npcs[i].makeX
-                                + Constants.NPC_RANDOM_WALK_DISTANCE
-                                || npcs[i].absX < npcs[i].makeX
-                                - Constants.NPC_RANDOM_WALK_DISTANCE
-                                || npcs[i].absY > npcs[i].makeY
-                                + Constants.NPC_RANDOM_WALK_DISTANCE
-                                || npcs[i].absY < npcs[i].makeY
-                                - Constants.NPC_RANDOM_WALK_DISTANCE) {
-                            npcs[i].walkingHome = true;
+
+                    boolean inDialogue = false;
+                    if (npcs[i].interactingPlayer >= 0 && npcs[i].interactingPlayer < PlayerHandler.players.length) {
+                        Player p = PlayerHandler.players[npcs[i].interactingPlayer];
+                        if (p != null && !p.isDead && p.goodDistance(p.absX, p.absY, npcs[i].absX, npcs[i].absY, 2)
+                                && (p.talkingNpc > 0 || p.nextChat > 0 || p.dialogueAction > 0)) {
+                            inDialogue = true;
+                        } else {
+                            npcs[i].interactingPlayer = -1;
                         }
                     }
 
-                    if (npcs[i].walkingHome && npcs[i].absX == npcs[i].makeX
-                            && npcs[i].absY == npcs[i].makeY) {
-                        npcs[i].walkingHome = false;
-                    } else if (npcs[i].walkingHome) {
-                        npcs[i].moveX = GetMove(npcs[i].absX, npcs[i].makeX);
-                        npcs[i].moveY = GetMove(npcs[i].absY, npcs[i].makeY);
-                        handleClipping(i);
-                        npcs[i].getNextNPCMovement(i);
-                        npcs[i].updateRequired = true;
-                    }
-                    if (npcs[i].walkingType >= 0) {
-                        switch (npcs[i].walkingType) {
-
-                            case 5:
-                                npcs[i].turnNpc(npcs[i].absX - 1, npcs[i].absY);
-                                break;
-
-                            case 4:
-                                npcs[i].turnNpc(npcs[i].absX + 1, npcs[i].absY);
-                                break;
-
-                            case 3:
-                                npcs[i].turnNpc(npcs[i].absX, npcs[i].absY - 1);
-                                break;
-                            case 2:
-                                npcs[i].turnNpc(npcs[i].absX, npcs[i].absY + 1);
-                                break;
-
-                            default:
-                                if (npcs[i].walkingType >= 0) {
-                                    npcs[i].turnNpc(npcs[i].absX, npcs[i].absY);
-                                }
-                                break;
+                    if (!inDialogue) {
+                        npcs[i].facePlayer(null);
+                        npcs[i].killerId = 0;
+                        if (npcs[i].spawnedBy == 0) {
+                            if (npcs[i].absX > npcs[i].makeX
+                                    + Constants.NPC_RANDOM_WALK_DISTANCE
+                                    || npcs[i].absX < npcs[i].makeX
+                                    - Constants.NPC_RANDOM_WALK_DISTANCE
+                                    || npcs[i].absY > npcs[i].makeY
+                                    + Constants.NPC_RANDOM_WALK_DISTANCE
+                                    || npcs[i].absY < npcs[i].makeY
+                                    - Constants.NPC_RANDOM_WALK_DISTANCE) {
+                                npcs[i].walkingHome = true;
+                            }
                         }
-                    }
-                    if (npcs[i].walkingType == 1) {
-                        if (Misc.random(3) == 1 && !npcs[i].walkingHome) {
-                            int MoveX = 0;
-                            int MoveY = 0;
-                            int Rnd   = Misc.random(9);
-                            if (Rnd == 1) {
-                                MoveX = 1;
-                                MoveY = 1;
-                            } else if (Rnd == 2) {
-                                MoveX = -1;
-                            } else if (Rnd == 3) {
-                                MoveY = -1;
-                            } else if (Rnd == 4) {
-                                MoveX = 1;
-                            } else if (Rnd == 5) {
-                                MoveY = 1;
-                            } else if (Rnd == 6) {
-                                MoveX = -1;
-                                MoveY = -1;
-                            } else if (Rnd == 7) {
-                                MoveX = -1;
-                                MoveY = 1;
-                            } else if (Rnd == 8) {
-                                MoveX = 1;
-                                MoveY = -1;
-                            }
 
-                            if (MoveX == 1) {
-                                if (npcs[i].absX + MoveX < npcs[i].makeX + 1) {
-                                    npcs[i].moveX = MoveX;
-                                } else {
-                                    npcs[i].moveX = 0;
-                                }
-                            }
-
-                            if (MoveX == -1) {
-                                if (npcs[i].absX - MoveX > npcs[i].makeX - 1) {
-                                    npcs[i].moveX = MoveX;
-                                } else {
-                                    npcs[i].moveX = 0;
-                                }
-                            }
-
-                            if (MoveY == 1) {
-                                if (npcs[i].absY + MoveY < npcs[i].makeY + 1) {
-                                    npcs[i].moveY = MoveY;
-                                } else {
-                                    npcs[i].moveY = 0;
-                                }
-                            }
-
-                            if (MoveY == -1) {
-                                if (npcs[i].absY - MoveY > npcs[i].makeY - 1) {
-                                    npcs[i].moveY = MoveY;
-                                } else {
-                                    npcs[i].moveY = 0;
-                                }
-                            }
+                        if (npcs[i].walkingHome && npcs[i].absX == npcs[i].makeX
+                                && npcs[i].absY == npcs[i].makeY) {
+                            npcs[i].walkingHome = false;
+                        } else if (npcs[i].walkingHome) {
+                            npcs[i].moveX = GetMove(npcs[i].absX, npcs[i].makeX);
+                            npcs[i].moveY = GetMove(npcs[i].absY, npcs[i].makeY);
                             handleClipping(i);
-                            // NpcData.handleClipping(i);
                             npcs[i].getNextNPCMovement(i);
                             npcs[i].updateRequired = true;
+                        }
+                        if (npcs[i].walkingType >= 0) {
+                            switch (npcs[i].walkingType) {
+
+                                case 5:
+                                    npcs[i].turnNpc(npcs[i].absX - 1, npcs[i].absY);
+                                    break;
+
+                                case 4:
+                                    npcs[i].turnNpc(npcs[i].absX + 1, npcs[i].absY);
+                                    break;
+
+                                case 3:
+                                    npcs[i].turnNpc(npcs[i].absX, npcs[i].absY - 1);
+                                    break;
+                                case 2:
+                                    npcs[i].turnNpc(npcs[i].absX, npcs[i].absY + 1);
+                                    break;
+
+                                default:
+                                    if (npcs[i].walkingType >= 0) {
+                                        npcs[i].turnNpc(npcs[i].absX, npcs[i].absY);
+                                    }
+                                    break;
+                            }
+                        }
+                        if (npcs[i].walkingType == 1) {
+                            if (Misc.random(3) == 1 && !npcs[i].walkingHome) {
+                                int MoveX = 0;
+                                int MoveY = 0;
+                                int Rnd   = Misc.random(9);
+                                if (Rnd == 1) {
+                                    MoveX = 1;
+                                    MoveY = 1;
+                                } else if (Rnd == 2) {
+                                    MoveX = -1;
+                                } else if (Rnd == 3) {
+                                    MoveY = -1;
+                                } else if (Rnd == 4) {
+                                    MoveX = 1;
+                                } else if (Rnd == 5) {
+                                    MoveY = 1;
+                                } else if (Rnd == 6) {
+                                    MoveX = -1;
+                                    MoveY = -1;
+                                } else if (Rnd == 7) {
+                                    MoveX = -1;
+                                    MoveY = 1;
+                                } else if (Rnd == 8) {
+                                    MoveX = 1;
+                                    MoveY = -1;
+                                }
+
+                                if (MoveX == 1) {
+                                    if (npcs[i].absX + MoveX < npcs[i].makeX + 1) {
+                                        npcs[i].moveX = MoveX;
+                                    } else {
+                                        npcs[i].moveX = 0;
+                                    }
+                                }
+
+                                if (MoveX == -1) {
+                                    if (npcs[i].absX - MoveX > npcs[i].makeX - 1) {
+                                        npcs[i].moveX = MoveX;
+                                    } else {
+                                        npcs[i].moveX = 0;
+                                    }
+                                }
+
+                                if (MoveY == 1) {
+                                    if (npcs[i].absY + MoveY < npcs[i].makeY + 1) {
+                                        npcs[i].moveY = MoveY;
+                                    } else {
+                                        npcs[i].moveY = 0;
+                                    }
+                                }
+
+                                if (MoveY == -1) {
+                                    if (npcs[i].absY - MoveY > npcs[i].makeY - 1) {
+                                        npcs[i].moveY = MoveY;
+                                    } else {
+                                        npcs[i].moveY = 0;
+                                    }
+                                }
+                                handleClipping(i);
+                                // NpcData.handleClipping(i);
+                                npcs[i].getNextNPCMovement(i);
+                                npcs[i].updateRequired = true;
+                            }
                         }
                     }
                 }

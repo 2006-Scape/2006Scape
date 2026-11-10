@@ -1662,11 +1662,6 @@ public class ObjectsActions {
                 OtherObjects.initShantay(player, objectType);
                 break;
 
-            case 2883:
-            case 2882:
-                player.getDialogueHandler().sendDialogues(1018, 925);
-                break;
-
             case 2320:
                 long clickTimer = 0;
                 if (player.absY <= 9963 && player.playerLevel[Constants.AGILITY] > 14 && System.currentTimeMillis() - clickTimer > 2000) {

@@ -63,10 +63,12 @@ public class Walking implements PacketType {
 			player.inTrade = false;
 			player.getTrading().declineTrade(true);
 		}
-		if (player.tutorialProgress > 35 && !player.isSmithing) {
+		boolean onTutorial = Constants.TUTORIAL_ISLAND && player.tutorialProgress < 36;
+		if (!onTutorial || player.isSmithing) {
 			player.getPacketSender().closeAllWindows();
-		} else if (player.tutorialProgress < 36 && player.isSmithing) {
-			player.getPacketSender().closeAllWindows();
+		}
+		player.getDialogueHandler().endDialogue();
+		if (player.isSmithing) {
 			player.isSmithing = false;
 		}
 		SkillHandler.resetSkills(player);

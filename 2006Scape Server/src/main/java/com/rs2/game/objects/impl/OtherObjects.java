@@ -15,10 +15,6 @@ import com.rs2.world.clip.Region;
 
 public class OtherObjects {
 
-	public static boolean openKharid(Player player, int objectId) {
-		return (objectId == 2882 || objectId == 2883);
-	}
-
 	public static boolean openShantay(Player player, int objectId) {
 		return (objectId == 4033 || objectId == 4031);
 	}
@@ -40,27 +36,6 @@ public class OtherObjects {
 			GameEngine.objectHandler.createAnObject(1528, x, y, player.getH(), ObjectDefaults.getObjectFace(player, objectType), ObjectDefaults.getObjectType(player, objectType));
 		} else if (objectType == 1528) {
 			GameEngine.objectHandler.createAnObject(1529, x, y, player.getH(), ObjectDefaults.getObjectFace(player, objectType), ObjectDefaults.getObjectType(player, objectType));
-		}
-	}
-
-	public static void initKharid(Player player, int objectId) {
-		if (!player.getItemAssistant().playerHasItem(995, 10)) {
-			player.getDialogueHandler().itemMessage("You need 10 coins to pass through this gate.", 995, 200);
-			player.getDialogueHandler().endDialogue();
-			return;
-		}
-		if (openKharid(player, objectId)) {
-			//GameEngine.objectHandler.createAnObject(player, -1, player.objectX, player.objectY, -1);
-			final int[] coords = new int[2];
-			if (player.getX() == 3267) {
-				player.getPlayerAssistant().movePlayer(player.getX() + 1, player.getY(), 0);
-			} else if (player.getX() == 3268) {
-				player.getPlayerAssistant().movePlayer(player.getX() - 1, player.getY(), 0);
-			}
-			player.turnPlayerTo(player.objectX, player.objectY);
-			coords[0] = player.objectX;
-			coords[1] = player.objectY;
-			player.getItemAssistant().deleteItem(995, player.getItemAssistant().getItemSlot(995), 10);
 		}
 	}
 

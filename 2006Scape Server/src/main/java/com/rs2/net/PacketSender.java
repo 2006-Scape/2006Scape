@@ -542,6 +542,7 @@ public class PacketSender {
 
 	public PacketSender closeAllWindows() {
 		player.lastMainFrameInterface = -1;
+		player.getDialogueHandler().endDialogue();
 		if (player.getOutStream() != null && player != null) {
 			player.getOutStream().createFrame(219);
 			player.flushOutStream();

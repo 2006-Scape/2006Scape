@@ -53,9 +53,6 @@ public class DialogueOptions {
 			case 144:
 				player.getDialogueHandler().sendDialogues(1314, player.npcType);
 				return;
-			case 502:
-				player.getDialogueHandler().sendDialogues(1026, player.npcType);
-				return;
 			case 1301: // first option haircut.
 				player.getDialogueHandler().sendDialogues(1302, 598);
 				return;
@@ -147,9 +144,6 @@ public class DialogueOptions {
 			case 251:
 				player.getBankPin().bankPinSettings();
 				player.nextChat = 0;
-				return;
-			case 502:
-				player.getDialogueHandler().sendDialogues(1022, player.npcType);
 				return;
 			case 1301:
 				player.getDialogueHandler().sendDialogues(1308, 598);
@@ -255,9 +249,6 @@ public class DialogueOptions {
 				break;
 			case 251:
 				player.getDialogueHandler().sendDialogues(1015, 494);
-				return;
-			case 502:
-				player.getDialogueHandler().sendDialogues(1025, player.npcType);
 				return;
 			case 1301:
 				player.getDialogueHandler().sendDialogues(1306, 598);
@@ -487,9 +478,6 @@ public class DialogueOptions {
 				return;
 			} else if (player.dialogueAction == 168) {
 				player.getDialogueHandler().sendDialogues(476, player.npcType);
-				return;
-			} else if (player.dialogueAction == 508) {
-				player.getDialogueHandler().sendDialogues(1026, player.npcType);
 				return;
 			} else if (player.dialogueAction == 855) {
 				player.getItemAssistant().removeAllItems();
@@ -755,9 +743,6 @@ public class DialogueOptions {
 			} else if (player.dialogueAction == 161) {// rod
 				player.getPlayerAssistant().startTeleport(2441, 3090, 0, "modern");
 				Teles.necklaces(player);
-				return;
-			} else if (player.dialogueAction == 508) {
-				player.getDialogueHandler().sendDialogues(1025, player.npcType);
 				return;
 			} else if (player.dialogueAction == 146) {
 				player.getDialogueHandler().sendDialogues(1324, player.npcType);

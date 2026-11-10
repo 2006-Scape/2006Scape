@@ -258,6 +258,9 @@ public class PlayerSave {
 							case "cookAss":
 								player.cookAss = Integer.parseInt(token2);
 								break;
+							case "princeAli":
+								player.princeAli = Integer.parseInt(token2);
+								break;
 							case "bananas":
 								player.bananas = Integer.parseInt(token2);
 								break;
@@ -769,6 +772,8 @@ public class PlayerSave {
 			characterfile.write("shieldArrav = " + player.shieldArrav);
 			characterfile.newLine();
 			characterfile.write("cookAss = " + player.cookAss);
+			characterfile.newLine();
+			characterfile.write("princeAli = " + player.princeAli);
 			characterfile.newLine();
 			characterfile.write("pirateTreasure = " + player.pirateTreasure);
 			characterfile.newLine();

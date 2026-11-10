@@ -11,6 +11,7 @@ import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.range.RangeData;
 import com.rs2.game.items.DeprecatedItems;
+import com.rs2.game.npcs.Npc;
 import com.rs2.game.npcs.NpcData;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Player;
@@ -239,7 +240,11 @@ public class ClickNPC implements PacketType {
 
 		case FIRST_CLICK:
 			player.npcClickIndex = packet.readSignedWordBigEndian();
-			player.npcType = NpcHandler.npcs[player.npcClickIndex].npcType;
+			if (player.npcClickIndex < 0 || player.npcClickIndex >= NpcHandler.npcs.length || NpcHandler.npcs[player.npcClickIndex] == null) {
+				break;
+			}
+			Npc firstClickNpc = NpcHandler.npcs[player.npcClickIndex];
+			player.npcType = firstClickNpc.npcType;
 
 			if (NpcData.goodDistanceNpc(player.npcClickIndex, player.getX(),
 					player.getY(), 2)) {
@@ -247,7 +252,7 @@ public class ClickNPC implements PacketType {
 						NpcHandler.npcs[player.npcClickIndex].getY());
 				NpcHandler.npcs[player.npcClickIndex].facePlayer(player);
 				player.getNpcs().firstClickNpc(player.npcType);
-				player.post(new NpcFirstClickEvent(player.npcType));
+				player.post(new NpcFirstClickEvent(player.npcType, player.npcClickIndex));
 			} else {
 				player.clickNpcType = 1;
 				   CycleEventHandler.getSingleton().addEvent(player, new CycleEvent() {
@@ -263,7 +268,7 @@ public class ClickNPC implements PacketType {
 								NpcHandler.npcs[player.npcClickIndex]
 										.facePlayer(player);
 								player.getNpcs().firstClickNpc(player.npcType);
-								player.post(new NpcFirstClickEvent(player.npcType));
+								player.post(new NpcFirstClickEvent(player.npcType, player.npcClickIndex));
 								container.stop();
 							}
 						}

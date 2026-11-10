@@ -1400,7 +1400,7 @@ public abstract class Player {
 
 	public int votePoints, saveDelay, playerKilled, gertCat, restGhost,
 			romeojuliet, runeMist, lostCity, vampSlayer, cookAss, doricQuest, blackKnight, shieldArrav,
-			sheepShear, impsC, randomActions,
+			sheepShear, impsC, princeAli, randomActions,
 			totalPlayerDamageDealt, killedBy, lastChatId = 1, privateChat,
 			dialogueId, randomCoffin, newLocation, specEffect,
 			specBarId, attackLevelReq, defenceLevelReq, strengthLevelReq,

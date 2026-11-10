@@ -33,6 +33,7 @@ public class DialogueHandler {
 	public void endDialogue() {
 		player.nextChat = 0;
 		player.dialogueAction = 0;
+		player.talkingNpc = -1;
 	}
 	
 	public void setOptionId(int id) {
@@ -3984,14 +3985,9 @@ public class DialogueHandler {
 				player.nextChat = 1019;
 				break;
 			case 1019:
-				if (player.absX == 3267 || player.absX == 3268) {
-					sendNpcChat1("You must pay a toll of 10 gold coins to pass.",
-							player.talkingNpc, "Border Guard");
-					player.nextChat = 1020;
-				} else {
-					sendNpcChat1("You need to be closer to the gate to use it.", player.talkingNpc, "Border Guard");
-					player.nextChat = 0;
-				}
+				sendNpcChat1("You must pay a toll of 10 gold coins to pass.",
+						player.talkingNpc, "Border Guard");
+				player.nextChat = 1020;
 				break;
 			case 1020:
 				sendOption("Okay, I'll pay.", "Who does my money go to?",
@@ -4004,36 +4000,26 @@ public class DialogueHandler {
 				break;
 			case 1023:
 				sendNpcChat2("The money goes to the city of Al-Kharid.",
-						"Will you pay the toll?", player.talkingNpc, "Border Guard");
+						"Will you pay the toll?", player.talkingNpc > 0 ? player.talkingNpc : 925, "Border Guard");
 				player.nextChat = 1024;
 				break;
 			case 1024:
 				sendOption("Okay, I'll pay.", "No thanks, I'll walk around.");
 				player.dialogueAction = 508;
 				break;
-			case 1025:
-				sendPlayerChat("No thanks, I'll walk around.");
+
+			case 1028:
+				sendNpcChat1("Well, you can't come through here then.", player.talkingNpc > 0 ? player.talkingNpc : 925, "Border Guard");
 				player.nextChat = 0;
 				break;
 
-			case 1026:
-				if (!player.getItemAssistant().playerHasItem(995, 10)) {
-					sendPlayerChat("I haven't got that much.");
-					player.nextChat = 0;
-				} else {
-					sendPlayerChat("Okay, I'll pay.");
-					player.nextChat = 1027;
-				}
+			case 1029:
+				sendNpcChat1("Ok suit yourself.", player.talkingNpc > 0 ? player.talkingNpc : 925, "Border Guard");
+				player.nextChat = 0;
 				break;
 
-			case 1027:
-				player.getDialogueHandler().sendStatement("10 coins are removed from your inventory.");
-				//Fix Al-Kharid gate talking option by setting an object ID required by initKharid
-				player.objectId = 2882;
-				if (player.getY() == 3228) {
-					player.objectId = 2883;
-				}
-				OtherObjects.initKharid(player, player.objectId);
+			case 1030:
+				sendNpcChat1("You may pass, friend of Al-Kharid.", player.talkingNpc > 0 ? player.talkingNpc : 925, "Border Guard");
 				player.nextChat = 0;
 				break;
 

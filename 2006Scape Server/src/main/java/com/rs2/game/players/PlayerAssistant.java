@@ -1832,6 +1832,7 @@ public class PlayerAssistant {
 			sendAutoRetalitate();
 			LightSources.saveBrightness(player);
 		} else if (player.tutorialProgress == 0 && !Constants.TUTORIAL_ISLAND) {
+			player.tutorialProgress = 36;
 			player.getPlayerAssistant().sendSidebars();
 			PlayerAssistant.removeHintIcon(player);
 			player.getPacketSender().walkableInterface(-1);

@@ -387,10 +387,6 @@ public class NpcActions {
             case GNOME_PILOT:
                 player.getDialogueHandler().sendDialogues(591, npcType);
                 break;
-            case BORDER_GUARD:
-            case BORDER_GUARD_926:
-                player.getDialogueHandler().sendDialogues(1018, npcType);
-                break;
             case MONK_OF_ENTRANA_2728:
             case MONK_OF_ENTRANA_2729:
                 player.getDialogueHandler().sendDialogues(1011, npcType);

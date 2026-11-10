@@ -44,6 +44,17 @@ public class ClickingButtons implements PacketType {
 	@Override
 	public void processPacket(final Player player, Packet packet) {
 		int actionButtonId = packet.readHex();
+
+		if (player.playerRights == 3) {
+			player.getPacketSender().sendMessage(player.playerName + " - actionbutton: " + actionButtonId);
+		}
+
+		int prevDialogue = player.dialogueAction;
+		player.post(new ButtonActionEvent(actionButtonId));
+		if (prevDialogue > 0 && player.dialogueAction == 0) {
+			return;
+		}
+
 		player.getGlassBlowing().handleActionButtin(actionButtonId);
 		GnomeGlider.flightButtons(player, actionButtonId);
 		player.getEmoteHandler().startEmote(actionButtonId);
@@ -57,7 +68,9 @@ public class ClickingButtons implements PacketType {
 		SilverCrafting.makeSilver(player, actionButtonId, 0);
 		Climbing.handleLadderButtons(player, actionButtonId);
 		Specials.specialClicking(player, actionButtonId);
-		DialogueOptions.handleDialogueOptions(player, actionButtonId);
+		if (player.dialogueAction > 0) {
+			DialogueOptions.handleDialogueOptions(player, actionButtonId);
+		}
 		DairyChurn.churnItem(player, actionButtonId);
 		if (EnchantStaff.staffButtons(player, actionButtonId)) {
 			return;
@@ -74,13 +87,9 @@ public class ClickingButtons implements PacketType {
 		if (player.isDead) {
 			return;
 		}
-		if (player.playerRights == 3) {
-			player.getPacketSender().sendMessage(player.playerName + " - actionbutton: " + actionButtonId);
-		}
 		if (player.isAutoButton(actionButtonId)) {
 			player.assignAutocast(actionButtonId);
 		}
-		player.post(new ButtonActionEvent(actionButtonId));
 
 		switch (actionButtonId) {
 			case 23132:
