@@ -14,6 +14,13 @@ public class ClientSettings {
     public static boolean ANDROID = false;
 
     /**
+     * Viewport dimensions for 3D rendering.
+     * Default 512x334 in fixed mode; scaled to native widescreen in resizable mode.
+     */
+    public static int VIEWPORT_WIDTH = 512;
+    public static int VIEWPORT_HEIGHT = 334;
+
+    /**
      * @QoL
      * Require control key to zoom the client
      */

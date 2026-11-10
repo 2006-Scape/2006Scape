@@ -13,10 +13,10 @@ public final class Signlink implements Runnable {
 		threadliveid = (int) (Math.random() * 99999999D);
 		if (active) {
 			try {
-				Thread.sleep(500L);
+				Thread.sleep(100L);
 			} catch (Exception _ex) {
 			}
-			active = false;
+			close();
 		}
 		socketreq = 0;
 		threadreq = null;
@@ -24,6 +24,7 @@ public final class Signlink implements Runnable {
 		saveReq = null;
 		urlreq = null;
 		socketip = inetaddress;
+		reporterror = true;
 		Thread thread = new Thread(new Signlink());
 		thread.setDaemon(true);
 		thread.start();
@@ -35,6 +36,32 @@ public final class Signlink implements Runnable {
 		}
 	}
 
+	public static synchronized void close() {
+		active = false;
+		threadliveid = 0;
+		reporterror = true;
+		try {
+			if (cache_dat != null) {
+				cache_dat.close();
+				cache_dat = null;
+			}
+		} catch (Exception ignored) {}
+		for (int j = 0; j < 5; j++) {
+			try {
+				if (cache_idx[j] != null) {
+					cache_idx[j].close();
+					cache_idx[j] = null;
+				}
+			} catch (Exception ignored) {}
+		}
+		try {
+			if (socket != null) {
+				socket.close();
+				socket = null;
+			}
+		} catch (Exception ignored) {}
+	}
+
 	enum Position {
 		LEFT, RIGHT, NORMAL
 	};
@@ -44,15 +71,22 @@ public final class Signlink implements Runnable {
 
 	@Override
 	public void run() {
-		active = true;
 		String s = findcachedir();
 		try {
+			if (cache_dat != null) {
+				try { cache_dat.close(); } catch (Exception ignored) {}
+			}
 			cache_dat = new RandomAccessFile(s + "main_file_cache.dat", "rw");
-			for (int j = 0; j < 5; j++)
+			for (int j = 0; j < 5; j++) {
+				if (cache_idx[j] != null) {
+					try { cache_idx[j].close(); } catch (Exception ignored) {}
+				}
 				cache_idx[j] = new RandomAccessFile(s + "main_file_cache.idx" + j, "rw");
+			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+		active = true;
 		for (int i = threadliveid; threadliveid == i;) {
 			if (socketreq != 0) {
 				try {

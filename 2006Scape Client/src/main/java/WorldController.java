@@ -929,7 +929,7 @@ final class WorldController {
 				for (int k2 = anInt451; k2 < anInt452; k2++) {
 					Ground class30_sub3 = aclass30_sub3[i2][k2];
 					if (class30_sub3 != null) {
-						if (class30_sub3.anInt1321 > i1 || !aBooleanArrayArray492[i2 - anInt453 + drawDistance][k2 - anInt454 + drawDistance] && anIntArrayArrayArray440[k1][i2][k2] - l < 50) {
+						if (class30_sub3.anInt1321 > i1 || (!ClientSettings.ANDROID && !aBooleanArrayArray492[i2 - anInt453 + drawDistance][k2 - anInt454 + drawDistance]) && anIntArrayArrayArray440[k1][i2][k2] - l < 50) {
 							class30_sub3.aBoolean1322 = false;
 							class30_sub3.aBoolean1323 = false;
 							class30_sub3.anInt1325 = 0;
@@ -1706,7 +1706,7 @@ final class WorldController {
 				}
 				boolean flag = false;
 				while (k1 <= j2) {
-					if (aBooleanArrayArray492[l][k1++]) {
+					if (ClientSettings.ANDROID || aBooleanArrayArray492[l][k1++]) {
 						flag = true;
 						break;
 					}
@@ -1746,7 +1746,7 @@ final class WorldController {
 				}
 				boolean flag1 = false;
 				while (l1 <= k2) {
-					if (aBooleanArrayArray492[l1++][i1]) {
+					if (ClientSettings.ANDROID || aBooleanArrayArray492[l1++][i1]) {
 						flag1 = true;
 						break;
 					}
@@ -1792,7 +1792,7 @@ final class WorldController {
 						boolean flag2 = false;
 						label0 : for (int i4 = i3; i4 <= l3; i4++) {
 							for (int j4 = i2; j4 <= l2; j4++) {
-								if (!aBooleanArrayArray492[i4][j4]) {
+								if (!ClientSettings.ANDROID && !aBooleanArrayArray492[i4][j4]) {
 									continue;
 								}
 								flag2 = true;

@@ -2101,11 +2101,11 @@ final class Texture extends DrawingArea {
 	private static int[][] anIntArrayArray1483 = new int[50][];
 
 	static {
-		anIntArray1468 = new int[512];
+		anIntArray1468 = new int[2048];
 		anIntArray1469 = new int[2048];
 		anIntArray1470 = new int[2048];
 		anIntArray1471 = new int[2048];
-		for (int i = 1; i < 512; i++) {
+		for (int i = 1; i < 2048; i++) {
 			anIntArray1468[i] = 32768 / i;
 		}
 
