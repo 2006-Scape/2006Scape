@@ -13,20 +13,30 @@ public final class CommandEvent implements Event {
 	 * The name for this command.
 	 */
 	private final String name;
-	
+
 	/**
 	 * The input for this command.
 	 */
 	private final String input;
-	
+
+	/**
+	 * The arguments for this command.
+	 */
+	private final String[] arguments;
+
 	/**
 	 * Creates the command.
 	 */
 	public CommandEvent(String name, String input) {
+		this(name, input, new String[0]);
+	}
+
+	public CommandEvent(String name, String input, String[] arguments) {
 		this.name = name;
 		this.input = input;
-	}	
-	
+		this.arguments = arguments != null ? arguments : new String[0];
+	}
+
 	/**
 	 * Gets the name of this command.
 	 */
@@ -39,5 +49,12 @@ public final class CommandEvent implements Event {
 	 */
 	public String getInput() {
 		return input;
+	}
+
+	/**
+	 * Gets the arguments for this command.
+	 */
+	public String[] getArguments() {
+		return arguments;
 	}
 }

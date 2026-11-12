@@ -754,6 +754,16 @@ public abstract class Player {
 	}
 
 	/**
+	 * Posts a global server-level event to this world's event provider.
+	 *
+	 * @param event
+	 *            The event to post.
+	 */
+	public static <E extends Event> void postGlobal(E event) {
+		eventProvider.post(null, event);
+	}
+
+	/**
 	 * Provides an event subscriber to this worlds event provider.
 	 *
 	 * @param subscriber

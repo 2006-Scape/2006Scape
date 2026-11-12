@@ -7,12 +7,12 @@ import java.util.*;
 import com.rs2.Connection;
 import com.rs2.Constants;
 import com.rs2.GameEngine;
+import com.rs2.event.impl.CommandEvent;
 import com.rs2.game.bots.BotHandler;
 import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.*;
 import com.rs2.game.players.antimacro.AntiSpam;
-import com.rs2.integrations.discord.JavaCord;
 import com.rs2.net.Packet;
 import com.rs2.net.packets.PacketType;
 import com.rs2.util.Misc;
@@ -26,9 +26,13 @@ public class Commands implements PacketType {
 
     @Override
     public void processPacket(Player player, Packet packet) {
-        String[] messageArr = packet.readString().split(" ");
+        String fullPacket = packet.readString();
+        String[] messageArr = fullPacket.split(" ");
         String playerCommand = messageArr[0];
         String[] commandArguments = Arrays.copyOfRange(messageArr, 1, messageArr.length);
+
+        player.post(new CommandEvent(playerCommand, fullPacket, commandArguments));
+
         if ((playerCommand.startsWith("ban") || playerCommand.startsWith("ip") || playerCommand.startsWith("mute") || playerCommand.startsWith("un")) && player.playerRights > 0 && player.playerRights < 4) {
             writeLog(player.playerName, "commands", player.playerName + " used command: " + playerCommand);
         }
@@ -49,10 +53,6 @@ public class Commands implements PacketType {
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
             case "stuck":
-                if(JavaCord.token != null) {
-                    if (JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent())
-                        JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
-                }
                 System.err.println("Player " + player.playerName + " used ::stuck at X/Y: " + player.absX + "/" + player.absY);
                 player.getPlayerAssistant().spellTeleport(Constants.RESPAWN_X, Constants.RESPAWN_Y, 0);
                 break;
@@ -68,11 +68,6 @@ public class Commands implements PacketType {
                     long secondsLeft = TimeUnit.MILLISECONDS.toSeconds(remainingTime) - TimeUnit.MINUTES.toSeconds(minutesLeft);
                     player.getPacketSender().sendMessage("You need to wait " + minutesLeft + " minutes and " + secondsLeft + " seconds to use home teleport again.");
                 }
-                break;
-            case "link":
-                player.setDiscordCode(arguments[0]);
-                player.getPacketSender().sendMessage("Your Account has now been linked with Discord User ID:");
-                player.getPacketSender().sendMessage(player.getDiscordCode());
                 break;
             case "myxprate":
             case "checkxprate":

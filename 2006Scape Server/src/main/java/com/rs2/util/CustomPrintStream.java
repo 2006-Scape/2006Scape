@@ -39,14 +39,15 @@ public class CustomPrintStream extends PrintStream {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         // Set the default caller if we can't find the class for some reason
         String caller = "Unknown";
-        if (stack.length > 3) {
-            StackTraceElement elem = stack[3];
-            String className = elem.getClassName();
-            // Remove instance from class name since we care about files, not objects
-            className = className.replaceAll("\\$.*", "");
-            String simpleClassName = className.substring(className.lastIndexOf('.') + 1); // Get simple class name
-            String methodName = elem.getMethodName();
-            caller = simpleClassName + "." + methodName + "()";
+        for (int i = 2; i < stack.length; i++) {
+            String className = stack[i].getClassName();
+            if (!className.equals(CustomPrintStream.class.getName()) && !className.equals("kotlin.io.ConsoleKt")) {
+                className = className.replaceAll("\\$.*", "");
+                String simpleClassName = className.substring(className.lastIndexOf('.') + 1);
+                String methodName = stack[i].getMethodName().replaceAll("\\$lambda.*", "");
+                caller = simpleClassName + "." + methodName + "()";
+                break;
+            }
         }
 
         // Construct log message
@@ -69,6 +70,11 @@ public class CustomPrintStream extends PrintStream {
     @Override
     public void println(String x) {
         log(x);
+    }
+
+    @Override
+    public void println(Object x) {
+        log(String.valueOf(x));
     }
     
     public void close() {

@@ -1,8 +1,9 @@
 package com.rs2;
 
+import com.rs2.event.impl.ServerConfigEvent;
+import com.rs2.game.players.Player;
 import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
-import com.rs2.integrations.discord.JavaCord;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,79 +11,131 @@ import java.io.*;
 import java.util.stream.Collectors;
 
 public class ConfigLoader {
+    private static String currentConfigFile = null;
+    private static JSONObject currentConfigJson = new JSONObject();
+
+    public static JSONObject getCurrentConfig() {
+        return currentConfigJson;
+    }
+
+    public static String getCurrentConfigFile() {
+        return currentConfigFile;
+    }
+
+    public static void dispatchConfigEvent() {
+        Player.postGlobal(new ServerConfigEvent(currentConfigJson));
+    }
+
+    private static boolean has(JSONObject core, JSONObject root, String key) {
+        return (core != null && core.has(key)) || root.has(key);
+    }
+
+    private static String getString(JSONObject core, JSONObject root, String key, String defaultValue) {
+        if (core != null && core.has(key)) return core.getString(key);
+        if (root.has(key)) return root.getString(key);
+        return defaultValue;
+    }
+
+    private static int getInt(JSONObject core, JSONObject root, String key, int defaultValue) {
+        if (core != null && core.has(key)) return core.getInt(key);
+        if (root.has(key)) return root.getInt(key);
+        return defaultValue;
+    }
+
+    private static boolean getBoolean(JSONObject core, JSONObject root, String key, boolean defaultValue) {
+        if (core != null && core.has(key)) return core.getBoolean(key);
+        if (root.has(key)) return root.getBoolean(key);
+        return defaultValue;
+    }
+
+    private static double getDouble(JSONObject core, JSONObject root, String key, double defaultValue) {
+        if (core != null && core.has(key)) return core.getDouble(key);
+        if (root.has(key)) return root.getDouble(key);
+        return defaultValue;
+    }
+
+    private static JSONArray getJSONArray(JSONObject core, JSONObject root, String key) {
+        if (core != null && core.has(key)) return core.optJSONArray(key);
+        return root.optJSONArray(key);
+    }
 
     public static void loadSettings(String config) throws IOException {
+        currentConfigFile = config;
         BufferedReader br = new BufferedReader(new FileReader(config));
         String out = br.lines().collect(Collectors.joining("\n"));
         JSONObject obj = new JSONObject(out);
+        currentConfigJson = obj;
 
-        if (obj.has("server_name"))
-            Constants.SERVER_NAME = obj.getString("server_name");
-        if (obj.has("server_test_version"))
-            Constants.TEST_VERSION = obj.getDouble("server_test_version");
-        if (obj.has("gui_enabled"))
-            Constants.GUI_ENABLED = obj.getBoolean("gui_enabled");
-        if (obj.has("website_link"))
-            Constants.WEBSITE_LINK = obj.getString("website_link");
-        if (obj.has("server_debug"))
-            Constants.SERVER_DEBUG = obj.getBoolean("server_debug");
-        if (obj.has("file_server"))
-            Constants.FILE_SERVER = obj.getBoolean("file_server");
-        if (obj.has("http_port"))
-            Constants.HTTP_PORT = obj.getInt("http_port");
-        if (obj.has("jaggrab_port"))
-            Constants.JAGGRAB_PORT = obj.getInt("jaggrab_port");
-        if (obj.has("world_id"))
-            Constants.WORLD = obj.getInt("world_id");
-        if (obj.has("members_only"))
-            Constants.MEMBERS_ONLY = obj.getBoolean("members_only");
-        if (obj.has("tutorial_island_enabled"))
-            Constants.TUTORIAL_ISLAND = obj.getBoolean("tutorial_island_enabled");
-        if (obj.has("party_room_enabled"))
-            Constants.PARTY_ROOM_DISABLED = !obj.getBoolean("party_room_enabled");
-        if (obj.has("clues_enabled"))
-            Constants.CLUES_ENABLED = obj.getBoolean("clues_enabled");
-        if (obj.has("admin_can_trade"))
-            Constants.ADMIN_CAN_TRADE = obj.getBoolean("admin_can_trade");
-        if (obj.has("admin_can_drop_items"))
-            Constants.ADMIN_DROP_ITEMS = obj.getBoolean("admin_can_drop_items");
-        if (obj.has("admin_can_sell"))
-            Constants.ADMIN_CAN_SELL_ITEMS = obj.getBoolean("admin_can_sell");
-        if (obj.has("respawn_x"))
-            Constants.RESPAWN_X = obj.getInt("respawn_x");
-        if (obj.has("respawn_y"))
-            Constants.RESPAWN_Y = obj.getInt("respawn_y");
-        if (obj.has("save_timer"))
-            Constants.SAVE_TIMER = obj.getInt("save_timer");
-        if (obj.has("timeout"))
-            Constants.TIMEOUT = obj.getInt("timeout");
-        if (obj.has("item_requirements"))
-            Constants.ITEM_REQUIREMENTS = obj.getBoolean("item_requirements");
-        if (obj.has("variable_xp_rate"))
-            Constants.VARIABLE_XP_RATE = obj.getBoolean("variable_xp_rate");
-        if (obj.has("xp_rate"))
-            Constants.XP_RATE = obj.getDouble("xp_rate");
-        if (obj.has("max_players"))
-            Constants.MAX_PLAYERS = obj.getInt("max_players");
-        if (obj.has("variable_xp_rates")) {
-            JSONArray rates = obj.optJSONArray("variable_xp_rates");
-            for (int i = 0; i < rates.length(); ++i) {
-                Constants.VARIABLE_XP_RATES[i] = rates.optInt(i);
+        JSONObject core = obj.optJSONObject("core");
+
+        if (has(core, obj, "server_name"))
+            Constants.SERVER_NAME = getString(core, obj, "server_name", Constants.SERVER_NAME);
+        if (has(core, obj, "server_test_version"))
+            Constants.TEST_VERSION = getDouble(core, obj, "server_test_version", Constants.TEST_VERSION);
+        if (has(core, obj, "gui_enabled"))
+            Constants.GUI_ENABLED = getBoolean(core, obj, "gui_enabled", Constants.GUI_ENABLED);
+        if (has(core, obj, "website_link"))
+            Constants.WEBSITE_LINK = getString(core, obj, "website_link", Constants.WEBSITE_LINK);
+        if (has(core, obj, "server_debug"))
+            Constants.SERVER_DEBUG = getBoolean(core, obj, "server_debug", Constants.SERVER_DEBUG);
+        if (has(core, obj, "file_server"))
+            Constants.FILE_SERVER = getBoolean(core, obj, "file_server", Constants.FILE_SERVER);
+        if (has(core, obj, "http_port"))
+            Constants.HTTP_PORT = getInt(core, obj, "http_port", Constants.HTTP_PORT);
+        if (has(core, obj, "jaggrab_port"))
+            Constants.JAGGRAB_PORT = getInt(core, obj, "jaggrab_port", Constants.JAGGRAB_PORT);
+        if (has(core, obj, "world_id"))
+            Constants.WORLD = getInt(core, obj, "world_id", Constants.WORLD);
+        if (has(core, obj, "members_only"))
+            Constants.MEMBERS_ONLY = getBoolean(core, obj, "members_only", Constants.MEMBERS_ONLY);
+        if (has(core, obj, "tutorial_island_enabled"))
+            Constants.TUTORIAL_ISLAND = getBoolean(core, obj, "tutorial_island_enabled", Constants.TUTORIAL_ISLAND);
+        if (has(core, obj, "party_room_enabled"))
+            Constants.PARTY_ROOM_DISABLED = !getBoolean(core, obj, "party_room_enabled", !Constants.PARTY_ROOM_DISABLED);
+        if (has(core, obj, "clues_enabled"))
+            Constants.CLUES_ENABLED = getBoolean(core, obj, "clues_enabled", Constants.CLUES_ENABLED);
+        if (has(core, obj, "admin_can_trade"))
+            Constants.ADMIN_CAN_TRADE = getBoolean(core, obj, "admin_can_trade", Constants.ADMIN_CAN_TRADE);
+        if (has(core, obj, "admin_can_drop_items"))
+            Constants.ADMIN_DROP_ITEMS = getBoolean(core, obj, "admin_can_drop_items", Constants.ADMIN_DROP_ITEMS);
+        if (has(core, obj, "admin_can_sell"))
+            Constants.ADMIN_CAN_SELL_ITEMS = getBoolean(core, obj, "admin_can_sell", Constants.ADMIN_CAN_SELL_ITEMS);
+        if (has(core, obj, "respawn_x"))
+            Constants.RESPAWN_X = getInt(core, obj, "respawn_x", Constants.RESPAWN_X);
+        if (has(core, obj, "respawn_y"))
+            Constants.RESPAWN_Y = getInt(core, obj, "respawn_y", Constants.RESPAWN_Y);
+        if (has(core, obj, "save_timer"))
+            Constants.SAVE_TIMER = getInt(core, obj, "save_timer", Constants.SAVE_TIMER);
+        if (has(core, obj, "timeout"))
+            Constants.TIMEOUT = getInt(core, obj, "timeout", Constants.TIMEOUT);
+        if (has(core, obj, "item_requirements"))
+            Constants.ITEM_REQUIREMENTS = getBoolean(core, obj, "item_requirements", Constants.ITEM_REQUIREMENTS);
+        if (has(core, obj, "variable_xp_rate"))
+            Constants.VARIABLE_XP_RATE = getBoolean(core, obj, "variable_xp_rate", Constants.VARIABLE_XP_RATE);
+        if (has(core, obj, "xp_rate"))
+            Constants.XP_RATE = getDouble(core, obj, "xp_rate", Constants.XP_RATE);
+        if (has(core, obj, "max_players"))
+            Constants.MAX_PLAYERS = getInt(core, obj, "max_players", Constants.MAX_PLAYERS);
+        if (has(core, obj, "variable_xp_rates")) {
+            JSONArray rates = getJSONArray(core, obj, "variable_xp_rates");
+            if (rates != null) {
+                for (int i = 0; i < rates.length(); ++i) {
+                    Constants.VARIABLE_XP_RATES[i] = rates.optInt(i);
+                }
             }
         }
-        if (obj.has("website_integration"))
-            Constants.WEBSITE_INTEGRATION = obj.getBoolean("website_integration");
+        if (has(core, obj, "website_integration"))
+            Constants.WEBSITE_INTEGRATION = getBoolean(core, obj, "website_integration", Constants.WEBSITE_INTEGRATION);
         
-        if (obj.has("cycle_logging")) 
-            Constants.CYCLE_LOGGING = obj.getBoolean("cycle_logging");
-        if (obj.has("cycle_logging_tick")) 
-            Constants.CYCLE_LOGGING_TICK = obj.getInt("cycle_logging_tick");
+        if (has(core, obj, "cycle_logging")) 
+            Constants.CYCLE_LOGGING = getBoolean(core, obj, "cycle_logging", Constants.CYCLE_LOGGING);
+        if (has(core, obj, "cycle_logging_tick")) 
+            Constants.CYCLE_LOGGING_TICK = getInt(core, obj, "cycle_logging_tick", Constants.CYCLE_LOGGING_TICK);
     }
 
     private static void initialize() {
         JSONObject main = new JSONObject();
         main
-                .put("bot-token", "")
                 .put("websitepass", "")
                 .put("erssecret", "");
         try {
@@ -97,7 +150,6 @@ public class ConfigLoader {
     public static void loadSecrets() throws IOException {
         if (!new File("data/secrets.json").exists()) {
             initialize();
-            System.out.println("Please open \"data/secrets.json\" file and enter your discord token bot there!");
             System.out.println("Please open \"data/secrets.json\" file and enter your Website Password there!");
 
         } else {
@@ -108,11 +160,11 @@ public class ConfigLoader {
             /*
              * Sets External Services Vars
              */
-            if (obj.has("bot-token"))
-                JavaCord.token = obj.getString("bot-token");
-            if (obj.has("websitepass"))
-                PlayersOnlineWebsite.password = obj.getString("websitepass");
-            RegisteredAccsWebsite.password = obj.getString("websitepass");
+            if (obj.has("websitepass")) {
+                String pass = obj.getString("websitepass");
+                PlayersOnlineWebsite.password = pass;
+                RegisteredAccsWebsite.password = pass;
+            }
             if (obj.has("erssecret"))
                 GameEngine.ersSecret = obj.getString("erssecret");
 

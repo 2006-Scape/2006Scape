@@ -40,7 +40,7 @@ public final class PluginService {
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "A problem was encountered while trying to load plugins.", e);
 		}
-		logger.info("Loaded: " + subscribers.size() + " plugins.");
+		System.out.println("Loaded: " + subscribers.size() + " plugins.");
 	}
 	
 	/**
@@ -80,14 +80,22 @@ public final class PluginService {
 
 			if (!file.isDirectory()) {
 				try {
-					Class<?> clazz = Class.forName(base);
+					Class<?> clazz = null;
+					try {
+						clazz = Class.forName(base);
+					} catch (ClassNotFoundException e) {
+						try {
+							clazz = Class.forName(base + "Kt");
+						} catch (ClassNotFoundException ignored) {
+						}
+					}
 
-					if (EventSubscriber.class.isAssignableFrom(clazz) && !Modifier.isInterface(clazz.getModifiers()) && !Modifier.isAbstract(clazz.getModifiers())) {
+					if (clazz != null && EventSubscriber.class.isAssignableFrom(clazz) && !Modifier.isInterface(clazz.getModifiers()) && !Modifier.isAbstract(clazz.getModifiers())) {
 						final EventSubscriber<?> sub = (EventSubscriber<?>) clazz.newInstance();
 
 						plugins.add(sub);
 					}
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+				} catch (InstantiationException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 

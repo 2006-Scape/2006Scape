@@ -37,14 +37,14 @@ import com.rs2.game.globalworldobjects.DoubleDoors;
 import com.rs2.game.items.ItemDefinitions;
 import com.rs2.game.npcs.NpcHandler;
 import com.rs2.game.players.Client;
+import com.rs2.event.impl.ServerShutdownEvent;
+import com.rs2.event.impl.ServerStartupEvent;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.game.players.PlayerSave;
 import com.rs2.game.shops.ShopHandler;
 import com.rs2.integrations.PlayersOnlineWebsite;
 import com.rs2.integrations.RegisteredAccsWebsite;
-import com.rs2.integrations.discord.DiscordActivity;
-import com.rs2.integrations.discord.JavaCord;
 import com.rs2.util.HostBlacklist;
 import com.rs2.world.GlobalDropsHandler;
 import com.rs2.world.ItemHandler;
@@ -180,11 +180,12 @@ public class GameEngine {
 		 */
 		System.out.println("Launching " + Constants.SERVER_NAME + " World: " + Constants.WORLD + "...");
 
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> Player.postGlobal(new ServerShutdownEvent())));
+
 		/**
 		 * Start Integration Services
 		 **/
 		ConfigLoader.loadSecrets();
-		JavaCord.init();
 
 		/**
 		 * Accepting Connections
@@ -221,6 +222,8 @@ public class GameEngine {
 		 * Load Plugins
 		 */
 		Player.getPluginService().load();
+		ConfigLoader.dispatchConfigEvent();
+		Player.postGlobal(new ServerStartupEvent());
 
 		/**
 		 * Server Successfully Loaded
@@ -306,9 +309,6 @@ public class GameEngine {
 					if (Constants.WEBSITE_INTEGRATION) {
 						PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
 						RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
-					}
-					if (DiscordActivity.playerCount) {
-						DiscordActivity.updateActivity();
 					}
 					long durationIntegrationEvents = System.currentTimeMillis() - startIntegrationEvents;
 					checkAndLogDuration("IntegrationEvents", durationIntegrationEvents);
