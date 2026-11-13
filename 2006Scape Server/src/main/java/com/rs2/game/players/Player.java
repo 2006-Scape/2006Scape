@@ -1,6 +1,5 @@
 package com.rs2.game.players;
 
-import com.everythingrs.hiscores.Hiscores;
 import com.rs2.Constants;
 import com.rs2.GameEngine;
 import com.rs2.event.*;
@@ -623,14 +622,6 @@ public abstract class Player {
 		}
 		if (hasNpc) {
 			getSummon().pickUpPet(this, summonId);
-		}
-
-		if(GameEngine.ersSecret  != null && !GameEngine.ersSecret.equals("") && this.playerRights < 2) {
-			boolean debugMessage = false;
-			System.out.println("Updating highscores for " + this.playerName + "!");
-			Hiscores.update(GameEngine.ersSecret, "Normal Mode", this.playerName, this.playerRights, this.playerXP, debugMessage);
-		} else {
-			System.out.println("EverythingRS API Disabled, highscores not saved!");
 		}
 
 		System.out.println("[DEREGISTERED]: " + playerName + "");

@@ -90,30 +90,4 @@ public class ConfigLoader {
         bindBoolean(core, "cycle_logging", val -> Constants.CYCLE_LOGGING = val);
         bindInt(core, "cycle_logging_tick", val -> Constants.CYCLE_LOGGING_TICK = val);
     }
-
-    private static void initialize() {
-        JSONObject main = new JSONObject();
-        main.put("erssecret", "");
-        try (BufferedWriter br = new BufferedWriter(new FileWriter("data/secrets.json"))) {
-            br.write(main.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void loadSecrets() throws IOException {
-        if (!new File("data/secrets.json").exists()) {
-            initialize();
-        } else {
-            String out = new String(Files.readAllBytes(Paths.get("data/secrets.json")), StandardCharsets.UTF_8);
-            JSONObject obj = new JSONObject(out);
-
-            /*
-             * Sets External Services Vars
-             */
-            if (obj.has("erssecret"))
-                GameEngine.ersSecret = obj.getString("erssecret");
-
-        }
-    }
 }

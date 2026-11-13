@@ -96,7 +96,6 @@ public class GameEngine {
 		return d;
 	}
 
-	public static String ersSecret;
 	public static int[] cannonsX = new int[50];
 	public static int[] cannonsY = new int[50];
 	public static String[] cannonsO = new String[50];
@@ -179,11 +178,6 @@ public class GameEngine {
 		System.out.println("Launching " + Constants.SERVER_NAME + " World: " + Constants.WORLD + "...");
 
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> Player.postGlobal(new ServerShutdownEvent())));
-
-		/**
-		 * Start Integration Services
-		 **/
-		ConfigLoader.loadSecrets();
 
 		/**
 		 * Accepting Connections

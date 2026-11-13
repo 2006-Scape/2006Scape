@@ -123,13 +123,6 @@
             <artifactId>gson</artifactId>
             <version>2.8.9</version>
         </dependency>
-        <dependency>
-            <groupId>com.everythingrs</groupId>
-            <artifactId>api</artifactId>
-            <version>3.0.5</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/everythingrs-api.jar</systemPath>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
