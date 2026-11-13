@@ -452,6 +452,7 @@ public abstract class Player {
 
 	private int tempInteger;
 	public boolean tempBoolean;
+	private String tempString;
 
 	public void setTempInteger(int tempInteger) {
 		this.tempInteger = tempInteger;
@@ -459,6 +460,14 @@ public abstract class Player {
 
 	public int getTempInteger() {
 		return tempInteger;
+	}
+
+	public void setTempString(String tempString) {
+		this.tempString = tempString;
+	}
+
+	public String getTempString() {
+		return tempString;
 	}
 
 	public int totalShopItems;
