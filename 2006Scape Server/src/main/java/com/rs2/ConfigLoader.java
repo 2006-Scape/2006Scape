@@ -26,39 +26,6 @@ public class ConfigLoader {
         Player.postGlobal(new ServerConfigEvent(currentConfigJson));
     }
 
-    private static boolean has(JSONObject core, JSONObject root, String key) {
-        return (core != null && core.has(key)) || root.has(key);
-    }
-
-    private static String getString(JSONObject core, JSONObject root, String key, String defaultValue) {
-        if (core != null && core.has(key)) return core.getString(key);
-        if (root.has(key)) return root.getString(key);
-        return defaultValue;
-    }
-
-    private static int getInt(JSONObject core, JSONObject root, String key, int defaultValue) {
-        if (core != null && core.has(key)) return core.getInt(key);
-        if (root.has(key)) return root.getInt(key);
-        return defaultValue;
-    }
-
-    private static boolean getBoolean(JSONObject core, JSONObject root, String key, boolean defaultValue) {
-        if (core != null && core.has(key)) return core.getBoolean(key);
-        if (root.has(key)) return root.getBoolean(key);
-        return defaultValue;
-    }
-
-    private static double getDouble(JSONObject core, JSONObject root, String key, double defaultValue) {
-        if (core != null && core.has(key)) return core.getDouble(key);
-        if (root.has(key)) return root.getDouble(key);
-        return defaultValue;
-    }
-
-    private static JSONArray getJSONArray(JSONObject core, JSONObject root, String key) {
-        if (core != null && core.has(key)) return core.optJSONArray(key);
-        return root.optJSONArray(key);
-    }
-
     public static void loadSettings(String config) throws IOException {
         currentConfigFile = config;
         String out;
@@ -70,70 +37,74 @@ public class ConfigLoader {
         currentConfigJson = obj;
 
         JSONObject core = obj.optJSONObject("core");
+        if (core == null) {
+            System.err.println("Configuration error: Missing 'core' configuration group in " + config);
+            return;
+        }
 
-        if (has(core, obj, "server_name"))
-            Constants.SERVER_NAME = getString(core, obj, "server_name", Constants.SERVER_NAME);
-        if (has(core, obj, "server_test_version"))
-            Constants.TEST_VERSION = getDouble(core, obj, "server_test_version", Constants.TEST_VERSION);
-        if (has(core, obj, "gui_enabled"))
-            Constants.GUI_ENABLED = getBoolean(core, obj, "gui_enabled", Constants.GUI_ENABLED);
-        if (has(core, obj, "website_link"))
-            Constants.WEBSITE_LINK = getString(core, obj, "website_link", Constants.WEBSITE_LINK);
-        if (has(core, obj, "server_debug"))
-            Constants.SERVER_DEBUG = getBoolean(core, obj, "server_debug", Constants.SERVER_DEBUG);
-        if (has(core, obj, "file_server"))
-            Constants.FILE_SERVER = getBoolean(core, obj, "file_server", Constants.FILE_SERVER);
-        if (has(core, obj, "http_port"))
-            Constants.HTTP_PORT = getInt(core, obj, "http_port", Constants.HTTP_PORT);
-        if (has(core, obj, "jaggrab_port"))
-            Constants.JAGGRAB_PORT = getInt(core, obj, "jaggrab_port", Constants.JAGGRAB_PORT);
-        if (has(core, obj, "world_id"))
-            Constants.WORLD = getInt(core, obj, "world_id", Constants.WORLD);
-        if (has(core, obj, "members_only"))
-            Constants.MEMBERS_ONLY = getBoolean(core, obj, "members_only", Constants.MEMBERS_ONLY);
-        if (has(core, obj, "tutorial_island_enabled"))
-            Constants.TUTORIAL_ISLAND = getBoolean(core, obj, "tutorial_island_enabled", Constants.TUTORIAL_ISLAND);
-        if (has(core, obj, "party_room_enabled"))
-            Constants.PARTY_ROOM_DISABLED = !getBoolean(core, obj, "party_room_enabled", !Constants.PARTY_ROOM_DISABLED);
-        if (has(core, obj, "clues_enabled"))
-            Constants.CLUES_ENABLED = getBoolean(core, obj, "clues_enabled", Constants.CLUES_ENABLED);
-        if (has(core, obj, "admin_can_trade"))
-            Constants.ADMIN_CAN_TRADE = getBoolean(core, obj, "admin_can_trade", Constants.ADMIN_CAN_TRADE);
-        if (has(core, obj, "admin_can_drop_items"))
-            Constants.ADMIN_DROP_ITEMS = getBoolean(core, obj, "admin_can_drop_items", Constants.ADMIN_DROP_ITEMS);
-        if (has(core, obj, "admin_can_sell"))
-            Constants.ADMIN_CAN_SELL_ITEMS = getBoolean(core, obj, "admin_can_sell", Constants.ADMIN_CAN_SELL_ITEMS);
-        if (has(core, obj, "respawn_x"))
-            Constants.RESPAWN_X = getInt(core, obj, "respawn_x", Constants.RESPAWN_X);
-        if (has(core, obj, "respawn_y"))
-            Constants.RESPAWN_Y = getInt(core, obj, "respawn_y", Constants.RESPAWN_Y);
-        if (has(core, obj, "save_timer"))
-            Constants.SAVE_TIMER = getInt(core, obj, "save_timer", Constants.SAVE_TIMER);
-        if (has(core, obj, "timeout"))
-            Constants.TIMEOUT = getInt(core, obj, "timeout", Constants.TIMEOUT);
-        if (has(core, obj, "item_requirements"))
-            Constants.ITEM_REQUIREMENTS = getBoolean(core, obj, "item_requirements", Constants.ITEM_REQUIREMENTS);
-        if (has(core, obj, "variable_xp_rate"))
-            Constants.VARIABLE_XP_RATE = getBoolean(core, obj, "variable_xp_rate", Constants.VARIABLE_XP_RATE);
-        if (has(core, obj, "xp_rate"))
-            Constants.XP_RATE = getDouble(core, obj, "xp_rate", Constants.XP_RATE);
-        if (has(core, obj, "max_players"))
-            Constants.MAX_PLAYERS = getInt(core, obj, "max_players", Constants.MAX_PLAYERS);
-        if (has(core, obj, "variable_xp_rates")) {
-            JSONArray rates = getJSONArray(core, obj, "variable_xp_rates");
+        if (core.has("server_name"))
+            Constants.SERVER_NAME = core.getString("server_name");
+        if (core.has("server_test_version"))
+            Constants.TEST_VERSION = core.getDouble("server_test_version");
+        if (core.has("gui_enabled"))
+            Constants.GUI_ENABLED = core.getBoolean("gui_enabled");
+        if (core.has("website_link"))
+            Constants.WEBSITE_LINK = core.getString("website_link");
+        if (core.has("server_debug"))
+            Constants.SERVER_DEBUG = core.getBoolean("server_debug");
+        if (core.has("file_server"))
+            Constants.FILE_SERVER = core.getBoolean("file_server");
+        if (core.has("http_port"))
+            Constants.HTTP_PORT = core.getInt("http_port");
+        if (core.has("jaggrab_port"))
+            Constants.JAGGRAB_PORT = core.getInt("jaggrab_port");
+        if (core.has("world_id"))
+            Constants.WORLD = core.getInt("world_id");
+        if (core.has("members_only"))
+            Constants.MEMBERS_ONLY = core.getBoolean("members_only");
+        if (core.has("tutorial_island_enabled"))
+            Constants.TUTORIAL_ISLAND = core.getBoolean("tutorial_island_enabled");
+        if (core.has("party_room_enabled"))
+            Constants.PARTY_ROOM_DISABLED = !core.getBoolean("party_room_enabled");
+        if (core.has("clues_enabled"))
+            Constants.CLUES_ENABLED = core.getBoolean("clues_enabled");
+        if (core.has("admin_can_trade"))
+            Constants.ADMIN_CAN_TRADE = core.getBoolean("admin_can_trade");
+        if (core.has("admin_can_drop_items"))
+            Constants.ADMIN_DROP_ITEMS = core.getBoolean("admin_can_drop_items");
+        if (core.has("admin_can_sell"))
+            Constants.ADMIN_CAN_SELL_ITEMS = core.getBoolean("admin_can_sell");
+        if (core.has("respawn_x"))
+            Constants.RESPAWN_X = core.getInt("respawn_x");
+        if (core.has("respawn_y"))
+            Constants.RESPAWN_Y = core.getInt("respawn_y");
+        if (core.has("save_timer"))
+            Constants.SAVE_TIMER = core.getInt("save_timer");
+        if (core.has("timeout"))
+            Constants.TIMEOUT = core.getInt("timeout");
+        if (core.has("item_requirements"))
+            Constants.ITEM_REQUIREMENTS = core.getBoolean("item_requirements");
+        if (core.has("variable_xp_rate"))
+            Constants.VARIABLE_XP_RATE = core.getBoolean("variable_xp_rate");
+        if (core.has("xp_rate"))
+            Constants.XP_RATE = core.getDouble("xp_rate");
+        if (core.has("max_players"))
+            Constants.MAX_PLAYERS = core.getInt("max_players");
+        if (core.has("variable_xp_rates")) {
+            JSONArray rates = core.optJSONArray("variable_xp_rates");
             if (rates != null) {
                 for (int i = 0; i < rates.length(); ++i) {
                     Constants.VARIABLE_XP_RATES[i] = rates.optInt(i);
                 }
             }
         }
-        if (has(core, obj, "website_integration"))
-            Constants.WEBSITE_INTEGRATION = getBoolean(core, obj, "website_integration", Constants.WEBSITE_INTEGRATION);
+        if (core.has("website_integration"))
+            Constants.WEBSITE_INTEGRATION = core.getBoolean("website_integration");
         
-        if (has(core, obj, "cycle_logging")) 
-            Constants.CYCLE_LOGGING = getBoolean(core, obj, "cycle_logging", Constants.CYCLE_LOGGING);
-        if (has(core, obj, "cycle_logging_tick")) 
-            Constants.CYCLE_LOGGING_TICK = getInt(core, obj, "cycle_logging_tick", Constants.CYCLE_LOGGING_TICK);
+        if (core.has("cycle_logging")) 
+            Constants.CYCLE_LOGGING = core.getBoolean("cycle_logging");
+        if (core.has("cycle_logging_tick")) 
+            Constants.CYCLE_LOGGING_TICK = core.getInt("cycle_logging_tick");
     }
 
     private static void initialize() {
