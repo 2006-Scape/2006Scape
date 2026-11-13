@@ -61,8 +61,11 @@ public class ConfigLoader {
 
     public static void loadSettings(String config) throws IOException {
         currentConfigFile = config;
-        BufferedReader br = new BufferedReader(new FileReader(config));
-        String out = br.lines().collect(Collectors.joining("\n"));
+        String out;
+        try (
+            BufferedReader br = new BufferedReader(new FileReader(config))) {
+            out = br.lines().collect(Collectors.joining("\n"));
+        }
         JSONObject obj = new JSONObject(out);
         currentConfigJson = obj;
 
@@ -138,10 +141,8 @@ public class ConfigLoader {
         main
                 .put("websitepass", "")
                 .put("erssecret", "");
-        try {
-            BufferedWriter br = new BufferedWriter(new FileWriter("data/secrets.json"));
+        try (BufferedWriter br = new BufferedWriter(new FileWriter("data/secrets.json"))) {
             br.write(main.toString());
-            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -153,8 +154,11 @@ public class ConfigLoader {
             System.out.println("Please open \"data/secrets.json\" file and enter your Website Password there!");
 
         } else {
-            BufferedReader br = new BufferedReader(new FileReader("data/secrets.json"));
-            String out = br.lines().collect(Collectors.joining("\n"));
+            String out;
+            try (
+                BufferedReader br = new BufferedReader(new FileReader("data/secrets.json"))) {
+                out = br.lines().collect(Collectors.joining("\n"));
+            }
             JSONObject obj = new JSONObject(out);
 
             /*
