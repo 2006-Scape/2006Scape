@@ -63,4 +63,8 @@ public class NPCDropsHandler {
         return Misc.random(max);
     }
 
+    public static NpcDrop[] getNpcDrops() {
+        return npcDrops;
+    }
+
 }
