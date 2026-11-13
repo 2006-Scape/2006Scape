@@ -2,8 +2,6 @@ package com.rs2;
 
 import com.rs2.event.impl.ServerConfigEvent;
 import com.rs2.game.players.Player;
-import com.rs2.integrations.PlayersOnlineWebsite;
-import com.rs2.integrations.RegisteredAccsWebsite;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -89,16 +87,13 @@ public class ConfigLoader {
                 }
             }
         }
-        bindBoolean(core, "website_integration", val -> Constants.WEBSITE_INTEGRATION = val);
         bindBoolean(core, "cycle_logging", val -> Constants.CYCLE_LOGGING = val);
         bindInt(core, "cycle_logging_tick", val -> Constants.CYCLE_LOGGING_TICK = val);
     }
 
     private static void initialize() {
         JSONObject main = new JSONObject();
-        main
-                .put("websitepass", "")
-                .put("erssecret", "");
+        main.put("erssecret", "");
         try (BufferedWriter br = new BufferedWriter(new FileWriter("data/secrets.json"))) {
             br.write(main.toString());
         } catch (IOException e) {
@@ -109,8 +104,6 @@ public class ConfigLoader {
     public static void loadSecrets() throws IOException {
         if (!new File("data/secrets.json").exists()) {
             initialize();
-            System.out.println("Please open \"data/secrets.json\" file and enter your Website Password there!");
-
         } else {
             String out = new String(Files.readAllBytes(Paths.get("data/secrets.json")), StandardCharsets.UTF_8);
             JSONObject obj = new JSONObject(out);
@@ -118,11 +111,6 @@ public class ConfigLoader {
             /*
              * Sets External Services Vars
              */
-            if (obj.has("websitepass")) {
-                String pass = obj.getString("websitepass");
-                PlayersOnlineWebsite.password = pass;
-                RegisteredAccsWebsite.password = pass;
-            }
             if (obj.has("erssecret"))
                 GameEngine.ersSecret = obj.getString("erssecret");
 

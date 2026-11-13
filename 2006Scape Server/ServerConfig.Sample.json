@@ -24,7 +24,6 @@
     "timeout": 60,
     "item_requirements": true,
     "max_players": 200,
-    "website_integration": false,
     "cycle_logging": true,
     "cycle_logging_tick": 10
   },
@@ -33,5 +32,10 @@
     "welcome_channel_id": "655143683083206667",
     "log_channel_id": "1083146780507656294",
     "player_count": false
+  },
+  "website": {
+    "password": "",
+    "players_online": false,
+    "registered_accounts": false
   }
 }

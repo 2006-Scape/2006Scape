@@ -43,8 +43,6 @@ import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.game.players.PlayerSave;
 import com.rs2.game.shops.ShopHandler;
-import com.rs2.integrations.PlayersOnlineWebsite;
-import com.rs2.integrations.RegisteredAccsWebsite;
 import com.rs2.util.HostBlacklist;
 import com.rs2.world.GlobalDropsHandler;
 import com.rs2.world.ItemHandler;
@@ -305,13 +303,6 @@ public class GameEngine {
 					CycleEventHandler.getSingleton().process();
 					long durationCycleEventHandler = System.currentTimeMillis() - startCycleEventHandler;
 					checkAndLogDuration("CycleEventHandler", durationCycleEventHandler);
-					long startIntegrationEvents = System.currentTimeMillis();
-					if (Constants.WEBSITE_INTEGRATION) {
-						PlayersOnlineWebsite.addUpdatePlayersOnlineTask();
-						RegisteredAccsWebsite.addUpdateRegisteredUsersTask();
-					}
-					long durationIntegrationEvents = System.currentTimeMillis() - startIntegrationEvents;
-					checkAndLogDuration("IntegrationEvents", durationIntegrationEvents);
 					long startSaveEvents = System.currentTimeMillis();
 					if (System.currentTimeMillis() - lastMassSave > 300000) {
 						for (Player p : PlayerHandler.players) {
