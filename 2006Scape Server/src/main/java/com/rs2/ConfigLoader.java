@@ -8,7 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.util.stream.Collectors;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.function.Consumer;
 
 public class ConfigLoader {
     private static String currentConfigFile = null;
@@ -26,13 +29,25 @@ public class ConfigLoader {
         Player.postGlobal(new ServerConfigEvent(currentConfigJson));
     }
 
+    private static void bindString(JSONObject json, String key, Consumer<String> consumer) {
+        if (json.has(key)) consumer.accept(json.getString(key));
+    }
+
+    private static void bindInt(JSONObject json, String key, Consumer<Integer> consumer) {
+        if (json.has(key)) consumer.accept(json.getInt(key));
+    }
+
+    private static void bindBoolean(JSONObject json, String key, Consumer<Boolean> consumer) {
+        if (json.has(key)) consumer.accept(json.getBoolean(key));
+    }
+
+    private static void bindDouble(JSONObject json, String key, Consumer<Double> consumer) {
+        if (json.has(key)) consumer.accept(json.getDouble(key));
+    }
+
     public static void loadSettings(String config) throws IOException {
         currentConfigFile = config;
-        String out;
-        try (
-            BufferedReader br = new BufferedReader(new FileReader(config))) {
-            out = br.lines().collect(Collectors.joining("\n"));
-        }
+        String out = new String(Files.readAllBytes(Paths.get(config)), StandardCharsets.UTF_8);
         JSONObject obj = new JSONObject(out);
         currentConfigJson = obj;
 
@@ -42,54 +57,30 @@ public class ConfigLoader {
             return;
         }
 
-        if (core.has("server_name"))
-            Constants.SERVER_NAME = core.getString("server_name");
-        if (core.has("server_test_version"))
-            Constants.TEST_VERSION = core.getDouble("server_test_version");
-        if (core.has("gui_enabled"))
-            Constants.GUI_ENABLED = core.getBoolean("gui_enabled");
-        if (core.has("website_link"))
-            Constants.WEBSITE_LINK = core.getString("website_link");
-        if (core.has("server_debug"))
-            Constants.SERVER_DEBUG = core.getBoolean("server_debug");
-        if (core.has("file_server"))
-            Constants.FILE_SERVER = core.getBoolean("file_server");
-        if (core.has("http_port"))
-            Constants.HTTP_PORT = core.getInt("http_port");
-        if (core.has("jaggrab_port"))
-            Constants.JAGGRAB_PORT = core.getInt("jaggrab_port");
-        if (core.has("world_id"))
-            Constants.WORLD = core.getInt("world_id");
-        if (core.has("members_only"))
-            Constants.MEMBERS_ONLY = core.getBoolean("members_only");
-        if (core.has("tutorial_island_enabled"))
-            Constants.TUTORIAL_ISLAND = core.getBoolean("tutorial_island_enabled");
-        if (core.has("party_room_enabled"))
-            Constants.PARTY_ROOM_DISABLED = !core.getBoolean("party_room_enabled");
-        if (core.has("clues_enabled"))
-            Constants.CLUES_ENABLED = core.getBoolean("clues_enabled");
-        if (core.has("admin_can_trade"))
-            Constants.ADMIN_CAN_TRADE = core.getBoolean("admin_can_trade");
-        if (core.has("admin_can_drop_items"))
-            Constants.ADMIN_DROP_ITEMS = core.getBoolean("admin_can_drop_items");
-        if (core.has("admin_can_sell"))
-            Constants.ADMIN_CAN_SELL_ITEMS = core.getBoolean("admin_can_sell");
-        if (core.has("respawn_x"))
-            Constants.RESPAWN_X = core.getInt("respawn_x");
-        if (core.has("respawn_y"))
-            Constants.RESPAWN_Y = core.getInt("respawn_y");
-        if (core.has("save_timer"))
-            Constants.SAVE_TIMER = core.getInt("save_timer");
-        if (core.has("timeout"))
-            Constants.TIMEOUT = core.getInt("timeout");
-        if (core.has("item_requirements"))
-            Constants.ITEM_REQUIREMENTS = core.getBoolean("item_requirements");
-        if (core.has("variable_xp_rate"))
-            Constants.VARIABLE_XP_RATE = core.getBoolean("variable_xp_rate");
-        if (core.has("xp_rate"))
-            Constants.XP_RATE = core.getDouble("xp_rate");
-        if (core.has("max_players"))
-            Constants.MAX_PLAYERS = core.getInt("max_players");
+        bindString(core, "server_name", val -> Constants.SERVER_NAME = val);
+        bindDouble(core, "server_test_version", val -> Constants.TEST_VERSION = val);
+        bindBoolean(core, "gui_enabled", val -> Constants.GUI_ENABLED = val);
+        bindString(core, "website_link", val -> Constants.WEBSITE_LINK = val);
+        bindBoolean(core, "server_debug", val -> Constants.SERVER_DEBUG = val);
+        bindBoolean(core, "file_server", val -> Constants.FILE_SERVER = val);
+        bindInt(core, "http_port", val -> Constants.HTTP_PORT = val);
+        bindInt(core, "jaggrab_port", val -> Constants.JAGGRAB_PORT = val);
+        bindInt(core, "world_id", val -> Constants.WORLD = val);
+        bindBoolean(core, "members_only", val -> Constants.MEMBERS_ONLY = val);
+        bindBoolean(core, "tutorial_island_enabled", val -> Constants.TUTORIAL_ISLAND = val);
+        bindBoolean(core, "party_room_enabled", val -> Constants.PARTY_ROOM_DISABLED = !val);
+        bindBoolean(core, "clues_enabled", val -> Constants.CLUES_ENABLED = val);
+        bindBoolean(core, "admin_can_trade", val -> Constants.ADMIN_CAN_TRADE = val);
+        bindBoolean(core, "admin_can_drop_items", val -> Constants.ADMIN_DROP_ITEMS = val);
+        bindBoolean(core, "admin_can_sell", val -> Constants.ADMIN_CAN_SELL_ITEMS = val);
+        bindInt(core, "respawn_x", val -> Constants.RESPAWN_X = val);
+        bindInt(core, "respawn_y", val -> Constants.RESPAWN_Y = val);
+        bindInt(core, "save_timer", val -> Constants.SAVE_TIMER = val);
+        bindInt(core, "timeout", val -> Constants.TIMEOUT = val);
+        bindBoolean(core, "item_requirements", val -> Constants.ITEM_REQUIREMENTS = val);
+        bindBoolean(core, "variable_xp_rate", val -> Constants.VARIABLE_XP_RATE = val);
+        bindDouble(core, "xp_rate", val -> Constants.XP_RATE = val);
+        bindInt(core, "max_players", val -> Constants.MAX_PLAYERS = val);
         if (core.has("variable_xp_rates")) {
             JSONArray rates = core.optJSONArray("variable_xp_rates");
             if (rates != null) {
@@ -98,13 +89,9 @@ public class ConfigLoader {
                 }
             }
         }
-        if (core.has("website_integration"))
-            Constants.WEBSITE_INTEGRATION = core.getBoolean("website_integration");
-        
-        if (core.has("cycle_logging")) 
-            Constants.CYCLE_LOGGING = core.getBoolean("cycle_logging");
-        if (core.has("cycle_logging_tick")) 
-            Constants.CYCLE_LOGGING_TICK = core.getInt("cycle_logging_tick");
+        bindBoolean(core, "website_integration", val -> Constants.WEBSITE_INTEGRATION = val);
+        bindBoolean(core, "cycle_logging", val -> Constants.CYCLE_LOGGING = val);
+        bindInt(core, "cycle_logging_tick", val -> Constants.CYCLE_LOGGING_TICK = val);
     }
 
     private static void initialize() {
@@ -125,11 +112,7 @@ public class ConfigLoader {
             System.out.println("Please open \"data/secrets.json\" file and enter your Website Password there!");
 
         } else {
-            String out;
-            try (
-                BufferedReader br = new BufferedReader(new FileReader("data/secrets.json"))) {
-                out = br.lines().collect(Collectors.joining("\n"));
-            }
+            String out = new String(Files.readAllBytes(Paths.get("data/secrets.json")), StandardCharsets.UTF_8);
             JSONObject obj = new JSONObject(out);
 
             /*
