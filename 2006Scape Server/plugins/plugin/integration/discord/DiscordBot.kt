@@ -70,14 +70,18 @@ object DiscordBot {
                             GatewayIntent.GUILD_MEMBERS
                         )
                         .setStatus(OnlineStatus.ONLINE)
-                        .setActivity(Activity.playing(DiscordActivity.getCurrentActivityText()))
                         .addEventListeners(*listeners.toTypedArray())
+
+                    if (Constants.WORLD == 1) {
+                        builder.setActivity(Activity.playing(DiscordActivity.getCurrentActivityText()))
+                    }
 
                     val builtJda = builder.build()
                     builtJda.awaitReady()
                     jda = builtJda
-                    startActivityScheduler()
-                    DiscordActivity.updateActivity(force = true)
+                    if (Constants.WORLD == 1) {
+                        startActivityScheduler()
+                    }
                     println("Discord Bot Successfully Connected & Online as: ${builtJda.selfUser.asTag}")
                 } catch (e: Exception) {
                     System.err.println("Failed to start Discord Bot (JDA 5): ${e.message}")

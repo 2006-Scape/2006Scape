@@ -18,6 +18,7 @@ object DiscordActivity {
     }
 
     fun updateActivity(force: Boolean = false) {
+        if (Constants.WORLD != 1) return
         try {
             val jda = DiscordBot.jda ?: return
             val activityText = getCurrentActivityText()
