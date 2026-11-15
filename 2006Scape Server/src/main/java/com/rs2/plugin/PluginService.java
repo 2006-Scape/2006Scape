@@ -74,10 +74,6 @@ public final class PluginService {
 
 			base = base.replace(".java", "");
 
-			if (Constants.SERVER_DEBUG) {
-				System.out.println(base);
-			}
-
 			if (!file.isDirectory()) {
 				try {
 					Class<?> clazz = null;
@@ -94,9 +90,13 @@ public final class PluginService {
 						final EventSubscriber<?> sub = (EventSubscriber<?>) clazz.newInstance();
 
 						plugins.add(sub);
+
+						if (Constants.SERVER_DEBUG) {
+							System.out.println(clazz.getName());
+						}
 					}
-				} catch (InstantiationException | IllegalAccessException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
+					logger.log(Level.SEVERE, "Failed to load plugin: " + base, e);
 				}
 
 			} else {
