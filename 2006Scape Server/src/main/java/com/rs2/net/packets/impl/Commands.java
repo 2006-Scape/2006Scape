@@ -7,7 +7,10 @@ import java.util.*;
 import com.rs2.Connection;
 import com.rs2.Constants;
 import com.rs2.GameEngine;
+import com.rs2.event.impl.AdminCommandEvent;
 import com.rs2.event.impl.CommandEvent;
+import com.rs2.event.impl.DeveloperCommandEvent;
+import com.rs2.event.impl.ModeratorCommandEvent;
 import com.rs2.game.bots.BotHandler;
 import com.rs2.game.npcs.NPCDefinition;
 import com.rs2.game.npcs.NpcHandler;
@@ -31,22 +34,24 @@ public class Commands implements PacketType {
         String playerCommand = messageArr[0];
         String[] commandArguments = Arrays.copyOfRange(messageArr, 1, messageArr.length);
 
-        player.post(new CommandEvent(playerCommand, fullPacket, commandArguments));
-
         if ((playerCommand.startsWith("ban") || playerCommand.startsWith("ip") || playerCommand.startsWith("mute") || playerCommand.startsWith("un")) && player.playerRights > 0 && player.playerRights < 4) {
             writeLog(player.playerName, "commands", player.playerName + " used command: " + playerCommand);
         }
         if (player.playerRights >= 0) {
             playerCommands(player, playerCommand, commandArguments);
+            player.post(new CommandEvent(playerCommand, fullPacket, commandArguments));
         }
         if (player.playerRights >= 1) {
             moderatorCommands(player, playerCommand, commandArguments);
+            player.post(new ModeratorCommandEvent(playerCommand, fullPacket, commandArguments));
         }
         if (player.playerRights >= 2 && player.playerRights < 4) {
             adminCommands(player, playerCommand, commandArguments);
+            player.post(new AdminCommandEvent(playerCommand, fullPacket, commandArguments));
         }
         if (player.playerRights == 3) {
             developerCommands(player, playerCommand, commandArguments);
+            player.post(new DeveloperCommandEvent(playerCommand, fullPacket, commandArguments));
         }
     }
 
@@ -385,24 +390,6 @@ public class Commands implements PacketType {
                 break;
             case "uptime":
                 player.getPacketSender().sendMessage("The server has now been online for: " + Misc.getServerUptime(GameEngine.getServerStartTime()));
-                break;
-            case "tele":
-                if (player.connectedFrom.equals("127.0.0.1")) {
-                    try {
-                        if (arguments.length < 2) {
-                            player.getPacketSender().sendMessage("Must specify x, y and optionally z coordinates: ::tele 3222 3218 0");
-                            return;
-                        }
-                        if (arguments.length == 3)
-                            player.getPlayerAssistant().movePlayer(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), Integer.parseInt(arguments[2]));
-                        else
-                            player.getPlayerAssistant().movePlayer(Integer.parseInt(arguments[0]), Integer.parseInt(arguments[1]), player.heightLevel);
-                    } catch (Exception e) {
-                        player.getPacketSender().sendMessage("Invalid coordinates");
-                    }
-                } else {
-                    player.getPacketSender().sendMessage("Can't tele with ip " + player.connectedFrom);
-                }
                 break;
             case "close_interface":
                 player.getPacketSender().closeAllWindows();
@@ -921,43 +908,6 @@ public class Commands implements PacketType {
                 } catch (Exception e) {
                 }
                 break;
-            case "spellbook":
-                if (player.inWild()) {
-                    return;
-                }
-                if (player.playerMagicBook == 0) {
-                    player.playerMagicBook = 1;
-                    player.getPacketSender().setSidebarInterface(6, 12855);
-                    player.getPacketSender().sendMessage("An ancient wisdomin fills your mind.");
-                    player.getPlayerAssistant().resetAutocast();
-                } else if (player.playerMagicBook == 1) {
-                    player.getPacketSender().setSidebarInterface(6, 1151); // modern
-                    player.playerMagicBook = 0;
-                    player.getPacketSender().sendMessage("You feel a drain on your memory.");
-                    player.autocastId = -1;
-                    player.getPlayerAssistant().resetAutocast();
-                }
-                break;
-            case "item":
-                try {
-                    if (arguments.length == 0) {
-                        player.getPacketSender().sendMessage("Must specify an item id: ::item 995 1000");
-                        return;
-                    }
-                    int newItemID = Integer.parseInt(arguments[0]);
-                    int newItemAmount = arguments.length >= 2 ? Integer.parseInt(arguments[1]) : 1;
-                    if (newItemID <= 10000 && newItemID >= 0) {
-                        player.getItemAssistant().addItem(newItemID, newItemAmount);
-                        if (player.isBusy()) {
-                            player.getPacketSender().closeAllWindows();
-                        }
-                        // player.getPacketSender().sendMessage("You spawn " + newItemAmount + " × "+ ItemAssistant.getItemName(newItemID) + ".");
-                    } else {
-                        player.getPacketSender().sendMessage("No such item.");
-                    }
-                } catch (Exception e) {
-                }
-                break;
             case "master":
                 for (int i = 0; i < 25; i++) {
                     player.playerLevel[i] = 99;
@@ -1090,27 +1040,6 @@ public class Commands implements PacketType {
                 }
                 player.getPacketSender().object(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 0, 0);
                 Region.addObject(Integer.parseInt(arguments[0]), player.absX, player.absY, player.heightLevel, 0, 0, false);
-                break;
-            case "npc":
-                try {
-                    if (arguments.length == 0) {
-                        player.getPacketSender().sendMessage("You must specify an ID: ::npc 1000");
-                        return;
-                    }
-                    int newNPC = Integer.parseInt(arguments[0]),
-                            maxHit = NpcHandler.getNpcListCombat(newNPC) / 10,
-                            attack = NpcHandler.getNpcListCombat(newNPC),
-                            defence = NpcHandler.getNpcListCombat(newNPC);
-                    boolean attackPlayer = NpcHandler.getNpcListCombat(newNPC) > 0;
-                    if (newNPC > 0) {
-                        NpcHandler.spawnNpc(player, newNPC, player.absX, player.absY, player.heightLevel, 0, NpcHandler.getNpcListHP(newNPC), maxHit, attack, defence, attackPlayer, false);
-                        player.getPacketSender().sendMessage("You spawn a " + NpcHandler.getNpcListName(newNPC) + ".");
-                        //player.npcSpawned = newNPC;
-                    } else {
-                        player.getPacketSender().sendMessage("Npc " + newNPC + " does not exist.");
-                    }
-                } catch (Exception e) {
-                }
                 break;
             case "cantattack":
                 player.npcCanAttack = !player.npcCanAttack;

@@ -7,7 +7,7 @@ import com.rs2.event.Event;
  * 
  * @author Vult-R
  */
-public final class CommandEvent implements Event {
+public class CommandEvent implements Event {
 
 	/**
 	 * The name for this command.
