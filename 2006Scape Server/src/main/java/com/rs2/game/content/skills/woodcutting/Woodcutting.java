@@ -10,9 +10,11 @@ import com.rs2.game.content.randomevents.TreeSpirit;
 import com.rs2.game.content.skills.SkillHandler;
 import com.rs2.game.items.DeprecatedItems;
 import com.rs2.game.objects.Object;
+import com.rs2.game.objects.Objects;
 import com.rs2.game.players.Player;
 import com.rs2.game.players.PlayerHandler;
 import com.rs2.util.Misc;
+import com.rs2.world.clip.Region;
 
 public class Woodcutting {
 	
@@ -227,6 +229,38 @@ public class Woodcutting {
 		return false;
 	}
 
+	private static boolean canReachTree(Player p, int treeX, int treeY, int id) {
+		int pointerOffsetX = p.getMapRegionX();
+		int pointerOffsetY = p.getMapRegionY();
+
+		int treeRelX = treeX - (pointerOffsetX << 3);
+		int treeRelY = treeY - (pointerOffsetY << 3);
+		int playerOffsetX = p.getX() - (pointerOffsetX << 3);
+		int playerOffsetY = p.getY() - (pointerOffsetY << 3);
+
+		Region region = Region.getRegion(p.getX(), p.getY());
+		int clipping = region.getClipping(p.getX(), p.getY(), p.heightLevel);
+
+		Objects tree = region.GetObjectAt(treeX, treeY, id);
+
+		int treeclipping = region.getClipping(treeX, treeY, p.heightLevel);
+
+		boolean reached = Region.reachedObject(playerOffsetX,
+				playerOffsetY,
+				treeRelX,
+				treeRelY,
+				tree.getObjectSize()[0],
+				tree.getObjectSize()[1],
+				treeclipping,
+				clipping);
+
+		if (!reached) {
+			p.getPacketSender().sendMessage("Can't reach the tree from here.");
+		}
+
+		return reached;
+	}
+
 	public static void startWoodcutting(final Player p, final int objectId, final int x, final int y, final int type) {
 		CycleEventHandler.getSingleton().stopEvents(p, "WoodcuttingEvent".hashCode());
 		if (p.isWoodcutting || p.isFletching || p.isFiremaking || p.playerIsFletching) {
@@ -244,6 +278,9 @@ public class Woodcutting {
 		p.woodcuttingAxe = -1;
 		treeData tree = treeData.getTree(objectId);
 		p.turnPlayerTo(x, y);
+
+		if (!canReachTree(p, x, y, objectId)) return;
+
 		if (tree.getLevelReq() > wcLevel) {
 			p.getPacketSender().sendMessage("You need a Woodcutting level of " + tree.getLevelReq() + " to cut this tree.");
 			return;
