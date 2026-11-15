@@ -2,10 +2,12 @@ package com.rs2;
 
 import com.rs2.event.impl.ServerConfigEvent;
 import com.rs2.game.players.Player;
+import org.apollo.net.NetworkConstants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -89,5 +91,21 @@ public class ConfigLoader {
         }
         bindBoolean(core, "cycle_logging", val -> Constants.CYCLE_LOGGING = val);
         bindInt(core, "cycle_logging_tick", val -> Constants.CYCLE_LOGGING_TICK = val);
+        bindString(core, "rsa_exponent", val -> {
+            try {
+                Constants.RSA_EXPONENT = new BigInteger(val.trim());
+                NetworkConstants.RSA_EXPONENT = Constants.RSA_EXPONENT;
+            } catch (Exception e) {
+                System.err.println("Invalid 'rsa_exponent' in configuration: " + e.getMessage());
+            }
+        });
+        bindString(core, "rsa_modulus", val -> {
+            try {
+                Constants.RSA_MODULUS = new BigInteger(val.trim());
+                NetworkConstants.RSA_MODULUS = Constants.RSA_MODULUS;
+            } catch (Exception e) {
+                System.err.println("Invalid 'rsa_modulus' in configuration: " + e.getMessage());
+            }
+        });
     }
 }

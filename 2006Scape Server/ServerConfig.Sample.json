@@ -25,7 +25,9 @@
     "item_requirements": true,
     "max_players": 200,
     "cycle_logging": true,
-    "cycle_logging_tick": 10
+    "cycle_logging_tick": 10,
+    "rsa_exponent": "",
+    "rsa_modulus": ""
   },
   "discord": {
     "token": "",
