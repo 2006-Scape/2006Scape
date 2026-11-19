@@ -109,7 +109,7 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.17</version>
+            <version>1.4.19</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.dv8tion/JDA -->
         <dependency>
